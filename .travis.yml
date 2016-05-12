@@ -4,7 +4,7 @@ node_js:
 branches:
   only:
     - master
-script: 'npm run build'
+script: 'mkdir public && npm run build'
 after_success:
   - chmod +x ./scripts/deploy
   - './scripts/deploy'
