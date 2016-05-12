@@ -1,7 +1,7 @@
 {
-  "name": "eddywashere",
+  "name": "jsonresume-theme-eddywashere",
   "version": "1.0.0",
-  "description": "JSON Resume",
+  "description": "Theme for JSON Resume",
   "author": "Eddy Hernandez",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "resume serve",
-    "build": "resume export public/index --force -f html"
+    "build": "resume export public/index --force -f html --theme eddywashere"
   },
   "license": "MIT",
   "dependencies": {
