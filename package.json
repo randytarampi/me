@@ -1,0 +1,19 @@
+{
+  "name": "eddywashere",
+  "version": "1.0.0",
+  "description": "JSON Resume",
+  "author": "Eddy Hernandez",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eddywashere/resume"
+  },
+  "scripts": {
+    "start": "resume serve",
+    "build": "resume export public/index --force -f html"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "handlebars": "^2.0.0-alpha.4",
+    "resume-cli": "0.4.13"
+  }
+}

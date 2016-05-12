@@ -1,0 +1,132 @@
+{
+  "basics": {
+    "name": "Eddy Hernandez",
+    "label": "UI Engineer",
+    "picture": "http://www.gravatar.com/avatar/6222d4b57cb6ab143221cb89eb4e6a73.jpg?s=512",
+    "email": "edward.d.hernandez@gmail.com",
+    "phone": "415.509.7599",
+    "website": "http://eddywashere.com",
+    "summary": "I'm originally from San Antonio, Texas. I enjoy crafting user interfaces and interactions. I'm very interested in Design Systems and have a strong passion for frontend engineering for products.",
+    "location": {
+      "address": "1190 Mission St. Apt 213",
+      "postalCode": "CA 94103",
+      "city": "San Francisco",
+      "countryCode": "US",
+      "region": "California"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "eddywashere",
+        "url": "https://github.com/eddywashere"
+      },
+      {
+        "network": "Twitter",
+        "username": "eddywashere",
+        "url": "http://twitter.com/eddywashere"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "eddy.hernandez",
+        "url": "https://linkedin.com/eddy.hernandez"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "ScaleFT",
+      "position": "Staff Engineer",
+      "website": "https://www.scaleft.com",
+      "startDate": "2015-11-01",
+      "endDate": "2016-05-05",
+      "summary": "Primary responsbilities included frontend development of marketing, documentation and product dashboard sites. Also worked on print materials and content.",
+      "highlights": [
+        "<a href='/https://www.scaleft.com/blog/announcing-general-availability-and-coreos-support/'>Launched GA product with a revamped dashboard</a>"
+      ]
+    },
+    {
+      "company": "Mailgun by Rackspace",
+      "position": "Software Engineer",
+      "website": "http://www.mailgun.com",
+      "startDate": "2015-02-20",
+      "endDate": "2015-10-30",
+      "summary": "Worked closely with a product designer and backend engineers. Responsible for Control Panel, Documentation and Marketing sites. Contributed to open source projects related to Mailgun services.",
+      "highlights": [
+        "<a href='http://blog.mailgun.com/product-update-dashboard-ui-improvements/'>Dashboard UI Improvements</a>",
+        "<a href='http://blog.mailgun.com/multi-user-access-now-available-for-mailgun-customers/'>Multi-User Access</a>"
+      ]
+    },
+    {
+      "company": "Rackspace",
+      "position": "Web Developer",
+      "website": "https://www.rackspace.com",
+      "startDate": "2010-10-12",
+      "endDate": "2015-10-30",
+      "summary": "Responsible for the user experience and frontend development of my.rackspace.com, the control panel for Rackspace's Dedicated and Hybrid Hosting customers. Core contributor of Canon, a frontend framework for fast and consistent development of Rackspace UIs.",
+      "highlights": [
+        "<a href='http://rackerlabs.github.io/canon/'>Canon - UI Library</a>",
+        "<a href='http://blog.rackspace.com/get-more-from-your-data-with-rackspace-cloud-intelligence/'>Frontend Development on Rackspace Intelligence</a>",
+        "<a href='http://blog.rackspace.com/rackconnect-updates/'>RackConnect UI updates</a>",
+        "<a href='http://blog.rackspace.com/rackspace-private-cloud-management-just-got-easier-with-portal-updates/'>Control Panel updates for VMware Private Cloud</a>"
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "The Starter League / Code Academy",
+      "position": "Advanced HTML/CSS Mentor",
+      "website": "http://www.starterleague.com",
+      "startDate": "2012-07-01",
+      "endDate": "2013-06-01",
+      "summary": "Mentored students in the advanced html/css program. Encouraged best practices and helped students navigate their career track.",
+      "highlights": []
+    }
+  ],
+  "education": [
+    {
+      "institution": "Our Lady of the Lake University",
+      "area": "Computer Information Systems & Security",
+      "studyType": "Bachelor of Business Administration",
+      "startDate": "2005-08-15",
+      "endDate": "2009-05-07",
+      "courses": []
+    }
+  ],
+  "awards": [
+    {
+      "title": "The President's Volunteer Service Award",
+      "date": "2008-05-07",
+      "awarder": "Our Lady of the Lake University",
+      "summary": "Recognized for community service while a member of Sigma Theta Epsilon."
+    }
+  ],
+  "publications": [],
+  "skills": [
+    {
+      "name": "Frontend Experience",
+      "level": "",
+      "keywords": [
+        "React",
+        "Redux",
+        "Angular",
+        "Backbone",
+        "jQuery"
+      ]
+    },
+    {
+      "name": "Languages",
+      "level": "",
+      "keywords": [
+        "HTML",
+        "CSS",
+        "Javascript",
+        "Ruby",
+        "Python",
+        "Go"
+      ]
+    }
+  ],
+  "languages": [],
+  "interests": [],
+  "references": []
+}

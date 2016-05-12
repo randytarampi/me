@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - '4'
+branches:
+  only:
+    - master
+script: 'npm run build'
+after_success:
+  - chmod +x ./scripts/deploy
+  - './scripts/deploy'
+cache:
+  directories:
+    - node_modules
+env:
+  global:
+    - 'GH_REF="github.com/eddywashere/resume.git"'
+    - secure: kLVka6HIR3rafRIwczNqWaOYlH2EpmqFEdyMnJfFCd1KvVCDmCP5mA+NMBqvCxyFnBPK/4yRwXe1nLI4kqY/3F7J0wGRqUL4nOGIqvX8jdl7ov6Q6g4R9y/borbWcqhIln6/BLH7cdl92sbCOraiJN14B0ucB+ntCRIc7DQto0B1k5xjlMlicB6C4qSRVmNVWo/EK0ernquQzeRo4U82kjapsOSwFSjLOU1sVGMnwkSzDV7vumhQtBPyJOIAYvasm0Dm/dGNp8bgkhydk1WMl9OVQRDhTSxhqQhEa0dTUcwq8IfFuEMbApsiP/7RmJ/lmGBFMSwP1ZZQxzg5K8UL5clC8g4o54pRpmFgtwWP4X6SvHcJgB9suXtj50+FFkPCKUqT47032inQ4KDGWsl7+2uxE6tkfhp1r8xHqghv0LY1MC0/KCAyk51OvxjbQjny0QwQuRzI7eHulTul68dVWgKNvk5T5rGZmbIaoRhTcH+GQGW9qmGLRHsAFrFq33Q1jiiM+tan+fdqdrT9gt7UVGmpGEkBdyijY2rdtb7fxFhijUQfGxUWehlqLjdfsSn12zDZSd4YUXlyhQQw8daorhp/kBrYAcQkoHvczNSvjDorDVthK5iHq5mYEhvSkdc0PFQKp+R6bJUgX+VaCSq9B1KemfTF2zmbupnDd+L+w00=
+sudo: false
