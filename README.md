@@ -1,0 +1,2 @@
+# randytarampi.github.io
+ʕつಠᴥಠʔつ ︵ ┻━┻
