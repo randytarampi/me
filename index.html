@@ -20,6 +20,10 @@
 		}
 
 		function resize() {
+			setAngle();
+		}
+
+		function setAngle() {
 			var width = $window.width();
 			var height = $window.height();
 			var newAngle = (Math.atan(height / width) - originalAngle);
