@@ -5,22 +5,81 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script type="application/ecmascript">
 		var $window = $(window);
-		var originalWidth;
-		var originalHeight;
-		var originalAngle;
+		var originalWidth = 0;
+		var originalHeight = 0;
+		var originalAngle = 0;
+		var clicks = 0;
+		var bears = [
+			{ // ʕ–ᴥ–ʔ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": "–",
+				"ᴥ": "ᴥ",
+				"つ": null
+			},
+			{ // ʕ•ᴥ•ʔ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": "•",
+				"ᴥ": "ᴥ",
+				"つ": null
+			},
+			{ // ʕಠᴥಠʔ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": "ಠ",
+				"ᴥ": "ᴥ",
+				"つ": null
+			},
+			{ // ʕ◕ᴥ◕ʔ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": "◕",
+				"ᴥ": "ᴥ",
+				"つ": null
+			},
+			{ // ʕ◠ᴥ◠ʔ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": "◠",
+				"ᴥ": "ᴥ",
+				"つ": null
+			},
+			{ // ʕ ͡°ᴥ ͡°ʔ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": " ͡°",
+				"ᴥ": "ᴥ",
+				"つ": null
+			},
+			{ // ʕつ ͡°ᴥ ͡°ʔつ
+				"ʕ": "ʕ",
+				"ʔ": "ʔ",
+				"•": " ͡°",
+				"ᴥ": "ᴥ",
+				"つ": "つ"
+			}
+		];
 		reset();
 
-		$window.bind("resize", resize);
+		$window.bind("resize", onResize);
+		$window.bind("click", onClick);
 
 		function reset() {
 			originalWidth = $window.width();
 			originalHeight = $window.height();
 			originalAngle = Math.atan(originalHeight / originalWidth);
-			resize();
+			onResize();
+			setBear();
 		}
 
-		function resize() {
+		function onResize() {
 			setAngle();
+		}
+
+		function onClick() {
+			clicks++;
+			setBear();
 		}
 
 		function setAngle() {
@@ -36,6 +95,17 @@
 					"transform: rotate(" + newAngle + "rad);" +
 					"}");
 		}
+
+		function setBear() {
+			var bear = bears[clicks % bears.length];
+
+			$(".ʕ•ᴥ•ʔ__ʕ").html(bear["ʕ"]);
+			$(".ʕ•ᴥ•ʔ__つ").html(bear["つ"]);
+			$(".ʕ•ᴥ•ʔ__•").html(bear["•"]);
+			$(".ʕ•ᴥ•ʔ__ᴥ").html(bear["ᴥ"]);
+			$(".ʕ•ᴥ•ʔ__ʔ").html(bear["ʔ"]);
+			$("title").html(bear["ʕ"] + bear["•"] + bear["ᴥ"] + bear["•"] + bear["ʔ"]);
+		}
 	</script>
 	<style type="text/css">
 		html, body {
@@ -50,7 +120,7 @@
 			color: unset;
 		}
 
-		.ʕつ•ᴥ•ʔつ {
+		.cage {
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -69,8 +139,16 @@
 	<title>ʕ–ᴥ–ʔ</title>
 </head>
 <body>
-<div class="ʕつ•ᴥ•ʔつ">
-	<div class="ʕ•ᴥ•ʔ">ʕ–<a onclick="reset();">ᴥ</a>–ʔ</div>
+<div class="cage">
+	<div class="ʕ•ᴥ•ʔ">
+		<span class="ʕ•ᴥ•ʔ__ʕ">ʕ</span>
+		<span class="ʕ•ᴥ•ʔ__つ"></span>
+		<span class="ʕ•ᴥ•ʔ__•">–</span>
+		<a class="ʕ•ᴥ•ʔ__ᴥ" onclick="reset();">ᴥ</a>
+		<span class="ʕ•ᴥ•ʔ__•">–</span>
+		<span class="ʕ•ᴥ•ʔ__ʔ">ʔ</span>
+		<span class="ʕ•ᴥ•ʔ__つ"></span>
+	</div>
 </div>
 </body>
 </html>
