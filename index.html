@@ -5,11 +5,21 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script type="application/ecmascript">
 		var $window = $(window);
-		var originalWidth = $window.width();
-		var originalHeight = $window.height();
-		var originalAngle = Math.atan(originalHeight / originalWidth);
+		var originalWidth;
+		var originalHeight;
+		var originalAngle;
+		reset();
 
-		$(window).bind("resize", function () {
+		$window.bind("resize", resize);
+
+		function reset() {
+			originalWidth = $window.width();
+			originalHeight = $window.height();
+			originalAngle = Math.atan(originalHeight / originalWidth);
+			resize();
+		}
+
+		function resize() {
 			var width = $window.width();
 			var height = $window.height();
 			var newAngle = (Math.atan(height / width) - originalAngle);
@@ -21,7 +31,7 @@
 					"-webkit-transform: rotate(" + newAngle + "rad);" +
 					"transform: rotate(" + newAngle + "rad);" +
 					"}");
-		});
+		}
 	</script>
 	<style type="text/css">
 		html, body {
@@ -30,6 +40,10 @@
 
 		body {
 			position: relative;
+		}
+
+		a {
+			color: unset;
 		}
 
 		.ʕつ•ᴥ•ʔつ {
@@ -52,7 +66,7 @@
 </head>
 <body>
 <div class="ʕつ•ᴥ•ʔつ">
-	<div class="ʕ•ᴥ•ʔ">ʕ–ᴥ–ʔ</div>
+	<div class="ʕ•ᴥ•ʔ">ʕ–<a onclick="reset();">ᴥ</a>–ʔ</div>
 </div>
 </body>
 </html>
