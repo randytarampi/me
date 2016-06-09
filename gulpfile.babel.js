@@ -1,9 +1,11 @@
+import {exec} from "child_process";
 import gulp from "gulp";
 import concat from "gulp-concat";
 import copy from "gulp-copy2";
 import eslint from "gulp-eslint";
 import minifyCss from "gulp-minify-css";
 import sass from "gulp-sass";
+import sassTildeImporter from "grunt-sass-tilde-importer";
 import sourcemaps from "gulp-sourcemaps";
 import uglify from "gulp-uglify";
 import gutil from "gulp-util";
@@ -14,12 +16,7 @@ import WebpackConfig from "./Webpack.config.babel";
 import Config from "./config/config";
 
 gulp.task("copy", function (callback) {
-	return copy([
-		{
-			src: "node_modules/materialize-css/dist/font/**/*",
-			dest: "dist/fonts/"
-		}
-	]);
+	return copy([]);
 });
 
 gulp.task("clean", function (callback) {
@@ -39,8 +36,9 @@ gulp.task("styles:dev", function (callback) {
 		"node_modules/normalize.css/normalize.css",
 		"styles/**/*.scss"
 	])
-		.pipe(sass().on('error', sass.logError))
-		.pipe(concat("styles.css"))
+		.pipe(sass({
+			importer: sassTildeImporter
+		}).on('error', sass.logError))
 		.pipe(concat("styles.css"))
 		.pipe(gulp.dest("dist"));
 });
@@ -48,7 +46,8 @@ gulp.task("styles:dev", function (callback) {
 gulp.task("vendor", function (callback) {
 	return gulp.src([
 		"node_modules/jquery/dist/jquery.min.js",
-		"node_modules/materialize-css/bin/materialize.js",
+		"node_modules/moment/min/moment-with-locales.min.js",
+		"node_modules/react-mdl/extra/material.min.js",
 		"node_modules/react/dist/react-with-addons.min.js"
 	])
 		.pipe(sourcemaps.init())
@@ -61,7 +60,8 @@ gulp.task("vendor", function (callback) {
 gulp.task("vendor:dev", function (callback) {
 	return gulp.src([
 		"node_modules/jquery/dist/jquery.js",
-		"node_modules/materialize-css/bin/materialize.js",
+		"node_modules/moment/min/moment-with-locales.js",
+		"node_modules/react-mdl/extra/material.js",
 		"node_modules/react/dist/react-with-addons.js"
 	])
 		.pipe(sourcemaps.init())
@@ -171,6 +171,7 @@ gulp.task("dev",
 		], [
 			"styles:dev"
 		]);
+		exec("open http://localhost:" + Config.port);
 	}
 );
 

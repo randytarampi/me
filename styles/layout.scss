@@ -2,9 +2,36 @@ html, body {
 	height: 100%;
 }
 
+body {
+	position: relative;
+}
+
 footer {
 	bottom: 0;
 	left: 0;
 	position: absolute;
 	width: 100%;
+}
+
+a {
+	color: unset;
+}
+
+.cage {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.bear {
+	font-size: 72pt;
+	white-space: nowrap;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }

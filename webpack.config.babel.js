@@ -7,7 +7,7 @@ export default {
 	],
 	externals: {
 		"jquery": "jQuery",
-		"materialize": "Materialize",
+		"moment": "moment",
 		"react": "React"
 	},
 	output: {

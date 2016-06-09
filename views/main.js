@@ -1,16 +1,11 @@
-import React from "react";
+import {Layout} from "react-mdl";
 import Header from "./header";
+import Content from "./content";
 import Footer from "./footer";
 
-class Main extends React.Component {
-	render() {
-		return (
-			<div>
-				<Header />
-				<Footer />
-			</div>
-		);
-	}
-}
-
-export default Main;
+export default ({name}) =>
+	<Layout fixedHeader>
+		<Header />
+		<Content />
+		<Footer />
+	</Layout>;
