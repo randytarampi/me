@@ -145,7 +145,7 @@ export class HelloBear extends Bear {
 					case 35:
 						newState.rightLeaningLeftArm = "つ";
 						newState.rightLeaningRightArm = "つ";
-						newState.rightAction = " &#128231;";
+						newState.rightAction = " \u{1F4E7}";
 						window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn\'t stop clicking!");
 						break;
 					case 36:
