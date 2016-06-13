@@ -102,9 +102,11 @@ export class HelloBear extends Bear {
 				var newState = {
 					pokes: pokes
 				};
-				switch (pokes) {
+				switch (pokes % 38) {
 					case 1:
+						newState.rightLeaningLeftArm = null;
 						newState.rightLeaningRightArm = null;
+						newState.rightAction = null;
 						break;
 					case 2:
 						newState.leftEye = "ಠಿ";
@@ -143,11 +145,14 @@ export class HelloBear extends Bear {
 					case 35:
 						newState.rightLeaningLeftArm = "つ";
 						newState.rightLeaningRightArm = "つ";
-						newState.rightAction = " 📨";
+						newState.rightAction = " &#128231;";
 						window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn\'t stop clicking!");
 						break;
 					case 36:
-						pokes = 34;
+						window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won\'t stop popping up!");
+						break;
+					case 37:
+						window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line, and finally stopped at " + pokes + " clicks. What is this?");
 						break;
 				}
 				this.setState(newState);
