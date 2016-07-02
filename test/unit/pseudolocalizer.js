@@ -13,6 +13,10 @@ describe("pseudolocalizer", () => {
 			let pseudolocalizer = new Pseudolocalizer(2.5, "ʕつ", "ʔつ", " ", " ");
 			expect(pseudolocalizer.pseudolocalize("• ᴥ •")).to.equal("ʕつ • ᴥ • ʔつ");
 		});
+		it("should throw on bad input", () => {
+			let pseudolocalizer = new Pseudolocalizer(2.5, "ʕつ", "ʔつ", " ", " ");
+			expect(() => { pseudolocalizer.pseudolocalize(it)}).to.throw(/should be of type "string", but is "function" instead/);
+		});
 		it("should respect the expansion factor", () => {
 			let expansionFactor = 8;
 			let pseudolocalizer = new Pseudolocalizer(expansionFactor);
