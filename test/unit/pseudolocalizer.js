@@ -40,4 +40,28 @@ describe("pseudolocalizer", () => {
 			expect(pseudolocalizer.pseudolocalize("This is a full sentence...")).to.equal("｢ßӜڣThis is a full sentence...⭓亶겡｣");
 		});
 	});
+
+	describe("CJK", () => {
+		it("should use CJK characters to build a pseudolocalization", () => {
+			expect(Pseudolocalizer.CJK().pseudolocalize("woof")).to.equal("｟纬w纬｠");
+		});
+	});
+
+	describe("LCG", () => {
+		it("should use LCG characters to build a pseudolocalization", () => {
+			expect(Pseudolocalizer.LCG().pseudolocalize("woof")).to.equal("«sws»");
+		});
+	});
+
+	describe("AFB", () => {
+		it("should use AFB characters to build a pseudolocalization", () => {
+			expect(Pseudolocalizer.AFB().pseudolocalize("woof")).to.equal("『نwن』");
+		});
+	});
+
+	describe("mix", () => {
+		it("should use mixed characters to build a pseudolocalization", () => {
+			expect(Pseudolocalizer.mix().pseudolocalize("woof")).to.equal("｢ßw⭓｣");
+		});
+	});
 });
