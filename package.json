@@ -1,0 +1,33 @@
+{
+  "name": "pseudolocalize.woof",
+  "author": "rt@randytarampi.ca",
+  "version": "0.0.1",
+  "description": "Text-to-ʕ•ᴥ•ʔ",
+  "main": "pseudolocalize.woof.js",
+  "keywords": [
+    "bear",
+    "woof",
+    "纬",
+    "横糸",
+    "씨",
+    "subtegmine",
+    "гав",
+    "υφάδι",
+    "نسيج",
+    "پود",
+    "বুনন",
+    "ʕ•ᴥ•ʔ",
+    "pseudolocalization",
+    "localization",
+    "internationalization",
+    "p16n",
+    "l10n",
+    "i18n"
+  ],
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "gulp": "~3.9.1",
+    "gulp-eslint": "~2.0.0",
+    "mocha": "~2.5.3"
+  }
+}
