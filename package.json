@@ -1,9 +1,18 @@
 {
   "name": "pseudolocalize.woof",
-  "author": "rt@randytarampi.ca",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
   "version": "0.0.1",
-  "description": "Text-to-ʕ•ᴥ•ʔ",
+  "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "pseudolocalize.woof.js",
+  "homepage": "https://github.com/randytarampi/pseudolocalize.woof",
+  "bugs": {
+    "url": "https://github.com/randytarampi/pseudolocalize.woof/issues",
+    "email": "bugs@randytarampi.ca"
+  },
   "keywords": [
     "bear",
     "woof",
@@ -31,9 +40,12 @@
     "mocha": "~2.5.3"
   },
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "~2.9.0"
   },
   "bin": {
     "p7e": "./bin/p7e"
+  },
+  "engines": {
+    "node": ">=6"
   }
 }
