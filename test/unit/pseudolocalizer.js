@@ -45,6 +45,43 @@ describe("pseudolocalizer", () => {
 		});
 	});
 
+	describe("#pseudolocalizeObject", () => {
+		it("should pseudolocalize string properties on an input object", () => {
+			let pseudolocalizer = new Pseudolocalizer();
+			let testObject = {
+				"woof": "ᴥ",
+				"grr": " ᴥ ",
+				"ruff": "  ᴥ  "
+			};
+			expect(pseudolocalizer.pseudolocalizeObject(testObject)).to.eql({
+				"woof": "ʕつ•ᴥ•ʔつ",
+				"grr": "ʕつ• •ʔつ",
+				"ruff": "ʕつ• •ʔつ"
+			});
+		});
+		it("should throw if it encounters a non-string property on an input object", () => {
+			let pseudolocalizer = new Pseudolocalizer();
+			let testObject = {
+				"woof": "ᴥ",
+				"grr": " ᴥ ",
+				"ruff": 1
+			};
+			expect(() => { pseudolocalizer.pseudolocalizeObject(testObject) }).to.throw(/should be of type "string", but is "number" instead/);
+		});
+		it("should not modify the input object", () => {
+			let pseudolocalizer = new Pseudolocalizer();
+			let testObject = {
+				"woof": "ᴥ"
+			};
+			expect(pseudolocalizer.pseudolocalizeObject(testObject)).to.eql({
+				"woof": "ʕつ•ᴥ•ʔつ"
+			});
+			expect(testObject).to.eql({
+				"woof": "ᴥ"
+			});
+		});
+	});
+
 	describe("CJK", () => {
 		it("should use CJK characters to build a pseudolocalization", () => {
 			expect(Pseudolocalizer.CJK().pseudolocalize("woof")).to.equal("｟纬w纬｠");
