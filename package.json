@@ -29,5 +29,11 @@
     "gulp": "~3.9.1",
     "gulp-eslint": "~2.0.0",
     "mocha": "~2.5.3"
+  },
+  "dependencies": {
+    "commander": "^2.9.0"
+  },
+  "bin": {
+    "p7e": "./bin/p7e"
   }
 }
