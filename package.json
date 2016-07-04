@@ -1,0 +1,46 @@
+{
+  "name": "pseudoimage.woof",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "version": "0.0.1",
+  "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
+  "main": "pseudoimage.woof.js",
+  "homepage": "https://github.com/randytarampi/pseudoimage.woof",
+  "bugs": {
+    "url": "https://github.com/randytarampi/pseudoimage.woof/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "keywords": [
+    "bear",
+    "woof",
+    "纬",
+    "横糸",
+    "씨",
+    "subtegmine",
+    "гав",
+    "υφάδι",
+    "نسيج",
+    "پود",
+    "বুনন",
+    "ʕ•ᴥ•ʔ",
+    "pseudoimage",
+    "pseudolocalization",
+    "localization",
+    "internationalization",
+    "p16n",
+    "l10n",
+    "i18n"
+  ],
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "gulp": "~3.9.1",
+    "gulp-eslint": "~2.0.0",
+    "mocha": "~2.5.3"
+  },
+  "engines": {
+    "node": ">=6"
+  }
+}
