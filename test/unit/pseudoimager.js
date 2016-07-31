@@ -1,101 +1,48 @@
 let path = require("path");
 let fs = require("fs");
 let lwip = require("lwip");
+let Image = require("lwip/lib/image");
+let Sinon = require("sinon");
 let Mocha = require("mocha");
 let describe = Mocha.describe;
-let beforeEach = Mocha.beforeEach;
-let after = require("mocha").after;
 let it = require("mocha").it;
 let expect = require("chai").expect;
 let Pseudoimager = require("../../lib/pseudoimager");
 
 describe("pseudoimager", function () {
-	this.timeout(60000); // RT: Lol. These are really integration tests...
 	let resourceDir = path.join(__dirname, "../resources");
 	let tmpDir = path.join(__dirname, "../tmp");
 
-	beforeEach(function () {
-		try {
-			rmrf(tmpDir);
-		} catch (e) {} finally {
-			fs.mkdirSync(tmpDir);
-		}
-	});
-	after(function () {
-		try {
-			rmrf(tmpDir);
-		} catch (e) {}
-	});
-
 	describe("#generatePseudoImage", () => {
-		it("should generate a pseudoimage", function (done) {
-			let pseudoimager = new Pseudoimager();
+		it("should call the imageTransformationFunction correctly", function (done) {
+			let pseudoimager = new Pseudoimager(null, null, testImageTransformationFunction);
 			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/woof.jpeg");
 			pseudoimager.generatePseudoImage(source, destination)
-				.then(() => {
-					return Promise.all([source, destination].map(openImage))
-						.then(function (images) {
-							expect(images[0].width()).to.eql(images[1].width());
-							expect(images[0].height()).to.eql(images[1].height());
-						});
-				})
 				.then(done)
 				.catch(done);
 		});
 	});
 
 	describe("#generatePseudoImages", () => {
-		it("should generate pseudoimages", function (done) {
-			let pseudoimager = new Pseudoimager(resourceDir, tmpDir);
+		it("should call the imageTransformationFunction for each image", function (done) {
+			let pseudoimager = new Pseudoimager(resourceDir, tmpDir, testImageTransformationFunction);
 			pseudoimager.generatePseudoImages()
 				.then(done)
 				.catch(done);
 		});
 	});
-
-	describe("retina", () => {
-		it("should generate a pseudoimage twice the size of the original", function (done) {
-			let pseudoimager = Pseudoimager.retina();
-			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
-			let destination = path.join(__dirname, "../tmp/meow.jpeg");
-			pseudoimager.generatePseudoImage(source, destination)
-				.then(() => {
-					return Promise.all([source, destination].map(openImage))
-						.then(function (images) {
-							expect(2 * images[0].width()).to.eql(images[1].width());
-							expect(2 * images[0].height()).to.eql(images[1].height());
-						});
-				})
-				.then(done)
-				.catch(done);
-		});
-	})
 });
 
-function rmrf(dir) {
-	let files = fs.readdirSync(dir);
 
-	files.forEach(function (file) {
-		let filename = path.join(dir, file);
-
-		if (fs.statSync(filename).isDirectory()) {
-			rmrf(filename);
-		} else {
-			fs.unlinkSync(filename);
-		}
-	});
-	fs.rmdirSync(dir);
-}
-
-function openImage(imagePath) {
-	return new Promise((resolve, reject) => {
-		lwip.open(imagePath, (error, image) => {
-			if (error) {
-				reject(error);
-				return;
-			}
-			resolve(image);
-		})
-	});
+function testImageTransformationFunction(image, destinationPath, successCallback, failureCallback) {
+	try {
+		expect(image).to.be.instanceOf(Image);
+		expect(typeof destinationPath).to.eql("string");
+		expect(successCallback).to.be.instanceOf(Function);
+		expect(failureCallback).to.be.instanceOf(Function);
+	} catch (error) {
+		failureCallback(error);
+	}
+	successCallback();
 }
