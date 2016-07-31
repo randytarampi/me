@@ -10,7 +10,7 @@ let expect = require("chai").expect;
 let Pseudoimager = require("../../lib/pseudoimager");
 
 describe("pseudoimager", function () {
-	this.timeout(10000); // RT: Lol. These are really integration tests...
+	this.timeout(60000); // RT: Lol. These are really integration tests...
 	let resourceDir = path.join(__dirname, "../resources");
 	let tmpDir = path.join(__dirname, "../tmp");
 
@@ -53,6 +53,24 @@ describe("pseudoimager", function () {
 				.catch(done);
 		});
 	});
+
+	describe("retina", () => {
+		it("should generate a pseudoimage twice the size of the original", function (done) {
+			let pseudoimager = Pseudoimager.retina();
+			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
+			let destination = path.join(__dirname, "../tmp/meow.jpeg");
+			pseudoimager.generatePseudoImage(source, destination)
+				.then(() => {
+					return Promise.all([source, destination].map(openImage))
+						.then(function (images) {
+							expect(2 * images[0].width()).to.eql(images[1].width());
+							expect(2 * images[0].height()).to.eql(images[1].height());
+						});
+				})
+				.then(done)
+				.catch(done);
+		});
+	})
 });
 
 function rmrf(dir) {
