@@ -43,6 +43,10 @@
   "engines": {
     "node": ">=6"
   },
+  "bin": {
+    "p7eImage": "./bin/p7eImage",
+    "p7eImages": "./bin/p7eImages"
+  },
   "dependencies": {
     "lwip": "~0.0.9"
   }

@@ -4,12 +4,12 @@ let Pseudoimager = require("../lib/pseudoimager");
 
 commander
 	.version("0.0.1")
-	.usage("[options] <sourceDirectory> [destinationDirectory]")
-	.description("ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders")
+	.usage("[options] <sourceImage> [destinationImage]")
+	.description("ʕつ◕ᴥ◕ʔつ 📷 → pseudo images")
 	.option("-p --preset <preset>", "Use a preset pseudolocalizer {retina}", /^(retina)$/gm)
-	.action((sourceDirectory, destinationDirectory) => {
-		if (!sourceDirectory) {
-			console.error("Please supply a sourceDirectory");
+	.action((sourceImage, destinationImage) => {
+		if (!sourceImage) {
+			console.error("Please supply a sourceImage");
 			process.exit(1);
 		}
 
@@ -19,12 +19,12 @@ commander
 				console.error("Please specify a proper preset");
 				process.exit(1);
 			}
-			pseudoimager = Pseudoimager.retina(sourceDirectory, destinationDirectory);
+			pseudoimager = Pseudoimager.retina();
 		} else {
-			pseudoimager = new Pseudoimager(sourceDirectory, destinationDirectory);
+			pseudoimager = new Pseudoimager();
 		}
 
-		return pseudoimager.generatePseudoImages()
+		return pseudoimager.generatePseudoImage(sourceImage, destinationImage)
 			.then(() => {
 				process.exit(0);
 			})
