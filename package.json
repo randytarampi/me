@@ -8,6 +8,10 @@
   "version": "0.0.1",
   "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
   "main": "pseudoimage.woof.js",
+  "scripts": {
+    "pretest": "gulp lint",
+    "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1"
+  },
   "homepage": "https://github.com/randytarampi/pseudoimage.woof",
   "bugs": {
     "url": "https://github.com/randytarampi/pseudoimage.woof/issues",
