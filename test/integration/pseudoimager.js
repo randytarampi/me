@@ -70,7 +70,25 @@ describe("pseudoimager", function () {
 				.then(done)
 				.catch(done);
 		});
-	})
+	});
+
+	describe("half", () => {
+		it("should generate a pseudoimage half the size of the original", function (done) {
+			let pseudoimager = Pseudoimager.half();
+			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
+			let destination = path.join(__dirname, "../tmp/meow.jpeg");
+			pseudoimager.generatePseudoImage(source, destination)
+				.then(() => {
+					return Promise.all([source, destination].map(openImage))
+						.then(function (images) {
+							expect(images[0].width()).to.be.within(2 * images[1].width() - 1, 2 * images[1].width() + 1);
+							expect(images[0].height()).to.be.within(2 * images[1].height() - 1, 2 * images[1].height() + 1);
+						});
+				})
+				.then(done)
+				.catch(done);
+		});
+	});
 });
 
 function rmrf(dir) {
