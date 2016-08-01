@@ -8,6 +8,10 @@
   "version": "0.0.1",
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "pseudolocalize.woof.js",
+  "scripts": {
+    "pretest": "gulp lint",
+    "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1"
+  },
   "homepage": "https://github.com/randytarampi/pseudolocalize.woof",
   "bugs": {
     "url": "https://github.com/randytarampi/pseudolocalize.woof/issues",
