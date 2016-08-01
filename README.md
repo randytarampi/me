@@ -5,13 +5,13 @@ This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create
 ##Usage
 
 ```javascript
-let Pseudoimager = require("pseudoimage.woof");
+let Pseudoimage = require("pseudoimage.woof");
 let sourceDirectory = "/Users/randy.tarampi/Desktop/images";
 let destinationDirectory = "/Users/randy.tarampi/Desktop/fakeImages";
 let expect = require("chai").expect;
 
-let pseudoimager = new Pseudoimager(sourceDirectory, destinationDirectory);
-pseudoimager.generatePseudoImages();
+let pseudoimage = new Pseudoimage(sourceDirectory, destinationDirectory);
+pseudoimage.generatePseudoImages();
 
 // There should be a copy for each supported image in `sourceDirectory` in `destinationDirectory`
 let files = fs.readdirSync(sourceDirectory);

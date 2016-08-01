@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 let commander = require("commander");
-let Pseudoimager = require("../lib/pseudoimager");
+let Pseudoimage = require("../lib/pseudoimage");
 
 commander
 	.version("0.0.1")
@@ -13,18 +13,18 @@ commander
 			process.exit(1);
 		}
 
-		let pseudoimager;
+		let pseudoimage;
 		if (commander.preset) {
 			if (typeof commander.preset !== "string") {
 				console.error("Please specify a proper preset");
 				process.exit(1);
 			}
-			pseudoimager = Pseudoimager.retina(sourceDirectory, destinationDirectory);
+			pseudoimage = Pseudoimage.retina(sourceDirectory, destinationDirectory);
 		} else {
-			pseudoimager = new Pseudoimager(sourceDirectory, destinationDirectory);
+			pseudoimage = new Pseudoimage(sourceDirectory, destinationDirectory);
 		}
 
-		return pseudoimager.generatePseudoImages()
+		return pseudoimage.generatePseudoImages()
 			.then(() => {
 				process.exit(0);
 			})

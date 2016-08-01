@@ -6,18 +6,18 @@ let Mocha = require("mocha");
 let describe = Mocha.describe;
 let it = require("mocha").it;
 let expect = require("chai").expect;
-let Pseudoimager = require("../../lib/pseudoimager");
+let Pseudoimage = require("../../lib/pseudoimage");
 
-describe("pseudoimager", function () {
+describe("pseudoimage", function () {
 	let resourceDir = path.join(__dirname, "../resources");
 	let tmpDir = path.join(__dirname, "../tmp");
 
 	describe("#generatePseudoImage", () => {
 		it("should call the imageTransformationFunction correctly", function (done) {
-			let pseudoimager = new Pseudoimager(null, null, testImageTransformationFunction);
+			let pseudoimage = new Pseudoimage(null, null, testImageTransformationFunction);
 			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/woof.jpeg");
-			pseudoimager.generatePseudoImage(source, destination)
+			pseudoimage.generatePseudoImage(source, destination)
 				.then(done)
 				.catch(done);
 		});
@@ -25,8 +25,8 @@ describe("pseudoimager", function () {
 
 	describe("#generatePseudoImages", () => {
 		it("should call the imageTransformationFunction for each image", function (done) {
-			let pseudoimager = new Pseudoimager(resourceDir, tmpDir, testImageTransformationFunction);
-			pseudoimager.generatePseudoImages()
+			let pseudoimage = new Pseudoimage(resourceDir, tmpDir, testImageTransformationFunction);
+			pseudoimage.generatePseudoImages()
 				.then(done)
 				.catch(done);
 		});

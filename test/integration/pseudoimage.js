@@ -7,9 +7,9 @@ let beforeEach = Mocha.beforeEach;
 let after = require("mocha").after;
 let it = require("mocha").it;
 let expect = require("chai").expect;
-let Pseudoimager = require("../../lib/pseudoimager");
+let Pseudoimage = require("../../lib/pseudoimage");
 
-describe("pseudoimager", function () {
+describe("pseudoimage", function () {
 	this.timeout(60000);
 	let resourceDir = path.join(__dirname, "../resources");
 	let tmpDir = path.join(__dirname, "../tmp");
@@ -29,10 +29,10 @@ describe("pseudoimager", function () {
 
 	describe("#generatePseudoImage", () => {
 		it("should generate a pseudoimage", function (done) {
-			let pseudoimager = new Pseudoimager();
+			let pseudoimage = new Pseudoimage();
 			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/woof.jpeg");
-			pseudoimager.generatePseudoImage(source, destination)
+			pseudoimage.generatePseudoImage(source, destination)
 				.then(() => {
 					return Promise.all([source, destination].map(openImage))
 						.then(function (images) {
@@ -47,8 +47,8 @@ describe("pseudoimager", function () {
 
 	describe("#generatePseudoImages", () => {
 		it("should generate pseudoimages", function (done) {
-			let pseudoimager = new Pseudoimager(resourceDir, tmpDir);
-			pseudoimager.generatePseudoImages()
+			let pseudoimage = new Pseudoimage(resourceDir, tmpDir);
+			pseudoimage.generatePseudoImages()
 				.then(done)
 				.catch(done);
 		});
@@ -56,10 +56,10 @@ describe("pseudoimager", function () {
 
 	describe("retina", () => {
 		it("should generate a pseudoimage twice the size of the original", function (done) {
-			let pseudoimager = Pseudoimager.retina();
+			let pseudoimage = Pseudoimage.retina();
 			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/meow.jpeg");
-			pseudoimager.generatePseudoImage(source, destination)
+			pseudoimage.generatePseudoImage(source, destination)
 				.then(() => {
 					return Promise.all([source, destination].map(openImage))
 						.then(function (images) {
@@ -74,10 +74,10 @@ describe("pseudoimager", function () {
 
 	describe("half", () => {
 		it("should generate a pseudoimage half the size of the original", function (done) {
-			let pseudoimager = Pseudoimager.half();
+			let pseudoimage = Pseudoimage.half();
 			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/meow.jpeg");
-			pseudoimager.generatePseudoImage(source, destination)
+			pseudoimage.generatePseudoImage(source, destination)
 				.then(() => {
 					return Promise.all([source, destination].map(openImage))
 						.then(function (images) {
