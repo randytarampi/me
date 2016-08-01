@@ -1,11 +1,17 @@
+import React from "react";
 import {Content} from "react-mdl";
 import Intro from "./intro";
+import Code from "./code";
+import Bears from "./bears";
 
-export default ({name}) =>
-	<Content>
-		<Intro />
-		<Intro />
-		<Intro />
-		<Intro />
-		<Intro />
-	</Content>;
+class PageContent extends React.Component {
+	render() {
+		return <Content className="content">
+			<Intro />
+			<Code />
+			<Bears />
+		</Content>;
+	}
+}
+
+export default PageContent;

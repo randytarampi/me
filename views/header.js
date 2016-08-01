@@ -1,5 +1,7 @@
-import {Navbar, NavItem} from "react-materialize";
+import {Header} from "react-mdl";
+import Navigation from './navigation';
 
 export default ({name}) =>
-	<Navbar right>
-	</Navbar>;
+	<Header className="header" waterfall hideTop scroll title={<strong>{document.location.hostname.replace(/www\./, "")}</strong>}>
+		<Navigation className="header__navigation"/>
+	</Header>;

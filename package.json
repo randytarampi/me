@@ -4,6 +4,7 @@
   "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
   "main": "index.js",
   "scripts": {
+    "pretest": "gulp lint",
     "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1",
     "postinstall": "gulp build:dev",
     "prepublish": "gulp build",
@@ -12,16 +13,14 @@
   "author": "rt@randytarampi.ca",
   "license": "ISC",
   "dependencies": {
-    "gulp-rename": "~1.2.2",
     "jquery": "~2.2.4",
     "lodash": "^4.13.1",
-    "material-design-icons": "~2.2.3",
     "material-design-lite": "~1",
     "moment": "~2.13.0",
     "normalize.css": "~4.1.1",
     "react": "~15.1.0",
     "react-dom": "~15.1.0",
-    "react-mdl": "~1.5.4"
+    "react-mdl": "~1.6.1"
   },
   "peerDependencies": {
     "material-design-lite": "~1.1.3"

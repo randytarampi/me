@@ -1,11 +1,11 @@
 import {Layout} from "react-mdl";
 import Header from "./header";
+import Drawer from './drawer';
 import Content from "./content";
-import Footer from "./footer";
 
 export default ({name}) =>
-	<Layout fixedHeader>
+	<Layout fixedHeader className="layout">
 		<Header />
+		<Drawer />
 		<Content />
-		<Footer />
 	</Layout>;

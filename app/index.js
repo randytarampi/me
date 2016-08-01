@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Title from "../views/title";
-import Placeholder from "../views/placeholder";
+import Main from "../views/main";
 
 ReactDOM.render(
 	<Title />, document.querySelector("title")
 );
 
 ReactDOM.render(
-	<Placeholder />, document.querySelector("#main")
+	<Main />, document.querySelector("#main")
 );

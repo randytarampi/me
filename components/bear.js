@@ -8,16 +8,25 @@ class Bear extends Emoji {
 		this.state = {
 			leftAction: this.props.leftAction || null,
 			leftLeaningLeftArm: this.props.leftLeaningLeftArm || null,
-			leftEar: this.props.leftEar || "ʕ",
+			leftEar: this.props.leftEar || null,
 			rightLeaningLeftArm: this.props.rightLeaningLeftArm || null,
-			leftEye: this.props.leftEye || "•",
-			nose: this.props.nose || "ᴥ",
-			rightEye: this.props.rightEye || "•",
+			leftEye: this.props.leftEye || null,
+			nose: this.props.nose || null,
+			rightEye: this.props.rightEye || null,
 			leftLeaningRightArm: this.props.leftLeaningRightArm || null,
-			rightEar: this.props.rightEar || "ʔ",
+			rightEar: this.props.rightEar || null,
 			rightLeaningRightArm: this.props.rightLeaningRightArm || null,
 			rightAction: this.props.rightAction || null
 		};
+	}
+	static get defaultProps() {
+		return {
+			leftEar: "ʕ",
+			leftEye: "•",
+			nose: "ᴥ",
+			rightEye: "•",
+			rightEar: "ʔ"
+		}
 	}
 	set components(componentsObject) {
 		this.setState({
@@ -55,6 +64,28 @@ class Bear extends Emoji {
 			.value();
 	}
 	onClick(component) {
+		switch (component) {
+			case "nose":
+				var pokes = this.state.pokes || 0;
+				pokes += 1;
+				var newState = {
+					pokes: pokes
+				};
+				switch (pokes) {
+					case 1:
+						newState.leftEye = "ಠಿ";
+						newState.rightEye = "ಠ";
+						break;
+					case 2:
+						newState.leftEye = "ಠ";
+						newState.rightEye = "ಠ";
+						break;
+					case 3:
+						newState.pokes = 0;
+						break;
+				}
+				this.setState(newState);
+		}
 	}
 	render() {
 		return <div className={["bear", this.toString()].join(" ")}>
@@ -79,20 +110,16 @@ export default Bear;
 export class HelloBear extends Bear {
 	constructor(props, context, updater) {
 		super(props, context, updater);
-
-		this.state = {
-			leftAction: this.props.leftAction || null,
-			leftLeaningLeftArm: this.props.leftLeaningLeftArm || null,
-			leftEar: this.props.leftEar || "ʕ",
-			rightLeaningLeftArm: this.props.rightLeaningLeftArm || null,
-			leftEye: this.props.leftEye || "•",
-			nose: this.props.nose || "ᴥ",
-			rightEye: this.props.rightEye || "•",
-			leftLeaningRightArm: this.props.leftLeaningRightArm || null,
-			rightEar: this.props.rightEar || "ʔ",
-			rightLeaningRightArm: this.props.rightLeaningRightArm || "ﾉ゛",
-			rightAction: this.props.rightAction || null
-		};
+	}
+	static get defaultProps() {
+		return {
+			leftEar: "ʕ",
+			leftEye: "•",
+			nose: "ᴥ",
+			rightEye: "•",
+			rightEar: "ʔ",
+			rightLeaningRightArm: "ﾉ゛"
+		}
 	}
 	onClick(component) {
 		switch (component) {
@@ -125,37 +152,44 @@ export class HelloBear extends Bear {
 						newState.rightEye = "°";
 						break;
 					case 13:
-						newState.rightLeaningLeftArm = "つ";
-						newState.leftEye = "ಠ";
-						newState.rightEye = "ಠ";
-						newState.rightLeaningRightArm = "つ";
-						newState.rightAction = " ︵ ┻━┻";
-						break;
-					case 21:
 						newState.rightLeaningLeftArm = null;
 						newState.leftEye = "–";
 						newState.rightEye = "–";
 						newState.rightLeaningRightArm = null;
 						newState.rightAction = null;
 						break;
-					case 34:
+					case 21:
 						newState.leftEye = " ͡°";
 						newState.rightEye = " ͡°";
 						break;
+					case 34:
+						newState.rightLeaningRightArm = "ﾉ゛";
+						window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn\'t stop clicking!", "_blank");
+						break;
 					case 35:
-						newState.rightLeaningLeftArm = "つ";
-						newState.rightLeaningRightArm = "つ";
-						newState.rightAction = " \u{1F4E7}";
-						window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn\'t stop clicking!");
+						window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won\'t stop popping up!", "_blank");
 						break;
 					case 36:
-						window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won\'t stop popping up!");
-						break;
-					case 37:
-						window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line, and finally stopped at " + pokes + " clicks. What is this?");
+						newState.pokes = 0;
+						window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line, and finally stopped at " + pokes + " clicks. What is this?", "_blank");
 						break;
 				}
 				this.setState(newState);
+		}
+	}
+}
+
+export class DoubtBear extends Bear {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps() {
+		return {
+			leftEar: "ʕ",
+			leftEye: "ಠಿ",
+			nose: "ᴥ",
+			rightEye: "ಠ",
+			rightEar: "ʔ"
 		}
 	}
 }

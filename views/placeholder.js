@@ -1,5 +1,5 @@
 import {Grid, Cell} from "react-mdl";
-import {HelloBear} from "./bear";
+import {HelloBear} from "../components/bear";
 
 export default ({name}) =>
 	<Grid>
