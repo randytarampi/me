@@ -2,7 +2,6 @@ let path = require("path");
 let fs = require("fs");
 let lwip = require("lwip");
 let Image = require("lwip/lib/image");
-let Sinon = require("sinon");
 let Mocha = require("mocha");
 let describe = Mocha.describe;
 let it = require("mocha").it;
