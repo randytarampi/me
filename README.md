@@ -1,3 +1,40 @@
 #ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders
 
-This is really just a ploy to better distribute my photos. This'll probably use the [Unsplash API](https://unsplash.com/documentation) to source my photos, and then [lwip](https://github.com/EyalAr/lwip) to resize or otherwise modify some "fake" image.
+This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create a fake, which gets saved somewhere.
+
+##Usage
+
+```javascript
+let Pseudoimager = require("pseudoimage.woof");
+let sourceDirectory = "/Users/randy.tarampi/Desktop/images";
+let destinationDirectory = "/Users/randy.tarampi/Desktop/fakeImages";
+let expect = require("chai").expect;
+
+let pseudoimager = new Pseudoimager(sourceDirectory, destinationDirectory);
+pseudoimager.generatePseudoImages();
+
+// There should be a copy for each supported image in `sourceDirectory` in `destinationDirectory`
+let files = fs.readdirSync(sourceDirectory);
+files.map((file) => {
+	openImage(file)
+		.then((image) => {
+			expect(images[0].width()).to.eql(images[1].width());
+			expect(images[0].height()).to.eql(images[1].height());
+		})
+		.catch((error) => {
+			console.error(error); // Shouldn't see any errors
+		});
+});
+
+function openImage(imagePath) {
+	return new Promise((resolve, reject) => {
+		lwip.open(imagePath, (error, image) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(image);
+		})
+	});
+}
+```
