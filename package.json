@@ -10,7 +10,11 @@
     "prepublish": "gulp build",
     "start": "gulp serve"
   },
-  "author": "rt@randytarampi.ca",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
+  },
   "license": "ISC",
   "dependencies": {
     "jquery": "~2.2.4",
