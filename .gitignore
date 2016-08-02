@@ -39,3 +39,6 @@ jspm_packages
 # Project files
 *.iml
 *.idea
+
+# OS files
+.DS_Store
