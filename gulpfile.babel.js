@@ -34,7 +34,7 @@ gulp.task("styles", ["styles:dev"], function (callback) {
 gulp.task("styles:dev", function (callback) {
 	return gulp.src([
 		"node_modules/normalize.css/normalize.css",
-		"styles/**/*.scss"
+		"styles/style.scss"
 	])
 		.pipe(sass({
 			importer: sassTildeImporter
