@@ -1,4 +1,4 @@
-export default ({name}) =>
+export default () =>
 	<title>
 		ʕ•ᴥ•ʔﾉ゛
 	</title>;

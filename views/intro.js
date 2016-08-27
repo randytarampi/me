@@ -2,7 +2,7 @@ import {Grid, Cell} from "react-mdl";
 import {HelloBear} from "../components/bear";
 import {Email, GitHub, LinkedIn, Flickr} from "../components/link";
 
-export default ({name}) =>
+export default () =>
 	<Grid id="intro" className="block" shadow={1}>
 		<Cell className="block__bear" col={6} tablet={8}>
 			<HelloBear />

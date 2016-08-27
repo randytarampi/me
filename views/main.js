@@ -3,7 +3,7 @@ import Header from "./header";
 import Drawer from './drawer';
 import Content from "./content";
 
-export default ({name}) =>
+export default () =>
 	<Layout fixedHeader className="layout">
 		<Header />
 		<Drawer />

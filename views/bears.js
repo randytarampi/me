@@ -1,7 +1,7 @@
 import {Grid, Cell} from "react-mdl";
 import Bear from "../components/bear";
 
-export default ({name}) =>
+export default () =>
 	<Grid id="intro" className="block" shadow={1}>
 		<Cell className="block__bear" col={6} tablet={8} hideTablet={true} hidePhone={true}>
 			<Bear />

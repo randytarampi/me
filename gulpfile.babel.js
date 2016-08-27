@@ -15,7 +15,7 @@ import WebpackDevServer from "webpack-dev-server";
 import WebpackConfig from "./Webpack.config.babel";
 import Config from "./config/config";
 
-gulp.task("copy", function (callback) {
+gulp.task("copy", function () {
 	return copy([]);
 });
 
@@ -23,7 +23,7 @@ gulp.task("clean", function (callback) {
 	del(["dist"], callback);
 });
 
-gulp.task("styles", ["styles:dev"], function (callback) {
+gulp.task("styles", ["styles:dev"], function () {
 	return gulp.src("dist/styles.css")
 		.pipe(sourcemaps.init())
 		.pipe(minifyCss())
@@ -31,7 +31,7 @@ gulp.task("styles", ["styles:dev"], function (callback) {
 		.pipe(gulp.dest("dist"));
 });
 
-gulp.task("styles:dev", function (callback) {
+gulp.task("styles:dev", function () {
 	return gulp.src([
 		"node_modules/normalize.css/normalize.css",
 		"styles/style.scss"
@@ -43,7 +43,7 @@ gulp.task("styles:dev", function (callback) {
 		.pipe(gulp.dest("dist"));
 });
 
-gulp.task("vendor", function (callback) {
+gulp.task("vendor", function () {
 	return gulp.src([
 		"node_modules/jquery/dist/jquery.min.js",
 		"node_modules/moment/min/moment-with-locales.min.js",
@@ -57,7 +57,7 @@ gulp.task("vendor", function (callback) {
 		.pipe(gulp.dest("dist"));
 });
 
-gulp.task("vendor:dev", function (callback) {
+gulp.task("vendor:dev", function () {
 	return gulp.src([
 		"node_modules/jquery/dist/jquery.js",
 		"node_modules/moment/min/moment-with-locales.js",
@@ -110,7 +110,7 @@ gulp.task("webpack:dev", function (callback) {
 });
 
 gulp.task("eslint", function() {
-	return gulp.src('lib/**')
+	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*"])
 		.pipe(eslint())
 		.pipe(eslint.format())
 		.pipe(eslint.failOnError());

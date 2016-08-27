@@ -59,9 +59,7 @@ class Bear extends Emoji {
 		);
 	}
 	static assembleComponents(leftAction, leftLeaningLeftArm, leftEar, rightLeaningLeftArm, leftEye, nose, rightEye, leftLeaningRightArm, rightEar, rightLeaningRightArm, rightAction) {
-		return _.chain(arguments)
-			.compact()
-			.value();
+		return _.compact([leftAction, leftLeaningLeftArm, leftEar, rightLeaningLeftArm, leftEye, nose, rightEye, leftLeaningRightArm, rightEar, rightLeaningRightArm, rightAction]);
 	}
 	onClick(component) {
 		switch (component) {
