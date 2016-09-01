@@ -3,7 +3,7 @@ let eslint = require("gulp-eslint");
 let mocha = require('gulp-mocha');
 
 gulp.task("eslint", function() {
-	return gulp.src('lib/**')
+	return gulp.src(["**/*.js", "!./node_modules/**/*"])
 		.pipe(eslint())
 		.pipe(eslint.format())
 		.pipe(eslint.failOnError());
