@@ -114,6 +114,6 @@ function openImage(imagePath) {
 				return;
 			}
 			resolve(image);
-		})
+		});
 	});
 }
