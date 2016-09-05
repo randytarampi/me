@@ -38,7 +38,7 @@ gulp.task("styles:dev", function () {
 	])
 		.pipe(sass({
 			importer: sassTildeImporter
-		}).on('error', sass.logError))
+		}).on("error", sass.logError))
 		.pipe(concat("styles.css"))
 		.pipe(gulp.dest("dist"));
 });
@@ -111,7 +111,7 @@ gulp.task("webpack:dev", function (callback) {
 
 gulp.task("eslint", function() {
 	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*"])
-		.pipe(eslint())
+		.pipe(eslint({fix: true}))
 		.pipe(eslint.format())
 		.pipe(eslint.failOnError());
 });
