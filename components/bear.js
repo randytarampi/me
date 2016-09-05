@@ -26,7 +26,7 @@ class Bear extends Emoji {
 			nose: "ᴥ",
 			rightEye: "•",
 			rightEar: "ʔ"
-		}
+		};
 	}
 	set components(componentsObject) {
 		this.setState({
@@ -117,7 +117,7 @@ export class HelloBear extends Bear {
 			rightEye: "•",
 			rightEar: "ʔ",
 			rightLeaningRightArm: "ﾉ゛"
-		}
+		};
 	}
 	onClick(component) {
 		switch (component) {
@@ -188,6 +188,6 @@ export class DoubtBear extends Bear {
 			nose: "ᴥ",
 			rightEye: "ಠ",
 			rightEar: "ʔ"
-		}
+		};
 	}
 }

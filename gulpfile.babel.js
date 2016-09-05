@@ -3,6 +3,7 @@ import gulp from "gulp";
 import concat from "gulp-concat";
 import copy from "gulp-copy2";
 import eslint from "gulp-eslint";
+import gulpIf from "gulp-if";
 import minifyCss from "gulp-minify-css";
 import sass from "gulp-sass";
 import sassTildeImporter from "grunt-sass-tilde-importer";
@@ -109,10 +110,15 @@ gulp.task("webpack:dev", function (callback) {
 	});
 });
 
+function isFixed(file) {
+	return file.eslint != null && file.eslint.fixed;
+}
+
 gulp.task("eslint", function() {
 	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*"])
 		.pipe(eslint({fix: true}))
 		.pipe(eslint.format())
+		.pipe(gulpIf(isFixed, gulp.dest("./")))
 		.pipe(eslint.failOnError());
 });
 

@@ -1,6 +1,6 @@
 import {Layout} from "react-mdl";
 import Header from "./header";
-import Drawer from './drawer';
+import Drawer from "./drawer";
 import Content from "./content";
 
 export default () =>

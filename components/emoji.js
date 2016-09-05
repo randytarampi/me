@@ -6,7 +6,7 @@ class Emoji extends React.Component {
 
 		this.state = {
 			components: this.props.components || []
-		}
+		};
 	}
 	get components() {
 		return this.state.components;
@@ -16,7 +16,7 @@ class Emoji extends React.Component {
 	}
 	toString () {
 		var components = this.components || [];
-		return components.join('');
+		return components.join("");
 	}
 	render() {
 		return <span>
