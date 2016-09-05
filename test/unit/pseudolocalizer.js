@@ -15,7 +15,9 @@ describe("pseudolocalizer", () => {
 		});
 		it("should throw on bad input", () => {
 			let pseudolocalizer = new Pseudolocalizer(2.5, "ʕつ", "ʔつ", " ", " ");
-			expect(() => { pseudolocalizer.pseudolocalize(it)}).to.throw(/should be of type "string", but is "function" instead/);
+			expect(() => {
+				pseudolocalizer.pseudolocalize(it);
+			}).to.throw(/should be of type "string", but is "function" instead/);
 		});
 		it("should respect the expansion factor", () => {
 			let expansionFactor = 8;
@@ -66,7 +68,9 @@ describe("pseudolocalizer", () => {
 				"grr": " ᴥ ",
 				"ruff": 1
 			};
-			expect(() => { pseudolocalizer.pseudolocalizeObject(testObject) }).to.throw(/should be of type "string", but is "number" instead/);
+			expect(() => {
+				pseudolocalizer.pseudolocalizeObject(testObject);
+			}).to.throw(/should be of type "string", but is "number" instead/);
 		});
 		it("should not modify the input object", () => {
 			let pseudolocalizer = new Pseudolocalizer();
