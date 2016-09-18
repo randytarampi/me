@@ -1,5 +1,7 @@
 #ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders
 
+[![Build Status](https://travis-ci.org/randytarampi/pseudoimage.woof.svg?branch=master)](https://travis-ci.org/randytarampi/pseudoimage.woof)
+
 This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create a fake, which gets saved somewhere.
 
 ##Usage
