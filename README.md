@@ -1,5 +1,7 @@
 #Text-to-ʕ•ᴥ•ʔ translations
 
+[![Build Status](https://travis-ci.org/randytarampi/pseudolocalize.woof.svg?branch=master)](https://travis-ci.org/randytarampi/pseudolocalize.woof) [![Backlog](https://badge.waffle.io/randytarampi/pseudolocalize.woof.svg?label=Backlog&title=Backlog)](http://waffle.io/randytarampi/pseudolocalize.woof) [![Ready](https://badge.waffle.io/randytarampi/pseudolocalize.woof.svg?label=Ready&title=Ready)](http://waffle.io/randytarampi/pseudolocalize.woof) [![In Progress](https://badge.waffle.io/randytarampi/pseudolocalize.woof.svg?label=In%20Progress&title=In%20Progress)](http://waffle.io/randytarampi/pseudolocalize.woof) [![Done](https://badge.waffle.io/randytarampi/pseudolocalize.woof.svg?label=Done&title=Done)](http://waffle.io/randytarampi/pseudolocalize.woof)
+
 Or, otherwise user defined pseudolocalizations...
 
 ##Usage
