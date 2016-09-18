@@ -1,6 +1,6 @@
 #ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders
 
-[![Build Status](https://travis-ci.org/randytarampi/pseudoimage.woof.svg?branch=master)](https://travis-ci.org/randytarampi/pseudoimage.woof)
+[![Build Status](https://travis-ci.org/randytarampi/pseudoimage.woof.svg?branch=master)](https://travis-ci.org/randytarampi/pseudoimage.woof) [![Backlog](https://badge.waffle.io/randytarampi/pseudoimage.woof.svg?label=Backlog&title=Backlog)](http://waffle.io/randytarampi/pseudoimage.woof) [![Ready](https://badge.waffle.io/randytarampi/pseudoimage.woof.svg?label=Ready&title=Ready)](http://waffle.io/randytarampi/pseudoimage.woof) [![In Progress](https://badge.waffle.io/randytarampi/pseudoimage.woof.svg?label=In%20Progress&title=In%20Progress)](http://waffle.io/randytarampi/pseudoimage.woof) [![Done](https://badge.waffle.io/randytarampi/pseudoimage.woof.svg?label=Done&title=Done)](http://waffle.io/randytarampi/pseudoimage.woof)
 
 This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create a fake, which gets saved somewhere.
 
