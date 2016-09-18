@@ -17,7 +17,7 @@ commander
 let pseudolocalizer;
 
 if (commander.args.length === 0) {
-	console.error("Please supply a value");
+	console.error("Please supply a value"); // eslint-disable-line no-console
 	process.exit(1);
 }
 
@@ -25,7 +25,7 @@ let parsedRelativeScale = parseInt(commander.relativeScale, 10);
 
 if (commander.preset) {
 	if (typeof commander.preset !== "string") {
-		console.error("Please specify a proper preset");
+		console.error("Please specify a proper preset"); // eslint-disable-line no-console
 		process.exit(1);
 	}
 	pseudolocalizer = Pseudolocalizer[commander.preset](parsedRelativeScale, commander.prefix, commander.postfix, commander.prePad, commander.postPad);
@@ -34,5 +34,5 @@ if (commander.preset) {
 }
 
 commander.args.forEach(function (string) {
-	console.log(pseudolocalizer.pseudolocalize(string));
+	console.log(pseudolocalizer.pseudolocalize(string)); // eslint-disable-line no-console
 });
