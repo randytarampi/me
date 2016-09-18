@@ -1,3 +1,5 @@
+"use strict";
+
 let path = require("path");
 let fs = require("fs");
 let lwip = require("lwip");

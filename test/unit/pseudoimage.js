@@ -1,3 +1,5 @@
+"use strict";
+
 let path = require("path");
 let Mocha = require("mocha");
 let describe = Mocha.describe;
