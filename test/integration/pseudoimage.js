@@ -17,14 +17,14 @@ describe("pseudoimage", function () {
 	beforeEach(function () {
 		try {
 			rmrf(tmpDir);
-		} catch (e) {} finally {
+		} catch (e) {} finally { // eslint-disable-line no-empty
 			fs.mkdirSync(tmpDir);
 		}
 	});
 	after(function () {
 		try {
 			rmrf(tmpDir);
-		} catch (e) {}
+		} catch (e) {} // eslint-disable-line no-empty
 	});
 
 	describe("#generatePseudoImage", () => {

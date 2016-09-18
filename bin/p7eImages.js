@@ -9,14 +9,14 @@ commander
 	.option("-p --preset <preset>", "Use a preset pseudolocalizer {retina}", /^(retina)$/gm)
 	.action((sourceDirectory, destinationDirectory) => {
 		if (!sourceDirectory) {
-			console.error("Please supply a sourceDirectory");
+			console.error("Please supply a sourceDirectory"); // eslint-disable-line no-console
 			process.exit(1);
 		}
 
 		let pseudoimage;
 		if (commander.preset) {
 			if (typeof commander.preset !== "string") {
-				console.error("Please specify a proper preset");
+				console.error("Please specify a proper preset"); // eslint-disable-line no-console
 				process.exit(1);
 			}
 			pseudoimage = Pseudoimage.retina(sourceDirectory, destinationDirectory);
@@ -29,7 +29,7 @@ commander
 				process.exit(0);
 			})
 			.catch((error) => {
-				console.error(error);
+				console.error(error); // eslint-disable-line no-console
 				process.exit(1);
 			});
 	});
