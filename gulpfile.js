@@ -1,3 +1,5 @@
+"use strict";
+
 const gulp = require("gulp");
 const gulpIf = require("gulp-if");
 const eslint = require("gulp-eslint");
