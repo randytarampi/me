@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+
+"use strict";
+
 let commander = require("commander");
 let Pseudolocalizer = require("../lib/pseudolocalizer");
 
