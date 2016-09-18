@@ -1,5 +1,4 @@
 let path = require("path");
-let Image = require("lwip/lib/image");
 let Mocha = require("mocha");
 let describe = Mocha.describe;
 let it = require("mocha").it;
@@ -34,7 +33,6 @@ describe("pseudoimage", function () {
 
 function testImageTransformationFunction(image, destinationPath, successCallback, failureCallback) {
 	try {
-		expect(image).to.be.instanceOf(Image);
 		expect(typeof destinationPath).to.eql("string");
 		expect(successCallback).to.be.instanceOf(Function);
 		expect(failureCallback).to.be.instanceOf(Function);
