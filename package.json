@@ -59,6 +59,7 @@
     "p7eImages": "./bin/p7eImages"
   },
   "dependencies": {
-    "lwip": "~0.0.9"
+    "lwip": "~0.0.9",
+    "mkdirp": "~0.5.1"
   }
 }

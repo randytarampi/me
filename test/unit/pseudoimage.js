@@ -14,7 +14,7 @@ describe("pseudoimage", function () {
 	describe("#generatePseudoImage", () => {
 		it("should call the imageTransformationFunction correctly", function (done) {
 			let pseudoimage = new Pseudoimage(null, null, testImageTransformationFunction);
-			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/woof.jpeg");
 			pseudoimage.generatePseudoImage(source, destination)
 				.then(done)

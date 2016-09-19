@@ -32,7 +32,7 @@ describe("pseudoimage", function () {
 	describe("#generatePseudoImage", () => {
 		it("should generate a pseudoimage", function (done) {
 			let pseudoimage = new Pseudoimage();
-			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/woof.jpeg");
 			pseudoimage.generatePseudoImage(source, destination)
 				.then(() => {
@@ -59,7 +59,7 @@ describe("pseudoimage", function () {
 	describe("retina", () => {
 		it("should generate a pseudoimage twice the size of the original", function (done) {
 			let pseudoimage = Pseudoimage.retina();
-			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/meow.jpeg");
 			pseudoimage.generatePseudoImage(source, destination)
 				.then(() => {
@@ -77,7 +77,7 @@ describe("pseudoimage", function () {
 	describe("half", () => {
 		it("should generate a pseudoimage half the size of the original", function (done) {
 			let pseudoimage = Pseudoimage.half();
-			let source = path.join(__dirname, "../resources/photo-1450684739805-ccc25cf4d388.jpeg");
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/meow.jpeg");
 			pseudoimage.generatePseudoImage(source, destination)
 				.then(() => {
