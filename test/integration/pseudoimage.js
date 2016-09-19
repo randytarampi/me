@@ -3,11 +3,13 @@
 let path = require("path");
 let fs = require("fs");
 let lwip = require("lwip");
-let Mocha = require("mocha");
-let describe = Mocha.describe;
-let beforeEach = Mocha.beforeEach;
-let after = require("mocha").after;
-let it = require("mocha").it;
+let Batch = require("lwip/lib/batch");
+let mocha = require("mocha");
+let sinon = require("sinon");
+let describe = mocha.describe;
+let beforeEach = mocha.beforeEach;
+let after = mocha.after;
+let it = mocha.it;
 let expect = require("chai").expect;
 let Pseudoimage = require("../../lib/pseudoimage");
 
@@ -45,6 +47,36 @@ describe("pseudoimage", function () {
 				.then(done)
 				.catch(done);
 		});
+
+		it("should return a rejected promise if lwip errors out", function (done) {
+			let pseudoimage = new Pseudoimage();
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
+			let destination = path.join(__dirname, "../tmp/woof.jpeg");
+			let lwipOpen = lwip.open;
+			sinon.stub(lwip, "open", (filename, callback) => {
+				lwipOpen(filename, (error, image) => {
+					let originalImageBatch = image.batch();
+					sinon.stub(image, "batch", () => {
+						originalImageBatch.writeFile = (destination, callback) => {
+							callback(new Error("Grr grr grr"));
+						};
+						return originalImageBatch;
+					});
+					callback(error, image);
+				});
+			});
+			pseudoimage.generatePseudoImage(source, destination)
+				.then(() => {
+					lwip.open.restore();
+					done(new Error("This should've exploded"));
+				})
+				.catch((error) => {
+					lwip.open.restore();
+					expect(error).to.be.ok;
+					expect(error.message).to.match(/^Grr grr grr$/);
+					done();
+				});
+		});
 	});
 
 	describe("#generatePseudoImages", () => {
@@ -72,6 +104,36 @@ describe("pseudoimage", function () {
 				.then(done)
 				.catch(done);
 		});
+
+		it("should return a rejected promise if lwip errors out", function (done) {
+			let pseudoimage = Pseudoimage.retina();
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
+			let destination = path.join(__dirname, "../tmp/meow.jpeg");
+			let lwipOpen = lwip.open;
+			sinon.stub(lwip, "open", (filename, callback) => {
+				lwipOpen(filename, (error, image) => {
+					let originalImageBatch = image.batch();
+					sinon.stub(image, "batch", () => {
+						originalImageBatch.writeFile = (destination, callback) => {
+							callback(new Error("Grr grr grr"));
+						};
+						return originalImageBatch;
+					});
+					callback(error, image);
+				});
+			});
+			pseudoimage.generatePseudoImage(source, destination)
+				.then(() => {
+					lwip.open.restore();
+					done(new Error("This should've exploded"));
+				})
+				.catch((error) => {
+					lwip.open.restore();
+					expect(error).to.be.ok;
+					expect(error.message).to.match(/^Grr grr grr$/);
+					done();
+				});
+		});
 	});
 
 	describe("half", () => {
@@ -89,6 +151,36 @@ describe("pseudoimage", function () {
 				})
 				.then(done)
 				.catch(done);
+		});
+
+		it("should return a rejected promise if lwip errors out", function (done) {
+			let pseudoimage = Pseudoimage.half();
+			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
+			let destination = path.join(__dirname, "../tmp/meow.jpeg");
+			let lwipOpen = lwip.open;
+			sinon.stub(lwip, "open", (filename, callback) => {
+				lwipOpen(filename, (error, image) => {
+					let originalImageBatch = image.batch();
+					sinon.stub(image, "batch", () => {
+						originalImageBatch.writeFile = (destination, callback) => {
+							callback(new Error("Grr grr grr"));
+						};
+						return originalImageBatch;
+					});
+					callback(error, image);
+				});
+			});
+			pseudoimage.generatePseudoImage(source, destination)
+				.then(() => {
+					lwip.open.restore();
+					done(new Error("This should've exploded"));
+				})
+				.catch((error) => {
+					lwip.open.restore();
+					expect(error).to.be.ok;
+					expect(error.message).to.match(/^Grr grr grr$/);
+					done();
+				});
 		});
 	});
 });
