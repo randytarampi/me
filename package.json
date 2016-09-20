@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
   "main": "pseudoimage.woof.js",
   "scripts": {
