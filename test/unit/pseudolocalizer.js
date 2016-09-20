@@ -23,12 +23,12 @@ describe("pseudolocalizer", () => {
 		});
 		it("should throw on non-numerical relativeScale", () => {
 			expect(() => {
-				let pseudolocalizer = new Pseudolocalizer("woof", "ʕつ", "ʔつ", " ", " ");
+				let pseudolocalizer = new Pseudolocalizer("woof", "ʕつ", "ʔつ", " ", " "); // eslint-disable-line no-unused-vars
 			}).to.throw(/relativeScale should be greater than 0.5, but is "woof" instead/);
 		});
 		it("should throw on small relativeScale", () => {
 			expect(() => {
-				let pseudolocalizer = new Pseudolocalizer(0.49, "ʕつ", "ʔつ", " ", " ");
+				let pseudolocalizer = new Pseudolocalizer(0.49, "ʕつ", "ʔつ", " ", " "); // eslint-disable-line no-unused-vars
 			}).to.throw(/relativeScale should be greater than 0.5, but is "0.49" instead/);
 		});
 		it("should respect the expansion factor", () => {
@@ -116,7 +116,7 @@ describe("pseudolocalizer", () => {
 				}
 			};
 			function Woof() {
-				this.grr = "ᴥ"
+				this.grr = "ᴥ";
 			}
 			Woof.prototype.postPad = "•";
 			Woof.prototype.postfix = "ʔつ";
