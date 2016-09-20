@@ -21,6 +21,16 @@ describe("pseudolocalizer", () => {
 				pseudolocalizer.pseudolocalize(it);
 			}).to.throw(/should be of type "string", but is "function" instead/);
 		});
+		it("should throw on non-numerical relativeScale", () => {
+			expect(() => {
+				let pseudolocalizer = new Pseudolocalizer("woof", "ʕつ", "ʔつ", " ", " ");
+			}).to.throw(/relativeScale should be greater than 0.5, but is "woof" instead/);
+		});
+		it("should throw on small relativeScale", () => {
+			expect(() => {
+				let pseudolocalizer = new Pseudolocalizer(0.49, "ʕつ", "ʔつ", " ", " ");
+			}).to.throw(/relativeScale should be greater than 0.5, but is "0.49" instead/);
+		});
 		it("should respect the expansion factor", () => {
 			let expansionFactor = 8;
 			let pseudolocalizer = new Pseudolocalizer(expansionFactor);
@@ -36,6 +46,8 @@ describe("pseudolocalizer", () => {
 		it("should truncate the input string and preserve the prefix, postfix, prePad and postPad if the input is small", () => {
 			let pseudolocalizer = new Pseudolocalizer();
 			expect(pseudolocalizer.pseudolocalize("ᴥ12")).to.equal("ʕつ•ᴥ•ʔつ");
+			pseudolocalizer = new Pseudolocalizer(1, "", "");
+			expect(pseudolocalizer.pseudolocalize("ᴥᴥ")).to.equal("•ᴥ•");
 		});
 		it("should always show the prefix, postfix and the first characters of the input, prePad and postPad", () => {
 			let pseudolocalizer = new Pseudolocalizer(1, "ᶘつ", "ᶅつ", " ", " ");
@@ -63,6 +75,13 @@ describe("pseudolocalizer", () => {
 				"ruff": "ʕつ• •ʔつ"
 			});
 		});
+		it("should throw if it's passed a non object argument", () => {
+			let pseudolocalizer = new Pseudolocalizer();
+			let testObject = 1;
+			expect(() => {
+				pseudolocalizer.pseudolocalizeObject(testObject);
+			}).to.throw(/should be of type "object", but is "number" instead/);
+		});
 		it("should throw if it encounters a non-string property on an input object", () => {
 			let pseudolocalizer = new Pseudolocalizer();
 			let testObject = {
@@ -84,6 +103,28 @@ describe("pseudolocalizer", () => {
 			});
 			expect(testObject).to.eql({
 				"woof": "ᴥ"
+			});
+		});
+		it("should only localize properties on the object, not on the prototype", () => {
+			let pseudolocalizer = new Pseudolocalizer();
+			let testObject = {
+				"woof": {
+					"enumerable": true,
+					"configurable": true,
+					"writable": true,
+					"value": "ᴥ"
+				}
+			};
+			function Woof() {
+				this.grr = "ᴥ"
+			}
+			Woof.prototype.postPad = "•";
+			Woof.prototype.postfix = "ʔつ";
+			Woof.prototype.prePad = "•";
+			Woof.prototype.prefix = "ʕつ";
+			let pseudolocalizerForPseudolocalizing  = Object.create(Woof.prototype, testObject);
+			expect(pseudolocalizer.pseudolocalizeObject(pseudolocalizerForPseudolocalizing)).to.eql({
+				"woof": "ʕつ•ᴥ•ʔつ"
 			});
 		});
 	});
