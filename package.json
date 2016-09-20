@@ -9,8 +9,10 @@
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "pseudolocalize.woof.js",
   "scripts": {
-    "pretest": "gulp lint",
-    "test": "gulp test"
+    "pretest": "./node_modules/gulp/bin/gulp.js lint",
+    "test": "./node_modules/gulp/bin/gulp.js test",
+    "coverage": "./node_modules/gulp/bin/gulp.js coverage",
+    "travis": "./node_modules/gulp/bin/gulp.js travis"
   },
   "homepage": "https://github.com/randytarampi/pseudolocalize.woof",
   "bugs": {
@@ -39,9 +41,12 @@
   ],
   "devDependencies": {
     "chai": "~3.5.0",
+    "coveralls": "~2.11.13",
     "gulp": "~3.9.1",
+    "gulp-coveralls": "~0.1.4",
     "gulp-eslint": "~2.0.0",
     "gulp-if": "~2.0.1",
+    "gulp-istanbul": "~1.1.1",
     "gulp-mocha": "~2.2.0",
     "mocha": "~2.5.3"
   },
