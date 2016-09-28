@@ -3,7 +3,7 @@ import webpack from "webpack";
 
 export default {
 	entry: [
-		"./app/index.js"
+		"./views/index.js"
 	],
 	externals: {
 		"jquery": "jQuery",

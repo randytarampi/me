@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Title from "../views/title";
-import Placeholder from "../views/placeholder";
+import Title from "./title";
+import Placeholder from "./placeholder";
 
 ReactDOM.render(
 	<Title />, document.querySelector("title")
