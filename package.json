@@ -9,10 +9,10 @@
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "pseudolocalize.woof.js",
   "scripts": {
-    "pretest": "./node_modules/gulp/bin/gulp.js lint",
-    "test": "./node_modules/gulp/bin/gulp.js test",
-    "coverage": "./node_modules/gulp/bin/gulp.js coverage",
-    "travis": "./node_modules/gulp/bin/gulp.js travis"
+	  "pretest": "gulp lint",
+	  "test": "gulp test",
+	  "coverage": "gulp coverage",
+	  "travis": "gulp travis"
   },
   "homepage": "https://github.com/randytarampi/pseudolocalize.woof",
   "bugs": {
