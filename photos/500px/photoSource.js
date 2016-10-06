@@ -1,0 +1,95 @@
+require("dotenv").config();
+
+const PhotoSource = require("../photoSource");
+const Photo = require("../photo");
+const Creator = require("../creator");
+const SizedPhoto = require("../sizedPhoto");
+const SearchParams = require("../searchParams");
+const F00px = require("500px");
+
+class Five00pxSource extends PhotoSource {
+	constructor() {
+		super("500px", new F00px(process.env["500PX_API_KEY"]));
+	}
+
+	getUserPhotos(params) {
+		params = params instanceof SearchParams ? params : new SearchParams(params);
+		const that = this;
+		const client = this.client;
+		const userId = process.env.FIVE00PX_USER_ID;
+		let f00pxRequest = Promise.resolve(userId);
+
+		if (!userId) {
+			f00pxRequest = new Promise((resolve, reject) => {
+				client.users.getByName(process.env["500PX_USER_NAME"], (error, response) => {
+					if (error) {
+						return reject(error);
+					}
+
+					resolve(response.user.id);
+				});
+			});
+		}
+
+		return f00pxRequest
+			.then((userId) => {
+				return new Promise((resolve, reject) => {
+					client.photos.getByUserId(userId, params.to500px(), (error, response) => {
+						if (error) {
+							return reject(error);
+						}
+
+						resolve(response.photos);
+					});
+				});
+			})
+			.then((photos) => {
+				return Promise.all(photos.map((photo) => {
+					return that.jsonToPhoto(photo);
+				}));
+			});
+	}
+
+	getPhoto(id, params) {
+		params = params instanceof SearchParams ? params : new SearchParams(params);
+		const that = this;
+		const client = this.client;
+
+		return new Promise((resolve, reject) => {
+			client.photos.getById(id, params.to500px(), (error, response) => {
+				if (error) {
+					return reject(error);
+				}
+
+				resolve(response.photo);
+			});
+		}).then((photo) => {
+			return that.jsonToPhoto(photo);
+		});
+	}
+
+	jsonToPhoto(json) {
+		return new Photo(
+			json.id,
+			this.type,
+			json.taken_at,
+			json.created_at,
+			json.width,
+			json.height,
+			json.images.map((image) => {
+				return new SizedPhoto(image.url, image.size);
+			}),
+			`https://www.500px.com${json.url}`,
+			json.name,
+			json.description,
+			new Creator(
+				json.user.id,
+				json.user.username,
+				json.user.fullname,
+				`https://www.500px.com/${json.user.username}`
+			)
+		);
+	}
+}
+
+module.exports = Five00pxSource;
