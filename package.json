@@ -11,6 +11,7 @@
     "test": "gulp test",
     "postinstall": "gulp build:dev",
     "prepublish": "gulp build",
+    "travis": "gulp travis",
     "start": "node ./bin/www"
   },
   "description": "A photo aggregator/blog thingy. For some usernames at some popular services, pull their photos and display them nicely.",
