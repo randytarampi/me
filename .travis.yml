@@ -18,7 +18,7 @@ script: npm run travis
 before_deploy:
   - zip -r me.photos *
   - mkdir -p dpl_cd_upload
-  - mv latest.zip dpl_cd_upload/me.photos.zip
+  - mv me.photos.zip dpl_cd_upload/me.photos.zip
 
 deploy:
 - provider: s3
