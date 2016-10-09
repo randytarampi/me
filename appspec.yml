@@ -4,15 +4,18 @@ os: linux
 
 files:
   - source: /
-    destination: /opt/randytarampi/me.photos/app/
+    destination: /opt/randytarampi/me.photos/app
 
 hooks:
   ApplicationStop:
     - location: bin/stop
       timeout: 60
+      runas: ddog
   BeforeInstall:
     - location: bin/cleanup
       timeout: 60
+      runas: ddog
   ApplicationStart:
     - location: bin/start
       timeout: 60
+      runas: ddog
