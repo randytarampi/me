@@ -21,7 +21,7 @@ function isFixed(file) {
 }
 
 gulp.task("eslint", () => {
-	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*"])
+	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
 		.pipe(eslint({fix: true}))
 		.pipe(eslint.format())
 		.pipe(gulpIf(isFixed, gulp.dest("./")))
@@ -157,8 +157,8 @@ function coverageSetupTask() {
 		.pipe(istanbul.hookRequire());
 }
 
-gulp.task("coverage", ["coverage.setup", "test.setup"], coverageTask);
-gulp.task("coverage.ci", ["eslint", "coverage.setup.ci", "test.setup"], coverageTask);
+gulp.task("coverage", ["coverage.setup"], coverageTask);
+gulp.task("coverage.ci", ["eslint", "coverage.setup.ci"], coverageTask);
 function coverageTask() {
 	return gulp.src("test/**/*.js", {read: false})
 		.pipe(mocha())
@@ -173,4 +173,5 @@ function coverallsTask() {
 		.pipe(coveralls());
 }
 
-gulp.task("travis", ["eslint", "coveralls.ci"]);
+// gulp.task("travis", ["eslint", "coveralls.ci"]);
+gulp.task("travis", ["eslint"]);
