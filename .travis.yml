@@ -16,8 +16,9 @@ addons:
 script: npm run travis
 
 before_deploy:
-- mkdir ../dpl_cd_upload
-- tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
+  - zip -r me.photos *
+  - mkdir -p dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/me.photos.zip
 
 deploy:
 - provider: s3
@@ -31,13 +32,13 @@ deploy:
   bucket: randytarampi-releases
   region: eu-west-1
   detect_encoding: true
-  local-dir: ../dpl_cd_upload
+  local-dir: dpl_cd_upload
 - provider: codedeploy
   access_key_id: AKIAIIJQMCB7NWCX5LNA
   secret_access_key: *1
   bucket: randytarampi-releases
-  key: ../me.photos.tar.gz
-  bundle_type: ''
+  key: me.photos.zip
+  bundle_type: zip
   application: me.photos
   deployment_group: web
   on: *2
