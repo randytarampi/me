@@ -28,6 +28,8 @@ deploy:
     repo: randytarampi/me.photos
     branch: master
   bucket: randytarampi-releases
+  region: eu-west-1
+  detect_encoding: true
 - provider: codedeploy
   access_key_id: AKIAIIJQMCB7NWCX5LNA
   secret_access_key: *1
@@ -37,3 +39,4 @@ deploy:
   application: me.photos
   deployment_group: web
   on: *2
+  wait-until-deployed: true
