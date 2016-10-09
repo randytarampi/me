@@ -8,14 +8,14 @@ files:
 
 hooks:
   ApplicationStop:
-    - location: bin/stop
+    - location: /opt/randytarampi/me.photos/bin/stop
       timeout: 60
       runas: ddog
   BeforeInstall:
-    - location: bin/cleanup
+    - location: /opt/randytarampi/me.photos/bin/cleanup
       timeout: 60
       runas: ddog
   ApplicationStart:
-    - location: bin/start
+    - location: /opt/randytarampi/me.photos/bin/start
       timeout: 60
       runas: ddog
