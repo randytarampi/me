@@ -16,7 +16,7 @@ addons:
 script: npm run travis
 
 before_deploy:
-  - zip -qr me.photos.zip *
+  - zip -qr me.photos *
   - mkdir -p dpl_cd_upload
   - mv me.photos.zip dpl_cd_upload/me.photos.zip
 
