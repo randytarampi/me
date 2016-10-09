@@ -37,7 +37,6 @@ deploy:
   secret_access_key: *1
   bucket: randytarampi-releases
   key: me.photos.tar.gz
-  bundle_type: ''
   application: me.photos
   deployment_group: web
   on: *2
