@@ -16,7 +16,7 @@ addons:
 script: npm run travis
 
 before_deploy:
-- tar -zcvf me.photos.tar.gz -C ./ .
+- tar -zcf ../me.photos.tar.gz -C ./ .
 
 deploy:
 - provider: s3
@@ -32,7 +32,7 @@ deploy:
   access_key_id: AKIAIIJQMCB7NWCX5LNA
   secret_access_key: *1
   bucket: randytarampi-releases
-  key: me.photos.tar.gz
+  key: ../me.photos.tar.gz
   bundle_type: ''
   application: me.photos
   deployment_group: web
