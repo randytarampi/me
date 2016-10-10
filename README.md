@@ -1,13 +1,13 @@
 #Text-to-ʕ•ᴥ•ʔ translations
 
-[![Build Status](https://img.shields.io/travis/randytarampi/pseudolocalize.woof.svg?style=flat-square)](https://travis-ci.org/randytarampi/pseudolocalize.woof) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/pseudolocalize.woof.svg?style=flat-square)](https://coveralls.io/github/randytarampi/pseudolocalize.woof?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/pseudolocalize.woof.svg?style=flat-square)](https://david-dm.org/randytarampi/pseudolocalize.woof.svg) [![Ready](https://img.shields.io/waffle/label/randytarampi/pseudolocalize.woof/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/pseudolocalize.woof) [![In Progress](https://img.shields.io/waffle/label/randytarampi/pseudolocalize.woof/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/pseudolocalize.woof)
+[![Build Status](https://img.shields.io/travis/randytarampi/woof.pseudolocalize.svg?style=flat-square)](https://travis-ci.org/randytarampi/woof.pseudolocalize) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/woof.pseudolocalize.svg?style=flat-square)](https://coveralls.io/github/randytarampi/woof.pseudolocalize?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/woof.pseudolocalize.svg?style=flat-square)](https://david-dm.org/randytarampi/woof.pseudolocalize.svg) [![Ready](https://img.shields.io/waffle/label/randytarampi/woof.pseudolocalize/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/woof.pseudolocalize) [![In Progress](https://img.shields.io/waffle/label/randytarampi/woof.pseudolocalize/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/woof.pseudolocalize)
 
 Or, otherwise user defined pseudolocalizations...
 
 ##Usage
 
 ```javascript
-let Pseudolocalizer = require("pseudolocalize.woof");
+let Pseudolocalizer = require("woof.pseudolocalize");
 
 let pseudolocalizer = new Pseudolocalizer();
 console.log(pseudolocalizer.pseudolocalize("ᴥ")); // "ʕつ•ᴥ•ʔつ"

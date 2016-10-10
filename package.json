@@ -1,22 +1,22 @@
 {
-  "name": "pseudolocalize.woof",
+  "name": "woof.pseudolocalize",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
-  "main": "pseudolocalize.woof.js",
+  "main": "woof.pseudolocalize.js",
   "scripts": {
 	  "pretest": "gulp lint",
 	  "test": "gulp test",
 	  "coverage": "gulp coverage",
 	  "travis": "gulp travis"
   },
-  "homepage": "https://github.com/randytarampi/pseudolocalize.woof",
+  "homepage": "https://github.com/randytarampi/woof.pseudolocalize",
   "bugs": {
-    "url": "https://github.com/randytarampi/pseudolocalize.woof/issues",
+    "url": "https://github.com/randytarampi/woof.pseudolocalize/issues",
     "email": "bugs@randytarampi.ca"
   },
   "keywords": [
