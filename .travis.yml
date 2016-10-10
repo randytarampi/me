@@ -16,7 +16,7 @@ addons:
 script: npm run travis
 
 before_deploy:
-- mkdir ../dpl_cd_upload
+- mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
 
 deploy:
