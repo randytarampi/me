@@ -42,3 +42,4 @@ deploy:
   deployment_group: web
   on: *2
   wait-until-deployed: true
+  region: eu-west-1
