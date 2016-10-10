@@ -1,22 +1,22 @@
 {
-  "name": "pseudoimage.woof",
+  "name": "woof.pseudoimage",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
-  "main": "pseudoimage.woof.js",
+  "main": "woof.pseudoimage.js",
   "scripts": {
     "pretest": "gulp lint",
     "test": "gulp test",
     "coverage": "gulp coverage",
     "travis": "gulp travis"
   },
-  "homepage": "https://github.com/randytarampi/pseudoimage.woof",
+  "homepage": "https://github.com/randytarampi/woof.pseudoimage",
   "bugs": {
-    "url": "https://github.com/randytarampi/pseudoimage.woof/issues",
+    "url": "https://github.com/randytarampi/woof.pseudoimage/issues",
     "email": "bugs@randytarampi.ca"
   },
   "keywords": [

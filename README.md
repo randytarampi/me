@@ -1,13 +1,13 @@
 #ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders
 
-[![Build Status](https://img.shields.io/travis/randytarampi/pseudoimage.woof.svg?style=flat-square)](https://travis-ci.org/randytarampi/pseudoimage.woof) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/pseudoimage.woof.svg?style=flat-square)](https://coveralls.io/github/randytarampi/pseudoimage.woof?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/pseudoimage.woof.svg?style=flat-square)](https://david-dm.org/randytarampi/pseudoimage.woof.svg) [![Ready](https://img.shields.io/waffle/label/randytarampi/pseudoimage.woof/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/pseudoimage.woof) [![In Progress](https://img.shields.io/waffle/label/randytarampi/pseudoimage.woof/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/pseudoimage.woof)
+[![Build Status](https://img.shields.io/travis/randytarampi/woof.pseudoimage.svg?style=flat-square)](https://travis-ci.org/randytarampi/woof.pseudoimage) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/woof.pseudoimage.svg?style=flat-square)](https://coveralls.io/github/randytarampi/woof.pseudoimage?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/woof.pseudoimage.svg?style=flat-square)](https://david-dm.org/randytarampi/woof.pseudoimage.svg) [![Ready](https://img.shields.io/waffle/label/randytarampi/woof.pseudoimage/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/woof.pseudoimage) [![In Progress](https://img.shields.io/waffle/label/randytarampi/woof.pseudoimage/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/woof.pseudoimage)
 
 This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create a fake, which gets saved somewhere.
 
 ##Usage
 
 ```javascript
-let Pseudoimage = require("pseudoimage.woof");
+let Pseudoimage = require("woof.pseudoimage");
 let sourceDirectory = "/Users/randy.tarampi/Desktop/images";
 let destinationDirectory = "/Users/randy.tarampi/Desktop/fakeImages";
 let expect = require("chai").expect;
