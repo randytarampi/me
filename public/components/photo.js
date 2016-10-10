@@ -76,6 +76,13 @@ class Photo extends React.Component {
 					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
 				</h1>
 				{
+					this.template.description ?
+						<p className="photo-description">
+							<span className="photo-text">{this.template.description}</span>
+						</p> :
+						null
+				}
+				{
 					this.template.dateTaken && this.template.dateTaken.valueOf() !== this.template.datePublished.valueOf() ?
 						<p className="photo-date-taken">
 							<strong className="photo-text">Taken:</strong>
@@ -88,13 +95,6 @@ class Photo extends React.Component {
 						<p className="photo-date-published">
 							<strong className="photo-text">Posted:</strong>
 							<span className="photo-text">{this.template.datePublished.format("LLLL")}</span>
-						</p> :
-						null
-				}
-				{
-					this.template.description ?
-						<p className="photo-description">
-							<span className="photo-text">{this.template.description}</span>
 						</p> :
 						null
 				}
