@@ -43,7 +43,12 @@ gulp.task("test.integration", function () {
 gulp.task("test", ["test.unit", "test.integration"]);
 
 gulp.task("copy", () => {
-	return copy([]);
+	return copy([
+		{
+			src: "public/assets/*",
+			dest: "dist/"
+		}
+	]);
 });
 
 gulp.task("clean", (callback) => {
