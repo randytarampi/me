@@ -11,14 +11,6 @@ class Photo extends React.Component {
 		};
 	}
 
-	get isLoading() {
-		return !!this.state.isLoading;
-	}
-
-	set isLoading(isLoading) {
-		this.setState({isLoading: isLoading});
-	}
-
 	get width() {
 		return this.selected.width;
 	}
@@ -71,33 +63,18 @@ class Photo extends React.Component {
 				hideTablet
 				col={4}
 			>
-				{
-					this.name ?
-						<h1 className="photo-title">
-							<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
-						</h1> :
-						null
-				}
+				<h1 className="photo-title">
+					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
+				</h1>
 			</Cell>
 			<Cell
 				className="photo-metadata"
 				hidePhone
 				col={4}
 			>
-				{
-					this.name ?
-						<h1 className="photo-title">
-							<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
-						</h1> :
-						null
-				}
-				{
-					this.template.description ?
-						<p className="photo-description">
-							<span className="photo-text">{this.template.description}</span>
-						</p> :
-						null
-				}
+				<h1 className="photo-title">
+					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
+				</h1>
 				{
 					this.template.dateTaken && this.template.dateTaken.valueOf() !== this.template.datePublished.valueOf() ?
 						<p className="photo-date-taken">
@@ -115,16 +92,21 @@ class Photo extends React.Component {
 						null
 				}
 				{
-					<p className="photo-source">
-						<strong className="photo-text">More:</strong>
-						<a className="photo-source__link" href={this.selected.url}><span className="photo-text">Source</span></a>
-						{
-							this.template.creator ?
-								<a className="photo-source__profile-link" href={this.template.creator.sourceUrl}><span className="photo-text">{this.template.creator.username} on {this.template.photoSource}</span></a> :
-								null
-						}
-					</p>
+					this.template.description ?
+						<p className="photo-description">
+							<span className="photo-text">{this.template.description}</span>
+						</p> :
+						null
 				}
+				<p className="photo-source">
+					<strong className="photo-text">More:</strong>
+					<a className="photo-source__link" href={this.selected.url}><span className="photo-text">Source</span></a>
+					{
+						this.template.creator ?
+							<a className="photo-source__profile-link" href={this.template.creator.sourceUrl}><span className="photo-text">{this.template.creator.username} on {this.template.photoSource}</span></a> :
+							null
+					}
+				</p>
 			</Cell>
 		</Grid>;
 	}
