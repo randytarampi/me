@@ -13,10 +13,12 @@ addons:
     packages:
     - g++-4.8
 
+before_install:
+- touch .env
+
 script: npm run travis
 
 before_deploy:
-- touch .env
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
 
