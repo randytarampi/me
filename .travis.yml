@@ -1,0 +1,49 @@
+language: node_js
+
+node_js:
+- '6'
+
+env:
+- CXX=g++-4.8
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+
+before_install:
+- touch .env
+
+script: npm run travis
+
+before_deploy:
+- touch .env
+- mkdir -p ../dpl_cd_upload
+- tar -zcf ../dpl_cd_upload/me.words.tar.gz -C ./ .
+
+deploy:
+- provider: s3
+  access_key_id: AKIAIIJQMCB7NWCX5LNA
+  secret_access_key: &1
+    secure: IINgXboGa8hNi3OpgKCc6EZ3qJJFhg0uqaQQ8IoZlIE3z/RZTiznJxzOXvvcnfOBAIA5mkhUR9hUHr8kjS3uckTukeqybdfbtryvfo18BMrLimeJSm3Qb20z024eQ+uQk5hnogLKfkyjtqWYzB+CktjhuoFvODGMyEu1EX6jfIaVEOGYf6jHoiaLsmD1mkdNHtX3gizJ5ptvWS+awB59yBq9t7WN8S4NrzFJdRq0wCVtAAgpsORdgb5hBdm3FnxTKimZ8P6g4blYsxgKfCjje4s24cBRvOGt80MC33Nx1CMCXkqQ0mezKruMe1E25mCHcFsApQ4mBKIqsMXtjAXLMgqkgk/AtlSx+4VwIVrjgDlcvRI7Jno0wlEumwg3MmU5jMi+zJEETZbDJVmhmsAmh7LvTSy30ZZkcf6qxo2+2BIFG14U3NYb0CJZ3JbWOYpWmnxFoxxBL1MLqAETjmaQmxfqZ1220KX8cLf72FpdEgwtR74fFbuJ9hcqtictAdQ3d2QPh+ZUEqvNl1yyQQMpVyzLAifHhAiBIISOwpI/Dzg+0uUJsRa6Eoc893G2MP4oIV+NM0TY/mAvoJFYyZG2a3FUWE5Y+M3VAAxjTcJtEyOVKVj2UVjos99eV7w5E71xz08x90+3qcqUUWL2S43pszihMbZEPMx8GYzuQLul4U4=
+  skip_cleanup: true
+  on: &2
+    repo: randytarampi/me.words
+    branch: master
+  bucket: randytarampi-releases
+  region: eu-west-1
+  detect_encoding: true
+  local-dir: ../dpl_cd_upload
+- provider: codedeploy
+  access_key_id: AKIAIIJQMCB7NWCX5LNA
+  secret_access_key: *1
+  bucket: randytarampi-releases
+  key: me.words.tar.gz
+  bundle_type: tgz
+  application: me.words
+  deployment_group: web
+  on: *2
+  wait-until-deployed: true
+  region: eu-west-1

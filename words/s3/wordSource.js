@@ -1,0 +1,75 @@
+require("dotenv").config();
+
+const WordSource = require("../wordSource");
+const Post = require("../post");
+const knox = require("knox");
+const jsyaml = require("js-yaml");
+
+class S3WordSource extends WordSource {
+	constructor() {
+		super("S3", knox.createClient({
+			key: process.env.AWS_ACCESS_KEY,
+			secret: process.env.AWS_ACCESS_SECRET,
+			bucket: process.env.S3_BUCKET_NAME
+		}));
+	}
+
+	getWordPosts(params) {
+		const that = this;
+		const options = {
+			"max-keys": params.perPage || 20
+		};
+
+		if (params.page) {
+			options.marker = options["max-keys"] * (params.page - 1);
+		}
+
+		return new Promise((resolve, reject) => {
+			that.client.list(options, (error, data) => {
+				if (error) {
+					return reject(error);
+				}
+
+				resolve(Promise.all(data.Contents.map((object) => {
+					return that.getWordPost(object.Key);
+				})));
+			});
+		});
+	}
+
+	getWordPost(key) {
+		const that = this;
+
+		return new Promise((resolve, reject) => {
+			that.client.getFile(key, (error, response) => {
+				if (error) {
+					return reject(error);
+				}
+
+				let responseYamlString = "";
+				response.on("data", (chunk) => {
+					responseYamlString += chunk;
+				});
+				response.on("end", () => {
+					resolve(responseYamlString);
+				});
+			});
+		})
+			.then((yamlString) => {
+				return that.jsonToPost(jsyaml.safeLoad(yamlString));
+			});
+	}
+
+	jsonToPost(postJson) {
+		return new Post(
+			postJson.date,
+			this.type,
+			null,
+			postJson.date,
+			postJson.title,
+			postJson.body
+		);
+	}
+}
+
+module.exports = S3WordSource;
