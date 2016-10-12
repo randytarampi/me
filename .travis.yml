@@ -25,9 +25,9 @@ before_deploy:
 
 deploy:
 - provider: s3
-  access_key_id: AKIAIIJQMCB7NWCX5LNA
+  access_key_id: AKIAI3EMH5UQ2CYHR3SA
   secret_access_key: &1
-    secure: sP3nE5E3PBoBAvg3YhZ10Nfyxbi9Nh1+exm+YEUmLR396rLDFQFbkjKPrB4/Cn4XxIXX6s3NbuZCPF+d/spY+7XRmus1n50Tq1AF3AgZgwqnZj4BXIkvcUee1ud4oMoaXMX8E4HObvQe+y4f1uPv3njW8pe4ahVa6sjx5ZvflfW3Gl2fda6IM51828TthudMBw51QiOlW535QF3OlYB2jyD1IBt783cwgqxJ58eGX+5idjn1kcbOqMbAOQdN8ANf60YVTjekyhweO8mKuZaQuR8R1eupm2k8OU4FSBoLKU60DvqbWaebxZK+xHEqB6svN85Yy04XbhaT9nfaE/ostg6KtPhImJu7KDnFOjb4ByK4ZlYTNhPyyYpS6qN7pdJxZf/MlSeAqDNdQbMqdkhpS2/5F4np7qunm6mHnP97BEjeCTbUTUwWZ2ngjsxkWY+iCCbW1atbsthiNDOt5qA2Vqy+zDmxC3xNoKVz10KLmUCGGcUBuzzYAidxALcG9GuozIwUL2/R8YA4qE7AeMKPdqCprcqpkC6zmww5fVtp0dHYapYb+lOBdchUFGFsPQxTcXzxFCGgc6jGv7U9ipfNHHjvACgEgT/eaLEvZ3QhM2ZlOt22gBlbzIi0wXnfPW6HnOXl/bh9NJZMMedz5l4irzfelADkkpniuaG3FdeWJP8=
+    secure: mLWxH8h2arSs2xiZn0Nd52Qn465OLyCnqqu5VeFh9mazsyaKtasna/LWTUDUyeUbQzdKIotJ1hi5H8pGvmjoehO+kbDOZK4WZ/xWyQegtbepqbZSw9GUlnnnXDOi/ePFhRpdXtY9IafQcrTuCZd6kCJoS65YDgbm6KF2Y71Tv9TRT2rpmIY03GYT3dY9GbtEJ05wypAbiEZnkiX2cNIWmx46TCMfdtylzf5QPRF+j7ujnDte1B4Fja9P0gpTmK5EH8ai4Y9lDXv+UuRNQay+Uzb2kQ6lhlqaTOkYlSaZSSOg/WP8BVX7zGqe1IbulzgaE6NZdAQAq9XotBrWVM9oOsN8ialrO1W8Vkcs2htE2+JkK04DhbmFJj7UQARPCJYKL2LvnuTr+h2injmJRMi/z1UTm0t5shxO8SgqMJuJFCS6Cbr0+QYRztc/uc1MgNeEnFt1al7x1btEqaFpAFtmroYZuZyrhkNOIGeYFWrQxh8kE7dGr092x9YfPy2PUoXgXrdbNMxFy9aZhTDHYpXqhxPuUphUzQeSJWGol+QX9STEBJidLvEdQqoYuw1eVH+r/Ptto29T6M+bgz33GhvaZo6/HTu9cTdWSGOiTzhieek2UKqWUoP2u3kWolfqjWIN0jSr/i6CEjO7ZDyfyRAxnPZ4nPLsxOozBjDpjlzh738=
   skip_cleanup: true
   on: &2
     repo: randytarampi/me.words
@@ -37,7 +37,7 @@ deploy:
   detect_encoding: true
   local-dir: ../dpl_cd_upload
 - provider: codedeploy
-  access_key_id: AKIAIIJQMCB7NWCX5LNA
+  access_key_id: AKIAI3EMH5UQ2CYHR3SA
   secret_access_key: *1
   bucket: randytarampi-releases
   key: me.words.tar.gz
