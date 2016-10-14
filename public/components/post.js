@@ -64,10 +64,10 @@ class Post extends React.Component {
 					<strong className="post-text">Posted:</strong>
 					<span className="post-text">{this.date.format("LLLL")}</span>
 					{
-						this.template.dateModified ?
+						this.template.dateCreated ?
 							<span>
 								<strong className="post-text">Modified:</strong>
-								<span className="post-text">{this.template.dateModified.format("LLLL")}</span>
+								<span className="post-text">{this.template.dateCreated.format("LLLL")}</span>
 							</span> :
 							null
 					}

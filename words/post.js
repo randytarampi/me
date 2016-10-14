@@ -2,11 +2,11 @@ const Creator = require("./creator");
 const Moment = require("moment");
 
 class Post {
-	constructor(id, postSource, dateModified, datePublished, title, body, sourceUrl, creator) {
+	constructor(id, source, dateCreated, datePublished, title, body, sourceUrl, creator) {
 		this.id = id;
-		this.postSource = postSource;
-		this.dateModified = dateModified && Moment.utc(dateModified);
-		this.datePublished = datePublished && Moment.utc(datePublished) || this.dateModified && this.dateModified.clone();
+		this.source = source;
+		this.dateCreated = dateCreated && Moment.utc(dateCreated);
+		this.datePublished = datePublished && Moment.utc(datePublished) || this.dateCreated && this.dateCreated.clone();
 		this.title = title;
 		this.body = body;
 		this.sourceUrl = sourceUrl;
@@ -16,8 +16,8 @@ class Post {
 	static fromJSON(json) {
 		return new Post(
 			json.id,
-			json.postSource,
-			json.dateModified && Moment.utc(json.dateModified),
+			json.source,
+			json.dateCreated && Moment.utc(json.dateCreated),
 			json.datePublished && Moment.utc(json.datePublished),
 			json.title,
 			json.body,

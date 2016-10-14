@@ -30,7 +30,7 @@ actions.getWords = (req, res, next) => {
 		.then((flattenedPhotos) => {
 			return _.sortBy(flattenedPhotos, [
 				(word) => {
-					return word.dateModified ? word.dateModified.valueOf() * -1 : 0;
+					return word.dateCreated ? word.dateCreated.valueOf() * -1 : 0;
 				},
 				(word) => {
 					return word.datePublished.valueOf() * -1;

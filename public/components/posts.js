@@ -81,7 +81,7 @@ class PostsComponent extends React.Component {
 			{
 				this.posts.map((post) => {
 					return <PostComponent
-						key={`${post.postSource}-${post.id}`}
+						key={`${post.source}-${post.id}`}
 						post={post}
 					/>;
 				})
