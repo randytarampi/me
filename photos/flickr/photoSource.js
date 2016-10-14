@@ -43,7 +43,7 @@ class FlickrSource extends PhotoSource {
 						return reject(error);
 					}
 
-					return response.user.nsid;
+					resolve(response.user.nsid);
 				});
 			});
 		}
