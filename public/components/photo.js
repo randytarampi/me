@@ -42,14 +42,14 @@ class Photo extends React.Component {
 		return this.template.getSizedPhoto(targetWidth);
 	}
 
-	get name() {
-		return this.template.name || "Untitled";
+	get title() {
+		return this.template.title || "Untitled";
 	}
 
 	render () {
 		return <Grid
 				className="photo"
-				id={`${this.template.photoSource}-${this.template.id}`}
+				id={`${this.template.source}-${this.template.id}`}
 				shadow={1}
 				style={{
 					backgroundImage: `url(${this.selected.url})`,
@@ -64,7 +64,7 @@ class Photo extends React.Component {
 				col={4}
 			>
 				<h1 className="photo-title">
-					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
+					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.title}</span></a>
 				</h1>
 			</Cell>
 			<Cell
@@ -73,20 +73,20 @@ class Photo extends React.Component {
 				col={4}
 			>
 				<h1 className="photo-title">
-					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.name}</span></a>
+					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.title}</span></a>
 				</h1>
 				{
-					this.template.description ?
+					this.template.body ?
 						<p className="photo-description">
-							<span className="photo-text">{this.template.description}</span>
+							<span className="photo-text">{this.template.body}</span>
 						</p> :
 						null
 				}
 				{
-					this.template.dateTaken && this.template.dateTaken.valueOf() !== this.template.datePublished.valueOf() ?
+					this.template.dateCreated && this.template.dateCreated.valueOf() !== this.template.datePublished.valueOf() ?
 						<p className="photo-date-taken">
 							<strong className="photo-text">Taken:</strong>
-							<span className="photo-text">{this.template.dateTaken.format("LLLL")}</span>
+							<span className="photo-text">{this.template.dateCreated.format("LLLL")}</span>
 						</p> :
 						null
 				}
@@ -103,7 +103,7 @@ class Photo extends React.Component {
 					<a className="photo-source__link" href={this.selected.url}><span className="photo-text">Source</span></a>
 					{
 						this.template.creator ?
-							<a className="photo-source__profile-link" href={this.template.creator.sourceUrl}><span className="photo-text">{this.template.creator.username} on {this.template.photoSource}</span></a> :
+							<a className="photo-source__profile-link" href={this.template.creator.sourceUrl}><span className="photo-text">{this.template.creator.username} on {this.template.source}</span></a> :
 							null
 					}
 				</p>

@@ -85,7 +85,7 @@ class PhotosComponent extends React.Component {
 			{
 				this.photos.map((photo) => {
 					return <PhotoComponent
-						key={`${photo.photoSource}-${photo.id}`}
+						key={`${photo.source}-${photo.id}`}
 						photo={photo}
 					/>;
 				})
