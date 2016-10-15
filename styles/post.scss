@@ -1,0 +1,21 @@
+.post-title {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.post-body,
+.post-date-modified,
+.post-date-published,
+.post-source {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.post-text {
+	line-height: $blockLineHeight;
+	padding: $blockPadding;
+	background-color: $blockColour;
+	box-decoration-break: clone;
+	color: $blockTextColour;
+	margin-right: 4px;
+}
