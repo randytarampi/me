@@ -43,10 +43,15 @@ export class Post extends React.Component {
 		return this.template.datePublished;
 	}
 
+	componentWillUnmount() {
+		this.template._lastHeight = this.containerHeight;
+		this.template._lastWidth = this.containerWidth;
+	}
+
 	render () {
 		return <Grid
 				className="post"
-				id={this.template.date}
+				id={this.template.uid}
 				shadow={1}
 			>
 			<Cell

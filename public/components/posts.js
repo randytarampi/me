@@ -8,6 +8,7 @@ import Dimensions from "react-dimensions";
 import Spinner from "react-spinkit";
 import React from "react";
 import fetch from "isomorphic-fetch";
+import _ from "lodash";
 
 class PostsComponent extends React.Component {
 	constructor(props, context, updater) {
@@ -36,10 +37,10 @@ class PostsComponent extends React.Component {
 			})
 			.then((posts) => {
 				that.setState({
-					posts: that.posts.concat(posts.map((postJson) => {
+					posts: _.uniqBy(that.posts.concat(posts.map((postJson) => {
 						const Constructor = getEntityForType(postJson.type);
 						return Constructor.fromJSON(postJson);
-					})),
+					})), "uid"),
 					page: that.state.page + 1,
 					isLoading: false
 				});
@@ -59,8 +60,27 @@ class PostsComponent extends React.Component {
 		return this.state.posts;
 	}
 
-	render () {
+	get elementHeights() {
 		const that = this;
+		return this.posts.map((post) => {
+
+			if (post.height && post.width) {
+				return that.props.containerWidth * post.height / post.width;
+			}
+
+			if (post._lastHeight && post._lastWidth) {
+				return that.props.containerWidth * post._lastHeight / post._lastWidth;
+			}
+
+			if (document.getElementById(post.uid)) {
+				return document.getElementById(post.uid).clientHeight;
+			}
+
+			return 0;
+		});
+	}
+
+	render () {
 		const FullPageSpinner = Dimensions({
 			elementResize: true,
 			containerStyle: {
@@ -73,18 +93,7 @@ class PostsComponent extends React.Component {
 
 		return <Infinite
 			useWindowAsScrollContainer={true}
-			elementHeight={
-				this.posts.map((post) => {
-					if (post.height && post.width) {
-						return that.props.containerWidth * post.height / post.width;
-					}
-
-					if (that.refs[post.uid]) {
-						return that.refs[post.uid].state.containerHeight;
-					}
-
-					return 500;
-				})}
+			elementHeight={this.elementHeights}
 			infiniteLoadBeginEdgeOffset={Infinite.containerHeightScaleFactor(0.05).amount}
 			onInfiniteLoad={this.load}
 			isInfiniteLoading={this.isLoading}
