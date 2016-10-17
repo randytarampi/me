@@ -4,8 +4,7 @@ python:
 - "3.5"
 
 env:
-- CXX=g++-4.8
-- TRAVIS_NODE_VERSION=6
+- CXX=g++-4.8 TRAVIS_NODE_VERSION=6
 
 addons:
   apt:
