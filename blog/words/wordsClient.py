@@ -4,7 +4,7 @@ from requests import get
 from dotenv import load_dotenv, find_dotenv
 from os import path, environ
 
-load_dotenv(find_dotenv())
+load_dotenv(environ.get("dotenv_config_path") or find_dotenv())
 
 WORDS_URL = environ.get("WORDS_URL")
 

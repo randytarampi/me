@@ -4,7 +4,7 @@ from os import path, environ
 from app import routes as app_routes
 from blog import routes as blog_routes
 
-load_dotenv(find_dotenv())
+load_dotenv(environ.get("dotenv_config_path") or find_dotenv())
 
 PORT = environ.get("PORT")
 DEBUG = environ.get("DEBUG") == "True"
