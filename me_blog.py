@@ -1,6 +1,6 @@
-from flask import Flask, send_from_directory
+from flask import Flask
 from dotenv import load_dotenv, find_dotenv
-from os import path, environ
+from os import environ
 from app import routes as app_routes
 from blog import routes as blog_routes
 
