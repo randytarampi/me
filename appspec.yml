@@ -15,6 +15,10 @@ hooks:
     - location: ../../../../../../opt/randytarampi/me.blog/bin/cleanup
       timeout: 60
       runas: ddog
+  AfterInstall:
+    - location: ../../../../../../opt/randytarampi/me.blog/bin/install
+      timeout: 60
+      runas: ddog
   ApplicationStart:
     - location: ../../../../../../opt/randytarampi/me.blog/bin/start
       timeout: 60
