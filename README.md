@@ -8,7 +8,7 @@
                                _|
 ```
 
-[![Build Status](https://img.shields.io/travis/randytarampi/me.photos.svg?style=flat-square)](https://travis-ci.org/randytarampi/me.photos) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.photos.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me.photos?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/me.photos.svg?style=flat-square)](https://david-dm.org/randytarampi/me.photos.svg) [![Ready](https://img.shields.io/waffle/label/randytarampi/me.photos/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/me.photos) [![In Progress](https://img.shields.io/waffle/label/randytarampi/me.photos/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/me.photos)
+[![Build Status](https://img.shields.io/travis/randytarampi/me.photos.svg?style=flat-square)](https://travis-ci.org/randytarampi/me.photos) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.photos.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me.photos?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/me.photos.svg?style=flat-square)](https://david-dm.org/randytarampi/me.photos) [![Ready](https://img.shields.io/waffle/label/randytarampi/me.photos/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/me.photos) [![In Progress](https://img.shields.io/waffle/label/randytarampi/me.photos/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/me.photos)
 
 A photo aggregator/blog thingy. For some usernames at some popular services, pull their photos and display them nicely.
 
