@@ -32,6 +32,14 @@ class SearchParams {
 		}, this);
 	}
 
+	toTumblr() {
+		return _.extend({
+			type: "photo",
+			limit: this.perPage,
+			offset: this.perPage * (this.page && this.page !== 1 ? this.page - 1 : 1)
+		}, this);
+	}
+
 	get perPage() {
 		return this.__perPage || 100;
 	}

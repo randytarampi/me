@@ -59,6 +59,11 @@ INSTAGRAM_AUTH_REDIRECT_URI=<your app's hostname>/auth/instagram/redirect # E.x.
 INSTAGRAM_USER_NAME=
 INSTAGRAM_ACCESS_TOKEN=
 INSTAGRAM_USER_ID=
+
+  # Tumblr
+ TUMBLR_API_KEY= 
+TUMBLR_API_SECRET= 
+TUMBLR_USER_NAME= 
 ```
 
 # Usage
