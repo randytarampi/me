@@ -55,7 +55,7 @@ class TumblrWordSource extends WordSource {
 			postJson.date,
 			postJson.title,
 			postJson.body,
-			postJson.source_url,
+			postJson.post_url,
 			blogJson && new Creator(blogJson.name, blogJson.name, blogJson.title, blogJson.url)
 		);
 	}
