@@ -38,9 +38,9 @@ You'll also need to define some variables in a [`.env`](https://github.com/randy
 PORT=3002
 
 # 500px config
-500PX_API_KEY=
-500PX_API_SECRET=
-500PX_USER_NAME=
+F00PX_API_KEY=
+F00PX_API_SECRET=
+F00PX_USER_NAME=
 
 # Flickr config
 FLICKR_API_KEY=

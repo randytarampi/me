@@ -9,7 +9,7 @@ const F00px = require("500px");
 
 class Five00pxSource extends PhotoSource {
 	constructor() {
-		super("500px", new F00px(process.env["500PX_API_KEY"]));
+		super("500px", new F00px(process.env["F00PX_API_KEY"]));
 	}
 
 	getUserPhotos(params) {
@@ -21,7 +21,7 @@ class Five00pxSource extends PhotoSource {
 
 		if (!userId) {
 			f00pxRequest = new Promise((resolve, reject) => {
-				client.users.getByName(process.env["500PX_USER_NAME"], (error, response) => {
+				client.users.getByName(process.env["F00PX_USER_NAME"], (error, response) => {
 					if (error) {
 						return reject(error);
 					}
@@ -89,6 +89,11 @@ class Five00pxSource extends PhotoSource {
 				`https://www.500px.com/${json.user.username}`
 			)
 		);
+	}
+
+	get isEnabled() {
+		return !!process.env["F00PX_API_KEY"] &&
+			!!process.env["F00PX_API_SECRET"];
 	}
 }
 
