@@ -7,7 +7,8 @@ const actions = {};
 const PHOTO_SOURCES = [
 	require("./500px/photoSource"),
 	require("./flickr/photoSource"),
-	require("./unsplash/photoSource")
+	require("./unsplash/photoSource"),
+	require("./instagram/photoSource")
 ];
 const INITIALIZED_PHOTO_SOURCES = Promise.all(
 	_.chain(PHOTO_SOURCES)
@@ -15,8 +16,7 @@ const INITIALIZED_PHOTO_SOURCES = Promise.all(
 			return new photoSourceConstructor();
 		})
 		.reject((photoSource) => {
-			return !process.env[`${photoSource.type.toUpperCase()}_API_KEY`] &&
-				!process.env[`${photoSource.type.toUpperCase()}_API_SECRET`];
+			return !photoSource.isEnabled;
 		})
 		.map((photoSource) => {
 			return photoSource.initializing;

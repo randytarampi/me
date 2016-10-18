@@ -29,6 +29,7 @@
     "es6-promise": "~4.0.3",
     "express": "~4.14.0",
     "flickrapi": "~0.6.0",
+    "instagram-api": "~1.0.3",
     "isomorphic-fetch": "~2.2.1",
     "jquery": "~3.1.1",
     "lodash": "~4.16.2",
@@ -45,6 +46,8 @@
     "react-infinite": "~0.9.2",
     "react-mdl": "~1.7.2",
     "react-spinkit": "~1.1.11",
+    "request": "~2.75.0",
+    "request-promise-native": "~1.0.3",
     "serve-favicon": "~2.3.0",
     "unsplash-js": "~4.2.0"
   },

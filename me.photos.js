@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, "dist")));
  * Set up routes
  */
 app.use("/", require("./app/routes"));
+app.use("/auth", require("./auth/routes"));
 app.use("/photos", require("./photos/routes"));
 
 /**

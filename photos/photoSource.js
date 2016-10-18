@@ -26,6 +26,11 @@ class PhotoSource {
 	jsonToPhoto(photoJson) {
 		throw new Error(`Trying to turn ${photoJson} into a Photo – Please specify an actual Photo transformation`);
 	}
+
+	get isEnabled() {
+		return !!process.env[`${this.type.toUpperCase()}_API_KEY`] &&
+			!!process.env[`${this.type.toUpperCase()}_API_SECRET`];
+	}
 }
 
 module.exports = PhotoSource;

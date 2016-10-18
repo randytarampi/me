@@ -51,6 +51,14 @@ FLICKR_USER_NAME=
 UNSPLASH_API_KEY=
 UNSPLASH_API_SECRET=
 UNSPLASH_USER_NAME=
+
+# Instagram
+INSTAGRAM_API_KEY=
+INSTAGRAM_API_SECRET=
+INSTAGRAM_AUTH_REDIRECT_URI=<your app's hostname>/auth/instagram/redirect # E.x. http://localhost:3002/auth/instagram/redirect
+INSTAGRAM_USER_NAME=
+INSTAGRAM_ACCESS_TOKEN=
+INSTAGRAM_USER_ID=
 ```
 
 # Usage

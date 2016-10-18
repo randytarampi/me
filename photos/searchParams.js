@@ -26,6 +26,12 @@ class SearchParams {
 		}, this);
 	}
 
+	toInstagram() {
+		return _.extend({
+			count: this.perPage
+		}, this);
+	}
+
 	get perPage() {
 		return this.__perPage || 100;
 	}
