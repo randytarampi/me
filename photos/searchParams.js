@@ -36,7 +36,7 @@ class SearchParams {
 		return _.extend({
 			type: "photo",
 			limit: this.perPage,
-			offset: this.perPage * (this.page && this.page !== 1 ? this.page - 1 : 1)
+			offset: this.perPage * (!isNaN(this.page) ? this.page - 1 : 0)
 		}, this);
 	}
 
