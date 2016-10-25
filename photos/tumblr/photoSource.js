@@ -65,8 +65,8 @@ class TumblrSource extends PhotoSource {
 			_.last(_.sortBy(sizedPhotos, ["height"])).height,
 			sizedPhotos,
 			postJson.post_url,
-			postJson.caption,
-			photoJson.caption,
+			null,
+			photoJson.caption || postJson.caption,
 			new Creator(
 				blogJson.name,
 				blogJson.name,
