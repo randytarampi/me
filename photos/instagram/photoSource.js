@@ -55,13 +55,25 @@ class InstagramSource extends PhotoSource {
 			return new SizedPhoto(image.url, image.width, image.height, key);
 		});
 
+		const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
+		const maxWidth = biggestOfficialPhoto.width < biggestOfficialPhoto.height ? 1080 * (biggestOfficialPhoto.width / biggestOfficialPhoto.height) : 1080;
+		const maxHeight = biggestOfficialPhoto.height < biggestOfficialPhoto.width ? 1080 * (biggestOfficialPhoto.height / biggestOfficialPhoto.width) : 1080;
+
+		sizedPhotos.push(new SizedPhoto(
+			biggestOfficialPhoto.url
+				.replace(`/s${biggestOfficialPhoto.width}x${biggestOfficialPhoto.width}`, ""),
+			maxWidth,
+			maxHeight,
+			"maxRes"
+		));
+
 		return new Photo(
 			photoJson.id,
 			this.type,
 			Moment(parseInt(photoJson.created_time, 10) * 1000),
 			null,
-			_.last(_.sortBy(sizedPhotos, ["width"])).width,
-			_.last(_.sortBy(sizedPhotos, ["height"])).height,
+			biggestOfficialPhoto.width,
+			biggestOfficialPhoto.height,
 			sizedPhotos,
 			photoJson.link,
 			photoJson.filter,
