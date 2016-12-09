@@ -77,28 +77,28 @@ class Photo extends React.Component {
 				</h1>
 				{
 					this.template.body ?
-						<p className="photo-description">
-							<span className="photo-text">{this.template.body}</span>
-						</p> :
+						<div className="photo-description">
+							<div className="photo-text" dangerouslySetInnerHTML={{__html: this.template.body}} />
+						</div> :
 						null
 				}
 				{
 					this.template.dateCreated && this.template.dateCreated.valueOf() !== this.template.datePublished.valueOf() ?
-						<p className="photo-date-taken">
+						<div className="photo-date-taken">
 							<strong className="photo-text">Taken:</strong>
 							<span className="photo-text">{this.template.dateCreated.format("LLLL")}</span>
-						</p> :
+						</div> :
 						null
 				}
 				{
 					this.template.datePublished ?
-						<p className="photo-date-published">
+						<div className="photo-date-published">
 							<strong className="photo-text">Posted:</strong>
 							<span className="photo-text">{this.template.datePublished.format("LLLL")}</span>
-						</p> :
+						</div> :
 						null
 				}
-				<p className="photo-source">
+				<div className="photo-source">
 					<strong className="photo-text">More:</strong>
 					<a className="photo-source__link" href={this.selected.url}><span className="photo-text">Source</span></a>
 					{
@@ -106,7 +106,7 @@ class Photo extends React.Component {
 							<a className="photo-source__profile-link" href={this.template.creator.sourceUrl}><span className="photo-text">{this.template.creator.username} on {this.template.source}</span></a> :
 							null
 					}
-				</p>
+				</div>
 			</Cell>
 		</Grid>;
 	}
