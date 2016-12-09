@@ -30,7 +30,11 @@ actions.searchPhotos = (req, res, next) => {
 		.then((photoSources) => {
 			return Promise.all(
 				photoSources.map((photoSource) => {
-					return photoSource.getUserPhotos(req.photoSearchParams);
+					return photoSource.getUserPhotos(req.photoSearchParams)
+						.catch((error) => {
+							console.error(error); // eslint-disable-line no-console
+							return [];
+						});
 				})
 			);
 		})
