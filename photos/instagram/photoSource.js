@@ -82,7 +82,7 @@ class InstagramSource extends PhotoSource {
 				photoJson.user.username,
 				photoJson.user.username,
 				photoJson.user.full_name,
-				`https://www.instagram.com/${photoJson.username}`
+				`https://www.instagram.com/${photoJson.user.username}`
 			)
 		);
 	}
