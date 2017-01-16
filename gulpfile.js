@@ -178,5 +178,4 @@ function coverallsTask() {
 		.pipe(coveralls());
 }
 
-// gulp.task("travis", ["eslint", "coveralls.ci"]);
-gulp.task("travis", ["eslint"]);
+gulp.task("travis", ["eslint", "coveralls.ci"]);
