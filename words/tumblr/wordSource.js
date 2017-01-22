@@ -15,7 +15,6 @@ class TumblrWordSource extends WordSource {
 	}
 
 	getWordPosts(params) {
-		const that = this;
 		const options = {
 			"type": "text",
 			"limit": params.perPage || 20
@@ -28,13 +27,12 @@ class TumblrWordSource extends WordSource {
 		return this.client.blogPosts(process.env.TUMBLR_USER_NAME)
 			.then((response) => {
 				return response.posts.map((postJson) => {
-					return that.jsonToPost(postJson, response.blog);
+					return this.jsonToPost(postJson, response.blog);
 				});
 			});
 	}
 
 	getWordPost(id) {
-		const that = this;
 		const options = {
 			"id": id
 		};
@@ -42,7 +40,7 @@ class TumblrWordSource extends WordSource {
 		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, options)
 			.then((response) => {
 				return response.posts.map((postJson) => {
-					return that.jsonToPost(postJson, response.blog);
+					return this.jsonToPost(postJson, response.blog);
 				});
 			});
 	}

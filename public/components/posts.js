@@ -26,19 +26,18 @@ class PostsComponent extends React.Component {
 			return;
 		}
 
-		const that = this;
 		this.isLoading = true;
 		this.fetch = fetch(`/words?page=${this.state.page}`)
 			.then((response) => {
 				return response.json();
 			})
 			.then((posts) => {
-				that.setState({
-					posts: that.posts.concat(posts.map(Post.fromJSON)),
-					page: that.state.page + 1,
+				this.setState({
+					posts: this.posts.concat(posts.map(Post.fromJSON)),
+					page: this.state.page + 1,
 					isLoading: false
 				});
-				that.fetch = null;
+				this.fetch = null;
 			});
 	}
 

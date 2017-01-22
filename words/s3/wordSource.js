@@ -15,7 +15,6 @@ class S3WordSource extends WordSource {
 	}
 
 	getWordPosts(params) {
-		const that = this;
 		const options = {
 			"max-keys": params.perPage || 20
 		};
@@ -25,23 +24,21 @@ class S3WordSource extends WordSource {
 		}
 
 		return new Promise((resolve, reject) => {
-			that.client.list(options, (error, data) => {
+			this.client.list(options, (error, data) => {
 				if (error) {
 					return reject(error);
 				}
 
 				resolve(Promise.all(data.Contents.map((object) => {
-					return that.getWordPost(object.Key);
+					return this.getWordPost(object.Key);
 				})));
 			});
 		});
 	}
 
 	getWordPost(key) {
-		const that = this;
-
 		return new Promise((resolve, reject) => {
-			that.client.getFile(key, (error, response) => {
+			this.client.getFile(key, (error, response) => {
 				if (error) {
 					return reject(error);
 				}
@@ -56,7 +53,7 @@ class S3WordSource extends WordSource {
 			});
 		})
 			.then((yamlString) => {
-				return that.jsonToPost(jsyaml.safeLoad(yamlString));
+				return this.jsonToPost(jsyaml.safeLoad(yamlString));
 			});
 	}
 
