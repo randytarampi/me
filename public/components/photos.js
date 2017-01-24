@@ -1,5 +1,5 @@
-import Photo from "../../photos/photo";
-import PhotoComponent from "./photo";
+import Photo from "me.common.js/lib/photo";
+import PhotoComponent from "me.common.jsx/lib/photo";
 import autobind from "react-autobind";
 import Infinite from "react-infinite";
 import Dimensions from "react-dimensions";

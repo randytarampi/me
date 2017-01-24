@@ -2,7 +2,7 @@ require("dotenv").config();
 require("isomorphic-fetch");
 
 const PhotoSource = require("../photoSource");
-const Photo = require("../photo");
+const Photo = require("me.common.js/lib/photo");
 const Creator = require("../creator");
 const SizedPhoto = require("../sizedPhoto");
 const SearchParams = require("../searchParams");

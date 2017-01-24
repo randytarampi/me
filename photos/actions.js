@@ -9,7 +9,8 @@ const PHOTO_SOURCES = [
 	require("./flickr/photoSource"),
 	require("./unsplash/photoSource"),
 	require("./instagram/photoSource"),
-	require("./tumblr/photoSource")
+	require("./tumblr/photoSource"),
+	require("./local/photoSource")
 ];
 const INITIALIZED_PHOTO_SOURCES = Promise.all(
 	_.chain(PHOTO_SOURCES)
