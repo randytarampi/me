@@ -3,7 +3,7 @@ import {HelloBear} from "../components/bear";
 import {Email, GitHub, LinkedIn, Flickr} from "../components/link";
 
 export default () =>
-	<Grid id="intro" className="block" shadow={1}>
+	<Grid id="intro" className="block">
 		<Cell className="block__bear" col={6} tablet={8}>
 			<HelloBear />
 		</Cell>

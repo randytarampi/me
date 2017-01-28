@@ -41,4 +41,15 @@
 	-ms-transform: translate(-50%, -50%);
 	-moz-transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
+
+	@media screen and (max-width: $grid-desktop-breakpoint) {
+		position: unset;
+		top: unset;
+		left: unset;
+		margin-right: unset;
+		transform: unset;
+		-ms-transform: unset;
+		-moz-transform: unset;
+		-webkit-transform: unset;
+	}
 }
