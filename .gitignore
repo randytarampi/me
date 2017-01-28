@@ -90,6 +90,10 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# Project files
+.idea
+*.iml
+
 # Dependency directories
 node_modules
 jspm_packages
