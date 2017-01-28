@@ -6,6 +6,7 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
+const LocalSource = require("./photos/local/photoSource");
 
 const app = express();
 
@@ -20,6 +21,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "dist")));
+
+if (LocalSource.isEnabled) {
+	app.use(express.static(path.join(LocalSource.source)));
+}
 
 /**
  * Set up routes

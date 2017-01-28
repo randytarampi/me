@@ -104,10 +104,7 @@ class LocalSource extends PhotoSource {
 	}
 
 	jsonToPhoto(filePath, fileName, lstat, width, height) {
-		// NOTE-RT: This is how you know it's only for debugging purposes...
-		const fileUrl = url.parse(filePath);
-		fileUrl.protocol = "file";
-		fileUrl.slashes = "//";
+		const fileUrl = url.format(filePath.replace(this.source, ""));
 
 		return new Photo(
 			filePath,
@@ -118,23 +115,36 @@ class LocalSource extends PhotoSource {
 			width,
 			height,
 			[
-				new SizedPhoto(url.format(fileUrl), width, height)
+				new SizedPhoto(fileUrl, width, height)
 			],
-			url.format(fileUrl),
+			fileUrl,
 			fileName,
 			null,
 			new Creator(
 				null,
 				null,
 				null,
-				filePath
+				fileUrl
 			)
 		);
 	}
 
 	get isEnabled() {
-		return !!process.env["LOCAL_DIRECTORY"];
+		return LocalSource.isEnabled;
 	}
+
+	static get isEnabled() {
+		return !!LocalSource.source;
+	}
+
+	get source() {
+		return LocalSource.source;
+	}
+
+	static get source() {
+		return process.env["LOCAL_DIRECTORY"];
+	}
+
 
 	static supportedExtensions() {
 		return [".jpg", ".png", ".gif", ".jpeg"];
