@@ -1,4 +1,4 @@
-import Posts from "../components/posts";
+import Posts from "me.common.jsx/lib/posts";
 import ReactDOM from "react-dom";
 import React from "react";
 
