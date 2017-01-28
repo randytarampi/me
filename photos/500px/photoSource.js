@@ -92,8 +92,7 @@ class Five00pxSource extends PhotoSource {
 	}
 
 	get isEnabled() {
-		return !process.env.OFFLINE_ONLY &&
-			!!process.env["F00PX_API_KEY"] &&
+		return !!process.env["F00PX_API_KEY"] &&
 			!!process.env["F00PX_API_SECRET"];
 	}
 }

@@ -88,7 +88,7 @@ class InstagramSource extends PhotoSource {
 	}
 
 	get isEnabled() {
-		return !process.env.OFFLINE_ONLY && !!process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
+		return !process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
 	}
 }
 

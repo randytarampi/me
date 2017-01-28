@@ -28,8 +28,7 @@ class PhotoSource {
 	}
 
 	get isEnabled() {
-		return !process.env.OFFLINE_ONLY &&
-			!!process.env[`${this.type.toUpperCase()}_API_KEY`] &&
+		return !!process.env[`${this.type.toUpperCase()}_API_KEY`] &&
 			!!process.env[`${this.type.toUpperCase()}_API_SECRET`];
 	}
 }
