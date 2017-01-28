@@ -15,7 +15,7 @@ class Emoji extends React.Component {
 		this.setState({components: componentsArray});
 	}
 	toString () {
-		var components = this.components || [];
+		const components = this.components || [];
 		return components.join("");
 	}
 	render() {

@@ -72,7 +72,7 @@ gulp.task("vendor:dev", function () {
 });
 
 gulp.task("webpack", function (callback) {
-	var webpackConfig = Object.create(WebpackConfig);
+	const webpackConfig = Object.create(WebpackConfig);
 	webpackConfig.plugins.push(
 		new Webpack.DefinePlugin({
 			"process.env": {
@@ -95,7 +95,7 @@ gulp.task("webpack", function (callback) {
 });
 
 gulp.task("webpack:dev", function (callback) {
-	var webpackConfig = Object.create(WebpackConfig);
+	const webpackConfig = Object.create(WebpackConfig);
 	webpackConfig.devtool = "sourcemap";
 	webpackConfig.debug = true;
 
@@ -142,7 +142,7 @@ gulp.task("build:dev", [
 ]);
 
 gulp.task("serve", function () {
-	var webpackConfig = Object.create(WebpackConfig);
+	const webpackConfig = Object.create(WebpackConfig);
 	webpackConfig.devtool = "eval";
 	webpackConfig.debug = true;
 
