@@ -100,7 +100,7 @@ gulp.task("vendor:dev", () => {
 });
 
 gulp.task("webpack", function (callback) {
-	var webpackConfig = Object.create(require("./webpack.config"));
+	const webpackConfig = Object.create(require("./webpack.config"));
 	webpackConfig.plugins.push(
 		new WebPack.DefinePlugin({
 			"process.env": {
@@ -123,7 +123,7 @@ gulp.task("webpack", function (callback) {
 });
 
 gulp.task("webpack:dev", (callback) => {
-	var webpackConfig = Object.create(require("./webpack.config"));
+	const webpackConfig = Object.create(require("./webpack.config"));
 	webpackConfig.devtool = "sourcemap";
 	webpackConfig.debug = true;
 
