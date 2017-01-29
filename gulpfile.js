@@ -168,7 +168,7 @@ function coverageTask() {
 	return gulp.src("test/**/*.js", {read: false})
 		.pipe(mocha())
 		.pipe(istanbul.writeReports())
-		.pipe(istanbul.enforceThresholds({thresholds: {global: 80}}));
+		.pipe(istanbul.enforceThresholds({thresholds: {global: 70}}));
 }
 
 gulp.task("coveralls", ["coverage"], coverallsTask);
