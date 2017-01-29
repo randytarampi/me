@@ -157,7 +157,7 @@ gulp.task("build:dev", [
 gulp.task("coverage.setup", coverageSetupTask);
 gulp.task("coverage.setup.ci", ["eslint"], coverageSetupTask);
 function coverageSetupTask() {
-	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./public/**/*", "!./test/**/*", "!./bin/**/*", "!./coverage/**/*", "!./migrations/**/*"])
+	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./public/**/*", "!./test/**/*", "!./bin/**/*", "!./coverage/**/*", "!./migrations/**/*"]) // FIXME-RT: Add support for JSX and remove "!./public/**/*"
 		.pipe(istanbul())
 		.pipe(istanbul.hookRequire());
 }
@@ -168,7 +168,7 @@ function coverageTask() {
 	return gulp.src("test/**/*.js", {read: false})
 		.pipe(mocha())
 		.pipe(istanbul.writeReports())
-		.pipe(istanbul.enforceThresholds({thresholds: {global: 70}}));
+		.pipe(istanbul.enforceThresholds({thresholds: {global: 70}})); // FIXME-RT: Change this back to 80
 }
 
 gulp.task("coveralls", ["coverage"], coverallsTask);
