@@ -3,8 +3,8 @@ require("isomorphic-fetch");
 
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
-const Creator = require("../creator");
-const SizedPhoto = require("../sizedPhoto");
+const Creator = require("me.common.js/lib/creator");
+const SizedPhoto = require("me.common.js/lib/sizedPhoto");
 const SearchParams = require("../searchParams");
 const Unsplash = require("unsplash-js").default;
 const toJson = require("unsplash-js").toJson;

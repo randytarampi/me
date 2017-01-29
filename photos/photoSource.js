@@ -19,11 +19,11 @@ class PhotoSource {
 	}
 
 	getUserPhotos(params) {
-		throw new Error(`Looking for ${params} – Please specify an actual get photo for user implementation`);
+		return Promise.reject(new Error(`Looking for ${params} – Please specify an actual get photo for user implementation`));
 	}
 
 	getPhoto(photoId, params) {
-		throw new Error(`Looking for ${photoId} with ${params} – Please specify an actual get photo implementation`);
+		return Promise.reject(new Error(`Looking for ${photoId} with ${params} – Please specify an actual get photo implementation`));
 	}
 
 	jsonToPhoto(photoJson) {

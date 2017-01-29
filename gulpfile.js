@@ -157,7 +157,7 @@ gulp.task("build:dev", [
 gulp.task("coverage.setup", coverageSetupTask);
 gulp.task("coverage.setup.ci", ["eslint"], coverageSetupTask);
 function coverageSetupTask() {
-	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./test/**/*", "!./bin/**/*", "!./coverage/**/*", "!./migrations/**/*"])
+	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./public/**/*", "!./test/**/*", "!./bin/**/*", "!./coverage/**/*", "!./migrations/**/*"])
 		.pipe(istanbul())
 		.pipe(istanbul.hookRequire());
 }

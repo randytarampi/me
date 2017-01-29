@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
-const Creator = require("../creator");
-const SizedPhoto = require("../sizedPhoto");
+const Creator = require("me.common.js/lib/creator");
+const SizedPhoto = require("me.common.js/lib/sizedPhoto");
 const SearchParams = require("../searchParams");
 const Moment = require("moment");
 const _ = require("lodash");

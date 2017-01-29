@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
-const Creator = require("../creator");
-const SizedPhoto = require("../sizedPhoto");
+const Creator = require("me.common.js/lib/creator");
+const SizedPhoto = require("me.common.js/lib/sizedPhoto");
 const SearchParams = require("../searchParams");
 const tumblr = require("tumblr.js");
 const Moment = require("moment");
@@ -22,7 +22,7 @@ class TumblrSource extends PhotoSource {
 		params = params instanceof SearchParams ? params : new SearchParams(params);
 		const that = this;
 
-		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.toTumblr())
+		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr())
 			.then((response) => {
 				return _.chain(response.posts)
 					.map((postJson) => {
@@ -38,7 +38,7 @@ class TumblrSource extends PhotoSource {
 	getPhoto(photoId, params) {
 		const that = this;
 
-		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.toTumblr()))
+		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.Tumblr()))
 			.then((response) => {
 				return _.chain(response.posts)
 					.map((postJson) => {

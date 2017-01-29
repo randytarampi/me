@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
-const Creator = require("../creator");
-const SizedPhoto = require("../sizedPhoto");
+const Creator = require("me.common.js/lib/creator");
+const SizedPhoto = require("me.common.js/lib/sizedPhoto");
 const SearchParams = require("../searchParams");
 const F00px = require("500px");
 
@@ -34,7 +34,7 @@ class Five00pxSource extends PhotoSource {
 		return f00pxRequest
 			.then((userId) => {
 				return new Promise((resolve, reject) => {
-					client.photos.getByUserId(userId, params.to500px(), (error, response) => {
+					client.photos.getByUserId(userId, params.F00px(), (error, response) => {
 						if (error) {
 							return reject(error);
 						}
@@ -56,7 +56,7 @@ class Five00pxSource extends PhotoSource {
 		const client = this.client;
 
 		return new Promise((resolve, reject) => {
-			client.photos.getById(id, params.to500px(), (error, response) => {
+			client.photos.getById(id, params.F00px(), (error, response) => {
 				if (error) {
 					return reject(error);
 				}

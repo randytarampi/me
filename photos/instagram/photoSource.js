@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
-const Creator = require("../creator");
-const SizedPhoto = require("../sizedPhoto");
+const Creator = require("me.common.js/lib/creator");
+const SizedPhoto = require("me.common.js/lib/sizedPhoto");
 const SearchParams = require("../searchParams");
 const Instagram = require("instagram-api");
 const Moment = require("moment");
@@ -30,7 +30,7 @@ class InstagramSource extends PhotoSource {
 
 		return instagramRequest
 			.then((userId) => {
-				return client.userMedia(userId, params.toInstagram());
+				return client.userMedia(userId, params.Instagram());
 			})
 			.then((mediaJson) => {
 				return _.chain(mediaJson.data)

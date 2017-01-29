@@ -13,27 +13,11 @@ class SearchParams {
 		}, this);
 	}
 
-	/**
-	 * @deprecated
-	 * @returns {*}
-	 */
-	to500px() {
-		return this.F00px;
-	}
-
 	get Flickr() {
 		return _.extend({
 			per_page: this.perPage,
 			extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description"
 		}, this);
-	}
-
-	/**
-	 * @deprecated
-	 * @returns {*}
-	 */
-	toFlickr() {
-		return this.Flickr;
 	}
 
 	get Unsplash() {
@@ -42,26 +26,10 @@ class SearchParams {
 		}, this);
 	}
 
-	/**
-	 * @deprecated
-	 * @returns {*}
-	 */
-	toUnsplash() {
-		return this.Unsplash;
-	}
-
 	get Instagram() {
 		return _.extend({
 			count: this.perPage
 		}, this);
-	}
-
-	/**
-	 * @deprecated
-	 * @returns {*}
-	 */
-	toInstagram() {
-		return this.Instagram;
 	}
 
 	get Tumblr() {
@@ -70,14 +38,6 @@ class SearchParams {
 			limit: this.perPage,
 			offset: this.perPage * (this.page - 1)
 		}, this);
-	}
-
-	/**
-	 * @deprecated
-	 * @returns {*}
-	 */
-	toTumblr() {
-		return this.Tumblr;
 	}
 
 	get perPage() {

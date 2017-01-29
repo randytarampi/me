@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
-const Creator = require("../creator");
-const SizedPhoto = require("../sizedPhoto");
+const Creator = require("me.common.js/lib/creator");
+const SizedPhoto = require("me.common.js/lib/sizedPhoto");
 const SearchParams = require("../searchParams");
 const Flickr = require("flickrapi");
 const Moment = require("moment");
@@ -53,7 +53,7 @@ class FlickrSource extends PhotoSource {
 				return new Promise((resolve, reject) => {
 					client.people.getPublicPhotos(_.extend({
 						user_id: userId
-					}, params.toFlickr()), (error, response) => {
+					}, params.Flickr()), (error, response) => {
 						if (error) {
 							return reject(error);
 						}
