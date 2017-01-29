@@ -1,3 +1,6 @@
+/**
+ * @abstract
+ */
 class PhotoSource {
 	constructor(type, client, initalizerPromise) {
 		let that = this;
@@ -28,8 +31,9 @@ class PhotoSource {
 	}
 
 	get isEnabled() {
-		return !!process.env[`${this.type.toUpperCase()}_API_KEY`] &&
-			!!process.env[`${this.type.toUpperCase()}_API_SECRET`];
+		const type = this.type || "";
+		return !!process.env[`${type.toUpperCase()}_API_KEY`] &&
+			!!process.env[`${type.toUpperCase()}_API_SECRET`];
 	}
 }
 
