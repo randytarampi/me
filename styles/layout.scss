@@ -1,9 +1,5 @@
 @import "variables";
 
-.layout {
-	min-width: $grid-tablet-breakpoint;
-}
-
 @media screen and (min-width: $grid-tablet-breakpoint) {
 	.mdl-layout__drawer-button {
 		display: none;

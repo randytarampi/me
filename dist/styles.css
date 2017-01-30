@@ -12137,9 +12137,6 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 /* SNACKBAR */
 /* TOOLTIP */
 /* CHIP */
-.layout {
-  min-width: 480px; }
-
 @media screen and (min-width: 480px) {
   .mdl-layout__drawer-button {
     display: none; } }
