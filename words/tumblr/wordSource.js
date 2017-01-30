@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const WordSource = require("../wordSource");
 const Creator = require("../creator");
-const Post = require("../post");
+const Post = require("me.common.js/lib/post");
 const tumblr = require("tumblr.js");
 
 class TumblrWordSource extends WordSource {

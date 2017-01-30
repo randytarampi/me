@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const WordSource = require("../wordSource");
-const Post = require("../post");
+const Post = require("me.common.js/lib/post");
 const knox = require("knox");
 const jsyaml = require("js-yaml");
 
