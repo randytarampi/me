@@ -15,15 +15,19 @@ class WordSource {
 	}
 
 	getWordPosts(params) {
-		throw new Error(`Looking for ${params} – Please specify an actual get word posts implementation`);
+		return Promise.reject(new Error(`Looking for ${params} – Please specify an actual get word posts implementation`));
 	}
 
 	getWordPost(postId, params) {
-		throw new Error(`Looking for ${postId} with ${params} – Please specify an actual get word post implementation`);
+		return Promise.reject(new Error(`Looking for ${postId} with ${params} – Please specify an actual get word post implementation`));
 	}
 
-	jsonToPhoto(postJson) {
+	jsonToPost(postJson) {
 		throw new Error(`Trying to turn ${postJson} into a Post – Please specify an actual Post transformation`);
+	}
+
+	isEnabled() {
+		throw new Error("Trying to verify if this WordSource is enabled – Please specify an actual isEnabled check");
 	}
 }
 
