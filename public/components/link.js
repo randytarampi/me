@@ -61,3 +61,75 @@ export class Flickr extends Link {
 		};
 	}
 }
+
+export class Instagram extends Link {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps () {
+		return {
+			href: "https://www.instagram.com/randytarampi",
+			text: "Instagram"
+		};
+	}
+}
+
+export class F00px extends Link {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps () {
+		return {
+			href: "https://www.500px.com/randytarampi",
+			text: "500px"
+		};
+	}
+}
+
+export class Photos extends Link {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps () {
+		return {
+			href: "https://photos.randytarampi.ca",
+			text: "Photos"
+		};
+	}
+}
+
+export class Words extends Link {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps () {
+		return {
+			href: "https://words.randytarampi.ca",
+			text: "Words"
+		};
+	}
+}
+
+export class Blog extends Link {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps () {
+		return {
+			href: "https://blog.randytarampi.ca",
+			text: "Words"
+		};
+	}
+}
+
+export class Code extends Link {
+	constructor(props, context, updater) {
+		super(props, context, updater);
+	}
+	static get defaultProps () {
+		return {
+			href: "https://github.com/randytarampi",
+			text: "Code"
+		};
+	}
+}

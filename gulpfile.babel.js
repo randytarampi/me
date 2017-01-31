@@ -98,6 +98,10 @@ gulp.task("webpack:dev", function (callback) {
 	const webpackConfig = Object.create(WebpackConfig);
 	webpackConfig.devtool = "sourcemap";
 	webpackConfig.debug = true;
+	webpackConfig.plugins.push(
+		new Webpack.optimize.DedupePlugin()
+	);
+
 
 	Webpack(webpackConfig, function (err, stats) {
 		if (err) {

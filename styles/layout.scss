@@ -13,7 +13,7 @@
 }
 
 .block__text {
-	padding: 20px;
+	padding: 0 20px;
 }
 
 .block__bear {
@@ -48,4 +48,25 @@
 		-moz-transform: unset;
 		-webkit-transform: unset;
 	}
+}
+
+.title {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.text {
+	line-height: $blockLineHeight;
+	padding: $blockPadding;
+	background-color: $blockColour;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	color: $blockTextColour;
+	margin-right: 4px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+li {
+	margin-bottom: 4px;
 }
