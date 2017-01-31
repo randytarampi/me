@@ -4,7 +4,6 @@ const mocha = require("mocha");
 const describe = mocha.describe;
 const it = mocha.it;
 const expect = require("chai").expect;
-const _ = require("lodash");
 const SearchParams = require("../../../photos/searchParams");
 
 describe("SearchParams", () => {

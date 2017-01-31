@@ -1,16 +1,11 @@
 "use strict";
 
-const path = require("path");
-const fs = require("fs");
 const mocha = require("mocha");
 const describe = mocha.describe;
-const xdescribe = () => {};
 const it = mocha.it;
 const before = mocha.before;
 const after = mocha.after;
 const expect = require("chai").expect;
-const _ = require("lodash");
-const Photo = require("me.common.js/lib/photo");
 const PhotoSource = require("../../../photos/photoSource");
 
 describe("PhotoSource", () => {
@@ -46,7 +41,7 @@ describe("PhotoSource", () => {
 				.then((initializingResult) => {
 					expect(initializingResult).to.eql(photoSource);
 					expect(initializingResult.client).to.eql("Meow");
-				})
+				});
 		});
 	});
 
