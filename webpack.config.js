@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
+	bail: true,
 	entry: [
 		"./public/views/index.js"
 	],
