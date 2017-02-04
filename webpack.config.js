@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-	bail: true,
 	entry: [
 		"./public/views/index.js"
 	],
@@ -34,6 +33,7 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin()
+		new webpack.NoErrorsPlugin(),
+		require("webpack-fail-plugin")
 	]
 };
