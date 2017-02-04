@@ -11,7 +11,7 @@ DEBUG = environ.get("DEBUG") == "True"
 
 app = Flask(__name__, template_folder="views", static_folder="dist")
 app.register_blueprint(app_routes.app, url_prefix="/")
-app.register_blueprint(blog_routes.app, url_prefix="/blog")
+app.register_blueprint(blog_routes.app, url_prefix="/posts")
 
 if __name__ == "__main__":
 	app.run(
