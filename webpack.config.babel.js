@@ -2,7 +2,6 @@ import path from "path";
 import webpack from "webpack";
 
 export default {
-	bail: true,
 	entry: [
 		"./public/views/index.js"
 	],
@@ -33,6 +32,7 @@ export default {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin()
+		new webpack.NoErrorsPlugin(),
+		require("webpack-fail-plugin")
 	]
 };
