@@ -31,7 +31,7 @@ if (LocalSource.isEnabled) {
  */
 app.use("/", require("./app/routes"));
 app.use("/auth", require("./auth/routes"));
-app.use("/photos", require("./photos/routes"));
+app.use("/posts", require("./photos/routes"));
 
 /**
  * Set up @see error404Handler
