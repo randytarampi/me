@@ -69,6 +69,7 @@ class InstagramSource extends PhotoSource {
 
 		return new Photo(
 			photoJson.id,
+			null,
 			this.type,
 			Moment(parseInt(photoJson.created_time, 10) * 1000),
 			null,

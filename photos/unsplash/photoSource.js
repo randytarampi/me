@@ -45,6 +45,7 @@ class UnsplashSource extends PhotoSource {
 	jsonToPhoto(json) {
 		return new Photo(
 			json.id,
+			null,
 			this.type,
 			json.created_at,
 			null,

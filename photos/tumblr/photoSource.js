@@ -58,6 +58,7 @@ class TumblrSource extends PhotoSource {
 
 		return new Photo(
 			postJson.id,
+			null,
 			this.type,
 			Moment(postJson.date),
 			null,
