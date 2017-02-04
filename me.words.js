@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "dist")));
  * Set up routes
  */
 app.use("/", require("./app/routes"));
-app.use("/words", require("./words/routes"));
+app.use("/posts", require("./words/routes"));
 
 /**
  * Set up @see error404Handler
