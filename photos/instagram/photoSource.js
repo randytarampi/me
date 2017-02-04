@@ -30,7 +30,7 @@ class InstagramSource extends PhotoSource {
 
 		return instagramRequest
 			.then((userId) => {
-				return client.userMedia(userId, params.Instagram());
+				return client.userMedia(userId, params.Instagram);
 			})
 			.then((mediaJson) => {
 				return _.chain(mediaJson.data)

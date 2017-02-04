@@ -22,7 +22,7 @@ class TumblrSource extends PhotoSource {
 		params = params instanceof SearchParams ? params : new SearchParams(params);
 		const that = this;
 
-		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr())
+		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
 			.then((response) => {
 				return _.chain(response.posts)
 					.map((postJson) => {
@@ -38,7 +38,7 @@ class TumblrSource extends PhotoSource {
 	getPhoto(photoId, params) {
 		const that = this;
 
-		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.Tumblr()))
+		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.Tumblr))
 			.then((response) => {
 				return _.chain(response.posts)
 					.map((postJson) => {

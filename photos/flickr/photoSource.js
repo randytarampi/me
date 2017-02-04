@@ -53,7 +53,7 @@ class FlickrSource extends PhotoSource {
 				return new Promise((resolve, reject) => {
 					client.people.getPublicPhotos(_.extend({
 						user_id: userId
-					}, params.Flickr()), (error, response) => {
+					}, params.Flickr), (error, response) => {
 						if (error) {
 							return reject(error);
 						}

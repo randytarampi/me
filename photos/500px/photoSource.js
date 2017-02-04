@@ -34,7 +34,7 @@ class Five00pxSource extends PhotoSource {
 		return f00pxRequest
 			.then((userId) => {
 				return new Promise((resolve, reject) => {
-					client.photos.getByUserId(userId, params.F00px(), (error, response) => {
+					client.photos.getByUserId(userId, params.F00px, (error, response) => {
 						if (error) {
 							return reject(error);
 						}
@@ -56,7 +56,7 @@ class Five00pxSource extends PhotoSource {
 		const client = this.client;
 
 		return new Promise((resolve, reject) => {
-			client.photos.getById(id, params.F00px(), (error, response) => {
+			client.photos.getById(id, params.F00px, (error, response) => {
 				if (error) {
 					return reject(error);
 				}
