@@ -13,7 +13,7 @@ class WordsClient(PostsClient):
     def __init__(self):
         PostsClient.__init__(
             self,
-            WORDS_URL + "/words"
+            WORDS_URL + "/posts"
         )
 
     def posts(self, params={}):

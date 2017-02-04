@@ -13,7 +13,7 @@ class PhotosClient(PostsClient):
     def __init__(self):
         PostsClient.__init__(
             self,
-            PHOTOS_URL + "/photos"
+            PHOTOS_URL + "/posts"
         )
 
     def posts(self, params={}):
