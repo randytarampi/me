@@ -15,7 +15,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules/,
+				exclude: /node_modules\/(?!(?:(?:me\.common\.js)|(?:me\.common\.jsx))(?!\/node_modules))/,
 				loader: "babel-loader",
 				query: {
 					presets: [
