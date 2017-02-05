@@ -9,6 +9,8 @@
   "scripts": {
     "pretest": "gulp lint",
     "test": "gulp test",
+    "postinstall": "gulp build:dev",
+    "prepublish": "gulp build",
     "travis": "gulp travis"
   },
   "description": "Some common JSX components",
