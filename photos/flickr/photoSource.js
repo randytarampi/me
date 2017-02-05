@@ -74,7 +74,7 @@ class FlickrSource extends PhotoSource {
 			json.id,
 			null,
 			this.type,
-			json.dateCreated,
+			json.datetaken,
 			Moment(parseInt(json.dateupload, 10) * 1000),
 			json.width_o,
 			json.height_o,
