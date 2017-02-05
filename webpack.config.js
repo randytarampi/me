@@ -3,7 +3,7 @@ const webpack = require("webpack");
 
 module.exports = {
 	entry: [
-		"./public/views/index.js"
+		"./lib/posts.js"
 	],
 	externals: {
 	},
