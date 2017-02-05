@@ -13,7 +13,7 @@ import gutil from "gulp-util";
 import del from "del";
 import Webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
-import WebpackConfig from "./Webpack.config.babel";
+import WebpackConfig from "./webpack.config.babel";
 import Config from "./config/config";
 
 gulp.task("copy", function () {
