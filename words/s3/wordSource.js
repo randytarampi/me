@@ -60,9 +60,10 @@ class S3WordSource extends WordSource {
 	jsonToPost(postJson) {
 		return new Post(
 			postJson.date,
-			this.type,
 			null,
+			this.type,
 			postJson.date,
+			null,
 			postJson.title,
 			postJson.body
 		);

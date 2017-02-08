@@ -27,18 +27,15 @@ actions.getWords = (req, res, next) => {
 			);
 		})
 		.then(_.flatten)
-		.then((flattenedPhotos) => {
-			return _.sortBy(flattenedPhotos, [
-				(word) => {
-					return word.dateCreated ? word.dateCreated.valueOf() * -1 : 0;
-				},
+		.then((flattenedWords) => {
+			return _.sortBy(flattenedWords, [
 				(word) => {
 					return word.datePublished.valueOf() * -1;
 				}
 			]);
 		})
-		.then((sortedPhotos) => {
-			res.send(sortedPhotos);
+		.then((sortedWords) => {
+			res.send(sortedWords);
 		})
 		.catch(next);
 };

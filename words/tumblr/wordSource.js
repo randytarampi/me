@@ -24,7 +24,7 @@ class TumblrWordSource extends WordSource {
 			options.offset = options.limit * (params.page - 1);
 		}
 
-		return this.client.blogPosts(process.env.TUMBLR_USER_NAME)
+		return this.client.blogPosts(process.env.TUMBLR_USER_NAME, options)
 			.then((response) => {
 				return response.posts.map((postJson) => {
 					return this.jsonToPost(postJson, response.blog);
@@ -48,9 +48,10 @@ class TumblrWordSource extends WordSource {
 	jsonToPost(postJson, blogJson) {
 		return new Post(
 			postJson.id,
-			this.type,
 			null,
+			this.type,
 			postJson.date,
+			null,
 			postJson.title,
 			postJson.body,
 			postJson.post_url,
