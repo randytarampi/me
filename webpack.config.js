@@ -6,6 +6,8 @@ module.exports = {
 		"./public/views/index.js"
 	],
 	externals: {
+		react: "React",
+		"react-dom": "ReactDOM"
 	},
 	output: {
 		path: path.join(__dirname, "dist"),

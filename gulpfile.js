@@ -79,8 +79,10 @@ gulp.task("styles:dev", () => {
 
 gulp.task("vendor", () => {
 	return gulp.src([
-		"node_modules/react-mdl/extra/material.min.js"
-	])
+			"node_modules/react/dist/react-with-addons.min.js",
+			"node_modules/react-dom/dist/react-dom.min.js",
+			"node_modules/react-mdl/extra/material.min.js"
+		])
 		.pipe(sourcemaps.init())
 		.pipe(concat("vendor.js"))
 		.pipe(uglify())
@@ -89,8 +91,10 @@ gulp.task("vendor", () => {
 });
 gulp.task("vendor:dev", () => {
 	return gulp.src([
-		"node_modules/react-mdl/extra/material.js"
-	])
+			"node_modules/react/dist/react-with-addons.js",
+			"node_modules/react-dom/dist/react-dom.js",
+			"node_modules/react-mdl/extra/material.js"
+		])
 		.pipe(sourcemaps.init())
 		.pipe(concat("vendor.js"))
 		.pipe(sourcemaps.write("./"))
