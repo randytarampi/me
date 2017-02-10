@@ -1,0 +1,55 @@
+{
+  "name": "me.common.css",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca"
+  },
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "pretest": "gulp lint",
+    "test": "gulp test",
+    "postinstall": "gulp build:dev",
+    "prepublish": "gulp build",
+    "travis": "gulp travis"
+  },
+  "description": "Some common styles for the components in randytarampi/me.common.jsx and randytarampi/randytarampi.github.io",
+  "homepage": "https://github.com/randytarampi/me.common.css",
+  "bugs": {
+    "url": "https://github.com/randytarampi/me.common.css/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "peerDependencies": {
+    "material-design-lite": "~1",
+    "react-mdl": "~1"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "css-loader": "^0.25.0",
+    "del": "^2.2.0",
+    "eslint-plugin-react": "^6.1.2",
+    "grunt-sass-tilde-importer": "^1.0.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-if": "^2.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "material-design-lite": "^1.3.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-mdl": "^1.7.2",
+    "style-loader": "^0.13.1"
+  },
+  "engines": {
+    "node": ">=6"
+  }
+}

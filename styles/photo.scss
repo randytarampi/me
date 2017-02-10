@@ -1,0 +1,22 @@
+.photo-title {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.photo-description,
+.photo-date-taken,
+.photo-date-published,
+.photo-body,
+.photo-source {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.photo-text {
+	line-height: $blockLineHeight;
+	padding: $blockPadding;
+	background-color: $blockColour;
+	box-decoration-break: clone;
+	color: $blockTextColour;
+	margin-right: 4px;
+}
