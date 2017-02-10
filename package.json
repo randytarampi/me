@@ -9,8 +9,6 @@
   "scripts": {
     "pretest": "gulp lint",
     "test": "gulp test",
-    "postinstall": "gulp build:dev",
-    "prepublish": "gulp build",
     "travis": "gulp travis"
   },
   "description": "Some common styles for the components in randytarampi/me.common.jsx and randytarampi/randytarampi.github.io",
