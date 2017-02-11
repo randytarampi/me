@@ -16,6 +16,9 @@ Currently supports:
 - [Unsplash](https://unsplash.com/documentation)
 - [500px](https://github.com/500px/api-documentation)
 - [Flickr](https://www.flickr.com/services/api/)
+- [Instagram](https://www.instagram.com/developer/)
+- [Tumblr](https://www.tumblr.com/docs/en/api/v2)
+- [Local](https://github.com/randytarampi/me.photos/blob/master/photos/local/photoSource.js)
 
 Scan some photo sources for photos, then display them on a single page.
 
@@ -36,6 +39,9 @@ You'll also need to define some variables in a [`.env`](https://github.com/randy
 
 ```
 PORT=3002
+
+# Local Storage
+LOCAL_DIRECTORY=<some directory accessible by the server running me.photos> # E.x. /opt/me.photos/test/resources/photos/local
 
 # 500px config
 F00PX_API_KEY=
