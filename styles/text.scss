@@ -1,0 +1,11 @@
+.text {
+	line-height: $blockLineHeight;
+	padding: $blockPadding;
+	background-color: $blockColour;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	color: $blockTextColour;
+	margin-right: 4px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
