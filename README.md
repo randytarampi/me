@@ -9,8 +9,6 @@ _  /   / /_/ /_  / / / /_/ / _  /_/ // /_ / /_/ /_  /   / /_/ /_  / / / / /_  /_
 
 [![Build Status](https://img.shields.io/travis/randytarampi/randytarampi.github.io.svg?style=flat-square)](https://travis-ci.org/randytarampi/randytarampi.github.io) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/randytarampi.github.io.svg?style=flat-square)](https://coveralls.io/github/randytarampi/randytarampi.github.io?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/randytarampi.github.io.svg?style=flat-square)](https://david-dm.org/randytarampi/randytarampi.github.io) [![Ready](https://img.shields.io/waffle/label/randytarampi/randytarampi.github.io/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/randytarampi.github.io) [![In Progress](https://img.shields.io/waffle/label/randytarampi/randytarampi.github.io/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/randytarampi.github.io)
 
-ʕ•ᴥ•ʔﾉ゛
-
 # Dependencies
 ```
 brew install nvm
