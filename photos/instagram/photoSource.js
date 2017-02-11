@@ -77,7 +77,7 @@ class InstagramSource extends PhotoSource {
 			biggestOfficialPhoto.height,
 			sizedPhotos,
 			photoJson.link,
-			photoJson.filter,
+			photoJson.location && photoJson.location.name,
 			photoJson.caption && photoJson.caption.text,
 			new Creator(
 				photoJson.user.username,
