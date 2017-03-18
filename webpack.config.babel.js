@@ -5,11 +5,6 @@ export default {
 	entry: [
 		"./public/views/index.js"
 	],
-	externals: {
-		"jquery": "jQuery",
-		"moment": "moment",
-		"react": "React"
-	},
 	output: {
 		path: path.join(__dirname, "dist"),
 		filename: "main.js"
@@ -31,8 +26,6 @@ export default {
 		]
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		require("webpack-fail-plugin")
+		new webpack.HotModuleReplacementPlugin()
 	]
 };

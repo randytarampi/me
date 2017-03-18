@@ -34,9 +34,9 @@ gulp.task("styles", ["styles:dev"], function () {
 
 gulp.task("styles:dev", function () {
 	return gulp.src([
-		"node_modules/normalize.css/normalize.css",
-		"styles/style.scss"
-	])
+			"node_modules/normalize.css/normalize.css",
+			"styles/style.scss"
+		])
 		.pipe(sass({
 			importer: sassTildeImporter
 		}).on("error", sass.logError))
@@ -46,11 +46,9 @@ gulp.task("styles:dev", function () {
 
 gulp.task("vendor", function () {
 	return gulp.src([
-		"node_modules/jquery/dist/jquery.min.js",
-		"node_modules/moment/min/moment-with-locales.min.js",
-		"node_modules/react-mdl/extra/material.min.js",
-		"node_modules/react/dist/react-with-addons.min.js"
-	])
+			"node_modules/react-mdl/extra/material.min.js",
+			"node_modules/react/dist/react-with-addons.min.js"
+		])
 		.pipe(sourcemaps.init())
 		.pipe(concat("vendor.js"))
 		.pipe(uglify())
@@ -60,11 +58,9 @@ gulp.task("vendor", function () {
 
 gulp.task("vendor:dev", function () {
 	return gulp.src([
-		"node_modules/jquery/dist/jquery.js",
-		"node_modules/moment/min/moment-with-locales.js",
-		"node_modules/react-mdl/extra/material.js",
-		"node_modules/react/dist/react-with-addons.js"
-	])
+			"node_modules/react-mdl/extra/material.js",
+			"node_modules/react/dist/react-with-addons.js"
+		])
 		.pipe(sourcemaps.init())
 		.pipe(concat("vendor.js"))
 		.pipe(sourcemaps.write("./"))
@@ -79,7 +75,6 @@ gulp.task("webpack", function (callback) {
 				"NODE_ENV": JSON.stringify("production")
 			}
 		}),
-		new Webpack.optimize.DedupePlugin(),
 		new Webpack.optimize.UglifyJsPlugin()
 	);
 
@@ -97,11 +92,6 @@ gulp.task("webpack", function (callback) {
 gulp.task("webpack:dev", function (callback) {
 	const webpackConfig = Object.create(WebpackConfig);
 	webpackConfig.devtool = "sourcemap";
-	webpackConfig.debug = true;
-	webpackConfig.plugins.push(
-		new Webpack.optimize.DedupePlugin()
-	);
-
 
 	Webpack(webpackConfig, function (err, stats) {
 		if (err) {
@@ -118,7 +108,7 @@ function isFixed(file) {
 	return file.eslint != null && file.eslint.fixed;
 }
 
-gulp.task("eslint", function() {
+gulp.task("eslint", function () {
 	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*"])
 		.pipe(eslint({fix: true}))
 		.pipe(eslint.format())
