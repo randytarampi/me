@@ -81,8 +81,6 @@ gulp.task("styles:dev", () => {
 
 gulp.task("vendor", () => {
 	return gulp.src([
-			"node_modules/react/dist/react-with-addons.min.js",
-			"node_modules/react-dom/dist/react-dom.min.js",
 			"node_modules/react-mdl/extra/material.min.js"
 		])
 		.pipe(sourcemaps.init())
@@ -93,8 +91,6 @@ gulp.task("vendor", () => {
 });
 gulp.task("vendor:dev", () => {
 	return gulp.src([
-			"node_modules/react/dist/react-with-addons.js",
-			"node_modules/react-dom/dist/react-dom.js",
 			"node_modules/react-mdl/extra/material.js"
 		])
 		.pipe(sourcemaps.init())
@@ -111,7 +107,6 @@ gulp.task("webpack", function (callback) {
 				"NODE_ENV": JSON.stringify("production")
 			}
 		}),
-		new WebPack.optimize.DedupePlugin(),
 		new WebPack.optimize.UglifyJsPlugin()
 	);
 
@@ -129,7 +124,6 @@ gulp.task("webpack", function (callback) {
 gulp.task("webpack:dev", (callback) => {
 	const webpackConfig = Object.create(require("./webpack.config"));
 	webpackConfig.devtool = "sourcemap";
-	webpackConfig.debug = true;
 
 	WebPack(webpackConfig, function(err, stats) {
 		if (err) {

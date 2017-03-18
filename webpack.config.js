@@ -5,10 +5,6 @@ module.exports = {
 	entry: [
 		"./public/views/index.js"
 	],
-	externals: {
-		react: "React",
-		"react-dom": "ReactDOM"
-	},
 	output: {
 		path: path.join(__dirname, "dist"),
 		filename: "main.js"
@@ -34,8 +30,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		require("webpack-fail-plugin")
+		new webpack.HotModuleReplacementPlugin()
 	]
 };
