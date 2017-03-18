@@ -77,7 +77,6 @@ gulp.task("webpack", function (callback) {
 				"NODE_ENV": JSON.stringify("production")
 			}
 		}),
-		new WebPack.optimize.DedupePlugin(),
 		new WebPack.optimize.UglifyJsPlugin()
 	);
 
@@ -95,7 +94,6 @@ gulp.task("webpack", function (callback) {
 gulp.task("webpack:dev", (callback) => {
 	let webpackConfig = Object.create(require("./webpack.config"));
 	webpackConfig.devtool = "sourcemap";
-	webpackConfig.debug = true;
 
 	WebPack(webpackConfig, function(err, stats) {
 		if (err) {

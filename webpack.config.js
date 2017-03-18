@@ -5,8 +5,6 @@ module.exports = {
 	entry: [
 		"./lib/posts.js"
 	],
-	externals: {
-	},
 	output: {
 		path: path.join(__dirname, "dist"),
 		filename: "main.js"
@@ -32,8 +30,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		require("webpack-fail-plugin")
+		new webpack.HotModuleReplacementPlugin()
 	]
 };
