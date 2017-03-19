@@ -5,14 +5,14 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.0.3",
+	"version": "0.0.4",
   "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
   "main": "woof.pseudoimage.js",
   "scripts": {
     "pretest": "gulp lint",
-    "test": "gulp test",
-    "coverage": "gulp coverage",
-    "travis": "gulp travis"
+	  "test": "NODE_ENV=test gulp test",
+	  "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test ./node_modules/nyc/bin/nyc.js npm test",
+	  "travis": "npm run cover; gulp coveralls"
   },
   "homepage": "https://github.com/randytarampi/woof.pseudoimage",
   "bugs": {
@@ -47,9 +47,9 @@
     "gulp-coveralls": "~0.1.4",
     "gulp-eslint": "~2.0.0",
     "gulp-if": "~2.0.1",
-    "gulp-istanbul": "~1.1.1",
     "gulp-mocha": "~2.2.0",
     "mocha": "~2.5.3",
+	  "nyc": "^10.1.2",
     "sinon": "~1.17.6"
   },
   "engines": {

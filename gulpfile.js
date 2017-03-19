@@ -4,7 +4,6 @@ const gulp = require("gulp");
 const gulpIf = require("gulp-if");
 const eslint = require("gulp-eslint");
 const mocha = require("gulp-mocha");
-const istanbul = require("gulp-istanbul");
 const coveralls = require("gulp-coveralls");
 
 function isFixed(file) {
@@ -33,28 +32,7 @@ gulp.task("test.integration", () => {
 
 gulp.task("test", ["test.unit", "test.integration"]);
 
-gulp.task("coverage.setup", coverageSetupTask);
-gulp.task("coverage.setup.ci", ["eslint"], coverageSetupTask);
-function coverageSetupTask() {
-	return gulp.src(["lib/**/*.js"])
-		.pipe(istanbul())
-		.pipe(istanbul.hookRequire());
-}
-
-gulp.task("coverage", ["coverage.setup"], coverageTask);
-gulp.task("coverage.ci", ["eslint", "coverage.setup.ci"], coverageTask);
-function coverageTask() {
-	return gulp.src("test/**/*.js", {read: false})
-		.pipe(mocha())
-		.pipe(istanbul.writeReports())
-		.pipe(istanbul.enforceThresholds({thresholds: {global: 80}}));
-}
-
-gulp.task("coveralls", ["coverage"], coverallsTask);
-gulp.task("coveralls.ci", ["eslint", "coverage.ci"], coverallsTask);
-function coverallsTask() {
+gulp.task("coveralls", () => {
 	return gulp.src("coverage/**/lcov.info")
 		.pipe(coveralls());
-}
-
-gulp.task("travis", ["eslint", "coveralls.ci"]);
+});
