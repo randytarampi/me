@@ -1,5 +1,6 @@
 const concat = require("gulp-concat");
 const copy = require("gulp-copy2");
+const coveralls = require("gulp-coveralls");
 const del = require("del");
 const eslint = require("gulp-eslint");
 const gulp = require("gulp");
@@ -119,3 +120,8 @@ gulp.task("build:dev", [
 	"vendor:dev",
 	"webpack:dev"
 ]);
+
+gulp.task("coveralls", () => {
+	return gulp.src("coverage/**/lcov.info")
+		.pipe(coveralls());
+});
