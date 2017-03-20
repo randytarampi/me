@@ -1,28 +1,21 @@
 language: node_js
-
 node_js:
 - '6'
-
 env:
 - CXX=g++-4.8
-
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-
 before_install:
 - touch .env
-
 script: npm run travis
-
 before_deploy:
 - touch .env
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.words.tar.gz -C ./ .
-
 deploy:
 - provider: s3
   access_key_id: AKIAI3EMH5UQ2CYHR3SA
@@ -35,7 +28,7 @@ deploy:
   bucket: randytarampi-releases
   region: eu-west-1
   detect_encoding: true
-  local-dir: ../dpl_cd_upload
+  local-dir: "../dpl_cd_upload"
 - provider: codedeploy
   access_key_id: AKIAI3EMH5UQ2CYHR3SA
   secret_access_key: *1
@@ -47,3 +40,6 @@ deploy:
   on: *2
   wait-until-deployed: true
   region: eu-west-1
+notifications:
+  slack:
+    secure: bD1y+lFF6VseZ0bSi/fRqnFm2F6nil9pllhRh6ze24zmzHrftWHsvnuASZmn8MGKcqtnph/zyFKyVR+nDEXeQ04AZLU4tBoDbNWi2f85nzoUUD+8YzdQRctB9YIx818UGeZEVPBjIT1IVof+Z1AQEqM+jfl0LTNAPaADJgpLWDcNZDYNGUsibG4fapgix7P+vMTUgGFbN4J1WL243Q7pYK6x1hqOPNfDtaGSEFX7c1MUS6ULk335fkDo5M/o+vJweo0j2jboPN1n/vYpJuJRgmzP7jMISkchYjAKR2WktcM8CgC+mJye9NIaZQVn8IWEqqDYYIXM5IekEbTF2pz7bztaqgrhZdVmKqvl9edOfLL0qVt5RbguLuxSKsVw92AgajsiEhaOeNrA5gDyLq2o/xREtwpOC45M8wcJCAbHldqhjrJaRqpL2Q28mSGtmu7BDBWNwL2ylKE9NRTeY+e/ey5a70kUOorAKO5b8UhSJQJPEgBrNY1vTSb7F6eRmYkeqnqkTTMUEKIe+BtmnQ1kCPCbhDXk5BQoSumVxURAznj4SSzfamSMt1CUVpM/CPBsjui5plN1Ymwk/KvcstOkcCVU85vHS+Kare/j2n9J6wCexxiLsEUaImdldoLeUz6sVoTcy9OvWz+ohvM317gD5t/G8rHF1nWAr85s3Khx2GY=
