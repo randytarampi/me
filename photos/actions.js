@@ -43,7 +43,7 @@ actions.searchPhotos = (req, res, next) => {
 		.then((flattenedPhotos) => {
 			return _.sortBy(flattenedPhotos, [
 				(photo) => {
-					return photo.dateCreated ? photo.dateCreated.valueOf() * -1 : photo.datePublished ? photo.datePublished.valueOf() * -1 : 0;
+					return photo.dateCreated ? photo.dateCreated.valueOf() * -1 : photo.datePublished.valueOf() * -1;
 				}
 			]);
 		})
