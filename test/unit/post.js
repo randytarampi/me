@@ -35,12 +35,12 @@ describe("Post", () => {
 			expect(post.datePublished).to.be.an.instanceOf(Moment);
 		});
 
-		it("should set the value of `datePublished` to be the value of `dateCreated` if `datePublished` is falsy", () => {
+		it("should set the value of `dateCreated` to be the value of `datePublished` if `dateCreated` is falsy", () => {
 			const postJSON = {
 				id: "woof",
 				source: "Woofdy",
-				dateCreated: Date.now(),
-				datePublished: null,
+				datePublished: Date.now(),
+				dateCreated: null,
 				title: "Woof woof woof",
 				body: [
 					"ʕ•ᴥ•ʔ",
