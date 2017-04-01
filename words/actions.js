@@ -30,7 +30,7 @@ actions.getWords = (req, res, next) => {
 		.then((flattenedWords) => {
 			return _.sortBy(flattenedWords, [
 				(word) => {
-					return word.datePublished.valueOf() * -1;
+					return word.dateCreated ? word.dateCreated.valueOf() * -1 : word.datePublished.valueOf() * -1;
 				}
 			]);
 		})
