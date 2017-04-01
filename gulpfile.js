@@ -11,7 +11,6 @@ const mocha = require("gulp-mocha");
 const sass = require("gulp-sass");
 const sassTildeImporter = require("grunt-sass-tilde-importer");
 const sourcemaps = require("gulp-sourcemaps");
-const uglify = require("gulp-uglify");
 const WebPack = require("webpack");
 
 function isFixed(file) {
@@ -85,7 +84,6 @@ gulp.task("vendor", () => {
 		])
 		.pipe(sourcemaps.init())
 		.pipe(concat("vendor.js"))
-		.pipe(uglify())
 		.pipe(sourcemaps.write("./"))
 		.pipe(gulp.dest("dist"));
 });
