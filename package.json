@@ -9,10 +9,10 @@
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "woof.pseudolocalize.js",
   "scripts": {
-	  "pretest": "gulp lint",
-	  "test": "NODE_ENV=test gulp test",
-	  "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test ./node_modules/nyc/bin/nyc.js npm test",
-	  "travis": "npm run cover; gulp coveralls"
+    "pretest": "gulp lint",
+    "test": "NODE_ENV=test gulp test",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test ./node_modules/nyc/bin/nyc.js npm test",
+    "travis": "npm run cover; gulp coveralls"
   },
   "homepage": "https://github.com/randytarampi/woof.pseudolocalize",
   "bugs": {
