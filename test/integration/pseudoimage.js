@@ -2,7 +2,7 @@
 
 let path = require("path");
 let fs = require("fs");
-let lwip = require("lwip");
+let lwip = require("pajk-lwip");
 let mocha = require("mocha");
 let sinon = require("sinon");
 let describe = mocha.describe;
