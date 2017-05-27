@@ -92,7 +92,7 @@ export class Photos extends Link {
 	}
 	static get defaultProps () {
 		return {
-			href: "https://photos.randytarampi.ca",
+			href: "http://photos.randytarampi.ca",
 			text: "Photos"
 		};
 	}
@@ -104,7 +104,7 @@ export class Words extends Link {
 	}
 	static get defaultProps () {
 		return {
-			href: "https://words.randytarampi.ca",
+			href: "http://words.randytarampi.ca",
 			text: "Words"
 		};
 	}
@@ -116,7 +116,7 @@ export class Blog extends Link {
 	}
 	static get defaultProps () {
 		return {
-			href: "https://blog.randytarampi.ca",
+			href: "http://blog.randytarampi.ca",
 			text: "Words"
 		};
 	}
