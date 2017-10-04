@@ -130,7 +130,7 @@
 				<h4 class="strike-through">
 					<span>{{company}}</span>
 					<span class="date">
-						{{date startDate}} — {{date endDate}}
+						{{date startDate}} — {{#if endDate}}{{date endDate}}{{else}}Present{{/if}}
 					</span>
 				</h4>
 				{{#website}}

@@ -1,133 +1,187 @@
 {
   "basics": {
-    "name": "Eddy Hernandez",
-    "label": "UI Engineer",
-    "picture": "http://www.gravatar.com/avatar/6222d4b57cb6ab143221cb89eb4e6a73.jpg?s=512",
-    "email": "edward.d.hernandez@gmail.com",
-    "phone": "415.509.7599",
-    "website": "http://eddywashere.com",
-    "summary": "I'm originally from San Antonio, Texas. I enjoy crafting user interfaces and interactions. I'm very interested in Design Systems and have a strong passion for frontend engineering.",
+    "name": "Galileo Daras",
+    "label": "Software Engineer",
+    "picture": "https://ottopress.co/resume.jpeg",
+    "email": "howard@getcoffee.io",
+    "phone": "Contact me for my phone number",
+    "website": "https://getcoffee.io",
+    "summary": "Passionate about programming, with 5+ years of programming experience in various fields and languages. Strives for code quality to support collaboration amongst peers/co-workers. Extensive experience with Java, Ruby, Golang, and server resource management. Always eager take on an interesting challenge or learn new ways to write better code.",
     "location": {
-      "address": "1190 Mission St. Apt 213",
-      "postalCode": "CA 94103",
+      "address": "",
+      "postalCode": "",
       "city": "San Francisco",
       "countryCode": "US",
       "region": "California"
     },
     "profiles": [
       {
-        "network": "GitHub",
-        "username": "eddywashere",
-        "url": "https://github.com/eddywashere"
-      },
-      {
-        "network": "Twitter",
-        "username": "eddywashere",
-        "url": "http://twitter.com/eddywashere"
-      },
-      {
         "network": "LinkedIn",
-        "username": "eddy.hernandez",
-        "url": "https://www.linkedin.com/in/eddyhernandez"
+        "username": "Galileo Daras",
+        "url": "https://linkedin.com/in/galileodaras"
+      },
+      {
+        "network": "GitHub",
+        "username": "HowardStark",
+        "url": "https://github.com/HowardStark"
+      },
+      {
+        "network": "Keybase",
+        "username": "coffee",
+        "url": "https://keybase.io/coffee"
       }
     ]
   },
   "work": [
-    {
-      "company": "ScaleFT",
-      "position": "Staff Engineer",
-      "website": "https://www.scaleft.com",
-      "startDate": "2015-11-01",
-      "endDate": "2016-05-05",
-      "summary": "Primary responsbilities included frontend development of marketing, documentation and product dashboard sites. Also worked on print materials and content.",
+     {
+      "company": "Bot Provoking",
+      "position": "Programming Co-Captain",
+      "website": "https://github.com/roboticsteam4904/",
+      "startDate": "2017-05-01",
+      "summary": "Co-captain of the programming sub-team on the Bot Provoking FRC robotics team. Lead other students and taught programming courses to new team members, set up a program for outreach to help other teams who don't have the same skills.",
       "highlights": [
-        "<a href='https://www.scaleft.com/blog/announcing-general-availability-and-coreos-support/'>Launched GA product with a revamped dashboard</a>"
+        "Developed open-source real-world path generation library (Java)",
+        "Built modular autonomous navigation platform"
       ]
     },
     {
-      "company": "Mailgun by Rackspace",
-      "position": "Software Engineer",
-      "website": "http://www.mailgun.com",
-      "startDate": "2015-02-20",
-      "endDate": "2015-10-30",
-      "summary": "Worked closely with a product designer and backend engineers. Responsible for Control Panel, Documentation and Marketing sites. Contributed to open source projects related to Mailgun services.",
+      "company": "SideReel",
+      "position": "Software Developer Intern",
+      "website": "https://sidereel.com/",
+      "startDate": "2017-6-01",
+      "endDate": "2017-8-01",
+      "summary": "Built data aggregation tools (crawlers) to improve content accessibility. Began development on ground-up rebuild of site.",
       "highlights": [
-        "<a href='http://blog.mailgun.com/product-update-dashboard-ui-improvements/'>Dashboard UI Improvements</a>",
-        "<a href='http://blog.mailgun.com/multi-user-access-now-available-for-mailgun-customers/'>Multi-User Access</a>"
+        "Created reverse engineered and created documentation for Netflix API",
+        "Leaded development on rebuild of site"
       ]
     },
     {
-      "company": "Rackspace",
-      "position": "Web Developer",
-      "website": "https://www.rackspace.com",
-      "startDate": "2010-10-12",
-      "endDate": "2015-10-30",
-      "summary": "Responsible for the user experience and frontend development of my.rackspace.com, the control panel for Rackspace's Dedicated and Hybrid Hosting customers. Core contributor of Canon, a frontend framework for fast and consistent development of Rackspace UIs.",
+      "company": "Ottopress Co.",
+      "position": "Founder",
+      "website": "https://ottopress.co",
+      "startDate": "2016-07-01",
+      "endDate": "2017-05-31",
+      "summary": "Created a Home Automation/Internet of Things platform with hardware (microcontroller) and software components.",
       "highlights": [
-        "<a href='http://rackerlabs.github.io/canon/'>Canon - UI Library</a>",
-        "<a href='http://blog.rackspace.com/get-more-from-your-data-with-rackspace-cloud-intelligence/'>Frontend Development on Rackspace Intelligence</a>",
-        "<a href='http://blog.rackspace.com/rackconnect-updates/'>RackConnect UI updates</a>",
-        "<a href='http://blog.rackspace.com/rackspace-private-cloud-management-just-got-easier-with-portal-updates/'>Control Panel updates for VMware Private Cloud</a>"
+        "Custom voice activity detection algorithm",
+        "State-of-the-art technology for indoor localization (Using WiFi CSI)",
+        "Android app with custom extensible and secure plugin framework"
       ]
+    },
+    {
+      "company": "Swap",
+      "position": "Senior Software Developer",
+      "website": "",
+      "startDate": "2015-06-01",
+      "endDate": "2016-02-01",
+      "summary": "Worked on developing technologies for instantaneous targeted contact sharing on Android and developing CMS and project management tools to manage all facets of the backend.",
+      "highlights": []
     }
   ],
   "volunteer": [
     {
-      "organization": "The Starter League / Code Academy",
-      "position": "Advanced HTML/CSS Mentor",
-      "website": "http://www.starterleague.com",
-      "startDate": "2012-07-01",
-      "endDate": "2013-06-01",
-      "summary": "Mentored students in the advanced html/css program. Encouraged best practices and helped students navigate their career track.",
+      "organization": "The Nueva School",
+      "position": "Guest Lecturer",
+      "website": "http://nuevaschool.org/",
+      "startDate": "2017-03-01",
+      "endDate": "2017-05-31",
+      "summary": "Taught a course for middle schoolers on advanced computer science concepts, beginning with object oriented programming and touching upon functional programming, algorithmic complexity, and Android app development.",
       "highlights": []
     }
   ],
   "education": [
     {
-      "institution": "Our Lady of the Lake University",
-      "area": "Computer Information Systems & Security",
-      "studyType": "Bachelor of Business Administration",
-      "startDate": "2005-08-15",
-      "endDate": "2009-05-07",
-      "courses": []
+      "institution": "The Nueva School",
+      "area": "",
+      "studyType": "Middle School/High School",
+      "startDate": "2011-09-01",
+      "endDate": "2017-05-31",
+      "gpa": "",
+      "courses": [
+        "CS301 - Advanced Programming",
+        "PHYS301 - Modern Physics",
+        "ECON240 - Applied Game Theory",
+	"MUS240 - Steel Drums"
+      ]
     }
   ],
   "awards": [
     {
-      "title": "The President's Volunteer Service Award",
-      "date": "2008-05-07",
-      "awarder": "Our Lady of the Lake University",
-      "summary": "Recognized for community service while a member of Sigma Theta Epsilon."
+      "title": "Caroline D. Bradley Scholarship",
+      "date": "2014-08-01",
+      "awarder": "Institute for Educational Advancement",
+      "summary": "Selected for full scholarship to attend any school based solely on academic merit."
+    },
+    {
+      "title": "Best Overall App (1st place)",
+      "date": "2016-12-04",
+      "awarder": "AT&T Hackathon",
+      "summary": "Built a working prototype for crowd-sourcing train location in less than 24 hours. By the end, had a Raspberry Pi running beacon software written in Ruby, and an Android app."
     }
   ],
   "publications": [],
   "skills": [
     {
-      "name": "Frontend Experience",
-      "level": "",
+      "name": "Backend Web Development",
+      "level": "Experienced",
       "keywords": [
-        "React",
-        "Redux",
-        "Angular",
-        "Backbone",
-        "jQuery"
+        "Ruby on Rails",
+        "Golang",
+        "PHP",
+        "Node.js"
       ]
     },
     {
-      "name": "Languages",
-      "level": "",
+      "name": "Frontend Web Development",
+      "level": "Experienced",
       "keywords": [
-        "HTML",
-        "CSS",
-        "Javascript",
-        "Ruby",
-        "Python",
-        "Go"
+        "Vue.js",
+        "React",
+        "JavaScript (ES2016)",
+        "SASS"
+      ]
+    },
+    {
+      "name": "Networking",
+      "level": "Experienced",
+      "keywords": [
+        "Nginx/Apache2",
+        "Protobuf",
+        "DNS"
       ]
     }
   ],
-  "languages": [],
-  "interests": [],
-  "references": [],
-  "ga_analytics": "UA-7686535-1"
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "French",
+      "fluency": "Fluent/Second Language"
+    },
+    {
+      "language": "Mandarin Chinese",
+      "fluency": "Proficient"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Food",
+      "keywords": [
+        "Coffee",
+        "Traditional Chinese Dishes",
+        "Meat Dishes"
+      ]
+    },
+    {
+      "name": "Music",
+      "keywords": [
+        "Steel Drums",
+        "Piano"
+      ]
+    }
+  ],
+  "references": []
 }
