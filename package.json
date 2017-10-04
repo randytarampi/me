@@ -1,15 +1,15 @@
 {
-  "name": "jsonresume-theme-eddywashere",
-  "version": "1.0.1",
+  "name": "jsonresume-theme-getcoffee",
+  "version": "1.0.5",
   "description": "Theme for JSON Resume",
-  "author": "Eddy Hernandez",
+  "author": "Howard Stark, Eddy Hernandez",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eddywashere/resume"
+    "url": "https://github.com/howardstark/resume"
   },
   "scripts": {
     "start": "resume serve",
-    "build": "resume export public/index --force -f html --theme eddywashere"
+    "build": "resume export public/index --force -f html --theme getcoffee"
   },
   "license": "MIT",
   "dependencies": {
