@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "resume serve",
-    "build": "resume export public/index --force -f html --theme getcoffee"
+    "build": "resume export build/index --force -f html --theme getcoffee"
   },
   "license": "MIT",
   "dependencies": {
