@@ -4,9 +4,9 @@
     "label": "Software Engineer",
     "picture": "https://ottopress.co/resume.jpeg",
     "email": "howard@getcoffee.io",
-    "phone": "Contact me for my phone number",
+    "phone": "Contact me for phone number",
     "website": "https://getcoffee.io",
-    "summary": "Passionate about programming, with 5+ years of programming experience in various fields and languages. Strives for code quality to support collaboration amongst peers/co-workers. Extensive experience with Java, Ruby, Golang, and server resource management. Always eager take on an interesting challenge or learn new ways to write better code.",
+    "summary": "Passionate about programming, with 7+ years of programming experience in various fields and languages. Strives for code quality to support collaboration amongst peers/co-workers. Extensive experience with Java, Ruby, Golang, and server resource management. Always eager take on an interesting challenge or learn new ways to write better code.",
     "location": {
       "address": "",
       "postalCode": "",
@@ -48,8 +48,8 @@
       "company": "SideReel",
       "position": "Software Developer Intern",
       "website": "https://sidereel.com/",
-      "startDate": "2017-6-01",
-      "endDate": "2017-8-01",
+      "startDate": "2017-06-01",
+      "endDate": "2017-08-01",
       "summary": "Built data aggregation tools (crawlers) to improve content accessibility. Began development on ground-up rebuild of site.",
       "highlights": [
         "Created reverse engineered and created documentation for Netflix API",
@@ -94,15 +94,14 @@
     {
       "institution": "The Nueva School",
       "area": "",
-      "studyType": "Middle School/High School",
-      "startDate": "2011-09-01",
-      "endDate": "2017-05-31",
+      "studyType": "High School",
+      "startDate": "2015-09-06",
+      "endDate": "2019-06-15",
       "gpa": "",
       "courses": [
         "CS301 - Advanced Programming",
         "PHYS301 - Modern Physics",
-        "ECON240 - Applied Game Theory",
-	"MUS240 - Steel Drums"
+        "ECON240 - Applied Game Theory"
       ]
     }
   ],
