@@ -1,12 +1,14 @@
-import {Grid, Cell} from "react-mdl";
+import React from "react";
+import {Col} from "react-materialize";
+import RowBlock from "me.common.jsx/lib/rowBlock";
 import Bear from "../components/bear";
 
-export default () =>
-	<Grid id="intro" className="block">
-		<Cell className="block__bear" col={5} hideTablet={true} hidePhone={true}>
-			<Bear />
-		</Cell>
-		<Cell className="block__text" col={7} tablet={8}>
+const Bears = () =>
+	<RowBlock name="intro">
+		<Col className="block__bear hide-on-med-and-down" l={5}>
+			<Bear/>
+		</Col>
+		<Col className="block__text" l={7} m={8} offset="m2">
 			<h2>
 				<span className="text">And the Bears?</span>
 			</h2>
@@ -16,5 +18,7 @@ export default () =>
 			<p>
 				<span className="text">Try not to bonk them on the nose, they're not big fans of that.</span>
 			</p>
-		</Cell>
-	</Grid>;
+		</Col>
+	</RowBlock>;
+
+export default Bears;

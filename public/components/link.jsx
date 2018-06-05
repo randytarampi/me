@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class Link extends React.Component {
 	constructor(props, context, updater) {
@@ -11,6 +12,11 @@ class Link extends React.Component {
 		return <a className="link" target="__blank" {...this.props}>{this.props.text}</a>;
 	}
 }
+
+Link.propTypes = {
+	href: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired
+};
 
 export default Link;
 

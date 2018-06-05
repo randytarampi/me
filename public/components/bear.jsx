@@ -1,3 +1,6 @@
+/* global window */
+
+import React from "react";
 import _ from "lodash";
 import Emoji from "./emoji";
 
@@ -162,10 +165,10 @@ export class HelloBear extends Bear {
 						break;
 					case 34:
 						newState.rightLeaningRightArm = "ﾉ゛";
-						window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn\'t stop clicking!", "_blank");
+						window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn't stop clicking!", "_blank");
 						break;
 					case 35:
-						window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won\'t stop popping up!", "_blank");
+						window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won't stop popping up!", "_blank");
 						break;
 					case 36:
 						newState.pokes = 0;

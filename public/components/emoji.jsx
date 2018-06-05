@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class Emoji extends React.Component {
 	constructor(props, context, updater) {
@@ -25,5 +26,8 @@ class Emoji extends React.Component {
 	}
 }
 
+Emoji.propTypes = {
+	components: PropTypes.array
+};
 
 export default Emoji;
