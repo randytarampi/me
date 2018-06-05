@@ -1,8 +1,10 @@
+import PostEntity from "me.common.js/lib/post";
+import PropTypes from "prop-types";
+import React, {Component} from "react";
 import Dimensions from "react-dimensions";
-import React from "react";
-import {Cell, Grid} from "react-mdl";
+import {Col, Row} from "react-materialize";
 
-export class Post extends React.Component {
+export class PostComponent extends Component {
 	constructor(props, context, updater) {
 		super(props, context, updater);
 
@@ -48,15 +50,14 @@ export class Post extends React.Component {
 		this.template._lastWidth = this.containerWidth;
 	}
 
-	render () {
-		return <Grid
-				className="post"
-				id={this.template.uid}
-				shadow={1}
-			>
-			<Cell
+	render() {
+		return <Row
+			className="post"
+			id={this.template.uid}
+		>
+			<Col
 				className="post-metadata"
-				col={12}
+				s={12}
 			>
 				<h1 className="post-title">
 					{
@@ -79,23 +80,29 @@ export class Post extends React.Component {
 				</p>
 				{
 					typeof this.template.body === "string" ?
-						<div className="post-body" dangerouslySetInnerHTML={{__html: this.template.body}} /> :
+						<div className="post-body" dangerouslySetInnerHTML={{__html: this.template.body}}/> :
 						null
 				}
 				{
 					Array.isArray(this.template.body) ?
-						this.template.body.map((htmlString) => {
-							return <div className="post-body">
-								<span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}} />
+						this.template.body.map((htmlString, index) => {
+							return <div className="post-body" key={index}>
+								<span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
 							</div>;
 						}) :
 						null
 				}
-			</Cell>
-		</Grid>;
+			</Col>
+		</Row>;
 	}
 }
 
+PostComponent.propTypes = {
+	post: PropTypes.instanceOf(PostEntity).isRequired,
+	containerWidth: PropTypes.number,
+	containerHeight: PropTypes.number
+};
+
 export default Dimensions({
 	elementResize: true
-})(Post);
+})(PostComponent);

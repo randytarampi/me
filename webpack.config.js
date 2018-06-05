@@ -2,7 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
+	mode: "development",
 	entry: [
+		"babel-polyfill",
 		"./lib/posts.js"
 	],
 	output: {
@@ -10,17 +12,13 @@ module.exports = {
 		filename: "main.js"
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules\/(?!(?:(?:me\.common\.js)|(?:me\.common\.jsx))(?!\/node_modules))/,
+				exclude: /node_modules\/(?!(me\.common)\/)/,
 				loader: "babel-loader",
-				query: {
-					presets: [
-						"react",
-						"es2015",
-						"stage-0"
-					]
+				options: {
+					forceEnv: "client"
 				}
 			},
 			{
@@ -31,5 +29,16 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()
-	]
+	],
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				commons: {
+					test: /[\\/]node_modules[\\/]/,
+					name: "vendor",
+					chunks: "all"
+				}
+			}
+		}
+	}
 };

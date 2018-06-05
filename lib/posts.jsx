@@ -1,16 +1,15 @@
-import Post from "me.common.js/lib/post";
-import PostComponent from "./post";
-import Photo from "me.common.js/lib/photo";
-import PhotoComponent from "./photo";
-import autobind from "react-autobind";
-import Infinite from "react-infinite";
-import Dimensions from "react-dimensions";
-import Spinner from "react-spinkit";
-import React from "react";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
+import Photo from "me.common.js/lib/photo";
+import Post from "me.common.js/lib/post";
+import PropTypes from "prop-types";
+import React, {Component} from "react";
+import Dimensions from "react-dimensions";
+import Infinite from "react-infinite";
+import PhotoComponent from "./photo";
+import PostComponent from "./post";
 
-export class PostsComponent extends React.Component {
+export class PostsComponent extends Component {
 	constructor(props, context, updater) {
 		super(props, context, updater);
 
@@ -21,7 +20,8 @@ export class PostsComponent extends React.Component {
 		};
 		this.fetch = null;
 
-		autobind(this);
+		this.load = this.load.bind(this);
+		this.elementInfiniteLoad = this.elementInfiniteLoad.bind(this);
 	}
 
 	load() {
@@ -86,43 +86,38 @@ export class PostsComponent extends React.Component {
 		});
 	}
 
-	render () {
-		const FullPageSpinner = Dimensions({
-			elementResize: true,
-			containerStyle: {
-				margin: 0,
-				padding: 0,
-				border: 0,
-				height: window.innerHeight
-			}
-		})(Spinner);
+	elementInfiniteLoad () {
+		return <div className="infinite-list-item">
+			Loading...
+		</div>;
+	}
 
-		return <Infinite
-			useWindowAsScrollContainer={true}
-			elementHeight={this.elementHeights}
-			infiniteLoadBeginEdgeOffset={Infinite.containerHeightScaleFactor(0.05).amount}
-			onInfiniteLoad={this.load}
-			isInfiniteLoading={this.isLoading}
-			loadingSpinnerDelegate={
-				<FullPageSpinner
-					spinnerName="rotating-plane"
-					noFadeIn
-				/>
-			}
-		>
-			{
-				this.posts.map((post) => {
-					const Constructor = getComponentForType(post.type);
-					return <Constructor
-						key={post.uid}
-						ref={post.uid}
-						post={post}
-					/>;
-				})
-			}
-		</Infinite>;
+	render() {
+		return <div>
+			<Infinite
+				useWindowAsScrollContainer={true}
+				elementHeight={this.elementHeights}
+				infiniteLoadBeginEdgeOffset={Infinite.containerHeightScaleFactor(0.05).amount}
+				onInfiniteLoad={this.load}
+				isInfiniteLoading={this.isLoading}
+				loadingSpinnerDelegate={this.elementInfiniteLoad()}
+			>
+				{
+					this.posts.map((post) => {
+						const Constructor = getComponentForType(post.type);
+						return <Constructor
+							key={post.uid}
+							post={post}
+						/>;
+					})
+				}
+			</Infinite>
+		</div>;
 	}
 }
+PostsComponent.propTypes = {
+	containerWidth: PropTypes.number
+};
 
 //FIXME-RT: This and `getComponentForType`, strike me as inelegant. Are there other ways of doing this?
 function getEntityForType(type) {
@@ -147,10 +142,6 @@ function getComponentForType(type) {
 	}
 }
 
-export function wrapWithDimensions() {
-	return Dimensions({
-		elementResize: true
-	})(PostsComponent);
-}
-
-export default wrapWithDimensions(PostsComponent);
+export default Dimensions({
+	elementResize: true
+})(PostsComponent);

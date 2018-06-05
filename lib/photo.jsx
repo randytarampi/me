@@ -1,9 +1,9 @@
-import {Post} from "./post";
+import {PostComponent} from "./post";
 import Dimensions from "react-dimensions";
 import React from "react";
-import {Cell, Grid} from "react-mdl";
+import {Col, Row} from "react-materialize";
 
-export class Photo extends Post {
+export class PhotoComponent extends PostComponent {
 	constructor(props, context, updater) {
 		super(props, context, updater);
 	}
@@ -28,31 +28,27 @@ export class Photo extends Post {
 	}
 
 	render () {
-		return <Grid
+		return <Row
 				className="photo"
 				id={this.template.uid}
-				shadow={1}
 				style={{
 					backgroundImage: `url(${this.selected.url})`,
 					backgroundSize: "cover",
 					height: this.scaledHeight
 				}}
 			>
-			<Cell
-				className="photo-metadata"
-				hideDesktop
-				col={4}
-				tablet={8}
+			<Col
+				className="photo-metadata show-on-medium-and-down"
+				s={4}
+				m={8}
 			>
 				<h1 className="photo-title">
 					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.title}</span></a>
 				</h1>
-			</Cell>
-			<Cell
-				className="photo-metadata"
-				hideTablet
-				hidePhone
-				col={4}
+			</Col>
+			<Col
+				className="photo-metadata hide-on-med-and-down"
+				l={4}
 			>
 				<h1 className="photo-title">
 					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.title}</span></a>
@@ -98,11 +94,11 @@ export class Photo extends Post {
 							null
 					}
 				</p>
-			</Cell>
-		</Grid>;
+			</Col>
+		</Row>;
 	}
 }
 
 export default Dimensions({
 	elementResize: true
-})(Photo);
+})(PhotoComponent);
