@@ -6,7 +6,7 @@ let sinon = require("sinon");
 let describe = mocha.describe;
 let it = mocha.it;
 let expect = require("chai").expect;
-let lwip = require("pajk-lwip");
+let lwip = require("lwip");
 let Pseudoimage = require("../../lib/pseudoimage");
 
 describe("pseudoimage", function () {
@@ -27,7 +27,7 @@ describe("pseudoimage", function () {
 			let pseudoimage = new Pseudoimage(null, null, testImageTransformationFunction);
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.meow");
 			let destination = path.join(__dirname, "../tmp/woof.meow");
-			sinon.stub(lwip, "open", (filename, callback) => {
+			sinon.stub(lwip, "open").callsFake((filename, callback) => {
 				callback(new Error("Meow meow meow"));
 			});
 			pseudoimage.generatePseudoImage(source, destination)

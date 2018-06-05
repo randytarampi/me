@@ -2,7 +2,7 @@
 
 let path = require("path");
 let fs = require("fs");
-let lwip = require("pajk-lwip");
+let lwip = require("lwip");
 let mocha = require("mocha");
 let sinon = require("sinon");
 let describe = mocha.describe;
@@ -52,10 +52,10 @@ describe("pseudoimage", function () {
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/woof.jpeg");
 			let lwipOpen = lwip.open;
-			sinon.stub(lwip, "open", (filename, callback) => {
+			sinon.stub(lwip, "open").callsFake((filename, callback) => {
 				lwipOpen(filename, (error, image) => {
 					let originalImageBatch = image.batch();
-					sinon.stub(image, "batch", () => {
+					sinon.stub(image, "batch").callsFake(() => {
 						originalImageBatch.writeFile = (destination, callback) => {
 							callback(new Error("Grr grr grr"));
 						};
@@ -109,10 +109,10 @@ describe("pseudoimage", function () {
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/meow.jpeg");
 			let lwipOpen = lwip.open;
-			sinon.stub(lwip, "open", (filename, callback) => {
+			sinon.stub(lwip, "open").callsFake((filename, callback) => {
 				lwipOpen(filename, (error, image) => {
 					let originalImageBatch = image.batch();
-					sinon.stub(image, "batch", () => {
+					sinon.stub(image, "batch").callsFake(() => {
 						originalImageBatch.writeFile = (destination, callback) => {
 							callback(new Error("Grr grr grr"));
 						};
@@ -157,10 +157,10 @@ describe("pseudoimage", function () {
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
 			let destination = path.join(__dirname, "../tmp/meow.jpeg");
 			let lwipOpen = lwip.open;
-			sinon.stub(lwip, "open", (filename, callback) => {
+			sinon.stub(lwip, "open").callsFake((filename, callback) => {
 				lwipOpen(filename, (error, image) => {
 					let originalImageBatch = image.batch();
-					sinon.stub(image, "batch", () => {
+					sinon.stub(image, "batch").callsFake(() => {
 						originalImageBatch.writeFile = (destination, callback) => {
 							callback(new Error("Grr grr grr"));
 						};

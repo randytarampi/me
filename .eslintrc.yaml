@@ -1,0 +1,37 @@
+extends:
+    - eslint:recommended
+rules:
+    no-useless-escape: 1
+    eqeqeq: 2
+    semi: 2
+    quotes:
+      - 2
+      - double
+    import/named: 2
+    import/export: 2
+    import/no-mutable-exports: 2
+    import/first: 2
+    import/no-duplicates: 2
+    import/no-unresolved:
+      - 2
+      -
+        commonjs: true
+    import/default: 2
+    import/no-extraneous-dependencies: 1
+parserOptions:
+    ecmaVersion: 6
+    sourceType: module
+    ecmaFeatures:
+        modules: true
+        experimentalObjectRestSpread: true
+env:
+    node: true
+plugins:
+    - import
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .jsx
+        - .json

@@ -1,16 +1,15 @@
 "use strict";
 
 const gulp = require("gulp");
-const gulpIf = require("gulp-if");
-const eslint = require("gulp-eslint");
-const mocha = require("gulp-mocha");
-const coveralls = require("gulp-coveralls");
 
 function isFixed(file) {
-	return file.eslint != null && file.eslint.fixed;
+	return file.eslint !== null && file.eslint.fixed;
 }
 
 gulp.task("eslint", function() {
+	const eslint = require("gulp-eslint");
+	const gulpIf = require("gulp-if");
+
 	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./coverage/**/*"])
 		.pipe(eslint({fix: true}))
 		.pipe(eslint.format())
@@ -18,21 +17,22 @@ gulp.task("eslint", function() {
 		.pipe(eslint.failOnError());
 });
 
-gulp.task("lint", ["eslint"]);
+gulp.task("lint", gulp.parallel(["eslint"]));
 
 gulp.task("test.unit", () => {
+	const mocha = require("gulp-mocha");
+	const mochaConfig = require("./mocha.config");
+
 	return gulp.src("test/unit/**/*.js", {read: false})
-		.pipe(mocha());
+		.pipe(mocha(mochaConfig));
 });
 
 gulp.task("test.integration", () => {
+	const mocha = require("gulp-mocha");
+	const mochaConfig = require("./mocha.config");
+
 	return gulp.src("test/integration/**/*.js", {read: false})
-		.pipe(mocha());
+		.pipe(mocha(mochaConfig));
 });
 
-gulp.task("test", ["test.unit", "test.integration"]);
-
-gulp.task("coveralls", () => {
-	return gulp.src("coverage/**/lcov.info")
-		.pipe(coveralls());
-});
+gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
