@@ -1,43 +1,31 @@
-const autoprefixer = require("gulp-autoprefixer");
-const concat = require("gulp-concat");
-const del = require("del");
-const eslint = require("gulp-eslint");
+require("babel-register");
+
 const gulp = require("gulp");
-const gulpIf = require("gulp-if");
-const minifyCss = require("gulp-minify-css");
-const sass = require("gulp-sass");
-const sassTildeImporter = require("grunt-sass-tilde-importer");
-const sourcemaps = require("gulp-sourcemaps");
 
-function isFixed(file) {
-	return file.eslint != null && file.eslint.fixed;
-}
+gulp.task("sassLint", () => {
+	const sassLint = require("gulp-sass-lint");
 
-gulp.task("eslint", () => {
-	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
-		.pipe(eslint({fix: true}))
-		.pipe(eslint.format())
-		.pipe(gulpIf(isFixed, gulp.dest("./")))
-		.pipe(eslint.failOnError());
+	return gulp.src("sass/**/*.s+(a|c)ss")
+		.pipe(sassLint())
+		.pipe(sassLint.format())
+		.pipe(sassLint.failOnError());
 });
 
-gulp.task("lint", ["eslint"]);
+gulp.task("lint", gulp.series(["sassLint"]));
 
 gulp.task("clean", (callback) => {
+	const del = require("del");
+
 	del(["dist"], callback);
 });
 
-gulp.task("styles", ["styles:dev"], () => {
-	return gulp.src("dist/styles.css")
-		.pipe(sourcemaps.init())
-		.pipe(minifyCss())
-		.pipe(sourcemaps.write("./"))
-		.pipe(gulp.dest("dist"));
-});
-
 gulp.task("styles:dev", () => {
+	const autoprefixer = require("gulp-autoprefixer");
+	const concat = require("gulp-concat");
+	const sass = require("gulp-sass");
+	const sassTildeImporter = require("grunt-sass-tilde-importer");
+
 	return gulp.src([
-			"node_modules/normalize.css/normalize.css",
 			"styles/style.scss"
 		])
 		.pipe(sass({
@@ -51,14 +39,26 @@ gulp.task("styles:dev", () => {
 		.pipe(gulp.dest("dist"));
 });
 
-gulp.task("build", [
-	"lint",
-	"styles"
-]);
+gulp.task("styles", gulp.series(["styles:dev"]), () => {
+	const cleanCss = require("gulp-clean-css");
+	const sourcemaps = require("gulp-sourcemaps");
 
-gulp.task("build:dev", [
+	return gulp.src("dist/styles.css")
+		.pipe(sourcemaps.init())
+		.pipe(cleanCss())
+		.pipe(sourcemaps.write("./"))
+		.pipe(gulp.dest("dist"));
+});
+
+gulp.task("build", gulp.series([
+	"styles"
+]));
+
+gulp.task("build:dev", gulp.series([
 	"lint",
 	"styles:dev"
-]);
+]));
 
-gulp.task("travis", ["styles"]);
+gulp.task("test", gulp.series(["build"]));
+
+gulp.task("travis", gulp.series(["test"]));

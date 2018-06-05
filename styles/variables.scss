@@ -1,6 +1,10 @@
-@import "~material-design-lite/src/variables";
+@import "~materialize-css/sass/components/color";
 
 $blockPadding: 4px 8px;
 $blockColour: black;
 $blockTextColour: white;
 $blockLineHeight: 1.5;
+
+$link-color: color("orange", "darken-1");
+
+@import "~materialize-css/sass/components/variables";

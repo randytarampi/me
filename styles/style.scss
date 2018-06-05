@@ -1,6 +1,6 @@
-@import "~material-design-lite/src/material-design-lite";
-@import "~react-mdl/extra/layout";
+@import "variables";
+
+@import "~materialize-css/sass/materialize";
 
 @import "layout";
 @import "fonts";
-@import "variables";
