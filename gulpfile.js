@@ -1,14 +1,15 @@
-const eslint = require("gulp-eslint");
+require("babel-register");
+
 const gulp = require("gulp");
-const coveralls = require("gulp-coveralls");
-const gulpIf = require("gulp-if");
-const mocha = require("gulp-mocha");
 
 function isFixed(file) {
-	return file.eslint != null && file.eslint.fixed;
+	return file.eslint !== null && file.eslint.fixed;
 }
 
 gulp.task("eslint", () => {
+	const eslint = require("gulp-eslint");
+	const gulpIf = require("gulp-if");
+
 	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
 		.pipe(eslint({fix: true}))
 		.pipe(eslint.format())
@@ -16,21 +17,22 @@ gulp.task("eslint", () => {
 		.pipe(eslint.failOnError());
 });
 
-gulp.task("lint", ["eslint"]);
+gulp.task("lint", gulp.series(["eslint"]));
 
-gulp.task("test.unit", function () {
-	return gulp.src("test/unit/**/*.js", {read: false})
-		.pipe(mocha());
+gulp.task("test.unit", () => {
+	const mocha = require("gulp-mocha");
+	const mochaConfig = require("./mocha.config");
+
+	return gulp.src("test/unit/**/*.js", {read: false, allowEmpty: true})
+		.pipe(mocha(mochaConfig));
 });
 
-gulp.task("test.integration", function () {
-	return gulp.src("test/integration/**/*.js", {read: false})
-		.pipe(mocha());
+gulp.task("test.integration", () => {
+	const mocha = require("gulp-mocha");
+	const mochaConfig = require("./mocha.config");
+
+	return gulp.src("test/integration/**/*.js", {read: false, allowEmpty: true})
+		.pipe(mocha(mochaConfig));
 });
 
-gulp.task("test", ["test.unit", "test.integration"]);
-
-gulp.task("coveralls", () => {
-	return gulp.src("coverage/**/lcov.info")
-		.pipe(coveralls());
-});
+gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));

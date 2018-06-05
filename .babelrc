@@ -1,0 +1,25 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "uglify": true
+        },
+        "useBuiltIns": true
+      }
+    ]
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "lodash",
+    "istanbul"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
+}
