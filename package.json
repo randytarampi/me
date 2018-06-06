@@ -1,65 +1,71 @@
 {
-  "name": "me.blog",
-  "author": {
-    "name": "Randy Tarampi",
-    "email": "rt@randytarampi.ca"
-  },
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "pretest": "gulp lint",
-    "test": "gulp test",
-    "postinstall": "gulp build:dev",
-    "prepublish": "gulp build",
-    "travis": "gulp travis",
-    "start": "python -m unittest discover -s ./tests -p '*.py'"
-  },
-  "description": "A post aggregator/blog thingy. For some usernames at some popular services, pull their posts and display them nicely.",
-  "homepage": "https://github.com/randytarampi/me.blog",
-  "bugs": {
-    "url": "https://github.com/randytarampi/me.blog/issues",
-    "email": "bugs@randytarampi.ca"
-  },
-  "dependencies": {
-    "material-design-lite": "^1.3.0",
-    "me.common.css": "randytarampi/me.common.css",
-    "me.common.js": "randytarampi/me.common.js",
-    "me.common.jsx": "randytarampi/me.common.jsx",
-    "normalize.css": "^5.0.0",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-mdl": "^1.9.0"
-  },
-  "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-register": "^6.9.0",
-    "css-loader": "^0.27.3",
-    "del": "^2.2.0",
-    "eslint-plugin-react": "^6.1.2",
-    "grunt-sass-tilde-importer": "^1.0.2",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-copy2": "^0.2.0",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-eslint": "^3.0.1",
-    "gulp-if": "^2.0.1",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-mocha": "^3.0.1",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.4.1",
-    "gulp-uglify": "^2.0.0",
-    "gulp-webpack": "^1.5.0",
-    "mocha": "^3.1.2",
-    "style-loader": "^0.14.1",
-    "webpack": "^2.2.1"
-  },
-  "engines": {
-    "node": ">=6"
-  }
+	"name": "me.blog",
+	"author": {
+		"name": "Randy Tarampi",
+		"email": "rt@randytarampi.ca"
+	},
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"pretest": "gulp lint",
+		"test": "gulp test",
+		"postinstall": "gulp build:dev",
+		"prepublish": "gulp build",
+		"travis": "npm travis",
+		"start": "python -m unittest discover -s ./tests -p '*.py'"
+	},
+	"description": "A post aggregator/blog thingy. For some usernames at some popular services, pull their posts and display them nicely.",
+	"homepage": "https://github.com/randytarampi/me.blog",
+	"bugs": {
+		"url": "https://github.com/randytarampi/me.blog/issues",
+		"email": "bugs@randytarampi.ca"
+	},
+	"dependencies": {
+		"materialize-css": "^0.100.2",
+		"me.common.css": "randytarampi/me.common.css",
+		"me.common.js": "randytarampi/me.common.js",
+		"me.common.jsx": "randytarampi/me.common.jsx",
+		"react": "^16.4.0",
+		"react-dom": "^16.4.0",
+		"react-materialize": "^2.2.1"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.18.0",
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.4",
+		"babel-plugin-istanbul": "^4.0.0",
+		"babel-plugin-lodash": "^3.2.11",
+		"babel-plugin-minify-replace": "^0.4.0",
+		"babel-plugin-transform-object-rest-spread": "^6.22.0",
+		"babel-polyfill": "^6.23.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-react": "^6.5.0",
+		"babel-register": "^6.26.0",
+		"chai": "^4.1.2",
+		"css-loader": "^0.28.11",
+		"del": "^3.0.0",
+		"eslint-plugin-import": "^2.2.0",
+		"eslint-plugin-react": "^7.8.2",
+		"grunt-sass-tilde-importer": "^1.0.2",
+		"gulp": "^4.0.0",
+		"gulp-autoprefixer": "^5.0.0",
+		"gulp-clean-css": "^3.9.4",
+		"gulp-concat": "^2.6.1",
+		"gulp-eslint": "^4.0.2",
+		"gulp-if": "^2.0.2",
+		"gulp-mocha": "^6.0.0",
+		"gulp-sass": "^4.0.1",
+		"gulp-sass-lint": "^1.4.0",
+		"gulp-sourcemaps": "^2.4.1",
+		"mocha": "^5.2.0",
+		"prop-types": "~15.6.0",
+		"style-loader": "^0.21.0",
+		"react-hot-loader": "^4.2.0",
+		"vinyl-paths": "^2.1.0",
+		"webpack": "^4.11.1",
+		"webpack-bundle-analyzer": "^2.13.1"
+	},
+	"engines": {
+		"node": ">=8"
+	}
 }

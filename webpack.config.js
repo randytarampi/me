@@ -2,29 +2,27 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
+	mode: "development",
+	devtool: "source-map",
 	entry: [
-		"./public/views/index.js"
+		"babel-polyfill",
+		"./public/views/index.jsx"
 	],
-	externals: {
-		react: "React",
-		"react-dom": "ReactDOM"
-	},
 	output: {
 		path: path.join(__dirname, "dist"),
 		filename: "main.js"
 	},
+	resolve: {
+		extensions: [".js", ".jsx", ".json"]
+	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules\/(?!(?:(?:me\.common\.js)|(?:me\.common\.jsx))(?!\/node_modules))/,
+				exclude: /node_modules\/(?!(me\.common\.\w+)\/)/,
 				loader: "babel-loader",
-				query: {
-					presets: [
-						"react",
-						"es2015",
-						"stage-0"
-					]
+				options: {
+					forceEnv: "client"
 				}
 			},
 			{
@@ -35,5 +33,36 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()
-	]
+	],
+	devServer: {
+		inline: true,
+		hot: true,
+		compress: true,
+		historyApiFallback: true,
+		watchOptions: {
+			aggregateTimeout: 300,
+			poll: 1000,
+			ignored: [
+				/node_modules\/(?!(me\.common\.\w+)\/)/,
+				/node_modules\/((me\.common\.\w+)\/node_modules)/
+			]
+		},
+		host: "0.0.0.0",
+		publicPath: path.join(__dirname, "dist"),
+		stats: {
+			colors: true
+		}
+	},
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				commons: {
+					test: /[\\/]node_modules[\\/]/,
+					name: "vendor",
+					filename: "vendor.js",
+					chunks: "all"
+				}
+			}
+		}
+	}
 };
