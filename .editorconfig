@@ -3,35 +3,20 @@
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-
-[*.rb]
-indent_style = space
-indent_size = 2
+indent_style = tab
+indent_size = 4
 
 [*.json]
-indent_style = space
 indent_size = 2
 
 [*.yaml]
-indent_style = space
 indent_size = 2
 
 [*.yml]
-indent_style = space
 indent_size = 2
 
-[*.py]
-indent_style = space
-indent_size = 4
+[*.config]
+indent_size = 2
 
-[*.js]
-indent_style = tab
-
-[*.java]
-indent_style = tab
-
-[*.xml]
-indent_style = tab
-
-[*.less]
-indent_style = tab
+[*.scss]
+indent_size = 2

@@ -57,7 +57,9 @@ describe("LocalSource", () => {
 	});
 
 	describe("#getPhoto", () => {
-		it("should load a `Photo` from a given `Photo`'s `id`", () => {
+		it("should load a `Photo` from a given `Photo`'s `id`", function () {
+			this.timeout(60000);
+
 			const photoSource = new PhotoSource();
 
 			return photoSource.getUserPhotos()
