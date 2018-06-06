@@ -54,7 +54,7 @@
 		"sinon": "~5.0.10"
 	},
 	"engines": {
-		"node": ">=6"
+		"node": ">=8"
 	},
 	"bin": {
 		"p7eImage": "./bin/p7eImage",
