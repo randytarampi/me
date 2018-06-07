@@ -21,3 +21,20 @@
 	color: $blockTextColour;
 	margin-right: 4px;
 }
+
+.photo-title,
+.photo-description,
+.photo-date-taken,
+.photo-date-published,
+.photo-body,
+.photo-source,
+.photo-text {
+	&__link {
+		text-decoration: underline;
+		text-decoration-color: $link-color;
+	}
+}
+
+.photo {
+	margin-bottom: 0;
+}
