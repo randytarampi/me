@@ -38,7 +38,7 @@ export class PhotoComponent extends PostComponent {
 				}}
 			>
 			<Col
-				className="photo-metadata show-on-medium-and-down"
+				className="photo-metadata hide-on-large-only"
 				s={4}
 				m={8}
 			>
