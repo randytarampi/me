@@ -26,7 +26,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.9.0",
-    "css-loader": "^0.28.11",
     "del": "^3.0.0",
     "grunt-sass-tilde-importer": "^1.0.2",
     "gulp": "^4.0.0",
@@ -37,8 +36,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^2.4.1",
-    "materialize-css": "^0.100.2",
-    "style-loader": "^0.21.0"
+    "materialize-css": "^0.100.2"
   },
   "engines": {
     "node": ">=6"
