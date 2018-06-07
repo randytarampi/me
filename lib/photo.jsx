@@ -1,7 +1,7 @@
-import {PostComponent} from "./post";
-import Dimensions from "react-dimensions";
 import React from "react";
+import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
+import {PostComponent} from "./post";
 
 export class PhotoComponent extends PostComponent {
 	constructor(props, context, updater) {
@@ -90,7 +90,8 @@ export class PhotoComponent extends PostComponent {
 					<a className="photo-source__link" href={this.selected.url}><span className="photo-text">Source</span></a>
 					{
 						this.template.creator ?
-							<a className="photo-source__profile-link" href={this.template.creator.sourceUrl}><span className="photo-text">{this.template.creator.username} on {this.template.source}</span></a> :
+							<a className="photo-source__link" href={this.template.creator.sourceUrl}><span
+								className="photo-text">{this.template.creator.username} on {this.template.source}</span></a> :
 							null
 					}
 				</p>
