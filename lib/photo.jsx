@@ -39,8 +39,6 @@ export class PhotoComponent extends PostComponent {
 			>
 			<Col
 				className="photo-metadata hide-on-large-only"
-				s={4}
-				m={8}
 			>
 				<h1 className="photo-title">
 					<a className="photo-title__link" href={this.template.sourceUrl}><span className="photo-text">{this.title}</span></a>
