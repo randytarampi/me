@@ -62,8 +62,8 @@ export class PhotoComponent extends PostComponent {
 				}
 				{
 					Array.isArray(this.template.body) ?
-						this.template.body.map((htmlString) => {
-							return <p className="photo-body">
+						this.template.body.map((htmlString, index) => {
+							return <p className="photo-body" key={`${this.template.id}:${this.template.type}:body:${index}`}>
 								<span className="photo-text" dangerouslySetInnerHTML={{__html: htmlString}} />
 							</p>;
 						}) :
