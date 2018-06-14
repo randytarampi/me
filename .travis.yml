@@ -2,7 +2,9 @@ language: node_js
 node_js:
 - '8'
 env:
-- CXX=g++-4.8
+  global:
+  - secure: TLivqf5lb81s4YrqDtyWOa5S0FY9+wWgc8cyLAZN3H4Migfut94F6LmLbsxTk532Fsob0L/d7TfRUhVOj4t65KkSNZfMgmf4445VC4arGX68E6usTkxJ43/yF3wdej8bjBE7G4nCkTG/rR0dVb7xrJjgn1k6v9J+K7Rx9oJWZVyIuS4EPhxrUnYFqMjWm8pwoGwu1C4XxK+w3a+GoIXI5RU76MA07V29tnnIyRNyQVJ+hUhYgXosZicPRD6pNUL/okDv9U59gVtSGBUN2h7YYKi1emKXR2mLDnB6AdWPZbmCRE+C5ygNDwfnwPkHPvOVLSA0S9Nw9Amq7J5djYfbPXVTYUGlaC1RYKxeNyLBpSvqgcmIe7VkKUMtRlwiEmjfgopDzcNEQHgsV7pfyXu8oovZAwHVGnt3KZ3VV2aUS10FBCLB0O0u9ctxMxlSHx3a7eoiLufDvsPrkDm9f1cLzm3Ly7WPmmN4CM4MId6AMf7X+R88HaTVboPyVH+SlTpLgVv+AkVR4nGQw+QbDi5XpflSrs1jEWVZaPOPQpmV60cCG1PZxpMrPmRGht8pjDnx8vCQ8JU+wYe4psCpa+6gdKi7lXWF0LF+fWBhgzbq4ndM3L+2Ky2aVLuYGxxgH08eJN747ZajUG6dP1XhPhjPRFZUCjY5a/o4WqAsndRaQ+4=
+  - CXX=g++-4.8
 addons:
   apt:
     sources:
@@ -10,12 +12,26 @@ addons:
     packages:
     - g++-4.8
 before_install:
+- uname -a
+- lscpu
 - touch .env
+- npm i -g npm
+install: npm cit
 script: npm run travis
-before_deploy:
-- touch .env
+after_success:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.words.tar.gz -C ./ .
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=git --no-pager show -s --format='%ae' `git rev-parse`
+- git config --local user.email $TRAVIS_AUTHOR
+- if [ -z "$TRAVIS_TAG" ]; then
+    if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+      npm version minor;
+      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+      npm version preminor -m "[Travis] Prepare version %s";
+      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
+    fi;
+  fi;
 deploy:
 - provider: s3
   access_key_id: AKIAI3EMH5UQ2CYHR3SA
@@ -23,6 +39,7 @@ deploy:
     secure: mLWxH8h2arSs2xiZn0Nd52Qn465OLyCnqqu5VeFh9mazsyaKtasna/LWTUDUyeUbQzdKIotJ1hi5H8pGvmjoehO+kbDOZK4WZ/xWyQegtbepqbZSw9GUlnnnXDOi/ePFhRpdXtY9IafQcrTuCZd6kCJoS65YDgbm6KF2Y71Tv9TRT2rpmIY03GYT3dY9GbtEJ05wypAbiEZnkiX2cNIWmx46TCMfdtylzf5QPRF+j7ujnDte1B4Fja9P0gpTmK5EH8ai4Y9lDXv+UuRNQay+Uzb2kQ6lhlqaTOkYlSaZSSOg/WP8BVX7zGqe1IbulzgaE6NZdAQAq9XotBrWVM9oOsN8ialrO1W8Vkcs2htE2+JkK04DhbmFJj7UQARPCJYKL2LvnuTr+h2injmJRMi/z1UTm0t5shxO8SgqMJuJFCS6Cbr0+QYRztc/uc1MgNeEnFt1al7x1btEqaFpAFtmroYZuZyrhkNOIGeYFWrQxh8kE7dGr092x9YfPy2PUoXgXrdbNMxFy9aZhTDHYpXqhxPuUphUzQeSJWGol+QX9STEBJidLvEdQqoYuw1eVH+r/Ptto29T6M+bgz33GhvaZo6/HTu9cTdWSGOiTzhieek2UKqWUoP2u3kWolfqjWIN0jSr/i6CEjO7ZDyfyRAxnPZ4nPLsxOozBjDpjlzh738=
   skip_cleanup: true
   on: &2
+    tags: true
     repo: randytarampi/me.words
     branch: master
   bucket: randytarampi-releases
@@ -40,6 +57,8 @@ deploy:
   on: *2
   wait-until-deployed: true
   region: eu-west-1
+after_deploy:
+- if [ -z "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}; fi;
 notifications:
   slack:
     secure: bD1y+lFF6VseZ0bSi/fRqnFm2F6nil9pllhRh6ze24zmzHrftWHsvnuASZmn8MGKcqtnph/zyFKyVR+nDEXeQ04AZLU4tBoDbNWi2f85nzoUUD+8YzdQRctB9YIx818UGeZEVPBjIT1IVof+Z1AQEqM+jfl0LTNAPaADJgpLWDcNZDYNGUsibG4fapgix7P+vMTUgGFbN4J1WL243Q7pYK6x1hqOPNfDtaGSEFX7c1MUS6ULk335fkDo5M/o+vJweo0j2jboPN1n/vYpJuJRgmzP7jMISkchYjAKR2WktcM8CgC+mJye9NIaZQVn8IWEqqDYYIXM5IekEbTF2pz7bztaqgrhZdVmKqvl9edOfLL0qVt5RbguLuxSKsVw92AgajsiEhaOeNrA5gDyLq2o/xREtwpOC45M8wcJCAbHldqhjrJaRqpL2Q28mSGtmu7BDBWNwL2ylKE9NRTeY+e/ey5a70kUOorAKO5b8UhSJQJPEgBrNY1vTSb7F6eRmYkeqnqkTTMUEKIe+BtmnQ1kCPCbhDXk5BQoSumVxURAznj4SSzfamSMt1CUVpM/CPBsjui5plN1Ymwk/KvcstOkcCVU85vHS+Kare/j2n9J6wCexxiLsEUaImdldoLeUz6sVoTcy9OvWz+ohvM317gD5t/G8rHF1nWAr85s3Khx2GY=
