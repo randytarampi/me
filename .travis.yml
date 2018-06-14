@@ -2,7 +2,10 @@ language: python
 python:
 - '3.5'
 env:
-- CXX=g++-4.8 TRAVIS_NODE_VERSION=6
+  global:
+  - CXX=g++-4.8
+  - TRAVIS_NODE_VERSION=8
+  - secure: xPu80KstQbKNLUII+023NQmFzHvjD4fSLKk4B4yDaOGRNmZ7gScbpWYLgYZUw7klwo571IdbNA1FGVo0J6k4yV3LfT4oCTPAR9AL62OcZZIiTWUvHtenZEYFVpppDeORmayq3/0ISSLBEYJCxt0qqtNIcs0nWmlUTBvWL4uncrxEUcPUSUf1BTIECwHw1jpqe6R3RHI550xCor8ZH0opam1xkyDA86duAJtSxEs8sKj1D2vhvLxQvKfgnQKmr2xf46DY1+TdbxafVDLqaoSc4QRyNBOlavO0+hnpqQftIWO+SG1C36DJ0oTvr2QdZLlH5OZP7DYmOr076xK8i+dY1aXm6Qi9XQL58xlMwLORiGoDE+zp6iSDjafw4+pBe4AMZv/7Ddxt+19WoVWJzDZqPxyjZFlqGv/V4lpnuOGS9AkAzOy1qeDlClOqll823Md2vaKn5MX/CE8wOzAH/C/3Uf2Jl4LQqamp8K/5Pw1S/AE63+3m1Z5/DbYF9MWeFkhmb+xgEn9Z9lvYxrFvn+Nep4qMVZIps9NXnuC7+Z90QtuiOKvQhr0BjYR8UqsUIGiMDzEFSX6YKhKgP39oRVc9W2M9jvLcJXD7WNmOphJo04JJf33FjyD8XmQwX3tNJgnxXH0re4uAbcrLBOdFsDwwwC7JzFYjLyTu2JpECzFTt5g=
 addons:
   apt:
     sources:
@@ -10,18 +13,31 @@ addons:
     packages:
     - g++-4.8
 before_install:
+- uname -a
+- lscpu
 - touch .env
 - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
   && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm
   install $TRAVIS_NODE_VERSION
+- npm i -g npm
 install:
 - pip install -r requirements.txt
-- npm install
+- npm cit
 script: echo "Lol. Just straight up deploying..."
-before_deploy:
-- touch .env
+after_success:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.blog.tar.gz -C ./ .
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=git --no-pager show -s --format='%ae' `git rev-parse`
+- git config --local user.email $TRAVIS_AUTHOR
+- if [ -z "$TRAVIS_TAG" ]; then
+    if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+      npm version minor;
+      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+      npm version preminor -m "[Travis] Prepare version %s";
+      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
+    fi;
+  fi;
 deploy:
 - provider: s3
   access_key_id: AKIAI3EMH5UQ2CYHR3SA
@@ -29,6 +45,7 @@ deploy:
     secure: hZ/yQMJFWwFCqp67c4fysofF9Iz5Fs1tl9ckP+CPR6jWdXrSjvEwV+d83EyK2ExCC0LNolYKZLpCNZmyfRlSkwE2Bo8Pf6x63WNzTCBMMLjpup1H1sUvG1X0BEC2pp76GkoSoLd2LQSSJUTrYlDIzue8hgGmrr/pszGyNUJwoRAfm1LM3UkHFCYC9WmlZnqYZT8IUzxMcQ1+rGqkbgd6AcQPCb7UdMbzJntHqE1yYnQhJlMTzKg4ZxIsIUS+qHfihzyt2ocBTii0THQ8BnNt4W1B5bcc2l3IBf0bf2ZwNSrAXJy6sX9/+9aR+3N3bXA05mdUFy08klOpKENZGnA9QIxGydjT1KrRV6OE+Y6qIzypJm0rAmQMx+tQtJ5O5BUw2U3jevUSurnjuIEPwWwvBisRMKbEEu7Aeuu7bMJ0HkdwGpWzUl6NesyfrcbKLQFioWUEpUfTMOUvt3ytdPZQ3BbaX3OE5Ty0oORbfh6zecBk0M5jdZWwN47+HvZN+J+w87K+BTh67qHmpoQDYNx+1tzttQ9k2rbizui3zetqtrv7OLoi2Ya/AobLacYp+vvdZ3fjgquZsbhuEJrdIMMM1E8LzfcrzXbCrJMEAQIkGIPt03t9bqdPtYNZcZp3tZcvhzNAIYTPj2qX8TwHpOSzSZ3hs3wiOB1V9WV11F5YVaw=
   skip_cleanup: true
   on: &2
+    tags: true
     repo: randytarampi/me.blog
     branch: master
   bucket: randytarampi-releases
