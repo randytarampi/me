@@ -2,7 +2,9 @@ language: node_js
 node_js:
 - '8'
 env:
-- CXX=g++-4.8
+  global:
+  - CXX=g++-4.8
+  - secure: i+0iScbWJMYzZmE+PJIXmsz9LzWWQGJ3mEpzcC0AWpxqhhVs06Nu6B2bNA5pOzssciy1NNt5IVFaC7I34EhA2EYBUhSY1APThf1fal0q/APZAnGKiFN9ZKchYa9wzfnf/VZo/lsPPjV+JX9ZAtd+LNALONiFYymkKCxDQsxZl2Rqc048Q811AtPPlk4cR0gwMVm1grkKyx4ujTKkLhpjYhmxXZa8esi/bT88qmu66ELX1GCWyADKjIFBq1p0EnDLL0WV6ovwo1fOffoeRQ7YKGfjRxeujBM3GA3bAJIgk1KTEKuvJDGptZU+3FA4W6FEpaW1HEqXr15SzOb81cJPoSvPB+9VzUXDPydY0WZmOCQN/03LPjFP+/6bm0NfQUstHh4kSoXdhjHg88YIOBoHfeksEcf3b2AbHmuxiBJ2V4lrOdyFUjG10r4k17tHjGKmPvxnoxv647dkQwwaPBGLEnNlH+eftQ8GcSptvIgEae4b0R+f6YClbDcmFagzsXo8e9q0sfW6uRjtsboC9agVSHhNhhdROIq4/f8mfWiyswr+cFBEc25Fy9ca1OGAxtj8g+sl9wUB5mzNAmKbgg8FRSIVCTFqtcmKVPOW2i/I9DTAx/ZXfYB48hm1stUX7nX6WuZwSh60493mSL352SRsxk0DmcICVJxD81AzNRTeC3Y=
 addons:
   apt:
     sources:
@@ -10,11 +12,27 @@ addons:
     packages:
     - g++-4.8
 before_install:
+- uname -a
+- lscpu
 - touch .env
+- npm i -g npm
+install: npm cit
 script: npm run travis
-before_deploy:
+after_success:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
+- git config --local user.name "Travis"
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=git --no-pager show -s --format='%ae' `git rev-parse`
+- git config --local user.email $TRAVIS_AUTHOR
+- if [ -z "$TRAVIS_TAG" ]; then
+    if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+      npm version minor;
+      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+      npm version preminor -m "[Travis] Prepare version %s";
+      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
+    fi;
+  fi;
 deploy:
 - provider: s3
   access_key_id: AKIAI3EMH5UQ2CYHR3SA
@@ -22,6 +40,7 @@ deploy:
     secure: NwZuFhzS+WXalDh9yIIL1Q/q2sAxhe0tzrNl3I7uYQahpStQO2UPWgmK2GQt76/8Un+irdzUAlqgTpxBr3CLaac5bVm6ZH+XZAKnao4kfTkwTBaWHNJ5C0+AXwWjSy1rxwyveVTKWHrgv07GdV+0NJ0UEYEL84vDFsHXexRbq8ceZkf8gvuMgbnAqbvaxp23DfEjkyE4mUUaX+phRsnJaty/Ujk5LlGUO5KCcm2G+NA6fpcBp4pb+dJwbEGBf3sgE1GDiVzMGXgql+OTKFHiliGojUfp3LZKih2EjNTUdutUJgxcxvM2KooxG5IXHOFK6ZWIG5ehOnJwz7DjZDfocS0a5NpMTqnXES2FpCyconpe0TTQBWrmXbvHtN8N9Nsdn7SpvX7J0LZ4GINs07wQ6h1bTxkd9bgie8w7UfjLY/Q8nMnUNZMnQRt/9GmSirjZvu8MVIR9WZrX5aT0vNIW2qio3TwivNFQoisdHPA9lTIwkSBH8FJ46K++UZY59FPI/rgwZEIiUcdSQigVEd9u3ABQmH8Z92jCmDQWxwviJnJ5Xxi06rIvxQnbTLAaLeYVKUL7u4GRhMHjZUMbpncZ4uQeZJDQRs2VQ7WDQwNLJD3k5zSKzzHFfwWZBSP7cTczznE87Xf/SMoAcTxIiGMOvbIfvdsM1NzkibxixISXbfc=
   skip_cleanup: true
   on: &2
+    tags: true
     repo: randytarampi/me.photos
     branch: master
   bucket: randytarampi-releases
