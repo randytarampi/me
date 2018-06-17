@@ -10177,6 +10177,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   color: white;
   margin-right: 4px; }
 
+.post-metadata {
+  padding: 0.75em; }
+
 .photo-title {
   margin-top: 0;
   margin-bottom: 0;
@@ -10198,12 +10201,32 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   color: white;
   margin-right: 4px; }
 
+.photo-title__link,
+.photo-description__link,
+.photo-date-taken__link,
+.photo-date-published__link,
+.photo-body__link,
+.photo-source__link,
+.photo-text__link {
+  text-decoration: underline;
+  text-decoration-color: #fb8c00; }
+
+.photo {
+  margin-bottom: 0; }
+
+.photo-metadata {
+  padding: 0.75em; }
+
 .sk-spinner {
   position: absolute;
   top: 50%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%); }
+
+html, body {
+  height: 100%;
+  width: 100%; }
 
 .block__text {
   padding: 0 20px; }

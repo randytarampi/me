@@ -6,6 +6,7 @@
 	"scripts": {
 		"pretest": "gulp lint",
 		"test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1",
+		"postinstall": "gulp build",
 		"prepublishOnly": "gulp build",
 		"start": "gulp serve"
 	},
