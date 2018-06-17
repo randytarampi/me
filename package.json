@@ -9,8 +9,7 @@
 	"scripts": {
 		"pretest": "gulp lint",
 		"test": "gulp test",
-		"postinstall": "gulp build:dev",
-		"prepublish": "gulp build",
+		"postinstall": "gulp build",
 		"travis": "npm travis",
 		"start": "python -m unittest discover -s ./tests -p '*.py'"
 	},
