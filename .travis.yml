@@ -44,7 +44,7 @@ deploy:
     repo: randytarampi/me.photos
     branch: master
   bucket: randytarampi-releases
-  region: eu-west-1
+  region: ca-central-1
   detect_encoding: true
   local-dir: "../dpl_cd_upload"
 - provider: codedeploy
