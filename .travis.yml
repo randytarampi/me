@@ -52,11 +52,11 @@ deploy:
   bucket: randytarampi-releases
   key: me.words.tar.gz
   bundle_type: tgz
-  application: me.words
+  application: randytarampi.words
   deployment_group: web
   on: *2
   wait-until-deployed: true
-  region: eu-west-1
+  region: ca-central-1
 after_deploy:
 - if [ -z "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}; fi;
 notifications:
