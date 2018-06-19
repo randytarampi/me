@@ -16,7 +16,7 @@ before_install:
 - lscpu
 - touch .env
 - npm i -g npm
-install: npm cit
+install: npm ci
 script: npm run travis
 after_success:
 - mkdir -p ../dpl_cd_upload
