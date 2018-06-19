@@ -22,7 +22,7 @@ before_install:
 - npm i -g npm
 install:
 - pip install -r requirements.txt
-- npm cit
+- npm ci
 script: echo "Lol. Just straight up deploying..."
 after_success:
 - mkdir -p ../dpl_cd_upload
