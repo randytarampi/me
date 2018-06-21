@@ -1,4 +1,4 @@
-import Posts from "me.common.jsx/lib/posts";
+import {Posts} from "me.common.jsx";
 import React from "react";
 import {render} from "react-dom";
 
