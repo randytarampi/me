@@ -1,4 +1,4 @@
-import RowBlock from "me.common.jsx/lib/rowBlock";
+import {RowBlock} from "me.common.jsx";
 import React from "react";
 import {Col} from "react-materialize";
 import {DoubtBear} from "../components/bear";

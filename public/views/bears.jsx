@@ -1,6 +1,6 @@
 import React from "react";
 import {Col} from "react-materialize";
-import RowBlock from "me.common.jsx/lib/rowBlock";
+import {RowBlock} from "me.common.jsx";
 import Bear from "../components/bear";
 
 const Bears = () =>

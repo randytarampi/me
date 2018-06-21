@@ -10177,7 +10177,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   color: white;
   margin-right: 4px; }
 
-.post-metadata {
+.row .col.post-metadata {
   padding: 0.75em; }
 
 .photo-title {
@@ -10214,7 +10214,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .photo {
   margin-bottom: 0; }
 
-.photo-metadata {
+.row .col.photo-metadata {
   padding: 0.75em; }
 
 .sk-spinner {
