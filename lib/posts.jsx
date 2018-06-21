@@ -1,7 +1,6 @@
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
-import Photo from "me.common.js/lib/photo";
-import Post from "me.common.js/lib/post";
+import {Photo, Post} from "me.common.js";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import Dimensions from "react-dimensions";

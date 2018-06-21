@@ -68,5 +68,6 @@
   },
   "engines": {
     "node": ">=6"
-  }
+  },
+  "module": "esm.js"
 }
