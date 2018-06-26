@@ -11,6 +11,7 @@ gulp.task("clean", () => {
 });
 
 gulp.task("styles:dev", () => {
+	const autoprefixer = require("gulp-autoprefixer");
 	const sass = require("gulp-sass");
 	const sassTildeImporter = require("grunt-sass-tilde-importer");
 	const concat = require("gulp-concat");
@@ -22,6 +23,10 @@ gulp.task("styles:dev", () => {
 			importer: sassTildeImporter
 		}).on("error", sass.logError))
 		.pipe(concat("styles.css"))
+		.pipe(autoprefixer({
+			browsers: ["last 2 versions"],
+			cascade: false
+		}))
 		.pipe(gulp.dest("dist"));
 });
 
