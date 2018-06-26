@@ -7,4 +7,25 @@ $blockLineHeight: 1.5;
 
 $link-color: color("orange", "darken-1");
 
+@media screen and (max-width: $medium-screen) {
+	h1 {
+		font-size: $h1-fontsize / 2;
+	}
+	h2 {
+		font-size: $h2-fontsize / 2;
+	}
+	h3 {
+		font-size: $h3-fontsize / 2;
+	}
+	h4 {
+		font-size: $h4-fontsize / 2;
+	}
+	h5 {
+		font-size: $h5-fontsize / 2;
+	}
+	h6 {
+		font-size: $h6-fontsize / 2;
+	}
+}
+
 @import "~materialize-css/sass/components/variables";
