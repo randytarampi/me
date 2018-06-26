@@ -5,7 +5,7 @@ const _ = require("lodash");
 const actions = {};
 
 const PHOTO_SOURCES = [
-	require("./500px/photoSource"),
+	// require("./500px/photoSource"), // NOTE-RT: API shutdown on 15 June 2018 per https://support.500px.com/hc/en-us/articles/360002435653-API-
 	require("./flickr/photoSource"),
 	require("./unsplash/photoSource"),
 	require("./instagram/photoSource"),
