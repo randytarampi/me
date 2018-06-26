@@ -60,8 +60,7 @@ class InstagramSource extends PhotoSource {
 		const maxHeight = biggestOfficialPhoto.height < biggestOfficialPhoto.width ? 1080 * (biggestOfficialPhoto.height / biggestOfficialPhoto.width) : 1080;
 
 		sizedPhotos.push(new SizedPhoto(
-			biggestOfficialPhoto.url
-				.replace(`/s${biggestOfficialPhoto.width}x${biggestOfficialPhoto.width}`, ""),
+			biggestOfficialPhoto.url,
 			maxWidth,
 			maxHeight,
 			"maxRes"
