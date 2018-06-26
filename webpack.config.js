@@ -3,19 +3,23 @@ const webpack = require("webpack");
 
 module.exports = {
 	mode: "development",
+	devtool: "source-map",
 	entry: [
 		"babel-polyfill",
-		"./lib/posts.js"
+		"./test/build/views/index.jsx"
 	],
 	output: {
 		path: path.join(__dirname, "dist"),
 		filename: "main.js"
 	},
+	resolve: {
+		extensions: [".js", ".jsx", ".json"]
+	},
 	module: {
 		rules: [
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules\/(?!(me\.common)\/)/,
+				exclude: /node_modules\/(?!(me\.common\.\w+)\/)/,
 				loader: "babel-loader",
 				options: {
 					forceEnv: "client"
@@ -36,6 +40,7 @@ module.exports = {
 				commons: {
 					test: /[\\/]node_modules[\\/]/,
 					name: "vendor",
+					filename: "vendor.js",
 					chunks: "all"
 				}
 			}
