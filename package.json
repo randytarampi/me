@@ -20,13 +20,16 @@
 		"email": "bugs@randytarampi.ca"
 	},
 	"dependencies": {
+		"history": "^4.7.2",
 		"materialize-css": "^0.100.2",
 		"me.common.css": "randytarampi/me.common.css",
 		"me.common.js": "randytarampi/me.common.js",
 		"me.common.jsx": "randytarampi/me.common.jsx",
 		"react": "^16.4.0",
 		"react-dom": "^16.4.0",
-		"react-materialize": "^2.2.1"
+		"react-materialize": "^2.2.1",
+		"react-redux": "^5.0.7",
+		"redux": "^4.0.0"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.18.0",
