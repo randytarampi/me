@@ -38,7 +38,7 @@
 		"materialize-css": "^0.100.2",
 		"me.common.css": "randytarampi/me.common.css",
 		"me.common.js": "randytarampi/me.common.js",
-		"me.common.jsx": "github:randytarampi/me.common.jsx#redux",
+		"me.common.jsx": "github:randytarampi/me.common.jsx",
 		"moment": "^2.22.2",
 		"morgan": "^1.9.0",
 		"pug": "^2.0.3",
