@@ -49,22 +49,24 @@ gulp.task("clean", (callback) => {
 gulp.task("webpack", function (callback) {
 	const WebPack = require("webpack");
 	const WebPackConfig = require("./webpack.config");
-	const webpackConfig = Object.create(WebPackConfig);
+	const webpackConfig = Object.assign({}, WebPackConfig, {
+		mode: "production"
+	});
 
 	WebPack(webpackConfig, function (err, stats) {
 		console.log("[webpack:prod]", stats.toString({colors: true})); // eslint-disable-line no-console
-		callback(err);
+		callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
 	});
 });
 
 gulp.task("webpack:dev", (callback) => {
 	const WebPack = require("webpack");
 	const WebPackConfig = require("./webpack.config");
-	const webpackConfig = Object.create(WebPackConfig);
+	const webpackConfig = Object.assign({}, WebPackConfig);
 
 	WebPack(webpackConfig, function (err, stats) {
 		console.log("[webpack:dev]", stats.toString({colors: true})); // eslint-disable-line no-console
-		callback(err);
+		callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
 	});
 });
 

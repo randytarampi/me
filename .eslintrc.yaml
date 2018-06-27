@@ -23,6 +23,8 @@ rules:
       - 2
       -
         commonjs: true
+        ignore:
+          - "me\\.common\\.\\w+"
     import/default: 2
     import/no-extraneous-dependencies: 1
     react/no-unescaped-entities: 0
@@ -35,6 +37,8 @@ parserOptions:
         experimentalObjectRestSpread: true
 env:
     node: true
+globals:
+  Promise: true
 plugins:
     - react
     - import

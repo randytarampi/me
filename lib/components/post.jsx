@@ -5,14 +5,6 @@ import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
 
 export class PostComponent extends Component {
-	constructor(props, context, updater) {
-		super(props, context, updater);
-
-		this.state = {
-			template: this.props.post
-		};
-	}
-
 	get width() {
 		return this.containerWidth;
 	}
@@ -33,27 +25,23 @@ export class PostComponent extends Component {
 		return this.containerWidth * this.height / this.width;
 	}
 
-	get template() {
-		return this.state.template;
-	}
-
 	get title() {
-		return this.template.title || "Untitled";
+		return this.props.post.title || "Untitled";
 	}
 
 	get date() {
-		return this.template.datePublished;
+		return this.props.post.datePublished;
 	}
 
 	componentWillUnmount() {
-		this.template._lastHeight = this.containerHeight;
-		this.template._lastWidth = this.containerWidth;
+		this.props.post._lastHeight = this.containerHeight;
+		this.props.post._lastWidth = this.containerWidth;
 	}
 
 	render() {
 		return <Row
 			className="post"
-			id={this.template.uid}
+			id={this.props.post.uid}
 		>
 			<Col
 				className="post-metadata"
@@ -61,8 +49,8 @@ export class PostComponent extends Component {
 			>
 				<h1 className="post-title">
 					{
-						this.template.url ?
-							<a className="post-text" href={this.template.url}>{this.title}</a> :
+						this.props.post.url ?
+							<a className="post-text" href={this.props.post.url}>{this.title}</a> :
 							<span className="post-text">{this.title}</span>
 					}
 				</h1>
@@ -70,22 +58,22 @@ export class PostComponent extends Component {
 					<strong className="post-text">Posted:</strong>
 					<span className="post-text">{this.date.format("LL")}</span>
 					{
-						this.template.dateCreated ?
+						this.props.post.dateCreated ?
 							<span>
 								<strong className="post-text">Modified:</strong>
-								<span className="post-text">{this.template.dateCreated.format("LLLL")}</span>
+								<span className="post-text">{this.props.post.dateCreated.format("LLLL")}</span>
 							</span> :
 							null
 					}
 				</p>
 				{
-					typeof this.template.body === "string" ?
-						<div className="post-body" dangerouslySetInnerHTML={{__html: this.template.body}}/> :
+					typeof this.props.post.body === "string" ?
+						<div className="post-body" dangerouslySetInnerHTML={{__html: this.props.post.body}}/> :
 						null
 				}
 				{
-					Array.isArray(this.template.body) ?
-						this.template.body.map((htmlString, index) => {
+					Array.isArray(this.props.post.body) ?
+						this.props.post.body.map((htmlString, index) => {
 							return <div className="post-body" key={index}>
 								<span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
 							</div>;
