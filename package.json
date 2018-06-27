@@ -39,6 +39,6 @@
     "materialize-css": "^0.100.2"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }
