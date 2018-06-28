@@ -1,4 +1,3 @@
-require("dotenv").config();
 require("isomorphic-fetch");
 
 const PhotoSource = require("../photoSource");

@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const PhotoSource = require("../photoSource");
 const Photo = require("me.common.js/lib/photo");
 const Creator = require("me.common.js/lib/creator");

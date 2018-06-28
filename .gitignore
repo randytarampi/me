@@ -46,6 +46,11 @@ jspm_packages
 # Compiled resources
 dist
 data/flickr
+.webpack
 
 # Environment variables
 .env
+
+# Serverless
+.serverless
+.serverless-secrets.json

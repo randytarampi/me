@@ -26,7 +26,6 @@
 		"body-parser": "^1.18.3",
 		"cookie-parser": "^1.4.3",
 		"debug": "^3.1.0",
-		"dotenv": "^6.0.0",
 		"es6-promise": "^4.2.4",
 		"express": "^4.16.3",
 		"flickrapi": "^0.6.0",
@@ -50,6 +49,7 @@
 		"request": "^2.87.0",
 		"request-promise-native": "^1.0.5",
 		"serve-favicon": "^2.5.0",
+		"serverless-secrets": "^3.0.0-beta.12",
 		"tumblr.js": "^1.1.1",
 		"unsplash-js": "^4.8.0"
 	},
@@ -86,10 +86,14 @@
 		"nyc": "^12.0.2",
 		"prop-types": "^15.6.2",
 		"react-hot-loader": "^4.3.3",
+		"serverless-mocha-plugin": "^1.8.3",
+		"serverless-offline": "^3.25.4",
+		"serverless-webpack": "^5.1.5",
 		"style-loader": "^0.21.0",
 		"vinyl-paths": "^2.1.0",
 		"webpack": "^4.12.1",
-		"webpack-bundle-analyzer": "^2.13.1"
+		"webpack-bundle-analyzer": "^2.13.1",
+		"webpack-node-externals": "^1.7.2"
 	},
 	"engines": {
 		"node": ">=8"
