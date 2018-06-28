@@ -66,6 +66,22 @@ functions:
           method: get
           cors: true
     onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
+  instagramAuthRedirect:
+    handler: serverless/handler/index.instagramAuthRedirect
+    events:
+      - http:
+          path: auth/instagram
+          method: get
+          cors: true
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
+  instagramAuthReturn:
+    handler: serverless/handler/index.instagramAuthReturn
+    events:
+      - http:
+          path: auth/instagram/redirect
+          method: get
+          cors: true
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
 
 resources:
   Resources:
