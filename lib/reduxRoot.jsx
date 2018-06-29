@@ -8,7 +8,7 @@ class ReduxRoot extends Component {
 	render() {
 		return <Provider store={this.props.store}>
 			<ConnectedRouter history={this.props.history}>
-				{renderRoutes(this.props.routes)}
+				{renderRoutes(this.props.routes, this.props)}
 			</ConnectedRouter>
 		</Provider>;
 	}
