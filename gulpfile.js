@@ -19,6 +19,14 @@ gulp.task("clean", (callback) => {
 	del(["dist"], callback);
 });
 
+gulp.task("copy", () => {
+	return gulp
+		.src([
+			"node_modules/materialize-css/dist/fonts/roboto/**"
+		])
+		.pipe(gulp.dest("./dist"));
+});
+
 gulp.task("styles:dev", () => {
 	const autoprefixer = require("gulp-autoprefixer");
 	const concat = require("gulp-concat");
@@ -51,11 +59,13 @@ gulp.task("styles", gulp.series(["styles:dev"]), () => {
 });
 
 gulp.task("build", gulp.series([
+	"copy",
 	"styles"
 ]));
 
 gulp.task("build:dev", gulp.series([
 	"lint",
+	"copy",
 	"styles:dev"
 ]));
 
