@@ -25,7 +25,7 @@ Scan some photo sources for photos, then display them on a single page.
 # Dependencies
 ```
 brew install nvm
-nvm install 6
+nvm install 8
 npm install -g gulp-cli
 ```
 
@@ -35,48 +35,47 @@ npm install -g gulp-cli
 npm install
 ```
 
-You'll also need to define some variables in a [`.env`](https://github.com/randytarampi/me.photos/blob/master/.env) file.
+You'll also need to define some variables in a [`env.yml`](https://github.com/randytarampi/me.photos/blob/master/env.yml) file.
 
+```yml
+dev: &devConfig
+  profile: serverless-dev
+  resourceStageBuilder: dev
+  domainName: <where you want your service to be served from>
+  acmArn: <an ACM ARN so serverless can setup for HTTPS>
+  kmsKeyArn: <a KMS ARN so serverless-secrets can pull API keys and other `environmentSecrets` out of the SSM store>
+  environment: &environment
+    F00PX_USER_NAME:
+    FLICKR_USER_NAME:
+    UNSPLASH_USER_NAME:
+    INSTAGRAM_USER_NAME:
+    INSTAGRAM_AUTH_REDIRECT_URI:
+    INSTAGRAM_USER_ID:
+    TUMBLR_USER_NAME:
+  environmentSecrets: &environmentSecrets
+    F00PX_API_KEY: f00px-api-key
+    F00PX_API_SECRET: f00px-api-secret
+    FLICKR_API_KEY: flickr-api-key
+    FLICKR_API_SECRET: flickr-api-secret
+    UNSPLASH_API_KEY: unsplash-api-key
+    UNSPLASH_API_SECRET: unsplash-api-secret
+    INSTAGRAM_API_KEY: instagram-api-key
+    INSTAGRAM_API_SECRET: instagram-api-secret
+    INSTAGRAM_ACCESS_TOKEN: instagram-access-token
+    TUMBLR_API_KEY: tumblr-api-key
 ```
-PORT=3002
 
-# Local Storage
-LOCAL_DIRECTORY=<some directory accessible by the server running me.photos> # E.x. /opt/me.photos/test/resources/photos/local
+For each key in `environmentSecrets`, you'll want to push a value into an AWS SSM store with `serverless secrets`.
 
-# 500px config
-F00PX_API_KEY=
-F00PX_API_SECRET=
-F00PX_USER_NAME=
-
-# Flickr config
-FLICKR_API_KEY=
-FLICKR_API_SECRET=
-FLICKR_USER_NAME=
-
-# Unsplash config
-UNSPLASH_API_KEY=
-UNSPLASH_API_SECRET=
-UNSPLASH_USER_NAME=
-
-# Instagram
-INSTAGRAM_API_KEY=
-INSTAGRAM_API_SECRET=
-INSTAGRAM_AUTH_REDIRECT_URI=<your app's hostname>/auth/instagram/redirect # E.x. http://localhost:3002/auth/instagram/redirect
-INSTAGRAM_USER_NAME=
-INSTAGRAM_ACCESS_TOKEN=
-INSTAGRAM_USER_ID=
-
-  # Tumblr
- TUMBLR_API_KEY= 
-TUMBLR_API_SECRET= 
-TUMBLR_USER_NAME= 
+```bash
+serverless secrets set -n <key name> -t <secret value> -k <alias/serverless-tst|alias/serverless-prd>
 ```
 
 # Usage
 
 ```
 npm start
-open http://localhost:3002
+open ./index.html
 ```
 
 # Testing

@@ -1,4 +1,4 @@
-const _ = require("lodash");
+import _ from "lodash";
 
 class SearchParams {
 	constructor(params) {
@@ -57,4 +57,4 @@ class SearchParams {
 	}
 }
 
-module.exports = SearchParams;
+export default SearchParams;

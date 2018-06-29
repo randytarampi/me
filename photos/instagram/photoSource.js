@@ -1,93 +1,91 @@
-const PhotoSource = require("../photoSource");
-const Photo = require("me.common.js/lib/photo");
-const Creator = require("me.common.js/lib/creator");
-const SizedPhoto = require("me.common.js/lib/sizedPhoto");
-const SearchParams = require("../searchParams");
-const Instagram = require("instagram-api");
-const Moment = require("moment");
-const _ = require("lodash");
+import Instagram from "instagram-api";
+import _ from "lodash";
+import Creator from "me.common.js/lib/creator";
+import Photo from "me.common.js/lib/photo";
+import SizedPhoto from "me.common.js/lib/sizedPhoto";
+import Moment from "moment";
+import PhotoSource from "../photoSource";
+import SearchParams from "../searchParams";
 
 class InstagramSource extends PhotoSource {
-	constructor() {
-		super("Instagram", new Instagram(process.env.INSTAGRAM_ACCESS_TOKEN));
-	}
+    constructor() {
+        super("Instagram", new Instagram(process.env.INSTAGRAM_ACCESS_TOKEN));
+    }
 
-	getUserPhotos(params) {
-		params = params instanceof SearchParams ? params : new SearchParams(params);
-		const that = this;
-		const client = this.client;
-		const userId = process.env.INSTAGRAM_USER_ID;
-		let instagramRequest = Promise.resolve(userId);
+    get isEnabled() {
+        return !!process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
+    }
 
-		if (!userId) {
-			instagramRequest = client.userSearch(process.env.INSTAGRAM_USER_NAME)
-				.then((userJson) => {
-					return _.find(userJson.data, {username: process.env.INSTAGRAM_USER_NAME}).id;
-				});
-		}
+    getUserPhotos(params) {
+        params = params instanceof SearchParams ? params : new SearchParams(params);
+        const that = this;
+        const client = this.client;
+        const userId = process.env.INSTAGRAM_USER_ID;
+        let instagramRequest = Promise.resolve(userId);
 
-		return instagramRequest
-			.then((userId) => {
-				return client.userMedia(userId, params.Instagram);
-			})
-			.then((mediaJson) => {
-				return _.chain(mediaJson.data)
-					.filter({type: "image"})
-					.map(_.bind(that.jsonToPhoto, that))
-					.value();
-			});
-	}
+        if (!userId) {
+            instagramRequest = client.userSearch(process.env.INSTAGRAM_USER_NAME)
+                .then((userJson) => {
+                    return _.find(userJson.data, {username: process.env.INSTAGRAM_USER_NAME}).id;
+                });
+        }
 
-	getPhoto(photoId) {
-		const that = this;
+        return instagramRequest
+            .then((userId) => {
+                return client.userMedia(userId, params.Instagram);
+            })
+            .then(mediaJson => {
+                return _.filter(mediaJson.data, {type: "image"})
+                    .map(_.bind(that.jsonToPhoto, that));
+            });
+    }
 
-		return this.client.media(photoId)
-			.then((photoJson) => {
-				return that.jsonToPhoto(photoJson.data);
-			});
-	}
+    getPhoto(photoId) {
+        const that = this;
 
-	jsonToPhoto(photoJson) {
-		const sizedPhotos = Object.keys(photoJson.images).map((key) => {
-			const image = photoJson.images[key];
-			return new SizedPhoto(image.url, image.width, image.height, key);
-		});
+        return this.client.media(photoId)
+            .then((photoJson) => {
+                return that.jsonToPhoto(photoJson.data);
+            });
+    }
 
-		const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
-		const maxWidth = biggestOfficialPhoto.width < biggestOfficialPhoto.height ? 1080 * (biggestOfficialPhoto.width / biggestOfficialPhoto.height) : 1080;
-		const maxHeight = biggestOfficialPhoto.height < biggestOfficialPhoto.width ? 1080 * (biggestOfficialPhoto.height / biggestOfficialPhoto.width) : 1080;
+    jsonToPhoto(photoJson) {
+        const sizedPhotos = Object.keys(photoJson.images).map((key) => {
+            const image = photoJson.images[key];
+            return new SizedPhoto(image.url, image.width, image.height, key);
+        });
 
-		sizedPhotos.push(new SizedPhoto(
-			biggestOfficialPhoto.url,
-			maxWidth,
-			maxHeight,
-			"maxRes"
-		));
+        const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
+        const maxWidth = biggestOfficialPhoto.width < biggestOfficialPhoto.height ? 1080 * (biggestOfficialPhoto.width / biggestOfficialPhoto.height) : 1080;
+        const maxHeight = biggestOfficialPhoto.height < biggestOfficialPhoto.width ? 1080 * (biggestOfficialPhoto.height / biggestOfficialPhoto.width) : 1080;
 
-		return new Photo(
-			photoJson.id,
-			null,
-			this.type,
-			Moment(parseInt(photoJson.created_time, 10) * 1000),
-			null,
-			biggestOfficialPhoto.width,
-			biggestOfficialPhoto.height,
-			sizedPhotos,
-			photoJson.link,
-			photoJson.location && photoJson.location.name,
-			photoJson.caption && photoJson.caption.text,
-			new Creator(
-				photoJson.user.username,
-				photoJson.user.username,
-				photoJson.user.full_name,
-				`https://www.instagram.com/${photoJson.user.username}`
-			)
-		);
-	}
+        sizedPhotos.push(new SizedPhoto(
+            biggestOfficialPhoto.url,
+            maxWidth,
+            maxHeight,
+            "maxRes"
+        ));
 
-	get isEnabled() {
-		return !!process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
-	}
+        return new Photo(
+            photoJson.id,
+            null,
+            this.type,
+            Moment(parseInt(photoJson.created_time, 10) * 1000),
+            null,
+            biggestOfficialPhoto.width,
+            biggestOfficialPhoto.height,
+            sizedPhotos,
+            photoJson.link,
+            photoJson.location && photoJson.location.name,
+            photoJson.caption && photoJson.caption.text,
+            new Creator(
+                photoJson.user.username,
+                photoJson.user.username,
+                photoJson.user.full_name,
+                `https://www.instagram.com/${photoJson.user.username}`
+            )
+        );
+    }
 }
 
-module.exports = InstagramSource;
+export default InstagramSource;

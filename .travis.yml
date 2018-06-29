@@ -1,4 +1,5 @@
 language: node_js
+dist: trusty
 node_js:
 - '8'
 env:
@@ -16,6 +17,12 @@ before_install:
 - lscpu
 - touch .env
 - npm i -g npm
+- npm install -g serverless
+- if [ -z "$TRAVIS_TAG" ]; then
+    export NODE_ENV=dev;
+  else
+    export NODE_ENV=prd;
+  fi;
 install: npm ci
 script: npm run travis
 after_success:
@@ -34,30 +41,11 @@ after_success:
     fi;
   fi;
 deploy:
-- provider: s3
-  access_key_id: AKIAI3EMH5UQ2CYHR3SA
-  secret_access_key: &1
-    secure: NwZuFhzS+WXalDh9yIIL1Q/q2sAxhe0tzrNl3I7uYQahpStQO2UPWgmK2GQt76/8Un+irdzUAlqgTpxBr3CLaac5bVm6ZH+XZAKnao4kfTkwTBaWHNJ5C0+AXwWjSy1rxwyveVTKWHrgv07GdV+0NJ0UEYEL84vDFsHXexRbq8ceZkf8gvuMgbnAqbvaxp23DfEjkyE4mUUaX+phRsnJaty/Ujk5LlGUO5KCcm2G+NA6fpcBp4pb+dJwbEGBf3sgE1GDiVzMGXgql+OTKFHiliGojUfp3LZKih2EjNTUdutUJgxcxvM2KooxG5IXHOFK6ZWIG5ehOnJwz7DjZDfocS0a5NpMTqnXES2FpCyconpe0TTQBWrmXbvHtN8N9Nsdn7SpvX7J0LZ4GINs07wQ6h1bTxkd9bgie8w7UfjLY/Q8nMnUNZMnQRt/9GmSirjZvu8MVIR9WZrX5aT0vNIW2qio3TwivNFQoisdHPA9lTIwkSBH8FJ46K++UZY59FPI/rgwZEIiUcdSQigVEd9u3ABQmH8Z92jCmDQWxwviJnJ5Xxi06rIvxQnbTLAaLeYVKUL7u4GRhMHjZUMbpncZ4uQeZJDQRs2VQ7WDQwNLJD3k5zSKzzHFfwWZBSP7cTczznE87Xf/SMoAcTxIiGMOvbIfvdsM1NzkibxixISXbfc=
-  skip_cleanup: true
+  provider: script
+  script: npm run deploy
   on: &2
     tags: true
-    repo: randytarampi/me.photos
     branch: master
-  bucket: randytarampi-releases
-  region: ca-central-1
-  detect_encoding: true
-  local-dir: "../dpl_cd_upload"
-- provider: codedeploy
-  access_key_id: AKIAI3EMH5UQ2CYHR3SA
-  secret_access_key: *1
-  bucket: randytarampi-releases
-  key: me.photos.tar.gz
-  bundle_type: tgz
-  application: randytarampi.photos
-  deployment_group: web
-  on: *2
-  wait-until-deployed: true
-  region: ca-central-1
 notifications:
   slack:
     secure: XIKwYs484VwJNLD4IuJz/aApirGz98J2LS10EqorZ6d7hjavq4BTctb2m1LAgpONdeZNaFjZvoQpy4KvkyPFXCewKv0NwmMdcb7Ae89EQNqYypE/X0XhGGgd9JBtCbFjreokVflIvkrigPPmllJGNIngjfhquw/u11NaKXQkrdQ62+hcBOkj3uPXsXZUG++QuSpJy0fFm8usuDWjIcJCxI2e1XjAGgN4me4t5Yn/MzGqROGdj/PLWJnx8mA37EEd2aIGckFt+8SdfPhMNvh2LF5HKD4QWdVAbSXvDf/JUPR1R1FIviv3yF9U0Pm7/rNMR3jxK9BWsnbX6K+6mxf9z4uqGgzbpl8/PW+MtpeyytmGmhiT8wzOaL45GOKcnKrVKEeD+g2Aub3j64eiN84+w0EfWqPazn5C+AxeJ18QkSXREWgQDSsW6qCJO6X2jjcm0H+IcqFeVOPk1quTlfgmRj2B0bZmLlvn72he+ym8GL03u+2X7liMk4rnk6UCqsG8whGR6NHVVzGT6MSL2xBbTfi/tBTgeVGKUZm2y0zGJcXbBENzhPOWMfp9fCL7trEfry2HhfKG3Jt8dQMYrl95qesV6UgKI/vAFR8SBOPR9HWJP/SJi3mPe46JbYOKL7iZxyr7c5Hjjt86z8Jz5NiXf6b1AI+QKWf+2o3N5PaKWbQ=

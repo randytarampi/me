@@ -1,11 +1,25 @@
 const path = require("path");
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+const isDevelopment = process.env.WEBPACK_SERVE
+    || process.env.NODE_ENV !== "production"
+    || process.env.NODE_ENV !== "prd"
+    || slsw.lib.webpack.isLocal
+    || true;
+
+const resolveMode = () => {
+    if (isDevelopment) {
+        return "development";
+    }
+
+    return "production";
+};
 
 module.exports = {
     entry: slsw.lib.entries,
-    target: "node",
-    mode: slsw.lib.webpack.isLocal ? "development" : "production",
+    mode: resolveMode(),
     optimization: {
         minimize: false
     },
@@ -13,17 +27,20 @@ module.exports = {
         hints: false
     },
     devtool: "nosources-source-map",
-    externals: [nodeExternals()],
+    externals: [nodeExternals({
+        whitelist: [
+            /(me\.common\.\w+)/
+        ]
+    })],
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules/,
-                use: [
-                    {
-                        loader: "babel-loader"
-                    }
-                ],
+                exclude: /node_modules\/(?!(me\.common\.\w+)\/)/,
+                loader: "babel-loader",
+                options: {
+                    forceEnv: "server"
+                }
             },
             {
                 test: /\.serverless-secrets.json$/,
@@ -35,6 +52,14 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new CopyWebpackPlugin([
+            {
+                from: "./data",
+                to: "./data"
+            },
+        ]),
+    ],
     output: {
         libraryTarget: "commonjs2",
         path: path.join(__dirname, ".webpack"),

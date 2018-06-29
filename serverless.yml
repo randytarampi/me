@@ -9,7 +9,6 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'ca-central-1'}
   resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
-  profile: ${file(env.yml):${self:provider.stage}.profile}
   memorySize: 512
   timeout: 10
 
@@ -59,15 +58,15 @@ custom:
 
 functions:
   getPhotos:
-    handler: serverless/handler/index.getPhotos
+    handler: serverless/handler/getPhotos.js
     events:
       - http:
-          path: api/photos
+          path: ""
           method: get
           cors: true
     onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
   instagramAuthRedirect:
-    handler: serverless/handler/index.instagramAuthRedirect
+    handler: serverless/handler/instagramAuthRedirect.js
     events:
       - http:
           path: auth/instagram
@@ -75,7 +74,7 @@ functions:
           cors: true
     onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
   instagramAuthReturn:
-    handler: serverless/handler/index.instagramAuthReturn
+    handler: serverless/handler/instagramAuthReturn.js
     events:
       - http:
           path: auth/instagram/redirect
@@ -92,9 +91,9 @@ resources:
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
     Pathmapping:
       Type: AWS::ApiGateway::BasePathMapping
-      DependsOn: ApiGatewayApiKey1
+      DependsOn: ApiGatewayRestApi
       Properties:
-        BasePath: ""
+        BasePath: "photos"
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
         RestApiId:
             Ref: ApiGatewayRestApi
@@ -104,12 +103,8 @@ resources:
       Properties:
         AlarmActions:
           - ${self:custom.alarmTopic}
-        AlarmDescription: Sounds alarm when errors occue in lambdas
+        AlarmDescription: Lambda errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
-        Dimensions:
-          - Value:
-              Ref: ApiHandlerLambdaFunction
-            Name: FunctionName
         EvaluationPeriods: 1
         Namespace: AWS/Lambda
         MetricName: Errors
@@ -122,12 +117,8 @@ resources:
       Properties:
         AlarmActions:
           - ${self:custom.alarmTopic}
-        AlarmDescription: Sounds alarm when processing is taking longer than expected
+        AlarmDescription: Long running lambdas
         ComparisonOperator: GreaterThanOrEqualToThreshold
-        Dimensions:
-          - Value:
-              Ref: ApiHandlerLambdaFunction
-            Name: FunctionName
         EvaluationPeriods: 1
         Namespace: AWS/Lambda
         MetricName: Duration
@@ -140,7 +131,7 @@ resources:
       Properties:
         AlarmActions:
           - ${self:custom.alarmTopic}
-        AlarmDescription: Sounds alarm when we return many 400's
+        AlarmDescription: 4xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
           - Value: ${self:provider.stage}-photos
@@ -159,7 +150,7 @@ resources:
       Properties:
         AlarmActions:
           - ${self:custom.alarmTopic}
-        AlarmDescription: Sounds alarm when we return many 400's
+        AlarmDescription: 5xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
           - Value: ${self:provider.stage}-photos

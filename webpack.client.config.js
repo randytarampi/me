@@ -1,68 +1,114 @@
 const path = require("path");
 const webpack = require("webpack");
+const config = require("config");
+
+const isDevelopment = process.env.WEBPACK_SERVE
+    || process.env.NODE_ENV !== "production"
+    || process.env.NODE_ENV !== "prd"
+    || true;
+
+const resolveMode = () => {
+    if (isDevelopment) {
+        return "development";
+    }
+
+    return "production";
+};
 
 module.exports = {
-	mode: "development",
-	devtool: "source-map",
-	entry: [
-		"babel-polyfill",
-		"./public/views/index.jsx"
-	],
-	output: {
-		path: path.join(__dirname, "dist"),
-		filename: "main.js"
-	},
-	resolve: {
-		extensions: [".js", ".jsx", ".json"]
-	},
-	module: {
-		rules: [
-			{
-				test: /\.jsx?$/,
-				exclude: /node_modules\/(?!(me\.common\.\w+)\/)/,
-				loader: "babel-loader",
-				options: {
-					forceEnv: "client"
-				}
-			},
-			{
-				test: /\.css$/,
-				loader: "style-loader!css-loader"
-			}
-		]
-	},
-	plugins: [
-		new webpack.HotModuleReplacementPlugin()
-	],
-	devServer: {
-		inline: true,
-		hot: true,
-		compress: true,
-		historyApiFallback: true,
-		watchOptions: {
-			aggregateTimeout: 300,
-			poll: 1000,
-			ignored: [
-				/node_modules\/(?!(me\.common\.\w+)\/)/,
-				/node_modules\/((me\.common\.\w+)\/node_modules)/
-			]
-		},
-		host: "0.0.0.0",
-		publicPath: path.join(__dirname, "dist"),
-		stats: {
-			colors: true
-		}
-	},
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				commons: {
-					test: /[\\/]node_modules[\\/]/,
-					name: "vendor",
-					filename: "vendor.js",
-					chunks: "all"
-				}
-			}
-		}
-	}
+    mode: resolveMode(),
+    devtool: "source-map",
+    entry: ["babel-polyfill", `${__dirname}/public/views/index.jsx`],
+    output: {
+        path: path.join(__dirname, "dist"),
+        filename: "main.js",
+        publicPath: "/dist/"
+    },
+    resolve: {
+        extensions: [".js", ".jsx", ".json"]
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules\/(?!(me\.common\.\w+)\/)/,
+                loader: "babel-loader",
+                options: {
+                    forceEnv: "client"
+                }
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
+            }
+        ]
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            __PHOTOS_URL__: JSON.stringify(config.get("photosUrl")),
+            __APP_URL__: JSON.stringify(config.get("appUrl")),
+        })
+    ],
+    serve: {
+        clipboard: false,
+        hot: {
+            host: "localhost",
+            port: 8090,
+        },
+        dev: {
+            publicPath: "/dist/"
+        },
+        on: {
+            listening: ({server}) => {
+                const chokidar = require("chokidar");
+                const stringify = require("json-stringify-safe");
+                const webSocket = require("ws");
+
+                const socket = new webSocket("ws://localhost:8090");
+                const watcher = chokidar.watch(__dirname);
+
+                watcher.on("change", () => {
+                    const data = {
+                        type: "broadcast",
+                        data: {
+                            type: "window-reload",
+                            data: {},
+                        },
+                    };
+
+                    socket.send(stringify(data));
+                });
+
+                server.on("close", () => {
+                    watcher.close();
+                });
+            },
+        },
+        add: (app, middleware) => {
+            const history = require("connect-history-api-fallback");
+            const compress = require("koa-compress");
+            const convert = require("koa-connect");
+
+            middleware.webpack();
+            middleware.content();
+            app.use(compress());
+            app.use(convert(history({
+                verbose: true
+            })));
+        },
+        logLevel: "trace",
+        logTime: true
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    filename: "vendor.js",
+                    chunks: "all"
+                }
+            }
+        }
+    }
 };

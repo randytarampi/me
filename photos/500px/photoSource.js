@@ -1,9 +1,9 @@
-const PhotoSource = require("../photoSource");
-const Photo = require("me.common.js/lib/photo");
-const Creator = require("me.common.js/lib/creator");
-const SizedPhoto = require("me.common.js/lib/sizedPhoto");
-const SearchParams = require("../searchParams");
-const F00px = require("500px");
+import F00px from "500px";
+import Creator from "me.common.js/lib/creator";
+import Photo from "me.common.js/lib/photo";
+import SizedPhoto from "me.common.js/lib/sizedPhoto";
+import PhotoSource from "../photoSource";
+import SearchParams from "../searchParams";
 
 class Five00pxSource extends PhotoSource {
     constructor() {
@@ -97,4 +97,4 @@ class Five00pxSource extends PhotoSource {
     }
 }
 
-module.exports = Five00pxSource;
+export default Five00pxSource;

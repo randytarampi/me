@@ -1,11 +1,11 @@
-const PhotoSource = require("../photoSource");
-const Photo = require("me.common.js/lib/photo");
-const Creator = require("me.common.js/lib/creator");
-const SizedPhoto = require("me.common.js/lib/sizedPhoto");
-const SearchParams = require("../searchParams");
-const Flickr = require("flickrapi");
-const Moment = require("moment");
-const _ = require("lodash");
+import Flickr from "flickrapi";
+import _ from "lodash";
+import Creator from "me.common.js/lib/creator";
+import Photo from "me.common.js/lib/photo";
+import SizedPhoto from "me.common.js/lib/sizedPhoto";
+import Moment from "moment";
+import PhotoSource from "../photoSource";
+import SearchParams from "../searchParams";
 
 class FlickrSource extends PhotoSource {
     constructor() {
@@ -97,4 +97,4 @@ class FlickrSource extends PhotoSource {
     }
 }
 
-module.exports = FlickrSource;
+export default FlickrSource;

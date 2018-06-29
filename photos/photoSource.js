@@ -37,4 +37,4 @@ class PhotoSource {
 	}
 }
 
-module.exports = PhotoSource;
+export default PhotoSource;
