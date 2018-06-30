@@ -3,132 +3,152 @@ require("babel-register");
 const gulp = require("gulp");
 
 gulp.task("clean", () => {
-	const vinylPaths = require("vinyl-paths");
-	const del = require("del");
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
 
-	return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
-		.pipe(vinylPaths(del));
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
+gulp.task("copy", () => {
+    return gulp
+        .src([
+            "public/assets/**",
+            "node_modules/materialize-css/dist/fonts/roboto/**"
+        ])
+        .pipe(gulp.dest("./dist"));
+});
+
+gulp.task("views", () => {
+    const pug = require("gulp-pug");
+    const config = require("config");
+
+    return gulp.src(["views/index.pug"])
+        .pipe(pug({
+            locals: {
+                appUrl: config.get("appUrl"),
+                photosUrl: config.get("photosUrl")
+            }
+        }))
+        .pipe(gulp.dest("."));
 });
 
 gulp.task("styles:dev", () => {
-	const autoprefixer = require("gulp-autoprefixer");
-	const sass = require("gulp-sass");
-	const sassTildeImporter = require("grunt-sass-tilde-importer");
-	const concat = require("gulp-concat");
+    const autoprefixer = require("gulp-autoprefixer");
+    const sass = require("gulp-sass");
+    const sassTildeImporter = require("grunt-sass-tilde-importer");
+    const concat = require("gulp-concat");
 
-	return gulp.src([
-			"styles/style.scss"
-		])
-		.pipe(sass({
-			importer: sassTildeImporter
-		}).on("error", sass.logError))
-		.pipe(autoprefixer({
-			browsers: ["last 2 versions"],
-			cascade: false
-		}))
-		.pipe(concat("styles.css"))
-		.pipe(gulp.dest("dist"));
+    return gulp.src([
+            "styles/style.scss"
+        ])
+        .pipe(sass({
+            importer: sassTildeImporter
+        }).on("error", sass.logError))
+        .pipe(autoprefixer({
+            browsers: ["last 2 versions"],
+            cascade: false
+        }))
+        .pipe(concat("styles.css"))
+        .pipe(gulp.dest("dist"));
 });
 
 gulp.task("styles", gulp.series(["styles:dev"]), () => {
-	const cleanCss = require("gulp-clean-css");
-	const sourcemaps = require("gulp-sourcemaps");
+    const cleanCss = require("gulp-clean-css");
+    const sourcemaps = require("gulp-sourcemaps");
 
-	return gulp.src("dist/styles.css")
-		.pipe(sourcemaps.init())
-		.pipe(cleanCss())
-		.pipe(sourcemaps.write("./"))
-		.pipe(gulp.dest("dist"));
+    return gulp.src("dist/styles.css")
+        .pipe(sourcemaps.init())
+        .pipe(cleanCss())
+        .pipe(sourcemaps.write("./"))
+        .pipe(gulp.dest("dist"));
 });
 
 gulp.task("webpack:dev", function (callback) {
-	const WebPack = require("webpack");
-	const WebPackConfig = require("./webpack.config");
-	const webpackConfig = Object.assign({}, WebPackConfig);
+    const WebPack = require("webpack");
+    const WebPackConfig = require("./webpack.client.config");
+    const webpackConfig = Object.assign({}, WebPackConfig);
 
-	WebPack(webpackConfig, function (err, stats) {
-		console.log("[webpack:dev]", stats.toString({colors: true})); // eslint-disable-line no-console
-		callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
-	});
+    WebPack(webpackConfig, function (err, stats) {
+        console.log("[webpack:dev]", stats.toString({colors: true})); // eslint-disable-line no-console
+        callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
+    });
 });
 
 gulp.task("webpack", function (callback) {
-	const WebPack = require("webpack");
-	const WebPackConfig = require("./webpack.config");
-	const webpackConfig = Object.assign({}, WebPackConfig, {
-		mode: "production"
-	});
+    const WebPack = require("webpack");
+    const WebPackConfig = require("./webpack.client.config");
+    const webpackConfig = Object.assign({}, WebPackConfig, {
+        mode: "production"
+    });
 
-	WebPack(webpackConfig, function (err, stats) {
-		console.log("[webpack:prod]", stats.toString({colors: true})); // eslint-disable-line no-console
-		callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
-	});
+    WebPack(webpackConfig, function (err, stats) {
+        console.log("[webpack:prod]", stats.toString({colors: true})); // eslint-disable-line no-console
+        callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
+    });
 });
 
 function isFixed(file) {
-	return file.eslint !== null && file.eslint.fixed;
+    return file.eslint !== null && file.eslint.fixed;
 }
 
 gulp.task("eslint", () => {
-	const eslint = require("gulp-eslint");
-	const gulpIf = require("gulp-if");
+    const eslint = require("gulp-eslint");
+    const gulpIf = require("gulp-if");
 
-	return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
-		.pipe(eslint({fix: true}))
-		.pipe(eslint.format())
-		.pipe(gulpIf(isFixed, gulp.dest("./")))
-		.pipe(eslint.failOnError());
+    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
+        .pipe(eslint({fix: true}))
+        .pipe(eslint.format())
+        .pipe(gulpIf(isFixed, gulp.dest("./")))
+        .pipe(eslint.failOnError());
 });
 
 gulp.task("sassLint", () => {
-	const sassLint = require("gulp-sass-lint");
+    const sassLint = require("gulp-sass-lint");
 
-	return gulp.src("sass/**/*.s+(a|c)ss")
-		.pipe(sassLint())
-		.pipe(sassLint.format())
-		.pipe(sassLint.failOnError());
+    return gulp.src("sass/**/*.s+(a|c)ss")
+        .pipe(sassLint())
+        .pipe(sassLint.format())
+        .pipe(sassLint.failOnError());
 });
 
 gulp.task("lint", gulp.parallel([
-	"eslint",
-	"sassLint"
+    "eslint",
+    "sassLint"
 ]));
 
 gulp.task("test.unit", function () {
-	const mocha = require("gulp-mocha");
-	const mochaConfig = require("./mocha.config");
+    const mocha = require("gulp-mocha");
+    const mochaConfig = require("./mocha.config");
 
-	return gulp.src("test/unit/**/*.js", {read: false})
-		.pipe(mocha(mochaConfig));
+    return gulp.src("test/unit/**/*.js", {read: false})
+        .pipe(mocha(mochaConfig));
 });
 
 gulp.task("test.integration", function () {
-	const mocha = require("gulp-mocha");
-	const mochaConfig = require("./mocha.config");
+    const mocha = require("gulp-mocha");
+    const mochaConfig = require("./mocha.config");
 
-	return gulp.src("test/integration/**/*.js", {read: false})
-		.pipe(mocha(mochaConfig));
+    return gulp.src("test/integration/**/*.js", {read: false})
+        .pipe(mocha(mochaConfig));
 });
 
 gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
 
 gulp.task("build", gulp.series([
-	"lint",
-	"clean",
-	"styles",
-	"webpack"
+    gulp.parallel(["lint", "clean"]),
+    gulp.parallel(["copy", "views", "styles", "webpack"])
 ]));
 
 gulp.task("build:dev", gulp.series([
-	"lint",
-	"styles:dev",
-	"webpack:dev"
+    gulp.parallel(["lint", "copy", "views", "styles:dev"]),
+    "webpack:dev"
 ]));
 
 gulp.task("dev",
-	gulp.series([
-		"build:dev"
-	])
+    gulp.series([
+        "build:dev"
+    ])
 );
 
 gulp.task("default", gulp.series(["dev"]));
