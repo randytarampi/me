@@ -18,10 +18,8 @@ before_install:
 - uname -a
 - lscpu
 - touch .env
-- npm i -g npm
 - npm install -g serverless
 - if [ -z "$TRAVIS_TAG" ]; then export NODE_ENV=dev; else export NODE_ENV=prd; fi;
-install: npm ci
 script: npm run travis
 after_success:
 - mkdir -p ../dpl_cd_upload
