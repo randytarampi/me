@@ -58,7 +58,7 @@ custom:
 
 functions:
   getPhotos:
-    handler: serverless/handler/getPhotos.js
+    handler: serverless/handler/getPhotos.default
     events:
       - http:
           path: ""
@@ -66,7 +66,7 @@ functions:
           cors: true
     onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
   instagramAuthRedirect:
-    handler: serverless/handler/instagramAuthRedirect.js
+    handler: serverless/handler/instagramAuthRedirect.default
     events:
       - http:
           path: auth/instagram
@@ -74,7 +74,7 @@ functions:
           cors: true
     onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
   instagramAuthReturn:
-    handler: serverless/handler/instagramAuthReturn.js
+    handler: serverless/handler/instagramAuthReturn.default
     events:
       - http:
           path: auth/instagram/redirect
