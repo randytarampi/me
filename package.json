@@ -18,7 +18,7 @@
     "dev:client": "webpack-serve --hot --config ./webpack.client.config.js",
     "dev:serverless": "serverless offline start --stage dev",
     "deploy": "sls deploy --stage $NODE_ENV",
-    "version": "git add --force dist"
+    "version": "git add --force --all dist"
   },
   "description": "A photo aggregator/blog thingy. For some usernames at some popular services, pull their photos and display them nicely.",
   "homepage": "https://github.com/randytarampi/me.photos",
