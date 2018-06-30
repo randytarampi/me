@@ -41,11 +41,16 @@ after_success:
     fi;
   fi;
 deploy:
-  provider: script
-  script: npm run deploy
-  on: &2
-    tags: true
-    branch: master
+  -
+    provider: script
+    script: npm run deploy
+    on:
+      branch: master
+  -
+    provider: script
+    script: npm run deploy
+    on:
+      tags: true
 notifications:
   slack:
     secure: XIKwYs484VwJNLD4IuJz/aApirGz98J2LS10EqorZ6d7hjavq4BTctb2m1LAgpONdeZNaFjZvoQpy4KvkyPFXCewKv0NwmMdcb7Ae89EQNqYypE/X0XhGGgd9JBtCbFjreokVflIvkrigPPmllJGNIngjfhquw/u11NaKXQkrdQ62+hcBOkj3uPXsXZUG++QuSpJy0fFm8usuDWjIcJCxI2e1XjAGgN4me4t5Yn/MzGqROGdj/PLWJnx8mA37EEd2aIGckFt+8SdfPhMNvh2LF5HKD4QWdVAbSXvDf/JUPR1R1FIviv3yF9U0Pm7/rNMR3jxK9BWsnbX6K+6mxf9z4uqGgzbpl8/PW+MtpeyytmGmhiT8wzOaL45GOKcnKrVKEeD+g2Aub3j64eiN84+w0EfWqPazn5C+AxeJ18QkSXREWgQDSsW6qCJO6X2jjcm0H+IcqFeVOPk1quTlfgmRj2B0bZmLlvn72he+ym8GL03u+2X7liMk4rnk6UCqsG8whGR6NHVVzGT6MSL2xBbTfi/tBTgeVGKUZm2y0zGJcXbBENzhPOWMfp9fCL7trEfry2HhfKG3Jt8dQMYrl95qesV6UgKI/vAFR8SBOPR9HWJP/SJi3mPe46JbYOKL7iZxyr7c5Hjjt86z8Jz5NiXf6b1AI+QKWf+2o3N5PaKWbQ=
