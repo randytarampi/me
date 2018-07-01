@@ -18,7 +18,7 @@
     "dev:client": "webpack-serve --hot --config ./webpack.client.config.js",
     "dev:serverless": "serverless offline start --stage dev",
     "deploy": "sls deploy --stage $NODE_ENV",
-    "version": "git add --force --all dist",
+    "version": "git add --verbose --force --all dist index.html",
     "build:flickr": "node node_modules/flickrapi/compile.js",
     "build": "npm run build:flickr && gulp build"
   },
