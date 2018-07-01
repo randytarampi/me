@@ -1,10 +1,9 @@
-const responseBuilder = (body = undefined, statusCode = 200, headers = {}, bodyEncoding = "text", statusDescription = undefined) => {
+const responseBuilder = (body = undefined, statusCode = 200, headers = {}, isBase64Encoded = false) => {
     return {
         body: body && JSON.stringify(body),
-        bodyEncoding,
+        isBase64Encoded,
         headers,
-        statusCode,
-        statusDescription
+        statusCode
     };
 };
 
