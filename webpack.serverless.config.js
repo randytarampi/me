@@ -29,6 +29,7 @@ module.exports = {
     devtool: "nosources-source-map",
     externals: [nodeExternals({
         whitelist: [
+            "serverless-secrets/client",
             /(me\.common\.\w+)/
         ]
     })],
@@ -41,24 +42,20 @@ module.exports = {
                 options: {
                     forceEnv: "server"
                 }
-            },
-            {
-                test: /\.serverless-secrets.json$/,
-                use: [
-                    {
-                        loader: "file-loader"
-                    }
-                ],
             }
         ]
     },
     plugins: [
         new CopyWebpackPlugin([
             {
+                from: ".serverless-secrets.json",
+                to: ".serverless-secrets.json"
+            },
+            {
                 from: "./data",
                 to: "./data"
-            },
-        ]),
+            }
+        ])
     ],
     output: {
         libraryTarget: "commonjs2",

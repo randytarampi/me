@@ -54,4 +54,3 @@ package-lock.json
 
 # Serverless
 .serverless
-.serverless-secrets.json
