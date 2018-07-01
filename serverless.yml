@@ -7,7 +7,7 @@ provider:
   runtime: nodejs8.10
 
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'ca-central-1'}
+  region: ${opt:region, 'us-east-1'}
   resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
   memorySize: 512
   timeout: 10
@@ -54,7 +54,7 @@ custom:
     keys:
       dev: "alias/serverless-dev"
       prd: "alias/serverless-prd"
-  alarmTopic: arn:aws:sns:ca-central-1:471964952458:CloudWatchNotifications
+  alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
     port: 3002
 
