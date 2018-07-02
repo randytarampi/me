@@ -45,7 +45,11 @@ jspm_packages
 
 # Compiled resources
 dist
-data/flickr
+.webpack
 
 # Environment variables
 .env
+package-lock.json
+
+# Serverless
+.serverless

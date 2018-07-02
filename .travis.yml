@@ -1,10 +1,13 @@
 language: node_js
+dist: trusty
 node_js:
 - '8'
 env:
   global:
   - secure: TLivqf5lb81s4YrqDtyWOa5S0FY9+wWgc8cyLAZN3H4Migfut94F6LmLbsxTk532Fsob0L/d7TfRUhVOj4t65KkSNZfMgmf4445VC4arGX68E6usTkxJ43/yF3wdej8bjBE7G4nCkTG/rR0dVb7xrJjgn1k6v9J+K7Rx9oJWZVyIuS4EPhxrUnYFqMjWm8pwoGwu1C4XxK+w3a+GoIXI5RU76MA07V29tnnIyRNyQVJ+hUhYgXosZicPRD6pNUL/okDv9U59gVtSGBUN2h7YYKi1emKXR2mLDnB6AdWPZbmCRE+C5ygNDwfnwPkHPvOVLSA0S9Nw9Amq7J5djYfbPXVTYUGlaC1RYKxeNyLBpSvqgcmIe7VkKUMtRlwiEmjfgopDzcNEQHgsV7pfyXu8oovZAwHVGnt3KZ3VV2aUS10FBCLB0O0u9ctxMxlSHx3a7eoiLufDvsPrkDm9f1cLzm3Ly7WPmmN4CM4MId6AMf7X+R88HaTVboPyVH+SlTpLgVv+AkVR4nGQw+QbDi5XpflSrs1jEWVZaPOPQpmV60cCG1PZxpMrPmRGht8pjDnx8vCQ8JU+wYe4psCpa+6gdKi7lXWF0LF+fWBhgzbq4ndM3L+2Ky2aVLuYGxxgH08eJN747ZajUG6dP1XhPhjPRFZUCjY5a/o4WqAsndRaQ+4=
   - CXX=g++-4.8
+  - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
+  - secure: OS133zdQIrp0Qliv6P1COebwEiR9wS2I9KPrFnZLj/HbyCyCfXzzNGT806o2O3Dis1ihkYggpQGPYVnh8J6PerWXnQ6LlgzXRmw+u4XQfRpaJkhAqSl9aWrtYAglpzWgr9jUrY092hRsUSa8rrCsbCqEBKHBLlPqY9iSgQcsaf/r2ZVYWgh9vOhdR9W9jBepQSBtSBbCubJo9isfe4z2gR2rCznay1u0sf2L6ElJuAnp7UpZKvoYk4KgAh+RGCSeXvSKlaZ52PtQZaBAUoSez2VuBWje4p5vMOgi1O5uHFL+90LlvRbyHIKC4IMdnzMWHfn/TrG0/lG8Xuubtg19NaehDGQ4JULI33qRg5EExTVCfoWUQ1r5enuYn/2JDnsw1NlGMC2+IgvxStpqLUMpPCzdJWc4xoQ/YcltTZzLLfYaH07ELxtqh+3e3kiqj2Oek5w0nk7hA77Ghl/+SMNVNYfOU2lbigjuvhCpq4do6z7U3IB3quXCo5AO7PPGtR2QRDOHq0dY0GYqPFaNH7ONG6qGM4vrAcA73KCOSOeUgv15OynwgOWNlfOVfj7eaD1etBomIvde8+/qCf1rhJI9O+J00g1Ug89du8JXchzFKueEv0OChl0dC2NbcjChJID3+yLSpvvhG97Tgev0XiYiN4LQXKf3TBx2ZU8gedpt80M=
 addons:
   apt:
     sources:
@@ -15,50 +18,32 @@ before_install:
 - uname -a
 - lscpu
 - touch .env
-- npm i -g npm
-install: npm ci
+- npm install -g npm
+- npm install -g serverless
+- export NODE_ENV=prd;
 script: npm run travis
 after_success:
 - mkdir -p ../dpl_cd_upload
-- tar -zcf ../dpl_cd_upload/me.words.tar.gz -C ./ .
+- tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
+- git config --local user.name "Travis"
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [ -z "$TRAVIS_TAG" ]; then
-    if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
-      npm version minor;
-      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
-      npm version preminor -m "[Travis] Prepare version %s";
-      git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
-    fi;
-  fi;
+- if [ -z "$TRAVIS_TAG" ]; then if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+  npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+  HEAD:master; fi; fi;
 deploy:
-- provider: s3
-  access_key_id: AKIAI3EMH5UQ2CYHR3SA
-  secret_access_key: &1
-    secure: mLWxH8h2arSs2xiZn0Nd52Qn465OLyCnqqu5VeFh9mazsyaKtasna/LWTUDUyeUbQzdKIotJ1hi5H8pGvmjoehO+kbDOZK4WZ/xWyQegtbepqbZSw9GUlnnnXDOi/ePFhRpdXtY9IafQcrTuCZd6kCJoS65YDgbm6KF2Y71Tv9TRT2rpmIY03GYT3dY9GbtEJ05wypAbiEZnkiX2cNIWmx46TCMfdtylzf5QPRF+j7ujnDte1B4Fja9P0gpTmK5EH8ai4Y9lDXv+UuRNQay+Uzb2kQ6lhlqaTOkYlSaZSSOg/WP8BVX7zGqe1IbulzgaE6NZdAQAq9XotBrWVM9oOsN8ialrO1W8Vkcs2htE2+JkK04DhbmFJj7UQARPCJYKL2LvnuTr+h2injmJRMi/z1UTm0t5shxO8SgqMJuJFCS6Cbr0+QYRztc/uc1MgNeEnFt1al7x1btEqaFpAFtmroYZuZyrhkNOIGeYFWrQxh8kE7dGr092x9YfPy2PUoXgXrdbNMxFy9aZhTDHYpXqhxPuUphUzQeSJWGol+QX9STEBJidLvEdQqoYuw1eVH+r/Ptto29T6M+bgz33GhvaZo6/HTu9cTdWSGOiTzhieek2UKqWUoP2u3kWolfqjWIN0jSr/i6CEjO7ZDyfyRAxnPZ4nPLsxOozBjDpjlzh738=
+- provider: script
+  script: NODE_ENV=dev npm run deploy
   skip_cleanup: true
-  on: &2
-    tags: true
-    repo: randytarampi/me.words
+  on:
     branch: master
-  bucket: randytarampi-releases
-  region: ca-central-1
-  detect_encoding: true
-  local-dir: "../dpl_cd_upload"
-- provider: codedeploy
-  access_key_id: AKIAI3EMH5UQ2CYHR3SA
-  secret_access_key: *1
-  bucket: randytarampi-releases
-  key: me.words.tar.gz
-  bundle_type: tgz
-  application: randytarampi.words
-  deployment_group: web
-  on: *2
-  wait-until-deployed: true
-  region: ca-central-1
-after_deploy:
-- if [ -z "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}; fi;
+- provider: script
+  script: NODE_ENV=prd npm run deploy
+  skip_cleanup: true
+  on:
+    tags: true
 notifications:
   slack:
     secure: bD1y+lFF6VseZ0bSi/fRqnFm2F6nil9pllhRh6ze24zmzHrftWHsvnuASZmn8MGKcqtnph/zyFKyVR+nDEXeQ04AZLU4tBoDbNWi2f85nzoUUD+8YzdQRctB9YIx818UGeZEVPBjIT1IVof+Z1AQEqM+jfl0LTNAPaADJgpLWDcNZDYNGUsibG4fapgix7P+vMTUgGFbN4J1WL243Q7pYK6x1hqOPNfDtaGSEFX7c1MUS6ULk335fkDo5M/o+vJweo0j2jboPN1n/vYpJuJRgmzP7jMISkchYjAKR2WktcM8CgC+mJye9NIaZQVn8IWEqqDYYIXM5IekEbTF2pz7bztaqgrhZdVmKqvl9edOfLL0qVt5RbguLuxSKsVw92AgajsiEhaOeNrA5gDyLq2o/xREtwpOC45M8wcJCAbHldqhjrJaRqpL2Q28mSGtmu7BDBWNwL2ylKE9NRTeY+e/ey5a70kUOorAKO5b8UhSJQJPEgBrNY1vTSb7F6eRmYkeqnqkTTMUEKIe+BtmnQ1kCPCbhDXk5BQoSumVxURAznj4SSzfamSMt1CUVpM/CPBsjui5plN1Ymwk/KvcstOkcCVU85vHS+Kare/j2n9J6wCexxiLsEUaImdldoLeUz6sVoTcy9OvWz+ohvM317gD5t/G8rHF1nWAr85s3Khx2GY=
