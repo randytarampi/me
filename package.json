@@ -14,7 +14,7 @@
     "travis": "npm run cover; npm run coveralls",
     "coveralls": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
     "start": "npm run dev",
-    "dev": "npm run dev:client & npm run dev:serverless &",
+    "dev": "npm run dev:client & npm run dev:serverless && fg",
     "dev:client": "webpack-serve --hot --config ./webpack.client.config.js",
     "dev:serverless": "serverless offline start --stage local",
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
