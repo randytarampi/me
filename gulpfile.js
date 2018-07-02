@@ -104,7 +104,7 @@ gulp.task("eslint", () => {
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
+    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./docs/**/*", "!./coverage/**/*"])
         .pipe(eslint({fix: true}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
