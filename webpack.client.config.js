@@ -22,7 +22,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, "dist"),
         filename: "main.js",
-        publicPath: "/dist/"
+        publicPath: "/"
     },
     resolve: {
         extensions: [".js", ".jsx", ".json"]
@@ -51,12 +51,13 @@ module.exports = {
     ],
     serve: {
         clipboard: false,
+        content: "./dist/",
         hot: {
             host: "localhost",
             port: 8090,
         },
         dev: {
-            publicPath: "/dist/"
+            publicPath: "/"
         },
         on: {
             listening: ({server}) => {
