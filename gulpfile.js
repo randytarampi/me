@@ -30,7 +30,15 @@ gulp.task("views", () => {
                 photosUrl: config.get("photosUrl")
             }
         }))
-        .pipe(gulp.dest("."));
+        .pipe(gulp.dest("./dist"));
+});
+
+gulp.task("docs", () => {
+    return gulp
+        .src([
+            "dist/**"
+        ])
+        .pipe(gulp.dest("./docs"));
 });
 
 gulp.task("styles:dev", () => {
@@ -136,7 +144,7 @@ gulp.task("test.integration", function () {
 gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
 
 gulp.task("build", gulp.series([
-    gulp.parallel(["lint", "clean"]),
+    "clean",
     gulp.parallel(["copy", "views", "styles", "webpack"])
 ]));
 

@@ -20,7 +20,7 @@
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
     "deploy:dev": "sls deploy --stage $NODE_ENV --region us-east-1",
     "deploy:prd": "sls deploy --stage $NODE_ENV --region ca-central-1",
-    "version": "git add --verbose --force --all dist index.html",
+    "version": "gulp docs && git add --verbose --force --all docs",
     "build:flickr": "node node_modules/flickrapi/compile.js",
     "build": "npm run build:flickr && gulp build"
   },
