@@ -76,7 +76,7 @@ resources:
          DomainName: ${file(env.yml):${self:provider.stage}.domainName}
          RestApiId:
            Ref: ApiGatewayRestApi
-        Stage: ${self:provider.stage}
+         Stage: ${self:provider.stage}
     ErrorsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
