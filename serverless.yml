@@ -63,11 +63,11 @@ functions:
 
 resources:
   Resources:
-    CustomDomainName:
-      Type: AWS::ApiGateway::DomainName
-      Properties:
-        CertificateArn: ${file(env.yml):${self:provider.stage}.acmArn}
-        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
+    # CustomDomainName:
+    #   Type: AWS::ApiGateway::DomainName
+    #   Properties:
+    #     CertificateArn: ${file(env.yml):${self:provider.stage}.acmArn}
+    #     DomainName: ${file(env.yml):${self:provider.stage}.domainName}
     Pathmapping:
       Type: AWS::ApiGateway::BasePathMapping
       DependsOn: ApiGatewayRestApi
