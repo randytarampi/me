@@ -68,14 +68,14 @@ resources:
        Properties:
          CertificateArn: ${file(env.yml):${self:provider.stage}.acmArn}
          DomainName: ${file(env.yml):${self:provider.stage}.domainName}
-    Pathmapping:
-      Type: AWS::ApiGateway::BasePathMapping
-      DependsOn: ApiGatewayRestApi
-      Properties:
-        BasePath: ""
-        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
-        RestApiId:
-            Ref: ApiGatewayRestApi
+     Pathmapping:
+       Type: AWS::ApiGateway::BasePathMapping
+       DependsOn: ApiGatewayRestApi
+       Properties:
+         BasePath: ""
+         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
+         RestApiId:
+           Ref: ApiGatewayRestApi
         Stage: ${self:provider.stage}
     ErrorsAlarm:
       Type: AWS::CloudWatch::Alarm
