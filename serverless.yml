@@ -95,7 +95,7 @@ resources:
       Type: AWS::ApiGateway::BasePathMapping
       DependsOn: ApiGatewayRestApi
       Properties:
-        BasePath: "photos"
+        BasePath: ""
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
         RestApiId:
             Ref: ApiGatewayRestApi
