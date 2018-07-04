@@ -12,6 +12,7 @@ before_install:
 - lscpu
 - touch .env
 - npm install -g npm
+- npm install -g gulp-cli
 - npm install -g serverless
 - export NODE_ENV=prd;
 script: npm run travis
