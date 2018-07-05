@@ -23,8 +23,8 @@ after_success:
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
 - if [ -z "$TRAVIS_TAG" ]; then if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
-  npm version --force minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
-  npm version preminor --force -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+  npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
   HEAD:master; fi; fi;
 deploy:
 - provider: script
