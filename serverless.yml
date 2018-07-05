@@ -66,6 +66,22 @@ functions:
 
 resources:
   Resources:
+    ApiGatewayDeployment:
+      Type: AWS::ApiGateway::Deployment
+      DependsOn: GetWordsLambdaFunction
+      Properties:
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        StageName: ${self:provider.stage}
+    Pathmapping:
+      Type: AWS::ApiGateway::BasePathMapping
+      DependsOn: ApiGatewayDeployment
+      Properties:
+        BasePath: ""
+        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
+        RestApiId:
+            Ref: ApiGatewayRestApi
+        Stage: ${self:provider.stage}
     CustomDomainName:
      Type: AWS::ApiGateway::DomainName
      Properties:
