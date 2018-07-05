@@ -46,7 +46,7 @@ export class PhotoComponent extends PostComponent {
 				</h1>
 			</Col>
 			<Col
-				className="photo-metadata hide-on-med-and-down"
+				className="photo-metadata hide-on-small-and-down"
 				l={4}
 			>
 				<h1 className="photo-title">
