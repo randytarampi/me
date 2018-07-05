@@ -6,8 +6,8 @@ import WordSource from "../wordSource";
 class S3WordSource extends WordSource {
     constructor() {
         super("S3", knox.createClient({
-            key: process.env.AWS_ACCESS_KEY,
-            secret: process.env.AWS_ACCESS_SECRET,
+            key: process.env.AWS_ACCESS_KEY_ID,
+            secret: process.env.AWS_SECRET_ACCESS_KEY,
             bucket: process.env.S3_BUCKET_NAME
         }));
     }
