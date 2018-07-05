@@ -33,6 +33,7 @@
   "dependencies": {
     "500px": "^0.5.1",
     "flickrapi": "^0.6.0",
+    "form-data": "^2.3.2",
     "instagram-api": "^1.0.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
@@ -48,8 +49,6 @@
     "react-materialize": "^2.3.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "request": "^2.87.0",
-    "request-promise-native": "^1.0.5",
     "tumblr.js": "^1.1.1",
     "unsplash-js": "^4.8.0"
   },

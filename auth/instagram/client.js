@@ -1,17 +1,19 @@
-import Request from "request-promise-native";
+import FormData from "form-data";
+import "isomorphic-fetch";
 
 const INSTAGRAM_TOKEN_URL = "https://api.instagram.com/oauth/access_token";
 
 export const getAuthTokenForCode = code => {
-    return Request({
+    const formData = new FormData();
+    formData.append("client_id", process.env.INSTAGRAM_API_KEY);
+    formData.append("client_secret", process.env.INSTAGRAM_API_SECRET);
+    formData.append("grant_type", "authorization_code");
+    formData.append("redirect_uri", process.env.INSTAGRAM_AUTH_REDIRECT_URI);
+    formData.append("code", code);
+
+    return fetch(INSTAGRAM_TOKEN_URL, {
         method: "POST",
-        uri: INSTAGRAM_TOKEN_URL,
-        form: {
-            client_id: process.env.INSTAGRAM_API_KEY,
-            client_secret: process.env.INSTAGRAM_API_SECRET,
-            grant_type: "authorization_code",
-            redirect_uri: process.env.INSTAGRAM_AUTH_REDIRECT_URI,
-            code
-        }
-    });
+        body: formData
+    })
+        .then(body => body.json());
 };
