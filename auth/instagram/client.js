@@ -1,5 +1,5 @@
 import FormData from "form-data";
-import "isomorphic-fetch";
+import fetch from "isomorphic-fetch";
 
 const INSTAGRAM_TOKEN_URL = "https://api.instagram.com/oauth/access_token";
 
