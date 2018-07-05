@@ -22,7 +22,7 @@
     "deploy:prd": "sls deploy --stage $NODE_ENV --region ca-central-1",
     "version": "gulp docs && git add --verbose --force --all docs",
     "build:flickr": "node node_modules/flickrapi/compile.js",
-    "build": "npm run build:flickr && gulp build"
+    "build": "gulp build"
   },
   "description": "A photo aggregator/blog thingy. For some usernames at some popular services, pull their photos and display them nicely.",
   "homepage": "https://github.com/randytarampi/me.photos",
