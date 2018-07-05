@@ -5,6 +5,6 @@ import routes from "../routes";
 
 const history = createBrowserHistory();
 const store = configureStore(undefined, history, reducers);
-const App = () => <ReduxRoot fetchUrl={`${__WORDS_URL__}s`} history={history} routes={routes} store={store}/>;
+const App = () => <ReduxRoot fetchUrl={`${__WORDS_URL__}`} history={history} routes={routes} store={store}/>;
 
 export default App;
