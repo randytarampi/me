@@ -93,7 +93,10 @@ resources:
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
     ApiGatewayDeployment:
       Type: AWS::ApiGateway::Deployment
-      DependsOn: GetPhotosLambdaFunction
+      DependsOn:
+        - GetPhotosLambdaFunction
+        - InstagramAuthRedirectLambdaFunction
+        - InstagramAuthReturnLambdaFunction
       Properties:
         RestApiId:
           Ref: ApiGatewayRestApi
