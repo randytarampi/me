@@ -3,7 +3,6 @@ import Creator from "me.common.js/lib/creator";
 import Photo from "me.common.js/lib/photo";
 import SizedPhoto from "me.common.js/lib/sizedPhoto";
 import Unsplash, {toJson} from "unsplash-js";
-import url from "url";
 import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
@@ -51,12 +50,8 @@ class UnsplashSource extends PhotoSource {
             [
                 new SizedPhoto(json.urls.raw, json.width, json.height, "raw"),
                 new SizedPhoto(json.urls.full, json.width, json.height, "full"),
-                new SizedPhoto(buildSizedImageUrl(json.urls.raw, 1920), 1920),
-                new SizedPhoto(buildSizedImageUrl(json.urls.raw, 1440), 1440),
-                new SizedPhoto(buildSizedImageUrl(json.urls.raw, 720), 720),
-                new SizedPhoto(buildSizedImageUrl(json.urls.raw, 640), 640),
-                new SizedPhoto(buildSizedImageUrl(json.urls.raw, 500), 500),
-                new SizedPhoto(buildSizedImageUrl(json.urls.raw, 320), 320)
+                new SizedPhoto(json.urls.regular, json.width, json.height, "regular"),
+                new SizedPhoto(json.urls.small, json.width, json.height, "small")
             ],
             json.links.html,
             null,
@@ -73,17 +68,3 @@ class UnsplashSource extends PhotoSource {
 }
 
 export default UnsplashSource;
-
-function buildSizedImageUrl(imageUrl, width, height) {
-    imageUrl = url.parse(imageUrl);
-    imageUrl.query = imageUrl.query || {};
-    if (width) {
-        imageUrl.query.w = width;
-    }
-    if (height) {
-        imageUrl.query.h = height;
-    }
-    imageUrl.query.fit = "max";
-
-    return url.format(imageUrl);
-}
