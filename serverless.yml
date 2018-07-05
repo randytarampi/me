@@ -91,9 +91,16 @@ resources:
       Properties:
         CertificateArn: ${file(env.yml):${self:provider.stage}.acmArn}
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
+    ApiGatewayDeployment:
+      Type: AWS::ApiGateway::Deployment
+      DependsOn: GetPhotosLambdaFunction
+      Properties:
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        StageName: ${self:provider.stage}
     Pathmapping:
       Type: AWS::ApiGateway::BasePathMapping
-      DependsOn: ApiGatewayRestApi
+      DependsOn: ApiGatewayDeployment
       Properties:
         BasePath: ""
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
