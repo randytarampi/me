@@ -1,0 +1,147 @@
+service: blog
+
+frameworkVersion: ">=1.0.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
+  memorySize: 512
+  timeout: 10
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - KMS:Decrypt
+      Resource: ${file(env.yml):${self:provider.stage}.kmsKeyArn}
+
+  environment: ${file(env.yml):${self:provider.stage}.environment}
+
+package:
+  individually: true
+
+plugins:
+  - serverless-secrets
+  - serverless-webpack
+  - serverless-offline
+  - serverless-mocha-plugin
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.serverless.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk
+  serverlessSecrets:
+    throwOnMissingSecret: true
+    providerOptions:
+      region: ${self:provider.region}
+    keys:
+      dev: "alias/serverless-dev"
+      prd: "alias/serverless-prd"
+  alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
+  serverless-offline:
+    port: 3004
+
+functions:
+  getPosts:
+    handler: serverless/handler/getPosts.default
+    events:
+      - http:
+          path: ""
+          method: get
+          cors: true
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-blog-dlq
+
+resources:
+  Resources:
+    CustomDomainName:
+      Type: AWS::ApiGateway::DomainName
+      Properties:
+        CertificateArn: ${file(env.yml):${self:provider.stage}.acmArn}
+        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
+    ApiGatewayDeployment:
+      Type: AWS::ApiGateway::Deployment
+      DependsOn: GetPostsLambdaFunction
+      Properties:
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        StageName: ${self:provider.stage}
+    Pathmapping:
+      Type: AWS::ApiGateway::BasePathMapping
+      DependsOn: ApiGatewayDeployment
+      Properties:
+        BasePath: ""
+        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
+        RestApiId:
+            Ref: ApiGatewayRestApi
+        Stage: ${self:provider.stage}
+    ErrorsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: Lambda errors
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        EvaluationPeriods: 1
+        Namespace: AWS/Lambda
+        MetricName: Errors
+        Period: 60
+        Statistic: Sum
+        Threshold: 1
+        Unit: Count
+    DurationAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: Long running lambdas
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        EvaluationPeriods: 1
+        Namespace: AWS/Lambda
+        MetricName: Duration
+        Threshold: 5000
+        Period: 60
+        Statistic: Maximum
+        Unit: Milliseconds
+    Gateway4xxAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: 4xx Errors
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        Dimensions:
+          - Value: ${self:provider.stage}-blog
+            Name: ApiName
+          - Value: ${self:provider.stage}
+            Name: Stage
+        EvaluationPeriods: 1
+        Namespace: AWS/ApiGateway
+        MetricName: 4XXError
+        Period: 60
+        Statistic: Average
+        Threshold: 0.1
+        Unit: Count
+    Gateway5xxAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: 5xx Errors
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        Dimensions:
+          - Value: ${self:provider.stage}-blog
+            Name: ApiName
+          - Value: ${self:provider.stage}
+            Name: Stage
+        EvaluationPeriods: 1
+        Namespace: AWS/ApiGateway
+        MetricName: 5XXError
+        Period: 60
+        Statistic: Average
+        Threshold: 0.1
+        Unit: Count

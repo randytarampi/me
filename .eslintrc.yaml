@@ -48,4 +48,6 @@ settings:
         - .js
         - .jsx
         - .json
-
+globals:
+  __POSTS_URL__: false
+  __CLIENT_URL__: false
