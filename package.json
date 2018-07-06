@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "2.16.0-0",
+  "version": "3.0.0-0",
   "private": true,
   "scripts": {
     "pretest": "gulp lint",
@@ -14,14 +14,9 @@
     "travis": "npm run cover; npm run coveralls",
     "coveralls": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
     "start": "npm run dev",
-    "dev": "npm run dev:client & npm run dev:serverless && fg",
+    "dev": "npm run dev:client",
     "dev:client": "webpack-serve --hot --config ./webpack.client.config.js",
-    "dev:serverless": "serverless offline start --stage local",
-    "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
-    "deploy:dev": "sls deploy --stage $NODE_ENV --region us-east-1",
-    "deploy:prd": "sls deploy --stage $NODE_ENV --region ca-central-1",
     "version": "gulp docs && git add --verbose --force --all docs",
-    "build:flickr": "node node_modules/flickrapi/compile.js",
     "build": "gulp build"
   },
   "description": "A photo aggregator/blog thingy. For some usernames at some popular services, pull their photos and display them nicely.",
@@ -31,13 +26,8 @@
     "email": "bugs@randytarampi.ca"
   },
   "dependencies": {
-    "500px": "^0.5.1",
-    "flickrapi": "^0.6.0",
-    "form-data": "^2.3.2",
-    "instagram-api": "^1.0.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
-    "lwip": "github:kant2002/lwip#node-10",
     "materialize-css": "^0.100.2",
     "me.common.css": "randytarampi/me.common.css",
     "me.common.js": "randytarampi/me.common.js",
@@ -48,9 +38,7 @@
     "react-dom": "^16.4.1",
     "react-materialize": "^2.3.1",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "tumblr.js": "^1.1.1",
-    "unsplash-js": "^4.8.0"
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -86,7 +74,6 @@
     "gulp-sass": "^4.0.1",
     "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^2.4.1",
-    "habitat": "^3.1.2",
     "history": "^4.7.2",
     "json-stringify-safe": "^5.0.1",
     "koa-compress": "^3.0.0",
@@ -95,10 +82,6 @@
     "nyc": "^12.0.2",
     "pug": "^2.0.3",
     "react-hot-loader": "^4.3.3",
-    "serverless-mocha-plugin": "^1.8.3",
-    "serverless-offline": "^3.25.4",
-    "serverless-secrets": "^3.0.0-beta.12",
-    "serverless-webpack": "^5.1.5",
     "style-loader": "^0.21.0",
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.12.1",

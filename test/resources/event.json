@@ -1,8 +1,0 @@
-{
-  "path": "/api/photos",
-  "httpMethod": "GET",
-  "queryStringParameters": {
-    "page": "1",
-    "perPage": "10"
-  }
-}
