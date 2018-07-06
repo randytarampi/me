@@ -16,7 +16,7 @@ class WordsPostSource extends PostSource {
         return Post.fromJSON(postJson);
     }
 
-    isEnabled() {
+    get isEnabled() {
         return true;
     }
 }
