@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "2.9.0-0",
+  "version": "3.0.0-0",
   "private": true,
   "scripts": {
     "pretest": "gulp lint",
@@ -14,12 +14,8 @@
     "travis": "npm run cover; npm run coveralls",
     "coveralls": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
     "start": "npm run dev",
-    "dev": "npm run dev:client & npm run dev:serverless && fg",
+    "dev": "npm run dev:client",
     "dev:client": "webpack-serve --hot --config ./webpack.client.config.js",
-    "dev:serverless": "serverless offline start --stage local",
-    "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
-    "deploy:dev": "sls deploy --stage $NODE_ENV --region us-east-1",
-    "deploy:prd": "sls deploy --stage $NODE_ENV --region ca-central-1",
     "version": "gulp docs && git add --verbose --force --all docs",
     "build": "gulp build"
   },
@@ -80,10 +76,6 @@
     "mocha": "^5.2.0",
     "prop-types": "~15.6.0",
     "react-hot-loader": "^4.2.0",
-    "serverless-mocha-plugin": "^1.8.3",
-    "serverless-offline": "^3.25.5",
-    "serverless-secrets": "^3.0.0-beta.12",
-    "serverless-webpack": "^5.1.5",
     "style-loader": "^0.21.0",
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.11.1",
