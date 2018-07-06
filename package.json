@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "2.13.0-0",
+  "version": "2.13.0",
   "private": true,
   "scripts": {
     "pretest": "gulp lint",
