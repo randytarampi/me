@@ -10510,8 +10510,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   overflow-wrap: break-word; }
 
 .photo-description,
-.photo-date-taken,
-.photo-date-published,
+.photo-date,
 .photo-body,
 .photo-source {
   margin-top: 4px; }
@@ -10527,8 +10526,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 .photo-title__link,
 .photo-description__link,
-.photo-date-taken__link,
-.photo-date-published__link,
+.photo-date__link,
 .photo-body__link,
 .photo-source__link,
 .photo-text__link {
