@@ -79,7 +79,7 @@ describe("WordSource", () => {
 		it("should throw a `Please specify an actual isEnabled check` error", () => {
 			const wordSource = new WordSource();
 
-			expect(wordSource.isEnabled).to.throw(/Please specify an actual isEnabled check/);
+            expect(() => wordSource.isEnabled).to.throw(/Please specify an actual isEnabled check/);
 		});
 	});
 });
