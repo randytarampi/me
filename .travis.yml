@@ -23,19 +23,19 @@ after_success:
 - git config --local user.email $TRAVIS_AUTHOR
 - if [ -z "$TRAVIS_TAG" ]; then if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
   npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
-  npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
   HEAD:master; fi; fi;
 deploy:
-- provider: script
-  script: NODE_ENV=dev npm run deploy
-  skip_cleanup: true
-  on:
-    branch: master
-- provider: script
-  script: NODE_ENV=prd npm run deploy
+  provider: releases
+  api_key:
+    secure: mODEfCZ+E3SGvNvFdPtma9Llu410Xt2ER8Fjtij41AMnP3M3HcdOzE7SjkbMAA0JSdTlcBGo82a06L37ciGo0Ejdnv+ATtj4xKs1q9Dm3OqOsnwiEyfCx6LU1R+6wUny7FuX6Fh1x1cGWffFNmjVDf+P6nIIbdcrDlrfl7F3vDHQoBhU6iROTOXrx5rpIpj0ii8NFxLwqY9r1wPRKP89PvvTPooVEOHej7YQwpp4Cx4AkOmcbTXptKowDZt79drbxWU0wZUCeyH3FxTiRUMrFgHePXvevdzLidpLIo3mZtq7HfNaMSrLtbSFDcqQV1e3RJlVflNgvX2e98lha9bfFmKk6yEjiI1KvmIsGOfgGsTpmFh4oaB0Bu8uX3RxyWrnNLssxPys6285k76znkdhZp3BnmgrprIRdReEdNrMXeabdV8mo+qMSS4QS8Bot8W75gV5hwoOqTILovNZfcKQEoej9lMeoasMGRd8NoVEBeU8qKnolPRnZZs2XzNp/1gB6gtyaWTeG4LGGrNvFug8DwZQU1vogWRznrbge8lKq1AJLmW3TfnsrlkqiTqmzWtnt1bpHp8bOKr2W55h7inq2dg+sDpnYgp6WDg2ZR1/YvVi+ZQ3DteLT02ktOt0dHdA2qbFDgRArM0tOujH22+g2q5n5vf3DefPCHVzzgkKdPA=
+  file: me.photos.tar.gz
   skip_cleanup: true
   on:
     tags: true
+after_deploy:
+- if [ "$TRAVIS_TAG" ]; then
+  npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+  HEAD:master; fi;
 notifications:
   slack:
     secure: XIKwYs484VwJNLD4IuJz/aApirGz98J2LS10EqorZ6d7hjavq4BTctb2m1LAgpONdeZNaFjZvoQpy4KvkyPFXCewKv0NwmMdcb7Ae89EQNqYypE/X0XhGGgd9JBtCbFjreokVflIvkrigPPmllJGNIngjfhquw/u11NaKXQkrdQ62+hcBOkj3uPXsXZUG++QuSpJy0fFm8usuDWjIcJCxI2e1XjAGgN4me4t5Yn/MzGqROGdj/PLWJnx8mA37EEd2aIGckFt+8SdfPhMNvh2LF5HKD4QWdVAbSXvDf/JUPR1R1FIviv3yF9U0Pm7/rNMR3jxK9BWsnbX6K+6mxf9z4uqGgzbpl8/PW+MtpeyytmGmhiT8wzOaL45GOKcnKrVKEeD+g2Aub3j64eiN84+w0EfWqPazn5C+AxeJ18QkSXREWgQDSsW6qCJO6X2jjcm0H+IcqFeVOPk1quTlfgmRj2B0bZmLlvn72he+ym8GL03u+2X7liMk4rnk6UCqsG8whGR6NHVVzGT6MSL2xBbTfi/tBTgeVGKUZm2y0zGJcXbBENzhPOWMfp9fCL7trEfry2HhfKG3Jt8dQMYrl95qesV6UgKI/vAFR8SBOPR9HWJP/SJi3mPe46JbYOKL7iZxyr7c5Hjjt86z8Jz5NiXf6b1AI+QKWf+2o3N5PaKWbQ=
