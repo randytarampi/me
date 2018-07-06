@@ -17,7 +17,7 @@ const searchPhotos = photoSearchParams => {
         .then(_.flatten)
         .then(flattenedPhotos => {
             return _.sortBy(flattenedPhotos, [
-                post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished.valueOf())
+                post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished ? post.datePublished.valueOf() : 0)
             ]);
         });
 };
