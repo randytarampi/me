@@ -10486,12 +10486,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   margin-bottom: 0;
   overflow-wrap: break-word; }
 
-.post-body,
-.post-date-modified,
-.post-date-published,
-.post-source {
-  margin-top: 4px; }
-
 .post-text {
   line-height: 1.5;
   padding: 4px 8px;
@@ -10508,12 +10502,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   margin-top: 0;
   margin-bottom: 0;
   overflow-wrap: break-word; }
-
-.photo-description,
-.photo-date,
-.photo-body,
-.photo-source {
-  margin-top: 4px; }
 
 .photo-text {
   line-height: 1.5;
