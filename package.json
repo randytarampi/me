@@ -88,7 +88,8 @@
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.11.1",
     "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "webpack-serve": "^1.0.4"
   },
   "engines": {
     "node": ">=8"
