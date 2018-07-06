@@ -1,4 +1,4 @@
-service: photos
+service: posts
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
@@ -56,17 +56,33 @@ custom:
       prd: "alias/serverless-prd"
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
-    port: 3002
+    port: 3006
 
 functions:
+  getPosts:
+    handler: serverless/handler/getPosts.default
+    events:
+      - http:
+          path: posts
+          method: get
+          cors: true
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
+  getWords:
+    handler: serverless/handler/getWords.default
+    events:
+      - http:
+          path: words
+          method: get
+          cors: true
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
   getPhotos:
     handler: serverless/handler/getPhotos.default
     events:
       - http:
-          path: ""
+          path: photos
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
   instagramAuthRedirect:
     handler: serverless/handler/instagramAuthRedirect.default
     events:
@@ -74,7 +90,7 @@ functions:
           path: auth/instagram
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
   instagramAuthReturn:
     handler: serverless/handler/instagramAuthReturn.default
     events:
@@ -82,7 +98,7 @@ functions:
           path: auth/instagram/redirect
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-photos-dlq
+    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
 
 resources:
   Resources:
@@ -93,10 +109,7 @@ resources:
         DomainName: ${file(env.yml):${self:provider.stage}.domainName}
     ApiGatewayDeployment:
       Type: AWS::ApiGateway::Deployment
-      DependsOn:
-        - GetPhotosLambdaFunction
-        - InstagramAuthRedirectLambdaFunction
-        - InstagramAuthReturnLambdaFunction
+      DependsOn: ApiGatewayMethodPostsGet
       Properties:
         RestApiId:
           Ref: ApiGatewayRestApi
@@ -146,7 +159,7 @@ resources:
         AlarmDescription: 4xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
-          - Value: ${self:provider.stage}-photos
+          - Value: ${self:provider.stage}-posts
             Name: ApiName
           - Value: ${self:provider.stage}
             Name: Stage
@@ -165,7 +178,7 @@ resources:
         AlarmDescription: 5xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
-          - Value: ${self:provider.stage}-photos
+          - Value: ${self:provider.stage}-posts
             Name: ApiName
           - Value: ${self:provider.stage}
             Name: Stage
