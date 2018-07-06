@@ -17,9 +17,7 @@ const searchPosts = postSearchParams => {
         .then(_.flatten)
         .then(flattenedPosts => {
             return _.sortBy(flattenedPosts, [
-                (post) => {
-                    return post.dateCreated ? post.dateCreated.valueOf() * -1 : post.datePublished ? post.datePublished.valueOf() * -1 : 0;
-                }
+                post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished.valueOf())
             ]);
         });
 };
