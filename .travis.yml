@@ -3,6 +3,27 @@ dist: trusty
 node_js:
 - '8'
 script: gulp build
+after_success:
+- mkdir -p ../dpl_cd_upload
+- tar -zcf ../dpl_cd_upload/randytarampi.github.io.tar.gz -C ./ .
+- git config --local user.name "Travis"
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+- git config --local user.email $TRAVIS_AUTHOR
+- if [ -z "$TRAVIS_TAG" ]; then if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+  HEAD:master; fi; fi;
+deploy:
+  provider: releases
+  api_key:
+    secure: FtsNWj4BV2db8HeUdkxVxGuU7F8OAOKV2Gcgm2LAXQc4tbiLHgMWRMGlkcSCHosXrOJQcWr+YEkoymGGMZDcdMdnoOrvP7VLnrqUjbATRvIW4GlbkA9Y3ora6e/2Hf9JZPndC7O2bImZhtmkTBCqRg6na4Aabe/biD4rEZU+Jcg/KaO5TV/oJy862DqAyQ8LbfXREg5bDE/8gAN1GFU4pzCR6D5OTg5qRtGfwGG8XARYH+33y6MgbccvQvd4KKBUDgA0HXrIo2/zUTqRgWI2wNZM58E90fU3qnZj1k0SX9a62Ic0Xx1lOqo5/WxENZjl/EAlSP+4+lsMMpJPJ5gJSPatPGyYJLmFJ2q9W1pbHsRgqfubQtSm5rXHf+Vmlf+Bb7Gt/ZwlB6Gwd8tldDteAGCu+tRYGc0ZJPN+9l2UBa6hC3AP1XK+ubdWBZLSnweHRrXQsjQWNrPJPjckUM+kKFbZtNQyP6QvXiW2nj1U5I7cYl7UoyMltL+Z/n7+lgS8MuVOS3mz7H3HVSQ2VD03JtSfbohta3F1hZezIvKv4auB6u//aC1C6MV5BwmOfgHkU8zQ4EJ2uaGfGf9RN/gTSHikyLU0T+p/5r4KqmeGuWxRXSHLo1M47nCK9cBgxfqCDVbwvRr6MPcfHvFOoZ5tp4XyDjpwYAnzxeDulHzriZw=
+  file: randytarampi.github.io.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+after_deploy:
+- if [ "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s";
+  git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master; fi;
 notifications:
   slack:
     secure: YdWidvVw0Guj6iPXO/Y2wJ+h6as9CU7brL4crIKHCOZjH4ffXI63r6tuKAE+y9zJpAp1NntdeVWdZAe7eMPqZcRGg1HybzLf8aEQkBFK8tf/q2zU93DVFCjrDJDF5lqY4ySTe5aSvC8Q7M1167+PLpZy5H8aUlj0kSzJ/FGOfeI93p07Wtviv8cN6nZ986q90Djovkfn9tuaRj6fR6MjWlFcQ/9UNhpVqf8aGXjE1AOHYth6k7L4YWULWb3Don1oW2wFX/E4rGecqWBKyh7VN742va1y0VHaLys+bbGbmIUQllESVy4gFyAXs/tZjx47+sXn2R6nJn5Y9kIsMe0GKBlGhV0N5QoOjVbJt8xNVgF8HzRHEoo5uDZpd5tFbFa4rK1ZvtV+mmIvjqXtKxjuQ+AXcmdCuORaN0y6He63TF66uMfdoF75aatr0ebT2Ma9/NTMdg3L7MWfiCAOl0y1a/8l9HSOv01ZL2m3iAotB+F231ZouofDuOmsSxAhDJGwskQkrExoU/t8JW4jz391sbQpGmJBDSMyFKe6EZwXqV6R9OfoWxbEXRNz7ZEKNZG5d/EUo+BRNL35MsCy2fnM41pPUHE1jf6YnnMbZtKF5DhR8LA5R3RlrSdUuM2T0JNJxK08prLz8RgghlKpsNEYxomqagqQnQd1+4TVK7A37WY=
