@@ -1,4 +1,4 @@
-import Post from "me.common.js/lib/post";
+import Photo from "me.common.js/lib/photo";
 import genericClient from "../me.service.client";
 import PostSource from "../postSource";
 
@@ -13,7 +13,7 @@ class PhotosPostSource extends PostSource {
     }
 
     jsonToPost(postJson) {
-        return Post.fromJSON(postJson);
+        return Photo.fromJSON(postJson);
     }
 
     get isEnabled() {
