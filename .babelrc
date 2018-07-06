@@ -14,8 +14,7 @@
                         },
                         "useBuiltIns": true
                     }
-                ],
-                "react"
+                ]
             ],
             "plugins": [
                 "istanbul"
@@ -32,23 +31,6 @@
                         "useBuiltIns": true
                     }
                 ]
-            ]
-        },
-        "client": {
-            "presets": [
-                [
-                    "env",
-                    {
-                        "targets": {
-                            "uglify": true
-                        },
-                        "useBuiltIns": true
-                    }
-                ],
-                "react"
-            ],
-            "plugins": [
-                "react-hot-loader/babel"
             ]
         }
     }

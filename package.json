@@ -57,6 +57,7 @@
     "chai": "^4.1.2",
     "copy-webpack-plugin": "^4.5.2",
     "coveralls": "~3.0.1",
+    "eslint-plugin-import": "^2.13.0",
     "gulp": "^4.0.0",
     "gulp-eslint": "^4.0.2",
     "gulp-if": "^2.0.2",
