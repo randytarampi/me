@@ -6,7 +6,7 @@ const searchPosts = postSearchParams => {
         .then(postSources => {
             return Promise.all(
                 postSources.map((postSource) => {
-                    return postSource.getPostPosts(postSearchParams)
+                    return postSource.getPosts(postSearchParams)
                         .catch((error) => {
                             console.error(error); // eslint-disable-line no-console
                             return [];
