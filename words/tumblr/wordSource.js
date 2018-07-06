@@ -56,6 +56,10 @@ class TumblrWordSource extends WordSource {
             blogJson && new Creator(blogJson.name, blogJson.name, blogJson.title, blogJson.url)
         );
     }
+
+    get isEnabled() {
+        return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET;
+    }
 }
 
 export default TumblrWordSource;
