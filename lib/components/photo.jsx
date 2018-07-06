@@ -38,7 +38,7 @@ export class PhotoComponent extends PostComponent {
 			}}
 		>
 			<Col
-				className="photo-metadata hide-on-large-only"
+				className="photo-metadata hide-on-med-and-up"
 			>
 				<h1 className="photo-title">
 					<a className="photo-title__link" href={this.props.post.sourceUrl}><span
