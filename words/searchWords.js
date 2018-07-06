@@ -17,7 +17,7 @@ const searchWords = wordSearchParams => {
         .then(_.flatten)
         .then(flattenedWords => {
             return _.sortBy(flattenedWords, [
-                post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished.valueOf())
+                post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished ? post.datePublished.valueOf() : 0)
             ]);
         });
 };
