@@ -26,6 +26,7 @@ build/Release
 # Dependency directory
 node_modules
 # dist # NOTE-RT: retain the `dist` directory as the app is statically served.
+package-lock.json
 
 # Optional npm cache directory
 .npm
