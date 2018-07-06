@@ -9,7 +9,7 @@ class PhotosPostSource extends PostSource {
 
     getPosts(params) {
         return this.client(process.env.PHOTOS_URL, params.page)
-            .map(this.jsonToPost);
+            .then(posts => posts.map(this.jsonToPost));
     }
 
     jsonToPost(postJson) {

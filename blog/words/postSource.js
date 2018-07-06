@@ -9,7 +9,7 @@ class WordsPostSource extends PostSource {
 
     getPosts(params) {
         return this.client(process.env.WORDS_URL, params.page)
-            .map(this.jsonToPost);
+            .then(posts => posts.map(this.jsonToPost));
     }
 
     jsonToPost(postJson) {
