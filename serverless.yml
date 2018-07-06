@@ -17,6 +17,11 @@ provider:
       Action:
         - KMS:Decrypt
       Resource: ${file(env.yml):${self:provider.stage}.kmsKeyArn}
+    - Effect: Allow
+      Action:
+        - SNS:Publish
+      Resource:
+        Ref: LambdaDeadLetterQueue
 
   environment: ${file(env.yml):${self:provider.stage}.environment}
   environmentSecrets: # can't just include the whole obj from the env file bc for some reason the plugin won't load from external files
@@ -63,10 +68,11 @@ functions:
     handler: serverless/handler/getPosts.default
     events:
       - http:
-          path: posts
+          path: ${self:service}
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
+    onError:
+      Ref: LambdaDeadLetterQueue
   getWords:
     handler: serverless/handler/getWords.default
     events:
@@ -74,7 +80,8 @@ functions:
           path: words
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
+    onError:
+      Ref: LambdaDeadLetterQueue
   getPhotos:
     handler: serverless/handler/getPhotos.default
     events:
@@ -82,7 +89,8 @@ functions:
           path: photos
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
+    onError:
+      Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
     handler: serverless/handler/instagramAuthRedirect.default
     events:
@@ -90,7 +98,8 @@ functions:
           path: auth/instagram
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
+    onError:
+      Ref: LambdaDeadLetterQueue
   instagramAuthReturn:
     handler: serverless/handler/instagramAuthReturn.default
     events:
@@ -98,10 +107,16 @@ functions:
           path: auth/instagram/redirect
           method: get
           cors: true
-    onError: arn:aws:sns:${self:provider.region}:471964952458:${self:provider.resourceStageBuilder}-posts-dlq
+    onError:
+      Ref: LambdaDeadLetterQueue
 
 resources:
   Resources:
+    LambdaDeadLetterQueue:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: ${self:provider.resourceStageBuilder}-${self:service}-lambda-dlq
+        TopicName: ${self:provider.resourceStageBuilder}-${self:service}-lambda-dlq
     CustomDomainName:
       Type: AWS::ApiGateway::DomainName
       Properties:
@@ -159,7 +174,7 @@ resources:
         AlarmDescription: 4xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
-          - Value: ${self:provider.stage}-posts
+          - Value: ${self:provider.stage}-${self:service}
             Name: ApiName
           - Value: ${self:provider.stage}
             Name: Stage
@@ -178,7 +193,7 @@ resources:
         AlarmDescription: 5xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
-          - Value: ${self:provider.stage}-posts
+          - Value: ${self:provider.stage}-${self:service}
             Name: ApiName
           - Value: ${self:provider.stage}
             Name: Stage
