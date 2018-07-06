@@ -2,7 +2,7 @@
 
 import {Photo as PhotoEntity} from "me.common.js";
 import PropTypes from "prop-types";
-import React from "react";
+import React, {Fragment} from "react";
 import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
 import {PostComponent} from "./post";
@@ -71,18 +71,24 @@ export class PhotoComponent extends PostComponent {
 						null
 				}
 				{
-					this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
-						<p className="photo-date-taken">
-							<strong className="photo-text">Taken:</strong>
-							<span className="photo-text">{this.props.post.dateCreated.format("LL")}</span>
-						</p> :
-						null
-				}
-				{
-					this.props.post.datePublished ?
-						<p className="photo-date-published">
-							<strong className="photo-text">Posted:</strong>
-							<span className="photo-text">{this.props.post.datePublished.format("LL")}</span>
+					this.props.post.datePublished || this.props.post.dateCreated ?
+						<p className="photo-date">
+							{
+								this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
+									<Fragment>
+										<strong className="photo-text">Taken:</strong>
+										<span className="photo-text">{this.props.post.dateCreated.format("LL")}</span>
+									</Fragment> :
+									null
+							}
+							{
+								this.props.post.datePublished ?
+									<Fragment>
+										<strong className="photo-text">Posted:</strong>
+										<span className="photo-text">{this.props.post.datePublished.format("LL")}</span>
+									</Fragment> :
+									null
+							}
 						</p> :
 						null
 				}
