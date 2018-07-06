@@ -1,12 +1,12 @@
 import _ from "lodash";
 import {initializePostSources} from "./postSources";
 
-const searchWords = wordSearchParams => {
+const searchPosts = postSearchParams => {
     return initializePostSources()
-        .then(wordSources => {
+        .then(postSources => {
             return Promise.all(
-                wordSources.map((wordSource) => {
-                    return wordSource.getWordPosts(wordSearchParams)
+                postSources.map((postSource) => {
+                    return postSource.getPostPosts(postSearchParams)
                         .catch((error) => {
                             console.error(error); // eslint-disable-line no-console
                             return [];
@@ -15,13 +15,13 @@ const searchWords = wordSearchParams => {
             );
         })
         .then(_.flatten)
-        .then(flattenedWords => {
-            return _.sortBy(flattenedWords, [
-                (word) => {
-                    return word.dateCreated ? word.dateCreated.valueOf() * -1 : word.datePublished ? word.datePublished.valueOf() * -1 : 0;
+        .then(flattenedPosts => {
+            return _.sortBy(flattenedPosts, [
+                (post) => {
+                    return post.dateCreated ? post.dateCreated.valueOf() * -1 : post.datePublished ? post.datePublished.valueOf() * -1 : 0;
                 }
             ]);
         });
 };
 
-export default searchWords;
+export default searchPosts;

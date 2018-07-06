@@ -8,7 +8,7 @@ class WordsPostSource extends PostSource {
     }
 
     getPosts(params) {
-        return genericClient(process.env.WORDS_URL, params.page)
+        return this.client(process.env.WORDS_URL, params.page)
             .map(this.jsonToPost);
     }
 
