@@ -36,6 +36,17 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+- provider: releases
+    api_key:
+        secure: WYoyquzsGn8vtgnLHC7tvCvysH+yi1JPhlATlchP4WwRJiori9klsUV7tBCStB/CbLe6wP4kINcyrKpv6SS9+QgYQDvNx7dZP9nTjtpTAG5o18sIZLTkzFUUv5E2usCiF38xLE33VbxhFa3VfhmLQUypntFM6AZS/mt+GQq28aKaoQLeV1aSJRpoyGCvamPrFB/LahTNVFe/U/ZCtfae6trqV4CeM5bTkeCt4llsR4lBTvkPOS+jpMr18VXVrgMwlWvOVL8mneowS7FNH6Wp2AAr5GT/LkspFrZ/Rcx7EhYgiah+A3whFGckED24uRjuxSsa3IVz8BtL7vTAbFBQrrSUI3scM0rXhA91ILtE7ZVLzhxtve22UUi+5/tkwcR06PmOa8bKtLcj2qRg5QSQxSoaJ7bQshcC9udYEjIs0SUfwsCqb8M61S+jbOFQGV+5MZif5dLrv5kh2UBatIiSC0v1MxIWPWObHkJ1Dh0zIunyvwtXEHwz6LSuEW1HNB4Ow5MH9vbpAK+oZmROdgyvhsXs8AvTxCwZH+jzEsfmL0VtBkfIu6xgdxRp7KXVcQY9Ca5xgyVjozmuiIX2NaHLnGYVkStWHesPJEH6TbA57702ijEe6rZljExpshvEB+VJ0NDzcwJ1ktMPIS1wwIUxet0zgYFR8+/hzYL5+pUp6rE=
+    file: me.posts.tar.gz
+    skip_cleanup: true
+    on:
+      tags: true
+after_deploy:
+- if [ "$TRAVIS_TAG" ]; then
+  npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+  HEAD:master; fi;
 notifications:
   slack:
     secure: g0wMZBg1xSjZZGIneSZMyvpPMX+js/Fi0Ny2onu8qfb5Fy1pPiKiwvOKjHFVg6F3D4/ZBxGfHieQ3SMyQCFegebEYL/lcUw766B90C1Vk2/5vTqL8CJsnPM7n+rZgERW5vWAQ3/zbcW3Qt8F0u/A7vu5YpY5jgKXlTqfsE4Aq85d0yqcFkO8IqWL7i3EsIXrS06M8N5vN2zZpSqyQV6Jm0Ph5lw3udG+Z745q6n9Ki9TPAxNcLwlr3hNKyngm9yXE5RjEGdNPYNuEy90vSGxzujbRNa7nY0Nr5m81cqnX9XT1NlizMj6tkvbNP4T6X8BG8dasiGMSYK3h4tyZW09Gp/ECDpTgHYIOocsReZ8kcbTDvUvCz7sslqRnDFoO8YmJnK+FwtG3nkGC3a4kNDkgJnoLYvmyB60Z/wszaxhZ6ygWutEnA8ZLy3axm7NRFdqURLiBheCTCWh4pqZ+FV2EpT+o1kAeFLu02S/OVHNY2VV5/DPvtYN4Mt+v9EaJJ6bmKmB2VpebpdTDv8vcYySJ364e9doRhXKbVp1Elnl9nduuwW8D1wp+Yh5rCgaYD6Ta6E73QPcZ3y/cP6pLTJ+k0ZeU9nmGGPS8j4plXBsBLjfuF3bbp9VmZzdqapVOsEgK/RmSWKfvtJaCrAaJcA/RG4OXQ4F4O35QDxoYGf0Io0=
