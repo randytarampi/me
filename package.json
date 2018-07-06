@@ -16,8 +16,8 @@
     "dev": "npm run dev:serverless",
     "dev:serverless": "serverless offline start --stage local",
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
-    "deploy:dev": "sls deploy --stage $NODE_ENV --region us-east-1",
-    "deploy:prd": "sls deploy --stage $NODE_ENV --region ca-central-1",
+    "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --stage $NODE_ENV --region us-east-1",
+    "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --stage $NODE_ENV --region ca-central-1",
     "build:flickr": "node node_modules/flickrapi/compile.js",
     "build": "npm run build:flickr"
   },
@@ -65,6 +65,7 @@
     "habitat": "^3.1.2",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
+    "serverless-domain-manager": "^2.4.0",
     "serverless-mocha-plugin": "^1.8.3",
     "serverless-offline": "^3.25.4",
     "serverless-secrets": "^3.0.0-beta.12",

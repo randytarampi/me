@@ -62,6 +62,7 @@ dev: &devConfig
     INSTAGRAM_API_SECRET: instagram-api-secret
     INSTAGRAM_ACCESS_TOKEN: instagram-access-token
     TUMBLR_API_KEY: tumblr-api-key
+    TUMBLR_API_SECRET: tumblr-api-secret
 ```
 
 For each key in `environmentSecrets`, you'll want to push a value into an AWS SSM store with `serverless secrets`.
@@ -81,4 +82,11 @@ open ./index.html
 
 ```
 npm test
+```
+
+# Deployment
+
+```
+serverless create_domain # Only needs to be run once for each domain/stage
+serverless deploy
 ```

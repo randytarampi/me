@@ -45,6 +45,7 @@ plugins:
   - serverless-webpack
   - serverless-offline
   - serverless-mocha-plugin
+  - serverless-domain-manager
 
 custom:
   webpack:
@@ -62,6 +63,11 @@ custom:
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
     port: 3006
+  customDomain:
+    domainName: ${file(env.yml):${self:provider.stage}.domainName}
+    certificateName: ${file(env.yml):${self:provider.stage}.acmName}
+    createRoute53Record: true
+    basePath: ""
 
 functions:
   getPosts:
@@ -117,27 +123,6 @@ resources:
       Properties:
         DisplayName: ${self:provider.resourceStageBuilder}-${self:service}-lambda-dlq
         TopicName: ${self:provider.resourceStageBuilder}-${self:service}-lambda-dlq
-    CustomDomainName:
-      Type: AWS::ApiGateway::DomainName
-      Properties:
-        CertificateArn: ${file(env.yml):${self:provider.stage}.acmArn}
-        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
-    ApiGatewayDeployment:
-      Type: AWS::ApiGateway::Deployment
-      DependsOn: ApiGatewayMethodPostsGet
-      Properties:
-        RestApiId:
-          Ref: ApiGatewayRestApi
-        StageName: ${self:provider.stage}
-    Pathmapping:
-      Type: AWS::ApiGateway::BasePathMapping
-      DependsOn: ApiGatewayDeployment
-      Properties:
-        BasePath: ""
-        DomainName: ${file(env.yml):${self:provider.stage}.domainName}
-        RestApiId:
-            Ref: ApiGatewayRestApi
-        Stage: ${self:provider.stage}
     ErrorsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
