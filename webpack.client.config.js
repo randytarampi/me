@@ -45,7 +45,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            __POSTS_URL__: JSON.stringify(config.get("blogUrl")),
+            __POSTS_URL__: JSON.stringify(config.get("postsUrl")),
             __APP_URL__: JSON.stringify(config.get("appUrl")),
         })
     ],
