@@ -27,7 +27,7 @@ gulp.task("views", () => {
         .pipe(pug({
             locals: {
                 appUrl: config.get("appUrl"),
-                blogUrl: config.get("blogUrl")
+                postsUrl: config.get("postsUrl")
             }
         }))
         .pipe(gulp.dest("./dist"));
