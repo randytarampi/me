@@ -1,7 +1,7 @@
+import Photo from "@randytarampi/js/lib/photo";
 import {expect} from "chai";
 import fs from "fs";
 import _ from "lodash";
-import Photo from "me.common.js/lib/photo";
 import {after, before, describe, it} from "mocha";
 import path from "path";
 import PhotoSource from "../../../../photos/local/photoSource";

@@ -1,4 +1,4 @@
-import Post from "me.common.js/lib/post";
+import Post from "@randytarampi/js/lib/post";
 import tumblr from "tumblr.js";
 import Creator from "../creator";
 import WordSource from "../wordSource";

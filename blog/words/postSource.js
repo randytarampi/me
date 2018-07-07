@@ -1,4 +1,4 @@
-import Post from "me.common.js/lib/post";
+import Post from "@randytarampi/js/lib/post";
 import genericClient from "../me.service.client";
 import PostSource from "../postSource";
 

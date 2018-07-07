@@ -1,6 +1,6 @@
+import Post from "@randytarampi/js/lib/post";
 import jsyaml from "js-yaml";
 import knox from "knox";
-import Post from "me.common.js/lib/post";
 import WordSource from "../wordSource";
 
 class S3WordSource extends WordSource {

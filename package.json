@@ -1,10 +1,10 @@
 {
-  "name": "me.posts",
+  "name": "@randytarampi/posts",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "1.6.0-0",
+  "version": "2.0.0-0",
   "private": true,
   "scripts": {
     "pretest": "gulp lint",
@@ -38,7 +38,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "lwip": "github:kant2002/lwip#node-10",
-    "me.common.js": "randytarampi/me.common.js",
+    "@randytarampi/js": "randytarampi/me.common.js",
     "moment": "^2.22.2",
     "redux": "^4.0.0",
     "tumblr.js": "^1.1.1",
