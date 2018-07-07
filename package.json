@@ -52,6 +52,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "chokidar": "^2.0.4",
     "config": "^1.30.0",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.2",
@@ -72,6 +73,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^2.4.1",
+    "json-stringify-safe": "^5.0.1",
     "koa-compress": "^3.0.0",
     "koa-connect": "^2.0.1",
     "mocha": "^5.2.0",
@@ -83,7 +85,8 @@
     "webpack": "^4.11.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-node-externals": "^1.7.2",
-    "webpack-serve": "^1.0.4"
+    "webpack-serve": "^1.0.4",
+    "ws": "^5.2.1"
   },
   "engines": {
     "node": ">=8"
