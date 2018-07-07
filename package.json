@@ -78,6 +78,7 @@
     "prop-types": "~15.6.0",
     "react-hot-loader": "^4.2.0",
     "style-loader": "^0.21.0",
+    "travis": "^0.1.1",
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.11.1",
     "webpack-bundle-analyzer": "^2.13.1",
