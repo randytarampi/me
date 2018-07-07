@@ -13,7 +13,7 @@ before_install:
 - npm install -g npm
 - npm install -g serverless
 - export NODE_ENV=prd;
-script: NODE_ENV=test npm test
+script: npm run travis
 after_success:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
