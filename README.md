@@ -12,7 +12,7 @@ _  /   / /_/ /_  / / / /_/ / _  /_/ // /_ / /_/ /_  /   / /_/ /_  / / / / /_  /_
 # Dependencies
 ```
 brew install nvm
-nvm install 6
+nvm install 8
 npm install -g gulp-cli
 ```
 
@@ -26,7 +26,7 @@ npm install
 
 ```
 npm start
-open http://localhost:11149
+open http://localhost:8080
 ```
 
 # Testing
