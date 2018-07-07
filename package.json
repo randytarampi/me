@@ -10,7 +10,7 @@
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "webpack-serve --hot",
-    "version": "if [ \"$TRAVIS_TAG\" ]; then npm shrinkwrap; else git rm --force package-lock.json; fi; gulp docs && git add --verbose --force --all docs package-lock.json npm-shrinkwrap.json",
+    "version": "if [ -z \"$TRAVIS_TAG\" && \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; gulp docs && git add --verbose --force --all docs;",
     "build": "gulp build"
   },
   "author": {
