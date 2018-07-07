@@ -1,6 +1,6 @@
 /* global window */
 
-import {Photo as PhotoEntity} from "me.common.js";
+import {Photo as PhotoEntity} from "@randytarampi/js";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import Dimensions from "react-dimensions";

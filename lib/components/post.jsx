@@ -1,4 +1,4 @@
-import {Post as PostEntity} from "me.common.js";
+import {Post as PostEntity} from "@randytarampi/js";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import Dimensions from "react-dimensions";
