@@ -1,4 +1,4 @@
-import {Posts} from "me.common.jsx";
+import {Posts} from "@randytarampi/jsx";
 
 const routes = [
 	{
