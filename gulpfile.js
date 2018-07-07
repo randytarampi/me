@@ -31,15 +31,6 @@ gulp.task("views", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("docs", () => {
-    return gulp
-        .src([
-            "dist/**"
-        ])
-        .pipe(gulp.dest("./docs"));
-});
-
-
 gulp.task("styles:dev", () => {
     const autoprefixer = require("gulp-autoprefixer");
     const sass = require("gulp-sass");
