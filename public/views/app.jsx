@@ -1,5 +1,5 @@
+import {configureStore, reducers, ReduxRoot} from "@randytarampi/jsx";
 import createBrowserHistory from "history/createBrowserHistory";
-import {configureStore, reducers, ReduxRoot} from "me.common.jsx";
 import React from "react";
 import routes from "../routes";
 

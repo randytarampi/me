@@ -1,10 +1,10 @@
 {
-  "name": "me.words",
+  "name": "@randytarampi/words",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "3.2.0-0",
+  "version": "4.0.0-0",
   "private": true,
   "scripts": {
     "pretest": "gulp lint",
@@ -29,9 +29,9 @@
     "history": "^4.7.2",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
-    "me.common.css": "randytarampi/me.common.css",
-    "me.common.js": "randytarampi/me.common.js",
-    "me.common.jsx": "randytarampi/me.common.jsx",
+    "@randytarampi/css": "randytarampi/me.common.css",
+    "@randytarampi/js": "randytarampi/me.common.js",
+    "@randytarampi/jsx": "randytarampi/me.common.jsx",
     "pug": "^2.0.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
