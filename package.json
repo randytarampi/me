@@ -1,10 +1,10 @@
 {
-  "name": "me.photos",
+  "name": "@randytarampi/photos",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "3.2.0-0",
+  "version": "4.0.0-0",
   "private": true,
   "scripts": {
     "pretest": "gulp lint",
@@ -29,9 +29,9 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
-    "me.common.css": "randytarampi/me.common.css",
-    "me.common.js": "randytarampi/me.common.js",
-    "me.common.jsx": "github:randytarampi/me.common.jsx",
+    "@randytarampi/css": "randytarampi/me.common.css",
+    "@randytarampi/js": "randytarampi/me.common.js",
+    "@randytarampi/jsx": "github:randytarampi/me.common.jsx",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
