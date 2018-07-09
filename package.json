@@ -14,7 +14,7 @@
     "build": "resume export 'public/index' -f html --theme randytarampi"
   },
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "handlebars": "^4.0.11",
     "jsonresume-theme-eddywashere": "^1.0.1",
     "resume-cli": "^0.4.19"
