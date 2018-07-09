@@ -1,153 +1,201 @@
 {
   "basics": {
-    "name": "Galileo Daras",
-    "label": "Software Engineer",
-    "picture": "https://ottopress.co/resume.jpeg",
-    "email": "howard@getcoffee.io",
-    "phone": "Contact me for phone number",
-    "website": "https://getcoffee.io",
-    "summary": "Passionate about programming, with 7+ years of programming experience in various fields and languages. Strives for code quality to support collaboration amongst peers/co-workers. Extensive experience with Java, Ruby, Golang, and server resource management. Always eager take on an interesting challenge or learn new ways to write better code.",
+    "name": "Randy Tarampi",
+    "label": "Going places, building software, taking photos",
+    "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+    "email": "rt@randytarampi.ca",
+    "phone": "+1 (604) 374-7128",
+    "website": "https://randytarampi.ca",
+    "summary": "Recently unemployed code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
     "location": {
-      "address": "",
-      "postalCode": "",
-      "city": "San Francisco",
-      "countryCode": "US",
-      "region": "California"
+      "address": "4663 Todd Street",
+      "postalCode": "V5R 3P7",
+      "city": "Vancouver",
+      "countryCode": "CA",
+      "region": "BC"
     },
     "profiles": [
       {
-        "network": "LinkedIn",
-        "username": "Galileo Daras",
-        "url": "https://linkedin.com/in/galileodaras"
-      },
-      {
         "network": "GitHub",
-        "username": "HowardStark",
-        "url": "https://github.com/HowardStark"
+        "username": "randytarampi",
+        "url": "https://github.com/randytarampi"
       },
       {
-        "network": "Keybase",
-        "username": "coffee",
-        "url": "https://keybase.io/coffee"
+        "network": "LinkedIn",
+        "username": "randytarampi",
+        "url": "http://linkedin.com/in/randytarampi/"
+      },
+      {
+        "network": "Instagram",
+        "username": "randytarampi",
+        "url": "https://instagram.com/randytarampi"
+      },
+      {
+        "network": "Unsplash",
+        "username": "randytarampi",
+        "url": "https://unsplash.com/@randytarampi"
       }
     ]
   },
   "work": [
-     {
-      "company": "Bot Provoking",
-      "position": "Programming Co-Captain",
-      "website": "https://github.com/roboticsteam4904/",
-      "startDate": "2017-05-01",
-      "summary": "Co-captain of the programming sub-team on the Bot Provoking FRC robotics team. Lead other students and taught programming courses to new team members, set up a program for outreach to help other teams who don't have the same skills.",
-      "highlights": [
-        "Developed open-source real-world path generation library (Java)",
-        "Built modular autonomous navigation platform"
-      ]
-    },
     {
-      "company": "SideReel",
-      "position": "Software Developer Intern",
-      "website": "https://sidereel.com/",
-      "startDate": "2017-06-01",
-      "endDate": "2017-08-01",
-      "summary": "Built data aggregation tools (crawlers) to improve content accessibility. Began development on ground-up rebuild of site.",
-      "highlights": [
-        "Created reverse engineered and created documentation for Netflix API",
-        "Leaded development on rebuild of site"
-      ]
-    },
-    {
-      "company": "Ottopress Co.",
-      "position": "Founder",
-      "website": "https://ottopress.co",
-      "startDate": "2016-07-01",
-      "endDate": "2017-05-31",
-      "summary": "Created a Home Automation/Internet of Things platform with hardware (microcontroller) and software components.",
-      "highlights": [
-        "Custom voice activity detection algorithm",
-        "State-of-the-art technology for indoor localization (Using WiFi CSI)",
-        "Android app with custom extensible and secure plugin framework"
-      ]
-    },
-    {
-      "company": "Swap",
+      "company": "Fetch Auto",
       "position": "Senior Software Developer",
-      "website": "",
-      "startDate": "2015-06-01",
-      "endDate": "2016-02-01",
-      "summary": "Worked on developing technologies for instantaneous targeted contact sharing on Android and developing CMS and project management tools to manage all facets of the backend.",
-      "highlights": []
-    }
-  ],
-  "volunteer": [
+      "website": "https://fetchauto.ca",
+      "startDate": "2017-02-14",
+      "endDate": "2018-05-30",
+      "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to become the first employee at Fetch Auto, the only end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
+      "highlights": [
+        "Took a UI prototype to a production application in less than 6 months",
+        "Rapidly iterated on new features and designs to drive user growth",
+        "Implemented a comprehensive user tracking & analytics platform",
+        "Designed and developed a serverless service platform"
+      ]
+    },
     {
-      "organization": "The Nueva School",
-      "position": "Guest Lecturer",
-      "website": "http://nuevaschool.org/",
-      "startDate": "2017-03-01",
-      "endDate": "2017-05-31",
-      "summary": "Taught a course for middle schoolers on advanced computer science concepts, beginning with object oriented programming and touching upon functional programming, algorithmic complexity, and Android app development.",
-      "highlights": []
+      "company": "Yardi Energy, formerly EnerNOC, formerly Pulse Energy",
+      "position": "Software Developer",
+      "website": "https://pulseenergy.com",
+      "startDate": "2014-06-02",
+      "endDate": "2016-09-16",
+      "summary": "Returned to Pulse Energy as a new grad in Summer 2014 looking to broaden his horizons – by 2014's end we were acquired by EnerNOC, and then in Summer 2016 sold off to Yardi",
+      "highlights": [
+        "Mentored and developed co-operative education students",
+        "Led a year-long, platform wide internationalization effort",
+        "Dove deep in support of a platform wide localization effort into Italian",
+        "Designed a centralized, platform wide notification and subscription workflow"
+      ]
+    },
+    {
+      "company": "Pulse Energy",
+      "position": "Software Developer (co-op)",
+      "website": "https://pulseenergy.com",
+      "startDate": "2013-01-07",
+      "endDate": "2013-08-30",
+      "summary": "I cut my chops at a mid-size start-up that gave utilities and energy retailers' an unrivaled understanding of their​ commercial and industrial customers, and helped dozens of utilities such as British Gas, PG&E, and BC Hydro to transform their businesses with energy intelligence",
+      "highlights": [
+        "Built out a service oriented node.js platform atop a legacy Java monolith",
+        "Designed, prototyped and delivered single page, user facing web applications",
+        "Scalably configured applications, services and servers via Chef"
+      ]
+    },
+    {
+      "company": "Metro Vancouver",
+      "position": "Project Research Assistant",
+      "website": "http://www.metrovancouver.org/",
+      "startDate": "2012-05-01",
+      "endDate": "2012-09-01",
+      "summary": "I was curious about how bureaucracy dealt with data, and I was equal parts surprised and horrified",
+      "highlights": [
+        "Maintained and developed internal data manipulaion and entry tools",
+        "Performed business analysis, wrote & presented annual financial reports",
+        "Performed systems and data analysis, database spot checks and ensured database integrity"
+      ]
+    },
+    {
+      "company": "SAP",
+      "position": "Software Developer in Test",
+      "website": "https://www.sap.com/index.html",
+      "startDate": "2011-09-01",
+      "endDate": "2011-12-31",
+      "summary": "My first \"real\"job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
+      "highlights": [
+        "Administered the daily automated testing of SAP Business Objects Enterprise for the Crystal Reports team"
+      ]
+    },
+    {
+      "company": "Simon Fraser University",
+      "position": "IT Technician",
+      "website": "https://itservices.sfu.ca",
+      "startDate": "2011-05-01",
+      "endDate": "2014-04-30",
+      "summary": "My first \"real\" job, pretty much exactly as it sounds – sat at a desk waiting for problems to arise",
+      "highlights": [
+        "Helped students and staff with printer, network and other general IT issues",
+        "Flamed trolls and policed computing labs, seeking students who could not read the large \"NO FOOD AND DRINK\" signs"
+      ]
     }
   ],
+  "volunteer": [],
   "education": [
     {
-      "institution": "The Nueva School",
-      "area": "",
-      "studyType": "High School",
-      "startDate": "2015-09-06",
-      "endDate": "2019-06-15",
-      "gpa": "",
+      "institution": "Simon Fraser University",
+      "area": "Computing Science, Political Science",
+      "studyType": "Bachelor's degree",
+      "startDate": "2009-09-03",
+      "endDate": "2014-04-20",
+      "gpa": "3.33",
       "courses": [
-        "CS301 - Advanced Programming",
-        "PHYS301 - Modern Physics",
-        "ECON240 - Applied Game Theory"
+        "CMPT 470 – Web Information Systems",
+        "CMPT 431 – Distributed Systems",
+        "CMPT 471 – Networking II",
+        "CMPT 305 – Computer Simulation and Modelling",
+        "POL 451 – Public Policy Analysis",
+        "CMPT 475 – Software Engineering II",
+        "CMPT 363 – User Interface Design",
+        "CMPT 300 – Operating Systems"
       ]
     }
   ],
-  "awards": [
-    {
-      "title": "Caroline D. Bradley Scholarship",
-      "date": "2014-08-01",
-      "awarder": "Institute for Educational Advancement",
-      "summary": "Selected for full scholarship to attend any school based solely on academic merit."
-    },
-    {
-      "title": "Best Overall App (1st place)",
-      "date": "2016-12-04",
-      "awarder": "AT&T Hackathon",
-      "summary": "Built a working prototype for crowd-sourcing train location in less than 24 hours. By the end, had a Raspberry Pi running beacon software written in Ruby, and an Android app."
-    }
-  ],
+  "awards": [],
   "publications": [],
   "skills": [
     {
-      "name": "Backend Web Development",
-      "level": "Experienced",
+      "name": "Front end",
+      "level": "Master",
       "keywords": [
-        "Ruby on Rails",
-        "Golang",
-        "PHP",
-        "Node.js"
+        "ES6",
+        "react",
+        "redux",
+        "sass",
+        "User testing",
+        "UI design",
+        "User analytics",
+        "i18n",
+        "a11y",
+        "Data visualization"
       ]
     },
     {
-      "name": "Frontend Web Development",
-      "level": "Experienced",
+      "name": "Back end",
+      "level": "Master",
       "keywords": [
-        "Vue.js",
-        "React",
-        "JavaScript (ES2016)",
-        "SASS"
+        "node.js",
+        "Spring",
+        "Postgres",
+        "Redis",
+        "Data architecture",
+        "Serverless computing",
+        "Performance tuning",
+        "Service architecture",
+        "Microservices",
+        "i18n",
+        "API security"
       ]
     },
     {
-      "name": "Networking",
-      "level": "Experienced",
+      "name": "Operations",
+      "level": "Intermediate",
       "keywords": [
-        "Nginx/Apache2",
-        "Protobuf",
-        "DNS"
+        "AWS",
+        "CloudFormation",
+        "Chef",
+        "Configuration as code",
+        "Network security",
+        "Fault tolerance",
+        "Monitoring",
+        "Alerting"
+      ]
+    },
+    {
+      "name": "Data analysis",
+      "level": "Beginner",
+      "keywords": [
+        "Excel",
+        "VBA",
+        "Python",
+        "Jupyter Notebook",
+        "R"
       ]
     }
   ],
@@ -157,28 +205,40 @@
       "fluency": "Native speaker"
     },
     {
-      "language": "French",
-      "fluency": "Fluent/Second Language"
+      "language": "Italian",
+      "fluency": "Beginner"
     },
     {
-      "language": "Mandarin Chinese",
-      "fluency": "Proficient"
+      "language": "French",
+      "fluency": "Intermediate"
     }
   ],
   "interests": [
     {
-      "name": "Food",
+      "name": "Auto racing",
       "keywords": [
-        "Coffee",
-        "Traditional Chinese Dishes",
-        "Meat Dishes"
+        "WEC",
+        "WTSC",
+        "F1",
+        "IndyCar"
       ]
     },
     {
-      "name": "Music",
+      "name": "Photography",
       "keywords": [
-        "Steel Drums",
-        "Piano"
+        "Landscapes",
+        "Night",
+        "Long exposures",
+        "Events",
+        "Weddings"
+      ]
+    },
+    {
+      "name": "Food & drink",
+      "keywords": [
+        "Comfort foods",
+        "Baked goods",
+        "Iced beverages"
       ]
     }
   ],

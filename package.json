@@ -1,15 +1,17 @@
 {
-  "name": "jsonresume-theme-getcoffee",
-  "version": "1.0.5",
-  "description": "Theme for JSON Resume",
-  "author": "Howard Stark, Eddy Hernandez",
+  "name": "jsonresume-theme-randytarampi",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca"
+  },
+  "version": "1.0.0-0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/howardstark/resume"
+    "url": "https://github.com/randytarampi/me.resume"
   },
   "scripts": {
     "start": "resume serve",
-    "build": "resume export 'public/index' -f html --theme getcoffee"
+    "build": "resume export 'public/index' -f html --theme randytarampi"
   },
   "license": "MIT",
   "dependencies": {
