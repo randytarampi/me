@@ -10,13 +10,19 @@
     "url": "https://github.com/randytarampi/me.resume"
   },
   "scripts": {
-    "start": "resume serve",
-    "build": "resume export 'public/index' -f html --theme randytarampi"
+    "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1",
+    "start": "npx resume serve",
+    "build": "npm run build:pdf && npm run build:html",
+    "build:pdf": "npx resume export index.pdf -f pdf --theme randytarampi",
+    "build:html": "npx resume export index.html -f html --theme randytarampi"
   },
   "license": "MIT",
   "devDependencies": {
     "handlebars": "^4.0.11",
     "jsonresume-theme-eddywashere": "^1.0.1",
     "resume-cli": "^0.4.19"
+  },
+  "engines": {
+    "node": ">=8"
   }
 }
