@@ -20,12 +20,17 @@ gulp.task("copy", () => {
 });
 
 gulp.task("views", () => {
+    const config = require("config");
     const pug = require("gulp-pug");
+    const packageJson = require("./package.json");
 
     return gulp.src(["views/index.pug"])
         .pipe(pug({
             locals: {
-                appUrl: ""
+                appUrl: config.get("appUrl"),
+                sentryDsn: config.get("sentryDsn"),
+                environment: process.env.NODE_ENV || "local",
+                version: packageJson.version
             }
         }))
         .pipe(gulp.dest("./dist"));

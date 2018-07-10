@@ -9,6 +9,7 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
+- export NODE_ENV=prd;
 script: gulp build
 after_success:
 - mkdir -p ../dpl_cd_upload
