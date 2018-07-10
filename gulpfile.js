@@ -22,12 +22,16 @@ gulp.task("copy", () => {
 gulp.task("views", () => {
     const pug = require("gulp-pug");
     const config = require("config");
+    const packageJson = require("./package.json");
 
     return gulp.src(["views/index.pug"])
         .pipe(pug({
             locals: {
                 appUrl: config.get("appUrl"),
-                photosUrl: config.get("photosUrl")
+                photosUrl: config.get("photosUrl"),
+                sentryDsn: config.get("sentryDsn"),
+                environment: process.env.NODE_ENV || "local",
+                version: packageJson.version
             }
         }))
         .pipe(gulp.dest("./dist"));

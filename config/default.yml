@@ -1,2 +1,3 @@
 photosUrl: http://localhost:3006/photos
 appUrl: ""
+sentryDsn: https://a32cef30e0e54ae3b34f0e7e2e7613d2@sentry.io/1223011
