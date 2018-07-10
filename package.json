@@ -20,9 +20,10 @@
     "email": "bugs@randytarampi.ca"
   },
   "dependencies": {
+    "@randytarampi/js": "randytarampi/me.common.js",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
-    "@randytarampi/js": "randytarampi/me.common.js",
+    "raven-js": "^3.26.3",
     "react-dimensions": "1.3.1",
     "react-infinite": "^0.13.0",
     "react-metrics": "^2.4.1",
@@ -30,8 +31,8 @@
     "react-router-config": "^1.0.0-beta.4",
     "react-router-redux": "~5.0.0-alpha.9",
     "redux-actions": "^2.4.0",
-    "redux-catch": "^1.3.1",
     "redux-devtools-extension": "^2.13.5",
+    "redux-raven-middleware": "^1.2.0",
     "redux-thunk": "^2.3.0"
   },
   "peerDependencies": {
