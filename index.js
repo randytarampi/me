@@ -4,12 +4,12 @@ var Handlebars = require("handlebars");
 function render(resume) {
 	var css = fs.readFileSync(__dirname + "/style.css", "utf-8");
 	var tpl = fs.readFileSync(__dirname + "/resume.hbs", "utf-8");
-	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-	Handlebars.registerHelper('date', function(date) {
-	  var theDate = new Date(date);
+	Handlebars.registerHelper("date", function (date) {
+		var theDate = new Date(date);
 
-	  return months[theDate.getMonth()] + ' ' + theDate.getFullYear();
+		return months[theDate.getMonth()] + " " + theDate.getFullYear();
 	});
 
 	return Handlebars.compile(tpl, {noEscape: true})({
@@ -18,15 +18,15 @@ function render(resume) {
 	});
 }
 
-Handlebars.registerHelper('paragraphSplit', function(plaintext) {
-    var i, output = '',
-        lines = plaintext.split(/\r\n|\r|\n/g);
-    for (i = 0; i < lines.length; i++) {
-        if(lines[i]) {
-            output += '<p>' + lines[i] + '</p>';
-        }
-    }
-    return new Handlebars.SafeString(output);
+Handlebars.registerHelper("paragraphSplit", function (plaintext) {
+	var i, output = "",
+		lines = plaintext.split(/\r\n|\r|\n/g);
+	for (i = 0; i < lines.length; i++) {
+		if (lines[i]) {
+			output += "<p>" + lines[i] + "</p>";
+		}
+	}
+	return new Handlebars.SafeString(output);
 });
 
 module.exports = {
