@@ -1,2 +1,3 @@
 wordsUrl: http://localhost:3006/words
 appUrl: ""
+sentryDsn: https://f5517089c2814e27a6c137874a614b0a@sentry.io/1223013

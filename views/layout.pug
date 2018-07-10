@@ -8,6 +8,10 @@ html
         link(rel="shortcut icon", href=`${appUrl}/favicon.ico` type="image/x-icon")
         meta(name="viewport" content="width=device-width")
         script.
+            window.SENTRY_DSN = "#{sentryDsn}";
+            window.ENVIRONMENT = "#{environment}";
+            window.VERSION = "#{version}";
+        script.
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
