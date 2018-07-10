@@ -1,5 +1,3 @@
-/* global window */
-
 import {Photo as PhotoEntity} from "@randytarampi/js";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
