@@ -24,10 +24,10 @@ html
                 j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
                 f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-W6NFL6M');
+            })(window, document, 'script', 'dataLayer', '#{gtm}');
     body
         noscript
-            iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-W6NFL6M"
+            iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
             height="0" width="0" style="display:none;visibility:hidden")
         block content
         script(src=`${appUrl}/vendor.js`)

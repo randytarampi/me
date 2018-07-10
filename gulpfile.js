@@ -30,6 +30,7 @@ gulp.task("views", () => {
                 appUrl: config.get("appUrl"),
                 postsUrl: config.get("postsUrl"),
                 sentryDsn: config.get("sentryDsn"),
+                gtm: config.get("gtm"),
                 environment: process.env.NODE_ENV || "local",
                 version: packageJson.version
             }
