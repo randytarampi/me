@@ -1,10 +1,11 @@
 import fetch from "isomorphic-fetch";
+import logger from "../logger";
 
 export default (fetchUrl, page) => {
     return fetch(`${fetchUrl}?page=${page}`)
         .then(body => body.json())
         .catch(error => {
-            console.error(error); // eslint-disable-line no-console
+            logger.error(error);
             return [];
         });
 };

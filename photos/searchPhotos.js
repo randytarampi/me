@@ -1,4 +1,5 @@
 import _ from "lodash";
+import logger from "../logger";
 import {initializePhotoSources} from "./photoSources";
 
 const searchPhotos = photoSearchParams => {
@@ -8,7 +9,7 @@ const searchPhotos = photoSearchParams => {
                 photoSources.map((photoSource) => {
                     return photoSource.getUserPhotos(photoSearchParams)
                         .catch((error) => {
-                            console.error(error); // eslint-disable-line no-console
+                            logger.error(error);
                             return [];
                         });
                 })

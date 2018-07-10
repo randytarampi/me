@@ -1,12 +1,12 @@
 import {getAuthTokenForCode} from "../../auth/instagram/client";
-import loadServerlessSecrets from "../util/loadServerlessSecrets";
+import configureEnvironment from "../util/configureEnvironment";
 import responseBuilder from "../util/responseBuilder";
 import returnErrorResponse from "../util/returnErrorResponse";
 
 export default (event, context, callback) => {
     const errorHandler = returnErrorResponse(callback);
 
-    loadServerlessSecrets()
+    configureEnvironment()
         .then(() => {
             if (event.queryStringParameters.code) {
                 return getAuthTokenForCode(event.queryStringParameters.code)

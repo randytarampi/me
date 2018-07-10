@@ -36,6 +36,7 @@ provider:
     INSTAGRAM_ACCESS_TOKEN: ${file(env.yml):${self:provider.stage}.environmentSecrets.INSTAGRAM_ACCESS_TOKEN}
     TUMBLR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_KEY}
     TUMBLR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_SECRET}
+    SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
 
 package:
   individually: true

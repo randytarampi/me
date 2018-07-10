@@ -1,4 +1,5 @@
 import _ from "lodash";
+import logger from "../logger";
 import {initializePostSources} from "./postSources";
 
 const searchPosts = postSearchParams => {
@@ -8,7 +9,7 @@ const searchPosts = postSearchParams => {
                 postSources.map((postSource) => {
                     return postSource.getPosts(postSearchParams)
                         .catch((error) => {
-                            console.error(error); // eslint-disable-line no-console
+                            logger.error(error);
                             return [];
                         });
                 })

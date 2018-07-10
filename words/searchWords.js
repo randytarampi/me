@@ -1,4 +1,5 @@
 import _ from "lodash";
+import logger from "../logger";
 import {initializeWordSources} from "./wordSources";
 
 const searchWords = wordSearchParams => {
@@ -8,7 +9,7 @@ const searchWords = wordSearchParams => {
                 wordSources.map((wordSource) => {
                     return wordSource.getWordPosts(wordSearchParams)
                         .catch((error) => {
-                            console.error(error); // eslint-disable-line no-console
+                            logger.error(error);
                             return [];
                         });
                 })

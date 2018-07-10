@@ -1,7 +1,8 @@
+import logger from "../../logger";
 import responseBuilder from "./responseBuilder";
 
 export default callback => error => {
-    console.error(error); // eslint-disable-line no-console
+    logger.error(error);
     callback(error, responseBuilder({
         error: "An unexpected error occurred"
     }, 500));
