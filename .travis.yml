@@ -6,6 +6,7 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
+- npm install react react-dom
 script: gulp build
 notifications:
   slack:
