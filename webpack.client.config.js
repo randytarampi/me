@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const config = require("config");
+const SentryCliPlugin = require("@sentry/webpack-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -14,6 +15,23 @@ const resolveMode = () => {
 
     return "production";
 };
+
+const plugins = [
+    new webpack.DefinePlugin({
+        __POSTS_URL__: JSON.stringify(config.get("postsUrl")),
+        __APP_URL__: JSON.stringify(config.get("appUrl")),
+    })
+];
+
+if (process.env.TRAVIS_TAG) {
+    plugins.push(
+        new SentryCliPlugin({
+            include: ".",
+            release: process.env.TRAVIS_TAG,
+            debug: true
+        })
+    );
+}
 
 module.exports = {
     mode: resolveMode(),
@@ -43,12 +61,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new webpack.DefinePlugin({
-            __POSTS_URL__: JSON.stringify(config.get("postsUrl")),
-            __APP_URL__: JSON.stringify(config.get("appUrl")),
-        })
-    ],
+    plugins,
     serve: {
         clipboard: false,
         content: "./dist/",
