@@ -37,6 +37,27 @@ gulp.task("views", () => {
         .pipe(gulp.dest("./dist"));
 });
 
+gulp.task("docs:dist", () => {
+    return gulp
+        .src([
+            "dist/**"
+        ])
+        .pipe(gulp.dest("./docs"));
+});
+
+gulp.task("docs:index", () => {
+    return gulp
+        .src([
+            "dist/index.html"
+        ])
+        .pipe(gulp.dest("./"));
+});
+
+gulp.task("docs", gulp.parallel([
+    "docs:dist",
+    "docs:index"
+]));
+
 gulp.task("styles:dev", () => {
     const autoprefixer = require("gulp-autoprefixer");
     const sass = require("gulp-sass");
@@ -100,7 +121,7 @@ gulp.task("eslint", () => {
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*"])
+    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./docs/**/*"])
         .pipe(eslint({fix: true}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
