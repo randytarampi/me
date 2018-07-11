@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Randy Tarampi",
-    "label": "Going places, building software, taking photos",
+    "label": "Going places | building software",
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
     "email": "rt@randytarampi.ca",
     "phone": "+1 (604) 374-7128",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "company": "Yardi Energy, formerly EnerNOC, formerly Pulse Energy",
+      "company": "Yardi Energy | EnerNOC | Pulse Energy",
       "position": "Software Developer",
       "website": "https://pulseenergy.com",
       "startDate": "2014-06-02",
@@ -239,6 +239,14 @@
         "Comfort foods",
         "Baked goods",
         "Iced beverages"
+      ]
+    },
+    {
+      "name": "People",
+      "keywords": [
+        "That have stories to tell",
+        "Who have a sense of humor",
+        "That read this far down"
       ]
     }
   ],
