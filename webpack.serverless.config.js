@@ -2,6 +2,7 @@ const path = require("path");
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const SentryCliPlugin = require("@sentry/webpack-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -16,6 +17,29 @@ const resolveMode = () => {
 
     return "production";
 };
+
+const plugins = [
+    new CopyWebpackPlugin([
+        {
+            from: ".serverless-secrets.json",
+            to: ".serverless-secrets.json"
+        },
+        {
+            from: "./data",
+            to: "./data"
+        }
+    ])
+];
+
+if (process.env.TRAVIS_TAG) {
+    plugins.push(
+        new SentryCliPlugin({
+            include: ".",
+            release: process.env.TRAVIS_TAG,
+            debug: true
+        })
+    );
+}
 
 module.exports = {
     entry: slsw.lib.entries,
@@ -45,18 +69,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new CopyWebpackPlugin([
-            {
-                from: ".serverless-secrets.json",
-                to: ".serverless-secrets.json"
-            },
-            {
-                from: "./data",
-                to: "./data"
-            }
-        ])
-    ],
+    plugins,
     output: {
         libraryTarget: "commonjs2",
         path: path.join(__dirname, ".webpack"),
