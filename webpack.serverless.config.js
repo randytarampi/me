@@ -35,6 +35,7 @@ if (process.env.TRAVIS_TAG) {
     plugins.push(
         new SentryCliPlugin({
             include: ".",
+            ignore: ["node_modules", "webpack.serverless.config.js"],
             release: process.env.TRAVIS_TAG,
             debug: true
         })
