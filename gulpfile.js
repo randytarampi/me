@@ -40,7 +40,7 @@ gulp.task("styles:dev", () => {
 			importer: sassTildeImporter
 		}).on("error", sass.logError))
 		.pipe(autoprefixer({
-			browsers: ["last 2 versions"],
+			browsers: ["cover 99.5%"],
 			cascade: false
 		}))
 		.pipe(concat("styles.css"))
