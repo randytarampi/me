@@ -1,4 +1,5 @@
 const path = require("path");
+const SentryCliPlugin = require("@sentry/webpack-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -13,34 +14,47 @@ const resolveMode = () => {
     return "production";
 };
 
+const plugins = [];
+
+if (process.env.TRAVIS_TAG) {
+    plugins.push(
+        new SentryCliPlugin({
+            include: ".",
+            release: process.env.TRAVIS_TAG,
+            debug: true
+        })
+    );
+}
+
 module.exports = {
     mode: resolveMode(),
-	devtool: "source-map",
+    devtool: "source-map",
     entry: ["babel-polyfill", `${__dirname}/public/views/index.jsx`],
-	output: {
-		path: path.join(__dirname, "dist"),
+    output: {
+        path: path.join(__dirname, "dist"),
         filename: "main.js",
         publicPath: "/"
-	},
-	resolve: {
-		extensions: [".js", ".jsx", ".json"]
-	},
-	module: {
-		rules: [
-			{
-				test: /\.jsx?$/,
+    },
+    resolve: {
+        extensions: [".js", ".jsx", ".json"]
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/,
                 exclude: /node_modules\/(?!(@randytarampi\/\w+)\/)/,
-				loader: "babel-loader",
-				options: {
-					forceEnv: "client"
-				}
+                loader: "babel-loader",
+                options: {
+                    forceEnv: "client"
+                }
             },
             {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             }
-		]
-	},
+        ]
+    },
+    plugins,
     serve: {
         clipboard: false,
         content: "./dist/",
@@ -50,7 +64,7 @@ module.exports = {
         },
         dev: {
             publicPath: "/"
-		},
+        },
         on: {
             listening: ({server}) => {
                 const chokidar = require("chokidar");
@@ -91,17 +105,17 @@ module.exports = {
         },
         logLevel: "trace",
         logTime: true
-	},
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				commons: {
-					test: /[\\/]node_modules[\\/]/,
-					name: "vendor",
-					filename: "vendor.js",
-					chunks: "all"
-				}
-			}
-		}
-	}
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    filename: "vendor.js",
+                    chunks: "all"
+                }
+            }
+        }
+    }
 };
