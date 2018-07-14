@@ -1,5 +1,5 @@
 {
-  "name": "@randytarampi/words",
+  "name": "@randy.tarampi/words",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
@@ -29,9 +29,9 @@
     "history": "^4.7.2",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
-    "@randytarampi/css": "randytarampi/me.common.css",
-    "@randytarampi/js": "randytarampi/me.common.js",
-    "@randytarampi/jsx": "randytarampi/me.common.jsx",
+    "@randy.tarampi/css": "randytarampi/me.common.css",
+    "@randy.tarampi/js": "randytarampi/me.common.js",
+    "@randy.tarampi/jsx": "randytarampi/me.common.jsx",
     "pug": "^2.0.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",

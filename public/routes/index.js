@@ -1,4 +1,4 @@
-import {Posts} from "@randytarampi/jsx";
+import {Posts} from "@randy.tarampi/jsx";
 
 const routes = [
 	{
