@@ -49,14 +49,13 @@ gulp.task("docs", () => {
 gulp.task("styles:dev", () => {
     const autoprefixer = require("gulp-autoprefixer");
     const sass = require("gulp-sass");
-    const sassTildeImporter = require("grunt-sass-tilde-importer");
     const concat = require("gulp-concat");
 
     return gulp.src([
             "styles/style.scss"
         ])
         .pipe(sass({
-            importer: sassTildeImporter
+            includePaths: ["node_modules", "../../node_modules"]
         }).on("error", sass.logError))
         .pipe(autoprefixer({
             browsers: ["cover 99.5%"],
