@@ -1,4 +1,4 @@
-import Post from "@randytarampi/js/lib/post";
+import Post from "@randy.tarampi/js/lib/post";
 import jsyaml from "js-yaml";
 import knox from "knox";
 import WordSource from "../wordSource";

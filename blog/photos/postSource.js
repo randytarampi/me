@@ -1,4 +1,4 @@
-import Photo from "@randytarampi/js/lib/photo";
+import Photo from "@randy.tarampi/js/lib/photo";
 import genericClient from "../me.service.client";
 import PostSource from "../postSource";
 

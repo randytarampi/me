@@ -1,5 +1,5 @@
 {
-  "name": "@randytarampi/posts",
+  "name": "@randy.tarampi/posts",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "500px": "^0.5.1",
-    "@randytarampi/js": "randytarampi/me.common.js",
+    "@randy.tarampi/js": "randytarampi/me.common.js",
     "flickrapi": "^0.6.0",
     "form-data": "^2.3.2",
     "instagram-api": "^1.0.3",

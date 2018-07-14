@@ -1,7 +1,7 @@
 import F00px from "500px";
-import Creator from "@randytarampi/js/lib/creator";
-import Photo from "@randytarampi/js/lib/photo";
-import SizedPhoto from "@randytarampi/js/lib/sizedPhoto";
+import Creator from "@randy.tarampi/js/lib/creator";
+import Photo from "@randy.tarampi/js/lib/photo";
+import SizedPhoto from "@randy.tarampi/js/lib/sizedPhoto";
 import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 

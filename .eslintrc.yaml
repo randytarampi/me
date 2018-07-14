@@ -17,7 +17,7 @@ rules:
       -
         commonjs: true
         ignore:
-          - "@randytarampi\\/\\w+"
+          - "@randy\\.tarampi\\/\\w+"
     import/default: 2
     import/no-extraneous-dependencies: 1
 parserOptions:
