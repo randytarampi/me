@@ -27,7 +27,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.9.0",
     "del": "^3.0.0",
-    "grunt-sass-tilde-importer": "^1.0.2",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-clean-css": "^3.9.4",

@@ -1,4 +1,4 @@
-@import "~materialize-css/sass/components/color";
+@import "materialize-css/sass/components/color";
 
 $blockPadding: 0.2em 0.4rem;
 $blockColour: black;
@@ -9,7 +9,7 @@ $link-color: color("orange", "darken-1");
 
 $roboto-font-path: "./";
 
-@import "~materialize-css/sass/components/variables";
+@import "materialize-css/sass/components/variables";
 
 @media screen and (max-width: $medium-screen) {
 	h1 {
