@@ -4,14 +4,14 @@
   "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
   "main": "index.js",
   "scripts": {
-    "pretest": "gulp lint",
+    "pretest": "npx gulp lint",
     "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1",
     "postinstall": "npm run build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "webpack-serve --hot",
     "version": "if [ -z \"$TRAVIS_TAG\" && \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; gulp docs && git add --verbose --force --all docs;",
-    "build": "gulp build"
+    "build": "npx gulp build"
   },
   "author": {
     "name": "Randy Tarampi",
