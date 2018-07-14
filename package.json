@@ -45,6 +45,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
+    "@randy.tarampi/css": "github:randytarampi/me.common.css",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.9.1",
     "babel-loader": "^7.1.4",
@@ -67,7 +68,6 @@
     "gulp-mocha": "^6.0.0",
     "history": "^4.7.2",
     "materialize-css": "^0.100.2",
-    "@randy.tarampi/css": "github:randytarampi/me.common.css",
     "mocha": "^5.2.0",
     "nyc": "^11.8.0",
     "prop-types": "^15.6.2",
