@@ -1,4 +1,4 @@
-import {configureStore, reducers, ReduxRoot} from "@randytarampi/jsx";
+import {configureStore, reducers, ReduxRoot} from "@randy.tarampi/jsx";
 import createBrowserHistory from "history/createBrowserHistory";
 import React from "react";
 import routes from "../routes";
