@@ -61,14 +61,13 @@ gulp.task("docs", gulp.parallel([
 gulp.task("styles:dev", () => {
     const autoprefixer = require("gulp-autoprefixer");
     const sass = require("gulp-sass");
-    const sassTildeImporter = require("grunt-sass-tilde-importer");
     const concat = require("gulp-concat");
 
     return gulp.src([
             "styles/style.scss"
         ])
         .pipe(sass({
-            importer: sassTildeImporter
+            includePaths: ["node_modules", "../../node_modules"]
         }).on("error", sass.logError))
         .pipe(concat("styles.css"))
         .pipe(autoprefixer({
