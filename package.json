@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "500px": "^0.5.1",
-    "@randy.tarampi/js": "randytarampi/me.common.js",
+    "@randy.tarampi/js": "github:randytarampi/me.common.js",
     "flickrapi": "^0.6.0",
     "form-data": "^2.3.2",
     "instagram-api": "^1.0.3",
