@@ -43,7 +43,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules\/(?!(@randytarampi\/\w+)\/)/,
+                exclude: /node_modules\/(?!(@randy\.tarampi\/\w+)\/)/,
                 loader: "babel-loader",
                 options: {
                     forceEnv: "client"

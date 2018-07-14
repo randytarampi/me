@@ -1,4 +1,4 @@
-import {RowBlock} from "@randytarampi/jsx";
+import {RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
 import {DoubtBear} from "../components/bear";
