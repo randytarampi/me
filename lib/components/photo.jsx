@@ -1,4 +1,4 @@
-import {Photo as PhotoEntity} from "@randytarampi/js";
+import {Photo as PhotoEntity} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import Dimensions from "react-dimensions";

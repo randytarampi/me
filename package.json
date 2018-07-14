@@ -1,5 +1,5 @@
 {
-  "name": "@randytarampi/jsx",
+  "name": "@randy.tarampi/jsx",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
@@ -20,7 +20,7 @@
     "email": "bugs@randytarampi.ca"
   },
   "dependencies": {
-    "@randytarampi/js": "randytarampi/me.common.js",
+    "@randy.tarampi/js": "randytarampi/me.common.js",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "raven-js": "^3.26.3",
@@ -37,7 +37,7 @@
   },
   "peerDependencies": {
     "history": "^4.7.2",
-    "@randytarampi/css": "randytarampi/me.common.css",
+    "@randy.tarampi/css": "randytarampi/me.common.css",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-materialize": "^2.2.1",
@@ -67,7 +67,7 @@
     "gulp-mocha": "^6.0.0",
     "history": "^4.7.2",
     "materialize-css": "^0.100.2",
-    "@randytarampi/css": "randytarampi/me.common.css",
+    "@randy.tarampi/css": "randytarampi/me.common.css",
     "mocha": "^5.2.0",
     "nyc": "^11.8.0",
     "prop-types": "^15.6.2",
