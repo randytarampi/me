@@ -1,5 +1,5 @@
 {
-	"name": "woof.pseudolocalize",
+	"name": "@randy.tarampi/pseudolocalize",
 	"author": {
 		"name": "Randy Tarampi",
 		"email": "rt@randytarampi.ca",
@@ -7,7 +7,7 @@
 	},
 	"version": "0.0.3",
 	"description": "Text-to-ʕ•ᴥ•ʔ translations",
-	"main": "woof.pseudolocalize.js",
+	"main": "pseudolocalize.woof.js",
 	"scripts": {
 		"pretest": "npx gulp lint",
 		"test": "NODE_ENV=test gulp test",
