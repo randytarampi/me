@@ -14,7 +14,7 @@ before_install:
 - npm install -g npm
 - export NODE_ENV=prd;
 script: gulp build
-before_deploy:
+after_success:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/randytarampi.github.io.tar.gz -C ./ .
 - git config --local user.name "Travis"
