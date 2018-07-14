@@ -17,7 +17,7 @@ before_install:
 - npm install -g serverless
 - if [ "$TRAVIS_TAG" ]; then export NODE_ENV=prd; else export NODE_ENV=dev; fi;
 script: npm test
-before_deploy:
+after_success:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
 - git config --local user.name "Travis"
