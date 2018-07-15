@@ -76,5 +76,8 @@ module.exports = {
         path: path.join(__dirname, ".webpack"),
         filename: "[name].js",
         sourceMapFilename: "[file].map"
-    }
+    },
+    resolve: {
+        extensions: [".js", ".jsx", ".json"]
+    },
 };
