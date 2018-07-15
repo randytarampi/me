@@ -1,0 +1,43 @@
+language: node_js
+dist: trusty
+node_js:
+- '8'
+env:
+  global:
+  - secure: i+0iScbWJMYzZmE+PJIXmsz9LzWWQGJ3mEpzcC0AWpxqhhVs06Nu6B2bNA5pOzssciy1NNt5IVFaC7I34EhA2EYBUhSY1APThf1fal0q/APZAnGKiFN9ZKchYa9wzfnf/VZo/lsPPjV+JX9ZAtd+LNALONiFYymkKCxDQsxZl2Rqc048Q811AtPPlk4cR0gwMVm1grkKyx4ujTKkLhpjYhmxXZa8esi/bT88qmu66ELX1GCWyADKjIFBq1p0EnDLL0WV6ovwo1fOffoeRQ7YKGfjRxeujBM3GA3bAJIgk1KTEKuvJDGptZU+3FA4W6FEpaW1HEqXr15SzOb81cJPoSvPB+9VzUXDPydY0WZmOCQN/03LPjFP+/6bm0NfQUstHh4kSoXdhjHg88YIOBoHfeksEcf3b2AbHmuxiBJ2V4lrOdyFUjG10r4k17tHjGKmPvxnoxv647dkQwwaPBGLEnNlH+eftQ8GcSptvIgEae4b0R+f6YClbDcmFagzsXo8e9q0sfW6uRjtsboC9agVSHhNhhdROIq4/f8mfWiyswr+cFBEc25Fy9ca1OGAxtj8g+sl9wUB5mzNAmKbgg8FRSIVCTFqtcmKVPOW2i/I9DTAx/ZXfYB48hm1stUX7nX6WuZwSh60493mSL352SRsxk0DmcICVJxD81AzNRTeC3Y=
+  - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
+  - secure: pDXYyjMBrKFVvRcCvLxvrfMQXvOLTt59KrifOkVbeHLaEgbRjwFgxjwjqd2xHFLO7VW+8oYJfer+jV3UgT96Ft8LtFSmknhBNhywZABBo54T4dYrCGzYIBd6n6m/lCNPp5R7nibM7VIHoEYMd/N3KJV315W7wpT5ojyGcA3BPda5b4c0+/AjajyUOxu8Ww5GSJS2zVAwvFmvTWdVPp6Wzb0Oj1sgswOhB15IOEr++2KkMRxuX+g/SimpzKLQ7OHUm0rQkUFp8K11Xe9j66jdNFEKGDfLyb61tNbGOEnKs8l0leQHK0F54EnXPDjZG0GpeYGx1s/bonx31Lyeere0yhVBUioc9ftL99YR5UhNXJUzVpAIef4b4zPK1RjI4giTZ11pdJchbpv0OCvEJusIX6zPEr78RsR9dEsZlkkyAvIghBheQxhyv9J5Fb5pfrR2Ea0aPsVOh2GUNuh0o2j7RNtwH7W/DArD032zcEGNVYIFi0HHRi0m/8H79xmBUvjrcwiku3us7rCoFWmDVNOcH+A6hrWswXn89a9MrWm0ObF1fuLZvsZGSEV+e1eorvGY9ii9zWufRjBzB0KU5iG6zRS194cUB/Vh3QqODBDb+Qg1HUr4s7F7nSaxI0DEkf9TXpu5rxk3HxjvrcOGoPUDx87DuGuBnzVNzuVWK65UfLY=
+  - secure: 0WwCh/3Fnde90NMHHw7FgXW9dj0m9udut5wRK+xx67YQjKEbfFuWYumQDeGNPMrGbStiF4QEOs1W8AQuCj1RisNSMBNUgR2z9r6K5J0Mir1fWHCEnjCkXJ6L+0sxK9T5Rth6fVD8zrdabHGfUAVvwRyv/mIAjaOmJVXDusVFPIinFxOGa+Xp2W7FEnE67rIhO8+FOiIdk8+OPTexkeWtVY8nyjfPmSfo372u8X9xtn+L94pYgyHXB/CYZ7mKxsj11Vy8occOS4UTxYsCw8adaczt5u7oqM6Mp0SOL505ErzSqcSHyj2Q8mGnXZ2dQN0yNioZUDIA0IHdAWU9BWMVVhoL/i+hKz3AGi70o6InRayLNAMnhv0OMEHvjKREeLfRRtKlToCKIIG0Wiw4caHILXMQivNwKsoOhV092wQrsx4BKadULi/v54V581W1C+JV8Nm+GSkLXqMPuVfmBFRcaB7s3fdX5ziLVaGNHkXppM5iySfPY/1faHMrSa7YDJM+MttcXm41ztKyjpZV2UdSIpgeptDbFhZkPnoZMzjFSQDbzf4Orc57iUbjJrzLAyq4JiGKG77FY6JcAVE2dZ2jpE9XlOgmzA/awgWGvfLO5rwFFkDyybcRr2ovNJVv7IVHrGJNQmqftXxjNoCEx7IUINXHNpMYEWJkzNPNU/PGhFk=
+  - SENTRY_ORG=randytarampi
+  - SENTRY_PROJECT=photos
+before_install:
+- uname -a
+- lscpu
+- npm install -g npm
+- npm install -g serverless
+- if [ "$TRAVIS_TAG" ]; then export NODE_ENV=prd; else export NODE_ENV=dev; fi;
+script: npm test
+after_success:
+- mkdir -p ../dpl_cd_upload
+- tar -zcf ../dpl_cd_upload/me.photos.tar.gz -C ./ .
+- git config --local user.name "Travis"
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+- git config --local user.email $TRAVIS_AUTHOR
+- if [ -z "$TRAVIS_TAG" ]; then if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+  HEAD:master; fi; fi;
+deploy:
+  provider: releases
+  api_key:
+    secure: mODEfCZ+E3SGvNvFdPtma9Llu410Xt2ER8Fjtij41AMnP3M3HcdOzE7SjkbMAA0JSdTlcBGo82a06L37ciGo0Ejdnv+ATtj4xKs1q9Dm3OqOsnwiEyfCx6LU1R+6wUny7FuX6Fh1x1cGWffFNmjVDf+P6nIIbdcrDlrfl7F3vDHQoBhU6iROTOXrx5rpIpj0ii8NFxLwqY9r1wPRKP89PvvTPooVEOHej7YQwpp4Cx4AkOmcbTXptKowDZt79drbxWU0wZUCeyH3FxTiRUMrFgHePXvevdzLidpLIo3mZtq7HfNaMSrLtbSFDcqQV1e3RJlVflNgvX2e98lha9bfFmKk6yEjiI1KvmIsGOfgGsTpmFh4oaB0Bu8uX3RxyWrnNLssxPys6285k76znkdhZp3BnmgrprIRdReEdNrMXeabdV8mo+qMSS4QS8Bot8W75gV5hwoOqTILovNZfcKQEoej9lMeoasMGRd8NoVEBeU8qKnolPRnZZs2XzNp/1gB6gtyaWTeG4LGGrNvFug8DwZQU1vogWRznrbge8lKq1AJLmW3TfnsrlkqiTqmzWtnt1bpHp8bOKr2W55h7inq2dg+sDpnYgp6WDg2ZR1/YvVi+ZQ3DteLT02ktOt0dHdA2qbFDgRArM0tOujH22+g2q5n5vf3DefPCHVzzgkKdPA=
+  file: me.photos.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+after_deploy:
+- if [ "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s";
+  git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master; fi;
+notifications:
+  slack:
+    secure: XIKwYs484VwJNLD4IuJz/aApirGz98J2LS10EqorZ6d7hjavq4BTctb2m1LAgpONdeZNaFjZvoQpy4KvkyPFXCewKv0NwmMdcb7Ae89EQNqYypE/X0XhGGgd9JBtCbFjreokVflIvkrigPPmllJGNIngjfhquw/u11NaKXQkrdQ62+hcBOkj3uPXsXZUG++QuSpJy0fFm8usuDWjIcJCxI2e1XjAGgN4me4t5Yn/MzGqROGdj/PLWJnx8mA37EEd2aIGckFt+8SdfPhMNvh2LF5HKD4QWdVAbSXvDf/JUPR1R1FIviv3yF9U0Pm7/rNMR3jxK9BWsnbX6K+6mxf9z4uqGgzbpl8/PW+MtpeyytmGmhiT8wzOaL45GOKcnKrVKEeD+g2Aub3j64eiN84+w0EfWqPazn5C+AxeJ18QkSXREWgQDSsW6qCJO6X2jjcm0H+IcqFeVOPk1quTlfgmRj2B0bZmLlvn72he+ym8GL03u+2X7liMk4rnk6UCqsG8whGR6NHVVzGT6MSL2xBbTfi/tBTgeVGKUZm2y0zGJcXbBENzhPOWMfp9fCL7trEfry2HhfKG3Jt8dQMYrl95qesV6UgKI/vAFR8SBOPR9HWJP/SJi3mPe46JbYOKL7iZxyr7c5Hjjt86z8Jz5NiXf6b1AI+QKWf+2o3N5PaKWbQ=

@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        title !{"\uD83D\uDCF8"}
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet", href=`${appUrl}/styles.css`)
+        link(rel="shortcut icon", href=`${appUrl}/favicon.ico` type="image/x-icon")
+        meta(name="viewport" content="width=device-width")
+        script.
+            window.SENTRY_DSN = "#{sentryDsn}";
+            window.ENVIRONMENT = "#{environment}";
+            window.VERSION = "#{version}";
+        script.
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', '#{gtm}');
+    body
+        noscript
+            iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
+            height="0" width="0" style="display:none;visibility:hidden")
+        block content
+        script(src=`${appUrl}/vendor.js`)
+        script(src=`${appUrl}/main.js`)
