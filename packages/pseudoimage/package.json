@@ -1,0 +1,67 @@
+{
+	"name": "@randy.tarampi/pseudoimage",
+	"author": {
+		"name": "Randy Tarampi",
+		"email": "rt@randytarampi.ca",
+		"url": "http://www.randytarampi.ca"
+	},
+	"version": "0.0.5",
+	"description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
+	"main": "lib/pseudolocalizer.js",
+	"scripts": {
+		"pretest": "npx gulp lint",
+		"test": "NODE_ENV=test gulp test",
+		"cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test ./node_modules/nyc/bin/nyc.js npm test",
+		"travis": "npm run cover; npm run coveralls",
+		"coveralls": "cat coverage/lcov.info | ./node_modules/.bin/coveralls"
+	},
+	"homepage": "https://github.com/randytarampi/woof.pseudoimage",
+	"bugs": {
+		"url": "https://github.com/randytarampi/woof.pseudoimage/issues",
+		"email": "bugs@randytarampi.ca"
+	},
+	"keywords": [
+		"bear",
+		"woof",
+		"纬",
+		"横糸",
+		"씨",
+		"subtegmine",
+		"гав",
+		"υφάδι",
+		"نسيج",
+		"پود",
+		"বুনন",
+		"ʕ•ᴥ•ʔ",
+		"pseudoimage",
+		"pseudolocalization",
+		"localization",
+		"internationalization",
+		"p16n",
+		"l10n",
+		"i18n"
+	],
+	"devDependencies": {
+		"chai": "~4.1.2",
+		"coveralls": "~3.0.1",
+		"eslint-plugin-import": "^2.2.0",
+		"gulp": "^4.0.0",
+		"gulp-eslint": "~4.0.2",
+		"gulp-if": "~2.0.1",
+		"gulp-mocha": "~6.0.0",
+		"mocha": "~5.2.0",
+		"nyc": "^12.0.2",
+		"sinon": "~5.0.10"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"bin": {
+		"p7eImage": "./bin/p7eImage",
+		"p7eImages": "./bin/p7eImages"
+	},
+	"dependencies": {
+		"lwip": "github:kant2002/lwip#node-10",
+		"mkdirp": "~0.5.1"
+	}
+}

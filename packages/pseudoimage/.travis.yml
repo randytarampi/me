@@ -1,0 +1,9 @@
+language: node_js
+dist: trusty
+node_js:
+- '10'
+- '8'
+script: npm run travis
+notifications:
+  slack:
+    secure: gi2d1wiL65m+Z+Dnp/5GGb5c9FsggYLWwlCiHwa/AZkl0XPaGVQnTxi/+EbL0VVh0v6MZ1gWQlSpYZ9QZknZfcicBiWoO5BxsNqGmwn9/0Rt42IS0imJB8Lld3Bnl/DDEP4+1N6i0J2R45QIDFrvXtuobn+ShFif7RSiXoAn+d8FKQmGoTzYte6wD7oYa31dufMnSGky/9hAkMshuwRTKKDv8WRfeK3X0Z4pBF2ZILPz3Esnnzum/MaK7XkE0DPyZ1zySBaM4VPpE+6S/rswQLbFYqN02XKH8ld4oVE6Zr+9LgRQamlq19r/7otbCuiSVHgVKAS3HID9pTC9rxaRQBp7lJRNrr0C9F7+q2zdUMV0aSB1utCf+HIqIlvmTeGVNMU2z0YcuXw+bR0yJviE7sO86k+EkSt/PH89ewGDSfZZ8+tJEl9kcxtXvwS8OAz9twOhtAStzF2IsORZQPQPxE4KRbg8NfXZuK4lEEXxytS17a1RmWjsH3MmoKEXEU2ZxrGyj1gUk3rpUQljL8QT3mkmCaGMJ/k3akK5bMJsDVfWE+YF8a0FJVQHrSW6TWw8zzEgmTDlpKwfXiO3QbgtdawoThzA417/kASmJrxyZTLCvWg/YsTlifxCJR0b+OZK3r7BDHIDM1HeOdpjptel/73xTPeMmKyp2wpH3knMSNA=
