@@ -1,6 +1,6 @@
 {
-  "name": "randytarampi",
-  "version": "1.3.0-0",
+  "name": "@randytarampi/web",
+  "version": "1.4.0-0",
   "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
   "main": "index.js",
   "scripts": {
