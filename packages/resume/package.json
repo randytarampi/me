@@ -1,0 +1,28 @@
+{
+  "name": "jsonresume-theme-randytarampi",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca"
+  },
+  "version": "1.0.0-0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.resume"
+  },
+  "scripts": {
+    "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\" && exit 1",
+    "start": "npx resume serve --theme randytarampi",
+    "build": "npm run build:pdf && npm run build:html",
+    "build:pdf": "npx resume export index.pdf -f pdf --theme randytarampi --force",
+    "build:html": "npx resume export index.html -f html --theme randytarampi --force"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "handlebars": "^4.0.11",
+    "jsonresume-theme-randytarampi": "file:./",
+    "resume-cli": "^0.4.19"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "basics": {
+    "name": "Randy Tarampi",
+    "label": "Going places | building software",
+    "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+    "email": "rt@randytarampi.ca",
+    "phone": "+1 (604) 374-7128",
+    "website": "https://randytarampi.ca",
+    "summary": "Recently unemployed code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
+    "location": {
+      "address": "4663 Todd Street",
+      "postalCode": "V5R 3P7",
+      "city": "Vancouver",
+      "countryCode": "CA",
+      "region": "BC"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "randytarampi",
+        "url": "https://github.com/randytarampi"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "randytarampi",
+        "url": "http://linkedin.com/in/randytarampi/"
+      },
+      {
+        "network": "Instagram",
+        "username": "randytarampi",
+        "url": "https://instagram.com/randytarampi"
+      },
+      {
+        "network": "Unsplash",
+        "username": "randytarampi",
+        "url": "https://unsplash.com/@randytarampi"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "Fetch Auto",
+      "position": "Senior Software Developer",
+      "website": "https://fetchauto.ca",
+      "startDate": "2017-02-14",
+      "endDate": "2018-05-30",
+      "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to become the first employee at Fetch Auto, the only end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
+      "highlights": [
+        "Took a UI prototype to a production application in less than 6 months",
+        "Rapidly iterated on new features and designs to drive user growth",
+        "Implemented a comprehensive user tracking & analytics platform",
+        "Designed and developed a serverless service platform"
+      ]
+    },
+    {
+      "company": "Yardi Energy | EnerNOC | Pulse Energy",
+      "position": "Software Developer",
+      "website": "https://pulseenergy.com",
+      "startDate": "2014-06-02",
+      "endDate": "2016-09-16",
+      "summary": "Returned to Pulse Energy as a new grad in Summer 2014 looking to broaden his horizons – by 2014's end we were acquired by EnerNOC, and then in Summer 2016 sold off to Yardi",
+      "highlights": [
+        "Mentored and developed co-operative education students",
+        "Led a year-long, platform wide internationalization effort",
+        "Dove deep in support of a platform wide localization effort into Italian",
+        "Designed a centralized, platform wide notification and subscription workflow"
+      ]
+    },
+    {
+      "company": "Pulse Energy",
+      "position": "Software Developer (co-op)",
+      "website": "https://pulseenergy.com",
+      "startDate": "2013-01-07",
+      "endDate": "2013-08-30",
+      "summary": "I cut my chops at a mid-size start-up that gave utilities and energy retailers' an unrivaled understanding of their​ commercial and industrial customers, and helped dozens of utilities such as British Gas, PG&E, and BC Hydro to transform their businesses with energy intelligence",
+      "highlights": [
+        "Built out a service oriented node.js platform atop a legacy Java monolith",
+        "Designed, prototyped and delivered single page, user facing web applications",
+        "Scalably configured applications, services and servers via Chef"
+      ]
+    },
+    {
+      "company": "Metro Vancouver",
+      "position": "Project Research Assistant",
+      "website": "http://www.metrovancouver.org/",
+      "startDate": "2012-05-01",
+      "endDate": "2012-09-01",
+      "summary": "I was curious about how bureaucracy dealt with data, and I was equal parts surprised and horrified",
+      "highlights": [
+        "Maintained and developed internal data manipulaion and entry tools",
+        "Performed business analysis, wrote & presented annual financial reports",
+        "Performed systems and data analysis, database spot checks and ensured database integrity"
+      ]
+    },
+    {
+      "company": "SAP",
+      "position": "Software Developer in Test",
+      "website": "https://www.sap.com/index.html",
+      "startDate": "2011-09-01",
+      "endDate": "2011-12-31",
+      "summary": "My first \"real\"job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
+      "highlights": [
+        "Administered the daily automated testing of SAP Business Objects Enterprise for the Crystal Reports team"
+      ]
+    },
+    {
+      "company": "Simon Fraser University",
+      "position": "IT Technician",
+      "website": "https://itservices.sfu.ca",
+      "startDate": "2011-05-01",
+      "endDate": "2014-04-30",
+      "summary": "My first \"real\" job, pretty much exactly as it sounds – sat at a desk waiting for problems to arise",
+      "highlights": [
+        "Helped students and staff with printer, network and other general IT issues",
+        "Flamed trolls and policed computing labs, seeking students who could not read the large \"NO FOOD AND DRINK\" signs"
+      ]
+    }
+  ],
+  "volunteer": [],
+  "education": [
+    {
+      "institution": "Simon Fraser University",
+      "area": "Computing Science, Political Science",
+      "studyType": "Bachelor's degree",
+      "startDate": "2009-09-03",
+      "endDate": "2014-04-20",
+      "gpa": "3.33",
+      "courses": [
+        "CMPT 470 – Web Information Systems",
+        "CMPT 431 – Distributed Systems",
+        "CMPT 471 – Networking II",
+        "CMPT 305 – Computer Simulation and Modelling",
+        "POL 451 – Public Policy Analysis",
+        "CMPT 475 – Software Engineering II",
+        "CMPT 363 – User Interface Design",
+        "CMPT 300 – Operating Systems"
+      ]
+    }
+  ],
+  "awards": [],
+  "publications": [],
+  "skills": [
+    {
+      "name": "Front end",
+      "level": "Master",
+      "keywords": [
+        "ES6",
+        "react",
+        "redux",
+        "sass",
+        "User testing",
+        "UI design",
+        "User analytics",
+        "i18n",
+        "a11y",
+        "Data visualization"
+      ]
+    },
+    {
+      "name": "Back end",
+      "level": "Master",
+      "keywords": [
+        "node.js",
+        "Spring",
+        "Postgres",
+        "Redis",
+        "Data architecture",
+        "Serverless computing",
+        "Performance tuning",
+        "Service architecture",
+        "Microservices",
+        "i18n",
+        "API security"
+      ]
+    },
+    {
+      "name": "Operations",
+      "level": "Intermediate",
+      "keywords": [
+        "AWS",
+        "CloudFormation",
+        "Chef",
+        "Configuration as code",
+        "Network security",
+        "Fault tolerance",
+        "Monitoring",
+        "Alerting"
+      ]
+    },
+    {
+      "name": "Data analysis",
+      "level": "Beginner",
+      "keywords": [
+        "Excel",
+        "VBA",
+        "Python",
+        "Jupyter Notebook",
+        "R"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "Italian",
+      "fluency": "Beginner"
+    },
+    {
+      "language": "French",
+      "fluency": "Intermediate"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Auto racing",
+      "keywords": [
+        "WEC",
+        "WTSC",
+        "F1",
+        "IndyCar"
+      ]
+    },
+    {
+      "name": "Photography",
+      "keywords": [
+        "Landscapes",
+        "Night",
+        "Long exposures",
+        "Events",
+        "Weddings"
+      ]
+    },
+    {
+      "name": "Food & drink",
+      "keywords": [
+        "Comfort foods",
+        "Baked goods",
+        "Iced beverages"
+      ]
+    },
+    {
+      "name": "People",
+      "keywords": [
+        "That have stories to tell",
+        "Who have a sense of humor",
+        "That read this far down"
+      ]
+    }
+  ],
+  "references": [],
+  "gtm_analytics": "GTM-W6NFL6M"
+}
