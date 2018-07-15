@@ -1,0 +1,55 @@
+{
+    "plugins": [
+        "lodash",
+        "transform-object-rest-spread"
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        },
+                        "useBuiltIns": true
+                    }
+                ],
+                "react"
+            ],
+            "plugins": [
+                "istanbul"
+            ]
+        },
+        "server": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        },
+                        "useBuiltIns": true
+                    }
+                ]
+            ]
+        },
+        "client": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "uglify": true
+                        },
+                        "useBuiltIns": true
+                    }
+                ],
+                "react"
+            ],
+            "plugins": [
+                "react-hot-loader/babel"
+            ]
+        }
+    }
+}
