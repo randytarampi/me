@@ -1,0 +1,37 @@
+{
+    "plugins": [
+        "lodash",
+        "transform-object-rest-spread"
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        },
+                        "useBuiltIns": true
+                    }
+                ]
+            ],
+            "plugins": [
+                "istanbul"
+            ]
+        },
+        "server": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        },
+                        "useBuiltIns": true
+                    }
+                ]
+            ]
+        }
+    }
+}
