@@ -1,0 +1,12 @@
+language: node_js
+dist: trusty
+node_js:
+- '8'
+before_install:
+- uname -a
+- lscpu
+- npm install -g npm
+script: npm run travis
+notifications:
+  slack:
+    secure: P/44JIYCaFip/qvzLm/UDZr3oRZSvyOVSLopGfF8oO7JY9jeJ9+th/V0h0OelAYPOxDX3AI0oQPmvwBN+PkHbDnCRzre6yRpK+BvB7DGH2hGx0dwRTBPKSCyEWkv3cb8bUy5a91QyRr42l9TQVGcGasFQ17Df5ENMV52rwr3EtT6XInrW5BZvyJdGtaQXBSa7u9ZpHW8/BzOsf3+HrNnH4e/IXL5P8FVKxzxMUlwnaJX0GA3wLZzuFDUV4ISu1FLdrh5KGqFSIOQi8UyfWdnbqKPBHxy4sAdsQA44OeRDnG/yc8oVeJFvZEpYzVCdiTzbruzqmwcGhh73iO6C/pV24Ljcg3EXor08FwHbhSijeVBxNnWKowrrECo+dX5jUxrGauV5k+MajC1Zx+14ZxXCVjo32U/V/f8JNee6U8lFvoSZTx5YKvIhPxrI37inkAyjx020fGeAdfhyv6xpQni6VW7KEhq2tINukVu0G3Z6Zk5r+MTSaLoNSi9f7amAmhc3MufROq3vlEvRQCvIe+X4OSNlpk3hfROqUjx9/3smhZ9e6956r7T341+btX7yRGSZVgMfDzBVq0hUWzq0tmBOWNQNHobqnPTmEOBos9K4YjNW28iqlQjOMckxpLJnSWmVRDR5fu90aUAwiBcj64hJRnnZxpKz9C215NC3EzQt+Y=
