@@ -1,0 +1,34 @@
+.photo-title {
+	margin-top: 0;
+	margin-bottom: 0;
+	overflow-wrap: break-word;
+}
+
+.photo-text {
+	line-height: $blockLineHeight;
+	padding: $blockPadding;
+	background-color: $blockColour;
+	box-decoration-break: clone;
+	color: $blockTextColour;
+	margin-right: 4px;
+}
+
+.photo-title,
+.photo-description,
+.photo-date,
+.photo-body,
+.photo-source,
+.photo-text {
+	&__link {
+		text-decoration: underline;
+		text-decoration-color: $link-color;
+	}
+}
+
+.photo {
+	margin-bottom: 0;
+}
+
+.row .col.photo-metadata {
+	padding: 0.75em;
+}

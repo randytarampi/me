@@ -1,0 +1,43 @@
+{
+  "name": "@randy.tarampi/css",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca"
+  },
+  "version": "2.0.0-0",
+  "private": true,
+  "scripts": {
+    "pretest": "npx gulp lint",
+    "test": "npx gulp test",
+    "travis": "npx gulp travis"
+  },
+  "description": "Some common styles for the components in randytarampi/me.common.jsx and randytarampi/randytarampi.github.io",
+  "homepage": "https://github.com/randytarampi/me.common.css",
+  "bugs": {
+    "url": "https://github.com/randytarampi/me.common.css/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "peerDependencies": {
+    "materialize-css": "^0.100.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.9.1",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.9.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^4.0.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sass-lint": "^1.4.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "materialize-css": "^0.100.2"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

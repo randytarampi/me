@@ -1,0 +1,29 @@
+.bear {
+	text-align: center;
+	font-size: 72pt;
+	white-space: nowrap;
+	line-height: 1.5;
+	user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, 50%);
+	-ms-transform: translate(-50%, 50%);
+	-moz-transform: translate(-50%, 50%);
+	-webkit-transform: translate(-50%, 50%);
+
+	@media screen and (max-width: $medium-screen) {
+		position: unset;
+		top: unset;
+		left: unset;
+		margin-right: unset;
+		transform: unset;
+		-ms-transform: unset;
+		-moz-transform: unset;
+		-webkit-transform: unset;
+	}
+}
