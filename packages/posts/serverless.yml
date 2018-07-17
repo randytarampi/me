@@ -52,6 +52,8 @@ custom:
   webpack:
     webpackConfig: ./webpack.serverless.config.js
     includeModules:
+      forceInclude:
+        - mime
       forceExclude:
         - aws-sdk
   serverlessSecrets:

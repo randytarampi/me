@@ -49,4 +49,3 @@ data/flickr
 
 # Environment variables
 .env
-package-lock.json

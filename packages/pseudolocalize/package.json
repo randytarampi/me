@@ -41,18 +41,18 @@
 		"i18n"
 	],
 	"devDependencies": {
-		"chai": "~4.1.2",
-		"coveralls": "~3.0.1",
-		"eslint-plugin-import": "^2.2.0",
+		"chai": "^4.1.2",
+		"coveralls": "^3.0.2",
+		"eslint-plugin-import": "^2.13.0",
 		"gulp": "^4.0.0",
-		"gulp-eslint": "~4.0.2",
-		"gulp-if": "~2.0.1",
-		"gulp-mocha": "~6.0.0",
-		"mocha": "~5.2.0",
+		"gulp-eslint": "^5.0.0",
+		"gulp-if": "^2.0.2",
+		"gulp-mocha": "^6.0.0",
+		"mocha": "^5.2.0",
 		"nyc": "^12.0.2"
 	},
 	"dependencies": {
-		"commander": "~2.15.1"
+		"commander": "^2.16.0"
 	},
 	"bin": {
 		"p7e": "./bin/p7e"

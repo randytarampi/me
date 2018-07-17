@@ -21,20 +21,20 @@
     "materialize-css": "^0.100.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.9.1",
-    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.9.0",
+    "babel-register": "^6.26.0",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-clean-css": "^3.9.4",
-    "gulp-concat": "^2.6.0",
-    "gulp-eslint": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^5.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sass-lint": "^1.4.0",
-    "gulp-sourcemaps": "^2.4.1",
+    "gulp-sourcemaps": "^2.6.4",
     "materialize-css": "^0.100.2"
   },
   "engines": {

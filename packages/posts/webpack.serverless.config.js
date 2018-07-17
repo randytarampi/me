@@ -27,7 +27,7 @@ const plugins = [
         {
             from: "./data",
             to: "./data"
-        }
+        },
     ])
 ];
 
@@ -55,7 +55,7 @@ module.exports = {
     externals: [nodeExternals({
         whitelist: [
             "serverless-secrets/client",
-            /(me\.common\.\w+)/
+            /@randy\.tarampi\/\w+/
         ]
     })],
     module: {
@@ -79,5 +79,5 @@ module.exports = {
     },
     resolve: {
         extensions: [".js", ".jsx", ".json"]
-    },
+    }
 };

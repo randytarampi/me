@@ -13,6 +13,9 @@ module.exports = {
 		filename: "main.js"
 	},
 	resolve: {
+		alias: {
+			react: path.resolve(__dirname, "node_modules/react")
+		},
 		extensions: [".js", ".jsx", ".json"]
 	},
 	module: {

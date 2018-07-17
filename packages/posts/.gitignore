@@ -49,7 +49,6 @@ data/flickr
 .webpack
 
 # Environment variables
-package-lock.json
 
 # Serverless
 .serverless
