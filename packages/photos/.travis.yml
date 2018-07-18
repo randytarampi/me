@@ -24,7 +24,7 @@ after_success:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [ -z "$TRAVIS_TAG" ]; then if [ "$COMMIT_AUTHOR" != "$TRAVIS_AUTHOR" ]; then
+- if [ -z "$TRAVIS_TAG" ]; then if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Prepare version"* ]]; then
   npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
   HEAD:master; fi; fi;
 deploy:
