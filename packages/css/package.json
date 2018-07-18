@@ -11,10 +11,10 @@
     "test": "npx gulp test",
     "travis": "npx gulp travis"
   },
-  "description": "Some common styles for the components in randytarampi/me.common.jsx and randytarampi/randytarampi.github.io",
-  "homepage": "https://github.com/randytarampi/me.common.css",
+	"description": "Some common styles for the components in randytarampi/me.jsx and randytarampi/randytarampi.github.io",
+	"homepage": "https://github.com/randytarampi/me.css",
   "bugs": {
-    "url": "https://github.com/randytarampi/me.common.css/issues",
+	  "url": "https://github.com/randytarampi/me.css/issues",
     "email": "bugs@randytarampi.ca"
   },
   "peerDependencies": {
