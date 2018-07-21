@@ -31,16 +31,16 @@ const plugins = [
     ])
 ];
 
-if (process.env.TRAVIS_TAG) {
-    plugins.push(
-        new SentryCliPlugin({
-            include: ".",
-            ignore: ["node_modules", "webpack.serverless.config.js"],
-            release: process.env.TRAVIS_TAG,
-            debug: true
-        })
-    );
-}
+// if (process.env.TRAVIS_TAG) { // NOTE-RT: Bring this back when we switch to using the other sentry webpack plugin
+//     plugins.push(
+//         new SentryCliPlugin({
+//             include: ".",
+//             ignore: ["node_modules", "webpack.serverless.config.js"],
+//             release: process.env.TRAVIS_TAG,
+//             debug: true
+//         })
+//     );
+// }
 
 module.exports = {
     entry: slsw.lib.entries,
