@@ -1,6 +1,6 @@
 {
   "name": "@randy.tarampi/posts",
-  "version": "2.10.0-0",
+  "version": "2.11.0-0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -309,8 +309,8 @@
       }
     },
     "@randy.tarampi/js": {
-      "version": "github:randytarampi/me.common.js#38879af3cc6a59e38a53ba0dba3ed2be24e784e7",
-      "from": "github:randytarampi/me.common.js",
+      "version": "github:randytarampi/me.common.js",
+      "from": "@randy.tarampi/js@github:randytarampi/me.common.js",
       "requires": {
         "lodash": "^4.17.4",
         "moment": "^2.17.1"
@@ -8035,8 +8035,8 @@
       "dev": true
     },
     "lwip": {
-      "version": "github:kant2002/lwip#47c5b084b7c81b2dee8c4740bed09d167b8bae8a",
-      "from": "github:kant2002/lwip#node-10",
+      "version": "github:kant2002/lwip#node-10",
+      "from": "lwip@github:kant2002/lwip#node-10",
       "requires": {
         "async": "^2.0.0-rc.5",
         "bindings": "^1.2.1",
