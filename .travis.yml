@@ -21,7 +21,7 @@ script: ./bin/travis.sh
 after_script:
 - git checkout master;
 - ls -al;
-- git push;
+- git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG};
 notifications:
   slack:
     secure: YdWidvVw0Guj6iPXO/Y2wJ+h6as9CU7brL4crIKHCOZjH4ffXI63r6tuKAE+y9zJpAp1NntdeVWdZAe7eMPqZcRGg1HybzLf8aEQkBFK8tf/q2zU93DVFCjrDJDF5lqY4ySTe5aSvC8Q7M1167+PLpZy5H8aUlj0kSzJ/FGOfeI93p07Wtviv8cN6nZ986q90Djovkfn9tuaRj6fR6MjWlFcQ/9UNhpVqf8aGXjE1AOHYth6k7L4YWULWb3Don1oW2wFX/E4rGecqWBKyh7VN742va1y0VHaLys+bbGbmIUQllESVy4gFyAXs/tZjx47+sXn2R6nJn5Y9kIsMe0GKBlGhV0N5QoOjVbJt8xNVgF8HzRHEoo5uDZpd5tFbFa4rK1ZvtV+mmIvjqXtKxjuQ+AXcmdCuORaN0y6He63TF66uMfdoF75aatr0ebT2Ma9/NTMdg3L7MWfiCAOl0y1a/8l9HSOv01ZL2m3iAotB+F231ZouofDuOmsSxAhDJGwskQkrExoU/t8JW4jz391sbQpGmJBDSMyFKe6EZwXqV6R9OfoWxbEXRNz7ZEKNZG5d/EUo+BRNL35MsCy2fnM41pPUHE1jf6YnnMbZtKF5DhR8LA5R3RlrSdUuM2T0JNJxK08prLz8RgghlKpsNEYxomqagqQnQd1+4TVK7A37WY=
