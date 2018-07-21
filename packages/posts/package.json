@@ -18,7 +18,7 @@
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
     "deploy:dev": "npx sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --stage $NODE_ENV --region us-east-1",
     "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --stage $NODE_ENV --region ca-central-1",
-    "version": "if [ -z \"$TRAVIS_TAG\" ]; then if [ \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; fi;",
+    "version": "if [ -z \"$TRAVIS_TAG\" ]; then if [ \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; else git rm npm-shrinkwrap.json fi;",
     "build:flickr": "node node_modules/flickrapi/compile.js",
     "build": "npm run build:flickr"
   },
