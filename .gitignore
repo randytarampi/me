@@ -49,7 +49,6 @@ dist
 
 # Environment variables
 .env
-package-lock.json
 
 # Serverless
 .serverless
