@@ -15,7 +15,7 @@ echo "Splitting out $PACKAGE to $GITHUB_PACKAGE_REPO..."
 
 cd $MONOREPO_ROOT;
 git subtree pull --squash --message "Update $PACKAGE from $GITHUB_PACKAGE_REPO" --prefix=packages/$PACKAGE $GITHUB_PACKAGE_REPO_URL master;
-git subtree split --rejoin --prefix=packages/$PACKAGE -b $PACKAGE;
+git subtree split --prefix=packages/$PACKAGE -b $PACKAGE;
 git checkout $PACKAGE;
 git remote add $PACKAGE $GITHUB_PACKAGE_REPO_URL
 git status;
