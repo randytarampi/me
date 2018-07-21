@@ -19,7 +19,7 @@ git subtree split --prefix=packages/$PACKAGE -b $PACKAGE;
 git checkout $PACKAGE;
 git remote add $PACKAGE $GITHUB_PACKAGE_REPO_URL
 git status;
-git push --set-upstream --force $PACKAGE $PACKAGE:master;
+git push --force --set-upstream $PACKAGE $PACKAGE:master;
 
 cd $MONOREPO_ROOT;
 git checkout master;
