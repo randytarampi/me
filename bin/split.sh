@@ -25,5 +25,6 @@ cd $MONOREPO_ROOT;
 git checkout master;
 git status;
 ls -al;
+ls packages -al;
 
 echo "Split out $PACKAGE to $GITHUB_PACKAGE_REPO."
