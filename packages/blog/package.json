@@ -16,7 +16,7 @@
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "webpack-serve --hot --config ./webpack.client.config.js",
-    "version": "if [ -z \"$TRAVIS_TAG\" ]; then if [ \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; else git rm npm-shrinkwrap.json fi; gulp docs && git add --verbose --force --all docs;",
+    "version": "if [ -z \"$TRAVIS_TAG\" ]; then if [ \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; else git rm npm-shrinkwrap.json; fi; gulp docs && git add --verbose --force --all docs;",
     "build": "npx gulp build"
   },
   "description": "A post aggregator/blog thingy. For some usernames at some popular services, pull their posts and display them nicely.",
