@@ -24,9 +24,9 @@ after_success:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [ -z "$TRAVIS_TAG" ]; then if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Prepare version"* ]]; then
-  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
-  HEAD:master; fi; fi;
+#- if [ -z "$TRAVIS_TAG" ]; then if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Prepare version"* ]]; then
+#  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+#  HEAD:master; fi; fi;
 deploy:
   provider: releases
   api_key:
@@ -35,9 +35,9 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-after_deploy:
-- if [ "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s";
-  git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master; fi;
+#after_deploy:
+#- if [ "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s";
+#  git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master; fi;
 notifications:
   slack:
     secure: wcPjg9yq8eMkkec9AMsl7wnT4jvyZH9dHgdv5eWCo5F4L0T/3tsznI7C2kmsyeDpveLvDdovnqoU6Jvd+OThPPF74btI5MRz6yw3G3YMv77aTON1HGSN4QHjdIM2P16Ug5qYkZeL94QfXknNX4xUb+fBdb2vphMYPjVPIkwfBF9eV07EPR/MZbv29DKxzST6rx/CP5inZZPl9zEsPdcJQory+A5q3RkGRXGjCz4GhjweDy0ywoQQ85EKfiyOke6I6XhCY15ZPh0HYHIFy8lsJZfIVRsWNXY1twCKLX3v+iB3o8POFgICQV+HMCc4J+Q4BAVe02uZtghwOZvmL4+ShrZijNFMn0KXUxOXnM0p3n08icIasIpGNwZswOC5kJ/iUh0wjI12fGVLCVwOWpclaoIskJDSF0BLTyB0p48CUjYPO1+8nzIC1Llz072r2p8ZO79eAK7O0MoxknEkEKwfH65XcsSID0Kc7zjR7AE1InsNmnDFcrogJnUh1zOHXcRrk84TTKsdaNSl4/a5plGkmC3BQfUJHcawYpI1VRy2bKmCP6U4kxQNejvMKsuyW7rPHmE/msSwvDHgq2bX4O9Nloqg+3Q35rWA/lftlBZts8wTFM/YkRm3Xsssiee39dtUV7NU+u+RuWPx23Z/rYGB886X8O+QoktTjhoVRvNjIvs=
