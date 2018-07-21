@@ -24,6 +24,7 @@ git push --set-upstream $PACKAGE $PACKAGE:master;
 cd $MONOREPO_ROOT;
 git checkout master;
 git status;
+pwd
 ls -al;
 ls packages -al;
 
