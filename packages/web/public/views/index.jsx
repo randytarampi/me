@@ -1,11 +1,9 @@
-/* global document */
-
 import "jquery";
 import React from "react";
 import {render} from "react-dom";
-import "react-materialize";
-import Main from "./main";
+import HotApp from "./hotApp";
 
 render(
-    <Main/>, document.querySelector("#react-root")
+    <HotApp/>,
+    document.getElementById("react-root")
 );

@@ -1,4 +1,6 @@
 const path = require("path");
+const webpack = require("webpack");
+const config = require("config");
 const SentryCliPlugin = require("@sentry/webpack-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
@@ -14,7 +16,14 @@ const resolveMode = () => {
     return "production";
 };
 
-const plugins = [];
+const plugins = [
+    new webpack.DefinePlugin({
+        __WORDS_URL__: JSON.stringify(config.get("wordsUrl")),
+        __POSTS_URL__: JSON.stringify(config.get("postsUrl")),
+        __PHOTOS_URL__: JSON.stringify(config.get("photosUrl")),
+        __APP_URL__: JSON.stringify(config.get("appUrl")),
+    })
+];
 
 if (process.env.TRAVIS_TAG) {
     plugins.push(
@@ -100,12 +109,17 @@ module.exports = {
             const compress = require("koa-compress");
             const convert = require("koa-connect");
 
-            middleware.webpack();
-            middleware.content();
             app.use(compress());
             app.use(convert(history({
-                verbose: true
+                verbose: true,
+                rewrites: [
+                    {from: /\/photos/, to: "/photos.html"},
+                    {from: /\/words/, to: "/words.html"},
+                    {from: /\/blog/, to: "/blog.html"}
+                ]
             })));
+            middleware.webpack();
+            middleware.content();
         },
         logLevel: "trace",
         logTime: true

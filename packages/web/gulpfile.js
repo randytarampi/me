@@ -22,6 +22,7 @@ gulp.task("copy", () => {
 gulp.task("views", () => {
     const config = require("config");
     const pug = require("gulp-pug");
+    const rename = require("gulp-rename");
     const packageJson = require("./package.json");
 
     return gulp.src(["views/index.pug"])
@@ -34,6 +35,12 @@ gulp.task("views", () => {
                 version: packageJson.version
             }
         }))
+        .pipe(gulp.dest("./dist"))
+        .pipe(rename({basename: "blog"}))
+        .pipe(gulp.dest("./dist"))
+        .pipe(rename({basename: "photos"}))
+        .pipe(gulp.dest("./dist"))
+        .pipe(rename({basename: "words"}))
         .pipe(gulp.dest("./dist"));
 });
 
@@ -48,7 +55,7 @@ gulp.task("docs:dist", () => {
 gulp.task("docs:index", () => {
     return gulp
         .src([
-            "dist/index.html"
+            "dist/*.html"
         ])
         .pipe(gulp.dest("./"));
 });

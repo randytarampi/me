@@ -10,9 +10,6 @@ env:
     - PACKAGE=pseudolocalize
     - PACKAGE=jsx
     - PACKAGE=posts
-    - PACKAGE=blog
-    - PACKAGE=photos
-    - PACKAGE=words
     - PACKAGE=web
     - PACKAGE=resume
   global:

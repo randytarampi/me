@@ -23,6 +23,8 @@ rules:
       - 2
       -
         commonjs: true
+        ignore:
+          - "@randy\\.tarampi\\/\\w+"
     import/default: 2
     import/no-extraneous-dependencies: 1
     react/no-unescaped-entities: 0
@@ -47,4 +49,8 @@ settings:
         - .js
         - .jsx
         - .json
-
+globals:
+  __WORDS_URL__: false
+  __POSTS_URL__: false
+  __PHOTOS_URL__: false
+  __CLIENT_URL__: false

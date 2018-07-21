@@ -1,3 +1,6 @@
+photosUrl: http://localhost:3006/photos
+postsUrl: http://localhost:3006/posts
+wordsUrl: http://localhost:3006/words
 appUrl: ""
 gtm: "GTM-K26GTD2"
 sentryDsn: https://62e5366a2fdd43598035164511e5e986@sentry.io/1240797
