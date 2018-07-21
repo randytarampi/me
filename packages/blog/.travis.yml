@@ -14,7 +14,6 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
-- npm install -g serverless
 - if [ -z "$TRAVIS_TAG" ]; then export NODE_ENV=prd; else export NODE_ENV=dev; fi;
 script: npm test
 after_success:
