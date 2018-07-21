@@ -14,7 +14,7 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
-- if [ -z "$TRAVIS_TAG" ]; then export NODE_ENV=prd; else export NODE_ENV=dev; fi;
+- if [ "$TRAVIS_TAG" ]; then export NODE_ENV=prd; else export NODE_ENV=dev; fi;
 script: npm test
 after_success:
 - mkdir -p ../dpl_cd_upload
