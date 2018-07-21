@@ -25,7 +25,7 @@ after_success:
 - git config --local user.email $TRAVIS_AUTHOR
 - if [ -z "$TRAVIS_TAG" ]; then if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Prepare version"* ]]; then
   npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
-  HEAD:master; fi; fi;
+  fi; fi;
 deploy:
   provider: releases
   api_key:
