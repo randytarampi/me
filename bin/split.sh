@@ -23,7 +23,6 @@ git push --set-upstream --force $PACKAGE $PACKAGE:master;
 
 cd $MONOREPO_ROOT;
 git checkout master;
-sleep 15;
 git status;
 pwd
 ls -al;
