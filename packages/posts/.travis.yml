@@ -25,9 +25,10 @@ before_deploy:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-#- if [ -z "$TRAVIS_TAG" ]; then if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Prepare version"* ]]; then
-#  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
-#  HEAD:master; fi; fi;
+- if [ -z "$TRAVIS_TAG" ]; then if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Prepare version"* ]]; then
+  npm version minor; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+  npm version preminor -m "[Travis] Prepare version %s"; git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+  HEAD:master; fi; fi;
 deploy:
 - provider: script
   script: NODE_ENV=dev npm run deploy
@@ -47,8 +48,8 @@ deploy:
   on:
     tags: true
 after_deploy:
-#- if [ "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s";
-#  git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master; fi;
+- if [ "$TRAVIS_TAG" ]; then npm version preminor -m "[Travis] Prepare version %s";
+  git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master; fi;
 notifications:
   slack:
     secure: g0wMZBg1xSjZZGIneSZMyvpPMX+js/Fi0Ny2onu8qfb5Fy1pPiKiwvOKjHFVg6F3D4/ZBxGfHieQ3SMyQCFegebEYL/lcUw766B90C1Vk2/5vTqL8CJsnPM7n+rZgERW5vWAQ3/zbcW3Qt8F0u/A7vu5YpY5jgKXlTqfsE4Aq85d0yqcFkO8IqWL7i3EsIXrS06M8N5vN2zZpSqyQV6Jm0Ph5lw3udG+Z745q6n9Ki9TPAxNcLwlr3hNKyngm9yXE5RjEGdNPYNuEy90vSGxzujbRNa7nY0Nr5m81cqnX9XT1NlizMj6tkvbNP4T6X8BG8dasiGMSYK3h4tyZW09Gp/ECDpTgHYIOocsReZ8kcbTDvUvCz7sslqRnDFoO8YmJnK+FwtG3nkGC3a4kNDkgJnoLYvmyB60Z/wszaxhZ6ygWutEnA8ZLy3axm7NRFdqURLiBheCTCWh4pqZ+FV2EpT+o1kAeFLu02S/OVHNY2VV5/DPvtYN4Mt+v9EaJJ6bmKmB2VpebpdTDv8vcYySJ364e9doRhXKbVp1Elnl9nduuwW8D1wp+Yh5rCgaYD6Ta6E73QPcZ3y/cP6pLTJ+k0ZeU9nmGGPS8j4plXBsBLjfuF3bbp9VmZzdqapVOsEgK/RmSWKfvtJaCrAaJcA/RG4OXQ4F4O35QDxoYGf0Io0=
