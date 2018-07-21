@@ -14,12 +14,12 @@ GITHUB_PACKAGE_REPO_URL=https://${GH_TOKEN}@github.com/$GITHUB_USER/$GITHUB_PACK
 echo "Splitting out $PACKAGE to $GITHUB_PACKAGE_REPO..."
 
 cd $MONOREPO_ROOT;
-git subtree pull --squash --message "Update $PACKAGE from $GITHUB_PACKAGE_REPO" --prefix=packages/$PACKAGE $GITHUB_PACKAGE_REPO_URL master;
+#git subtree pull --squash --message "Update $PACKAGE from $GITHUB_PACKAGE_REPO" --prefix=packages/$PACKAGE $GITHUB_PACKAGE_REPO_URL master;
 git subtree split --prefix=packages/$PACKAGE -b $PACKAGE;
 git checkout $PACKAGE;
 git remote add $PACKAGE $GITHUB_PACKAGE_REPO_URL
 git status;
-git push --set-upstream $PACKAGE $PACKAGE:master;
+git push --set-upstream --force $PACKAGE $PACKAGE:master;
 
 cd $MONOREPO_ROOT;
 git checkout master;
