@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "4.6.0-0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "pretest": "npx gulp lint",
@@ -30,9 +30,9 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
-    "@randy.tarampi/css": "github:randytarampi/me.css#semver:^2.0.0-0",
-    "@randy.tarampi/js": "github:randytarampi/me.js#semver:^2.0.0-0",
-    "@randy.tarampi/jsx": "github:randytarampi/me.jsx#semver:^3.0.0-0",
+    "@randy.tarampi/css": "github:randytarampi/me.css",
+    "@randy.tarampi/js": "github:randytarampi/me.js",
+    "@randy.tarampi/jsx": "github:randytarampi/me.jsx",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-materialize": "^2.3.3",

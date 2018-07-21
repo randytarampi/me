@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "3.0.0-0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "pretest": "npx gulp lint",
@@ -20,7 +20,7 @@
     "email": "bugs@randytarampi.ca"
   },
   "dependencies": {
-    "@randy.tarampi/js": "github:randytarampi/me.js#semver:^2.0.0-0",
+    "@randy.tarampi/js": "github:randytarampi/me.js",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "raven-js": "^3.26.3",
@@ -37,7 +37,7 @@
   },
   "peerDependencies": {
     "history": "^4.7.2",
-    "@randy.tarampi/css": "github:randytarampi/me.css#semver:^2.0.0-0",
+    "@randy.tarampi/css": "github:randytarampi/me.css",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-materialize": "^2.2.1",
@@ -45,7 +45,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
-    "@randy.tarampi/css": "github:randytarampi/me.css#semver:^2.0.0-0",
+    "@randy.tarampi/css": "github:randytarampi/me.css",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
