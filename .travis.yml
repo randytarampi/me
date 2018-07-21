@@ -27,6 +27,7 @@ after_install:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
+- git config --local branch.autosetuprebase always
 #before_script:
 #- export PATH=`echo $PATH | sed -re 's/:?\.\/node_modules\/\.bin:?//g'`
 script: ./bin/split.sh $PACKAGE

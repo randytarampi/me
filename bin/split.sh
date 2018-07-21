@@ -18,10 +18,11 @@ git checkout master;
 
 git branch -D $PACKAGE;
 git remote remove $PACKAGE;
+git remote add $PACKAGE $GITHUB_PACKAGE_REPO_URL
+git pull -s subtree $PACKAGE master
 #git subtree pull --squash --message "Update $PACKAGE from $GITHUB_PACKAGE_REPO" --prefix=packages/$PACKAGE $GITHUB_PACKAGE_REPO_URL master;
 git subtree split --prefix=packages/$PACKAGE -b $PACKAGE;
 git checkout $PACKAGE;
-git remote add $PACKAGE $GITHUB_PACKAGE_REPO_URL
 git status;
 git push --force --set-upstream $PACKAGE $PACKAGE:master;
 
