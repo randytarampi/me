@@ -21,7 +21,7 @@ const plugins = [
         __WORDS_URL__: JSON.stringify(config.get("wordsUrl")),
         __POSTS_URL__: JSON.stringify(config.get("postsUrl")),
         __PHOTOS_URL__: JSON.stringify(config.get("photosUrl")),
-        __APP_URL__: JSON.stringify(config.get("appUrl")),
+        __ASSET_URL__: JSON.stringify(config.get("assetUrl")),
     })
 ];
 

@@ -1,4 +1,4 @@
 photosUrl: http://localhost:3006/photos
 postsUrl: http://localhost:3006/posts
 wordsUrl: http://localhost:3006/words
-appUrl: ""
+assetUrl: ""

@@ -4,8 +4,8 @@ html
         title !{"\uD83D\uDCDD"}
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
         link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-        link(rel="stylesheet", href=`${appUrl}/styles.css`)
-        link(rel="shortcut icon", href=`${appUrl}/favicon.ico` type="image/x-icon")
+        link(rel="stylesheet", href=`${assetUrl}/styles.css`)
+        link(rel="shortcut icon", href=`${assetUrl}/favicon.ico` type="image/x-icon")
         meta(name="viewport" content="width=device-width")
         script.
             window.SENTRY_DSN = "#{sentryDsn}";
@@ -30,5 +30,5 @@ html
             iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
             height="0" width="0" style="display:none;visibility:hidden")
         block content
-        script(src=`${appUrl}/vendor.js`)
-        script(src=`${appUrl}/main.js`)
+        script(src=`${assetUrl}/vendor.js`)
+        script(src=`${assetUrl}/main.js`)

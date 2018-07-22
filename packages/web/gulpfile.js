@@ -28,7 +28,7 @@ gulp.task("views", () => {
     return gulp.src(["views/index.pug"])
         .pipe(pug({
             locals: {
-                appUrl: config.get("appUrl"),
+                assetUrl: config.get("assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
                 environment: process.env.NODE_ENV || "local",
