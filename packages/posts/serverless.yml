@@ -19,6 +19,14 @@ provider:
       Resource: ${file(env.yml):${self:provider.stage}.kmsKeyArn}
     - Effect: Allow
       Action:
+        - S3:ListBucket
+      Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-posts
+    - Effect: Allow
+      Action:
+        - S3:GetObject
+      Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-posts/*
+    - Effect: Allow
+      Action:
         - SNS:Publish
       Resource:
         Ref: LambdaDeadLetterQueue
@@ -192,3 +200,7 @@ resources:
         Statistic: Average
         Threshold: 0.1
         Unit: Count
+    S3BucketPosts:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: randytarampi-${self:provider.stage}-posts

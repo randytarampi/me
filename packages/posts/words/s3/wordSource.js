@@ -1,61 +1,45 @@
 import Post from "@randy.tarampi/js/lib/post";
+import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
-import knox from "knox";
 import WordSource from "../wordSource";
 
 class S3WordSource extends WordSource {
     constructor() {
-        super("S3", knox.createClient({
-            key: process.env.AWS_ACCESS_KEY_ID,
-            secret: process.env.AWS_SECRET_ACCESS_KEY,
-            bucket: process.env.S3_BUCKET_NAME
-        }));
+        super("S3", new Aws.S3());
     }
 
     get isEnabled() {
-        return process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY && process.env.S3_BUCKET_NAME;
+        return process.env.S3_BUCKET_NAME;
     }
 
     getWordPosts(params) {
         const options = {
-            "max-keys": params.perPage || 20
+            Bucket: process.env.S3_BUCKET_NAME,
+            MaxKeys: params.perPage || 20
         };
 
         if (params.page) {
-            options.marker = options["max-keys"] * (params.page - 1);
+            options.Marker = String(options.MaxKeys * (params.page - 1)); // FIXME-RT: Replace with `StartAfter`
         }
 
-        return new Promise((resolve, reject) => {
-            this.client.list(options, (error, data) => {
-                if (error) {
-                    return reject(error);
-                }
-
-                resolve(Promise.all(data.Contents.map((object) => {
-                    return this.getWordPost(object.Key);
-                })));
-            });
-        });
+        return this.client.listObjects(options) // FIXME-RT: Replace with `listObjectsV2`
+            .promise()
+            .then(data => {
+                return data;
+            })
+            .then(data => Promise.all(data.Contents.map((object) => {
+                return this.getWordPost(object.Key);
+            })));
     }
 
     getWordPost(key) {
-        return new Promise((resolve, reject) => {
-            this.client.getFile(key, (error, response) => {
-                if (error) {
-                    return reject(error);
-                }
-
-                let responseYamlString = "";
-                response.on("data", (chunk) => {
-                    responseYamlString += chunk;
-                });
-                response.on("end", () => {
-                    resolve(responseYamlString);
-                });
-            });
-        })
-            .then((yamlString) => {
-                return this.jsonToPost(jsyaml.safeLoad(yamlString));
+        return this.client.getObject({
+                Bucket: process.env.S3_BUCKET_NAME,
+                Key: key
+            })
+            .promise()
+            .then(data => {
+                return this.jsonToPost(jsyaml.safeLoad(data.Body));
             });
     }
 

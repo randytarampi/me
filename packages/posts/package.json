@@ -31,12 +31,12 @@
   "dependencies": {
     "500px": "^0.5.1",
     "@randy.tarampi/js": "github:randytarampi/me.js",
+    "aws-sdk": "^2.279.1",
     "flickrapi": "^0.6.0",
     "form-data": "^2.3.2",
     "instagram-api": "^1.0.3",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.12.0",
-    "knox": "^0.9.2",
     "lodash": "^4.17.10",
     "lwip": "github:kant2002/lwip#node-10",
     "moment": "^2.22.2",
