@@ -5,7 +5,7 @@ GITHUB_USER=${GITHUB_USER:=randytarampi}
 GITHUB_PACKAGE_REPO=me.$PACKAGE;
 MONOREPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`/..}
 
-if [[ $PACKAGE == "web" ]]; then
+if [[ $PACKAGE == "www" ]]; then
 	GITHUB_PACKAGE_REPO=$GITHUB_USER.github.io;
 fi;
 
