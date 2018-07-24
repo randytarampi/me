@@ -19,6 +19,8 @@ before_install:
 - lscpu
 - npm install -g npm
 - export NODE_ENV=prd;
+- git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+- git config --global url."https://".insteadOf ssh://
 after_install:
 - git config --local user.name "Travis"
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
