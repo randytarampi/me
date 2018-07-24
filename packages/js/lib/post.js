@@ -29,11 +29,10 @@ class Post {
 	}
 
 	toJSON() {
-		const {_dateCreated, _datePublished, ...properties} = this;
 		return {
-			...properties,
-			dateCreated: _dateCreated,
-			datePublished: _datePublished
+			...this,
+			dateCreated: this.dateCreated,
+			datePublished: this.datePublished
 		};
 	}
 

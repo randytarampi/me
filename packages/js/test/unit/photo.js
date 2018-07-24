@@ -12,8 +12,8 @@ describe("Photo", () => {
 			const photoJSON = {
 				id: "woof",
 				source: "Woofdy",
-				_dateCreated: Date.now(),
-				_datePublished: Date.now(),
+				dateCreated: Date.now(),
+				datePublished: Date.now(),
 				width: -1,
 				height: -2,
 				sizedPhotos: [
@@ -33,7 +33,7 @@ describe("Photo", () => {
 					sourceUrl: "woof://woof.woof/woof/woof/woof"
 				}
 			};
-			const photo = new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON._dateCreated, photoJSON._datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator);
+			const photo = new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON.dateCreated, photoJSON.datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator);
 
 			expect(photo.type).to.eql(Photo.name);
 			expect(photo.dateCreated).to.be.an.instanceOf(Moment);
@@ -47,8 +47,8 @@ describe("Photo", () => {
 				id: "woof",
 				type: "Woof",
 				source: "Woofdy",
-				_dateCreated: Date.now(),
-				_datePublished: Date.now(),
+				dateCreated: Date.now(),
+				datePublished: Date.now(),
 				width: -1,
 				height: -2,
 				sizedPhotos: [
@@ -69,7 +69,7 @@ describe("Photo", () => {
 				}
 			};
 
-			expect(new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON._dateCreated, photoJSON._datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator)).to.eql(Photo.fromJSON(photoJSON));
+			expect(new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON.dateCreated, photoJSON.datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator)).to.eql(Photo.fromJSON(photoJSON));
 		});
 	});
 
@@ -80,8 +80,8 @@ describe("Photo", () => {
 				id: "woof",
 				type: "Woof",
 				source: "Woofdy",
-				_dateCreated: null,
-				_datePublished: null,
+				dateCreated: null,
+				datePublished: null,
 				width: -1,
 				height: -2,
 				sizedPhotos: [
@@ -111,8 +111,8 @@ describe("Photo", () => {
 				id: "woof",
 				type: "Woof",
 				source: "Woofdy",
-				_dateCreated: null,
-				_datePublished: null,
+				dateCreated: null,
+				datePublished: null,
 				width: -1,
 				height: -2,
 				sizedPhotos: [
@@ -151,8 +151,8 @@ describe("Photo", () => {
 				id: "woof",
 				type: "Woof",
 				source: "Woofdy",
-				_dateCreated: null,
-				_datePublished: null,
+				dateCreated: null,
+				datePublished: null,
 				width: -1,
 				height: -2,
 				sizedPhotos: [
@@ -200,8 +200,8 @@ describe("Photo", () => {
 				id: "woof",
 				type: "Woof",
 				source: "Woofdy",
-				_dateCreated: null,
-				_datePublished: null,
+				dateCreated: null,
+				datePublished: null,
 				width: -1,
 				height: -2,
 				sizedPhotos: [
@@ -232,8 +232,8 @@ describe("Photo", () => {
 				id: "woof",
 				type: "Woof",
 				source: "Woofdy",
-				_dateCreated: null,
-				_datePublished: null,
+				dateCreated: null,
+				datePublished: null,
 				width: -1,
 				height: -2,
 				sizedPhotos: [
