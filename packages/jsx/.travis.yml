@@ -17,13 +17,12 @@ before_deploy:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then
-  npm version "0.0.0-`date -u +%s`";
-  fi;
+- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then npm version "0.0.0-`date -u
+  +%s`"; fi;
 deploy:
   provider: releases
   api_key:
-    secure: RPft5WfGWuWtak43PCVIp7s0nQxMQGR9P7F+v3fVReB5QV0HS7J3MBFePW3mz2Ji4O/8i0cjtzjaZwxL6uE402/Bke5PbJqBkpJ00VKHycm0eOPIPEiNAtJlZcywCP5Zv6I5F0RAQqkuBVXfFXTtLaQgcdkFqu+8G8pz/evqLXxOcs8hVdN/bEi3KoyoPypbbL1aWYpNXQ9BCVkmRLGu6bDmLf/01zUkEH0LQDqMidcCsDUc0b9LvXE/mahmhyULcC6Kd+kFQoij1nYSUFzvztaJplTq77wFxkvTOBCenX4Kd/lmikNZAnRUmoWjmvfL7bofECAiMFZa0vkDXMzU1YRdryrjch0r4IN6eyZOrqXJJ1TZHS9znN9+MvsET+mr3Q35xthQxnhb2O9XSprn0JmxaryjHWOMJ5ki3ilOth35jBqiU5/EuUMp4LmfvV+Bnsoi+tTVuvR8J9qjHMHoAvluycU2DhbN2gDx6ooI9oYXyh7MO07HxnIXW8hwebiekszKQZwCRG28pc858sGLHyY09yUJbhnz1PXVEUeUvqocdKU56phCm+PjBQvqRHKn4+h6a9fXCR4RxnbVeyOB3xzHHhFwdfFA/4ZpItC7eCZ1X2PWe4wwYfLo1lSkc9vfXg2I2RJny8M2VXtE3hGpJQCHxJx3us8UtptbbSCAAwE=
+    secure: 2Gh10Gi1NqXqnVrpAldZjAs5/LUA+PDyy71c+nahH3lXLrzuGjr6kiwkpdOIyMn7Vm9foVtyKTh63TP5CQINffynaXjZTr2ERXaEPDQ7Bk3j/EAu9R89Z8DDKJ/KI+MjQ2zc4b/sZU7iAZEEc3MT3JCllSL0QIRnMjv/EwdJAdS9KxFuplrpETeVhB9njpkIWpFlDdAXD6AWENwDJPs2vsREirPMwVI2uotT1Pdpv8wv+QrphL73jkz+pUgHhGOtN87oCPSjFICkGwLIJ6KqAyTVtOMtXf09ZrS5myLJz/SWM0JwxuxjBRjHdp1zGVD9IFZwAgsuGD/bJ5aYWr8iymAvrMGGkt+rltzh6PxTjIq8puwRIrbB8zayiLZDYlmQpCEboZnVqhAzeHte+ax0QcaJuAjrM5PMyiRXpkaTzesCpB/n4+9Zdetm2pUWudaSER+0sbAHUehnoHLt6X6RnI3UMlrBnPFk2M3lQP0j9P+cuWSUDU2qCkTvulGEGbI9LQ01Q3AWptEBsn5kkaR0ikOV78uFEPuRx4N/Z2GIMXZbI0+9IP0NhhBUETu58raxaTSQ59qHEg5qw3YQDQ1PDD0OzE1BlTb+QrlP22oBv7UyFM0QepznLvaddBJybIQGomOyXkhOSXQDeN/uWnI4ezyU4IW+njFipj5jEG33TQU=
   file: me.jsx.tar.gz
   skip_cleanup: true
   on:
