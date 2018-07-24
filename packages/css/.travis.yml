@@ -17,20 +17,18 @@ before_deploy:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then
-  npm version "0.0.0-`date -u +%s`";
-  fi;
+- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then npm version "0.0.0-`date -u
+  +%s`"; fi;
 deploy:
   provider: releases
   api_key:
-    secure: eAGFduAKPX+M8jjR3dik1fI+g0jPJsjWYcbAn1sylwnPIMuEnC/hh04wjO1UTcOdZFHAUFZIKKWX2ZF9M73oBbdU/XpUYRZ8LsKKOtQd+BVVvV+4xmZJNYvhM8CqDG1uhD64lGpCHeEJxs97rIR6zgjdgNeWz4kfY4MFOSHnUPZen4wcJYezwmFYBe2BQYoKxJP/z5sbh8ozo37EPzJodlXSRuEwhHE9Ml6jP9kArkNOYlds9jvtFTBZycQxtqIY+3E8DGQEmTMp9oXQG8Vx6ZmENzsgrol4dHyey9vqjB6mSDsoal/jS7G5aARvAJjuXN5cdixImZp5cslz4S5KDM6d9xkE9KUQdleHu5r3sN+o2AHrejfueevUCYl3zT/3r95jNqkrWg5cWhDzciMiTGMPUs+uWK4C4OkThxPGIBSTX9/FZQ8+FF2RxSdeHCvy17gTHjF+cxYz7c+SEyp2KWGrlwocQM6NlQTTXwpbWSl7pg0umgbkDtWgsxQsVp0Mvt4/R5Di1Jv+EK6+DXlXMSSYP4ck8rQnEJD4kasu7Sj+AsHEylfzjF9dTy6F6cm5kFMDHbiW5DKhgBFZzr1W1OcQACpCCW6Wo8WkHF9kUNOL62bv6vjGtoAMGcbzZTYsG01pGvWVpgpNK7xKOHkjDDZK5xZzy105O+frIUjy7fE=
+    secure: eO67MVzEdXnW0NQz8zgZr94oqG+kVj7H9ePfP/1KFcb0EGDeqNf5QCAxEUf/HfxVgi4qyoM1vpe/dd7XMvirkkdketIbCIk9xh15CNc/IFnVGI3XLXpIjoQz4QG9MbIQ2PgANEyx9tMplFMpzteG2u9b8iFmh+RrN7aehl2ckOQbg0mGct4esYNX3bxSknP3asHJzmj62Z2an+vsFiuqdGqA/GrvSW9PVvvNEIolveVemaFTyv+PZG9BBk+37faA1szpIyiIaXfXO8fgIni/emadYqMrvi/lo6uoTstXVEnbHcPOzjL5ogcrcXuGjXxho2tBkErClr9IFuDlnvtBmkNxd1lHRIzD1T9pyT10PosxjzfOjWLjnNMMGR7UWNYzoiZmf6V2gS19hp57hDhAHgJTzaQ6J5IwjhOjJwxjy5wN4bYa2UTeSH0uyejzAw8zyrOdwoFkZ8wW1J2Np2IhPDL/Rn9oG8NSNMZ1Uk/Diil1jql1bd2bhIeghs7Oy5Ya7IgBGUC4tFUmXKLjJbc04J8xPuwiamPrhdkD6tr9aQpCOdimBHIBreaVebMtANbJkvuRYlCZtlBOwhw96czHSSBCj+D2IehsorgE5zJvLsUAFlkk9KLyFKopVHeaDm7juxAGI9++Au05L0OKeL44iwyDHvSBkyYLwIFa7J8bcYA=
   file: me.css.tar.gz
   skip_cleanup: true
   on:
     branch: master
     node: 8
 after_deploy:
-#- npm version preminor -m "[Travis] Prepare version %s";
 - git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
 notifications:
   slack:
