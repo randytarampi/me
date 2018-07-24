@@ -20,8 +20,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@randy.tarampi/css": "github:randytarampi/me.css#semver:*",
-    "@randy.tarampi/jsx": "github:randytarampi/me.jsx#semver:*",
+    "@randy.tarampi/css": "github:randytarampi/me.css#semver:^0.0.0-0",
+    "@randy.tarampi/jsx": "github:randytarampi/me.jsx#semver:^0.0.0-0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
