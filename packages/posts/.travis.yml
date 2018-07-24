@@ -1,7 +1,14 @@
 language: node_js
 dist: trusty
 node_js:
+- '10'
 - '8'
+- '6'
+matrix:
+  fast_finish: true
+  allow_failures:
+    - node: 6
+    - node: 10
 env:
   global:
   - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
@@ -36,6 +43,7 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
+    node: 8
 - provider: releases
   api_key:
     secure: WYoyquzsGn8vtgnLHC7tvCvysH+yi1JPhlATlchP4WwRJiori9klsUV7tBCStB/CbLe6wP4kINcyrKpv6SS9+QgYQDvNx7dZP9nTjtpTAG5o18sIZLTkzFUUv5E2usCiF38xLE33VbxhFa3VfhmLQUypntFM6AZS/mt+GQq28aKaoQLeV1aSJRpoyGCvamPrFB/LahTNVFe/U/ZCtfae6trqV4CeM5bTkeCt4llsR4lBTvkPOS+jpMr18VXVrgMwlWvOVL8mneowS7FNH6Wp2AAr5GT/LkspFrZ/Rcx7EhYgiah+A3whFGckED24uRjuxSsa3IVz8BtL7vTAbFBQrrSUI3scM0rXhA91ILtE7ZVLzhxtve22UUi+5/tkwcR06PmOa8bKtLcj2qRg5QSQxSoaJ7bQshcC9udYEjIs0SUfwsCqb8M61S+jbOFQGV+5MZif5dLrv5kh2UBatIiSC0v1MxIWPWObHkJ1Dh0zIunyvwtXEHwz6LSuEW1HNB4Ow5MH9vbpAK+oZmROdgyvhsXs8AvTxCwZH+jzEsfmL0VtBkfIu6xgdxRp7KXVcQY9Ca5xgyVjozmuiIX2NaHLnGYVkStWHesPJEH6TbA57702ijEe6rZljExpshvEB+VJ0NDzcwJ1ktMPIS1wwIUxet0zgYFR8+/hzYL5+pUp6rE=
@@ -43,6 +51,7 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
+    node: 8
 after_deploy:
 #- npm version preminor -m "[Travis] Prepare version %s";
 - git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
