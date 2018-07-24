@@ -6,8 +6,31 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
-- npm install react react-dom && rm package-lock.json
+- export NODE_ENV=prd;
+- git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+- git config --global url."https://".insteadOf ssh://
 script: gulp build
+before_deploy:
+- mkdir -p ../dpl_cd_upload
+- tar -zcf ../dpl_cd_upload/me.jsx.tar.gz -C ./ .
+- git config --local user.name "Travis"
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+- git config --local user.email $TRAVIS_AUTHOR
+- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then
+  npm version "0.0.0-`date -u +%s`";
+  fi;
+deploy:
+  provider: releases
+  api_key:
+    secure: RPft5WfGWuWtak43PCVIp7s0nQxMQGR9P7F+v3fVReB5QV0HS7J3MBFePW3mz2Ji4O/8i0cjtzjaZwxL6uE402/Bke5PbJqBkpJ00VKHycm0eOPIPEiNAtJlZcywCP5Zv6I5F0RAQqkuBVXfFXTtLaQgcdkFqu+8G8pz/evqLXxOcs8hVdN/bEi3KoyoPypbbL1aWYpNXQ9BCVkmRLGu6bDmLf/01zUkEH0LQDqMidcCsDUc0b9LvXE/mahmhyULcC6Kd+kFQoij1nYSUFzvztaJplTq77wFxkvTOBCenX4Kd/lmikNZAnRUmoWjmvfL7bofECAiMFZa0vkDXMzU1YRdryrjch0r4IN6eyZOrqXJJ1TZHS9znN9+MvsET+mr3Q35xthQxnhb2O9XSprn0JmxaryjHWOMJ5ki3ilOth35jBqiU5/EuUMp4LmfvV+Bnsoi+tTVuvR8J9qjHMHoAvluycU2DhbN2gDx6ooI9oYXyh7MO07HxnIXW8hwebiekszKQZwCRG28pc858sGLHyY09yUJbhnz1PXVEUeUvqocdKU56phCm+PjBQvqRHKn4+h6a9fXCR4RxnbVeyOB3xzHHhFwdfFA/4ZpItC7eCZ1X2PWe4wwYfLo1lSkc9vfXg2I2RJny8M2VXtE3hGpJQCHxJx3us8UtptbbSCAAwE=
+  file: me.jsx.tar.gz
+  skip_cleanup: true
+  on:
+    branch: master
+    node: 8
+after_deploy:
+- git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
 notifications:
   slack:
     secure: p/NT1Ms/u55XCNS4fwnN7uDXzvFaWZNMr1IItTyilVzNxRC/+8MyKz1lGtulqHjQu9MsYrfKBzvSfruhfpEPEziWhL6q8KrG+MW6iojyyXSKvPBFOzV+aKLSu8RZ675qpbH2p+krLHVtrDoOT92tsy2zqCEkdr2k0Z9j7QpQoa5jVlNzKgsPV33ME7FcLa9aGXblIAEF09ZpHizYjWWSL84WUvwMDELkZCsv56IuspZ3BX5JPR9kW66jidle8YdN/cJjI0WQmQcYCara4B7wjAKLfktlwX3PxASri4V+i88AP2g5PPv+HNrALMXrexTlzLuB6MlijVNtxOOZiz6FszUJnlnRWgln/obtEw3Wogyt0Z9putRODIBIel37PEHii4J0ZMfmiPF67er5T0CLfbFrzwZWmt5x2vAPgpdmgEkYnADJW9Myc8nZbxLgA1Y7lF99HY/ksvOZwzQhl1uy6cm859LqEZUZI7DcLSzhEgO2y4uH7xOBgnDAuyiABASAc0YZrw3gUD39jYiabzz2Z9n3BsgnWpBf/GrqVCvYIqkMJqNZm0zH6uDk0u7erxyB3lqGBoOiMdLEimx5G2O4O0wRmmfEteCQG1dqc+mAwPkatNGfqc0hO3Zvzn4eFjwy4fFyE9gdVVRf9JcqAFnN3PC4GR1Lc29I+H99fXkbvgM=

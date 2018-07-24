@@ -6,7 +6,30 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
+- export NODE_ENV=prd;
+- git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+- git config --global url."https://".insteadOf ssh://
 script: npm run travis
+before_deploy:
+- mkdir -p ../dpl_cd_upload
+- tar -zcf ../dpl_cd_upload/me.js.tar.gz -C ./ .
+- git config --local user.name "Travis"
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+- git config --local user.email $TRAVIS_AUTHOR
+- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then npm version "0.0.0-`date -u
+  +%s`"; fi;
+deploy:
+  provider: releases
+  api_key:
+    secure: OwP3B592VlSJZGQDp2FQ8H4tcVQ85vG7Fx6Ejdk1NxJ0H5TyXok8r1ZZIP75u7p5s4/DV+pIbU3gDzDsPUaYMO+C4w/VoKli3dtmNJrdIXYbjqQKs1dkGcBGXM4I/5BH9LGjbgI9HhK+vyGbPRm98sxtokK8lAH45QfhHsghGgX8V5lt5ACu0dZYDHuQa6dYGTrgp0T/drYM/Tn3s4ba6N3FsEXxS9kNwoGZYLdpPlwpj8f/ofYhsxcCN/os9NkvN+ds6yCDdqwbcGBpsnK4Xd1HgKaGRr8vUZl4+VwTxpUeY/xPBzvw4knl9Nb52pNJf64h/8NZhfKw9/hJR3tfIEMWf+4QH2oR98t8W8AEbN208Ms2xFPcRfekY4uuKvfWchLTDzBNhpr5O4a87sbtK0AhTkMF2X42Uz1NHMVkgL4J+fZXA1J4Nz3QrvYRODXLFsZmCYPPIKJJ5NBG0Sp2ppsmH0BJrbF+3aOOt7CRZkLB9F/MoBT1W6Q0o9arHGo5USiRENOngQz407uBiZKEpzg6MqR26sS3unmUsJ4Y+qkI8fairDILt5PmADtPl8cI+DVkcHEv5RsTRqataqIXqEhXL/jDymUSEg7VUA+Dmn2vlziwAUF5mO+8taq0w0+03ne9DiIwiQ/ULLA3KeZaIOR7351bmEfpZAR1ipTF4G4=
+  file: me.js.tar.gz
+  skip_cleanup: true
+  on:
+    branch: master
+    node: 8
+after_deploy:
+- git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
 notifications:
   slack:
     secure: P/44JIYCaFip/qvzLm/UDZr3oRZSvyOVSLopGfF8oO7JY9jeJ9+th/V0h0OelAYPOxDX3AI0oQPmvwBN+PkHbDnCRzre6yRpK+BvB7DGH2hGx0dwRTBPKSCyEWkv3cb8bUy5a91QyRr42l9TQVGcGasFQ17Df5ENMV52rwr3EtT6XInrW5BZvyJdGtaQXBSa7u9ZpHW8/BzOsf3+HrNnH4e/IXL5P8FVKxzxMUlwnaJX0GA3wLZzuFDUV4ISu1FLdrh5KGqFSIOQi8UyfWdnbqKPBHxy4sAdsQA44OeRDnG/yc8oVeJFvZEpYzVCdiTzbruzqmwcGhh73iO6C/pV24Ljcg3EXor08FwHbhSijeVBxNnWKowrrECo+dX5jUxrGauV5k+MajC1Zx+14ZxXCVjo32U/V/f8JNee6U8lFvoSZTx5YKvIhPxrI37inkAyjx020fGeAdfhyv6xpQni6VW7KEhq2tINukVu0G3Z6Zk5r+MTSaLoNSi9f7amAmhc3MufROq3vlEvRQCvIe+X4OSNlpk3hfROqUjx9/3smhZ9e6956r7T341+btX7yRGSZVgMfDzBVq0hUWzq0tmBOWNQNHobqnPTmEOBos9K4YjNW28iqlQjOMckxpLJnSWmVRDR5fu90aUAwiBcj64hJRnnZxpKz9C215NC3EzQt+Y=

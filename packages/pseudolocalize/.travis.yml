@@ -4,7 +4,35 @@ node_js:
 - '10'
 - '8'
 - '6'
+before_install:
+- uname -a
+- lscpu
+- npm install -g npm
+- export NODE_ENV=prd;
+- git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+- git config --global url."https://".insteadOf ssh://
 script: npm run travis
+before_deploy:
+- mkdir -p ../dpl_cd_upload
+- tar -zcf ../dpl_cd_upload/me.pseudolocalize.tar.gz -C ./ .
+- git config --local user.name "Travis"
+- export TRAVIS_AUTHOR=travis@randytarampi.ca
+- export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+- git config --local user.email $TRAVIS_AUTHOR
+- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"0.0.0-"* ]]; then
+  npm version "0.0.0-`date -u +%s`";
+  fi;
+deploy:
+  provider: releases
+  api_key:
+    secure: b/nnljkujRCfRVE5RcABJKYxc66k4JRridiqC14cBMAf8i2EFWNXSCfd1EBal1CXBqiahr5AAO6hvbikcsdWw2m6p9kxsUGtbX8RvVKfCJNRUI1xxY13zFU6webZesmc9QsWIhQ6Zv7ETlyMsog7lCCnxndYPKHv4s2/fC378l6ysNr3Ved4MK5IR/hGG8BJ6b9r0a+nuog7GCtzu9ZMcylPpBLvOwc6mqP/gg75zb6hMhBlchmpjN4joSOMFCRuEi9nThnLIXkNhiu756c6DJZTiniZnXaFhjtvenpes98P+Iqjbrm8GTlEoxtGusLltsQiSPwQakEERBuhX50mCFzdqYJzYnjo5lAjPJ+Zp1L5raouVGrlSkzzfZIMO0xKE3axZ/Mrge/iH6EhdGr3pm+RKLD3CKTSmhjH2+At1kfRfkHM4MDS1F7RUpeOmJBRwDK3OXg+AD2JCNlFJ5V3bM7mHnIG9WV+JW2x6PeyMj5VwBMcAEPXy9atPHGlVx2iFP64lruJKgwFsAn9QYbwh8fWJx2YyDvZ5mRBpWD/pyQfIQ28x+8h3rIioyIYmH1/GxFNAvVI0ZefepDQTcruCW97rJ5MVZx/+ZfuCq2S3I63ja1bAaPYwc3N8OWJ7Pf6QbrfLFNgACHyViXKHhBLN7bIflqKKkGR5e1dX+ITLqM=
+  file: me.pseudolocalize.tar.gz
+  skip_cleanup: true
+  on:
+    branch: master
+    node: 8
+after_deploy:
+- git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
 notifications:
   slack:
     secure: ahTNqFmSBKhCHsSayjNOZO297WmaxQg7cWr8DkA2iPAHpqvTm6zWHHfiWVM3wMcSwDDIWu3vEsSEB1lZ38c2OlLi5wQLO506tSVAlbiT5a1wnRC2c8tun6w5Uw4e9P1NiLgQdxWrBO1Uj3yvEQnQDii7tSy3Bdtp4glSD3OqdvVrolJYdobC7XOFATz1Mujsd0Si8cJ8LPLwfnN0iuPNYpjT0FDF4NP6Gnh5fWnEDF0w4vfavcXs104HgLvgOBBAsxcyDypYqlCKHgHX9SQ0pGm3vSD1DsMKVk0fbiqYFx4vHU5hgoW6NIvhKFL5timPyBD2F6qqT58aMpp84FJyniZEqaV5wJXaBKwy+btWxoKcdVs1sIVYI8tmeE7bHeWesk8wjO3ErdApEbYdKINwargaHahNy2IL1QhVHPWFU5bEh6sECTsMo5/YIVPVOYvvEO3eAwl7TxUHy1nuKOI3daUAW0W2nA61zAN4cbHoxk1C85oPSqYRMzXB+oZd7v0y5epE32ilMeLi5/C3NUoIuBTQvHzQ+Q6RWmycApRLMVcoCkL2x8KFjpvzARhZwmlwwzjY97dYGzrUh0mjVe1GtLSoT5Q/3u7UPCXQBIiGok08DJdNqA9cdY8OdNFAlpVVPT9/3hHyVUchCXKeKDLK1LG0NeycQ1SawGyc293IokM=
