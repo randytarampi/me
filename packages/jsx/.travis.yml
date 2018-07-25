@@ -29,7 +29,7 @@ deploy:
     branch: master
     node: 8
 after_deploy:
-#- git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
+- git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:master;
 notifications:
   slack:
     secure: p/NT1Ms/u55XCNS4fwnN7uDXzvFaWZNMr1IItTyilVzNxRC/+8MyKz1lGtulqHjQu9MsYrfKBzvSfruhfpEPEziWhL6q8KrG+MW6iojyyXSKvPBFOzV+aKLSu8RZ675qpbH2p+krLHVtrDoOT92tsy2zqCEkdr2k0Z9j7QpQoa5jVlNzKgsPV33ME7FcLa9aGXblIAEF09ZpHizYjWWSL84WUvwMDELkZCsv56IuspZ3BX5JPR9kW66jidle8YdN/cJjI0WQmQcYCara4B7wjAKLfktlwX3PxASri4V+i88AP2g5PPv+HNrALMXrexTlzLuB6MlijVNtxOOZiz6FszUJnlnRWgln/obtEw3Wogyt0Z9putRODIBIel37PEHii4J0ZMfmiPF67er5T0CLfbFrzwZWmt5x2vAPgpdmgEkYnADJW9Myc8nZbxLgA1Y7lF99HY/ksvOZwzQhl1uy6cm859LqEZUZI7DcLSzhEgO2y4uH7xOBgnDAuyiABASAc0YZrw3gUD39jYiabzz2Z9n3BsgnWpBf/GrqVCvYIqkMJqNZm0zH6uDk0u7erxyB3lqGBoOiMdLEimx5G2O4O0wRmmfEteCQG1dqc+mAwPkatNGfqc0hO3Zvzn4eFjwy4fFyE9gdVVRf9JcqAFnN3PC4GR1Lc29I+H99fXkbvgM=
