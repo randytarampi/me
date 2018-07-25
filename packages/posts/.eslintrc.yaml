@@ -38,5 +38,4 @@ settings:
         - .js
         - .json
 globals:
-  __PHOTOS_URL__: false
   __CLIENT_URL__: false

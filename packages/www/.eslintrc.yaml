@@ -49,7 +49,10 @@ settings:
         - .jsx
         - .json
 globals:
-  __WORDS_URL__: false
-  __POSTS_URL__: false
-  __PHOTOS_URL__: false
+  __WORDS_SERVICE_URL__: false
+  __POSTS_SERVICE_URL__: false
+  __PHOTOS_SERVICE_URL__: false
+  __WORDS_APP_URL__: false
+  __POSTS_APP_URL__: false
+  __PHOTOS_APP_URL__: false
   __CLIENT_URL__: false

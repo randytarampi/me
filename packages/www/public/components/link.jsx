@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 class Link extends React.Component {
 	constructor(props, context, updater) {
@@ -98,7 +98,7 @@ export class Photos extends Link {
 	}
 	static get defaultProps () {
 		return {
-			href: "http://photos.randytarampi.ca",
+            href: __PHOTOS_APP_URL__,
 			text: "Photos"
 		};
 	}
@@ -110,7 +110,7 @@ export class Words extends Link {
 	}
 	static get defaultProps () {
 		return {
-			href: "http://words.randytarampi.ca",
+            href: __WORDS_APP_URL__,
 			text: "Words"
 		};
 	}
@@ -122,7 +122,7 @@ export class Blog extends Link {
 	}
 	static get defaultProps () {
 		return {
-			href: "http://blog.randytarampi.ca",
+            href: __BLOG_APP_URL__,
 			text: "Words"
 		};
 	}

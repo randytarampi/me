@@ -22,7 +22,7 @@
     "build:flickr": "node node_modules/flickrapi/compile.js",
     "build": "npm run build:flickr"
   },
-  "description": "A backend to randytarampi/me.photos, randytarampi/me.words and randytarampi/me.blog.",
+  "description": "A backend to randytarampi/randytarampi.github.io",
   "homepage": "https://github.com/randytarampi/me.posts",
   "bugs": {
     "url": "https://github.com/randytarampi/me.posts/issues",

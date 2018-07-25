@@ -17,7 +17,7 @@ Currently supports:
 - [Instagram](https://www.instagram.com/developer/)
 - [S3](https://github.com/Automattic/knox)
 - [Tumblr](https://www.tumblr.com/docs/en/api/v2)
-- [Local](https://github.com/randytarampi/me.photos/blob/master/photos/local/photoSource.js)
+- [Local](https://github.com/randytarampi/me/blob/master/packages/posts/photos/local/photoSource.js)
 
 Scan some post sources for posts, then display them on a single page.
 
