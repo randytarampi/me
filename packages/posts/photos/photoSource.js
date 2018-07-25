@@ -3,15 +3,14 @@
  */
 class PhotoSource {
 	constructor(type, client, initalizerPromise) {
-		let that = this;
 		this.type = type;
 		this.client = client;
 
 		if (initalizerPromise) {
 			this.initializing = initalizerPromise
 				.then((initializedClient) => {
-					that.client = initializedClient;
-					return that;
+                    this.client = initializedClient;
+                    return this;
 				});
 		} else {
 			this.initializing = Promise.resolve(this);

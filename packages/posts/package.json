@@ -19,8 +19,7 @@
     "deploy:dev": "npx sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --stage $NODE_ENV --region us-east-1",
     "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --stage $NODE_ENV --region ca-central-1",
     "version": "if [ -z \"$TRAVIS_TAG\" ]; then if [ \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; else git rm npm-shrinkwrap.json; fi;",
-    "build:flickr": "node node_modules/flickrapi/compile.js",
-    "build": "npm run build:flickr"
+    "build": "npx gulp build"
   },
   "description": "A backend to randytarampi/randytarampi.github.io",
   "homepage": "https://github.com/randytarampi/me.posts",
@@ -32,7 +31,7 @@
     "500px": "^0.5.1",
     "@randy.tarampi/js": "github:randytarampi/me.js#semver:^0.0.0-0",
     "aws-sdk": "^2.279.1",
-    "flickrapi": "^0.6.0",
+    "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
     "instagram-api": "^1.0.3",
     "isomorphic-fetch": "^2.2.1",

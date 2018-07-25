@@ -1,7 +1,7 @@
 import Creator from "@randy.tarampi/js/lib/creator";
 import Photo from "@randy.tarampi/js/lib/photo";
 import SizedPhoto from "@randy.tarampi/js/lib/sizedPhoto";
-import Flickr from "flickrapi";
+import Flickr from "flickr-sdk";
 import _ from "lodash";
 import Moment from "moment";
 import PhotoSource from "../photoSource";
@@ -9,59 +9,31 @@ import SearchParams from "../searchParams";
 
 class FlickrSource extends PhotoSource {
     constructor() {
-        super("Flickr", null, new Promise((resolve, reject) => {
-            Flickr.tokenOnly({
-                api_key: process.env.FLICKR_API_KEY,
-                secret: process.env.FLICKR_API_SECRET
-            }, function (error, flickr) {
-                if (error) {
-                    return reject(error);
-                }
-
-                resolve(flickr);
-            });
-        }));
+        super("Flickr", new Flickr(process.env.FLICKR_API_KEY));
     }
 
     getUserPhotos(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
-        const that = this;
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;
         let flickrRequest = Promise.resolve(userId);
 
         if (!userId) {
-            flickrRequest = new Promise((resolve, reject) => {
-                client.people.findByUsername({
+            flickrRequest = client.people.findByUsername({
                     username: process.env.FLICKR_USER_NAME
-                }, (error, response) => {
-                    if (error) {
-                        return reject(error);
-                    }
-
-                    resolve(response.user.nsid);
-                });
-            });
+                })
+                .then(response => response.body.user.nsid);
         }
 
         return flickrRequest
-            .then((userId) => {
-                return new Promise((resolve, reject) => {
-                    client.people.getPublicPhotos(_.extend({
+            .then(userId => {
+                return client.people.getPublicPhotos(_.extend({
                         user_id: userId
-                    }, params.Flickr), (error, response) => {
-                        if (error) {
-                            return reject(error);
-                        }
-
-                        resolve(response.photos.photo);
-                    });
-                });
+                    }, params.Flickr))
+                    .then(response => response.body.photos.photo);
             })
-            .then((photos) => {
-                return photos.map((photo) => {
-                    return that.jsonToPhoto((photo));
-                });
+            .then(photos => {
+                return photos.map(this.jsonToPhoto.bind(this));
             });
     }
 

@@ -23,11 +23,7 @@ const plugins = [
         {
             from: ".serverless-secrets.json",
             to: ".serverless-secrets.json"
-        },
-        {
-            from: "./data",
-            to: "./data"
-        },
+        }
     ])
 ];
 
