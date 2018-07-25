@@ -29,12 +29,11 @@ rules:
     import/no-extraneous-dependencies: 1
     react/no-unescaped-entities: 0
 parserOptions:
-    ecmaVersion: 6
+    ecmaVersion: 2018
     sourceType: module
     ecmaFeatures:
         jsx: true
         modules: true
-        experimentalObjectRestSpread: true
 env:
     node: true
     es6: true

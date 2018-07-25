@@ -19,11 +19,10 @@ rules:
     import/default: 2
     import/no-extraneous-dependencies: 1
 parserOptions:
-    ecmaVersion: 6
+    ecmaVersion: 2018
     sourceType: module
     ecmaFeatures:
         modules: true
-        experimentalObjectRestSpread: true
 env:
     node: true
 plugins:
