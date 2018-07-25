@@ -33,7 +33,7 @@ before_deploy:
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [[ "$TRAVIS_COMMIT_MESSAGE" != *[Travis] Release version* ]]; then npm version "0.0.0-`date -u +%s`" -m "[Travis] Release version %s"; fi;
+- if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[Travis] Release version"* ]]; then npm version "0.0.0-`date -u +%s`" -m "[Travis] Release version %s"; fi;
 deploy:
 - provider: script
   script: NODE_ENV=prd npm run deploy
