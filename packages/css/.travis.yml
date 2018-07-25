@@ -18,8 +18,7 @@ before_deploy:
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
 - shopt -s extglob
-- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ !(^0.0.0-[0-9]{10}$) ]]; then npm version "0.0.0-`date
-  -u +%s`"; fi;
+- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ (^\[Travis\] Release version) ]]; then npm version "0.0.0-`date -u +%s`" -m "[Travis] Release version %s"; fi;
 deploy:
   provider: releases
   api_key:

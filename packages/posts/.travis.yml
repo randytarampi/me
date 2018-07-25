@@ -17,7 +17,6 @@ env:
   - secure: CIl8S5L9EilujMCRbAhYhlEh4igwiQWnApKO9m/1rCy4TOCYzj6rjCH8smB1ScvD0Ikw5hmth35XS9xRUqNrlu8LXz+pW0STQW9POjHYIV8ADSHYUQq5NgeXcphHKvJIprpjDVrRrTS1irMOONu5SQoFfMkEiBsrb6P5J49oaLnK7t4BwhRjTpweVAyY0tpFG2upQGxlQdsztxaOYCa8fvdJuWIfp7LkZU79qzZkLwvev8PRh/K+GKsYrOtgKW1bL3oqVYTyUFyzpExYOUzOVfy9zKAmEbHVVDx4quiSiTUZEIhIQJ4Ky1svAWM8pDZz9pYKh1XS50pgA1fsYwSnJvu/y9F0fol+Ku6yvmHXba6mr3s3qZ0YqPikBCCYUHfbA/ASR0+zMUV0THsXbSgMmeMPRBZoI0HqulaqYoCsXRFBdvJNGQfAQ+Rs493KK2MbVEPQbiRGkPMSfAOtYCXBwazEmqJXF6vkYsLb/jq9WnIoG8cwWDD7vTTyb3QiSmS0YAMW+1rxAW/PRztnAIMeKEBsu7pkY8GkZfQ+eG98nG4OeaDo4iOGC/FGh7uASWTEXaC0o/FSzaQoZMX5/TiE3xzni15l5bPg2OXcjdf04JkZHLbok2pDes+4rRYad4FvJd6H9Ud9TfqmooLsw1IKsLuV3Q75ozhH5BsE4rsZpOA=
   - SENTRY_ORG=randytarampi
   - SENTRY_PROJECT=posts
-  - SENTRY_PROJECT=posts
   - SENTRY_LOG_LEVEL=debug
 before_install:
 - uname -a
@@ -35,9 +34,7 @@ before_deploy:
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
 - shopt -s extglob
-- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ !(^0.0.0-[0-9]{10}$) ]]; then
-  npm version "0.0.0-`date -u +%s`";
-  fi;
+- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ (^\[Travis\] Release version) ]]; then npm version "0.0.0-`date -u +%s`" -m "[Travis] Release version %s"; fi;
 deploy:
 - provider: script
   script: NODE_ENV=prd npm run deploy
