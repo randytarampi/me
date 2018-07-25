@@ -16,14 +16,15 @@ before_install:
 - git config --global url."https://github.com/".insteadOf ssh://git@github.com/
 - git config --global url."https://".insteadOf ssh://
 script: gulp build
-after_success:
+before_deploy:
 - mkdir -p ../dpl_cd_upload
 - tar -zcf ../dpl_cd_upload/randytarampi.github.io.tar.gz -C ./ .
 - git config --local user.name "Travis"
 - export TRAVIS_AUTHOR=travis@randytarampi.ca
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
-- if [[ -z "$TRAVIS_TAG" ]]; then
+- shopt -s extglob
+- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ !(^0.0.0-[0-9]{10}$) ]]; then
   npm version "0.0.0-`date -u +%s`";
   fi;
 deploy:
