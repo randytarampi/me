@@ -18,8 +18,8 @@ before_deploy:
 - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
 - git config --local user.email $TRAVIS_AUTHOR
 - shopt -s extglob
-- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ !(^0.0.0-[0-9]{10}$) ]]; then npm version "0.0.0-`date -u
-  +%s`"; fi;
+- if [[ "$TRAVIS_COMMIT_MESSAGE" =~ !(^0.0.0-[0-9]{10}$) ]]; then npm version "0.0.0-`date
+  -u +%s`"; fi;
 deploy:
   provider: releases
   api_key:
@@ -34,3 +34,6 @@ after_deploy:
 notifications:
   slack:
     secure: p/NT1Ms/u55XCNS4fwnN7uDXzvFaWZNMr1IItTyilVzNxRC/+8MyKz1lGtulqHjQu9MsYrfKBzvSfruhfpEPEziWhL6q8KrG+MW6iojyyXSKvPBFOzV+aKLSu8RZ675qpbH2p+krLHVtrDoOT92tsy2zqCEkdr2k0Z9j7QpQoa5jVlNzKgsPV33ME7FcLa9aGXblIAEF09ZpHizYjWWSL84WUvwMDELkZCsv56IuspZ3BX5JPR9kW66jidle8YdN/cJjI0WQmQcYCara4B7wjAKLfktlwX3PxASri4V+i88AP2g5PPv+HNrALMXrexTlzLuB6MlijVNtxOOZiz6FszUJnlnRWgln/obtEw3Wogyt0Z9putRODIBIel37PEHii4J0ZMfmiPF67er5T0CLfbFrzwZWmt5x2vAPgpdmgEkYnADJW9Myc8nZbxLgA1Y7lF99HY/ksvOZwzQhl1uy6cm859LqEZUZI7DcLSzhEgO2y4uH7xOBgnDAuyiABASAc0YZrw3gUD39jYiabzz2Z9n3BsgnWpBf/GrqVCvYIqkMJqNZm0zH6uDk0u7erxyB3lqGBoOiMdLEimx5G2O4O0wRmmfEteCQG1dqc+mAwPkatNGfqc0hO3Zvzn4eFjwy4fFyE9gdVVRf9JcqAFnN3PC4GR1Lc29I+H99fXkbvgM=
+env:
+  global:
+    secure: qjf3b0w0Rey905cdq2u6XZfOF4xQO19JFLBKaOh6zsQp6hfLiO/uBVriO2qq6Xo/OzEjg3NVyOPz/O/N0wvEceZ80FQSdm8hETAaiz12s29x5iVGpx8WPzxDCaj7viBmDRSAKNmNfhq+eFHR/Iuu6FAzD1jmjH5GTgi7m7T7/TiLMs9Q8ttcoRRoNKe+aW7jJFfUXkpnFrzrnjP/aduYrZEQvRyOR3n+GAR1DWK3t4/JD1cszbYBa9+dS84CZqalOQ+MBG3HmOurr8dfB6Hexix19nLhNemWE3+EfJfJnSVcmel5/q7GDfqVBllYIq+By0trf5vMMt4Z/HzMBgNzOtKkmAkGNFrms/GjWUiVO20kCDDQLXtqIFwv3buGI94JS6xfpCUqwWAcKU8YV3DZCxIMXJaGVEyYK72qrxIs54pYfYbNE2h4WMmBjG8QasU6nbLEYnp4ySj/qHzceTtLarqiiRLoXHZhSDxlE3oZw3OEWDUUVVaeuzaU4vdVt0pHciq3UMS++JcTakxnvZKBZt2zO7/lfyo79sa2siar3FSKXSAqR/YXYsVWtOU6wS7yzj8UIyo2L1IIte9D5cijBZZSdEVVL7d1W1UXCUAv1n5GmSda5lMi/K5SGr+Ol9sM1Gctc5Fm15mSfYhvT3XHXGT8VkFer/I3wZXRhRZ0NXs=
