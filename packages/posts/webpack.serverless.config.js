@@ -2,6 +2,7 @@ const path = require("path");
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 // const SentryCliPlugin = require("@sentry/webpack-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
@@ -19,6 +20,9 @@ const resolveMode = () => {
 };
 
 const plugins = [
+    new webpack.DefinePlugin({
+        "global.GENTLY": false
+    }),
     new CopyWebpackPlugin([
         {
             from: ".serverless-secrets.json",
