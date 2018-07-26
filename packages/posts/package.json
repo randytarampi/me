@@ -6,19 +6,19 @@
   },
   "version": "0.0.0",
   "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test",
-    "travis": "npm run cover && npm run coveralls",
-    "coveralls": "cat coverage/lcov.info | npx coveralls",
     "start": "npm run dev",
     "dev": "npm run dev:serverless",
     "dev:serverless": "npx sls offline start --stage local",
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
     "deploy:dev": "npx sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --stage $NODE_ENV --region us-east-1",
     "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --stage $NODE_ENV --region ca-central-1",
-    "version": "if [ -z \"$TRAVIS_TAG\" ]; then if [ \"$COMMIT_AUTHOR\" != \"$TRAVIS_AUTHOR\" ]; then npm shrinkwrap && git add --verbose --force --all npm-shrinkwrap.json; fi; else git rm npm-shrinkwrap.json; fi;",
     "build": "npx gulp -LLLL --color build"
   },
   "description": "A backend to randytarampi/randytarampi.github.io",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "500px": "^0.5.1",
-    "@randy.tarampi/js": "github:randytarampi/me.js#semver:^0.0.0-0",
+    "@randy.tarampi/js": "^0.0.0",
     "aws-sdk": "^2.279.1",
     "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
@@ -58,7 +58,6 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "copy-webpack-plugin": "^4.5.2",
-    "coveralls": "^3.0.2",
     "eslint-plugin-import": "^2.13.0",
     "gulp": "^4.0.0",
     "gulp-eslint": "^5.0.0",

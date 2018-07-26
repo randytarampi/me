@@ -30,7 +30,7 @@ describe("pseudoimage", function () {
 		} catch (e) {} // eslint-disable-line no-empty
 	});
 
-	describe("#generatePseudoImage", () => {
+	describe("#generatePseudoImage", function () {
 		it("should generate a pseudoimage", function (done) {
 			let pseudoimage = new Pseudoimage();
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
@@ -78,7 +78,7 @@ describe("pseudoimage", function () {
 		});
 	});
 
-	describe("#generatePseudoImages", () => {
+	describe("#generatePseudoImages", function () {
 		it("should generate pseudoimages", function (done) {
 			let pseudoimage = new Pseudoimage(resourceDir, tmpDir);
 			pseudoimage.generatePseudoImages()
@@ -87,7 +87,7 @@ describe("pseudoimage", function () {
 		});
 	});
 
-	describe("retina", () => {
+	describe("retina", function () {
 		it("should generate a pseudoimage twice the size of the original", function (done) {
 			let pseudoimage = Pseudoimage.retina();
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
@@ -135,7 +135,7 @@ describe("pseudoimage", function () {
 		});
 	});
 
-	describe("half", () => {
+	describe("half", function () {
 		it("should generate a pseudoimage half the size of the original", function (done) {
 			let pseudoimage = Pseudoimage.half();
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");

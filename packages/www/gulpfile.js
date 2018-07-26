@@ -60,7 +60,7 @@ gulp.task("docs:index", () => {
         .pipe(gulp.dest("./"));
 });
 
-gulp.task("docs", gulp.parallel([
+gulp.task("docs", gulp.series([
     "docs:dist",
     "docs:index"
 ]));
@@ -171,12 +171,14 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "views", "styles", "webpack"])
+    gulp.parallel(["copy", "views", "styles", "webpack"]),
+    "docs"
 ]));
 
 gulp.task("build:dev", gulp.series([
     gulp.parallel(["lint", "copy", "views", "styles:dev"]),
-    "webpack:dev"
+    "webpack:dev",
+    "docs"
 ]));
 
 gulp.task("dev",

@@ -10,10 +10,11 @@ let lwip = require("lwip");
 let Pseudoimage = require("../../lib/pseudoimage");
 
 describe("pseudoimage", function () {
+	this.timeout(60000);
 	let resourceDir = path.join(__dirname, "../resources");
 	let tmpDir = path.join(__dirname, "../tmp");
 
-	describe("#generatePseudoImage", () => {
+	describe("#generatePseudoImage", function () {
 		it("should call the imageTransformationFunction correctly", function (done) {
 			let pseudoimage = new Pseudoimage(null, null, testImageTransformationFunction);
 			let source = path.join(__dirname, "../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
@@ -44,7 +45,7 @@ describe("pseudoimage", function () {
 		});
 	});
 
-	describe("#generatePseudoImages", () => {
+	describe("#generatePseudoImages", function () {
 		it("should call the imageTransformationFunction for each image", function (done) {
 			let pseudoimage = new Pseudoimage(resourceDir, tmpDir, testImageTransformationFunction);
 			pseudoimage.generatePseudoImages()

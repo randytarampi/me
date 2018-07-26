@@ -11,30 +11,77 @@ matrix:
   - node_js: '10'
 env:
   global:
-    - secure: ZTBYFZ10aI9BZPy5svRBilIqEbx88fLxUVgblqhlWStF8jhnWslOULzjXFbz2dpTboEYDxlFwfo9+K0hYUJmL7iDtpnKX9pbA5SXQxok2W9zoGGrNDedcXIQxyCWMKKmpcco5B6PFS+uScuYSQzUu9FEwkcEXoxr1hUom2THEXm3FxRHMP5iCr9HwNb0ZmHq622G5jEtCImWErHauLYyuay9A9geFysHuUE5qNITsQP5IjNH2vEqs3KAGZxLAUbV7OKwafEh2mPDqYV/96uOf4uGtQA5EV2yfoemkLN1OgffGGLoPqdL5kDzkcrPacbVvQSc8pL5T4irsNOngs3PsiEtz21qdkA0o9pwsbmC4HWRxq/4A86ECH1mWoLXp6aF6LmUpxclnQIj46986Dm+DSfg9wmUHP4WJsfrQOfJ4ZIgtAG0hS5nKSHY9qep9bkLNgP4K6ZCVosUG3QgA5nImyP++90H8eM6hzNCpXCBX71S1QmW6iQqPT1B34S2fJzPQYU3mFX05itP7V9ikKsFXy9YDjmzc8f1E09/WH1bJcW/4kcHUxyki6PZy4hWM7252H7iI1wcseOExzmS9awkZUKyGqVrVQ9D7/KZxmh9zHfRHXRZj1FSDtLBaPSlAS8Do0EDToFpUsFEdHUyvgf3QWg6jwweS9zXlXTmKxBPxz8=
-before_install:
-- uname -a
-- lscpu
-- npm install -g npm
-- export NODE_ENV=prd;
-after_install:
-- git config --local user.name "Travis"
-- export TRAVIS_AUTHOR=travis@randytarampi.ca
-- export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
-- git config --local user.email $TRAVIS_AUTHOR
-- git config --local branch.autosetuprebase always
-before_script:
-- npm audit
-- npx lerna run pretest
-script:
-- npm run travis
+  - secure: ZTBYFZ10aI9BZPy5svRBilIqEbx88fLxUVgblqhlWStF8jhnWslOULzjXFbz2dpTboEYDxlFwfo9+K0hYUJmL7iDtpnKX9pbA5SXQxok2W9zoGGrNDedcXIQxyCWMKKmpcco5B6PFS+uScuYSQzUu9FEwkcEXoxr1hUom2THEXm3FxRHMP5iCr9HwNb0ZmHq622G5jEtCImWErHauLYyuay9A9geFysHuUE5qNITsQP5IjNH2vEqs3KAGZxLAUbV7OKwafEh2mPDqYV/96uOf4uGtQA5EV2yfoemkLN1OgffGGLoPqdL5kDzkcrPacbVvQSc8pL5T4irsNOngs3PsiEtz21qdkA0o9pwsbmC4HWRxq/4A86ECH1mWoLXp6aF6LmUpxclnQIj46986Dm+DSfg9wmUHP4WJsfrQOfJ4ZIgtAG0hS5nKSHY9qep9bkLNgP4K6ZCVosUG3QgA5nImyP++90H8eM6hzNCpXCBX71S1QmW6iQqPT1B34S2fJzPQYU3mFX05itP7V9ikKsFXy9YDjmzc8f1E09/WH1bJcW/4kcHUxyki6PZy4hWM7252H7iI1wcseOExzmS9awkZUKyGqVrVQ9D7/KZxmh9zHfRHXRZj1FSDtLBaPSlAS8Do0EDToFpUsFEdHUyvgf3QWg6jwweS9zXlXTmKxBPxz8=
 cache:
+  timeout: 1200
   directories:
   - $HOME/.npm
   - node_modules
   - packages/posts/node_modules
-after_script:
+before_install:
+- uname -a
+- lscpu
+- npm install -g npm
+- export NODE_ENV=prd
+before_script:
+- npx lerna run pretest
+script:
+- npm run travis
+after_success:
 - npm run coveralls
+stages:
+- name: Test
+  if: tag IS blank AND commit_message ~= /(?!(?:^release\(Travis\):)).*/
+- name: Release
+  if: tag IS blank AND branch = master AND commit_message ~= /(?!(?:^release\(Travis\):)).*/
+- name: Deploy
+  if: tag IS present
+jobs:
+  include:
+  - stage: Release
+    name: GitHub
+    node_js: '8'
+    install:
+    - git checkout $TRAVIS_BRANCH
+    - npm run postinstall
+    script: skip
+    before_deploy:
+    - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
+    - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/ $TRAVIS_BUILD_DIR
+    - git config --local user.name "Travis"
+    - export TRAVIS_AUTHOR=travis@randytarampi.ca
+    - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+    - git config --local user.email $TRAVIS_AUTHOR
+    - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+    - npx lerna exec -- "if [ -d \"./docs\" ]; then git add --verbose --force --all docs; fi;"
+    - 'npx lerna publish --conventional-commits --yes --skip-npm --message "release(Travis): Release %s" --git-remote ci-push'
+    deploy:
+    - provider: releases
+      api_key:
+        secure: bscGrBY4fO8ca32Tr35yEZuMgt7QDMydEDghvsOEhvkoTQ2piicg5QeAJDbhd1lxszLbQ/8sN0Dn08VM1GN4iWMLyZPVcf0vFAxm+8kkNr5zepjwxvOkzMv4FfnILSQEWgMIS6xTopuLxKAe7OsPGOjV/H7S+3/UOil2Av1dKx4jd93L1Q+ciERDHtDgnA6zIYqtuFe6aoiMe8TDL5/q2Xvbp6M3UJpOor64u5uuc1ruoxPewJV9NYtwP0M6JR3wMMW/chOPNRVfp2WlXPYf/U8HOThWeAhBHZNgj2pXhvvNDq8w6Z6jcHt2mb+2ot8XZAUMqllONwSKQUBagkY2frXCTB1B4BVyVkQL2N3KlpQbPfjh3yk3qU9n0o5TECSWhqxAtCe9Zk6hy5/VSQib7zmVTh74JfoEMdudHtgciEeE5BMz8aEwo0+nInQcwVI1qQkTJ/WqMHAz7UDckMsgmnPoD5xYF13tRCJBk5ctmb28uKJYd2/1CQwOHI/KzpMhWO/KgcrjFSy4J3zDFtX8v9j7ZCMtjwpnf+juMADEoYbdchfsYVPFxhdYlGIdTPfKMuvrSIxpld07RMLM6/8gRUKCNpItf7GWKGNwMOd1j5cS266nCLBjA9HoG0fE0oCEcyP3lHgWRtiD3It5hj+Fv/d2eYgRLBZyE9VVoUFvaIE=
+      file: me.tar.gz
+      skip_cleanup: true
+  - stage: Deploy
+    name: web
+    node_js: '8'
+    install:
+    - npm run postinstall
+    script: skip
+    deploy:
+    - provider: script
+      script: $TRAVIS_BUILD_DIR/bin/force-split.sh www
+      #script: git subtree push --prefix $TRAVIS_BUILD_DIR/packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:gh-pages # FIXME-RT: Just push `www` to a github pages branch or something
+      skip_cleanup: true
+  - stage: Deploy
+    name: posts
+    node_js: '8'
+    install:
+    - npm run postinstall
+    script: skip
+    deploy:
+    - provider: script
+      script: npm run deploy --prefix packages/posts
+      skip_cleanup: true
 notifications:
   slack:
-    secure: YdWidvVw0Guj6iPXO/Y2wJ+h6as9CU7brL4crIKHCOZjH4ffXI63r6tuKAE+y9zJpAp1NntdeVWdZAe7eMPqZcRGg1HybzLf8aEQkBFK8tf/q2zU93DVFCjrDJDF5lqY4ySTe5aSvC8Q7M1167+PLpZy5H8aUlj0kSzJ/FGOfeI93p07Wtviv8cN6nZ986q90Djovkfn9tuaRj6fR6MjWlFcQ/9UNhpVqf8aGXjE1AOHYth6k7L4YWULWb3Don1oW2wFX/E4rGecqWBKyh7VN742va1y0VHaLys+bbGbmIUQllESVy4gFyAXs/tZjx47+sXn2R6nJn5Y9kIsMe0GKBlGhV0N5QoOjVbJt8xNVgF8HzRHEoo5uDZpd5tFbFa4rK1ZvtV+mmIvjqXtKxjuQ+AXcmdCuORaN0y6He63TF66uMfdoF75aatr0ebT2Ma9/NTMdg3L7MWfiCAOl0y1a/8l9HSOv01ZL2m3iAotB+F231ZouofDuOmsSxAhDJGwskQkrExoU/t8JW4jz391sbQpGmJBDSMyFKe6EZwXqV6R9OfoWxbEXRNz7ZEKNZG5d/EUo+BRNL35MsCy2fnM41pPUHE1jf6YnnMbZtKF5DhR8LA5R3RlrSdUuM2T0JNJxK08prLz8RgghlKpsNEYxomqagqQnQd1+4TVK7A37WY=
+    secure: MTSym0Ymg+oYMx+Fmf3a2g2LyVtPJ8hg4sjtbfdyPBZAhO3rU9RxRFrBimNp9knZppwFpofosW4C6bKEBAN6p2AfeZOqQmYuRetZdS27pO6mdBpH56EJ7o2VJS/5ec9Lqw77802FO8XiRtWwySvxyE9nEHmm5dxOYf2JYj9OTiyNqmyRJFTRQiURZLOxn1CJLUI3OB8A0dtRU1hI3xx0kP+q7fHXp8xdNssB8ETBXwzG3HFE12VQRseCe01U0PdmGiRwQRQGXcGg00KTPFU1Gin7LY9mhSHRV9TsmvTtx6gXMYHo2UiLts0Omeb80k1nDZwBcAYsY4bIpgI1e01jJpDIHbg4lWskbnnSZWHG9QPIsOcG236Oqz/5bj+J70gRMw1zu+UYnH8XcfgcV+tBOu86oj8rtWeFGr58mh1HOiNedvqef2xNi+Yc3Ykj3ZfjVITlI/Lfpi6ZPNhjpL4Bbanmyd3KbbaYpdWkY5+SYJOhidq6VpHpBIqsACUwsLl6X8Yajteh5TLMK9ixkaTL97BT8niHTtEwkraMs5a0yfi9EDQNOjFERJq48Jrhpuq+MosgmyMmgX+31khzIgMr9+AUy3wL3dmIO198+Wm/k2rElYJmYuORI+txzIwYDGsaUbusyhy578Q5ilsiLbF1jZnPrvlQKVLCTIAMlXdmTpw=

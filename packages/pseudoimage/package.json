@@ -1,5 +1,9 @@
 {
 	"name": "@randy.tarampi/pseudoimage",
+	"private": true,
+	"publishConfig": {
+		"access": "public"
+	},
 	"author": {
 		"name": "Randy Tarampi",
 		"email": "rt@randytarampi.ca",
@@ -11,9 +15,7 @@
 	"scripts": {
 		"pretest": "npx gulp -LLLL --color lint",
 		"test": "NODE_ENV=test npx gulp -LLLL --color test",
-		"cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test",
-		"travis": "npm run cover && npm run coveralls",
-		"coveralls": "cat coverage/lcov.info | npx coveralls"
+		"cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
 	},
 	"homepage": "https://github.com/randytarampi/woof.pseudoimage",
 	"bugs": {
@@ -43,7 +45,6 @@
 	],
 	"devDependencies": {
 		"chai": "^4.1.2",
-		"coveralls": "^3.0.2",
 		"eslint-plugin-import": "^2.13.0",
 		"gulp": "^4.0.0",
 		"gulp-eslint": "^5.0.0",
