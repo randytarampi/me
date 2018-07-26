@@ -1,4 +1,4 @@
-import Post from "@randy.tarampi/js/lib/post";
+import {Post} from "@randy.tarampi/js";
 import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
 import WordSource from "../wordSource";

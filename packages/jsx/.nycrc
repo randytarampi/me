@@ -2,9 +2,6 @@
 	"extension": [
 		".jsx"
 	],
-	"include": [
-		"**/*.js"
-	],
 	"exclude": [
 		"node_modules/**",
 		"dist/**",

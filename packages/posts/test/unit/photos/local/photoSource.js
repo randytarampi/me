@@ -1,4 +1,4 @@
-import Photo from "@randy.tarampi/js/lib/photo";
+import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import fs from "fs";
 import _ from "lodash";
@@ -28,7 +28,9 @@ describe("LocalSource", () => {
     });
 
     describe("#getUserPhotos", () => {
-        it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", () => {
+        it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
+            this.timeout(60000);
+
             const photoSource = new PhotoSource();
 
             return photoSource.getUserPhotos()

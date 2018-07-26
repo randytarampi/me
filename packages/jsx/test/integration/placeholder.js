@@ -1,7 +1,5 @@
-const mocha = require("mocha");
-const describe = mocha.describe;
-const it = mocha.it;
-const expect = require("chai").expect;
+import {expect} from "chai";
+import {describe, it} from "mocha";
 
 describe("placeholder", () => {
 	it("can run tests", () => {

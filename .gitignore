@@ -46,6 +46,7 @@ jspm_packages
 # Compiled resources
 dist
 .webpack
+package-lock.json
 
 # Environment variables
 .env

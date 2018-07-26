@@ -1,6 +1,4 @@
-import Creator from "@randy.tarampi/js/lib/creator";
-import Photo from "@randy.tarampi/js/lib/photo";
-import SizedPhoto from "@randy.tarampi/js/lib/sizedPhoto";
+import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import "isomorphic-fetch";
 import Unsplash, {toJson} from "unsplash-js";
 import PhotoSource from "../photoSource";

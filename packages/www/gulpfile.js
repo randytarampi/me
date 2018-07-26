@@ -127,7 +127,7 @@ gulp.task("eslint", () => {
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./docs/**/*"])
+    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./docs/**/*", "!./coverage/**/*", "!./.nyc_output/**/*"])
         .pipe(eslint({fix: true}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
@@ -146,6 +146,27 @@ gulp.task("sassLint", () => {
 gulp.task("lint", gulp.parallel([
     "eslint",
     "sassLint"
+]));
+
+gulp.task("test.unit", () => {
+    const mocha = require("gulp-mocha");
+    const mochaConfig = require("./mocha.config");
+
+    return gulp.src("test/unit/**/*.js", {read: false, allowEmpty: true})
+        .pipe(mocha(mochaConfig));
+});
+
+gulp.task("test.integration", () => {
+    const mocha = require("gulp-mocha");
+    const mochaConfig = require("./mocha.config");
+
+    return gulp.src("test/integration/**/*.js", {read: false, allowEmpty: true})
+        .pipe(mocha(mochaConfig));
+});
+
+gulp.task("test", gulp.parallel([
+    "test.unit",
+    "test.integration"
 ]));
 
 gulp.task("build", gulp.series([

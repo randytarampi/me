@@ -7,9 +7,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "pretest": "npx gulp lint",
-    "test": "npx gulp test",
-    "travis": "npx gulp travis"
+    "pretest": "npx gulp -LLLL --color lint",
+    "test": "npx gulp -LLLL --color test",
+    "travis": "npx gulp -LLLL --color travis"
   },
   "description": "Some common styles for the components in randytarampi/me.jsx and randytarampi/randytarampi.github.io",
   "homepage": "https://github.com/randytarampi/me.css",

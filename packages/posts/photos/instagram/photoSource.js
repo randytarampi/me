@@ -1,6 +1,4 @@
-import Creator from "@randy.tarampi/js/lib/creator";
-import Photo from "@randy.tarampi/js/lib/photo";
-import SizedPhoto from "@randy.tarampi/js/lib/sizedPhoto";
+import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import Instagram from "instagram-api";
 import _ from "lodash";
 import Moment from "moment";

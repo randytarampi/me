@@ -1,4 +1,4 @@
-import Post from "@randy.tarampi/js/lib/post";
+import {Post} from "@randy.tarampi/js";
 import tumblr from "tumblr.js";
 import Creator from "../creator";
 import WordSource from "../wordSource";
