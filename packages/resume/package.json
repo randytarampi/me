@@ -15,6 +15,7 @@
 	},
 	"scripts": {
 		"test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\"",
+		"postinstall": "npm run build",
 		"start": "npx resume serve --theme randytarampi",
 		"build": "npm run build:pdf && npm run build:html",
 		"build:pdf": "npx resume export index.pdf -f pdf --theme randytarampi --force",

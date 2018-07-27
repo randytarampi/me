@@ -86,6 +86,25 @@ jobs:
       on:
         tags: true
   - stage: Deploy
+    name: resume
+    node_js: '8'
+    env:
+    - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
+    install:
+    - npm run postinstall
+    before_script: skip
+    script: skip
+    after_script: skip
+    before_deploy:
+    - git add --verbose --force --all $RESUME_PACKAGE_DIR
+    - git commit -m "Add assets for $TRAVIS_TAG."
+    deploy:
+    - provider: script
+      script: $TRAVIS_BUILD_DIR/bin/force-split.sh resume
+      skip_cleanup: true
+      on:
+        tags: true
+  - stage: Deploy
     name: posts
     node_js: '8'
     env:
