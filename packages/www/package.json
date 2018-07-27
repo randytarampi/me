@@ -1,5 +1,5 @@
 {
-  "name": "@randy.tarampi/web",
+  "name": "@randy.tarampi/www",
   "private": true,
   "publishConfig": {
     "access": "public"
