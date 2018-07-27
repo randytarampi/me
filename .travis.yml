@@ -81,8 +81,7 @@ jobs:
     - git commit -m "Add assets for $TRAVIS_TAG."
     deploy:
     - provider: script
-      script: $TRAVIS_BUILD_DIR/bin/force-split.sh www
-      #script: git subtree push --prefix $TRAVIS_BUILD_DIR/packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:gh-pages # FIXME-RT: Just push `www` to a github pages branch or something
+      script: git subtree push --prefix $TRAVIS_BUILD_DIR/packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git HEAD:gh-pages
       skip_cleanup: true
       on:
         tags: true
