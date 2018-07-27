@@ -44,7 +44,9 @@ jobs:
     install:
     - git checkout $TRAVIS_BRANCH
     - npm run postinstall
+    before_script: skip
     script: skip
+    after_script: skip
     before_deploy:
     - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
     - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/ $TRAVIS_BUILD_DIR
@@ -66,7 +68,9 @@ jobs:
     node_js: '8'
     install:
     - npm run postinstall
+    before_script: skip
     script: skip
+    after_script: skip
     deploy:
     - provider: script
       script: $TRAVIS_BUILD_DIR/bin/force-split.sh www
@@ -77,7 +81,9 @@ jobs:
     node_js: '8'
     install:
     - npm run postinstall
+    before_script: skip
     script: skip
+    after_script: skip
     deploy:
     - provider: script
       script: npm run deploy --prefix packages/posts
