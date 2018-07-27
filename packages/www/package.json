@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@randy.tarampi/css": "^0.0.9",
-    "@randy.tarampi/jsx": "^0.0.9",
+    "@randy.tarampi/css": "^0.0.10",
+    "@randy.tarampi/jsx": "^0.0.10",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",

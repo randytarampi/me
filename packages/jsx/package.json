@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -21,7 +21,7 @@
     "email": "bugs@randytarampi.ca"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.0.9",
+    "@randy.tarampi/js": "^0.0.10",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "raven-js": "^3.26.3",
@@ -46,7 +46,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
-    "@randy.tarampi/css": "^0.0.9",
+    "@randy.tarampi/css": "^0.0.10",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
