@@ -55,8 +55,7 @@ jobs:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email $TRAVIS_AUTHOR
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-    - npx lerna exec -- "if [ -d \"./docs\" ]; then git add --verbose --force --all docs; fi;"
-    - 'npx lerna publish --conventional-commits --yes --skip-npm --message "release(Travis): Release %s" --git-remote ci-push'
+    - 'npx lerna publish --conventional-commits --yes --skip-npm --message "release(Travis): Release %s." --git-remote ci-push'
     deploy:
     - provider: releases
       api_key:
@@ -67,6 +66,7 @@ jobs:
     name: www
     node_js: '8'
     env:
+    - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - SENTRY_ORG=randytarampi
     - SENTRY_PROJECT=www
     - SENTRY_LOG_LEVEL=debug
@@ -76,6 +76,9 @@ jobs:
     before_script: skip
     script: skip
     after_script: skip
+    before_deploy:
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all docs; fi;
+    - git commit -m "Add assets for $TRAVIS_TAG."
     deploy:
     - provider: script
       script: $TRAVIS_BUILD_DIR/bin/force-split.sh www
