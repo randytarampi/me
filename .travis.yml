@@ -81,6 +81,10 @@ jobs:
   - stage: Deploy
     name: posts
     node_js: '8'
+    env:
+      global:
+      - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
+      - secure: HG5SiuIvZNcqaAGjaPwyQFVxW5uUfGbrN3fwqDEyh3oLW1pcnofNCNGLotWoFTexSXkPGcJeswEPfo5koRej84h1CqmNOPJNmwomjR/lLVf1/CSRY5eo4rf8no9wwEOhzsSX+r4yCyOKoBQ8iaxkcwo/fvPIEwAo1NPLcDYusm7bvAsCrO5NDpZ0KkhYqrD823UqSKLtpVAj8ZVZih3ySI+QL/cPN1LlaOwbREbSHmKvDj7p63k0F/znQ9y+jip/dRgAYreTVLOHKKQmdTLDbl0Lf6yn1m8NvC94Cl2Klt4791i/AUqrC1JV7eEE9f9n7jI3l5M469C5DWVFC9Nc9S1d2tcUAbQS441hZMsp0Hh7iLb601GSQZwI/KbNtM1hYJa/ONSrfJcWjU6MQudUHuOIZo1AoiDjlenznouRiIssJ+f3KKxK8t9UEzlTVsHSoBMvQ9lVabae7iTltM6zVD/BlirUhWFpSInSQsHOIMV1fkDep/0lfXX8rufb5pHm41A8yz3bkwLSPQILEwY9O21ngkffSKlu1sUFqvSdE6SwH5nvXEDaF44QvO9OAn3T6BRz+mHvtGCe9xwq9ixsdpEHzGcC6xHD+coJwFshByWkaMP6+RRobGwpHaxn59DGoTPWY5bhaL2EOiAQBK8d4iQg/rPM++Mcd7jDHZKnXzc=
     install:
     - npm run postinstall
     before_script: skip
