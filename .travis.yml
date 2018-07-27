@@ -76,6 +76,8 @@ jobs:
       script: $TRAVIS_BUILD_DIR/bin/force-split.sh www
       #script: git subtree push --prefix $TRAVIS_BUILD_DIR/packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} HEAD:gh-pages # FIXME-RT: Just push `www` to a github pages branch or something
       skip_cleanup: true
+      on:
+        tags: true
   - stage: Deploy
     name: posts
     node_js: '8'
@@ -88,6 +90,8 @@ jobs:
     - provider: script
       script: npm run deploy --prefix packages/posts
       skip_cleanup: true
+      on:
+        tags: true
 notifications:
   slack:
     secure: MTSym0Ymg+oYMx+Fmf3a2g2LyVtPJ8hg4sjtbfdyPBZAhO3rU9RxRFrBimNp9knZppwFpofosW4C6bKEBAN6p2AfeZOqQmYuRetZdS27pO6mdBpH56EJ7o2VJS/5ec9Lqw77802FO8XiRtWwySvxyE9nEHmm5dxOYf2JYj9OTiyNqmyRJFTRQiURZLOxn1CJLUI3OB8A0dtRU1hI3xx0kP+q7fHXp8xdNssB8ETBXwzG3HFE12VQRseCe01U0PdmGiRwQRQGXcGg00KTPFU1Gin7LY9mhSHRV9TsmvTtx6gXMYHo2UiLts0Omeb80k1nDZwBcAYsY4bIpgI1e01jJpDIHbg4lWskbnnSZWHG9QPIsOcG236Oqz/5bj+J70gRMw1zu+UYnH8XcfgcV+tBOu86oj8rtWeFGr58mh1HOiNedvqef2xNi+Yc3Ykj3ZfjVITlI/Lfpi6ZPNhjpL4Bbanmyd3KbbaYpdWkY5+SYJOhidq6VpHpBIqsACUwsLl6X8Yajteh5TLMK9ixkaTL97BT8niHTtEwkraMs5a0yfi9EDQNOjFERJq48Jrhpuq+MosgmyMmgX+31khzIgMr9+AUy3wL3dmIO198+Wm/k2rElYJmYuORI+txzIwYDGsaUbusyhy578Q5ilsiLbF1jZnPrvlQKVLCTIAMlXdmTpw=
