@@ -31,9 +31,9 @@ after_success:
 - npm run coveralls
 stages:
 - name: Test
-  if: tag IS blank AND NOT commit_message ~= /(?:^release\(Travis\):))/
+  if: tag IS blank AND NOT commit_message ~= /(?:^release\(Travis\):)/
 - name: Release
-  if: tag IS blank AND branch = master NOT commit_message ~= /(?:^release\(Travis\):))/
+  if: tag IS blank AND branch = master AND NOT commit_message ~= /(?:^release\(Travis\):)/
 - name: Deploy
   if: tag IS present
 jobs:
