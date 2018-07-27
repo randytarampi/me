@@ -2,7 +2,8 @@
   "name": "@randy.tarampi/js",
   "author": {
     "name": "Randy Tarampi",
-    "email": "rt@randytarampi.ca"
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
   },
   "version": "0.0.11",
   "publishConfig": {
@@ -15,10 +16,13 @@
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
   },
   "description": "Some common JS entities",
-  "homepage": "https://github.com/randytarampi/me.common.js",
   "bugs": {
-    "url": "https://github.com/randytarampi/me.common.js/issues",
+    "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
     "lodash": "^4.17.10",

@@ -1,7 +1,5 @@
 #ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders
 
-[![Build Status](https://img.shields.io/travis/randytarampi/woof.pseudoimage.svg?style=flat-square)](https://travis-ci.org/randytarampi/woof.pseudoimage) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/woof.pseudoimage.svg?style=flat-square)](https://coveralls.io/github/randytarampi/woof.pseudoimage?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/woof.pseudoimage.svg?style=flat-square)](https://david-dm.org/randytarampi/woof.pseudoimage) [![Ready](https://img.shields.io/waffle/label/randytarampi/woof.pseudoimage/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/woof.pseudoimage) [![In Progress](https://img.shields.io/waffle/label/randytarampi/woof.pseudoimage/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/woof.pseudoimage)
-
 This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create a fake, which gets saved somewhere.
 
 ##Usage

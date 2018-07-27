@@ -2,7 +2,8 @@
   "name": "@randy.tarampi/posts",
   "author": {
     "name": "Randy Tarampi",
-    "email": "rt@randytarampi.ca"
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
   },
   "version": "0.0.11",
   "private": true,
@@ -21,11 +22,14 @@
     "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --stage $NODE_ENV --region ca-central-1",
     "build": "npx gulp -LLLL --color build"
   },
-  "description": "A backend to randytarampi/randytarampi.github.io",
-  "homepage": "https://github.com/randytarampi/me.posts",
+  "description": "A backend to @randy.tarampi/www",
   "bugs": {
-    "url": "https://github.com/randytarampi/me.posts/issues",
+    "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
     "500px": "^0.5.1",

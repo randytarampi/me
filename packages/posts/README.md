@@ -6,8 +6,6 @@
                      _|                             
 ```
 
-[![Build Status](https://img.shields.io/travis/randytarampi/me.posts.svg?style=flat-square)](https://travis-ci.org/randytarampi/me.posts) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.posts.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me.posts?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/me.posts.svg?style=flat-square)](https://david-dm.org/randytarampi/me.posts) [![Ready](https://img.shields.io/waffle/label/randytarampi/me.posts/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/me.posts) [![In Progress](https://img.shields.io/waffle/label/randytarampi/me.posts/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/me.posts)
-
 A post aggregator/blog thingy. For some usernames at some popular services, pull their posts and display them nicely.
 
 Currently supports:
@@ -22,6 +20,7 @@ Currently supports:
 Scan some post sources for posts, then display them on a single page.
 
 # Dependencies
+
 ```
 brew install nvm
 nvm install 8

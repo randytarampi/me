@@ -7,16 +7,18 @@ _  / / / / /  __/_/_ __|
                          
 ```
 
-A monorepo for everything that goes into [randytarampi.ca](www.randytarampi.ca).
+[![Build Status](https://img.shields.io/travis/randytarampi/me.svg?style=flat-square)](https://travis-ci.org/randytarampi/me) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/me.svg?style=flat-square)](https://david-dm.org/randytarampi/me) [![Ready](https://img.shields.io/waffle/label/randytarampi/me/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/me) [![In Progress](https://img.shields.io/waffle/label/randytarampi/me/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/me)
 
-- [posts](https://github.com/randytarampi/me/blob/master/packages/posts/README.md)
-- [resume](https://github.com/randytarampi/me/blob/master/packages/resume/README.md)
-- [web](https://github.com/randytarampi/me/blob/master/packages/web/README.md)
+A monorepo for everything that goes into [randytarampi.ca](http://www.randytarampi.ca).
 
-And also a couple semi-related modules I wrote a couple years back
+- [posts](packages/posts)
+- [resume](packages/resume)
+- [web](/packages/web)
 
-- [pseudoimage](https://github.com/randytarampi/me/blob/master/packages/pseudoimage/README.md)
-- [pseudolocalize](https://github.com/randytarampi/me/blob/master/packages/pseudolocalize/README.md)
+And also a couple semi-related modules I wrote a couple years back that I'm planning on using at some point to build out an internationalized resume template.
+
+- [pseudoimage](packages/pseudoimage)
+- [pseudolocalize](packages/pseudolocalize)
 
 # Dependencies
 ```
@@ -28,5 +30,11 @@ npm install -g npm
 # Installation
 
 ```
-npm install && ./bin/bootstrap.sh
+npm install
+```
+
+# Testing
+
+```
+npm test
 ```

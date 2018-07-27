@@ -17,10 +17,13 @@
 		"test": "NODE_ENV=test npx gulp -LLLL --color test",
 		"cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
 	},
-	"homepage": "https://github.com/randytarampi/woof.pseudolocalize",
 	"bugs": {
-		"url": "https://github.com/randytarampi/woof.pseudolocalize/issues",
+		"url": "https://github.com/randytarampi/me/issues",
 		"email": "bugs@randytarampi.ca"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/randytarampi/me.git"
 	},
 	"keywords": [
 		"bear",

@@ -1,9 +1,22 @@
 {
   "name": "me",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
+  },
   "private": true,
   "devDependencies": {
     "coveralls": "^3.0.2",
     "lerna": "^3.0.0-rc.0"
+  },
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
   },
   "scripts": {
     "clean": "npx lerna clean --yes; rm -rf node_modules package-lock.json packages/*/package-lock.json packages/*/dist packages/*/coverage packages/*/.nyc_output packages/*/.serverless packages/*/.webpack",

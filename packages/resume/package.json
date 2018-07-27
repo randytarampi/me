@@ -6,12 +6,18 @@
 	},
 	"author": {
 		"name": "Randy Tarampi",
-		"email": "rt@randytarampi.ca"
+		"email": "rt@randytarampi.ca",
+		"url": "http://www.randytarampi.ca"
 	},
 	"version": "0.0.11",
+	"homepage": "http://resume.randytarampi.ca",
+	"bugs": {
+		"url": "https://github.com/randytarampi/me/issues",
+		"email": "bugs@randytarampi.ca"
+	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/randytarampi/me.resume"
+		"url": "https://github.com/randytarampi/me.git"
 	},
 	"scripts": {
 		"test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\"",

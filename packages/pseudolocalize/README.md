@@ -1,7 +1,5 @@
 #Text-to-ʕ•ᴥ•ʔ translations
 
-[![Build Status](https://img.shields.io/travis/randytarampi/woof.pseudolocalize.svg?style=flat-square)](https://travis-ci.org/randytarampi/woof.pseudolocalize) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/woof.pseudolocalize.svg?style=flat-square)](https://coveralls.io/github/randytarampi/woof.pseudolocalize?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/woof.pseudolocalize.svg?style=flat-square)](https://david-dm.org/randytarampi/woof.pseudolocalize) [![Ready](https://img.shields.io/waffle/label/randytarampi/woof.pseudolocalize/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/woof.pseudolocalize) [![In Progress](https://img.shields.io/waffle/label/randytarampi/woof.pseudolocalize/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/woof.pseudolocalize)
-
 Or, otherwise user defined pseudolocalizations...
 
 ##Usage
