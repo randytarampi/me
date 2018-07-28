@@ -1,5 +1,3 @@
-"use strict";
-
 let util = require("util");
 
 class Pseudolocalizer {

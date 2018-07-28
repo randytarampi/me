@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-"use strict";
-
 let commander = require("commander");
 let Pseudoimage = require("../lib/pseudoimage");
 

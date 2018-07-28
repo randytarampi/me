@@ -1,5 +1,3 @@
-"use strict";
-
 let path = require("path");
 let mocha = require("mocha");
 let sinon = require("sinon");

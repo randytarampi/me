@@ -2,7 +2,6 @@ import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import fs from "fs";
 import _ from "lodash";
-import {after, before, describe, it} from "mocha";
 import path from "path";
 import PhotoSource from "../../../../photos/local/photoSource";
 

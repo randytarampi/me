@@ -1,5 +1,4 @@
 import {expect} from "chai";
-import {describe, it} from "mocha";
 import SearchParams from "../../../photos/searchParams";
 
 describe("SearchParams", () => {

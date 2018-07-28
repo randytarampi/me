@@ -1,5 +1,4 @@
 import {expect} from "chai";
-import {after, before, describe, it} from "mocha";
 import PhotoSource from "../../../photos/photoSource";
 
 describe("PhotoSource", () => {

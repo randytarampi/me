@@ -1,10 +1,3 @@
-"use strict";
-
-const mocha = require("mocha");
-const describe = mocha.describe;
-const it = mocha.it;
-const before = mocha.before;
-const after = mocha.after;
 const expect = require("chai").expect;
 const WordSource = require("../../../words/wordSource");
 
