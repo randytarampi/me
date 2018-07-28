@@ -1,12 +1,7 @@
 let path = require("path");
 let fs = require("fs");
 let lwip = require("lwip");
-let mocha = require("mocha");
 let sinon = require("sinon");
-let describe = mocha.describe;
-let beforeEach = mocha.beforeEach;
-let after = mocha.after;
-let it = mocha.it;
 let expect = require("chai").expect;
 let Pseudoimage = require("../../lib/pseudoimage");
 

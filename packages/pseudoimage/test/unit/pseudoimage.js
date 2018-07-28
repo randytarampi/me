@@ -1,11 +1,9 @@
 let path = require("path");
-let mocha = require("mocha");
 let sinon = require("sinon");
-let describe = mocha.describe;
-let it = mocha.it;
 let expect = require("chai").expect;
 let lwip = require("lwip");
 let Pseudoimage = require("../../lib/pseudoimage");
+
 
 describe("pseudoimage", function () {
     this.timeout(60000);
