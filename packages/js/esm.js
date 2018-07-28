@@ -4,8 +4,8 @@ import Post from "./lib/post";
 import SizedPhoto from "./lib/sizedPhoto";
 
 export {
-	Creator,
-	Photo,
-	Post,
-	SizedPhoto
+    Creator,
+    Photo,
+    Post,
+    SizedPhoto
 };

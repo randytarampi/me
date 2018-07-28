@@ -1,39 +1,39 @@
 {
-	"name": "jsonresume-theme-randytarampi",
-	"private": true,
-	"publishConfig": {
-		"access": "public"
-	},
-	"author": {
-		"name": "Randy Tarampi",
-		"email": "rt@randytarampi.ca",
-		"url": "http://www.randytarampi.ca"
-	},
-	"version": "0.1.2",
-	"homepage": "http://resume.randytarampi.ca",
-	"bugs": {
-		"url": "https://github.com/randytarampi/me/issues",
-		"email": "bugs@randytarampi.ca"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/randytarampi/me.git"
-	},
-	"scripts": {
-		"test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\"",
-		"postinstall": "npm run build",
-		"start": "npx resume serve --theme randytarampi",
-		"build": "npm run build:pdf && npm run build:html",
-		"build:pdf": "npx resume export index.pdf -f pdf --theme randytarampi --force",
-		"build:html": "npx resume export index.html -f html --theme randytarampi --force"
-	},
-	"license": "MIT",
-	"devDependencies": {
-		"handlebars": "^4.0.11",
-		"jsonresume-theme-randytarampi": "file:./",
-		"resume-cli": "^0.4.19"
-	},
-	"engines": {
-		"node": ">=8"
-	}
+  "name": "jsonresume-theme-randytarampi",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
+  },
+  "version": "0.1.2",
+  "homepage": "http://resume.randytarampi.ca",
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "scripts": {
+    "test": "echo \"ʕつಠᴥಠʔつ ︵ (¿sʇsǝʇ ʇɐɥʍ)\"",
+    "postinstall": "npm run build",
+    "start": "npx resume serve --theme randytarampi",
+    "build": "npm run build:pdf && npm run build:html",
+    "build:pdf": "npx resume export index.pdf -f pdf --theme randytarampi --force",
+    "build:html": "npx resume export index.html -f html --theme randytarampi --force"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "handlebars": "^4.0.11",
+    "jsonresume-theme-randytarampi": "file:./",
+    "resume-cli": "^0.4.19"
+  },
+  "engines": {
+    "node": ">=8"
+  }
 }

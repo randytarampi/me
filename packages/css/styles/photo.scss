@@ -1,16 +1,16 @@
 .photo-title {
-	margin-top: 0;
-	margin-bottom: 0;
-	overflow-wrap: break-word;
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow-wrap: break-word;
 }
 
 .photo-text {
-	line-height: $blockLineHeight;
-	padding: $blockPadding;
-	background-color: $blockColour;
-	box-decoration-break: clone;
-	color: $blockTextColour;
-	margin-right: 4px;
+    line-height: $blockLineHeight;
+    padding: $blockPadding;
+    background-color: $blockColour;
+    box-decoration-break: clone;
+    color: $blockTextColour;
+    margin-right: 4px;
 }
 
 .photo-title,
@@ -19,16 +19,16 @@
 .photo-body,
 .photo-source,
 .photo-text {
-	&__link {
-		text-decoration: underline;
-		text-decoration-color: $link-color;
-	}
+    &__link {
+        text-decoration: underline;
+        text-decoration-color: $link-color;
+    }
 }
 
 .photo {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .row .col.photo-metadata {
-	padding: 0.75em;
+    padding: 0.75em;
 }

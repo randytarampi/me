@@ -10,6 +10,6 @@ const history = createBrowserHistory();
 const store = configureStore(undefined, history, reducers);
 
 render(
-	<ReduxRoot store={store} history={history} routes={routes}/>,
-	document.querySelector(".content")
+    <ReduxRoot store={store} history={history} routes={routes}/>,
+    document.querySelector(".content")
 );

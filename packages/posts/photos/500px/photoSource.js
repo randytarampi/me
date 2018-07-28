@@ -8,6 +8,12 @@ class Five00pxSource extends PhotoSource {
         super("500px", new F00px(process.env.F00PX_API_KEY));
     }
 
+    get isEnabled() {
+        return false && // NOTE-RT: API shutdown on 15 June 2018 per https://support.500px.com/hc/en-us/articles/360002435653-API-
+            !!process.env["F00PX_API_KEY"] &&
+            !!process.env["F00PX_API_SECRET"];
+    }
+
     getUserPhotos(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
@@ -86,12 +92,6 @@ class Five00pxSource extends PhotoSource {
                 `https://www.500px.com/${json.user.username}`
             )
         );
-    }
-
-    get isEnabled() {
-        return false && // NOTE-RT: API shutdown on 15 June 2018 per https://support.500px.com/hc/en-us/articles/360002435653-API-
-            !!process.env["F00PX_API_KEY"] &&
-            !!process.env["F00PX_API_SECRET"];
     }
 }
 

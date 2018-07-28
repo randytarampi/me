@@ -6,18 +6,18 @@ import metrics from "../middleware/metrics";
 import reduxRavenMiddleware from "../middleware/raven";
 
 const configureStore = (initialState = {}, history, reducers) => {
-	const middlewares = [thunk, metrics, routerMiddleware(history)];
+    const middlewares = [thunk, metrics, routerMiddleware(history)];
 
-	middlewares.unshift(reduxRavenMiddleware());
+    middlewares.unshift(reduxRavenMiddleware());
 
-	//noinspection UnnecessaryLocalVariableJS
-	const store = createStore(
-		reducers,
-		initialState,
-		composeWithDevTools(applyMiddleware(...middlewares))
-	);
+    //noinspection UnnecessaryLocalVariableJS
+    const store = createStore(
+        reducers,
+        initialState,
+        composeWithDevTools(applyMiddleware(...middlewares))
+    );
 
-	return store;
+    return store;
 };
 
 export default configureStore;

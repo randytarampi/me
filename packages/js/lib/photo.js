@@ -27,6 +27,17 @@ class Photo extends Post {
 		});
 	}
 
+	//FIXME-RT: This seems quite odd. Can't quite remember why it wasn't `set sizedPhotos` instead...
+	set sizedPhoto(sizedPhoto) {
+		if (sizedPhoto) {
+			if (!sizedPhoto.height) {
+				//FIXME-RT: Surely there's a better way to accomplish this...
+				sizedPhoto.height = scaleHeightToWidth(sizedPhoto.width, this.width, this.height);
+			}
+			this.sizedPhotos.push(sizedPhoto);
+		}
+	}
+
 	static fromJSON(json) {
 		return new Photo(
 			json.id,
@@ -50,17 +61,6 @@ class Photo extends Post {
 			return sizedPhoto.width < width;
 		});
 		return _.first(widthAppropriatePhotos) || _.last(sortedSizedPhotos);
-	}
-
-	//FIXME-RT: This seems quite odd. Can't quite remember why it wasn't `set sizedPhotos` instead...
-	set sizedPhoto(sizedPhoto) {
-		if (sizedPhoto) {
-			if (!sizedPhoto.height) {
-				//FIXME-RT: Surely there's a better way to accomplish this...
-				sizedPhoto.height = scaleHeightToWidth(sizedPhoto.width, this.width, this.height);
-			}
-			this.sizedPhotos.push(sizedPhoto);
-		}
 	}
 }
 

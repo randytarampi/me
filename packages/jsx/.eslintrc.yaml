@@ -1,53 +1,52 @@
 extends:
-    - eslint:recommended
-    - plugin:react/recommended
-    - plugin:import/react
+- eslint:recommended
+- plugin:react/recommended
+- plugin:import/react
 rules:
-    no-useless-escape: 1
-    eqeqeq: 2
-    react/no-find-dom-node: 0
-    semi: 2
-    react/prop-types:
-      - 2
-      - ignore:
-          - children
-    quotes:
-      - 2
-      - double
-    import/named: 2
-    import/export: 2
-    import/no-mutable-exports: 2
-    import/first: 2
-    import/no-duplicates: 2
-    import/no-unresolved:
-      - 2
-      -
-        commonjs: true
-        ignore:
-          - "@randy\\.tarampi\\/\\w+"
-    import/default: 2
-    import/no-extraneous-dependencies: 1
-    react/no-unescaped-entities: 0
+  no-useless-escape: 1
+  eqeqeq: 2
+  react/no-find-dom-node: 0
+  semi: 2
+  react/prop-types:
+  - 2
+  - ignore:
+    - children
+  quotes:
+  - 2
+  - double
+  import/named: 2
+  import/export: 2
+  import/no-mutable-exports: 2
+  import/first: 2
+  import/no-duplicates: 2
+  import/no-unresolved:
+  - 2
+  - commonjs: true
+    ignore:
+    - "@randy\\.tarampi\\/\\w+"
+  import/default: 2
+  import/no-extraneous-dependencies: 1
+  react/no-unescaped-entities: 0
 parserOptions:
-    ecmaVersion: 2018
-    sourceType: module
-    ecmaFeatures:
-        jsx: true
-        modules: true
+  ecmaVersion: 2018
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+    modules: true
 env:
-    node: true
-    es6: true
-    browser: true
+  node: true
+  es6: true
+  browser: true
 globals:
   Promise: true
 plugins:
-    - react
-    - import
+- react
+- import
 settings:
   import/resolver:
     node:
       extensions:
-        - .js
-        - .jsx
-        - .json
+      - .js
+      - .jsx
+      - .json
 

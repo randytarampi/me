@@ -2,38 +2,38 @@
  * @abstract
  */
 class PhotoSource {
-	constructor(type, client, initalizerPromise) {
-		this.type = type;
-		this.client = client;
+    constructor(type, client, initalizerPromise) {
+        this.type = type;
+        this.client = client;
 
-		if (initalizerPromise) {
-			this.initializing = initalizerPromise
-				.then((initializedClient) => {
+        if (initalizerPromise) {
+            this.initializing = initalizerPromise
+                .then((initializedClient) => {
                     this.client = initializedClient;
                     return this;
-				});
-		} else {
-			this.initializing = Promise.resolve(this);
-		}
-	}
+                });
+        } else {
+            this.initializing = Promise.resolve(this);
+        }
+    }
 
-	getUserPhotos(params) {
-		return Promise.reject(new Error(`Looking for ${params} – Please specify an actual get photo for user implementation`));
-	}
+    get isEnabled() {
+        const type = this.type || "";
+        return !!process.env[`${type.toUpperCase()}_API_KEY`] &&
+            !!process.env[`${type.toUpperCase()}_API_SECRET`];
+    }
 
-	getPhoto(photoId, params) {
-		return Promise.reject(new Error(`Looking for ${photoId} with ${params} – Please specify an actual get photo implementation`));
-	}
+    getUserPhotos(params) {
+        return Promise.reject(new Error(`Looking for ${params} – Please specify an actual get photo for user implementation`));
+    }
 
-	jsonToPhoto(photoJson) {
-		throw new Error(`Trying to turn ${photoJson} into a Photo – Please specify an actual Photo transformation`);
-	}
+    getPhoto(photoId, params) {
+        return Promise.reject(new Error(`Looking for ${photoId} with ${params} – Please specify an actual get photo implementation`));
+    }
 
-	get isEnabled() {
-		const type = this.type || "";
-		return !!process.env[`${type.toUpperCase()}_API_KEY`] &&
-			!!process.env[`${type.toUpperCase()}_API_SECRET`];
-	}
+    jsonToPhoto(photoJson) {
+        throw new Error(`Trying to turn ${photoJson} into a Photo – Please specify an actual Photo transformation`);
+    }
 }
 
 export default PhotoSource;

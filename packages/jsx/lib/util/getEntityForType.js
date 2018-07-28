@@ -1,12 +1,12 @@
 import {Photo, Post} from "@randy.tarampi/js";
 
 export default type => {
-	switch (type) {
-		case "Photo":
-			return Photo;
+    switch (type) {
+        case "Photo":
+            return Photo;
 
-		default:
-		case "Post":
-			return Post;
-	}
+        default:
+        case "Post":
+            return Post;
+    }
 };

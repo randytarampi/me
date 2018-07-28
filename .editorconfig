@@ -3,12 +3,23 @@
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-indent_style = tab
+indent_style = space
 indent_size = 4
 
 [*.json]
+indent_size = 2
+
 [*.yaml]
+indent_size = 2
+
 [*.yml]
+indent_size = 2
+
 [*.config]
 indent_size = 2
-indent_style = space
+
+[*.babelrc]
+indent_size = 2
+
+[*.nycrc]
+indent_size = 2

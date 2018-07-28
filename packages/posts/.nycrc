@@ -1,45 +1,45 @@
 {
-    "extension": [
-        ".jsx"
+  "extension": [
+    ".jsx"
+  ],
+  "exclude": [
+    "node_modules/**",
+    "dist/**",
+    "docs/**",
+    "coverage/**",
+    ".nyc_output/**",
+    "test/**",
+    "*.js"
+  ],
+  "reporter": [
+    "text-summary",
+    "cobertura",
+    "lcov"
+  ],
+  "require": [
+    "babel-register"
+  ],
+  "cache": true,
+  "all": true,
+  "check-coverage": false,
+  "sourceMap": false,
+  "instrument": false,
+  "watermarks": {
+    "lines": [
+      70,
+      90
     ],
-    "exclude": [
-        "node_modules/**",
-        "dist/**",
-        "docs/**",
-        "coverage/**",
-        ".nyc_output/**",
-        "test/**",
-        "*.js"
+    "functions": [
+      70,
+      90
     ],
-    "reporter": [
-        "text-summary",
-        "cobertura",
-        "lcov"
+    "branches": [
+      70,
+      90
     ],
-    "require": [
-        "babel-register"
-    ],
-    "cache": true,
-    "all": true,
-    "check-coverage": false,
-    "sourceMap": false,
-    "instrument": false,
-    "watermarks": {
-        "lines": [
-            70,
-            90
-        ],
-        "functions": [
-            70,
-            90
-        ],
-        "branches": [
-            70,
-            90
-        ],
-        "statements": [
-            70,
-            90
-        ]
-    }
+    "statements": [
+      70,
+      90
+    ]
+  }
 }

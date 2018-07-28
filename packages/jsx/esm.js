@@ -6,10 +6,10 @@ import ReduxRoot from "./lib/reduxRoot";
 import configureStore from "./lib/store/configureStore";
 
 export {
-	configureStore,
-	Posts,
-	reducers,
-	ReduxRoot,
-	RowBlock,
-	selectors
+    configureStore,
+    Posts,
+    reducers,
+    ReduxRoot,
+    RowBlock,
+    selectors
 };

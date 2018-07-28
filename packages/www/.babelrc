@@ -1,26 +1,26 @@
 {
-    "presets": [
-        [
-            "env",
-            {
-                "targets": {
-                    "uglify": true
-                },
-                "useBuiltIns": true
-            }
-        ],
-        "react"
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "uglify": true
+        },
+        "useBuiltIns": true
+      }
     ],
-    "plugins": [
-        "transform-object-rest-spread",
-        "react-hot-loader/babel",
-        "lodash"
-    ],
-    "env": {
-        "test": {
-            "plugins": [
-                "istanbul"
-            ]
-        }
+    "react"
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "react-hot-loader/babel",
+    "lodash"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
     }
+  }
 }

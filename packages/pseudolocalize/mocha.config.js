@@ -1,7 +1,7 @@
 module.exports = {
-	globals: ["expect"],
-	sort: true,
-	fullTrace: true,
-	checkLeaks: true,
-	exit: true
+    globals: ["expect"],
+    sort: true,
+    fullTrace: true,
+    checkLeaks: true,
+    exit: true
 };
