@@ -1,7 +1,7 @@
-import SentryCliPlugin from "@sentry/webpack-plugin";
 import config from "config";
 import path from "path";
 import webpack from "webpack";
+import SentryPlugin from "webpack-sentry-plugin";
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -28,13 +28,27 @@ const plugins = [
     })
 ];
 
-if (process.env.TRAVIS_TAG) {
+if (process.env.TRAVIS_TAG && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(
-        new SentryCliPlugin({
-            include: ".",
-            ignore: ["node_modules", "webpack.config.js"],
+        new SentryPlugin({
+            organization: process.env.SENTRY_ORG,
+            project: process.env.SENTRY_PROJECT,
+            apiKey: process.env.SENTRY_AUTH_TOKEN,
             release: process.env.TRAVIS_TAG,
-            debug: true
+            releaseBody: (version, projects) => {
+                return {
+                    version,
+                    projects,
+                    refs: [
+                        {
+                            repository: process.env.TRAVIS_REPO_SLUG,
+                            commit: process.env.COMMIT
+                        }
+                    ]
+                };
+            },
+            filenameTransform: name => `~/${name.replace(/dist\//g, "docs/")}`,
+            suppressConflictError: true
         })
     );
 }

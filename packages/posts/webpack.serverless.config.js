@@ -3,7 +3,7 @@ const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
-// const SentryCliPlugin = require("@sentry/webpack-plugin");
+const SentryPlugin = require("webpack-sentry-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -31,16 +31,30 @@ const plugins = [
     ])
 ];
 
-// if (process.env.TRAVIS_TAG) { // NOTE-RT: Bring this back when we switch to using the other sentry webpack plugin
-//     plugins.push(
-//         new SentryCliPlugin({
-//             include: ".",
-//             ignore: ["node_modules", "webpack.serverless.config.js"],
-//             release: process.env.TRAVIS_TAG,
-//             debug: true
-//         })
-//     );
-// }
+if (process.env.TRAVIS_TAG) {
+    plugins.push(
+        new SentryPlugin({
+            organization: process.env.SENTRY_ORG,
+            project: process.env.SENTRY_PROJECT,
+            apiKey: process.env.SENTRY_AUTH_TOKEN,
+            release: process.env.TRAVIS_TAG,
+            releaseBody: (version, projects) => {
+                return {
+                    version,
+                    projects,
+                    refs: [
+                        {
+                            repository: process.env.TRAVIS_REPO_SLUG,
+                            commit: process.env.COMMIT
+                        }
+                    ]
+                };
+            },
+            filenameTransform: name => `~/${name.replace(/dist\//g, "docs/")}`,
+            suppressConflictError: true
+        })
+    );
+}
 
 module.exports = {
     entry: slsw.lib.entries,
