@@ -20,7 +20,7 @@ describe("pseudoimage", function () {
     beforeEach(function () {
         try {
             rmrf(tmpDir);
-        } catch (e) {
+        } catch (e) { // eslint-disable-line no-empty
         } finally { // eslint-disable-line no-empty
             fs.mkdirSync(tmpDir);
         }
@@ -28,7 +28,7 @@ describe("pseudoimage", function () {
     after(function () {
         try {
             rmrf(tmpDir);
-        } catch (e) {
+        } catch (e) { // eslint-disable-line no-empty
         } // eslint-disable-line no-empty
     });
 
