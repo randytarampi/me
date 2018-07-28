@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.9",
+  "version": "0.1.10",
   "homepage": "http://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
