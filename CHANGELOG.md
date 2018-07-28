@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/randytarampi/me/compare/v0.1.0...v0.1.1) (2018-07-28)
+
+
+### Bug Fixes
+
+* **travis:** Push to `gh-pages`, not `HEAD:gh-pages`. ([a5fd5a3](https://github.com/randytarampi/me/commit/a5fd5a3))
+* **travis:** Refer to the correct, `split.sh` script on `resume` deploy. ([918f931](https://github.com/randytarampi/me/commit/918f931))
+
+
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/randytarampi/me/compare/v0.0.11...v0.1.0) (2018-07-28)
 
