@@ -61,7 +61,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "chokidar": "^2.0.4",
-    "config": "^1.30.0",
+    "config": "^2.0.0",
     "connect-history-api-fallback": "^1.5.0",
     "del": "^3.0.0",
     "eslint-plugin-import": "^2.13.0",
@@ -90,7 +90,7 @@
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-sentry-plugin": "^1.16.0",
-    "webpack-serve": "^1.0.4",
-    "ws": "^5.2.2"
+    "webpack-serve": "^2.0.2",
+    "ws": "^6.0.0"
   }
 }
