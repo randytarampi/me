@@ -16,4 +16,4 @@ class Creator {
     }
 }
 
-module.exports = Creator;
+export default Creator;

@@ -11,4 +11,4 @@ class SizedPhoto {
     }
 }
 
-module.exports = SizedPhoto;
+export default SizedPhoto;

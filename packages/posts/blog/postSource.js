@@ -27,4 +27,4 @@ class PostSource {
     }
 }
 
-module.exports = PostSource;
+export default PostSource;

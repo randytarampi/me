@@ -31,4 +31,4 @@ class WordSource {
     }
 }
 
-module.exports = WordSource;
+export default WordSource;

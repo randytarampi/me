@@ -64,7 +64,7 @@ class Photo extends Post {
 	}
 }
 
-module.exports = Photo;
+export default Photo;
 
 function scaleHeightToWidth(limitedWidth, originalWidth, originalHeight) {
 	return ~~((originalHeight / originalWidth) * limitedWidth);
