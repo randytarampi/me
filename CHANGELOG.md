@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.2"></a>
+## [0.1.2](https://github.com/randytarampi/me/compare/v0.1.1...v0.1.2) (2018-07-28)
+
+
+### Bug Fixes
+
+* **travis:** Force push `www` to `gh-pages`. ([03ba8d6](https://github.com/randytarampi/me/commit/03ba8d6))
+* **travis:** Only add `resume/index.html` and `resume/index.pdf` on Deploy. ([85820e3](https://github.com/randytarampi/me/commit/85820e3))
+
+
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/randytarampi/me/compare/v0.1.0...v0.1.1) (2018-07-28)
 
