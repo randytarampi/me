@@ -96,7 +96,7 @@ jobs:
     script: skip
     after_script: skip
     before_deploy:
-    - git add --verbose --force --all $RESUME_PACKAGE_DIR
+    - git add --verbose --force --all $RESUME_PACKAGE_DIR/index.html $RESUME_PACKAGE_DIR/index.pdf
     - git commit -m "Add assets for $TRAVIS_TAG."
     deploy:
     - provider: script
