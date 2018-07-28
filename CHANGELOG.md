@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.4"></a>
+## [0.1.4](https://github.com/randytarampi/me/compare/v0.1.3...v0.1.4) (2018-07-28)
+
+
+### Bug Fixes
+
+* **travis:** `git subtree push` doesn't support `--force`. ([35a2d05](https://github.com/randytarampi/me/commit/35a2d05))
+* **travis:** Only `Add assets for $TRAVIS_TAG.` when there are changes. ([ae9feb5](https://github.com/randytarampi/me/commit/ae9feb5))
+
+
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/randytarampi/me/compare/v0.1.2...v0.1.3) (2018-07-28)
 
