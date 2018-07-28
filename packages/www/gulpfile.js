@@ -57,7 +57,7 @@ gulp.task("docs:index", () => {
         .src([
             "dist/*.html"
         ])
-        .pipe(gulp.dest("./"));
+        .pipe(gulp.dest("."));
 });
 
 gulp.task("docs", gulp.series([
