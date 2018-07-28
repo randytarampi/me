@@ -27,7 +27,7 @@ before_script:
 - npx lerna run pretest
 script:
 - npm run travis
-after_success:
+after_script:
 - npm run coveralls
 stages:
 - name: Test
