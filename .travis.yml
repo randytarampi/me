@@ -81,7 +81,7 @@ jobs:
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
-      script: git subtree push --prefix packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
+      script: git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git `git subtree split --prefix packages/www $TRAVIS_TAG`:gh-pages
       skip_cleanup: true
       on:
         tags: true
