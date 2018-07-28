@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.5"></a>
+## [0.1.5](https://github.com/randytarampi/me/compare/v0.1.4...v0.1.5) (2018-07-28)
+
+
+### Bug Fixes
+
+* **split:** Define `MONOREPO_ROOT` correctly. ([a904edd](https://github.com/randytarampi/me/commit/a904edd))
+* **travis:** Need to chain a `git subtree split` to a `git push` for `--force`. ([af392e1](https://github.com/randytarampi/me/commit/af392e1))
+
+
+
+
+
 <a name="0.1.4"></a>
 ## [0.1.4](https://github.com/randytarampi/me/compare/v0.1.3...v0.1.4) (2018-07-28)
 
