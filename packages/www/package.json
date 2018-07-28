@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.7",
+  "version": "0.1.8",
   "homepage": "http://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -34,7 +34,7 @@
   "license": "ISC",
   "dependencies": {
     "@randy.tarampi/css": "^0.1.7",
-    "@randy.tarampi/jsx": "^0.1.7",
+    "@randy.tarampi/jsx": "^0.1.8",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
