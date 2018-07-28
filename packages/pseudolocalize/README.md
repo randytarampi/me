@@ -5,7 +5,7 @@ Or, otherwise user defined pseudolocalizations...
 ##Usage
 
 ```javascript
-let Pseudolocalizer = require("woof.pseudolocalize");
+let Pseudolocalizer = require("@randy.tarampi/pseudolocalize");
 
 let pseudolocalizer = new Pseudolocalizer();
 console.log(pseudolocalizer.pseudolocalize("ᴥ")); // "ʕつ•ᴥ•ʔつ"

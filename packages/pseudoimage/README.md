@@ -5,7 +5,7 @@ This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create
 ##Usage
 
 ```javascript
-let Pseudoimage = require("woof.pseudoimage");
+let Pseudoimage = require("@randy.tarampi/pseudoimage");
 let sourceDirectory = "/Users/randy.tarampi/Desktop/images";
 let destinationDirectory = "/Users/randy.tarampi/Desktop/fakeImages";
 let expect = require("chai").expect;
