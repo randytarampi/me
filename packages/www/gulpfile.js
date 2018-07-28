@@ -171,14 +171,12 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "views", "styles", "webpack"]),
-    "docs"
+    gulp.parallel(["copy", "views", "styles", "webpack"])
 ]));
 
 gulp.task("build:dev", gulp.series([
     gulp.parallel(["lint", "copy", "views", "styles:dev"]),
-    "webpack:dev",
-    "docs"
+    "webpack:dev"
 ]));
 
 gulp.task("dev",

@@ -24,7 +24,8 @@
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "webpack-serve --hot",
-    "build": "npx gulp -LLLL --color build"
+    "build": "npx gulp -LLLL --color build",
+    "docs": "npx gulp -LLLL --color docs"
   },
   "author": {
     "name": "Randy Tarampi",
