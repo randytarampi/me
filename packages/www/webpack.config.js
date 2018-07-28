@@ -1,7 +1,7 @@
-import config from "config";
-import path from "path";
-import webpack from "webpack";
-import SentryPlugin from "webpack-sentry-plugin";
+const config = require("config");
+const path = require("path");
+const webpack = require("webpack");
+const SentryPlugin = require("webpack-sentry-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -42,7 +42,7 @@ if (process.env.TRAVIS_TAG && process.env.SENTRY_AUTH_TOKEN) {
                     refs: [
                         {
                             repository: process.env.TRAVIS_REPO_SLUG,
-                            commit: process.env.COMMIT
+                            commit: process.env.TRAVIS_COMMIT
                         }
                     ]
                 };
@@ -85,7 +85,7 @@ module.exports = {
     serve: {
         clipboard: false,
         content: "./dist/",
-        hot: {
+        hotClient: {
             host: "localhost",
             port: 8090,
         },

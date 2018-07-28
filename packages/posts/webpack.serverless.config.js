@@ -45,7 +45,7 @@ if (process.env.TRAVIS_TAG) {
                     refs: [
                         {
                             repository: process.env.TRAVIS_REPO_SLUG,
-                            commit: process.env.COMMIT
+                            commit: process.env.TRAVIS_COMMIT
                         }
                     ]
                 };

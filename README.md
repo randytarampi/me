@@ -7,13 +7,13 @@ _  / / / / /  __/_/_ __|
                          
 ```
 
-[![Build Status](https://img.shields.io/travis/randytarampi/me.svg?style=flat-square)](https://travis-ci.org/randytarampi/me) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master) [![Dependency Status](https://img.shields.io/david/randytarampi/me.svg?style=flat-square)](https://david-dm.org/randytarampi/me) [![Ready](https://img.shields.io/waffle/label/randytarampi/me/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/me) [![In Progress](https://img.shields.io/waffle/label/randytarampi/me/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/me)
+[![Build Status](https://img.shields.io/travis/randytarampi/me.svg?style=flat-square)](https://travis-ci.org/randytarampi/me) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/randytarampi/me.svg?style=flat-square)](https://greenkeeper.io/) [![Ready](https://img.shields.io/waffle/label/randytarampi/randytarampi.github.io/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/randytarampi.github.io) [![In Progress](https://img.shields.io/waffle/label/randytarampi/randytarampi.github.io/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/randytarampi.github.io) 
 
 A monorepo for everything that goes into [randytarampi.ca](http://www.randytarampi.ca).
 
 - [posts](packages/posts)
 - [resume](packages/resume)
-- [www](/packages/www)
+- [www](packages/www)
 
 And also a couple semi-related modules I wrote a couple years back that I'm planning on using at some point to build out an internationalized resume template.
 
