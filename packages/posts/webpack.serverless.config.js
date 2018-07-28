@@ -1,9 +1,9 @@
-import CopyWebpackPlugin from "copy-webpack-plugin";
-import path from "path";
-import slsw from "serverless-webpack";
-import webpack from "webpack";
-import nodeExternals from "webpack-node-externals";
-// import SentryCliPlugin from "@sentry/webpack-plugin";
+const path = require("path");
+const slsw = require("serverless-webpack");
+const nodeExternals = require("webpack-node-externals");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
+// const SentryCliPlugin = require("@sentry/webpack-plugin");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
