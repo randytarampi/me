@@ -31,9 +31,9 @@ after_script:
 - npm run coveralls
 stages:
 - name: Test
-  if: tag IS blank AND NOT commit_message ~= /(?:^release\(Travis\):)/
+  if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Release
-  if: tag IS blank AND branch = master AND NOT commit_message ~= /(?:^release\(Travis\):)/
+  if: tag IS blank AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Deploy
   if: tag IS present
 jobs:
@@ -55,7 +55,7 @@ jobs:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email $TRAVIS_AUTHOR
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-    - 'npx lerna publish --conventional-commits --yes --skip-npm --message "release(Travis): Release %s." --git-remote ci-push'
+    - 'npx lerna publish --conventional-commits --yes --skip-npm --message "release(travis): Release %s." --git-remote ci-push'
     deploy:
     - provider: releases
       api_key:
