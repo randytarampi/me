@@ -80,9 +80,9 @@ module.exports = {
         },
         on: {
             listening: ({server}) => {
-                import chokidar from "chokidar";
-                import stringify from "json-stringify-safe";
-                import webSocket from "ws";
+                const chokidar = require("chokidar");
+                const stringify = require("json-stringify-safe");
+                const webSocket = require("ws");
 
                 const socket = new webSocket("ws://localhost:8090");
                 const watcher = chokidar.watch(__dirname);
@@ -105,9 +105,9 @@ module.exports = {
             },
         },
         add: (app, middleware) => {
-            import history from "connect-history-api-fallback";
-            import compress from "koa-compress";
-            import convert from "koa-connect";
+            const history = require("connect-history-api-fallback");
+            const compress = require("koa-compress");
+            const convert = require("koa-connect");
 
             app.use(compress());
             app.use(convert(history({
