@@ -1,0 +1,17 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/css/package.json",
+        "packages/js/package.json",
+        "packages/jsx/package.json",
+        "packages/posts/package.json",
+        "packages/pseudoimage/package.json",
+        "packages/pseudolocalize/package.json",
+        "packages/resume/package.json",
+        "packages/www/package.json"
+      ]
+    }
+  }
+}
