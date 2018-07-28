@@ -81,7 +81,7 @@ jobs:
     - git commit -m "Add assets for $TRAVIS_TAG."
     deploy:
     - provider: script
-      script: git subtree push --prefix $TRAVIS_BUILD_DIR/packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git HEAD:gh-pages
+      script: git subtree push --prefix $TRAVIS_BUILD_DIR/packages/www https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
       skip_cleanup: true
       on:
         tags: true
