@@ -3,12 +3,13 @@
     ".jsx"
   ],
   "exclude": [
-    "node_modules/**",
-    "dist/**",
-    "docs/**",
-    "coverage/**",
-    ".nyc_output/**",
-    "test/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/docs/**",
+    "**/coverage/**",
+    "**/.nyc_output/**",
+    "**/test/**",
+    "packages/*/*.js",
     "*.js"
   ],
   "reporter": [
