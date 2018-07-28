@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.3"></a>
+## [0.1.3](https://github.com/randytarampi/me/compare/v0.1.2...v0.1.3) (2018-07-28)
+
+
+### Bug Fixes
+
+* **travis:** `npm run coveralls` `after_script`. ([acad55e](https://github.com/randytarampi/me/commit/acad55e))
+* **travis:** Don't include `$TRAVIS_BUILD_DIR` in the `subtree push --prefix`. ([34f8f83](https://github.com/randytarampi/me/commit/34f8f83))
+* **travis:** Only `Add assets for $TRAVIS_TAG.` when there are changes. ([a776ed4](https://github.com/randytarampi/me/commit/a776ed4))
+
+
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/randytarampi/me/compare/v0.1.1...v0.1.2) (2018-07-28)
 
