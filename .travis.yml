@@ -78,7 +78,7 @@ jobs:
     script: skip
     after_script: skip
     before_deploy:
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html; fi;
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
