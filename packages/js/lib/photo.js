@@ -1,8 +1,8 @@
-const Creator = require("./creator");
-const SizedPhoto = require("./sizedPhoto");
-const Post = require("./post");
-const Moment = require("moment");
-const _ = require("lodash");
+import _ from "lodash";
+import Moment from "moment";
+import Creator from "./creator";
+import Post from "./post";
+import SizedPhoto from "./sizedPhoto";
 
 class Photo extends Post {
 	constructor(id, type, source, dateCreated, datePublished, width, height, sizedPhotos, sourceUrl, title, body, creator) {

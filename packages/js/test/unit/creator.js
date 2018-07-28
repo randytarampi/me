@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const Creator = require("../../lib/creator");
+import {expect} from "chai";
+import Creator from "../../lib/creator";
 
 describe("Creator", () => {
     describe(".fromJSON", () => {

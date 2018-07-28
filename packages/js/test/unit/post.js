@@ -1,6 +1,6 @@
-const expect = require("chai").expect;
-const Moment = require("moment");
-const Post = require("../../lib/post");
+import {expect} from "chai";
+import Moment from "moment";
+import Post from "../../lib/post";
 
 describe("Post", () => {
     describe("constructor", () => {

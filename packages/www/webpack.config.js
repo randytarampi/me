@@ -1,7 +1,7 @@
-const path = require("path");
-const webpack = require("webpack");
-const config = require("config");
-const SentryCliPlugin = require("@sentry/webpack-plugin");
+import SentryCliPlugin from "@sentry/webpack-plugin";
+import config from "config";
+import path from "path";
+import webpack from "webpack";
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -80,9 +80,9 @@ module.exports = {
         },
         on: {
             listening: ({server}) => {
-                const chokidar = require("chokidar");
-                const stringify = require("json-stringify-safe");
-                const webSocket = require("ws");
+                import chokidar from "chokidar";
+                import stringify from "json-stringify-safe";
+                import webSocket from "ws";
 
                 const socket = new webSocket("ws://localhost:8090");
                 const watcher = chokidar.watch(__dirname);
@@ -105,9 +105,9 @@ module.exports = {
             },
         },
         add: (app, middleware) => {
-            const history = require("connect-history-api-fallback");
-            const compress = require("koa-compress");
-            const convert = require("koa-connect");
+            import history from "connect-history-api-fallback";
+            import compress from "koa-compress";
+            import convert from "koa-connect";
 
             app.use(compress());
             app.use(convert(history({

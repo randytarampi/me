@@ -1,7 +1,7 @@
-const expect = require("chai").expect;
-const Moment = require("moment");
-const Photo = require("../../lib/photo");
-const SizedPhoto = require("../../lib/sizedPhoto");
+import {expect} from "chai";
+import Moment from "moment";
+import Photo from "../../lib/photo";
+import SizedPhoto from "../../lib/sizedPhoto";
 
 describe("Photo", () => {
     describe("constructor", () => {

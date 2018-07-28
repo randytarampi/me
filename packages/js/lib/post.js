@@ -1,5 +1,5 @@
-const Creator = require("./creator");
-const Moment = require("moment");
+import Moment from "moment";
+import Creator from "./creator";
 
 class Post {
     constructor(id, type, source, dateCreated, datePublished, title, body, sourceUrl, creator) {

@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const SizedPhoto = require("../../lib/sizedPhoto");
+import {expect} from "chai";
+import SizedPhoto from "../../lib/sizedPhoto";
 
 describe("SizedPhoto", () => {
     describe(".fromJSON", () => {

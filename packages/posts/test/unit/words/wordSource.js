@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const WordSource = require("../../../words/wordSource");
+import {expect} from "chai";
+import WordSource from "../../../words/wordSource";
 
 describe("WordSource", () => {
     before(() => {

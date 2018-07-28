@@ -1,5 +1,5 @@
-const path = require("path");
-const webpack = require("webpack");
+import path from "path";
+import webpack from "webpack";
 
 module.exports = {
     mode: "development",
