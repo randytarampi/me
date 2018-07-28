@@ -85,7 +85,7 @@ module.exports = {
     serve: {
         clipboard: false,
         content: "./dist/",
-        hot: {
+        hotClient: {
             host: "localhost",
             port: 8090,
         },
