@@ -13,7 +13,7 @@ A monorepo for everything that goes into [randytarampi.ca](http://www.randytaram
 
 - [posts](packages/posts)
 - [resume](packages/resume)
-- [web](/packages/web)
+- [www](/packages/www)
 
 And also a couple semi-related modules I wrote a couple years back that I'm planning on using at some point to build out an internationalized resume template.
 
