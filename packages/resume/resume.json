@@ -5,8 +5,8 @@
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
     "email": "rt@randytarampi.ca",
     "phone": "+1 (604) 374-7128",
-    "website": "https://randytarampi.ca",
-    "summary": "Recently unemployed code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
+    "website": "https://www.randytarampi.ca",
+    "summary": "Recently funemployed code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
     "location": {
       "address": "4663 Todd Street",
       "postalCode": "V5R 3P7",
@@ -16,24 +16,24 @@
     },
     "profiles": [
       {
-        "network": "GitHub",
+        "network": "github",
         "username": "randytarampi",
         "url": "https://github.com/randytarampi"
       },
       {
-        "network": "LinkedIn",
-        "username": "randytarampi",
-        "url": "http://linkedin.com/in/randytarampi/"
-      },
-      {
-        "network": "Instagram",
+        "network": "instagram",
         "username": "randytarampi",
         "url": "https://instagram.com/randytarampi"
       },
       {
-        "network": "Unsplash",
+        "network": "linkedin",
         "username": "randytarampi",
-        "url": "https://unsplash.com/@randytarampi"
+        "url": "https://linkedin.com/in/randytarampi"
+      },
+      {
+        "network": "flickr",
+        "username": "randytarampi",
+        "url": "https://www.flickr.com/people/randytarampi"
       }
     ]
   },
@@ -82,7 +82,7 @@
     {
       "company": "Metro Vancouver",
       "position": "Project Research Assistant",
-      "website": "http://www.metrovancouver.org/",
+      "website": "http://www.metrovancouver.org",
       "startDate": "2012-05-01",
       "endDate": "2012-09-01",
       "summary": "I was curious about how bureaucracy dealt with data, and I was equal parts surprised and horrified",
@@ -95,10 +95,10 @@
     {
       "company": "SAP",
       "position": "Software Developer in Test",
-      "website": "https://www.sap.com/index.html",
+      "website": "https://www.sap.com",
       "startDate": "2011-09-01",
       "endDate": "2011-12-31",
-      "summary": "My first \"real\"job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
+      "summary": "My first \"real\" job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
       "highlights": [
         "Administered the daily automated testing of SAP Business Objects Enterprise for the Crystal Reports team"
       ]
@@ -120,7 +120,7 @@
   "education": [
     {
       "institution": "Simon Fraser University",
-      "area": "Computing Science, Political Science",
+      "area": "Computing Science & Political Science",
       "studyType": "Bachelor's degree",
       "startDate": "2009-09-03",
       "endDate": "2014-04-20",
@@ -202,7 +202,7 @@
   "languages": [
     {
       "language": "English",
-      "fluency": "Native speaker"
+      "fluency": "Native"
     },
     {
       "language": "Italian",

@@ -22,7 +22,10 @@ gulp.task("clean", (callback) => {
 gulp.task("copy", () => {
     return gulp
         .src([
-            "node_modules/materialize-css/dist/fonts/roboto/**"
+            "node_modules/materialize-css/dist/fonts/roboto/**",
+            "node_modules/@fortawesome/fontawesome-free/sprites/**",
+            "node_modules/@fortawesome/fontawesome-free/svgs/**",
+            "node_modules/@fortawesome/fontawesome-free/webfonts/**"
         ])
         .pipe(gulp.dest("./dist"));
 });

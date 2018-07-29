@@ -2,7 +2,7 @@ var fs = require("fs");
 var Handlebars = require("handlebars");
 
 function render(resume) {
-    var css = fs.readFileSync(__dirname + "/style.css", "utf-8");
+    var css = fs.readFileSync(__dirname + "/dist/styles.css", "utf-8");
     var tpl = fs.readFileSync(__dirname + "/resume.hbs", "utf-8");
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
