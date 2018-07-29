@@ -29,6 +29,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@randy.tarampi/css": "^0.1.7",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-clean-css": "^3.9.4",
@@ -40,13 +41,10 @@
     "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^2.6.4",
     "handlebars": "^4.0.11",
+    "jsonresume-theme-randytarampi": "file:./",
     "resume-cli": "^0.4.19"
   },
   "engines": {
     "node": ">=8"
-  },
-  "dependencies": {
-    "@randy.tarampi/css": "^0.1.7",
-    "jsonresume-theme-randytarampi": "file:./"
   }
 }
