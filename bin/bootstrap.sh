@@ -20,5 +20,8 @@ cd $REPO_ROOT/packages/posts;
 npm install;
 rm package-lock.json;
 
+# FIXME-RT: Consumers of `css` needs it have local references to style assets so we can pull them in during the build
+ln -snf $REPO_ROOT/node_modules/materialize-css/ $REPO_ROOT/packages/css/node_modules/materialize-css
+
 cd $REPO_ROOT;
 npx lerna link;
