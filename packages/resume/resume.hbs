@@ -72,28 +72,28 @@
 <div id="content" class="container resume-content">
 
     {{#resume.basics}}
-        <section id="contact" class="row valign-wrapper resume-section">
-            <aside class="col s3 resume-section-label">
+        <section id="contact" class="row resume-section">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Contact</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row contact-methods">
                     {{#email}}
-                        <div class="col l4 m6 s12 contact-method">
+                        <div class="col s6 contact-method">
                             <div>
                                 <span class="email"><a href="mailto:{{.}}">{{.}}</a></span>
                             </div>
                         </div>
                     {{/email}}
                     {{#phone}}
-                        <div class="col l4 m6 s12 contact-method">
+                        <div class="col s6 contact-method">
                             <div>
                                 <span class="phone"><a href="tel:{{.}}">{{.}}</a></span>
                             </div>
                         </div>
                     {{/phone}}
                     {{#website}}
-                        <div class="col l4 s12 contact-method">
+                        <div class="col contact-method">
                             <div>
                                 <span class="website"><a href="{{.}}">{{.}}</a></span>
                             </div>
@@ -102,22 +102,22 @@
                 </div>
             </div>
         </section>
-        <section id="about" class="row valign-wrapper resume-section">
-            <aside class="col s3 resume-section-label">
+        <section id="about" class="row resume-section">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">About</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 {{#summary}}
                     <p>{{.}}</p>
                 {{/summary}}
             </div>
         </section>
         {{#if profiles.length}}
-            <section id="profiles" class="row valign-wrapper resume-section">
-                <aside class="col s3 resume-section-label">
+            <section id="profiles" class="row resume-section">
+                <aside class="col m3 resume-section-label">
                     <h3><span class="text">Profiles</span></h3>
                 </aside>
-                <div class="col s8 offset-s1 resume-section-content">
+                <div class="col m8 offset-s1 resume-section-content">
                     <div class="row social-links">
                         {{#profiles}}
                             <div class="col l4 m6 s12 social-link">
@@ -153,10 +153,10 @@
 
     {{#if resume.work.length}}
         <section id="work" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Work</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.work}}
                         <div class="col s12">
@@ -212,10 +212,10 @@
 
     {{#if resume.skills.length}}
         <section id="skills" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Skills</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.skills}}
                         <div class="col s6">
@@ -240,10 +240,10 @@
 
     {{#if resume.education.length}}
         <section id="education" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Education</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.education}}
                         <div class="col s12">
@@ -290,10 +290,10 @@
 
     {{#if resume.awards.length}}
         <section id="awards" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Awards</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.awards}}
                         <div class="col s12">
@@ -324,10 +324,10 @@
 
     {{#if resume.volunteer.length}}
         <section id="volunteer" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Volunteer</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.volunteer}}
                         <div class="col s12">
@@ -377,10 +377,10 @@
 
     {{#if resume.publications.length}}
         <section id="publications" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Publications</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.publications}}
                         <div class="col s12">
@@ -420,11 +420,11 @@
     {{/if}}
 
     {{#if resume.languages.length}}
-        <section id="languages" class="row valign-wrapper resume-section">
-            <aside class="col s3 resume-section-label">
+        <section id="languages" class="row resume-section">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Languages</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row languages">
                     {{#each resume.languages}}
                         <div class="col l4 m6 s12 language">
@@ -440,10 +440,10 @@
 
     {{#if resume.interests.length}}
         <section id="interests" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">Interests</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.interests}}
                         <div class="col s6">
@@ -468,10 +468,10 @@
 
     {{#if resume.references.length}}
         <section id="references" class="row resume-section">
-            <aside class="col s3 resume-section-label">
+            <aside class="col m3 resume-section-label">
                 <h3><span class="text">References</span></h3>
             </aside>
-            <div class="col s8 offset-s1 resume-section-content">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.references}}
                         <div class="col s12">
