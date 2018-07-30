@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/randytarampi/me/compare/v0.1.11...v0.2.0) (2018-07-30)
+
+
+### Bug Fixes
+
+* **css:** Fix the pulling in of `css` assets during builds. ([d3c270d](https://github.com/randytarampi/me/commit/d3c270d))
+
+
+### Features
+
+* **resume:** Style `resume` consistently with the rest of the app. ([#2](https://github.com/randytarampi/me/issues/2)) ([9c2fa27](https://github.com/randytarampi/me/commit/9c2fa27))
+
+
+
+
+
 <a name="0.1.11"></a>
 ## [0.1.11](https://github.com/randytarampi/me/compare/v0.1.10...v0.1.11) (2018-07-28)
 

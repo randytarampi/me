@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.1.8",
+  "version": "0.2.0",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.1.8",
+    "@randy.tarampi/js": "^0.2.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "raven-js": "^3.26.3",
@@ -50,7 +50,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
-    "@randy.tarampi/css": "^0.1.7",
+    "@randy.tarampi/css": "^0.2.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",

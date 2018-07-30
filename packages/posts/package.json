@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.1.11",
+  "version": "0.2.0",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "500px": "^0.5.1",
-    "@randy.tarampi/js": "^0.1.8",
+    "@randy.tarampi/js": "^0.2.0",
     "aws-sdk": "^2.279.1",
     "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
