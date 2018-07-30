@@ -9,3 +9,23 @@ html, body {
     height: 100%;
     width: 100%;
 }
+
+ul:not(.browser-default) {
+    list-style-type: square;
+
+    & li {
+        list-style-type: unset;
+    }
+}
+
+.hide-on-screen {
+    @media screen {
+        display: none !important;
+    }
+}
+
+.hide-on-print {
+    @media print {
+        display: none !important;
+    }
+}

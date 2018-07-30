@@ -14,7 +14,7 @@ gulp.task("copy", () => {
     return gulp
         .src([
             "public/assets/**",
-            "node_modules/materialize-css/dist/fonts/roboto/**"
+            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**"
         ])
         .pipe(gulp.dest("./dist"));
 });

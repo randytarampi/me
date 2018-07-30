@@ -1,0 +1,46 @@
+@import "@randy.tarampi/css/styles/style";
+@import "layout";
+
+.picture {
+    max-height: 100%;
+    max-width: 100%;
+    margin: 20px 0;
+
+    @media print {
+        max-height: 67%;
+        max-width: 67%;
+    }
+}
+
+.email {
+    &:before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f1fa\00A0";
+    }
+}
+
+.phone {
+    &:before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f095\00A0";
+    }
+}
+
+.website {
+    &:before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f0c1\00A0";
+    }
+}
+
+.contact-methods, .social-links, .languages {
+    margin-bottom: 0;
+}
+
+.contact-method, .social-link, .language {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -3,13 +3,12 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{#resume.basics}}{{name}} - {{label}}{{/resume.basics}}</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <style type="text/css">
             {{{css}}}
     </style>
@@ -33,7 +32,7 @@
     {{/if}}
 
 </head>
-<body>
+<body class="resume-body">
 {{#if resume.gtm_analytics}}
     <!-- Google Tag Manager (noscript) -->
     <noscript>
@@ -44,96 +43,120 @@
 {{/if}}
 
 <header id="header">
+    {{#resume.basics}}
     <div class="container">
-        <div class="row">
-            <div class="col-sm-9 col-sm-push-3">
-                {{#resume.basics}}
+        <div class="row valign-wrapper resume-header">
+            <div class="col s3">
+                {{#if picture}}
+                    <img class="picture" src="{{picture}}">
+                {{/if}}
+            </div>
+            <div class="col s9">
                     {{#name}}
-                        <h1>
-                            {{.}}
+                        <h1 class="name">
+                            <span class="text">
+                                {{.}}
+                            </span>
                         </h1>
                     {{/name}}
                     {{#label}}
-                        <h2>
+                        <h3 class="label hide-on-print">
                             {{.}}
-                        </h2>
+                        </h3>
                     {{/label}}
-                {{/resume.basics}}
-            </div>
-        </div>
-    </div>
-</header>
-<div id="content" class="container">
-
-    {{#resume.basics}}
-        <section id="contact" class="row">
-            <aside class="col-sm-3">
-                <h3>Contact</h3>
-            </aside>
-            <div class="col-sm-9">
-                <div class="row">
+                <div class="row contact-methods hide-on-screen">
                     {{#email}}
-                        <div class="col-sm-6">
-                            <strong>Email</strong>
-                            <div class="email">{{.}}</div>
+                        <div class="col s6 contact-method">
+                            <div>
+                                <span class="email"><a href="mailto:{{.}}">{{.}}</a></span>
+                            </div>
                         </div>
                     {{/email}}
                     {{#phone}}
-                        <div class="col-sm-6">
-                            <strong>Phone</strong>
-                            <div class="phone">{{.}}</div>
+                        <div class="col s6 contact-method">
+                            <div>
+                                <span class="phone"><a href="tel:{{.}}">{{.}}</a></span>
+                            </div>
+                        </div>
+                    {{/phone}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/resume.basics}}
+</header>
+<div id="content" class="container resume-content">
+
+    {{#resume.basics}}
+        <section id="contact" class="row resume-section hide-on-print">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Contact</span></h3>
+            </aside>
+            <div class="col m8 offset-s1 resume-section-content">
+                <div class="row contact-methods">
+                    {{#email}}
+                        <div class="col s6 contact-method">
+                            <div>
+                                <span class="email"><a href="mailto:{{.}}">{{.}}</a></span>
+                            </div>
+                        </div>
+                    {{/email}}
+                    {{#phone}}
+                        <div class="col s6 contact-method">
+                            <div>
+                                <span class="phone"><a href="tel:{{.}}">{{.}}</a></span>
+                            </div>
                         </div>
                     {{/phone}}
                     {{#website}}
-                        <div class="col-sm-6">
-                            <strong>Website</strong>
-                            <div class="website">
-                                <a href="{{.}}">{{.}}</a>
+                        <div class="col contact-method">
+                            <div>
+                                <span class="website"><a href="{{.}}">{{.}}</a></span>
                             </div>
                         </div>
                     {{/website}}
                 </div>
             </div>
         </section>
-        <section id="about" class="row">
-            <aside class="col-sm-3">
-                <h3>About</h3>
+        <section id="about" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">About</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 {{#summary}}
                     <p>{{.}}</p>
                 {{/summary}}
             </div>
         </section>
         {{#if profiles.length}}
-            <section id="profiles" class="row">
-                <aside class="col-sm-3">
-                    <h3>Profiles</h3>
+            <section id="profiles" class="row resume-section hide-on-print">
+                <aside class="col m3 resume-section-label">
+                    <h3><span class="text">Profiles</span></h3>
                 </aside>
-                <div class="col-sm-9">
-                    <div class="row">
+                <div class="col m8 offset-s1 resume-section-content">
+                    <div class="row social-links">
                         {{#profiles}}
-                            <div class="col-sm-6">
-                                {{#network}}
-                                    <strong class="network">
-                                        {{.}}
-                                    </strong>
-                                {{/network}}
+                            <div class="col l4 m6 s12 social-link">
+                                {{#if network}}
+                                    <i class="fab fa-{{network}}"></i>&nbsp;
+                                {{else}}
+                                    <i class="fas fa-link"></i>&nbsp;
+                                {{/if}}
                                 {{#if username}}
-                                    <div class="username">
+                                    <span class="username">
                                         {{#if url}}
-                                            <div class="url">
+                                            <span class="url">
                                                 <a href="{{url}}">{{username}}</a>
-                                            </div>
+                                            </span>
                                         {{else}}
                                             {{username}}
                                         {{/if}}
-                                    </div>
+                                    </span>
                                 {{else}}
                                     {{#if url}}
-                                        <div class="url">
+                                        <span class="url">
                                             <a href="{{url}}">{{url}}</a>
-                                        </div>
+                                        </span>
                                     {{/if}}
                                 {{/if}}
                             </div>
@@ -145,45 +168,61 @@
     {{/resume.basics}}
 
     {{#if resume.work.length}}
-        <section id="work" class="row">
-            <aside class="col-sm-3">
-                <h3>Work</h3>
+        <section id="work" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Work</span></h3>
             </aside>
-            <div class="col-sm-9">
-                <div class="row">
+            <div class="col m8 offset-s1 resume-section-content">
+                <div class="work">
                     {{#each resume.work}}
-                        <div class="col-sm-12">
-                            <h4 class="strike-through">
-                                <span>{{company}}</span>
-                                <span class="date">
-						{{date startDate}} — {{#if endDate}}{{date endDate}}{{else}}Present{{/if}}
-					</span>
-                            </h4>
-                            {{#website}}
-                                <div class="website pull-right">
-                                    <a href="{{.}}">{{.}}</a>
+                        <div class="row{{#ifGt @index 2}} hide-on-print{{/ifGt}}">
+                            <div class="col s12">
+                                <div>
+                                    <h5 class="right hide-on-small-only">
+                                    <span class="date">{{date startDate}} — {{#if endDate}}{{date endDate}}{{else}}
+                                        Present{{/if}}</span>
+                                    </h5>
+                                    <h4>
+                                    <span class="text">
+                                        {{#if website}}
+                                            <a href="{{website}}">{{company}}</a>
+                                        {{else}}
+                                            {{company}}
+                                        {{/if}}
+                                    </span>
+                                    </h4>
+                                    <h5 class="hide-on-med-and-up">
+                                    <span class="date">{{date startDate}} — {{#if endDate}}{{date endDate}}{{else}}
+                                        Present{{/if}}</span>
+                                    </h5>
                                 </div>
-                            {{/website}}
-                            {{#position}}
-                                <div class="position">
-                                    {{.}}
+                                <div>
+                                    {{#website}}
+                                        <div class="website right hide-on-small-only">
+                                            <a href="{{.}}">{{.}}</a>
+                                        </div>
+                                    {{/website}}
+                                    {{#position}}
+                                        <h5 class="position">
+                                            <span class="text">{{.}}</span>
+                                        </h5>
+                                    {{/position}}
                                 </div>
-                            {{/position}}
-                            {{#summary}}
-                                <div class="summary">
-                                    <p>{{.}}</p>
-                                </div>
-                            {{/summary}}
-                            {{#if highlights.length}}
-                                <p>
-                                    <strong>Highlights</strong>
-                                </p>
-                                <ul class="highlights">
-                                    {{#highlights}}
-                                        <li class="bullet">{{.}}</li>
-                                    {{/highlights}}
-                                </ul>
-                            {{/if}}
+                                {{#summary}}
+                                    <div class="summary">
+                                        <p>{{.}}</p>
+                                    </div>
+                                {{/summary}}
+                                {{#if highlights.length}}
+                                    <div class="highlights hide-on-print">
+                                        <ul class="highlights">
+                                            {{#highlights}}
+                                                <li class="bullet">{{.}}</li>
+                                            {{/highlights}}
+                                        </ul>
+                                    </div>
+                                {{/if}}
+                            </div>
                         </div>
                     {{/each}}
                 </div>
@@ -192,17 +231,17 @@
     {{/if}}
 
     {{#if resume.skills.length}}
-        <section id="skills" class="row">
-            <aside class="col-sm-3">
-                <h3>Skills</h3>
+        <section id="skills" class="row resume-section hide-on-print">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Skills</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.skills}}
-                        <div class="col-sm-6">
+                        <div class="col s6">
                             {{#name}}
                                 <div class="name">
-                                    <h4>{{.}}</h4>
+                                    <h5><span class="text">{{.}}</span></h5>
                                 </div>
                             {{/name}}
                             {{#if keywords.length}}
@@ -220,37 +259,49 @@
     {{/if}}
 
     {{#if resume.education.length}}
-        <section id="education" class="row">
-            <aside class="col-sm-3">
-                <h3>Education</h3>
+        <section id="education" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Education</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.education}}
-                        <div class="col-sm-12">
-                            <h4 class="strike-through">
-                                <span>{{institution}}</span>
-                                <span class="date">
-						{{date startDate}} — {{date endDate}}
-					</span>
-                            </h4>
-                            {{#area}}
-                                <div class="area">
-                                    {{.}}
-                                </div>
-                            {{/area}}
-                            {{#studyType}}
-                                <div class="studyType">
-                                    {{.}}
-                                </div>
-                            {{/studyType}}
+                        <div class="col s12">
+                            <div>
+                                <h5 class="right hide-on-small-only">
+                                    <span class="date">{{date startDate}} — {{date endDate}}</span>
+                                </h5>
+                                <h4>
+                                    <span class="text">{{institution}}</span>
+                                </h4>
+                                <h5 class="hide-on-med-and-up">
+                                    <span class="date">{{date startDate}} — {{date endDate}}</span>
+                                </h5>
+                            </div>
+                            <div>
+                                {{#area}}
+                                    <div class="area right hide-on-small-only">
+                                        {{.}}
+                                    </div>
+                                    <div class="area hide-on-med-and-up">
+                                        {{.}}
+                                    </div>
+                                {{/area}}
+                                {{#studyType}}
+                                    <div class="studyType">
+                                        {{.}}
+                                    </div>
+                                {{/studyType}}
+                            </div>
                             {{#if courses.length}}
-                                <h4>Courses</h4>
-                                <ul class="courses">
-                                    {{#courses}}
-                                        <li>{{.}}</li>
-                                    {{/courses}}
-                                </ul>
+                                <div class="hide-on-print">
+                                    <h4><span class="text">Highlights</span></h4>
+                                    <ul class="courses">
+                                        {{#courses}}
+                                            <li>{{.}}</li>
+                                        {{/courses}}
+                                    </ul>
+                                </div>
                             {{/if}}
                         </div>
                     {{/each}}
@@ -260,18 +311,18 @@
     {{/if}}
 
     {{#if resume.awards.length}}
-        <section id="awards" class="row">
-            <aside class="col-sm-3">
-                <h3>Awards</h3>
+        <section id="awards" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Awards</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.awards}}
-                        <div class="col-sm-12">
-                            <h4 class="strike-through">
-                                <span>{{title}}</span>
+                        <div class="col s12">
+                            <h4>
+                                <span class="text">{{title}}</span>
                             </h4>
-                            <div class="date pull-right">
+                            <div class="date right">
                                 <em>Awarded</em>
                                 {{date date}}
                             </div>
@@ -294,28 +345,34 @@
     {{/if}}
 
     {{#if resume.volunteer.length}}
-        <section id="volunteer" class="row">
-            <aside class="col-sm-3">
-                <h3>Volunteer</h3>
+        <section id="volunteer" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Volunteer</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.volunteer}}
-                        <div class="col-sm-12">
-                            <h4 class="strike-through">
-                                <span>{{organization}}</span>
-                                <span class="date">
-						{{date startDate}} — {{date endDate}}
-					</span>
+                        <div class="col s12">
+                            <h5 class="right hide-on-small-only">
+                                <span class="date">{{date startDate}} — {{date endDate}}</span>
+                            </h5>
+                            <h4>
+                                <span class="text">{{organization}}</span>
                             </h4>
+                            <h5 class="hide-on-med-and-up">
+                                <span class="date">{{date startDate}} — {{date endDate}}</span>
+                            </h5>
                             {{#website}}
-                                <div class="website pull-right">
+                                <div class="website right hide-on-small-only">
+                                    <a href="{{.}}">{{.}}</a>
+                                </div>
+                                <div class="website hide-on-med-and-up">
                                     <a href="{{.}}">{{.}}</a>
                                 </div>
                             {{/website}}
                             {{#position}}
                                 <div class="position">
-                                    {{.}}
+                                    <span class="text">{{.}}</span>
                                 </div>
                             {{/position}}
                             {{#summary}}
@@ -324,14 +381,16 @@
                                 </div>
                             {{/summary}}
                             {{#if highlights.length}}
-                                <p>
-                                    <strong>Highlights</strong>
-                                </p>
-                                <ul class="highlights">
-                                    {{#highlights}}
-                                        <li class="bullet">{{.}}</li>
-                                    {{/highlights}}
-                                </ul>
+                                <div class="highlights hide-on-print">
+                                    <p>
+                                        <strong class="text">Highlights</strong>
+                                    </p>
+                                    <ul class="highlights">
+                                        {{#highlights}}
+                                            <li class="bullet">{{.}}</li>
+                                        {{/highlights}}
+                                    </ul>
+                                </div>
                             {{/if}}
                         </div>
                     {{/each}}
@@ -341,34 +400,40 @@
     {{/if}}
 
     {{#if resume.publications.length}}
-        <section id="publications" class="row">
-            <aside class="col-sm-3">
-                <h3>Publications</h3>
+        <section id="publications" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Publications</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.publications}}
-                        <div class="col-sm-12">
-                            <h4 class="strike-through">
-                                <span>{{name}}</span>
-                                <span class="date">
-                                    {{date releaseDate}}
-                                </span>
+                        <div class="col s12">
+                            <h5 class="right hide-on-small-only">
+                                <span class="date">{{releaseDate}}</span>
+                            </h5>
+                            <h4>
+                                <span class="text">{{name}}</span>
                             </h4>
+                            <h5 class="hide-on-med-and-up">
+                                <span class="date">{{releaseDate}}</span>
+                            </h5>
                             {{#website}}
-                                <div class="website pull-right">
-                                    <a href="{{.}}"></a>
+                                <div class="website right hide-on-small-only">
+                                    <a href="{{.}}">{{.}}</a>
+                                </div>
+                                <div class="website hide-on-med-and-up">
+                                    <a href="{{.}}">{{.}}</a>
                                 </div>
                             {{/website}}
                             {{#publisher}}
                                 <div class="publisher">
-                                    <em>Published by</em>
+                                    <em class="text">Published by</em>
                                     <strong>{{.}}</strong>
                                 </div>
                             {{/publisher}}
                             {{#summary}}
                                 <div class="summary">
-                                    <p>{{.}}</p>
+                                    <p><span class="text">{{.}}</span></p>
                                 </div>
                             {{/summary}}
                         </div>
@@ -379,24 +444,17 @@
     {{/if}}
 
     {{#if resume.languages.length}}
-        <section id="languages" class="row">
-            <aside class="col-sm-3">
-                <h3>Languages</h3>
+        <section id="languages" class="row resume-section hide-on-print">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Languages</span></h3>
             </aside>
-            <div class="col-sm-9">
-                <div class="row">
+            <div class="col m8 offset-s1 resume-section-content">
+                <div class="row languages">
                     {{#each resume.languages}}
-                        <div class="col-sm-6">
-                            {{#language}}
-                                <div class="language">
-                                    <strong>{{.}}</strong>
-                                </div>
-                            {{/language}}
-                            {{#fluency}}
-                                <div class="fluency">
-                                    {{.}}
-                                </div>
-                            {{/fluency}}
+                        <div class="col l4 m6 s12 language">
+                            <div class="language">
+                                <strong class="text">{{language}}</strong>&nbsp;<span class="fluency">{{fluency}}</span>
+                            </div>
                         </div>
                     {{/each}}
                 </div>
@@ -405,17 +463,17 @@
     {{/if}}
 
     {{#if resume.interests.length}}
-        <section id="interests" class="row">
-            <aside class="col-sm-3">
-                <h3>Interests</h3>
+        <section id="interests" class="row resume-section hide-on-print">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">Interests</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.interests}}
-                        <div class="col-sm-6">
+                        <div class="col s6">
                             {{#name}}
                                 <div class="name">
-                                    <h4>{{.}}</h4>
+                                    <h5><span class="text">{{.}}</span></h5>
                                 </div>
                             {{/name}}
                             {{#if keywords.length}}
@@ -433,20 +491,20 @@
     {{/if}}
 
     {{#if resume.references.length}}
-        <section id="references" class="row">
-            <aside class="col-sm-3">
-                <h3>References</h3>
+        <section id="references" class="row resume-section">
+            <aside class="col m3 resume-section-label">
+                <h3><span class="text">References</span></h3>
             </aside>
-            <div class="col-sm-9">
+            <div class="col m8 offset-s1 resume-section-content">
                 <div class="row">
                     {{#each resume.references}}
-                        <div class="col-sm-12">
+                        <div class="col s12">
                             {{#if reference}}
                                 <blockquote class="reference">
-                                    <p>{{reference}}</p>
+                                    <p><span class="text">{{reference}}</span></p>
                                     {{#name}}
                                         <p class="name">
-                                            <strong>— {{.}}</strong>
+                                            <strong>— <span class="text">{{.}}</span></strong>
                                         </p>
                                     {{/name}}
                                 </blockquote>
@@ -458,6 +516,18 @@
         </section>
     {{/if}}
 </div>
+<footer id="footer">
+    <div class="container">
+        <div class="row valign-wrapper center-align resume-footer hide-on-screen">
+            {{#if resume.publish_url}}
+                <div class="col s12">
+                    <em>Print styles are hard to write, and one-pagers are harder – check out the full copy at <a
+                        href="{{resume.publish_url}}">{{resume.publish_url}}</a></em>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</footer>
 
 {{#if resume.ga_analytics}}
     <script>

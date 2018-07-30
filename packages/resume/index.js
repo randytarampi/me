@@ -2,7 +2,7 @@ var fs = require("fs");
 var Handlebars = require("handlebars");
 
 function render(resume) {
-    var css = fs.readFileSync(__dirname + "/style.css", "utf-8");
+    var css = fs.readFileSync(__dirname + "/dist/styles.css", "utf-8");
     var tpl = fs.readFileSync(__dirname + "/resume.hbs", "utf-8");
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -10,6 +10,13 @@ function render(resume) {
         var theDate = new Date(date);
 
         return months[theDate.getMonth()] + " " + theDate.getFullYear();
+    });
+
+    Handlebars.registerHelper("ifGt", function (v1, v2, options) {
+        if (v1 > v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
     });
 
     return Handlebars.compile(tpl, {noEscape: true})({
