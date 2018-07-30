@@ -11,7 +11,14 @@ $roboto-font-path: "./";
 
 @import "materialize-css/sass/components/variables";
 
-@media screen and (max-width: $medium-screen) {
+$medium-and-up: "all and (min-width : #{$small-screen-up})";
+$large-and-up: "all and (min-width : #{$medium-screen-up})";
+$extra-large-and-up: "all and (min-width : #{$large-screen-up})";
+$small-and-down: "all and (max-width : #{$small-screen})";
+$medium-and-down: "all and (max-width : #{$medium-screen})";
+$medium-only: "all and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
+
+@media all and (max-width: $medium-screen) {
     h1 {
         font-size: $h1-fontsize / 2;
     }
@@ -29,5 +36,39 @@ $roboto-font-path: "./";
     }
     h6 {
         font-size: $h6-fontsize / 2;
+    }
+}
+
+html {
+    @media only all and (min-width: 0) {
+        font-size: 14px;
+    }
+
+    @media only all and (min-width: $medium-screen) {
+        font-size: 14.5px;
+    }
+
+    @media only all and (min-width: $large-screen) {
+        font-size: 15px;
+    }
+
+    @media print and (min-width: 0) {
+        font-size: 10px;
+    }
+}
+
+.flow-text {
+    font-weight: 300;
+    $i: 0;
+    @while $i <= $intervals {
+        @media only all and (min-width: 360 + ($i * $interval-size)) {
+            font-size: 1.2rem * (1 + (.02 * $i));
+        }
+        $i: $i + 1;
+    }
+
+    // Handle below 360px screen
+    @media only all and (max-width: 360px) {
+        font-size: 1.2rem;
     }
 }

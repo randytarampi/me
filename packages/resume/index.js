@@ -12,6 +12,13 @@ function render(resume) {
         return months[theDate.getMonth()] + " " + theDate.getFullYear();
     });
 
+    Handlebars.registerHelper("ifGt", function (v1, v2, options) {
+        if (v1 > v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
+
     return Handlebars.compile(tpl, {noEscape: true})({
         css: css,
         resume: resume

@@ -5,6 +5,11 @@
     max-height: 100%;
     max-width: 100%;
     margin: 20px 0;
+
+    @media print {
+        max-height: 67%;
+        max-width: 67%;
+    }
 }
 
 .email {

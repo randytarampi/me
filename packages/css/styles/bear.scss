@@ -16,7 +16,7 @@
     -moz-transform: translate(-50%, 50%);
     -webkit-transform: translate(-50%, 50%);
 
-    @media screen and (max-width: $medium-screen) {
+    @media all and (max-width: $medium-screen) {
         position: unset;
         top: unset;
         left: unset;
