@@ -1,16 +1,18 @@
 import raven from "raven-js";
 
-export const ravenConfiguration = {
-    autoBreadcrumbs: true,
-    captureUnhandledRejections: true,
-    environment: window.ENVIRONMENT,
-    release: window.VERSION
+export const buildRavenConfiguration = () => {
+    return {
+        autoBreadcrumbs: true,
+        captureUnhandledRejections: true,
+        environment: window.ENVIRONMENT,
+        release: window.VERSION
+    };
 };
 
 const configureRaven = () => new Promise((resolve, reject) => {
     try {
         if (window.SENTRY_DSN) {
-            raven.config(window.SENTRY_DSN, ravenConfiguration).install();
+            raven.config(window.SENTRY_DSN, buildRavenConfiguration()).install();
             raven.on("error", error => console.error(error, "Raven failed to capture message")); // eslint-disable-line no-console
         }
         resolve();
