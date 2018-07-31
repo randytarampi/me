@@ -88,11 +88,16 @@ module.exports = {
     serve: {
         clipboard: false,
         content: "./dist/",
+        host: "localhost",
+        port: 8080,
         hotClient: {
             host: "localhost",
             port: 8090,
+            allEntries: true,
+            logLevel: "trace",
+            logTime: true
         },
-        dev: {
+        devMiddleware: {
             publicPath: "/"
         },
         on: {

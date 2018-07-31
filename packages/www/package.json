@@ -23,7 +23,7 @@
     "postinstall": "npm run build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
-    "dev:client": "webpack-serve --hotClient",
+    "dev:client": "webpack-serve --hot-client",
     "build": "npx gulp -LLLL --color build",
     "docs": "npx gulp -LLLL --color docs"
   },
