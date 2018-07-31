@@ -20,6 +20,8 @@ gulp.task("copy", () => {
 });
 
 gulp.task("views", () => {
+    process.env.NODE_CONFIG_DIR = __dirname + "/../../config";
+
     const config = require("config");
     const pug = require("gulp-pug");
     const rename = require("gulp-rename");
@@ -143,9 +145,19 @@ gulp.task("sassLint", () => {
         .pipe(sassLint.failOnError());
 });
 
+gulp.task("pugLint", () => {
+    var pugLinter = require("gulp-pug-linter");
+
+    return gulp
+        .src("views/**/*.pug")
+        .pipe(pugLinter())
+        .pipe(pugLinter.reporter("fail"));
+});
+
 gulp.task("lint", gulp.parallel([
     "eslint",
-    "sassLint"
+    "sassLint",
+    "pugLint"
 ]));
 
 gulp.task("test.unit", () => {

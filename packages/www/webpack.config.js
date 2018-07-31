@@ -1,3 +1,5 @@
+process.env.NODE_CONFIG_DIR = __dirname + "/../../config";
+
 const config = require("config");
 const path = require("path");
 const webpack = require("webpack");
@@ -59,7 +61,7 @@ module.exports = {
     entry: ["babel-polyfill", `${__dirname}/public/views/index.jsx`],
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "main.js",
+        filename: "www.js",
         publicPath: "/"
     },
     resolve: {
