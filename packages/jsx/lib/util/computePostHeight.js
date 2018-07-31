@@ -1,5 +1,3 @@
-/* global document, window */
-
 export default containerWidth => post => {
     if (post.height && post.width) {
         return containerWidth * post.height / post.width;
