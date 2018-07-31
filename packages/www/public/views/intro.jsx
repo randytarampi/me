@@ -1,8 +1,8 @@
 import {RowBlock} from "@randy.tarampi/jsx";
+import {HelloBear} from "@randy.tarampi/jsx/lib/components/bear";
+import {Email, GitHub, Instagram, LinkedIn, Photos} from "@randy.tarampi/jsx/lib/components/link";
 import React from "react";
 import {Col} from "react-materialize";
-import {HelloBear} from "../components/bear";
-import {Email, GitHub, Instagram, LinkedIn, Photos} from "../components/link";
 
 const Intro = () =>
     <RowBlock name="intro">

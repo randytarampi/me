@@ -11,7 +11,7 @@ class Link extends React.Component {
     }
 
     render() {
-        return <a className="link" target="__blank" {...this.props}>{this.props.text}</a>;
+        return <a className="link" target="__blank" rel="noopener noreferrer" {...this.props}>{this.props.text}</a>;
     }
 }
 
