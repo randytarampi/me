@@ -1,22 +1,23 @@
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React from "react";
 import Link from "./link";
 
-export class EmailLink extends Component {
-    render() {
-        return <Link {...this.props} className={["link--email", this.className].join(" ").trim()}
-                     href={`mailto:${this.props.email}`}/>;
-    }
-}
+export const EmailLink = ({useBranding, ...props}) => {
+    return <Link {...props}
+                 className={["link--email", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
+                 href={`mailto:${props.email}`} text={props.text || props.email}/>;
+};
 
 EmailLink.propTypes = {
-    email: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+    useBranding: PropTypes.bool,
+    text: PropTypes.string,
+    className: PropTypes.string,
+    email: PropTypes.string.isRequired
 };
 
 EmailLink.defaultProps = {
-    email: "randytarampi@randytarampi.ca",
-    text: "randytarampi@randytarampi.ca"
+    useBranding: true,
+    email: "jobs@randytarampi.ca"
 };
 
 export default EmailLink;

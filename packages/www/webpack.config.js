@@ -1,7 +1,7 @@
-process.env.NODE_CONFIG_DIR = __dirname + "/../../config";
+const path = require("path");
+process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const config = require("config");
-const path = require("path");
 const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 
@@ -59,7 +59,9 @@ if (process.env.TRAVIS_TAG && process.env.SENTRY_AUTH_TOKEN) {
 module.exports = {
     mode: resolveMode(),
     devtool: "source-map",
-    entry: ["babel-polyfill", `${__dirname}/public/views/index.jsx`],
+    entry: {
+        www: ["babel-polyfill", `${__dirname}/public/views/index.jsx`]
+    },
     output: {
         path: path.join(__dirname, "dist"),
         filename: "www.js",
@@ -87,7 +89,7 @@ module.exports = {
     plugins,
     serve: {
         clipboard: false,
-        content: "./dist/",
+        content: path.join(__dirname, "dist"),
         host: "localhost",
         port: 8080,
         hotClient: {

@@ -14,13 +14,17 @@ gulp.task("copy", () => {
     return gulp
         .src([
             "public/assets/**",
-            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**"
+            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
+            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/sprites/**",
+            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/svgs/**",
+            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
         ])
         .pipe(gulp.dest("./dist"));
 });
 
 gulp.task("views", () => {
-    process.env.NODE_CONFIG_DIR = __dirname + "/../../config";
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
     const config = require("config");
     const pug = require("gulp-pug");

@@ -1,5 +1,4 @@
 import path from "path";
-import webpack from "webpack";
 
 module.exports = {
     mode: "development",
@@ -10,7 +9,7 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "main.js"
+        filename: "jsx.js"
     },
     resolve: {
         extensions: [".js", ".jsx", ".json"]
@@ -31,9 +30,6 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ],
     optimization: {
         splitChunks: {
             cacheGroups: {

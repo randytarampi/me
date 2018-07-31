@@ -1,0 +1,13 @@
+.resume-volunteer {
+    &-entry {
+        &__organization {
+            & .link {
+                display: inline;
+            }
+        }
+
+        & > .row {
+            margin-bottom: 0;
+        }
+    }
+}

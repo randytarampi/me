@@ -1,0 +1,13 @@
+.resume-work {
+    &-entry {
+        &__company {
+            & .link {
+                display: inline;
+            }
+        }
+
+        & > .row {
+            margin-bottom: 0;
+        }
+    }
+}

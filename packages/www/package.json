@@ -23,7 +23,7 @@
     "postinstall": "npm run build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
-    "dev:client": "webpack-serve --hot-client",
+    "dev:client": "npx webpack-serve --hotClient",
     "build": "npx gulp -LLLL --color build",
     "docs": "npx gulp -LLLL --color docs"
   },
@@ -44,6 +44,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
+    "react-hot-loader": "^4.3.3",
     "react-materialize": "^2.3.3",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0"
@@ -86,7 +87,6 @@
     "koa-connect": "^2.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "react-hot-loader": "^4.3.3",
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^2.13.1",

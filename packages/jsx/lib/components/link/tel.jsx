@@ -1,21 +1,23 @@
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React from "react";
 import Link from "./link";
 
-export class TelLink extends Component {
-    render() {
-        return <Link {...this.props} className={["link--tel", this.className].join(" ").trim()}
-                     href={`tel:${this.props.tel}`}/>;
-    }
-}
+export const TelLink = ({useBranding, ...props}) => {
+    return <Link {...props}
+                 className={["link--tel", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
+                 href={`tel:${props.tel}`} text={props.text || props.tel}/>;
+};
 
 TelLink.propTypes = {
-    tel: PropTypes.string.isRequired
+    className: PropTypes.string,
+    text: PropTypes.string,
+    tel: PropTypes.string.isRequired,
+    useBranding: PropTypes.bool,
 };
 
 TelLink.defaultProps = {
-    tel: "+16043747128",
-    text: "+1 (604) 374-7128"
+    useBranding: true,
+    tel: "+16043747128"
 };
 
 export default TelLink;

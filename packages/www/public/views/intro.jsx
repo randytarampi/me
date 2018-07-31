@@ -24,8 +24,9 @@ const Intro = () =>
             </p>
             <p>
                 <span className="text">
-                    Check me out on <GitHubLink/>, try and poach me on <LinkedInLink/>, send me an <EmailLink
-                    text="email"/> if you want to chat, or follow me on <InstagramLink/> if you want to see some of my <PhotosAppLink/>.
+                    Check me out on <GitHubLink useBranding={false} text="GitHub"/>, try and poach me on <LinkedInLink
+                    useBranding={false} text="LinkedIn"/>, send me an <EmailLink useBranding={false} text="email"/> if you want to chat, or follow me on <InstagramLink
+                    useBranding={false} text="Instagram"/> if you want to see some of my <PhotosAppLink text="photos"/>.
                 </span>
             </p>
         </Col>
