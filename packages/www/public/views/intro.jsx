@@ -1,6 +1,12 @@
 import {RowBlock} from "@randy.tarampi/jsx";
 import {HelloBear} from "@randy.tarampi/jsx/lib/components/bear";
-import {Email, GitHub, Instagram, LinkedIn, Photos} from "@randy.tarampi/jsx/lib/components/link";
+import {
+    EmailLink,
+    GitHubLink,
+    InstagramLink,
+    LinkedInLink,
+    PhotosAppLink
+} from "@randy.tarampi/jsx/lib/components/link";
 import React from "react";
 import {Col} from "react-materialize";
 
@@ -17,8 +23,10 @@ const Intro = () =>
                 <span className="text">'Sup? As you can see, there isn't really much to see here yet.</span>
             </p>
             <p>
-				<span className="text">Check me out on <GitHub/>, try and poach me on <LinkedIn/>, send me an <Email
-                    text="email"/> if you want to chat, or follow me on <Instagram/> if you want to see some of my <Photos/>.</span>
+                <span className="text">
+                    Check me out on <GitHubLink/>, try and poach me on <LinkedInLink/>, send me an <EmailLink
+                    text="email"/> if you want to chat, or follow me on <InstagramLink/> if you want to see some of my <PhotosAppLink/>.
+                </span>
             </p>
         </Col>
     </RowBlock>;

@@ -23,6 +23,7 @@ const plugins = [
         __WORDS_SERVICE_URL__: JSON.stringify(config.get("wordsServiceUrl")),
         __POSTS_SERVICE_URL__: JSON.stringify(config.get("postsServiceUrl")),
         __PHOTOS_SERVICE_URL__: JSON.stringify(config.get("photosServiceUrl")),
+        __CODE_APP_URL__: JSON.stringify(config.get("codeAppUrl")),
         __WORDS_APP_URL__: JSON.stringify(config.get("wordsAppUrl")),
         __POSTS_APP_URL__: JSON.stringify(config.get("postsAppUrl")),
         __PHOTOS_APP_URL__: JSON.stringify(config.get("photosAppUrl")),
