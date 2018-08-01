@@ -1,0 +1,83 @@
+.link {
+    &:before {
+        color: $off-black;
+    }
+
+    &--email {
+        &:before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f1fa\00A0";
+        }
+    }
+
+    &--tel {
+        &:before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f095\00A0";
+        }
+    }
+
+    &--web {
+        &:before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f0c1\00A0";
+        }
+    }
+
+    &--github {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f09b\00A0";
+        }
+    }
+
+    &--linkedin {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f08c\00A0";
+        }
+    }
+
+    &--instagram {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f16d\00A0";
+        }
+    }
+
+    &--flickr {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f16e\00A0";
+        }
+    }
+
+    &--f00px {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f26e\00A0";
+        }
+    }
+
+    &--angellist {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f209\00A0";
+        }
+    }
+
+    &--no-branding {
+        &:before {
+            content: "";
+        }
+    }
+}

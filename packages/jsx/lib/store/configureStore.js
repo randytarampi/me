@@ -8,7 +8,9 @@ import reduxRavenMiddleware from "../middleware/raven";
 const configureStore = (initialState = {}, history, reducers) => {
     const middlewares = [thunk, metrics, routerMiddleware(history)];
 
-    middlewares.unshift(reduxRavenMiddleware());
+    if (typeof window !== "undefined") {
+        middlewares.unshift(reduxRavenMiddleware());
+    }
 
     //noinspection UnnecessaryLocalVariableJS
     const store = createStore(

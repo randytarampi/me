@@ -1,9 +1,0 @@
-photosServiceUrl: http://localhost:3006/photos
-postsServiceUrl: http://localhost:3006/posts
-wordsServiceUrl: http://localhost:3006/words
-photosAppUrl: http://localhost:8080/photos
-postsAppUrl: http://localhost:8080/blog
-wordsAppUrl: http://localhost:8080/words
-assetUrl: ""
-gtm: "GTM-K26GTD2"
-sentryDsn: https://62e5366a2fdd43598035164511e5e986@sentry.io/1240797

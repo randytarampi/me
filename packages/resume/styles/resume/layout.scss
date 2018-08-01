@@ -1,0 +1,7 @@
+html, body {
+    min-width: 320px;
+
+    @media only print {
+        max-width: 768px;
+    }
+}

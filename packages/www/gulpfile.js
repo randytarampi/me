@@ -14,12 +14,18 @@ gulp.task("copy", () => {
     return gulp
         .src([
             "public/assets/**",
-            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**"
+            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
+            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/sprites/**",
+            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/svgs/**",
+            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
         ])
         .pipe(gulp.dest("./dist"));
 });
 
 gulp.task("views", () => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
     const config = require("config");
     const pug = require("gulp-pug");
     const rename = require("gulp-rename");
@@ -41,6 +47,8 @@ gulp.task("views", () => {
         .pipe(rename({basename: "photos"}))
         .pipe(gulp.dest("./dist"))
         .pipe(rename({basename: "words"}))
+        .pipe(gulp.dest("./dist"))
+        .pipe(rename({basename: "resume"}))
         .pipe(gulp.dest("./dist"));
 });
 
@@ -143,9 +151,19 @@ gulp.task("sassLint", () => {
         .pipe(sassLint.failOnError());
 });
 
+gulp.task("pugLint", () => {
+    var pugLinter = require("gulp-pug-linter");
+
+    return gulp
+        .src("views/**/*.pug")
+        .pipe(pugLinter())
+        .pipe(pugLinter.reporter("fail"));
+});
+
 gulp.task("lint", gulp.parallel([
     "eslint",
-    "sassLint"
+    "sassLint",
+    "pugLint"
 ]));
 
 gulp.task("test.unit", () => {

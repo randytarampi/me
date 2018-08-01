@@ -1,8 +1,8 @@
 import {RowBlock} from "@randy.tarampi/jsx";
+import {DoubtBear} from "@randy.tarampi/jsx/lib/components/bear";
+import Link from "@randy.tarampi/jsx/lib/components/link";
 import React from "react";
 import {Col} from "react-materialize";
-import {DoubtBear} from "../components/bear";
-import Link from "../components/link";
 
 const Code = () =>
     <RowBlock name="code">

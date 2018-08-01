@@ -1,0 +1,29 @@
+.resume-header {
+    margin-bottom: 0;
+
+    &__contact {
+        margin-bottom: 0;
+    }
+
+    &__picture {
+        max-height: 100%;
+        max-width: 100%;
+        margin: 20px 0;
+
+        @media print {
+            max-height: 67%;
+            max-width: 67%;
+        }
+    }
+
+    &__email, &__tel, &__web {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .container {
+        .row {
+            margin-bottom: 0;
+        }
+    }
+}

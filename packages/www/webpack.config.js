@@ -1,5 +1,7 @@
-const config = require("config");
 const path = require("path");
+process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+const config = require("config");
 const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 
@@ -21,6 +23,7 @@ const plugins = [
         __WORDS_SERVICE_URL__: JSON.stringify(config.get("wordsServiceUrl")),
         __POSTS_SERVICE_URL__: JSON.stringify(config.get("postsServiceUrl")),
         __PHOTOS_SERVICE_URL__: JSON.stringify(config.get("photosServiceUrl")),
+        __CODE_APP_URL__: JSON.stringify(config.get("codeAppUrl")),
         __WORDS_APP_URL__: JSON.stringify(config.get("wordsAppUrl")),
         __POSTS_APP_URL__: JSON.stringify(config.get("postsAppUrl")),
         __PHOTOS_APP_URL__: JSON.stringify(config.get("photosAppUrl")),
@@ -56,10 +59,12 @@ if (process.env.TRAVIS_TAG && process.env.SENTRY_AUTH_TOKEN) {
 module.exports = {
     mode: resolveMode(),
     devtool: "source-map",
-    entry: ["babel-polyfill", `${__dirname}/public/views/index.jsx`],
+    entry: {
+        www: ["babel-polyfill", `${__dirname}/public/views/index.jsx`]
+    },
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "main.js",
+        filename: "www.js",
         publicPath: "/"
     },
     resolve: {
@@ -84,12 +89,17 @@ module.exports = {
     plugins,
     serve: {
         clipboard: false,
-        content: "./dist/",
+        content: path.join(__dirname, "dist"),
+        host: "localhost",
+        port: 8080,
         hotClient: {
             host: "localhost",
             port: 8090,
+            allEntries: true,
+            logLevel: "trace",
+            logTime: true
         },
-        dev: {
+        devMiddleware: {
             publicPath: "/"
         },
         on: {
@@ -129,7 +139,8 @@ module.exports = {
                 rewrites: [
                     {from: /\/photos/, to: "/photos.html"},
                     {from: /\/words/, to: "/words.html"},
-                    {from: /\/blog/, to: "/blog.html"}
+                    {from: /\/blog/, to: "/blog.html"},
+                    {from: /\/resume/, to: "/resume.html"}
                 ]
             })));
             middleware.webpack();

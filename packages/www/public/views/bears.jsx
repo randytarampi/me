@@ -1,7 +1,7 @@
 import {RowBlock} from "@randy.tarampi/jsx";
+import Bear from "@randy.tarampi/jsx/lib/components/bear";
 import React from "react";
 import {Col} from "react-materialize";
-import Bear from "../components/bear";
 
 const Bears = () =>
     <RowBlock name="intro">

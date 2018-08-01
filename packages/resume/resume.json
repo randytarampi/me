@@ -3,7 +3,7 @@
     "name": "Randy Tarampi",
     "label": "Going places | building software",
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
-    "email": "rt@randytarampi.ca",
+    "email": "jobs@randytarampi.ca",
     "phone": "+1 (604) 374-7128",
     "website": "https://www.randytarampi.ca",
     "summary": "Recently funemployed code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
@@ -16,22 +16,22 @@
     },
     "profiles": [
       {
-        "network": "github",
+        "network": "GitHub",
         "username": "randytarampi",
         "url": "https://github.com/randytarampi"
       },
       {
-        "network": "instagram",
+        "network": "Instagram",
         "username": "randytarampi",
         "url": "https://instagram.com/randytarampi"
       },
       {
-        "network": "linkedin",
+        "network": "LinkedIn",
         "username": "randytarampi",
         "url": "https://linkedin.com/in/randytarampi"
       },
       {
-        "network": "flickr",
+        "network": "Flickr",
         "username": "randytarampi",
         "url": "https://www.flickr.com/people/randytarampi"
       }
