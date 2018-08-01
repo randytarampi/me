@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "http://resume.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -33,8 +33,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@randy.tarampi/jsx": "^0.2.0",
-    "@randy.tarampi/css": "^0.2.0",
+    "@randy.tarampi/css": "^0.3.0",
+    "@randy.tarampi/jsx": "^0.3.0",
     "history": "^4.7.2",
     "luxon": "^1.3.3",
     "materialize-css": "^0.100.2",
@@ -81,11 +81,11 @@
     "gulp-sourcemaps": "^2.6.4",
     "jsdom": "^11.11.0",
     "json-stringify-safe": "^5.0.1",
+    "jsonresume-theme-randytarampi": "file:./",
     "koa-compress": "^3.0.0",
     "koa-connect": "^2.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "jsonresume-theme-randytarampi": "file:./",
     "resume-cli": "^0.4.19",
     "style-loader": "^0.21.0",
     "vinyl-paths": "^2.1.0",
