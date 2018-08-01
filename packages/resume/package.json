@@ -29,7 +29,8 @@
     "build": "npx gulp -LLLL --color build && npm run resume",
     "resume": "npm run resume:pdf && npm run resume:html",
     "resume:pdf": "npx resume export dist/index.pdf -f pdf --theme randytarampi --force",
-    "resume:html": "npx resume export dist/index.html -f html --theme randytarampi --force"
+    "resume:html": "npx resume export dist/index.html -f html --theme randytarampi --force",
+    "docs": "npx gulp -LLLL --color docs"
   },
   "license": "MIT",
   "dependencies": {

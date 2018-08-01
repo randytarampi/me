@@ -78,7 +78,6 @@ jobs:
     script: skip
     after_script: skip
     before_deploy:
-    - npx gulp docs
     - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
@@ -94,11 +93,11 @@ jobs:
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
     install:
     - npm run postinstall
+    - npm run docs --prefix packages/resume
     before_script: skip
     script: skip
     after_script: skip
     before_deploy:
-    - npx gulp docs
     - git add --verbose --force --all $RESUME_PACKAGE_DIR/index.html $RESUME_PACKAGE_DIR/index.pdf $RESUME_PACKAGE_DIR/favicon.ico
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
