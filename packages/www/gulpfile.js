@@ -63,7 +63,8 @@ gulp.task("docs:dist", () => {
 gulp.task("docs:index", () => {
     return gulp
         .src([
-            "dist/*.html"
+            "dist/*.html",
+            "dist/*.ico"
         ])
         .pipe(gulp.dest("."));
 });
