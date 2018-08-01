@@ -139,7 +139,8 @@ module.exports = {
                 rewrites: [
                     {from: /\/photos/, to: "/photos.html"},
                     {from: /\/words/, to: "/words.html"},
-                    {from: /\/blog/, to: "/blog.html"}
+                    {from: /\/blog/, to: "/blog.html"},
+                    {from: /\/resume/, to: "/resume.html"}
                 ]
             })));
             middleware.webpack();

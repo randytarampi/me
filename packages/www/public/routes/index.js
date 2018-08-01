@@ -1,4 +1,5 @@
 import {Posts} from "@randy.tarampi/jsx";
+import Resume from "jsonresume-theme-randytarampi/public/components/resume";
 import React from "react";
 import Main from "../views/main";
 
@@ -26,6 +27,11 @@ const routes = [
         component: Blog,
         exact: true,
         path: "/blog"
+    },
+    {
+        component: Resume,
+        exact: true,
+        path: "/resume"
     }
 ];
 

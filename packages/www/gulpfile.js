@@ -47,6 +47,8 @@ gulp.task("views", () => {
         .pipe(rename({basename: "photos"}))
         .pipe(gulp.dest("./dist"))
         .pipe(rename({basename: "words"}))
+        .pipe(gulp.dest("./dist"))
+        .pipe(rename({basename: "resume"}))
         .pipe(gulp.dest("./dist"));
 });
 
