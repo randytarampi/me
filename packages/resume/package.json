@@ -25,7 +25,7 @@
     "postinstall": "npm run build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
-    "dev:client": "npx webpack-serve --hotClient",
+    "dev:client": "rm -rf dist/*.js && npx webpack-serve --hotClient",
     "build": "npx gulp -LLLL --color build && npm run resume",
     "resume": "npm run resume:pdf && npm run resume:html",
     "resume:pdf": "npx resume export dist/index.pdf -f pdf --theme randytarampi --force",
