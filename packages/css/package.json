@@ -29,11 +29,11 @@
     "materialize-css": "^0.100.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
+    "@babel/cli": "latest",
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-object-rest-spread": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/register": "latest",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^5.0.0",

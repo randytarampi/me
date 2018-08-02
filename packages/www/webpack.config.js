@@ -27,7 +27,9 @@ const plugins = [
         __WORDS_APP_URL__: JSON.stringify(config.get("wordsAppUrl")),
         __POSTS_APP_URL__: JSON.stringify(config.get("postsAppUrl")),
         __PHOTOS_APP_URL__: JSON.stringify(config.get("photosAppUrl")),
+        __RESUME_APP_URL__: JSON.stringify(config.get("resumeAppUrl")),
         __ASSET_URL__: JSON.stringify(config.get("assetUrl")),
+        __PUBLISHED_RESUME_URL__: JSON.stringify(config.get("resume.publishUrl"))
     })
 ];
 
@@ -60,7 +62,7 @@ module.exports = {
     mode: resolveMode(),
     devtool: "source-map",
     entry: {
-        www: ["babel-polyfill", `${__dirname}/public/views/index.jsx`]
+        www: ["@babel/polyfill", `${__dirname}/public/views/index.jsx`]
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -74,10 +76,11 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules\/(?!(@randy\.tarampi\/\w+)\/)/,
+                exclude: /node_modules\/(?!(@randy\.tarampi\/))/,
                 loader: "babel-loader",
                 options: {
-                    forceEnv: "client"
+                    configFile: path.join(__dirname, "../../babel.config.js"),
+                    envName: "client"
                 }
             },
             {
@@ -100,7 +103,9 @@ module.exports = {
             logTime: true
         },
         devMiddleware: {
-            publicPath: "/"
+            publicPath: "/",
+            logLevel: "trace",
+            logTime: true
         },
         on: {
             listening: ({server}) => {

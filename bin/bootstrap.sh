@@ -5,6 +5,8 @@ set -e;
 REPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`}
 
 cd $REPO_ROOT;
+
+# NOTE-RT: Bootstrap the monorepo
 npx lerna bootstrap --hoist --no-ci;
 if [[ ! -d $REPO_ROOT/node_modules/lwip/build/Release ]]; then npm rebuild lwip; fi;
 

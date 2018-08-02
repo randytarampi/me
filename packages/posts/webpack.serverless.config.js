@@ -76,10 +76,11 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules\/(?!(@randy\.tarampi\/\w+)\/)/,
+                exclude: /node_modules\/(?!(@randy\.tarampi\/))/,
                 loader: "babel-loader",
                 options: {
-                    forceEnv: "server"
+                    configFile: path.join(__dirname, "../../babel.config.js"),
+                    envName: "server"
                 }
             }
         ]

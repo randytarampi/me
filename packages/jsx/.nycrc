@@ -16,7 +16,7 @@
     "lcov"
   ],
   "require": [
-    "babel-register"
+    "@babel/register"
   ],
   "cache": true,
   "all": true,

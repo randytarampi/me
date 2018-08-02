@@ -2,3 +2,5 @@ photosServiceUrl: https://posts.dev.randytarampi.ca/photos
 postsServiceUrl: https://posts.dev.randytarampi.ca/posts
 wordsServiceUrl: https://posts.dev.randytarampi.ca/words
 assetUrl: /docs
+resume:
+  publishUrl: http://dev.randytarampi.ca/resume
