@@ -3,7 +3,7 @@ import React from "react";
 import {Col} from "react-materialize";
 
 export const ResumeSkillsEntry = ({skillsEntry, index}) => {
-    return <Col s={6} className={`resume-skills-entry${index > 1 ? " hide-on-print" : ""}`}>
+    return <Col m={4} s={6} className={`resume-skills-entry${index > 2 ? " hide-on-print" : ""}`}>
         <div className="resume-skills-entry__name">
             <h5><span className="text">{skillsEntry.name}</span></h5>
         </div>

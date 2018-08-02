@@ -1,17 +1,33 @@
 .resume {
     min-width: 320px;
 
-    &-section__content {
-        .row {
-            margin-bottom: 0;
-        }
-    }
-
     &-section {
         margin-bottom: 0;
+        page-break-inside: avoid;
+
+        &__content {
+            .row {
+                margin-bottom: 0;
+            }
+        }
+
+        &__description {
+            font-size: 0.75rem;
+        }
+
+        @media print {
+            & > .row {
+                margin-bottom: 10px;
+            }
+        }
     }
 
     @media print {
         min-width: $small-screen-up;
+        max-width: $medium-screen;
+    }
+
+    @page {
+        margin: 0;
     }
 }

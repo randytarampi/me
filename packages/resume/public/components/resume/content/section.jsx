@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const ResumeSection = ({type, label, labelNode, hideOnPrint, hideOnScreen, verticallyAlignContent, className, children}) => {
+export const ResumeSection = ({type, label, labelNode, description, descriptionNode, hideOnPrint, hideOnScreen, verticallyAlignContent, className, children}) => {
     const classNames = [
         "resume-section",
         "resume-" + type
@@ -18,11 +18,26 @@ export const ResumeSection = ({type, label, labelNode, hideOnPrint, hideOnScreen
 
     return <section id="name" className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <aside className="col m3 resume-section__label">
+            <aside className="col m3 resume-section__header">
                 {
                     labelNode
                         ? labelNode
-                        : <h3><span className="text">{label}</span></h3>
+                        : <h3 className="resume-section__label"><span className="text">{label}</span></h3>
+                }
+                {
+                    descriptionNode || description
+                        ? <Row>
+                            <Col s={9}>
+                                {
+                                    descriptionNode
+                                        ? <div className="resume-section__description hide-on-large-only hide-on-small-only">{descriptionNode}</div>
+                                        : description
+                                        ? <p className="resume-section__description hide-on-large-only hide-on-small-only"><span className="text">{description}</span></p>
+                                        : null
+                                }
+                            </Col>
+                        </Row>
+                        : null
                 }
             </aside>
             <Col m={8} offset="s1" className="resume-section__content">
@@ -36,6 +51,8 @@ ResumeSection.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string,
     labelNode: PropTypes.node,
+    description: PropTypes.string,
+    descriptionNode: PropTypes.node,
     type: PropTypes.string.isRequired,
     hideOnPrint: PropTypes.bool,
     hideOnScreen: PropTypes.bool,
