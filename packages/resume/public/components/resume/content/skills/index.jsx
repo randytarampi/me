@@ -5,7 +5,7 @@ import ResumeSection from "../section";
 import ResumeSkillsEntry from "./entry";
 
 export const ResumeSkills = ({resume}) => {
-    return <ResumeSection type="skills" label="Skills" hideOnPrint={true}>
+    return <ResumeSection type="skills" label="Skills">
         <Row>
             {
                 resume.skills.map((skillsEntry, index) => {

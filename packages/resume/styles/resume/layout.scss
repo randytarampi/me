@@ -1,7 +1,17 @@
-html, body {
+.resume {
     min-width: 320px;
 
-    @media only print {
-        max-width: 768px;
+    &-section__content {
+        .row {
+            margin-bottom: 0;
+        }
+    }
+
+    &-section {
+        margin-bottom: 0;
+    }
+
+    @media print {
+        min-width: $small-screen-up;
     }
 }

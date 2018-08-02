@@ -9,7 +9,7 @@ export const ResumeFooter = ({resume}) => {
             <Row className="row valign-wrapper center-align resume-footer hide-on-screen">
                 <Col s={12}>
                     <em>Print styles are hard to write, and one-pagers are harder – check out the full copy at <Link
-                        href={resume.publish_url}/></em>
+                        href={resume.publish_url}>{resume.publish_url}</Link></em>
                 </Col>
             </Row>
         </div>

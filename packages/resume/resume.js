@@ -4,5 +4,9 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 const render = require("./lib/render").default;
 
 module.exports = {
-    render
+    render,
+    pdfRenderOptions: {
+        format: "Letter",
+        mediaType: "print"
+    }
 };

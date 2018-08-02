@@ -86,7 +86,7 @@
     "koa-connect": "^2.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "resume-cli": "^0.4.19",
+    "resume-cli": "github:randytarampi/resume-cli#pdf-export-options",
     "style-loader": "^0.21.0",
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.16.0",
