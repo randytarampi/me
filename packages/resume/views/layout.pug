@@ -5,7 +5,24 @@ html
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
         link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
         link(rel="stylesheet", href=`${assetUrl}/styles.css`)
-        link(rel="shortcut icon", href=`${assetUrl}/favicon.ico` type="image/x-icon")
+        link(rel="apple-touch-icon", sizes="57x57", href=`${assetUrl}/apple-icon-57x57.png`)
+        link(rel="apple-touch-icon", sizes="60x60", href=`${assetUrl}/apple-icon-60x60.png`)
+        link(rel="apple-touch-icon", sizes="72x72", href=`${assetUrl}/apple-icon-72x72.png`)
+        link(rel="apple-touch-icon", sizes="76x76", href=`${assetUrl}/apple-icon-76x76.png`)
+        link(rel="apple-touch-icon", sizes="114x114", href=`${assetUrl}/apple-icon-114x114.png`)
+        link(rel="apple-touch-icon", sizes="120x120", href=`${assetUrl}/apple-icon-120x120.png`)
+        link(rel="apple-touch-icon", sizes="144x144", href=`${assetUrl}/apple-icon-144x144.png`)
+        link(rel="apple-touch-icon", sizes="152x152", href=`${assetUrl}/apple-icon-152x152.png`)
+        link(rel="apple-touch-icon", sizes="180x180", href=`${assetUrl}/apple-icon-180x180.png`)
+        link(rel="icon", type="image/png", sizes="192x192", href=`${assetUrl}/android-icon-192x192.png`)
+        link(rel="icon", type="image/png", sizes="32x32", href=`${assetUrl}/favicon-32x32.png`)
+        link(rel="icon", type="image/png", sizes="96x96", href=`${assetUrl}/favicon-96x96.png`)
+        link(rel="icon", type="image/png", sizes="16x16", href=`${assetUrl}/favicon-16x16.png`)
+        link(rel="shortcut icon", type="image/x-icon", href=`${assetUrl}/favicon.ico`)
+        link(rel="manifest", href="/manifest.json")
+        meta(name="msapplication-TileColor", content="#ffffff")
+        meta(name="msapplication-TileImage", content="/ms-icon-144x144.png")
+        meta(name="theme-color", content="#ffffff")
         meta(name="viewport" content="width=device-width")
         meta(charset="UTF-8")
         style(type="text/css").
@@ -18,16 +35,16 @@ html
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
+                    "gtm.start":
+                        new Date().getTime(), event: "gtm.js"
                 });
                 var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
                 j.async = true;
                 j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                 f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', '#{gtm}');
+            })(window, document, "script", "dataLayer", "#{gtm}");
     body
         noscript
             iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
