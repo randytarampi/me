@@ -13,12 +13,16 @@ ln -snf $REPO_ROOT/node_modules/lwip/ $REPO_ROOT/packages/posts/node_modules/lwi
 ln -snf $REPO_ROOT/node_modules/lwip/ $REPO_ROOT/packages/pseudoimage/node_modules/lwip;
 
 # NOTE-RT: Need to symlink `jsonresume-theme-randytarampi` at the top level `node_modules` directory so `resume-cli` can find it
-ln -snf $REPO_ROOT/packages/resume/ $REPO_ROOT/node_modules/jsonresume-theme-randytarampi
+#ln -snf $REPO_ROOT/packages/resume/ $REPO_ROOT/node_modules/jsonresume-theme-randytarampi
+cd $REPO_ROOT/packages/resume;
+npm link;
+cd $REPO_ROOT;
 
 # FIXME-RT: `serverless` expects us to have a full `node_modules` tree living below us here. Can't tell if I want to hack around things by symlinking to the top level modules folder, so I'll just play it safe and install again.
 cd $REPO_ROOT/packages/posts;
 npm install;
 rm package-lock.json;
+cd $REPO_ROOT;
 
 # FIXME-RT: Consumers of `css` needs it have local references to style assets so we can pull them in during the build
 ln -snf $REPO_ROOT/node_modules/materialize-css/ $REPO_ROOT/packages/css/node_modules/materialize-css
