@@ -25,6 +25,17 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
+after_install:
+- echo "---woof:www---"
+- WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
+- ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/
+- ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/;
+- ls -al $WWW_PACKAGE_DIR/dist;
+- echo "---meow:css---"
+- CSS_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/css
+- ls -al $CSS_PACKAGE_DIR/node_modules/
+- ls -al $CSS_PACKAGE_DIR/node_modules/@fortawesome/fontawesome-free/webfonts/;
+- ls -al $CSS_PACKAGE_DIR/dist;
 before_script:
 - npx lerna run pretest
 script:
@@ -87,7 +98,7 @@ jobs:
     before_deploy:
     - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
     - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/; ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts; ls -al $WWW_PACKAGE_DIR/docs; git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
@@ -134,7 +145,7 @@ jobs:
     script: skip
     after_script: skip
     before_deploy:
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/; ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts; ls -al $WWW_PACKAGE_DIR/docs; git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
