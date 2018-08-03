@@ -34,9 +34,12 @@ after_script:
 stages:
 - name: Test
   if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
-- name: Deploy
+- name: Deploy (dev)
+  if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Release
   if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
+- name: Deploy (prd)
+  if: tag IS present
 jobs:
   include:
   - stage: Release
@@ -69,31 +72,6 @@ jobs:
     name: www
     node_js: '8'
     env:
-    - NODE_ENV=prd
-    - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
-    - SENTRY_ORG=randytarampi
-    - SENTRY_PROJECT=www
-    - SENTRY_LOG_LEVEL=debug
-    - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
-    install:
-    - npm run postinstall
-    - npm run docs --prefix packages/www
-    before_script: skip
-    script: skip
-    after_script: skip
-    before_deploy:
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
-    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
-    deploy:
-    - provider: script
-      script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git `git subtree split --prefix packages/www`:gh-pages
-      skip_cleanup: true
-      on:
-        tags: true
-  - stage: Deploy
-    name: www
-    node_js: '8'
-    env:
     - NODE_ENV=dev
     - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - SENTRY_ORG=randytarampi
@@ -116,27 +94,6 @@ jobs:
       on:
         branch: master
   - stage: Deploy
-    name: resume
-    node_js: '8'
-    env:
-    - NODE_ENV=prd
-    - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
-    install:
-    - npm run postinstall
-    - npm run docs --prefix packages/resume
-    before_script: skip
-    script: skip
-    after_script: skip
-    before_deploy:
-    - git add --verbose --force --all $RESUME_PACKAGE_DIR/index.html $RESUME_PACKAGE_DIR/index.pdf $RESUME_PACKAGE_DIR/favicon.ico
-    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
-    deploy:
-    - provider: script
-      script: $TRAVIS_BUILD_DIR/bin/split.sh resume
-      skip_cleanup: true
-      on:
-        tags: true
-  - stage: Deploy
     name: posts
     node_js: '8'
     env:
@@ -158,6 +115,52 @@ jobs:
       skip_cleanup: true
       on:
         master: true
+  - stage: Deploy
+    name: www
+    node_js: '8'
+    env:
+    - NODE_ENV=prd
+    - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
+    - SENTRY_ORG=randytarampi
+    - SENTRY_PROJECT=www
+    - SENTRY_LOG_LEVEL=debug
+    - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
+    install:
+    - npm run postinstall
+    - npm run docs --prefix packages/www
+    before_script: skip
+    script: skip
+    after_script: skip
+    before_deploy:
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
+    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
+    deploy:
+    - provider: script
+      script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git `git subtree split --prefix packages/www`:gh-pages
+      skip_cleanup: true
+      on:
+        tags: true
+  - stage: Deploy
+    name: resume
+    node_js: '8'
+    env:
+    - NODE_ENV=prd
+    - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
+    install:
+    - npm run postinstall
+    - npm run docs --prefix packages/resume
+    before_script: skip
+    script: skip
+    after_script: skip
+    before_deploy:
+    - git add --verbose --force --all $RESUME_PACKAGE_DIR/index.html $RESUME_PACKAGE_DIR/index.pdf $RESUME_PACKAGE_DIR/favicon.ico
+    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
+    deploy:
+    - provider: script
+      script: $TRAVIS_BUILD_DIR/bin/split.sh resume
+      skip_cleanup: true
+      on:
+        tags: true
   - stage: Deploy
     name: posts
     node_js: '8'
