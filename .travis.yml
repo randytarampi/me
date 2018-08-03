@@ -26,16 +26,6 @@ before_install:
 - lscpu
 - npm install -g npm
 before_script:
-- echo "---woof:www---"
-- WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
-- ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/
-- ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/;
-- ls -al $WWW_PACKAGE_DIR/dist;
-- echo "---meow:css---"
-- CSS_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/css
-- ls -al $CSS_PACKAGE_DIR/node_modules/
-- ls -al $CSS_PACKAGE_DIR/node_modules/@fortawesome/fontawesome-free/webfonts/;
-- ls -al $CSS_PACKAGE_DIR/dist;
 - npx lerna run pretest
 script:
 - npm run travis
