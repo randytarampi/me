@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/randytarampi/me/compare/v0.4.0...v0.5.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **travis:** Fix the `resume` deploy issue I thought I addressed in 9bdaa4f4f0adb6d0c3beca183cc52b478ceb6e07. ([6f27c3d](https://github.com/randytarampi/me/commit/6f27c3d))
+
+
+### Features
+
+* **jsx:** Handle the HTML returned in tumblr photo captions. ([177a9d9](https://github.com/randytarampi/me/commit/177a9d9)), closes [#12](https://github.com/randytarampi/me/issues/12) [randytarampi/me.photos#17](https://github.com/randytarampi/me.photos/issues/17)
+* **jsx:** Make all links open in new windows. ([6df20cd](https://github.com/randytarampi/me/commit/6df20cd)), closes [randytarampi/me.photos#8](https://github.com/randytarampi/me.photos/issues/8)
+
+
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/randytarampi/me/compare/v0.3.2...v0.4.0) (2018-08-03)
 
