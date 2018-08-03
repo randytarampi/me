@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/randytarampi/me/compare/v0.5.1...v0.6.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **config:** `*AppUrl`s are just relative in `prd` and `dev`. ([4302ee6](https://github.com/randytarampi/me/commit/4302ee6))
+* **config:** Actually point to `dev.randytarampi.ca` in `dev`. ([e6b84bb](https://github.com/randytarampi/me/commit/e6b84bb))
+* **resume:** Push the `small-screen` breakpoint back `6px` to facilitate printing on A4. ([5141d96](https://github.com/randytarampi/me/commit/5141d96)), closes [#18](https://github.com/randytarampi/me/issues/18)
+* **travis:** Attempt to diagnose the missing fontawesome files in `www/docs`. ([9ecc5fa](https://github.com/randytarampi/me/commit/9ecc5fa))
+* **travis:** More fontawesome diagnosis per e8c886bbc5d3b1d959ec84088c3d0604cf40137a. ([beb9d65](https://github.com/randytarampi/me/commit/beb9d65))
+* **www:** `dev` deploy sets the `CNAME` to `dev.randytarampi.ca`. ([a6bf3fc](https://github.com/randytarampi/me/commit/a6bf3fc))
+* **www:** More missing fontawesome font diagnosis per 9ecc5fabca9151ca8564e7c0f55411861c4f8486. ([e8c886b](https://github.com/randytarampi/me/commit/e8c886b))
+* **www:** More missing fontawesome font diagnosis per ae8b63d46850ce58cda03381bccd5a4a27f23323. ([6b7c37f](https://github.com/randytarampi/me/commit/6b7c37f))
+* **www:** More missing fontawesome font diagnosis per beb9d65dace168f7a207d7e9442e449339dbf844. ([ae8b63d](https://github.com/randytarampi/me/commit/ae8b63d))
+
+
+### Features
+
+* **resume:** Pass some `RESUME_PDF_SIZE` so we can generate US Letter and A4 pdfs on builds. ([79bfdba](https://github.com/randytarampi/me/commit/79bfdba)), closes [#18](https://github.com/randytarampi/me/issues/18)
+
+
+
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/randytarampi/me/compare/v0.5.0...v0.5.1) (2018-08-03)
 
