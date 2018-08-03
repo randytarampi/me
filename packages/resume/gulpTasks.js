@@ -19,7 +19,7 @@ gulp.task("copy", () => {
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/sprites/**",
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/svgs/**",
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
-        ])
+        ], {follow: true})
         .pipe(gulp.dest("./dist"));
 });
 
