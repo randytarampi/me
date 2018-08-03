@@ -3,7 +3,7 @@ import React from "react";
 import ResumeSection from "./section";
 
 export const ResumeAbout = ({resume}) => {
-    return <ResumeSection type="about" label="About" hideOnPrint={true}>
+    return <ResumeSection type="about" label="About">
         <p className="resume-about__summary">
             {resume.basics.summary}
         </p>

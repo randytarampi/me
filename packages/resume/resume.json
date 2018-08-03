@@ -6,7 +6,7 @@
     "email": "jobs@randytarampi.ca",
     "phone": "+1 (604) 374-7128",
     "website": "https://www.randytarampi.ca",
-    "summary": "Recently funemployed code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
+    "summary": "Just another code monkey looking to broaden his skillset and horizons, preferrably outside of North America. Prefers fitness balls over fancy chairs, and better to know in person than on paper (or screen)",
     "location": {
       "address": "4663 Todd Street",
       "postalCode": "V5R 3P7",
@@ -128,9 +128,9 @@
       "courses": [
         "CMPT 470 – Web Information Systems",
         "CMPT 431 – Distributed Systems",
-        "CMPT 471 – Networking II",
         "CMPT 305 – Computer Simulation and Modelling",
         "POL 451 – Public Policy Analysis",
+        "CMPT 471 – Networking II",
         "CMPT 475 – Software Engineering II",
         "CMPT 363 – User Interface Design",
         "CMPT 300 – Operating Systems"
@@ -147,12 +147,12 @@
         "ES6",
         "react",
         "redux",
+        "i18n",
+        "a11y",
+        "User analytics",
         "sass",
         "User testing",
         "UI design",
-        "User analytics",
-        "i18n",
-        "a11y",
         "Data visualization"
       ]
     },
@@ -161,15 +161,15 @@
       "level": "Master",
       "keywords": [
         "node.js",
-        "Spring",
-        "Postgres",
-        "Redis",
         "Data architecture",
         "Serverless computing",
         "Performance tuning",
-        "Service architecture",
         "Microservices",
         "i18n",
+        "Spring",
+        "Postgres",
+        "Redis",
+        "Service architecture",
         "API security"
       ]
     },

@@ -1,0 +1,11 @@
+.resume-awards {
+    &-entry {
+        &__highlights {
+            margin-top: 0;
+        }
+
+        & > .row {
+            margin-bottom: 0;
+        }
+    }
+}

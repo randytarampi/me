@@ -1,0 +1,11 @@
+.resume-publications {
+    &-entry {
+        &__highlights {
+            margin-top: 0;
+        }
+
+        & > .row {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -25,22 +25,34 @@ export const ResumeHeader = ({resume}) => {
                     </h3>
                     <div className="resume-header__contact">
                         <Row className="valign-wrapper hide-on-screen">
-                            <div className="col s6 resume-header__email">
+                            <Col s={6} className="resume-header__email">
                                 <EmailLink email={resume.basics.email}/>
-                            </div>
-                            <div className="col s6 resume-header__tel">
+                            </Col>
+                            <Col s={6} className="resume-header__tel">
                                 <TelLink tel={resume.basics.phone}/>
-                            </div>
+                            </Col>
                         </Row>
                         {
-                            resume.basics.website
+                            resume.basics.website || resume.basics.location && resume.basics.location.address
                                 ? <Row className="valign-wrapper hide-on-screen">
-                                    <div className="col s12 resume-header__web">
-                                        <WebLink href={resume.basics.website}/>
-                                    </div>
+                                    {
+                                        resume.basics.website
+                                            ? <Col m={6} s={12} className="resume-header__web">
+                                                <WebLink href={resume.basics.website}/>
+                                            </Col>
+                                            : null
+                                    }
+                                    {
+                                        resume.basics.location && resume.basics.location.city
+                                            ? <Col m={6} s={12} className="resume-header__location">
+                                                <span><i className="fas fa-map-marker-alt"></i>&nbsp;{resume.basics.location.city}, {resume.basics.location.region}, {resume.basics.location.countryCode}</span>
+                                            </Col>
+                                            : null
+                                    }
                                 </Row>
                                 : null
                         }
+
                     </div>
                 </Col>
             </Row>

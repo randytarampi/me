@@ -51,7 +51,7 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
             </Row>
             {
                 educationEntry.courses
-                    ? <Row className="hide-on-print">
+                    ? <Row>
                         <Col s={12}>
                             <h5>
                                 <span className="text">Highlights</span>
@@ -59,7 +59,7 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
                             <ul className="resume-education-entry__highlights">
                                 {
                                     educationEntry.courses.map((highlight, index) => {
-                                        return <li className="resume-education-entry__highlight" key={index}>
+                                        return <li className={`resume-education-entry__highlight${index > 3 ? " hide-on-print" : ""}`} key={index}>
                                             {highlight}
                                         </li>;
                                     })

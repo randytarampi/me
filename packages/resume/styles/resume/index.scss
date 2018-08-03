@@ -1,19 +1,10 @@
-.resume {
-    &-section__content {
-        .row {
-            margin-bottom: 0;
-        }
-    }
-
-    &-section {
-        margin-bottom: 0;
-    }
-}
-
 @import "./layout";
 @import "./header";
 @import "./contact";
 @import "./profiles";
 @import "./work";
+@import "./awards";
+@import "./publications";
+@import "./education";
 @import "./volunteer";
 @import "./languages";
