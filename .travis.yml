@@ -87,7 +87,7 @@ jobs:
     before_deploy:
     - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
     - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then ls -al $WWW_PACKAGE_DIR/docs; git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then ls -al $WWW_PACKAGE_DIR/node_modules; ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi; ls -al $WWW_PACKAGE_DIR/docs; git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
@@ -134,7 +134,7 @@ jobs:
     script: skip
     after_script: skip
     before_deploy:
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then ls -al $WWW_PACKAGE_DIR/docs; git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then ls -al $WWW_PACKAGE_DIR/node_modules; ls -al $WWW_PACKAGE_DIR/node_modules/@randy.tarampi; ls -al $WWW_PACKAGE_DIR/docs; git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
