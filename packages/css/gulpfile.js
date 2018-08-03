@@ -26,7 +26,7 @@ gulp.task("copy", () => {
             "node_modules/@fortawesome/fontawesome-free/sprites/**",
             "node_modules/@fortawesome/fontawesome-free/svgs/**",
             "node_modules/@fortawesome/fontawesome-free/webfonts/**"
-        ], {follow: true, debug: true})
+        ], {resolveSymlinks: true, debug: true})
         .pipe(gulp.dest("./dist"));
 });
 
