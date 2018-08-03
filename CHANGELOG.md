@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.5.1"></a>
+## [0.5.1](https://github.com/randytarampi/me/compare/v0.5.0...v0.5.1) (2018-08-03)
+
+
+### Bug Fixes
+
+* **resume:** Point people to `http://www.randytarampi.ca/resume`. ([023c0b9](https://github.com/randytarampi/me/commit/023c0b9)), closes [#11](https://github.com/randytarampi/me/issues/11)
+
+
+### Features
+
+* **travis:** Also need to change the travis stage names on the jobs. ([1d80079](https://github.com/randytarampi/me/commit/1d80079))
+* **travis:** Do what I wanted in 13ac4c3a00775c9112bb6ec12ec38df8b3ca1808. ([bf39d05](https://github.com/randytarampi/me/commit/bf39d05))
+* **travis:** Try and push to a `dev` environment on `Deploy` off `master.` ([13ac4c3](https://github.com/randytarampi/me/commit/13ac4c3)), closes [#14](https://github.com/randytarampi/me/issues/14)
+
+
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/randytarampi/me/compare/v0.4.0...v0.5.0) (2018-08-03)
 
