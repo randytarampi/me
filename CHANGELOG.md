@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/randytarampi/me/compare/v0.3.2...v0.4.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **resume:** Hack around travis for now and just add index.* assets myself. ([46c3332](https://github.com/randytarampi/me/commit/46c3332))
+* **resume:** Make `resume` generate decent `Letter` sized PDFs. ([accdfb0](https://github.com/randytarampi/me/commit/accdfb0))
+* **resume:** The `resume` pug template pulls in external fontawesome CSS. ([9db0dc1](https://github.com/randytarampi/me/commit/9db0dc1))
+* **travis:** Actually copy assets to the `www` and `resume` root directories on deploy. ([28f4421](https://github.com/randytarampi/me/commit/28f4421))
+* **travis:** Attempt to fix the `jsonresume-theme` linking issue. ([9ee9021](https://github.com/randytarampi/me/commit/9ee9021)), closes [/travis-ci.org/randytarampi/me/jobs/411045659#L610](https://github.com//travis-ci.org/randytarampi/me/jobs/411045659/issues/L610)
+
+
+### Features
+
+* **favicon:** Add a variety of favicons. ([0552c1f](https://github.com/randytarampi/me/commit/0552c1f))
+* **resume:** Try and fill in the left hand label columns. ([a8d7eea](https://github.com/randytarampi/me/commit/a8d7eea))
+
+
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/randytarampi/me/compare/v0.3.1...v0.3.2) (2018-08-01)
 

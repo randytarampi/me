@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/randytarampi/me/compare/v0.3.2...v0.4.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **travis:** Actually copy assets to the `www` and `resume` root directories on deploy. ([28f4421](https://github.com/randytarampi/me/commit/28f4421))
+
+
+### Features
+
+* **favicon:** Add a variety of favicons. ([0552c1f](https://github.com/randytarampi/me/commit/0552c1f))
+* **resume:** Make an actually decent PDF resume. ([7678c86](https://github.com/randytarampi/me/commit/7678c86)), closes [#9](https://github.com/randytarampi/me/issues/9) [#10](https://github.com/randytarampi/me/issues/10) [#5](https://github.com/randytarampi/me/issues/5)
+
+
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/randytarampi/me/compare/v0.3.0...v0.3.1) (2018-08-01)
 
