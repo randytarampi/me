@@ -1,9 +1,5 @@
 photosServiceUrl: https://posts.randytarampi.ca/photos
 postsServiceUrl: https://posts.randytarampi.ca/posts
 wordsServiceUrl: https://posts.randytarampi.ca/words
-codeAppUrl: https://www.randytarampi.ca/code
-photosAppUrl: https://www.randytarampi.ca/photos
-postsAppUrl: https://www.randytarampi.ca/blog
-wordsAppUrl: https://www.randytarampi.ca/words
-assetUrl: "/docs"
+assetUrl: /docs
 gtm: "GTM-W6NFL6M"
