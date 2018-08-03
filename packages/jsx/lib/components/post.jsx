@@ -1,4 +1,5 @@
 import {Post as PostEntity} from "@randy.tarampi/js";
+import Link from "./link";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import Dimensions from "react-dimensions";
@@ -50,7 +51,7 @@ export class PostComponent extends Component {
                 <h1 className="post-title">
                     {
                         this.props.post.url ?
-                            <a className="post-text" href={this.props.post.url}>{this.title}</a> :
+                            <Link className="post-text" href={this.props.post.url}>{this.title}</Link> :
                             <span className="post-text">{this.title}</span>
                     }
                 </h1>
@@ -60,9 +61,9 @@ export class PostComponent extends Component {
                     {
                         this.props.post.dateCreated ?
                             <span>
-								<strong className="post-text">Modified:</strong>
-								<span className="post-text">{this.props.post.dateCreated.format("LLLL")}</span>
-							</span> :
+                                <strong className="post-text">Modified:</strong>
+                                <span className="post-text">{this.props.post.dateCreated.format("LLLL")}</span>
+                            </span> :
                             null
                     }
                 </p>

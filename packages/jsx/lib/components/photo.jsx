@@ -1,4 +1,5 @@
 import {Photo as PhotoEntity} from "@randy.tarampi/js";
+import Link from "./link";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import Dimensions from "react-dimensions";
@@ -39,8 +40,8 @@ export class PhotoComponent extends PostComponent {
                 className="photo-metadata hide-on-med-and-up"
             >
                 <h1 className="photo-title">
-                    <a className="photo-title__link" href={this.props.post.sourceUrl}><span
-                        className="photo-text">{this.title}</span></a>
+                    <Link className="photo-title__link" href={this.props.post.sourceUrl}><span
+                        className="photo-text">{this.title}</span></Link>
                 </h1>
             </Col>
             <Col
@@ -48,8 +49,8 @@ export class PhotoComponent extends PostComponent {
                 l={4}
             >
                 <h1 className="photo-title">
-                    <a className="photo-title__link" href={this.props.post.sourceUrl}><span
-                        className="photo-text">{this.title}</span></a>
+                    <Link className="photo-title__link" href={this.props.post.sourceUrl}><span
+                        className="photo-text">{this.title}</span></Link>
                 </h1>
                 {
                     typeof this.props.post.body === "string" && this.props.post.body !== "" ?
@@ -92,12 +93,12 @@ export class PhotoComponent extends PostComponent {
                 }
                 <p className="photo-source">
                     <strong className="photo-text">More:</strong>
-                    <a className="photo-source__link" href={this.selected.url}><span
-                        className="photo-text">Source</span></a>
+                    <Link className="photo-source__link" href={this.selected.url}><span
+                        className="photo-text">Source</span></Link>
                     {
                         this.props.post.creator ?
-                            <a className="photo-source__link" href={this.props.post.creator.sourceUrl}><span
-                                className="photo-text">{this.props.post.creator.username} on {this.props.post.source}</span></a> :
+                            <Link className="photo-source__link" href={this.props.post.creator.sourceUrl}><span
+                                className="photo-text">{this.props.post.creator.username} on {this.props.post.source}</span></Link> :
                             null
                     }
                 </p>
