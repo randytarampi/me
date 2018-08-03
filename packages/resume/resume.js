@@ -6,7 +6,7 @@ const render = require("./lib/render").default;
 module.exports = {
     render,
     pdfRenderOptions: {
-        format: "Letter",
+        format: process.env.RESUME_PDF_SIZE || "Letter",
         mediaType: "print"
     }
 };
