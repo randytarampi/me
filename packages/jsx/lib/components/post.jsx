@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React, {Component} from "react";
 import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
+import isHtml from "is-html";
 
 export class PostComponent extends Component {
     get width() {
@@ -68,18 +69,29 @@ export class PostComponent extends Component {
                     }
                 </p>
                 {
-                    typeof this.props.post.body === "string" ?
-                        <div className="post-body" dangerouslySetInnerHTML={{__html: this.props.post.body}}/> :
+                    typeof this.props.post.body === "string"
+                        ? <div className="post-body">
+                            {
+                                isHtml(this.props.post.body)
+                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    : <span className="post-text" dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
+                            }
+                        </div> :
                         null
                 }
                 {
-                    Array.isArray(this.props.post.body) ?
-                        this.props.post.body.map((htmlString, index) => {
+                    Array.isArray(this.props.post.body)
+                        ? this.props.post.body.map((htmlString, index) => {
                             return <div className="post-body" key={index}>
+                                {
+                                    isHtml(htmlString)
+                                        ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
+                                        : <span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
+                                }
                                 <span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
                             </div>;
-                        }) :
-                        null
+                        })
+                        : null
                 }
             </Col>
         </Row>;

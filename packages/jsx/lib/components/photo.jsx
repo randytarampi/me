@@ -5,6 +5,7 @@ import React, {Fragment} from "react";
 import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
 import {PostComponent} from "./post";
+import isHtml from "is-html";
 
 export class PhotoComponent extends PostComponent {
     get width() {
@@ -55,7 +56,11 @@ export class PhotoComponent extends PostComponent {
                 {
                     typeof this.props.post.body === "string" && this.props.post.body !== "" ?
                         <p className="photo-body">
-                            <span className="photo-text" dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
+                            {
+                                isHtml(this.props.post.body)
+                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    : <span className="photo-text" dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
+                            }
                         </p> :
                         null
                 }
@@ -64,7 +69,11 @@ export class PhotoComponent extends PostComponent {
                         this.props.post.body.map((htmlString, index) => {
                             return <p className="photo-body"
                                       key={`${this.props.post.id}:${this.props.post.type}:body:${index}`}>
-                                <span className="photo-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
+                                    {
+                                        isHtml(htmlString)
+                                            ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
+                                            : <span className="photo-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
+                                    }
                             </p>;
                         }) :
                         null

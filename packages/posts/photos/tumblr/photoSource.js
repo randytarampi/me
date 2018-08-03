@@ -57,7 +57,7 @@ class TumblrSource extends PhotoSource {
             sizedPhotos,
             postJson.post_url,
             null,
-            photoJson.caption || postJson.caption,
+            processCaptionHtml(photoJson.caption || postJson.caption),
             new Creator(
                 blogJson.name,
                 blogJson.name,
@@ -67,5 +67,12 @@ class TumblrSource extends PhotoSource {
         );
     }
 }
+
+// # NOTE-RT: This is pretty gross modifying the HTML we're passing along, but I think this'll be more common than not for other post providers going forwards, especially the more sophisticated platforms.
+export const processCaptionHtml = caption => {
+    return caption
+        .replace(/<p>/g, "<p><span class=\"photo-text\">")
+        .replace(/<\/p>/g, "</span></p>");
+};
 
 export default TumblrSource;
