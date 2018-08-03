@@ -12,6 +12,9 @@ $fa-font-path: ".";
 
 @import "materialize-css/sass/components/variables";
 
+$small-screen: 594px;
+$small-screen-up: 595px;
+
 $medium-and-up: "all and (min-width : #{$small-screen-up})";
 $large-and-up: "all and (min-width : #{$medium-screen-up})";
 $extra-large-and-up: "all and (min-width : #{$large-screen-up})";
