@@ -150,12 +150,13 @@ jobs:
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
     install:
     - npm run postinstall
+    - npm run resume --prefix packages/resume
     - npm run docs --prefix packages/resume
     before_script: skip
     script: skip
     after_script: skip
     before_deploy:
-    - git add --verbose --force --all $RESUME_PACKAGE_DIR/index.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/favicon.ico
+    - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/*.ico
     - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
     deploy:
     - provider: script
