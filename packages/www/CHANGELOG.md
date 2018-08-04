@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.2"></a>
+## [0.6.2](https://github.com/randytarampi/me/compare/v0.6.1...v0.6.2) (2018-08-04)
+
+
+### Bug Fixes
+
+* **www:** Fix client side page titles. ([946b7d3](https://github.com/randytarampi/me/commit/946b7d3)), closes [#22](https://github.com/randytarampi/me/issues/22)
+
+
+
+
+
 <a name="0.6.1"></a>
 ## [0.6.1](https://github.com/randytarampi/me/compare/v0.6.0...v0.6.1) (2018-08-04)
 
