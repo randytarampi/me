@@ -16,11 +16,14 @@ import ResumeVolunteer from "./content/volunteer";
 import ResumeWork from "./content/work";
 import ResumeFooter from "./footer";
 import ResumeHeader from "./header";
-import ResumeTitle from "./title";
 
 export const Resume = props => <div className="resume">
     <Helmet>
-        <ResumeTitle {...props} />
+        <title>
+            {
+                `${props.resume.basics.name} &emdash; ${props.resume.basics.label}`
+            }
+        </title>
     </Helmet>
     <ResumeHeader {...props} />
     <div className="resume-content">

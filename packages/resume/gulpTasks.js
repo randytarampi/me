@@ -31,8 +31,6 @@ gulp.task("views:dev", () => {
     return gulp.src(["views/index.pug"])
         .pipe(pug({
             locals: {
-                css: null,
-                content: null,
                 assetUrl: config.get("assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
@@ -47,23 +45,12 @@ gulp.task("views", () => {
     const path = require("path");
     process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
-    const config = require("config");
     const pug = require("gulp-pug");
-    const renderCss = require("./lib/renderCss").default;
-    const renderJsx = require("./lib/renderJsx").default;
-    const packageJson = require("./package.json");
+    const buildPugLocals = require("./lib/render").buildPugLocals;
 
     return gulp.src(["views/index.pug"])
         .pipe(pug({
-            locals: {
-                css: renderCss(),
-                content: renderJsx(),
-                assetUrl: config.get("assetUrl"),
-                sentryDsn: config.get("sentryDsn"),
-                gtm: config.get("gtm"),
-                environment: process.env.NODE_ENV || "local",
-                version: packageJson.version
-            }
+            locals: buildPugLocals()
         }))
         .pipe(gulp.dest("./dist"));
 });
