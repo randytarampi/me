@@ -1,5 +1,7 @@
 language: node_js
 dist: trusty
+addons:
+  chrome: stable
 node_js:
 - '10'
 - '8'
@@ -25,6 +27,7 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_script:
 - npx lerna run pretest
 script:
