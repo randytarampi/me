@@ -16,12 +16,8 @@ gulp.task("copy", () => {
         .src([
             "public/assets/**",
             "../../node_modules/materialize-css/dist/fonts/roboto/**",
-            "../../node_modules/@fortawesome/fontawesome-free/sprites/**",
-            "../../node_modules/@fortawesome/fontawesome-free/svgs/**",
             "../../node_modules/@fortawesome/fontawesome-free/webfonts/**",
             "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
-            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/sprites/**",
-            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/svgs/**",
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
         ])
         .pipe(gulp.dest("./dist"));
