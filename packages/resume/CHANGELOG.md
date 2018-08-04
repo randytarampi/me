@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.3"></a>
+## [0.6.3](https://github.com/randytarampi/me/compare/v0.6.2...v0.6.3) (2018-08-04)
+
+
+### Bug Fixes
+
+* **resume:** Fix `resume` deployment steps by copying over the correct files. ([f92e9d8](https://github.com/randytarampi/me/commit/f92e9d8))
+* **resume:** Hide the `.row` containing `.resume-section__description`. ([dc34cc3](https://github.com/randytarampi/me/commit/dc34cc3))
+
+
+
+
+
 <a name="0.6.2"></a>
 ## [0.6.2](https://github.com/randytarampi/me/compare/v0.6.1...v0.6.2) (2018-08-04)
 
