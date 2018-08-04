@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.4"></a>
+## [0.6.4](https://github.com/randytarampi/me/compare/v0.6.3...v0.6.4) (2018-08-04)
+
+
+### Bug Fixes
+
+* **posts:** Fix bad `INSTAGRAM_AUTH_REDIRECT_URI` configuration. ([afe5d99](https://github.com/randytarampi/me/commit/afe5d99))
+* **resume:** Enable `puppeteer` to run on the Travis boxes. ([eea60ff](https://github.com/randytarampi/me/commit/eea60ff)), closes [/github.com/GoogleChrome/puppeteer/issues/2674#issuecomment-394678881](https://github.com//github.com/GoogleChrome/puppeteer/issues/2674/issues/issuecomment-394678881)
+
+
+
+
+
 <a name="0.6.3"></a>
 ## [0.6.3](https://github.com/randytarampi/me/compare/v0.6.2...v0.6.3) (2018-08-04)
 

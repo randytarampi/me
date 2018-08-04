@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.4"></a>
+## [0.6.4](https://github.com/randytarampi/me/compare/v0.6.3...v0.6.4) (2018-08-04)
+
+
+### Bug Fixes
+
+* **posts:** Fix bad `INSTAGRAM_AUTH_REDIRECT_URI` configuration. ([afe5d99](https://github.com/randytarampi/me/commit/afe5d99))
+
+
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/randytarampi/me/compare/v0.5.1...v0.6.0) (2018-08-03)
 
