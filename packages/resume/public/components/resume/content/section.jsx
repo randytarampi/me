@@ -26,13 +26,13 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                 }
                 {
                     descriptionNode || description
-                        ? <Row>
+                        ? <Row className="hide-on-large-only hide-on-small-only">
                             <Col s={9}>
                                 {
                                     descriptionNode
-                                        ? <div className="resume-section__description hide-on-large-only hide-on-small-only">{descriptionNode}</div>
+                                        ? <div className="resume-section__description">{descriptionNode}</div>
                                         : description
-                                        ? <p className="resume-section__description hide-on-large-only hide-on-small-only"><span className="text">{description}</span></p>
+                                        ? <p className="resume-section__description"><span className="text">{description}</span></p>
                                         : null
                                 }
                             </Col>
