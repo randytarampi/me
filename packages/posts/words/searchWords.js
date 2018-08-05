@@ -7,7 +7,7 @@ const searchWords = wordSearchParams => {
         .then(wordSources => {
             return Promise.all(
                 wordSources.map((wordSource) => {
-                    return wordSource.getWordPosts(wordSearchParams)
+                    return wordSource.getPosts(wordSearchParams)
                         .catch((error) => {
                             logger.error(error);
                             return [];

@@ -7,7 +7,7 @@ const searchPhotos = photoSearchParams => {
         .then(photoSources => {
             return Promise.all(
                 photoSources.map((photoSource) => {
-                    return photoSource.getUserPhotos(photoSearchParams)
+                    return photoSource.getPosts(photoSearchParams)
                         .catch((error) => {
                             logger.error(error);
                             return [];

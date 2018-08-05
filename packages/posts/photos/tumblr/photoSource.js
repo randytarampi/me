@@ -14,7 +14,7 @@ class TumblrSource extends PhotoSource {
         }));
     }
 
-    getUserPhotos(params) {
+    getPosts(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
 
@@ -22,26 +22,26 @@ class TumblrSource extends PhotoSource {
             .then((response) => {
                 return _.flatten(response.posts.map(postJson =>
                     postJson.photos.map(photoJson =>
-                        that.jsonToPhoto(photoJson, postJson, response.blog)
+                        that.jsonToPost(photoJson, postJson, response.blog)
                     )
                 ));
             });
     }
 
-    getPhoto(photoId, params) {
+    getPost(photoId, params) {
         const that = this;
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.Tumblr))
             .then((response) => {
                 return _.flatten(response.posts.map(postJson =>
                     postJson.photos.map(photoJson =>
-                        that.jsonToPhoto(photoJson, postJson, response.blog)
+                        that.jsonToPost(photoJson, postJson, response.blog)
                     )
                 ));
             });
     }
 
-    jsonToPhoto(photoJson, postJson, blogJson) {
+    jsonToPost(photoJson, postJson, blogJson) {
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return new SizedPhoto(photo.url, photo.width, photo.height);
         });

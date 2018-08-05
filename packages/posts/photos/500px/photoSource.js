@@ -14,7 +14,7 @@ class Five00pxSource extends PhotoSource {
             !!process.env["F00PX_API_SECRET"];
     }
 
-    getUserPhotos(params) {
+    getPosts(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const client = this.client;
@@ -47,12 +47,12 @@ class Five00pxSource extends PhotoSource {
             })
             .then((photos) => {
                 return Promise.all(photos.map((photo) => {
-                    return that.jsonToPhoto(photo);
+                    return that.jsonToPost(photo);
                 }));
             });
     }
 
-    getPhoto(id, params) {
+    getPost(id, params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const client = this.client;
@@ -66,11 +66,11 @@ class Five00pxSource extends PhotoSource {
                 resolve(response.photo);
             });
         }).then((photo) => {
-            return that.jsonToPhoto(photo);
+            return that.jsonToPost(photo);
         });
     }
 
-    jsonToPhoto(json) {
+    jsonToPost(json) {
         return new Photo(
             json.id,
             null,

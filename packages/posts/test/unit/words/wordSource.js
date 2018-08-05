@@ -38,24 +38,24 @@ describe("WordSource", () => {
         });
     });
 
-    describe("#getWordPosts", () => {
+    describe("#getPosts", () => {
         it("should throw a `Please specify an actual get word posts implementation` error", () => {
             const wordSource = new WordSource();
 
-            return wordSource.getWordPosts()
+            return wordSource.getPosts()
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get word posts implementation/);
+                    expect(error.message).to.match(/Please specify an actual getPosts implementation/);
                 });
         });
     });
 
-    describe("#getWordPost", () => {
+    describe("#getPost", () => {
         it("should throw a `Please specify an actual get word post implementation` error", () => {
             const wordSource = new WordSource();
 
-            return wordSource.getWordPost()
+            return wordSource.getPost()
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get word post implementation/);
+                    expect(error.message).to.match(/Please specify an actual getPost implementation/);
                 });
         });
     });
@@ -65,14 +65,6 @@ describe("WordSource", () => {
             const wordSource = new WordSource();
 
             expect(wordSource.jsonToPost).to.throw(/Please specify an actual Post transformation/);
-        });
-    });
-
-    describe(".isEnabled", () => {
-        it("should throw a `Please specify an actual isEnabled check` error", () => {
-            const wordSource = new WordSource();
-
-            expect(() => wordSource.isEnabled).to.throw(/Please specify an actual isEnabled check/);
         });
     });
 });

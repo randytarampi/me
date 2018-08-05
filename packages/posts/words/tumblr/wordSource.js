@@ -17,7 +17,7 @@ class TumblrWordSource extends WordSource {
         return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET;
     }
 
-    getWordPosts(params) {
+    getPosts(params) {
         const options = {
             "type": "text",
             "limit": params.perPage || 20
@@ -35,7 +35,7 @@ class TumblrWordSource extends WordSource {
             });
     }
 
-    getWordPost(id) {
+    getPost(id) {
         const options = {
             "id": id
         };

@@ -12,7 +12,7 @@ class UnsplashSource extends PhotoSource {
         }));
     }
 
-    getUserPhotos(params) {
+    getPosts(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, params.page, params.perPage, params.orderBy);
@@ -21,22 +21,22 @@ class UnsplashSource extends PhotoSource {
             .then(toJson)
             .then((response) => {
                 return Promise.all(response.map((photo) => {
-                    return that.jsonToPhoto(photo);
+                    return that.jsonToPost(photo);
                 }));
             });
     }
 
-    getPhoto(photoId, params) {
+    getPost(photoId, params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
-        return this.client.photos.getPhoto(photoId, params.width, params.height, params.crop)
+        return this.client.photos.getPost(photoId, params.width, params.height, params.crop)
             .then(toJson)
             .then((photo) => {
-                return that.jsonToPhoto(photo);
+                return that.jsonToPost(photo);
             });
     }
 
-    jsonToPhoto(json) {
+    jsonToPost(json) {
         return new Photo(
             json.id,
             null,

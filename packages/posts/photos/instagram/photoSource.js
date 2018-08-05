@@ -14,7 +14,7 @@ class InstagramSource extends PhotoSource {
         return !!process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
     }
 
-    getUserPhotos(params) {
+    getPosts(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const client = this.client;
@@ -34,20 +34,20 @@ class InstagramSource extends PhotoSource {
             })
             .then(mediaJson => {
                 return _.filter(mediaJson.data, {type: "image"})
-                    .map(_.bind(that.jsonToPhoto, that));
+                    .map(_.bind(that.jsonToPost, that));
             });
     }
 
-    getPhoto(photoId) {
+    getPost(photoId) {
         const that = this;
 
         return this.client.media(photoId)
             .then((photoJson) => {
-                return that.jsonToPhoto(photoJson.data);
+                return that.jsonToPost(photoJson.data);
             });
     }
 
-    jsonToPhoto(photoJson) {
+    jsonToPost(photoJson) {
         const sizedPhotos = Object.keys(photoJson.images).map((key) => {
             const image = photoJson.images[key];
             return new SizedPhoto(image.url, image.width, image.height, key);

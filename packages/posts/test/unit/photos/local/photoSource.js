@@ -26,13 +26,13 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#getUserPhotos", () => {
+    describe("#getPosts", () => {
         it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
             this.timeout(60000);
 
             const photoSource = new PhotoSource();
 
-            return photoSource.getUserPhotos()
+            return photoSource.getPosts()
                 .then((photos) => {
                     expect(photos).to.be.ok;
                     photos.map((photo) => {
@@ -51,19 +51,19 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#getPhoto", () => {
+    describe("#getPost", () => {
         it("should load a `Photo` from a given `Photo`'s `id`", function () {
             this.timeout(60000);
 
             const photoSource = new PhotoSource();
 
-            return photoSource.getUserPhotos()
+            return photoSource.getPosts()
                 .then((photos) => {
                     return Promise.all(
                         photos.map((photo) => {
-                            return photoSource.getPhoto(photo.id)
-                                .then((photoFromGetPhoto) => {
-                                    expect(photo).to.be.eql(photoFromGetPhoto);
+                            return photoSource.getPost(photo.id)
+                                .then((photoFromgetPost) => {
+                                    expect(photo).to.be.eql(photoFromgetPost);
                                 });
                         })
                     );
@@ -71,7 +71,7 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#jsonToPhoto", () => {
+    describe("#jsonToPost", () => {
         it("should only ever have one `SizedPhoto`", () => {
             const lstat = {
                 dev: 16777220,
@@ -95,14 +95,14 @@ describe("LocalSource", () => {
             const height = 3;
 
             const photoSource = new PhotoSource();
-            const jsonToPhotoResult = photoSource.jsonToPhoto(filePath, fileName, lstat, width, height);
+            const jsonToPostResult = photoSource.jsonToPost(filePath, fileName, lstat, width, height);
 
-            expect(jsonToPhotoResult).to.be.instanceof(Photo);
-            expect(jsonToPhotoResult.sizedPhotos.length).to.eql(1);
-            jsonToPhotoResult.sizedPhotos.map((sizedPhoto) => {
-                expect(sizedPhoto.url).to.eql(jsonToPhotoResult.sourceUrl);
-                expect(sizedPhoto.width).to.eql(jsonToPhotoResult.width);
-                expect(sizedPhoto.height).to.eql(jsonToPhotoResult.height);
+            expect(jsonToPostResult).to.be.instanceof(Photo);
+            expect(jsonToPostResult.sizedPhotos.length).to.eql(1);
+            jsonToPostResult.sizedPhotos.map((sizedPhoto) => {
+                expect(sizedPhoto.url).to.eql(jsonToPostResult.sourceUrl);
+                expect(sizedPhoto.width).to.eql(jsonToPostResult.width);
+                expect(sizedPhoto.height).to.eql(jsonToPostResult.height);
             });
         });
     });

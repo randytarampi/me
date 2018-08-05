@@ -38,33 +38,33 @@ describe("PhotoSource", () => {
         });
     });
 
-    describe("#getUserPhotos", () => {
+    describe("#getPosts", () => {
         it("should throw a `Please specify an actual get photo for user implementation` error", () => {
             const photoSource = new PhotoSource();
 
-            return photoSource.getUserPhotos()
+            return photoSource.getPosts()
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get photo for user implementation/);
+                    expect(error.message).to.match(/Please specify an actual getPosts implementation/);
                 });
         });
     });
 
-    describe("#getPhoto", () => {
+    describe("#getPost", () => {
         it("should throw a `Please specify an actual get photo implementation` error", () => {
             const photoSource = new PhotoSource();
 
-            return photoSource.getPhoto()
+            return photoSource.getPost()
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get photo implementation/);
+                    expect(error.message).to.match(/Please specify an actual getPost implementation/);
                 });
         });
     });
 
-    describe("#jsonToPhoto", () => {
+    describe("#jsonToPost", () => {
         it("should throw a `Please specify an actual Photo transformation` error", () => {
             const photoSource = new PhotoSource();
 
-            expect(photoSource.jsonToPhoto).to.throw(/Please specify an actual Photo transformation/);
+            expect(photoSource.jsonToPost).to.throw(/Please specify an actual Post transformation/);
         });
     });
 

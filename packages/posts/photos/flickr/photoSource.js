@@ -10,7 +10,7 @@ class FlickrSource extends PhotoSource {
         super("Flickr", new Flickr(process.env.FLICKR_API_KEY));
     }
 
-    getUserPhotos(params) {
+    getPosts(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;
@@ -31,11 +31,11 @@ class FlickrSource extends PhotoSource {
                     .then(response => response.body.photos.photo);
             })
             .then(photos => {
-                return photos.map(this.jsonToPhoto.bind(this));
+                return photos.map(this.jsonToPost.bind(this));
             });
     }
 
-    jsonToPhoto(json) {
+    jsonToPost(json) {
         return new Photo(
             json.id,
             null,
