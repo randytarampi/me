@@ -14,7 +14,7 @@ class TumblrSource extends PhotoSource {
         }));
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
 
@@ -28,7 +28,7 @@ class TumblrSource extends PhotoSource {
             });
     }
 
-    getPost(photoId, params) {
+    postGetter(photoId, params) {
         const that = this;
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.Tumblr))

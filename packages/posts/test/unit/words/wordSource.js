@@ -44,7 +44,7 @@ describe("WordSource", () => {
 
             return wordSource.getPosts()
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual getPosts implementation/);
+                    expect(error.message).to.match(/Please specify an actual postsGetter implementation/);
                 });
         });
     });
@@ -55,7 +55,7 @@ describe("WordSource", () => {
 
             return wordSource.getPost()
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual getPost implementation/);
+                    expect(error.message).to.match(/Please specify an actual postGetter implementation/);
                 });
         });
     });

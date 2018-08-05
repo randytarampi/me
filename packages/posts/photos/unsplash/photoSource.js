@@ -12,7 +12,7 @@ class UnsplashSource extends PhotoSource {
         }));
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, params.page, params.perPage, params.orderBy);
@@ -26,7 +26,7 @@ class UnsplashSource extends PhotoSource {
             });
     }
 
-    getPost(photoId, params) {
+    postGetter(photoId, params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         return this.client.photos.getPost(photoId, params.width, params.height, params.crop)

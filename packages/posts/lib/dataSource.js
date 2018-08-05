@@ -23,12 +23,44 @@ class DataSource {
             !!process.env[`${type.toUpperCase()}_API_SECRET`];
     }
 
-    getPosts(params) {
-        return Promise.reject(new Error(`Looking for ${params} – Please specify an actual getPosts implementation`));
+    async beforePostsGetter(params) { // eslint-disable-line no-unused-vars
+        return Promise.resolve(params);
     }
 
-    getPost(postId, params) {
-        return Promise.reject(new Error(`Looking for ${postId} with ${params} – Please specify an actual getPost implementation`));
+    async postsGetter(params) {
+        return Promise.reject(new Error(`Looking for ${params} – Please specify an actual postsGetter implementation`));
+    }
+
+    async afterPostsGetter(posts, params) { // eslint-disable-line no-unused-vars
+        return Promise.resolve(posts);
+    }
+
+    async getPosts(params) {
+        const decoratedParams = await this.beforePostsGetter(params);
+        const retrievedPosts = await this.postsGetter(decoratedParams);
+        const decoratedPosts = await this.afterPostsGetter(retrievedPosts, decoratedParams);
+
+        return decoratedPosts;
+    }
+
+    async beforePostGetter(postUid, params) { // eslint-disable-line no-unused-vars
+        return Promise.resolve(params);
+    }
+
+    async postGetter(postUid, params) {
+        return Promise.reject(new Error(`Looking for ${postUid} with ${params} – Please specify an actual postGetter implementation`));
+    }
+
+    async afterPostGetter(post, params) { // eslint-disable-line no-unused-vars
+        return Promise.resolve(post);
+    }
+
+    async getPost(postId, params) {
+        const decoratedParams = await this.beforePostGetter(params);
+        const retrievedPost = await this.postGetter(postId, decoratedParams);
+        const decoratedPost = await this.afterPostGetter(retrievedPost, decoratedParams);
+
+        return decoratedPost;
     }
 
     jsonToPost(postJson) {

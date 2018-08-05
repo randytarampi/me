@@ -12,7 +12,7 @@ class S3WordSource extends WordSource {
         return process.env.S3_BUCKET_NAME;
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         const options = {
             Bucket: process.env.S3_BUCKET_NAME,
             MaxKeys: params.perPage || 20
@@ -32,7 +32,7 @@ class S3WordSource extends WordSource {
             })));
     }
 
-    getPost(key) {
+    postGetter(key) {
         return this.client.getObject({
                 Bucket: process.env.S3_BUCKET_NAME,
                 Key: key

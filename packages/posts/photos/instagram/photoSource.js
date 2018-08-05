@@ -14,7 +14,7 @@ class InstagramSource extends PhotoSource {
         return !!process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const client = this.client;
@@ -38,7 +38,7 @@ class InstagramSource extends PhotoSource {
             });
     }
 
-    getPost(photoId) {
+    postGetter(photoId) {
         const that = this;
 
         return this.client.media(photoId)

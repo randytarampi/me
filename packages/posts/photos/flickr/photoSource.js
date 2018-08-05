@@ -10,7 +10,7 @@ class FlickrSource extends PhotoSource {
         super("Flickr", new Flickr(process.env.FLICKR_API_KEY));
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;

@@ -39,7 +39,7 @@ class LocalSource extends PhotoSource {
         });
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
 
         return new Promise((resolve, reject) => {
@@ -96,7 +96,7 @@ class LocalSource extends PhotoSource {
             });
     }
 
-    getPost(photoId) {
+    postGetter(photoId) {
         return new Promise((resolve, reject) => {
             fs.lstat(photoId, (error, lstat) => {
                 if (error) {

@@ -62,8 +62,8 @@ describe("LocalSource", () => {
                     return Promise.all(
                         photos.map((photo) => {
                             return photoSource.getPost(photo.id)
-                                .then((photoFromgetPost) => {
-                                    expect(photo).to.be.eql(photoFromgetPost);
+                                .then((photoFromGetPost) => {
+                                    expect(photo).to.be.eql(photoFromGetPost);
                                 });
                         })
                     );

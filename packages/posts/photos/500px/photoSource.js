@@ -14,7 +14,7 @@ class Five00pxSource extends PhotoSource {
             !!process.env["F00PX_API_SECRET"];
     }
 
-    getPosts(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const client = this.client;
@@ -52,7 +52,7 @@ class Five00pxSource extends PhotoSource {
             });
     }
 
-    getPost(id, params) {
+    postGetter(id, params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const that = this;
         const client = this.client;
