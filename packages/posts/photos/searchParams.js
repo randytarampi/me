@@ -5,14 +5,6 @@ class SearchParams {
         Object.assign(this, params);
     }
 
-    get F00px() {
-        return _.extend({
-            rpp: this.perPage,
-            sort: "taken_at",
-            image_size: "2048, 1600, 1080, 21, 31, 20, 30"
-        }, this);
-    }
-
     get Flickr() {
         return _.extend({
             per_page: this.perPage,

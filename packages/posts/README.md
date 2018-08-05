@@ -10,7 +10,6 @@ A post aggregator/blog thingy. For some usernames at some popular services, pull
 
 Currently supports:
 - [Unsplash](https://unsplash.com/documentation)
-- [500px](https://github.com/500px/api-documentation)
 - [Flickr](https://www.flickr.com/services/api/)
 - [Instagram](https://www.instagram.com/developer/)
 - [S3](https://github.com/Automattic/knox)
@@ -43,7 +42,6 @@ dev: &devConfig
   acmArn: <an ACM ARN so serverless can setup for HTTPS>
   kmsKeyArn: <a KMS ARN so serverless-secrets can pull API keys and other `environmentSecrets` out of the SSM store>
   environment: &environment
-    F00PX_USER_NAME:
     FLICKR_USER_NAME:
     UNSPLASH_USER_NAME:
     INSTAGRAM_USER_NAME:
@@ -51,8 +49,6 @@ dev: &devConfig
     INSTAGRAM_USER_ID:
     TUMBLR_USER_NAME:
   environmentSecrets: &environmentSecrets
-    F00PX_API_KEY: f00px-api-key
-    F00PX_API_SECRET: f00px-api-secret
     FLICKR_API_KEY: flickr-api-key
     FLICKR_API_SECRET: flickr-api-secret
     UNSPLASH_API_KEY: unsplash-api-key
