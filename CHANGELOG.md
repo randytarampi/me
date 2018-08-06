@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.5"></a>
+## [0.6.5](https://github.com/randytarampi/me/compare/v0.6.4...v0.6.5) (2018-08-06)
+
+
+### Bug Fixes
+
+* **resume:** Disable puppeteer's sandbox on the Travis boxes. ([7c7dc37](https://github.com/randytarampi/me/commit/7c7dc37))
+
+
+### Reverts
+
+* fix(resume): Enable `puppeteer` to run on the Travis boxes. ([6937694](https://github.com/randytarampi/me/commit/6937694)), closes [randytarampi/resume-cli#bcae057aa7864e688c14902d980fb1ae14cca9](https://github.com/randytarampi/resume-cli/issues/bcae057aa7864e688c14902d980fb1ae14cca9)
+
+
+
+
+
 <a name="0.6.4"></a>
 ## [0.6.4](https://github.com/randytarampi/me/compare/v0.6.3...v0.6.4) (2018-08-04)
 
