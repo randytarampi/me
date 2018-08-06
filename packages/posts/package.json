@@ -14,7 +14,7 @@
     "postinstall": "npx sls dynamodb install",
     "preuninstall": "npx sls dynamodb remove",
     "pretest": "npm run pretest:dynamodb-local; npx gulp -LLLL --color lint",
-    "pretest:dynamodb-local": "npm run kill:dynamodb-local; npm run start:dynamodb-local; echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\"; if [[ $CI = true ]]; then sleep 3; fi;",
+    "pretest:dynamodb-local": "npm run kill:dynamodb-local; npm run start:dynamodb-local; echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\";",
     "test": "npm run test:actual",
     "test:actual": "NODE_ENV=test AWS_REGION=local npx gulp -LLLL --color test",
     "kill": "npm run kill:dynamodb-local",
