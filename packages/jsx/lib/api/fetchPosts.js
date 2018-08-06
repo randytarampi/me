@@ -1,12 +1,12 @@
 import fetch from "isomorphic-fetch";
-import getEntityForType from "../util/getEntityForType";
+import {util} from "@randy.tarampi/js";
 
 export default (fetchUrl, page) => {
     return fetch(`${fetchUrl}?page=${page}`)
         .then(body => body.json())
         .then(posts => {
             return posts.map((postJson) => {
-                const Constructor = getEntityForType(postJson.type);
+                const Constructor = util.getEntityForType(postJson.type);
                 return Constructor.fromJSON(postJson);
             });
         });

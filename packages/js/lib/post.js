@@ -1,5 +1,6 @@
 import Moment from "moment";
 import Creator from "./creator";
+import {compositeKeySeparator} from "./util";
 
 class Post {
     constructor(id, type, source, dateCreated, datePublished, title, body, sourceUrl, creator) {
@@ -15,7 +16,7 @@ class Post {
     }
 
     get uid() {
-        return `${this.source}-${this.id}`;
+        return `${this.source}${compositeKeySeparator}${this.id}`;
     }
 
     get datePublished() {

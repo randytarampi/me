@@ -1,4 +1,5 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import Photo from "../photo";
+import Post from "../post";
 
 export default type => {
     switch (type) {

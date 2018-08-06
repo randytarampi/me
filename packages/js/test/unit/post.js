@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import Moment from "moment";
 import Post from "../../lib/post";
+import {compositeKeySeparator} from "../../lib/util";
 
 describe("Post", () => {
     describe("constructor", () => {
@@ -113,7 +114,7 @@ describe("Post", () => {
             };
             const post = Post.fromJSON(postJSON);
 
-            expect(post.uid).to.eql(`${postJSON.source}-${postJSON.id}`);
+            expect(post.uid).to.eql(`${postJSON.source}${compositeKeySeparator}${postJSON.id}`);
         });
     });
 });
