@@ -30,7 +30,9 @@ before_script:
 - npx lerna run pretest
 script:
 - npm run travis
-after_script:
+after_failure:
+- npm run kill --prefix packages/posts
+after_success:
 - npm run coveralls
 stages:
 - name: Test
