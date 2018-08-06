@@ -26,6 +26,8 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
+- which java
+- java -showversion
 before_script:
 - npx lerna run pretest
 script:
