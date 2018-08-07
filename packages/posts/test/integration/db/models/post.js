@@ -3,6 +3,8 @@ import {expect} from "chai";
 import PostModel, {createPost, createPosts, getPost, getPosts} from "../../../../db/models/post";
 
 describe("Post", function () {
+    this.timeout(60000);
+
     let stubPost;
     let stubPhoto;
     let stubPosts;
