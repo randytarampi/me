@@ -63,7 +63,10 @@ describe("LocalSource", () => {
                         photos.map((photo) => {
                             return photoSource.getPost(photo.id)
                                 .then((photoFromGetPost) => {
-                                    expect(photo).to.be.eql(photoFromGetPost);
+                                    expect(photo).to.be.ok;
+                                    expect(photo).to.be.instanceof(Photo);
+                                    expect(photo.id).to.eql(photoFromGetPost.id);
+                                    expect(photo.sizedPhotos.length).to.eql(photoFromGetPost.sizedPhotos.length);
                                 });
                         })
                     );

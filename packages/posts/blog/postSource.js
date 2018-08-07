@@ -1,10 +1,10 @@
 class PostSource {
-    constructor(type, client, initalizerPromise) {
+    constructor(type, client, clientInitializerPromise) {
         this.type = type;
         this.client = client;
 
-        if (initalizerPromise) {
-            this.initializing = initalizerPromise
+        if (clientInitializerPromise) {
+            this.initializing = clientInitializerPromise
                 .then((initializedClient) => {
                     this.client = initializedClient;
                     return this;

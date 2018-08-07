@@ -22,7 +22,7 @@ describe("PhotoSource", () => {
             expect(photoSource).to.be.instanceOf(PhotoSource);
         });
 
-        it("should accept an `initalizerPromise`", () => {
+        it("should accept an `clientInitializerPromise`", () => {
             const photoSource = new PhotoSource("Woof", "Grr", Promise.resolve("Meow"));
 
             expect(photoSource.type).to.eql("Woof");
@@ -70,7 +70,7 @@ describe("PhotoSource", () => {
 
     describe("#isEnabled", () => {
         it("should be enabled if it can find some `_API_KEY` and some `_API_SECRET`", () => {
-            const photoSource = new PhotoSource();
+            const photoSource = new PhotoSource("");
 
             expect(photoSource.isEnabled).to.eql(true);
         });
@@ -78,7 +78,7 @@ describe("PhotoSource", () => {
         it("should not be enabled if it cannot find `_API_KEY`", () => {
             delete process.env._API_KEY;
 
-            const photoSource = new PhotoSource();
+            const photoSource = new PhotoSource("");
 
             expect(photoSource.isEnabled).to.eql(false);
         });
@@ -86,7 +86,7 @@ describe("PhotoSource", () => {
         it("should not be enabled if it cannot find `_API_SECRET`", () => {
             delete process.env._API_SECRET;
 
-            const photoSource = new PhotoSource();
+            const photoSource = new PhotoSource("");
 
             expect(photoSource.isEnabled).to.eql(false);
         });

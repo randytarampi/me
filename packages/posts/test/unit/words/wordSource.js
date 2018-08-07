@@ -22,7 +22,7 @@ describe("WordSource", () => {
             expect(wordSource).to.be.instanceOf(WordSource);
         });
 
-        it("should accept an `initalizerPromise`", () => {
+        it("should accept an `clientInitializerPromise`", () => {
             const wordSource = new WordSource("Woof", "Grr", Promise.resolve("Meow"));
 
             expect(wordSource.type).to.eql("Woof");
