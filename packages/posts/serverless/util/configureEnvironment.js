@@ -6,6 +6,11 @@ export default () => {
     return loadServerlessSecrets()
         .then(() => {
             if (process.env.IS_OFFLINE) {
+                dynamoose.AWS.config.update({
+                    accessKeyId: "woof",
+                    secretAccessKey: "meow",
+                    region: "local"
+                });
                 dynamoose.local();
             }
             return configureLogger();
