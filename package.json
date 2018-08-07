@@ -21,8 +21,8 @@
   "scripts": {
     "clean": "npx lerna clean --yes; rm -rf node_modules package-lock.json packages/*/package-lock.json packages/*/dist packages/*/coverage packages/*/.nyc_output packages/*/.serverless packages/*/.webpack",
     "postinstall": "./bin/bootstrap.sh",
-    "test": "npx lerna run test",
-    "cover": "rm -rf .nyc_output/ coverage/ && npx lerna run cover && mkdir .nyc_output/ coverage/ && npx lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -rv .nyc_output ../..; fi;\" && npx nyc merge ./.nyc_output coverage/coverage.json && npx nyc report --reporter=lcov --temp-directory coverage && ls -al .nyc_output && ls -al coverage",
+    "test": "npx lerna exec -- npm test",
+    "cover": "rm -rf .nyc_output/ coverage/ && npx lerna exec -- npm run cover && mkdir .nyc_output/ coverage/ && npx lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -rv .nyc_output ../..; fi;\" && npx nyc merge ./.nyc_output coverage/coverage.json && npx nyc report --reporter=lcov --temp-directory coverage && ls -al .nyc_output && ls -al coverage",
     "coveralls": "cat coverage/lcov.info | npx coveralls",
     "travis": "npm run cover && npm run coveralls",
     "kill": "npx lerna run kill"
