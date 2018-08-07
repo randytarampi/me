@@ -84,7 +84,7 @@
     "react-materialize": "^2.3.3",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "style-loader": "^0.21.0",
+    "style-loader": "^0.22.0",
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^2.13.1"
   },
