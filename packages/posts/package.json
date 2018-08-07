@@ -18,7 +18,7 @@
     "test": "npm run test:actual",
     "test:actual": "NODE_ENV=test AWS_REGION=local npx gulp -LLLL --color test",
     "kill": "npm run kill:dynamodb-local",
-    "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.posts.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\"; kill -9 -`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`; rm /tmp/ca.randytarampi.me.posts.dynamo.pid; fi;",
+    "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.posts.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.posts.dynamo.pid`; rm /tmp/ca.randytarampi.me.posts.dynamo.pid; fi;",
     "posttest": "npm run kill",
     "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local; npx nyc npm run test:actual",
     "start": "npm run dev",
