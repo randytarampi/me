@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.7"></a>
+## [0.6.7](https://github.com/randytarampi/me/compare/v0.6.6...v0.6.7) (2018-08-07)
+
+
+### Bug Fixes
+
+* **resume:** Actually turn `&mdash;` into an `–`. ([42ab42b](https://github.com/randytarampi/me/commit/42ab42b))
+
+
+
+
+
 <a name="0.6.6"></a>
 ## [0.6.6](https://github.com/randytarampi/me/compare/v0.6.5...v0.6.6) (2018-08-07)
 
