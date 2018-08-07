@@ -20,7 +20,7 @@ import ResumeHeader from "./header";
 export const Resume = props => <div className="resume">
     <Helmet>
         <title>
-            {props.resume.basics.name} &emdash; {props.resume.basics.label}
+            {props.resume.basics.name} &mdash; {props.resume.basics.label}
         </title>
     </Helmet>
     <ResumeHeader {...props} />
