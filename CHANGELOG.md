@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.6"></a>
+## [0.6.6](https://github.com/randytarampi/me/compare/v0.6.5...v0.6.6) (2018-08-07)
+
+
+### Bug Fixes
+
+* **resume:** `preferrably` -> `preferably` ([a37c6cc](https://github.com/randytarampi/me/commit/a37c6cc))
+
+
+
+
+
 <a name="0.6.5"></a>
 ## [0.6.5](https://github.com/randytarampi/me/compare/v0.6.4...v0.6.5) (2018-08-06)
 
