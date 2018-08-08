@@ -1,10 +1,10 @@
 import {Post as PostEntity} from "@randy.tarampi/js";
-import Link from "./link";
+import isHtml from "is-html";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
-import isHtml from "is-html";
+import Link from "./link";
 
 export class PostComponent extends Component {
     get width() {
@@ -88,7 +88,6 @@ export class PostComponent extends Component {
                                         ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
                                         : <span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
                                 }
-                                <span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
                             </div>;
                         })
                         : null
