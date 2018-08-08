@@ -12,6 +12,17 @@ export const ResumeFooter = ({resume}) => {
                         href={resume.publish_url}>{resume.publish_url}</Link></em>
                 </Col>
             </Row>
+            <Row className="row valign-wrapper center-align resume-footer hide-on-print">
+                <Col m={8} offset="m2">
+                    <p>If you're going to print this out please do it in Chrome, or with a Chromium backed
+                        client &mdash; I didn't work on those print styles for nothing!</p>
+                    <p>It should fit neatly onto a single <Link
+                        href="https://github.com/randytarampi/me.resume/raw/master/a4.pdf">A4</Link> or <Link
+                        href="https://github.com/randytarampi/me.resume/raw/master/letter.pdf">US Letter</Link> sized
+                        page, provided you <em>set the margins to nil</em>, <em>clear the page headers and footers</em>,
+                        and for best results, <em>include background colours and images</em></p>
+                </Col>
+            </Row>
         </div>
     </footer>;
 };
