@@ -1,6 +1,36 @@
 doctype html
 html
     head
+        meta(charset="UTF-8")
+        meta(http-equiv="x-ua-compatible", content="ie=edge")
+        meta(name="viewport" content="width=device-width")
+
+        title Randy Tarampi
+        meta(itemprop="name", content="Randy Tarampi")
+        meta(name="twitter:title", content="Randy Tarampi")
+        meta(name="og:title", content="Randy Tarampi")
+        meta(name="og:site_name", content="Randy Tarampi")
+
+        meta(name="description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(itemprop="description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(name="twitter:description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(name="og:description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+
+        meta(name="image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+        meta(itemprop="image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+        meta(name="twitter:image:src", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+        meta(name="og:image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+
+        meta(name="twitter:site", content="@randytarampi")
+        meta(name="twitter:creator", content="@randytarampi")
+        meta(name="og:locale", content="en_CA")
+        meta(name="fb:admins", content="831915416")
+        meta(name="fb:app_id", content="1705404522846104")
+        meta(name="og:type", content="website")
+
+        link(rel="canonical", href="http://www.randytarampi.ca/resume")
+        meta(name="og:url", content="http://www.randytarampi.ca/resume")
+
         | !{injectedBase}
         | !{injectedTitle}
         | !{injectedLink}
@@ -8,6 +38,7 @@ html
         | !{injectedStyle}
         | !{injectedScript}
         | !{injectedNoScript}
+
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
         link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
         link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin="anonymous")
@@ -26,12 +57,10 @@ html
         link(rel="icon", type="image/png", sizes="96x96", href=`${assetUrl}/favicon-96x96.png`)
         link(rel="icon", type="image/png", sizes="16x16", href=`${assetUrl}/favicon-16x16.png`)
         link(rel="shortcut icon", type="image/x-icon", href=`${assetUrl}/favicon.ico`)
-        link(rel="manifest", href="/manifest.json")
+        link(rel="manifest", href=`${assetUrl}/manifest.json`)
         meta(name="msapplication-TileColor", content="#ffffff")
-        meta(name="msapplication-TileImage", content="/ms-icon-144x144.png")
+        meta(name="msapplication-TileImage", content=`${assetUrl}/ms-icon-144x144.png`)
         meta(name="theme-color", content="#ffffff")
-        meta(name="viewport" content="width=device-width")
-        meta(charset="UTF-8")
         style(type="text/css").
             !{css}
         script.
