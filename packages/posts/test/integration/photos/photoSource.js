@@ -3,13 +3,15 @@ import PhotoSource from "../../../photos/photoSource";
 
 let stubType;
 
-describe("PhotoSource", () => {
-    beforeEach(() => {
+describe("PhotoSource", function () {
+    this.timeout(60000);
+
+    beforeEach(function () {
         stubType = "ʕ•ᴥ•ʔ";
     });
 
-    describe("constructor", () => {
-        it("should build a `PhotoSource` instance", () => {
+    describe("constructor", function () {
+        it("should build a `PhotoSource` instance", function () {
             const photoSource = new PhotoSource(stubType);
 
             expect(photoSource.type).to.eql(stubType);
@@ -19,8 +21,8 @@ describe("PhotoSource", () => {
         });
     });
 
-    describe("#getPosts", () => {
-        it("should throw a `Please specify an actual get photo for user implementation` error", () => {
+    describe("#getPosts", function () {
+        it("should throw a `Please specify an actual get photo for user implementation` error", function () {
             const photoSource = new PhotoSource(stubType);
 
             return photoSource.getPosts()
@@ -30,8 +32,8 @@ describe("PhotoSource", () => {
         });
     });
 
-    describe("#getPost", () => {
-        it("should throw a `Please specify an actual get photo implementation` error", () => {
+    describe("#getPost", function () {
+        it("should throw a `Please specify an actual get photo implementation` error", function () {
             const photoSource = new PhotoSource(stubType);
 
             return photoSource.getPost()

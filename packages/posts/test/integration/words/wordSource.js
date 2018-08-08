@@ -3,13 +3,15 @@ import WordSource from "../../../words/wordSource";
 
 let stubType;
 
-describe("WordSource", () => {
-    beforeEach(() => {
+describe("WordSource", function () {
+    this.timeout(60000);
+
+    beforeEach(function () {
         stubType = "ʕ•ᴥ•ʔ";
     });
 
-    describe("constructor", () => {
-        it("should build a `WordSource` instance", () => {
+    describe("constructor", function () {
+        it("should build a `WordSource` instance", function () {
             const wordSource = new WordSource(stubType);
 
             expect(wordSource.type).to.eql(stubType);
@@ -19,8 +21,8 @@ describe("WordSource", () => {
         });
     });
 
-    describe("#getPosts", () => {
-        it("should throw a `Please specify an actual get photo for user implementation` error", () => {
+    describe("#getPosts", function () {
+        it("should throw a `Please specify an actual get photo for user implementation` error", function () {
             const wordSource = new WordSource(stubType);
 
             return wordSource.getPosts()
@@ -30,8 +32,8 @@ describe("WordSource", () => {
         });
     });
 
-    describe("#getPost", () => {
-        it("should throw a `Please specify an actual get photo implementation` error", () => {
+    describe("#getPost", function () {
+        it("should throw a `Please specify an actual get photo implementation` error", function () {
             const wordSource = new WordSource(stubType);
 
             return wordSource.getPost()
