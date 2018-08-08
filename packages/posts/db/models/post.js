@@ -3,7 +3,7 @@ import PostSchema from "../schema/post";
 
 const Post = dynamoose.model(process.env.POSTS_DYNAMODB_TABLE, PostSchema);
 
-const postModelInstanceToEntity = postModelInstance => postModelInstance.toEntity();
+const postModelInstanceToEntity = postModelInstance => postModelInstance && postModelInstance.toEntity();
 
 /**
  * Persist a [Post]{@link Post}

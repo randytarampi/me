@@ -1,5 +1,6 @@
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
+import logger from "./logger";
 import {firstResolved} from "./util";
 
 /**
@@ -53,6 +54,9 @@ class CachedDataSource extends DataSource {
      * @returns {Promise<Post[]>}
      */
     async cachePosts(posts) {
+        if (!posts || !posts.length) {
+            return Promise.resolve([]);
+        }
         return await this.cacheClient.setPosts(posts)
             .then(cached => cached);
     }
@@ -65,21 +69,26 @@ class CachedDataSource extends DataSource {
     async getPosts(params) {
         const cachedPostsGetterPromise = this.beforeCachedPostsGetter(params)
             .then(decoratedCachedPostsGetterParams => {
+                logger.debug(`[cachedDataSource.getPosts] retrieving post (${JSON.stringify(params)}) from cache at ${Date.now()}`);
                 return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
                     .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
                     .then(posts => {
                         if (!posts || !posts.length) {
+                            logger.debug(`[cachedDataSource.getPosts] retrieve post (${JSON.stringify(params)}) cache miss at ${Date.now()}`);
                             throw new Error(`cachedPostsGetterPromise cache miss for ${JSON.stringify(decoratedCachedPostsGetterParams)}`);
                         }
 
+                        logger.debug(`[cachedDataSource.getPosts] retrieving posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${Date.now()}`);
                         return posts;
                     });
             });
         const postsGetterPromise = this.beforePostsGetter(params)
             .then(decoratedPostsGetterParams => {
+                logger.debug(`[cachedDataSource.getPosts] retrieving post (${JSON.stringify(params)}) from service at ${Date.now()}`);
                 return this.postsGetter(decoratedPostsGetterParams)
                     .then(posts => {
                         this.cachePosts(posts);
+                        logger.debug(`[cachedDataSource.getPosts] retrieving posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${Date.now()}`);
                         return this.afterPostsGetter(posts, decoratedPostsGetterParams);
                     });
             });
@@ -127,6 +136,10 @@ class CachedDataSource extends DataSource {
      * @returns {Promise<Post>}
      */
     async cachePost(post) {
+        if (!post) {
+            return Promise.resolve(null);
+        }
+
         return await this.cacheClient.setPost(post)
             .then(cached => cached);
     }
@@ -140,20 +153,25 @@ class CachedDataSource extends DataSource {
     async getPost(postId, params) {
         const cachedPostGetterPromise = this.beforeCachedPostGetter(postId, params)
             .then(decoratedCachedPostGetterParams => {
+                logger.debug(`[cachedDataSource.getPost] retrieving post (${postId}) from cache at ${Date.now()}`);
                 return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
                     .then(post => this.afterCachedPostGetter(post, decoratedCachedPostGetterParams))
                     .then(post => {
                         if (!post) {
+                            logger.debug(`[cachedDataSource.getPost] retrieve post (${post && post.uid}) cache miss at ${Date.now()}`);
                             throw new Error(`cachedPostGetterPromise cache miss for ${postId} and ${JSON.stringify(decoratedCachedPostGetterParams)}`);
                         }
+                        logger.debug(`[cachedDataSource.getPost] retrieved post (${post && post.uid}) from cache at ${Date.now()}`);
                         return post;
                     });
             });
         const postGetterPromise = this.beforePostGetter(postId, params)
             .then(decoratedPostGetterParams => {
+                logger.debug(`[cachedDataSource.getPost] retrieving post (${postId}) from service at ${Date.now()}`);
                 return this.postGetter(postId, decoratedPostGetterParams)
                     .then(post => {
                         this.cachePost(post);
+                        logger.debug(`[cachedDataSource.getPost] retrieved post from service ${post && post.uid} at ${Date.now()}`);
                         return this.afterPostGetter(post, decoratedPostGetterParams);
                     });
             });

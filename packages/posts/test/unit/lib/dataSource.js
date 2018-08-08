@@ -2,8 +2,11 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import DataSource from "../../../lib/dataSource";
+import PhotoSource from "../../../photos/photoSource";
 import DummyDataSourceGenerator from "../../lib/dummyDataSourceGenerator";
 
+let stubApiKey;
+let stubApiSecret;
 let stubType;
 let stubServiceClient;
 let stubPhoto;
@@ -48,6 +51,14 @@ describe("DataSource", function () {
 
             stubJsonToPost
         });
+
+        process.env[`${stubType}_API_KEY`] = stubApiKey;
+        process.env[`${stubType}_API_SECRET`] = stubApiSecret;
+    });
+
+    afterEach(function () {
+        delete process.env[`${stubType}_API_KEY`];
+        delete process.env[`${stubType}_API_SECRET`];
     });
 
     describe("constructor", function () {
@@ -57,6 +68,30 @@ describe("DataSource", function () {
             expect(dataSource.client).to.eql(stubServiceClient);
             expect(dataSource.type).to.eql(stubType);
             expect(dataSource).to.be.instanceOf(DataSource);
+        });
+    });
+
+    describe("#isEnabled", () => {
+        it("should be enabled if it can find some `_API_KEY` and some `_API_SECRET`", () => {
+            const photoSource = new PhotoSource(stubType);
+
+            expect(photoSource.isEnabled).to.eql(true);
+        });
+
+        it("should not be enabled if it cannot find `_API_KEY`", () => {
+            delete process.env[`${stubType}_API_KEY`];
+
+            const photoSource = new PhotoSource(stubType);
+
+            expect(photoSource.isEnabled).to.eql(false);
+        });
+
+        it("should not be enabled if it cannot find `_API_SECRET`", () => {
+            delete process.env[`${stubType}_API_SECRET`];
+
+            const photoSource = new PhotoSource(stubType);
+
+            expect(photoSource.isEnabled).to.eql(false);
         });
     });
 
