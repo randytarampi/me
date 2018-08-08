@@ -158,7 +158,7 @@ class CachedDataSource extends DataSource {
                     .then(post => this.afterCachedPostGetter(post, decoratedCachedPostGetterParams))
                     .then(post => {
                         if (!post) {
-                            logger.debug(`[cachedDataSource.getPost] retrieve post (${post && post.uid}) cache miss at ${Date.now()}`);
+                            logger.debug(`[cachedDataSource.getPost] retrieve post (${postId}) cache miss at ${Date.now()}`);
                             throw new Error(`cachedPostGetterPromise cache miss for ${postId} and ${JSON.stringify(decoratedCachedPostGetterParams)}`);
                         }
                         logger.debug(`[cachedDataSource.getPost] retrieved post (${post && post.uid}) from cache at ${Date.now()}`);
