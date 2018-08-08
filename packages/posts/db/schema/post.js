@@ -9,7 +9,10 @@ const post = new Schema({
     },
     id: {
         type: String,
-        required: true
+        required: true,
+        index: {
+            global: true
+        }
     },
     type: {
         type: String,
@@ -17,14 +20,23 @@ const post = new Schema({
         enum: [
             Photo.name,
             Post.name
-        ]
+        ],
+        index: {
+            global: true
+        }
     },
     source: {
         type: String,
-        required: true
+        required: true,
+        index: {
+            global: true
+        }
     },
     datePublished: {
-        type: Date
+        type: Date,
+        index: {
+            global: true
+        }
     },
     dateCreated: {
         type: Date,

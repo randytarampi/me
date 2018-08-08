@@ -21,8 +21,11 @@ class CacheClient {
      * @returns {Promise<Post[]>}
      */
     async getPosts(clientParams) {
-        return await this.dataClient.getPosts(clientParams)
-            .catch(logger.error); // NOTE-RT: Just swallow caching errors
+        logger.debug(`[cacheClient.getPosts] getting posts (${JSON.stringify(clientParams)}) from cache`);
+        return this.dataClient.getPosts(clientParams)
+            .catch(error => {
+                logger.error(error, `[cacheClient.getPosts] error for (${JSON.stringify(clientParams)})`);
+            }); // NOTE-RT: Just swallow caching errors
     }
 
     /**
@@ -31,8 +34,11 @@ class CacheClient {
      * @returns {Promise<Post[]>}
      */
     async setPosts(posts) {
-        return await this.dataClient.createPosts(posts)
-            .catch(logger.error); // NOTE-RT: Just swallow caching errors
+        logger.debug(`[cacheClient.setPosts] setting posts (${JSON.stringify(posts.map(post => post.uid))}}) in cache`);
+        return this.dataClient.createPosts(posts)
+            .catch(error => {
+                logger.error(error, `[cacheClient.setPosts] error for (${JSON.stringify(posts.map(post => post.uid))})`);
+            }); // NOTE-RT: Just swallow caching errors
     }
 
     /**
@@ -41,8 +47,11 @@ class CacheClient {
      * @returns {Promise<Post>}
      */
     async getPost(clientParams) {
-        return await this.dataClient.getPost(clientParams)
-            .catch(logger.error); // NOTE-RT: Just swallow caching errors
+        logger.debug(`[cacheClient.getPost] getting post (${JSON.stringify(clientParams)}) from cache`);
+        return this.dataClient.getPost(clientParams)
+            .catch(error => {
+                logger.error(error, `[cacheClient.getPost] error for (${JSON.stringify(clientParams)})`);
+            }); // NOTE-RT: Just swallow caching errors
     }
 
     /**
@@ -51,8 +60,11 @@ class CacheClient {
      * @returns {Promise<Post>}
      */
     async setPost(post) {
-        return await this.dataClient.createPost(post)
-            .catch(logger.error); // NOTE-RT: Just swallow caching errors
+        logger.debug(`[cacheClient.setPost] setting post (${post.uid}) in cache`);
+        return this.dataClient.createPost(post)
+            .catch(error => {
+                logger.error(error, `[cacheClient.setPost] error for (${post.uid})`);
+            }); // NOTE-RT: Just swallow caching errors
     }
 }
 

@@ -88,19 +88,33 @@ describe("Post", function () {
     });
 
     describe("getPost", function () {
-        it("retrieves a Post", async function () {
-            const createdPost = await createPost(stubPost);
-            expect(createdPost.uid).to.eql(stubPost.uid);
+        it("retrieves a Post (uid)", async function () {
+            await createPosts(stubPosts);
             const retrievedPost = await getPost(stubPost.uid);
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost).to.be.instanceof(Post);
         });
 
-        it("retrieves a Photo", async function () {
-            const createdPhoto = await createPost(stubPhoto);
-            expect(createdPhoto.uid).to.eql(stubPhoto.uid);
+        it("retrieves a Post (type)", async function () {
+            await createPosts(stubPosts);
+            const retrievedPost = await getPost({type: {eq: stubPost.type}});
+            expect(retrievedPost).to.be.ok;
+            expect(retrievedPost.uid).to.eql(stubPost.uid);
+            expect(retrievedPost).to.be.instanceof(Post);
+        });
+
+        it("retrieves a Photo (uid)", async function () {
+            await createPosts(stubPosts);
             const retrievedPhoto = await getPost(stubPhoto.uid);
+            expect(retrievedPhoto).to.be.ok;
+            expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
+            expect(retrievedPhoto).to.be.instanceof(Photo);
+        });
+
+        it("retrieves a Photo (type & source)", async function () {
+            await createPosts(stubPosts);
+            const retrievedPhoto = await getPost({type: {eq: stubPhoto.type}, source: {eq: stubPhoto.source}});
             expect(retrievedPhoto).to.be.ok;
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto).to.be.instanceof(Photo);
@@ -112,6 +126,7 @@ describe("Post", function () {
             const createdPosts = await createPosts(stubPosts);
             expect(createdPosts).to.be.ok;
             expect(createdPosts).to.be.an("array");
+            expect(createdPosts).to.have.length(stubPosts.length);
             return await Promise.all(stubPosts.map(async createdPost => {
                 expect(createdPost).to.be.ok;
                 expect(createdPost).to.be.instanceOf(Post);
@@ -124,17 +139,43 @@ describe("Post", function () {
     });
 
     describe("getPosts", function () {
-        it("retrieves posts", async function () {
+        it("retrieves posts (uids)", async function () {
             const createdPosts = await createPosts(stubPosts);
-            const retrievedPosts = await getPosts(createdPosts.map(createdPost => {
-                return {uid: createdPost.uid};
-            }));
+            const retrievedPosts = await getPosts(createdPosts.map(createdPost => createdPost.uid));
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(stubPosts.length);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
                 expect(retrievedPost).to.be.instanceOf(Post);
                 expect(retrievedPost.uid).to.be.ok;
+            }));
+        });
+
+        it("retrieves posts (type)", async function () {
+            await createPosts(stubPosts);
+            const retrievedPosts = await getPosts({type: {eq: stubPhoto.type}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(1);
+            return await Promise.all(retrievedPosts.map(retrievedPost => {
+                expect(retrievedPost).to.be.ok;
+                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.uid).to.eql(stubPhoto.uid);
+            }));
+        });
+
+        it("retrieves posts (type & source)", async function () {
+            await createPosts(stubPosts);
+            const retrievedPosts = await getPosts({type: {eq: stubPost.type}, source: {eq: stubPost.source}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(1);
+            return await Promise.all(retrievedPosts.map(retrievedPost => {
+                expect(retrievedPost).to.be.ok;
+                expect(retrievedPost).to.be.instanceOf(Post);
+                expect(retrievedPost.uid).to.eql(stubPost.uid);
+                expect(retrievedPost.source).to.eql(stubPost.source);
             }));
         });
     });

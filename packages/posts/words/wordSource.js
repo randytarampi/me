@@ -8,23 +8,21 @@ import CachedDataSource from "../lib/cachedDataSource";
 class WordSource extends CachedDataSource {
     /**
      * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Posts]{@link Post}
-     * @abstract
      * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async cachedPostsGetter(params) { // eslint-disable-line no-unused-vars
-        return this.cacheClient.getPosts([{type: Post.name, source: this.type}]);
+        return this.cacheClient.getPosts({type: {eq: Post.name}, source: {eq: this.type}});
     }
 
     /**
      * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a post
-     * @abstract
      * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
      * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
      * @returns {Post} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
     async cachedPostGetter(postId, params) { // eslint-disable-line no-unused-vars
-        return this.cacheClient.getPost({id: postId, type: Post.name, source: this.type});
+        return this.cacheClient.getPost({id: {eq: postId}, type: {eq: Post.name}, source: {eq: this.type}});
     }
 }
 

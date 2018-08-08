@@ -13,7 +13,7 @@ class PhotoSource extends CachedDataSource {
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async cachedPostsGetter(params) { // eslint-disable-line no-unused-vars
-        return this.cacheClient.getPosts([{type: Photo.name, source: this.type}]);
+        return this.cacheClient.getPosts({type: {eq: Photo.name}, source: {eq: this.type}});
     }
 
     /**
@@ -24,7 +24,7 @@ class PhotoSource extends CachedDataSource {
      * @returns {Post} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
     async cachedPostGetter(postId, params) { // eslint-disable-line no-unused-vars
-        return this.cacheClient.getPost({id: postId, type: Photo.name, source: this.type});
+        return this.cacheClient.getPost({id: {eq: postId}, type: {eq: Photo.name}, source: {eq: this.type}});
     }
 }
 

@@ -74,11 +74,11 @@ class CachedDataSource extends DataSource {
                     .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
                     .then(posts => {
                         if (!posts || !posts.length) {
-                            logger.debug(`[cachedDataSource.getPosts] retrieve post (${JSON.stringify(params)}) cache miss at ${Date.now()}`);
+                            logger.debug(`[cachedDataSource.getPosts] retrieve posts (${JSON.stringify(params)}) cache miss at ${Date.now()}`);
                             throw new Error(`cachedPostsGetterPromise cache miss for ${JSON.stringify(decoratedCachedPostsGetterParams)}`);
                         }
 
-                        logger.debug(`[cachedDataSource.getPosts] retrieving posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${Date.now()}`);
                         return posts;
                     });
             });
@@ -88,7 +88,7 @@ class CachedDataSource extends DataSource {
                 return this.postsGetter(decoratedPostsGetterParams)
                     .then(posts => {
                         this.cachePosts(posts);
-                        logger.debug(`[cachedDataSource.getPosts] retrieving posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${Date.now()}`);
                         return this.afterPostsGetter(posts, decoratedPostsGetterParams);
                     });
             });

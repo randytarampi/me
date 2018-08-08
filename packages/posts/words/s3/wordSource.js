@@ -39,13 +39,18 @@ class S3WordSource extends WordSource {
             })
             .promise()
             .then(data => {
-                return this.jsonToPost(jsyaml.safeLoad(data.Body));
+                return this.jsonToPost({
+                    Bucket: process.env.S3_BUCKET_NAME,
+                    Key: key,
+                    ...data,
+                    ...jsyaml.safeLoad(data.Body)
+                });
             });
     }
 
     jsonToPost(postJson) {
         return new Post(
-            postJson.date,
+            postJson.Key,
             null,
             this.type,
             postJson.date,

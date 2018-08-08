@@ -3,21 +3,30 @@ import {expect} from "chai";
 import fs from "fs";
 import _ from "lodash";
 import path from "path";
+import PostModel from "../../../../db/models/post";
 import PhotoSource from "../../../../photos/local/photoSource";
 
-describe("LocalSource", () => {
-    const LOCAL_DIRECTORY = process.env.LOCAL_DIRECTORY;
+const LOCAL_DIRECTORY = process.env.LOCAL_DIRECTORY;
 
-    before(() => {
+describe("LocalSource", function () {
+    this.timeout(60000);
+
+    beforeEach(async function () {
         process.env.LOCAL_DIRECTORY = path.join(__dirname, "../../../resources/photos/local");
+
+        return await PostModel.query({type: Photo.name}).all().exec().then(
+            photoModelInstances => PostModel.batchDelete(photoModelInstances.map(photoModelInstance => {
+                return {uid: photoModelInstance.uid};
+            }))
+        );
     });
 
-    after(() => {
+    afterEach(async function () {
         process.env.LOCAL_DIRECTORY = LOCAL_DIRECTORY;
     });
 
-    describe("constructor", () => {
-        it("should build a Local `PhotoSource` instance", () => {
+    describe("constructor", function () {
+        it("should build a Local `PhotoSource` instance", function () {
             const photoSource = new PhotoSource();
 
             expect(photoSource.client).to.be.undefined;
@@ -26,9 +35,8 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#getPosts", () => {
+    describe("#getPosts", function () {
         it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
-            this.timeout(60000);
 
             const photoSource = new PhotoSource();
 
@@ -51,10 +59,8 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#getPost", () => {
+    describe("#getPost", function () {
         it("should load a `Photo` from a given `Photo`'s `id`", function () {
-            this.timeout(60000);
-
             const photoSource = new PhotoSource();
 
             return photoSource.getPosts()
@@ -74,8 +80,8 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#jsonToPost", () => {
-        it("should only ever have one `SizedPhoto`", () => {
+    describe("#jsonToPost", function () {
+        it("should only ever have one `SizedPhoto`", function () {
             const lstat = {
                 dev: 16777220,
                 mode: 33279,
@@ -110,14 +116,14 @@ describe("LocalSource", () => {
         });
     });
 
-    describe("#isEnabled", () => {
-        it("should be enabled if `process.env.LOCAL_DIRECTORY` is truthy", () => {
+    describe("#isEnabled", function () {
+        it("should be enabled if `process.env.LOCAL_DIRECTORY` is truthy", function () {
             const photoSource = new PhotoSource();
 
             expect(photoSource.isEnabled).to.eql(true);
         });
 
-        it("should not be enabled if `process.env.LOCAL_DIRECTORY` is falsy", () => {
+        it("should not be enabled if `process.env.LOCAL_DIRECTORY` is falsy", function () {
             delete process.env.LOCAL_DIRECTORY;
 
             const photoSource = new PhotoSource();

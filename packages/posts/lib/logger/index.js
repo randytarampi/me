@@ -46,12 +46,12 @@ const warn = (warning, ...rest) => {
     console.warn.apply(null, [warning, ...rest]); // eslint-disable-line no-console
     raven.captureMessage(warning, {level: "warning"});
 };
-const error = (error, ...rest) => {
-    console.error.apply(null, [error, ...rest]); // eslint-disable-line no-console
+const error = (error, message, ...rest) => {
+    console.error.apply(null, [message, error, ...rest]); // eslint-disable-line no-console
     raven.captureException(error);
 };
-const fatal = (error, ...rest) => {
-    console.error.apply(null, [error, ...rest]); // eslint-disable-line no-console
+const fatal = (error, message, ...rest) => {
+    console.error.apply(null, [message, error, ...rest]); // eslint-disable-line no-console
     raven.captureException(error, {level: "fatal"});
 };
 
