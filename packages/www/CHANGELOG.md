@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/randytarampi/me/compare/v0.6.8...v0.7.0) (2018-08-08)
+
+**Note:** Version bump only for package @randy.tarampi/www
+
+
+
+
+
 <a name="0.6.5"></a>
 ## [0.6.5](https://github.com/randytarampi/me/compare/v0.6.4...v0.6.5) (2018-08-06)
 
