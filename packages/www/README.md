@@ -14,7 +14,9 @@
                 `----'  `--" '---"         '---"         '---"      
 ```
 
-The front-end to [posts](../posts).
+The front-end to [`me`](../../), available in both [production](http://www.randytarampi.ca) and [development](http://dev.randytarampi.ca) environments.
+
+### *This package has been consolidated into the [`randytarampi/me`](https://github.com/randytarampi/me/tree/master/packages/www) monorepo and is force pushed to [randytarampi/randytarampi.github.io](https://github.com/randytarampi/randytarampi.github.io) as a testing stage*
 
 # Dependencies
 
