@@ -1,9 +1,9 @@
 import raven from "raven";
-import packageJson from "../package.json";
+import packageJson from "../../package.json";
 
 const configureRaven = () => new Promise((resolve, reject) => {
     try {
-        if (process.env.SENTRY_DSN) {
+        if (process.env.SENTRY_DSN && !process.env.IS_OFFLINE) {
             raven.config(
                 process.env.SENTRY_DSN,
                 {

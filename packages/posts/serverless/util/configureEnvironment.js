@@ -1,5 +1,5 @@
 import dynamoose from "dynamoose";
-import {configureLogger} from "../../logger";
+import {configureLogger} from "../../lib/logger";
 import loadServerlessSecrets from "./loadServerlessSecrets";
 
 if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {

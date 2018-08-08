@@ -1,5 +1,5 @@
 import * as PostModel from "../db/models/post";
-import logger from "../logger";
+import logger from "../lib/logger";
 
 /**
  * A generic class that gets and sets [Posts]{@link Post} in some data store

@@ -1,4 +1,4 @@
-import logger from "../../logger";
+import logger from "../../lib/logger";
 import responseBuilder from "./responseBuilder";
 
 export default callback => error => {
