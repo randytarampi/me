@@ -1,7 +1,7 @@
 import CacheClient from "../../lib/cacheClient";
 import DummyDataClientGenerator from "./dummyDataClientGenerator";
 
-export default ({
+export const DummyCacheClientGenerator = ({
                     dummyDataClientStubs
                 }) => {
     const DummyDataClient = DummyDataClientGenerator(dummyDataClientStubs);
@@ -12,3 +12,5 @@ export default ({
         }
     };
 };
+
+export default DummyCacheClientGenerator;

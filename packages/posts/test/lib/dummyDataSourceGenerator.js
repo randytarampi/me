@@ -1,6 +1,6 @@
 import DataSource from "../../lib/dataSource";
 
-export default ({
+export const DummyDataSourceGenerator = ({
                     stubIsEnabled = () => true,
 
                     stubBeforePostsGetter,
@@ -48,3 +48,5 @@ export default ({
         }
     };
 };
+
+export default DummyDataSourceGenerator;

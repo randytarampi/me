@@ -2,106 +2,40 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import CachedDataSource from "../../../lib/cachedDataSource";
-import DummyCacheClientGenerator from "../../lib/dummyCacheClientGenerator";
-import DummyCachedDataSourceGenerator from "../../lib/dummyCachedDataSourceGenerator";
-import DummyDataClientGenerator from "../../lib/dummyDataClientGenerator";
+import dummyClassesGenerator from "../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../lib/util";
 
-let stubType;
-let stubServiceClient;
-let stubPhoto;
-let stubPost;
-let stubPosts;
-let stubBeforePostsGetter;
-let stubPostsGetter;
-let stubAfterPostsGetter;
-let stubBeforePostGetter;
-let stubPostGetter;
-let stubAfterPostGetter;
-let stubBeforeCachedPostsGetter;
-let stubCachedPostsGetter;
-let stubAfterCachedPostsGetter;
-let stubBeforeCachedPostGetter;
-let stubCachedPostGetter;
-let stubAfterCachedPostGetter;
-let stubJsonToPost;
-let DummyCachedDataSource;
-let DummyCacheClient;
-let stubCreatePosts;
-let stubGetPosts;
-let stubCreatePost;
-let stubGetPost;
-let DummyDataClient;
-let stubDataClient; // eslint-disable-line no-unused-vars
-let stubCacheClient;
-let builtDummyClasses;
-let dummyClassBuilderArguments;
-
-const buildDummyClasses = ({
-                               stubBeforePostsGetter,
-                               stubPostsGetter,
-                               stubAfterPostsGetter,
-
-                               stubBeforePostGetter,
-                               stubPostGetter,
-                               stubAfterPostGetter,
-
-                               stubBeforeCachedPostsGetter,
-                               stubCachedPostsGetter,
-                               stubAfterCachedPostsGetter,
-
-                               stubBeforeCachedPostGetter,
-                               stubCachedPostGetter,
-                               stubAfterCachedPostGetter,
-
-                               stubJsonToPost,
-
-                               stubGetPosts,
-                               stubCreatePosts,
-
-                               stubGetPost,
-                               stubCreatePost
-                           }) => {
-    return {
-        DummyCachedDataSource: DummyCachedDataSourceGenerator({
-            stubBeforePostsGetter,
-            stubPostsGetter,
-            stubAfterPostsGetter,
-
-            stubBeforePostGetter,
-            stubPostGetter,
-            stubAfterPostGetter,
-
-            stubBeforeCachedPostsGetter,
-            stubCachedPostsGetter,
-            stubAfterCachedPostsGetter,
-
-            stubBeforeCachedPostGetter,
-            stubCachedPostGetter,
-            stubAfterCachedPostGetter,
-
-            stubJsonToPost
-        }),
-        DummyDataClient: DummyDataClientGenerator({
-            stubGetPosts,
-            stubCreatePosts,
-
-            stubGetPost,
-            stubCreatePost
-        }),
-        DummyCacheClient: DummyCacheClientGenerator({
-            dummyDataClientStubs: {
-                stubGetPosts,
-                stubCreatePosts,
-
-                stubGetPost,
-                stubCreatePost
-            }
-        })
-    };
-};
-
 describe("CachedDataSource", function () {
+    let stubType;
+    let stubServiceClient;
+    let stubPhoto;
+    let stubPost;
+    let stubPosts;
+    let stubBeforePostsGetter;
+    let stubPostsGetter;
+    let stubAfterPostsGetter;
+    let stubBeforePostGetter;
+    let stubPostGetter;
+    let stubAfterPostGetter;
+    let stubBeforeCachedPostsGetter;
+    let stubCachedPostsGetter;
+    let stubAfterCachedPostsGetter;
+    let stubBeforeCachedPostGetter;
+    let stubCachedPostGetter;
+    let stubAfterCachedPostGetter;
+    let stubJsonToPost;
+    let DummyCachedDataSource;
+    let DummyCacheClient;
+    let stubCreatePosts;
+    let stubGetPosts;
+    let stubCreatePost;
+    let stubGetPost;
+    let DummyDataClient;
+    let stubDataClient; // eslint-disable-line no-unused-vars
+    let stubCacheClient;
+    let builtDummyClasses;
+    let dummyClassBuilderArguments;
+
     beforeEach(function () {
         stubType = "ʕ•ᴥ•ʔ";
         stubServiceClient = {"ʕ•ᴥ•ʔ": "ʕ•ᴥ•ʔ"};
@@ -159,7 +93,7 @@ describe("CachedDataSource", function () {
             stubGetPost,
             stubCreatePost
         };
-        builtDummyClasses = buildDummyClasses(dummyClassBuilderArguments);
+        builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
         DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
         DummyDataClient = builtDummyClasses.DummyDataClient;
@@ -231,7 +165,7 @@ describe("CachedDataSource", function () {
         it("handles a cache miss", async function () {
             const cachedPosts = [];
             stubCachedPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = buildDummyClasses({...dummyClassBuilderArguments, stubCachedPostsGetter});
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedPostsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -311,7 +245,7 @@ describe("CachedDataSource", function () {
         it("handles a cache miss", async function () {
             const cachedPost = null;
             stubCachedPostGetter = sinon.stub().callsFake(() => timedPromise(cachedPost));
-            builtDummyClasses = buildDummyClasses({...dummyClassBuilderArguments, stubCachedPostGetter});
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedPostGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");

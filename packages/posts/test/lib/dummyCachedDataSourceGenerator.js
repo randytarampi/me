@@ -1,6 +1,6 @@
 import CachedDataSource from "../../lib/cachedDataSource";
 
-export default ({
+export const DummyCachedDataSourceGenerator = ({
                     stubIsEnabled = () => true,
 
                     stubBeforePostsGetter,
@@ -80,3 +80,5 @@ export default ({
         }
     };
 };
+
+export default DummyCachedDataSourceGenerator;

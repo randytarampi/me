@@ -4,18 +4,18 @@ import sinon from "sinon";
 import CacheClient from "../../../lib/cacheClient";
 import DummyDataClientGenerator from "../../lib/dummyDataClientGenerator";
 
-let stubType;
-let stubPost;
-let stubPhoto;
-let stubPosts;
-let stubCreatePosts;
-let stubGetPosts;
-let stubCreatePost;
-let stubGetPost;
-let DummyDataClient;
-let stubDataClient;
-
 describe("CacheClient", function () {
+    let stubType;
+    let stubPost;
+    let stubPhoto;
+    let stubPosts;
+    let stubCreatePosts;
+    let stubGetPosts;
+    let stubCreatePost;
+    let stubGetPost;
+    let DummyDataClient;
+    let stubDataClient;
+
     beforeEach(function () {
         stubType = "ʕ•ᴥ•ʔ";
 

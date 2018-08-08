@@ -5,23 +5,24 @@ import DataSource from "../../../lib/dataSource";
 import PhotoSource from "../../../photos/photoSource";
 import DummyDataSourceGenerator from "../../lib/dummyDataSourceGenerator";
 
-let stubApiKey;
-let stubApiSecret;
-let stubType;
-let stubServiceClient;
-let stubPhoto;
-let stubPost;
-let stubPosts;
-let stubBeforePostsGetter;
-let stubPostsGetter;
-let stubAfterPostsGetter;
-let stubBeforePostGetter;
-let stubPostGetter;
-let stubAfterPostGetter;
-let stubJsonToPost;
-let DummyDataSource;
-
 describe("DataSource", function () {
+
+    let stubApiKey;
+    let stubApiSecret;
+    let stubType;
+    let stubServiceClient;
+    let stubPhoto;
+    let stubPost;
+    let stubPosts;
+    let stubBeforePostsGetter;
+    let stubPostsGetter;
+    let stubAfterPostsGetter;
+    let stubBeforePostGetter;
+    let stubPostGetter;
+    let stubAfterPostGetter;
+    let stubJsonToPost;
+    let DummyDataSource;
+
     beforeEach(function () {
         stubType = "ʕ•ᴥ•ʔ";
         stubServiceClient = {"ʕ•ᴥ•ʔ": "ʕ•ᴥ•ʔ"};

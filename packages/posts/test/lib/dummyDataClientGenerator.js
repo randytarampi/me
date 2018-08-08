@@ -1,4 +1,4 @@
-export default ({
+export const DummyDataClientGenerator = ({
                     stubGetPosts,
                     stubCreatePosts,
 
@@ -27,3 +27,5 @@ export default ({
         }
     };
 };
+
+export default DummyDataClientGenerator;
