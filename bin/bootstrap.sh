@@ -19,5 +19,8 @@ ln -snf $REPO_ROOT/packages/resume/ $REPO_ROOT/node_modules/jsonresume-theme-ran
 ln -snf $REPO_ROOT/node_modules/materialize-css/ $REPO_ROOT/packages/css/node_modules/materialize-css
 ln -snf $REPO_ROOT/node_modules/@fortawesome/ $REPO_ROOT/packages/css/node_modules/@fortawesome
 
+# NOTE-RT: Need to symlink `dynamodb-localhost` into `posts`
+ln -snf $REPO_ROOT/node_modules/dynamodb-localhost/ $REPO_ROOT/packages/posts/node_modules/dynamodb-localhost;
+
 cd $REPO_ROOT;
 npx lerna link;
