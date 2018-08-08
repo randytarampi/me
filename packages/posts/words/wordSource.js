@@ -1,8 +1,9 @@
-import DataSource from "../lib/dataSource";
+import CachedDataSource from "../lib/cachedDataSource";
 
 /**
  * @abstract
  */
-class WordSource extends DataSource {}
+class WordSource extends CachedDataSource {
+}
 
 export default WordSource;

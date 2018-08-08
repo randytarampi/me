@@ -21,21 +21,6 @@ describe("PhotoSource", () => {
             expect(photoSource.initializing).to.be.instanceOf(Promise);
             expect(photoSource).to.be.instanceOf(PhotoSource);
         });
-
-        it("should accept an `clientInitializerPromise`", () => {
-            const photoSource = new PhotoSource("Woof", "Grr", Promise.resolve("Meow"));
-
-            expect(photoSource.type).to.eql("Woof");
-            expect(photoSource.client).to.eql("Grr");
-            expect(photoSource.initializing).to.be.instanceOf(Promise);
-            expect(photoSource).to.be.instanceOf(PhotoSource);
-
-            return photoSource.initializing
-                .then((initializingResult) => {
-                    expect(initializingResult).to.eql(photoSource);
-                    expect(initializingResult.client).to.eql("Meow");
-                });
-        });
     });
 
     describe("#getPosts", () => {

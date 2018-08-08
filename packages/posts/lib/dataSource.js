@@ -7,21 +7,11 @@ class DataSource {
      * Build a data source that fetches [Post(s)]{@link Post} from some service using some client
      * @param type {string} The type of [Posts]{@link Post} returned by this data source
      * @param client {object} A client that wraps some service that serves content to be transformed into [Posts]{@link Post}
-     * @param clientInitializerPromise {object} Return an initialized client
      */
-    constructor(type, client, clientInitializerPromise) {
+    constructor(type, client) {
         this.type = type;
         this.client = client;
-
-        if (clientInitializerPromise) {
-            this.initializing = clientInitializerPromise
-                .then((initializedClient) => {
-                    this.client = initializedClient;
-                    return this;
-                });
-        } else {
-            this.initializing = Promise.resolve(this);
-        }
+        this.initializing = Promise.resolve(this);
     }
 
     /**

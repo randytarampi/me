@@ -1,17 +1,8 @@
 class PostSource {
-    constructor(type, client, clientInitializerPromise) {
+    constructor(type, client) {
         this.type = type;
         this.client = client;
-
-        if (clientInitializerPromise) {
-            this.initializing = clientInitializerPromise
-                .then((initializedClient) => {
-                    this.client = initializedClient;
-                    return this;
-                });
-        } else {
-            this.initializing = Promise.resolve(this);
-        }
+        this.initializing = Promise.resolve(this);
     }
 
     get isEnabled() {

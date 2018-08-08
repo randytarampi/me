@@ -21,21 +21,6 @@ describe("WordSource", () => {
             expect(wordSource.initializing).to.be.instanceOf(Promise);
             expect(wordSource).to.be.instanceOf(WordSource);
         });
-
-        it("should accept an `clientInitializerPromise`", () => {
-            const wordSource = new WordSource("Woof", "Grr", Promise.resolve("Meow"));
-
-            expect(wordSource.type).to.eql("Woof");
-            expect(wordSource.client).to.eql("Grr");
-            expect(wordSource.initializing).to.be.instanceOf(Promise);
-            expect(wordSource).to.be.instanceOf(WordSource);
-
-            return wordSource.initializing
-                .then((initializingResult) => {
-                    expect(initializingResult).to.eql(wordSource);
-                    expect(initializingResult.client).to.eql("Meow");
-                });
-        });
     });
 
     describe("#getPosts", () => {

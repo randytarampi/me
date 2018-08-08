@@ -6,7 +6,6 @@ import DummyDataSourceGenerator from "../../lib/dummyDataSourceGenerator";
 
 let stubType;
 let stubServiceClient;
-let stubServiceClientInitializerPromise;
 let stubPhoto;
 let stubPost;
 let stubPosts;
@@ -23,7 +22,6 @@ describe("DataSource", function () {
     beforeEach(function () {
         stubType = "ʕ•ᴥ•ʔ";
         stubServiceClient = {"ʕ•ᴥ•ʔ": "ʕ•ᴥ•ʔ"};
-        stubServiceClientInitializerPromise = new Promise(resolve => setTimeout(() => resolve(stubServiceClient), 500));
 
         stubPost = Post.fromJSON({id: "woof"});
         stubPhoto = Photo.fromJSON({id: "meow"});
@@ -59,18 +57,6 @@ describe("DataSource", function () {
             expect(dataSource.client).to.eql(stubServiceClient);
             expect(dataSource.type).to.eql(stubType);
             expect(dataSource).to.be.instanceOf(DataSource);
-        });
-
-        it("should build a `DataSource` instance with a clientInitializerPromise", async function () {
-            stubServiceClientInitializerPromise = new Promise(resolve => setTimeout(() => resolve(stubServiceClient), 500));
-            const dataSource = new DataSource(stubType, "meow", stubServiceClientInitializerPromise);
-            expect(dataSource.client).to.eql("meow");
-            expect(dataSource.type).to.eql(stubType);
-            expect(dataSource).to.be.instanceOf(DataSource);
-
-            await stubServiceClientInitializerPromise;
-
-            expect(dataSource.client).to.eql(stubServiceClient);
         });
     });
 

@@ -11,11 +11,10 @@ class CachedDataSource extends DataSource {
      * Build a data source that fetches [Post(s)]{@link Post} from some service using some client
      * @param type {string} The type of [Posts]{@link Post} returned by this data source
      * @param client {object} A client that wraps some service that serves content to be transformed into [Posts]{@link Post}
-     * @param clientInitializerPromise {object} Return an initialized client
      * @param cacheClient {object} A client to the cache
      */
-    constructor(type, client, clientInitializerPromise, cacheClient = new CacheClient()) {
-        super(type, client, clientInitializerPromise);
+    constructor(type, client, cacheClient = new CacheClient()) {
+        super(type, client);
         this.cacheClient = cacheClient;
     }
 
@@ -64,14 +63,6 @@ class CachedDataSource extends DataSource {
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
     async getPosts(params) {
-        const postsGetterPromise = this.beforePostsGetter(params)
-            .then(decoratedPostsGetterParams => {
-                return this.postsGetter(decoratedPostsGetterParams)
-                    .then(posts => {
-                        this.cachePosts(posts);
-                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
-                    });
-            });
         const cachedPostsGetterPromise = this.beforeCachedPostsGetter(params)
             .then(decoratedCachedPostsGetterParams => {
                 return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
@@ -80,7 +71,16 @@ class CachedDataSource extends DataSource {
                         if (!posts || !posts.length) {
                             throw new Error(`cachedPostsGetterPromise cache miss for ${JSON.stringify(decoratedCachedPostsGetterParams)}`);
                         }
+
                         return posts;
+                    });
+            });
+        const postsGetterPromise = this.beforePostsGetter(params)
+            .then(decoratedPostsGetterParams => {
+                return this.postsGetter(decoratedPostsGetterParams)
+                    .then(posts => {
+                        this.cachePosts(posts);
+                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
                     });
             });
 
@@ -138,14 +138,6 @@ class CachedDataSource extends DataSource {
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
     async getPost(postId, params) {
-        const postGetterPromise = this.beforePostGetter(postId, params)
-            .then(decoratedPostGetterParams => {
-                return this.postGetter(postId, decoratedPostGetterParams)
-                    .then(post => {
-                        this.cachePost(post);
-                        return this.afterPostGetter(post, decoratedPostGetterParams);
-                    });
-            });
         const cachedPostGetterPromise = this.beforeCachedPostGetter(postId, params)
             .then(decoratedCachedPostGetterParams => {
                 return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
@@ -154,8 +146,15 @@ class CachedDataSource extends DataSource {
                         if (!post) {
                             throw new Error(`cachedPostGetterPromise cache miss for ${postId} and ${JSON.stringify(decoratedCachedPostGetterParams)}`);
                         }
-
                         return post;
+                    });
+            });
+        const postGetterPromise = this.beforePostGetter(postId, params)
+            .then(decoratedPostGetterParams => {
+                return this.postGetter(postId, decoratedPostGetterParams)
+                    .then(post => {
+                        this.cachePost(post);
+                        return this.afterPostGetter(post, decoratedPostGetterParams);
                     });
             });
 

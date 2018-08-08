@@ -1,8 +1,9 @@
-import DataSource from "../lib/dataSource";
+import CachedDataSource from "../lib/cachedDataSource";
 
 /**
  * @abstract
  */
-class PhotoSource extends DataSource {}
+class PhotoSource extends CachedDataSource {
+}
 
 export default PhotoSource;
