@@ -1,5 +1,6 @@
 import {Post} from "@randy.tarampi/js";
 import tumblr from "tumblr.js";
+import {processCaptionHtml} from "../../photos/tumblr/photoSource";
 import Creator from "../creator";
 import WordSource from "../wordSource";
 
@@ -55,7 +56,7 @@ class TumblrWordSource extends WordSource {
             postJson.date,
             null,
             postJson.title,
-            postJson.body,
+            processCaptionHtml(postJson.body),
             postJson.post_url,
             blogJson && new Creator(blogJson.name, blogJson.name, blogJson.title, blogJson.url)
         );
