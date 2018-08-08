@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/randytarampi/me/compare/v0.7.0...v0.8.0) (2018-08-08)
+
+
+### Bug Fixes
+
+* **resume:** Resume footer full screen on tablets. ([1e53d97](https://github.com/randytarampi/me/commit/1e53d97))
+* **resume:** Use `é`s consistently. ([0626d60](https://github.com/randytarampi/me/commit/0626d60))
+* **www:** No `overflow-x: hidden` on `.block__bear`. ([b1ce86b](https://github.com/randytarampi/me/commit/b1ce86b))
+
+
+### Features
+
+* **www:** Cleanup responsive styles per random tourist feedback. ([cfad368](https://github.com/randytarampi/me/commit/cfad368))
+* **www:** Do the whole SEO thing because a random CV writer told me to. ([ece11fd](https://github.com/randytarampi/me/commit/ece11fd))
+
+
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/randytarampi/me/compare/v0.6.8...v0.7.0) (2018-08-08)
 
