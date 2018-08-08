@@ -13,7 +13,7 @@ export const ResumeFooter = ({resume}) => {
                 </Col>
             </Row>
             <Row className="row valign-wrapper center-align resume-footer hide-on-print">
-                <Col m={8} offset="m2">
+                <Col l={8} offset="l2">
                     <p>If you're going to print this out please do it in Chrome, or with a Chromium backed
                         client &mdash; I didn't work on those print styles for nothing!</p>
                     <p>It should fit neatly onto a single <Link
