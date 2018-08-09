@@ -14,7 +14,7 @@ const postModelInstanceToEntity = postModelInstance => postModelInstance && post
 export const createPost = async post => {
     logger.debug(`[Post.createPost] persisting post (${post.uid})`);
     const postModelInstance = await Post.create(post, {overwrite: true});
-    logger.debug(`[Post.createPost] persisted post (${JSON.stringify(postModelInstance.uid)})`);
+    logger.debug(`[Post.createPost] persisted post (${JSON.stringify(postModelInstance && postModelInstance.uid)})`);
     return postModelInstanceToEntity(postModelInstance);
 };
 
@@ -29,7 +29,7 @@ export const getPost = async postUidOrParams => {
         ? {uid: {eq: postUidOrParams}}
         : postUidOrParams;
     const postModelInstance = await Post.queryOne(queryParams).exec();
-    logger.debug(`[Post.getPost] retrieved post (${postModelInstance.uid})`);
+    logger.debug(`[Post.getPost] retrieved post (${postModelInstance && postModelInstance.uid})`);
     return postModelInstanceToEntity(postModelInstance);
 };
 

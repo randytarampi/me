@@ -1,7 +1,6 @@
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
 import logger from "./logger";
-import {firstResolved} from "./util";
 
 /**
  * A generic data source that fetches [Post(s)]{@link Post} from some service or some cache, whichever returns first
@@ -62,41 +61,59 @@ class CachedDataSource extends DataSource {
     }
 
     /**
+     * A generic method that returns some [Posts]{@link Post} from the [cache]{@link CachedDataSource.cacheClient}
+     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async getCachedPosts(params) {
+        return this.beforeCachedPostsGetter(params)
+            .then(decoratedCachedPostsGetterParams => {
+                logger.debug(`[cachedDataSource.getCachedPosts] retrieving post (${JSON.stringify(params)}) from cache at ${Date.now()}`);
+                return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
+                    .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
+                    .then(posts => {
+                        if (!posts || !posts.length) {
+                            logger.debug(`[cachedDataSource.getCachedPosts] retrieve posts (${JSON.stringify(params)}) cache miss at ${Date.now()}`);
+                            return null;
+                        }
+
+                        logger.debug(`[cachedDataSource.getCachedPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${Date.now()}`);
+                        return posts;
+                    });
+            });
+    }
+
+    /**
+     * A generic method that returns some [Posts]{@link Post} probably pulled from the [service]{@link CachedDataSource.client}
+     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async getServicePosts(params) {
+        return this.beforePostsGetter(params)
+            .then(decoratedPostsGetterParams => {
+                logger.debug(`[cachedDataSource.getServicePosts] retrieving post (${JSON.stringify(params)}) from service at ${Date.now()}`);
+                return this.postsGetter(decoratedPostsGetterParams)
+                    .then(posts => {
+                        this.cachePosts(posts);
+                        logger.debug(`[cachedDataSource.getServicePosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${Date.now()}`);
+                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
+                    });
+            });
+    }
+
+    /**
      * A generic method that returns some [Posts]{@link Post}
      * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
     async getPosts(params) {
-        const cachedPostsGetterPromise = this.beforeCachedPostsGetter(params)
-            .then(decoratedCachedPostsGetterParams => {
-                logger.debug(`[cachedDataSource.getPosts] retrieving post (${JSON.stringify(params)}) from cache at ${Date.now()}`);
-                return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
-                    .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
-                    .then(posts => {
-                        if (!posts || !posts.length) {
-                            logger.debug(`[cachedDataSource.getPosts] retrieve posts (${JSON.stringify(params)}) cache miss at ${Date.now()}`);
-                            throw new Error(`cachedPostsGetterPromise cache miss for ${JSON.stringify(decoratedCachedPostsGetterParams)}`);
-                        }
+        let posts = await this.getCachedPosts(params);
 
-                        logger.debug(`[cachedDataSource.getPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${Date.now()}`);
-                        return posts;
-                    });
-            });
-        const postsGetterPromise = this.beforePostsGetter(params)
-            .then(decoratedPostsGetterParams => {
-                logger.debug(`[cachedDataSource.getPosts] retrieving post (${JSON.stringify(params)}) from service at ${Date.now()}`);
-                return this.postsGetter(decoratedPostsGetterParams)
-                    .then(posts => {
-                        this.cachePosts(posts);
-                        logger.debug(`[cachedDataSource.getPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${Date.now()}`);
-                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
-                    });
-            });
+        if (!posts || !posts.length) {
+            posts = await this.getServicePosts(params);
+        }
 
-        return await firstResolved([
-            postsGetterPromise,
-            cachedPostsGetterPromise
-        ]);
+        return posts;
     }
 
     /**
@@ -145,41 +162,61 @@ class CachedDataSource extends DataSource {
     }
 
     /**
-     * A generic method that returns some [Post]{@link Post}
-     * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * A generic method that returns some [Post]{@link Post} retrieved from the [cache]{@link CachedDataSource.cacheClient}
+     * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient}
+     * @param params {object} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
-    async getPost(postId, params) {
-        const cachedPostGetterPromise = this.beforeCachedPostGetter(postId, params)
+    async getCachedPost(postId, params) {
+        return this.beforeCachedPostGetter(postId, params)
             .then(decoratedCachedPostGetterParams => {
-                logger.debug(`[cachedDataSource.getPost] retrieving post (${postId}) from cache at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getCachedPost] retrieving post (${postId}) from cache at ${Date.now()}`);
                 return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
                     .then(post => this.afterCachedPostGetter(post, decoratedCachedPostGetterParams))
                     .then(post => {
                         if (!post) {
-                            logger.debug(`[cachedDataSource.getPost] retrieve post (${postId}) cache miss at ${Date.now()}`);
-                            throw new Error(`cachedPostGetterPromise cache miss for ${postId} and ${JSON.stringify(decoratedCachedPostGetterParams)}`);
+                            logger.debug(`[cachedDataSource.getCachedPost] retrieve post (${postId}) cache miss at ${Date.now()}`);
+                            return null;
                         }
-                        logger.debug(`[cachedDataSource.getPost] retrieved post (${post && post.uid}) from cache at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getCachedPost] retrieved post (${post && post.uid}) from cache at ${Date.now()}`);
                         return post;
                     });
             });
-        const postGetterPromise = this.beforePostGetter(postId, params)
+    }
+
+    /**
+     * A generic method that returns some [Post]{@link Post} probably retrieved from the [service]{@link CachedDataSource.client}
+     * @param postId {string} A single post to retrieve from the [service]{@link CachedDataSource.client}
+     * @param params {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
+     */
+    async getServicePost(postId, params) {
+        return this.beforePostGetter(postId, params)
             .then(decoratedPostGetterParams => {
-                logger.debug(`[cachedDataSource.getPost] retrieving post (${postId}) from service at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getServicePost] retrieving post (${postId}) from service at ${Date.now()}`);
                 return this.postGetter(postId, decoratedPostGetterParams)
                     .then(post => {
                         this.cachePost(post);
-                        logger.debug(`[cachedDataSource.getPost] retrieved post from service ${post && post.uid} at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getServicePost] retrieved post from service ${post && post.uid} at ${Date.now()}`);
                         return this.afterPostGetter(post, decoratedPostGetterParams);
                     });
             });
+    }
 
-        return await firstResolved([
-            postGetterPromise,
-            cachedPostGetterPromise
-        ]);
+    /**
+     * A generic method that returns some [Post]{@link Post}
+     * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient} or [service]{@link CachedDataSource.client}
+     * @param params {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
+     */
+    async getPost(postId, params) {
+        let post = await this.getCachedPost(postId, params);
+
+        if (!post) {
+            post = await this.getServicePost(postId, params);
+        }
+
+        return post;
     }
 }
 
