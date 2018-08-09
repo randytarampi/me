@@ -9,6 +9,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
   resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
+  domainName: ${file(env.yml):${self:provider.stage}.domainName}
   memorySize: 512
   timeout: 10
 
@@ -150,7 +151,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-      TableName: ${self:provider.environment.POSTS_DYNAMODB_TABLE}
+        TableName: ${self:provider.environment.POSTS_DYNAMODB_TABLE}
     LambdaDeadLetterQueue:
       Type: AWS::SNS::Topic
       Properties:
@@ -225,4 +226,4 @@ resources:
     S3BucketPosts:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: randytarampi-${self:provider.stage}-posts
+        BucketName: ${self:provider.environment.S3_BUCKET_NAME}
