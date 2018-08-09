@@ -33,13 +33,8 @@ provider:
       Ref: LambdaDeadLetterQueue
   - Effect: Allow
     Action:
-    - dynamodb:Query
-    - dynamodb:Scan
-    - dynamodb:GetItem
-    - dynamodb:PutItem
-    - dynamodb:UpdateItem
-    - dynamodb:DeleteItem
-    Resource: PostsDynamoDbTable
+    - dynamodb:*
+    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.POSTS_DYNAMODB_TABLE}
 
   environment: ${file(env.yml):${self:provider.stage}.environment}
   environmentSecrets: # can't just include the whole obj from the env file bc for some reason the plugin won't load from external files
@@ -145,13 +140,6 @@ functions:
 
 resources:
   Resources:
-    PostsDynamoDbTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.POSTS_DYNAMODB_TABLE}
     LambdaDeadLetterQueue:
       Type: AWS::SNS::Topic
       Properties:
