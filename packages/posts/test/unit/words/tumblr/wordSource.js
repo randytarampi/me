@@ -32,23 +32,30 @@ describe("TumblrWordSource", function () {
     let builtDummyClasses;
     let dummyClassBuilderArguments;
 
+    let tumblrBlog;
+    let tumblrBlogPost;
+    let tumblrBlogPosts;
+
     beforeEach(function () {
+        process.env.TUMBLR_USER_NAME = "TUMBLR_USER_NAME";
+
         stubPost = Post.fromJSON({id: "woof"});
         stubPosts = [stubPost, Post.fromJSON({id: "meow"}), Post.fromJSON({id: "grr"})];
 
-        const tumblrBlog = {
+        tumblrBlog = {
             url: "woof://woof.woof",
             title: "ʕ•ᴥ•ʔﾉ゛",
-            name: "Woof!"
+            name: "Woof!",
+            userName: process.env.TUMBLR_USER_NAME
         };
-        const tumblrBlogPost = {
+        tumblrBlogPost = {
             id: stubPost.id,
             date: Date.now(),
             title: "ʕ•ᴥ•ʔ",
             body: "<p>Woof woof woof</p>",
             post_url: "woof://woof.woof/woof/woof/woof"
         };
-        const tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {id: stubPost.id}));
+        tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {id: stubPost.id}));
         stubServiceClient = {
             blogPosts: sinon.stub().callsFake((tumblrUser, params) => timedPromise({
                 posts: params.limit === 420 // NOTE-RT: 420 is a sentinel value for an empty array
@@ -150,11 +157,11 @@ describe("TumblrWordSource", function () {
                         expect(post).to.be.instanceof(Post);
                     });
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
-                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, {
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         type: "text",
                         limit: stubParams.perPage || 20,
                         offset: (stubParams.perPage || 20) * (stubParams.page - 1)
-                    });
+                    }));
                 });
         });
 
@@ -168,10 +175,10 @@ describe("TumblrWordSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
-                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, {
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         type: "text",
                         limit: stubParams.perPage
-                    });
+                    }));
                 });
         });
     });
@@ -185,9 +192,9 @@ describe("TumblrWordSource", function () {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Post);
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
-                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, {
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         id: stubPost.id
-                    });
+                    }));
                 });
         });
 
@@ -198,9 +205,9 @@ describe("TumblrWordSource", function () {
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
-                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, {
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         id: "foo"
-                    });
+                    }));
                 });
         });
     });

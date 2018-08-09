@@ -1,12 +1,12 @@
-import {Post} from "@randy.tarampi/js";
-import Aws from "aws-sdk";
+import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
-import S3WordSource from "../../../../words/s3/wordSource";
+import tumblr from "tumblr.js";
+import TumblrPhotoSource from "../../../../photos/tumblr/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
-describe("S3WordSource", function () {
+describe("TumblrPhotoSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -32,41 +32,49 @@ describe("S3WordSource", function () {
     let builtDummyClasses;
     let dummyClassBuilderArguments;
 
-    let s3Post;
-    let s3Posts;
+    let tumblrPhoto;
+    let tumblrBlog;
+    let tumblrBlogPost;
+    let tumblrBlogPosts;
 
     beforeEach(function () {
-        process.env.S3_BUCKET_NAME = "S3_BUCKET_NAME";
+        process.env.TUMBLR_USER_NAME = "TUMBLR_USER_NAME";
 
-        stubPost = Post.fromJSON({id: "woof.yaml"});
-        stubPosts = [stubPost, Post.fromJSON({id: "meow.yaml"}), Post.fromJSON({id: "grr.yaml"})];
+        stubPost = Photo.fromJSON({id: "woof"});
+        stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"})];
 
-        s3Post = {
+        tumblrPhoto = {
+            caption: "<p>Woof woof woof</p>",
+            alt_sizes: [
+                {url: "woof://woof.woof/?size=100", height: 100, width: 100},
+                {url: "woof://woof.woof/?size=500", height: 500, width: 500},
+                {url: "woof://woof.woof/?size=1000", height: 1000, width: 1000}
+            ]
+        };
+        tumblrBlog = {
+            url: "woof://woof.woof",
+            title: "ʕ•ᴥ•ʔﾉ゛",
+            name: "Woof!",
+            userName: process.env.TUMBLR_USER_NAME
+        };
+        tumblrBlogPost = {
             id: stubPost.id,
             date: Date.now(),
             title: "ʕ•ᴥ•ʔ",
-            Body: "<p>Woof woof woof</p>"
+            caption: "<p>Woof woof woof</p>",
+            post_url: "woof://woof.woof/woof/woof/woof",
+            photos: [
+                tumblrPhoto
+            ]
         };
-        s3Posts = stubPosts.map(stubPost => Object.assign({}, s3Post, {id: stubPost.id}));
+        tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {id: stubPost.id}));
         stubServiceClient = {
-            listObjects: sinon.stub().callsFake(function (options) {
-                const objects = options.MaxKeys === 420 // NOTE-RT: 420 is a sentinel value for an empty array
+            blogPosts: sinon.stub().callsFake((tumblrUser, params) => timedPromise({
+                posts: params.limit === 420 // NOTE-RT: 420 is a sentinel value for an empty array
                     ? []
-                    : s3Posts.map(s3Post => {
-                        return {Key: s3Post.id};
-                    });
-
-                this.promise = () => Promise.resolve({
-                    Contents: objects
-                });
-
-                return this;
-            }),
-            getObject: sinon.stub().callsFake(function (options) {
-                this.promise = () => Promise.resolve(s3Posts.find(s3Post => s3Post.id === options.Key));
-
-                return this;
-            })
+                    : (params.id ? [tumblrBlogPosts.find(tumblrBlogPost => tumblrBlogPost.id === params.id)] : tumblrBlogPosts).filter(value => !!value),
+                blog: tumblrBlog
+            }))
         };
 
         stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
@@ -85,7 +93,7 @@ describe("S3WordSource", function () {
         stubCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
         stubAfterCachedPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
 
-        stubJsonToPost = sinon.stub().callsFake(Post.fromJSON);
+        stubJsonToPost = sinon.stub().callsFake(Photo.fromJSON);
 
         stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
         stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
@@ -126,94 +134,92 @@ describe("S3WordSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `S3WordSource` instance (including the default `Aws.S3` client)", function () {
-            const s3WordSource = new S3WordSource(null, stubCacheClient);
+        it("should build a `TumblrPhotoSource` instance (including the default `tumblr` client)", function () {
+            const tumblrPhotoSource = new TumblrPhotoSource(null, stubCacheClient);
 
-            expect(s3WordSource.type).to.eql("S3");
-            expect(s3WordSource.client).to.be.instanceof(Aws.S3);
-            expect(s3WordSource.cacheClient).to.eql(stubCacheClient);
-            expect(s3WordSource.initializing).to.be.instanceOf(Promise);
-            expect(s3WordSource).to.be.instanceOf(S3WordSource);
+            expect(tumblrPhotoSource.type).to.eql("Tumblr");
+            expect(tumblrPhotoSource.client).to.be.instanceof(tumblr.Client);
+            expect(tumblrPhotoSource.cacheClient).to.eql(stubCacheClient);
+            expect(tumblrPhotoSource.initializing).to.be.instanceOf(Promise);
+            expect(tumblrPhotoSource).to.be.instanceOf(TumblrPhotoSource);
         });
 
-        it("should build a `S3WordSource` instance (with stubbed client)", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+        it("should build a `TumblrPhotoSource` instance (with stubbed client)", function () {
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
 
-            expect(s3WordSource.type).to.eql("S3");
-            expect(s3WordSource.client).to.eql(stubServiceClient);
-            expect(s3WordSource.cacheClient).to.eql(stubCacheClient);
-            expect(s3WordSource.initializing).to.be.instanceOf(Promise);
-            expect(s3WordSource).to.be.instanceOf(S3WordSource);
+            expect(tumblrPhotoSource.type).to.eql("Tumblr");
+            expect(tumblrPhotoSource.client).to.eql(stubServiceClient);
+            expect(tumblrPhotoSource.cacheClient).to.eql(stubCacheClient);
+            expect(tumblrPhotoSource.initializing).to.be.instanceOf(Promise);
+            expect(tumblrPhotoSource).to.be.instanceOf(TumblrPhotoSource);
         });
     });
 
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
             const stubParams = {perPage: 30, page: 2};
 
-            return s3WordSource.postsGetter(stubParams)
+            return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
                         expect(post).to.be.ok;
-                        expect(post).to.be.instanceof(Post);
+                        expect(post).to.be.instanceof(Photo);
                     });
-                    sinon.assert.calledOnce(stubServiceClient.listObjects);
-                    sinon.assert.calledWith(stubServiceClient.listObjects, {
-                        Bucket: process.env.S3_BUCKET_NAME,
-                        MaxKeys: stubParams.perPage || 20,
-                        Marker: String((stubParams.perPage || 20) * (stubParams.page - 1))
-                    });
+                    sinon.assert.calledOnce(stubServiceClient.blogPosts);
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
+                        type: "photo",
+                        limit: stubParams.perPage || 20,
+                        offset: (stubParams.perPage || 20) * (stubParams.page - 1)
+                    }));
                 });
         });
 
         it("finds no posts", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
             const stubParams = {perPage: 420};
 
-            return s3WordSource.postsGetter(stubParams)
+            return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
-                    sinon.assert.calledOnce(stubServiceClient.listObjects);
-                    sinon.assert.calledWith(stubServiceClient.listObjects, {
-                        Bucket: process.env.S3_BUCKET_NAME,
-                        MaxKeys: stubParams.perPage
-                    });
+                    sinon.assert.calledOnce(stubServiceClient.blogPosts);
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
+                        type: "photo",
+                        limit: stubParams.perPage
+                    }));
                 });
         });
     });
 
     describe("#postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
 
-            return s3WordSource.postGetter(stubPost.id)
+            return tumblrPhotoSource.postGetter(stubPost.id)
                 .then(post => {
                     expect(post).to.be.ok;
-                    expect(post).to.be.instanceof(Post);
-                    sinon.assert.calledOnce(stubServiceClient.getObject);
-                    sinon.assert.calledWith(stubServiceClient.getObject, {
-                        Bucket: process.env.S3_BUCKET_NAME,
-                        Key: stubPost.id
-                    });
+                    expect(post).to.be.instanceof(Photo);
+                    sinon.assert.calledOnce(stubServiceClient.blogPosts);
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
+                        id: stubPost.id
+                    }));
                 });
         });
 
         it("finds no post", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
 
-            return s3WordSource.postGetter("foo")
+            return tumblrPhotoSource.postGetter("foo")
                 .then(post => {
                     expect(post).to.not.be.ok;
-                    sinon.assert.calledOnce(stubServiceClient.getObject);
-                    sinon.assert.calledWith(stubServiceClient.getObject, {
-                        Bucket: process.env.S3_BUCKET_NAME,
-                        Key: "foo"
-                    });
+                    sinon.assert.calledOnce(stubServiceClient.blogPosts);
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
+                        id: "foo"
+                    }));
                 });
         });
     });

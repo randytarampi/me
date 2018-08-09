@@ -9,8 +9,11 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class LocalSource extends PhotoSource {
-    constructor() {
-        super("Local");
+    constructor(dataClient, cacheClient) {
+        super("Local",
+            dataClient || fs,
+            cacheClient
+        );
     }
 
     static get isEnabled() {

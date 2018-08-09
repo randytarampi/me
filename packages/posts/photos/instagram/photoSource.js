@@ -6,8 +6,11 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class InstagramSource extends PhotoSource {
-    constructor() {
-        super("Instagram", new Instagram(process.env.INSTAGRAM_ACCESS_TOKEN));
+    constructor(dataClient, cacheClient) {
+        super("Instagram",
+            dataClient || new Instagram(process.env.INSTAGRAM_ACCESS_TOKEN),
+            cacheClient
+        );
     }
 
     get isEnabled() {
@@ -16,39 +19,33 @@ class InstagramSource extends PhotoSource {
 
     postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
-        const that = this;
-        const client = this.client;
+
         const userId = process.env.INSTAGRAM_USER_ID;
         let instagramRequest = Promise.resolve(userId);
 
         if (!userId) {
-            instagramRequest = client.userSearch(process.env.INSTAGRAM_USER_NAME)
-                .then((userJson) => {
-                    return _.find(userJson.data, {username: process.env.INSTAGRAM_USER_NAME}).id;
+            instagramRequest = this.client.userSearch(process.env.INSTAGRAM_USER_NAME)
+                .then(userJson => {
+                    const user = userJson.data.find(datum => datum.username === process.env.INSTAGRAM_USER_NAME);
+                    return user && user.id;
                 });
         }
 
         return instagramRequest
-            .then((userId) => {
-                return client.userMedia(userId, params.Instagram);
-            })
-            .then(mediaJson => {
-                return _.filter(mediaJson.data, {type: "image"})
-                    .map(_.bind(that.jsonToPost, that));
-            });
+            .then(userId => this.client.userMedia(userId, params.Instagram))
+            .then(mediaJson => mediaJson.data
+                .filter(datum => datum.type === "image")
+                .map(postJson => postJson && this.jsonToPost(postJson))
+            );
     }
 
     postGetter(photoId) {
-        const that = this;
-
         return this.client.media(photoId)
-            .then((photoJson) => {
-                return that.jsonToPost(photoJson.data);
-            });
+            .then(photoJson => photoJson && photoJson.data && this.jsonToPost(photoJson.data));
     }
 
     jsonToPost(photoJson) {
-        const sizedPhotos = Object.keys(photoJson.images).map((key) => {
+        const sizedPhotos = Object.keys(photoJson.images).map(key => {
             const image = photoJson.images[key];
             return new SizedPhoto(image.url, image.width, image.height, key);
         });

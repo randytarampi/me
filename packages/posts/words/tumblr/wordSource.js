@@ -1,6 +1,7 @@
 import {Creator, Post} from "@randy.tarampi/js";
 import tumblr from "tumblr.js";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
+import SearchParams from "../../photos/searchParams";
 import WordSource from "../wordSource";
 
 class TumblrWordSource extends WordSource {
@@ -20,34 +21,18 @@ class TumblrWordSource extends WordSource {
     }
 
     async postsGetter(params) {
-        const options = {
-            "type": "text",
-            "limit": params.perPage || 20
-        };
+        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params.type = "text";
 
-        if (params.page) {
-            options.offset = options.limit * (params.page - 1);
-        }
-
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, options)
-            .then((response) => {
-                return response.posts.map((postJson) => {
-                    return this.jsonToPost(postJson, response.blog);
-                });
-            });
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
+            .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog)));
     }
 
-    async postGetter(id) {
-        const options = {
-            "id": id
-        };
+    async postGetter(id, params) {
+        params = params instanceof SearchParams ? params : new SearchParams(params);
 
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, options)
-            .then((response) => {
-                return response.posts.map((postJson) => {
-                    return this.jsonToPost(postJson, response.blog);
-                })[0];
-            });
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))
+            .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog))[0]);
     }
 
     jsonToPost(postJson, blogJson) {

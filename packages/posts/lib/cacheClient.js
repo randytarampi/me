@@ -6,7 +6,7 @@ import logger from "../lib/logger";
  */
 class CacheClient {
     /**
-     *
+     * Build a wrapper around a data store we want to use as a cache
      * @param type
      * @param dataClient
      */

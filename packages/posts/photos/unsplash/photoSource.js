@@ -5,35 +5,31 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class UnsplashSource extends PhotoSource {
-    constructor() {
-        super("Unsplash", new Unsplash({
-            applicationId: process.env.UNSPLASH_API_KEY,
-            secret: process.env.UNSPLASH_API_SECRET
-        }));
+    constructor(dataClient, cacheClient) {
+        super("Unsplash",
+            dataClient || new Unsplash({
+                applicationId: process.env.UNSPLASH_API_KEY,
+                secret: process.env.UNSPLASH_API_SECRET
+            }),
+            cacheClient);
     }
 
     postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
-        const that = this;
+
         const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, params.page, params.perPage, params.orderBy);
 
         return unsplashRequest
             .then(toJson)
-            .then((response) => {
-                return Promise.all(response.map((photo) => {
-                    return that.jsonToPost(photo);
-                }));
-            });
+            .then(response => Promise.all(response.map(photo => this.jsonToPost(photo)))); // NOTE-RT: Need `that` because `toJson` uses an old school `function`
     }
 
     postGetter(photoId, params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
-        const that = this;
+
         return this.client.photos.getPost(photoId, params.width, params.height, params.crop)
             .then(toJson)
-            .then((photo) => {
-                return that.jsonToPost(photo);
-            });
+            .then(json => json && this.jsonToPost(json));
     }
 
     jsonToPost(json) {

@@ -4,7 +4,7 @@ import fs from "fs";
 import _ from "lodash";
 import path from "path";
 import PostModel from "../../../../db/models/post";
-import PhotoSource from "../../../../photos/local/photoSource";
+import LocalSource from "../../../../photos/local/photoSource";
 
 const LOCAL_DIRECTORY = process.env.LOCAL_DIRECTORY;
 
@@ -26,19 +26,19 @@ describe("LocalSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a Local `PhotoSource` instance", function () {
-            const photoSource = new PhotoSource();
+        it("should build a Local `LocalSource` instance", function () {
+            const photoSource = new LocalSource();
 
-            expect(photoSource.client).to.be.undefined;
+            expect(photoSource.client).to.eql(fs);
             expect(photoSource.type).to.eql("Local");
-            expect(photoSource).to.be.instanceOf(PhotoSource);
+            expect(photoSource).to.be.instanceOf(LocalSource);
         });
     });
 
     describe("#getPosts", function () {
         it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
 
-            const photoSource = new PhotoSource();
+            const photoSource = new LocalSource();
 
             return photoSource.getPosts()
                 .then((photos) => {
@@ -47,7 +47,7 @@ describe("LocalSource", function () {
                         expect(photo).to.be.instanceOf(Photo);
                     });
                     expect(photos.length).to.be.eql(
-                        _.filter(fs.readdirSync(process.env.LOCAL_DIRECTORY), PhotoSource.fileIsSupported).length
+                        _.filter(fs.readdirSync(process.env.LOCAL_DIRECTORY), LocalSource.fileIsSupported).length
                     );
                     expect(photos).to.eql(
                         _.sortBy(photos,
@@ -61,7 +61,7 @@ describe("LocalSource", function () {
 
     describe("#getPost", function () {
         it("should load a `Photo` from a given `Photo`'s `id`", function () {
-            const photoSource = new PhotoSource();
+            const photoSource = new LocalSource();
 
             return photoSource.getPosts()
                 .then((photos) => {
@@ -103,7 +103,7 @@ describe("LocalSource", function () {
             const width = 4;
             const height = 3;
 
-            const photoSource = new PhotoSource();
+            const photoSource = new LocalSource();
             const jsonToPostResult = photoSource.jsonToPost(filePath, fileName, lstat, width, height);
 
             expect(jsonToPostResult).to.be.instanceof(Photo);
@@ -118,7 +118,7 @@ describe("LocalSource", function () {
 
     describe("#isEnabled", function () {
         it("should be enabled if `process.env.LOCAL_DIRECTORY` is truthy", function () {
-            const photoSource = new PhotoSource();
+            const photoSource = new LocalSource();
 
             expect(photoSource.isEnabled).to.eql(true);
         });
@@ -126,7 +126,7 @@ describe("LocalSource", function () {
         it("should not be enabled if `process.env.LOCAL_DIRECTORY` is falsy", function () {
             delete process.env.LOCAL_DIRECTORY;
 
-            const photoSource = new PhotoSource();
+            const photoSource = new LocalSource();
 
             expect(photoSource.isEnabled).to.eql(false);
         });

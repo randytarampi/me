@@ -6,8 +6,11 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class FlickrSource extends PhotoSource {
-    constructor() {
-        super("Flickr", new Flickr(process.env.FLICKR_API_KEY));
+    constructor(dataClient, cacheClient) {
+        super("Flickr",
+            dataClient || new Flickr(process.env.FLICKR_API_KEY),
+            cacheClient
+        );
     }
 
     postsGetter(params) {
@@ -20,7 +23,7 @@ class FlickrSource extends PhotoSource {
             flickrRequest = client.people.findByUsername({
                     username: process.env.FLICKR_USER_NAME
                 })
-                .then(response => response.body.user.nsid);
+                .then(response => response.body && response.body.user && response.body.user.nsid);
         }
 
         return flickrRequest
