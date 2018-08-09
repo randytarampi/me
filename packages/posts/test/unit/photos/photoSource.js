@@ -107,24 +107,62 @@ describe("PhotoSource", function () {
         });
     });
 
-    describe("#getPosts", function () {
-        it("should throw a `Please specify an actual get photo for user implementation` error", function () {
+    describe("#postsGetter", function () {
+        it("should throw a `Please specify an actual postsGetter implementation` error", function () {
             const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-            return photoSource.getPosts()
+            return photoSource.postsGetter()
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch((error) => {
                     expect(error.message).to.match(/Please specify an actual postsGetter implementation/);
                 });
         });
     });
 
-    describe("#getPost", function () {
-        it("should throw a `Please specify an actual get photo implementation` error", function () {
+    describe("#postGetter", function () {
+        it("should throw a `Please specify an actual postGetter implementation` error", function () {
             const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-            return photoSource.getPost()
+            return photoSource.postGetter()
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch((error) => {
                     expect(error.message).to.match(/Please specify an actual postGetter implementation/);
+                });
+        });
+    });
+
+    describe("#cachedPostsGetter", function () {
+        it("delegates to `this.cacheClient.getPosts`", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
+
+            return photoSource.cachedPostsGetter()
+                .then(cachedPosts => {
+                    expect(cachedPosts).to.be.ok;
+                    expect(cachedPosts).to.eql(stubPhotos);
+                    expect(stubGetPosts.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Photo.name}, source: {eq: photoSource.type}});
+                });
+        });
+    });
+
+    describe("#cachedPostGetter", function () {
+        it("delegates to `this.cacheClient.getPost`", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
+
+            return photoSource.cachedPostGetter(stubPhoto.uid)
+                .then(cachedPost => {
+                    expect(cachedPost).to.be.ok;
+                    expect(cachedPost).to.eql(stubPhoto);
+                    expect(stubGetPost.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPost, {
+                        id: {eq: stubPhoto.uid},
+                        type: {eq: Photo.name},
+                        source: {eq: photoSource.type}
+                    });
                 });
         });
     });

@@ -4,8 +4,11 @@ import jsyaml from "js-yaml";
 import WordSource from "../wordSource";
 
 class S3WordSource extends WordSource {
-    constructor() {
-        super("S3", new Aws.S3());
+    constructor(dataClient, cacheClient) {
+        super("S3",
+            dataClient || new Aws.S3(),
+            cacheClient
+        );
     }
 
     get isEnabled() {
@@ -24,9 +27,6 @@ class S3WordSource extends WordSource {
 
         return this.client.listObjects(options) // FIXME-RT: Replace with `listObjectsV2`
             .promise()
-            .then(data => {
-                return data;
-            })
             .then(data => Promise.all(data.Contents.map((object) => {
                 return this.getPost(object.Key);
             })));
@@ -39,7 +39,7 @@ class S3WordSource extends WordSource {
             })
             .promise()
             .then(data => {
-                return this.jsonToPost({
+                return data && this.jsonToPost({
                     Bucket: process.env.S3_BUCKET_NAME,
                     Key: key,
                     ...data,

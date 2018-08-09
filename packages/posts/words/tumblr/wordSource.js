@@ -1,23 +1,25 @@
-import {Post} from "@randy.tarampi/js";
+import {Creator, Post} from "@randy.tarampi/js";
 import tumblr from "tumblr.js";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
-import Creator from "../creator";
 import WordSource from "../wordSource";
 
 class TumblrWordSource extends WordSource {
-    constructor() {
-        super("Tumblr", tumblr.createClient({
-            consumer_key: process.env.TUMBLR_API_KEY,
-            consumer_secret: process.env.TUMBLR_API_SECRET,
-            returnPromises: true
-        }));
+    constructor(dataClient, cacheClient) {
+        super("Tumblr",
+            dataClient || tumblr.createClient({
+                consumer_key: process.env.TUMBLR_API_KEY,
+                consumer_secret: process.env.TUMBLR_API_SECRET,
+                returnPromises: true
+            })
+            , cacheClient
+        );
     }
 
     get isEnabled() {
         return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET;
     }
 
-    postsGetter(params) {
+    async postsGetter(params) {
         const options = {
             "type": "text",
             "limit": params.perPage || 20
@@ -35,7 +37,7 @@ class TumblrWordSource extends WordSource {
             });
     }
 
-    postGetter(id) {
+    async postGetter(id) {
         const options = {
             "id": id
         };
@@ -44,7 +46,7 @@ class TumblrWordSource extends WordSource {
             .then((response) => {
                 return response.posts.map((postJson) => {
                     return this.jsonToPost(postJson, response.blog);
-                });
+                })[0];
             });
     }
 
