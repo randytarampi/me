@@ -35,11 +35,11 @@ export const configureLogger = () => configureRaven();
 
 const debug = (message, ...rest) => {
     console.debug.apply(null, [message, ...rest]); // eslint-disable-line no-console
-    raven.captureMessage(message, {level: "debug"});
+    // raven.captureMessage(message, {level: "debug"});
 };
 const info = (message, ...rest) => {
     console.log.apply(null, [message, ...rest]); // eslint-disable-line no-console
-    raven.captureMessage(message, {level: "info"});
+    // raven.captureMessage(message, {level: "info"});
 };
 const warn = (warning, ...rest) => {
     console.warn.apply(null, [warning, ...rest]); // eslint-disable-line no-console
