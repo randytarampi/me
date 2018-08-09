@@ -19,8 +19,7 @@ const configureRaven = () => new Promise((resolve, reject) => {
                         log_stream: process.env.AWS_LAMBDA_LOG_STREAM_NAME,
                         service_name: process.env.SERVERLESS_SERVICE,
                         stage: process.env.SERVERLESS_STAGE,
-                        alias: process.env.SERVERLESS_ALIAS,
-                        region: process.env.SERVERLESS_REGION || process.env.AWS_REGION
+                        region: process.env.AWS_REGION
                     }
                 }
             ).install();
