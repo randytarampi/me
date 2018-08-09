@@ -38,7 +38,7 @@ stages:
 - name: Test
   if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Deploy (dev)
-  if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
+  if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Release
   if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Deploy (prd)
