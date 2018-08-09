@@ -135,13 +135,7 @@ module.exports = {
 
             app.use(compress());
             app.use(convert(history({
-                verbose: true,
-                rewrites: [
-                    {from: /\/photos/, to: "/photos.html"},
-                    {from: /\/words/, to: "/words.html"},
-                    {from: /\/blog/, to: "/blog.html"},
-                    {from: /\/resume/, to: "/resume.html"}
-                ]
+                verbose: true
             })));
             middleware.webpack();
             middleware.content();

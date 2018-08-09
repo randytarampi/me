@@ -42,13 +42,7 @@ gulp.task("views", () => {
             }
         }))
         .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "blog"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "photos"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "words"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "resume"}))
+        .pipe(rename({basename: "404"}))
         .pipe(gulp.dest("./dist"));
 });
 

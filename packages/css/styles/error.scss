@@ -1,0 +1,10 @@
+.error {
+    position: relative;
+    height: 100vh;
+
+    &__message {
+        @extend .center-align;
+
+        font-size: 15px;
+    }
+}

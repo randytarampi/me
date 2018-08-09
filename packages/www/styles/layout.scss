@@ -2,12 +2,22 @@ html, body {
     min-width: 320px;
 }
 
-.block__text {
-    padding: 0 20px;
-}
+.block {
+    @extend .valign-wrapper;
 
-.block__bear {
-    position: relative;
+    &__text {
+        padding: 0 20px;
+    }
+
+    &__bear {
+        position: relative;
+    }
+
+    &__full-height {
+        min-height: 100vh;
+        height: 100vh;
+        max-height: 100vh;
+    }
 }
 
 li {

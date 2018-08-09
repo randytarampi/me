@@ -111,6 +111,9 @@ class Bear extends Emoji {
                   onClick={this.onClick.bind(this, "rightLeaningRightArm")}>{this.state.rightLeaningRightArm}</span>
             <span className="bear__rightAction"
                   onClick={this.onClick.bind(this, "rightAction")}>{this.state.rightAction}</span>
+            <div>
+                {this.props.children}
+            </div>
         </div>;
     }
 }

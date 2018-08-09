@@ -1,4 +1,4 @@
-import {Posts} from "@randy.tarampi/jsx";
+import {Error, Posts} from "@randy.tarampi/jsx";
 import Resume from "jsonresume-theme-randytarampi/public/components/resume";
 import React, {Fragment} from "react";
 import Helmet from "react-helmet";
@@ -48,6 +48,10 @@ const routes = [
         component: Resume,
         exact: true,
         path: "/resume"
+    },
+    {
+        component: Error,
+        path: "*"
     }
 ];
 
