@@ -98,7 +98,7 @@ custom:
 
 functions:
   getPosts:
-    handler: serverless/handler/index.getPosts
+    handler: serverless/handler/initializedGetPosts.default
     events:
     - http:
         path: ${self:service}
@@ -107,7 +107,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   getWords:
-    handler: serverless/handler/index.getWords
+    handler: serverless/handler/initializedGetWords.default
     events:
     - http:
         path: words
@@ -116,7 +116,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   getPhotos:
-    handler: serverless/handler/index.getPhotos
+    handler: serverless/handler/initializedGetPhotos.default
     events:
     - http:
         path: photos
@@ -125,7 +125,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
-    handler: serverless/handler/index.instagramAuthRedirect
+    handler: serverless/handler/initializedInstagramAuthRedirect.default
     events:
     - http:
         path: auth/instagram
@@ -134,7 +134,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthReturn:
-    handler: serverless/handler/index.instagramAuthReturn
+    handler: serverless/handler/initializedInstagramAuthReturn.default
     events:
     - http:
         path: auth/instagram/redirect
