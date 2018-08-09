@@ -1,5 +1,5 @@
 import _ from "lodash";
-import logger from "../logger";
+import logger from "../lib/logger";
 import {initializePostSources} from "./postSources";
 
 const searchPosts = postSearchParams => {

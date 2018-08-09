@@ -1,33 +1,28 @@
-class WordSource {
-    constructor(type, client, initalizerPromise) {
-        this.type = type;
-        this.client = client;
+import {Post} from "@randy.tarampi/js";
+import CachedDataSource from "../lib/cachedDataSource";
 
-        if (initalizerPromise) {
-            this.initializing = initalizerPromise
-                .then((initializedClient) => {
-                    this.client = initializedClient;
-                    return this;
-                });
-        } else {
-            this.initializing = Promise.resolve(this);
-        }
+/**
+ * A [Post]{@link Post} specific data source that fetches from some service or some cache, whichever returns first
+ * @abstract
+ */
+class WordSource extends CachedDataSource {
+    /**
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Posts]{@link Post}
+     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
+     */
+    async cachedPostsGetter(params) { // eslint-disable-line no-unused-vars
+        return this.cacheClient.getPosts({type: {eq: Post.name}, source: {eq: this.type}});
     }
 
-    get isEnabled() {
-        throw new Error("Trying to verify if this WordSource is enabled – Please specify an actual isEnabled check");
-    }
-
-    getWordPosts(params) {
-        return Promise.reject(new Error(`Looking for ${params} – Please specify an actual get word posts implementation`));
-    }
-
-    getWordPost(postId, params) {
-        return Promise.reject(new Error(`Looking for ${postId} with ${params} – Please specify an actual get word post implementation`));
-    }
-
-    jsonToPost(postJson) {
-        throw new Error(`Trying to turn ${postJson} into a Post – Please specify an actual Post transformation`);
+    /**
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a post
+     * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
+     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @returns {Post} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async cachedPostGetter(postId, params) { // eslint-disable-line no-unused-vars
+        return this.cacheClient.getPost({id: {eq: postId}, type: {eq: Post.name}, source: {eq: this.type}});
     }
 }
 

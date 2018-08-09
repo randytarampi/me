@@ -9,8 +9,11 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class LocalSource extends PhotoSource {
-    constructor() {
-        super("Local");
+    constructor(dataClient, cacheClient) {
+        super("Local",
+            dataClient || fs,
+            cacheClient
+        );
     }
 
     static get isEnabled() {
@@ -39,7 +42,7 @@ class LocalSource extends PhotoSource {
         });
     }
 
-    getUserPhotos(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
 
         return new Promise((resolve, reject) => {
@@ -89,14 +92,14 @@ class LocalSource extends PhotoSource {
                                     return;
                                 }
 
-                                resolve(this.jsonToPhoto(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
+                                resolve(this.jsonToPost(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
                             });
                         });
                     }));
             });
     }
 
-    getPhoto(photoId) {
+    postGetter(photoId) {
         return new Promise((resolve, reject) => {
             fs.lstat(photoId, (error, lstat) => {
                 if (error) {
@@ -119,13 +122,13 @@ class LocalSource extends PhotoSource {
                             return;
                         }
 
-                        resolve(this.jsonToPhoto(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
+                        resolve(this.jsonToPost(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
                     });
                 });
             });
     }
 
-    jsonToPhoto(filePath, fileName, lstat, width, height) {
+    jsonToPost(filePath, fileName, lstat, width, height) {
         const fileUrl = url.format(filePath.replace(this.source, ""));
 
         return new Photo(

@@ -6,42 +6,36 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class TumblrSource extends PhotoSource {
-    constructor() {
-        super("Tumblr", tumblr.createClient({
-            consumer_key: process.env.TUMBLR_API_KEY,
-            consumer_secret: process.env.TUMBLR_API_SECRET,
-            returnPromises: true
-        }));
+    constructor(dataClient, cacheClient) {
+        super("Tumblr",
+            dataClient || tumblr.createClient({
+                consumer_key: process.env.TUMBLR_API_KEY,
+                consumer_secret: process.env.TUMBLR_API_SECRET,
+                returnPromises: true
+            }),
+            cacheClient
+        );
     }
 
-    getUserPhotos(params) {
+    async postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
-        const that = this;
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
-            .then((response) => {
-                return _.flatten(response.posts.map(postJson =>
-                    postJson.photos.map(photoJson =>
-                        that.jsonToPhoto(photoJson, postJson, response.blog)
-                    )
-                ));
-            });
+            .then(response =>
+                _.flatten(response.posts.map(postJson => postJson.photos.map(photoJson => this.jsonToPost(photoJson, postJson, response.blog))))
+            );
     }
 
-    getPhoto(photoId, params) {
-        const that = this;
+    async postGetter(id, params) {
+        params = params instanceof SearchParams ? params : new SearchParams(params);
 
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, _.extend({id: photoId}, params.Tumblr))
-            .then((response) => {
-                return _.flatten(response.posts.map(postJson =>
-                    postJson.photos.map(photoJson =>
-                        that.jsonToPhoto(photoJson, postJson, response.blog)
-                    )
-                ));
-            });
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))
+            .then(response =>
+                _.flatten(response.posts.map(postJson => postJson.photos.map(photoJson => this.jsonToPost(photoJson, postJson, response.blog))))[0]
+            );
     }
 
-    jsonToPhoto(photoJson, postJson, blogJson) {
+    jsonToPost(photoJson, postJson, blogJson) {
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return new SizedPhoto(photo.url, photo.width, photo.height);
         });

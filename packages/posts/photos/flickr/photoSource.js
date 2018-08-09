@@ -6,11 +6,14 @@ import PhotoSource from "../photoSource";
 import SearchParams from "../searchParams";
 
 class FlickrSource extends PhotoSource {
-    constructor() {
-        super("Flickr", new Flickr(process.env.FLICKR_API_KEY));
+    constructor(dataClient, cacheClient) {
+        super("Flickr",
+            dataClient || new Flickr(process.env.FLICKR_API_KEY),
+            cacheClient
+        );
     }
 
-    getUserPhotos(params) {
+    postsGetter(params) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;
@@ -20,7 +23,7 @@ class FlickrSource extends PhotoSource {
             flickrRequest = client.people.findByUsername({
                     username: process.env.FLICKR_USER_NAME
                 })
-                .then(response => response.body.user.nsid);
+                .then(response => response.body && response.body.user && response.body.user.nsid);
         }
 
         return flickrRequest
@@ -31,11 +34,11 @@ class FlickrSource extends PhotoSource {
                     .then(response => response.body.photos.photo);
             })
             .then(photos => {
-                return photos.map(this.jsonToPhoto.bind(this));
+                return photos.map(this.jsonToPost.bind(this));
             });
     }
 
-    jsonToPhoto(json) {
+    jsonToPost(json) {
         return new Photo(
             json.id,
             null,

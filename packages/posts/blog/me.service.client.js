@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch";
-import logger from "../logger";
+import logger from "../lib/logger";
 
 export default (fetchUrl, page) => {
     return fetch(`${fetchUrl}?page=${page}`)

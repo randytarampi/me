@@ -47,6 +47,7 @@ jspm_packages
 dist
 data/flickr
 .webpack
+.dynamoDb
 
 # Environment variables
 

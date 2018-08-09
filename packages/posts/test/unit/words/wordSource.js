@@ -1,78 +1,169 @@
+import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
+import sinon from "sinon";
 import WordSource from "../../../words/wordSource";
+import dummyClassesGenerator from "../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../lib/util";
 
-describe("WordSource", () => {
-    before(() => {
-        process.env._API_KEY = "woof";
-        process.env._API_SECRET = "meow";
+describe("WordSource", function () {
+    let stubType;
+    let stubServiceClient;
+    let stubPost;
+    let stubPosts;
+    let stubBeforePostsGetter;
+    let stubPostsGetter;
+    let stubAfterPostsGetter;
+    let stubBeforePostGetter;
+    let stubPostGetter;
+    let stubAfterPostGetter;
+    let stubBeforeCachedPostsGetter;
+    let stubCachedPostsGetter;
+    let stubAfterCachedPostsGetter;
+    let stubBeforeCachedPostGetter;
+    let stubCachedPostGetter;
+    let stubAfterCachedPostGetter;
+    let stubJsonToPost;
+    let DummyCacheClient;
+    let stubCreatePosts;
+    let stubGetPosts;
+    let stubCreatePost;
+    let stubGetPost;
+    let stubCacheClient;
+    let builtDummyClasses;
+    let dummyClassBuilderArguments;
+
+    beforeEach(function () {
+        stubType = "ʕ•ᴥ•ʔ";
+        stubServiceClient = {"ʕ•ᴥ•ʔ": "ʕ•ᴥ•ʔ"};
+
+        stubPost = Post.fromJSON({id: "woof"});
+        stubPosts = [stubPost, Post.fromJSON({id: "meow"}), Post.fromJSON({id: "grr"})];
+
+        stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAfterPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+
+        stubBeforePostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+
+        stubBeforeCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAfterCachedPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+
+        stubBeforeCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterCachedPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+
+        stubJsonToPost = sinon.stub().callsFake(Post.fromJSON);
+
+        stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
+        stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+
+        stubCreatePost = sinon.stub().callsFake(post => timedPromise(post));
+        stubGetPost = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
+
+        dummyClassBuilderArguments = {
+            stubBeforePostsGetter,
+            stubPostsGetter,
+            stubAfterPostsGetter,
+
+            stubBeforePostGetter,
+            stubPostGetter,
+            stubAfterPostGetter,
+
+            stubBeforeCachedPostsGetter,
+            stubCachedPostsGetter,
+            stubAfterCachedPostsGetter,
+
+            stubBeforeCachedPostGetter,
+            stubCachedPostGetter,
+            stubAfterCachedPostGetter,
+
+            stubJsonToPost,
+
+            stubGetPosts,
+            stubCreatePosts,
+
+            stubGetPost,
+            stubCreatePost
+        };
+        builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
+
+        DummyCacheClient = builtDummyClasses.DummyCacheClient;
+
+        stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
     });
 
-    after(() => {
-        delete process.env._API_KEY;
-        delete process.env._API_SECRET;
-    });
+    describe("constructor", function () {
+        it("should build a `WordSource` instance", function () {
+            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
 
-    describe("constructor", () => {
-        it("should build a `WordSource` instance", () => {
-            const wordSource = new WordSource();
-
-            expect(wordSource.type).to.eql(undefined);
-            expect(wordSource.client).to.be.undefined;
+            expect(wordSource.type).to.eql(stubType);
+            expect(wordSource.client).to.eql(stubServiceClient);
+            expect(wordSource.cacheClient).to.eql(stubCacheClient);
             expect(wordSource.initializing).to.be.instanceOf(Promise);
             expect(wordSource).to.be.instanceOf(WordSource);
         });
-
-        it("should accept an `initalizerPromise`", () => {
-            const wordSource = new WordSource("Woof", "Grr", Promise.resolve("Meow"));
-
-            expect(wordSource.type).to.eql("Woof");
-            expect(wordSource.client).to.eql("Grr");
-            expect(wordSource.initializing).to.be.instanceOf(Promise);
-            expect(wordSource).to.be.instanceOf(WordSource);
-
-            return wordSource.initializing
-                .then((initializingResult) => {
-                    expect(initializingResult).to.eql(wordSource);
-                    expect(initializingResult.client).to.eql("Meow");
-                });
-        });
     });
 
-    describe("#getWordPosts", () => {
-        it("should throw a `Please specify an actual get word posts implementation` error", () => {
-            const wordSource = new WordSource();
+    describe("#postsGetter", function () {
+        it("should throw a `Please specify an actual postsGetter implementation` error", function () {
+            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
 
-            return wordSource.getWordPosts()
+            return wordSource.postsGetter()
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get word posts implementation/);
+                    expect(error.message).to.match(/Please specify an actual postsGetter implementation/);
                 });
         });
     });
 
-    describe("#getWordPost", () => {
-        it("should throw a `Please specify an actual get word post implementation` error", () => {
-            const wordSource = new WordSource();
+    describe("#postGetter", function () {
+        it("should throw a `Please specify an actual postGetter implementation` error", function () {
+            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
 
-            return wordSource.getWordPost()
+            return wordSource.postGetter()
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get word post implementation/);
+                    expect(error.message).to.match(/Please specify an actual postGetter implementation/);
                 });
         });
     });
 
-    describe("#jsonToPost", () => {
-        it("should throw a `Please specify an actual Post transformation` error", () => {
-            const wordSource = new WordSource();
+    describe("#cachedPostsGetter", function () {
+        it("delegates to `this.cacheClient.getPosts`", function () {
+            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
 
-            expect(wordSource.jsonToPost).to.throw(/Please specify an actual Post transformation/);
+            return wordSource.cachedPostsGetter()
+                .then(cachedPosts => {
+                    expect(cachedPosts).to.be.ok;
+                    expect(cachedPosts).to.eql(stubPosts);
+                    expect(stubGetPosts.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Post.name}, source: {eq: wordSource.type}});
+                });
         });
     });
 
-    describe(".isEnabled", () => {
-        it("should throw a `Please specify an actual isEnabled check` error", () => {
-            const wordSource = new WordSource();
+    describe("#cachedPostGetter", function () {
+        it("delegates to `this.cacheClient.getPost`", function () {
+            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
 
-            expect(() => wordSource.isEnabled).to.throw(/Please specify an actual isEnabled check/);
+            return wordSource.cachedPostGetter(stubPost.uid)
+                .then(cachedPost => {
+                    expect(cachedPost).to.be.ok;
+                    expect(cachedPost).to.eql(stubPost);
+                    expect(stubGetPost.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPost, {
+                        id: {eq: stubPost.uid},
+                        type: {eq: Post.name},
+                        source: {eq: wordSource.type}
+                    });
+                });
         });
     });
 });

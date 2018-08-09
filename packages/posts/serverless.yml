@@ -30,11 +30,18 @@ provider:
     - SNS:Publish
     Resource:
       Ref: LambdaDeadLetterQueue
+  - Effect: Allow
+    Action:
+    - dynamodb:Query
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:PutItem
+    - dynamodb:UpdateItem
+    - dynamodb:DeleteItem
+    Resource: PostsDynamoDbTable
 
   environment: ${file(env.yml):${self:provider.stage}.environment}
   environmentSecrets: # can't just include the whole obj from the env file bc for some reason the plugin won't load from external files
-    #    F00PX_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.F00PX_API_KEY}
-    #    F00PX_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.F00PX_API_SECRET}
     FLICKR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_KEY}
     FLICKR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_SECRET}
     UNSPLASH_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_KEY}
@@ -52,11 +59,19 @@ package:
 plugins:
 - serverless-secrets
 - serverless-webpack
+- serverless-dynamodb-local
 - serverless-offline
 - serverless-mocha-plugin
 - serverless-domain-manager
 
 custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+    #      sharedDb: true
+    migration:
+      dir: serverless/dynamoDb/migrations
   webpack:
     webpackConfig: ./webpack.serverless.config.js
     includeModules:
@@ -82,7 +97,7 @@ custom:
 
 functions:
   getPosts:
-    handler: serverless/handler/getPosts.default
+    handler: serverless/handler/index.getPosts
     events:
     - http:
         path: ${self:service}
@@ -91,7 +106,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   getWords:
-    handler: serverless/handler/getWords.default
+    handler: serverless/handler/index.getWords
     events:
     - http:
         path: words
@@ -100,7 +115,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   getPhotos:
-    handler: serverless/handler/getPhotos.default
+    handler: serverless/handler/index.getPhotos
     events:
     - http:
         path: photos
@@ -109,7 +124,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
-    handler: serverless/handler/instagramAuthRedirect.default
+    handler: serverless/handler/index.instagramAuthRedirect
     events:
     - http:
         path: auth/instagram
@@ -118,7 +133,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthReturn:
-    handler: serverless/handler/instagramAuthReturn.default
+    handler: serverless/handler/index.instagramAuthReturn
     events:
     - http:
         path: auth/instagram/redirect
@@ -129,6 +144,13 @@ functions:
 
 resources:
   Resources:
+    PostsDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+      TableName: ${self:provider.environment.POSTS_DYNAMODB_TABLE}
     LambdaDeadLetterQueue:
       Type: AWS::SNS::Topic
       Properties:

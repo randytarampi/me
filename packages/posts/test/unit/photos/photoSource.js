@@ -1,94 +1,169 @@
+import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
+import sinon from "sinon";
 import PhotoSource from "../../../photos/photoSource";
+import dummyClassesGenerator from "../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../lib/util";
 
-describe("PhotoSource", () => {
-    before(() => {
-        process.env._API_KEY = "woof";
-        process.env._API_SECRET = "meow";
+describe("PhotoSource", function () {
+    let stubType;
+    let stubServiceClient;
+    let stubPhoto;
+    let stubPhotos;
+    let stubBeforePostsGetter;
+    let stubPhotosGetter;
+    let stubAfterPostsGetter;
+    let stubBeforePostGetter;
+    let stubPhotoGetter;
+    let stubAfterPostGetter;
+    let stubBeforeCachedPostsGetter;
+    let stubCachedPostsGetter;
+    let stubAfterCachedPostsGetter;
+    let stubBeforeCachedPostGetter;
+    let stubCachedPostGetter;
+    let stubAfterCachedPostGetter;
+    let stubJsonToPost;
+    let DummyCacheClient;
+    let stubCreatePosts;
+    let stubGetPosts;
+    let stubCreatePost;
+    let stubGetPost;
+    let stubCacheClient;
+    let builtDummyClasses;
+    let dummyClassBuilderArguments;
+
+    beforeEach(function () {
+        stubType = "ʕ•ᴥ•ʔ";
+        stubServiceClient = {"ʕ•ᴥ•ʔ": "ʕ•ᴥ•ʔ"};
+
+        stubPhoto = Photo.fromJSON({id: "woof"});
+        stubPhotos = [stubPhoto, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"})];
+
+        stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubPhotosGetter = sinon.stub().callsFake(params => timedPromise(stubPhotos)); // eslint-disable-line no-unused-vars
+        stubAfterPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+
+        stubBeforePostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubPhotoGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPhotos.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+
+        stubBeforeCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPhotos)); // eslint-disable-line no-unused-vars
+        stubAfterCachedPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+
+        stubBeforeCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPhotos.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterCachedPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+
+        stubJsonToPost = sinon.stub().callsFake(Photo.fromJSON);
+
+        stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
+        stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPhotos)); // eslint-disable-line no-unused-vars
+
+        stubCreatePost = sinon.stub().callsFake(post => timedPromise(post));
+        stubGetPost = sinon.stub().callsFake(params => timedPromise(stubPhoto)); // eslint-disable-line no-unused-vars
+
+        dummyClassBuilderArguments = {
+            stubBeforePostsGetter,
+            stubPhotosGetter,
+            stubAfterPostsGetter,
+
+            stubBeforePostGetter,
+            stubPhotoGetter,
+            stubAfterPostGetter,
+
+            stubBeforeCachedPostsGetter,
+            stubCachedPostsGetter,
+            stubAfterCachedPostsGetter,
+
+            stubBeforeCachedPostGetter,
+            stubCachedPostGetter,
+            stubAfterCachedPostGetter,
+
+            stubJsonToPost,
+
+            stubGetPosts,
+            stubCreatePosts,
+
+            stubGetPost,
+            stubCreatePost
+        };
+        builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
+
+        DummyCacheClient = builtDummyClasses.DummyCacheClient;
+
+        stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
     });
 
-    after(() => {
-        delete process.env._API_KEY;
-        delete process.env._API_SECRET;
-    });
+    describe("constructor", function () {
+        it("should build a `PhotoSource` instance", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-    describe("constructor", () => {
-        it("should build a `PhotoSource` instance", () => {
-            const photoSource = new PhotoSource();
-
-            expect(photoSource.type).to.eql(undefined);
-            expect(photoSource.client).to.be.undefined;
+            expect(photoSource.type).to.eql(stubType);
+            expect(photoSource.client).to.eql(stubServiceClient);
+            expect(photoSource.cacheClient).to.eql(stubCacheClient);
             expect(photoSource.initializing).to.be.instanceOf(Promise);
             expect(photoSource).to.be.instanceOf(PhotoSource);
         });
-
-        it("should accept an `initalizerPromise`", () => {
-            const photoSource = new PhotoSource("Woof", "Grr", Promise.resolve("Meow"));
-
-            expect(photoSource.type).to.eql("Woof");
-            expect(photoSource.client).to.eql("Grr");
-            expect(photoSource.initializing).to.be.instanceOf(Promise);
-            expect(photoSource).to.be.instanceOf(PhotoSource);
-
-            return photoSource.initializing
-                .then((initializingResult) => {
-                    expect(initializingResult).to.eql(photoSource);
-                    expect(initializingResult.client).to.eql("Meow");
-                });
-        });
     });
 
-    describe("#getUserPhotos", () => {
-        it("should throw a `Please specify an actual get photo for user implementation` error", () => {
-            const photoSource = new PhotoSource();
+    describe("#postsGetter", function () {
+        it("should throw a `Please specify an actual postsGetter implementation` error", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-            return photoSource.getUserPhotos()
+            return photoSource.postsGetter()
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get photo for user implementation/);
+                    expect(error.message).to.match(/Please specify an actual postsGetter implementation/);
                 });
         });
     });
 
-    describe("#getPhoto", () => {
-        it("should throw a `Please specify an actual get photo implementation` error", () => {
-            const photoSource = new PhotoSource();
+    describe("#postGetter", function () {
+        it("should throw a `Please specify an actual postGetter implementation` error", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-            return photoSource.getPhoto()
+            return photoSource.postGetter()
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch((error) => {
-                    expect(error.message).to.match(/Please specify an actual get photo implementation/);
+                    expect(error.message).to.match(/Please specify an actual postGetter implementation/);
                 });
         });
     });
 
-    describe("#jsonToPhoto", () => {
-        it("should throw a `Please specify an actual Photo transformation` error", () => {
-            const photoSource = new PhotoSource();
+    describe("#cachedPostsGetter", function () {
+        it("delegates to `this.cacheClient.getPosts`", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-            expect(photoSource.jsonToPhoto).to.throw(/Please specify an actual Photo transformation/);
+            return photoSource.cachedPostsGetter()
+                .then(cachedPosts => {
+                    expect(cachedPosts).to.be.ok;
+                    expect(cachedPosts).to.eql(stubPhotos);
+                    expect(stubGetPosts.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Photo.name}, source: {eq: photoSource.type}});
+                });
         });
     });
 
-    describe("#isEnabled", () => {
-        it("should be enabled if it can find some `_API_KEY` and some `_API_SECRET`", () => {
-            const photoSource = new PhotoSource();
+    describe("#cachedPostGetter", function () {
+        it("delegates to `this.cacheClient.getPost`", function () {
+            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
 
-            expect(photoSource.isEnabled).to.eql(true);
-        });
-
-        it("should not be enabled if it cannot find `_API_KEY`", () => {
-            delete process.env._API_KEY;
-
-            const photoSource = new PhotoSource();
-
-            expect(photoSource.isEnabled).to.eql(false);
-        });
-
-        it("should not be enabled if it cannot find `_API_SECRET`", () => {
-            delete process.env._API_SECRET;
-
-            const photoSource = new PhotoSource();
-
-            expect(photoSource.isEnabled).to.eql(false);
+            return photoSource.cachedPostGetter(stubPhoto.uid)
+                .then(cachedPost => {
+                    expect(cachedPost).to.be.ok;
+                    expect(cachedPost).to.eql(stubPhoto);
+                    expect(stubGetPost.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPost, {
+                        id: {eq: stubPhoto.uid},
+                        type: {eq: Photo.name},
+                        source: {eq: photoSource.type}
+                    });
+                });
         });
     });
 });

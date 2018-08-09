@@ -1,38 +1,30 @@
+import {Photo} from "@randy.tarampi/js";
+import CachedDataSource from "../lib/cachedDataSource";
+
 /**
+ * A [Photo]{@link Photo} specific data source that fetches from some service or some cache, whichever returns first
  * @abstract
  */
-class PhotoSource {
-    constructor(type, client, initalizerPromise) {
-        this.type = type;
-        this.client = client;
-
-        if (initalizerPromise) {
-            this.initializing = initalizerPromise
-                .then((initializedClient) => {
-                    this.client = initializedClient;
-                    return this;
-                });
-        } else {
-            this.initializing = Promise.resolve(this);
-        }
+class PhotoSource extends CachedDataSource {
+    /**
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Photos]{@link Photo}
+     * @abstract
+     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
+     */
+    async cachedPostsGetter(params) { // eslint-disable-line no-unused-vars
+        return this.cacheClient.getPosts({type: {eq: Photo.name}, source: {eq: this.type}});
     }
 
-    get isEnabled() {
-        const type = this.type || "";
-        return !!process.env[`${type.toUpperCase()}_API_KEY`] &&
-            !!process.env[`${type.toUpperCase()}_API_SECRET`];
-    }
-
-    getUserPhotos(params) {
-        return Promise.reject(new Error(`Looking for ${params} – Please specify an actual get photo for user implementation`));
-    }
-
-    getPhoto(photoId, params) {
-        return Promise.reject(new Error(`Looking for ${photoId} with ${params} – Please specify an actual get photo implementation`));
-    }
-
-    jsonToPhoto(photoJson) {
-        throw new Error(`Trying to turn ${photoJson} into a Photo – Please specify an actual Photo transformation`);
+    /**
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a post
+     * @abstract
+     * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
+     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @returns {Post} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async cachedPostGetter(postId, params) { // eslint-disable-line no-unused-vars
+        return this.cacheClient.getPost({id: {eq: postId}, type: {eq: Photo.name}, source: {eq: this.type}});
     }
 }
 

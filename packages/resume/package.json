@@ -32,7 +32,8 @@
     "resume:letter": "npx resume export dist/letter.pdf -f pdf --theme randytarampi --force",
     "resume:a4": "RESUME_PDF_SIZE=A4 npx resume export dist/a4.pdf -f pdf --theme randytarampi --force",
     "resume:html": "npx resume export dist/index.html -f html --theme randytarampi --force",
-    "docs": "npx gulp -LLLL --color docs"
+    "docs": "npx gulp -LLLL --color docs",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
   },
   "license": "MIT",
   "dependencies": {

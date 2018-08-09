@@ -84,18 +84,6 @@ describe("SearchParams", () => {
         });
     });
 
-    describe(".F00px", () => {
-        it("should properly format properties for query", () => {
-            const searchParams = new SearchParams();
-
-            expect(searchParams.F00px).to.eql({
-                rpp: searchParams.perPage,
-                sort: "taken_at",
-                image_size: "2048, 1600, 1080, 21, 31, 20, 30"
-            });
-        });
-    });
-
     describe(".Flickr", () => {
         it("should properly format properties for query", () => {
             const searchParams = new SearchParams();

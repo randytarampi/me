@@ -1,5 +1,5 @@
 import _ from "lodash";
-import logger from "../logger";
+import logger from "../lib/logger";
 import {initializePhotoSources} from "./photoSources";
 
 const searchPhotos = photoSearchParams => {
@@ -7,7 +7,7 @@ const searchPhotos = photoSearchParams => {
         .then(photoSources => {
             return Promise.all(
                 photoSources.map((photoSource) => {
-                    return photoSource.getUserPhotos(photoSearchParams)
+                    return photoSource.getPosts(photoSearchParams)
                         .catch((error) => {
                             logger.error(error);
                             return [];

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import logger from "../logger";
+import logger from "../lib/logger";
 import {initializeWordSources} from "./wordSources";
 
 const searchWords = wordSearchParams => {
@@ -7,7 +7,7 @@ const searchWords = wordSearchParams => {
         .then(wordSources => {
             return Promise.all(
                 wordSources.map((wordSource) => {
-                    return wordSource.getWordPosts(wordSearchParams)
+                    return wordSource.getPosts(wordSearchParams)
                         .catch((error) => {
                             logger.error(error);
                             return [];
