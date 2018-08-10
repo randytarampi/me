@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/randytarampi/me/compare/v0.8.2...v0.9.0) (2018-08-10)
+
+
+### Bug Fixes
+
+* **posts:** `${self:provider.service}` -> `${self:service}`. ([027e3a4](https://github.com/randytarampi/me/commit/027e3a4))
+* **posts:** `kill` should send `TERM` not `-9`. ([a3b88e0](https://github.com/randytarampi/me/commit/a3b88e0))
+* **posts:** `Post` model integration tests timeout after 60s. ([0dcbbd4](https://github.com/randytarampi/me/commit/0dcbbd4))
+* **posts:** `sleep 3` before/after starting `dynamodb-local` if we're in a CI environment. ([2da0612](https://github.com/randytarampi/me/commit/2da0612))
+* **posts:** Actually set values for the  `stage` and `service_name` tags in Sentry logs. ([34fe591](https://github.com/randytarampi/me/commit/34fe591))
+* **posts:** Actually use the `dynamodb-local` installed by `posts`. ([11904d1](https://github.com/randytarampi/me/commit/11904d1))
+* **posts:** Add dummy AWS credentials for `dynamoose` in `NODE_ENV=test`. ([1dda518](https://github.com/randytarampi/me/commit/1dda518))
+* **posts:** Add test coverage for the `PhotoSource`s. ([e0e50ec](https://github.com/randytarampi/me/commit/e0e50ec)), closes [#12](https://github.com/randytarampi/me/issues/12)
+* **posts:** Add test coverage for the `S3` and `Tumblr` `WordSource`s. ([f703f60](https://github.com/randytarampi/me/commit/f703f60)), closes [#12](https://github.com/randytarampi/me/issues/12)
+* **posts:** Bleh. Remove extraneous `-` from the `kill` command. ([94dc454](https://github.com/randytarampi/me/commit/94dc454))
+* **posts:** Don't kill the entire `dynamodb-local` process group. ([f8b4869](https://github.com/randytarampi/me/commit/f8b4869))
+* **posts:** Don't log `info` and `debug` events to Sentry. ([988b2a8](https://github.com/randytarampi/me/commit/988b2a8))
+* **posts:** Don't wait for `dynamodb-local` to start. ([84e1657](https://github.com/randytarampi/me/commit/84e1657))
+* **posts:** Ensure that we're always `configureEnvironment` before running lambdas. ([5cbd9a0](https://github.com/randytarampi/me/commit/5cbd9a0))
+* **posts:** Fix bad bash expression. ([ee530a3](https://github.com/randytarampi/me/commit/ee530a3))
+* **posts:** Fix the individual packaging of our serverless functions. ([cdc0c12](https://github.com/randytarampi/me/commit/cdc0c12))
+* **posts:** Give the serverless role `dynamodb:*` permissions on `POSTS_DYNAMODB_TABLE`. ([9afc298](https://github.com/randytarampi/me/commit/9afc298))
+* **posts:** Make the `(Post|Word)Source` tests integration tests. ([67479b1](https://github.com/randytarampi/me/commit/67479b1))
+* **posts:** Maybe dynamodb-local needs a bit of time to spin up? ([1c62357](https://github.com/randytarampi/me/commit/1c62357))
+* **posts:** Prefix this path to a jar with `./`. ([cc3cafd](https://github.com/randytarampi/me/commit/cc3cafd))
+* **posts:** Troubleshoot Travis build failure. ([77dbbc8](https://github.com/randytarampi/me/commit/77dbbc8))
+
+
+### Features
+
+* **posts:** `CachedDataSource`s only hit the service when they miss the cache. ([901755c](https://github.com/randytarampi/me/commit/901755c))
+* **posts:** Actually hook up `(Photo|Word)Source`s to the cache. ([dc0935d](https://github.com/randytarampi/me/commit/dc0935d))
+* **posts:** Actually make sure we're returning `Post`s from the cache. ([f278d9b](https://github.com/randytarampi/me/commit/f278d9b))
+* **posts:** Add a `CachedDataSource` to be used by `PhotoSource` and `WordSource`. ([4b34388](https://github.com/randytarampi/me/commit/4b34388))
+* **posts:** Add in a DynamoDB persistence (caching) layer for `Post`s. ([44538c3](https://github.com/randytarampi/me/commit/44538c3)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15) [randytarampi/me.photos#11](https://github.com/randytarampi/me.photos/issues/11) [randytarampi/me.words#1](https://github.com/randytarampi/me.words/issues/1)
+
+
+### Reverts
+
+* fix(posts): `kill` should send `TERM` not `-9`. ([8e86a15](https://github.com/randytarampi/me/commit/8e86a15))
+* fix(posts): `sleep 3` before/after starting `dynamodb-local` if we're in a CI environment. ([9be4c00](https://github.com/randytarampi/me/commit/9be4c00))
+
+
+
+
+
 <a name="0.8.2"></a>
 ## [0.8.2](https://github.com/randytarampi/me/compare/v0.8.1...v0.8.2) (2018-08-08)
 

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/randytarampi/me/compare/v0.8.2...v0.9.0) (2018-08-10)
+
+
+### Bug Fixes
+
+* **resume:** Push my resume into line with my LinkedIn and other profiles. ([0fae1a4](https://github.com/randytarampi/me/commit/0fae1a4))
+* **travis:** Avoid `lerna run` and use `lerna exec -- npm run` instead. ([5cd4ec7](https://github.com/randytarampi/me/commit/5cd4ec7))
+
+
+
+
+
 <a name="0.8.2"></a>
 ## [0.8.2](https://github.com/randytarampi/me/compare/v0.8.1...v0.8.2) (2018-08-08)
 
