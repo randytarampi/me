@@ -4,7 +4,7 @@ import BrandedLink from "./brandedLink";
 
 export const AngelListLink = props => {
     return <BrandedLink {...props} serviceName="AngelList" serviceType="angelList"
-                        serviceUrl="https://www.angellist.com"/>;
+                        serviceUrl="https://angel.co"/>;
 };
 
 AngelListLink.propTypes = {
