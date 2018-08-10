@@ -67,11 +67,19 @@
         }
     }
 
-    &--angellist {
+    &--angelList {
         &:before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
             content: "\f209\00A0";
+        }
+    }
+
+    &--stackOverflow {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\f16c\00A0";
         }
     }
 

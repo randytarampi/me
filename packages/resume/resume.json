@@ -34,6 +34,16 @@
         "network": "Flickr",
         "username": "randytarampi",
         "url": "https://www.flickr.com/people/randytarampi"
+      },
+      {
+        "network": "AngelList",
+        "username": "randytarampi",
+        "url": "https://angel.co/randytarampi"
+      },
+      {
+        "network": "StackOverflow",
+        "username": "randytarampi",
+        "url": "https://stackoverflow.com/story/randytarampi"
       }
     ]
   },

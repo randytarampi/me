@@ -6,6 +6,7 @@ import Link, {
     GitHubLink,
     InstagramLink,
     LinkedInLink,
+    StackOverflowLink,
     TwitterLink
 } from "@randy.tarampi/jsx/lib/components/link";
 import PropTypes from "prop-types";
@@ -21,6 +22,7 @@ const networkLinkMap = {
     github: GitHubLink,
     instagram: InstagramLink,
     linkedin: LinkedInLink,
+    stackoverflow: StackOverflowLink,
     twitter: TwitterLink,
 };
 
