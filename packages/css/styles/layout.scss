@@ -8,6 +8,69 @@
 html, body {
     height: 100%;
     width: 100%;
+
+    @media print {
+        min-width: $small-screen-up;
+        max-width: $medium-screen;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+
+        @page {
+            size: portrait;
+            margin: 0;
+        }
+    }
+}
+
+.hide-on-screen {
+    @media screen {
+        display: none;
+    }
+}
+
+.hide-on-print {
+    @media print {
+        display: none;
+    }
+}
+
+//$a4-page-up: "(min-width: 8.27in) and (min-height: 11.69in)"; // FIXME-RT: I dunno why, but this seems to work. There's probably some CSS ratio that's mangling the math here..
+$a4-page-up: "(min-width: 6in) and (min-height: 6.37in)";
+
+.show-on-a4 {
+    @media print {
+        display: none;
+
+        @media #{$a4-page-up} {
+            display: unset;
+        }
+    }
+}
+
+//$letter-page-up: "(min-width: 8.5in) and (min-height: 11in)"; // FIXME-RT: I dunno why, but this seems to work. There's probably some CSS ratio that's mangling the math here..
+$letter-page-up: "(min-width: 6in) and (min-height: 6in)";
+
+.show-on-letter {
+    @media print {
+        display: none;
+
+        @media #{$letter-page-up} {
+            display: unset;
+        }
+    }
+}
+
+//$legal-page-up: "(min-width: 8.5in) and (min-height: 14in)"; // FIXME-RT: I dunno why, but this seems to work. There's probably some CSS ratio that's mangling the math here..
+$legal-page-up: "(min-width: 6in) and (min-height: 7in)";
+
+.show-on-legal {
+    @media print {
+        display: none;
+
+        @media #{$legal-page-up} {
+            display: unset;
+        }
+    }
 }
 
 ul:not(.browser-default) {
@@ -18,14 +81,38 @@ ul:not(.browser-default) {
     }
 }
 
-.hide-on-screen {
-    @media screen {
-        display: none !important;
+li {
+    &.show-on-a4 {
+        @media #{$a4-page-up} {
+            display: list-item;
+        }
+    }
+    &.show-on-letter {
+        @media #{$letter-page-up} {
+            display: list-item;
+        }
+    }
+    &.show-on-legal {
+        @media #{$legal-page-up} {
+            display: list-item;
+        }
     }
 }
 
-.hide-on-print {
-    @media print {
-        display: none !important;
+table {
+    &.show-on-a4 {
+        @media #{$a4-page-up} {
+            display: table;
+        }
+    }
+    &.show-on-letter {
+        @media #{$letter-page-up} {
+            display: table;
+        }
+    }
+    &.show-on-legal {
+        @media #{$legal-page-up} {
+            display: table;
+        }
     }
 }

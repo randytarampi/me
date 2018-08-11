@@ -53,7 +53,7 @@ const getLinkComponentForProfile = profile => {
 };
 
 export const ResumeProfiles = ({resume}) => {
-    return <ResumeSection type="profiles" label="Profiles" hideOnPrint={true}>
+    return <ResumeSection type="profiles" label="Profiles" showOnA4={true}>
         <Row>
             {
                 resume.basics.profiles.map(profile => {

@@ -21,15 +21,4 @@
             }
         }
     }
-
-    @media print {
-        min-width: $small-screen-up;
-        max-width: $medium-screen;
-    }
-
-    @page {
-        min-width: $small-screen-up;
-        max-width: $medium-screen;
-        margin: 0;
-    }
 }

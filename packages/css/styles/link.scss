@@ -1,90 +1,90 @@
 .link {
-    &:before {
+    &:before, &::before {
         color: $off-black;
     }
 
     &--email {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
-            content: "\f1fa\00A0";
+            content: "\0f1fa\000A0";
         }
     }
 
     &--tel {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
-            content: "\f095\00A0";
+            content: "\0f095\000A0";
         }
     }
 
     &--web {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
-            content: "\f0c1\00A0";
+            content: "\0f0c1\000A0";
         }
     }
 
     &--github {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f09b\00A0";
+            content: "\0f09b\000A0";
         }
     }
 
     &--linkedin {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f08c\00A0";
+            content: "\0f08c\000A0";
         }
     }
 
     &--instagram {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f16d\00A0";
+            content: "\0f16d\000A0";
         }
     }
 
     &--flickr {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f16e\00A0";
+            content: "\0f16e\000A0";
         }
     }
 
     &--f00px {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f26e\00A0";
+            content: "\0f26e\000A0";
         }
     }
 
     &--angelList {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f209\00A0";
+            content: "\0f209\000A0";
         }
     }
 
     &--stackOverflow {
-        &:before {
+        &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\f16c\00A0";
+            content: "\0f16c\000A0";
         }
     }
 
     &--no-branding {
-        &:before {
+        &:before, &::before {
             content: "";
         }
     }
