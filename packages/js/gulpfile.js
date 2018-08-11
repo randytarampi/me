@@ -1,4 +1,4 @@
-require("babel-register");
+require("../../babel.register.js");
 
 const gulp = require("gulp");
 

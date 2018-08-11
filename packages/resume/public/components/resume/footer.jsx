@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const ResumeFooter = ({resume}) => {
+export const ResumeFooter = () => {
     return <footer id="footer" className="resume-footer">
         <div className="container">
             <Row className="row valign-wrapper center-align resume-footer hide-on-screen">
                 <Col s={12}>
                     <em>Print styles are hard to write, and one page résumés are harder – check out the full copy
                         at <Link
-                        href={resume.publish_url}>{resume.publish_url}</Link></em>
+                        href={__PUBLISHED_RESUME_URL__}>{__PUBLISHED_RESUME_URL__}</Link></em>
                 </Col>
             </Row>
             <Row className="row valign-wrapper center-align resume-footer hide-on-print">

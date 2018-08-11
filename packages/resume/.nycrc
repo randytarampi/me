@@ -17,7 +17,7 @@
     "lcov"
   ],
   "require": [
-    "babel-register"
+    "../../babel.register.js"
   ],
   "cache": true,
   "all": true,
