@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.3"></a>
+## [0.10.3](https://github.com/randytarampi/me/compare/v0.10.2...v0.10.3) (2018-08-11)
+
+
+### Bug Fixes
+
+* **jsx:** Actually pass `props` through to the `renderRoutes` call. ([1398ea8](https://github.com/randytarampi/me/commit/1398ea8))
+* **resume:** Fix `ResumeSection`'s `id` attribute. ([9564b9d](https://github.com/randytarampi/me/commit/9564b9d))
+* **resume:** Fix `ResumeWork` section description. ([d6851e7](https://github.com/randytarampi/me/commit/d6851e7))
+
+
+
+
+
 <a name="0.10.2"></a>
 ## [0.10.2](https://github.com/randytarampi/me/compare/v0.10.1...v0.10.2) (2018-08-11)
 
