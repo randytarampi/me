@@ -22,57 +22,11 @@ $small-and-down: "all and (max-width : #{$small-screen})";
 $medium-and-down: "all and (max-width : #{$medium-screen})";
 $medium-only: "all and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
 
-@media all and (max-width: $medium-screen) {
-    h1 {
-        font-size: $h1-fontsize / 2;
-    }
-    h2 {
-        font-size: $h2-fontsize / 2;
-    }
-    h3 {
-        font-size: $h3-fontsize / 2;
-    }
-    h4 {
-        font-size: $h4-fontsize / 2;
-    }
-    h5 {
-        font-size: $h5-fontsize / 2;
-    }
-    h6 {
-        font-size: $h6-fontsize / 2;
-    }
-}
+//$a4-page-up: "(min-width: 8.27in) and (min-height: 11.69in)"; // FIXME-RT: I dunno why, but this seems to work. There's probably some CSS ratio that's mangling the math here..
+$a4-page-up: "(min-width: 6in) and (min-height: 6.37in)";
 
-html {
-    @media only all and (min-width: 0) {
-        font-size: 14px;
-    }
+//$letter-page-up: "(min-width: 8.5in) and (min-height: 11in)"; // FIXME-RT: I dunno why, but this seems to work. There's probably some CSS ratio that's mangling the math here..
+$letter-page-up: "(min-width: 6in) and (min-height: 6in)";
 
-    @media only all and (min-width: $medium-screen) {
-        font-size: 14.5px;
-    }
-
-    @media only all and (min-width: $large-screen) {
-        font-size: 15px;
-    }
-
-    @media print and (min-width: 0) {
-        font-size: 10px;
-    }
-}
-
-.flow-text {
-    font-weight: 300;
-    $i: 0;
-    @while $i <= $intervals {
-        @media only all and (min-width: 360 + ($i * $interval-size)) {
-            font-size: 1.2rem * (1 + (.02 * $i));
-        }
-        $i: $i + 1;
-    }
-
-    // Handle below 360px screen
-    @media only all and (max-width: 360px) {
-        font-size: 1.2rem;
-    }
-}
+//$legal-page-up: "(min-width: 8.5in) and (min-height: 14in)"; // FIXME-RT: I dunno why, but this seems to work. There's probably some CSS ratio that's mangling the math here..
+$legal-page-up: "(min-width: 6in) and (min-height: 7in)";

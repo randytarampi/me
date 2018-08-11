@@ -1,6 +1,8 @@
 .link {
     &:before, &::before {
         color: $off-black;
+
+        z-index: 999;
     }
 
     &--email {
