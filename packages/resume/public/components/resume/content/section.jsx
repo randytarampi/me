@@ -16,7 +16,7 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
         classNames.push("hide-on-screen");
     }
 
-    return <section id="name" className={classNames.concat(className).join(" ").trim()}>
+    return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
             <aside className="col m3 resume-section__header">
                 {
