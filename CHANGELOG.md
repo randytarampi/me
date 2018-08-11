@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.5"></a>
+## [0.10.5](https://github.com/randytarampi/me/compare/v0.10.4...v0.10.5) (2018-08-11)
+
+
+### Bug Fixes
+
+* **resume:** See if these responsive print styles render on the Travis boxes. ([fbb5a85](https://github.com/randytarampi/me/commit/fbb5a85))
+
+
+
+
+
 <a name="0.10.4"></a>
 ## [0.10.4](https://github.com/randytarampi/me/compare/v0.10.3...v0.10.4) (2018-08-11)
 

@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.10.3",
+  "version": "0.10.5",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -54,7 +54,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
-    "@randy.tarampi/css": "^0.10.0",
+    "@randy.tarampi/css": "^0.10.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
