@@ -2,10 +2,11 @@ import config from "config";
 import path from "path";
 import pug from "pug";
 import packageJson from "../package.json";
+import resumeJson from "../resume.json";
 import renderCss from "./renderCss";
 import renderJsx, {renderedHelmet} from "./renderJsx";
 
-export const buildPugLocals = resume => {
+export const buildPugLocals = (resume, pageSize) => {
     return {
         injectedBase: renderedHelmet.base.toString(),
         injectedTitle: renderedHelmet.title.toString(),
@@ -15,7 +16,7 @@ export const buildPugLocals = resume => {
         injectedScript: renderedHelmet.script.toString(),
         injectedNoScript: renderedHelmet.noscript.toString(),
         css: renderCss(),
-        content: renderJsx(resume),
+        content: renderJsx({resume, pageSize}),
         assetUrl: config.get("assetUrl"),
         sentryDsn: config.get("sentryDsn"),
         gtm: config.get("gtm"),
@@ -24,8 +25,8 @@ export const buildPugLocals = resume => {
     };
 };
 
-export default resume => {
-    const pugLocals = buildPugLocals(resume);
+export default (resume = resumeJson, pageSize = process.env.RESUME_PDF_SIZE) => {
+    const pugLocals = buildPugLocals(resume, pageSize);
     return pug.renderFile(path.join(__dirname, "../views/index.pug"), pugLocals);
 };
 
