@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.6"></a>
+## [0.10.6](https://github.com/randytarampi/me/compare/v0.10.5...v0.10.6) (2018-08-11)
+
+
+### Bug Fixes
+
+* **resume:** Effectively walk back the change in fbb5a85af94ec3e25c5efed9b16b6d64bcc11dcf. ([9d77b78](https://github.com/randytarampi/me/commit/9d77b78))
+
+
+
+
+
 <a name="0.10.5"></a>
 ## [0.10.5](https://github.com/randytarampi/me/compare/v0.10.4...v0.10.5) (2018-08-11)
 
