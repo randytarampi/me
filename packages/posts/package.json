@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.10.0",
+  "version": "0.10.7",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.10.0",
+    "@randy.tarampi/js": "^0.10.7",
     "aws-sdk": "^2.279.1",
     "dynamoose": "^0.8.7",
     "flickr-sdk": "^3.7.0",
@@ -60,14 +60,14 @@
   "devDependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
-    "babel-loader": "next",
-    "babel-plugin-istanbul": "next",
-    "babel-plugin-lodash": "^3.3.4",
-    "babel-plugin-minify-replace": "^0.4.3",
     "@babel/plugin-proposal-object-rest-spread": "latest",
     "@babel/polyfill": "latest",
     "@babel/preset-env": "latest",
     "@babel/register": "latest",
+    "babel-loader": "next",
+    "babel-plugin-istanbul": "next",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-minify-replace": "^0.4.3",
     "chai": "^4.1.2",
     "copy-webpack-plugin": "^4.5.2",
     "eslint-plugin-import": "^2.13.0",

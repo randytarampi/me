@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.7"></a>
+## [0.10.7](https://github.com/randytarampi/me/compare/v0.10.6...v0.10.7) (2018-08-11)
+
+
+### Bug Fixes
+
+* **resume:** Remove extra `resume.json` schema configuration. ([03b6aec](https://github.com/randytarampi/me/commit/03b6aec)), closes [#5](https://github.com/randytarampi/me/issues/5)
+
+
+
+
+
 <a name="0.10.6"></a>
 ## [0.10.6](https://github.com/randytarampi/me/compare/v0.10.5...v0.10.6) (2018-08-11)
 
