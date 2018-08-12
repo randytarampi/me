@@ -21,4 +21,13 @@
             }
         }
     }
+
+    @media print {
+        &:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0feff";
+            visibility: hidden;
+        }
+    }
 }

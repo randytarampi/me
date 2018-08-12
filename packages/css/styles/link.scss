@@ -1,8 +1,6 @@
 .link {
     &:before, &::before {
         color: $off-black;
-
-        z-index: 999;
     }
 
     &--email {
@@ -87,6 +85,8 @@
 
     &--no-branding {
         &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
             content: "";
         }
     }
