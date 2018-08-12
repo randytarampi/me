@@ -18,8 +18,10 @@ export const ResumeFooter = () => {
                     <p>If you're going to print this out please do it in Chrome, or with a Chromium backed
                         client &mdash; I didn't work on those print styles for nothing!</p>
                     <p>It should fit neatly onto a single <Link
-                        href="https://github.com/randytarampi/me.resume/raw/master/a4.pdf">A4</Link> or <Link
-                        href="https://github.com/randytarampi/me.resume/raw/master/letter.pdf">US Letter</Link> sized
+                        href="https://github.com/randytarampi/me.resume/raw/master/a4.pdf">A4</Link>, <Link
+                        href="https://github.com/randytarampi/me.resume/raw/master/letter.pdf">US Letter</Link>,
+                        or <Link
+                            href="https://github.com/randytarampi/me.resume/raw/master/legal.pdf">US Legal</Link> sized
                         page, provided you <em>set the margins to nil</em>, <em>clear the page headers and footers</em>,
                         and for best results, <em>include background colours and images</em></p>
                 </Col>
