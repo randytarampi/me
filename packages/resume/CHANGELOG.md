@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.8"></a>
+## [0.10.8](https://github.com/randytarampi/me/compare/v0.10.7...v0.10.8) (2018-08-12)
+
+
+### Bug Fixes
+
+* **resume:** Fix the font loading issue outlined in [#32](https://github.com/randytarampi/me/issues/32). ([2c49c8c](https://github.com/randytarampi/me/commit/2c49c8c)), closes [/github.com/jsonresume/resume-cli/pull/275/files#diff-823940eea875d5b77bcbe2aa2595b14bR84](https://github.com//github.com/jsonresume/resume-cli/pull/275/files/issues/diff-823940eea875d5b77bcbe2aa2595b14bR84)
+
+
+### Reverts
+
+* fix(resume): Effectively walk back the change in fbb5a85af94ec3e25c5efed9b16b6d64bcc11dcf. ([317f3c1](https://github.com/randytarampi/me/commit/317f3c1))
+
+
+
+
+
 <a name="0.10.7"></a>
 ## [0.10.7](https://github.com/randytarampi/me/compare/v0.10.6...v0.10.7) (2018-08-11)
 
