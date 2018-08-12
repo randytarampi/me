@@ -12,8 +12,19 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
         classNames.push("hide-on-screen");
     }
 
-    // FIXME-RT: Actually get print specific styles in per fbb5a85af94ec3e25c5efed9b16b6d64bcc11dcf.
-    if (hideOnPrint || showOnA4 || showOnLetter || showOnLegal) {
+    if (showOnA4) {
+        classNames.push("show-on-a4");
+    }
+
+    if (showOnLetter) {
+        classNames.push("show-on-letter");
+    }
+
+    if (showOnLegal) {
+        classNames.push("show-on-legal");
+    }
+
+    if (hideOnPrint && !showOnA4 && !showOnLetter && !showOnLegal) {
         classNames.push("hide-on-print");
     }
 
