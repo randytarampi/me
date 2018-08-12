@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.9"></a>
+## [0.10.9](https://github.com/randytarampi/me/compare/v0.10.8...v0.10.9) (2018-08-12)
+
+
+### Bug Fixes
+
+* **resume:** Add a link to the US Legal size resume. ([635f635](https://github.com/randytarampi/me/commit/635f635))
+
+
+
+
+
 <a name="0.10.8"></a>
 ## [0.10.8](https://github.com/randytarampi/me/compare/v0.10.7...v0.10.8) (2018-08-12)
 
