@@ -60,7 +60,7 @@ export const ResumeProfiles = ({resume}) => {
                     const linkComponent = getLinkComponentForProfile(profile);
 
                     if (linkComponent) {
-                        return <Col key={profile.network} l={4} m={6} s={12} className="resume-profiles__profile">
+                        return <Col key={profile.network} l={4} m={4} s={12} className="resume-profiles__profile">
                             {linkComponent}
                         </Col>;
                     } else {

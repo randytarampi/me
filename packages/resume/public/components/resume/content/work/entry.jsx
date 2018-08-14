@@ -65,7 +65,7 @@ export const ResumeWorkEntry = ({workEntry, index}) => {
                                 {
                                     workEntry.highlights.map((highlight, index) => {
                                         return <li
-                                            className={`resume-work-entry__highlight${index > 1 ? " show-on-legal" : ""}`}
+                                            className={`resume-work-entry__highlight${index < 3 ? " show-on-letter show-on-a4" : ""}${index >= 3 ? " show-on-legal" : ""}`}
                                             key={index}>
                                             {highlight}
                                         </li>;
