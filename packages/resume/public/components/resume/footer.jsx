@@ -8,7 +8,7 @@ export const ResumeFooter = () => {
         <div className="container">
             <Row className="row valign-wrapper center-align resume-footer hide-on-screen">
                 <Col s={12}>
-                    <em>Print styles are hard to write, and one page résumés are harder – check out the full copy
+                    <em>Print styles are hard to write and one page résumés are harder – check out the full copy
                         at <Link
                         href={__PUBLISHED_RESUME_URL__}>{__PUBLISHED_RESUME_URL__}</Link></em>
                 </Col>

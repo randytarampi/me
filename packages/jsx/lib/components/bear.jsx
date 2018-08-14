@@ -187,7 +187,7 @@ export class HelloBear extends Bear {
                         break;
                     case 36:
                         newState.pokes = 0;
-                        window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line, and finally stopped at " + pokes + " clicks. What is this?", "_blank");
+                        window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line and finally stopped at " + pokes + " clicks. What is this?", "_blank");
                         break;
                 }
                 this.setState(newState);

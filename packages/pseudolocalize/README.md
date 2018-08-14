@@ -15,12 +15,12 @@ console.log(pseudolocalizer.pseudolocalize("woof woof woof woof woof")); // "ʕ�
 let open = "\uFF5F";
 let close = "\uFF60";
 
-let CJKPadding = "纬横糸씨"; // From "纬", "横糸", and "씨"
+let CJKPadding = "纬横糸씨"; // From "纬", "横糸" and "씨"
 let CJKPseudolocalizer = new Pseudolocalizer(0.8, open, close, CJKPadding, CJKPadding);
 console.log(CJKPseudolocalizer.pseudolocalize("woof")); // "｟纬w纬｠"
 console.log(CJKPseudolocalizer.pseudolocalize("woof woof woof woof woof")); // "｟纬w纬｠"
 
-let LCGPadding = "sгυ"; // From "subtegmine", "гав", and "υφάδι"
+let LCGPadding = "sгυ"; // From "subtegmine", "гав" and "υφάδι"
 let LCGPseudolocalizer = new Pseudolocalizer(1.2, open, close, LCGPadding, LCGPadding);
 console.log(LCGPseudolocalizer.pseudolocalize("woof")); // "｟sws｠"
 console.log(LCGPseudolocalizer.pseudolocalize("woof woof woof woof woof")); // "｟swoof woof woof woof woofs｠"

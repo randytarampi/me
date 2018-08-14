@@ -34,12 +34,12 @@ class Pseudolocalizer {
     static CJK(relativeScale, prefix, postfix, prePad, postPad) {
         let open = "\uFF5F";
         let close = "\uFF60";
-        let CJKPadding = "纬横糸씨"; // From "纬", "横糸", and "씨"
+        let CJKPadding = "纬横糸씨"; // From "纬", "横糸" and "씨"
         return new Pseudolocalizer(relativeScale || 0.8, prefix || open, postfix || close, prePad || CJKPadding, postPad || CJKPadding);
     }
 
     /**
-     * A convenience constructor featuring Latin, Cyrillic, and Greek characters
+     * A convenience constructor featuring Latin, Cyrillic and Greek characters
      * @constructor
      * @param {number} relativeScale - Governs the relative size of the generated pseudolocalized string with respect to some input
      * @param {string} prefix - The character that defines the start of a pseudolocalization
@@ -50,12 +50,12 @@ class Pseudolocalizer {
     static LCG(relativeScale, prefix, postfix, prePad, postPad) {
         let open = "«";
         let close = "»";
-        let LCGPadding = "sгυ"; // From "subtegmine", "гав", and "υφάδι"
+        let LCGPadding = "sгυ"; // From "subtegmine", "гав" and "υφάδι"
         return new Pseudolocalizer(relativeScale || 1.3, prefix || open, postfix || close, prePad || LCGPadding, postPad || LCGPadding);
     }
 
     /**
-     * A convenience constructor featuring Arabic, Farsi (Persian?), and Bengali characters
+     * A convenience constructor featuring Arabic, Farsi (Persian?) and Bengali characters
      * @constructor
      * @param {number} relativeScale - Governs the relative size of the generated pseudolocalized string with respect to some input
      * @param {string} prefix - The character that defines the start of a pseudolocalization

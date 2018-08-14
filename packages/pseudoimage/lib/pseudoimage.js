@@ -42,7 +42,7 @@ class Pseudoimage {
      * @param {string} sourcePath - The source image for the pseudolocalization
      * @param {string} destinationPath - The destination for the pseudoimage
      * @param {function} transformationFunction - some image transformation function that takes an image, destination, success and failure callbacks
-     * @return {Promise} - a promise that resolves if we create a pseudoimage at destinationPath, and is rejected otherwise
+     * @return {Promise} - a promise that resolves if we create a pseudoimage at destinationPath and is rejected otherwise
      */
     generatePseudoImage(sourcePath, destinationPath, transformationFunction) {
         sourcePath = path.normalize(sourcePath);
@@ -66,7 +66,7 @@ class Pseudoimage {
      * @param {string} sourceDirectory - The directory to create pseudoimages for
      * @param {string} destinationDirectory - The destination to place the pseudoimages in
      * @param {function} transformationFunction - some image transformation function that takes an image, destination, success and failure callbacks
-     * @return {Promise} - a promise that resolves if we create all pseudoimages, and is rejected otherwise
+     * @return {Promise} - a promise that resolves if we create all pseudoimages and is rejected otherwise
      */
     generatePseudoImages(sourceDirectory, destinationDirectory, transformationFunction) {
         sourceDirectory = sourceDirectory ? path.normalize(sourceDirectory) : this.sourceDirectory;
@@ -98,7 +98,7 @@ class Pseudoimage {
 }
 
 /**
- * Applies a gaussian blur on an image with σ = 2, and then flips the image on the vertical and horizontal.
+ * Applies a gaussian blur on an image with σ = 2 and then flips the image on the vertical and horizontal.
  * @param {Image} image - the image we're working on
  * @param {string} destinationPath - The path for the pseudoimage
  * @param {function} successCallback - called on success, with no return value
@@ -119,7 +119,7 @@ function defaultImageTransformation(image, destinationPath, successCallback, err
 }
 
 /**
- * Enlarges the image by 2x, applies a gaussian blur on an image with σ = 2, and then flips the image on the vertical and horizontal.
+ * Enlarges the image by 2x, applies a gaussian blur on an image with σ = 2 and then flips the image on the vertical and horizontal.
  * @param {Image} image - the image we're working on
  * @param {string} destinationPath - The path for the pseudoimage
  * @param {function} successCallback - called on success, with no return value
@@ -141,7 +141,7 @@ function retinizedImageTransformation(image, destinationPath, successCallback, e
 }
 
 /**
- * Reduces the image by 2x, applies a gaussian blur on an image with σ = 2, and then flips the image on the vertical and horizontal.
+ * Reduces the image by 2x, applies a gaussian blur on an image with σ = 2 and then flips the image on the vertical and horizontal.
  * @param {Image} image - the image we're working on
  * @param {string} destinationPath - The path for the pseudoimage
  * @param {function} successCallback - called on success, with no return value
