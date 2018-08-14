@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.10.8",
+  "version": "0.11.0",
   "homepage": "http://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -34,12 +34,12 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@randy.tarampi/css": "^0.10.8",
-    "@randy.tarampi/js": "^0.10.7",
-    "@randy.tarampi/jsx": "^0.10.8",
+    "@randy.tarampi/css": "^0.11.0",
+    "@randy.tarampi/js": "^0.11.0",
+    "@randy.tarampi/jsx": "^0.11.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
-    "jsonresume-theme-randytarampi": "^0.10.8",
+    "jsonresume-theme-randytarampi": "^0.11.0",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
     "prop-types": "^15.6.2",

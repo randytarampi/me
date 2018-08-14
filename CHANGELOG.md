@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/randytarampi/me/compare/v0.10.9...v0.11.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **resume:** Make the page breaks on A4 and Letter consistent. ([ac5ba1d](https://github.com/randytarampi/me/commit/ac5ba1d))
+
+
+### Features
+
+* **resume:** Show at least 3 bullet points under work on all pages. ([9d0d75b](https://github.com/randytarampi/me/commit/9d0d75b))
+
+
+
+
+
 <a name="0.10.9"></a>
 ## [0.10.9](https://github.com/randytarampi/me/compare/v0.10.8...v0.10.9) (2018-08-12)
 
