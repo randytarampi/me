@@ -54,12 +54,13 @@
       "website": "https://fetchauto.ca",
       "startDate": "2017-02-14",
       "endDate": "2018-06-01",
-      "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to become the first employee at Fetch Auto, the only end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
+      "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to help build out the first end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
       "highlights": [
-        "Took a UI prototype to a production application in less than 6 months",
+        "Took a UI prototype to a fully integrated, production application in less than 6 months",
         "Rapidly iterated on new features and designs to drive user growth",
         "Implemented a comprehensive user tracking & analytics platform",
-        "Designed and developed a serverless service platform"
+        "Designed and developed a serverless service platform",
+        "Got asked to be their first employee while passing Sardinia on a container ship"
       ]
     },
     {
@@ -73,7 +74,8 @@
         "Mentored and developed co-operative education students",
         "Led a year-long, platform wide internationalization effort",
         "Dove deep in support of a platform wide localization effort into Italian",
-        "Designed a centralized, platform wide notification and subscription workflow"
+        "Designed a centralized, platform wide notification and subscription workflow",
+        "Visited the office and found that much of the code I wrote was still running – untouched and error free"
       ]
     },
     {
@@ -82,11 +84,12 @@
       "website": "https://pulseenergy.com",
       "startDate": "2013-01-07",
       "endDate": "2013-08-30",
-      "summary": "I cut my chops at a mid-size start-up that gave utilities and energy retailers' an unrivaled understanding of their​ commercial and industrial customers, and helped dozens of utilities such as British Gas, PG&E, and BC Hydro to transform their businesses with energy intelligence",
+      "summary": "I cut my chops at a mid-size start-up that gave utilities like British Gas, PG&E, and BC Hydro an understanding of their​ commercial and industrial customers while serving up actionable energy intelligence for small, medium and large businesses alike",
       "highlights": [
         "Built out a service oriented node.js platform atop a legacy Java monolith",
         "Designed, prototyped and delivered single page, user facing web applications",
-        "Scalably configured applications, services and servers via Chef"
+        "Scalably configured applications, services and servers via Chef",
+        "Learned how much a little bit of free food served at the right time can keep spirits high"
       ]
     },
     {
@@ -99,7 +102,8 @@
       "highlights": [
         "Maintained and developed internal data manipulaion and entry tools",
         "Performed business analysis, wrote & presented annual financial reports",
-        "Performed systems and data analysis, database spot checks and ensured database integrity"
+        "Performed systems and data analysis, database spot checks and ensured database integrity",
+        "It turns out that engineers think they can do everything in Excel, and they do"
       ]
     },
     {
