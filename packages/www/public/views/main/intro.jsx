@@ -6,7 +6,7 @@ import Link, {
     GitHubLink,
     InstagramLink,
     LinkedInLink,
-    TelLink
+    SmsLink
 } from "@randy.tarampi/jsx/lib/components/link";
 import React, {Fragment} from "react";
 import {Col} from "react-materialize";
@@ -29,8 +29,8 @@ const IntroText = () =>
         <p>
                 <span className="text">
                     And if you're still interested after all that, shoot me an <EmailLink useBranding={false}
-                                                                                          text="email"/> or <TelLink
-                    useBranding={false} text="text"/> and let's have a chat!
+                                                                                          text="email"/> or <SmsLink
+                    useBranding={false} text="text" body="Hey!"/> and let's have a chat!
                 </span>
         </p>
     </Fragment>;
