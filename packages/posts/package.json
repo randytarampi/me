@@ -80,7 +80,7 @@
     "nyc": "^12.0.2",
     "serverless": "^1.28.0",
     "serverless-domain-manager": "^2.6.0",
-    "serverless-dynamodb-local": "^0.2.30",
+    "serverless-dynamodb-local": "0.2.30",
     "serverless-mocha-plugin": "^1.8.3",
     "serverless-offline": "^3.25.6",
     "serverless-secrets": "^3.0.0-beta.12",
