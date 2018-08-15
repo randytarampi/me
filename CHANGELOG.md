@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.3"></a>
+## [0.11.3](https://github.com/randytarampi/me/compare/v0.11.2...v0.11.3) (2018-08-15)
+
+
+### Bug Fixes
+
+* **jsx:** `Error` should actually respect the `redirectionTimeout`. ([194a806](https://github.com/randytarampi/me/commit/194a806))
+* **posts:** Use a 24 hour TTL on the Posts table until I push the cron task to refresh the cache. ([2b8b1e9](https://github.com/randytarampi/me/commit/2b8b1e9))
+
+
+
+
+
 <a name="0.11.2"></a>
 ## [0.11.2](https://github.com/randytarampi/me/compare/v0.11.1...v0.11.2) (2018-08-15)
 
