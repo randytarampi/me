@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.1"></a>
+## [0.11.1](https://github.com/randytarampi/me/compare/v0.11.0...v0.11.1) (2018-08-15)
+
+
+### Bug Fixes
+
+* **posts:** `me.service.client` throws when it receives unexpected responses. ([b86f8e2](https://github.com/randytarampi/me/commit/b86f8e2)), closes [#39](https://github.com/randytarampi/me/issues/39)
+* **posts:** Give the lambda role permissions on the subresources of the `POSTS_DYNAMODB_TABLE` ([1d8ea47](https://github.com/randytarampi/me/commit/1d8ea47)), closes [#38](https://github.com/randytarampi/me/issues/38)
+* **posts:** Use serverless-dynamodb-local@0.2.30. ([8d5468d](https://github.com/randytarampi/me/commit/8d5468d)), closes [#36](https://github.com/randytarampi/me/issues/36)
+
+
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/randytarampi/me/compare/v0.10.9...v0.11.0) (2018-08-14)
 
