@@ -7,7 +7,7 @@ _  / / / / /  __/_/_ __|
                          
 ```
 
-[![Build Status](https://img.shields.io/travis/randytarampi/me.svg?style=flat-square)](https://travis-ci.org/randytarampi/me) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/randytarampi/me.svg?style=flat-square)](https://greenkeeper.io/) [![Ready](https://img.shields.io/waffle/label/randytarampi/randytarampi.github.io/ready.svg?style=flat-square&label=Ready)](http://waffle.io/randytarampi/randytarampi.github.io) [![In Progress](https://img.shields.io/waffle/label/randytarampi/randytarampi.github.io/in%20progress.svg?style=flat-square&label=In%20Progress)](http://waffle.io/randytarampi/randytarampi.github.io) 
+[![Build Status](https://img.shields.io/travis/randytarampi/me.svg?style=flat-square)](https://travis-ci.org/randytarampi/me) [![Coverage Status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/randytarampi/me.svg?style=flat-square)](https://greenkeeper.io/)  [![Waffle.io - Columns and their card count](https://badge.waffle.io/randytarampi/randytarampi.github.io.svg?columns=Backlog,For%20Discussion,Ready,In%20Progress&style=flat-square)](https://waffle.io/randytarampi/randytarampi.github.io) 
 
 A monorepo for everything that goes into [randytarampi.ca](http://www.randytarampi.ca).
 
