@@ -1,9 +1,14 @@
 import fetch from "isomorphic-fetch";
 import logger from "../lib/logger";
 
+let fetchFunction = fetch;
+
+export const __setFetchFunction = newFetchFunction => fetchFunction = newFetchFunction;
+export const __getFetchFunction = () => fetchFunction;
+
 export default (fetchUrl, page) => {
     const url = `${fetchUrl}?page=${page}`;
-    return fetch(url)
+    return fetchFunction(url)
         .then(body => body.json())
         .then(posts => {
             if (!posts || !(posts instanceof Array)) {
