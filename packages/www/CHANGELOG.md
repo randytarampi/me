@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.2"></a>
+## [0.11.2](https://github.com/randytarampi/me/compare/v0.11.1...v0.11.2) (2018-08-15)
+
+
+### Bug Fixes
+
+* **www:** Link on the home page sends a text instead of trying to call. ([1f014bd](https://github.com/randytarampi/me/commit/1f014bd))
+* **www:** Link on the home page sends an email with some text content. ([fc3d306](https://github.com/randytarampi/me/commit/fc3d306))
+
+
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/randytarampi/me/compare/v0.10.9...v0.11.0) (2018-08-14)
 
