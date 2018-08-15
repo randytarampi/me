@@ -7,7 +7,7 @@ const ConnectedError = connect(
     null,
     (dispatch, ownProps) => {
         return {
-            timedRedirect: () => setTimeout(dispatch(push(ownProps.redirectionLocation)), ownProps.redirectionTimeout * 1000)
+            timedRedirect: () => setTimeout(() => dispatch(push(ownProps.redirectionLocation)), ownProps.redirectionTimeout * 1000)
         };
     }
 )(Error);
