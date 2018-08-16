@@ -72,8 +72,35 @@ gulp.task("letter:pdf", async () => {
         .then(() => server.close());
 });
 
+gulp.task("letter:html", done => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+    const fs = require("fs");
+    const letter = require("./letter.json");
+    const renderHtml = require("./lib/renderHtml").default;
+    const letterHtml = renderHtml(letter);
+
+    return fs.writeFile(`${__dirname}/dist/index.html`, letterHtml, done);
+});
+
+gulp.task("letter:json", done => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+    const fs = require("fs");
+    const config = require("config");
+    const letter = require("./letter.json");
+
+    return fs.writeFile("letter.json", JSON.stringify({
+        ...letter,
+        basics: config.get("me.basics")
+    }, null, 2), done);
+});
+
 gulp.task("letter", gulp.series([
-    "letter:pdf"
+    "letter:json",
+    gulp.parallel(["letter:pdf", "letter:html"])
 ]));
 
 gulp.task("docs:dist", () => {
@@ -205,11 +232,13 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
+    "letter:json",
     gulp.parallel(["copy", "styles", "webpack"]),
     "views"
 ]));
 
 gulp.task("build:dev", gulp.series([
+    "letter:json",
     gulp.parallel(["lint", "copy", "styles:dev", "webpack:dev"]),
     "views:dev"
 ]));

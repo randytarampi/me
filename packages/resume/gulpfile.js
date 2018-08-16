@@ -58,6 +58,37 @@ gulp.task("views", () => {
         .pipe(gulp.dest("./dist"));
 });
 
+gulp.task("resume:html", done => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+    const fs = require("fs");
+    const letter = require("./resume.json");
+    const renderHtml = require("./lib/renderHtml").default;
+    const letterHtml = renderHtml(letter);
+
+    return fs.writeFile(`${__dirname}/dist/index.html`, letterHtml, done);
+});
+
+gulp.task("resume:json", done => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+    const fs = require("fs");
+    const config = require("config");
+    const resume = require("./resume.json");
+
+    return fs.writeFile("resume.json", JSON.stringify({
+        ...resume,
+        basics: config.get("me.basics")
+    }, null, 2), done);
+});
+
+gulp.task("resume", gulp.series([
+    "resume:json",
+    gulp.parallel(["resume:html"])
+]));
+
 gulp.task("docs:dist", () => {
     return gulp
         .src([
@@ -187,11 +218,13 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
+    "resume:json",
     gulp.parallel(["copy", "styles", "webpack"]),
     "views"
 ]));
 
 gulp.task("build:dev", gulp.series([
+    "resume:json",
     gulp.parallel(["lint", "copy", "styles:dev", "webpack:dev"]),
     "views:dev"
 ]));
