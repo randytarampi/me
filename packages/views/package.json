@@ -1,0 +1,54 @@
+{
+  "name": "@randy.tarampi/views",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
+  },
+  "version": "0.11.0",
+  "homepage": "http://resume.randytarampi.ca",
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "scripts": {
+    "pretest": "npx gulp -LLLL --color lint",
+    "postinstall": "npm run build",
+    "build": "npx gulp -LLLL --color build",
+    "test": "echo \"What tests?\"",
+    "cover": "echo \"What tests?\""
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "latest",
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-object-rest-spread": "latest",
+    "@babel/polyfill": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
+    "@babel/register": "latest",
+    "babel-loader": "next",
+    "babel-plugin-istanbul": "next",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-minify-replace": "^0.4.3",
+    "config": "^2.0.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-react": "^7.10.0",
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-pug": "^4.0.1",
+    "gulp-pug-linter": "^0.6.0"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

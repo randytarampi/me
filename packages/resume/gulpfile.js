@@ -30,9 +30,10 @@ gulp.task("views:dev", () => {
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
 
-    return gulp.src(["views/index.pug"])
+    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
             locals: {
+                bundleName: "resume",
                 assetUrl: config.get("assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
@@ -50,7 +51,7 @@ gulp.task("views", () => {
     const pug = require("gulp-pug");
     const buildPugLocals = require("./lib/render").buildPugLocals;
 
-    return gulp.src(["views/index.pug"])
+    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
             locals: buildPugLocals()
         }))
@@ -158,19 +159,9 @@ gulp.task("sassLint", () => {
         .pipe(sassLint.failOnError());
 });
 
-gulp.task("pugLint", () => {
-    var pugLinter = require("gulp-pug-linter");
-
-    return gulp
-        .src("views/**/*.pug")
-        .pipe(pugLinter())
-        .pipe(pugLinter.reporter("fail"));
-});
-
 gulp.task("lint", gulp.parallel([
     "eslint",
-    "sassLint",
-    "pugLint"
+    "sassLint"
 ]));
 
 gulp.task("test.unit", () => {

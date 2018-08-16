@@ -28,8 +28,8 @@ html
         meta(name="fb:app_id", content="1705404522846104")
         meta(name="og:type", content="website")
 
-        link(rel="canonical", href="http://www.randytarampi.ca")
-        meta(name="og:url", content="http://www.randytarampi.ca")
+        link(rel="canonical", href="http://www.randytarampi.ca/resume")
+        meta(name="og:url", content="http://www.randytarampi.ca/resume")
 
         | !{injectedBase}
         | !{injectedTitle}
@@ -41,6 +41,7 @@ html
 
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
         link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin="anonymous")
         link(rel="stylesheet", href=`${assetUrl}/styles.css`)
         link(rel="apple-touch-icon", sizes="57x57", href=`${assetUrl}/apple-icon-57x57.png`)
         link(rel="apple-touch-icon", sizes="60x60", href=`${assetUrl}/apple-icon-60x60.png`)
@@ -60,6 +61,8 @@ html
         meta(name="msapplication-TileColor", content="#ffffff")
         meta(name="msapplication-TileImage", content=`${assetUrl}/ms-icon-144x144.png`)
         meta(name="theme-color", content="#ffffff")
+        style(type="text/css").
+            !{css}
         script.
             window.SENTRY_DSN = "#{sentryDsn}";
             window.ENVIRONMENT = "#{environment}";
@@ -84,4 +87,4 @@ html
             height="0" width="0" style="display:none;visibility:hidden")
         block content
         script(src=`${assetUrl}/vendor.js`)
-        script(src=`${assetUrl}/www.js`)
+        script(src=`${assetUrl}/${bundleName}.js`)

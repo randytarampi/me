@@ -31,9 +31,10 @@ gulp.task("views", () => {
     const rename = require("gulp-rename");
     const packageJson = require("./package.json");
 
-    return gulp.src(["views/index.pug"])
+    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
             locals: {
+                bundleName: "www",
                 assetUrl: config.get("assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),

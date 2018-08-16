@@ -8,6 +8,7 @@ import renderJsx, {renderedHelmet} from "./renderJsx";
 
 export const buildPugLocals = (resume, pageSize) => {
     return {
+        bundleName: "resume",
         injectedBase: renderedHelmet.base.toString(),
         injectedTitle: renderedHelmet.title.toString(),
         injectedLink: renderedHelmet.link.toString(),
@@ -27,6 +28,6 @@ export const buildPugLocals = (resume, pageSize) => {
 
 export default (resume = resumeJson, pageSize = process.env.RESUME_PDF_SIZE) => {
     const pugLocals = buildPugLocals(resume, pageSize);
-    return pug.renderFile(path.join(__dirname, "../views/index.pug"), pugLocals);
+    return pug.renderFile(path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
 };
 
