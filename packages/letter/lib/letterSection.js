@@ -3,7 +3,8 @@ import {Map, Record} from "immutable";
 class LetterSection extends Record({
     contentKey: null,
     sectionId: null,
-    contentProps: Map()
+    contentProps: Map(),
+    component: null
 }) {
     get contentProps() {
         return this.get("contentProps").toJS();

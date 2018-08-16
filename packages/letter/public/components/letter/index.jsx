@@ -34,8 +34,10 @@ export const Letter = props => <div className="letter">
         <div className="container">
             {
                 props.letter.content.map(contentConfiguration => {
-                    const ContentConstructor = require(`./content/${contentConfiguration.contentKey}`).default;
-                    return <ContentConstructor
+                    const ContentComponent = contentConfiguration.component
+                        ? contentConfiguration.component
+                        : require(`./content/${contentConfiguration.contentKey}`).default;
+                    return <ContentComponent
                         {...props}
                         contentConfiguration={contentConfiguration}
                         key={contentConfiguration.sectionId || contentConfiguration.contentKey}
