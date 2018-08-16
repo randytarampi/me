@@ -1,4 +1,4 @@
-export const index = {
+export const a4 = {
     recipient: {
         jobTitle: "Cover letter reader",
         worksFor: "Some awesome company",
@@ -8,4 +8,4 @@ export const index = {
     }
 };
 
-export default index;
+export default a4;

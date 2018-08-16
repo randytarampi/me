@@ -1,13 +1,14 @@
 import fs from "fs";
+import path from "path";
 import assembleLetter from "./assembleLetter";
 
-export const assembleLetters = () => {
+export const assembleLetters = (lettersDirectory = `${__dirname}/../letters`) => {
     return new Promise((resolve, reject) => {
-        fs.readdir(`${__dirname}/../letters`, (error, files) => {
+        fs.readdir(lettersDirectory, (error, files) => {
             if (error) {
                 return reject(error);
             }
-            resolve(files);
+            resolve(files.map(file => path.join(lettersDirectory, file)));
         });
     })
         .then(letters => Promise.all(letters.map(assembleLetter)));

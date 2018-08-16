@@ -6,4 +6,4 @@ import ServerApp from "../public/views/serverApp";
 export default ({pageSize, ...props}) => renderToString(<ServerApp {...props}
                                                                    pageSize={pageSize && pageSize.toLowerCase()}/>);
 
-export const renderedHelmet = Helmet.renderStatic();
+export const getRenderedHelmet = () => Helmet.renderStatic();

@@ -1,5 +1,4 @@
 import {List, Map, Record} from "immutable";
-import letterJson from "../letter.json";
 import LetterSection from "./letterSection";
 import Person from "./person";
 
@@ -31,8 +30,7 @@ class Letter extends Record({
         return this.id;
     }
 
-    static fromJS(passedJson) {
-        const json = Object.assign({}, letterJson, passedJson);
+    static fromJS(json) {
         return new Letter({
             ...json,
             sender: json.sender ? Person.fromJS(json.sender) : null,

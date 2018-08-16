@@ -1,5 +1,5 @@
 import React from "react";
-import {RightPushSection} from "../public/components/letter/section";
+import {RightPushSection} from "../../public/components/letter/section";
 
 const Woof = () => <RightPushSection type="woof">
     WOOF WOOF WOOF

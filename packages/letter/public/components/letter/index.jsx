@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
-import LetterJson from "../../../letter.json";
 import LetterFooter from "./footer";
 import LetterHeader from "./header";
 
@@ -51,10 +50,6 @@ export const Letter = props => <div className="letter">
 
 Letter.propTypes = {
     letter: PropTypes.object.isRequired
-};
-
-Letter.defaultProps = {
-    letter: LetterJson
 };
 
 export default Letter;

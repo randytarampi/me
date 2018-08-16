@@ -1,6 +1,7 @@
 export default {
     recipient: {
-        name: "Meow Meow",
+        firstName: "Meow",
+        lastName: "Meow",
         jobTitle: "Meow",
         worksFor: "MeowMeowMeow",
         location: {

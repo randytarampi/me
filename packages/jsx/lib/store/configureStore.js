@@ -8,7 +8,7 @@ import reduxRavenMiddleware from "../middleware/raven";
 const configureStore = (initialState = {}, history, reducers) => {
     const middlewares = [thunk, metrics, routerMiddleware(history)];
 
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && window.SENTRY_DSN) {
         middlewares.unshift(reduxRavenMiddleware());
     }
 

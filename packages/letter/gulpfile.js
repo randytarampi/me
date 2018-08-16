@@ -104,22 +104,7 @@ gulp.task("letter:html", () => {
         }))));
 });
 
-gulp.task("letter:json", done => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
-    const fs = require("fs");
-    const config = require("config");
-    const letter = require("./letter.json");
-
-    return fs.writeFile("letter.json", JSON.stringify({
-        ...letter,
-        sender: config.get("me.basics")
-    }, null, 2), done);
-});
-
 gulp.task("letter", gulp.series([
-    "letter:json",
     gulp.parallel(["letter:pdf", "letter:html"])
 ]));
 
@@ -252,13 +237,11 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
-    "letter:json",
     gulp.parallel(["copy", "styles", "webpack"]),
     "views"
 ]));
 
 gulp.task("build:dev", gulp.series([
-    "letter:json",
     gulp.parallel(["lint", "copy", "styles:dev", "webpack:dev"]),
     "views:dev"
 ]));
