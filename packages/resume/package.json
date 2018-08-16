@@ -38,6 +38,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@randy.tarampi/assets": "^0.11.0",
     "@randy.tarampi/css": "^0.11.0",
     "@randy.tarampi/jsx": "^0.11.3",
     "@randy.tarampi/views": "^0.11.0",

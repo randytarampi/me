@@ -27,7 +27,7 @@ before_install:
 - lscpu
 - npm install -g npm
 before_script:
-- npx lerna exec -- npm run pretest
+- npx lerna run pretest
 script:
 - npm run travis
 after_failure:
