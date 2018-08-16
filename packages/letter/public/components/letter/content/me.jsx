@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {LeftDescriptionSection} from "../section";
 
-export const LetterAboutMe = ({letter, contentConfiguration}) => {
+export const LetterAboutMe = ({contentConfiguration}) => {
     return <LeftDescriptionSection
         label="I love to code"
         description={<Fragment>

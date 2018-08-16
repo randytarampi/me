@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {LetterSection} from "../section";
 
-export const LetterDate = ({letter, contentConfiguration}) => {
+export const LetterDate = ({contentConfiguration}) => {
     const date = contentConfiguration.contentProps.date
         ? DateTime.fromISO(contentConfiguration.contentProps.date)
         : DateTime.local();

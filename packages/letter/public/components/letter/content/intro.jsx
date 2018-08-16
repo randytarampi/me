@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {LeftDescriptionSection} from "../section";
 
-export const LetterIntro = ({letter, contentConfiguration}) => {
+export const LetterIntro = ({contentConfiguration}) => {
     return <LeftDescriptionSection
         label="ʕ•ᴥ•ʔﾉ゛"
         descriptionNode={<Fragment>
