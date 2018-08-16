@@ -62,26 +62,46 @@ gulp.task("letter:pdf", async () => {
     const path = require("path");
     process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
-    const letter = require("./letter.json");
+    const assembleLetters = require("./lib/assembleLetters").default;
     const renderHtml = require("./lib/renderHtml").default;
     const renderPdf = require("./lib/renderPdf").default;
     const server = require("./express");
-    const letterHtml = renderHtml(letter);
 
-    return renderPdf(letterHtml, letter)
-        .then(() => server.close());
+    return assembleLetters()
+        .then(letters => Promise.all(letters.map(letter => {
+            let letterHtml = renderHtml(letter);
+
+            return renderPdf(letterHtml, letter)
+                .then(() => server.close());
+        })));
 });
 
-gulp.task("letter:html", done => {
+gulp.task("letter:html", () => {
     const path = require("path");
     process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
     const fs = require("fs");
-    const letter = require("./letter.json");
+    const assembleLetters = require("./lib/assembleLetters").default;
     const renderHtml = require("./lib/renderHtml").default;
-    const letterHtml = renderHtml(letter);
 
-    return fs.writeFile(`${__dirname}/dist/index.html`, letterHtml, done);
+    return assembleLetters()
+        .then(letters => Promise.all(letters.map(letter => new Promise((resolve, reject) => {
+            let letterHtml;
+
+            try {
+                letterHtml = renderHtml(letter);
+            } catch (error) {
+                return reject(error);
+            }
+
+            return fs.writeFile(`${__dirname}/dist/${letter.fileName}.html`, letterHtml, error => {
+                if (error) {
+                    return reject(error);
+                }
+
+                resolve();
+            });
+        }))));
 });
 
 gulp.task("letter:json", done => {
@@ -94,7 +114,7 @@ gulp.task("letter:json", done => {
 
     return fs.writeFile("letter.json", JSON.stringify({
         ...letter,
-        basics: config.get("me.basics")
+        sender: config.get("me.basics")
     }, null, 2), done);
 });
 

@@ -12,14 +12,18 @@ export const LetterAddress = ({letter, contentConfiguration}) => {
             letter.recipient.name ? <p className="letter-recipient__name">{letter.recipient.name}</p> : null
         }
         {
-            letter.recipient.title ? <p className="letter-recipient__title">{letter.recipient.title}</p> : null
+            letter.recipient.jobTitle ? <p className="letter-recipient__title">{letter.recipient.jobTitle}</p> : null
         }
         {
-            letter.recipient.company ? <p className="letter-recipient__company">{letter.recipient.company}</p> : null
+            letter.recipient.worksFor ? <p className="letter-recipient__company">{letter.recipient.worksFor}</p> : null
         }
         {
-            letter.recipient.streetAddress ?
-                <p className="letter-recipient__street-address">{letter.recipient.streetAddress}</p> : null
+            letter.recipient.address ?
+                <p className="letter-recipient__street-address">{letter.recipient.address}</p> : null
+        }
+        {
+            letter.recipient.city && letter.recipient.region ?
+                <p className="letter-recipient__city-region">{letter.recipient.city}, {letter.recipient.region}</p> : null
         }
         {
             letter.recipient.postalCode ?
