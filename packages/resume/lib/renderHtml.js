@@ -4,18 +4,18 @@ import pug from "pug";
 import packageJson from "../package.json";
 import resumeJson from "../resume.json";
 import renderCss from "./renderCss";
-import renderJsx, {renderedHelmet} from "./renderJsx";
+import renderJsx, {getRenderedHelmet} from "./renderJsx";
 
 export const buildPugLocals = (resume, pageSize) => {
     return {
         bundleName: "resume",
-        injectedBase: renderedHelmet.base.toString(),
-        injectedTitle: renderedHelmet.title.toString(),
-        injectedLink: renderedHelmet.link.toString(),
-        injectedMeta: renderedHelmet.meta.toString(),
-        injectedStyle: renderedHelmet.style.toString(),
-        injectedScript: renderedHelmet.script.toString(),
-        injectedNoScript: renderedHelmet.noscript.toString(),
+        injectedBase: getRenderedHelmet().base.toString(),
+        injectedTitle: getRenderedHelmet().title.toString(),
+        injectedLink: getRenderedHelmet().link.toString(),
+        injectedMeta: getRenderedHelmet().meta.toString(),
+        injectedStyle: getRenderedHelmet().style.toString(),
+        injectedScript: getRenderedHelmet().script.toString(),
+        injectedNoScript: getRenderedHelmet().noscript.toString(),
         css: renderCss(),
         content: renderJsx({resume, pageSize}),
         assetUrl: config.get("assetUrl"),
