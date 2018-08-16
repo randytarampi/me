@@ -86,5 +86,6 @@ html
             iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
             height="0" width="0" style="display:none;visibility:hidden")
         block content
-        script(src=`${assetUrl}/vendor.js`)
-        script(src=`${assetUrl}/${bundleName}.js`)
+        if environment !== "puppeteer"
+            script(src=`${assetUrl}/vendor.js`)
+            script(src=`${assetUrl}/${bundleName}.js`)
