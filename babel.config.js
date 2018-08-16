@@ -221,6 +221,13 @@ module.exports = (api) => {
                                 type: "stringLiteral",
                                 value: config.get("resume.publishUrl")
                             }
+                        },
+                        {
+                            identifierName: "__PUBLISHED_LETTER_URL__",
+                            replacement: {
+                                type: "stringLiteral",
+                                value: config.get("letter.publishUrl")
+                            }
                         }
                     ]
                 }

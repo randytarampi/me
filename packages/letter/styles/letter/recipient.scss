@@ -1,0 +1,9 @@
+.letter-recipient {
+    @media #{$a4-page-up} {
+        margin: 30px 0;
+    }
+
+    [class^="letter-recipient__"] {
+        margin: 0;
+    }
+}

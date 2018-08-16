@@ -33,7 +33,7 @@ gulp.task("views:dev", () => {
     return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
             locals: {
-                bundleName: "resume",
+                bundleName: "letter",
                 assetUrl: config.get("assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
@@ -57,6 +57,24 @@ gulp.task("views", () => {
         }))
         .pipe(gulp.dest("./dist"));
 });
+
+gulp.task("letter:pdf", async () => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+    const letter = require("./letter.json");
+    const renderHtml = require("./lib/renderHtml").default;
+    const renderPdf = require("./lib/renderPdf").default;
+    const server = require("./express");
+    const letterHtml = renderHtml(letter);
+
+    return renderPdf(letterHtml, letter)
+        .then(() => server.close());
+});
+
+gulp.task("letter", gulp.series([
+    "letter:pdf"
+]));
 
 gulp.task("docs:dist", () => {
     return gulp

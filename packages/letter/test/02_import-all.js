@@ -1,0 +1,1 @@
+import "../public/routes"; // FIXME-RT: This should actually be `../public/views` but there's some weirdness with how the redux state is built during tests that I don't want to look into before heading out tonight

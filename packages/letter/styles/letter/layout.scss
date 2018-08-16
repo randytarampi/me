@@ -1,4 +1,4 @@
-.resume {
+.letter {
     min-width: 320px;
 
     &-section {
@@ -21,7 +21,7 @@
 
         @media print {
             & > .row {
-                margin-bottom: 10px;
+                margin-bottom: 0;
             }
         }
     }

@@ -2,10 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const ResumeSection = ({type, label, labelNode, description, descriptionNode, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
+export const LeftDescriptionSection = ({type, label, labelNode, description, descriptionNode, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
     const classNames = [
-        "resume-section",
-        "resume-" + type
+        "letter-section",
+        "letter-section--description",
+        "letter-section--description-left",
+        "letter-" + type
     ];
 
     if (hideOnScreen) {
@@ -30,23 +32,24 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
 
     return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <aside className="col m3 resume-section__header">
+            <aside className="col m3 letter-section__header hide-on-small-only">
                 {
                     labelNode
                         ? labelNode
                         : label
-                        ? <h3 className="resume-section__label"><span className="text">{label}</span></h3>
+                        ? <h3 className="letter-section__label"><span className="text">{label}</span></h3>
                         : null
                 }
                 {
                     descriptionNode || description
-                        ? <Row className="hide-on-large-only hide-on-small-only">
+                        ? <Row className="hide-on-small-only">
                             <Col s={9}>
                                 {
                                     descriptionNode
-                                        ? <div className="resume-section__description">{descriptionNode}</div>
+                                        ? <div className="letter-section__description">{descriptionNode}</div>
                                         : description
-                                        ? <p className="resume-section__description"><span className="text">{description}</span></p>
+                                        ? <p className="letter-section__description"><span
+                                            className="text">{description}</span></p>
                                         : null
                                 }
                             </Col>
@@ -54,14 +57,14 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                         : null
                 }
             </aside>
-            <Col m={8} offset="s1" className="resume-section__content">
+            <Col m={9} className="letter-section__content">
                 {children}
             </Col>
         </Row>
     </section>;
 };
 
-ResumeSection.propTypes = {
+LeftDescriptionSection.propTypes = {
     className: PropTypes.string,
     label: PropTypes.oneOfType([
         PropTypes.string,
@@ -82,7 +85,7 @@ ResumeSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-ResumeSection.defaultProps = {
+LeftDescriptionSection.defaultProps = {
     hideOnPrint: false,
     hideOnScreen: false,
     showOnA4: false,
@@ -91,4 +94,4 @@ ResumeSection.defaultProps = {
     verticallyAlignContent: false
 };
 
-export default ResumeSection;
+export default LeftDescriptionSection;
