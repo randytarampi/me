@@ -82,6 +82,7 @@
     "serverless-domain-manager": "^2.6.0",
     "serverless-dynamodb-local": "0.2.30",
     "serverless-mocha-plugin": "^1.8.3",
+    "serverless-plugin-warmup": "^3.6.2-rc.1",
     "serverless-offline": "^3.25.6",
     "serverless-secrets": "^3.0.0-beta.12",
     "serverless-webpack": "^5.2.0",

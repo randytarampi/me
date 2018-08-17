@@ -39,6 +39,16 @@ provider:
     Action:
     - dynamodb:*
     Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.POSTS_DYNAMODB_TABLE}/*
+  - Effect: Allow'
+    Action:
+    - lambda:InvokeFunction
+    Resource:
+    - Fn::Join:
+      - ':'
+      - - arn:aws:lambda
+        - Ref: AWS::Region
+        - Ref: AWS::AccountId
+        - function:${self:service}-${opt:stage, self:provider.stage}-*
 
   environment: ${file(env.yml):${self:provider.stage}.environment}
   environmentSecrets: # can't just include the whole obj from the env file bc for some reason the plugin won't load from external files
@@ -60,6 +70,7 @@ plugins:
 - serverless-secrets
 - serverless-webpack
 - serverless-dynamodb-local
+- serverless-plugin-warmup
 - serverless-offline
 - serverless-mocha-plugin
 - serverless-domain-manager
@@ -94,9 +105,12 @@ custom:
     certificateName: ${file(env.yml):${self:provider.stage}.acmName}
     createRoute53Record: true
     basePath: ""
+  warmup:
+    prewarm: true
 
 functions:
   getPosts:
+    warmup: true
     handler: serverless/handler/initializedGetPosts.default
     events:
     - http:
@@ -106,6 +120,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   getWords:
+    warmup: true
     handler: serverless/handler/initializedGetWords.default
     events:
     - http:
@@ -115,6 +130,7 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
   getPhotos:
+    warmup: true
     handler: serverless/handler/initializedGetPhotos.default
     events:
     - http:
