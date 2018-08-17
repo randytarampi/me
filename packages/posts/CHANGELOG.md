@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/randytarampi/me/compare/v0.12.0...v0.12.1) (2018-08-17)
+
+
+### Bug Fixes
+
+* **posts:** `getPosts` lambda should handle errors in `configureEnvironment`. ([9af7dfe](https://github.com/randytarampi/me/commit/9af7dfe))
+
+
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/randytarampi/me/compare/v0.11.3...v0.12.0) (2018-08-17)
 
