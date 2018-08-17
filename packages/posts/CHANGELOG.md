@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/randytarampi/me/compare/v0.11.3...v0.12.0) (2018-08-17)
+
+
+### Bug Fixes
+
+* **ci:** Just use `lerna run` to run `cover` and `test` where appropriate. ([81be267](https://github.com/randytarampi/me/commit/81be267))
+* **posts:** `npm run pretest:dynamodb-local` right before `cover`/`test`. ([d87fe02](https://github.com/randytarampi/me/commit/d87fe02))
+* **posts:** Pull Instagram photos at full(er) size. ([408e8ea](https://github.com/randytarampi/me/commit/408e8ea)), closes [randytarampi/me.photos#12](https://github.com/randytarampi/me.photos/issues/12)
+* **posts:** Restore other non-Instagram `PhotoSource`s. ([66a8dd7](https://github.com/randytarampi/me/commit/66a8dd7))
+
+
+
+
+
 <a name="0.11.3"></a>
 ## [0.11.3](https://github.com/randytarampi/me/compare/v0.11.2...v0.11.3) (2018-08-15)
 

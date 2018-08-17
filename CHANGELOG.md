@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/randytarampi/me/compare/v0.11.3...v0.12.0) (2018-08-17)
+
+
+### Bug Fixes
+
+* **ci:** Just use `lerna run` to run `cover` and `test` where appropriate. ([81be267](https://github.com/randytarampi/me/commit/81be267))
+* **letter:** ESLint. ([d4190c9](https://github.com/randytarampi/me/commit/d4190c9))
+* **posts:** `npm run pretest:dynamodb-local` right before `cover`/`test`. ([d87fe02](https://github.com/randytarampi/me/commit/d87fe02))
+* **posts:** Pull Instagram photos at full(er) size. ([408e8ea](https://github.com/randytarampi/me/commit/408e8ea)), closes [randytarampi/me.photos#12](https://github.com/randytarampi/me.photos/issues/12)
+* **posts:** Restore other non-Instagram `PhotoSource`s. ([66a8dd7](https://github.com/randytarampi/me/commit/66a8dd7))
+* **resume:** Need to use express to serve static assets for puppeteer. ([467d142](https://github.com/randytarampi/me/commit/467d142)), closes [/github.com/GoogleChrome/puppeteer/issues/1643#issuecomment-353387148](https://github.com//github.com/GoogleChrome/puppeteer/issues/1643/issues/issuecomment-353387148)
+
+
+### Features
+
+* **letter:** Copy/pasta from `resume` to build `letter`s. ([f31bdf7](https://github.com/randytarampi/me/commit/f31bdf7))
+* **letter:** Support multiple letters. ([8fb717a](https://github.com/randytarampi/me/commit/8fb717a)), closes [#23](https://github.com/randytarampi/me/issues/23) [#25](https://github.com/randytarampi/me/issues/25)
+* **letter:** The `Letter` configuration supports random JSX content sections. ([cf2558f](https://github.com/randytarampi/me/commit/cf2558f))
+* **views:** Add `[@randy](https://github.com/randy).tarampi/views` because all this pug duplication is gross. ([0309dd4](https://github.com/randytarampi/me/commit/0309dd4))
+
+
+
+
+
 <a name="0.11.3"></a>
 ## [0.11.3](https://github.com/randytarampi/me/compare/v0.11.2...v0.11.3) (2018-08-15)
 
