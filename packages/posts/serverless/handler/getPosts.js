@@ -7,7 +7,7 @@ export default (event, context, callback) => {
     configureEnvironment()
         .then(() => {
             return searchPosts(event.queryStringParameters)
-                .then(sortedPosts => callback(null, responseBuilder(sortedPosts)))
-                .catch(returnErrorResponse(callback));
-        });
+                .then(sortedPosts => callback(null, responseBuilder(sortedPosts)));
+        })
+        .catch(returnErrorResponse(callback));
 };
