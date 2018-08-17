@@ -1,5 +1,6 @@
 import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import Instagram from "instagram-api";
+import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import Moment from "moment";
 import PhotoSource from "../photoSource";
@@ -33,15 +34,30 @@ class InstagramSource extends PhotoSource {
 
         return instagramRequest
             .then(userId => this.client.userMedia(userId, params.Instagram))
-            .then(mediaJson => mediaJson.data
+            .then(mediaJson => Promise.all(
+                mediaJson.data
                 .filter(datum => datum.type === "image")
-                .map(postJson => postJson && this.jsonToPost(postJson))
-            );
+                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.jsonToPost(post)))
+            ));
     }
 
     postGetter(photoId) {
         return this.client.media(photoId)
-            .then(photoJson => photoJson && photoJson.data && this.jsonToPost(photoJson.data));
+            .then(postJson => postJson && postJson.data && this._highResolutionPhotoGetter(postJson.data).then(post => this.jsonToPost(post)));
+    }
+
+    _highResolutionPhotoGetter(photoJson) {
+        return fetch(`${photoJson.link}?__a=1`)
+            .then(body => body.json())
+            .then(graphPhotoJson => {
+                const graphPhotoUrl = graphPhotoJson.graphql.shortcode_media.display_url;
+                const graphPhotoDimensions = graphPhotoJson.graphql.shortcode_media.dimensions;
+                photoJson.images.maxRes = {
+                    ...graphPhotoDimensions,
+                    url: graphPhotoUrl
+                };
+                return photoJson;
+            });
     }
 
     jsonToPost(photoJson) {
@@ -51,15 +67,6 @@ class InstagramSource extends PhotoSource {
         });
 
         const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
-        const maxWidth = biggestOfficialPhoto.width < biggestOfficialPhoto.height ? 1080 * (biggestOfficialPhoto.width / biggestOfficialPhoto.height) : 1080;
-        const maxHeight = biggestOfficialPhoto.height < biggestOfficialPhoto.width ? 1080 * (biggestOfficialPhoto.height / biggestOfficialPhoto.width) : 1080;
-
-        sizedPhotos.push(new SizedPhoto(
-            biggestOfficialPhoto.url,
-            maxWidth,
-            maxHeight,
-            "maxRes"
-        ));
 
         return new Photo(
             photoJson.id,

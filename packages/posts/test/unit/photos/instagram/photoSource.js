@@ -1,5 +1,6 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
+import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
 import sinon from "sinon";
 import InstagramPhotoSource from "../../../../photos/instagram/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
@@ -132,6 +133,27 @@ describe("InstagramPhotoSource", function () {
         DummyCacheClient = builtDummyClasses.DummyCacheClient;
 
         stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
+
+        // FIXME-RT: Ugh. Gross af, but I really don't want to proxyquire right now. https://stackoverflow.com/questions/43960646/testing-mocking-node-fetch-dependency-that-it-is-used-in-a-class-method
+        sinon.stub(fetch, "Promise").returns(Promise.resolve({
+            json: () => {
+                return {
+                    graphql: {
+                        shortcode_media: {
+                            display_url: "woof://woof.woof/woof",
+                            dimensions: {
+                                width: 1080,
+                                height: 1080
+                            },
+                        }
+                    }
+                };
+            }
+        }));
+    });
+
+    afterEach(function () {
+        fetch.Promise.restore();
     });
 
     describe("constructor", function () {
