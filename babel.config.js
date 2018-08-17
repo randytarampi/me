@@ -3,6 +3,91 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
 const config = require("config");
 
+const configuredMinifyReplace = [
+    "minify-replace",
+    {
+        replacements: [
+            {
+                identifierName: "__WORDS_SERVICE_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("wordsServiceUrl")
+                }
+            },
+            {
+                identifierName: "__POSTS_SERVICE_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("postsServiceUrl")
+                }
+            },
+            {
+                identifierName: "__PHOTOS_SERVICE_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("photosServiceUrl")
+                }
+            },
+            {
+                identifierName: "__CODE_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("codeAppUrl")
+                }
+            },
+            {
+                identifierName: "__WORDS_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("wordsAppUrl")
+                }
+            },
+            {
+                identifierName: "__POSTS_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("postsAppUrl")
+                }
+            },
+            {
+                identifierName: "__PHOTOS_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("photosAppUrl")
+                }
+            },
+            {
+                identifierName: "__RESUME_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("resumeAppUrl")
+                }
+            },
+            {
+                identifierName: "__ASSET_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("assetUrl")
+                }
+            },
+            {
+                identifierName: "__PUBLISHED_RESUME_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("resume.publishUrl")
+                }
+            },
+            {
+                identifierName: "__PUBLISHED_LETTER_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("letter.publishUrl")
+                }
+            }
+        ]
+    }
+];
+
 module.exports = (api) => {
     let presets = [
         [
@@ -31,83 +116,7 @@ module.exports = (api) => {
 
     switch (api.env()) {
         case "test": {
-            plugins.push([
-                "minify-replace",
-                {
-                    replacements: [
-                        {
-                            identifierName: "__WORDS_SERVICE_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("wordsServiceUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__POSTS_SERVICE_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("postsServiceUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__PHOTOS_SERVICE_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("photosServiceUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__CODE_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("codeAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__WORDS_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("wordsAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__POSTS_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("postsAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__PHOTOS_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("photosAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__RESUME_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("resumeAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__ASSET_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("assetUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__PUBLISHED_RESUME_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("resume.publishUrl")
-                            }
-                        }
-                    ]
-                }
-            ]);
+            plugins.push(configuredMinifyReplace);
             plugins.push("istanbul");
             break;
         }
@@ -148,83 +157,7 @@ module.exports = (api) => {
 
         case "development":
         default: {
-            plugins.push([
-                "minify-replace",
-                {
-                    replacements: [
-                        {
-                            identifierName: "__WORDS_SERVICE_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("wordsServiceUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__POSTS_SERVICE_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("postsServiceUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__PHOTOS_SERVICE_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("photosServiceUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__CODE_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("codeAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__WORDS_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("wordsAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__POSTS_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("postsAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__PHOTOS_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("photosAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__RESUME_APP_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("resumeAppUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__ASSET_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("assetUrl")
-                            }
-                        },
-                        {
-                            identifierName: "__PUBLISHED_RESUME_URL__",
-                            replacement: {
-                                type: "stringLiteral",
-                                value: config.get("resume.publishUrl")
-                            }
-                        }
-                    ]
-                }
-            ]);
+            plugins.push(configuredMinifyReplace);
             break;
         }
     }

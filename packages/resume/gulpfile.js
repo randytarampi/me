@@ -16,23 +16,24 @@ gulp.task("clean", () => {
 gulp.task("copy", () => {
     return gulp
         .src([
-            "public/assets/**",
             "../../node_modules/materialize-css/dist/fonts/roboto/**",
             "../../node_modules/@fortawesome/fontawesome-free/webfonts/**",
+            "node_modules/@randy.tarampi/assets/web/**",
             "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
         ])
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("views:dev", () => {
+gulp.task("views", () => {
     const config = require("config");
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
 
-    return gulp.src(["views/index.pug"])
+    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
             locals: {
+                bundleName: "resume",
                 assetUrl: config.get("assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
@@ -43,19 +44,36 @@ gulp.task("views:dev", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("views", () => {
+gulp.task("resume:html", done => {
     const path = require("path");
     process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
-    const pug = require("gulp-pug");
-    const buildPugLocals = require("./lib/render").buildPugLocals;
+    const fs = require("fs");
+    const letter = require("./resume.json");
+    const renderHtml = require("./lib/renderHtml").default;
+    const letterHtml = renderHtml(letter);
 
-    return gulp.src(["views/index.pug"])
-        .pipe(pug({
-            locals: buildPugLocals()
-        }))
-        .pipe(gulp.dest("./dist"));
+    return fs.writeFile(`${__dirname}/dist/index.html`, letterHtml, done);
 });
+
+gulp.task("resume:json", done => {
+    const path = require("path");
+    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+    const fs = require("fs");
+    const config = require("config");
+    const resume = require("./resume.json");
+
+    return fs.writeFile("resume.json", JSON.stringify({
+        ...resume,
+        basics: config.get("me.basics")
+    }, null, 2), done);
+});
+
+gulp.task("resume", gulp.series([
+    "resume:json",
+    gulp.parallel(["resume:html"])
+]));
 
 gulp.task("docs:dist", () => {
     return gulp
@@ -158,19 +176,9 @@ gulp.task("sassLint", () => {
         .pipe(sassLint.failOnError());
 });
 
-gulp.task("pugLint", () => {
-    var pugLinter = require("gulp-pug-linter");
-
-    return gulp
-        .src("views/**/*.pug")
-        .pipe(pugLinter())
-        .pipe(pugLinter.reporter("fail"));
-});
-
 gulp.task("lint", gulp.parallel([
     "eslint",
-    "sassLint",
-    "pugLint"
+    "sassLint"
 ]));
 
 gulp.task("test.unit", () => {
@@ -196,13 +204,15 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
+    "resume:json",
     gulp.parallel(["copy", "styles", "webpack"]),
     "views"
 ]));
 
 gulp.task("build:dev", gulp.series([
+    "resume:json",
     gulp.parallel(["lint", "copy", "styles:dev", "webpack:dev"]),
-    "views:dev"
+    "views"
 ]));
 
 gulp.task("dev",

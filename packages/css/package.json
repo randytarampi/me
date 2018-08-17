@@ -12,9 +12,7 @@
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "postinstall": "npm run build",
-    "build": "npx gulp -LLLL --color build",
-    "test": "echo \"What tests?\"",
-    "cover": "echo \"What tests?\""
+    "build": "npx gulp -LLLL --color build"
   },
   "description": "Some common styles",
   "bugs": {

@@ -6,6 +6,7 @@ import Link from "./link";
 export const EmailLink = ({useBranding, ...props}) => {
     return <Link {...props}
                  className={["link--email", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
+                 target="_self"
                  href={`mailto:${props.email}${props.body || props.subject ? `?${queryString.stringify({
                      body: props.body,
                      subject: props.subject

@@ -1,0 +1,23 @@
+{
+  "name": "@randy.tarampi/assets",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "http://www.randytarampi.ca"
+  },
+  "version": "0.11.0",
+  "homepage": "http://resume.randytarampi.ca",
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "license": "MIT"
+}

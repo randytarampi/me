@@ -34,7 +34,9 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                 {
                     labelNode
                         ? labelNode
-                        : <h3 className="resume-section__label"><span className="text">{label}</span></h3>
+                        : label
+                        ? <h3 className="resume-section__label"><span className="text">{label}</span></h3>
+                        : null
                 }
                 {
                     descriptionNode || description
@@ -61,9 +63,15 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
 
 ResumeSection.propTypes = {
     className: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
     labelNode: PropTypes.node,
-    description: PropTypes.string,
+    description: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
     descriptionNode: PropTypes.node,
     type: PropTypes.string.isRequired,
     hideOnPrint: PropTypes.bool,

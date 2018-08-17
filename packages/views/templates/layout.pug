@@ -1,0 +1,91 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="x-ua-compatible", content="ie=edge")
+        meta(name="viewport" content="width=device-width")
+
+        title Randy Tarampi
+        meta(itemprop="name", content="Randy Tarampi")
+        meta(name="twitter:title", content="Randy Tarampi")
+        meta(name="og:title", content="Randy Tarampi")
+        meta(name="og:site_name", content="Randy Tarampi")
+
+        meta(name="description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(itemprop="description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(name="twitter:description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(name="og:description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+
+        meta(name="image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+        meta(itemprop="image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+        meta(name="twitter:image:src", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+        meta(name="og:image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
+
+        meta(name="twitter:site", content="@randytarampi")
+        meta(name="twitter:creator", content="@randytarampi")
+        meta(name="og:locale", content="en_CA")
+        meta(name="fb:admins", content="831915416")
+        meta(name="fb:app_id", content="1705404522846104")
+        meta(name="og:type", content="website")
+
+        link(rel="canonical", href="http://www.randytarampi.ca/resume")
+        meta(name="og:url", content="http://www.randytarampi.ca/resume")
+
+        | !{injectedBase}
+        | !{injectedTitle}
+        | !{injectedLink}
+        | !{injectedMeta}
+        | !{injectedStyle}
+        | !{injectedScript}
+        | !{injectedNoScript}
+
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin="anonymous")
+        link(rel="stylesheet", href=`${assetUrl}/styles.css`)
+        link(rel="apple-touch-icon", sizes="57x57", href=`${assetUrl}/apple-icon-57x57.png`)
+        link(rel="apple-touch-icon", sizes="60x60", href=`${assetUrl}/apple-icon-60x60.png`)
+        link(rel="apple-touch-icon", sizes="72x72", href=`${assetUrl}/apple-icon-72x72.png`)
+        link(rel="apple-touch-icon", sizes="76x76", href=`${assetUrl}/apple-icon-76x76.png`)
+        link(rel="apple-touch-icon", sizes="114x114", href=`${assetUrl}/apple-icon-114x114.png`)
+        link(rel="apple-touch-icon", sizes="120x120", href=`${assetUrl}/apple-icon-120x120.png`)
+        link(rel="apple-touch-icon", sizes="144x144", href=`${assetUrl}/apple-icon-144x144.png`)
+        link(rel="apple-touch-icon", sizes="152x152", href=`${assetUrl}/apple-icon-152x152.png`)
+        link(rel="apple-touch-icon", sizes="180x180", href=`${assetUrl}/apple-icon-180x180.png`)
+        link(rel="icon", type="image/png", sizes="192x192", href=`${assetUrl}/android-icon-192x192.png`)
+        link(rel="icon", type="image/png", sizes="32x32", href=`${assetUrl}/favicon-32x32.png`)
+        link(rel="icon", type="image/png", sizes="96x96", href=`${assetUrl}/favicon-96x96.png`)
+        link(rel="icon", type="image/png", sizes="16x16", href=`${assetUrl}/favicon-16x16.png`)
+        link(rel="shortcut icon", type="image/x-icon", href=`${assetUrl}/favicon.ico`)
+        link(rel="manifest", href=`${assetUrl}/manifest.json`)
+        meta(name="msapplication-TileColor", content="#ffffff")
+        meta(name="msapplication-TileImage", content=`${assetUrl}/ms-icon-144x144.png`)
+        meta(name="theme-color", content="#ffffff")
+        style(type="text/css").
+            !{css}
+        script.
+            window.SENTRY_DSN = "#{sentryDsn}";
+            window.ENVIRONMENT = "#{environment}";
+            window.VERSION = "#{version}";
+        script.
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start":
+                        new Date().getTime(), event: "gtm.js"
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src =
+                    "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "#{gtm}");
+    body
+        noscript
+            iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
+            height="0" width="0" style="display:none;visibility:hidden")
+        block content
+        if environment !== "puppeteer"
+            script(src=`${assetUrl}/vendor.js`)
+            script(src=`${assetUrl}/${bundleName}.js`)

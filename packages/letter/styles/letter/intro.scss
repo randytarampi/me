@@ -1,0 +1,5 @@
+.letter-intro {
+    .letter-section__label {
+        @extend .hide-on-small-only;
+    }
+}
