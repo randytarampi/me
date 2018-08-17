@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
-import LetterFooter from "./footer";
 import LetterHeader from "./header";
 
 export const Letter = props => <div className="letter">
@@ -45,7 +44,7 @@ export const Letter = props => <div className="letter">
             }
         </div>
     </div>
-    <LetterFooter {...props} />
+    {/*<LetterFooter {...props} />*/}
 </div>;
 
 Letter.propTypes = {
