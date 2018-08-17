@@ -39,7 +39,7 @@ provider:
     Action:
     - dynamodb:*
     Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.POSTS_DYNAMODB_TABLE}/*
-  - Effect: Allow'
+  - Effect: Allow
     Action:
     - lambda:InvokeFunction
     Resource:
