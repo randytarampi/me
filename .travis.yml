@@ -53,7 +53,7 @@ jobs:
     - NODE_ENV=prd
     install:
     - git checkout $TRAVIS_BRANCH
-    - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp`
+    - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
     - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm run postinstall; fi;
     before_script: skip
     script: skip
