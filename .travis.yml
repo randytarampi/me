@@ -53,7 +53,8 @@ jobs:
     - NODE_ENV=prd
     install:
     - git checkout $TRAVIS_BRANCH
-    - npm run postinstall
+    - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp`
+    - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm run postinstall; fi;
     before_script: skip
     script: skip
     after_script: skip
@@ -65,13 +66,15 @@ jobs:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email $TRAVIS_AUTHOR
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-    - 'npx lerna publish --conventional-commits --yes --skip-npm --message "release(travis): Release %s." --git-remote ci-push'
+    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npx lerna publish --conventional-commits --yes --skip-npm --message "release(travis): Release %s." --git-remote ci-push; fi;'
     deploy:
     - provider: releases
       api_key:
         secure: bscGrBY4fO8ca32Tr35yEZuMgt7QDMydEDghvsOEhvkoTQ2piicg5QeAJDbhd1lxszLbQ/8sN0Dn08VM1GN4iWMLyZPVcf0vFAxm+8kkNr5zepjwxvOkzMv4FfnILSQEWgMIS6xTopuLxKAe7OsPGOjV/H7S+3/UOil2Av1dKx4jd93L1Q+ciERDHtDgnA6zIYqtuFe6aoiMe8TDL5/q2Xvbp6M3UJpOor64u5uuc1ruoxPewJV9NYtwP0M6JR3wMMW/chOPNRVfp2WlXPYf/U8HOThWeAhBHZNgj2pXhvvNDq8w6Z6jcHt2mb+2ot8XZAUMqllONwSKQUBagkY2frXCTB1B4BVyVkQL2N3KlpQbPfjh3yk3qU9n0o5TECSWhqxAtCe9Zk6hy5/VSQib7zmVTh74JfoEMdudHtgciEeE5BMz8aEwo0+nInQcwVI1qQkTJ/WqMHAz7UDckMsgmnPoD5xYF13tRCJBk5ctmb28uKJYd2/1CQwOHI/KzpMhWO/KgcrjFSy4J3zDFtX8v9j7ZCMtjwpnf+juMADEoYbdchfsYVPFxhdYlGIdTPfKMuvrSIxpld07RMLM6/8gRUKCNpItf7GWKGNwMOd1j5cS266nCLBjA9HoG0fE0oCEcyP3lHgWRtiD3It5hj+Fv/d2eYgRLBZyE9VVoUFvaIE=
       file: me.tar.gz
       skip_cleanup: true
+      on:
+        condition: -n $HAS_PUBLISHABLE_CHANGES
   - stage: Deploy (dev)
     name: www
     node_js: '8'
