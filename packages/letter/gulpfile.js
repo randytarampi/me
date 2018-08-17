@@ -25,7 +25,7 @@ gulp.task("copy", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("views:dev", () => {
+gulp.task("views", () => {
     const config = require("config");
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
@@ -40,20 +40,6 @@ gulp.task("views:dev", () => {
                 environment: process.env.NODE_ENV || "local",
                 version: packageJson.version
             }
-        }))
-        .pipe(gulp.dest("./dist"));
-});
-
-gulp.task("views", () => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
-    const pug = require("gulp-pug");
-    const buildPugLocals = require("./lib/renderHtml").buildPugLocals;
-
-    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
-        .pipe(pug({
-            locals: buildPugLocals()
         }))
         .pipe(gulp.dest("./dist"));
 });
@@ -243,7 +229,7 @@ gulp.task("build", gulp.series([
 
 gulp.task("build:dev", gulp.series([
     gulp.parallel(["lint", "copy", "styles:dev", "webpack:dev"]),
-    "views:dev"
+    "views"
 ]));
 
 gulp.task("dev",
