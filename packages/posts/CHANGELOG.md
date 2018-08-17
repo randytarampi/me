@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.13.0"></a>
+# [0.13.0](https://github.com/randytarampi/me/compare/v0.12.1...v0.13.0) (2018-08-17)
+
+
+### Bug Fixes
+
+* **posts:** Remove an errant `'` from `serverless.yml`. ([eea5899](https://github.com/randytarampi/me/commit/eea5899))
+
+
+### Features
+
+* **posts:** Use `serverless-plugin-warmup` for the `get*` lambdas. ([1646ace](https://github.com/randytarampi/me/commit/1646ace))
+
+
+
+
+
 <a name="0.12.1"></a>
 ## [0.12.1](https://github.com/randytarampi/me/compare/v0.12.0...v0.12.1) (2018-08-17)
 

@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "http://www.randytarampi.ca"
   },
-  "version": "0.12.1",
+  "version": "0.13.0",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.12.0",
+    "@randy.tarampi/js": "^0.13.0",
     "aws-sdk": "^2.279.1",
     "dynamoose": "^0.8.7",
     "flickr-sdk": "^3.7.0",
@@ -82,8 +82,8 @@
     "serverless-domain-manager": "^2.6.0",
     "serverless-dynamodb-local": "0.2.30",
     "serverless-mocha-plugin": "^1.8.3",
-    "serverless-plugin-warmup": "^3.6.2-rc.1",
     "serverless-offline": "^3.25.6",
+    "serverless-plugin-warmup": "^3.6.2-rc.1",
     "serverless-secrets": "^3.0.0-beta.12",
     "serverless-webpack": "^5.2.0",
     "sinon": "^6.1.4",
