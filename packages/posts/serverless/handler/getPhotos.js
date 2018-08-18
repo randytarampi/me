@@ -1,4 +1,4 @@
-import SearchParams from "../../photos/searchParams";
+import SearchParams from "../../lib/searchParams";
 import searchPhotos from "../../photos/searchPhotos";
 import configureEnvironment from "../util/configureEnvironment";
 import responseBuilder from "../util/responseBuilder";

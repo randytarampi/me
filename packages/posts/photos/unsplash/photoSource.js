@@ -2,7 +2,7 @@ import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import "isomorphic-fetch";
 import Unsplash, {toJson} from "unsplash-js";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
+import SearchParams from "../../lib/searchParams";
 
 class UnsplashSource extends PhotoSource {
     constructor(dataClient, cacheClient) {

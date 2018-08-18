@@ -2,7 +2,7 @@ import {Post} from "@randy.tarampi/js";
 import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
 import WordSource from "../wordSource";
-import SearchParams from "../../photos/searchParams";
+import SearchParams from "../../lib/searchParams";
 
 class S3WordSource extends WordSource {
     constructor(dataClient, cacheClient) {

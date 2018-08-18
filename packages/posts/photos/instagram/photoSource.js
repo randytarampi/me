@@ -4,7 +4,7 @@ import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import Moment from "moment";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
+import SearchParams from "../../lib/searchParams";
 
 class InstagramSource extends PhotoSource {
     constructor(dataClient, cacheClient) {

@@ -3,7 +3,7 @@ import Flickr from "flickr-sdk";
 import _ from "lodash";
 import Moment from "moment";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
+import SearchParams from "../../lib/searchParams";
 
 class FlickrSource extends PhotoSource {
     constructor(dataClient, cacheClient) {

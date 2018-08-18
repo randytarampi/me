@@ -6,7 +6,7 @@ import Moment from "moment";
 import path from "path";
 import url from "url";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
+import SearchParams from "../../lib/searchParams";
 
 class LocalSource extends PhotoSource {
     constructor(dataClient, cacheClient) {

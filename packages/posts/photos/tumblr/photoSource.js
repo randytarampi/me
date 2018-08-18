@@ -3,7 +3,7 @@ import _ from "lodash";
 import Moment from "moment";
 import tumblr from "tumblr.js";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
+import SearchParams from "../../lib/searchParams";
 
 class TumblrSource extends PhotoSource {
     constructor(dataClient, cacheClient) {

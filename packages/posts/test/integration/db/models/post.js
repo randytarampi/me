@@ -167,7 +167,7 @@ describe("Post", function () {
 
         it("retrieves posts (type & source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({type: {eq: stubPost.type}, source: {eq: stubPost.source}});
+            const retrievedPosts = await getPosts({type: {eq: stubPost.type}, source: {eq: stubPhoto.source}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);

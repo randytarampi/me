@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import SearchParams from "../../../photos/searchParams";
+import SearchParams from "../../../lib/searchParams";
 
 describe("SearchParams", () => {
     describe("constructor", () => {

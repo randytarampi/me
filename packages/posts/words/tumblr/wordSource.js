@@ -1,7 +1,7 @@
 import {Creator, Post} from "@randy.tarampi/js";
 import tumblr from "tumblr.js";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
-import SearchParams from "../../photos/searchParams";
+import SearchParams from "../../lib/searchParams";
 import WordSource from "../wordSource";
 
 class TumblrWordSource extends WordSource {
