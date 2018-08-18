@@ -181,6 +181,7 @@ describe("S3WordSource", function () {
                     sinon.assert.calledOnce(stubServiceClient.listObjects);
                     sinon.assert.calledWith(stubServiceClient.listObjects, {
                         Bucket: process.env.S3_BUCKET_NAME,
+                        Marker: "0",
                         MaxKeys: stubParams.perPage
                     });
                 });

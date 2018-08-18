@@ -20,7 +20,7 @@ class TumblrWordSource extends WordSource {
         return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET;
     }
 
-    async postsGetter(params) {
+    async postsGetter(params = {}) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
         params.type = "text";
 
@@ -28,7 +28,7 @@ class TumblrWordSource extends WordSource {
             .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog)));
     }
 
-    async postGetter(id, params) {
+    async postGetter(id, params = {}) {
         params = params instanceof SearchParams ? params : new SearchParams(params);
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))

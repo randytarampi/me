@@ -2,6 +2,7 @@ import {Post} from "@randy.tarampi/js";
 import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
 import WordSource from "../wordSource";
+import SearchParams from "../../photos/searchParams";
 
 class S3WordSource extends WordSource {
     constructor(dataClient, cacheClient) {
@@ -15,7 +16,9 @@ class S3WordSource extends WordSource {
         return process.env.S3_BUCKET_NAME;
     }
 
-    postsGetter(params) {
+    postsGetter(params = {}) {
+        params = params instanceof SearchParams ? params : new SearchParams(params);
+
         const options = {
             Bucket: process.env.S3_BUCKET_NAME,
             MaxKeys: params.perPage || 20

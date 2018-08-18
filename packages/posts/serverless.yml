@@ -103,6 +103,20 @@ custom:
     prewarm: true
 
 functions:
+  cacheWords:
+    warmup: true
+    handler: serverless/handler/initializedCacheWords.default
+    events:
+    - schedule: rate(1 hour)
+    onError:
+      Ref: LambdaDeadLetterQueue
+  cachePhotos:
+    warmup: true
+    handler: serverless/handler/initializedCachePhotos.default
+    events:
+    - schedule: rate(1 hour)
+    onError:
+      Ref: LambdaDeadLetterQueue
   getPosts:
     warmup: true
     handler: serverless/handler/initializedGetPosts.default

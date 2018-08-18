@@ -11,7 +11,7 @@ export default (event, context, callback) => {
 
     configureEnvironment()
         .then(() => {
-            const searchParams = new SearchParams({
+            const searchParams = event.queryStringParameters && new SearchParams({
                 page: parseInt(event.queryStringParameters.page, 10),
                 perPage: parseInt(event.queryStringParameters.perPage, 10)
             });
