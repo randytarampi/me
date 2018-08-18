@@ -10,7 +10,7 @@ provider:
   region: ${opt:region, 'us-east-1'}
   resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
   domainName: ${file(env.yml):${self:provider.stage}.domainName}
-  memorySize: 512
+  memorySize: 256
   timeout: 10
 
   iamRoleStatements:
