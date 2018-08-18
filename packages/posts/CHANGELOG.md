@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.2"></a>
+## [0.14.2](https://github.com/randytarampi/me/compare/v0.14.1...v0.14.2) (2018-08-18)
+
+
+### Bug Fixes
+
+* **posts:** Caching functions have 60 second timeouts. ([dc61d81](https://github.com/randytarampi/me/commit/dc61d81))
+* **posts:** Don't warm the caching functions. ([c3cc53c](https://github.com/randytarampi/me/commit/c3cc53c))
+
+
+
+
+
 <a name="0.14.1"></a>
 ## [0.14.1](https://github.com/randytarampi/me/compare/v0.14.0...v0.14.1) (2018-08-18)
 
