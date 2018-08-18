@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.1"></a>
+## [0.14.1](https://github.com/randytarampi/me/compare/v0.14.0...v0.14.1) (2018-08-18)
+
+
+### Performance Improvements
+
+* **posts:** Don't waste time sorting photos we're caching. ([3d5bf96](https://github.com/randytarampi/me/commit/3d5bf96))
+
+
+
+
+
 <a name="0.14.0"></a>
 # [0.14.0](https://github.com/randytarampi/me/compare/v0.13.1...v0.14.0) (2018-08-18)
 
