@@ -1,4 +1,3 @@
-import _ from "lodash";
 import logger from "../lib/logger";
 import {initializeWordSources} from "./wordSources";
 
@@ -14,12 +13,6 @@ const cacheWords = wordSearchParams => {
                         });
                 })
             );
-        })
-        .then(_.flatten)
-        .then(flattenedWords => {
-            return _.sortBy(flattenedWords, [
-                post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished ? post.datePublished.valueOf() : 0)
-            ]);
         });
 };
 
