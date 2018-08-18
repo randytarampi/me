@@ -144,24 +144,26 @@ describe("WordSource", function () {
                     expect(cachedPosts).to.be.ok;
                     expect(cachedPosts).to.eql(stubPosts);
                     expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Post.name}, source: {eq: wordSource.type}});
+                    sinon.assert.calledWith(stubGetPosts, {
+                        hash: {type: {eq: "Post"}},
+                        options: {indexName: "type-source-index"},
+                        range: {source: {eq: "ʕ•ᴥ•ʔ"}}
+                    });
                 });
         });
     });
 
     describe("#cachedPostGetter", function () {
         it("delegates to `this.cacheClient.getPost`", function () {
-            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
+            const wordSource = new WordSource(stubPost.source, stubServiceClient, stubCacheClient);
 
-            return wordSource.cachedPostGetter(stubPost.uid)
+            return wordSource.cachedPostGetter(stubPost.id)
                 .then(cachedPost => {
                     expect(cachedPost).to.be.ok;
                     expect(cachedPost).to.eql(stubPost);
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
-                        id: {eq: stubPost.uid},
-                        type: {eq: Post.name},
-                        source: {eq: wordSource.type}
+                        uid: {eq: stubPost.uid}
                     });
                 });
         });

@@ -90,7 +90,7 @@ describe("Post", function () {
     describe("getPost", function () {
         it("retrieves a Post (uid)", async function () {
             await createPosts(stubPosts);
-            const retrievedPost = await getPost(stubPost.uid);
+            const retrievedPost = await getPost({uid: {eq: stubPost.uid}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost).to.be.instanceof(Post);
@@ -104,17 +104,9 @@ describe("Post", function () {
             expect(retrievedPost).to.be.instanceof(Post);
         });
 
-        it("retrieves a Photo (uid)", async function () {
+        it("retrieves a Photo (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPhoto = await getPost(stubPhoto.uid);
-            expect(retrievedPhoto).to.be.ok;
-            expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
-            expect(retrievedPhoto).to.be.instanceof(Photo);
-        });
-
-        it("retrieves a Photo (type & source)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPhoto = await getPost({type: {eq: stubPhoto.type}, source: {eq: stubPhoto.source}});
+            const retrievedPhoto = await getPost({source: {eq: stubPhoto.source}});
             expect(retrievedPhoto).to.be.ok;
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto).to.be.instanceof(Photo);
@@ -139,22 +131,47 @@ describe("Post", function () {
     });
 
     describe("getPosts", function () {
-        it("retrieves posts (uids)", async function () {
-            const createdPosts = await createPosts(stubPosts);
-            const retrievedPosts = await getPosts(createdPosts.map(createdPost => createdPost.uid));
+        it("retrieves posts (type)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: Date.now(),
+                    datePublished: Date.now(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                    }
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({type: {eq: stubPhoto.type}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
-            expect(retrievedPosts).to.have.length(stubPosts.length);
+            expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Post);
-                expect(retrievedPost.uid).to.be.ok;
+                expect(retrievedPost).to.be.instanceOf(Photo);
             }));
         });
 
-        it("retrieves posts (type)", async function () {
+        it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({type: {eq: stubPhoto.type}});
+            const retrievedPosts = await getPosts({source: {eq: stubPhoto.source}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
@@ -165,17 +182,59 @@ describe("Post", function () {
             }));
         });
 
-        it("retrieves posts (type & source)", async function () {
+        it("retrieves posts (uid)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({type: {eq: stubPost.type}, source: {eq: stubPhoto.source}});
+            const retrievedPosts = await getPosts({uid: {eq: stubPhoto.uid}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Post);
-                expect(retrievedPost.uid).to.eql(stubPost.uid);
-                expect(retrievedPost.source).to.eql(stubPost.source);
+                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.uid).to.eql(stubPhoto.uid);
+            }));
+        });
+
+        it("retrieves posts (type & source index)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: Date.now(),
+                    datePublished: Date.now(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                    }
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({
+                hash: {type: {eq: Photo.name}},
+                range: {source: {eq: stubPhoto.source}},
+                options: {indexName: "type-source-index"}
+            });
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(1);
+            return await Promise.all(retrievedPosts.map(retrievedPost => {
+                expect(retrievedPost).to.be.ok;
+                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
     });

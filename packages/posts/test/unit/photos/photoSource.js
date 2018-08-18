@@ -144,24 +144,26 @@ describe("PhotoSource", function () {
                     expect(cachedPosts).to.be.ok;
                     expect(cachedPosts).to.eql(stubPhotos);
                     expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Photo.name}, source: {eq: photoSource.type}});
+                    sinon.assert.calledWith(stubGetPosts, {
+                        hash: {type: {eq: "Photo"}},
+                        options: {indexName: "type-source-index"},
+                        range: {source: {eq: "ʕ•ᴥ•ʔ"}}
+                    });
                 });
         });
     });
 
     describe("#cachedPostGetter", function () {
         it("delegates to `this.cacheClient.getPost`", function () {
-            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
+            const photoSource = new PhotoSource(stubPhoto.source, stubServiceClient, stubCacheClient);
 
-            return photoSource.cachedPostGetter(stubPhoto.uid)
+            return photoSource.cachedPostGetter(stubPhoto.id)
                 .then(cachedPost => {
                     expect(cachedPost).to.be.ok;
                     expect(cachedPost).to.eql(stubPhoto);
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
-                        id: {eq: stubPhoto.uid},
-                        type: {eq: Photo.name},
-                        source: {eq: photoSource.type}
+                        uid: {eq: stubPhoto.uid}
                     });
                 });
         });

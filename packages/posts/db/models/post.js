@@ -19,16 +19,13 @@ export const createPost = async post => {
 };
 
 /**
- * Retrieve a single [Post]{@link Post} matching a [Post.uid]{@link Post.uid} or some combination of other attributes
+ * Retrieve a single [Post]{@link Post} matching a [Post.uid]{@link Post.uid} or some other attributes
  * @param postUidOrParams {String|Object[]}
  * @returns {Promise<Post>}
  */
-export const getPost = async postUidOrParams => {
-    logger.debug(`[Post.getPost] retrieving post (${JSON.stringify(postUidOrParams)})`);
-    const queryParams = typeof postUidOrParams === "string"
-        ? {uid: {eq: postUidOrParams}}
-        : postUidOrParams;
-    const postModelInstance = await Post.queryOne(queryParams).exec();
+export const getPost = async ({options, ...params}) => {
+    logger.debug(`[Post.getPost] retrieving post (${JSON.stringify(params)}) with ${JSON.stringify(options)}`);
+    const postModelInstance = await Post.queryOne(params, options).exec();
     logger.debug(`[Post.getPost] retrieved post (${postModelInstance && postModelInstance.uid})`);
     return postModelInstanceToEntity(postModelInstance);
 };
@@ -47,22 +44,13 @@ export const createPosts = async posts => {
 };
 
 /**
- * Retrieve an array of [Posts]{@link Post} matching a [Post.uid]{@link Post.uid} or some combination of other attributes
- * @param postUidsOrParams {Object}
+ * Retrieve an array of [Posts]{@link Post} matching a [Post.uid]{@link Post.uid} or some other attributes
+ * @param params {Object}
  * @returns {Promise<Post[]>}
  */
-export const getPosts = async postUidsOrParams => {
-    logger.debug(`[Post.getPosts] retrieving posts (${JSON.stringify(postUidsOrParams)})`);
-    let postModelInstances;
-
-    if (postUidsOrParams instanceof Array) {
-        postModelInstances = await Post.batchGet(postUidsOrParams.map(postUid => {
-            return {uid: postUid};
-        }));
-    } else {
-        postModelInstances = await Post.query(postUidsOrParams).all().exec();
-    }
-
+export const getPosts = async ({options, ...params}) => {
+    logger.debug(`[Post.getPosts] retrieving posts (${JSON.stringify(params)}) ${JSON.stringify(options)}`);
+    let postModelInstances = await Post.query(params, options).all().exec();
     logger.debug(`[Post.getPosts] retrieved posts (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
     return postModelInstances.map(postModelInstanceToEntity);
 };

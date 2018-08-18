@@ -8,11 +8,7 @@ const post = new Schema({
         default: model => `${model.source}${util.compositeKeySeparator}${model.id}`
     },
     id: {
-        type: String,
-        required: true,
-        index: {
-            global: true
-        }
+        type: String
     },
     type: {
         type: String,
@@ -21,28 +17,45 @@ const post = new Schema({
             Photo.name,
             Post.name
         ],
-        index: {
-            global: true
-        }
+        index: [
+            {
+                global: true,
+                name: "type-dateCreated-index",
+                rangeKey: "dateCreated"
+            },
+            {
+                global: true,
+                name: "type-datePublished-index",
+                rangeKey: "datePublished"
+            },
+            {
+                global: true,
+                name: "type-source-index",
+                rangeKey: "source"
+            }
+        ]
     },
     source: {
         type: String,
         required: true,
-        index: {
-            global: true
-        }
+        index: [
+            {
+                global: true,
+                name: "source-dateCreated-index",
+                rangeKey: "dateCreated"
+            },
+            {
+                global: true,
+                name: "source-datePublished-index",
+                rangeKey: "datePublished"
+            }
+        ]
     },
     datePublished: {
-        type: Date,
-        index: {
-            global: true
-        }
+        type: Date
     },
     dateCreated: {
-        type: Date,
-        index: {
-            global: true
-        }
+        type: Date
     },
     title: {
         type: String
