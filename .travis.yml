@@ -54,6 +54,7 @@ jobs:
     install:
     - git checkout $TRAVIS_BRANCH
     - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
+    - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
     - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm run postinstall; fi;
     before_script: skip
     script: skip
@@ -66,6 +67,8 @@ jobs:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email $TRAVIS_AUTHOR
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+    - npm run docs --prefix packages/resume
+    - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/*.ico
     - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npx lerna publish --conventional-commits --yes --skip-npm --message "release(travis): Release %s." --git-remote ci-push; fi;'
     deploy:
     - provider: releases
@@ -154,17 +157,11 @@ jobs:
     node_js: '8'
     env:
     - NODE_ENV=prd
-    - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
-    install:
-    - npm run postinstall
-    - npm run resume --prefix packages/resume
-    - npm run docs --prefix packages/resume
+    install: skip
     before_script: skip
     script: skip
     after_script: skip
-    before_deploy:
-    - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/*.ico
-    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
+    before_deploy: skip
     deploy:
     - provider: script
       script: $TRAVIS_BUILD_DIR/bin/split.sh resume
