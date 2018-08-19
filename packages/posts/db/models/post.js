@@ -52,7 +52,7 @@ export const createPosts = async posts => {
  */
 export const getPosts = async ({options, ...params}) => {
     logger.debug(`[Post.getPosts] retrieving posts (${JSON.stringify(params)}) ${JSON.stringify(options)}`);
-    let postModelInstances = await Post.query(params, options).all().exec();
+    let postModelInstances = await Post.query(params, options).exec();
     logger.debug(`[Post.getPosts] retrieved posts (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
     return postModelInstances.map(postModelInstanceToEntity);
 };

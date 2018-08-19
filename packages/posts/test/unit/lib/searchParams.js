@@ -1,6 +1,6 @@
+import {util} from "@randy.tarampi/js";
 import {expect} from "chai";
 import SearchParams from "../../../lib/searchParams";
-import {util} from "@randy.tarampi/js";
 
 describe("SearchParams", function () {
     describe("constructor", function () {
@@ -98,7 +98,8 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({uid: "woof"});
 
             expect(searchParams.Dynamoose).to.eql({
-                uid: {eq: "woof"}
+                uid: {eq: "woof"},
+                options: {limit: 100}
             });
         });
 
@@ -106,15 +107,17 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({type: "woof"});
 
             expect(searchParams.Dynamoose).to.eql({
-                type: {eq: "woof"}
+                type: {eq: "woof"},
+                options: {limit: 100}
             });
         });
 
-        it("should properly format properties for type", function () {
+        it("should properly format properties for source", function () {
             const searchParams = SearchParams.fromJS({source: "meow"});
 
             expect(searchParams.Dynamoose).to.eql({
-                source: {eq: "meow"}
+                source: {eq: "meow"},
+                options: {limit: 100}
             });
         });
 
@@ -124,7 +127,7 @@ describe("SearchParams", function () {
             expect(searchParams.Dynamoose).to.eql({
                 hash: {type: {eq: "woof"}},
                 range: {source: {eq: "meow"}},
-                options: {indexName: "type-source-index"}
+                options: {indexName: "type-source-index", limit: 100}
             });
         });
 
@@ -139,7 +142,7 @@ describe("SearchParams", function () {
             expect(searchParams.Dynamoose).to.eql({
                 hash: {type: {eq: "woof"}},
                 range: {meow: {lt: "grr"}},
-                options: {indexName: "type-meow-index"}
+                options: {indexName: "type-meow-index", limit: 100}
             });
         });
 
@@ -147,7 +150,8 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({source: "meow", id: "woof"});
 
             expect(searchParams.Dynamoose).to.eql({
-                uid: {eq: `meow${util.compositeKeySeparator}woof`}
+                uid: {eq: `meow${util.compositeKeySeparator}woof`},
+                options: {limit: 100}
             });
         });
 
@@ -162,7 +166,26 @@ describe("SearchParams", function () {
             expect(searchParams.Dynamoose).to.eql({
                 hash: {source: {eq: "woof"}},
                 range: {meow: {gt: "grr"}},
-                options: {indexName: "source-meow-index"}
+                options: {indexName: "source-meow-index", limit: 100}
+            });
+        });
+
+        it("should properly format properties for source & orderBy", function () {
+            const searchParams = SearchParams.fromJS({
+                orderBy: "meow",
+                orderOperator: "gt",
+                orderCompartor: "grr",
+                source: "woof",
+                perPage: 20
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                hash: {source: {eq: "woof"}},
+                range: {meow: {gt: "grr"}},
+                options: {
+                    indexName: "source-meow-index",
+                    limit: 20
+                }
             });
         });
     });

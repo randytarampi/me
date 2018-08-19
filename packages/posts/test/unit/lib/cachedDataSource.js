@@ -2,9 +2,9 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import CachedDataSource from "../../../lib/cachedDataSource";
+import SearchParams from "../../../lib/searchParams";
 import dummyClassesGenerator from "../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../lib/util";
-import SearchParams from "../../../lib/searchParams";
 
 describe("CachedDataSource", function () {
     let stubType;
@@ -126,7 +126,10 @@ describe("CachedDataSource", function () {
                     expect(stubGetPosts.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPosts, {
                         hash: {type: {eq: "Photo"}},
-                        options: {indexName: "type-source-index"},
+                        options: {
+                            indexName: "type-source-index",
+                            limit: 100
+                        },
                         range: {source: {eq: stubType}}
                     });
                 });
@@ -287,7 +290,8 @@ describe("CachedDataSource", function () {
                     expect(cachedPost).to.eql(stubPost);
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
-                        uid: {eq: stubPost.uid}
+                        uid: {eq: stubPost.uid},
+                        options: {limit: 100}
                     });
                 });
         });
@@ -302,7 +306,8 @@ describe("CachedDataSource", function () {
                     expect(cachedPost).to.eql(stubPost);
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
-                        uid: {eq: stubPost.uid}
+                        uid: {eq: stubPost.uid},
+                        options: {limit: 100}
                     });
                 });
         });

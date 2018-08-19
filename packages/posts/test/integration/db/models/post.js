@@ -169,6 +169,44 @@ describe("Post", function () {
             }));
         });
 
+        it("retrieves posts (with a limit)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: Date.now(),
+                    datePublished: Date.now(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                    }
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({type: {eq: stubPhoto.type}, options: {limit: 1}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(1);
+            return await Promise.all(retrievedPosts.map(retrievedPost => {
+                expect(retrievedPost).to.be.ok;
+                expect(retrievedPost).to.be.instanceOf(Photo);
+            }));
+        });
+
         it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPosts({source: {eq: stubPhoto.source}});

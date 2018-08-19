@@ -1,5 +1,5 @@
-import {Record} from "immutable";
 import {Photo, util} from "@randy.tarampi/js";
+import {Record} from "immutable";
 
 /**
  * Turn some generic search parameters into a query parameters for [Posts]{@link Post} for some services
@@ -61,9 +61,16 @@ class SearchParams extends Record({
     }
 
     get Dynamoose() {
+        const options = {};
+
+        if (this.perPage) {
+            options.limit = this.perPage;
+        }
+
         if (this.uid) {
             return {
-                uid: {eq: this.uid}
+                uid: {eq: this.uid},
+                options
             };
         }
 
@@ -72,7 +79,10 @@ class SearchParams extends Record({
                 return {
                     hash: {type: {eq: this.type}},
                     range: {source: {eq: this.source}},
-                    options: {indexName: "type-source-index"}
+                    options: {
+                        ...options,
+                        indexName: "type-source-index"
+                    }
                 };
             }
 
@@ -80,17 +90,24 @@ class SearchParams extends Record({
                 return {
                     hash: {type: {eq: this.type}},
                     range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}},
-                    options: {indexName: `type-${this.orderBy}-index`}
+                    options: {
+                        ...options,
+                        indexName: `type-${this.orderBy}-index`
+                    }
                 };
             }
 
-            return {type: {eq: this.type}};
+            return {
+                type: {eq: this.type},
+                options
+            };
         }
 
         if (this.source) {
             if (this.id) {
                 return {
-                    uid: {eq: `${this.source}${util.compositeKeySeparator}${this.id}`}
+                    uid: {eq: `${this.source}${util.compositeKeySeparator}${this.id}`},
+                    options
                 };
             }
 
@@ -98,11 +115,17 @@ class SearchParams extends Record({
                 return {
                     hash: {source: {eq: this.source}},
                     range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}},
-                    options: {indexName: `source-${this.orderBy}-index`}
+                    options: {
+                        ...options,
+                        indexName: `source-${this.orderBy}-index`
+                    }
                 };
             }
 
-            return {source: {eq: this.source}};
+            return {
+                source: {eq: this.source},
+                options
+            };
         }
 
         // throw new Error(`Cannot transform search parameters ${JSON.stringify(this)} for ${this.type}`); // FIXME-RT: This should actually throw;
