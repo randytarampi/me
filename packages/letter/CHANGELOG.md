@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.3"></a>
+## [0.14.3](https://github.com/randytarampi/me/compare/v0.14.2...v0.14.3) (2018-08-19)
+
+
+### Bug Fixes
+
+* **letter:** Set the `renderHtml` test timeout at 60 seconds. ([e251059](https://github.com/randytarampi/me/commit/e251059))
+
+
+
+
+
 <a name="0.14.0"></a>
 # [0.14.0](https://github.com/randytarampi/me/compare/v0.13.1...v0.14.0) (2018-08-18)
 
