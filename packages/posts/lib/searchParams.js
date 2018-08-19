@@ -61,7 +61,9 @@ class SearchParams extends Record({
     }
 
     get Dynamoose() {
-        const options = {};
+        const options = {
+            descending: true
+        };
 
         if (this.perPage) {
             options.limit = this.perPage;

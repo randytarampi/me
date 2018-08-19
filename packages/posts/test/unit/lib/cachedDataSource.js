@@ -128,7 +128,8 @@ describe("CachedDataSource", function () {
                         hash: {type: {eq: "Photo"}},
                         options: {
                             indexName: "type-source-index",
-                            limit: 100
+                            limit: 100,
+                            descending: true
                         },
                         range: {source: {eq: stubType}}
                     });
@@ -291,7 +292,7 @@ describe("CachedDataSource", function () {
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
                         uid: {eq: stubPost.uid},
-                        options: {limit: 100}
+                        options: {limit: 100, descending: true}
                     });
                 });
         });
@@ -307,7 +308,7 @@ describe("CachedDataSource", function () {
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
                         uid: {eq: stubPost.uid},
-                        options: {limit: 100}
+                        options: {limit: 100, descending: true}
                     });
                 });
         });

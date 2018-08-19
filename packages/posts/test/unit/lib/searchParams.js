@@ -99,7 +99,7 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 uid: {eq: "woof"},
-                options: {limit: 100}
+                options: {limit: 100, descending: true}
             });
         });
 
@@ -108,7 +108,7 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 type: {eq: "woof"},
-                options: {limit: 100}
+                options: {limit: 100, descending: true}
             });
         });
 
@@ -117,7 +117,7 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 source: {eq: "meow"},
-                options: {limit: 100}
+                options: {limit: 100, descending: true}
             });
         });
 
@@ -127,7 +127,7 @@ describe("SearchParams", function () {
             expect(searchParams.Dynamoose).to.eql({
                 hash: {type: {eq: "woof"}},
                 range: {source: {eq: "meow"}},
-                options: {indexName: "type-source-index", limit: 100}
+                options: {indexName: "type-source-index", limit: 100, descending: true}
             });
         });
 
@@ -142,7 +142,7 @@ describe("SearchParams", function () {
             expect(searchParams.Dynamoose).to.eql({
                 hash: {type: {eq: "woof"}},
                 range: {meow: {lt: "grr"}},
-                options: {indexName: "type-meow-index", limit: 100}
+                options: {indexName: "type-meow-index", limit: 100, descending: true}
             });
         });
 
@@ -151,7 +151,7 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 uid: {eq: `meow${util.compositeKeySeparator}woof`},
-                options: {limit: 100}
+                options: {limit: 100, descending: true}
             });
         });
 
@@ -166,7 +166,7 @@ describe("SearchParams", function () {
             expect(searchParams.Dynamoose).to.eql({
                 hash: {source: {eq: "woof"}},
                 range: {meow: {gt: "grr"}},
-                options: {indexName: "source-meow-index", limit: 100}
+                options: {indexName: "source-meow-index", limit: 100, descending: true}
             });
         });
 
@@ -184,7 +184,8 @@ describe("SearchParams", function () {
                 range: {meow: {gt: "grr"}},
                 options: {
                     indexName: "source-meow-index",
-                    limit: 20
+                    limit: 20,
+                    descending: true
                 }
             });
         });
