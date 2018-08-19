@@ -16,7 +16,8 @@ class SearchParams extends Record({
     crop: undefined,
     id: undefined,
     uid: undefined,
-    source: undefined
+    source: undefined,
+    _rawFilter: undefined
 }) {
     get Flickr() {
         return {
@@ -64,6 +65,9 @@ class SearchParams extends Record({
         const options = {
             descending: true
         };
+        const filter = {
+            ...this._rawFilter
+        };
 
         if (this.perPage) {
             options.limit = this.perPage;
@@ -71,17 +75,21 @@ class SearchParams extends Record({
 
         if (this.uid) {
             return {
-                uid: {eq: this.uid},
-                options
+                _query: {
+                    uid: {eq: this.uid}
+                },
+                _options: options
             };
         }
 
         if (this.type) {
             if (this.source) {
                 return {
-                    hash: {type: {eq: this.type}},
-                    range: {source: {eq: this.source}},
-                    options: {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {source: {eq: this.source}}
+                    },
+                    _options: {
                         ...options,
                         indexName: "type-source-index"
                     }
@@ -90,9 +98,11 @@ class SearchParams extends Record({
 
             if (this.orderBy && this.orderOperator && this.orderCompartor) {
                 return {
-                    hash: {type: {eq: this.type}},
-                    range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}},
-                    options: {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}}
+                    },
+                    _options: {
                         ...options,
                         indexName: `type-${this.orderBy}-index`
                     }
@@ -100,24 +110,26 @@ class SearchParams extends Record({
             }
 
             return {
-                type: {eq: this.type},
-                options
+                _query: {type: {eq: this.type}},
+                _options: options
             };
         }
 
         if (this.source) {
             if (this.id) {
                 return {
-                    uid: {eq: `${this.source}${util.compositeKeySeparator}${this.id}`},
-                    options
+                    _query: {uid: {eq: `${this.source}${util.compositeKeySeparator}${this.id}`}},
+                    _options: options
                 };
             }
 
             if (this.orderBy && this.orderOperator && this.orderCompartor) {
                 return {
-                    hash: {source: {eq: this.source}},
-                    range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}},
-                    options: {
+                    _query: {
+                        hash: {source: {eq: this.source}},
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}}
+                    },
+                    _options: {
                         ...options,
                         indexName: `source-${this.orderBy}-index`
                     }
@@ -125,13 +137,15 @@ class SearchParams extends Record({
             }
 
             return {
-                source: {eq: this.source},
-                options
+                _query: {source: {eq: this.source}},
+                _options: options
             };
         }
 
-        // throw new Error(`Cannot transform search parameters ${JSON.stringify(this)} for ${this.type}`); // FIXME-RT: This should actually throw;
-        return {};
+        return { // NOTE-RT: Just scan the entire table until we know enough of what we'd want to scan (instead of query) for
+            _options: options,
+            _filter: filter
+        };
     }
 
     get S3() {

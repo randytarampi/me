@@ -90,7 +90,7 @@ describe("Post", function () {
     describe("getPost", function () {
         it("retrieves a Post (uid)", async function () {
             await createPosts(stubPosts);
-            const retrievedPost = await getPost({uid: {eq: stubPost.uid}});
+            const retrievedPost = await getPost({_query: {uid: {eq: stubPost.uid}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost).to.be.instanceof(Post);
@@ -98,7 +98,7 @@ describe("Post", function () {
 
         it("retrieves a Post (type)", async function () {
             await createPosts(stubPosts);
-            const retrievedPost = await getPost({type: {eq: stubPost.type}});
+            const retrievedPost = await getPost({_query: {type: {eq: stubPost.type}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost).to.be.instanceof(Post);
@@ -106,7 +106,7 @@ describe("Post", function () {
 
         it("retrieves a Photo (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPhoto = await getPost({source: {eq: stubPhoto.source}});
+            const retrievedPhoto = await getPost({_query: {source: {eq: stubPhoto.source}}});
             expect(retrievedPhoto).to.be.ok;
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto).to.be.instanceof(Photo);
@@ -159,7 +159,7 @@ describe("Post", function () {
                 })
             ]);
             await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({type: {eq: stubPhoto.type}});
+            const retrievedPosts = await getPosts({_query: {type: {eq: stubPhoto.type}}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
@@ -197,7 +197,7 @@ describe("Post", function () {
                 })
             ]);
             await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({type: {eq: stubPhoto.type}, options: {limit: 1}});
+            const retrievedPosts = await getPosts({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
@@ -209,7 +209,7 @@ describe("Post", function () {
 
         it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({source: {eq: stubPhoto.source}});
+            const retrievedPosts = await getPosts({_query: {source: {eq: stubPhoto.source}}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
@@ -222,7 +222,7 @@ describe("Post", function () {
 
         it("retrieves posts (uid)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({uid: {eq: stubPhoto.uid}});
+            const retrievedPosts = await getPosts({_query: {uid: {eq: stubPhoto.uid}}});
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
@@ -262,9 +262,11 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({
-                hash: {type: {eq: Photo.name}},
-                range: {source: {eq: stubPhoto.source}},
-                options: {indexName: "type-source-index"}
+                _query: {
+                    hash: {type: {eq: Photo.name}},
+                    range: {source: {eq: stubPhoto.source}}
+                },
+                _options: {indexName: "type-source-index"}
             });
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
