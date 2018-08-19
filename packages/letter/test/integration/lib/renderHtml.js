@@ -5,6 +5,8 @@ import assembleLetter from "../../../lib/assembleLetter";
 import renderHtml from "../../../lib/renderHtml";
 
 describe("renderHtml", function () {
+    this.timeout(60000);
+
     beforeEach(function () {
         Helmet.canUseDOM = false;
     });
