@@ -24,7 +24,7 @@ git remote add $PACKAGE $GITHUB_PACKAGE_REPO_URL
 git subtree split --prefix=packages/$PACKAGE -b $PACKAGE;
 git checkout $PACKAGE;
 git status;
-git push --set-upstream $PACKAGE $PACKAGE:$GITHUB_PACKAGE_REPO_TARGET_BRANCH;
+git push --force --set-upstream $PACKAGE $PACKAGE:$GITHUB_PACKAGE_REPO_TARGET_BRANCH;
 
 git checkout $MONOREPO_BASE_BRANCH;
 cd $MONOREPO_ROOT;
