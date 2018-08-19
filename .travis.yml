@@ -77,7 +77,8 @@ jobs:
     - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf; fi;
     - npm run docs --prefix packages/www
     - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html; fi;
-    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npx lerna publish --conventional-commits --yes --skip-npm --message "release(travis): Release %s." --git-remote ci-push; fi;'
+    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Commit release artifacts"; fi;'
+    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npx lerna version --conventional-commits --yes --message "release(travis): Release %s." --git-remote ci-push; fi;'
     deploy:
     - provider: releases
       api_key:
@@ -101,7 +102,7 @@ jobs:
     before_deploy:
     - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
     - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-    - if [[ -n $(git status -s) ]]; then git commit -m "Prepare to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;
+    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
     deploy:
     - provider: script
       script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io.git `git subtree split --prefix packages/www`:master
