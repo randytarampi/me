@@ -46,6 +46,7 @@
     "dynamoose": "^0.8.7",
     "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
+    "immutable": "^4.0.0-rc.9",
     "instagram-api": "^1.0.3",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.12.0",
