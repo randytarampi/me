@@ -59,6 +59,7 @@ jobs:
     - git checkout $TRAVIS_BRANCH
     - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
+    - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm run postinstall; fi;
     before_script: skip
     script: skip
@@ -72,7 +73,9 @@ jobs:
     - git config --local user.email $TRAVIS_AUTHOR
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
     - npm run docs --prefix packages/resume
-    - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/*.ico
+    - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf; fi;
+    - npm run docs --prefix packages/www
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html; fi;
     - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npx lerna publish --conventional-commits --yes --skip-npm --message "release(travis): Release %s." --git-remote ci-push; fi;'
     deploy:
     - provider: releases
@@ -90,17 +93,14 @@ jobs:
     - DEPLOY=true
     - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
-    install:
-    - npm run postinstall
-    - npm run docs --prefix packages/www
+    install: skip
     before_script: skip
     script: skip
     after_script: skip
     before_deploy:
     - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
     - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
-    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
+    - if [[ -n $(git status -s) ]]; then git commit -m "Prepare to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;
     deploy:
     - provider: script
       script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io.git `git subtree split --prefix packages/www`:master
@@ -133,17 +133,12 @@ jobs:
     env:
     - NODE_ENV=prd
     - DEPLOY=true
-    - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
-    install:
-    - npm run postinstall
-    - npm run docs --prefix packages/www
+    install: skip
     before_script: skip
     script: skip
     after_script: skip
-    before_deploy:
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/favicon.ico; fi;
-    - if [[ -n $(git status -s) ]]; then git commit -m "Add assets for $TRAVIS_TAG."; fi;
+    before_deploy: skip
     deploy:
     - provider: script
       script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git `git subtree split --prefix packages/www`:gh-pages
