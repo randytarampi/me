@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/randytarampi/me/compare/v0.14.3...v0.15.0) (2018-08-19)
+
+
+### Bug Fixes
+
+* **travis:** Commit release artifacts before running `lerna version`. ([d1b3784](https://github.com/randytarampi/me/commit/d1b3784))
+* **travis:** Need to run `resume` to build resume assets. ([f7ad7aa](https://github.com/randytarampi/me/commit/f7ad7aa)), closes [/travis-ci.org/randytarampi/me/jobs/417992648#L8059](https://github.com//travis-ci.org/randytarampi/me/jobs/417992648/issues/L8059)
+
+
+### Features
+
+* **sentry:** Upload sentry artifacts for `dev` builds. ([508cff4](https://github.com/randytarampi/me/commit/508cff4))
+
+
+
+
+
 <a name="0.14.3"></a>
 ## [0.14.3](https://github.com/randytarampi/me/compare/v0.14.2...v0.14.3) (2018-08-19)
 

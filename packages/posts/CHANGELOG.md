@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/randytarampi/me/compare/v0.14.3...v0.15.0) (2018-08-19)
+
+
+### Features
+
+* **sentry:** Upload sentry artifacts for `dev` builds. ([508cff4](https://github.com/randytarampi/me/commit/508cff4))
+
+
+
+
+
 <a name="0.14.2"></a>
 ## [0.14.2](https://github.com/randytarampi/me/compare/v0.14.1...v0.14.2) (2018-08-18)
 
