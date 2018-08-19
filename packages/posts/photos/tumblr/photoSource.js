@@ -18,7 +18,7 @@ class TumblrSource extends PhotoSource {
     }
 
     async postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
             .then(response =>
@@ -27,7 +27,7 @@ class TumblrSource extends PhotoSource {
     }
 
     async postGetter(id, params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))
             .then(response =>

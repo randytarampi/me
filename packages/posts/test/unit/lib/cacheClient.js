@@ -3,6 +3,7 @@ import {expect} from "chai";
 import sinon from "sinon";
 import CacheClient from "../../../lib/cacheClient";
 import DummyDataClientGenerator from "../../lib/dummyDataClientGenerator";
+import SearchParams from "../../../lib/searchParams";
 
 describe("CacheClient", function () {
     let stubType;
@@ -47,11 +48,19 @@ describe("CacheClient", function () {
             expect(cacheClient.type).to.eql(stubType);
             expect(cacheClient).to.be.instanceOf(CacheClient);
         });
+
+        it("sets `stubType` to `Dynamoose` by default", function () {
+            const cacheClient = new CacheClient(undefined, stubDataClient);
+
+            expect(cacheClient.dataClient).to.eql(stubDataClient);
+            expect(cacheClient.type).to.eql("Dynamoose");
+            expect(cacheClient).to.be.instanceOf(CacheClient);
+        });
     });
 
     describe("#setPosts", function () {
         it("delegates to dataClient.createPosts", async function () {
-            const cacheClient = new CacheClient(stubType, stubDataClient);
+            const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
             const createdPosts = await cacheClient.setPosts(stubPosts);
@@ -64,21 +73,22 @@ describe("CacheClient", function () {
 
     describe("#getPosts", function () {
         it("delegates to dataClient.getPosts", async function () {
-            const cacheClient = new CacheClient(stubType, stubDataClient);
+            const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
+
             const retrievedPosts = await cacheClient.getPosts(stubParams);
             expect(retrievedPosts).to.be.ok;
             retrievedPosts.map(retrievedPost => expect(retrievedPost).to.be.instanceof(Post));
             expect(stubGetPosts.calledOnce).to.eql(true);
-            expect(stubGetPosts.calledWith(stubParams)).to.eql(true);
+            sinon.assert.calledWith(stubGetPosts, stubParams[cacheClient.type]);
         });
     });
 
     describe("#setPost", function () {
         it("delegates to dataClient.createPost", async function () {
-            const cacheClient = new CacheClient(stubType, stubDataClient);
+            const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
             const createdPost = await cacheClient.setPost(stubPost);
@@ -92,16 +102,16 @@ describe("CacheClient", function () {
 
     describe("#getPost", function () {
         it("delegates to dataClient.getPost", async function () {
-            const cacheClient = new CacheClient(stubType, stubDataClient);
+            const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const retrievedPost = await cacheClient.getPost(stubParams);
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost).to.be.instanceOf(Post);
             expect(retrievedPost).to.eql(stubPost);
             expect(stubGetPost.calledOnce).to.eql(true);
-            expect(stubGetPost.calledWith(stubParams)).to.eql(true);
+            sinon.assert.calledWith(stubGetPost, stubParams[cacheClient.type]);
         });
     });
 });

@@ -158,7 +158,7 @@ describe("TumblrPhotoSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, page: 2};
+            const stubParams = {perPage: 30, page: 2, type: "Photo"};
 
             return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -171,15 +171,16 @@ describe("TumblrPhotoSource", function () {
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         type: "photo",
-                        limit: stubParams.perPage || 20,
-                        offset: (stubParams.perPage || 20) * (stubParams.page - 1)
+                        page: stubParams.page,
+                        limit: stubParams.perPage,
+                        offset: stubParams.perPage * (stubParams.page - 1)
                     }));
                 });
         });
 
         it("finds no posts", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420};
+            const stubParams = {perPage: 420, type: "Photo"};
 
             return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -189,6 +190,8 @@ describe("TumblrPhotoSource", function () {
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         type: "photo",
+                        page: 1,
+                        offset: 0,
                         limit: stubParams.perPage
                     }));
                 });

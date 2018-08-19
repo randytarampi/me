@@ -15,7 +15,7 @@ class UnsplashSource extends PhotoSource {
     }
 
     postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, params.page, params.perPage, params.orderBy);
 
@@ -25,7 +25,7 @@ class UnsplashSource extends PhotoSource {
     }
 
     postGetter(photoId, params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         return this.client.photos.getPost(photoId, params.width, params.height, params.crop)
             .then(toJson)

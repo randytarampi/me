@@ -43,7 +43,7 @@ class LocalSource extends PhotoSource {
     }
 
     postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         return new Promise((resolve, reject) => {
             fs.readdir(process.env.LOCAL_DIRECTORY, (error, fileNames) => {

@@ -17,7 +17,7 @@ class S3WordSource extends WordSource {
     }
 
     postsGetter(params = {}) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         const options = {
             Bucket: process.env.S3_BUCKET_NAME,

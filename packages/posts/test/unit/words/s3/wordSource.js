@@ -122,7 +122,7 @@ describe("S3WordSource", function () {
 
         DummyCacheClient = builtDummyClasses.DummyCacheClient;
 
-        stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
+        stubCacheClient = new DummyCacheClient();
     });
 
     describe("constructor", function () {

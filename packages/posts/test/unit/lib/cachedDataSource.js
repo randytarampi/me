@@ -4,6 +4,7 @@ import sinon from "sinon";
 import CachedDataSource from "../../../lib/cachedDataSource";
 import dummyClassesGenerator from "../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../lib/util";
+import SearchParams from "../../../lib/searchParams";
 
 describe("CachedDataSource", function () {
     let stubType;
@@ -37,11 +38,11 @@ describe("CachedDataSource", function () {
     let dummyClassBuilderArguments;
 
     beforeEach(function () {
-        stubType = "ʕ•ᴥ•ʔ";
+        stubType = "Tumblr";
         stubServiceClient = {"ʕ•ᴥ•ʔ": "ʕ•ᴥ•ʔ"};
 
-        stubPost = Post.fromJSON({id: "woof"});
-        stubPhoto = Photo.fromJSON({id: "meow"});
+        stubPost = Post.fromJSON({id: "woof", source: stubType});
+        stubPhoto = Photo.fromJSON({id: "meow", source: stubType});
         stubPosts = [stubPost, stubPhoto];
 
         stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
@@ -99,8 +100,8 @@ describe("CachedDataSource", function () {
         DummyDataClient = builtDummyClasses.DummyDataClient;
         DummyCacheClient = builtDummyClasses.DummyCacheClient;
 
-        stubDataClient = new DummyDataClient("^-ᴥ-^");
-        stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
+        stubDataClient = new DummyDataClient();
+        stubCacheClient = new DummyCacheClient();
     });
 
     describe("constructor", function () {
@@ -114,27 +115,21 @@ describe("CachedDataSource", function () {
     });
 
     describe("#cachedPostsGetter", function () {
-        it("requires implementation", async function () {
+        it("delegates to `this.cacheClient.getPosts`", function () {
             const cachedDataSource = new CachedDataSource(stubType, stubServiceClient, stubCacheClient);
-            expect(cachedDataSource).to.be.instanceOf(CachedDataSource);
+            const stubSearchParams = SearchParams.fromJS({type: Photo.name, source: stubType});
 
-            return cachedDataSource.cachedPostsGetter({})
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error).to.be.ok;
-                    expect(error.message).to.match(/Please specify an actual cachedPostsGetter implementation/);
+            return cachedDataSource.cachedPostsGetter(stubSearchParams)
+                .then(cachedPosts => {
+                    expect(cachedPosts).to.be.ok;
+                    expect(cachedPosts).to.eql(stubPosts);
+                    expect(stubGetPosts.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPosts, {
+                        hash: {type: {eq: "Photo"}},
+                        options: {indexName: "type-source-index"},
+                        range: {source: {eq: stubType}}
+                    });
                 });
-        });
-
-        it("calls implementation", async function () {
-            const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
-            expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
-
-            const postsRecieved = await cachedDataSource.cachedPostsGetter(cachedDataSource, {});
-            expect(postsRecieved).to.eql(stubPosts);
-            expect(stubCachedPostsGetter.calledOnce).to.eql(true);
         });
     });
 
@@ -283,27 +278,33 @@ describe("CachedDataSource", function () {
     });
 
     describe("#cachedPostGetter", function () {
-        it("requires implementation", function () {
+        it("delegates to `this.cacheClient.getPost` (no params)", function () {
             const cachedDataSource = new CachedDataSource(stubType, stubServiceClient, stubCacheClient);
-            expect(cachedDataSource).to.be.instanceOf(CachedDataSource);
 
-            return cachedDataSource.cachedPostGetter(stubPost.id, {})
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error).to.be.ok;
-                    expect(error.message).to.match(/Please specify an actual cachedPostGetter implementation/);
+            return cachedDataSource.cachedPostGetter(stubPost.id)
+                .then(cachedPost => {
+                    expect(cachedPost).to.be.ok;
+                    expect(cachedPost).to.eql(stubPost);
+                    expect(stubGetPost.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPost, {
+                        uid: {eq: stubPost.uid}
+                    });
                 });
         });
 
-        it("calls implementation", async function () {
-            const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
-            expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
+        it("delegates to `this.cacheClient.getPost` (with params)", function () {
+            const cachedDataSource = new CachedDataSource(stubType, stubServiceClient, stubCacheClient);
+            const stubSearchParams = SearchParams.fromJS();
 
-            const postRecieved = await cachedDataSource.cachedPostGetter(stubPost.id, {});
-            expect(postRecieved).to.eql(stubPost);
-            expect(stubCachedPostGetter.calledOnce).to.eql(true);
+            return cachedDataSource.cachedPostGetter(stubPost.id, stubSearchParams)
+                .then(cachedPost => {
+                    expect(cachedPost).to.be.ok;
+                    expect(cachedPost).to.eql(stubPost);
+                    expect(stubGetPost.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetPost, {
+                        uid: {eq: stubPost.uid}
+                    });
+                });
         });
     });
 

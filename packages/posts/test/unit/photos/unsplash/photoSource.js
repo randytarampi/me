@@ -212,7 +212,7 @@ describe("UnsplashPhotoSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, stubParams.orderBy);
+                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, null);
                 });
         });
     });

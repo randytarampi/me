@@ -14,7 +14,7 @@ class FlickrSource extends PhotoSource {
     }
 
     postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;
         let flickrRequest = Promise.resolve(userId);

@@ -159,8 +159,9 @@ describe("TumblrWordSource", function () {
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         type: "text",
-                        limit: stubParams.perPage || 20,
-                        offset: (stubParams.perPage || 20) * (stubParams.page - 1)
+                        page: stubParams.page,
+                        limit: stubParams.perPage,
+                        offset: stubParams.perPage * (stubParams.page - 1)
                     }));
                 });
         });

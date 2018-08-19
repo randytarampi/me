@@ -21,15 +21,17 @@ class TumblrWordSource extends WordSource {
     }
 
     async postsGetter(params = {}) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-        params.type = "text";
+        params = params instanceof SearchParams ? params : SearchParams.fromJS({
+            type: "text",
+            ...params
+        });
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
             .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog)));
     }
 
     async postGetter(id, params = {}) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))
             .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog))[0]);

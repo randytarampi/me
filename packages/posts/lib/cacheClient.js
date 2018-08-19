@@ -10,21 +10,21 @@ class CacheClient {
      * @param type
      * @param dataClient
      */
-    constructor(type, dataClient = PostModel) {
+    constructor(type = "Dynamoose", dataClient = PostModel) {
         this.type = type;
         this.dataClient = dataClient;
     }
 
     /**
-     * Retrieve some [Posts]{@link Post} from the cache that correspond to the terms in the passed clientParams
-     * @param clientParams {Object} [Client]{@link CacheClient.dataClient} specific query parameters
+     * Retrieve some [Posts]{@link Post} from the cache that correspond to the terms in the passed searchParams
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Post[]>}
      */
-    async getPosts(clientParams) {
-        logger.debug(`[cacheClient.getPosts] getting posts (${JSON.stringify(clientParams)}) from cache`);
-        return this.dataClient.getPosts(clientParams)
+    async getPosts(searchParams) {
+        logger.debug(`[cacheClient.getPosts] getting posts (${JSON.stringify(searchParams)}) from cache`);
+        return this.dataClient.getPosts(searchParams[this.type])
             .catch(error => {
-                logger.error(error, `[cacheClient.getPosts] error for (${JSON.stringify(clientParams)})`);
+                logger.error(error, `[cacheClient.getPosts] error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 
@@ -42,15 +42,15 @@ class CacheClient {
     }
 
     /**
-     * Retrieve a [Post]{@link Post} from the cache that corresponds to the terms in the passed clientParams
-     * @param clientParams {Object} [Client]{@link CacheClient.dataClient} specific query parameters
+     * Retrieve a [Post]{@link Post} from the cache that corresponds to the terms in the passed searchParams
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Post>}
      */
-    async getPost(clientParams) {
-        logger.debug(`[cacheClient.getPost] getting post (${JSON.stringify(clientParams)}) from cache`);
-        return this.dataClient.getPost(clientParams)
+    async getPost(searchParams) {
+        logger.debug(`[cacheClient.getPost] getting post (${JSON.stringify(searchParams)}) from cache`);
+        return this.dataClient.getPost(searchParams[this.type])
             .catch(error => {
-                logger.error(error, `[cacheClient.getPost] error for (${JSON.stringify(clientParams)})`);
+                logger.error(error, `[cacheClient.getPost] error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 

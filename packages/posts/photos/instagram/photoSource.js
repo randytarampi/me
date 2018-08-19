@@ -19,7 +19,7 @@ class InstagramSource extends PhotoSource {
     }
 
     postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
 
         const userId = process.env.INSTAGRAM_USER_ID;
         let instagramRequest = Promise.resolve(userId);

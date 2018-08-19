@@ -20,7 +20,8 @@ export const createPost = async post => {
 
 /**
  * Retrieve a single [Post]{@link Post} matching a [Post.uid]{@link Post.uid} or some other attributes
- * @param postUidOrParams {String|Object[]}
+ * @param params {Object} A Dynamoose parseable query object
+ * @param options {Object} Dynamoose specific query options, like `indexName`
  * @returns {Promise<Post>}
  */
 export const getPost = async ({options, ...params}) => {
@@ -45,7 +46,8 @@ export const createPosts = async posts => {
 
 /**
  * Retrieve an array of [Posts]{@link Post} matching a [Post.uid]{@link Post.uid} or some other attributes
- * @param params {Object}
+ * @param params {Object} A Dynamoose parseable query object
+ * @param options {Object} Dynamoose specific query options, like `indexName`
  * @returns {Promise<Post[]>}
  */
 export const getPosts = async ({options, ...params}) => {

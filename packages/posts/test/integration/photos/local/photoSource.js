@@ -4,6 +4,7 @@ import fs from "fs";
 import _ from "lodash";
 import path from "path";
 import PostModel from "../../../../db/models/post";
+import SearchParams from "../../../../lib/searchParams";
 import LocalSource from "../../../../photos/local/photoSource";
 
 const LOCAL_DIRECTORY = process.env.LOCAL_DIRECTORY;
@@ -39,8 +40,9 @@ describe("LocalSource", function () {
         it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
 
             const photoSource = new LocalSource();
+            const stubSearchParams = SearchParams.fromJS();
 
-            return photoSource.getPosts()
+            return photoSource.getPosts(stubSearchParams)
                 .then((photos) => {
                     expect(photos).to.be.ok;
                     photos.map((photo) => {
@@ -62,8 +64,9 @@ describe("LocalSource", function () {
     describe("#getPost", function () {
         it("should load a `Photo` from a given `Photo`'s `id`", function () {
             const photoSource = new LocalSource();
+            const stubSearchParams = SearchParams.fromJS();
 
-            return photoSource.getPosts()
+            return photoSource.getPosts(stubSearchParams)
                 .then((photos) => {
                     return Promise.all(
                         photos.map((photo) => {
