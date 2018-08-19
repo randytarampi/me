@@ -4,6 +4,8 @@ import renderHtml from "../../../lib/renderHtml";
 import resumeJson from "../../../resume.json";
 
 describe("renderHtml", function () {
+    this.timeout(60000);
+
     beforeEach(function () {
         Helmet.canUseDOM = false;
     });
