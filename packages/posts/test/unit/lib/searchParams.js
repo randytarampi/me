@@ -48,10 +48,10 @@ describe("SearchParams", function () {
             expect(searchParams.Unsplash).to.eql({
                 page: searchParams.page,
                 perPage: searchParams.perPage,
-                orderBy: null,
-                width: null,
-                height: null,
-                crop: null
+                orderBy: undefined,
+                width: undefined,
+                height: undefined,
+                crop: undefined
             });
         });
     });
@@ -72,6 +72,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS();
 
             expect(searchParams.Tumblr).to.eql({
+                id: this.id,
                 type: "text",
                 page: searchParams.page,
                 limit: searchParams.perPage,
@@ -83,6 +84,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({type: "Photo"});
 
             expect(searchParams.Tumblr).to.eql({
+                id: this.id,
                 type: "photo",
                 page: searchParams.page,
                 limit: searchParams.perPage,
@@ -161,6 +163,27 @@ describe("SearchParams", function () {
                 hash: {source: {eq: "woof"}},
                 range: {meow: {gt: "grr"}},
                 options: {indexName: "source-meow-index"}
+            });
+        });
+    });
+
+    describe(".S3", function () {
+        it("should properly format properties for query (list)", function () {
+            const searchParams = SearchParams.fromJS();
+
+            expect(searchParams.S3).to.eql({
+                Bucket: process.env.S3_BUCKET_NAME,
+                Marker: "0",
+                MaxKeys: 100
+            });
+        });
+
+        it("should properly format properties for query (object)", function () {
+            const searchParams = SearchParams.fromJS({id: "woof"});
+
+            expect(searchParams.S3).to.eql({
+                Bucket: process.env.S3_BUCKET_NAME,
+                Key: "woof"
             });
         });
     });

@@ -5,6 +5,7 @@ import Unsplash from "unsplash-js";
 import UnsplashPhotoSource from "../../../../photos/unsplash/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
+import SearchParams from "../../../../lib/searchParams";
 
 describe("UnsplashPhotoSource", function () {
     let stubServiceClient;
@@ -187,7 +188,7 @@ describe("UnsplashPhotoSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const unsplashPhotoSource = new UnsplashPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, page: 2, orderBy: "woof"};
+            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, orderBy: "woof"});
 
             return unsplashPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -204,7 +205,7 @@ describe("UnsplashPhotoSource", function () {
 
         it("finds no posts", function () {
             const unsplashPhotoSource = new UnsplashPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420};
+            const stubParams = SearchParams.fromJS({perPage: 420});
 
             return unsplashPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -212,7 +213,7 @@ describe("UnsplashPhotoSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, null);
+                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, stubParams.id);
                 });
         });
     });
@@ -220,7 +221,7 @@ describe("UnsplashPhotoSource", function () {
     describe("#postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const unsplashPhotoSource = new UnsplashPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {width: 500, height: 500, crop: "0,0,400,400"};
+            const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
 
             return unsplashPhotoSource.postGetter(stubPost.id, stubParams)
                 .then(post => {
@@ -233,7 +234,7 @@ describe("UnsplashPhotoSource", function () {
 
         it("finds no post", function () {
             const unsplashPhotoSource = new UnsplashPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {width: 500, height: 500, crop: "0,0,400,400"};
+            const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
 
             return unsplashPhotoSource.postGetter("foo", stubParams)
                 .then(post => {

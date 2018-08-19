@@ -5,18 +5,18 @@ import {Photo, util} from "@randy.tarampi/js";
  * Turn some generic search parameters into a query parameters for [Posts]{@link Post} for some services
  */
 class SearchParams extends Record({
-    type: null,
+    type: undefined,
     perPage: 100,
     page: 1,
-    orderBy: null,
-    orderOperator: null,
-    orderCompartor: null,
-    width: null,
-    height: null,
-    crop: null,
-    id: null,
-    uid: null,
-    source: null
+    orderBy: undefined,
+    orderOperator: undefined,
+    orderCompartor: undefined,
+    width: undefined,
+    height: undefined,
+    crop: undefined,
+    id: undefined,
+    uid: undefined,
+    source: undefined
 }) {
     get Flickr() {
         return {
@@ -53,6 +53,7 @@ class SearchParams extends Record({
 
         return {
             type,
+            id: this.id,
             limit: this.perPage,
             page: this.page,
             offset: this.perPage * (this.page - 1)
@@ -106,6 +107,25 @@ class SearchParams extends Record({
 
         // throw new Error(`Cannot transform search parameters ${JSON.stringify(this)} for ${this.type}`); // FIXME-RT: This should actually throw;
         return {};
+    }
+
+    get S3() {
+        const params = {
+            Bucket: process.env.S3_BUCKET_NAME
+        };
+
+        if (this.id) {
+            return {
+                ...params,
+                Key: this.id
+            };
+        }
+
+        return {
+            ...params,
+            MaxKeys: this.perPage,
+            Marker: String(this.perPage * (this.page - 1)), // FIXME-RT: Replace with `StartAfter`
+        };
     }
 
     static fromJS(json) {

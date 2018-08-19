@@ -5,6 +5,7 @@ import sinon from "sinon";
 import InstagramPhotoSource from "../../../../photos/instagram/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
+import SearchParams from "../../../../lib/searchParams";
 
 describe("InstagramPhotoSource", function () {
     let stubServiceClient;
@@ -181,7 +182,7 @@ describe("InstagramPhotoSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, min_id: "meow", max_id: "grr"};
+            const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.INSTAGRAM_USER_ID;
 
@@ -203,7 +204,7 @@ describe("InstagramPhotoSource", function () {
 
         it("doesn't query for a `userId` if it already has `process.env.INSTAGRAM_USER_ID`", function () {
             const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 40, min_id: "meow", max_id: "grr"};
+            const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
             process.env.INSTAGRAM_USER_ID = instagramUser.id;
 
@@ -224,7 +225,7 @@ describe("InstagramPhotoSource", function () {
 
         it("finds no posts", function () {
             const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420};
+            const stubParams = SearchParams.fromJS({perPage: 420});
 
             return instagramPhotoSource.postsGetter(stubParams)
                 .then(posts => {

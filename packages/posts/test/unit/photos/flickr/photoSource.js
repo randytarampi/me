@@ -5,6 +5,7 @@ import sinon from "sinon";
 import FlickrPhotoSource from "../../../../photos/flickr/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
+import SearchParams from "../../../../lib/searchParams";
 
 describe("FlickrPhotoSource", function () {
     let stubServiceClient;
@@ -169,7 +170,7 @@ describe("FlickrPhotoSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, min_id: "meow", max_id: "grr"};
+            const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.FLICKR_USER_ID;
 
@@ -194,7 +195,7 @@ describe("FlickrPhotoSource", function () {
 
         it("doesn't query for a `userId` if it already has `process.env.FLICKR_USER_ID`", function () {
             const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 40};
+            const stubParams = SearchParams.fromJS({perPage: 40});
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 
@@ -218,7 +219,7 @@ describe("FlickrPhotoSource", function () {
 
         it("finds no posts", function () {
             const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420};
+            const stubParams = SearchParams.fromJS({perPage: 420});
 
             return flickrPhotoSource.postsGetter(stubParams)
                 .then(posts => {

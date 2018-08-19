@@ -6,6 +6,8 @@ import TumblrPhotoSource from "../../../../photos/tumblr/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
+import SearchParams from "../../../../lib/searchParams";
+
 describe("TumblrPhotoSource", function () {
     let stubServiceClient;
     let stubPost;
@@ -158,7 +160,7 @@ describe("TumblrPhotoSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, page: 2, type: "Photo"};
+            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, type: "Photo"});
 
             return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -180,7 +182,7 @@ describe("TumblrPhotoSource", function () {
 
         it("finds no posts", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420, type: "Photo"};
+            const stubParams = SearchParams.fromJS({perPage: 420, type: "Photo"});
 
             return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -202,7 +204,7 @@ describe("TumblrPhotoSource", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
 
-            return tumblrPhotoSource.postGetter(stubPost.id)
+            return tumblrPhotoSource.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Photo);
@@ -216,7 +218,7 @@ describe("TumblrPhotoSource", function () {
         it("finds no post", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
 
-            return tumblrPhotoSource.postGetter("foo")
+            return tumblrPhotoSource.postGetter("foo", SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);

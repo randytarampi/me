@@ -5,6 +5,7 @@ import tumblr from "tumblr.js";
 import TumblrWordSource from "../../../../words/tumblr/wordSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
+import SearchParams from "../../../../lib/searchParams";
 
 describe("TumblrWordSource", function () {
     let stubServiceClient;
@@ -146,7 +147,7 @@ describe("TumblrWordSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, page: 2};
+            const stubParams = SearchParams.fromJS({perPage: 30, page: 2});
 
             return tumblrWordSource.postsGetter(stubParams)
                 .then(posts => {
@@ -168,7 +169,7 @@ describe("TumblrWordSource", function () {
 
         it("finds no posts", function () {
             const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420};
+            const stubParams = SearchParams.fromJS({perPage: 420});
 
             return tumblrWordSource.postsGetter(stubParams)
                 .then(posts => {
@@ -188,7 +189,7 @@ describe("TumblrWordSource", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
 
-            return tumblrWordSource.postGetter(stubPost.id)
+            return tumblrWordSource.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Post);
@@ -202,7 +203,7 @@ describe("TumblrWordSource", function () {
         it("finds no post", function () {
             const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
 
-            return tumblrWordSource.postGetter("foo")
+            return tumblrWordSource.postGetter("foo", SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);

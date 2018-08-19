@@ -1,7 +1,6 @@
 import {Creator, Post} from "@randy.tarampi/js";
 import tumblr from "tumblr.js";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
-import SearchParams from "../../lib/searchParams";
 import WordSource from "../wordSource";
 
 class TumblrWordSource extends WordSource {
@@ -20,20 +19,13 @@ class TumblrWordSource extends WordSource {
         return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET;
     }
 
-    async postsGetter(params = {}) {
-        params = params instanceof SearchParams ? params : SearchParams.fromJS({
-            type: "text",
-            ...params
-        });
-
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
+    async postsGetter(searchParams) {
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
             .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog)));
     }
 
-    async postGetter(id, params = {}) {
-        params = params instanceof SearchParams ? params : SearchParams.fromJS(params);
-
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))
+    async postGetter(id, searchParams) {
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
             .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog))[0]);
     }
 

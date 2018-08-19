@@ -138,7 +138,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getCachedPosts(stubParams);
 
             expect(posts).to.be.ok;
@@ -162,7 +162,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getCachedPosts(stubParams);
 
             expect(posts).to.not.be.ok;
@@ -181,7 +181,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getServicePosts(stubParams);
 
             expect(posts).to.be.ok;
@@ -207,7 +207,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getServicePosts(stubParams);
 
             expect(posts).to.be.ok;
@@ -227,7 +227,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getPosts(stubParams);
 
             expect(posts).to.be.ok;
@@ -255,7 +255,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getPosts(stubParams);
 
             expect(posts).to.be.ok;
@@ -313,7 +313,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getCachedPost(stubPost.id, stubParams);
 
             expect(post).to.be.ok;
@@ -337,7 +337,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getCachedPost(stubPost.id, stubParams);
 
             expect(post).to.not.be.ok;
@@ -356,7 +356,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getServicePost(stubPost.id, stubParams);
 
             expect(post).to.be.ok;
@@ -375,7 +375,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const stubMissPostId = "ಠ_ಠ";
             const post = await cachedDataSource.getServicePost(stubMissPostId, stubParams);
 
@@ -395,7 +395,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getPost(stubPost.id, stubParams);
 
             expect(post).to.be.ok;
@@ -423,7 +423,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getPost(stubPost.id, stubParams);
 
             expect(post).to.be.ok;
@@ -448,7 +448,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubType, stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const stubMissPostId = "ಠ_ಠ";
             const post = await cachedDataSource.getPost(stubMissPostId, stubParams);
 
