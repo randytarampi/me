@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.16.1"></a>
+## [0.16.1](https://github.com/randytarampi/me/compare/v0.16.0...v0.16.1) (2018-08-20)
+
+
+### Bug Fixes
+
+* **jsx:** Fix the link to my resume off the main page. ([7e598bf](https://github.com/randytarampi/me/commit/7e598bf))
+
+
+
+
+
 <a name="0.16.0"></a>
 # [0.16.0](https://github.com/randytarampi/me/compare/v0.15.0...v0.16.0) (2018-08-20)
 

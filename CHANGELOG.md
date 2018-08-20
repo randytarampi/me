@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.16.1"></a>
+## [0.16.1](https://github.com/randytarampi/me/compare/v0.16.0...v0.16.1) (2018-08-20)
+
+
+### Bug Fixes
+
+* **bin:** Fix location references in `bin/` scripts. ([ee7e35c](https://github.com/randytarampi/me/commit/ee7e35c))
+* **jsx:** `clearError` on `@[@router](https://github.com/router)/LOCATION_CHANGE`. ([730d75e](https://github.com/randytarampi/me/commit/730d75e))
+* **jsx:** Don't pass `InternalLinkInternal` an `href` otherwise it gets propagated down to the `<a/>`. ([2523308](https://github.com/randytarampi/me/commit/2523308))
+* **jsx:** Fix the link to my resume off the main page. ([7e598bf](https://github.com/randytarampi/me/commit/7e598bf))
+* **travis:** Just cache all the `packages/**/node_modules` directories. ([7496f4d](https://github.com/randytarampi/me/commit/7496f4d)), closes [/travis-ci.org/randytarampi/me/jobs/418342476#L518](https://github.com//travis-ci.org/randytarampi/me/jobs/418342476/issues/L518)
+* **travis:** Just cache nothing and always run `postinstall`. ([2763235](https://github.com/randytarampi/me/commit/2763235))
+
+
+### Features
+
+* **bin:** Pull out the `clean` script into an actual shell script. ([46d1db8](https://github.com/randytarampi/me/commit/46d1db8))
+
+
+### Performance Improvements
+
+* **travis:** Modularize `bin/bootstrap.sh` and only call the necessary bits for speed. ([579e225](https://github.com/randytarampi/me/commit/579e225))
+
+
+
+
+
 <a name="0.16.0"></a>
 # [0.16.0](https://github.com/randytarampi/me/compare/v0.15.0...v0.16.0) (2018-08-20)
 
