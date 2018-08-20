@@ -30,6 +30,8 @@ export default (selectors, fetchUrl) => (dispatch, getState) => {
         })
         .catch(error => {
             dispatch(fetchingFailure({fetchUrl, error, page: currentPage}));
+            dispatch(setError(error, "EFETCH"));
+            dispatch(push("./error"));
 
             throw error;
         });

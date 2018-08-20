@@ -230,3 +230,19 @@ export class ShrugBear extends Bear {
         };
     }
 }
+
+export class DeadBear extends Bear {
+    constructor(props, context, updater) {
+        super(props, context, updater);
+    }
+
+    static get defaultProps() {
+        return {
+            leftEar: "ʕ",
+            leftEye: "×",
+            nose: "ᴥ",
+            rightEye: "×",
+            rightEar: "ʔ"
+        };
+    }
+}
