@@ -23,9 +23,9 @@ class Error extends Component {
             case "EFETCH":
                 errorContent =
                     <DeadBear>
-                        <p className="error__message--header">
-                            He's dead, Jim.
-                        </p>
+                        <h2 className="error__message--header">
+                            <span className="text">He's dead, Jim.</span>
+                        </h2>
                         <p className="error__message">
                             You've just tripped something and I've been notified. <EmailLink useBranding={false}
                                                                                              subject={`I broke something at ${DateTime.local().toLocaleString(DateTime.DATETIME_FULL)}`}>Let
@@ -37,6 +37,9 @@ class Error extends Component {
 
             case "ENOPOSTS":
                 errorContent = <ShrugBear>
+                    <h2 className="error__message--header">
+                        <span className="text">Nothing to see here... yet.</span>
+                    </h2>
                     <p className="error__message">
                         There's no content to serve up just yet, but come back soon and there'll probably be something
                         here.
@@ -48,6 +51,9 @@ class Error extends Component {
             case "ENOTFOUND":
             default:
                 errorContent = <DoubtBear>
+                    <h2 className="error__message--header">
+                        <span className="text">What are you looking for?</span>
+                    </h2>
                     <p className="error__message">
                         I don't know who told you to come
                         to <code>{`${window.location.origin}${this.props.location.pathname}`}</code>, but there's
