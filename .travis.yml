@@ -20,18 +20,6 @@ cache:
   timeout: 1200
   directories:
   - $HOME/.npm
-  - node_modules
-  - packages/assets/node_modules
-  - packages/css/node_modules
-  - packages/js/node_modules
-  - packages/jsx/node_modules
-  - packages/letter/node_modules
-  - packages/posts/node_modules
-  - packages/pseudoimage/node_modules
-  - packages/pseudolocalize/node_modules
-  - packages/resume/node_modules
-  - packages/views/node_modules
-  - packages/www/node_modules
 before_install:
 - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
 - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
@@ -106,9 +94,7 @@ jobs:
     - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
     install:
-    - npm run postinstall:css
-    - npm run postinstall:resume
-    - npm run postinstall:all
+    - npm run postinstall
     - npm run build --prefix packages/www
     - npm run docs --prefix packages/www
     before_script: skip
@@ -135,8 +121,7 @@ jobs:
     - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
     - secure: HG5SiuIvZNcqaAGjaPwyQFVxW5uUfGbrN3fwqDEyh3oLW1pcnofNCNGLotWoFTexSXkPGcJeswEPfo5koRej84h1CqmNOPJNmwomjR/lLVf1/CSRY5eo4rf8no9wwEOhzsSX+r4yCyOKoBQ8iaxkcwo/fvPIEwAo1NPLcDYusm7bvAsCrO5NDpZ0KkhYqrD823UqSKLtpVAj8ZVZih3ySI+QL/cPN1LlaOwbREbSHmKvDj7p63k0F/znQ9y+jip/dRgAYreTVLOHKKQmdTLDbl0Lf6yn1m8NvC94Cl2Klt4791i/AUqrC1JV7eEE9f9n7jI3l5M469C5DWVFC9Nc9S1d2tcUAbQS441hZMsp0Hh7iLb601GSQZwI/KbNtM1hYJa/ONSrfJcWjU6MQudUHuOIZo1AoiDjlenznouRiIssJ+f3KKxK8t9UEzlTVsHSoBMvQ9lVabae7iTltM6zVD/BlirUhWFpSInSQsHOIMV1fkDep/0lfXX8rufb5pHm41A8yz3bkwLSPQILEwY9O21ngkffSKlu1sUFqvSdE6SwH5nvXEDaF44QvO9OAn3T6BRz+mHvtGCe9xwq9ixsdpEHzGcC6xHD+coJwFshByWkaMP6+RRobGwpHaxn59DGoTPWY5bhaL2EOiAQBK8d4iQg/rPM++Mcd7jDHZKnXzc=
     install:
-    - npm run postinstall:posts
-    - npm run postinstall:all
+    - npm run postinstall
     before_script: skip
     script: skip
     after_script: skip
@@ -191,8 +176,7 @@ jobs:
     - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
     - secure: HG5SiuIvZNcqaAGjaPwyQFVxW5uUfGbrN3fwqDEyh3oLW1pcnofNCNGLotWoFTexSXkPGcJeswEPfo5koRej84h1CqmNOPJNmwomjR/lLVf1/CSRY5eo4rf8no9wwEOhzsSX+r4yCyOKoBQ8iaxkcwo/fvPIEwAo1NPLcDYusm7bvAsCrO5NDpZ0KkhYqrD823UqSKLtpVAj8ZVZih3ySI+QL/cPN1LlaOwbREbSHmKvDj7p63k0F/znQ9y+jip/dRgAYreTVLOHKKQmdTLDbl0Lf6yn1m8NvC94Cl2Klt4791i/AUqrC1JV7eEE9f9n7jI3l5M469C5DWVFC9Nc9S1d2tcUAbQS441hZMsp0Hh7iLb601GSQZwI/KbNtM1hYJa/ONSrfJcWjU6MQudUHuOIZo1AoiDjlenznouRiIssJ+f3KKxK8t9UEzlTVsHSoBMvQ9lVabae7iTltM6zVD/BlirUhWFpSInSQsHOIMV1fkDep/0lfXX8rufb5pHm41A8yz3bkwLSPQILEwY9O21ngkffSKlu1sUFqvSdE6SwH5nvXEDaF44QvO9OAn3T6BRz+mHvtGCe9xwq9ixsdpEHzGcC6xHD+coJwFshByWkaMP6+RRobGwpHaxn59DGoTPWY5bhaL2EOiAQBK8d4iQg/rPM++Mcd7jDHZKnXzc=
     install:
-    - npm run postinstall:posts
-    - npm run postinstall:all
+    - npm run postinstall
     before_script: skip
     script: skip
     after_script: skip
