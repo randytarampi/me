@@ -45,7 +45,7 @@ provider:
     Resource: arn:aws:lambda:${self:provider.region}:471964952458:function:${self:service}-${self:provider.stage}-*
 
   environment: ${file(env.yml):${self:provider.stage}.environment}
-  environmentSecrets: # can't just include the whole obj from the env file bc for some reason the plugin won't load from external files
+  environmentSecrets: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.environmentSecrets}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
     FLICKR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_KEY}
     FLICKR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_SECRET}
     UNSPLASH_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_KEY}
@@ -102,67 +102,45 @@ custom:
   warmup:
     prewarm: true
 
-functions:
+functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.functions}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
   cacheWords:
     handler: serverless/handler/initializedCacheWords.default
     timeout: 60
-    events:
-    - schedule: rate(1 hour)
+    events: ${file(env.yml):${self:provider.stage}.functions.cacheWords.events}
     onError:
       Ref: LambdaDeadLetterQueue
   cachePhotos:
     handler: serverless/handler/initializedCachePhotos.default
     timeout: 60
-    events:
-    - schedule: rate(1 hour)
+    events: ${file(env.yml):${self:provider.stage}.functions.cachePhotos.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPosts:
     warmup: true
     handler: serverless/handler/initializedGetPosts.default
-    events:
-    - http:
-        path: posts
-        method: get
-        cors: true
+    events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getWords:
     warmup: true
     handler: serverless/handler/initializedGetWords.default
-    events:
-    - http:
-        path: words
-        method: get
-        cors: true
+    events: ${file(env.yml):${self:provider.stage}.functions.getWords.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPhotos:
     warmup: true
     handler: serverless/handler/initializedGetPhotos.default
-    events:
-    - http:
-        path: photos
-        method: get
-        cors: true
+    events: ${file(env.yml):${self:provider.stage}.functions.getPhotos.events}
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
     handler: serverless/handler/initializedInstagramAuthRedirect.default
-    events:
-    - http:
-        path: auth/instagram
-        method: get
-        cors: true
+    events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthReturn:
     handler: serverless/handler/initializedInstagramAuthReturn.default
-    events:
-    - http:
-        path: auth/instagram/redirect
-        method: get
-        cors: true
+    events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthReturn.events}
     onError:
       Ref: LambdaDeadLetterQueue
 
