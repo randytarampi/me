@@ -143,7 +143,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({
                 orderBy: "meow",
                 orderOperator: "lt",
-                orderCompartor: "grr",
+                orderComparator: "grr",
                 type: "woof"
             });
 
@@ -171,7 +171,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({
                 orderBy: "meow",
                 orderOperator: "gt",
-                orderCompartor: "grr",
+                orderComparator: "grr",
                 source: "woof"
             });
 
@@ -188,7 +188,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({
                 orderBy: "meow",
                 orderOperator: "gt",
-                orderCompartor: "grr",
+                orderComparator: "grr",
                 source: "woof",
                 perPage: 20
             });

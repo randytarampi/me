@@ -10,7 +10,7 @@ class SearchParams extends Record({
     page: 1,
     orderBy: undefined,
     orderOperator: undefined,
-    orderCompartor: undefined,
+    orderComparator: undefined,
     width: undefined,
     height: undefined,
     crop: undefined,
@@ -96,11 +96,11 @@ class SearchParams extends Record({
                 };
             }
 
-            if (this.orderBy && this.orderOperator && this.orderCompartor) {
+            if (this.orderBy && this.orderOperator && this.orderComparator) {
                 return {
                     _query: {
                         hash: {type: {eq: this.type}},
-                        range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}}
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
                     },
                     _options: {
                         ...options,
@@ -123,11 +123,11 @@ class SearchParams extends Record({
                 };
             }
 
-            if (this.orderBy && this.orderOperator && this.orderCompartor) {
+            if (this.orderBy && this.orderOperator && this.orderComparator) {
                 return {
                     _query: {
                         hash: {source: {eq: this.source}},
-                        range: {[this.orderBy]: {[this.orderOperator]: this.orderCompartor}}
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
                     },
                     _options: {
                         ...options,
