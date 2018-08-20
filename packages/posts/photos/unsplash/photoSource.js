@@ -14,7 +14,7 @@ class UnsplashSource extends PhotoSource {
     }
 
     postsGetter(searchParams) {
-        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.page, searchParams.perPage, searchParams.orderBy);
+        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.Unsplash.page, searchParams.Unsplash.per_page, searchParams.Unsplash.order_by);
 
         return unsplashRequest
             .then(toJson)
@@ -22,7 +22,7 @@ class UnsplashSource extends PhotoSource {
     }
 
     postGetter(photoId, searchParams) {
-        return this.client.photos.getPost(photoId, searchParams.width, searchParams.height, searchParams.crop)
+        return this.client.photos.getPost(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
             .then(toJson)
             .then(json => json && this.jsonToPost(json));
     }

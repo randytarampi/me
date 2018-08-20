@@ -3,13 +3,15 @@ import {Record} from "immutable";
 import _ from "lodash";
 
 /**
- * Turn some generic search parameters into a query parameters for [Posts]{@link Post} for some services
+ * @typedef {Object} searchParamsRecordDefinition
+ * @type {{type: undefined, perPage: number, page: number, orderBy: undefined, orderOperator: undefined, orderComparator: undefined, orderComparatorType: undefined, width: undefined, height: undefined, crop: undefined, id: undefined, uid: undefined, source: undefined, _rawFilter: undefined}}
+ * @property orderBy {String} One of `ascending` or `descending`.
  */
-class SearchParams extends Record({
+const searchParamsRecordDefinition = {
     type: undefined,
     perPage: 100,
     page: 1,
-    orderBy: undefined,
+    orderBy: "descending",
     orderOperator: undefined,
     orderComparator: undefined,
     orderComparatorType: undefined,
@@ -20,7 +22,14 @@ class SearchParams extends Record({
     uid: undefined,
     source: undefined,
     _rawFilter: undefined
-}) {
+};
+const SearchParamsRecord = Record(searchParamsRecordDefinition);
+
+/**
+ * Turn some generic search parameters into a query parameters for [Posts]{@link Post} for some services
+ * @extends SearchParamsRecord
+ */
+class SearchParams extends SearchParamsRecord {
     get Flickr() {
         return {
             page: this.page,
@@ -30,10 +39,22 @@ class SearchParams extends Record({
     }
 
     get Unsplash() {
+        let order_by = "latest";
+
+        switch (this.orderBy) {
+            case "ascending":
+                order_by = "oldest";
+                break;
+
+            case "descending":
+                order_by = "latest";
+                break;
+        }
+
         return {
             page: this.page,
             per_page: this.perPage,
-            order_by: this.orderBy,
+            order_by,
             width: this.width,
             height: this.height,
             crop: this.crop
@@ -67,6 +88,19 @@ class SearchParams extends Record({
         const options = {
             descending: true
         };
+
+        switch (this.orderBy) {
+            case "descending":
+                options.descending = true;
+                break;
+
+            case "ascending":
+                options.descending = false;
+                break;
+
+            // NOTE-RT: Assume all other cases will have `orderComparator` defined, which takes care of any ambiguity here
+        }
+
         const filter = {
             ...this._rawFilter
         };

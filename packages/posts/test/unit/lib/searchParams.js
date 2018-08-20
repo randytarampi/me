@@ -48,7 +48,33 @@ describe("SearchParams", function () {
             expect(searchParams.Unsplash).to.eql({
                 page: searchParams.page,
                 per_page: searchParams.perPage,
-                order_by: undefined,
+                order_by: "latest",
+                width: undefined,
+                height: undefined,
+                crop: undefined
+            });
+        });
+
+        it("supports `orderBy: \"descending\"`", function () {
+            const searchParams = SearchParams.fromJS({orderBy: "descending"});
+
+            expect(searchParams.Unsplash).to.eql({
+                page: searchParams.page,
+                per_page: searchParams.perPage,
+                order_by: "latest",
+                width: undefined,
+                height: undefined,
+                crop: undefined
+            });
+        });
+
+        it("supports `orderBy: \"ascending\"`", function () {
+            const searchParams = SearchParams.fromJS({orderBy: "ascending"});
+
+            expect(searchParams.Unsplash).to.eql({
+                page: searchParams.page,
+                per_page: searchParams.perPage,
+                order_by: "oldest",
                 width: undefined,
                 height: undefined,
                 crop: undefined
@@ -102,6 +128,28 @@ describe("SearchParams", function () {
                     uid: {eq: "woof"}
                 },
                 _options: {limit: 100, descending: true}
+            });
+        });
+
+        it("supports `orderBy: \"descending\"`", function () {
+            const searchParams = SearchParams.fromJS({uid: "woof", orderBy: "descending"});
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    uid: {eq: "woof"}
+                },
+                _options: {limit: 100, descending: true}
+            });
+        });
+
+        it("supports `orderBy: \"ascending\"`", function () {
+            const searchParams = SearchParams.fromJS({uid: "woof", orderBy: "ascending"});
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    uid: {eq: "woof"}
+                },
+                _options: {limit: 100, descending: false}
             });
         });
 
