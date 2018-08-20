@@ -47,8 +47,8 @@ describe("SearchParams", function () {
 
             expect(searchParams.Unsplash).to.eql({
                 page: searchParams.page,
-                perPage: searchParams.perPage,
-                orderBy: undefined,
+                per_page: searchParams.perPage,
+                order_by: undefined,
                 width: undefined,
                 height: undefined,
                 crop: undefined

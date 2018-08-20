@@ -32,8 +32,8 @@ class SearchParams extends Record({
     get Unsplash() {
         return {
             page: this.page,
-            perPage: this.perPage,
-            orderBy: this.orderBy,
+            per_page: this.perPage,
+            order_by: this.orderBy,
             width: this.width,
             height: this.height,
             crop: this.crop
