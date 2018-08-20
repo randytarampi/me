@@ -1,5 +1,7 @@
+import {push} from "react-router-redux";
 import {createAction} from "redux-actions";
 import fetchPosts from "../api/fetchPosts";
+import setError from "./setError";
 
 export const FETCHING_POSTS_FAILURE = "FETCHING_POSTS_FAILURE";
 export const FETCHING_POSTS_SUCCESS = "FETCHING_POSTS_SUCCESS";
@@ -20,6 +22,11 @@ export default (selectors, fetchUrl) => (dispatch, getState) => {
     return fetchPosts(fetchUrl, nextPage)
         .then(posts => {
             dispatch(fetchingSuccess({fetchUrl, posts, page: nextPage}));
+
+            if (!posts || !posts.length) {
+                dispatch(setError(undefined, "ENOPOSTS"));
+                dispatch(push("./error"));
+            }
         })
         .catch(error => {
             dispatch(fetchingFailure({fetchUrl, error, page: currentPage}));

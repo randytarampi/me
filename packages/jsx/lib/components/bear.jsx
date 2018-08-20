@@ -210,3 +210,23 @@ export class DoubtBear extends Bear {
         };
     }
 }
+
+export class ShrugBear extends Bear {
+    constructor(props, context, updater) {
+        super(props, context, updater);
+    }
+
+    static get defaultProps() {
+        return {
+            leftAction: "¯",
+            leftLeaningLeftArm: "\\_",
+            leftEar: "ʕ",
+            leftEye: "•",
+            nose: "ᴥ",
+            rightEye: "•",
+            rightEar: "ʔ",
+            rightLeaningRightArm: "_/",
+            rightAction: "¯"
+        };
+    }
+}
