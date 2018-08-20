@@ -15110,22 +15110,13 @@ h1 .text a, h2 .text a, h3 .text a, h4 .text a, h5 .text a, h6 .text a {
 
 .bear {
   text-align: center;
-  font-size: 72pt;
+  font-size: 6rem;
   white-space: nowrap;
   line-height: 1.5;
-  user-select: none;
-  -ms-user-select: none;
-  -moz-user-select: none;
   -webkit-user-select: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 .post-title {
   margin-top: 0;
@@ -15176,13 +15167,22 @@ h1 .text a, h2 .text a, h3 .text a, h4 .text a, h5 .text a, h6 .text a {
   padding: 0.75em; }
 
 .loading-spinner {
-  min-height: 100vh; }
-
-.preloader-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%; }
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
 
 html, body {
   height: 100%;
@@ -15361,9 +15361,27 @@ ul:not(.browser-default) {
 
 .error {
   position: relative;
-  height: 100vh; }
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
   .error__message {
-    font-size: 15px; }
+    font-size: 1rem;
+    white-space: normal; }
+    .error__message--header {
+      font-size: 2rem; }
 
 .signature {
   max-width: 150px; }
@@ -15465,7 +15483,7 @@ ul:not(.browser-default) {
   margin-bottom: 0; }
 </style><script>window.SENTRY_DSN = "https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735";
 window.ENVIRONMENT = "prd";
-window.VERSION = "0.14.3";</script><script>(function (w, d, s, l, i) {
+window.VERSION = "0.15.0";</script><script>(function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({
         "gtm.start":
