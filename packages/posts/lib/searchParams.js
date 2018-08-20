@@ -1,5 +1,6 @@
 import {Photo, util} from "@randy.tarampi/js";
 import {Record} from "immutable";
+import _ from "lodash";
 
 /**
  * Turn some generic search parameters into a query parameters for [Posts]{@link Post} for some services
@@ -11,6 +12,7 @@ class SearchParams extends Record({
     orderBy: undefined,
     orderOperator: undefined,
     orderComparator: undefined,
+    orderComparatorType: undefined,
     width: undefined,
     height: undefined,
     crop: undefined,
@@ -68,6 +70,16 @@ class SearchParams extends Record({
         const filter = {
             ...this._rawFilter
         };
+        let comparator = this.orderComparator;
+
+        switch (this.orderComparatorType) {
+            case "String":
+                break;
+
+            case "Number":
+            default:
+                comparator = Number(this.orderComparator);
+        }
 
         if (this.perPage) {
             options.limit = this.perPage;
@@ -96,11 +108,11 @@ class SearchParams extends Record({
                 };
             }
 
-            if (this.orderBy && this.orderOperator && this.orderComparator) {
+            if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
                 return {
                     _query: {
                         hash: {type: {eq: this.type}},
-                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
+                        range: {[this.orderBy]: {[this.orderOperator]: comparator}}
                     },
                     _options: {
                         ...options,
@@ -123,11 +135,11 @@ class SearchParams extends Record({
                 };
             }
 
-            if (this.orderBy && this.orderOperator && this.orderComparator) {
+            if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
                 return {
                     _query: {
                         hash: {source: {eq: this.source}},
-                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
+                        range: {[this.orderBy]: {[this.orderOperator]: comparator}}
                     },
                     _options: {
                         ...options,

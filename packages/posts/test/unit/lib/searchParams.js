@@ -143,14 +143,14 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({
                 orderBy: "meow",
                 orderOperator: "lt",
-                orderComparator: "grr",
+                orderComparator: 0,
                 type: "woof"
             });
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
                     hash: {type: {eq: "woof"}},
-                    range: {meow: {lt: "grr"}}
+                    range: {meow: {lt: 0}}
                 },
                 _options: {indexName: "type-meow-index", limit: 100, descending: true}
             });
@@ -171,14 +171,14 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({
                 orderBy: "meow",
                 orderOperator: "gt",
-                orderComparator: "grr",
+                orderComparator: "5",
                 source: "woof"
             });
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
                     hash: {source: {eq: "woof"}},
-                    range: {meow: {gt: "grr"}}
+                    range: {meow: {gt: 5}}
                 },
                 _options: {indexName: "source-meow-index", limit: 100, descending: true}
             });
@@ -189,6 +189,7 @@ describe("SearchParams", function () {
                 orderBy: "meow",
                 orderOperator: "gt",
                 orderComparator: "grr",
+                orderComparatorType: "String",
                 source: "woof",
                 perPage: 20
             });
