@@ -21,7 +21,17 @@ cache:
   directories:
   - $HOME/.npm
   - node_modules
+  - packages/assets/node_modules
+  - packages/css/node_modules
+  - packages/js/node_modules
+  - packages/jsx/node_modules
+  - packages/letter/node_modules
   - packages/posts/node_modules
+  - packages/pseudoimage/node_modules
+  - packages/pseudolocalize/node_modules
+  - packages/resume/node_modules
+  - packages/views/node_modules
+  - packages/www/node_modules
 before_install:
 - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
 - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
