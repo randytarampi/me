@@ -1,11 +1,12 @@
 import {RowBlock} from "@randy.tarampi/jsx";
 import {HelloBear} from "@randy.tarampi/jsx/lib/components/bear";
-import Link, {
+import {
     BlogAppLink,
     EmailLink,
     GitHubLink,
     InstagramLink,
     LinkedInLink,
+    ResumeAppLink,
     SmsLink
 } from "@randy.tarampi/jsx/lib/components/link";
 import React, {Fragment} from "react";
@@ -17,8 +18,8 @@ const IntroText = () =>
             <span className="text">Hey!</span>
         </h2>
         <p>
-                <span className="text">I'm looking for work, but you probably knew that already because let's be real, you probably clicked through to here from my <Link
-                    href="/resume">resume</Link> or my <LinkedInLink useBranding={false} text="LinkedIn"/>.</span>
+            <span className="text">I'm looking for work, but you probably knew that already because let's be real, you probably clicked through to here from my <ResumeAppLink>resume</ResumeAppLink> or my <LinkedInLink
+                useBranding={false} text="LinkedIn"/>.</span>
         </p>
         <p>
                 <span className="text">If you're interested in my work check me out on <GitHubLink useBranding={false}
