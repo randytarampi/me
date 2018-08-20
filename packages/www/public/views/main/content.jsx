@@ -1,14 +1,14 @@
-import React from "react";
+import React, {Fragment} from "react";
 import Bears from "./bears";
 import Intro from "./intro";
 import Works from "./works";
 
 const PageContent = () => {
-    return <div className="page-content">
+    return <Fragment>
         <Intro/>
         <Works/>
         <Bears/>
-    </div>;
+    </Fragment>;
 };
 
 export default PageContent;
