@@ -1,8 +1,9 @@
-import SearchParams from "../../photos/searchParams";
-import searchPhotos from "../../photos/searchPhotos";
+import searchCache from "../../lib/searchCache";
 import configureEnvironment from "../util/configureEnvironment";
 import responseBuilder from "../util/responseBuilder";
 import returnErrorResponse from "../util/returnErrorResponse";
+import parseQueryStringParametersIntoSearchParams from "../util/parseQueryStringParametersIntoSearchParams";
+import {Photo} from "@randy.tarampi/js";
 
 export default (event, context, callback) => {
     if (event.source === "serverless-plugin-warmup") {
@@ -11,12 +12,7 @@ export default (event, context, callback) => {
 
     configureEnvironment()
         .then(() => {
-            const searchParams = event.queryStringParameters && new SearchParams({
-                page: parseInt(event.queryStringParameters.page, 10),
-                perPage: parseInt(event.queryStringParameters.perPage, 10)
-            });
-
-            return searchPhotos(searchParams)
+            return searchCache(parseQueryStringParametersIntoSearchParams({type: Photo.name})(event.queryStringParameters))
                 .then(sortedPhotos => callback(null, responseBuilder(sortedPhotos)));
         })
         .catch(returnErrorResponse(callback));

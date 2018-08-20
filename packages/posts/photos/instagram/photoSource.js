@@ -4,7 +4,6 @@ import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import Moment from "moment";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
 
 class InstagramSource extends PhotoSource {
     constructor(dataClient, cacheClient) {
@@ -18,9 +17,7 @@ class InstagramSource extends PhotoSource {
         return !!process.env[`${this.type.toUpperCase()}_ACCESS_TOKEN`];
     }
 
-    postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-
+    postsGetter(searchParams) {
         const userId = process.env.INSTAGRAM_USER_ID;
         let instagramRequest = Promise.resolve(userId);
 
@@ -33,10 +30,10 @@ class InstagramSource extends PhotoSource {
         }
 
         return instagramRequest
-            .then(userId => this.client.userMedia(userId, params.Instagram))
+            .then(userId => this.client.userMedia(userId, searchParams.Instagram))
             .then(mediaJson => Promise.all(
                 mediaJson.data
-                .filter(datum => datum.type === "image")
+                    .filter(datum => datum.type === "image")
                     .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.jsonToPost(post)))
             ));
     }

@@ -2,7 +2,6 @@ import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import "isomorphic-fetch";
 import Unsplash, {toJson} from "unsplash-js";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
 
 class UnsplashSource extends PhotoSource {
     constructor(dataClient, cacheClient) {
@@ -14,20 +13,16 @@ class UnsplashSource extends PhotoSource {
             cacheClient);
     }
 
-    postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-
-        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, params.page, params.perPage, params.orderBy);
+    postsGetter(searchParams) {
+        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.page, searchParams.perPage, searchParams.orderBy);
 
         return unsplashRequest
             .then(toJson)
             .then(response => Promise.all(response.map(photo => this.jsonToPost(photo)))); // NOTE-RT: Need `that` because `toJson` uses an old school `function`
     }
 
-    postGetter(photoId, params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-
-        return this.client.photos.getPost(photoId, params.width, params.height, params.crop)
+    postGetter(photoId, searchParams) {
+        return this.client.photos.getPost(photoId, searchParams.width, searchParams.height, searchParams.crop)
             .then(toJson)
             .then(json => json && this.jsonToPost(json));
     }

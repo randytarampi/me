@@ -134,36 +134,4 @@ describe("PhotoSource", function () {
                 });
         });
     });
-
-    describe("#cachedPostsGetter", function () {
-        it("delegates to `this.cacheClient.getPosts`", function () {
-            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
-
-            return photoSource.cachedPostsGetter()
-                .then(cachedPosts => {
-                    expect(cachedPosts).to.be.ok;
-                    expect(cachedPosts).to.eql(stubPhotos);
-                    expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Photo.name}, source: {eq: photoSource.type}});
-                });
-        });
-    });
-
-    describe("#cachedPostGetter", function () {
-        it("delegates to `this.cacheClient.getPost`", function () {
-            const photoSource = new PhotoSource(stubType, stubServiceClient, stubCacheClient);
-
-            return photoSource.cachedPostGetter(stubPhoto.uid)
-                .then(cachedPost => {
-                    expect(cachedPost).to.be.ok;
-                    expect(cachedPost).to.eql(stubPhoto);
-                    expect(stubGetPost.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPost, {
-                        id: {eq: stubPhoto.uid},
-                        type: {eq: Photo.name},
-                        source: {eq: photoSource.type}
-                    });
-                });
-        });
-    });
 });

@@ -21,11 +21,11 @@ provider:
   - Effect: Allow
     Action:
     - S3:ListBucket
-    Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-posts
+    Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-${self:service}
   - Effect: Allow
     Action:
     - S3:GetObject
-    Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-posts/*
+    Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-${self:service}/*
   - Effect: Allow
     Action:
     - SNS:Publish
@@ -122,7 +122,7 @@ functions:
     handler: serverless/handler/initializedGetPosts.default
     events:
     - http:
-        path: ${self:service}
+        path: posts
         method: get
         cors: true
     onError:

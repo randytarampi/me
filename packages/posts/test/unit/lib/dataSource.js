@@ -2,6 +2,7 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import DataSource from "../../../lib/dataSource";
+import SearchParams from "../../../lib/searchParams";
 import PhotoSource from "../../../photos/photoSource";
 import DummyDataSourceGenerator from "../../lib/dummyDataSourceGenerator";
 
@@ -126,7 +127,7 @@ describe("DataSource", function () {
             const dataSource = new DummyDataSource(stubType, stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const posts = await dataSource.getPosts(stubParams);
 
             expect(posts).to.be.ok;
@@ -170,7 +171,7 @@ describe("DataSource", function () {
             const dataSource = new DummyDataSource(stubType, stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
 
-            const stubParams = {};
+            const stubParams = SearchParams.fromJS();
             const post = await dataSource.getPost(stubPost.id, stubParams);
 
             expect(post).to.be.ok;

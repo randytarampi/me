@@ -3,7 +3,6 @@ import _ from "lodash";
 import Moment from "moment";
 import tumblr from "tumblr.js";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
 
 class TumblrSource extends PhotoSource {
     constructor(dataClient, cacheClient) {
@@ -17,19 +16,15 @@ class TumblrSource extends PhotoSource {
         );
     }
 
-    async postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, params.Tumblr)
+    async postsGetter(searchParams) {
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
             .then(response =>
                 _.flatten(response.posts.map(postJson => postJson.photos.map(photoJson => this.jsonToPost(photoJson, postJson, response.blog))))
             );
     }
 
-    async postGetter(id, params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, Object.assign({id}, params.Tumblr))
+    async postGetter(id, searchParams) {
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
             .then(response =>
                 _.flatten(response.posts.map(postJson => postJson.photos.map(photoJson => this.jsonToPost(photoJson, postJson, response.blog))))[0]
             );

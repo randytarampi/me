@@ -134,36 +134,4 @@ describe("WordSource", function () {
                 });
         });
     });
-
-    describe("#cachedPostsGetter", function () {
-        it("delegates to `this.cacheClient.getPosts`", function () {
-            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
-
-            return wordSource.cachedPostsGetter()
-                .then(cachedPosts => {
-                    expect(cachedPosts).to.be.ok;
-                    expect(cachedPosts).to.eql(stubPosts);
-                    expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, {type: {eq: Post.name}, source: {eq: wordSource.type}});
-                });
-        });
-    });
-
-    describe("#cachedPostGetter", function () {
-        it("delegates to `this.cacheClient.getPost`", function () {
-            const wordSource = new WordSource(stubType, stubServiceClient, stubCacheClient);
-
-            return wordSource.cachedPostGetter(stubPost.uid)
-                .then(cachedPost => {
-                    expect(cachedPost).to.be.ok;
-                    expect(cachedPost).to.eql(stubPost);
-                    expect(stubGetPost.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPost, {
-                        id: {eq: stubPost.uid},
-                        type: {eq: Post.name},
-                        source: {eq: wordSource.type}
-                    });
-                });
-        });
-    });
 });

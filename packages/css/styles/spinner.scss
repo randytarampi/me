@@ -1,10 +1,6 @@
 .loading-spinner {
     min-height: 100vh;
-}
-
-.preloader-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
+    display: flex;
+    align-items: center;
+    justify-content: center
 }

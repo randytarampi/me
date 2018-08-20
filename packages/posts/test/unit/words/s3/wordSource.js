@@ -6,6 +6,8 @@ import S3WordSource from "../../../../words/s3/wordSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
+import SearchParams from "../../../../lib/searchParams";
+
 describe("S3WordSource", function () {
     let stubServiceClient;
     let stubPost;
@@ -122,7 +124,7 @@ describe("S3WordSource", function () {
 
         DummyCacheClient = builtDummyClasses.DummyCacheClient;
 
-        stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
+        stubCacheClient = new DummyCacheClient();
     });
 
     describe("constructor", function () {
@@ -150,7 +152,7 @@ describe("S3WordSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 30, page: 2};
+            const stubParams = SearchParams.fromJS({perPage: 30, page: 2});
 
             return s3WordSource.postsGetter(stubParams)
                 .then(posts => {
@@ -163,15 +165,15 @@ describe("S3WordSource", function () {
                     sinon.assert.calledOnce(stubServiceClient.listObjects);
                     sinon.assert.calledWith(stubServiceClient.listObjects, {
                         Bucket: process.env.S3_BUCKET_NAME,
-                        MaxKeys: stubParams.perPage || 20,
-                        Marker: String((stubParams.perPage || 20) * (stubParams.page - 1))
+                        MaxKeys: stubParams.perPage,
+                        Marker: String(stubParams.perPage * (stubParams.page - 1))
                     });
                 });
         });
 
         it("finds no posts", function () {
             const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
-            const stubParams = {perPage: 420};
+            const stubParams = SearchParams.fromJS({perPage: 420});
 
             return s3WordSource.postsGetter(stubParams)
                 .then(posts => {
@@ -192,7 +194,7 @@ describe("S3WordSource", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
 
-            return s3WordSource.postGetter(stubPost.id)
+            return s3WordSource.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Post);
@@ -207,7 +209,7 @@ describe("S3WordSource", function () {
         it("finds no post", function () {
             const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
 
-            return s3WordSource.postGetter("foo")
+            return s3WordSource.postGetter("foo", SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.getObject);

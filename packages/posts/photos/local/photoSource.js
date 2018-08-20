@@ -6,7 +6,6 @@ import Moment from "moment";
 import path from "path";
 import url from "url";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
 
 class LocalSource extends PhotoSource {
     constructor(dataClient, cacheClient) {
@@ -42,9 +41,7 @@ class LocalSource extends PhotoSource {
         });
     }
 
-    postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
-
+    postsGetter(searchParams) {
         return new Promise((resolve, reject) => {
             fs.readdir(process.env.LOCAL_DIRECTORY, (error, fileNames) => {
                 if (error) {
@@ -78,12 +75,12 @@ class LocalSource extends PhotoSource {
                 }));
             })
             .then((files) => {
-                const page = isNaN(params.page) ? 1 : params.page;
+                const page = isNaN(searchParams.page) ? 1 : searchParams.page;
                 return Promise.all(_.sortBy(files,
                     (file) => {
                         return -1 * file.lstat.ctime;
                     })
-                    .slice((page - 1) * params.perPage, page * params.perPage)
+                    .slice((page - 1) * searchParams.perPage, page * searchParams.perPage)
                     .map((file) => {
                         return new Promise((resolve, reject) => {
                             lwip.open(file.filePath, (error, image) => {

@@ -1,6 +1,8 @@
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
 import logger from "./logger";
+import SearchParams from "./searchParams";
+import {util} from "@randy.tarampi/js";
 
 /**
  * A generic data source that fetches [Post(s)]{@link Post} from some service or some cache, whichever returns first
@@ -19,31 +21,30 @@ class CachedDataSource extends DataSource {
     }
 
     /**
-     * A hook to do some processing of params before we query the [cache]{@link CachedDataSource.cache} for posts
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
-     * @returns {object} The maybe decorated params to be used by [postsGetter]{@link postsGetter}
+     * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for posts
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {object} The maybe decorated searchParams to be used by [postsGetter]{@link postsGetter}
      */
-    async beforeCachedPostsGetter(params) { // eslint-disable-line no-unused-vars
-        return Promise.resolve(params);
+    async beforeCachedPostsGetter(searchParams) {
+        return Promise.resolve(searchParams);
     }
 
     /**
-     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for posts
-     * @abstract
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Posts]{@link Post}
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
-    async cachedPostsGetter(params) {
-        return Promise.reject(new Error(`Looking for ${params} – Please specify an actual cachedPostsGetter implementation`));
+    async cachedPostsGetter(searchParams) {
+        return this.cacheClient.getPosts(searchParams.set("source", this.type));
     }
 
     /**
      * A hook to do some processing of [Posts]{@link Post} after they're returned by the client
      * @param posts {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} The maybe decorated [Posts]{@link Post} from the wrapped client
      */
-    async afterCachedPostsGetter(posts, params) { // eslint-disable-line no-unused-vars
+    async afterCachedPostsGetter(posts, searchParams) { // eslint-disable-line no-unused-vars
         return Promise.resolve(posts);
     }
 
@@ -62,18 +63,18 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns some [Posts]{@link Post} from the [cache]{@link CachedDataSource.cacheClient}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
-    async getCachedPosts(params) {
-        return this.beforeCachedPostsGetter(params)
+    async getCachedPosts(searchParams) {
+        return this.beforeCachedPostsGetter(searchParams)
             .then(decoratedCachedPostsGetterParams => {
-                logger.debug(`[cachedDataSource.getCachedPosts] retrieving post (${JSON.stringify(params)}) from cache at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getCachedPosts] retrieving post (${JSON.stringify(searchParams)}) from cache at ${Date.now()}`);
                 return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
                     .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
                     .then(posts => {
                         if (!posts || !posts.length) {
-                            logger.debug(`[cachedDataSource.getCachedPosts] retrieve posts (${JSON.stringify(params)}) cache miss at ${Date.now()}`);
+                            logger.debug(`[cachedDataSource.getCachedPosts] retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${Date.now()}`);
                             return null;
                         }
 
@@ -85,13 +86,13 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns some [Posts]{@link Post} probably pulled from the [service]{@link CachedDataSource.client}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
-    async getServicePosts(params) {
-        return this.beforePostsGetter(params)
+    async getServicePosts(searchParams) {
+        return this.beforePostsGetter(searchParams)
             .then(decoratedPostsGetterParams => {
-                logger.debug(`[cachedDataSource.getServicePosts] retrieving post (${JSON.stringify(params)}) from service at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getServicePosts] retrieving post (${JSON.stringify(searchParams)}) from service at ${Date.now()}`);
                 return this.postsGetter(decoratedPostsGetterParams)
                     .then(posts => {
                         this.cachePosts(posts);
@@ -103,47 +104,50 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns some [Posts]{@link Post}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
-    async getPosts(params) {
-        let posts = await this.getCachedPosts(params);
+    async getPosts(searchParams) {
+        let posts = await this.getCachedPosts(searchParams);
 
         if (!posts || !posts.length) {
-            posts = await this.getServicePosts(params);
+            posts = await this.getServicePosts(searchParams);
         }
 
         return posts;
     }
 
     /**
-     * A hook to do some processing of params before we query the [cache]{@link CachedDataSource.cache} for a post
+     * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for a post
      * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
-     * @returns {object} The maybe decorated params to be used by [postGetter]{@link postGetter}
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {object} The maybe decorated searchParams to be used by [postGetter]{@link postGetter}
      */
-    async beforeCachedPostGetter(postId, params) { // eslint-disable-line no-unused-vars
-        return Promise.resolve(params);
+    async beforeCachedPostGetter(postId, searchParams) {
+        return Promise.resolve(searchParams);
     }
 
     /**
      * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a post
-     * @abstract
      * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
      */
-    async cachedPostGetter(postId, params) {
-        return Promise.reject(new Error(`Looking for ${postId} with ${params} – Please specify an actual cachedPostGetter implementation`));
+    async cachedPostGetter(postId, searchParams) {
+        let cacheParams = searchParams
+            ? searchParams.set("id", postId).set("source", this.type)
+            : SearchParams.fromJS({uid: `${this.type}${util.compositeKeySeparator}${postId}`});
+
+        return this.cacheClient.getPost(cacheParams);
     }
 
     /**
      * A hook to do some processing of a [Post]{@link Post} after it's returned by the client
      * @param post {string} A single post retrieved from the [cache]{@link CachedDataSource.cacheClient}
-     * @param params {object} [Client]{@link CachedDataSource.cacheClient} specific query parameters
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post} The maybe decorated [Post]{@link Post} from the wrapped client
      */
-    async afterCachedPostGetter(post, params) { // eslint-disable-line no-unused-vars
+    async afterCachedPostGetter(post, searchParams) { // eslint-disable-line no-unused-vars
         return Promise.resolve(post);
     }
 
@@ -164,11 +168,11 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Post]{@link Post} retrieved from the [cache]{@link CachedDataSource.cacheClient}
      * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient}
-     * @param params {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {object} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
-    async getCachedPost(postId, params) {
-        return this.beforeCachedPostGetter(postId, params)
+    async getCachedPost(postId, searchParams) {
+        return this.beforeCachedPostGetter(postId, searchParams)
             .then(decoratedCachedPostGetterParams => {
                 logger.debug(`[cachedDataSource.getCachedPost] retrieving post (${postId}) from cache at ${Date.now()}`);
                 return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
@@ -187,11 +191,11 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Post]{@link Post} probably retrieved from the [service]{@link CachedDataSource.client}
      * @param postId {string} A single post to retrieve from the [service]{@link CachedDataSource.client}
-     * @param params {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {object} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
-    async getServicePost(postId, params) {
-        return this.beforePostGetter(postId, params)
+    async getServicePost(postId, searchParams) {
+        return this.beforePostGetter(postId, searchParams)
             .then(decoratedPostGetterParams => {
                 logger.debug(`[cachedDataSource.getServicePost] retrieving post (${postId}) from service at ${Date.now()}`);
                 return this.postGetter(postId, decoratedPostGetterParams)
@@ -206,14 +210,14 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Post]{@link Post}
      * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient} or [service]{@link CachedDataSource.client}
-     * @param params {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {object} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
-    async getPost(postId, params) {
-        let post = await this.getCachedPost(postId, params);
+    async getPost(postId, searchParams) {
+        let post = await this.getCachedPost(postId, searchParams);
 
         if (!post) {
-            post = await this.getServicePost(postId, params);
+            post = await this.getServicePost(postId, searchParams);
         }
 
         return post;

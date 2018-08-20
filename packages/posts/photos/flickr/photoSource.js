@@ -3,7 +3,6 @@ import Flickr from "flickr-sdk";
 import _ from "lodash";
 import Moment from "moment";
 import PhotoSource from "../photoSource";
-import SearchParams from "../searchParams";
 
 class FlickrSource extends PhotoSource {
     constructor(dataClient, cacheClient) {
@@ -13,8 +12,7 @@ class FlickrSource extends PhotoSource {
         );
     }
 
-    postsGetter(params) {
-        params = params instanceof SearchParams ? params : new SearchParams(params);
+    postsGetter(searchParams) {
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;
         let flickrRequest = Promise.resolve(userId);
@@ -30,7 +28,7 @@ class FlickrSource extends PhotoSource {
             .then(userId => {
                 return client.people.getPublicPhotos(_.extend({
                         user_id: userId
-                    }, params.Flickr))
+                    }, searchParams.Flickr))
                     .then(response => response.body.photos.photo);
             })
             .then(photos => {
