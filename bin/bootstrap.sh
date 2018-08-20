@@ -6,6 +6,6 @@ REPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`}
 
 cd $REPO_ROOT;
 
-./install.sh;
+$REPO_ROOT/bin/install.sh;
 
-./postinstall.sh;
+$REPO_ROOT/bin/postinstall.sh;

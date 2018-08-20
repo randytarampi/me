@@ -6,8 +6,8 @@ REPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`}
 
 cd $REPO_ROOT;
 
-./postinstall-css.sh;
-./postinstall-posts.sh
-./postinstall-pseudoimage.sh;
-./postinstall-resume.sh;
-./postinstall-all.sh;
+$REPO_ROOT/bin/postinstall-css.sh;
+$REPO_ROOT/bin/postinstall-posts.sh
+$REPO_ROOT/bin/postinstall-pseudoimage.sh;
+$REPO_ROOT/bin/postinstall-resume.sh;
+$REPO_ROOT/bin/postinstall-all.sh;
