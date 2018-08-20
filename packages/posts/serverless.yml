@@ -107,10 +107,6 @@ functions:
     handler: serverless/handler/initializedCacheWords.default
     timeout: 60
     events:
-    - http:
-        path: cache/words
-        method: get
-        cors: true
     - schedule: rate(1 hour)
     onError:
       Ref: LambdaDeadLetterQueue
@@ -118,10 +114,6 @@ functions:
     handler: serverless/handler/initializedCachePhotos.default
     timeout: 60
     events:
-    - http:
-        path: cache/photos
-        method: get
-        cors: true
     - schedule: rate(1 hour)
     onError:
       Ref: LambdaDeadLetterQueue
