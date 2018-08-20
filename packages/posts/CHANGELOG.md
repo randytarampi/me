@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.16.0"></a>
+# [0.16.0](https://github.com/randytarampi/me/compare/v0.15.0...v0.16.0) (2018-08-20)
+
+
+### Bug Fixes
+
+* **posts:** `getPosts` actually returns the `limit`ed number of `Post`s. ([b7c43f1](https://github.com/randytarampi/me/commit/b7c43f1)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15)
+* **posts:** `orderCompartor` -> `orderComparator`. ([370fc99](https://github.com/randytarampi/me/commit/370fc99))
+* **posts:** `Post` model queries support `limit`s. ([c0794ef](https://github.com/randytarampi/me/commit/c0794ef)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15)
+* **posts:** `posts` depends on `immutable`. ([dba7db9](https://github.com/randytarampi/me/commit/dba7db9)), closes [#23](https://github.com/randytarampi/me/issues/23)
+* **posts:** Fix `cachedPostsGetter` and `cachedPostGetter` implementations. ([0bded4e](https://github.com/randytarampi/me/commit/0bded4e))
+* **posts:** Pull results out of the cache in descending order. ([48242e8](https://github.com/randytarampi/me/commit/48242e8))
+* **posts:** Use a separate `POSTS_DYNAMODB_TABLE` per my note in [#49](https://github.com/randytarampi/me/issues/49). ([ad3c88d](https://github.com/randytarampi/me/commit/ad3c88d))
+
+
+### Features
+
+* **posts:** `DataSource`s now assume `getPost` is passed `SearchParams`. ([092e0bb](https://github.com/randytarampi/me/commit/092e0bb))
+* **posts:** `get(Photos|Posts|Words)` lambdas pull directly from the cache. ([7d678ec](https://github.com/randytarampi/me/commit/7d678ec))
+* **posts:** Add some HTTP triggers to populate the cache. ([a6fad56](https://github.com/randytarampi/me/commit/a6fad56))
+* **posts:** Fix Dynamoose ranged `SearchParams`. ([3c51a15](https://github.com/randytarampi/me/commit/3c51a15)), closes [randytarampi/me.photos#11](https://github.com/randytarampi/me.photos/issues/11) [randytarampi/me.words#1](https://github.com/randytarampi/me.words/issues/1)
+* **posts:** If we can't create a Dynamoose query object, just assume it's a filter object for a scan. ([d24859f](https://github.com/randytarampi/me/commit/d24859f))
+
+
+### Reverts
+
+* feat(posts): Add some HTTP triggers to populate the cache. ([6b4d643](https://github.com/randytarampi/me/commit/6b4d643))
+
+
+
+
+
 <a name="0.15.0"></a>
 # [0.15.0](https://github.com/randytarampi/me/compare/v0.14.3...v0.15.0) (2018-08-19)
 

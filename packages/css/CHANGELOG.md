@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.16.0"></a>
+# [0.16.0](https://github.com/randytarampi/me/compare/v0.15.0...v0.16.0) (2018-08-20)
+
+
+### Bug Fixes
+
+* **jsx:** `.bear`s should be sized in `rem`s, not `pt`. ([19bc067](https://github.com/randytarampi/me/commit/19bc067))
+* **jsx:** Per 3ddb39d855a34a9b756091c6b90286465ab2db89, fix `.loading-spinner` centering. ([4876717](https://github.com/randytarampi/me/commit/4876717))
+* **www:** Fix error centering on mobile. ([3ddb39d](https://github.com/randytarampi/me/commit/3ddb39d))
+
+
+
+
+
 <a name="0.15.0"></a>
 # [0.15.0](https://github.com/randytarampi/me/compare/v0.14.3...v0.15.0) (2018-08-19)
 

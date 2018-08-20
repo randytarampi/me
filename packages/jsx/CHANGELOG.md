@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.16.0"></a>
+# [0.16.0](https://github.com/randytarampi/me/compare/v0.15.0...v0.16.0) (2018-08-20)
+
+
+### Bug Fixes
+
+* **jsx:** `clearError` on the `timedRedirect`. ([d71eb7a](https://github.com/randytarampi/me/commit/d71eb7a))
+* **jsx:** Fix `.loading-spinner` regression introduced in 4876717388754113e12cbfa4f1239b77e54601cd. ([e067f2d](https://github.com/randytarampi/me/commit/e067f2d))
+* **jsx:** Make `.error__message--header`s look like headers. ([e1a8923](https://github.com/randytarampi/me/commit/e1a8923))
+* **jsx:** Per 3ddb39d855a34a9b756091c6b90286465ab2db89, fix `.loading-spinner` centering. ([4876717](https://github.com/randytarampi/me/commit/4876717))
+* **www:** Fix error centering on mobile. ([3ddb39d](https://github.com/randytarampi/me/commit/3ddb39d))
+
+
+### Features
+
+* **www:** Add a 500 page while I'm here. ([5effd9d](https://github.com/randytarampi/me/commit/5effd9d)), closes [#49](https://github.com/randytarampi/me/issues/49)
+* **www:** If we try and load posts but don't have any, serve up a nice message telling them to come back later. ([c4769fe](https://github.com/randytarampi/me/commit/c4769fe)), closes [#49](https://github.com/randytarampi/me/issues/49)
+
+
+
+
+
 <a name="0.15.0"></a>
 # [0.15.0](https://github.com/randytarampi/me/compare/v0.14.3...v0.15.0) (2018-08-19)
 
