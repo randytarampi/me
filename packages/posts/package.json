@@ -27,8 +27,8 @@
     "dev": "npm run dev:serverless",
     "dev:serverless": "npx sls offline start --stage local",
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
-    "deploy:dev": "npx sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --stage $NODE_ENV --region us-east-1",
-    "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --stage $NODE_ENV --region ca-central-1"
+    "deploy:dev": "npx sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
+    "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1"
   },
   "description": "A backend to @randy.tarampi/www",
   "bugs": {

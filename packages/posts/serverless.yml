@@ -13,6 +13,9 @@ provider:
   memorySize: 256
   timeout: 10
 
+  apiKeys:
+  - ${self:provider.stage}-${self:service}-user
+
   iamRoleStatements:
   - Effect: Allow
     Action:
