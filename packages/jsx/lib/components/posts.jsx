@@ -13,9 +13,8 @@ export class PostsComponent extends Component {
             useWindowAsScrollContainer={true}
             elementHeight={this.props.posts ? this.props.posts.map(computePostHeight(this.props.containerWidth)) : [500]}
             infiniteLoadBeginEdgeOffset={Infinite.containerHeightScaleFactor(0.05).amount}
-            onInfiniteLoad={() => {
-            }}
-            isInfiniteLoading={true}
+            onInfiniteLoad={this.props.fetchPosts}
+            isInfiniteLoading={this.props.isLoading}
             loadingSpinnerDelegate={<LoadingSpinner/>}
         >
             {
