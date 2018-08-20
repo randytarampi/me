@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {push} from "react-router-redux";
+import clearError from "../actions/clearError";
 import Error from "../components/error";
 import selectors from "../data/selectors";
 
@@ -14,7 +15,10 @@ const ConnectedError = connect(
     },
     (dispatch, ownProps) => {
         return {
-            timedRedirect: () => setTimeout(() => dispatch(push(ownProps.redirectionLocation)), ownProps.redirectionTimeout * 1000)
+            timedRedirect: () => setTimeout(() => {
+                dispatch(clearError());
+                dispatch(push(ownProps.redirectionLocation));
+            }, ownProps.redirectionTimeout * 1000)
         };
     }
 )(Error);
