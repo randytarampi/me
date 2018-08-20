@@ -10,7 +10,9 @@ html, body {
     }
 
     &__bear {
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center
     }
 
     &__full-height {

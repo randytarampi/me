@@ -1,6 +1,7 @@
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
+import {Col, Row} from "react-materialize";
 import {DeadBear, DoubtBear, ShrugBear} from "./bear";
 import {EmailLink} from "./link";
 
@@ -20,21 +21,23 @@ class Error extends Component {
         switch (this.props.errorCode) {
             case 500:
             case "EFETCH":
-                errorContent = <DeadBear>
-                    <p className="error__message center-align">
-                        He's dead, Jim.
-                    </p>
-                    <p className="error__message center-align">
-                        You've just tripped something and I've been notified. <EmailLink useBranding={false}
-                                                                                         subject={`I broke something at ${DateTime.local().toLocaleString(DateTime.DATETIME_FULL)}`}>Let
-                        me know</EmailLink> if you're super keen and I can probably walk you through what happened.
-                    </p>
-                </DeadBear>;
+                errorContent =
+                    <DeadBear>
+                        <p className="error__message--header">
+                            He's dead, Jim.
+                        </p>
+                        <p className="error__message">
+                            You've just tripped something and I've been notified. <EmailLink useBranding={false}
+                                                                                             subject={`I broke something at ${DateTime.local().toLocaleString(DateTime.DATETIME_FULL)}`}>Let
+                            me know</EmailLink> if you're super keen and I can probably walk you through what
+                            happened.
+                        </p>
+                    </DeadBear>;
                 break;
 
             case "ENOPOSTS":
                 errorContent = <ShrugBear>
-                    <p className="error__message center-align">
+                    <p className="error__message">
                         There's no content to serve up just yet, but come back soon and there'll probably be something
                         here.
                     </p>
@@ -45,7 +48,7 @@ class Error extends Component {
             case "ENOTFOUND":
             default:
                 errorContent = <DoubtBear>
-                    <p className="error__message center-align">
+                    <p className="error__message">
                         I don't know who told you to come
                         to <code>{`${window.location.origin}${this.props.location.pathname}`}</code>, but there's
                         nothing here. You'll be redirected to the home page
@@ -57,7 +60,11 @@ class Error extends Component {
         }
 
         return <div className="error">
-            {errorContent}
+            <Row>
+                <Col>
+                    {errorContent}
+                </Col>
+            </Row>
         </div>;
     }
 }
