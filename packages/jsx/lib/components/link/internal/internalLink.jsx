@@ -4,11 +4,11 @@ import {connect} from "react-redux";
 import {push} from "react-router-redux";
 import Link from "../link";
 
-const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => {
+const InternalLinkInternal = ({serviceName, serviceType, className, href, ...props}) => { // eslint-disable-line no-unused-vars
     return <Link
         target="_self"
         text={serviceName}
-        {...props}
+        {...props} // NOTE-RT: Just swallow the `href` and let react-rotuer handle it.
         className={[`link--${serviceType}`, className].join(" ").trim()}
     />;
 };
