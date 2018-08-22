@@ -29,6 +29,19 @@ class CacheClient {
     }
 
     /**
+     * Retrieve a count of [Posts]{@link Post} from the cache that correspond to the terms in the passed searchParams
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {Promise<Number>}
+     */
+    async getPostCount(searchParams) {
+        logger.debug(`[cacheClient.getPostCount] getting count of posts (${JSON.stringify(searchParams)}) from cache`);
+        return this.dataClient.getPostCount(searchParams[this.type])
+            .catch(error => {
+                logger.error(error, `[cacheClient.getPostCount] error for (${JSON.stringify(searchParams)})`);
+            }); // NOTE-RT: Just swallow caching errors
+    }
+
+    /**
      * Set some [Posts]{@link Post} in the cache
      * @param posts {Post[]}
      * @returns {Promise<Post[]>}

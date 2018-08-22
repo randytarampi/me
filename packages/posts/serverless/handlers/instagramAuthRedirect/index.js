@@ -1,6 +1,6 @@
-import configureEnvironment from "../util/configureEnvironment";
-import responseBuilder from "../util/responseBuilder";
-import returnErrorResponse from "../util/returnErrorResponse";
+import configureEnvironment from "../../util/configureEnvironment";
+import responseBuilder from "../../util/response/responseBuilder";
+import returnErrorResponse from "../../util/response/returnErrorResponse";
 
 export default (event, context, callback) => {
     configureEnvironment()

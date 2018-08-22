@@ -107,42 +107,42 @@ custom:
 
 functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.functions}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
   cacheWords:
-    handler: serverless/handler/initializedCacheWords.default
+    handler: serverless/handlers/cacheWords/initialized.default
     timeout: 60
     events: ${file(env.yml):${self:provider.stage}.functions.cacheWords.events}
     onError:
       Ref: LambdaDeadLetterQueue
   cachePhotos:
-    handler: serverless/handler/initializedCachePhotos.default
+    handler: serverless/handlers/cachePhotos/initialized.default
     timeout: 60
     events: ${file(env.yml):${self:provider.stage}.functions.cachePhotos.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPosts:
     warmup: true
-    handler: serverless/handler/initializedGetPosts.default
+    handler: serverless/handlers/getPosts/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getWords:
     warmup: true
-    handler: serverless/handler/initializedGetWords.default
+    handler: serverless/handlers/getWords/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getWords.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPhotos:
     warmup: true
-    handler: serverless/handler/initializedGetPhotos.default
+    handler: serverless/handlers/getPhotos/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPhotos.events}
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
-    handler: serverless/handler/initializedInstagramAuthRedirect.default
+    handler: serverless/handlers/instagramAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthReturn:
-    handler: serverless/handler/initializedInstagramAuthReturn.default
+    handler: serverless/handlers/instagramAuthReturn/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthReturn.events}
     onError:
       Ref: LambdaDeadLetterQueue

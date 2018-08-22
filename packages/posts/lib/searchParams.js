@@ -8,20 +8,25 @@ import _ from "lodash";
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
+    // NOTE-RT: For either
     type: undefined,
+    source: undefined,
+    _rawFilter: undefined,
+
+    // NOTE-RT: For lists
     perPage: 100,
     page: 1,
     orderBy: "descending",
     orderOperator: undefined,
     orderComparator: undefined,
     orderComparatorType: undefined,
+
+    // NOTE-RT: For individual posts
     width: undefined,
     height: undefined,
     crop: undefined,
     id: undefined,
-    uid: undefined,
-    source: undefined,
-    _rawFilter: undefined
+    uid: undefined
 };
 const SearchParamsRecord = Record(searchParamsRecordDefinition);
 
