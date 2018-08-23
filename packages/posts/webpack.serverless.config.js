@@ -76,7 +76,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules\/(?!(@randy\.tarampi\/))/,
+                exclude: /node_modules\/(?!(@randy\.tarampi\/|query-string|strict-uri-encode|strip-ansi|ansi-regex))/,
                 loader: "babel-loader",
                 options: {
                     configFile: path.join(__dirname, "../../babel.config.js"),
