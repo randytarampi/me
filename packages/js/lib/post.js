@@ -1,4 +1,4 @@
-import Moment from "moment";
+import {DateTime} from "luxon";
 import Creator from "./creator";
 import {compositeKeySeparator} from "./util";
 
@@ -7,8 +7,8 @@ class Post {
         this.id = id;
         this.type = type || Post.name;
         this.source = source;
-        this._datePublished = datePublished && Moment.utc(datePublished);
-        this._dateCreated = dateCreated && Moment.utc(dateCreated);
+        this._datePublished = datePublished && DateTime.fromISO(datePublished);
+        this._dateCreated = dateCreated && DateTime.fromISO(dateCreated);
         this.title = title;
         this.body = body;
         this.sourceUrl = sourceUrl;
@@ -32,8 +32,8 @@ class Post {
             json.id,
             json.type,
             json.source,
-            json.dateCreated && Moment.utc(json.dateCreated),
-            json.datePublished && Moment.utc(json.datePublished),
+            json.dateCreated && DateTime.fromISO(json.dateCreated),
+            json.datePublished && DateTime.fromISO(json.datePublished),
             json.title,
             json.body,
             json.sourceUrl,

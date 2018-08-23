@@ -1,4 +1,5 @@
 import {Creator, Post} from "@randy.tarampi/js";
+import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
 import WordSource from "../wordSource";
@@ -30,11 +31,16 @@ class TumblrWordSource extends WordSource {
     }
 
     jsonToPost(postJson, blogJson) {
+        const dateString = postJson.date;
+        const dateStringWithoutTimezone = dateString.slice(0, -4);
+        const timezone = dateString.slice(-3);
+        const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
+
         return new Post(
             postJson.id,
             null,
             this.type,
-            postJson.date,
+            date,
             null,
             postJson.title,
             processCaptionHtml(postJson.body),

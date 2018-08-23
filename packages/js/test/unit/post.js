@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Moment from "moment";
+import {DateTime} from "luxon";
 import Post from "../../lib/post";
 import {compositeKeySeparator} from "../../lib/util";
 
@@ -9,8 +9,8 @@ describe("Post", () => {
             const postJSON = {
                 id: "woof",
                 source: "Woofdy",
-                dateCreated: Date.now(),
-                datePublished: Date.now(),
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
                 title: "Woof woof woof",
                 body: [
                     "ʕ•ᴥ•ʔ",
@@ -29,15 +29,15 @@ describe("Post", () => {
             const post = new Post(postJSON.id, postJSON.type, postJSON.source, postJSON.dateCreated, postJSON.datePublished, postJSON.title, postJSON.body, postJSON.sourceUrl, postJSON.creator);
 
             expect(post.type).to.eql(Post.name);
-            expect(post.dateCreated).to.be.an.instanceOf(Moment);
-            expect(post.datePublished).to.be.an.instanceOf(Moment);
+            expect(post.dateCreated).to.be.an.instanceOf(DateTime);
+            expect(post.datePublished).to.be.an.instanceOf(DateTime);
         });
 
         it("should set the value of `dateCreated` to be the value of `datePublished` if `dateCreated` is falsy", () => {
             const postJSON = {
                 id: "woof",
                 source: "Woofdy",
-                datePublished: Date.now(),
+                datePublished: DateTime.utc().toISO(),
                 dateCreated: null,
                 title: "Woof woof woof",
                 body: [
@@ -57,8 +57,8 @@ describe("Post", () => {
             const post = new Post(postJSON.id, postJSON.type, postJSON.source, postJSON.dateCreated, postJSON.datePublished, postJSON.title, postJSON.body, postJSON.sourceUrl, postJSON.creator);
 
             expect(post.type).to.eql(Post.name);
-            expect(post.dateCreated).to.be.an.instanceOf(Moment);
-            expect(post.datePublished).to.be.an.instanceOf(Moment);
+            expect(post.dateCreated).to.be.an.instanceOf(DateTime);
+            expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(post.datePublished.valueOf()).to.eql(post.dateCreated.valueOf());
         });
     });
@@ -69,8 +69,8 @@ describe("Post", () => {
                 id: "woof",
                 type: "Woof",
                 source: "Woofdy",
-                dateCreated: Date.now(),
-                datePublished: Date.now(),
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
                 title: "Woof woof woof",
                 body: [
                     "ʕ•ᴥ•ʔ",

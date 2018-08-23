@@ -1,12 +1,12 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import sinon from "sinon";
 import tumblr from "tumblr.js";
+import SearchParams from "../../../../lib/searchParams";
 import TumblrPhotoSource from "../../../../photos/tumblr/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
-
-import SearchParams from "../../../../lib/searchParams";
 
 describe("TumblrPhotoSource", function () {
     let stubServiceClient;
@@ -61,7 +61,7 @@ describe("TumblrPhotoSource", function () {
         };
         tumblrBlogPost = {
             id: stubPost.id,
-            date: Date.now(),
+            date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
             caption: "<p>Woof woof woof</p>",
             post_url: "woof://woof.woof/woof/woof/woof",

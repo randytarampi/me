@@ -1,5 +1,5 @@
 import _ from "lodash";
-import Moment from "moment";
+import {DateTime} from "luxon";
 import Creator from "./creator";
 import Post from "./post";
 import SizedPhoto from "./sizedPhoto";
@@ -43,8 +43,8 @@ class Photo extends Post {
 			json.id,
 			json.type,
 			json.source,
-			json.dateCreated && Moment.utc(json.dateCreated),
-			json.datePublished && Moment.utc(json.datePublished),
+            json.dateCreated && DateTime.fromISO(json.dateCreated),
+            json.datePublished && DateTime.fromISO(json.datePublished),
 			json.width,
 			json.height,
 			json.sizedPhotos && json.sizedPhotos.map(SizedPhoto.fromJSON),

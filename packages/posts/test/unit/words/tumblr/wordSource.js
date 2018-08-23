@@ -1,11 +1,12 @@
 import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import sinon from "sinon";
 import tumblr from "tumblr.js";
+import SearchParams from "../../../../lib/searchParams";
 import TumblrWordSource from "../../../../words/tumblr/wordSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
-import SearchParams from "../../../../lib/searchParams";
 
 describe("TumblrWordSource", function () {
     let stubServiceClient;
@@ -51,7 +52,7 @@ describe("TumblrWordSource", function () {
         };
         tumblrBlogPost = {
             id: stubPost.id,
-            date: Date.now(),
+            date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
             body: "<p>Woof woof woof</p>",
             post_url: "woof://woof.woof/woof/woof/woof"

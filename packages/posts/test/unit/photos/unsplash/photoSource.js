@@ -1,11 +1,12 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import sinon from "sinon";
 import Unsplash from "unsplash-js";
+import SearchParams from "../../../../lib/searchParams";
 import UnsplashPhotoSource from "../../../../photos/unsplash/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
-import SearchParams from "../../../../lib/searchParams";
 
 describe("UnsplashPhotoSource", function () {
     let stubServiceClient;
@@ -59,7 +60,7 @@ describe("UnsplashPhotoSource", function () {
         };
         unsplashPhoto = {
             id: stubPost.id,
-            created_at: Date.now(),
+            created_at: DateTime.utc().toISO(),
             width: 1000,
             height: 1000,
             links: {
@@ -199,7 +200,7 @@ describe("UnsplashPhotoSource", function () {
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, stubParams.page, stubParams.perPage, stubParams.orderBy);
+                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, stubParams.page, stubParams.perPage, "latest");
                 });
         });
 
@@ -213,7 +214,7 @@ describe("UnsplashPhotoSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, stubParams.id);
+                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, "latest");
                 });
         });
     });

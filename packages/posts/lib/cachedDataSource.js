@@ -1,8 +1,9 @@
+import {util} from "@randy.tarampi/js";
+import {DateTime} from "luxon";
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
 import logger from "./logger";
 import SearchParams from "./searchParams";
-import {util} from "@randy.tarampi/js";
 
 /**
  * A generic data source that fetches [Post(s)]{@link Post} from some service or some cache, whichever returns first
@@ -69,16 +70,16 @@ class CachedDataSource extends DataSource {
     async getCachedPosts(searchParams) {
         return this.beforeCachedPostsGetter(searchParams)
             .then(decoratedCachedPostsGetterParams => {
-                logger.debug(`[cachedDataSource.getCachedPosts] retrieving post (${JSON.stringify(searchParams)}) from cache at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getCachedPosts] retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
                 return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
                     .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
                     .then(posts => {
                         if (!posts || !posts.length) {
-                            logger.debug(`[cachedDataSource.getCachedPosts] retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${Date.now()}`);
+                            logger.debug(`[cachedDataSource.getCachedPosts] retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
 
-                        logger.debug(`[cachedDataSource.getCachedPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getCachedPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
                         return posts;
                     });
             });
@@ -92,11 +93,11 @@ class CachedDataSource extends DataSource {
     async getServicePosts(searchParams) {
         return this.beforePostsGetter(searchParams)
             .then(decoratedPostsGetterParams => {
-                logger.debug(`[cachedDataSource.getServicePosts] retrieving post (${JSON.stringify(searchParams)}) from service at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getServicePosts] retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
                 return this.postsGetter(decoratedPostsGetterParams)
                     .then(posts => {
                         this.cachePosts(posts);
-                        logger.debug(`[cachedDataSource.getServicePosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getServicePosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
                         return this.afterPostsGetter(posts, decoratedPostsGetterParams);
                     });
             });
@@ -174,15 +175,15 @@ class CachedDataSource extends DataSource {
     async getCachedPost(postId, searchParams) {
         return this.beforeCachedPostGetter(postId, searchParams)
             .then(decoratedCachedPostGetterParams => {
-                logger.debug(`[cachedDataSource.getCachedPost] retrieving post (${postId}) from cache at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getCachedPost] retrieving post (${postId}) from cache at ${DateTime.utc()}`);
                 return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
                     .then(post => this.afterCachedPostGetter(post, decoratedCachedPostGetterParams))
                     .then(post => {
                         if (!post) {
-                            logger.debug(`[cachedDataSource.getCachedPost] retrieve post (${postId}) cache miss at ${Date.now()}`);
+                            logger.debug(`[cachedDataSource.getCachedPost] retrieve post (${postId}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
-                        logger.debug(`[cachedDataSource.getCachedPost] retrieved post (${post && post.uid}) from cache at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getCachedPost] retrieved post (${post && post.uid}) from cache at ${DateTime.utc()}`);
                         return post;
                     });
             });
@@ -197,11 +198,11 @@ class CachedDataSource extends DataSource {
     async getServicePost(postId, searchParams) {
         return this.beforePostGetter(postId, searchParams)
             .then(decoratedPostGetterParams => {
-                logger.debug(`[cachedDataSource.getServicePost] retrieving post (${postId}) from service at ${Date.now()}`);
+                logger.debug(`[cachedDataSource.getServicePost] retrieving post (${postId}) from service at ${DateTime.utc()}`);
                 return this.postGetter(postId, decoratedPostGetterParams)
                     .then(post => {
                         this.cachePost(post);
-                        logger.debug(`[cachedDataSource.getServicePost] retrieved post from service ${post && post.uid} at ${Date.now()}`);
+                        logger.debug(`[cachedDataSource.getServicePost] retrieved post from service ${post && post.uid} at ${DateTime.utc()}`);
                         return this.afterPostGetter(post, decoratedPostGetterParams);
                     });
             });

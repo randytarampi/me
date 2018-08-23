@@ -1,35 +1,79 @@
 import {push} from "react-router-redux";
 import {createAction} from "redux-actions";
 import fetchPosts from "../api/fetchPosts";
+import {isUrlStateLoading} from "../data/api";
+import selectors from "../data/selectors";
 import setError from "./setError";
 
 export const FETCHING_POSTS_FAILURE = "FETCHING_POSTS_FAILURE";
 export const FETCHING_POSTS_SUCCESS = "FETCHING_POSTS_SUCCESS";
+export const FETCHING_POSTS_CANCELLED = "FETCHING_POSTS_CANCELLED";
 export const FETCHING_POSTS = "FETCHING_POSTS";
 
-export default (selectors, fetchUrl) => (dispatch, getState) => {
-    const state = getState();
+export const FETCHING_POSTS_PER_PAGE = 4;
 
-    if (selectors.posts(state).isLoadingFetchUrl(fetchUrl)) {
-        return;
+export default fetchUrl => (dispatch, getState) => {
+    const state = getState();
+    const urlState = selectors.getApiStateForUrl(state, fetchUrl);
+    const isLoading = isUrlStateLoading(urlState);
+
+    if (isLoading) {
+        dispatch(fetchingCancelled({
+            fetchUrl,
+            isLoading
+        }));
+        return Promise.resolve();
     }
 
-    const currentPage = selectors.posts(state).getPageForFetchUrl(fetchUrl);
-    const nextPage = currentPage + 1;
+    const oldestLoadedPost = selectors.getOldestPost(state);
+    const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.dateCreated;
+    const oldestPostAvailableDate = urlState && urlState.get("oldest");
 
-    dispatch(fetchingPosts({fetchUrl, nextPage}));
+    if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
+        dispatch(fetchingCancelled({
+            fetchUrl,
+            oldestPostAvailableDate,
+            oldestLoadedPostDate
+        }));
+        return Promise.resolve();
+    }
 
-    return fetchPosts(fetchUrl, nextPage)
-        .then(posts => {
-            dispatch(fetchingSuccess({fetchUrl, posts, page: nextPage}));
+    const searchParams = {
+        perPage: FETCHING_POSTS_PER_PAGE,
+        ...(
+            oldestLoadedPostDate
+                ? {
+                    orderBy: "dateCreated",
+                    orderOperator: "lt",
+                    orderComparator: oldestLoadedPostDate && oldestLoadedPostDate.toISO(),
+                    orderComparatorType: "String",
+                }
+                : null
+        )
+    };
 
-            if (!posts || !posts.length) {
+    dispatch(fetchingPosts({
+        fetchUrl,
+        searchParams
+    }));
+
+    return fetchPosts(fetchUrl, searchParams)
+        .then(postsResponse => {
+            dispatch(fetchingSuccess({
+                fetchUrl,
+                ...postsResponse
+            }));
+
+            if (!postsResponse || !postsResponse.posts || !postsResponse.posts.length) {
                 dispatch(setError(undefined, "ENOPOSTS"));
                 dispatch(push("./error"));
             }
         })
         .catch(error => {
-            dispatch(fetchingFailure({fetchUrl, error, page: currentPage}));
+            dispatch(fetchingFailure({
+                fetchUrl,
+                error
+            }));
             dispatch(setError(error, "EFETCH"));
             dispatch(push("./error"));
 
@@ -37,6 +81,7 @@ export default (selectors, fetchUrl) => (dispatch, getState) => {
         });
 };
 
-const fetchingPosts = createAction(FETCHING_POSTS);
-const fetchingSuccess = createAction(FETCHING_POSTS_SUCCESS);
-const fetchingFailure = createAction(FETCHING_POSTS_FAILURE);
+export const fetchingPosts = createAction(FETCHING_POSTS);
+export const fetchingCancelled = createAction(FETCHING_POSTS_CANCELLED);
+export const fetchingSuccess = createAction(FETCHING_POSTS_SUCCESS);
+export const fetchingFailure = createAction(FETCHING_POSTS_FAILURE);

@@ -1,11 +1,12 @@
 import {Photo as PhotoEntity} from "@randy.tarampi/js";
-import Link from "./link";
+import isHtml from "is-html";
+import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
+import Link from "./link";
 import {PostComponent} from "./post";
-import isHtml from "is-html";
 
 export class PhotoComponent extends PostComponent {
     get width() {
@@ -85,7 +86,8 @@ export class PhotoComponent extends PostComponent {
                                 this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
                                     <Fragment>
                                         <strong className="photo-text">Taken:</strong>
-                                        <span className="photo-text">{this.props.post.dateCreated.format("LL")}</span>
+                                        <span
+                                            className="photo-text">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
                                     </Fragment> :
                                     null
                             }
@@ -93,7 +95,8 @@ export class PhotoComponent extends PostComponent {
                                 this.props.post.datePublished ?
                                     <Fragment>
                                         <strong className="photo-text">Posted:</strong>
-                                        <span className="photo-text">{this.props.post.datePublished.format("LL")}</span>
+                                        <span
+                                            className="photo-text">{this.props.post.datePublished.toLocaleString(DateTime.DATETIME_MED)}</span>
                                     </Fragment> :
                                     null
                             }

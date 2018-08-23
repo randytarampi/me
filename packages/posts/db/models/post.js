@@ -63,4 +63,20 @@ export const getPosts = async ({_options, _filter, _query}) => {
     return postModelInstances.map(postModelInstanceToEntity);
 };
 
+/**
+ * Retrieve a count of _all_ [Posts]{@link Post} matching a [Post.uid]{@link Post.uid} or some other attributes
+ * @param _query {Object} A Dynamoose parseable query object
+ * @param _filter {Object} A Dynamoose parseable filter object
+ * @param _options {Object} Dynamoose specific query options, like `indexName`
+ * @returns {Promise<Post[]>}
+ */
+export const getPostCount = async ({_options, _filter, _query}) => {
+    logger.debug(`[Post.getPostCount] counting posts (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
+    let postModelInstanceCount = _query
+        ? await Post.query(_query, _options).limit(1000).all().count().exec()
+        : await Post.scan(_filter, _options).limit(1000).all().count().exec();
+    logger.debug(`[Post.getPostCount] counted (${postModelInstanceCount}) posts`);
+    return postModelInstanceCount;
+};
+
 export default Post;

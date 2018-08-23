@@ -1,10 +1,14 @@
+import {DateTime} from "luxon";
+
 export const buildEventDetails = details => {
+    const dateTime = DateTime.utc();
     return {
         name: "",
         value: "",
         type: "",
         ...details,
-        timestamp: new Date().valueOf()
+        timestamp: dateTime.valueOf(),
+        dateTime: dateTime.toISO()
     };
 };
 

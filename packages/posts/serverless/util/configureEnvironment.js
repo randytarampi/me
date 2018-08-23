@@ -1,5 +1,5 @@
 import dynamoose from "dynamoose";
-import {configureLogger} from "../../lib/logger";
+import logger, {configureLogger} from "../../lib/logger";
 import loadServerlessSecrets from "./loadServerlessSecrets";
 
 if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
@@ -10,5 +10,9 @@ export default () => {
     return loadServerlessSecrets()
         .then(() => {
             return configureLogger();
+        })
+        .catch(error => {
+            logger.fatal(error, "[configureEnvironment] Unexpected error configuring the lambda environment");
+            throw error;
         });
 };

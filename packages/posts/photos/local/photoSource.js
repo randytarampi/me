@@ -1,8 +1,8 @@
 import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import fs from "fs";
 import _ from "lodash";
+import {DateTime} from "luxon";
 import lwip from "lwip";
-import Moment from "moment";
 import path from "path";
 import url from "url";
 import PhotoSource from "../photoSource";
@@ -132,7 +132,7 @@ class LocalSource extends PhotoSource {
             filePath,
             null,
             this.type,
-            Moment(lstat.ctime),
+            DateTime.fromJSDate(lstat.ctime),
             null,
             width,
             height,

@@ -1,6 +1,7 @@
 import {Photo, Post, SizedPhoto} from "@randy.tarampi/js";
 import {expect} from "chai";
-import PostModel, {createPost, createPosts, getPost, getPosts} from "../../../../db/models/post";
+import {DateTime} from "luxon";
+import PostModel, {createPost, createPosts, getPost, getPostCount, getPosts} from "../../../../db/models/post";
 
 describe("Post", function () {
     this.timeout(60000);
@@ -13,8 +14,8 @@ describe("Post", function () {
         stubPost = Post.fromJSON({
             id: "woof",
             source: "Woofdy",
-            dateCreated: Date.now(),
-            datePublished: Date.now(),
+            dateCreated: DateTime.utc().toISO(),
+            datePublished: DateTime.utc().toISO(),
             title: "Woof woof woof",
             body: [
                 "ʕ•ᴥ•ʔ",
@@ -32,8 +33,8 @@ describe("Post", function () {
         stubPhoto = Photo.fromJSON({
             id: "meow",
             source: "Meowdy",
-            dateCreated: Date.now(),
-            datePublished: Date.now(),
+            dateCreated: DateTime.utc().toISO(),
+            datePublished: DateTime.utc().toISO(),
             width: -1,
             height: -2,
             sizedPhotos: [
@@ -136,8 +137,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -174,8 +175,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -238,8 +239,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -276,6 +277,127 @@ describe("Post", function () {
                 expect(retrievedPost).to.be.instanceOf(Photo);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
+        });
+    });
+
+    describe("getPostCount", function () {
+        it("retrieves posts (type)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                    }
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPostCount({_query: {type: {eq: stubPhoto.type}}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.eql(2);
+        });
+
+        it("retrieves posts (ignores limit)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                    }
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPostCount({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.eql(2);
+        });
+
+        it("retrieves posts (source)", async function () {
+            await createPosts(stubPosts);
+            const retrievedPosts = await getPostCount({_query: {source: {eq: stubPhoto.source}}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.eql(1);
+        });
+
+        it("retrieves posts (uid)", async function () {
+            await createPosts(stubPosts);
+            const retrievedPosts = await getPostCount({_query: {uid: {eq: stubPhoto.uid}}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.eql(1);
+        });
+
+        it("retrieves posts (type & source index)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                    }
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPostCount({
+                _query: {
+                    hash: {type: {eq: Photo.name}},
+                    range: {source: {eq: stubPhoto.source}}
+                },
+                _options: {indexName: "type-source-index"}
+            });
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.eql(1);
         });
     });
 });

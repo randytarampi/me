@@ -1,7 +1,7 @@
 import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import Flickr from "flickr-sdk";
 import _ from "lodash";
-import Moment from "moment";
+import {DateTime} from "luxon";
 import PhotoSource from "../photoSource";
 
 class FlickrSource extends PhotoSource {
@@ -41,8 +41,8 @@ class FlickrSource extends PhotoSource {
             json.id,
             null,
             this.type,
-            json.datetaken,
-            Moment(parseInt(json.dateupload, 10) * 1000),
+            DateTime.fromMillis(parseInt(json.datetaken, 10) * 1000),
+            DateTime.fromMillis(parseInt(json.dateupload, 10) * 1000),
             json.width_o,
             json.height_o,
             [
