@@ -6,4 +6,4 @@ export default () => dispatch => {
     dispatch(clearError());
 };
 
-const clearError = createAction(CLEAR_ERROR);
+export const clearError = createAction(CLEAR_ERROR);

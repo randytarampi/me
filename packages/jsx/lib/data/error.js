@@ -1,19 +1,18 @@
+import {Map} from "immutable";
 import {CLEAR_ERROR} from "../actions/clearError";
 import {SET_ERROR} from "../actions/setError";
 
-export default (state = {}, action) => {
+export default (state = Map(), action) => {
     switch (action.type) {
         case SET_ERROR: {
-            return {
-                ...state,
-                error: action.payload.error,
-                errorMessage: action.payload.errorMessage,
-                errorCode: action.payload.errorCode
-            };
+            return state
+                .set("error", action.payload.error)
+                .set("errorMessage", action.payload.errorMessage)
+                .set("errorCode", action.payload.errorCode);
         }
 
         case CLEAR_ERROR: {
-            return {};
+            return Map();
         }
 
         default:
@@ -21,8 +20,8 @@ export default (state = {}, action) => {
     }
 };
 
-export const hasError = state => !!state;
+export const hasError = state => !!getErrorState(state);
 export const getErrorState = state => state;
-export const getError = state => getErrorState(state).error;
-export const getErrorMessage = state => getErrorState(state).errorMessage;
-export const getErrorCode = state => getErrorState(state).errorCode;
+export const getError = state => getErrorState(state).get("error");
+export const getErrorMessage = state => getErrorState(state).get("errorMessage");
+export const getErrorCode = state => getErrorState(state).get("errorCode");

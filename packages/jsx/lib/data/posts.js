@@ -1,52 +1,16 @@
-import _ from "lodash";
-import {FETCHING_POSTS, FETCHING_POSTS_FAILURE, FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
+import {Photo, Post, util} from "@randy.tarampi/js";
+import {Map, Set} from "immutable";
+import {createSelector} from "reselect";
+import {FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
 
-export default (state = {}, action) => {
+export default (state = Map({posts: Set([])}), action) => {
     switch (action.type) {
-        case FETCHING_POSTS: {
-            const currentFetchUrlState = state && state[action.payload.fetchUrl] || {
-                posts: [],
-                page: 1
-            };
-
-            return {
-                ...state,
-                [action.payload.fetchUrl]: {
-                    ...currentFetchUrlState,
-                    isLoading: true
-                }
-            };
-        }
-
-        case FETCHING_POSTS_FAILURE: {
-            const currentFetchUrlState = state && state[action.payload.fetchUrl] || {
-                posts: [],
-                page: 1
-            };
-
-            return {
-                ...state,
-                [action.payload.fetchUrl]: {
-                    ...currentFetchUrlState,
-                    isLoading: false
-                }
-            };
-        }
-
         case FETCHING_POSTS_SUCCESS: {
-            const currentFetchUrlState = state && state[action.payload.fetchUrl] || {
-                posts: []
-            };
-            const currentPosts = currentFetchUrlState.posts;
-            return {
-                ...state,
-                [action.payload.fetchUrl]: {
-                    ...currentFetchUrlState,
-                    posts: _.sortBy(_.uniqBy(currentPosts.concat(action.payload.posts), "uid"), post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished ? post.datePublished.valueOf() : 0)),
-                    page: action.payload.page,
-                    isLoading: false
-                }
-            };
+            if (action.payload.posts) {
+                return state.set("posts", state.get("posts").union(action.payload.posts));
+            }
+
+            return state;
         }
 
         default:
@@ -54,16 +18,35 @@ export default (state = {}, action) => {
     }
 };
 
-const selectPostsStateForFetchUrl = state => fetchUrl => state[fetchUrl] || {};
-const getPostsForFetchUrl = state => fetchUrl => selectPostsStateForFetchUrl(state)(fetchUrl).posts;
-const getPageForFetchUrl = state => fetchUrl => selectPostsStateForFetchUrl(state)(fetchUrl).page || 0;
-const isLoadingFetchUrl = state => fetchUrl => selectPostsStateForFetchUrl(state)(fetchUrl).isLoading;
+export const getPosts = state => state.get("posts");
 
-export const postsSelectors = state => {
-    return {
-        getPostsForFetchUrl: getPostsForFetchUrl(state),
-        getPageForFetchUrl: getPageForFetchUrl(state),
-        isLoadingFetchUrl: isLoadingFetchUrl(state),
-        selectPostsStateForFetchUrl: selectPostsStateForFetchUrl(state)
-    };
-};
+export const getPhotoPosts = createSelector(
+    getPosts,
+    posts => posts.filter(post => post instanceof Photo)
+);
+export const getWordPosts = createSelector(
+    getPosts,
+    posts => posts.filter(post => post instanceof Post)
+);
+
+export const getPostsSortedByDate = createSelector(
+    getPosts,
+    posts => posts.sort(util.sortPostsByDate)
+);
+export const getPhotoPostsSortedByDate = createSelector(
+    getPhotoPosts,
+    posts => posts.sort(util.sortPostsByDate)
+);
+export const getWordPostsSortedByDate = createSelector(
+    getWordPosts,
+    posts => posts.sort(util.sortPostsByDate)
+);
+
+export const getOldestPost = createSelector(
+    getPostsSortedByDate,
+    sortedPosts => sortedPosts.last()
+);
+export const getNewestPost = createSelector(
+    getPostsSortedByDate,
+    sortedPosts => sortedPosts.first()
+);

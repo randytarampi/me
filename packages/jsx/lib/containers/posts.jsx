@@ -2,18 +2,23 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import fetchPosts from "../actions/fetchPosts";
 import Posts from "../components/posts";
+import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api";
 import selectors from "../data/selectors";
 
 const ConnectedPosts = connect(
     (state, ownProps) => {
+        const isLoadingUrlSelector = createIsLoadingUrlSelector();
+        const errorForUrlSelector = createGetErrorForUrlSelector();
+
         return {
-            isLoading: selectors.posts(state).isLoadingFetchUrl(ownProps.fetchUrl),
-            posts: selectors.posts(state).getPostsForFetchUrl(ownProps.fetchUrl)
+            isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl),
+            error: errorForUrlSelector(state, ownProps.fetchUrl),
+            posts: selectors.getPostsSortedByDate(state)
         };
     },
     (dispatch, ownProps) => {
         return {
-            fetchPosts: () => dispatch(fetchPosts(selectors, ownProps.fetchUrl))
+            fetchPosts: () => dispatch(fetchPosts(ownProps.fetchUrl))
         };
     }
 )(Posts);
