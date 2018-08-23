@@ -13,6 +13,14 @@
         @media print {
             max-height: 67%;
             max-width: 67%;
+
+            @media #{$letter-page-up} {
+                margin: 12px 0;
+            }
+
+            @media #{$a4-page-up} {
+                margin: 15px 0;
+            }
         }
     }
 
