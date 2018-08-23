@@ -4,7 +4,7 @@ import ResumeSection from "../section";
 import ResumeVolunteerEntry from "./entry";
 
 export const ResumeVolunteer = ({resume}) => {
-    return <ResumeSection type="volunteer" label="Volunteer">
+    return <ResumeSection type="volunteer" label="Volunteering">
         {
             resume.volunteer.map((volunteerEntry, index) => {
                 return <ResumeVolunteerEntry volunteerEntry={volunteerEntry} key={index} index={index}/>;
