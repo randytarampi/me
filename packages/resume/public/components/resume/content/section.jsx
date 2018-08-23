@@ -40,7 +40,7 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                 }
                 {
                     descriptionNode || description
-                        ? <Row className="hide-on-large-only hide-on-small-only">
+                        ? <Row className="hide-on-small-only">
                             <Col s={9}>
                                 {
                                     descriptionNode
