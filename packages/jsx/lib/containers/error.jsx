@@ -16,8 +16,10 @@ const ConnectedError = connect(
     (dispatch, ownProps) => {
         return {
             timedRedirect: () => setTimeout(() => {
-                dispatch(clearError());
-                dispatch(push(ownProps.redirectionLocation));
+                if (window.location && window.location.pathname !== ownProps.redirectionLocation) {
+                    dispatch(clearError());
+                    dispatch(push(ownProps.redirectionLocation));
+                }
             }, ownProps.redirectionTimeout * 1000)
         };
     }
