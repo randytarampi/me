@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.17.0"></a>
+# [0.17.0](https://github.com/randytarampi/me/compare/v0.16.5...v0.17.0) (2018-08-23)
+
+
+### Features
+
+* **jsx:** Use the version 2 `get(Posts|Photos|Words)` API. ([ee00df7](https://github.com/randytarampi/me/commit/ee00df7)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15) [randytarampi/me.photos#11](https://github.com/randytarampi/me.photos/issues/11) [randytarampi/me.words#1](https://github.com/randytarampi/me.words/issues/1)
+* **www:** Rework `Post` fetching and state management. ([#51](https://github.com/randytarampi/me/issues/51)) ([620be7d](https://github.com/randytarampi/me/commit/620be7d)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15) [randytarampi/me.photos#11](https://github.com/randytarampi/me.photos/issues/11) [randytarampi/me.words#1](https://github.com/randytarampi/me.words/issues/1) [#23](https://github.com/randytarampi/me/issues/23) [#12](https://github.com/randytarampi/me/issues/12)
+
+
+
+
+
 <a name="0.16.4"></a>
 ## [0.16.4](https://github.com/randytarampi/me/compare/v0.16.3...v0.16.4) (2018-08-23)
 

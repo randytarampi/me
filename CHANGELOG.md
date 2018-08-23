@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.17.0"></a>
+# [0.17.0](https://github.com/randytarampi/me/compare/v0.16.5...v0.17.0) (2018-08-23)
+
+
+### Bug Fixes
+
+* **posts:** Fix Unsplash API query parameters. ([602c37f](https://github.com/randytarampi/me/commit/602c37f))
+* **posts:** Header parsing should be case-insensitive. ([6d5a22d](https://github.com/randytarampi/me/commit/6d5a22d))
+* **posts:** Make `SearchParams.orderBy` more explicit. ([618e7dd](https://github.com/randytarampi/me/commit/618e7dd))
+* **views:** Actually pass GTM the correct data layer variable name. ([4efb0da](https://github.com/randytarampi/me/commit/4efb0da))
+
+
+### Features
+
+* **jsx:** Use the version 2 `get(Posts|Photos|Words)` API. ([ee00df7](https://github.com/randytarampi/me/commit/ee00df7)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15) [randytarampi/me.photos#11](https://github.com/randytarampi/me.photos/issues/11) [randytarampi/me.words#1](https://github.com/randytarampi/me.words/issues/1)
+* **posts:** Add a version 2 `get(Posts|Photos|Words)` response. ([b771479](https://github.com/randytarampi/me/commit/b771479)), closes [randytarampi/me.photos#15](https://github.com/randytarampi/me.photos/issues/15) [randytarampi/me.photos#11](https://github.com/randytarampi/me.photos/issues/11) [randytarampi/me.words#1](https://github.com/randytarampi/me.words/issues/1)
+
+
+
+
+
 <a name="0.16.5"></a>
 ## [0.16.5](https://github.com/randytarampi/me/compare/v0.16.4...v0.16.5) (2018-08-23)
 
