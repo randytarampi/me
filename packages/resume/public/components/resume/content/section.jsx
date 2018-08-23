@@ -54,7 +54,7 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                         : null
                 }
             </aside>
-            <Col m={8} offset="s1" className="resume-section__content">
+            <Col m={9} offset="s1" className="resume-section__content">
                 {children}
             </Col>
         </Row>
