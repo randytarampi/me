@@ -9,6 +9,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
   resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
+  baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
   domainName: ${file(env.yml):${self:provider.stage}.domainName}
   memorySize: 256
   timeout: 10
