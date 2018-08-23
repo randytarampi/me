@@ -10,10 +10,15 @@ export default headers => {
         version
     ];
     const parsedHeaders = {};
+    const headerNames = Object.keys(headers).map(header => header.toLowerCase());
+    const normalizedHeaderNames = headerNames.map(header => header.toLowerCase());
 
     headersToInspect.forEach(headerToInspect => {
-        if (headers.hasOwnProperty(headerToInspect.headerName)) {
-            parsedHeaders[headerToInspect.headerName] = headerToInspect.parseHeader(headers);
+        const normalizedHeaderName = headerToInspect.headerName.toLowerCase();
+        if (normalizedHeaderNames.includes(normalizedHeaderName)) {
+            const headerIndex = normalizedHeaderNames.indexOf(normalizedHeaderName);
+            const unNormalizedHeaderName = headerNames[headerIndex];
+            parsedHeaders[unNormalizedHeaderName] = headerToInspect.parseHeader(headers);
             try {
                 headerToInspect.validateHeader(parsedHeaders);
             } catch (error) {

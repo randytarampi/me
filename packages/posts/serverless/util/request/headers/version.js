@@ -28,7 +28,18 @@ export const validateHeader = headers => {
     }
 };
 
-export const getHeaderValue = headers => headers[headerName];
+export const getHeaderValue = headers => {
+    const normalizedHeaderKeys = Object.keys(headers).map(header => header.toLowerCase());
+    const headerValues = Object.values(headers);
+    const normalizedHeaderName = headerName.toLowerCase();
+    const headerValueIndex = normalizedHeaderKeys.indexOf(normalizedHeaderName);
+
+    if (headerValueIndex > -1) {
+        return headerValues[headerValueIndex];
+    }
+
+    return undefined;
+};
 
 export const checkHeader = (headers, expectedHeaderValue) => {
     const headerValue = getHeaderValue(headers);
