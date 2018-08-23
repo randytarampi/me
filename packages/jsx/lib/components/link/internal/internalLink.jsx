@@ -16,8 +16,12 @@ const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) =
 InternalLinkInternal.propTypes = {
     className: PropTypes.string,
     href: PropTypes.string.isRequired,
-    serviceName: PropTypes.string.isRequired,
+    serviceName: PropTypes.string,
     serviceType: PropTypes.string.isRequired
+};
+
+InternalLinkInternal.defaultProps = {
+    serviceType: "internal"
 };
 
 export const InternalLink = connect(
