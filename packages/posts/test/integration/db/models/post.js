@@ -1,5 +1,6 @@
 import {Photo, Post, SizedPhoto} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import PostModel, {createPost, createPosts, getPost, getPostCount, getPosts} from "../../../../db/models/post";
 
 describe("Post", function () {
@@ -13,8 +14,8 @@ describe("Post", function () {
         stubPost = Post.fromJSON({
             id: "woof",
             source: "Woofdy",
-            dateCreated: Date.now(),
-            datePublished: Date.now(),
+            dateCreated: DateTime.utc().toISO(),
+            datePublished: DateTime.utc().toISO(),
             title: "Woof woof woof",
             body: [
                 "ʕ•ᴥ•ʔ",
@@ -32,8 +33,8 @@ describe("Post", function () {
         stubPhoto = Photo.fromJSON({
             id: "meow",
             source: "Meowdy",
-            dateCreated: Date.now(),
-            datePublished: Date.now(),
+            dateCreated: DateTime.utc().toISO(),
+            datePublished: DateTime.utc().toISO(),
             width: -1,
             height: -2,
             sizedPhotos: [
@@ -136,8 +137,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -174,8 +175,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -238,8 +239,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -285,8 +286,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -318,8 +319,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [
@@ -365,8 +366,8 @@ describe("Post", function () {
                 Photo.fromJSON({
                     id: "grr",
                     source: "Grrdy",
-                    dateCreated: Date.now(),
-                    datePublished: Date.now(),
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
                     width: -1,
                     height: -2,
                     sizedPhotos: [

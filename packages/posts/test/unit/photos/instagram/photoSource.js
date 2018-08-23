@@ -1,11 +1,12 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
 import sinon from "sinon";
+import SearchParams from "../../../../lib/searchParams";
 import InstagramPhotoSource from "../../../../photos/instagram/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
-import SearchParams from "../../../../lib/searchParams";
 
 describe("InstagramPhotoSource", function () {
     let stubServiceClient;
@@ -53,7 +54,7 @@ describe("InstagramPhotoSource", function () {
         instagramPhoto = {
             id: stubPost.id,
             type: "image",
-            created_time: Date.now(),
+            created_time: DateTime.utc().toISO(),
             user: instagramUser,
             images: {
                 "small": {url: "woof://woof.woof/?size=small", height: 100, width: 100},

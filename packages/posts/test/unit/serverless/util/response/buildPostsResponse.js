@@ -1,5 +1,6 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import * as versionHeader from "../../../../../serverless/util/request/headers/version";
 import buildPostsResponse, * as postsReponseBuilder from "../../../../../serverless/util/response/buildPostsResponse";
 
@@ -9,8 +10,8 @@ describe("buildPostsResponse", function () {
     let stubPosts;
 
     beforeEach(function () {
-        stubPost = Post.fromJSON({id: "woof", dateCreated: Date.now()});
-        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: Date.now()});
+        stubPost = Post.fromJSON({id: "woof", dateCreated: DateTime.utc().toISO()});
+        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: DateTime.utc().toISO()});
         stubPosts = [stubPost, stubPhoto];
     });
 
@@ -28,8 +29,8 @@ describe("buildPostsResponse", function () {
             expect(response).to.eql({
                 posts: stubPosts,
                 total: stubPosts.length,
-                oldest: stubPost.dateCreated.toISOString(),
-                newest: stubPhoto.dateCreated.toISOString(),
+                oldest: stubPost.dateCreated.toISO(),
+                newest: stubPhoto.dateCreated.toISO(),
             });
         });
 

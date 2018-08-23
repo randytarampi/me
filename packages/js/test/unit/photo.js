@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Moment from "moment";
+import {DateTime} from "luxon";
 import Photo from "../../lib/photo";
 import SizedPhoto from "../../lib/sizedPhoto";
 
@@ -9,8 +9,8 @@ describe("Photo", () => {
             const photoJSON = {
                 id: "woof",
                 source: "Woofdy",
-                dateCreated: Date.now(),
-                datePublished: Date.now(),
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
                 width: -1,
                 height: -2,
                 sizedPhotos: [
@@ -33,8 +33,8 @@ describe("Photo", () => {
             const photo = new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON.dateCreated, photoJSON.datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator);
 
             expect(photo.type).to.eql(Photo.name);
-            expect(photo.dateCreated).to.be.an.instanceOf(Moment);
-            expect(photo.datePublished).to.be.an.instanceOf(Moment);
+            expect(photo.dateCreated).to.be.an.instanceOf(DateTime);
+            expect(photo.datePublished).to.be.an.instanceOf(DateTime);
         });
     });
 
@@ -44,8 +44,8 @@ describe("Photo", () => {
                 id: "woof",
                 type: "Woof",
                 source: "Woofdy",
-                dateCreated: Date.now(),
-                datePublished: Date.now(),
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
                 width: -1,
                 height: -2,
                 sizedPhotos: [

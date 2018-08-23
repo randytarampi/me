@@ -1,12 +1,12 @@
 import {Post} from "@randy.tarampi/js";
 import Aws from "aws-sdk";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import sinon from "sinon";
+import SearchParams from "../../../../lib/searchParams";
 import S3WordSource from "../../../../words/s3/wordSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
-
-import SearchParams from "../../../../lib/searchParams";
 
 describe("S3WordSource", function () {
     let stubServiceClient;
@@ -45,7 +45,7 @@ describe("S3WordSource", function () {
 
         s3Post = {
             id: stubPost.id,
-            date: Date.now(),
+            date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
             Body: "<p>Woof woof woof</p>"
         };

@@ -1,5 +1,6 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
 import SearchParams from "../../../lib/searchParams";
@@ -17,8 +18,8 @@ describe("searchPosts", function () {
     let DummyCacheClient;
 
     beforeEach(function () {
-        stubPost = Post.fromJSON({id: "woof", dateCreated: Date.now()});
-        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: Date.now()});
+        stubPost = Post.fromJSON({id: "woof", dateCreated: DateTime.utc()});
+        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: DateTime.utc()});
         stubPosts = [stubPost, stubPhoto];
 
         stubCreatePosts = sinon.stub().callsFake(posts => Promise.resolve(posts));

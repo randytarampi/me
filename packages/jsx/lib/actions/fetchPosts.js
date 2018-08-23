@@ -45,7 +45,7 @@ export default fetchUrl => (dispatch, getState) => {
                 ? {
                     orderBy: "dateCreated",
                     orderOperator: "lt",
-                    orderComparator: oldestLoadedPostDate && oldestLoadedPostDate.toISOString(),
+                    orderComparator: oldestLoadedPostDate && oldestLoadedPostDate.toISO(),
                     orderComparatorType: "String",
                 }
                 : null

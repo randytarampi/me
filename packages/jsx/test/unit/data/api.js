@@ -52,8 +52,8 @@ describe("api", function () {
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
                     isLoading: false,
-                    oldest: new Date(1991, 11, 14),
-                    newest: new Date(2018, 8, 22)
+                    oldest: DateTime.utc(1991, 11, 14),
+                    newest: DateTime.utc(2018, 8, 22)
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingPosts(stubPayload));
@@ -106,8 +106,8 @@ describe("api", function () {
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
                     isLoading: false,
-                    oldest: new Date(1991, 11, 14),
-                    newest: new Date(2018, 8, 22)
+                    oldest: DateTime.utc(1991, 11, 14),
+                    newest: DateTime.utc(2018, 8, 22)
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingCancelled(stubPayload));
@@ -155,8 +155,8 @@ describe("api", function () {
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
                     isLoading: false,
-                    oldest: new Date(1991, 11, 14),
-                    newest: new Date(2018, 8, 22)
+                    oldest: DateTime.utc(1991, 11, 14),
+                    newest: DateTime.utc(2018, 8, 22)
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingFailure(stubPayload));
@@ -180,8 +180,8 @@ describe("api", function () {
             const stubFetchUrl = "/woof";
             const stubPayload = {
                 fetchUrl: stubFetchUrl,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
 
             const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
@@ -201,8 +201,8 @@ describe("api", function () {
             const stubFetchUrl = "/woof";
             const stubPayload = {
                 fetchUrl: stubFetchUrl,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
 
             stubInitialState = Map({

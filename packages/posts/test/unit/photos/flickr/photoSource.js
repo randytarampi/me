@@ -1,11 +1,12 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import Flickr from "flickr-sdk";
+import {DateTime} from "luxon";
 import sinon from "sinon";
+import SearchParams from "../../../../lib/searchParams";
 import FlickrPhotoSource from "../../../../photos/flickr/photoSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
-import SearchParams from "../../../../lib/searchParams";
 
 describe("FlickrPhotoSource", function () {
     let stubServiceClient;
@@ -57,8 +58,8 @@ describe("FlickrPhotoSource", function () {
             owner: flickrUser.owner,
             pathalias: flickrUser.owner,
             owner_name: flickrUser.owner_name,
-            datetaken: Date.now(),
-            dateupload: Date.now(),
+            datetaken: DateTime.utc().toISO(),
+            dateupload: DateTime.utc().toISO(),
             width_o: 1080,
             height_o: 1080,
             url_o: "woof://woof.woof/?size=o",

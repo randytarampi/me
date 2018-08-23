@@ -1,5 +1,6 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import queryString from "query-string";
 
@@ -8,13 +9,13 @@ describe("fetchPosts", function () {
         const stubFetchUrl = "/fetch!";
         const stubPost = Post.fromJSON({
             id: "woof",
-            dateCreated: new Date().toISOString(),
-            datePublished: new Date().toISOString()
+            dateCreated: DateTime.utc().toISO(),
+            datePublished: DateTime.utc().toISO()
         });
         const stubPhoto = Photo.fromJSON({
             id: "meow",
-            dateCreated: new Date().toISOString(),
-            datePublished: new Date().toISOString()
+            dateCreated: DateTime.utc().toISO(),
+            datePublished: DateTime.utc().toISO()
         });
         const stubPosts = [stubPost, stubPhoto];
         const stubPostsResponse = {
@@ -22,8 +23,8 @@ describe("fetchPosts", function () {
                 return Promise.resolve({
                     posts: stubPosts.map(post => post.toJSON()),
                     total: stubPosts.length,
-                    oldest: stubPost.dateCreated.toISOString(),
-                    newest: stubPhoto.dateCreated.toISOString()
+                    oldest: stubPost.dateCreated.toISO(),
+                    newest: stubPhoto.dateCreated.toISO()
                 });
             }
         };
@@ -64,8 +65,8 @@ describe("fetchPosts", function () {
                 expect(postsResponse).to.eql({
                     posts: stubPosts,
                     total: stubPosts.length,
-                    oldest: stubPost.dateCreated.toISOString(),
-                    newest: stubPhoto.dateCreated.toISOString()
+                    oldest: stubPost.dateCreated.toISO(),
+                    newest: stubPhoto.dateCreated.toISO()
                 });
             });
     });

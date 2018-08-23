@@ -1,5 +1,6 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import sinon from "sinon";
 import Unsplash from "unsplash-js";
 import SearchParams from "../../../../lib/searchParams";
@@ -59,7 +60,7 @@ describe("UnsplashPhotoSource", function () {
         };
         unsplashPhoto = {
             id: stubPost.id,
-            created_at: Date.now(),
+            created_at: DateTime.utc().toISO(),
             width: 1000,
             height: 1000,
             links: {

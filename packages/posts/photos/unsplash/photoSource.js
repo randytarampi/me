@@ -1,5 +1,6 @@
 import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import "isomorphic-fetch";
+import {DateTime} from "luxon";
 import Unsplash, {toJson} from "unsplash-js";
 import PhotoSource from "../photoSource";
 
@@ -32,7 +33,7 @@ class UnsplashSource extends PhotoSource {
             json.id,
             null,
             this.type,
-            json.created_at,
+            DateTime.fromISO(json.created_at),
             null,
             json.width,
             json.height,

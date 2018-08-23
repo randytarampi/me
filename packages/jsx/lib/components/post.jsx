@@ -1,5 +1,6 @@
 import {Post as PostEntity} from "@randy.tarampi/js";
 import isHtml from "is-html";
+import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import Dimensions from "react-dimensions";
@@ -58,12 +59,13 @@ export class PostComponent extends Component {
                 </h1>
                 <p className="post-date">
                     <strong className="post-text">Posted:</strong>
-                    <span className="post-text">{this.date.format("LL")}</span>
+                    <span className="post-text">{this.date.toLocaleString(DateTime.DATETIME_MED)}</span>
                     {
                         this.props.post.dateCreated ?
                             <span>
                                 <strong className="post-text">Modified:</strong>
-                                <span className="post-text">{this.props.post.dateCreated.format("LLLL")}</span>
+                                <span
+                                    className="post-text">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
                             </span> :
                             null
                     }

@@ -1,4 +1,4 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {Photo, Post, util} from "@randy.tarampi/js";
 import _ from "lodash";
 import searchPosts from "../../../lib/searchPosts";
 import configureEnvironment from "../../util/configureEnvironment";
@@ -30,15 +30,15 @@ export default (event, context, callback) => {
                     Photo.name
                 ].map(type => searchPosts(parseQueryStringParametersIntoSearchParams({type})(parsedQuerystringParameters))))
                 .then(([postSearchResult, photoSearchResult]) => {
-                    const unifiedPosts = _.slice(_.sortBy(_.flatten([postSearchResult.posts, photoSearchResult.posts]), [
-                        post => -1 * (post.dateCreated ? post.dateCreated.valueOf() : post.datePublished ? post.datePublished.valueOf() : 0)
-                    ]), 0, parsedQuerystringParameters && parsedQuerystringParameters.perPage || 100);
+                    const flattenedPosts = _.flatten([postSearchResult.posts, photoSearchResult.posts]);
+                    const sortedPosts = flattenedPosts.sort(util.sortPostsByDate);
+                    const paginatedPosts = sortedPosts.slice(0, parsedQuerystringParameters && parsedQuerystringParameters.perPage || 100);
                     const globalTotal = postSearchResult.total + photoSearchResult.total;
                     const globalFirst = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.first && b.first && a.first.dateCreated && b.first.dateCreated && a.first.dateCreated < b.first.dateCreated)[0].first;
                     const globalLast = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.last && b.last && a.last.dateCreated && b.last.dateCreated && a.last.dateCreated > b.last.dateCreated)[0].last;
 
                     return {
-                        posts: unifiedPosts,
+                        posts: paginatedPosts,
                         total: globalTotal,
                         first: globalFirst,
                         last: globalLast

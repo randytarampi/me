@@ -2,7 +2,7 @@ import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
-import Moment from "moment";
+import {DateTime} from "luxon";
 import PhotoSource from "../photoSource";
 
 class InstagramSource extends PhotoSource {
@@ -69,7 +69,7 @@ class InstagramSource extends PhotoSource {
             photoJson.id,
             null,
             this.type,
-            Moment(parseInt(photoJson.created_time, 10) * 1000),
+            DateTime.fromMillis(parseInt(photoJson.created_time, 10) * 1000),
             null,
             biggestOfficialPhoto.width,
             biggestOfficialPhoto.height,

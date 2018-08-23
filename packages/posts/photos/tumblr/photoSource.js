@@ -1,6 +1,6 @@
 import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
 import _ from "lodash";
-import Moment from "moment";
+import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
 import PhotoSource from "../photoSource";
 
@@ -34,12 +34,16 @@ class TumblrSource extends PhotoSource {
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return new SizedPhoto(photo.url, photo.width, photo.height);
         });
+        const dateString = postJson.date;
+        const dateStringWithoutTimezone = dateString.slice(0, -4);
+        const timezone = dateString.slice(-3);
+        const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
 
         return new Photo(
             postJson.id,
             null,
             this.type,
-            Moment(postJson.date),
+            date,
             null,
             _.last(_.sortBy(sizedPhotos, ["width"])).width,
             _.last(_.sortBy(sizedPhotos, ["height"])).height,

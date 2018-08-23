@@ -1,6 +1,7 @@
 import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {Map, Set} from "immutable";
+import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import {CALL_HISTORY_METHOD} from "react-router-redux";
 import configureStore from "redux-mock-store";
@@ -38,8 +39,8 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: ["woof"],
                 total: ["woof"].length,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
 
             const proxyquiredFetchPosts = proxyquire("../../../lib/actions/fetchPosts", {
@@ -81,8 +82,8 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: [],
                 total: [].length,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
             const stubLoadedPost = Post.fromJSON({dateCreated: stubPostsResponse.oldest});
 
@@ -97,8 +98,8 @@ describe("fetchPosts", function () {
                     [stubFetchUrl]: Map({
                         isLoading: false,
                         fetchUrl: stubFetchUrl,
-                        oldest: new Date(stubPostsResponse.oldest),
-                        newest: new Date(stubPostsResponse.newest)
+                        oldest: DateTime.fromISO(stubPostsResponse.oldest),
+                        newest: DateTime.fromISO(stubPostsResponse.newest)
                     })
                 }),
                 posts: Map({posts: Set([stubLoadedPost])}),
@@ -132,8 +133,8 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: ["woof"],
                 total: ["woof"].length,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
 
             const proxyquiredFetchPosts = proxyquire("../../../lib/actions/fetchPosts", {
@@ -180,13 +181,13 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: ["grr"],
                 total: ["grr"].length,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
-            const stubLoadedPost = Post.fromJSON({dateCreated: new Date(2018, 8, 22)});
+            const stubLoadedPost = Post.fromJSON({dateCreated: DateTime.utc(2018, 8, 22)});
             const stubSearchParams = {
                 perPage: FETCHING_POSTS_PER_PAGE,
-                orderComparator: stubLoadedPost.dateCreated.toISOString(),
+                orderComparator: stubLoadedPost.dateCreated.toISO(),
                 orderBy: "dateCreated",
                 orderComparatorType: "String",
                 orderOperator: "lt"
@@ -209,8 +210,8 @@ describe("fetchPosts", function () {
             stubInitialState = {
                 api: Map({
                     [stubFetchUrl]: Map({
-                        oldest: new Date(1991, 11, 14).toISOString(),
-                        newest: new Date().toISOString()
+                        oldest: DateTime.utc(1991, 11, 14),
+                        newest: DateTime.utc()
                     })
                 }),
                 posts: Map({
@@ -254,8 +255,8 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: [],
                 total: [].length,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
 
             const proxyquiredFetchPosts = proxyquire("../../../lib/actions/fetchPosts", {
@@ -374,8 +375,8 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: ["woof"],
                 total: ["woof"].length,
-                oldest: new Date().toISOString(),
-                newest: new Date().toISOString()
+                oldest: DateTime.utc().toISO(),
+                newest: DateTime.utc().toISO()
             };
 
             const proxyquiredFetchPosts = proxyquire("../../../lib/actions/fetchPosts", {
