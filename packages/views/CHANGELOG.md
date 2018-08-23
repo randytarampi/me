@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.16.3"></a>
+## [0.16.3](https://github.com/randytarampi/me/compare/v0.16.2...v0.16.3) (2018-08-23)
+
+
+### Bug Fixes
+
+* **views:** Actually pass GTM the correct data layer variable name. ([b786c97](https://github.com/randytarampi/me/commit/b786c97))
+
+
+
+
+
 <a name="0.16.0"></a>
 # [0.16.0](https://github.com/randytarampi/me/compare/v0.15.0...v0.16.0) (2018-08-20)
 
