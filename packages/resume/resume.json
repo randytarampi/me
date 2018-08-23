@@ -155,6 +155,61 @@
       ]
     }
   ],
+  "projects": [
+    {
+      "name": "My résumé",
+      "description": "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
+      "highlights": [
+        "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised",
+        "Builds off and adheres to the JSON Resume standard"
+      ],
+      "keywords": [
+        "ES6",
+        "react",
+        "sass",
+        "jsonresume",
+        "Print styles",
+        "Puppeteer"
+      ],
+      "startDate": "2018-08-01",
+      "roles": [
+        "Developer"
+      ],
+      "entity": "Me, myself & I",
+      "type": "Application",
+      "url": "http://resume.randytarampi.ca"
+    },
+    {
+      "name": "My blog",
+      "description": "A small project I kicked off shortly after leaving Yardi and then subsequently dropped as I went off travelling around the Mediterranean",
+      "highlights": [
+        "My choice of technologies here was largely driven by my want to minimize costs"
+      ],
+      "keywords": [
+        "node.js",
+        "ES6",
+        "react",
+        "redux",
+        "User tracking",
+        "GitHub Pages",
+        "serverless",
+        "AWS Lambda",
+        "DynamoDB",
+        "Tumblr",
+        "Instagram",
+        "Unsplash",
+        "Flickr",
+        "S3"
+      ],
+      "startDate": "2018-08-01",
+      "roles": [
+        "Developer"
+      ],
+      "entity": "Me, myself & I",
+      "type": "Application",
+      "url": "http://blog.randytarampi.ca"
+    }
+  ],
   "education": [
     {
       "institution": "Simon Fraser University",
