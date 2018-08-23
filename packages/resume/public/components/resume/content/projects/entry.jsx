@@ -6,48 +6,48 @@ import {Col, Row} from "react-materialize";
 
 const monthYearFormat = {month: "long", year: "numeric"};
 
-export const ResumeProjectEntry = ({projectEntry, index}) => {
-    const startDate = DateTime.fromISO(projectEntry.startDate);
-    const endDate = projectEntry.endDate && DateTime.fromISO(projectEntry.endDate) || null;
+export const ResumeProjectsEntry = ({projectsEntry, index}) => {
+    const startDate = DateTime.fromISO(projectsEntry.startDate);
+    const endDate = projectsEntry.endDate && DateTime.fromISO(projectsEntry.endDate) || null;
     const dateString = `${startDate.toLocaleString(monthYearFormat)} to ${endDate ? endDate.toLocaleString(monthYearFormat) : "Present"}`;
 
     return <Row className={index > 2 ? "hide-on-print" : null}>
-        <Col s={12} className="resume-project-entry">
+        <Col s={12} className="resume-projects-entry">
             <Row>
-                <Col s={12} className="resume-project-entry__basics">
+                <Col s={12} className="resume-projects-entry__basics">
                     <h5 className="right hide-on-small-only">
-                        <span className="resume-project-entry__date">{dateString}</span>
+                        <span className="resume-projects-entry__date">{dateString}</span>
                     </h5>
                     <h4>
-                        <span className="resume-project-entry__name">
+                        <span className="resume-projects-entry__name">
                             <span className="text">
                             {
-                                projectEntry.url
-                                    ? <Link href={projectEntry.url}>{projectEntry.name}</Link>
-                                    : projectEntry.company
+                                projectsEntry.url
+                                    ? <Link href={projectsEntry.url}>{projectsEntry.name}</Link>
+                                    : projectsEntry.company
                             }
                             </span>
                         </span>
                     </h4>
                     <h5 className="hide-on-med-and-up">
-                        <span className="resume-project-entry__date">{dateString}</span>
+                        <span className="resume-projects-entry__date">{dateString}</span>
                     </h5>
                 </Col>
             </Row>
             <Row>
-                <Col s={12} className="resume-project-entry__details">
+                <Col s={12} className="resume-projects-entry__details">
                     {
-                        projectEntry.url
+                        projectsEntry.url
                             ? <div className="right hide-on-small-only">
-                                <WebLink className="resume-project-entry__website" href={projectEntry.url}/>
+                                <WebLink className="resume-projects-entry__website" href={projectsEntry.url}/>
                             </div>
                             : null
                     }
                     {
-                        projectEntry.roles
+                        projectsEntry.roles
                             ? <div>
-                        <span className="resume-project-entry__position">
-                            <span className="text">{projectEntry.roles.join(", ")}</span>
+                        <span className="resume-projects-entry__position">
+                            <span className="text">{projectsEntry.roles.join(", ")}</span>
                         </span>
                             </div>
                             : null
@@ -56,20 +56,20 @@ export const ResumeProjectEntry = ({projectEntry, index}) => {
             </Row>
             <Row>
                 <Col s={12}>
-                    <p className="resume-project-entry__description">
-                        {projectEntry.description}
+                    <p className="resume-projects-entry__description">
+                        {projectsEntry.description}
                     </p>
                 </Col>
             </Row>
             {
-                projectEntry.highlights
+                projectsEntry.highlights
                     ? <Row>
                         <Col s={12}>
-                            <ul className="resume-project-entry__highlights">
+                            <ul className="resume-projects-entry__highlights">
                                 {
-                                    projectEntry.highlights.map((highlight, index) => {
+                                    projectsEntry.highlights.map((highlight, index) => {
                                         return <li
-                                            className={`resume-project-entry__highlight${index < 3 ? " show-on-letter show-on-a4" : ""}${index >= 3 ? " show-on-legal" : ""}`}
+                                            className={`resume-projects-entry__highlight${index < 3 ? " show-on-letter show-on-a4" : ""}${index >= 3 ? " show-on-legal" : ""}`}
                                             key={index}>
                                             {highlight}
                                         </li>;
@@ -84,9 +84,9 @@ export const ResumeProjectEntry = ({projectEntry, index}) => {
     </Row>;
 };
 
-ResumeProjectEntry.propTypes = {
+ResumeProjectsEntry.propTypes = {
     index: PropTypes.number.isRequired,
-    projectEntry: PropTypes.object.isRequired
+    projectsEntry: PropTypes.object.isRequired
 };
 
-export default ResumeProjectEntry;
+export default ResumeProjectsEntry;

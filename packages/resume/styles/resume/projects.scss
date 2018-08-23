@@ -1,0 +1,17 @@
+.resume-projects {
+    &-entry {
+        &__name {
+            & .link {
+                display: inline;
+            }
+        }
+
+        &__highlights {
+            margin-top: 0;
+        }
+
+        & > .row {
+            margin-bottom: 0;
+        }
+    }
+}
