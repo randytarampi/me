@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.17.1"></a>
+## [0.17.1](https://github.com/randytarampi/me/compare/v0.17.0...v0.17.1) (2018-08-23)
+
+
+### Bug Fixes
+
+* **posts:** Fix naked the `*` in the serverless configuration yaml. ([c6d16d2](https://github.com/randytarampi/me/commit/c6d16d2))
+* **posts:** Fix the CORS configuration for the `ME-API-VERSION` header. ([e279233](https://github.com/randytarampi/me/commit/e279233))
+
+
+
+
+
 <a name="0.17.0"></a>
 # [0.17.0](https://github.com/randytarampi/me/compare/v0.16.5...v0.17.0) (2018-08-23)
 
