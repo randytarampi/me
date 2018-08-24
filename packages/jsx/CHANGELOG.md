@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/randytarampi/me/compare/v0.17.1...v0.18.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* **jsx:** `InternalLink`s' `onClick` calls `e.preventDefault()`. ([a9465e2](https://github.com/randytarampi/me/commit/a9465e2))
+* **jsx:** 404 page gives you the option to click through to `redirectionLocation`. ([71aa676](https://github.com/randytarampi/me/commit/71aa676))
+* **jsx:** Address `InternalLink` prop types warning. ([5d0b868](https://github.com/randytarampi/me/commit/5d0b868))
+* Centralize most of the webpack configuration. ([9e44bb4](https://github.com/randytarampi/me/commit/9e44bb4))
+
+
+### Features
+
+* **resume:** Add PDF resume link tracking via a `CampaignLink`. ([0547bd5](https://github.com/randytarampi/me/commit/0547bd5)), closes [#19](https://github.com/randytarampi/me/issues/19)
+
+
+
+
+
 <a name="0.17.0"></a>
 # [0.17.0](https://github.com/randytarampi/me/compare/v0.16.5...v0.17.0) (2018-08-23)
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/randytarampi/me/compare/v0.17.1...v0.18.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* Centralize most of the webpack configuration. ([9e44bb4](https://github.com/randytarampi/me/commit/9e44bb4))
+
+
+### Features
+
+* **resume:** Add a `Projects` section and link tracking. ([#53](https://github.com/randytarampi/me/issues/53)) ([d8e2ac2](https://github.com/randytarampi/me/commit/d8e2ac2)), closes [#46](https://github.com/randytarampi/me/issues/46) [#19](https://github.com/randytarampi/me/issues/19)
+* **resume:** Add PDF resume link tracking via a `CampaignLink`. ([0547bd5](https://github.com/randytarampi/me/commit/0547bd5)), closes [#19](https://github.com/randytarampi/me/issues/19)
+
+
+
+
+
 <a name="0.17.1"></a>
 ## [0.17.1](https://github.com/randytarampi/me/compare/v0.17.0...v0.17.1) (2018-08-23)
 

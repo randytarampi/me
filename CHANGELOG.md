@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/randytarampi/me/compare/v0.17.1...v0.18.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* **jsx:** `InternalLink`s' `onClick` calls `e.preventDefault()`. ([a9465e2](https://github.com/randytarampi/me/commit/a9465e2))
+* **jsx:** 404 page gives you the option to click through to `redirectionLocation`. ([71aa676](https://github.com/randytarampi/me/commit/71aa676))
+* **jsx:** Address `InternalLink` prop types warning. ([5d0b868](https://github.com/randytarampi/me/commit/5d0b868))
+* **resume:** `.resume-section__label`s should be a bit bigger. ([d4ef2f1](https://github.com/randytarampi/me/commit/d4ef2f1))
+* **resume:** `.resume-section`s should expand on mobile. ([9070599](https://github.com/randytarampi/me/commit/9070599))
+* **resume:** `Volunteer` -> `Volunteering` ([282f3ab](https://github.com/randytarampi/me/commit/282f3ab))
+* Also `[@babel](https://github.com/babel)/register` query-string, strip-ansi, ansi-regex, etc. ([bcde2ad](https://github.com/randytarampi/me/commit/bcde2ad))
+* Centralize most of the webpack configuration. ([9e44bb4](https://github.com/randytarampi/me/commit/9e44bb4))
+* **resume:** Fix style building regression introduced in 02a3e11b1cd92b965d74d4a1dfaf0900d8771938. ([a8c7442](https://github.com/randytarampi/me/commit/a8c7442))
+* **resume:** Give the Volunteering section a description. ([b19e81d](https://github.com/randytarampi/me/commit/b19e81d))
+* **resume:** Need to `npx resume export --force`. ([2e81e1e](https://github.com/randytarampi/me/commit/2e81e1e)), closes [#46](https://github.com/randytarampi/me/issues/46) [jsonresume/resume-schema#v1](https://github.com/jsonresume/resume-schema/issues/v1)
+* **resume:** Polish off the Project section. ([02a3e11](https://github.com/randytarampi/me/commit/02a3e11)), closes [#25](https://github.com/randytarampi/me/issues/25)
+
+
+### Features
+
+* **resume:** Add a `Projects` section. ([35e66a7](https://github.com/randytarampi/me/commit/35e66a7)), closes [#46](https://github.com/randytarampi/me/issues/46)
+* **resume:** Add a `volunteer` section, if only for [#12](https://github.com/randytarampi/me/issues/12). ([ce647f5](https://github.com/randytarampi/me/commit/ce647f5))
+* **resume:** Add PDF resume link tracking via a `CampaignLink`. ([0547bd5](https://github.com/randytarampi/me/commit/0547bd5)), closes [#19](https://github.com/randytarampi/me/issues/19)
+
+
+
+
+
 <a name="0.17.1"></a>
 ## [0.17.1](https://github.com/randytarampi/me/compare/v0.17.0...v0.17.1) (2018-08-23)
 
