@@ -7,7 +7,7 @@ $$ | $$ | $$ |\$$$$$$$\ $$\ $$ |      \$$$$$$$\ $$$$$$$  |\$$$$$$  |$$ | $$ | $$
 \__| \__| \__| \_______|\__|\__|       \_______|\_______/  \______/ \__| \__| \__| \_______|
 ```
 
-My résumé [online](http://www.randytarampi.ca/resume) and in print on [A4](https://github.com/randytarampi/me.resume/blob/master/a4.pdf), [US Letter](https://github.com/randytarampi/me.resume/blob/master/letter.pdf) and [US Legal](https://github.com/randytarampi/me.resume/blob/master/legal.pdf).
+My résumé [online](https://www.randytarampi.ca/resume) and in print on [A4](https://github.com/randytarampi/me.resume/blob/master/a4.pdf), [US Letter](https://github.com/randytarampi/me.resume/blob/master/letter.pdf) and [US Legal](https://github.com/randytarampi/me.resume/blob/master/legal.pdf).
 
 ### *This package has been consolidated into the [`randytarampi/me`](https://github.com/randytarampi/me/tree/master/packages/resume) monorepo and is force pushed here for historical reasons*
 

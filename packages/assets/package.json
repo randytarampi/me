@@ -7,10 +7,10 @@
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
-    "url": "http://www.randytarampi.ca"
+    "url": "https://www.randytarampi.ca"
   },
   "version": "0.18.0",
-  "homepage": "http://resume.randytarampi.ca",
+  "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
