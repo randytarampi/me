@@ -1,4 +1,4 @@
-import {EmailLink, TelLink, WebLink} from "@randy.tarampi/jsx/lib/components/link";
+import {CampaignLink, EmailLink, TelLink} from "@randy.tarampi/jsx/lib/components/link";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
@@ -16,7 +16,7 @@ export const ResumeContact = ({resume}) => {
             {
                 resume.basics.website
                     ? <Col s={12} className="resume-contact__web">
-                        <WebLink href={resume.basics.website}/>
+                        <CampaignLink href={resume.basics.website} className="link--web"/>
                     </Col>
                     : null
             }

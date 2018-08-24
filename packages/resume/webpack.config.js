@@ -29,7 +29,12 @@ const plugins = [
         __PHOTOS_APP_URL__: JSON.stringify(config.get("photosAppUrl")),
         __RESUME_APP_URL__: JSON.stringify(config.get("resumeAppUrl")),
         __ASSET_URL__: JSON.stringify(config.get("assetUrl")),
-        __PUBLISHED_RESUME_URL__: JSON.stringify(config.get("resume.publishUrl"))
+        __PUBLISHED_RESUME_URL__: JSON.stringify(config.get("resume.publishUrl")),
+        __CAMPAIGN_SOURCE__: JSON.stringify(config.get("me.campaign.source")),
+        __CAMPAIGN_MEDIUM__: JSON.stringify(config.get("me.campaign.medium")),
+        __CAMPAIGN_NAME__: JSON.stringify(config.get("me.campaign.name")),
+        __CAMPAIGN_TERM__: JSON.stringify(config.get("me.campaign.term")),
+        __CAMPAIGN_CONTENT__: JSON.stringify(config.get("me.campaign.content"))
     })
 ];
 

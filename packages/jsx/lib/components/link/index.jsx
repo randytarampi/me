@@ -7,5 +7,8 @@ export * from "./web";
 
 export * from "./branded";
 export * from "./internal";
+export * from "./campaign";
+
+export * from "./link";
 
 export default Link;

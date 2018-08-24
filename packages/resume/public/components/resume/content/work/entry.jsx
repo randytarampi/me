@@ -1,4 +1,4 @@
-import Link, {WebLink} from "@randy.tarampi/jsx/lib/components/link";
+import {CampaignLink} from "@randy.tarampi/jsx/lib/components/link";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
@@ -23,7 +23,7 @@ export const ResumeWorkEntry = ({workEntry, index}) => {
                             <span className="text">
                             {
                                 workEntry.website
-                                    ? <Link href={workEntry.website}>{workEntry.company}</Link>
+                                    ? <CampaignLink href={workEntry.website}>{workEntry.company}</CampaignLink>
                                     : workEntry.company
                             }
                             </span>
@@ -39,7 +39,7 @@ export const ResumeWorkEntry = ({workEntry, index}) => {
                     {
                         workEntry.website
                             ? <div className="right hide-on-small-only">
-                                <WebLink className="resume-work-entry__website" href={workEntry.website}/>
+                                <CampaignLink className="resume-work-entry__website link--web" href={workEntry.website}/>
                             </div>
                             : null
                     }

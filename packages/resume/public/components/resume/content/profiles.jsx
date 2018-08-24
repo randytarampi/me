@@ -1,5 +1,6 @@
-import Link, {
+import {
     AngelListLink,
+    CampaignLink,
     F00pxLink,
     FacebookLink,
     FlickrLink,
@@ -34,7 +35,8 @@ const getLinkComponentForProfile = profile => {
     if (!ExistingLinkComponent) {
         if (profile.url) {
             linkComponent = <span>
-                <span className="text">{network}</span>&nbsp;<Link href={profile.url}>{profile.username}</Link>
+                <span className="text">{network}</span>&nbsp;<CampaignLink
+                href={profile.url}>{profile.username}</CampaignLink>
             </span>;
         } else if (profile.username) {
             linkComponent = <span>

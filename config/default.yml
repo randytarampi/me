@@ -50,3 +50,9 @@ me:
     - network: StackOverflow
       username: randytarampi
       url: https://stackoverflow.com/story/randytarampi
+  campaign:
+    source: ""
+    medium: ""
+    name: ""
+    term: ""
+    content: ""
