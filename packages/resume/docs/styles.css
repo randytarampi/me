@@ -15388,7 +15388,8 @@ ul:not(.browser-default) {
     .resume-section__content .row {
       margin-bottom: 0; }
     .resume-section__label {
-      font-size: 1.46rem; }
+      font-size: 1.78rem;
+      margin-bottom: 1rem; }
     .resume-section__description {
       font-size: 0.75rem; }
     @media print {
@@ -15458,6 +15459,15 @@ ul:not(.browser-default) {
   margin-top: 0; }
 
 .resume-publications-entry > .row {
+  margin-bottom: 0; }
+
+.resume-projects-entry__name .link {
+  display: inline; }
+
+.resume-projects-entry__highlights {
+  margin-top: 0; }
+
+.resume-projects-entry > .row {
   margin-bottom: 0; }
 
 .resume-education-entry__highlights {
