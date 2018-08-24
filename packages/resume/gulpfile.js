@@ -129,7 +129,7 @@ gulp.task("styles", gulp.series(["styles:dev"]), () => {
 
 gulp.task("webpack:dev", function (callback) {
     const WebPack = require("webpack");
-    const WebPackConfig = require("./webpack.config");
+    const WebPackConfig = require("./webpack.client.config");
     const webpackConfig = Object.assign({}, WebPackConfig);
 
     WebPack(webpackConfig, function (err, stats) {
@@ -140,7 +140,7 @@ gulp.task("webpack:dev", function (callback) {
 
 gulp.task("webpack", function (callback) {
     const WebPack = require("webpack");
-    const WebPackConfig = require("./webpack.config");
+    const WebPackConfig = require("./webpack.client.config");
     const webpackConfig = Object.assign({}, WebPackConfig, {
         mode: "production"
     });

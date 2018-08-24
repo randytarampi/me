@@ -1,6 +1,0 @@
-globals:
-  __WORDS_APP_URL__: false
-  __POSTS_APP_URL__: false
-  __PHOTOS_APP_URL__: false
-  __CODE_APP_URL: false
-  __CLIENT_URL__: false

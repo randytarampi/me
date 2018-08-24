@@ -9,6 +9,7 @@ import ResumeEducation from "./content/education";
 import ResumeInterests from "./content/interests";
 import ResumeLanguages from "./content/languages";
 import ResumeProfiles from "./content/profiles";
+import ResumeProjects from "./content/projects";
 import ResumePublications from "./content/publications";
 import ResumeReferences from "./content/references";
 import ResumeSkills from "./content/skills";
@@ -58,6 +59,11 @@ export const Resume = props => <div className="resume">
             {
                 props.resume.work && props.resume.work.length
                     ? <ResumeWork {...props} />
+                    : null
+            }
+            {
+                props.resume.projects && props.resume.projects.length
+                    ? <ResumeProjects{...props} />
                     : null
             }
             {

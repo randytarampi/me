@@ -10,4 +10,6 @@ export * from "./linkedIn";
 export * from "./stackOverflow";
 export * from "./twitter";
 
+export * from "./brandedLink";
+
 export default BrandedLink;

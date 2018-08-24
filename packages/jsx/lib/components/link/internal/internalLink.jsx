@@ -4,11 +4,11 @@ import {connect} from "react-redux";
 import {push} from "react-router-redux";
 import Link from "../link";
 
-const InternalLinkInternal = ({serviceName, serviceType, className, href, ...props}) => { // eslint-disable-line no-unused-vars
+const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => { // eslint-disable-line no-unused-vars
     return <Link
         target="_self"
         text={serviceName}
-        {...props} // NOTE-RT: Just swallow the `href` and let react-rotuer handle it.
+        {...props}
         className={[`link--${serviceType}`, className].join(" ").trim()}
     />;
 };
@@ -16,15 +16,22 @@ const InternalLinkInternal = ({serviceName, serviceType, className, href, ...pro
 InternalLinkInternal.propTypes = {
     className: PropTypes.string,
     href: PropTypes.string.isRequired,
-    serviceName: PropTypes.string.isRequired,
+    serviceName: PropTypes.string,
     serviceType: PropTypes.string.isRequired
+};
+
+InternalLinkInternal.defaultProps = {
+    serviceType: "internal"
 };
 
 export const InternalLink = connect(
     null,
     (dispatch, ownProps) => {
         return {
-            onClick: () => dispatch(push(ownProps.href))
+            onClick: event => {
+                event.preventDefault();
+                dispatch(push(ownProps.href));
+            }
         };
     }
 )(InternalLinkInternal);

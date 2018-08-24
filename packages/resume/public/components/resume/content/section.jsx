@@ -30,7 +30,7 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
 
     return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <aside className="col m3 resume-section__header">
+            <aside className="col m3 s12 resume-section__header">
                 {
                     labelNode
                         ? labelNode
@@ -40,7 +40,7 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                 }
                 {
                     descriptionNode || description
-                        ? <Row className="hide-on-large-only hide-on-small-only">
+                        ? <Row className="hide-on-small-only">
                             <Col s={9}>
                                 {
                                     descriptionNode
@@ -54,7 +54,7 @@ export const ResumeSection = ({type, label, labelNode, description, descriptionN
                         : null
                 }
             </aside>
-            <Col m={9} offset="s1" className="resume-section__content">
+            <Col m={9} s={11} offset="s1" className="resume-section__content">
                 {children}
             </Col>
         </Row>

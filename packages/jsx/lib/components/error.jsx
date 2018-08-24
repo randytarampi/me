@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, {Component} from "react";
 import {Col, Row} from "react-materialize";
 import {DeadBear, DoubtBear, ShrugBear} from "./bear";
-import {EmailLink} from "./link";
+import {EmailLink, InternalLink} from "./link";
 
 class Error extends Component {
     componentDidMount() {
@@ -57,9 +57,9 @@ class Error extends Component {
                     <p className="error__message">
                         I don't know who told you to come
                         to <code>{`${window.location.origin}${this.props.location.pathname}`}</code>, but there's
-                        nothing here. You'll be redirected to the home page
-                        (<strong>{`${window.location.origin}${this.props.redirectionLocation}`}</strong>)
-                        in {this.props.redirectionTimeout} seconds.
+                        nothing here. You'll be redirected to the <InternalLink target="_self"
+                                                                                href={`${this.props.redirectionLocation}`}>home
+                        page</InternalLink> in {this.props.redirectionTimeout} seconds.
                     </p>
                 </DoubtBear>;
                 break;

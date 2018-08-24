@@ -1,4 +1,4 @@
-import Link from "@randy.tarampi/jsx/lib/components/link";
+import {CampaignLink} from "@randy.tarampi/jsx/lib/components/link";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
@@ -23,7 +23,8 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
                             <span className="text">
                             {
                                 educationEntry.website
-                                    ? <Link href={educationEntry.website}>{educationEntry.institution}</Link>
+                                    ? <CampaignLink
+                                        href={educationEntry.website}>{educationEntry.institution}</CampaignLink>
                                     : educationEntry.institution
                             }
                             </span>

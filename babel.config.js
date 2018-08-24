@@ -83,6 +83,41 @@ const configuredMinifyReplace = [
                     type: "stringLiteral",
                     value: config.get("letter.publishUrl")
                 }
+            },
+            {
+                identifierName: "__CAMPAIGN_SOURCE__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.CAMPAIGN_SOURCE || config.get("me.campaign.source")
+                }
+            },
+            {
+                identifierName: "__CAMPAIGN_MEDIUM__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.CAMPAIGN_MEDIUM || config.get("me.campaign.medium")
+                }
+            },
+            {
+                identifierName: "__CAMPAIGN_NAME__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.CAMPAIGN_NAME || config.get("me.campaign.name")
+                }
+            },
+            {
+                identifierName: "__CAMPAIGN_TERM__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.CAMPAIGN_TERM || config.get("me.campaign.term")
+                }
+            },
+            {
+                identifierName: "__CAMPAIGN_CONTENT__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.CAMPAIGN_CONTENT || config.get("me.campaign.content")
+                }
             }
         ]
     }

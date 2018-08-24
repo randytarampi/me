@@ -27,6 +27,14 @@ rules:
   import/default: 2
   import/no-extraneous-dependencies: 1
   react/no-unescaped-entities: 0
+  no-global-assign:
+  - 2
+  - exceptions:
+    - __CAMPAIGN_SOURCE__
+    - __CAMPAIGN_MEDIUM__
+    - __CAMPAIGN_NAME__
+    - __CAMPAIGN_TERM__
+    - __CAMPAIGN_CONTENT__
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
@@ -40,6 +48,21 @@ env:
   mocha: true
 globals:
   Promise: true
+  __CODE_APP_URL__: false
+  __WORDS_APP_URL__: false
+  __POSTS_APP_URL__: false
+  __PHOTOS_APP_URL__: false
+  __RESUME_APP_URL__: false
+  __PHOTOS_SERVICE_URL__: false
+  __WORDS_SERVICE_URL__: false
+  __POSTS_SERVICE_URL__: false
+  __CLIENT_URL__: false
+  __PUBLISHED_RESUME_URL__: false
+  __CAMPAIGN_SOURCE__: false
+  __CAMPAIGN_MEDIUM__: false
+  __CAMPAIGN_NAME__: false
+  __CAMPAIGN_TERM__: false
+  __CAMPAIGN_CONTENT__: false
 plugins:
 - react
 - import
@@ -50,4 +73,3 @@ settings:
       - .js
       - .jsx
       - .json
-

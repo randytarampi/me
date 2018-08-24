@@ -1,8 +1,0 @@
-globals:
-  __CODE_APP_URL__: false
-  __WORDS_APP_URL__: false
-  __POSTS_APP_URL__: false
-  __PHOTOS_APP_URL__: false
-  __RESUME_APP_URL__: false
-  __CLIENT_URL__: false
-  __PUBLISHED_RESUME_URL__: false
