@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.18.1"></a>
+## [0.18.1](https://github.com/randytarampi/me/compare/v0.18.0...v0.18.1) (2018-08-24)
+
+
+### Bug Fixes
+
+* User facing URLs should be `https`, and rooted at `www.randytarampi.ca`. ([f3ee4ea](https://github.com/randytarampi/me/commit/f3ee4ea))
+* **jsx:** Fix dangling `?` on `CampaignLink` when there are no query parameters. ([e3ab68d](https://github.com/randytarampi/me/commit/e3ab68d))
+* **posts:** Fix the `cover` script. ([129efe6](https://github.com/randytarampi/me/commit/129efe6)), closes [#53](https://github.com/randytarampi/me/issues/53)
+* **resume:** `manipulaion` -> `manipulation`. ([86954f2](https://github.com/randytarampi/me/commit/86954f2))
+* **travis:** Also `git add $RESUME_PACKAGE_DIR/resume.json`. ([f9ea71c](https://github.com/randytarampi/me/commit/f9ea71c))
+* **travis:** Run `git status` before we `lerna version`. ([6074cb3](https://github.com/randytarampi/me/commit/6074cb3)), closes [/travis-ci.org/randytarampi/me/jobs/420159417#L8233](https://github.com//travis-ci.org/randytarampi/me/jobs/420159417/issues/L8233)
+
+
+
+
+
 <a name="0.18.0"></a>
 # [0.18.0](https://github.com/randytarampi/me/compare/v0.17.1...v0.18.0) (2018-08-24)
 

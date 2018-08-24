@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.18.0",
+  "version": "0.18.1",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -28,7 +28,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.18.0",
+    "@randy.tarampi/js": "^0.18.1",
     "immutable": "^4.0.0-rc.9",
     "is-html": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",

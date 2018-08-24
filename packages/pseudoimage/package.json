@@ -7,9 +7,9 @@
 	"author": {
 		"name": "Randy Tarampi",
 		"email": "rt@randytarampi.ca",
-    "url": "https://www.randytarampi.ca"
+		"url": "https://www.randytarampi.ca"
 	},
-	"version": "0.18.0",
+	"version": "0.18.1",
 	"description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
 	"main": "lib/pseudolocalizer.js",
 	"scripts": {
