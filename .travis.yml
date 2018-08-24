@@ -72,7 +72,7 @@ jobs:
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
     - npm run resume --prefix packages/resume
     - npm run docs --prefix packages/resume
-    - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf; fi;
+    - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json; fi;
     - npm run docs --prefix packages/www
     - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html; fi;
     - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Commit release artifacts"; fi;'
