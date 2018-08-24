@@ -14,10 +14,11 @@ export const CampaignLink = ({useBranding, href, source, medium, name, term, con
         utm_term: term,
         utm_content: content
     };
-    const augmentedHref = hrefUrl + "?" + queryString.stringify({
+    const combinedQueryString = queryString.stringify({
         ...passedCampaignParameters,
         ...hrefQueryParameters
     });
+    const augmentedHref = hrefUrl + (combinedQueryString ? ("?" + combinedQueryString) : "");
 
     return <Link
         {...props}
