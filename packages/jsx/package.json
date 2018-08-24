@@ -13,6 +13,9 @@
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
+    "start": "npm run dev",
+    "dev": "npm run dev:client",
+    "dev:client": "rm -rf dist/*.js && npx webpack-serve ./webpack.client.config.js --hotClient",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
   },
   "description": "Some common JSX components",

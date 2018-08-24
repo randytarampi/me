@@ -4,6 +4,7 @@ const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
+const util = require("../../util");
 
 const isDevelopment = process.env.WEBPACK_SERVE
     || process.env.NODE_ENV !== "production"
@@ -76,7 +77,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules\/(?!(@randy\.tarampi\/|query-string|strict-uri-encode|strip-ansi|ansi-regex))/,
+                exclude: util.babelLoaderExclusions,
                 loader: "babel-loader",
                 options: {
                     configFile: path.join(__dirname, "../../babel.config.js"),
