@@ -7,8 +7,7 @@ const SentryPlugin = require("webpack-sentry-plugin");
 const util = require("./util");
 
 const isDevelopment = process.env.WEBPACK_SERVE
-    || process.env.NODE_ENV !== "production"
-    || process.env.NODE_ENV !== "prd"
+    || !["production", "prd"].includes(process.env.NODE_ENV)
     || true;
 
 const resolveMode = () => {
@@ -19,25 +18,7 @@ const resolveMode = () => {
     return "production";
 };
 
-const plugins = [
-    new webpack.DefinePlugin({
-        __WORDS_SERVICE_URL__: JSON.stringify(config.get("wordsServiceUrl")),
-        __POSTS_SERVICE_URL__: JSON.stringify(config.get("postsServiceUrl")),
-        __PHOTOS_SERVICE_URL__: JSON.stringify(config.get("photosServiceUrl")),
-        __CODE_APP_URL__: JSON.stringify(config.get("codeAppUrl")),
-        __WORDS_APP_URL__: JSON.stringify(config.get("wordsAppUrl")),
-        __POSTS_APP_URL__: JSON.stringify(config.get("postsAppUrl")),
-        __PHOTOS_APP_URL__: JSON.stringify(config.get("photosAppUrl")),
-        __RESUME_APP_URL__: JSON.stringify(config.get("resumeAppUrl")),
-        __ASSET_URL__: JSON.stringify(config.get("assetUrl")),
-        __PUBLISHED_RESUME_URL__: JSON.stringify(config.get("resume.publishUrl")),
-        __CAMPAIGN_SOURCE__: JSON.stringify(config.get("me.campaign.source")),
-        __CAMPAIGN_MEDIUM__: JSON.stringify(config.get("me.campaign.medium")),
-        __CAMPAIGN_NAME__: JSON.stringify(config.get("me.campaign.name")),
-        __CAMPAIGN_TERM__: JSON.stringify(config.get("me.campaign.term")),
-        __CAMPAIGN_CONTENT__: JSON.stringify(config.get("me.campaign.content"))
-    })
-];
+const plugins = [];
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(

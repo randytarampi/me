@@ -128,9 +128,7 @@ module.exports = (api) => {
         [
             "@babel/preset-env",
             {
-                targets: {
-                    node: "current"
-                },
+                forceAllTransforms: true,
                 useBuiltIns: "entry",
                 shippedProposals: true
             }
@@ -146,12 +144,12 @@ module.exports = (api) => {
     let plugins = [
         "@babel/plugin-proposal-object-rest-spread",
         "react-hot-loader/babel",
-        "lodash"
+        "lodash",
+        configuredMinifyReplace
     ];
 
     switch (api.env()) {
         case "test": {
-            plugins.push(configuredMinifyReplace);
             plugins.push("istanbul");
             break;
         }
@@ -173,26 +171,9 @@ module.exports = (api) => {
             break;
         }
 
-        case "client": {
-            presets = [
-                [
-                    "@babel/preset-env",
-                    {
-                        forceAllTransforms: true,
-                        useBuiltIns: "entry",
-                        shippedProposals: true
-                    }
-                ],
-                [
-                    "@babel/preset-react"
-                ]
-            ];
-            break;
-        }
-
+        case "client":
         case "development":
         default: {
-            plugins.push(configuredMinifyReplace);
             break;
         }
     }
