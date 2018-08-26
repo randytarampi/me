@@ -42,7 +42,6 @@ gulp.task("styles:dev", () => {
             includePaths: ["node_modules", "../../node_modules"]
         }).on("error", sass.logError))
         .pipe(autoprefixer({
-            browsers: ["cover 99.5%"],
             cascade: false
         }))
         .pipe(concat("styles.css"))
