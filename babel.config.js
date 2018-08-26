@@ -128,7 +128,9 @@ module.exports = (api) => {
         [
             "@babel/preset-env",
             {
-                forceAllTransforms: true,
+                targets: {
+                    node: "current"
+                },
                 useBuiltIns: "entry",
                 shippedProposals: true
             }
@@ -171,7 +173,26 @@ module.exports = (api) => {
             break;
         }
 
-        case "client":
+        case "client": {
+            presets = [
+                [
+                    "@babel/preset-env",
+                    {
+                        forceAllTransforms: true,
+                        useBuiltIns: "entry",
+                        shippedProposals: true
+                    }
+                ],
+                [
+                    "@babel/preset-react",
+                    {
+                        development: api.env() !== "prd"
+                    }
+                ]
+            ];
+            break;
+        }
+
         case "development":
         default: {
             break;
