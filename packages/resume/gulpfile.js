@@ -110,7 +110,6 @@ gulp.task("styles:dev", () => {
         }).on("error", sass.logError))
         .pipe(concat("styles.css"))
         .pipe(autoprefixer({
-            browsers: ["cover 99.5%"],
             cascade: false
         }))
         .pipe(gulp.dest("dist"));
