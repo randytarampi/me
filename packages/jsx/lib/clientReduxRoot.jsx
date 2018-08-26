@@ -4,11 +4,14 @@ import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
 import {renderRoutes} from "react-router-config";
 import {ConnectedRouter} from "react-router-redux";
+import ErrorWrapper from "./containers/errorWrapper";
 import metricsConfig from "./metrics/config";
 
 const ClientReduxRoot = ({store, history, routes, ...props}) => <Provider store={store}>
     <ConnectedRouter history={history}>
-        {renderRoutes(routes, props)}
+        <ErrorWrapper {...props}>
+            {renderRoutes(routes, props)}
+        </ErrorWrapper>
     </ConnectedRouter>
 </Provider>;
 

@@ -19,3 +19,5 @@ export default (state = initialState, {type, payload = {}} = {}) => {
 
     return state;
 };
+
+export const getLocation = state => state.get("location");

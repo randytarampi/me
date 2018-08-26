@@ -1,4 +1,3 @@
-import {push} from "react-router-redux";
 import {createAction} from "redux-actions";
 import fetchPosts from "../api/fetchPosts";
 import {isUrlStateLoading} from "../data/api";
@@ -66,7 +65,6 @@ export default fetchUrl => (dispatch, getState) => {
 
             if (!postsResponse || !postsResponse.posts || !postsResponse.posts.length) {
                 dispatch(setError(undefined, "ENOPOSTS"));
-                dispatch(push("./error"));
             }
         })
         .catch(error => {
@@ -75,7 +73,6 @@ export default fetchUrl => (dispatch, getState) => {
                 error
             }));
             dispatch(setError(error, "EFETCH"));
-            dispatch(push("./error"));
 
             throw error;
         });

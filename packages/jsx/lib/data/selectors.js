@@ -10,6 +10,7 @@ import {
     getWordPosts,
     getWordPostsSortedByDate
 } from "./posts";
+import {getLocation} from "./routing";
 
 export default {
     hasError: state => hasError(state.get("error")),
@@ -28,5 +29,7 @@ export default {
     getNewestPost: state => getNewestPost(state.get("posts")),
 
     getApiState: state => getApiState(state.get("api")),
-    getApiStateForUrl: (state, url) => getApiStateForUrl(state.get("api"), url)
+    getApiStateForUrl: (state, url) => getApiStateForUrl(state.get("api"), url),
+
+    getLocation: state => getLocation(state.get("routing"))
 };
