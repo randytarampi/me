@@ -72,7 +72,7 @@ describe("Photo", () => {
 
             expect(photoFromJson).to.be.ok;
             expect(photoFromJson.id).to.eql(photoJSON.id);
-            expect(photoFromJson.dateCreated).to.be.instanceof(DateTime);
+            expect(photoFromJson.datePublished).to.be.instanceof(DateTime);
             expect(photoFromJson.sizedPhotos).to.be.instanceof(List);
             expect(photoFromJson.sizedPhotos.size).to.eql(photoJSON.sizedPhotos.length);
             photoFromJson.sizedPhotos.forEach(sizedPhoto => {

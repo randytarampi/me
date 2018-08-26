@@ -26,7 +26,7 @@ export default fetchUrl => (dispatch, getState) => {
     }
 
     const oldestLoadedPost = selectors.getOldestPost(state);
-    const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.dateCreated;
+    const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.datePublished;
     const oldestPostAvailableDate = urlState && urlState.get("oldest");
 
     if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
@@ -43,7 +43,7 @@ export default fetchUrl => (dispatch, getState) => {
         ...(
             oldestLoadedPostDate
                 ? {
-                    orderBy: "dateCreated",
+                    orderBy: "datePublished",
                     orderOperator: "lt",
                     orderComparator: oldestLoadedPostDate && oldestLoadedPostDate.toISO(),
                     orderComparatorType: "String",

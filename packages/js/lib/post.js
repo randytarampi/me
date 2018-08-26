@@ -27,12 +27,16 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         return this.constructor.name;
     }
 
-    get dateCreated() {
-        if (this.get("dateCreated")) {
-            return this.get("dateCreated");
+    get date() {
+        return this.datePublished || this.dateCreated;
+    }
+
+    get datePublished() {
+        if (this.get("datePublished")) {
+            return this.get("datePublished");
         }
 
-        return this.datePublished;
+        return this.dateCreated;
     }
 
     static parsePropertiesFromJs(js) {
@@ -68,14 +72,16 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     toJS() {
         return {
             ...super.toJS(),
-            type: this.type
+            type: this.type,
+            datePublished: this.datePublished
         };
     }
 
     toJSON() {
         return {
             ...super.toJSON(),
-            type: this.type
+            type: this.type,
+            datePublished: this.datePublished
         };
     }
 };

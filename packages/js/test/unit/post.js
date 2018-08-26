@@ -94,13 +94,13 @@ describe("Post", () => {
         });
     });
 
-    describe("#dateCreated", function () {
-        it("should set the value of `dateCreated` to be the value of `datePublished` if `dateCreated` is falsy", function () {
+    describe("#datePublished", function () {
+        it("should set the value of `datePublished` to be the value of `dateCreated` if `datePublished` is falsy", function () {
             const postJs = {
                 id: "woof",
                 source: "Woofdy",
-                datePublished: DateTime.utc().toISO(),
-                dateCreated: null,
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: null,
                 title: "Woof woof woof",
                 body: [
                     "ʕ•ᴥ•ʔ",
@@ -123,5 +123,5 @@ describe("Post", () => {
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(post.datePublished.valueOf()).to.eql(post.dateCreated.valueOf());
         });
-    })
+    });
 });

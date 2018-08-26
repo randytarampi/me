@@ -188,7 +188,7 @@ describe("fetchPosts", function () {
             const stubSearchParams = {
                 perPage: FETCHING_POSTS_PER_PAGE,
                 orderComparator: stubLoadedPost.dateCreated.toISO(),
-                orderBy: "dateCreated",
+                orderBy: "datePublished",
                 orderComparatorType: "String",
                 orderOperator: "lt"
             };
