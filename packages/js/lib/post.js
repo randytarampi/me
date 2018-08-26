@@ -1,53 +1,88 @@
+import {Record} from "immutable";
 import {DateTime} from "luxon";
 import Creator from "./creator";
 import {compositeKeySeparator} from "./util";
 
-class Post {
-    constructor(id, type, source, dateCreated, datePublished, title, body, sourceUrl, creator) {
-        this.id = id;
-        this.type = type || Post.name;
-        this.source = source;
-        this._datePublished = datePublished && DateTime.fromISO(datePublished);
-        this._dateCreated = dateCreated && DateTime.fromISO(dateCreated);
-        this.title = title;
-        this.body = body;
-        this.sourceUrl = sourceUrl;
-        this.creator = creator;
-    }
-
+export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
+    id: null,
+    type: null,
+    source: null,
+    datePublished: null,
+    dateCreated: null,
+    title: null,
+    body: null,
+    sourceUrl: null,
+    creator: null,
+    ...otherProperties
+}) {
     get uid() {
         return `${this.source}${compositeKeySeparator}${this.id}`;
     }
 
-    get datePublished() {
-        return this._datePublished || this._dateCreated;
+    get type() {
+        if (this.get("type")) {
+            return this.get("type");
+        }
+
+        return this.constructor.name;
     }
 
     get dateCreated() {
-        return this._dateCreated || this._datePublished;
+        if (this.get("dateCreated")) {
+            return this.get("dateCreated");
+        }
+
+        return this.datePublished;
+    }
+
+    static parsePropertiesFromJs(js) {
+        return {
+            ...js,
+            dateCreated: js.dateCreated && !(js.dateCreated instanceof DateTime)
+                ? js.dateCreated.valueOf ? DateTime.fromMillis(js.dateCreated.valueOf()) : null
+                : js.dateCreated,
+            datePublished: js.datePublished && !(js.datePublished instanceof DateTime)
+                ? js.datePublished.valueOf ? DateTime.fromMillis(js.datePublished.valueOf()) : null
+                : js.datePublished,
+            creator: js.creator ? Creator.fromJS(js.creator) : null
+        };
+    }
+
+    static fromJS(js) {
+        return new this(this.parsePropertiesFromJs(js));
+    }
+
+    static parsePropertiesFromJson(json) {
+        return {
+            ...json,
+            dateCreated: json.dateCreated ? DateTime.fromISO(json.dateCreated) : null,
+            datePublished: json.datePublished ? DateTime.fromISO(json.datePublished) : null,
+            creator: json.creator ? Creator.fromJSON(json.creator) : null
+        };
     }
 
     static fromJSON(json) {
-        return new Post(
-            json.id,
-            json.type,
-            json.source,
-            json.dateCreated && DateTime.fromISO(json.dateCreated),
-            json.datePublished && DateTime.fromISO(json.datePublished),
-            json.title,
-            json.body,
-            json.sourceUrl,
-            json.creator && Creator.fromJSON(json.creator)
-        );
+        return new this(this.parsePropertiesFromJson(json));
+    }
+
+    toJS() {
+        return {
+            ...super.toJS(),
+            type: this.type
+        };
     }
 
     toJSON() {
         return {
-            ...this,
-            dateCreated: this.dateCreated,
-            datePublished: this.datePublished
+            ...super.toJSON(),
+            type: this.type
         };
     }
+};
+
+export const AbstractPost = PostClassGenerator();
+
+class Post extends PostClassGenerator() {
 }
 
 export default Post;

@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import {List} from "immutable";
 import {DateTime} from "luxon";
 import Photo from "../../lib/photo";
 import SizedPhoto from "../../lib/sizedPhoto";
@@ -6,16 +7,16 @@ import SizedPhoto from "../../lib/sizedPhoto";
 describe("Photo", () => {
     describe("constructor", () => {
         it("should build a `Photo` object", () => {
-            const photoJSON = {
+            const photoJS = {
                 id: "woof",
                 source: "Woofdy",
-                dateCreated: DateTime.utc().toISO(),
-                datePublished: DateTime.utc().toISO(),
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
                 width: -1,
                 height: -2,
-                sizedPhotos: [
-                    new SizedPhoto("woof://woof.woof/woof/woofto", 640, 480)
-                ],
+                sizedPhotos: List([
+                    SizedPhoto.fromJS({url: "woof://woof.woof/woof/woofto", width: 640, height: 480})
+                ]),
                 title: "Woof woof woof",
                 body: [
                     "ʕ•ᴥ•ʔ",
@@ -30,11 +31,12 @@ describe("Photo", () => {
                     sourceUrl: "woof://woof.woof/woof/woof/woof"
                 }
             };
-            const photo = new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON.dateCreated, photoJSON.datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator);
+            const photo = new Photo(photoJS);
 
             expect(photo.type).to.eql(Photo.name);
             expect(photo.dateCreated).to.be.an.instanceOf(DateTime);
             expect(photo.datePublished).to.be.an.instanceOf(DateTime);
+            expect(photo.sizedPhotos).to.be.an.instanceOf(List);
         });
     });
 
@@ -44,12 +46,12 @@ describe("Photo", () => {
                 id: "woof",
                 type: "Woof",
                 source: "Woofdy",
-                dateCreated: DateTime.utc().toISO(),
+                dateCreated: null,
                 datePublished: DateTime.utc().toISO(),
                 width: -1,
                 height: -2,
                 sizedPhotos: [
-                    new SizedPhoto("woof://woof.woof/woof/woofto", 640, 480)
+                    {url: "woof://woof.woof/woof/woofto", width: 640, height: 480}
                 ],
                 title: "Woof woof woof",
                 body: [
@@ -66,121 +68,16 @@ describe("Photo", () => {
                 }
             };
 
-            expect(new Photo(photoJSON.id, photoJSON.type, photoJSON.source, photoJSON.dateCreated, photoJSON.datePublished, photoJSON.width, photoJSON.height, photoJSON.sizedPhotos, photoJSON.sourceUrl, photoJSON.title, photoJSON.body, photoJSON.creator)).to.eql(Photo.fromJSON(photoJSON));
-        });
-    });
+            const photoFromJson = Photo.fromJSON(photoJSON);
 
-    //FIXME-RT: This is a weird interface...
-    describe(".sizedPhoto", () => {
-        it("shouldn't have a `.sizedPhoto` getter", () => {
-            const photoJSON = {
-                id: "woof",
-                type: "Woof",
-                source: "Woofdy",
-                dateCreated: null,
-                datePublished: null,
-                width: -1,
-                height: -2,
-                sizedPhotos: [],
-                title: "Woof woof woof",
-                body: [
-                    "ʕ•ᴥ•ʔ",
-                    "ʕ•ᴥ•ʔﾉ゛",
-                    "ʕ◠ᴥ◠ʔ"
-                ],
-                sourceUrl: "woof://woof.woof/woof",
-                creator: {
-                    id: -1,
-                    username: "ʕ•ᴥ•ʔ",
-                    name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
-                }
-            };
-            const photo = Photo.fromJSON(photoJSON);
-
-            expect(photo.sizedPhoto).to.eql(undefined);
-        });
-
-        it("should set `SizedPhoto`s properly", () => {
-            const photoJSON = {
-                id: "woof",
-                type: "Woof",
-                source: "Woofdy",
-                dateCreated: null,
-                datePublished: null,
-                width: -1,
-                height: -2,
-                sizedPhotos: [],
-                title: "Woof woof woof",
-                body: [
-                    "ʕ•ᴥ•ʔ",
-                    "ʕ•ᴥ•ʔﾉ゛",
-                    "ʕ◠ᴥ◠ʔ"
-                ],
-                sourceUrl: "woof://woof.woof/woof",
-                creator: {
-                    id: -1,
-                    username: "ʕ•ᴥ•ʔ",
-                    name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
-                }
-            };
-            const photo = Photo.fromJSON(photoJSON);
-            const sizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 640, 480);
-
-            photo.sizedPhoto = null;
-            expect(photo.sizedPhotos.length).to.eql(0);
-
-            photo.sizedPhoto = sizedPhoto;
-            expect(photo.sizedPhotos.length).to.eql(1);
-
-            photo.sizedPhoto = sizedPhoto;
-            photo.sizedPhoto = sizedPhoto;
-            expect(photo.sizedPhotos.length).to.eql(3);
-        });
-
-        it("should `scaleHeightToWidth` for `SizedPhoto`s with no `.height` defined", () => {
-            const photoJSON = {
-                id: "woof",
-                type: "Woof",
-                source: "Woofdy",
-                dateCreated: null,
-                datePublished: null,
-                width: -1,
-                height: -2,
-                sizedPhotos: [],
-                title: "Woof woof woof",
-                body: [
-                    "ʕ•ᴥ•ʔ",
-                    "ʕ•ᴥ•ʔﾉ゛",
-                    "ʕ◠ᴥ◠ʔ"
-                ],
-                sourceUrl: "woof://woof.woof/woof",
-                creator: {
-                    id: -1,
-                    username: "ʕ•ᴥ•ʔ",
-                    name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
-                }
-            };
-            const photo = Photo.fromJSON(photoJSON);
-
-            const smallSizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 100);
-            const mediumSizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 1000);
-            const largeSizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 10000);
-            const sizedPhotos = [
-                smallSizedPhoto,
-                mediumSizedPhoto,
-                largeSizedPhoto
-            ];
-
-            sizedPhotos.forEach((sizedPhoto) => {
-                photo.sizedPhoto = sizedPhoto;
-            });
-
-            sizedPhotos.forEach((sizedPhoto) => {
-                const selectedPhotoforWidth = photo.getSizedPhoto(sizedPhoto.width);
-                expect(selectedPhotoforWidth.height).to.eql(sizedPhoto.width * (photo.height / photo.width));
+            expect(photoFromJson).to.be.ok;
+            expect(photoFromJson.id).to.eql(photoJSON.id);
+            expect(photoFromJson.dateCreated).to.be.instanceof(DateTime);
+            expect(photoFromJson.sizedPhotos).to.be.instanceof(List);
+            expect(photoFromJson.sizedPhotos.size).to.eql(photoJSON.sizedPhotos.length);
+            photoFromJson.sizedPhotos.forEach(sizedPhoto => {
+                expect(sizedPhoto).to.be.ok;
+                expect(sizedPhoto).to.be.instanceof(SizedPhoto);
             });
         });
     });
@@ -217,6 +114,23 @@ describe("Photo", () => {
         });
 
         it("should return a single member of `.sizedPhotos`, the smallest in size (width), for a given argument", () => {
+            const smallSizedPhoto = SizedPhoto.fromJS({url: "woof://woof.woof/woof/woofto", width: 100, height: 133});
+            const mediumSizedPhoto = SizedPhoto.fromJS({
+                url: "woof://woof.woof/woof/woofto",
+                width: 1000,
+                height: 1333
+            });
+            const largeSizedPhoto = SizedPhoto.fromJS({
+                url: "woof://woof.woof/woof/woofto",
+                width: 10000,
+                height: 13333
+            });
+            const sizedPhotos = [
+                smallSizedPhoto,
+                mediumSizedPhoto,
+                largeSizedPhoto
+            ];
+
             const photoJSON = {
                 id: "woof",
                 type: "Woof",
@@ -225,7 +139,7 @@ describe("Photo", () => {
                 datePublished: null,
                 width: -1,
                 height: -2,
-                sizedPhotos: [],
+                sizedPhotos: sizedPhotos.map(sizedPhoto => sizedPhoto.toJSON()),
                 title: "Woof woof woof",
                 body: [
                     "ʕ•ᴥ•ʔ",
@@ -241,19 +155,6 @@ describe("Photo", () => {
                 }
             };
             const photo = Photo.fromJSON(photoJSON);
-
-            const smallSizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 100, 133);
-            const mediumSizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 1000, 1333);
-            const largeSizedPhoto = new SizedPhoto("woof://woof.woof/woof/woofto", 10000, 13333);
-            const sizedPhotos = [
-                smallSizedPhoto,
-                mediumSizedPhoto,
-                largeSizedPhoto
-            ];
-
-            sizedPhotos.forEach((sizedPhoto) => {
-                photo.sizedPhoto = sizedPhoto;
-            });
 
             sizedPhotos.forEach((sizedPhoto) => {
                 const selectedPhotoforWidth = photo.getSizedPhoto(sizedPhoto.width);

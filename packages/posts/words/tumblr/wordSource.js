@@ -1,4 +1,4 @@
-import {Creator, Post} from "@randy.tarampi/js";
+import {Post} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
@@ -36,17 +36,20 @@ class TumblrWordSource extends WordSource {
         const timezone = dateString.slice(-3);
         const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
 
-        return new Post(
-            postJson.id,
-            null,
-            this.type,
-            date,
-            null,
-            postJson.title,
-            processCaptionHtml(postJson.body),
-            postJson.post_url,
-            blogJson && new Creator(blogJson.name, blogJson.name, blogJson.title, blogJson.url)
-        );
+        return Post.fromJS({
+            id: postJson.id,
+            source: this.type,
+            datePublished: date,
+            title: postJson.title,
+            body: processCaptionHtml(postJson.body),
+            sourceUrl: postJson.post_url,
+            creator: blogJson && {
+                id: blogJson.name,
+                username: blogJson.name,
+                name: blogJson.title,
+                sourceUrl: blogJson.url
+            }
+        });
     }
 }
 

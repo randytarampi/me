@@ -1,4 +1,4 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {Photo, Post, util} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
@@ -17,11 +17,11 @@ describe("fetchPosts", function () {
             dateCreated: DateTime.utc().toISO(),
             datePublished: DateTime.utc().toISO()
         });
-        const stubPosts = [stubPost, stubPhoto];
+        const stubPosts = [stubPost, stubPhoto].map(post => post.toJSON());
         const stubPostsResponse = {
             json: () => {
                 return Promise.resolve({
-                    posts: stubPosts.map(post => post.toJSON()),
+                    posts: stubPosts,
                     total: stubPosts.length,
                     oldest: stubPost.dateCreated.toISO(),
                     newest: stubPhoto.dateCreated.toISO()
@@ -63,7 +63,7 @@ describe("fetchPosts", function () {
             .then(postsResponse => {
                 expect(postsResponse).to.be.ok;
                 expect(postsResponse).to.eql({
-                    posts: stubPosts,
+                    posts: stubPosts.map(post => util.getEntityForType(post.type).fromJS(post)),
                     total: stubPosts.length,
                     oldest: stubPost.dateCreated.toISO(),
                     newest: stubPhoto.dateCreated.toISO()

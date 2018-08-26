@@ -38,7 +38,7 @@ describe("Post", function () {
             width: -1,
             height: -2,
             sizedPhotos: [
-                new SizedPhoto("meow://meow.meow/meow/meowto", 640, 480)
+                SizedPhoto.fromJSON({url: "meow://meow.meow/meow/meowto", width: 640, height: 480})
             ],
             title: "Meow meow meow",
             body: [
@@ -81,7 +81,7 @@ describe("Post", function () {
             expect(createdPhoto.id).to.eql(stubPhoto.id);
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
             expect(createdPhoto.sizedPhotos).to.be.ok;
-            expect(createdPhoto.sizedPhotos).to.have.length(stubPhoto.sizedPhotos.length);
+            expect(createdPhoto.sizedPhotos.size).to.eql(stubPhoto.sizedPhotos.size);
             expect(createdPhoto).to.be.instanceof(Photo);
             const photoFromDb = await PostModel.get(createdPhoto.uid);
             expect(photoFromDb).to.be.ok;
@@ -122,7 +122,6 @@ describe("Post", function () {
             expect(createdPosts).to.have.length(stubPosts.length);
             return await Promise.all(stubPosts.map(async createdPost => {
                 expect(createdPost).to.be.ok;
-                expect(createdPost).to.be.instanceOf(Post);
                 expect(createdPost.uid).to.be.ok;
                 const postFromDb = await PostModel.get(createdPost.uid);
                 expect(postFromDb).to.be.ok;
@@ -142,7 +141,7 @@ describe("Post", function () {
                     width: -1,
                     height: -2,
                     sizedPhotos: [
-                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
                     ],
                     title: "Grr grr grr",
                     body: [
@@ -180,7 +179,7 @@ describe("Post", function () {
                     width: -1,
                     height: -2,
                     sizedPhotos: [
-                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
                     ],
                     title: "Grr grr grr",
                     body: [
@@ -244,7 +243,7 @@ describe("Post", function () {
                     width: -1,
                     height: -2,
                     sizedPhotos: [
-                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
                     ],
                     title: "Grr grr grr",
                     body: [
@@ -291,7 +290,7 @@ describe("Post", function () {
                     width: -1,
                     height: -2,
                     sizedPhotos: [
-                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
                     ],
                     title: "Grr grr grr",
                     body: [
@@ -324,7 +323,7 @@ describe("Post", function () {
                     width: -1,
                     height: -2,
                     sizedPhotos: [
-                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
                     ],
                     title: "Grr grr grr",
                     body: [
@@ -371,7 +370,7 @@ describe("Post", function () {
                     width: -1,
                     height: -2,
                     sizedPhotos: [
-                        new SizedPhoto("grr://grr.grr/grr/grrto", 640, 480)
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
                     ],
                     title: "Grr grr grr",
                     body: [
