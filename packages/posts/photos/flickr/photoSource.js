@@ -40,7 +40,7 @@ class FlickrSource extends PhotoSource {
         return Photo.fromJS({
             id: json.id,
             source: this.type,
-            dateCreated: DateTime.fromMillis(parseInt(json.datetaken, 10) * 1000),
+            dateCreated: json.datetaken && DateTime.fromSQL(json.datetaken) || null,
             datePublished: DateTime.fromMillis(parseInt(json.dateupload, 10) * 1000),
             width: json.width_o,
             height: json.height_o,
