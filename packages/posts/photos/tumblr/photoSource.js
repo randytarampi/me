@@ -1,4 +1,5 @@
-import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
+import {Photo, SizedPhoto} from "@randy.tarampi/js";
+import {widthSorter} from "@randy.tarampi/js/lib/photo";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
@@ -32,32 +33,30 @@ class TumblrSource extends PhotoSource {
 
     jsonToPost(photoJson, postJson, blogJson) {
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
-            return new SizedPhoto(photo.url, photo.width, photo.height);
+            return SizedPhoto.fromJSON(photo);
         });
         const dateString = postJson.date;
         const dateStringWithoutTimezone = dateString.slice(0, -4);
         const timezone = dateString.slice(-3);
         const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
+        const biggestPhoto = sizedPhotos.sort(widthSorter)[sizedPhotos.length - 1];
 
-        return new Photo(
-            postJson.id,
-            null,
-            this.type,
-            date,
-            null,
-            _.last(_.sortBy(sizedPhotos, ["width"])).width,
-            _.last(_.sortBy(sizedPhotos, ["height"])).height,
+        return Photo.fromJS({
+            id: postJson.id,
+            source: this.type,
+            datePublished: date,
+            width: biggestPhoto.width,
+            height: biggestPhoto.height,
             sizedPhotos,
-            postJson.post_url,
-            null,
-            processCaptionHtml(photoJson.caption || postJson.caption),
-            new Creator(
-                blogJson.name,
-                blogJson.name,
-                blogJson.title,
-                blogJson.url
-            )
-        );
+            sourceUrl: postJson.post_url,
+            body: processCaptionHtml(photoJson.caption || postJson.caption),
+            creator: {
+                id: blogJson.name,
+                username: blogJson.name,
+                name: blogJson.title,
+                sourceUrl: blogJson.url
+            }
+        });
     }
 }
 

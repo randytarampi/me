@@ -1,13 +1,25 @@
-class SizedPhoto {
-    constructor(url, width, height, size) {
-        this.url = url;
-        this.width = width;
-        this.height = height;
-        this.size = size || width && width.toString();
+import {Record} from "immutable";
+
+class SizedPhoto extends Record({
+    url: null,
+    width: null,
+    height: null,
+    size: null,
+}) {
+    get size() {
+        if (this.get("size")) {
+            return this.get("size");
+        }
+
+        return this.width && this.width.toString();
+    }
+
+    static fromJS(js) {
+        return new SizedPhoto(js);
     }
 
     static fromJSON(json) {
-        return new SizedPhoto(json.url, json.width, json.height, json.size);
+        return SizedPhoto.fromJS(json);
     }
 }
 

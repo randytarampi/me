@@ -34,8 +34,8 @@ export default (event, context, callback) => {
                     const sortedPosts = flattenedPosts.sort(util.sortPostsByDate);
                     const paginatedPosts = sortedPosts.slice(0, parsedQuerystringParameters && parsedQuerystringParameters.perPage || 100);
                     const globalTotal = postSearchResult.total + photoSearchResult.total;
-                    const globalFirst = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.first && b.first && a.first.dateCreated && b.first.dateCreated && a.first.dateCreated < b.first.dateCreated)[0].first;
-                    const globalLast = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.last && b.last && a.last.dateCreated && b.last.dateCreated && a.last.dateCreated > b.last.dateCreated)[0].last;
+                    const globalFirst = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.first && b.first && a.first.date && b.first.date && a.first.date < b.first.date)[0].first;
+                    const globalLast = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.last && b.last && a.last.date && b.last.date && a.last.date > b.last.date)[0].last;
 
                     return {
                         posts: paginatedPosts,

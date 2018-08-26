@@ -68,7 +68,6 @@ describe("CacheClient", function () {
 
             const createdPosts = await cacheClient.setPosts(stubPosts);
             expect(createdPosts).to.be.ok;
-            createdPosts.map(createdPost => expect(createdPost).to.be.instanceof(Post));
             expect(stubCreatePosts.calledOnce).to.eql(true);
             expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
         });
@@ -105,7 +104,6 @@ describe("CacheClient", function () {
 
             const retrievedPosts = await cacheClient.getPosts(stubParams);
             expect(retrievedPosts).to.be.ok;
-            retrievedPosts.map(retrievedPost => expect(retrievedPost).to.be.instanceof(Post));
             expect(stubGetPosts.calledOnce).to.eql(true);
             sinon.assert.calledWith(stubGetPosts, stubParams[cacheClient.type]);
         });

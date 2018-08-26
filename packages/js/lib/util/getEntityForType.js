@@ -3,11 +3,13 @@ import Post from "../post";
 
 export default type => {
     switch (type) {
-        case "Photo":
+        case Photo.name:
             return Photo;
 
-        default:
-        case "Post":
+        case Post.name:
             return Post;
+
+        default:
+            throw new Error(`Can't \`getEntityForType\` for \`${type}\``);
     }
 };

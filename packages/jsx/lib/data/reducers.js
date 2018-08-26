@@ -1,8 +1,8 @@
-import {routerReducer as routing} from "react-router-redux";
-import {combineReducers} from "redux";
+import {combineReducers} from "redux-immutable";
 import api from "./api";
 import error from "./error";
 import posts from "./posts";
+import routing from "./routing";
 
 export default combineReducers({
     api,

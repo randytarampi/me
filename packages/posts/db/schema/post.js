@@ -20,13 +20,13 @@ const post = new Schema({
         index: [
             {
                 global: true,
-                name: "type-dateCreated-index",
-                rangeKey: "dateCreated"
+                name: "type-datePublished-index",
+                rangeKey: "datePublished"
             },
             {
                 global: true,
-                name: "type-datePublished-index",
-                rangeKey: "datePublished"
+                name: "type-dateCreated-index",
+                rangeKey: "dateCreated"
             },
             {
                 global: true,
@@ -41,18 +41,19 @@ const post = new Schema({
         index: [
             {
                 global: true,
-                name: "source-dateCreated-index",
-                rangeKey: "dateCreated"
+                name: "source-datePublished-index",
+                rangeKey: "datePublished"
             },
             {
                 global: true,
-                name: "source-datePublished-index",
-                rangeKey: "datePublished"
+                name: "source-dateCreated-index",
+                rangeKey: "dateCreated"
             }
         ]
     },
     datePublished: {
         type: Date,
+        required: true,
         get: date => date ? date.toISOString() : date
     },
     dateCreated: {

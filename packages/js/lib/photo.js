@@ -1,71 +1,57 @@
-import _ from "lodash";
-import {DateTime} from "luxon";
-import Creator from "./creator";
-import Post from "./post";
+import {List} from "immutable";
+import Post, {PostClassGenerator} from "./post";
 import SizedPhoto from "./sizedPhoto";
 
-class Photo extends Post {
-	constructor(id, type, source, dateCreated, datePublished, width, height, sizedPhotos, sourceUrl, title, body, creator) {
-		super(
-			id,
-			type || Photo.name,
-			source,
-			dateCreated,
-			datePublished,
-			title,
-			body,
-			sourceUrl,
-			creator
-		);
+class Photo extends PostClassGenerator({
+    width: null,
+    height: null,
+    sizedPhotos: List()
+}) {
+    static parsePropertiesFromJs(js) {
+        return {
+            ...Post.parsePropertiesFromJs(js),
+            sizedPhotos: js.sizedPhotos ? List(js.sizedPhotos.map(sizedPhoto => SizedPhoto.fromJS(ensureSizedPhotoHasHeight(sizedPhoto, js.width, js.height)))) : List()
+        };
+    }
 
-		this.width = width;
-		this.height = height;
-		this.sizedPhotos = [];
+    static parsePropertiesFromJson(json) {
+        return {
+            ...Post.parsePropertiesFromJson(json),
+            sizedPhotos: json.sizedPhotos ? List(json.sizedPhotos.map(sizedPhoto => SizedPhoto.fromJSON(ensureSizedPhotoHasHeight(sizedPhoto, json.width, json.height)))) : List()
+        };
+    }
 
-		_.each(sizedPhotos, (sizedPhoto) => {
-			this.sizedPhoto = sizedPhoto;
-		});
-	}
+    getSizedPhoto(width) {
+        const sortedSizedPhotos = this.sizedPhotos.sort(widthSorter);
+        const widthAppropriatePhotos = sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width);
 
-	//FIXME-RT: This seems quite odd. Can't quite remember why it wasn't `set sizedPhotos` instead...
-	set sizedPhoto(sizedPhoto) {
-		if (sizedPhoto) {
-			if (!sizedPhoto.height) {
-				//FIXME-RT: Surely there's a better way to accomplish this...
-				sizedPhoto.height = scaleHeightToWidth(sizedPhoto.width, this.width, this.height);
-			}
-			this.sizedPhotos.push(sizedPhoto);
-		}
-	}
-
-	static fromJSON(json) {
-		return new Photo(
-			json.id,
-			json.type,
-			json.source,
-            json.dateCreated && DateTime.fromISO(json.dateCreated),
-            json.datePublished && DateTime.fromISO(json.datePublished),
-			json.width,
-			json.height,
-			json.sizedPhotos && json.sizedPhotos.map(SizedPhoto.fromJSON),
-			json.sourceUrl,
-			json.title,
-			json.body,
-			json.creator && Creator.fromJSON(json.creator)
-		);
-	}
-
-	getSizedPhoto(width) {
-		const sortedSizedPhotos = _.sortBy(this.sizedPhotos, ["width"]);
-		const widthAppropriatePhotos = _.reject(sortedSizedPhotos, (sizedPhoto) => {
-			return sizedPhoto.width < width;
-		});
-		return _.first(widthAppropriatePhotos) || _.last(sortedSizedPhotos);
-	}
+        return widthAppropriatePhotos.first() || sortedSizedPhotos.last();
+    }
 }
 
 export default Photo;
 
-function scaleHeightToWidth(limitedWidth, originalWidth, originalHeight) {
-	return ~~((originalHeight / originalWidth) * limitedWidth);
-}
+const scaleHeightToWidth = (limitedWidth, originalWidth, originalHeight) => {
+    return ~~((originalHeight / originalWidth) * limitedWidth);
+};
+
+const ensureSizedPhotoHasHeight = (sizedPhotoJs, fullWidth, fullHeight) => {
+    if (sizedPhotoJs.height) {
+        return sizedPhotoJs;
+    }
+
+    return {
+        ...sizedPhotoJs,
+        height: scaleHeightToWidth(sizedPhotoJs.width, fullWidth, fullHeight)
+    };
+};
+
+export const widthSorter = (a, b) => {
+    if (a.width < b.width) {
+        return -1;
+    } else if (a.width > b.width) {
+        return 1;
+    } else {
+        return 0;
+    }
+};

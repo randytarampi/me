@@ -1,16 +1,17 @@
 import {expect} from "chai";
 import {DateTime} from "luxon";
+import Creator from "../../lib/creator";
 import Post from "../../lib/post";
 import {compositeKeySeparator} from "../../lib/util";
 
 describe("Post", () => {
     describe("constructor", () => {
         it("should build a `Post` object", () => {
-            const postJSON = {
+            const postJs = {
                 id: "woof",
                 source: "Woofdy",
-                dateCreated: DateTime.utc().toISO(),
-                datePublished: DateTime.utc().toISO(),
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
                 title: "Woof woof woof",
                 body: [
                     "ʕ•ᴥ•ʔ",
@@ -18,48 +19,19 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: {
+                creator: new Creator({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     sourceUrl: "woof://woof.woof/woof/woof/woof"
-                }
+                })
             };
 
-            const post = new Post(postJSON.id, postJSON.type, postJSON.source, postJSON.dateCreated, postJSON.datePublished, postJSON.title, postJSON.body, postJSON.sourceUrl, postJSON.creator);
+            const post = new Post(postJs);
 
             expect(post.type).to.eql(Post.name);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
-        });
-
-        it("should set the value of `dateCreated` to be the value of `datePublished` if `dateCreated` is falsy", () => {
-            const postJSON = {
-                id: "woof",
-                source: "Woofdy",
-                datePublished: DateTime.utc().toISO(),
-                dateCreated: null,
-                title: "Woof woof woof",
-                body: [
-                    "ʕ•ᴥ•ʔ",
-                    "ʕ•ᴥ•ʔﾉ゛",
-                    "ʕ◠ᴥ◠ʔ"
-                ],
-                sourceUrl: "woof://woof.woof/woof",
-                creator: {
-                    id: -1,
-                    username: "ʕ•ᴥ•ʔ",
-                    name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
-                }
-            };
-
-            const post = new Post(postJSON.id, postJSON.type, postJSON.source, postJSON.dateCreated, postJSON.datePublished, postJSON.title, postJSON.body, postJSON.sourceUrl, postJSON.creator);
-
-            expect(post.type).to.eql(Post.name);
-            expect(post.dateCreated).to.be.an.instanceOf(DateTime);
-            expect(post.datePublished).to.be.an.instanceOf(DateTime);
-            expect(post.datePublished.valueOf()).to.eql(post.dateCreated.valueOf());
         });
     });
 
@@ -86,7 +58,11 @@ describe("Post", () => {
                 }
             };
 
-            expect(new Post(postJSON.id, postJSON.type, postJSON.source, postJSON.dateCreated, postJSON.datePublished, postJSON.title, postJSON.body, postJSON.sourceUrl, postJSON.creator)).to.eql(Post.fromJSON(postJSON));
+            const postFromJson = Post.fromJSON(postJSON);
+
+            expect(postFromJson).to.be.ok;
+            expect(postFromJson.id).to.eql(postJSON.id);
+            expect(postFromJson.dateCreated).to.be.instanceof(DateTime);
         });
     });
 
@@ -115,6 +91,37 @@ describe("Post", () => {
             const post = Post.fromJSON(postJSON);
 
             expect(post.uid).to.eql(`${postJSON.source}${compositeKeySeparator}${postJSON.id}`);
+        });
+    });
+
+    describe("#datePublished", function () {
+        it("should set the value of `datePublished` to be the value of `dateCreated` if `datePublished` is falsy", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: null,
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Creator({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                })
+            };
+
+            const post = Post.fromJSON(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(post.dateCreated).to.be.an.instanceOf(DateTime);
+            expect(post.datePublished).to.be.an.instanceOf(DateTime);
+            expect(post.datePublished.valueOf()).to.eql(post.dateCreated.valueOf());
         });
     });
 });

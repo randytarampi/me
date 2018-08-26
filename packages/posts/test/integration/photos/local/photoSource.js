@@ -1,7 +1,6 @@
-import {Photo} from "@randy.tarampi/js";
+import {Photo, util} from "@randy.tarampi/js";
 import {expect} from "chai";
 import fs from "fs";
-import _ from "lodash";
 import path from "path";
 import PostModel from "../../../../db/models/post";
 import SearchParams from "../../../../lib/searchParams";
@@ -43,20 +42,11 @@ describe("LocalSource", function () {
             const stubSearchParams = SearchParams.fromJS();
 
             return photoSource.getPosts(stubSearchParams)
-                .then((photos) => {
+                .then(photos => {
                     expect(photos).to.be.ok;
-                    photos.map((photo) => {
-                        expect(photo).to.be.instanceOf(Photo);
-                    });
-                    expect(photos.length).to.be.eql(
-                        _.filter(fs.readdirSync(process.env.LOCAL_DIRECTORY), LocalSource.fileIsSupported).length
-                    );
-                    expect(photos).to.eql(
-                        _.sortBy(photos,
-                            (photo) => {
-                                return -1 * photo.dateCreated;
-                            })
-                    );
+                    expect(photos).to.have.length(fs.readdirSync(process.env.LOCAL_DIRECTORY).filter(LocalSource.fileIsSupported).length);
+                    photos.map(photo => expect(photo).to.be.instanceOf(Photo));
+                    expect(photos).to.eql(photos.sort(util.sortPostsByDate));
                 });
         });
     });
@@ -110,7 +100,7 @@ describe("LocalSource", function () {
             const jsonToPostResult = photoSource.jsonToPost(filePath, fileName, lstat, width, height);
 
             expect(jsonToPostResult).to.be.instanceof(Photo);
-            expect(jsonToPostResult.sizedPhotos.length).to.eql(1);
+            expect(jsonToPostResult.sizedPhotos.size).to.eql(1);
             jsonToPostResult.sizedPhotos.map((sizedPhoto) => {
                 expect(sizedPhoto.url).to.eql(jsonToPostResult.sourceUrl);
                 expect(sizedPhoto.width).to.eql(jsonToPostResult.width);

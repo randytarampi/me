@@ -11,7 +11,7 @@ export class PostsComponent extends Component {
     render() {
         return <Infinite
             useWindowAsScrollContainer={true}
-            elementHeight={this.props.posts ? this.props.posts.toJS().map(computePostHeight(this.props.containerWidth)) : [500]}
+            elementHeight={this.props.posts ? this.props.posts.toArray().map(computePostHeight(this.props.containerWidth)) : [500]}
             infiniteLoadBeginEdgeOffset={Infinite.containerHeightScaleFactor(2).amount}
             onInfiniteLoad={this.props.fetchPosts}
             isInfiniteLoading={this.props.isLoading}
@@ -19,7 +19,7 @@ export class PostsComponent extends Component {
         >
             {
                 this.props.posts
-                    ? this.props.posts.toJS().map(post => {
+                    ? this.props.posts.toArray().map(post => {
                         const Constructor = getComponentForType(post.type);
                         return <Constructor key={post.uid} post={post}/>;
                     })

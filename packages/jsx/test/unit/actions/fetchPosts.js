@@ -3,7 +3,6 @@ import {expect} from "chai";
 import {Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
-import {CALL_HISTORY_METHOD} from "react-router-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {
@@ -24,12 +23,12 @@ describe("fetchPosts", function () {
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
-        stubInitialState = {
+        stubInitialState = Map({
             api: Map(),
             posts: Map({
                 posts: Set()
             })
-        };
+        });
         stubStore = mockStore(stubInitialState);
     });
 
@@ -49,14 +48,14 @@ describe("fetchPosts", function () {
                 }
             });
 
-            stubInitialState = {
+            stubInitialState = Map({
                 api: Map({
                     [stubFetchUrl]: Map({
                         isLoading: true
                     })
                 }),
                 posts: Map({posts: Set()}),
-            };
+            });
             stubStore = mockStore(stubInitialState);
 
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
@@ -93,7 +92,7 @@ describe("fetchPosts", function () {
                 }
             });
 
-            stubInitialState = {
+            stubInitialState = Map({
                 api: Map({
                     [stubFetchUrl]: Map({
                         isLoading: false,
@@ -103,7 +102,7 @@ describe("fetchPosts", function () {
                     })
                 }),
                 posts: Map({posts: Set([stubLoadedPost])}),
-            };
+            });
             stubStore = mockStore(stubInitialState);
 
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
@@ -117,7 +116,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_CANCELLED,
                             payload: {
                                 fetchUrl: stubFetchUrl,
-                                oldestPostAvailableDate: stubInitialState.api.get(stubFetchUrl).get("oldest"),
+                                oldestPostAvailableDate: stubInitialState.getIn(["api", stubFetchUrl, "oldest"]),
                                 oldestLoadedPostDate: stubLoadedPost.dateCreated
                             }
                         }
@@ -188,7 +187,7 @@ describe("fetchPosts", function () {
             const stubSearchParams = {
                 perPage: FETCHING_POSTS_PER_PAGE,
                 orderComparator: stubLoadedPost.dateCreated.toISO(),
-                orderBy: "dateCreated",
+                orderBy: "datePublished",
                 orderComparatorType: "String",
                 orderOperator: "lt"
             };
@@ -207,7 +206,7 @@ describe("fetchPosts", function () {
                 }
             });
 
-            stubInitialState = {
+            stubInitialState = Map({
                 api: Map({
                     [stubFetchUrl]: Map({
                         oldest: DateTime.utc(1991, 11, 14),
@@ -217,7 +216,7 @@ describe("fetchPosts", function () {
                 posts: Map({
                     posts: Set([stubLoadedPost])
                 })
-            };
+            });
             stubStore = mockStore(stubInitialState);
 
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
@@ -268,10 +267,7 @@ describe("fetchPosts", function () {
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
                 .then(() => {
                     const actions = stubStore.getActions();
-
-                    expect(actions).to.be.ok;
-                    expect(actions).to.have.length(4);
-                    expect(actions).to.eql([
+                    const expectedActions = [
                         {
                             type: FETCHING_POSTS,
                             payload: {
@@ -293,17 +289,12 @@ describe("fetchPosts", function () {
                                 errorCode: "ENOPOSTS",
                                 errorMessage: undefined
                             }
-                        },
-                        {
-                            type: CALL_HISTORY_METHOD,
-                            payload: {
-                                args: [
-                                    "./error"
-                                ],
-                                method: "push"
-                            }
                         }
-                    ]);
+                    ];
+
+                    expect(actions).to.be.ok;
+                    expect(actions).to.have.length(expectedActions.length);
+                    expect(actions).to.eql(expectedActions);
                 });
         });
 
@@ -326,10 +317,7 @@ describe("fetchPosts", function () {
                     expect(error).to.eql(stubPostsResponse);
 
                     const actions = stubStore.getActions();
-
-                    expect(actions).to.be.ok;
-                    expect(actions).to.have.length(4);
-                    expect(actions).to.eql([
+                    const expectedActions = [
                         {
                             type: FETCHING_POSTS,
                             payload: {
@@ -351,17 +339,12 @@ describe("fetchPosts", function () {
                                 errorCode: "EFETCH",
                                 errorMessage: undefined
                             }
-                        },
-                        {
-                            type: CALL_HISTORY_METHOD,
-                            payload: {
-                                args: [
-                                    "./error"
-                                ],
-                                method: "push"
-                            }
                         }
-                    ]);
+                    ];
+
+                    expect(actions).to.be.ok;
+                    expect(actions).to.have.length(expectedActions.length);
+                    expect(actions).to.eql(expectedActions);
                 });
         });
     });

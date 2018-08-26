@@ -61,7 +61,7 @@ export const getApiStateForUrl = (state, url) => getApiState(state).get(url) || 
 // NOTE-RT: Utility functions
 export const isUrlStateLoading = urlState => urlState ? !!urlState.get("isLoading") : null;
 export const getErrorForUrlState = urlState => urlState ? urlState.get("error") : null;
-const getApiStateForUrlFromGlobalState = (state, url) => getApiStateForUrl(state.api, url);
+const getApiStateForUrlFromGlobalState = (state, url) => getApiStateForUrl(state.get("api"), url);
 
 // NOTE-RT: Private selectors for individual containers
 export const createIsLoadingUrlSelector = () => createSelector(

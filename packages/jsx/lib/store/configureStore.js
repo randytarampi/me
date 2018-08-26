@@ -1,3 +1,4 @@
+import {Map} from "immutable";
 import {routerMiddleware} from "react-router-redux";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
@@ -6,7 +7,7 @@ import metrics from "../middleware/metrics";
 import raven from "../middleware/raven";
 import router from "../middleware/router";
 
-const configureStore = (initialState = {}, history, reducers) => {
+const configureStore = (initialState = Map(), history, reducers) => {
     const middlewares = [thunk, metrics, routerMiddleware(history), router];
 
     if (typeof window !== "undefined" && window.SENTRY_DSN) {

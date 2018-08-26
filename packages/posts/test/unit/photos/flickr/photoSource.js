@@ -58,8 +58,8 @@ describe("FlickrPhotoSource", function () {
             owner: flickrUser.owner,
             pathalias: flickrUser.owner,
             owner_name: flickrUser.owner_name,
-            datetaken: DateTime.utc().toISO(),
-            dateupload: DateTime.utc().toISO(),
+            datetaken: DateTime.utc().toSQL(),
+            dateupload: DateTime.utc().valueOf().toString(),
             width_o: 1080,
             height_o: 1080,
             url_o: "woof://woof.woof/?size=o",
@@ -249,6 +249,22 @@ describe("FlickrPhotoSource", function () {
                     expect(error).to.be.ok;
                     expect(error.message).to.match(/Please specify an actual postGetter implementation/);
                 });
+        });
+    });
+
+    describe("#jsonToPost", function () {
+        it("turns a flickr response into a `Photo`", function () {
+            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+            expect(flickrPhotoSource).to.be.instanceOf(FlickrPhotoSource);
+
+            const photoFromFlickr = flickrPhotoSource.jsonToPost(flickrPhoto);
+
+            expect(photoFromFlickr).to.be.ok;
+            expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);
+            expect(photoFromFlickr.datePublished).to.be.instanceof(DateTime);
+            expect(photoFromFlickr.datePublished).to.eql(DateTime.fromMillis(parseInt(flickrPhoto.dateupload, 10) * 1000));
+            expect(photoFromFlickr.dateCreated).to.be.instanceof(DateTime);
+            expect(photoFromFlickr.dateCreated).to.eql(DateTime.fromSQL(flickrPhoto.datetaken));
         });
     });
 });

@@ -1,18 +1,18 @@
-class Creator {
-    constructor(id, username, name, sourceUrl) {
-        this.id = id;
-        this.username = username;
-        this.name = name;
-        this.sourceUrl = sourceUrl;
+import {Record} from "immutable";
+
+class Creator extends Record({
+    id: null,
+    username: null,
+    name: null,
+    sourceUrl: null,
+    imageUrl: null
+}) {
+    static fromJS(js) {
+        return new Creator(js);
     }
 
     static fromJSON(json) {
-        return new Creator(
-            json.id,
-            json.username,
-            json.name,
-            json.sourceUrl
-        );
+        return Creator.fromJS(json);
     }
 }
 

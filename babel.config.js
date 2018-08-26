@@ -146,12 +146,12 @@ module.exports = (api) => {
     let plugins = [
         "@babel/plugin-proposal-object-rest-spread",
         "react-hot-loader/babel",
-        "lodash"
+        "lodash",
+        configuredMinifyReplace
     ];
 
     switch (api.env()) {
         case "test": {
-            plugins.push(configuredMinifyReplace);
             plugins.push("istanbul");
             break;
         }
@@ -184,7 +184,10 @@ module.exports = (api) => {
                     }
                 ],
                 [
-                    "@babel/preset-react"
+                    "@babel/preset-react",
+                    {
+                        development: api.env() !== "prd"
+                    }
                 ]
             ];
             break;
@@ -192,7 +195,6 @@ module.exports = (api) => {
 
         case "development":
         default: {
-            plugins.push(configuredMinifyReplace);
             break;
         }
     }

@@ -1,4 +1,4 @@
-import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
+import {Photo, SizedPhoto} from "@randy.tarampi/js";
 import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
@@ -60,30 +60,28 @@ class InstagramSource extends PhotoSource {
     jsonToPost(photoJson) {
         const sizedPhotos = Object.keys(photoJson.images).map(key => {
             const image = photoJson.images[key];
-            return new SizedPhoto(image.url, image.width, image.height, key);
+            return SizedPhoto.fromJSON({...image, size: key});
         });
 
         const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
 
-        return new Photo(
-            photoJson.id,
-            null,
-            this.type,
-            DateTime.fromMillis(parseInt(photoJson.created_time, 10) * 1000),
-            null,
-            biggestOfficialPhoto.width,
-            biggestOfficialPhoto.height,
+        return Photo.fromJS({
+            id: photoJson.id,
+            source: this.type,
+            datePublished: DateTime.fromMillis(parseInt(photoJson.created_time, 10) * 1000),
+            width: biggestOfficialPhoto.width,
+            height: biggestOfficialPhoto.height,
             sizedPhotos,
-            photoJson.link,
-            photoJson.location && photoJson.location.name,
-            photoJson.caption && photoJson.caption.text,
-            new Creator(
-                photoJson.user.username,
-                photoJson.user.username,
-                photoJson.user.full_name,
-                `https://www.instagram.com/${photoJson.user.username}`
-            )
-        );
+            sourceUrl: photoJson.link,
+            title: photoJson.location && photoJson.location.name,
+            body: photoJson.caption && photoJson.caption.text,
+            creator: {
+                id: photoJson.user.username,
+                username: photoJson.user.username,
+                name: photoJson.user.full_name,
+                sourceUrl: `https://www.instagram.com/${photoJson.user.username}`
+            }
+        });
     }
 }
 

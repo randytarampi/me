@@ -20,7 +20,7 @@ export default (state = Map(), action) => {
     }
 };
 
-export const hasError = state => !!getErrorState(state);
+export const hasError = state => !!getError(state) || !!getErrorMessage(state) || !!getErrorCode(state);
 export const getErrorState = state => state;
 export const getError = state => getErrorState(state).get("error");
 export const getErrorMessage = state => getErrorState(state).get("errorMessage");

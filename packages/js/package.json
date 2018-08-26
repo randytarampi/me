@@ -25,6 +25,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
+    "immutable": "^4.0.0-rc.9",
     "lodash": "^4.17.10",
     "luxon": "^1.3.3"
   },

@@ -18,8 +18,8 @@ export const buildPostsV2ResponseBody = ({posts, total, first, last}) => {
     return {
         posts,
         total,
-        oldest: first && first.dateCreated && first.dateCreated.toISO(),
-        newest: last && last.dateCreated && last.dateCreated.toISO(),
+        oldest: first && first.date && first.date.toISO(),
+        newest: last && last.date && last.date.toISO(),
     };
 };
 

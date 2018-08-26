@@ -1,7 +1,13 @@
+/**
+ * @function Sort two [Post]{@link Post}s by date, descending.
+ * @param a {Post}
+ * @param b {Post}
+ * @returns {number}
+ */
 export default (a, b) => {
-    if (a.dateCreated.valueOf() > b.dateCreated.valueOf()) {
+    if (a.date.valueOf() > b.date.valueOf()) {
         return -1;
-    } else if (a.dateCreated.valueOf() < b.dateCreated.valueOf()) {
+    } else if (a.date.valueOf() < b.date.valueOf()) {
         return 1;
     } else {
         return 0;

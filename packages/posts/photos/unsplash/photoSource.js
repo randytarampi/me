@@ -1,6 +1,5 @@
-import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
+import {Photo} from "@randy.tarampi/js";
 import "isomorphic-fetch";
-import {DateTime} from "luxon";
 import Unsplash, {toJson} from "unsplash-js";
 import PhotoSource from "../photoSource";
 
@@ -29,31 +28,27 @@ class UnsplashSource extends PhotoSource {
     }
 
     jsonToPost(json) {
-        return new Photo(
-            json.id,
-            null,
-            this.type,
-            DateTime.fromISO(json.created_at),
-            null,
-            json.width,
-            json.height,
-            [
-                new SizedPhoto(json.urls.raw, json.width, json.height, "raw"),
-                new SizedPhoto(json.urls.full, json.width, json.height, "full"),
-                new SizedPhoto(json.urls.regular, json.width, json.height, "regular"),
-                new SizedPhoto(json.urls.small, json.width, json.height, "small")
+        return Photo.fromJSON({
+            id: json.id,
+            source: this.type,
+            datePublished: json.created_at,
+            width: json.width,
+            height: json.height,
+            sizedPhotos: [
+                {url: json.urls.raw, width: json.width, height: json.height, size: "raw"},
+                {url: json.urls.full, width: json.width, height: json.height, size: "full"},
+                {url: json.urls.regular, width: json.width, height: json.height, size: "regular"},
+                {url: json.urls.small, width: json.width, height: json.height, size: "small"}
             ],
-            json.links.html,
-            null,
-            null,
-            new Creator(
-                json.user.id,
-                json.user.username,
-                json.user.name,
-                json.user.links.html,
-                json.user.profile_image.large
-            )
-        );
+            sourceUrl: json.links.html,
+            creator: {
+                id: json.user.id,
+                username: json.user.username,
+                name: json.user.name,
+                sourceUrl: json.user.links.html,
+                imageUrl: json.user.profile_image.large
+            }
+        });
     }
 }
 

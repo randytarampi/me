@@ -10,23 +10,26 @@ import {
     getWordPosts,
     getWordPostsSortedByDate
 } from "./posts";
+import {getLocation} from "./routing";
 
 export default {
-    hasError: state => hasError(state.error),
-    getError: state => getError(state.error),
-    getErrorCode: state => getErrorCode(state.error),
-    getErrorMessage: state => getErrorMessage(state.error),
-    getErrorState: state => getErrorState(state.error),
+    hasError: state => hasError(state.get("error")),
+    getError: state => getError(state.get("error")),
+    getErrorCode: state => getErrorCode(state.get("error")),
+    getErrorMessage: state => getErrorMessage(state.get("error")),
+    getErrorState: state => getErrorState(state.get("error")),
 
-    getPosts: state => getPosts(state.posts),
-    getPhotoPosts: state => getPhotoPosts(state.posts),
-    getWordPosts: state => getWordPosts(state.posts),
-    getPostsSortedByDate: state => getPostsSortedByDate(state.posts),
-    getPhotoPostsSortedByDate: state => getPhotoPostsSortedByDate(state.posts),
-    getWordPostsSortedByDate: state => getWordPostsSortedByDate(state.posts),
-    getOldestPost: state => getOldestPost(state.posts),
-    getNewestPost: state => getNewestPost(state.posts),
+    getPosts: state => getPosts(state.get("posts")),
+    getPhotoPosts: state => getPhotoPosts(state.get("posts")),
+    getWordPosts: state => getWordPosts(state.get("posts")),
+    getPostsSortedByDate: state => getPostsSortedByDate(state.get("posts")),
+    getPhotoPostsSortedByDate: state => getPhotoPostsSortedByDate(state.get("posts")),
+    getWordPostsSortedByDate: state => getWordPostsSortedByDate(state.get("posts")),
+    getOldestPost: state => getOldestPost(state.get("posts")),
+    getNewestPost: state => getNewestPost(state.get("posts")),
 
-    getApiState: state => getApiState(state.api),
-    getApiStateForUrl: (state, url) => getApiStateForUrl(state.api, url)
+    getApiState: state => getApiState(state.get("api")),
+    getApiStateForUrl: (state, url) => getApiStateForUrl(state.get("api"), url),
+
+    getLocation: state => getLocation(state.get("routing"))
 };

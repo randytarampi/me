@@ -1,7 +1,6 @@
 import {Post} from "@randy.tarampi/js";
 import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
-import {DateTime} from "luxon";
 import WordSource from "../wordSource";
 
 class S3WordSource extends WordSource {
@@ -38,15 +37,13 @@ class S3WordSource extends WordSource {
     }
 
     jsonToPost(postJson) {
-        return new Post(
-            postJson.Key,
-            null,
-            this.type,
-            DateTime.fromISO(postJson.date),
-            null,
-            postJson.title,
-            postJson.body
-        );
+        return Post.fromJSON({
+            id: postJson.Key,
+            source: this.type,
+            datePublished: postJson.date,
+            title: postJson.title,
+            body: postJson.body
+        });
     }
 }
 

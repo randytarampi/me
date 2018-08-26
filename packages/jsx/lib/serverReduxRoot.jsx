@@ -3,10 +3,13 @@ import React from "react";
 import {Provider} from "react-redux";
 import {renderRoutes} from "react-router-config";
 import {StaticRouter} from "react-router-dom";
+import ErrorWrapper from "./containers/errorWrapper";
 
 const ServerReduxRoot = ({store, context, routes, ...props}) => <Provider store={store}>
     <StaticRouter context={context}>
-        {renderRoutes(routes, props)}
+        <ErrorWrapper {...props}>
+            {renderRoutes(routes, props)}
+        </ErrorWrapper>
     </StaticRouter>
 </Provider>;
 

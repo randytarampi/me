@@ -1,4 +1,4 @@
-import {Creator, Photo, SizedPhoto} from "@randy.tarampi/js";
+import {Photo} from "@randy.tarampi/js";
 import fs from "fs";
 import _ from "lodash";
 import {DateTime} from "luxon";
@@ -78,10 +78,10 @@ class LocalSource extends PhotoSource {
                 const page = isNaN(searchParams.page) ? 1 : searchParams.page;
                 return Promise.all(_.sortBy(files,
                     (file) => {
-                        return -1 * file.lstat.ctime;
+                        return -1 * DateTime.fromISO(file.lstat.ctime).valueOf();
                     })
                     .slice((page - 1) * searchParams.perPage, page * searchParams.perPage)
-                    .map((file) => {
+                    .map(file => {
                         return new Promise((resolve, reject) => {
                             lwip.open(file.filePath, (error, image) => {
                                 if (error) {
@@ -111,7 +111,7 @@ class LocalSource extends PhotoSource {
                 });
             });
         })
-            .then((file) => {
+            .then(file => {
                 return new Promise((resolve, reject) => {
                     lwip.open(file.filePath, (error, image) => {
                         if (error) {
@@ -128,27 +128,21 @@ class LocalSource extends PhotoSource {
     jsonToPost(filePath, fileName, lstat, width, height) {
         const fileUrl = url.format(filePath.replace(this.source, ""));
 
-        return new Photo(
-            filePath,
-            null,
-            this.type,
-            DateTime.fromJSDate(lstat.ctime),
-            null,
+        return Photo.fromJSON({
+            id: filePath,
+            source: this.type,
+            dateCreated: lstat.ctime,
             width,
             height,
-            [
-                new SizedPhoto(fileUrl, width, height)
+            sizedPhotos: [
+                {url: fileUrl, width, height}
             ],
-            fileUrl,
-            fileName,
-            null,
-            new Creator(
-                null,
-                null,
-                null,
-                fileUrl
-            )
-        );
+            sourceUrl: fileUrl,
+            title: fileName,
+            creator: {
+                sourceUrl: fileUrl
+            }
+        });
     }
 }
 

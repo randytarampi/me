@@ -2,12 +2,14 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {push} from "react-router-redux";
 import clearError from "../actions/clearError";
-import Error from "../components/error";
+import ErrorWrapper from "../components/errorWrapper";
 import selectors from "../data/selectors";
 
-const ConnectedError = connect(
+const ConnectedErrorWrapper = connect(
     state => {
         return {
+            location: selectors.getLocation(state),
+            hasError: selectors.hasError(state),
             error: selectors.getError(state),
             errorCode: selectors.getErrorCode(state),
             errorMessage: selectors.getErrorMessage(state)
@@ -23,17 +25,16 @@ const ConnectedError = connect(
             }, ownProps.redirectionTimeout * 1000)
         };
     }
-)(Error);
+)(ErrorWrapper);
 
-ConnectedError.propTypes = {
-    location: PropTypes.object.isRequired,
+ConnectedErrorWrapper.propTypes = {
     redirectionLocation: PropTypes.string.isRequired,
     redirectionTimeout: PropTypes.number
 };
 
-ConnectedError.defaultProps = {
+ConnectedErrorWrapper.defaultProps = {
     redirectionLocation: "/",
     redirectionTimeout: 10
 };
 
-export default ConnectedError;
+export default ConnectedErrorWrapper;
