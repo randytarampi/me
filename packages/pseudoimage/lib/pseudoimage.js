@@ -1,7 +1,7 @@
-let fs = require("fs");
-let path = require("path");
-let lwip = require("lwip");
-let mkdirp = require("mkdirp");
+const fs = require("fs");
+const path = require("path");
+const lwip = require("lwip");
+const mkdirp = require("mkdirp");
 
 class Pseudoimage {
     /**
@@ -49,14 +49,32 @@ class Pseudoimage {
         destinationPath = path.normalize(destinationPath);
         transformationFunction = transformationFunction || this.transformationFunction;
 
-        return new Promise((resolve, reject) => {
-            lwip.open(sourcePath, (error, image) => {
-                if (error) {
-                    reject(error);
-                    return;
-                }
+        const destinationDirectory = path.dirname(destinationPath);
 
-                transformationFunction(image, destinationPath, resolve, reject);
+        return Promise.all([
+            new Promise((resolve, reject) => {
+                fs.lstat(sourcePath, (error, lstat) => {
+                    if (error) {
+                        return reject(error);
+                    }
+
+                    if (!lstat.isFile()) {
+                        return reject(new Error(`${sourcePath} must be a file`));
+                    }
+
+                    return resolve(lstat);
+                });
+            }),
+            mkdirpDestinationDirectoryIfRequired(destinationDirectory)
+        ]).then(() => {
+            return new Promise((resolve, reject) => {
+                lwip.open(sourcePath, (error, image) => {
+                    if (error) {
+                        return reject(error);
+                    }
+
+                    transformationFunction(image, destinationPath, resolve, reject);
+                });
             });
         });
     }
@@ -71,29 +89,41 @@ class Pseudoimage {
     generatePseudoImages(sourceDirectory, destinationDirectory, transformationFunction) {
         sourceDirectory = sourceDirectory ? path.normalize(sourceDirectory) : this.sourceDirectory;
         destinationDirectory = destinationDirectory ? path.normalize(destinationDirectory) : this.destinationDirectory;
-        let that = this;
-        let files = fs.readdirSync(sourceDirectory);
 
-        return Promise.all(files.map((file) => {
-                let source = path.join(sourceDirectory, file);
-                let destination = path.join(destinationDirectory, file);
-
-                if (fs.lstatSync(source).isDirectory()) {
-                    try {
-                        fs.lstatSync(destination).isDirectory();
-                    } catch (e) {
-                        if (e.code === "ENOENT") {
-                            mkdirp.sync(destination);
-                        } else {
-                            return Promise.reject(e);
-                        }
-                    }
-                    return that.generatePseudoImages(source, destination, transformationFunction);
+        return new Promise((resolve, reject) => {
+            fs.readdir(sourceDirectory, (error, files) => {
+                if (error) {
+                    return reject(error);
                 }
-                return that.generatePseudoImage(source, destination, transformationFunction);
-            }))
-            .then(() => {
+
+                return resolve(files);
             });
+        })
+            .then(files => Promise.all(files.map(file => {
+                const source = path.join(sourceDirectory, file);
+                const destination = path.join(destinationDirectory, file);
+
+                return Promise.all([
+                    new Promise((resolve, reject) => {
+                        fs.lstat(source, (error, sourceLstat) => {
+                            if (error) {
+                                return reject(error);
+                            }
+                            return resolve(sourceLstat);
+                        });
+                    }),
+                    mkdirpDestinationDirectoryIfRequired(destinationDirectory)
+                ]).then(([sourceLstat]) => {
+                    if (sourceLstat.isDirectory()) {
+                        return this.generatePseudoImages(source, destination, transformationFunction);
+                    } else if (sourceLstat.isFile()) {
+                        return this.generatePseudoImage(source, destination, transformationFunction);
+                    } else {
+                        throw new Error(`Source ${source} is neither a file nor directory (${sourceLstat.mode})`);
+                    }
+                });
+            })));
+
     }
 }
 
@@ -110,8 +140,7 @@ function defaultImageTransformation(image, destinationPath, successCallback, err
         .flip("xy")
         .writeFile(destinationPath, (error) => {
             if (error) {
-                errorCallback(error);
-                return;
+                return errorCallback(error);
             }
 
             successCallback();
@@ -132,8 +161,7 @@ function retinizedImageTransformation(image, destinationPath, successCallback, e
         .flip("xy")
         .writeFile(destinationPath, (error) => {
             if (error) {
-                errorCallback(error);
-                return;
+                return errorCallback(error);
             }
 
             successCallback();
@@ -154,8 +182,7 @@ function halfImageTransformation(image, destinationPath, successCallback, errorC
         .flip("xy")
         .writeFile(destinationPath, (error) => {
             if (error) {
-                errorCallback(error);
-                return;
+                return errorCallback(error);
             }
 
             successCallback();
@@ -163,3 +190,22 @@ function halfImageTransformation(image, destinationPath, successCallback, errorC
 }
 
 module.exports = Pseudoimage;
+
+const mkdirpDestinationDirectoryIfRequired = destinationDirectory => new Promise((resolve, reject) => {
+    fs.lstat(destinationDirectory, error => {
+        if (error) {
+            if (error.code === "ENOENT") {
+                return mkdirp(destinationDirectory, error => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve();
+                });
+            } else {
+                return reject(error);
+            }
+        }
+
+        return resolve();
+    });
+});

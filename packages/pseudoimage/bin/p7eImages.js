@@ -1,17 +1,23 @@
 #!/usr/bin/env node
 
-let commander = require("commander");
-let Pseudoimage = require("../lib/pseudoimage");
+const path = require("path");
+const commander = require("commander");
+const Pseudoimage = require("../lib/pseudoimage");
+const packageJson = require("../package.json");
 
 commander
-    .version("0.0.1")
+    .version(packageJson.version)
     .usage("[options] <sourceDirectory> [destinationDirectory]")
     .description("ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders")
-    .option("-p --preset <preset>", "Use a preset pseudolocalizer {retina}", /^(retina)$/gm)
+    .option("-p --preset <preset>", "Use a preset pseudolocalizer {retina|half}", /^(retina|half)$/gm)
     .action((sourceDirectory, destinationDirectory) => {
-        if (!sourceDirectory) {
+        if (!commander.args.length) {
             console.error("Please supply a sourceDirectory"); // eslint-disable-line no-console
             process.exit(1);
+        }
+
+        if (commander.args.length < 3) {
+            destinationDirectory = path.join(path.sep, `${sourceDirectory.split(path.sep).filter(component => !!component).join(path.sep)}-pseudoimages`);
         }
 
         let pseudoimage;
@@ -20,7 +26,7 @@ commander
                 console.error("Please specify a proper preset"); // eslint-disable-line no-console
                 process.exit(1);
             }
-            pseudoimage = Pseudoimage.retina(sourceDirectory, destinationDirectory);
+            pseudoimage = Pseudoimage[commander.preset](sourceDirectory, destinationDirectory);
         } else {
             pseudoimage = new Pseudoimage(sourceDirectory, destinationDirectory);
         }
@@ -29,8 +35,10 @@ commander
             .then(() => {
                 process.exit(0);
             })
-            .catch((error) => {
-                console.error(error); // eslint-disable-line no-console
+            .catch(error => {
+                console.error(`Failed to generate pseudoimages (${destinationDirectory}) from source (${sourceDirectory}) with error:\n`, error); // eslint-disable-line no-console
                 process.exit(1);
             });
     });
+
+commander.parse(process.argv);
