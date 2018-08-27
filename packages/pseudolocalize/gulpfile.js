@@ -25,4 +25,12 @@ gulp.task("test.unit", () => {
         .pipe(mocha(mochaConfig));
 });
 
-gulp.task("test", gulp.parallel(["test.unit"]));
+gulp.task("test.integration", () => {
+    const mocha = require("gulp-mocha");
+    const mochaConfig = require("./mocha.config");
+
+    return gulp.src("test/integration/**/*.js", {read: false})
+        .pipe(mocha(mochaConfig));
+});
+
+gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
