@@ -1,4 +1,4 @@
-import {Map} from "immutable";
+import {fromJS, Map} from "immutable";
 import {LOCATION_CHANGE} from "react-router-redux";
 
 const initialState = Map({
@@ -13,8 +13,8 @@ export default (state = initialState, {type, payload = {}} = {}) => {
         const action = payload.action;
 
         return state
-            .set("location", location)
-            .set("action", action);
+            .set("location", fromJS(location))
+            .set("action", fromJS(action));
     }
 
     return state;
