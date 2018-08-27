@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/randytarampi/me/compare/v0.18.4...v0.19.0) (2018-08-27)
+
+
+### Bug Fixes
+
+* **jsx:** Fix broken 404 pages. ([18847d0](https://github.com/randytarampi/me/commit/18847d0))
+
+
+### Features
+
+* **jsx:** Automagically show the error page when we encounter an error. ([7b1e953](https://github.com/randytarampi/me/commit/7b1e953))
+* Use `Immutable` everywhere per [#23](https://github.com/randytarampi/me/issues/23). ([#62](https://github.com/randytarampi/me/issues/62)) ([656d981](https://github.com/randytarampi/me/commit/656d981)), closes [#12](https://github.com/randytarampi/me/issues/12)
+
+
+
+
+
 <a name="0.18.4"></a>
 ## [0.18.4](https://github.com/randytarampi/me/compare/v0.18.3...v0.18.4) (2018-08-26)
 

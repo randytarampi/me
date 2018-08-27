@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/randytarampi/me/compare/v0.18.4...v0.19.0) (2018-08-27)
+
+
+### Bug Fixes
+
+* **jsx:** Fix broken 404 pages. ([18847d0](https://github.com/randytarampi/me/commit/18847d0))
+* **jsx:** Fix broken navigation introduced with 595b9ca9931f59043cf7b7e634d5309f2c3c7daf ([a7f4d23](https://github.com/randytarampi/me/commit/a7f4d23))
+* **jsx:** Fix tests broken in 595b9ca9931f59043cf7b7e634d5309f2c3c7daf and 7b1e95342ee61fe33c972bb6090f446429eb84b3. ([b353a00](https://github.com/randytarampi/me/commit/b353a00))
+* **jsx:** Prioritize `Post.datePublished` over `Post.dateCreated`. ([539d54e](https://github.com/randytarampi/me/commit/539d54e))
+* **jsx:** Reduce immutables into the `routing` state's subtree. ([ffb399c](https://github.com/randytarampi/me/commit/ffb399c))
+
+
+### Features
+
+* **jsx:** Automagically show the error page when we encounter an error. ([7b1e953](https://github.com/randytarampi/me/commit/7b1e953))
+* Use `Immutable` everywhere per [#23](https://github.com/randytarampi/me/issues/23). ([#62](https://github.com/randytarampi/me/issues/62)) ([656d981](https://github.com/randytarampi/me/commit/656d981)), closes [#12](https://github.com/randytarampi/me/issues/12)
+
+
+
+
+
 <a name="0.18.4"></a>
 ## [0.18.4](https://github.com/randytarampi/me/compare/v0.18.3...v0.18.4) (2018-08-26)
 

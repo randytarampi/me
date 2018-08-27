@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/randytarampi/me/compare/v0.18.4...v0.19.0) (2018-08-27)
+
+
+### Bug Fixes
+
+* Correct the `babelLoaderExclusions` to include the trailing `/`. ([02f87ab](https://github.com/randytarampi/me/commit/02f87ab))
+* Fix babel compilation error introduced in fa27adc5979eb8f9194a6e0e69becf7be909808e. ([6f3f865](https://github.com/randytarampi/me/commit/6f3f865))
+* Prefer babel's `minify-replace` over webpack's `DefinePlugin`. ([fa27adc](https://github.com/randytarampi/me/commit/fa27adc))
+* **jsx:** Fix broken 404 pages. ([18847d0](https://github.com/randytarampi/me/commit/18847d0))
+* **jsx:** Fix broken navigation introduced with 595b9ca9931f59043cf7b7e634d5309f2c3c7daf ([a7f4d23](https://github.com/randytarampi/me/commit/a7f4d23))
+* **jsx:** Fix tests broken in 595b9ca9931f59043cf7b7e634d5309f2c3c7daf and 7b1e95342ee61fe33c972bb6090f446429eb84b3. ([b353a00](https://github.com/randytarampi/me/commit/b353a00))
+* **jsx:** Prioritize `Post.datePublished` over `Post.dateCreated`. ([539d54e](https://github.com/randytarampi/me/commit/539d54e))
+* **jsx:** Reduce immutables into the `routing` state's subtree. ([ffb399c](https://github.com/randytarampi/me/commit/ffb399c))
+* **posts:** Parse flickr response's `datetaken` property properly. ([ecdb1ea](https://github.com/randytarampi/me/commit/ecdb1ea))
+
+
+### Features
+
+* **jsx:** Automagically show the error page when we encounter an error. ([7b1e953](https://github.com/randytarampi/me/commit/7b1e953))
+
+
+
+
+
 <a name="0.18.4"></a>
 ## [0.18.4](https://github.com/randytarampi/me/compare/v0.18.3...v0.18.4) (2018-08-26)
 
