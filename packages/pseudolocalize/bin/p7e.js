@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
-let commander = require("commander");
-let Pseudolocalizer = require("../lib/pseudolocalizer");
+const commander = require("commander");
+const Pseudolocalizer = require("../lib/pseudolocalizer");
+const packageJson = require("../package.json");
 
 commander
-    .version("0.0.1")
+    .version(packageJson.version)
     .usage("[options] <strings...>")
     .description("Text-to-ʕ•ᴥ•ʔ translations for strings")
-    .option("-p --preset <preset>", "Use a preset pseudolocalizer {CJK, LCG, AFB, mix}", /^(CJK|LCG|AFB|mix)$/gm)
-    .option("-r --relativeScale <number>", "Use a custom relativeScale", /^\d+$/gm)
+    .option("-p, --preset <preset>", "Use a preset pseudolocalizer {CJK, LCG, AFB, mix}", /^(CJK|LCG|AFB|mix)$/gm)
+    .option("-r, --relativeScale <number>", "Use a custom relativeScale", /^\d+$/gm)
     .option("-s, --prefix <string>", "Use a custom prefix")
     .option("-e, --postfix <string>", "Use a custom postfix")
     .option("--prePad <string>", "Use a custom pre padding")
@@ -22,7 +23,7 @@ if (commander.args.length === 0) {
     process.exit(1);
 }
 
-let parsedRelativeScale = parseInt(commander.relativeScale, 10);
+const parsedRelativeScale = parseFloat(commander.relativeScale);
 
 if (commander.preset) {
     if (typeof commander.preset !== "string") {

@@ -1,4 +1,4 @@
-let util = require("util");
+const util = require("util");
 
 class Pseudolocalizer {
     /**
@@ -32,9 +32,9 @@ class Pseudolocalizer {
      * @param {string} postPad - The characters between the postfix and the input added to meet the length determined by relativeScale
      */
     static CJK(relativeScale, prefix, postfix, prePad, postPad) {
-        let open = "\uFF5F";
-        let close = "\uFF60";
-        let CJKPadding = "纬横糸씨"; // From "纬", "横糸" and "씨"
+        const open = "\uFF5F";
+        const close = "\uFF60";
+        const CJKPadding = "纬横糸씨"; // From "纬", "横糸" and "씨"
         return new Pseudolocalizer(relativeScale || 0.8, prefix || open, postfix || close, prePad || CJKPadding, postPad || CJKPadding);
     }
 
@@ -48,9 +48,9 @@ class Pseudolocalizer {
      * @param {string} postPad - The characters between the postfix and the input added to meet the length determined by relativeScale
      */
     static LCG(relativeScale, prefix, postfix, prePad, postPad) {
-        let open = "«";
-        let close = "»";
-        let LCGPadding = "sгυ"; // From "subtegmine", "гав" and "υφάδι"
+        const open = "«";
+        const close = "»";
+        const LCGPadding = "sгυ"; // From "subtegmine", "гав" and "υφάδι"
         return new Pseudolocalizer(relativeScale || 1.3, prefix || open, postfix || close, prePad || LCGPadding, postPad || LCGPadding);
     }
 
@@ -64,9 +64,9 @@ class Pseudolocalizer {
      * @param {string} postPad - The characters between the postfix and the input added to meet the length determined by relativeScale
      */
     static AFB(relativeScale, prefix, postfix, prePad, postPad) {
-        let open = "『";
-        let close = "』";
-        let AFBPadding = "نپব"; // From "نسيج" and "پود" and "বুনন"
+        const open = "『";
+        const close = "』";
+        const AFBPadding = "نپব"; // From "نسيج" and "پود" and "বুনন"
         return new Pseudolocalizer(relativeScale || 1.5, prefix || open, postfix || close, prePad || AFBPadding, postPad || AFBPadding);
     }
 
@@ -95,7 +95,7 @@ class Pseudolocalizer {
         let computedPrePad = this.prePad;
         let computedPostPad = this.postPad;
         let stringLength = string.length;
-        let pseudoStringLength = ~~(string.length * this.relativeScale);
+        const pseudoStringLength = ~~(string.length * this.relativeScale);
         let paddingLength = ~~((pseudoStringLength - this.prefix.length - this.postfix.length - stringLength) / 2);
 
         if (paddingLength < 1) {
@@ -146,7 +146,7 @@ function* paddingGenerator(padding) {
  * @param {number} length - The length of the desired string
  */
 function generatePadding(padding, length) {
-    let padded = paddingGenerator(padding);
+    const padded = paddingGenerator(padding);
     while (padding.length < length) {
         padding = padded.next().value;
     }
