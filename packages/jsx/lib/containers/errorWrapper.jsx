@@ -1,31 +1,8 @@
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {push} from "react-router-redux";
-import clearError from "../actions/clearError";
 import ErrorWrapper from "../components/errorWrapper";
-import selectors from "../data/selectors";
+import {connectError} from "./error";
 
-const ConnectedErrorWrapper = connect(
-    state => {
-        return {
-            location: selectors.getLocation(state),
-            hasError: selectors.hasError(state),
-            error: selectors.getError(state),
-            errorCode: selectors.getErrorCode(state),
-            errorMessage: selectors.getErrorMessage(state)
-        };
-    },
-    (dispatch, ownProps) => {
-        return {
-            timedRedirect: () => setTimeout(() => {
-                if (window.location && window.location.pathname !== ownProps.redirectionLocation) {
-                    dispatch(clearError());
-                    dispatch(push(ownProps.redirectionLocation));
-                }
-            }, ownProps.redirectionTimeout * 1000)
-        };
-    }
-)(ErrorWrapper);
+const ConnectedErrorWrapper = connectError(ErrorWrapper);
 
 ConnectedErrorWrapper.propTypes = {
     redirectionLocation: PropTypes.string.isRequired,
