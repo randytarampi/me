@@ -4,6 +4,8 @@ const childProcess = require("child_process");
 const Pseudolocalizer = require("../../../lib/pseudolocalizer");
 
 describe("p7e", function () {
+    this.timeout(60000);
+
     it("throws an error when given no input", function () {
         const stubArguments = [];
 
