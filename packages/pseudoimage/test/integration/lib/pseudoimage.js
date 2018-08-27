@@ -19,7 +19,7 @@ describe("pseudoimage", function () {
     afterEach(function () {
         try {
             rmrf(tmpDir);
-        } catch (e) {
+        } catch (e) { // eslint-disable-line no-empty
         } // eslint-disable-line no-empty
     });
 
