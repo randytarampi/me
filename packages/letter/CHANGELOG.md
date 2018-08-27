@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.19.3"></a>
+## [0.19.3](https://github.com/randytarampi/me/compare/v0.19.2...v0.19.3) (2018-08-27)
+
+**Note:** Version bump only for package @randy.tarampi/letter
+
+
+
+
+
 <a name="0.19.2"></a>
 ## [0.19.2](https://github.com/randytarampi/me/compare/v0.19.1...v0.19.2) (2018-08-27)
 
