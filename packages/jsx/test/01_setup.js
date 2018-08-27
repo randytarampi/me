@@ -4,10 +4,9 @@ import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import Enzyme from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
-import {jsdom} from "jsdom/lib/old-api";
+import {JSDOM} from "jsdom";
 
-global.document = jsdom("");
-global.window = document.defaultView;
+global.window = new JSDOM();
 global.navigator = {
     userAgent: "node.js"
 };
