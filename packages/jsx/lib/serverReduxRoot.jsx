@@ -6,11 +6,11 @@ import {StaticRouter} from "react-router-dom";
 import ErrorWrapper from "./containers/errorWrapper";
 
 const ServerReduxRoot = ({store, context, routes, ...props}) => <Provider store={store}>
-    <StaticRouter context={context}>
-        <ErrorWrapper {...props}>
+    <ErrorWrapper {...props}>
+        <StaticRouter context={context}>
             {renderRoutes(routes, props)}
-        </ErrorWrapper>
-    </StaticRouter>
+        </StaticRouter>
+    </ErrorWrapper>
 </Provider>;
 
 ServerReduxRoot.propTypes = {

@@ -8,11 +8,11 @@ import ErrorWrapper from "./containers/errorWrapper";
 import metricsConfig from "./metrics/config";
 
 const ClientReduxRoot = ({store, history, routes, ...props}) => <Provider store={store}>
-    <ConnectedRouter history={history}>
-        <ErrorWrapper {...props}>
+    <ErrorWrapper {...props}>
+        <ConnectedRouter history={history}>
             {renderRoutes(routes, props)}
-        </ErrorWrapper>
-    </ConnectedRouter>
+        </ConnectedRouter>
+    </ErrorWrapper>
 </Provider>;
 
 ClientReduxRoot.propTypes = {
