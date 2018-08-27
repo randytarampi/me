@@ -1,9 +1,8 @@
 /* global global */
 
-import {jsdom} from "jsdom/lib/old-api";
+import {JSDOM} from "jsdom";
 
-global.document = jsdom("");
-global.window = document.defaultView;
+global.window = new JSDOM();
 global.navigator = {
     userAgent: "node.js"
 };
