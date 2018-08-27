@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.19.1"></a>
+## [0.19.1](https://github.com/randytarampi/me/compare/v0.19.0...v0.19.1) (2018-08-27)
+
+
+### Bug Fixes
+
+* **pseudoimage:** ESLint. ([4f6892b](https://github.com/randytarampi/me/commit/4f6892b))
+* **pseudoimage:** Fix broken `p7eImage` and `p7eImages` bin scripts. ([2957d75](https://github.com/randytarampi/me/commit/2957d75)), closes [#12](https://github.com/randytarampi/me/issues/12)
+* **pseudolocalize:** Fix broken `p7e` bin script. ([5368926](https://github.com/randytarampi/me/commit/5368926)), closes [#12](https://github.com/randytarampi/me/issues/12)
+
+
+
+
+
 <a name="0.19.0"></a>
 # [0.19.0](https://github.com/randytarampi/me/compare/v0.18.4...v0.19.0) (2018-08-27)
 
