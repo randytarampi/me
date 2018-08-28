@@ -1,6 +1,7 @@
+import {DoubtBear} from "@randy.tarampi/js";
 import {RowBlock} from "@randy.tarampi/jsx";
-import {DoubtBear} from "@randy.tarampi/jsx/lib/components/bear";
 import Link, {F00pxLink, FlickrLink, InstagramLink} from "@randy.tarampi/jsx/lib/components/link";
+import {Bear} from "@randy.tarampi/jsx/lib/containers/emoji";
 import React from "react";
 import {Col} from "react-materialize";
 
@@ -27,7 +28,7 @@ const Works = () =>
             </p>
         </Col>
         <Col className="block__bear hide-on-med-and-down" l={5} s={12}>
-            <DoubtBear/>
+            <Bear emoji={DoubtBear.fromJS()} id="code-bear"/>
         </Col>
     </RowBlock>;
 

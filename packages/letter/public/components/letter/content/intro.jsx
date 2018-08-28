@@ -1,12 +1,15 @@
 import {Link} from "@randy.tarampi/jsx";
 import {EmailLink} from "@randy.tarampi/jsx/lib/components/link";
+import {HelloBear} from "@randy.tarampi/jsx/lib/containers/emoji/bear/helloBear";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {LeftDescriptionSection} from "../section";
 
 export const LetterIntro = ({contentConfiguration}) => {
     return <LeftDescriptionSection
-        label="ʕ•ᴥ•ʔﾉ゛"
+        labelNode={<h3 className="letter-section__label">
+            <HelloBear textEffect={true} id="letter-intro-hello-bear"/>
+        </h3>}
         descriptionNode={<Fragment>
             <p>
                 <span className="text">That's a bear waving hello. They're a fixture in every <Link

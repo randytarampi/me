@@ -1,6 +1,4 @@
 import ClientReduxRoot from "./lib/clientReduxRoot";
-import Bear from "./lib/components/bear";
-import Emoji from "./lib/components/emoji";
 import Link from "./lib/components/link";
 import LoadingSpinner from "./lib/components/loadingSpinner";
 import RowBlock from "./lib/components/rowBlock";
@@ -17,9 +15,9 @@ import ServerReduxRoot from "./lib/serverReduxRoot";
 
 import configureStore from "./lib/store/configureStore";
 
+export * from "./lib/containers/emoji";
+
 export {
-    Bear,
-    Emoji,
     Link,
     LoadingSpinner,
     RowBlock,

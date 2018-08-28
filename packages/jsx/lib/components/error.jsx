@@ -1,8 +1,9 @@
+import {DeadBear, DoubtBear, ShrugBear} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import {Col, Row} from "react-materialize";
-import {DeadBear, DoubtBear, ShrugBear} from "./bear";
+import {Bear} from "../containers/emoji/bear";
 import {EmailLink, InternalLink} from "./link";
 
 class Error extends Component {
@@ -22,7 +23,7 @@ class Error extends Component {
             case 500:
             case "EFETCH":
                 errorContent =
-                    <DeadBear>
+                    <Bear emoji={DeadBear.fromJS()} id="error-dead-bear">
                         <h2 className="error__message--header">
                             <span className="text">He's dead, Jim.</span>
                         </h2>
@@ -32,36 +33,39 @@ class Error extends Component {
                             me know</EmailLink> if you're super keen and I can probably walk you through what
                             happened.
                         </p>
-                    </DeadBear>;
+                    </Bear>;
                 break;
 
             case "ENOPOSTS":
-                errorContent = <ShrugBear>
-                    <h2 className="error__message--header">
-                        <span className="text">Nothing to see here... yet.</span>
-                    </h2>
-                    <p className="error__message">
-                        There's no content to serve up just yet, but come back soon and there'll probably be something
-                        here.
-                    </p>
-                </ShrugBear>;
+                errorContent =
+                    <Bear emoji={ShrugBear.fromJS()} id="error-shrug-bear">
+                        <h2 className="error__message--header">
+                            <span className="text">Nothing to see here... yet.</span>
+                        </h2>
+                        <p className="error__message">
+                            There's no content to serve up just yet, but come back soon and there'll probably be
+                            something
+                            here.
+                        </p>
+                    </Bear>;
                 break;
 
             case 404:
             case "ENOTFOUND":
             default:
-                errorContent = <DoubtBear>
-                    <h2 className="error__message--header">
-                        <span className="text">What are you looking for?</span>
-                    </h2>
-                    <p className="error__message">
-                        I don't know who told you to come
-                        to <code>{`${window.location.origin}${this.props.location.pathname}`}</code>, but there's
-                        nothing here. You'll be redirected to the <InternalLink target="_self"
-                                                                                href={`${this.props.redirectionLocation}`}>home
-                        page</InternalLink> in {this.props.redirectionTimeout} seconds.
-                    </p>
-                </DoubtBear>;
+                errorContent =
+                    <Bear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
+                        <h2 className="error__message--header">
+                            <span className="text">What are you looking for?</span>
+                        </h2>
+                        <p className="error__message">
+                            I don't know who told you to come
+                            to <code>{`${window.location.origin}${this.props.location.pathname}`}</code>, but there's
+                            nothing here. You'll be redirected to the <InternalLink target="_self"
+                                                                                    href={`${this.props.redirectionLocation}`}>home
+                            page</InternalLink> in {this.props.redirectionTimeout} seconds.
+                        </p>
+                    </Bear>;
                 break;
         }
 

@@ -1,5 +1,4 @@
 import {RowBlock} from "@randy.tarampi/jsx";
-import {HelloBear} from "@randy.tarampi/jsx/lib/components/bear";
 import {
     BlogAppLink,
     EmailLink,
@@ -9,6 +8,7 @@ import {
     ResumeAppLink,
     SmsLink
 } from "@randy.tarampi/jsx/lib/components/link";
+import {HelloBear} from "@randy.tarampi/jsx/lib/containers/emoji";
 import React, {Fragment} from "react";
 import {Col} from "react-materialize";
 
@@ -41,7 +41,7 @@ const Intro = () =>
     <Fragment>
         <RowBlock name="intro" className="intro--large hide-on-med-and-down">
             <Col className="block__bear" l={5} m={8} s={12} offset="m2">
-                <HelloBear/>
+                <HelloBear id="intro-hello-bear"/>
             </Col>
             <Col className="block__text" l={7}>
                 <IntroText/>
@@ -49,7 +49,7 @@ const Intro = () =>
         </RowBlock>
         <RowBlock name="intro-responsive-bear" className="intro-responsive-bear hide-on-large-only">
             <Col className="block__bear" l={5} m={8} s={12} offset="m2">
-                <HelloBear/>
+                <HelloBear id="intro-hello-bear"/>
             </Col>
         </RowBlock>
         <RowBlock name="intro-responsive-text" className="intro-responsive-text hide-on-large-only">
