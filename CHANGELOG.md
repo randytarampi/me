@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.1"></a>
+## [0.20.1](https://github.com/randytarampi/me/compare/v0.20.0...v0.20.1) (2018-08-28)
+
+
+### Bug Fixes
+
+* **jsx:** `ʕ•ᴥ•ʔ nose bonking` composes an email in the same window. ([cdf4c8f](https://github.com/randytarampi/me/commit/cdf4c8f)), closes [#17](https://github.com/randytarampi/me/issues/17)
+
+
+
+
+
 <a name="0.20.0"></a>
 # [0.20.0](https://github.com/randytarampi/me/compare/v0.19.6...v0.20.0) (2018-08-28)
 
