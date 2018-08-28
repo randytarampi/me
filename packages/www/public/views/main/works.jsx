@@ -23,7 +23,7 @@ const Works = () =>
                 <span className="text">One of those people that's interested in my photography? You'll find my favourite works on <Link
                     href="https://unsplash.com/@randytarampi">Unsplash</Link>. I stopped using <F00pxLink
                     useBranding={false} text="500px"/> ages ago, don't really upload much to <FlickrLink
-                    useBranding={false} text="Flickr"/> I was shilling earlier and really only use <InstagramLink
+                    useBranding={false} text="Flickr"/> and really only use <InstagramLink
                     useBranding={false} text="Instagram"/> when I'm on the road and shamed into sharing.</span>
             </p>
         </Col>
