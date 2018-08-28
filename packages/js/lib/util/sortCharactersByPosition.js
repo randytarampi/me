@@ -5,9 +5,9 @@
  * @returns {number}
  */
 export default (a, b) => {
-    if (a.position.valueOf() < b.position.valueOf()) {
+    if (a.position < b.position) {
         return -1;
-    } else if (a.position.valueOf() > b.position.valueOf()) {
+    } else if (a.position > b.position) {
         return 1;
     } else {
         return 0;

@@ -2,7 +2,7 @@ import {Map, Record} from "immutable";
 import * as util from "../util";
 import Character from "./character";
 
-const defaultComponents = {
+export const defaultComponents = {
     leftEye: {id: "leftEye", character: "•", position: 1},
     nose: {id: "nose", character: "ᴥ", position: 2},
     rightEye: {id: "rightEye", character: "•", position: 3}

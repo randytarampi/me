@@ -1,6 +1,7 @@
 import {List} from "immutable";
 import Post, {PostClassGenerator} from "./post";
 import SizedPhoto from "./sizedPhoto";
+import * as util from "./util";
 
 class Photo extends PostClassGenerator({
     width: null,
@@ -22,7 +23,7 @@ class Photo extends PostClassGenerator({
     }
 
     getSizedPhoto(width) {
-        const sortedSizedPhotos = this.sizedPhotos.sort(widthSorter);
+        const sortedSizedPhotos = this.sizedPhotos.sort(util.sortPhotosByWidth);
         const widthAppropriatePhotos = sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width);
 
         return widthAppropriatePhotos.first() || sortedSizedPhotos.last();
@@ -44,14 +45,4 @@ const ensureSizedPhotoHasHeight = (sizedPhotoJs, fullWidth, fullHeight) => {
         ...sizedPhotoJs,
         height: scaleHeightToWidth(sizedPhotoJs.width, fullWidth, fullHeight)
     };
-};
-
-export const widthSorter = (a, b) => {
-    if (a.width < b.width) {
-        return -1;
-    } else if (a.width > b.width) {
-        return 1;
-    } else {
-        return 0;
-    }
 };
