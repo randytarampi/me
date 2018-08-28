@@ -93,15 +93,15 @@ export default (emojiId, componentId, event) => (dispatch, getState) => {
                 emoji
                     .setIn(rightLeaningRightArm, "ﾉ゛")
             ));
-            window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn't stop clicking!", "_blank");
+            window.open("mailto:rt@randytarampi.ca?subject=ʕ•ᴥ•ʔﾉ゛&body=I got to the end and couldn't stop clicking!", "_self");
             break;
 
         case 35:
-            window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won't stop popping up!", "_blank");
+            window.open("mailto:rt@randytarampi.ca?subject=ʕಠᴥಠʔﾉ゛&body=These windows won't stop popping up!", "_self");
             break;
 
         case 36:
-            window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line and finally stopped at " + noseClicks + " clicks. What is this?", "_blank");
+            window.open("mailto:rt@randytarampi.ca?subject=Hey there…&body=I reached the end of the line and finally stopped at " + noseClicks + " clicks. What is this?", "_self");
             break;
     }
 };
