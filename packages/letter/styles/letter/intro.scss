@@ -1,5 +1,10 @@
 .letter-intro {
     .letter-section__label {
         @extend .hide-on-small-only;
+
+        .bear {
+            @extend .letter-section__label;
+            text-align: unset;
+        }
     }
 }

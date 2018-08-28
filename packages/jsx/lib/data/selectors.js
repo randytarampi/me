@@ -1,4 +1,5 @@
 import {getApiState, getApiStateForUrl} from "./api";
+import {getEmoji, hasEmoji} from "./emoji";
 import {getError, getErrorCode, getErrorMessage, getErrorState, hasError} from "./error";
 import {
     getNewestPost,
@@ -31,5 +32,8 @@ export default {
     getApiState: state => getApiState(state.get("api")),
     getApiStateForUrl: (state, url) => getApiStateForUrl(state.get("api"), url),
 
-    getLocation: state => getLocation(state.get("routing"))
+    getLocation: state => getLocation(state.get("routing")),
+
+    getEmoji: (state, emojiId) => getEmoji(state.get("emoji"), emojiId),
+    hasEmoji: (state, emojiId) => hasEmoji(state.get("emoji"), emojiId)
 };

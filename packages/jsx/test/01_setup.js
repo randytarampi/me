@@ -6,7 +6,9 @@ import Enzyme from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import {JSDOM} from "jsdom";
 
-global.window = new JSDOM();
+const jsdom = new JSDOM();
+global.window = jsdom.window;
+global.document = jsdom.window.document;
 global.navigator = {
     userAgent: "node.js"
 };
