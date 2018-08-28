@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.0"></a>
+# [0.20.0](https://github.com/randytarampi/me/compare/v0.19.6...v0.20.0) (2018-08-28)
+
+
+### Bug Fixes
+
+* **config:** Use the correct GTM container ID in `dev`. ([5187475](https://github.com/randytarampi/me/commit/5187475))
+* **jsx:** `Emoji` opt-in to `react-metrics` declarative tracking. ([dab0748](https://github.com/randytarampi/me/commit/dab0748))
+* **jsx:** JSX tests also define a JSDOM `global.document`. ([fbd50d7](https://github.com/randytarampi/me/commit/fbd50d7))
+* **jsx:** Resolve install warning about not having "sinon" in "devDependencies". ([76d4a75](https://github.com/randytarampi/me/commit/76d4a75))
+* **posts:** Resolve forgotten reference to `widthSorter`. ([1f34c90](https://github.com/randytarampi/me/commit/1f34c90))
+* **www:** Fix copy/pasta on the home page. ([1ad1a03](https://github.com/randytarampi/me/commit/1ad1a03))
+
+
+### Features
+
+* **jsx:** Reduxify `ʕ•ᴥ•ʔ`s. ([8726f68](https://github.com/randytarampi/me/commit/8726f68)), closes [#16](https://github.com/randytarampi/me/issues/16)
+* **www:** Also link to merch. ([f160d0d](https://github.com/randytarampi/me/commit/f160d0d))
+
+
+
+
+
 <a name="0.19.6"></a>
 ## [0.19.6](https://github.com/randytarampi/me/compare/v0.19.5...v0.19.6) (2018-08-28)
 

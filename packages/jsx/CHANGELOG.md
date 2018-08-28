@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.0"></a>
+# [0.20.0](https://github.com/randytarampi/me/compare/v0.19.6...v0.20.0) (2018-08-28)
+
+
+### Bug Fixes
+
+* **jsx:** `Emoji` opt-in to `react-metrics` declarative tracking. ([dab0748](https://github.com/randytarampi/me/commit/dab0748))
+* **jsx:** JSX tests also define a JSDOM `global.document`. ([fbd50d7](https://github.com/randytarampi/me/commit/fbd50d7))
+* **jsx:** Resolve install warning about not having "sinon" in "devDependencies". ([76d4a75](https://github.com/randytarampi/me/commit/76d4a75))
+
+
+### Features
+
+* **jsx:** Reduxify `ʕ•ᴥ•ʔ`s. ([8726f68](https://github.com/randytarampi/me/commit/8726f68)), closes [#16](https://github.com/randytarampi/me/issues/16)
+
+
+
+
+
 <a name="0.19.6"></a>
 ## [0.19.6](https://github.com/randytarampi/me/compare/v0.19.5...v0.19.6) (2018-08-28)
 
