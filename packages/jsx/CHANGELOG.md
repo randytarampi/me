@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.3"></a>
+## [0.20.3](https://github.com/randytarampi/me/compare/v0.20.2...v0.20.3) (2018-08-29)
+
+
+### Reverts
+
+* fix(jsx): Use my fork of `react-dimensions` to close [#70](https://github.com/randytarampi/me/issues/70). ([f257166](https://github.com/randytarampi/me/commit/f257166))
+
+
+
+
+
 <a name="0.20.2"></a>
 ## [0.20.2](https://github.com/randytarampi/me/compare/v0.20.1...v0.20.2) (2018-08-29)
 
