@@ -59,7 +59,7 @@ export class PhotoComponent extends PostComponent {
                         <p className="photo-body">
                             {
                                 isHtml(this.props.post.body)
-                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    ? <span dangerouslySetInnerHTML={{__html: this.props.post.body}}></span>
                                     : <span className="photo-text" dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
                             }
                         </p> :
