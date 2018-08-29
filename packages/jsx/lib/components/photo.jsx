@@ -123,6 +123,9 @@ PhotoComponent.propTypes = {
     post: PropTypes.instanceOf(PhotoEntity).isRequired
 };
 
-export default Dimensions({
-    elementResize: true
-})(PhotoComponent);
+const DimensionWrappedPhoto = Dimensions()(PhotoComponent);
+const Photo = props => <div className="dimensions-container--photo">
+    <DimensionWrappedPhoto {...props}/>
+</div>;
+
+export default Photo;
