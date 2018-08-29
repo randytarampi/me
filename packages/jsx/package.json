@@ -37,7 +37,7 @@
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "raven-js": "^3.26.3",
-    "react-dimensions": "github:randytarampi/react-dimensions#me-release",
+    "react-dimensions": "1.3.1",
     "react-hot-loader": "^4.3.3",
     "react-infinite": "^0.13.0",
     "react-metrics": "^2.4.1",
@@ -64,7 +64,6 @@
   "devDependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
-    "@babel/plugin-proposal-class-properties": "latest",
     "@babel/plugin-proposal-object-rest-spread": "latest",
     "@babel/polyfill": "latest",
     "@babel/preset-env": "latest",

@@ -11,7 +11,7 @@ export class PostsComponent extends Component {
     render() {
         return <Infinite
             useWindowAsScrollContainer={true}
-            elementHeight={this.props.posts ? this.props.posts.toArray().map(computePostHeight(this.props.containerWidth)) : []}
+            elementHeight={this.props.posts ? this.props.posts.toArray().map(computePostHeight(this.props.containerWidth)) : [500]}
             infiniteLoadBeginEdgeOffset={Infinite.containerHeightScaleFactor(2).amount}
             onInfiniteLoad={this.props.fetchPosts}
             isInfiniteLoading={this.props.isLoading}
@@ -30,7 +30,6 @@ export class PostsComponent extends Component {
 }
 
 PostsComponent.propTypes = {
-    containerHeight: PropTypes.number,
     containerWidth: PropTypes.number,
     fetchPosts: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
@@ -41,11 +40,6 @@ PostsComponent.defaultProps = {
     isLoading: false
 };
 
-const DimensionWrappedPosts = Dimensions({
+export default Dimensions({
     elementResize: true
 })(PostsComponent);
-const Posts = props => <div className="dimensions-container--posts">
-    <DimensionWrappedPosts {...props}/>
-</div>;
-
-export default Posts;

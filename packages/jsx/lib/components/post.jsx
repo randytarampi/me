@@ -105,9 +105,6 @@ PostComponent.propTypes = {
     containerHeight: PropTypes.number
 };
 
-const DimensionWrappedPost = Dimensions()(PostComponent);
-const Post = props => <div className="dimensions-container--post">
-    <DimensionWrappedPost {...props}/>
-</div>;
-
-export default Post;
+export default Dimensions({
+    elementResize: true
+})(PostComponent);
