@@ -31,7 +31,7 @@ export class Emoji extends Component {
                                 data-metrics-type="onClick"
                                 data-metrics-name={`${emoji.id}__${component.id}`}
                                 data-metrics-label={component.character}
-                                data-metrics-value={this.props.onComponentClick}
+                                data-metrics-value={this.props.onComponentClick && this.props.onComponentClick.name}
                                 className={[`${emoji.id}__${component.id}`, `${emoji.type}__${component.id}`, `${emoji.type}__${component.id}--${emojiString}`].join(" ")}
                                 onClick={(event) => this.props.onComponentClick && this.props.onComponentClick(component.id, event)}
                             >
