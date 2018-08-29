@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.4"></a>
+## [0.20.4](https://github.com/randytarampi/me/compare/v0.20.3...v0.20.4) (2018-08-29)
+
+
+### Bug Fixes
+
+* **jsx:** Load `Posts` in a smoother fashion. ([1086499](https://github.com/randytarampi/me/commit/1086499)), closes [#70](https://github.com/randytarampi/me/issues/70)
+* **jsx:** Try closing [#70](https://github.com/randytarampi/me/issues/70) again by setting a hardcoded `infiniteLoadBeginEdgeOffset`. ([9093bb1](https://github.com/randytarampi/me/commit/9093bb1))
+
+
+### Reverts
+
+* revert: fix(jsx): Use my fork of `react-dimensions` to close [#70](https://github.com/randytarampi/me/issues/70). ([77a6726](https://github.com/randytarampi/me/commit/77a6726))
+
+
+
+
+
 <a name="0.20.3"></a>
 ## [0.20.3](https://github.com/randytarampi/me/compare/v0.20.2...v0.20.3) (2018-08-29)
 
