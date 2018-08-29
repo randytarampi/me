@@ -36,11 +36,6 @@ export class PostComponent extends Component {
         return this.props.post.datePublished;
     }
 
-    componentWillUnmount() {
-        this.props.post._lastHeight = this.containerHeight;
-        this.props.post._lastWidth = this.containerWidth;
-    }
-
     render() {
         return <Row
             className="post"
