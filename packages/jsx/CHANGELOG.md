@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.2"></a>
+## [0.20.2](https://github.com/randytarampi/me/compare/v0.20.1...v0.20.2) (2018-08-29)
+
+
+### Bug Fixes
+
+* **jsx:** Suppress `data-metrics-value` value type warning. ([b983743](https://github.com/randytarampi/me/commit/b983743)), closes [#70](https://github.com/randytarampi/me/issues/70)
+* **jsx:** Suppress `div` inside `p` warning. ([9877b67](https://github.com/randytarampi/me/commit/9877b67)), closes [#70](https://github.com/randytarampi/me/issues/70)
+* **jsx:** Use my fork of `react-dimensions` to close [#70](https://github.com/randytarampi/me/issues/70). ([97d5c53](https://github.com/randytarampi/me/commit/97d5c53))
+
+
+
+
+
 <a name="0.20.1"></a>
 ## [0.20.1](https://github.com/randytarampi/me/compare/v0.20.0...v0.20.1) (2018-08-28)
 
