@@ -18,6 +18,7 @@ describe("DataSource", function () {
     let stubBeforePostsGetter;
     let stubPostsGetter;
     let stubAfterPostsGetter;
+    let stubAllPostsGetter;
     let stubBeforePostGetter;
     let stubPostGetter;
     let stubAfterPostGetter;
@@ -36,6 +37,8 @@ describe("DataSource", function () {
         stubPostsGetter = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
         stubAfterPostsGetter = sinon.stub().callsFake((posts, params) => Promise.resolve(posts)); // eslint-disable-line no-unused-vars
 
+        stubAllPostsGetter = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
+
         stubBeforePostGetter = sinon.stub().callsFake((postId, params) => Promise.resolve(params));
         stubPostGetter = sinon.stub().callsFake((postId, params) => Promise.resolve(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
         stubAfterPostGetter = sinon.stub().callsFake((post, params) => Promise.resolve(post)); // eslint-disable-line no-unused-vars
@@ -46,6 +49,8 @@ describe("DataSource", function () {
             stubBeforePostsGetter,
             stubPostsGetter,
             stubAfterPostsGetter,
+
+            stubAllPostsGetter,
 
             stubBeforePostGetter,
             stubPostGetter,
@@ -136,6 +141,50 @@ describe("DataSource", function () {
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
             expect(stubPostsGetter.calledOnce).to.eql(true);
             expect(stubPostsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
+            expect(stubAfterPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+        });
+    });
+
+    describe("#allPostsGetter", function () {
+        it("requires implementation", async function () {
+            const dataSource = new DataSource(stubType, stubServiceClient);
+            expect(dataSource).to.be.instanceOf(DataSource);
+
+            return dataSource.allPostsGetter({})
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
+                .catch(error => {
+                    expect(error).to.be.ok;
+                    expect(error.message).to.match(/Please specify an actual allPostsGetter implementation/);
+                });
+        });
+
+        it("calls implementation", async function () {
+            const dataSource = new DummyDataSource(stubType, stubServiceClient);
+            expect(dataSource).to.be.instanceOf(DummyDataSource);
+
+            const postsRecieved = await dataSource.allPostsGetter(dataSource, {});
+            expect(postsRecieved).to.eql(stubPosts);
+            expect(stubAllPostsGetter.calledOnce).to.eql(true);
+        });
+    });
+
+    describe("#getAllPosts", function () {
+        it("calls all hooks", async function () {
+            const dataSource = new DummyDataSource(stubType, stubServiceClient);
+            expect(dataSource).to.be.instanceOf(DummyDataSource);
+
+            const stubParams = SearchParams.fromJS();
+            const posts = await dataSource.getAllPosts(stubParams);
+
+            expect(posts).to.be.ok;
+            expect(posts).to.eql(stubPosts);
+            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
+            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllPostsGetter.calledOnce).to.eql(true);
+            expect(stubAllPostsGetter.calledWith(stubParams)).to.eql(true);
             expect(stubAfterPostsGetter.calledOnce).to.eql(true);
             expect(stubAfterPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
         });

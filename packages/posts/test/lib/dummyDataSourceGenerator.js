@@ -1,18 +1,19 @@
 import DataSource from "../../lib/dataSource";
 
 export const DummyDataSourceGenerator = ({
-                    stubIsEnabled = () => true,
+                                             stubIsEnabled = () => true,
 
-                    stubBeforePostsGetter,
-                    stubPostsGetter,
-                    stubAfterPostsGetter,
+                                             stubBeforePostsGetter,
+                                             stubPostsGetter,
+                                             stubAfterPostsGetter,
+                                             stubAllPostsGetter,
 
-                    stubBeforePostGetter,
-                    stubPostGetter,
-                    stubAfterPostGetter,
+                                             stubBeforePostGetter,
+                                             stubPostGetter,
+                                             stubAfterPostGetter,
 
-                    stubJsonToPost
-                }) => {
+                                             stubJsonToPost
+                                         }) => {
 
     return class DummyDataSource extends DataSource {
         get isEnabled() {
@@ -29,6 +30,10 @@ export const DummyDataSourceGenerator = ({
 
         async afterPostsGetter(posts, params) {
             return stubAfterPostsGetter(posts, params);
+        }
+
+        async allPostsGetter(posts, params) {
+            return stubAllPostsGetter(posts, params);
         }
 
         async beforePostGetter(postId, params) {

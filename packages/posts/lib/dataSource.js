@@ -67,6 +67,29 @@ class DataSource {
     }
 
     /**
+     * The method that actually uses the [client]{@link DataSource.client} to query for raw data for transformation into [Posts]{@link Post}
+     * @abstract
+     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async allPostsGetter(searchParams) {
+        return Promise.reject(new Error(`Looking for ${searchParams} – Please specify an actual allPostsGetter implementation`));
+    }
+
+    /**
+     * A generic method that returns all available [Posts]{@link Post}
+     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async getAllPosts(searchParams) {
+        const decoratedParams = await this.beforePostsGetter(searchParams);
+        const retrievedPosts = await this.allPostsGetter(decoratedParams);
+        const decoratedPosts = await this.afterPostsGetter(retrievedPosts, decoratedParams);
+
+        return decoratedPosts;
+    }
+
+    /**
      * A hook to do some processing of searchParams before we query the client for a post
      * @param postId {string} A single post to retrieve from the [client]{@link DataSource.client}
      * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters

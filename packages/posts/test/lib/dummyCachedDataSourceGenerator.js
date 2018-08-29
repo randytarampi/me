@@ -1,26 +1,30 @@
 import CachedDataSource from "../../lib/cachedDataSource";
 
 export const DummyCachedDataSourceGenerator = ({
-                    stubIsEnabled = () => true,
+                                                   stubIsEnabled = () => true,
 
-                    stubBeforePostsGetter,
-                    stubPostsGetter,
-                    stubAfterPostsGetter,
+                                                   stubBeforePostsGetter,
+                                                   stubPostsGetter,
+                                                   stubAfterPostsGetter,
 
-                    stubBeforePostGetter,
-                    stubPostGetter,
-                    stubAfterPostGetter,
+                                                   stubAllPostsGetter,
 
-                    stubBeforeCachedPostsGetter,
-                    stubCachedPostsGetter,
-                    stubAfterCachedPostsGetter,
+                                                   stubBeforePostGetter,
+                                                   stubPostGetter,
+                                                   stubAfterPostGetter,
 
-                    stubBeforeCachedPostGetter,
-                    stubCachedPostGetter,
-                    stubAfterCachedPostGetter,
+                                                   stubBeforeCachedPostsGetter,
+                                                   stubCachedPostsGetter,
+                                                   stubAfterCachedPostsGetter,
 
-                    stubJsonToPost
-                }) => {
+                                                   stubAllCachedPostsGetter,
+
+                                                   stubBeforeCachedPostGetter,
+                                                   stubCachedPostGetter,
+                                                   stubAfterCachedPostGetter,
+
+                                                   stubJsonToPost
+                                               }) => {
 
     return class DummyCachedDataSource extends CachedDataSource {
         get isEnabled() {
@@ -37,6 +41,10 @@ export const DummyCachedDataSourceGenerator = ({
 
         async afterPostsGetter(posts, params) {
             return stubAfterPostsGetter(posts, params);
+        }
+
+        async allPostsGetter(posts, params) {
+            return stubAllPostsGetter(posts, params);
         }
 
         async beforePostGetter(postId, params) {
@@ -61,6 +69,10 @@ export const DummyCachedDataSourceGenerator = ({
 
         async afterCachedPostsGetter(posts, params) {
             return stubAfterCachedPostsGetter(posts, params);
+        }
+
+        async allCachedPostsGetter(posts, params) {
+            return stubAllCachedPostsGetter(posts, params);
         }
 
         async beforeCachedPostGetter(postId, params) {

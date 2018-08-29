@@ -20,6 +20,7 @@ const searchParamsRecordDefinition = {
     orderOperator: undefined,
     orderComparator: undefined,
     orderComparatorType: undefined,
+    all: false,
 
     // NOTE-RT: For individual posts
     width: undefined,
@@ -91,7 +92,8 @@ class SearchParams extends SearchParamsRecord {
 
     get Dynamoose() {
         const options = {
-            descending: true
+            descending: true,
+            all: this.all
         };
 
         switch (this.orderBy) {

@@ -127,7 +127,7 @@ describe("SearchParams", function () {
                 _query: {
                     uid: {eq: "woof"}
                 },
-                _options: {limit: 100, descending: true}
+                _options: {limit: 100, descending: true, all: false}
             });
         });
 
@@ -138,7 +138,7 @@ describe("SearchParams", function () {
                 _query: {
                     uid: {eq: "woof"}
                 },
-                _options: {limit: 100, descending: true}
+                _options: {limit: 100, descending: true, all: false}
             });
         });
 
@@ -149,7 +149,7 @@ describe("SearchParams", function () {
                 _query: {
                     uid: {eq: "woof"}
                 },
-                _options: {limit: 100, descending: false}
+                _options: {limit: 100, descending: false, all: false}
             });
         });
 
@@ -160,7 +160,7 @@ describe("SearchParams", function () {
                 _query: {
                     type: {eq: "woof"}
                 },
-                _options: {limit: 100, descending: true}
+                _options: {limit: 100, descending: true, all: false}
             });
         });
 
@@ -171,7 +171,7 @@ describe("SearchParams", function () {
                 _query: {
                     source: {eq: "meow"},
                 },
-                _options: {limit: 100, descending: true}
+                _options: {limit: 100, descending: true, all: false}
             });
         });
 
@@ -183,7 +183,7 @@ describe("SearchParams", function () {
                     hash: {type: {eq: "woof"}},
                     range: {source: {eq: "meow"}},
                 },
-                _options: {indexName: "type-source-index", limit: 100, descending: true}
+                _options: {indexName: "type-source-index", limit: 100, descending: true, all: false}
             });
         });
 
@@ -200,7 +200,7 @@ describe("SearchParams", function () {
                     hash: {type: {eq: "woof"}},
                     range: {meow: {lt: 0}}
                 },
-                _options: {indexName: "type-meow-index", limit: 100, descending: true}
+                _options: {indexName: "type-meow-index", limit: 100, descending: true, all: false}
             });
         });
 
@@ -211,7 +211,7 @@ describe("SearchParams", function () {
                 _query: {
                     uid: {eq: `meow${util.compositeKeySeparator}woof`}
                 },
-                _options: {limit: 100, descending: true}
+                _options: {limit: 100, descending: true, all: false}
             });
         });
 
@@ -228,7 +228,7 @@ describe("SearchParams", function () {
                     hash: {source: {eq: "woof"}},
                     range: {meow: {gt: 5}}
                 },
-                _options: {indexName: "source-meow-index", limit: 100, descending: true}
+                _options: {indexName: "source-meow-index", limit: 100, descending: true, all: false}
             });
         });
 
@@ -250,7 +250,8 @@ describe("SearchParams", function () {
                 _options: {
                     indexName: "source-meow-index",
                     limit: 20,
-                    descending: true
+                    descending: true,
+                    all: false
                 }
             });
         });

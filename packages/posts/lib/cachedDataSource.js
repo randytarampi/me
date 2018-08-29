@@ -86,6 +86,38 @@ class CachedDataSource extends DataSource {
     }
 
     /**
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Posts]{@link Post}
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
+     */
+    async allCachedPostsGetter(searchParams) {
+        return this.cacheClient.getPosts(searchParams.set("source", this.type).set("all", true));
+    }
+
+    /**
+     * A generic method that returns all available [Posts]{@link Post} from the cache
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the cache
+     */
+    async getAllCachedPosts(searchParams) { // eslint-disable-line no-unused-vars
+        return this.beforeCachedPostsGetter(searchParams)
+            .then(decoratedCachedPostsGetterParams => {
+                logger.debug(`[cachedDataSource.getAllCachedPosts] retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
+                return this.allCachedPostsGetter(decoratedCachedPostsGetterParams)
+                    .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
+                    .then(posts => {
+                        if (!posts || !posts.length) {
+                            logger.debug(`[cachedDataSource.getAllCachedPosts] retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
+                            return null;
+                        }
+
+                        logger.debug(`[cachedDataSource.getAllCachedPosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
+                        return posts;
+                    });
+            });
+    }
+
+    /**
      * A generic method that returns some [Posts]{@link Post} probably pulled from the [service]{@link CachedDataSource.client}
      * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
@@ -104,6 +136,24 @@ class CachedDataSource extends DataSource {
     }
 
     /**
+     * A generic method that returns all available [Posts]{@link Post} from the service
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async getAllServicePosts(searchParams) { // eslint-disable-line no-unused-vars
+        return this.beforePostsGetter(searchParams)
+            .then(decoratedPostsGetterParams => {
+                logger.debug(`[cachedDataSource.getAllServicePosts] retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
+                return this.allPostsGetter(decoratedPostsGetterParams)
+                    .then(posts => {
+                        this.cachePosts(posts);
+                        logger.debug(`[cachedDataSource.getAllServicePosts] retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
+                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
+                    });
+            });
+    }
+
+    /**
      * A generic method that returns some [Posts]{@link Post}
      * @param searchParams {SearchParams} A combination of attributes that we're looking for
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
@@ -113,6 +163,21 @@ class CachedDataSource extends DataSource {
 
         if (!posts || !posts.length) {
             posts = await this.getServicePosts(searchParams);
+        }
+
+        return posts;
+    }
+
+    /**
+     * A generic method that returns all available [Posts]{@link Post}, either from the cache or the service
+     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     */
+    async getAllPosts(searchParams) {
+        let posts = await this.getAllCachedPosts(searchParams);
+
+        if (!posts || !posts.length) {
+            posts = await this.getAllServicePosts(searchParams);
         }
 
         return posts;
