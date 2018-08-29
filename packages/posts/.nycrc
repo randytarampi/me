@@ -7,6 +7,8 @@
     "dist/**",
     "docs/**",
     "coverage/**",
+    ".serverless/**",
+    ".webpack/**",
     ".nyc_output/**",
     "test/**",
     "*.js"
