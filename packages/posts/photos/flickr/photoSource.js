@@ -36,6 +36,20 @@ class FlickrSource extends PhotoSource {
             });
     }
 
+    async allPostsGetter(searchParams) {
+        let posts = await this.postsGetter(searchParams);
+
+        if (posts.length) {
+            posts = posts.concat(await this.allPostsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("page", searchParams.page + 1)
+            ));
+        }
+
+        return posts;
+    }
+
     jsonToPost(json) {
         return Photo.fromJS({
             id: json.id,

@@ -101,8 +101,8 @@ describe("SearchParams", function () {
                 id: this.id,
                 type: "text",
                 page: searchParams.page,
-                limit: searchParams.perPage,
-                offset: searchParams.perPage * (searchParams.page - 1)
+                limit: 20,
+                offset: 20 * (searchParams.page - 1)
             });
         });
 
@@ -113,8 +113,8 @@ describe("SearchParams", function () {
                 id: this.id,
                 type: "photo",
                 page: searchParams.page,
-                limit: searchParams.perPage,
-                offset: searchParams.perPage * (searchParams.page - 1)
+                limit: 20,
+                offset: 20 * (searchParams.page - 1)
             });
         });
     });
@@ -263,7 +263,6 @@ describe("SearchParams", function () {
 
             expect(searchParams.S3).to.eql({
                 Bucket: process.env.S3_BUCKET_NAME,
-                Marker: "0",
                 MaxKeys: 100
             });
         });

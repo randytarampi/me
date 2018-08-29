@@ -21,6 +21,20 @@ class UnsplashSource extends PhotoSource {
             .then(response => Promise.all(response.map(photo => this.jsonToPost(photo)))); // NOTE-RT: Need `that` because `toJson` uses an old school `function`
     }
 
+    async allPostsGetter(searchParams) {
+        let posts = await this.postsGetter(searchParams);
+
+        if (posts.length) {
+            posts = posts.concat(await this.allPostsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("page", searchParams.page + 1)
+            ));
+        }
+
+        return posts;
+    }
+
     postGetter(photoId, searchParams) {
         return this.client.photos.getPost(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
             .then(toJson)

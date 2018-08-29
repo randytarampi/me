@@ -75,8 +75,18 @@ describe("InstagramPhotoSource", function () {
                 });
             }),
             userMedia: sinon.stub().callsFake((username, params) => { // eslint-disable-line no-unused-vars
+                let posts = instagramPhotos.concat({id: "foo", type: "foo"});
+
+                if (params.count === 42) { // NOTE-RT: 42 is a sentinel value for an empty array
+                    posts = [];
+                }
+
+                if (stubServiceClient.userMedia.callCount > 1) {
+                    posts = [];
+                }
+
                 return Promise.resolve({
-                    data: params.count === 420 ? [] : instagramPhotos.concat({id: "foo", type: "foo"})
+                    data: posts
                 });
             })
         };
@@ -180,6 +190,19 @@ describe("InstagramPhotoSource", function () {
         });
     });
 
+    describe(".isEnabled", function () {
+        it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", function () {
+            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            expect(instagramPhotoSource.isEnabled).to.eql(true);
+        });
+
+        it("`!isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is not defined", function () {
+            delete process.env.INSTAGRAM_ACCESS_TOKEN;
+            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            expect(instagramPhotoSource.isEnabled).to.eql(false);
+        });
+    });
+
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
@@ -226,7 +249,7 @@ describe("InstagramPhotoSource", function () {
 
         it("finds no posts", function () {
             const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 420});
+            const stubParams = SearchParams.fromJS({perPage: 42});
 
             return instagramPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -234,6 +257,29 @@ describe("InstagramPhotoSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.userMedia);
+                    sinon.assert.calledWith(stubServiceClient.userMedia, process.env.INSTAGRAM_USER_ID, sinon.match({count: stubParams.perPage}));
+                });
+        });
+    });
+
+    describe("#allPostsGetter", function () {
+        it("finds all posts", function () {
+            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
+
+            process.env.INSTAGRAM_USER_ID = instagramUser.id;
+
+            return instagramPhotoSource.allPostsGetter(stubParams)
+                .then(posts => {
+                    expect(posts).to.be.ok;
+                    expect(posts).to.be.instanceof(Array);
+                    expect(posts).to.have.length(3);
+                    posts.map(post => {
+                        expect(post).to.be.ok;
+                        expect(post).to.be.instanceof(Photo);
+                    });
+                    sinon.assert.notCalled(stubServiceClient.userSearch);
+                    sinon.assert.calledTwice(stubServiceClient.userMedia);
                     sinon.assert.calledWith(stubServiceClient.userMedia, process.env.INSTAGRAM_USER_ID, sinon.match({count: stubParams.perPage}));
                 });
         });

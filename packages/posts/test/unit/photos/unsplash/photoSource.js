@@ -101,8 +101,18 @@ describe("UnsplashPhotoSource", function () {
             },
             users: {
                 photos: sinon.stub().callsFake((user, page, perPage, orderBy) => { // eslint-disable-line no-unused-vars
+                    let photos = unsplashPhotos;
+
+                    if (perPage === 420) { // NOTE-RT: 420 is a sentinel value for an empty array
+                        photos = [];
+                    }
+
+                    if (stubServiceClient.users.photos.callCount > 1) { // NOTE-RT: 420 is a sentinel value for an empty array
+                        photos = [];
+                    }
+
                     return Promise.resolve({
-                        json: () => perPage === 420 ? [] : unsplashPhotos
+                        json: () => photos
                     });
                 })
             }
@@ -214,6 +224,25 @@ describe("UnsplashPhotoSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
+                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, "latest");
+                });
+        });
+    });
+
+    describe("#allPostsGetter", function () {
+        it("finds all posts", function () {
+            const unsplashPhotoSource = new UnsplashPhotoSource(stubServiceClient, stubCacheClient);
+            const stubParams = SearchParams.fromJS({perPage: 30, orderBy: "latest"});
+
+            return unsplashPhotoSource.allPostsGetter(stubParams)
+                .then(posts => {
+                    expect(posts).to.be.ok;
+                    expect(posts).to.be.instanceof(Array);
+                    posts.map(post => {
+                        expect(post).to.be.ok;
+                        expect(post).to.be.instanceof(Photo);
+                    });
+                    sinon.assert.calledTwice(stubServiceClient.users.photos);
                     sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, "latest");
                 });
         });
