@@ -1,8 +1,6 @@
 const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
-const config = require("config");
-const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 const util = require("./util");
 
