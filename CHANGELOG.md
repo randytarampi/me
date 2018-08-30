@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.20.5"></a>
+## [0.20.5](https://github.com/randytarampi/me/compare/v0.20.4...v0.20.5) (2018-08-30)
+
+
+### Bug Fixes
+
+* **jsx:** Work around jankiness loading `Post`s. ([f13cdca](https://github.com/randytarampi/me/commit/f13cdca)), closes [#70](https://github.com/randytarampi/me/issues/70)
+
+
+
+
+
 <a name="0.20.4"></a>
 ## [0.20.4](https://github.com/randytarampi/me/compare/v0.20.3...v0.20.4) (2018-08-29)
 
