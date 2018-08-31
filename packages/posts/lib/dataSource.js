@@ -142,15 +142,6 @@ class DataSource {
     jsonToPost(postJson) {
         throw new Error(`Trying to turn ${postJson} into a Post – Please specify an actual Post transformation`);
     }
-
-    /**
-     * Transform some raw JSON response from the [client]{@link DataSource.client} into a single [Photo]{@link Photo}
-     * @param photoJson {object} The raw post content returned from the [client]{@link DataSource.client}
-     * @returns {Photo}
-     */
-    jsonToPhoto(photoJson) {
-        throw new Error(`Trying to turn ${photoJson} into a Photo – Please specify an actual Photo transformation`);
-    }
 }
 
 export default DataSource;
