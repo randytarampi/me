@@ -51,8 +51,8 @@ class UnsplashSource extends PhotoSource {
             sizedPhotos: [
                 {url: json.urls.raw, width: json.width, height: json.height, size: "raw"},
                 {url: json.urls.full, width: json.width, height: json.height, size: "full"},
-                {url: json.urls.regular, width: json.width, height: json.height, size: "regular"},
-                {url: json.urls.small, width: json.width, height: json.height, size: "small"}
+                {url: json.urls.regular, width: 1080, size: "regular"},
+                {url: json.urls.small, width: 400, size: "small"}
             ],
             sourceUrl: json.links.html,
             creator: {
