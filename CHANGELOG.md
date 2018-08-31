@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.22.1"></a>
+## [0.22.1](https://github.com/randytarampi/me/compare/v0.22.0...v0.22.1) (2018-08-31)
+
+
+### Bug Fixes
+
+* **posts:** Increase posts table read/write capacity to 4 units. ([140cc3d](https://github.com/randytarampi/me/commit/140cc3d))
+* **posts:** It's totally unnecessary for these cron tasks to fail and post to the DLQ. ([fba81d0](https://github.com/randytarampi/me/commit/fba81d0))
+
+
+### Reverts
+
+* fix(posts): It's totally unnecessary for these cron tasks to fail and post to the DLQ. ([2dc1306](https://github.com/randytarampi/me/commit/2dc1306))
+
+
+
+
+
 <a name="0.22.0"></a>
 # [0.22.0](https://github.com/randytarampi/me/compare/v0.21.0...v0.22.0) (2018-08-31)
 
