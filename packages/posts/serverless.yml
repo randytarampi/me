@@ -179,7 +179,7 @@ resources:
         EvaluationPeriods: 1
         Namespace: AWS/Lambda
         MetricName: Duration
-        Threshold: 5000
+        Threshold: 15000
         Period: 60
         Statistic: Maximum
         Unit: Milliseconds
