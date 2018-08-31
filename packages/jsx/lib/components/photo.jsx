@@ -33,7 +33,7 @@ export class PhotoComponent extends PostComponent {
         const targetWidth = window.devicePixelRatio ?
             this.containerWidth * window.devicePixelRatio :
             this.containerWidth;
-        return this.props.post.getSizedPhotoForLoading(targetWidth);
+        return this.props.post.getSizedPhotoForDisplay(targetWidth);
     }
 
     render() {
@@ -134,7 +134,7 @@ export class PhotoComponent extends PostComponent {
                                 }
                             </p>
                         </Col>
-                    </Row>
+                    </Row>;
                 }
             }
         </ProgressiveImage>;
