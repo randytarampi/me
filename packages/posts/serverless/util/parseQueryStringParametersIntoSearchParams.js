@@ -1,7 +1,7 @@
 import SearchParams from "../../lib/searchParams";
 
 export const parseQueryStringParametersIntoSearchParams = baseParameters => queryStringParameters => {
-    return SearchParams.fromJS({
+    return SearchParams.fromJSON({
         ...baseParameters,
         ...queryStringParameters
     });
