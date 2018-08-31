@@ -15256,12 +15256,6 @@ h1 .text a, h2 .text a, h3 .text a, h4 .text a, h5 .text a, h6 .text a {
   -ms-user-select: none;
   user-select: none; }
 
-.post-title {
-  margin-top: 0;
-  margin-bottom: 0;
-  overflow-wrap: break-word;
-  word-break: break-word; }
-
 .post-text {
   line-height: 1.5;
   padding: 0.1em 0.5rem;
@@ -15271,37 +15265,40 @@ h1 .text a, h2 .text a, h3 .text a, h4 .text a, h5 .text a, h6 .text a {
   color: white;
   margin-right: 4px; }
 
-.row .col.post-metadata {
-  padding: 0.75em; }
-
-.photo-title {
+.post-title {
   margin-top: 0;
   margin-bottom: 0;
   overflow-wrap: break-word;
   word-break: break-word; }
 
-.photo-text {
-  line-height: 1.5;
-  padding: 0.1em 0.5rem;
-  background-color: black;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  color: white;
-  margin-right: 4px; }
+.row .col.post-metadata {
+  padding: 0.75em; }
 
-.photo-title__link,
-.photo-description__link,
-.photo-date__link,
-.photo-body__link,
-.photo-source__link,
-.photo-text__link {
-  text-decoration: underline;
-  -webkit-text-decoration-color: #fb8c00;
-  -moz-text-decoration-color: #fb8c00;
-  text-decoration-color: #fb8c00; }
+.dimensions-container--posts {
+  min-height: 100vh; }
 
 .photo {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  -moz-background-size: cover;
+  background-size: cover; }
+  .photo-title__link, .photo-description__link, .photo-date__link, .photo-body__link, .photo-source__link, .photo-text__link {
+    text-decoration: underline;
+    -webkit-text-decoration-color: #fb8c00;
+    -moz-text-decoration-color: #fb8c00;
+    text-decoration-color: #fb8c00; }
+  .photo-text {
+    line-height: 1.5;
+    padding: 0.1em 0.5rem;
+    background-color: black;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    color: white;
+    margin-right: 4px; }
+  .photo-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow-wrap: break-word;
+    word-break: break-word; }
 
 .row .col.photo-metadata {
   padding: 0.75em; }
@@ -15323,6 +15320,10 @@ h1 .text a, h2 .text a, h3 .text a, h4 .text a, h5 .text a, h6 .text a {
   -moz-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center; }
+
+.dimensions-container--photo + div > .loading-spinner {
+  min-height: unset;
+  height: 25vh; }
 
 html, body {
   height: 100%;
@@ -15395,6 +15396,10 @@ ul:not(.browser-default) {
 @media (min-width: 6in) and (min-height: 7in) {
   table.show-on-legal {
     display: table; } }
+
+.loading, .photo--loading {
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(50%); }
 
 /*!
  * Font Awesome Free 5.3.1 by @fontawesome - https://fontawesome.com
@@ -15639,7 +15644,7 @@ ul:not(.browser-default) {
   margin-bottom: 0; }
 </style><script>window.SENTRY_DSN = "https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735";
 window.ENVIRONMENT = "prd";
-window.VERSION = "0.20.6";
+window.VERSION = "0.21.0";
 window.GTM_DATALAYER = [];</script><script>(function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({
