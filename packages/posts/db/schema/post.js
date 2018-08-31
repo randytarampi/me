@@ -76,7 +76,7 @@ const post = new Schema({
         type: [Object]
     }
 }, {
-    throughput: 5,
+    throughput: 4,
     useNativeBooleans: false,
     useDocumentTypes: false,
     timestamps: true,
