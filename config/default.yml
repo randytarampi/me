@@ -1,6 +1,6 @@
-photosServiceUrl: http://localhost:3006/photos
+photosServiceUrl: http://localhost:3006/posts?type=Photo
 postsServiceUrl: http://localhost:3006/posts
-wordsServiceUrl: http://localhost:3006/words
+wordsServiceUrl: http://localhost:3006/posts?type=Post
 codeAppUrl: /code
 photosAppUrl: /photos
 postsAppUrl: /blog

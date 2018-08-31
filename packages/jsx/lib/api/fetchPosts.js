@@ -3,7 +3,11 @@ import fetch from "isomorphic-fetch";
 import queryString from "query-string";
 
 export default (fetchUrl, searchParams) => {
-    return fetch(`${fetchUrl}?${queryString.stringify(searchParams)}`, {
+    const parsedFetchUrl = queryString.parseUrl(fetchUrl);
+    return fetch(`${parsedFetchUrl.url}?${queryString.stringify({
+        ...parsedFetchUrl.query,
+        ...searchParams
+    })}`, {
         headers: {
             "Accept": "application/json",
             "Accept-Charset": "utf-8",

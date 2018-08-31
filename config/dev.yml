@@ -1,6 +1,6 @@
-photosServiceUrl: https://posts.dev.randytarampi.ca/photos
+photosServiceUrl: https://posts.dev.randytarampi.ca/posts?type=Photo
 postsServiceUrl: https://posts.dev.randytarampi.ca/posts
-wordsServiceUrl: https://posts.dev.randytarampi.ca/words
+wordsServiceUrl: https://posts.dev.randytarampi.ca/posts?type=Post
 assetUrl: /docs
 resume:
   publishUrl: https://dev.randytarampi.ca/resume
