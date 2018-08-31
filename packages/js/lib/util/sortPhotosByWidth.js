@@ -1,5 +1,5 @@
 /**
- * @function Sort two [Photos]{@link Photo}s by width, ascending.
+ * @function Sort two [Photos]{@link Photo} by width, ascending.
  * @param a {Photo}
  * @param b {Photo}
  * @returns {number}

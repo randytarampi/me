@@ -79,10 +79,20 @@ describe("FlickrPhotoSource", function () {
                     });
                 }),
                 getPublicPhotos: sinon.stub().callsFake(params => {
+                    let posts = flickrPhotos;
+
+                    if (params.per_page === 420) { // NOTE-RT: 420 is a sentinel value for an empty array
+                        posts = [];
+                    }
+
+                    if (stubServiceClient.people.getPublicPhotos.callCount > 1) {
+                        posts = [];
+                    }
+
                     return Promise.resolve({
                         body: {
                             photos: {
-                                photo: params.per_page === 420 ? [] : flickrPhotos
+                                photo: posts
                             }
                         }
                     });
@@ -228,6 +238,32 @@ describe("FlickrPhotoSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.people.getPublicPhotos);
+                    sinon.assert.calledWith(stubServiceClient.people.getPublicPhotos, sinon.match({
+                        user_id: process.env.FLICKR_USER_ID,
+                        per_page: stubParams.perPage
+                    }));
+                });
+        });
+    });
+
+    describe("#allPostsGetter", function () {
+        it("finds all posts", function () {
+            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+            const stubParams = SearchParams.fromJS({perPage: 40});
+
+            process.env.FLICKR_USER_ID = flickrUser.id;
+
+            return flickrPhotoSource.allPostsGetter(stubParams)
+                .then(posts => {
+                    expect(posts).to.be.ok;
+                    expect(posts).to.be.instanceof(Array);
+                    expect(posts).to.have.length(3);
+                    posts.map(post => {
+                        expect(post).to.be.ok;
+                        expect(post).to.be.instanceof(Photo);
+                    });
+                    sinon.assert.notCalled(stubServiceClient.people.findByUsername);
+                    sinon.assert.calledTwice(stubServiceClient.people.getPublicPhotos);
                     sinon.assert.calledWith(stubServiceClient.people.getPublicPhotos, sinon.match({
                         user_id: process.env.FLICKR_USER_ID,
                         per_page: stubParams.perPage

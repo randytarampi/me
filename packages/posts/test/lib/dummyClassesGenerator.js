@@ -7,6 +7,8 @@ export const dummyClassesGenerator = ({
                                           stubPostsGetter,
                                           stubAfterPostsGetter,
 
+                                          stubAllPostsGetter,
+
                                           stubBeforePostGetter,
                                           stubPostGetter,
                                           stubAfterPostGetter,
@@ -14,6 +16,8 @@ export const dummyClassesGenerator = ({
                                           stubBeforeCachedPostsGetter,
                                           stubCachedPostsGetter,
                                           stubAfterCachedPostsGetter,
+
+                                          stubAllCachedPostsGetter,
 
                                           stubBeforeCachedPostGetter,
                                           stubCachedPostGetter,
@@ -33,6 +37,8 @@ export const dummyClassesGenerator = ({
             stubPostsGetter,
             stubAfterPostsGetter,
 
+            stubAllPostsGetter,
+
             stubBeforePostGetter,
             stubPostGetter,
             stubAfterPostGetter,
@@ -40,6 +46,8 @@ export const dummyClassesGenerator = ({
             stubBeforeCachedPostsGetter,
             stubCachedPostsGetter,
             stubAfterCachedPostsGetter,
+
+            stubAllCachedPostsGetter,
 
             stubBeforeCachedPostGetter,
             stubCachedPostGetter,

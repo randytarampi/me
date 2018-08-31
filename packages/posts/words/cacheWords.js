@@ -6,7 +6,7 @@ const cacheWords = wordSearchParams => {
         .then(wordSources => {
             return Promise.all(
                 wordSources.map((wordSource) => {
-                    return wordSource.getServicePosts(wordSearchParams)
+                    return wordSource.getAllServicePosts(wordSearchParams)
                         .catch((error) => {
                             logger.error(error);
                             return [];

@@ -38,6 +38,21 @@ class InstagramSource extends PhotoSource {
             ));
     }
 
+    async allPostsGetter(searchParams) {
+        let posts = await this.postsGetter(searchParams);
+
+        if (posts.length) {
+            const lastPost = posts[posts.length - 1];
+            posts = posts.concat(await this.allPostsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("beforeId", lastPost)
+            ));
+        }
+
+        return posts;
+    }
+
     postGetter(photoId) {
         return this.client.media(photoId)
             .then(postJson => postJson && postJson.data && this._highResolutionPhotoGetter(postJson.data).then(post => this.jsonToPost(post)));
@@ -76,7 +91,7 @@ class InstagramSource extends PhotoSource {
             title: photoJson.location && photoJson.location.name,
             body: photoJson.caption && photoJson.caption.text,
             creator: {
-                id: photoJson.user.username,
+                id: photoJson.user.id,
                 username: photoJson.user.username,
                 name: photoJson.user.full_name,
                 sourceUrl: `https://www.instagram.com/${photoJson.user.username}`

@@ -6,7 +6,7 @@ const cachePhotos = photoSearchParams => {
         .then(photoSources => {
             return Promise.all(
                 photoSources.map((photoSource) => {
-                    return photoSource.getServicePosts(photoSearchParams)
+                    return photoSource.getAllServicePosts(photoSearchParams)
                         .catch((error) => {
                             logger.error(error);
                             return [];

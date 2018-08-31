@@ -41,6 +41,8 @@ describe("TumblrPhotoSource", function () {
 
     beforeEach(function () {
         process.env.TUMBLR_USER_NAME = "TUMBLR_USER_NAME";
+        process.env.TUMBLR_API_KEY = "TUMBLR_API_KEY";
+        process.env.TUMBLR_API_SECRET = "TUMBLR_API_SECRET";
 
         stubPost = Photo.fromJSON({id: "woof"});
         stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"})];
@@ -71,12 +73,22 @@ describe("TumblrPhotoSource", function () {
         };
         tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {id: stubPost.id}));
         stubServiceClient = {
-            blogPosts: sinon.stub().callsFake((tumblrUser, params) => timedPromise({
-                posts: params.limit === 420 // NOTE-RT: 420 is a sentinel value for an empty array
-                    ? []
-                    : (params.id ? [tumblrBlogPosts.find(tumblrBlogPost => tumblrBlogPost.id === params.id)] : tumblrBlogPosts).filter(value => !!value),
-                blog: tumblrBlog
-            }))
+            blogPosts: sinon.stub().callsFake((tumblrUser, params) => {
+                const response = {
+                    posts: (params.id ? [tumblrBlogPosts.find(tumblrBlogPost => tumblrBlogPost.id === params.id)] : tumblrBlogPosts).filter(value => !!value),
+                    blog: tumblrBlog
+                };
+
+                if (params.limit === 17) { // NOTE-RT: 17 is a sentinel value for an empty array
+                    response.posts = [];
+                }
+
+                if (stubServiceClient.blogPosts.callCount > 1) {
+                    response.posts = [];
+                }
+
+                return timedPromise(response);
+            })
         };
 
         stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
@@ -157,6 +169,25 @@ describe("TumblrPhotoSource", function () {
         });
     });
 
+    describe(".isEnabled", function () {
+        it("`isEnabled` if `process.env.TUMBLR_API_KEY` and `process.env.TUMBLR_API_SECRET` are defined", function () {
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
+            expect(tumblrPhotoSource.isEnabled).to.eql(true);
+        });
+
+        it("`!isEnabled` if `process.env.TUMBLR_API_KEY` is not defined", function () {
+            delete process.env.TUMBLR_API_KEY;
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
+            expect(tumblrPhotoSource.isEnabled).to.eql(false);
+        });
+
+        it("`!isEnabled` if `process.env.TUMBLR_API_SECRET` is not defined", function () {
+            delete process.env.TUMBLR_API_SECRET;
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
+            expect(tumblrPhotoSource.isEnabled).to.eql(false);
+        });
+    });
+
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
@@ -174,15 +205,15 @@ describe("TumblrPhotoSource", function () {
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         type: "photo",
                         page: stubParams.page,
-                        limit: stubParams.perPage,
-                        offset: stubParams.perPage * (stubParams.page - 1)
+                        limit: 20,
+                        offset: 20 * (stubParams.page - 1)
                     }));
                 });
         });
 
         it("finds no posts", function () {
             const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 420, type: "Photo"});
+            const stubParams = SearchParams.fromJS({perPage: 17, type: "Photo"});
 
             return tumblrPhotoSource.postsGetter(stubParams)
                 .then(posts => {
@@ -194,6 +225,25 @@ describe("TumblrPhotoSource", function () {
                         type: "photo",
                         page: 1,
                         offset: 0,
+                        limit: stubParams.perPage
+                    }));
+                });
+        });
+    });
+
+    describe("#allPostsGetter", function () {
+        it("finds all posts", function () {
+            const tumblrPhotoSource = new TumblrPhotoSource(stubServiceClient, stubCacheClient);
+            const stubParams = SearchParams.fromJS({perPage: 7});
+
+            return tumblrPhotoSource.allPostsGetter(stubParams)
+                .then(posts => {
+                    expect(posts).to.be.ok;
+                    expect(posts).to.be.instanceof(Array);
+                    expect(posts).to.have.length(3);
+                    sinon.assert.calledTwice(stubServiceClient.blogPosts);
+                    sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
+                        type: "text",
                         limit: stubParams.perPage
                     }));
                 });

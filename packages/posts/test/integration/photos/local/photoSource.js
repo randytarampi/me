@@ -37,11 +37,25 @@ describe("LocalSource", function () {
 
     describe("#getPosts", function () {
         it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
-
             const photoSource = new LocalSource();
             const stubSearchParams = SearchParams.fromJS();
 
             return photoSource.getPosts(stubSearchParams)
+                .then(photos => {
+                    expect(photos).to.be.ok;
+                    expect(photos).to.have.length(fs.readdirSync(process.env.LOCAL_DIRECTORY).filter(LocalSource.fileIsSupported).length);
+                    photos.map(photo => expect(photo).to.be.instanceOf(Photo));
+                    expect(photos).to.eql(photos.sort(util.sortPostsByDate));
+                });
+        });
+    });
+
+    describe("#allPostsGetter", function () {
+        it("should load `Photo`s from the most recent images in the given `process.env.LOCAL_DIRECTORY`", function () {
+            const photoSource = new LocalSource();
+            const stubSearchParams = SearchParams.fromJS();
+
+            return photoSource.allPostsGetter(stubSearchParams)
                 .then(photos => {
                     expect(photos).to.be.ok;
                     expect(photos).to.have.length(fs.readdirSync(process.env.LOCAL_DIRECTORY).filter(LocalSource.fileIsSupported).length);

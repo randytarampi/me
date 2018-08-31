@@ -12,15 +12,35 @@ class S3WordSource extends WordSource {
     }
 
     get isEnabled() {
-        return process.env.S3_BUCKET_NAME;
+        return !!process.env.S3_BUCKET_NAME || false;
     }
 
-    postsGetter(searchParams) {
-        return this.client.listObjects(searchParams.S3) // FIXME-RT: Replace with `listObjectsV2`
+    async postsGetter(searchParams) {
+        return this.client.listObjectsV2(searchParams.S3)
             .promise()
-            .then(data => Promise.all(data.Contents.map(object => {
-                return this.getPost(object.Key, searchParams);
-            })));
+            .then(async ({Contents, IsTruncated, NextContinuationToken}) => {
+                let posts = await Promise.all(Contents.map(object => {
+                    return this.getPost(object.Key, searchParams);
+                }));
+
+                if (IsTruncated) {
+                    posts = posts.concat(await this.allPostsGetter(
+                        searchParams
+                            .set("continuationToken", NextContinuationToken)
+                    ));
+                }
+
+                return posts;
+            });
+    }
+
+    async allPostsGetter(searchParams) {
+        const posts = await this.postsGetter(
+            searchParams
+                .set("all", true)
+        );
+
+        return posts;
     }
 
     postGetter(key, searchParams) {

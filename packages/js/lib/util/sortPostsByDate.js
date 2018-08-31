@@ -1,5 +1,5 @@
 /**
- * @function Sort two [Post]{@link Post}s by date, descending.
+ * @function Sort two [Posts]{@link Post} by date, descending.
  * @param a {Post}
  * @param b {Post}
  * @returns {number}

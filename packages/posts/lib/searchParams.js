@@ -1,10 +1,11 @@
 import {Photo, util} from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
+import {DateTime} from "luxon";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
- * @type {{type: undefined, perPage: number, page: number, orderBy: undefined, orderOperator: undefined, orderComparator: undefined, orderComparatorType: undefined, width: undefined, height: undefined, crop: undefined, id: undefined, uid: undefined, source: undefined, _rawFilter: undefined}}
+ * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, _rawFilter: object, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string}}
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
@@ -20,6 +21,11 @@ const searchParamsRecordDefinition = {
     orderOperator: undefined,
     orderComparator: undefined,
     orderComparatorType: undefined,
+    all: false,
+    beforeDate: null,
+    beforeId: null,
+    afterId: null,
+    continuationToken: null,
 
     // NOTE-RT: For individual posts
     width: undefined,
@@ -38,7 +44,7 @@ class SearchParams extends SearchParamsRecord {
     get Flickr() {
         return {
             page: this.page,
-            per_page: this.perPage,
+            per_page: Math.min(this.perPage, 500),
             extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description"
         };
     }
@@ -67,9 +73,24 @@ class SearchParams extends SearchParamsRecord {
     }
 
     get Instagram() {
-        return {
+        const baseRequest = {
             page: this.page,
             count: this.perPage
+        };
+
+        const filterRequest = {};
+
+        if (this.beforeId) {
+            filterRequest.max_id = this.beforeId;
+        }
+
+        if (this.afterId) {
+            filterRequest.min_id = this.afterId;
+        }
+
+        return {
+            ...baseRequest,
+            ...filterRequest
         };
     }
 
@@ -80,18 +101,31 @@ class SearchParams extends SearchParamsRecord {
             type = "photo";
         }
 
-        return {
+        const baseRequest = {
             type,
             id: this.id,
-            limit: this.perPage,
+            limit: Math.min(this.perPage, 20)
+        };
+
+        const filterRequest = {
             page: this.page,
-            offset: this.perPage * (this.page - 1)
+            offset: baseRequest.limit * (this.page - 1)
+        };
+
+        if (this.beforeDate) {
+            filterRequest.before = this.beforeDate.valueOf() / 1000 - 1;
+        }
+
+        return {
+            ...baseRequest,
+            ...filterRequest
         };
     }
 
     get Dynamoose() {
         const options = {
-            descending: true
+            descending: true,
+            all: this.all
         };
 
         switch (this.orderBy) {
@@ -200,30 +234,63 @@ class SearchParams extends SearchParamsRecord {
     }
 
     get S3() {
-        const params = {
+        const baseRequest = {
             Bucket: process.env.S3_BUCKET_NAME
         };
 
         if (this.id) {
             return {
-                ...params,
+                ...baseRequest,
                 Key: this.id
             };
         }
 
+        const filterRequest = {};
+
+        if (this.beforeId) {
+            filterRequest.StartAfter = this.beforeId;
+        }
+        if (this.continuationToken) {
+            filterRequest.ContinuationToken = this.continuationToken;
+        }
+
         return {
-            ...params,
-            MaxKeys: this.perPage,
-            Marker: String(this.perPage * (this.page - 1)), // FIXME-RT: Replace with `StartAfter`
+            ...baseRequest,
+            ...filterRequest,
+            MaxKeys: Math.min(this.perPage, 1000)
         };
     }
 
-    static fromJS(json) {
-        return new SearchParams({
+    static parsePropertiesFromJs(js) {
+        return {
+            orderBy: "descending",
+            all: false,
+            perPage: 100,
+            page: 1,
+            ...js,
+            beforeDate: js && js.beforeDate ? DateTime.fromMillis(js.beforeDate.valueOf()) : null
+        };
+    }
+
+    static fromJS(js) {
+        return new SearchParams(SearchParams.parsePropertiesFromJs(js));
+    }
+
+    static parsePropertiesFromJson(json) {
+        return {
+            orderBy: "descending",
+            all: false,
             ...json,
-            perPage: json && json.perPage && parseInt(json.perPage, 10),
-            page: json && json.page && parseInt(json.page, 10)
-        });
+            width: json && json.width ? parseInt(json.width, 10) : undefined,
+            height: json && json.width ? parseInt(json.height, 10) : undefined,
+            beforeDate: json && json.beforeDate ? DateTime.fromISO(json.beforeDate) : null,
+            perPage: json && json.perPage ? parseInt(json.perPage, 10) : 100,
+            page: json && json.page ? parseInt(json.page, 10) : 1
+        };
+    }
+
+    static fromJSON(json) {
+        return new SearchParams(SearchParams.parsePropertiesFromJson(json));
     }
 }
 

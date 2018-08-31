@@ -1,5 +1,5 @@
 /**
- * @function Sort two [Character]{@link Character}s by position, ascending.
+ * @function Sort two [Characters]{@link Character} by position, ascending.
  * @param a {Character}
  * @param b {Character}
  * @returns {number}

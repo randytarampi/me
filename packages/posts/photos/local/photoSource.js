@@ -36,7 +36,7 @@ class LocalSource extends PhotoSource {
     }
 
     static fileIsSupported(fileName) {
-        return _.find(LocalSource.supportedExtensions(), (extension) => {
+        return LocalSource.supportedExtensions().find(extension => {
             return path.extname(fileName).toLowerCase() === extension;
         });
     }
@@ -49,12 +49,10 @@ class LocalSource extends PhotoSource {
                     return;
                 }
 
-                resolve(
-                    _.filter(fileNames, LocalSource.fileIsSupported)
-                );
+                resolve(fileNames.filter(LocalSource.fileIsSupported));
             });
         })
-            .then((fileNames) => {
+            .then(fileNames => {
                 return Promise.all(fileNames.map((fileName) => {
                     const filePath = path.join(process.env.LOCAL_DIRECTORY, fileName);
 
@@ -74,26 +72,27 @@ class LocalSource extends PhotoSource {
                     });
                 }));
             })
-            .then((files) => {
-                const page = isNaN(searchParams.page) ? 1 : searchParams.page;
-                return Promise.all(_.sortBy(files,
-                    (file) => {
-                        return -1 * DateTime.fromISO(file.lstat.ctime).valueOf();
-                    })
-                    .slice((page - 1) * searchParams.perPage, page * searchParams.perPage)
-                    .map(file => {
-                        return new Promise((resolve, reject) => {
-                            lwip.open(file.filePath, (error, image) => {
-                                if (error) {
-                                    reject(error);
-                                    return;
-                                }
-
-                                resolve(this.jsonToPost(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
-                            });
-                        });
-                    }));
+            .then(files => {
+                return Promise.all(
+                    _.sortBy(files, file => {
+                            return -1 * DateTime.fromISO(file.lstat.ctime).valueOf();
+                        })
+                        .slice(
+                            (searchParams.page - 1) * searchParams.perPage,
+                            searchParams.page * searchParams.perPage
+                        )
+                        .map(file => this._loadFile(file))
+                );
             });
+    }
+
+    async allPostsGetter(searchParams) {
+        const posts = await this.postsGetter(
+            searchParams
+                .set("all", true)
+        );
+
+        return posts;
     }
 
     postGetter(photoId) {
@@ -111,18 +110,7 @@ class LocalSource extends PhotoSource {
                 });
             });
         })
-            .then(file => {
-                return new Promise((resolve, reject) => {
-                    lwip.open(file.filePath, (error, image) => {
-                        if (error) {
-                            reject(error);
-                            return;
-                        }
-
-                        resolve(this.jsonToPost(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
-                    });
-                });
-            });
+            .then(file => this._loadFile(file));
     }
 
     jsonToPost(filePath, fileName, lstat, width, height) {
@@ -142,6 +130,19 @@ class LocalSource extends PhotoSource {
             creator: {
                 sourceUrl: fileUrl
             }
+        });
+    }
+
+    _loadFile(file) {
+        return new Promise((resolve, reject) => {
+            lwip.open(file.filePath, (error, image) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                resolve(this.jsonToPost(file.filePath, file.fileName, file.lstat, image.width(), image.height()));
+            });
         });
     }
 }

@@ -17,12 +17,26 @@ class TumblrWordSource extends WordSource {
     }
 
     get isEnabled() {
-        return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET;
+        return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET && true || false;
     }
 
     async postsGetter(searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
             .then(response => response.posts.map(postJson => this.jsonToPost(postJson, response.blog)));
+    }
+
+    async allPostsGetter(searchParams) {
+        let posts = await this.postsGetter(searchParams);
+
+        if (posts.length) {
+            posts = posts.concat(await this.allPostsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("beforeDate", posts[posts.length - 1].datePublished)
+            ));
+        }
+
+        return posts;
     }
 
     async postGetter(id, searchParams) {
@@ -41,7 +55,7 @@ class TumblrWordSource extends WordSource {
             source: this.type,
             datePublished: date,
             title: postJson.title,
-            body: processCaptionHtml(postJson.body),
+            body: postJson.body && processCaptionHtml(postJson.body),
             sourceUrl: postJson.post_url,
             creator: blogJson && {
                 id: blogJson.name,
