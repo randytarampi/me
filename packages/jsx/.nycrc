@@ -12,7 +12,6 @@
   ],
   "reporter": [
     "text-summary",
-    "cobertura",
     "lcov"
   ],
   "require": [

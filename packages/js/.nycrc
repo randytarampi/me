@@ -1,7 +1,4 @@
 {
-  "extension": [
-    ".jsx"
-  ],
   "exclude": [
     "node_modules/**",
     "coverage/**",
@@ -11,7 +8,6 @@
   ],
   "reporter": [
     "text-summary",
-    "cobertura",
     "lcov"
   ],
   "require": [
@@ -19,7 +15,7 @@
   ],
   "cache": true,
   "all": true,
-  "check-coverage": false,
+  "check-coverage": true,
   "sourceMap": false,
   "instrument": false,
   "watermarks": {
