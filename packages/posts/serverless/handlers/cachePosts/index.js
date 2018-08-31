@@ -1,16 +1,17 @@
-import SearchParams from "../../../lib/searchParams";
 import cachePhotos from "../../../sources/cachePosts";
 import configureEnvironment from "../../util/configureEnvironment";
+import parseQueryStringParametersIntoSearchParams from "../../util/parseQueryStringParametersIntoSearchParams";
+import parseQuerystringParameters from "../../util/request/parseQuerystringParameters";
 import responseBuilder from "../../util/response/responseBuilder";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 
 export default (event, context, callback) => {
     configureEnvironment()
         .then(() => {
-            return cachePhotos(SearchParams.fromJS({
-                ...(event.body || event.queryStringParameters)
-            }))
-                .then(sortedPhotos => callback(null, responseBuilder(sortedPhotos)));
+            return cachePhotos(parseQueryStringParametersIntoSearchParams({})(
+                parseQuerystringParameters(event.body || event.queryStringParameters)
+            ))
+                .then(sortedPosts => callback(null, responseBuilder(sortedPosts)));
         })
         .catch(returnErrorResponse(callback));
 };

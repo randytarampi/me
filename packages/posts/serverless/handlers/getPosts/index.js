@@ -25,10 +25,10 @@ export default (event, context, callback) => {
 
     configureEnvironment()
         .then(() => {
-            return Promise.all([
-                    Post.name,
-                    Photo.name
-                ].map(type => searchPosts(parseQueryStringParametersIntoSearchParams({type})(parsedQuerystringParameters))))
+            return Promise.all(
+                [Post.name, Photo.name]
+                    .map(type => searchPosts(parseQueryStringParametersIntoSearchParams({type})(parsedQuerystringParameters)))
+                )
                 .then(([postSearchResult, photoSearchResult]) => {
                     const flattenedPosts = _.flatten([postSearchResult.posts, photoSearchResult.posts]);
                     const sortedPosts = flattenedPosts.sort(util.sortPostsByDate);
