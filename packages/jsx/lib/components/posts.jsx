@@ -16,12 +16,11 @@ const PostsComponent = props => {
         useWindowAsScrollContainer={true}
         elementHeight={elementHeight}
         infiniteLoadBeginEdgeOffset={window.innerHeight}
-        preloadBatchSize={Infinite.containerHeightScaleFactor(0.5)}
-        preloadAdditionalHeight={Infinite.containerHeightScaleFactor(2)}
+        preloadBatchSize={Infinite.containerHeightScaleFactor(4)}
+        preloadAdditionalHeight={Infinite.containerHeightScaleFactor(4)}
         onInfiniteLoad={props.fetchPosts}
         isInfiniteLoading={props.isLoading}
         loadingSpinnerDelegate={<LoadingSpinner/>}
-        timeScrollStateLastsForAfterUserScrolls={0}
     >
         {
             postsArray
