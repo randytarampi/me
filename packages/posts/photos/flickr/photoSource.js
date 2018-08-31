@@ -2,9 +2,9 @@ import {Photo} from "@randy.tarampi/js";
 import Flickr from "flickr-sdk";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import PhotoSource from "../photoSource";
+import CachedDataSource from "../../lib/cachedDataSource";
 
-class FlickrSource extends PhotoSource {
+class FlickrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("Flickr",
             dataClient || new Flickr(process.env.FLICKR_API_KEY),

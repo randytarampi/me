@@ -3,9 +3,9 @@ import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import PhotoSource from "../photoSource";
+import CachedDataSource from "../../lib/cachedDataSource";
 
-class InstagramSource extends PhotoSource {
+class InstagramSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("Instagram",
             dataClient || new Instagram(process.env.INSTAGRAM_ACCESS_TOKEN),

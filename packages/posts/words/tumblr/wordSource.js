@@ -1,10 +1,10 @@
 import {Post} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
+import CachedDataSource from "../../lib/cachedDataSource";
 import {processCaptionHtml} from "../../photos/tumblr/photoSource";
-import WordSource from "../wordSource";
 
-class TumblrWordSource extends WordSource {
+class TumblrWordSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("Tumblr",
             dataClient || tumblr.createClient({

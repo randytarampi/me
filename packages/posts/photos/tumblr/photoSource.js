@@ -2,9 +2,9 @@ import {Photo, SizedPhoto, util} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
-import PhotoSource from "../photoSource";
+import CachedDataSource from "../../lib/cachedDataSource";
 
-class TumblrSource extends PhotoSource {
+class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("Tumblr",
             dataClient || tumblr.createClient({

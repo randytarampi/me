@@ -5,9 +5,9 @@ import {DateTime} from "luxon";
 import lwip from "lwip";
 import path from "path";
 import url from "url";
-import PhotoSource from "../photoSource";
+import CachedDataSource from "../../lib/cachedDataSource";
 
-class LocalSource extends PhotoSource {
+class LocalSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("Local",
             dataClient || fs,

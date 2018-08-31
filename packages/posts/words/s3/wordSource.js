@@ -1,9 +1,9 @@
 import {Post} from "@randy.tarampi/js";
 import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
-import WordSource from "../wordSource";
+import CachedDataSource from "../../lib/cachedDataSource";
 
-class S3WordSource extends WordSource {
+class S3WordSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("S3",
             dataClient || new Aws.S3(),
