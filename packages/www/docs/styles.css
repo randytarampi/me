@@ -15392,8 +15392,8 @@ ul:not(.browser-default) {
     display: table; } }
 
 .loading, .photo--loading {
-  -webkit-filter: grayscale(50%);
-  filter: grayscale(50%); }
+  -webkit-filter: grayscale(80%);
+  filter: grayscale(80%); }
 
 /*!
  * Font Awesome Free 5.3.1 by @fontawesome - https://fontawesome.com
