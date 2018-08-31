@@ -46,7 +46,7 @@ class InstagramSource extends CachedDataSource {
             posts = posts.concat(await this.allPostsGetter(
                 searchParams
                     .set("all", true)
-                    .set("beforeId", lastPost)
+                    .set("beforeId", lastPost.id)
             ));
         }
 
