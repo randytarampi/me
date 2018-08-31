@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.22.3"></a>
+## [0.22.3](https://github.com/randytarampi/me/compare/v0.22.2...v0.22.3) (2018-08-31)
+
+
+### Bug Fixes
+
+* **jsx:** Forgotten reference to `getSizedPhoto`. ([f65b3bf](https://github.com/randytarampi/me/commit/f65b3bf))
+* **jsx:** I actually meant `getSizedPhotoForDisplay` here. ([9b10a4c](https://github.com/randytarampi/me/commit/9b10a4c))
+
+
+
+
+
 <a name="0.22.2"></a>
 ## [0.22.2](https://github.com/randytarampi/me/compare/v0.22.1...v0.22.2) (2018-08-31)
 
