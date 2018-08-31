@@ -26,8 +26,8 @@ class Photo extends PostClassGenerator({
         return this.sizedPhotos.sort(util.sortPhotosByWidth);
     }
 
-    getSizedPhoto(width) {
-        const widthAppropriatePhotos = this.sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width);
+    getSizedPhotoForDisplay(width) {
+        const widthAppropriatePhotos = this.sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width && sizedPhoto.size !== "raw");
 
         return widthAppropriatePhotos.first() || this.sortedSizedPhotos.last();
     }

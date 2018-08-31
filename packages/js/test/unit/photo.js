@@ -82,7 +82,7 @@ describe("Photo", () => {
         });
     });
 
-    describe("#getSizedPhoto", () => {
+    describe("#getSizedPhotoForDisplay", () => {
         it("should return 0 objects is `.sizedPhotos` is empty", () => {
             const photoJSON = {
                 id: "woof",
@@ -109,8 +109,8 @@ describe("Photo", () => {
             };
             const photo = Photo.fromJSON(photoJSON);
 
-            expect(photo.getSizedPhoto()).to.eql(undefined);
-            expect(photo.getSizedPhoto(200)).to.eql(undefined);
+            expect(photo.getSizedPhotoForDisplay()).to.eql(undefined);
+            expect(photo.getSizedPhotoForDisplay(200)).to.eql(undefined);
         });
 
         it("should return a single member of `.sizedPhotos`, the smallest in size (width), for a given argument", () => {
@@ -157,7 +157,7 @@ describe("Photo", () => {
             const photo = Photo.fromJSON(photoJSON);
 
             sizedPhotos.forEach((sizedPhoto) => {
-                const selectedPhotoforWidth = photo.getSizedPhoto(sizedPhoto.width);
+                const selectedPhotoforWidth = photo.getSizedPhotoForDisplay(sizedPhoto.width);
                 expect(selectedPhotoforWidth.width).to.eql(sizedPhoto.width);
             });
         });
