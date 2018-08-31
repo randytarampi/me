@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.21.0"></a>
+# [0.21.0](https://github.com/randytarampi/me/compare/v0.20.6...v0.21.0) (2018-08-31)
+
+
+### Bug Fixes
+
+* **posts:** Actually load *all* Posts from each service. ([6e7511f](https://github.com/randytarampi/me/commit/6e7511f)), closes [#73](https://github.com/randytarampi/me/issues/73)
+
+
+### Features
+
+* **posts:** Sketch out a generic solution to pulling *all* posts at once. ([9491412](https://github.com/randytarampi/me/commit/9491412)), closes [#73](https://github.com/randytarampi/me/issues/73)
+
+
+
+
+
 <a name="0.20.2"></a>
 ## [0.20.2](https://github.com/randytarampi/me/compare/v0.20.1...v0.20.2) (2018-08-29)
 

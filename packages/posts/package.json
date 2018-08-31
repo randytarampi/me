@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.20.2",
+  "version": "0.21.0",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -40,7 +40,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.20.0",
+    "@randy.tarampi/js": "^0.21.0",
     "aws-sdk": "^2.279.1",
     "dynamoose": "^0.8.7",
     "flickr-sdk": "^3.7.0",
