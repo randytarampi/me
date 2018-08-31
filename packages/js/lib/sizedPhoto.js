@@ -18,8 +18,12 @@ class SizedPhoto extends Record({
         return new SizedPhoto(js);
     }
 
-    static fromJSON(json) {
-        return SizedPhoto.fromJS(json);
+    static fromJSON({width, height, ...json} = {}) {
+        return SizedPhoto.fromJS({
+            ...json,
+            width: width && Number(width),
+            height: height && Number(height)
+        });
     }
 }
 
