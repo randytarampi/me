@@ -1,6 +1,8 @@
 import {Photo, Post, util} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
+const throughput = {read: 1, write: 4};
+
 const post = new Schema({
     uid: {
         type: String,
@@ -21,17 +23,20 @@ const post = new Schema({
             {
                 global: true,
                 name: "type-datePublished-index",
-                rangeKey: "datePublished"
+                rangeKey: "datePublished",
+                throughput: 1
             },
             {
                 global: true,
                 name: "type-dateCreated-index",
-                rangeKey: "dateCreated"
+                rangeKey: "dateCreated",
+                throughput: 1
             },
             {
                 global: true,
                 name: "type-source-index",
-                rangeKey: "source"
+                rangeKey: "source",
+                throughput: 1
             }
         ]
     },
@@ -42,12 +47,14 @@ const post = new Schema({
             {
                 global: true,
                 name: "source-datePublished-index",
-                rangeKey: "datePublished"
+                rangeKey: "datePublished",
+                throughput: 1
             },
             {
                 global: true,
                 name: "source-dateCreated-index",
-                rangeKey: "dateCreated"
+                rangeKey: "dateCreated",
+                throughput: 1
             }
         ]
     },
@@ -76,7 +83,7 @@ const post = new Schema({
         type: [Object]
     }
 }, {
-    throughput: 4,
+    throughput,
     useNativeBooleans: false,
     useDocumentTypes: false,
     timestamps: true,
