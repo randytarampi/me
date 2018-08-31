@@ -1,4 +1,4 @@
-import logger from "../../../lib/logger/index";
+import logger from "../../../lib/logger";
 import RequestError from "../request/requestError";
 import responseBuilder from "./responseBuilder";
 

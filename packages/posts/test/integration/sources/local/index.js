@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import PostModel from "../../../../db/models/post";
 import SearchParams from "../../../../lib/searchParams";
-import LocalSource from "../../../../sources/local/postSource";
+import LocalSource from "../../../../sources/local";
 
 const LOCAL_DIRECTORY = process.env.LOCAL_DIRECTORY;
 

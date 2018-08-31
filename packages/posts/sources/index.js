@@ -1,11 +1,11 @@
-import flickr from "./flickr/postSource";
-import instagram from "./instagram/postSource";
-import local from "./local/postSource";
-import s3 from "./s3/postSource";
-import tumblr from "./tumblr/postSource";
-import unsplash from "./unsplash/postSource";
+import flickr from "./flickr";
+import instagram from "./instagram";
+import local from "./local";
+import s3 from "./s3";
+import tumblr from "./tumblr";
+import unsplash from "./unsplash";
 
-export const sources = [
+export const index = [
     flickr,
     unsplash,
     instagram,
@@ -15,7 +15,7 @@ export const sources = [
 ];
 
 export const initializeSources = () => Promise.all(
-    sources
+    index
         .map(postSourceConstructor => {
             return new postSourceConstructor();
         })

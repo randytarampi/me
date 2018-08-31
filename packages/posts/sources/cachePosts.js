@@ -1,19 +1,14 @@
 import logger from "../lib/logger";
-import {initializeSources} from "./sources";
+import initializedSources from "./";
 
-const cachePosts = photoSearchParams => {
-    return initializeSources()
-        .then(sources => {
-            return Promise.all(
-                sources.map((postSource) => {
-                    return postSource.getAllServicePosts(photoSearchParams)
-                        .catch((error) => {
-                            logger.error(error);
-                            return [];
-                        });
-                })
-            );
-        });
+const cachePosts = searchParams => {
+    return Promise.all(initializedSources.map(postSource => {
+        return postSource.getAllServicePosts(searchParams)
+            .catch(error => {
+                logger.error(error);
+                return [];
+            });
+    }));
 };
 
 export default cachePosts;

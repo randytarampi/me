@@ -4,7 +4,7 @@ import {render} from "react-dom";
 import ClientReduxRoot from "../../../lib/clientReduxRoot";
 import reducers from "../../../lib/data/reducers";
 import configureStore from "../../../lib/store/configureStore";
-import routes from "../routes/index";
+import routes from "../routes";
 
 const history = createBrowserHistory();
 const store = configureStore(undefined, history, reducers);

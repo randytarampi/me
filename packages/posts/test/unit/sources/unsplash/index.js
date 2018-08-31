@@ -4,11 +4,11 @@ import {DateTime} from "luxon";
 import sinon from "sinon";
 import Unsplash from "unsplash-js";
 import SearchParams from "../../../../lib/searchParams";
-import UnsplashPostSource from "../../../../sources/unsplash/postSource";
+import UnsplashSource from "../../../../sources/unsplash";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
-describe("UnsplashPostSource", function () {
+describe("UnsplashSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -175,33 +175,33 @@ describe("UnsplashPostSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `UnsplashPostSource` instance (including the default `unsplash` client)", function () {
-            const unsplashPostSource = new UnsplashPostSource(null, stubCacheClient);
+        it("should build a `UnsplashSource` instance (including the default `unsplash` client)", function () {
+            const unsplashSource = new UnsplashSource(null, stubCacheClient);
 
-            expect(unsplashPostSource.type).to.eql("Unsplash");
-            expect(unsplashPostSource.client).to.be.instanceof(Unsplash);
-            expect(unsplashPostSource.cacheClient).to.eql(stubCacheClient);
-            expect(unsplashPostSource.initializing).to.be.instanceOf(Promise);
-            expect(unsplashPostSource).to.be.instanceOf(UnsplashPostSource);
+            expect(unsplashSource.type).to.eql("Unsplash");
+            expect(unsplashSource.client).to.be.instanceof(Unsplash);
+            expect(unsplashSource.cacheClient).to.eql(stubCacheClient);
+            expect(unsplashSource.initializing).to.be.instanceOf(Promise);
+            expect(unsplashSource).to.be.instanceOf(UnsplashSource);
         });
 
-        it("should build a `UnsplashPostSource` instance (with stubbed client)", function () {
-            const unsplashPostSource = new UnsplashPostSource(stubServiceClient, stubCacheClient);
+        it("should build a `UnsplashSource` instance (with stubbed client)", function () {
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
 
-            expect(unsplashPostSource.type).to.eql("Unsplash");
-            expect(unsplashPostSource.client).to.eql(stubServiceClient);
-            expect(unsplashPostSource.cacheClient).to.eql(stubCacheClient);
-            expect(unsplashPostSource.initializing).to.be.instanceOf(Promise);
-            expect(unsplashPostSource).to.be.instanceOf(UnsplashPostSource);
+            expect(unsplashSource.type).to.eql("Unsplash");
+            expect(unsplashSource.client).to.eql(stubServiceClient);
+            expect(unsplashSource.cacheClient).to.eql(stubCacheClient);
+            expect(unsplashSource.initializing).to.be.instanceOf(Promise);
+            expect(unsplashSource).to.be.instanceOf(UnsplashSource);
         });
     });
 
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const unsplashPostSource = new UnsplashPostSource(stubServiceClient, stubCacheClient);
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, page: 2, orderBy: "woof"});
 
-            return unsplashPostSource.postsGetter(stubParams)
+            return unsplashSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -215,10 +215,10 @@ describe("UnsplashPostSource", function () {
         });
 
         it("finds no posts", function () {
-            const unsplashPostSource = new UnsplashPostSource(stubServiceClient, stubCacheClient);
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 420});
 
-            return unsplashPostSource.postsGetter(stubParams)
+            return unsplashSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -231,10 +231,10 @@ describe("UnsplashPostSource", function () {
 
     describe("#allPostsGetter", function () {
         it("finds all posts", function () {
-            const unsplashPostSource = new UnsplashPostSource(stubServiceClient, stubCacheClient);
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, orderBy: "latest"});
 
-            return unsplashPostSource.allPostsGetter(stubParams)
+            return unsplashSource.allPostsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -250,10 +250,10 @@ describe("UnsplashPostSource", function () {
 
     describe("#postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const unsplashPostSource = new UnsplashPostSource(stubServiceClient, stubCacheClient);
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
 
-            return unsplashPostSource.postGetter(stubPost.id, stubParams)
+            return unsplashSource.postGetter(stubPost.id, stubParams)
                 .then(post => {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Photo);
@@ -263,10 +263,10 @@ describe("UnsplashPostSource", function () {
         });
 
         it("finds no post", function () {
-            const unsplashPostSource = new UnsplashPostSource(stubServiceClient, stubCacheClient);
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
 
-            return unsplashPostSource.postGetter("foo", stubParams)
+            return unsplashSource.postGetter("foo", stubParams)
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.photos.getPost);

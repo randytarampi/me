@@ -4,7 +4,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import SearchParams from "../../../../lib/searchParams";
-import S3Source from "../../../../sources/s3/postSource";
+import S3Source from "../../../../sources/s3";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
