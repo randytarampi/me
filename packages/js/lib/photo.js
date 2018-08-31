@@ -22,11 +22,18 @@ class Photo extends PostClassGenerator({
         };
     }
 
-    getSizedPhoto(width) {
-        const sortedSizedPhotos = this.sizedPhotos.sort(util.sortPhotosByWidth);
-        const widthAppropriatePhotos = sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width);
+    get sortedSizedPhotos() {
+        return this.sizedPhotos.sort(util.sortPhotosByWidth);
+    }
 
-        return widthAppropriatePhotos.first() || sortedSizedPhotos.last();
+    getSizedPhoto(width) {
+        const widthAppropriatePhotos = this.sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width);
+
+        return widthAppropriatePhotos.first() || this.sortedSizedPhotos.last();
+    }
+
+    getSizedPhotoForLoading() {
+        return this.sortedSizedPhotos.first();
     }
 }
 

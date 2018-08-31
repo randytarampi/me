@@ -2,5 +2,10 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+}
+
+.dimensions-container--photo + div > .loading-spinner {
+    min-height: unset;
+    height: 25vh;
 }

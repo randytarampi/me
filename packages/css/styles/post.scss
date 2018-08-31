@@ -1,19 +1,25 @@
-.post-title {
-    margin-top: 0;
-    margin-bottom: 0;
-    overflow-wrap: break-word;
-    word-break: break-word;
-}
+.post {
+    &-text {
+        line-height: $blockLineHeight;
+        padding: $blockPadding;
+        background-color: $blockColour;
+        box-decoration-break: clone;
+        color: $blockTextColour;
+        margin-right: 4px;
+    }
 
-.post-text {
-    line-height: $blockLineHeight;
-    padding: $blockPadding;
-    background-color: $blockColour;
-    box-decoration-break: clone;
-    color: $blockTextColour;
-    margin-right: 4px;
+    &-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
 }
 
 .row .col.post-metadata {
     padding: 0.75em;
+}
+
+.dimensions-container--posts {
+    min-height: 100vh;
 }

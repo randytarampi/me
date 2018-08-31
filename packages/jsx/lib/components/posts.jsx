@@ -12,14 +12,16 @@ const PostsComponent = props => {
     const elementHeight = postsArray ? postsArray.map(computePostHeight(props.containerWidth)) : [window.innerHeight];
 
     return <Infinite
+        containerHeight={props.containerHeight}
         useWindowAsScrollContainer={true}
         elementHeight={elementHeight}
-        infiniteLoadBeginEdgeOffset={window.innerHeight / 4}
-        preloadBatchSize={Infinite.containerHeightScaleFactor(1 / props.postsPerFetch)}
-        preloadAdditionalHeight={Infinite.containerHeightScaleFactor(4)}
+        infiniteLoadBeginEdgeOffset={window.innerHeight}
+        preloadBatchSize={Infinite.containerHeightScaleFactor(0.5)}
+        preloadAdditionalHeight={Infinite.containerHeightScaleFactor(2)}
         onInfiniteLoad={props.fetchPosts}
         isInfiniteLoading={props.isLoading}
         loadingSpinnerDelegate={<LoadingSpinner/>}
+        timeScrollStateLastsForAfterUserScrolls={0}
     >
         {
             postsArray
@@ -33,7 +35,6 @@ const PostsComponent = props => {
 };
 
 PostsComponent.propTypes = {
-    postsPerFetch: PropTypes.number,
     containerHeight: PropTypes.number,
     containerWidth: PropTypes.number,
     fetchPosts: PropTypes.func.isRequired,
