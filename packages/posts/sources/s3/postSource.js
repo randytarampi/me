@@ -3,7 +3,7 @@ import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
 import CachedDataSource from "../../lib/cachedDataSource";
 
-class S3WordSource extends CachedDataSource {
+class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("S3",
             dataClient || new Aws.S3(),
@@ -67,4 +67,4 @@ class S3WordSource extends CachedDataSource {
     }
 }
 
-export default S3WordSource;
+export default S3Source;

@@ -1,4 +1,4 @@
-import {Photo, SizedPhoto, util} from "@randy.tarampi/js";
+import {Photo, Post, SizedPhoto, util} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
@@ -22,9 +22,7 @@ class TumblrSource extends CachedDataSource {
 
     async postsGetter(searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
-            .then(response =>
-                _.flatten(response.posts.map(postJson => postJson.photos.map(photoJson => this.jsonToPost(photoJson, postJson, response.blog))))
-            );
+            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson, response.blog))));
     }
 
     async allPostsGetter(searchParams) {
@@ -43,12 +41,20 @@ class TumblrSource extends CachedDataSource {
 
     async postGetter(id, searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
-            .then(response =>
-                _.flatten(response.posts.map(postJson => postJson.photos.map(photoJson => this.jsonToPost(photoJson, postJson, response.blog))))[0]
-            );
+            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson, response.blog)))[0]);
     }
 
-    jsonToPost(photoJson, postJson, blogJson) {
+    jsonToPost(postJson, blogJson) {
+        switch (postJson.type) {
+            case "photo":
+                return postJson.photos.map(photoJson => this._jsonToPhoto(photoJson, postJson, blogJson));
+
+            default:
+                return this._jsonToPost(postJson, blogJson);
+        }
+    }
+
+    _jsonToPhoto(photoJson, postJson, blogJson) {
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return SizedPhoto.fromJSON(photo);
         });
@@ -68,6 +74,28 @@ class TumblrSource extends CachedDataSource {
             sourceUrl: postJson.post_url,
             body: processCaptionHtml(photoJson.caption || postJson.caption),
             creator: {
+                id: blogJson.name,
+                username: blogJson.name,
+                name: blogJson.title,
+                sourceUrl: blogJson.url
+            }
+        });
+    }
+
+    _jsonToPost(postJson, blogJson) {
+        const dateString = postJson.date;
+        const dateStringWithoutTimezone = dateString.slice(0, -4);
+        const timezone = dateString.slice(-3);
+        const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
+
+        return Post.fromJS({
+            id: postJson.id,
+            source: this.type,
+            datePublished: date,
+            title: postJson.title,
+            body: postJson.body && processCaptionHtml(postJson.body),
+            sourceUrl: postJson.post_url,
+            creator: blogJson && {
                 id: blogJson.name,
                 username: blogJson.name,
                 name: blogJson.title,

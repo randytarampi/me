@@ -1,4 +1,4 @@
-import {getAuthTokenForCode} from "../../../auth/instagram/client";
+import {getAuthTokenForCode} from "../../../sources/instagram/client";
 import configureEnvironment from "../../util/configureEnvironment";
 import responseBuilder from "../../util/response/responseBuilder";
 import returnErrorResponse from "../../util/response/returnErrorResponse";

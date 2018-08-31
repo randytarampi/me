@@ -1,4 +1,4 @@
-import {Photo, util} from "@randy.tarampi/js";
+import {util} from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
 import {DateTime} from "luxon";
@@ -95,17 +95,18 @@ class SearchParams extends SearchParamsRecord {
     }
 
     get Tumblr() {
-        let type = "text";
-
-        if (this.type === Photo.name) {
-            type = "photo";
-        }
-
         const baseRequest = {
-            type,
             id: this.id,
             limit: Math.min(this.perPage, 20)
         };
+
+        if (this.type) {
+            if (this.type === "Post") {
+                baseRequest.type = "text";
+            } else {
+                baseRequest.type = this.type.toLowerCase();
+            }
+        }
 
         const filterRequest = {
             page: this.page,

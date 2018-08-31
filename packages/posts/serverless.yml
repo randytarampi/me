@@ -107,16 +107,10 @@ custom:
     prewarm: true
 
 functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.functions}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
-  cacheWords:
-    handler: serverless/handlers/cacheWords/initialized.default
+  cachePosts:
+    handler: serverless/handlers/cachePosts/initialized.default
     timeout: 60
-    events: ${file(env.yml):${self:provider.stage}.functions.cacheWords.events}
-    onError:
-      Ref: LambdaDeadLetterQueue
-  cachePhotos:
-    handler: serverless/handlers/cachePhotos/initialized.default
-    timeout: 60
-    events: ${file(env.yml):${self:provider.stage}.functions.cachePhotos.events}
+    events: ${file(env.yml):${self:provider.stage}.functions.cachePosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPosts:

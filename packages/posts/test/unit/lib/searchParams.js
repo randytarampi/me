@@ -95,7 +95,7 @@ describe("SearchParams", function () {
 
     describe(".Tumblr", function () {
         it("should properly format properties for word posts", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = SearchParams.fromJS({type: "Post"});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,

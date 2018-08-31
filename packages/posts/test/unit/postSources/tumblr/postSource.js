@@ -1,14 +1,14 @@
-import {Post} from "@randy.tarampi/js";
+import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import tumblr from "tumblr.js";
 import SearchParams from "../../../../lib/searchParams";
-import TumblrWordSource from "../../../../words/tumblr/wordSource";
+import TumblrPostSource from "../../../../sources/tumblr/postSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
-describe("TumblrWordSource", function () {
+describe("TumblrPostSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -34,6 +34,7 @@ describe("TumblrWordSource", function () {
     let builtDummyClasses;
     let dummyClassBuilderArguments;
 
+    let tumblrPhoto;
     let tumblrBlog;
     let tumblrBlogPost;
     let tumblrBlogPosts;
@@ -44,8 +45,16 @@ describe("TumblrWordSource", function () {
         process.env.TUMBLR_API_SECRET = "TUMBLR_API_SECRET";
 
         stubPost = Post.fromJSON({id: "woof"});
-        stubPosts = [stubPost, Post.fromJSON({id: "meow"}), Post.fromJSON({id: "grr"})];
+        stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"})];
 
+        tumblrPhoto = {
+            caption: "<p>Woof woof woof</p>",
+            alt_sizes: [
+                {url: "woof://woof.woof/?size=100", height: 100, width: 100},
+                {url: "woof://woof.woof/?size=500", height: 500, width: 500},
+                {url: "woof://woof.woof/?size=1000", height: 1000, width: 1000}
+            ]
+        };
         tumblrBlog = {
             url: "woof://woof.woof",
             title: "ʕ•ᴥ•ʔﾉ゛",
@@ -56,10 +65,16 @@ describe("TumblrWordSource", function () {
             id: stubPost.id,
             date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
-            body: "<p>Woof woof woof</p>",
-            post_url: "woof://woof.woof/woof/woof/woof"
+            caption: "<p>Woof woof woof</p>",
+            post_url: "woof://woof.woof/woof/woof/woof",
+            photos: [
+                tumblrPhoto
+            ]
         };
-        tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {id: stubPost.id}));
+        tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {
+            id: stubPost.id,
+            type: stubPost.type.toLowerCase()
+        }));
         stubServiceClient = {
             blogPosts: sinon.stub().callsFake((tumblrUser, params) => {
                 const response = {
@@ -95,7 +110,7 @@ describe("TumblrWordSource", function () {
         stubCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
         stubAfterCachedPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
 
-        stubJsonToPost = sinon.stub().callsFake(Post.fromJSON);
+        stubJsonToPost = sinon.stub().callsFake(Photo.fromJSON);
 
         stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
         stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
@@ -136,62 +151,67 @@ describe("TumblrWordSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `TumblrWordSource` instance (including the default `tumblr` client)", function () {
-            const tumblrWordSource = new TumblrWordSource(null, stubCacheClient);
+        it("should build a `TumblrPostSource` instance (including the default `tumblr` client)", function () {
+            const tumblrPostSource = new TumblrPostSource(null, stubCacheClient);
 
-            expect(tumblrWordSource.type).to.eql("Tumblr");
-            expect(tumblrWordSource.client).to.be.instanceof(tumblr.Client);
-            expect(tumblrWordSource.cacheClient).to.eql(stubCacheClient);
-            expect(tumblrWordSource.initializing).to.be.instanceOf(Promise);
-            expect(tumblrWordSource).to.be.instanceOf(TumblrWordSource);
+            expect(tumblrPostSource.type).to.eql("Tumblr");
+            expect(tumblrPostSource.client).to.be.instanceof(tumblr.Client);
+            expect(tumblrPostSource.cacheClient).to.eql(stubCacheClient);
+            expect(tumblrPostSource.initializing).to.be.instanceOf(Promise);
+            expect(tumblrPostSource).to.be.instanceOf(TumblrPostSource);
         });
 
-        it("should build a `TumblrWordSource` instance (with stubbed client)", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
+        it("should build a `TumblrPostSource` instance (with stubbed client)", function () {
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
 
-            expect(tumblrWordSource.type).to.eql("Tumblr");
-            expect(tumblrWordSource.client).to.eql(stubServiceClient);
-            expect(tumblrWordSource.cacheClient).to.eql(stubCacheClient);
-            expect(tumblrWordSource.initializing).to.be.instanceOf(Promise);
-            expect(tumblrWordSource).to.be.instanceOf(TumblrWordSource);
+            expect(tumblrPostSource.type).to.eql("Tumblr");
+            expect(tumblrPostSource.client).to.eql(stubServiceClient);
+            expect(tumblrPostSource.cacheClient).to.eql(stubCacheClient);
+            expect(tumblrPostSource.initializing).to.be.instanceOf(Promise);
+            expect(tumblrPostSource).to.be.instanceOf(TumblrPostSource);
         });
     });
 
     describe(".isEnabled", function () {
         it("`isEnabled` if `process.env.TUMBLR_API_KEY` and `process.env.TUMBLR_API_SECRET` are defined", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            expect(tumblrWordSource.isEnabled).to.eql(true);
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
+            expect(tumblrPostSource.isEnabled).to.eql(true);
         });
 
         it("`!isEnabled` if `process.env.TUMBLR_API_KEY` is not defined", function () {
             delete process.env.TUMBLR_API_KEY;
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            expect(tumblrWordSource.isEnabled).to.eql(false);
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
+            expect(tumblrPostSource.isEnabled).to.eql(false);
         });
 
         it("`!isEnabled` if `process.env.TUMBLR_API_SECRET` is not defined", function () {
             delete process.env.TUMBLR_API_SECRET;
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            expect(tumblrWordSource.isEnabled).to.eql(false);
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
+            expect(tumblrPostSource.isEnabled).to.eql(false);
         });
     });
 
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, page: 2});
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
+            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, type: "Photo"});
 
-            return tumblrWordSource.postsGetter(stubParams)
+            return tumblrPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
                         expect(post).to.be.ok;
-                        expect(post).to.be.instanceof(Post);
+                        if (post.type === "Photo") {
+                            expect(post).to.be.instanceof(Photo);
+                        }
+                        if (post.type === "Post") {
+                            expect(post).to.be.instanceof(Post);
+                        }
                     });
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
-                        type: "text",
+                        type: "photo",
                         page: stubParams.page,
                         limit: 20,
                         offset: 20 * (stubParams.page - 1)
@@ -200,17 +220,19 @@ describe("TumblrWordSource", function () {
         });
 
         it("finds no posts", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 17});
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
+            const stubParams = SearchParams.fromJS({perPage: 17, type: "Photo"});
 
-            return tumblrWordSource.postsGetter(stubParams)
+            return tumblrPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
-                        type: "text",
+                        type: "photo",
+                        page: 1,
+                        offset: 0,
                         limit: stubParams.perPage
                     }));
                 });
@@ -219,17 +241,16 @@ describe("TumblrWordSource", function () {
 
     describe("#allPostsGetter", function () {
         it("finds all posts", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 7});
 
-            return tumblrWordSource.allPostsGetter(stubParams)
+            return tumblrPostSource.allPostsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     sinon.assert.calledTwice(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
-                        type: "text",
                         limit: stubParams.perPage
                     }));
                 });
@@ -238,12 +259,16 @@ describe("TumblrWordSource", function () {
 
     describe("#postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
 
-            return tumblrWordSource.postGetter(stubPost.id, SearchParams.fromJS())
+            return tumblrPostSource.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
-                    expect(post).to.be.instanceof(Post);
+                    if (post.type === "Photo") {
+                        expect(post).to.be.instanceof(Photo);
+                    } else {
+                        expect(post).to.be.instanceof(Post);
+                    }
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         id: stubPost.id
@@ -252,9 +277,9 @@ describe("TumblrWordSource", function () {
         });
 
         it("finds no post", function () {
-            const tumblrWordSource = new TumblrWordSource(stubServiceClient, stubCacheClient);
+            const tumblrPostSource = new TumblrPostSource(stubServiceClient, stubCacheClient);
 
-            return tumblrWordSource.postGetter("foo", SearchParams.fromJS())
+            return tumblrPostSource.postGetter("foo", SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);

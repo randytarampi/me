@@ -4,11 +4,11 @@ import {DateTime} from "luxon";
 import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
 import sinon from "sinon";
 import SearchParams from "../../../../lib/searchParams";
-import InstagramPhotoSource from "../../../../photos/instagram/photoSource";
+import InstagramPostSource from "../../../../sources/instagram/postSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
-describe("InstagramPhotoSource", function () {
+describe("InstagramPostSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -169,48 +169,48 @@ describe("InstagramPhotoSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `InstagramPhotoSource` instance (including the default `instagram` client)", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(null, stubCacheClient);
+        it("should build a `InstagramPostSource` instance (including the default `instagram` client)", function () {
+            const instagramPostSource = new InstagramPostSource(null, stubCacheClient);
 
-            expect(instagramPhotoSource.type).to.eql("Instagram");
-            // expect(instagramPhotoSource.client).to.be.instanceof(Instagram); // NOTE-RT: It's not so much a class as it is just an exported anonymous function
-            expect(instagramPhotoSource.cacheClient).to.eql(stubCacheClient);
-            expect(instagramPhotoSource.initializing).to.be.instanceOf(Promise);
-            expect(instagramPhotoSource).to.be.instanceOf(InstagramPhotoSource);
+            expect(instagramPostSource.type).to.eql("Instagram");
+            // expect(instagramPostSource.client).to.be.instanceof(Instagram); // NOTE-RT: It's not so much a class as it is just an exported anonymous function
+            expect(instagramPostSource.cacheClient).to.eql(stubCacheClient);
+            expect(instagramPostSource.initializing).to.be.instanceOf(Promise);
+            expect(instagramPostSource).to.be.instanceOf(InstagramPostSource);
         });
 
-        it("should build a `InstagramPhotoSource` instance (with stubbed client)", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+        it("should build a `InstagramPostSource` instance (with stubbed client)", function () {
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
 
-            expect(instagramPhotoSource.type).to.eql("Instagram");
-            expect(instagramPhotoSource.client).to.eql(stubServiceClient);
-            expect(instagramPhotoSource.cacheClient).to.eql(stubCacheClient);
-            expect(instagramPhotoSource.initializing).to.be.instanceOf(Promise);
-            expect(instagramPhotoSource).to.be.instanceOf(InstagramPhotoSource);
+            expect(instagramPostSource.type).to.eql("Instagram");
+            expect(instagramPostSource.client).to.eql(stubServiceClient);
+            expect(instagramPostSource.cacheClient).to.eql(stubCacheClient);
+            expect(instagramPostSource.initializing).to.be.instanceOf(Promise);
+            expect(instagramPostSource).to.be.instanceOf(InstagramPostSource);
         });
     });
 
     describe(".isEnabled", function () {
         it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
-            expect(instagramPhotoSource.isEnabled).to.eql(true);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
+            expect(instagramPostSource.isEnabled).to.eql(true);
         });
 
         it("`!isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is not defined", function () {
             delete process.env.INSTAGRAM_ACCESS_TOKEN;
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
-            expect(instagramPhotoSource.isEnabled).to.eql(false);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
+            expect(instagramPostSource.isEnabled).to.eql(false);
         });
     });
 
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.INSTAGRAM_USER_ID;
 
-            return instagramPhotoSource.postsGetter(stubParams)
+            return instagramPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -227,12 +227,12 @@ describe("InstagramPhotoSource", function () {
         });
 
         it("doesn't query for a `userId` if it already has `process.env.INSTAGRAM_USER_ID`", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
             process.env.INSTAGRAM_USER_ID = instagramUser.id;
 
-            return instagramPhotoSource.postsGetter(stubParams)
+            return instagramPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -248,10 +248,10 @@ describe("InstagramPhotoSource", function () {
         });
 
         it("finds no posts", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 42});
 
-            return instagramPhotoSource.postsGetter(stubParams)
+            return instagramPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -264,12 +264,12 @@ describe("InstagramPhotoSource", function () {
 
     describe("#allPostsGetter", function () {
         it("finds all posts", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
             process.env.INSTAGRAM_USER_ID = instagramUser.id;
 
-            return instagramPhotoSource.allPostsGetter(stubParams)
+            return instagramPostSource.allPostsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -287,9 +287,9 @@ describe("InstagramPhotoSource", function () {
 
     describe("#postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
 
-            return instagramPhotoSource.postGetter(stubPost.id)
+            return instagramPostSource.postGetter(stubPost.id)
                 .then(post => {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Photo);
@@ -299,9 +299,9 @@ describe("InstagramPhotoSource", function () {
         });
 
         it("finds no post", function () {
-            const instagramPhotoSource = new InstagramPhotoSource(stubServiceClient, stubCacheClient);
+            const instagramPostSource = new InstagramPostSource(stubServiceClient, stubCacheClient);
 
-            return instagramPhotoSource.postGetter("foo")
+            return instagramPostSource.postGetter("foo")
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.media);

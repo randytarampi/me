@@ -4,11 +4,11 @@ import Flickr from "flickr-sdk";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import SearchParams from "../../../../lib/searchParams";
-import FlickrPhotoSource from "../../../../photos/flickr/photoSource";
+import FlickrPostSource from "../../../../sources/flickr/postSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
-describe("FlickrPhotoSource", function () {
+describe("FlickrPostSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -157,35 +157,35 @@ describe("FlickrPhotoSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `FlickrPhotoSource` instance (including the default `flickr` client)", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(null, stubCacheClient);
+        it("should build a `FlickrPostSource` instance (including the default `flickr` client)", function () {
+            const flickrPostSource = new FlickrPostSource(null, stubCacheClient);
 
-            expect(flickrPhotoSource.type).to.eql("Flickr");
-            expect(flickrPhotoSource.client).to.be.instanceof(Flickr);
-            expect(flickrPhotoSource.cacheClient).to.eql(stubCacheClient);
-            expect(flickrPhotoSource.initializing).to.be.instanceOf(Promise);
-            expect(flickrPhotoSource).to.be.instanceOf(FlickrPhotoSource);
+            expect(flickrPostSource.type).to.eql("Flickr");
+            expect(flickrPostSource.client).to.be.instanceof(Flickr);
+            expect(flickrPostSource.cacheClient).to.eql(stubCacheClient);
+            expect(flickrPostSource.initializing).to.be.instanceOf(Promise);
+            expect(flickrPostSource).to.be.instanceOf(FlickrPostSource);
         });
 
-        it("should build a `FlickrPhotoSource` instance (with stubbed client)", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+        it("should build a `FlickrPostSource` instance (with stubbed client)", function () {
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
 
-            expect(flickrPhotoSource.type).to.eql("Flickr");
-            expect(flickrPhotoSource.client).to.eql(stubServiceClient);
-            expect(flickrPhotoSource.cacheClient).to.eql(stubCacheClient);
-            expect(flickrPhotoSource.initializing).to.be.instanceOf(Promise);
-            expect(flickrPhotoSource).to.be.instanceOf(FlickrPhotoSource);
+            expect(flickrPostSource.type).to.eql("Flickr");
+            expect(flickrPostSource.client).to.eql(stubServiceClient);
+            expect(flickrPostSource.cacheClient).to.eql(stubCacheClient);
+            expect(flickrPostSource.initializing).to.be.instanceOf(Promise);
+            expect(flickrPostSource).to.be.instanceOf(FlickrPostSource);
         });
     });
 
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.FLICKR_USER_ID;
 
-            return flickrPhotoSource.postsGetter(stubParams)
+            return flickrPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -205,12 +205,12 @@ describe("FlickrPhotoSource", function () {
         });
 
         it("doesn't query for a `userId` if it already has `process.env.FLICKR_USER_ID`", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40});
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 
-            return flickrPhotoSource.postsGetter(stubParams)
+            return flickrPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -229,10 +229,10 @@ describe("FlickrPhotoSource", function () {
         });
 
         it("finds no posts", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 420});
 
-            return flickrPhotoSource.postsGetter(stubParams)
+            return flickrPostSource.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -248,12 +248,12 @@ describe("FlickrPhotoSource", function () {
 
     describe("#allPostsGetter", function () {
         it("finds all posts", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40});
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 
-            return flickrPhotoSource.allPostsGetter(stubParams)
+            return flickrPostSource.allPostsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -274,10 +274,10 @@ describe("FlickrPhotoSource", function () {
 
     describe("#postGetter", function () {
         it("requires implementation", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
-            expect(flickrPhotoSource).to.be.instanceOf(FlickrPhotoSource);
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
+            expect(flickrPostSource).to.be.instanceOf(FlickrPostSource);
 
-            return flickrPhotoSource.postGetter(stubPost.id, {})
+            return flickrPostSource.postGetter(stubPost.id, {})
                 .then(() => {
                     throw new Error("Wtf? This should've thrown");
                 })
@@ -290,10 +290,10 @@ describe("FlickrPhotoSource", function () {
 
     describe("#jsonToPost", function () {
         it("turns a flickr response into a `Photo`", function () {
-            const flickrPhotoSource = new FlickrPhotoSource(stubServiceClient, stubCacheClient);
-            expect(flickrPhotoSource).to.be.instanceOf(FlickrPhotoSource);
+            const flickrPostSource = new FlickrPostSource(stubServiceClient, stubCacheClient);
+            expect(flickrPostSource).to.be.instanceOf(FlickrPostSource);
 
-            const photoFromFlickr = flickrPhotoSource.jsonToPost(flickrPhoto);
+            const photoFromFlickr = flickrPostSource.jsonToPost(flickrPhoto);
 
             expect(photoFromFlickr).to.be.ok;
             expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);

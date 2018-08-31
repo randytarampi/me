@@ -4,11 +4,11 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import SearchParams from "../../../../lib/searchParams";
-import S3WordSource from "../../../../words/s3/wordSource";
+import S3Source from "../../../../sources/s3/postSource";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
-describe("S3WordSource", function () {
+describe("S3Source", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -153,46 +153,46 @@ describe("S3WordSource", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `S3WordSource` instance (including the default `Aws.S3` client)", function () {
-            const s3WordSource = new S3WordSource(null, stubCacheClient);
+        it("should build a `S3Source` instance (including the default `Aws.S3` client)", function () {
+            const s3Source = new S3Source(null, stubCacheClient);
 
-            expect(s3WordSource.type).to.eql("S3");
-            expect(s3WordSource.client).to.be.instanceof(Aws.S3);
-            expect(s3WordSource.cacheClient).to.eql(stubCacheClient);
-            expect(s3WordSource.initializing).to.be.instanceOf(Promise);
-            expect(s3WordSource).to.be.instanceOf(S3WordSource);
+            expect(s3Source.type).to.eql("S3");
+            expect(s3Source.client).to.be.instanceof(Aws.S3);
+            expect(s3Source.cacheClient).to.eql(stubCacheClient);
+            expect(s3Source.initializing).to.be.instanceOf(Promise);
+            expect(s3Source).to.be.instanceOf(S3Source);
         });
 
-        it("should build a `S3WordSource` instance (with stubbed client)", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+        it("should build a `S3Source` instance (with stubbed client)", function () {
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 
-            expect(s3WordSource.type).to.eql("S3");
-            expect(s3WordSource.client).to.eql(stubServiceClient);
-            expect(s3WordSource.cacheClient).to.eql(stubCacheClient);
-            expect(s3WordSource.initializing).to.be.instanceOf(Promise);
-            expect(s3WordSource).to.be.instanceOf(S3WordSource);
+            expect(s3Source.type).to.eql("S3");
+            expect(s3Source.client).to.eql(stubServiceClient);
+            expect(s3Source.cacheClient).to.eql(stubCacheClient);
+            expect(s3Source.initializing).to.be.instanceOf(Promise);
+            expect(s3Source).to.be.instanceOf(S3Source);
         });
     });
 
     describe(".isEnabled", function () {
         it("`isEnabled` if `process.env.S3_BUCKET_NAME` is defined", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
-            expect(s3WordSource.isEnabled).to.eql(true);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
+            expect(s3Source.isEnabled).to.eql(true);
         });
 
         it("`!isEnabled` if `process.env.S3_BUCKET_NAME` is not defined", function () {
             delete process.env.S3_BUCKET_NAME;
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
-            expect(s3WordSource.isEnabled).to.eql(false);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
+            expect(s3Source.isEnabled).to.eql(false);
         });
     });
 
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, page: 2});
 
-            return s3WordSource.postsGetter(stubParams)
+            return s3Source.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -209,10 +209,10 @@ describe("S3WordSource", function () {
         });
 
         it("finds all posts", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 720});
 
-            return s3WordSource.postsGetter(stubParams)
+            return s3Source.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.have.length(stubPosts.length + 1);
@@ -235,10 +235,10 @@ describe("S3WordSource", function () {
         });
 
         it("finds no posts", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 420});
 
-            return s3WordSource.postsGetter(stubParams)
+            return s3Source.postsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
@@ -254,10 +254,10 @@ describe("S3WordSource", function () {
 
     describe("#allPostsGetter", function () {
         it("finds all posts", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 720});
 
-            return s3WordSource.allPostsGetter(stubParams)
+            return s3Source.allPostsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.have.length(stubPosts.length + 1);
@@ -282,9 +282,9 @@ describe("S3WordSource", function () {
 
     describe("#postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 
-            return s3WordSource.postGetter(stubPost.id, SearchParams.fromJS())
+            return s3Source.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Post);
@@ -297,9 +297,9 @@ describe("S3WordSource", function () {
         });
 
         it("finds no post", function () {
-            const s3WordSource = new S3WordSource(stubServiceClient, stubCacheClient);
+            const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 
-            return s3WordSource.postGetter("foo", SearchParams.fromJS())
+            return s3Source.postGetter("foo", SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.getObject);
