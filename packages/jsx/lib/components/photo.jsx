@@ -33,7 +33,7 @@ export class PhotoComponent extends PostComponent {
         const targetWidth = window.devicePixelRatio ?
             this.containerWidth * window.devicePixelRatio :
             this.containerWidth;
-        return this.props.post.getSizedPhoto(targetWidth);
+        return this.props.post.getSizedPhotoForLoading(targetWidth);
     }
 
     render() {
