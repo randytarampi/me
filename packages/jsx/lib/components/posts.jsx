@@ -1,6 +1,6 @@
 import {Set} from "immutable";
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React from "react";
 import Dimensions from "react-dimensions";
 import Infinite from "react-infinite";
 import LoadingSpinner from "../components/loadingSpinner";
@@ -9,14 +9,14 @@ import getComponentForType from "../util/getComponentForType";
 
 const PostsComponent = props => {
     const postsArray = props.posts && props.posts.toArray();
+    const elementHeight = postsArray ? postsArray.map(computePostHeight(props.containerWidth)) : [window.innerHeight];
 
     return <Infinite
-        containerWidth={props.containerWidth}
         useWindowAsScrollContainer={true}
-        elementHeight={postsArray ? postsArray.map(computePostHeight(props.containerWidth)) : [0]}
-        infiniteLoadBeginEdgeOffset={500}
-        preloadBatchSize={Infinite.containerHeightScaleFactor(0.5)}
-        preloadAdditionalHeight={Infinite.containerHeightScaleFactor(2)}
+        elementHeight={elementHeight}
+        infiniteLoadBeginEdgeOffset={window.innerHeight / 4}
+        preloadBatchSize={Infinite.containerHeightScaleFactor(1 / props.postsPerFetch)}
+        preloadAdditionalHeight={Infinite.containerHeightScaleFactor(4)}
         onInfiniteLoad={props.fetchPosts}
         isInfiniteLoading={props.isLoading}
         loadingSpinnerDelegate={<LoadingSpinner/>}
@@ -33,6 +33,7 @@ const PostsComponent = props => {
 };
 
 PostsComponent.propTypes = {
+    postsPerFetch: PropTypes.number,
     containerHeight: PropTypes.number,
     containerWidth: PropTypes.number,
     fetchPosts: PropTypes.func.isRequired,

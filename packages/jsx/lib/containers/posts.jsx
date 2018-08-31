@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import fetchPosts from "../actions/fetchPosts";
+import fetchPosts, {FETCHING_POSTS_PER_PAGE} from "../actions/fetchPosts";
 import Posts from "../components/posts";
 import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api";
 import selectors from "../data/selectors";
@@ -13,7 +13,8 @@ const ConnectedPosts = connect(
         return {
             isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl),
             error: errorForUrlSelector(state, ownProps.fetchUrl),
-            posts: selectors.getPostsSortedByDate(state)
+            posts: selectors.getPostsSortedByDate(state),
+            postsPerFetch: FETCHING_POSTS_PER_PAGE
         };
     },
     (dispatch, ownProps) => {
