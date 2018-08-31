@@ -62,6 +62,6 @@
 		"p7e": "./bin/p7e"
 	},
 	"engines": {
-		"node": ">=6"
+    "node": ">=8"
 	}
 }
