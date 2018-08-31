@@ -19,7 +19,7 @@
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test",
     "postinstall": "npm run build",
     "start": "npm run dev",
     "dev": "npm run dev:client",

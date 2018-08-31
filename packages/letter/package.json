@@ -30,7 +30,7 @@
     "kill:express": "if [ -f /tmp/ca.randytarampi.me.letter.express.pid ]; then echo \"Killing express (`cat /tmp/ca.randytarampi.me.letter.express.pid`) from /tmp/ca.randytarampi.me.letter.express.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.express.pid`; rm /tmp/ca.randytarampi.me.letter.express.pid; fi;",
     "letter": "NODE_ENV=puppeteer npx gulp -LLLL --color letter",
     "docs": "npx gulp -LLLL --color docs",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
   },
   "license": "MIT",
   "dependencies": {

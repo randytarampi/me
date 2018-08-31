@@ -37,7 +37,7 @@
     "resume:legal": "RESUME_PDF_SIZE=Legal NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=Legal npx --node-arg=\"--require ../../babel.config.js\" resume export dist/legal.pdf --force -f pdf --theme randytarampi",
     "resume:html": "CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=html npx --node-arg=\"--require ../../babel.config.js\" resume export dist/index.html --force -f html --theme randytarampi",
     "docs": "npx gulp -LLLL --color docs",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
   },
   "license": "MIT",
   "dependencies": {

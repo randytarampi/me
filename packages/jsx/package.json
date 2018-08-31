@@ -16,7 +16,7 @@
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js && npx webpack-serve ./webpack.client.config.js --hotClient",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
   },
   "description": "Some common JSX components",
   "bugs": {

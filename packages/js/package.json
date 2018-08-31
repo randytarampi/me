@@ -13,7 +13,7 @@
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc npx gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
   },
   "description": "Some common JS entities",
   "bugs": {
