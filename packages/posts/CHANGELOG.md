@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.22.0"></a>
+# [0.22.0](https://github.com/randytarampi/me/compare/v0.21.0...v0.22.0) (2018-08-31)
+
+
+### Bug Fixes
+
+* **posts:** `createPosts` returns `Post`s via a scan instead of `batchGet`. ([ac2f74d](https://github.com/randytarampi/me/commit/ac2f74d))
+* **posts:** `parseQueryStringParametersIntoSearchParams` should call `SearchParams.fromJSON`. ([dec61fb](https://github.com/randytarampi/me/commit/dec61fb))
+* **posts:** Bump the DynamoDB throughput since we're running up against the limit during caching operations. ([c01064b](https://github.com/randytarampi/me/commit/c01064b))
+* **posts:** Instagram `allPostsGetter` passes an id into `beforeId`. ([5c10ac6](https://github.com/randytarampi/me/commit/5c10ac6))
+* **posts:** Reduce posts table read/write capacity units to 1 and 4 respectively. ([b9b9940](https://github.com/randytarampi/me/commit/b9b9940))
+* **posts:** Unsplash `sizedPhotos` don't actually specify a height, only a max width. ([9edd69c](https://github.com/randytarampi/me/commit/9edd69c))
+
+
+
+
+
 <a name="0.21.0"></a>
 # [0.21.0](https://github.com/randytarampi/me/compare/v0.20.6...v0.21.0) (2018-08-31)
 

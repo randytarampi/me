@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.22.0"></a>
+# [0.22.0](https://github.com/randytarampi/me/compare/v0.21.0...v0.22.0) (2018-08-31)
+
+
+### Bug Fixes
+
+* **js:** `SizedPhoto.fromJSON` needs to deserialize `width` and `height` back into numbers. ([439c728](https://github.com/randytarampi/me/commit/439c728))
+
+
+### Features
+
+* **jsx:** Add some low rent progressive image loading. ([ed43977](https://github.com/randytarampi/me/commit/ed43977))
+
+
+
+
+
 <a name="0.21.0"></a>
 # [0.21.0](https://github.com/randytarampi/me/compare/v0.20.6...v0.21.0) (2018-08-31)
 
