@@ -7,9 +7,12 @@
   },
   "private": true,
   "devDependencies": {
+    "commander": "^2.17.1",
     "config": "^2.0.1",
     "coveralls": "^3.0.2",
-    "lerna": "^3.0.0-rc.0"
+    "js-yaml": "^3.12.0",
+    "lerna": "^3.2.1",
+    "lodash": "^4.17.10"
   },
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",

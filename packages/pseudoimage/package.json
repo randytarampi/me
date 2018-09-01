@@ -65,7 +65,7 @@
 		"p7eImages": "./bin/p7eImages"
 	},
 	"dependencies": {
-		"commander": "^2.16.0",
+    "commander": "^2.17.1",
 		"lwip": "github:kant2002/lwip#node-10",
 		"mkdirp": "^0.5.1"
 	}

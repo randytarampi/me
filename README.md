@@ -33,6 +33,10 @@ npm install -g npm
 npm install
 ```
 
+# Configuration
+
+You'll want to read each package's README.
+
 # Testing
 
 ```

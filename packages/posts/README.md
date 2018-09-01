@@ -58,19 +58,30 @@ dev: &devConfig
     INSTAGRAM_ACCESS_TOKEN: instagram-access-token
     TUMBLR_API_KEY: tumblr-api-key
     TUMBLR_API_SECRET: tumblr-api-secret
+    SENTRY_DSN: sentry-dsn
 ```
 
 For each key in `environmentSecrets`, you'll want to push a value into an AWS SSM store with `serverless secrets`.
 
 ```bash
-serverless secrets set -n <key name> -t <secret value> -k <alias/serverless-tst|alias/serverless-prd>
+serverless secrets set -n <key name> -t <secret value> -k <alias/serverless-dev|alias/serverless-prd>
+```
+
+Or you can take the top level `config/template.secrets.yml`, fill it in accordingly and run the `bin/secretsUpload` script for some AWS region.
+
+```bash
+cp ../../config/template.secrets.yml ../../config/.secrets.<AWS_REGION>.yml # Create a region specific template file
+
+# Populate the relevant fields as necessary...
+
+../../bin/secretsUpload --region AWS_REGION
 ```
 
 # Usage
 
 ```
 npm start
-open ./index.html
+open http://localhost:3006/cache/posts
 ```
 
 # Testing
@@ -82,6 +93,5 @@ npm test
 # Deployment
 
 ```
-serverless create_domain # Only needs to be run once for each domain/stage
-serverless deploy
+npm run deploy
 ```
