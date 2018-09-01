@@ -11,9 +11,14 @@ if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
     dynamoose.local();
 }
 
+process.env.LOCAL_DIRECTORY = "LOCAL_DIRECTORY";
+
 process.env.FLICKR_API_KEY = "FLICKR_API_KEY";
+process.env.FLICKR_API_SECRET = "FLICKR_API_SECRET";
 
 process.env.TUMBLR_USER_NAME = "TUMBLR_USER_NAME";
+process.env.TUMBLR_API_KEY = "TUMBLR_API_KEY";
+process.env.TUMBLR_API_SECRET = "TUMBLR_API_SECRET";
 
 process.env.S3_BUCKET_NAME = "S3_BUCKET_NAME";
 

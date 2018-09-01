@@ -21,7 +21,7 @@ describe("LocalSource", function () {
         );
     });
 
-    afterEach(async function () {
+    afterEach(function () {
         process.env.LOCAL_DIRECTORY = LOCAL_DIRECTORY;
     });
 

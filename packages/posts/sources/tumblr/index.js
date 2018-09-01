@@ -16,10 +16,6 @@ class TumblrSource extends CachedDataSource {
         );
     }
 
-    get isEnabled() {
-        return process.env.TUMBLR_API_KEY && process.env.TUMBLR_API_SECRET && true || false;
-    }
-
     async postsGetter(searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
             .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson, response.blog))));

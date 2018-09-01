@@ -15,7 +15,7 @@ const sources = {
 };
 
 export const initializeSources = () => Promise.all(
-    sources.values()
+    Object.values(sources)
         .map(postSourceConstructor => {
             return new postSourceConstructor();
         })
