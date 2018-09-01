@@ -9,13 +9,13 @@
 		"email": "rt@randytarampi.ca",
 		"url": "https://www.randytarampi.ca"
 	},
-	"version": "0.22.0",
+	"version": "0.22.5",
 	"description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
 	"main": "lib/pseudolocalizer.js",
 	"scripts": {
 		"pretest": "npx gulp -LLLL --color lint",
 		"test": "NODE_ENV=test npx gulp -LLLL --color test",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
+		"cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
 	},
 	"bugs": {
 		"url": "https://github.com/randytarampi/me/issues",
