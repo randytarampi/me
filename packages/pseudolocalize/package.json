@@ -1,67 +1,67 @@
 {
-	"name": "@randy.tarampi/pseudolocalize",
-	"private": true,
-	"publishConfig": {
-		"access": "public"
-	},
-	"author": {
-		"name": "Randy Tarampi",
-		"email": "rt@randytarampi.ca",
-		"url": "https://www.randytarampi.ca"
-	},
-	"version": "0.22.5",
-	"description": "Text-to-ʕ•ᴥ•ʔ translations",
-	"main": "pseudolocalize.woof.js",
-	"scripts": {
-		"pretest": "npx gulp -LLLL --color lint",
-		"test": "NODE_ENV=test npx gulp -LLLL --color test",
-		"cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
-	},
-	"bugs": {
-		"url": "https://github.com/randytarampi/me/issues",
-		"email": "bugs@randytarampi.ca"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/randytarampi/me.git"
-	},
-	"keywords": [
-		"bear",
-		"woof",
-		"纬",
-		"横糸",
-		"씨",
-		"subtegmine",
-		"гав",
-		"υφάδι",
-		"نسيج",
-		"پود",
-		"বুনন",
-		"ʕ•ᴥ•ʔ",
-		"pseudolocalization",
-		"localization",
-		"internationalization",
-		"p16n",
-		"l10n",
-		"i18n"
-	],
-	"devDependencies": {
-		"chai": "^4.1.2",
-		"eslint-plugin-import": "^2.13.0",
-		"gulp": "^4.0.0",
-		"gulp-eslint": "^5.0.0",
-		"gulp-if": "^2.0.2",
-		"gulp-mocha": "^6.0.0",
-		"mocha": "^5.2.0",
-		"nyc": "^12.0.2"
-	},
-	"dependencies": {
+  "name": "@randy.tarampi/pseudolocalize",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "version": "0.22.5",
+  "description": "Text-to-ʕ•ᴥ•ʔ translations",
+  "main": "pseudolocalize.woof.js",
+  "scripts": {
+    "pretest": "npx gulp -LLLL --color lint",
+    "test": "NODE_ENV=test npx gulp -LLLL --color test",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
+  },
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "keywords": [
+    "bear",
+    "woof",
+    "纬",
+    "横糸",
+    "씨",
+    "subtegmine",
+    "гав",
+    "υφάδι",
+    "نسيج",
+    "پود",
+    "বুনন",
+    "ʕ•ᴥ•ʔ",
+    "pseudolocalization",
+    "localization",
+    "internationalization",
+    "p16n",
+    "l10n",
+    "i18n"
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint-plugin-import": "^2.13.0",
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-mocha": "^6.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
+  },
+  "dependencies": {
     "commander": "^2.17.1"
-	},
-	"bin": {
-		"p7e": "./bin/p7e"
-	},
-	"engines": {
-		"node": ">=8"
-	}
+  },
+  "bin": {
+    "p7e": "./bin/p7e"
+  },
+  "engines": {
+    "node": ">=8"
+  }
 }
