@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.22.5",
+  "version": "0.22.9",
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "pseudolocalize.woof.js",
   "scripts": {
