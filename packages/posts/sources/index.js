@@ -5,17 +5,17 @@ import s3 from "./s3";
 import tumblr from "./tumblr";
 import unsplash from "./unsplash";
 
-export const index = [
+const sources = {
     flickr,
     unsplash,
     instagram,
     s3,
     tumblr,
     local,
-];
+};
 
 export const initializeSources = () => Promise.all(
-    index
+    sources.values()
         .map(postSourceConstructor => {
             return new postSourceConstructor();
         })
@@ -27,7 +27,4 @@ export const initializeSources = () => Promise.all(
         })
 );
 
-export const initializedSources = initializeSources();
-
-export default initializedSources;
-
+export default sources;

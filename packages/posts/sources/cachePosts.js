@@ -1,8 +1,8 @@
 import logger from "../lib/logger";
-import initializedSources from "./";
+import {initializeSources} from "./";
 
-const cachePosts = searchParams => {
-    return initializedSources
+export const cachePosts = searchParams => {
+    return initializeSources()
         .then(initializedSources => Promise.all(initializedSources.map(postSource => {
             return postSource.getAllServicePosts(searchParams)
                 .catch(error => {
