@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.22.7"></a>
+## [0.22.7](https://github.com/randytarampi/me/compare/v0.22.6...v0.22.7) (2018-09-01)
+
+
+### Bug Fixes
+
+* **posts:** Explicitly `initializeSources()` in order to pick up the injected secrets. ([bf6d67f](https://github.com/randytarampi/me/commit/bf6d67f))
+
+
+
+
+
 <a name="0.22.6"></a>
 ## [0.22.6](https://github.com/randytarampi/me/compare/v0.22.5...v0.22.6) (2018-09-01)
 
