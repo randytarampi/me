@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.22.7",
+  "version": "0.22.8",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -41,7 +41,7 @@
     "@randy.tarampi/views": "^0.22.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
-    "jsonresume-theme-randytarampi": "^0.22.7",
+    "jsonresume-theme-randytarampi": "^0.22.8",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
     "prop-types": "^15.6.2",
