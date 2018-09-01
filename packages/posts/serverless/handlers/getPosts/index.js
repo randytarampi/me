@@ -13,6 +13,7 @@ export default (event, context, callback) => {
         return callback(null, "Lambda is warm!");
     }
 
+    const errorHandler = returnErrorResponse(callback);
     let parsedHeaders;
     let parsedQuerystringParameters;
 
@@ -20,7 +21,7 @@ export default (event, context, callback) => {
         parsedHeaders = parseHeaders(event.headers);
         parsedQuerystringParameters = parseQuerystringParameters(event.queryStringParameters);
     } catch (error) {
-        return returnErrorResponse(callback)(error);
+        return errorHandler(error);
     }
 
     configureEnvironment()
@@ -29,13 +30,13 @@ export default (event, context, callback) => {
                 [Post.name, Photo.name]
                     .map(type => searchPosts(parseQueryStringParametersIntoSearchParams({type})(parsedQuerystringParameters)))
                 )
-                .then(([postSearchResult, photoSearchResult]) => {
-                    const flattenedPosts = _.flatten([postSearchResult.posts, photoSearchResult.posts]);
+                .then((results) => {
+                    const flattenedPosts = _.flatten(results.map(result => result.posts));
                     const sortedPosts = flattenedPosts.sort(util.sortPostsByDate);
                     const paginatedPosts = sortedPosts.slice(0, parsedQuerystringParameters && parsedQuerystringParameters.perPage || 100);
-                    const globalTotal = postSearchResult.total + photoSearchResult.total;
-                    const globalFirst = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.first && b.first && a.first.date && b.first.date && a.first.date < b.first.date)[0].first;
-                    const globalLast = _.sortBy([postSearchResult, photoSearchResult], (a, b) => a && b && a.last && b.last && a.last.date && b.last.date && a.last.date > b.last.date)[0].last;
+                    const globalTotal = results.reduce((globalTotal, result) => globalTotal + result.total, 0);
+                    const globalFirst = _.sortBy(results, result => result && result.first && result.first.date)[0].first;
+                    const globalLast = _.sortBy(results, result => result && result.last && result.last.date)[results.length - 1].last;
 
                     return {
                         posts: paginatedPosts,
@@ -48,5 +49,5 @@ export default (event, context, callback) => {
                     callback(null, buildPostsResponse(parsedHeaders)(postsResult));
                 });
         })
-        .catch(returnErrorResponse(callback));
+        .catch(errorHandler);
 };
