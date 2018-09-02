@@ -69,7 +69,11 @@ html
             window.NAME = "#{name}";
             window.VERSION = "#{version}";
             window.LOGGER = !{logger};
-            window.GTM_DATALAYER = [];
+            window.GTM_DATALAYER = [
+                {appName: window.NAME},
+                {appVersion: window.VERSION},
+                {appEnvironment: window.ENVIRONMENT}
+            ];
         script.
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
