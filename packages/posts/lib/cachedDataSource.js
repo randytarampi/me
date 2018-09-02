@@ -70,16 +70,16 @@ class CachedDataSource extends DataSource {
     async getCachedPosts(searchParams) {
         return this.beforeCachedPostsGetter(searchParams)
             .then(decoratedCachedPostsGetterParams => {
-                logger.debug(`retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
+                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
                 return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
                     .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
                     .then(posts => {
                         if (!posts || !posts.length) {
-                            logger.debug(`retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
+                            logger.trace(`retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
 
-                        logger.debug(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
+                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
                         return posts;
                     });
             });
@@ -102,16 +102,16 @@ class CachedDataSource extends DataSource {
     async getAllCachedPosts(searchParams) { // eslint-disable-line no-unused-vars
         return this.beforeCachedPostsGetter(searchParams)
             .then(decoratedCachedPostsGetterParams => {
-                logger.debug(`retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
+                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
                 return this.allCachedPostsGetter(decoratedCachedPostsGetterParams)
                     .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
                     .then(posts => {
                         if (!posts || !posts.length) {
-                            logger.debug(`retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
+                            logger.trace(`retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
 
-                        logger.debug(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
+                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
                         return posts;
                     });
             });
@@ -125,11 +125,11 @@ class CachedDataSource extends DataSource {
     async getServicePosts(searchParams) {
         return this.beforePostsGetter(searchParams)
             .then(decoratedPostsGetterParams => {
-                logger.debug(`retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
+                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
                 return this.postsGetter(decoratedPostsGetterParams)
                     .then(posts => {
                         this.cachePosts(posts);
-                        logger.debug(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
+                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
                         return this.afterPostsGetter(posts, decoratedPostsGetterParams);
                     });
             });
@@ -143,11 +143,11 @@ class CachedDataSource extends DataSource {
     async getAllServicePosts(searchParams) { // eslint-disable-line no-unused-vars
         return this.beforePostsGetter(searchParams)
             .then(decoratedPostsGetterParams => {
-                logger.debug(`retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
+                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
                 return this.allPostsGetter(decoratedPostsGetterParams)
                     .then(posts => {
                         this.cachePosts(posts);
-                        logger.debug(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
+                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
                         return this.afterPostsGetter(posts, decoratedPostsGetterParams);
                     });
             });
@@ -240,15 +240,15 @@ class CachedDataSource extends DataSource {
     async getCachedPost(postId, searchParams) {
         return this.beforeCachedPostGetter(postId, searchParams)
             .then(decoratedCachedPostGetterParams => {
-                logger.debug(`retrieving post (${postId}) from cache at ${DateTime.utc()}`);
+                logger.trace(`retrieving post (${postId}) from cache at ${DateTime.utc()}`);
                 return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
                     .then(post => this.afterCachedPostGetter(post, decoratedCachedPostGetterParams))
                     .then(post => {
                         if (!post) {
-                            logger.debug(`retrieve post (${postId}) cache miss at ${DateTime.utc()}`);
+                            logger.trace(`retrieve post (${postId}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
-                        logger.debug(`retrieved post (${post && post.uid}) from cache at ${DateTime.utc()}`);
+                        logger.trace(`retrieved post (${post && post.uid}) from cache at ${DateTime.utc()}`);
                         return post;
                     });
             });
@@ -263,11 +263,11 @@ class CachedDataSource extends DataSource {
     async getServicePost(postId, searchParams) {
         return this.beforePostGetter(postId, searchParams)
             .then(decoratedPostGetterParams => {
-                logger.debug(`retrieving post (${postId}) from service at ${DateTime.utc()}`);
+                logger.trace(`retrieving post (${postId}) from service at ${DateTime.utc()}`);
                 return this.postGetter(postId, decoratedPostGetterParams)
                     .then(post => {
                         this.cachePost(post);
-                        logger.debug(`retrieved post from service ${post && post.uid} at ${DateTime.utc()}`);
+                        logger.trace(`retrieved post from service ${post && post.uid} at ${DateTime.utc()}`);
                         return this.afterPostGetter(post, decoratedPostGetterParams);
                     });
             });

@@ -21,7 +21,7 @@ class CacheClient {
      * @returns {Promise<Post[]>}
      */
     async getPosts(searchParams) {
-        logger.debug(`getting posts (${JSON.stringify(searchParams)}) from cache`);
+        logger.trace(`getting posts (${JSON.stringify(searchParams)}) from cache`);
         return this.dataClient.getPosts(searchParams[this.type])
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
@@ -34,7 +34,7 @@ class CacheClient {
      * @returns {Promise<Number>}
      */
     async getPostCount(searchParams) {
-        logger.debug(`getting count of posts (${JSON.stringify(searchParams)}) from cache`);
+        logger.trace(`getting count of posts (${JSON.stringify(searchParams)}) from cache`);
         return this.dataClient.getPostCount(searchParams[this.type])
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
@@ -47,7 +47,7 @@ class CacheClient {
      * @returns {Promise<Post[]>}
      */
     async setPosts(posts) {
-        logger.debug(`setting posts (${JSON.stringify(posts.map(post => post.uid))}}) in cache`);
+        logger.trace(`setting posts (${JSON.stringify(posts.map(post => post.uid))}}) in cache`);
         return this.dataClient.createPosts(posts)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(posts.map(post => post.uid))})`);
@@ -60,7 +60,7 @@ class CacheClient {
      * @returns {Promise<Post>}
      */
     async getPost(searchParams) {
-        logger.debug(`getting post (${JSON.stringify(searchParams)}) from cache`);
+        logger.trace(`getting post (${JSON.stringify(searchParams)}) from cache`);
         return this.dataClient.getPost(searchParams[this.type])
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
@@ -73,7 +73,7 @@ class CacheClient {
      * @returns {Promise<Post>}
      */
     async setPost(post) {
-        logger.debug(`setting post (${post.uid}) in cache`);
+        logger.trace(`setting post (${post.uid}) in cache`);
         return this.dataClient.createPost(post)
             .catch(error => {
                 logger.error(error, `error for (${post.uid})`);
