@@ -15645,9 +15645,13 @@ ul:not(.browser-default) {
 </style><script>window.SENTRY_DSN = "https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735";
 window.ENVIRONMENT = "prd";
 window.NAME = "";
-window.VERSION = "0.23.0";
+window.VERSION = "0.23.1";
 window.LOGGER = ;
-window.GTM_DATALAYER = [];</script><script>(function (w, d, s, l, i) {
+window.GTM_DATALAYER = [
+    {appName: window.NAME},
+    {appVersion: window.VERSION},
+    {appEnvironment: window.ENVIRONMENT}
+];</script><script>(function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({
         "gtm.start": new Date().getTime(),
