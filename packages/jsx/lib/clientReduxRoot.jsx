@@ -22,9 +22,9 @@ ClientReduxRoot.propTypes = {
     routes: PropTypes.array.isRequired
 };
 
-logger.debug("Hey! I see you looking over there.");
-logger.debug("Looking for this? https://www.randytarampi.ca/resume");
-logger.debug("Or was it this? https://github.com/randytarampi/me/#readme");
-logger.debug("Or maybe even this? https://waffle.io/randytarampi/randytarampi.github.io");
+logger.info("Hey! I see you looking over there.");
+logger.info("Looking for this? https://www.randytarampi.ca/resume");
+logger.info("Or was it this? https://github.com/randytarampi/me/#readme");
+logger.info("Or maybe even this? https://waffle.io/randytarampi/randytarampi.github.io");
 
 export default metrics(metricsConfig)(ClientReduxRoot);
