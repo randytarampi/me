@@ -1,6 +1,7 @@
 import {expect} from "chai";
-import sinon from "sinon";
 import proxyquire from "proxyquire";
+import sinon from "sinon";
+import {codes, codeToStatusCode} from "../../../../../serverless/util/request/requestError";
 
 describe("instagramAuthReturn", function () {
     it("delegates to `getAuthTokenForCode`", function (done) {
@@ -144,6 +145,8 @@ describe("instagramAuthReturn", function () {
             try {
                 expect(error).to.be.ok;
                 expect(error.message).to.eql("Tried to handle Instagram authentication response, but no `code` was received");
+                expect(error.code).to.eql(codes.badRequest);
+                expect(error.statusCode).to.eql(codeToStatusCode[codes.badRequest]);
                 done();
             } catch (expectationError) {
                 done(expectationError);
