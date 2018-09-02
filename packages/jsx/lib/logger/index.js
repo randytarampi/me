@@ -34,10 +34,6 @@ if (typeof window !== "undefined") {
     windowSentryDsn = window.SENTRY_DSN;
     windowLogger = window.LOGGER;
 
-    if (windowSentryDsn) {
-        raven.config(windowSentryDsn, buildRavenConfiguration()).install();
-    }
-
     if (windowLogger) {
         const enabledStreams = windowLogger.streams;
         const minimumLevel = windowLogger.level;
@@ -51,11 +47,14 @@ if (typeof window !== "undefined") {
         }
 
         if (enabledStreams.sentry) {
-            bunyanStreams.push({
-                level: minimumLevel,
-                type: "raw",
-                stream: new bunyanSentryStream.SentryStream(raven)
-            });
+            if (windowSentryDsn) {
+                raven.config(windowSentryDsn, buildRavenConfiguration()).install();
+                bunyanStreams.push({
+                    level: minimumLevel,
+                    type: "raw",
+                    stream: new bunyanSentryStream.SentryStream(raven)
+                });
+            }
         }
     }
 }

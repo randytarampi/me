@@ -10,7 +10,7 @@ import router from "../middleware/router";
 const configureStore = (initialState = Map(), history, reducers) => {
     const middlewares = [thunk, metrics, routerMiddleware(history), router];
 
-    if (typeof window !== "undefined" && window.SENTRY_DSN) {
+    if (typeof window !== "undefined" && window.SENTRY_DSN && window.LOGGER && window.LOGGER.streams.sentry) {
         middlewares.unshift(raven());
     }
 
