@@ -1,4 +1,5 @@
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
+import bunyan from "bunyan";
 import {expect} from "chai";
 import sinon from "sinon";
 import ConsoleStream from "../../../lib/logger/consoleStream";
@@ -15,6 +16,57 @@ describe("ConsoleStream", function () {
             disBear: new DisBear(),
             deadBear: new DeadBear(),
         };
+    });
+
+    describe(".colorFromLevel", function () {
+        it("handles FATAL (60)", function () {
+            const name = ConsoleStream.colorFromLevel(60);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("brightRed");
+        });
+
+        it("handles ERROR (50)", function () {
+            const name = ConsoleStream.colorFromLevel(50);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("red");
+        });
+
+        it("handles WARN (40)", function () {
+            const name = ConsoleStream.colorFromLevel(40);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("magenta");
+        });
+
+        it("handles INFO (30)", function () {
+            const name = ConsoleStream.colorFromLevel(30);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("cyan");
+        });
+
+        it("handles DEBUG (20)", function () {
+            const name = ConsoleStream.colorFromLevel(20);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("brightBlack");
+        });
+
+        it("handles TRACE (10)", function () {
+            const name = ConsoleStream.colorFromLevel(10);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("brightBlack");
+        });
+
+        it("returns the closest matching level name for a random logging level", function () {
+            const name = ConsoleStream.colorFromLevel(101);
+
+            expect(name).to.be.ok;
+            expect(name).to.eql("brightRed");
+        });
     });
 
     describe(".nameFromLevel", function () {
@@ -185,9 +237,12 @@ describe("ConsoleStream", function () {
 
             expect(console.error.calledOnce).to.eql(true); // eslint-disable-line no-console
             sinon.assert.calledWith(console.error, // eslint-disable-line no-console
-                "[%s] %s %s",
-                stubRecord.time.toISOString(),
-                bears.disBear.toString(),
+                "\t%c｢%s｣ %c%s%c: %s",
+                "color: lightgrey",
+                bears.bear.toString(),
+                `color: ${ConsoleStream.colorFromLevel(stubRecord.level)}`,
+                bunyan.nameFromLevel[stubRecord.level].toUpperCase(),
+                "color: unset",
                 stubRecord.msg
             );
         });

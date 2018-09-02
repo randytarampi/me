@@ -1,4 +1,5 @@
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
+import bunyan from "bunyan";
 
 const bears = {
     lennyBear: new LennyBear(),
@@ -10,6 +11,27 @@ const bears = {
 };
 
 class ConsoleStream {
+    // NOTE-RT: Lifted directly from `bunyan-format`
+    static colorFromLevel(level) {
+        if (level >= 60) {
+            return "brightRed";
+        }
+        if (level >= 50) {
+            return "red";
+        }
+        if (level >= 40) {
+            return "magenta";
+        }
+        if (level >= 30) {
+            return "cyan";
+        }
+        if (level >= 20) {
+            return "brightBlack";
+        }
+
+        return "brightBlack";
+    }
+
     static nameFromLevel(level) {
         if (level >= 60) {
             return bears.deadBear.toString();
@@ -56,9 +78,12 @@ class ConsoleStream {
         const consoleLogger = ConsoleStream.consoleLoggerFromLevel(record.level);
 
         if (consoleLogger) {
-            consoleLogger("[%s] %s %s",
-                record.time.toISOString(),
-                ConsoleStream.nameFromLevel(record.level),
+            consoleLogger("\t%c｢%s｣ %c%s%c: %s",
+                "color: lightgrey",
+                bears.bear.toString(),
+                `color: ${ConsoleStream.colorFromLevel(record.level)}`,
+                bunyan.nameFromLevel[record.level].toUpperCase(),
+                "color: unset",
                 record.msg
             );
         }
