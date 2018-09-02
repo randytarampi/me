@@ -2,6 +2,7 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
 const SentryPlugin = require("webpack-sentry-plugin");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const util = require("./util");
 
 const isDevelopment = process.env.WEBPACK_SERVE
@@ -17,6 +18,12 @@ const resolveMode = () => {
 };
 
 const plugins = [];
+
+if (process.env.WEBPACK_BUNDLE_ANALYZER) {
+    plugins.push(
+        new BundleAnalyzerPlugin({analyzerMode: "static"})
+    );
+}
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(
@@ -47,7 +54,9 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
     return {
         node: {
             fs: "empty",
-            module: "empty"
+            module: "empty",
+            os: "empty",
+            stream: "empty"
         },
         mode: resolveMode(),
         devtool: "source-map",
@@ -60,7 +69,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
             extensions: [".js", ".jsx", ".json"]
         },
         module: {
-            noParse: /dtrace-provider$|safe-json-stringify$|mv$/,
+            noParse: util.webpackModuleNoParseInclusions,
             rules: [
                 {
                     test: /\.jsx?$/,
@@ -140,7 +149,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
             splitChunks: {
                 cacheGroups: {
                     commons: {
-                        test: /[\\/]node_modules[\\/]/,
+                        test: util.webpackVendorInclusions,
                         name: "vendor",
                         filename: "vendor.js",
                         chunks: "all"
