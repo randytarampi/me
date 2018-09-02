@@ -237,8 +237,8 @@ describe("ConsoleStream", function () {
 
             expect(console.error.calledOnce).to.eql(true); // eslint-disable-line no-console
             sinon.assert.calledWith(console.error, // eslint-disable-line no-console
-                "\t%c｢%s｣ %c%s%c: %s",
-                "color: lightgrey",
+                "%c｢%s｣ %c%s%c: %s",
+                "color: grey",
                 bears.bear.toString(),
                 `color: ${ConsoleStream.colorFromLevel(stubRecord.level)}`,
                 bunyan.nameFromLevel[stubRecord.level].toUpperCase(),

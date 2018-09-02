@@ -78,8 +78,8 @@ class ConsoleStream {
         const consoleLogger = ConsoleStream.consoleLoggerFromLevel(record.level);
 
         if (consoleLogger) {
-            consoleLogger("\t%c｢%s｣ %c%s%c: %s",
-                "color: lightgrey",
+            consoleLogger("%c｢%s｣ %c%s%c: %s",
+                "color: grey",
                 bears.bear.toString(),
                 `color: ${ConsoleStream.colorFromLevel(record.level)}`,
                 bunyan.nameFromLevel[record.level].toUpperCase(),
