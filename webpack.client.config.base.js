@@ -21,7 +21,10 @@ const plugins = [];
 
 if (process.env.WEBPACK_BUNDLE_ANALYZER) {
     plugins.push(
-        new BundleAnalyzerPlugin({analyzerMode: "static"})
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false
+        })
     );
 }
 
