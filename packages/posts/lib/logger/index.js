@@ -63,7 +63,7 @@ if (process.env.LOGGER_ENABLED === "true") {
 
     if (process.env.LOGGER_STREAM_SENTRY_ENABLED === "true") {
         bunyanStreams.push({
-            level: minimumLevel,
+            level: "warn",
             type: "raw",
             stream: new bunyanSentryStream.SentryStream(raven)
         });

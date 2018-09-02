@@ -50,7 +50,7 @@ if (typeof window !== "undefined") {
             if (windowSentryDsn) {
                 raven.config(windowSentryDsn, buildRavenConfiguration()).install();
                 bunyanStreams.push({
-                    level: minimumLevel,
+                    level: "warn",
                     type: "raw",
                     stream: new bunyanSentryStream.SentryStream(raven)
                 });
