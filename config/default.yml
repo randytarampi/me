@@ -14,6 +14,15 @@ resume:
   publishUrl: https://www.randytarampi.ca/resume
 letter:
   publishUrl: https://www.randytarampi.ca/letter
+logger:
+  enabled: true
+  streams:
+    stdout: false
+    sentry: false
+    human: true
+    console: true
+  level: trace
+  src: true
 me:
   basics:
     name: Randy Tarampi

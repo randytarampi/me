@@ -3,3 +3,11 @@ postsServiceUrl: https://posts.randytarampi.ca/posts
 wordsServiceUrl: https://posts.randytarampi.ca/posts?type=Post
 assetUrl: /docs
 gtm: "GTM-W6NFL6M"
+logger:
+  streams:
+    stdout: true
+    sentry: true
+    human: false
+    console: true
+  level: info
+  src: false

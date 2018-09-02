@@ -7,3 +7,11 @@ resume:
 letter:
   publishUrl: https://dev.randytarampi.ca/letter
 gtm: "GTM-T3FHTVC"
+logger:
+  streams:
+    stdout: true
+    sentry: true
+    human: false
+    console: true
+  level: debug
+  src: true

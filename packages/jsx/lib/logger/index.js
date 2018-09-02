@@ -1,53 +1,70 @@
+/* global window */
+
+import bunyan from "bunyan";
+import bunyanSentryStream from "bunyan-sentry-stream";
 import raven from "raven-js";
+import ConsoleStream from "./consoleStream";
+
+const bunyanStreams = [];
+
+let windowName;
+let windowEnvironment;
+let windowVersion;
+let windowSentryDsn;
+let windowLogger;
 
 export const buildRavenConfiguration = () => {
     return {
+        logger: windowName,
         autoBreadcrumbs: true,
         captureUnhandledRejections: true,
-        environment: window.ENVIRONMENT,
-        release: window.VERSION
+        maxBreadcrumbs: 100,
+        environment: windowEnvironment,
+        release: windowVersion,
+        debug: windowLogger
+            ? ["trace", "debug"].includes(windowLogger.level)
+            : false
     };
 };
 
-const configureRaven = () => new Promise((resolve, reject) => {
-    try {
-        if (window.SENTRY_DSN) {
-            raven.config(window.SENTRY_DSN, buildRavenConfiguration()).install();
-            raven.on("error", error => console.error(error, "Raven failed to capture message")); // eslint-disable-line no-console
-        }
-        resolve();
-    } catch (e) {
-        reject(e);
+if (typeof window !== "undefined") {
+    windowName = window.NAME;
+    windowEnvironment = window.ENVIRONMENT;
+    windowVersion = window.VERSION;
+    windowSentryDsn = window.SENTRY_DSN;
+    windowLogger = window.LOGGER;
+
+    if (windowSentryDsn) {
+        raven.config(windowSentryDsn, buildRavenConfiguration()).install();
     }
+
+    if (windowLogger) {
+        const enabledStreams = windowLogger.streams;
+        const minimumLevel = windowLogger.level;
+
+        if (enabledStreams.console) {
+            bunyanStreams.push({
+                stream: new ConsoleStream(),
+                level: minimumLevel,
+                type: "raw"
+            });
+        }
+
+        if (enabledStreams.sentry) {
+            bunyanStreams.push({
+                level: minimumLevel,
+                type: "raw",
+                stream: new bunyanSentryStream.SentryStream(raven)
+            });
+        }
+    }
+}
+
+export default bunyan.createLogger({
+    name: windowName || "jsx",
+    streams: bunyanStreams,
+    src: false, // NOTE-RT: Needs to be false because it needs DTrace
+    version: windowVersion,
+    environment: windowEnvironment,
+    serializers: bunyan.stdSerializers
 });
-
-export const configureLogger = () => configureRaven();
-
-const debug = (message, ...rest) => {
-    console.debug.apply(null, [message, ...rest]); // eslint-disable-line no-console
-    raven.captureMessage(message, {level: "debug"});
-};
-const info = (message, ...rest) => {
-    console.log.apply(null, [message, ...rest]); // eslint-disable-line no-console
-    raven.captureMessage(message, {level: "info"});
-};
-const warn = (warning, ...rest) => {
-    console.warn.apply(null, [warning, ...rest]); // eslint-disable-line no-console
-    raven.captureMessage(warning, {level: "warning"});
-};
-const error = (error, ...rest) => {
-    console.error.apply(null, [error, ...rest]); // eslint-disable-line no-console
-    raven.captureException(error);
-};
-const fatal = (error, ...rest) => {
-    console.error.apply(null, [error, ...rest]); // eslint-disable-line no-console
-    raven.captureException(error, {level: "fatal"});
-};
-
-export default {
-    debug,
-    info,
-    warn,
-    error,
-    fatal
-};

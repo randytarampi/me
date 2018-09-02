@@ -18,7 +18,9 @@ gulp.task("views:index", () => {
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
                 environment: process.env.NODE_ENV || "local",
-                version: packageJson.version
+                version: packageJson.version,
+                name: packageJson.name,
+                logger: null
             }
         }))
         .pipe(gulp.dest("./dist"));

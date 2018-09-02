@@ -42,6 +42,9 @@
   "dependencies": {
     "@randy.tarampi/js": "^0.22.5",
     "aws-sdk": "^2.279.1",
+    "bunyan": "beta",
+    "bunyan-format": "^0.2.1",
+    "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "dynamoose": "^0.8.7",
     "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
@@ -69,6 +72,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-minify-replace": "^0.4.3",
     "chai": "^4.1.2",
+    "config": "^2.0.1",
     "copy-webpack-plugin": "^4.5.2",
     "eslint-plugin-import": "^2.13.0",
     "gulp": "^4.0.0",

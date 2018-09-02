@@ -45,6 +45,10 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 
 module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverrides}) => {
     return {
+        node: {
+            fs: "empty",
+            module: "empty"
+        },
         mode: resolveMode(),
         devtool: "source-map",
         output: {
@@ -56,6 +60,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
             extensions: [".js", ".jsx", ".json"]
         },
         module: {
+            noParse: /dtrace-provider$|safe-json-stringify$|mv$/,
             rules: [
                 {
                     test: /\.jsx?$/,

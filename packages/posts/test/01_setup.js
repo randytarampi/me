@@ -29,3 +29,10 @@ process.env.UNSPLASH_USER_NAME = "UNSPLASH_USER_NAME";
 process.env.INSTAGRAM_ACCESS_TOKEN = "INSTAGRAM_ACCESS_TOKEN";
 process.env.INSTAGRAM_USER_ID = "INSTAGRAM_USER_ID";
 process.env.INSTAGRAM_USER_NAME = "INSTAGRAM_USER_NAME";
+
+process.env.SENTRY_DSN = "https://meow@sentry.io/woof";
+process.env.LOGGER_ENABLED = "true";
+process.env.LOGGER_STREAM_HUMAN_ENABLED = "true";
+process.env.LOGGER_STREAM_STDOUT_ENABLED = "true";
+process.env.LOGGER_STREAM_SENTRY_ENABLED = "true";
+process.env.LOGGER_SRC_ENABLED = "true";

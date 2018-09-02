@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "@randy.tarampi/js": "^0.22.5",
+    "bunyan": "beta",
+    "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "immutable": "^4.0.0-rc.9",
     "is-html": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
