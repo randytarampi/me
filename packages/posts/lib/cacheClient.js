@@ -21,10 +21,10 @@ class CacheClient {
      * @returns {Promise<Post[]>}
      */
     async getPosts(searchParams) {
-        logger.debug(`[cacheClient.getPosts] getting posts (${JSON.stringify(searchParams)}) from cache`);
+        logger.debug(`getting posts (${JSON.stringify(searchParams)}) from cache`);
         return this.dataClient.getPosts(searchParams[this.type])
             .catch(error => {
-                logger.error(error, `[cacheClient.getPosts] error for (${JSON.stringify(searchParams)})`);
+                logger.error(error, `error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 
@@ -34,10 +34,10 @@ class CacheClient {
      * @returns {Promise<Number>}
      */
     async getPostCount(searchParams) {
-        logger.debug(`[cacheClient.getPostCount] getting count of posts (${JSON.stringify(searchParams)}) from cache`);
+        logger.debug(`getting count of posts (${JSON.stringify(searchParams)}) from cache`);
         return this.dataClient.getPostCount(searchParams[this.type])
             .catch(error => {
-                logger.error(error, `[cacheClient.getPostCount] error for (${JSON.stringify(searchParams)})`);
+                logger.error(error, `error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 
@@ -47,10 +47,10 @@ class CacheClient {
      * @returns {Promise<Post[]>}
      */
     async setPosts(posts) {
-        logger.debug(`[cacheClient.setPosts] setting posts (${JSON.stringify(posts.map(post => post.uid))}}) in cache`);
+        logger.debug(`setting posts (${JSON.stringify(posts.map(post => post.uid))}}) in cache`);
         return this.dataClient.createPosts(posts)
             .catch(error => {
-                logger.error(error, `[cacheClient.setPosts] error for (${JSON.stringify(posts.map(post => post.uid))})`);
+                logger.error(error, `error for (${JSON.stringify(posts.map(post => post.uid))})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 
@@ -60,10 +60,10 @@ class CacheClient {
      * @returns {Promise<Post>}
      */
     async getPost(searchParams) {
-        logger.debug(`[cacheClient.getPost] getting post (${JSON.stringify(searchParams)}) from cache`);
+        logger.debug(`getting post (${JSON.stringify(searchParams)}) from cache`);
         return this.dataClient.getPost(searchParams[this.type])
             .catch(error => {
-                logger.error(error, `[cacheClient.getPost] error for (${JSON.stringify(searchParams)})`);
+                logger.error(error, `error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 
@@ -73,10 +73,10 @@ class CacheClient {
      * @returns {Promise<Post>}
      */
     async setPost(post) {
-        logger.debug(`[cacheClient.setPost] setting post (${post.uid}) in cache`);
+        logger.debug(`setting post (${post.uid}) in cache`);
         return this.dataClient.createPost(post)
             .catch(error => {
-                logger.error(error, `[cacheClient.setPost] error for (${post.uid})`);
+                logger.error(error, `error for (${post.uid})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 }

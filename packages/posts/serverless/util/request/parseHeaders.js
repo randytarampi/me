@@ -22,7 +22,7 @@ export default headers => {
             try {
                 headerToInspect.validateHeader(parsedHeaders);
             } catch (error) {
-                logger.warn(error.message, error);
+                logger.warn(error, error.message);
                 throw error;
             }
         }

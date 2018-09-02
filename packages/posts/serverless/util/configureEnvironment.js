@@ -12,7 +12,7 @@ export default () => {
             return configureLogger();
         })
         .catch(error => {
-            logger.fatal(error, "[configureEnvironment] Unexpected error configuring the lambda environment");
+            logger.fatal(error, "Unexpected error configuring the lambda environment");
             throw error;
         });
 };

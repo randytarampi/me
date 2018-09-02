@@ -18,7 +18,7 @@ export default (querystringParameters = {}) => {
 
             if (Number.isNaN(parsedQuerystringParameters[property])) {
                 const error = new RequestError(`Expected \`${property}\` to be a number but got \`${querystringParameters[property]}\` instead`, codes.badRequest);
-                logger.warn(error.message, error);
+                logger.warn(error, error.message);
                 throw error;
             }
         }
