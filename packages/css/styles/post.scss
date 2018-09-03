@@ -1,4 +1,16 @@
 .post {
+    &-title,
+    &-description,
+    &-date,
+    &-body,
+    &-source,
+    &-text {
+        &__link {
+            text-decoration: underline;
+            text-decoration-color: $link-color;
+        }
+    }
+
     &-text {
         line-height: $blockLineHeight;
         padding: $blockPadding;
@@ -13,6 +25,15 @@
         margin-bottom: 0;
         overflow-wrap: break-word;
         word-break: break-word;
+    }
+
+    &--photo {
+        margin-bottom: 0;
+        background-size: cover;
+    }
+
+    &--loading {
+        @extend .loading;
     }
 }
 

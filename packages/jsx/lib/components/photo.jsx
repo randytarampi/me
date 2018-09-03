@@ -40,10 +40,10 @@ export class PhotoComponent extends PostComponent {
         return <ProgressiveImage src={this.selected.url} placeholder={this.placeholder.url}>
             {
                 (source, isLoading) => {
-                    const rowClassName = ["photo"];
+                    const rowClassName = ["post--photo"];
 
                     if (isLoading) {
-                        rowClassName.push("photo--loading");
+                        rowClassName.push("post--loading");
                     }
 
                     return <Row
@@ -55,28 +55,28 @@ export class PhotoComponent extends PostComponent {
                         }}
                     >
                         <Col
-                            className="photo-metadata hide-on-med-and-up"
+                            className="post-metadata hide-on-med-and-up"
                         >
-                            <h1 className="photo-title">
-                                <Link className="photo-title__link" href={this.props.post.sourceUrl}><span
-                                    className="photo-text">{this.title}</span></Link>
+                            <h1 className="post-title">
+                                <Link className="post-title__link" href={this.props.post.sourceUrl}><span
+                                    className="post-text">{this.title}</span></Link>
                             </h1>
                         </Col>
                         <Col
-                            className="photo-metadata hide-on-small-and-down"
+                            className="post-metadata hide-on-small-and-down"
                             l={4}
                         >
-                            <h1 className="photo-title">
-                                <Link className="photo-title__link" href={this.props.post.sourceUrl}><span
-                                    className="photo-text">{this.title}</span></Link>
+                            <h1 className="post-title">
+                                <Link className="post-title__link" href={this.props.post.sourceUrl}><span
+                                    className="post-text">{this.title}</span></Link>
                             </h1>
                             {
                                 typeof this.props.post.body === "string" && this.props.post.body !== "" ?
-                                    <p className="photo-body">
+                                    <p className="post-body">
                                         {
                                             isHtml(this.props.post.body)
                                                 ? <span dangerouslySetInnerHTML={{__html: this.props.post.body}}></span>
-                                                : <span className="photo-text"
+                                                : <span className="post-text"
                                                         dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
                                         }
                                     </p> :
@@ -85,12 +85,12 @@ export class PhotoComponent extends PostComponent {
                             {
                                 Array.isArray(this.props.post.body) ?
                                     this.props.post.body.map((htmlString, index) => {
-                                        return <p className="photo-body"
+                                        return <p className="post-body"
                                                   key={`${this.props.post.id}:${this.props.post.type}:body:${index}`}>
                                             {
                                                 isHtml(htmlString)
                                                     ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
-                                                    : <span className="photo-text"
+                                                    : <span className="post-text"
                                                             dangerouslySetInnerHTML={{__html: htmlString}}/>
                                             }
                                         </p>;
@@ -99,37 +99,37 @@ export class PhotoComponent extends PostComponent {
                             }
                             {
                                 this.props.post.datePublished || this.props.post.dateCreated ?
-                                    <p className="photo-date">
+                                    <p className="post-date">
                                         {
                                             this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
                                                 <Fragment>
-                                                    <strong className="photo-text">Taken:</strong>
+                                                    <strong className="post-text">Taken:</strong>
                                                     <span
-                                                        className="photo-text">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
+                                                        className="post-text">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
                                                 </Fragment> :
                                                 null
                                         }
                                         {
                                             this.props.post.datePublished ?
                                                 <Fragment>
-                                                    <strong className="photo-text">Posted:</strong>
+                                                    <strong className="post-text">Posted:</strong>
                                                     <span
-                                                        className="photo-text">{this.props.post.datePublished.toLocaleString(DateTime.DATETIME_MED)}</span>
+                                                        className="post-text">{this.props.post.datePublished.toLocaleString(DateTime.DATETIME_MED)}</span>
                                                 </Fragment> :
                                                 null
                                         }
                                     </p> :
                                     null
                             }
-                            <p className="photo-source">
-                                <strong className="photo-text">More:</strong>
-                                <Link className="photo-source__link" href={this.selected.url}><span
-                                    className="photo-text">Source</span></Link>
+                            <p className="post-source">
+                                <strong className="post-text">More:</strong>
+                                <Link className="post-source__link" href={this.selected.url}><span
+                                    className="post-text">Source</span></Link>
                                 {
                                     this.props.post.creator ?
-                                        <Link className="photo-source__link"
+                                        <Link className="post-source__link"
                                               href={this.props.post.creator.sourceUrl}><span
-                                            className="photo-text">{this.props.post.creator.username} on {this.props.post.source}</span></Link> :
+                                            className="post-text">{this.props.post.creator.username} on {this.props.post.source}</span></Link> :
                                         null
                                 }
                             </p>
