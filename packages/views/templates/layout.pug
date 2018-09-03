@@ -39,9 +39,8 @@ html(lang="en")
         | !{injectedScript}
         | !{injectedNoScript}
 
-        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
-        link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin="anonymous")
+        if environment === "puppeteer"
+            link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin="anonymous")
         link(rel="stylesheet", href=`${assetUrl}/styles.css`)
         link(rel="apple-touch-icon", sizes="57x57", href=`${assetUrl}/apple-icon-57x57.png`)
         link(rel="apple-touch-icon", sizes="60x60", href=`${assetUrl}/apple-icon-60x60.png`)
@@ -61,8 +60,6 @@ html(lang="en")
         meta(name="msapplication-TileColor", content="#ffffff")
         meta(name="msapplication-TileImage", content=`${assetUrl}/ms-icon-144x144.png`)
         meta(name="theme-color", content="#ffffff")
-        style(type="text/css").
-            !{css}
         script.
             window.SENTRY_DSN = "#{sentryDsn}";
             window.ENVIRONMENT = "#{environment}";
