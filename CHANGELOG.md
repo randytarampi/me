@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.23.4"></a>
+## [0.23.4](https://github.com/randytarampi/me/compare/v0.23.3...v0.23.4) (2018-09-03)
+
+
+### Bug Fixes
+
+* **css:** `.photo` is really just `.post--photo`. ([18dc56e](https://github.com/randytarampi/me/commit/18dc56e))
+* **css:** These font urls should be in `"`s. ([731257a](https://github.com/randytarampi/me/commit/731257a))
+* **views:** Don't load resources already loaded by the stylesheets twice. ([48064f3](https://github.com/randytarampi/me/commit/48064f3))
+
+
+
+
+
 <a name="0.23.3"></a>
 ## [0.23.3](https://github.com/randytarampi/me/compare/v0.23.2...v0.23.3) (2018-09-03)
 
