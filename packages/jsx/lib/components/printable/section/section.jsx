@@ -2,12 +2,11 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const LeftDescriptionSection = ({type, label, labelNode, description, descriptionNode, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
+export const PrintableSection = ({printableType, type, label, labelNode, description, descriptionNode, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
     const classNames = [
-        "letter-section",
-        "letter-section--description",
-        "letter-section--description-left",
-        "letter-" + type
+        "printable-section",
+        "printable-" + type,
+        `${printableType}-${type}`
     ];
 
     if (hideOnScreen) {
@@ -32,12 +31,12 @@ export const LeftDescriptionSection = ({type, label, labelNode, description, des
 
     return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <aside className="col m3 letter-section__header hide-on-small-only">
+            <aside className="col m3 s12 printable-section__header">
                 {
                     labelNode
                         ? labelNode
                         : label
-                        ? <h3 className="letter-section__label"><span className="text">{label}</span></h3>
+                        ? <h3 className="printable-section__label"><span className="text">{label}</span></h3>
                         : null
                 }
                 {
@@ -46,9 +45,9 @@ export const LeftDescriptionSection = ({type, label, labelNode, description, des
                             <Col s={9}>
                                 {
                                     descriptionNode
-                                        ? <div className="letter-section__description">{descriptionNode}</div>
+                                        ? <div className="printable-section__description">{descriptionNode}</div>
                                         : description
-                                        ? <p className="letter-section__description"><span
+                                        ? <p className="printable-section__description"><span
                                             className="text">{description}</span></p>
                                         : null
                                 }
@@ -57,14 +56,14 @@ export const LeftDescriptionSection = ({type, label, labelNode, description, des
                         : null
                 }
             </aside>
-            <Col m={9} className="letter-section__content">
+            <Col m={9} s={11} offset="s1" className="printable-section__content">
                 {children}
             </Col>
         </Row>
     </section>;
 };
 
-LeftDescriptionSection.propTypes = {
+PrintableSection.propTypes = {
     className: PropTypes.string,
     label: PropTypes.oneOfType([
         PropTypes.string,
@@ -76,6 +75,7 @@ LeftDescriptionSection.propTypes = {
         PropTypes.node
     ]),
     descriptionNode: PropTypes.node,
+    printableType: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     hideOnPrint: PropTypes.bool,
     hideOnScreen: PropTypes.bool,
@@ -85,7 +85,7 @@ LeftDescriptionSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-LeftDescriptionSection.defaultProps = {
+PrintableSection.defaultProps = {
     hideOnPrint: false,
     hideOnScreen: false,
     showOnA4: false,
@@ -94,4 +94,4 @@ LeftDescriptionSection.defaultProps = {
     verticallyAlignContent: false
 };
 
-export default LeftDescriptionSection;
+export default PrintableSection;

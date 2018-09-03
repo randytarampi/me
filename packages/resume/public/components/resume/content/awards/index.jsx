@@ -1,16 +1,18 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import ResumeSection from "../section";
 import ResumeAwardsEntry from "./entry";
 
+const {PrintableSection} = Printable;
+
 export const ResumeAwards = ({resume}) => {
-    return <ResumeSection type="awards" label="Awards">
+    return <PrintableSection printableType="resume" type="awards" label="Awards">
         {
             resume.awards.map((awardsEntry, index) => {
                 return <ResumeAwardsEntry awardsEntry={awardsEntry} key={index} index={index}/>;
             })
         }
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeAwards.propTypes = {

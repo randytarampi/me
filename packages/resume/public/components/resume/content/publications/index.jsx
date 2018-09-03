@@ -1,16 +1,18 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import ResumeSection from "../section";
 import ResumePublicationsEntry from "./entry";
 
+const {PrintableSection} = Printable;
+
 export const ResumePublications = ({resume}) => {
-    return <ResumeSection type="publications" label="Publications">
+    return <PrintableSection printableType="resume" type="publications" label="Publications">
         {
             resume.publications.map((publicationsEntry, index) => {
                 return <ResumePublicationsEntry publicationsEntry={publicationsEntry} key={index} index={index}/>;
             })
         }
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumePublications.propTypes = {

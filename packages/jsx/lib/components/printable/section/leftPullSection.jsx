@@ -2,10 +2,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const LetterSection = ({type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
+export const LeftPullSection = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children, sideContent}) => {
     const classNames = [
-        "letter-section",
-        "letter-" + type
+        "printable-section",
+        "printable-section--pull",
+        "printable-section--pull-left",
+        "printable-" + type,
+        `${printableType}-${type}`
     ];
 
     if (hideOnScreen) {
@@ -30,15 +33,20 @@ export const LetterSection = ({type, hideOnPrint, showOnLetter, showOnA4, showOn
 
     return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <Col className="letter-section__content">
+            <Col m={9} className="printable-section__content">
                 {children}
             </Col>
+            <aside className="col m3 printable-section__footer hide-on-small-only">
+                {sideContent}
+            </aside>
         </Row>
     </section>;
 };
 
-LetterSection.propTypes = {
+LeftPullSection.propTypes = {
     className: PropTypes.string,
+    sideContent: PropTypes.node,
+    printableType: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     hideOnPrint: PropTypes.bool,
     hideOnScreen: PropTypes.bool,
@@ -48,7 +56,7 @@ LetterSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-LetterSection.defaultProps = {
+LeftPullSection.defaultProps = {
     hideOnPrint: false,
     hideOnScreen: false,
     showOnA4: false,
@@ -57,4 +65,4 @@ LetterSection.defaultProps = {
     verticallyAlignContent: false
 };
 
-export default LetterSection;
+export default LeftPullSection;

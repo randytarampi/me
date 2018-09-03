@@ -1,4 +1,4 @@
-import LetterSection from "./section";
+import PrintableSection from "./section";
 
 export * from "./section";
 
@@ -8,4 +8,4 @@ export * from "./leftPullSection";
 export * from "./rightDescriptionSection";
 export * from "./rightPushSection";
 
-export default LetterSection;
+export default PrintableSection;

@@ -48,6 +48,7 @@ env:
   mocha: true
 globals:
   Promise: true
+  __ASSET_URL__: false
   __CODE_APP_URL__: false
   __WORDS_APP_URL__: false
   __POSTS_APP_URL__: false
@@ -58,6 +59,7 @@ globals:
   __POSTS_SERVICE_URL__: false
   __CLIENT_URL__: false
   __PUBLISHED_RESUME_URL__: false
+  __PUBLISHED_LETTER_URL__: false
   __CAMPAIGN_SOURCE__: false
   __CAMPAIGN_MEDIUM__: false
   __CAMPAIGN_NAME__: false

@@ -1,10 +1,13 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import ResumeSection from "../section";
 import ResumeProjectsEntry from "./entry";
 
+const {PrintableSection} = Printable;
+
 export const ResumeProjects = ({resume}) => {
-    return <ResumeSection
+    return <PrintableSection
+        printableType="resume"
         type="project"
         label="Projects"
         hideOnPrint={true}
@@ -22,7 +25,7 @@ export const ResumeProjects = ({resume}) => {
                 return <ResumeProjectsEntry projectsEntry={projectsEntry} key={index} index={index}/>;
             })
         }
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeProjects.propTypes = {

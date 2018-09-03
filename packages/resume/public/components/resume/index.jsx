@@ -1,3 +1,4 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
@@ -16,9 +17,10 @@ import ResumeSkills from "./content/skills";
 import ResumeVolunteer from "./content/volunteer";
 import ResumeWork from "./content/work";
 import ResumeFooter from "./footer";
-import ResumeHeader from "./header";
 
-export const Resume = props => <div className="resume">
+const {PrintableHeader} = Printable;
+
+export const Resume = props => <div className="printable resume">
     <Helmet>
         <title>{props.resume.basics.name} &mdash; {props.resume.basics.label}</title>
         <meta itemProp="name" content={props.resume.basics.name}/>
@@ -42,7 +44,7 @@ export const Resume = props => <div className="resume">
         <link rel="canonical" href={props.resume.publish_url}/>
         <meta name="og:url" content={props.resume.publish_url}/>
     </Helmet>
-    <ResumeHeader {...props} />
+    <PrintableHeader {...props} printable={props.resume}/>
     <div className="resume-content">
         <div className="container">
             <ResumeContact {...props} />

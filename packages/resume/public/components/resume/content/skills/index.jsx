@@ -1,11 +1,14 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Row} from "react-materialize";
-import ResumeSection from "../section";
 import ResumeSkillsEntry from "./entry";
 
+const {PrintableSection} = Printable;
+
 export const ResumeSkills = ({resume}) => {
-    return <ResumeSection
+    return <PrintableSection
+        printableType="resume"
         type="skills"
         label="Skills"
         descriptionNode={
@@ -22,7 +25,7 @@ export const ResumeSkills = ({resume}) => {
                 })
             }
         </Row>
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeSkills.propTypes = {

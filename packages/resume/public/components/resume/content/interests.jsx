@@ -1,10 +1,12 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import ResumeSection from "./section";
+
+const {PrintableSection} = Printable;
 
 export const ResumeInterests = ({resume}) => {
-    return <ResumeSection type="interests" label="Interests" showOnLegal={true}>
+    return <PrintableSection printableType="resume" type="interests" label="Interests" showOnLegal={true}>
         <Row>
             {
                 resume.interests.map((interestEntry, index) => {
@@ -33,7 +35,7 @@ export const ResumeInterests = ({resume}) => {
                 })
             }
         </Row>
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeInterests.propTypes = {

@@ -1,20 +1,26 @@
+import {Printable} from "@randy.tarampi/jsx";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
-import {LetterSection} from "../section";
+
+const {PrintableSection} = Printable;
 
 export const LetterDate = ({contentConfiguration}) => {
     const date = contentConfiguration.contentProps.date
         ? DateTime.fromISO(contentConfiguration.contentProps.date)
         : DateTime.local();
 
-    return <LetterSection {...contentConfiguration.contentProps} type={contentConfiguration.contentKey}>
+    return <PrintableSection
+        {...contentConfiguration.contentProps}
+        type={contentConfiguration.contentKey}
+        printableType="letter"
+    >
         <p className="letter-date__date-string">
             {
                 date.toLocaleString(DateTime.DATE_FULL)
             }
         </p>
-    </LetterSection>;
+    </PrintableSection>;
 };
 
 LetterDate.propTypes = {

@@ -1,13 +1,15 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import ResumeSection from "./section";
+
+const {PrintableSection} = Printable;
 
 export const ResumeAbout = ({resume}) => {
-    return <ResumeSection type="about" label="About">
+    return <PrintableSection printableType="resume" type="about" label="About">
         <p className="resume-about__summary">
             {resume.basics.summary}
         </p>
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeAbout.propTypes = {

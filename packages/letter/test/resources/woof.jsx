@@ -1,5 +1,7 @@
+import {Printable} from "@randy.tarampi/jsx";
 import React from "react";
-import {RightPushSection} from "../../public/components/letter/section";
+
+const {RightPushSection} = Printable;
 
 const Woof = () => <RightPushSection type="woof">
     WOOF WOOF WOOF

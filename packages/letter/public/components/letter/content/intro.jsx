@@ -1,13 +1,14 @@
-import {Link} from "@randy.tarampi/jsx";
+import {Link, Printable} from "@randy.tarampi/jsx";
 import {EmailLink} from "@randy.tarampi/jsx/lib/components/link";
 import {HelloBear} from "@randy.tarampi/jsx/lib/containers/emoji/bear/helloBear";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {LeftDescriptionSection} from "../section";
+
+const {LeftDescriptionSection} = Printable;
 
 export const LetterIntro = ({contentConfiguration}) => {
     return <LeftDescriptionSection
-        labelNode={<h3 className="letter-section__label">
+        labelNode={<h3 className="printable-section__label">
             <HelloBear textEffect={true} id="letter-intro-hello-bear"/>
         </h3>}
         descriptionNode={<Fragment>
@@ -18,6 +19,7 @@ export const LetterIntro = ({contentConfiguration}) => {
         </Fragment>}
         {...contentConfiguration.contentProps}
         type={contentConfiguration.contentKey}
+        printableType="letter"
     >
         <p className="letter-intro__content">
             {

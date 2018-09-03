@@ -1,9 +1,9 @@
 .letter-intro {
-    .letter-section__label {
+    .printable-section__label {
         @extend .hide-on-small-only;
 
         .bear {
-            @extend .letter-section__label;
+            @extend .printable-section__label;
             text-align: unset;
         }
     }

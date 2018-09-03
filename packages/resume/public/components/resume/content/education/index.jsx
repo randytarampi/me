@@ -1,11 +1,14 @@
+import {Printable} from "@randy.tarampi/jsx";
+import Link from "@randy.tarampi/jsx/lib/components/link";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import Link from "@randy.tarampi/jsx/lib/components/link";
-import ResumeSection from "../section";
 import ResumeEducationEntry from "./entry";
 
+const {PrintableSection} = Printable;
+
 export const ResumeEducation = ({resume}) => {
-    return <ResumeSection
+    return <PrintableSection
+        printableType="resume"
         type="education"
         label="Education"
         descriptionNode={
@@ -20,7 +23,7 @@ export const ResumeEducation = ({resume}) => {
                 return <ResumeEducationEntry educationEntry={educationEntry} key={index} index={index}/>;
             })
         }
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeEducation.propTypes = {

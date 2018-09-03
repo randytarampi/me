@@ -1,3 +1,4 @@
+import {Printable} from "@randy.tarampi/jsx";
 import {
     AngelListLink,
     CampaignLink,
@@ -13,7 +14,8 @@ import {
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import ResumeSection from "./section";
+
+const {PrintableSection} = Printable;
 
 const networkLinkMap = {
     angellist: AngelListLink,
@@ -55,7 +57,7 @@ const getLinkComponentForProfile = profile => {
 };
 
 export const ResumeProfiles = ({resume}) => {
-    return <ResumeSection type="profiles" label="Profiles" showOnA4={true}>
+    return <PrintableSection printableType="resume" type="profiles" label="Profiles" showOnA4={true}>
         <Row>
             {
                 resume.basics.profiles.map(profile => {
@@ -71,7 +73,7 @@ export const ResumeProfiles = ({resume}) => {
                 })
             }
         </Row>
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeProfiles.propTypes = {

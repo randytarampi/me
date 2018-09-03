@@ -1,7 +1,8 @@
-import {Link} from "@randy.tarampi/jsx";
+import {Link, Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {LeftDescriptionSection} from "../section";
+
+const {LeftDescriptionSection} = Printable;
 
 export const LetterWhy = ({letter, contentConfiguration}) => {
     return <LeftDescriptionSection
@@ -13,6 +14,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
         </Fragment>}
         {...contentConfiguration.sectionProps}
         type={contentConfiguration.contentKey}
+        printableType="letter"
     >
         <p className="letter-why__content">
             {

@@ -1,9 +1,11 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
-import LetterHeader from "./header";
 
-export const Letter = props => <div className="letter">
+const {PrintableHeader} = Printable;
+
+export const Letter = props => <div className="printable letter">
     <Helmet>
         <title>{props.letter.basics.name} &mdash; {props.letter.basics.label}</title>
         <meta itemProp="name" content={props.letter.basics.name}/>
@@ -27,7 +29,7 @@ export const Letter = props => <div className="letter">
         <link rel="canonical" href={props.letter.publish_url}/>
         <meta name="og:url" content={props.letter.publish_url}/>
     </Helmet>
-    <LetterHeader {...props} />
+    <PrintableHeader {...props} printable={props.letter}/>
     <div className="letter-content">
         <div className="container">
             {

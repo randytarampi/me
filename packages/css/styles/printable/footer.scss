@@ -1,0 +1,7 @@
+.printable-footer {
+    margin-bottom: 0;
+
+    & > .container > .row {
+        margin-bottom: 0;
+    }
+}

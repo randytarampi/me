@@ -2,11 +2,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const RawHtmlLetterSection = ({type, rawHtml, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className}) => {
+export const RightPushSection = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children, sideContent}) => {
     const classNames = [
-        "letter-section",
-        "letter-section__raw-html",
-        "letter-" + type
+        "printable-section",
+        "printable-section--push",
+        "printable-section--push-right",
+        "printable-" + type,
+        `${printableType}-${type}`
     ];
 
     if (hideOnScreen) {
@@ -31,14 +33,20 @@ export const RawHtmlLetterSection = ({type, rawHtml, hideOnPrint, showOnLetter, 
 
     return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <Col className="letter-section__content" dangerouslySetInnerHtml={{__html: rawHtml}}/>
+            <aside className="col m3 printable-section__header hide-on-small-only">
+                {sideContent}
+            </aside>
+            <Col m={9} className="printable-section__content">
+                {children}
+            </Col>
         </Row>
     </section>;
 };
 
-RawHtmlLetterSection.propTypes = {
+RightPushSection.propTypes = {
     className: PropTypes.string,
-    rawHtml: PropTypes.string.isRequired,
+    sideContent: PropTypes.node,
+    printableType: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     hideOnPrint: PropTypes.bool,
     hideOnScreen: PropTypes.bool,
@@ -48,7 +56,7 @@ RawHtmlLetterSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-RawHtmlLetterSection.defaultProps = {
+RightPushSection.defaultProps = {
     hideOnPrint: false,
     hideOnScreen: false,
     showOnA4: false,
@@ -57,4 +65,4 @@ RawHtmlLetterSection.defaultProps = {
     verticallyAlignContent: false
 };
 
-export default RawHtmlLetterSection;
+export default RightPushSection;

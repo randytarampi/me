@@ -1,9 +1,15 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import {RightDescriptionSection} from "../section";
+
+const {RightDescriptionSection} = Printable;
 
 export const LetterSignature = ({letter, contentConfiguration}) => {
-    return <RightDescriptionSection {...contentConfiguration.sectionProps} type={contentConfiguration.contentKey}>
+    return <RightDescriptionSection
+        {...contentConfiguration.sectionProps}
+        type={contentConfiguration.contentKey}
+        printableType="letter"
+    >
         <p className="letter-signature__content">
             Hope to hear from you soon,
         </p>

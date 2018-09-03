@@ -1,11 +1,13 @@
+import {Printable} from "@randy.tarampi/jsx";
 import {CampaignLink, EmailLink, TelLink} from "@randy.tarampi/jsx/lib/components/link";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import ResumeSection from "./section";
+
+const {PrintableSection} = Printable;
 
 export const ResumeContact = ({resume}) => {
-    return <ResumeSection type="contact" label="Contact" hideOnPrint={true}>
+    return <PrintableSection printableType="resume" type="contact" label="Contact" hideOnPrint={true}>
         <Row>
             <Col m={6} s={12} className="resume-contact__email">
                 <EmailLink email={resume.basics.email}/>
@@ -21,7 +23,7 @@ export const ResumeContact = ({resume}) => {
                     : null
             }
         </Row>
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeContact.propTypes = {

@@ -1,13 +1,16 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {LeftDescriptionSection} from "../section";
 
-export const LetterAboutYou = ({letter, contentConfiguration}) => {
+const {LeftDescriptionSection} = Printable;
+
+export const LetterAboutYou = ({contentConfiguration}) => {
     return <LeftDescriptionSection
         label="And I think we're a match!"
         description="Is the feeling mutual? I sure hope so"
         {...contentConfiguration.contentProps}
         type={contentConfiguration.contentKey}
+        printableType="letter"
     >
         <p className="letter-you__content">
             I don't usually talk about myself this often, and I don't usually use the phrase "I want" very often, but

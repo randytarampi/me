@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const LeftPullSection = ({type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children, sideContent}) => {
+export const RawHtmlLetterSection = ({printableType, type, rawHtml, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className}) => {
     const classNames = [
-        "letter-section",
-        "letter-section--pull",
-        "letter-section--pull-left",
-        "letter-" + type
+        "printable-section",
+        "printable-section__raw-html",
+        "printable-" + type,
+        `${printableType}-${type}`
     ];
 
     if (hideOnScreen) {
@@ -32,19 +32,15 @@ export const LeftPullSection = ({type, hideOnPrint, showOnLetter, showOnA4, show
 
     return <section id={type} className={classNames.concat(className).join(" ").trim()}>
         <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <Col m={9} className="letter-section__content">
-                {children}
-            </Col>
-            <aside className="col m3 letter-section__footer hide-on-small-only">
-                {sideContent}
-            </aside>
+            <Col className="printable-section__content" dangerouslySetInnerHtml={{__html: rawHtml}}/>
         </Row>
     </section>;
 };
 
-LeftPullSection.propTypes = {
+RawHtmlLetterSection.propTypes = {
     className: PropTypes.string,
-    sideContent: PropTypes.node,
+    rawHtml: PropTypes.string.isRequired,
+    printableType: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     hideOnPrint: PropTypes.bool,
     hideOnScreen: PropTypes.bool,
@@ -54,7 +50,7 @@ LeftPullSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-LeftPullSection.defaultProps = {
+RawHtmlLetterSection.defaultProps = {
     hideOnPrint: false,
     hideOnScreen: false,
     showOnA4: false,
@@ -63,4 +59,4 @@ LeftPullSection.defaultProps = {
     verticallyAlignContent: false
 };
 
-export default LeftPullSection;
+export default RawHtmlLetterSection;

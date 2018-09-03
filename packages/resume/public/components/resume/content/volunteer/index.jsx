@@ -1,10 +1,13 @@
+import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import ResumeSection from "../section";
 import ResumeVolunteerEntry from "./entry";
 
+const {PrintableSection} = Printable;
+
 export const ResumeVolunteer = ({resume}) => {
-    return <ResumeSection
+    return <PrintableSection
+        printableType="resume"
         type="volunteer"
         label="Volunteering"
         hideOnPrint={true}
@@ -22,7 +25,7 @@ export const ResumeVolunteer = ({resume}) => {
                 return <ResumeVolunteerEntry volunteerEntry={volunteerEntry} key={index} index={index}/>;
             })
         }
-    </ResumeSection>;
+    </PrintableSection>;
 };
 
 ResumeVolunteer.propTypes = {
