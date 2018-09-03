@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.23.3"></a>
+## [0.23.3](https://github.com/randytarampi/me/compare/v0.23.2...v0.23.3) (2018-09-03)
+
+
+### Bug Fixes
+
+* **jsx:** Fix the current location reference on the 404 page. ([0389089](https://github.com/randytarampi/me/commit/0389089))
+* **jsx:** Fix these duplicated `intro-hello-bear`s in the DOM. ([5abb866](https://github.com/randytarampi/me/commit/5abb866))
+* **views:** Set the `lang` on `html` to be `en`. ([a6deea4](https://github.com/randytarampi/me/commit/a6deea4)), closes [#8](https://github.com/randytarampi/me/issues/8) [#7](https://github.com/randytarampi/me/issues/7)
+
+
+
+
+
 <a name="0.23.2"></a>
 ## [0.23.2](https://github.com/randytarampi/me/compare/v0.23.1...v0.23.2) (2018-09-02)
 
