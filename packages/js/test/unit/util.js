@@ -32,7 +32,7 @@ describe("util", function () {
         it("sorts posts by descending `#date`", function () {
             const stubPhotos = [
                 Photo.fromJS({id: "grr", dateCreated: new Date(1991, 10, 14)}),
-                Photo.fromJS({id: "woof", datePublished: Date.now()}),
+                Photo.fromJS({id: "woof", datePublished: new Date()}),
                 Photo.fromJS({id: "meow", dateCreated: new Date(1991, 10, 14)})
             ];
 

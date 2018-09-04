@@ -9,8 +9,8 @@ describe("getPosts", function () {
 
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date()});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date()});
+        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
+        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
         const stubPosts = [stubPost, stubPhoto];
         const stubHeaders = {};
         const stubQuerystringParameters = {};
@@ -89,8 +89,8 @@ describe("getPosts", function () {
     it("`returnErrorResponse` on error", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: Date.now()});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: Date.now()});
+        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
+        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
         const stubHeaders = {};
         const stubQuerystringParameters = {};
         const stubError = new Error("woof");
@@ -157,8 +157,8 @@ describe("getPosts", function () {
     it("`returnErrorResponse` on parse error", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: Date.now()});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: Date.now()});
+        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
+        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
         const stubHeaders = {};
         const stubError = new Error("woof");
         const proxyquireStubs = {
