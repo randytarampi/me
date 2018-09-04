@@ -3,9 +3,9 @@ export default containerWidth => post => {
         return containerWidth * post.height / post.width;
     }
 
-    if (document.getElementById(post.uid)) {
+    if (typeof document !== "undefined" && document.getElementById(post.uid)) {
         return document.getElementById(post.uid).clientHeight;
     }
 
-    return window.innerHeight;
+    return typeof window !== "undefined" && window.innerHeight || 600;
 };

@@ -1,9 +1,9 @@
 import {buildEventDetails, buildReduxActionEventDetails} from "../util";
 
-const GTM_DATALAYER = typeof window !== "undefined" && window.GTM_DATALAYER;
-
 class GtmMetrics {
     constructor({name = "GTM", ...options} = {}) {
+        const GTM_DATALAYER = typeof window !== "undefined" && window.GTM_DATALAYER;
+
         this.name = name;
         this.options = options || {};
         this.dataLayer = this.options.dataLayer || GTM_DATALAYER || [];

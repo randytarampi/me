@@ -3,11 +3,9 @@ import Post from "../post";
 
 export default type => {
     switch (type) {
-        case Photo.name:
         case "Photo":
             return Photo;
 
-        case Post.name:
         case "Post":
             return Post;
 

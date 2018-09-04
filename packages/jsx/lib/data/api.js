@@ -56,11 +56,11 @@ export default (state = Map(), action) => {
 
 // NOTE-RT: Global selectors
 export const getApiState = state => state;
-export const getApiStateForUrl = (state, url) => getApiState(state).get(url) || null;
+export const getApiStateForUrl = (state, url) => getApiState(state).get(url);
 
 // NOTE-RT: Utility functions
-export const isUrlStateLoading = urlState => urlState ? !!urlState.get("isLoading") : null;
-export const getErrorForUrlState = urlState => urlState ? urlState.get("error") : null;
+export const isUrlStateLoading = urlState => urlState && urlState.get("isLoading");
+export const getErrorForUrlState = urlState => urlState && urlState.get("error");
 const getApiStateForUrlFromGlobalState = (state, url) => getApiStateForUrl(state.get("api"), url);
 
 // NOTE-RT: Private selectors for individual containers

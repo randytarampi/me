@@ -93,7 +93,7 @@ describe("util", function () {
             expect(stubPost).to.be.instanceOf(Post);
         });
 
-        it("gets `Post`s", function () {
+        it("throws when it encounters an unknown type", function () {
             try {
                 const stubPost = Post.fromJS({type: "woof", id: "grr", width: -2});
                 util.getEntityForType(stubPost.type);

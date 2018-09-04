@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import proxyquire from "proxyquire";
 import {Photo, Post} from "@randy.tarampi/js";
+import {expect} from "chai";
+import proxyquire from "proxyquire";
+import sinon from "sinon";
 
 describe("getPosts", function () {
     it("delegates to `searchPosts`", function (done) {
@@ -9,8 +9,8 @@ describe("getPosts", function () {
 
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: Date.now()});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: Date.now()});
+        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date()});
+        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date()});
         const stubPosts = [stubPost, stubPhoto];
         const stubHeaders = {};
         const stubQuerystringParameters = {};

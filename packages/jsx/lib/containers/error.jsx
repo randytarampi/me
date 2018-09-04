@@ -17,12 +17,13 @@ export const connectError = connect(
     },
     (dispatch, ownProps) => {
         return {
-            timedRedirect: () => setTimeout(() => {
+            timedRedirect: () => new Promise(resolve => setTimeout(() => {
                 if (window.location && window.location.pathname !== ownProps.redirectionLocation) {
                     dispatch(clearError());
                     dispatch(push(ownProps.redirectionLocation));
                 }
-            }, ownProps.redirectionTimeout * 1000)
+                resolve();
+            }, ownProps.redirectionTimeout * 1000))
         };
     }
 );

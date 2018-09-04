@@ -1,14 +1,41 @@
 import {expect} from "chai";
 import {Map} from "immutable";
+import {createAction} from "redux-actions";
 import {clearError} from "../../../lib/actions/clearError";
 import {setError} from "../../../lib/actions/setError";
-import reducer, {getError, getErrorCode, getErrorMessage, getErrorState} from "../../../lib/data/error";
+import reducer, {getError, getErrorCode, getErrorMessage, getErrorState, hasError} from "../../../lib/data/error";
 
 describe("error", function () {
     let stubInitialState;
 
     beforeEach(function () {
         stubInitialState = Map();
+    });
+
+    it("reduces the current state for some other action", function () {
+        const stubError = new Error("woof");
+        stubError.errorCode = "EWOOF";
+        stubError.errorMessage = stubError.message;
+        const stubPayload = {
+            error: stubError,
+            errorCode: stubError.errorCode,
+            errorMessage: stubError.errorMessage
+        };
+
+        const otherAction = createAction("OTHER_ACTION");
+        const updatedState = reducer(stubInitialState, otherAction(stubPayload));
+        const errorState = getErrorState(updatedState);
+        expect(errorState).to.be.ok;
+        expect(errorState.size).to.eql(0);
+
+        const errorExists = hasError(errorState);
+        expect(errorExists).to.eql(false);
+        const error = getError(errorState);
+        expect(error).to.eql(undefined);
+        const errorCode = getErrorCode(errorState);
+        expect(errorCode).to.eql(undefined);
+        const errorMessage = getErrorMessage(errorState);
+        expect(errorMessage).to.eql(undefined);
     });
 
     describe("SET_ERROR", function () {

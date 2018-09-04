@@ -1,7 +1,7 @@
 import {buildEventDetails} from "./util";
 import Gtm from "./vendors/gtm";
 
-const gtmClient = new Gtm();
+export const gtmClient = new Gtm();
 
 export default {
     vendors: [

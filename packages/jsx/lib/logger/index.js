@@ -1,19 +1,27 @@
 /* global window */
 
 import bunyan from "bunyan";
-import bunyanSentryStream from "bunyan-sentry-stream";
+import {SentryStream} from "bunyan-sentry-stream";
 import raven from "raven-js";
 import ConsoleStream from "./consoleStream";
 
-const bunyanStreams = [];
+const getWindowVariables = () => {
+    if (typeof window !== "undefined") {
+        return {
+            windowName: window.NAME,
+            windowEnvironment: window.ENVIRONMENT,
+            windowVersion: window.VERSION,
+            windowSentryDsn: window.SENTRY_DSN,
+            windowLogger: window.LOGGER,
+        };
+    }
 
-let windowName;
-let windowEnvironment;
-let windowVersion;
-let windowSentryDsn;
-let windowLogger;
+    return {};
+};
 
 export const buildRavenConfiguration = () => {
+    const {windowName, windowEnvironment, windowVersion, windowLogger} = getWindowVariables();
+
     return {
         logger: windowName,
         autoBreadcrumbs: true,
@@ -27,14 +35,11 @@ export const buildRavenConfiguration = () => {
     };
 };
 
-if (typeof window !== "undefined") {
-    windowName = window.NAME;
-    windowEnvironment = window.ENVIRONMENT;
-    windowVersion = window.VERSION;
-    windowSentryDsn = window.SENTRY_DSN;
-    windowLogger = window.LOGGER;
+export const buildBunyanConfiguration = () => {
+    const {windowName, windowEnvironment, windowVersion, windowSentryDsn, windowLogger} = getWindowVariables();
 
     if (windowLogger) {
+        const bunyanStreams = [];
         const enabledStreams = windowLogger.streams;
         const minimumLevel = windowLogger.level;
 
@@ -52,18 +57,26 @@ if (typeof window !== "undefined") {
                 bunyanStreams.push({
                     level: "warn",
                     type: "raw",
-                    stream: new bunyanSentryStream.SentryStream(raven)
+                    stream: new SentryStream(raven)
                 });
             }
         }
-    }
-}
 
-export default bunyan.createLogger({
-    name: windowName || "jsx",
-    streams: bunyanStreams,
-    src: false, // NOTE-RT: Needs to be false because it needs DTrace
-    version: windowVersion,
-    environment: windowEnvironment,
-    serializers: bunyan.stdSerializers
-});
+        return {
+            name: windowName || "jsx",
+            streams: bunyanStreams,
+            src: false, // NOTE-RT: Needs to be false because it needs DTrace
+            version: windowVersion,
+            environment: windowEnvironment,
+            serializers: bunyan.stdSerializers
+        };
+    }
+
+    return null;
+};
+
+export const createLogger = () => {
+    return bunyan.createLogger(buildBunyanConfiguration());
+};
+
+export default createLogger();

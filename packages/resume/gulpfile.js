@@ -185,7 +185,7 @@ gulp.task("test.unit", () => {
     const mocha = require("gulp-mocha");
     const mochaConfig = require("./mocha.config");
 
-    return gulp.src("test/unit/**/*.js", {read: false, allowEmpty: true})
+    return gulp.src("test/unit/**/*.{js,jsx}", {read: false, allowEmpty: true})
         .pipe(mocha(mochaConfig));
 });
 
@@ -193,7 +193,7 @@ gulp.task("test.integration", () => {
     const mocha = require("gulp-mocha");
     const mochaConfig = require("./mocha.config");
 
-    return gulp.src("test/integration/**/*.js", {read: false, allowEmpty: true})
+    return gulp.src("test/integration/**/*.{js,jsx}", {read: false, allowEmpty: true})
         .pipe(mocha(mochaConfig));
 });
 

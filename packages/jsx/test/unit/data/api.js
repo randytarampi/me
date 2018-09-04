@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import {DateTime} from "luxon";
+import {createAction} from "redux-actions";
 import {
     FETCHING_POSTS_PER_PAGE,
     fetchingCancelled,
@@ -8,13 +9,35 @@ import {
     fetchingPosts,
     fetchingSuccess
 } from "../../../lib/actions/fetchPosts";
-import reducer, {getApiStateForUrl} from "../../../lib/data/api";
+import reducer, {getApiStateForUrl, getErrorForUrlState} from "../../../lib/data/api";
 
 describe("api", function () {
     let stubInitialState;
 
     beforeEach(function () {
         stubInitialState = Map();
+    });
+
+    it("reduces the current state for some other action", function () {
+        const stubFetchUrl = "/woof";
+        const stubSearchParams = {
+            perPage: FETCHING_POSTS_PER_PAGE
+        };
+        const stubPayload = {
+            fetchUrl: stubFetchUrl,
+            searchParams: stubSearchParams
+        };
+
+        const otherAction = createAction("OTHER_ACTION");
+
+        const updatedState = reducer(stubInitialState, otherAction(stubPayload));
+        const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
+        expect(apiStateForUrl).to.not.be.ok;
+        expect(apiStateForUrl).to.eql(undefined);
+
+        const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+        expect(errorStateForUrl).to.not.be.ok;
+        expect(errorStateForUrl).to.eql(undefined);
     });
 
     describe("FETCHING_POSTS", function () {
@@ -37,6 +60,10 @@ describe("api", function () {
             expect(apiStateForUrlObject).to.eql({
                 isLoading: true
             });
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.not.be.ok;
+            expect(errorStateForUrl).to.eql(undefined);
         });
 
         it("reduces the correct state (has existing state)", function () {
@@ -68,6 +95,10 @@ describe("api", function () {
                     .set("isLoading", true)
                     .toJS()
             );
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.not.be.ok;
+            expect(errorStateForUrl).to.eql(undefined);
         });
     });
 
@@ -91,6 +122,10 @@ describe("api", function () {
             expect(apiStateForUrlObject).to.eql({
                 isLoading: false
             });
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.not.be.ok;
+            expect(errorStateForUrl).to.eql(undefined);
         });
 
         it("reduces the correct state (has existing state)", function () {
@@ -122,6 +157,10 @@ describe("api", function () {
                     .set("isLoading", false)
                     .toJS()
             );
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.not.be.ok;
+            expect(errorStateForUrl).to.eql(undefined);
         });
     });
 
@@ -143,6 +182,10 @@ describe("api", function () {
                 error: stubPayload.error,
                 isLoading: false
             });
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.be.ok;
+            expect(errorStateForUrl).to.eql(stubPayload.error);
         });
 
         it("reduces the correct state (has existing state)", function () {
@@ -172,6 +215,10 @@ describe("api", function () {
                     .set("error", stubPayload.error)
                     .toJS()
             );
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.be.ok;
+            expect(errorStateForUrl).to.eql(stubPayload.error);
         });
     });
 
@@ -195,6 +242,10 @@ describe("api", function () {
                 oldest: DateTime.fromISO(stubPayload.oldest),
                 newest: DateTime.fromISO(stubPayload.newest)
             });
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.not.be.ok;
+            expect(errorStateForUrl).to.eql(undefined);
         });
 
         it("reduces the correct state (has existing state)", function () {
@@ -226,6 +277,10 @@ describe("api", function () {
                     .set("newest", DateTime.fromISO(stubPayload.newest))
                     .toJS()
             );
+
+            const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
+            expect(errorStateForUrl).to.not.be.ok;
+            expect(errorStateForUrl).to.eql(undefined);
         });
     });
 });

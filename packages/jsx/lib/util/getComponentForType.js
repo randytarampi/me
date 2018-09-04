@@ -6,8 +6,10 @@ export default type => {
         case "Photo":
             return PhotoComponent;
 
-        default:
         case "Post":
             return PostComponent;
+
+        default:
+            throw new Error(`Can't \`getComponentForType\` for \`${type}\``);
     }
 };
