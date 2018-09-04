@@ -7,8 +7,8 @@ export const Link = props => {
         rel="noopener noreferrer"
         data-metrics-event-name="anchor"
         data-metrics-type={props.onClick ? "onClick" : props.href ? "href" : undefined}
-        data-metrics-name={props.name || props["aria-label"] || props.text}
-        data-metrics-label={props["aria-label"] || props.text}
+        data-metrics-name={props.name || props["aria-label"] || props.children || props.text}
+        data-metrics-label={props["aria-label"] || props.children || props.text}
         data-metrics-value={props.onClick ? props.onClick.name : props.href ? props.href : undefined}
         {...props}
         className={["link", props.className].join(" ").trim()}>

@@ -21,8 +21,10 @@ export class Emoji extends Component {
             ? props => <span className="text">{props.children}</span>
             : Fragment;
 
-        return <div id={this.props.htmlId || emoji.id}
-                    className={[emoji.type, `${emoji.type}--${emojiString}`].join(" ")}>
+        return <div
+            id={this.props.htmlId || emoji.id}
+            className={[emoji.type, `${emoji.type}--${emojiString}`].join(" ")}
+        >
             <TextEffectWrapper>
                 {
                     emoji.components.map(component =>
@@ -41,9 +43,13 @@ export class Emoji extends Component {
                     )
                 }
             </TextEffectWrapper>
-            <div className={[`${emoji.type}__children`, `${emoji.type}__children--${emojiString}`].join(" ")}>
-                {this.props.children}
-            </div>
+            {
+                this.props.children
+                    ? <div className={[`${emoji.type}__children`, `${emoji.type}__children--${emojiString}`].join(" ")}>
+                        {this.props.children}
+                    </div>
+                    : null
+            }
         </div>;
     }
 }

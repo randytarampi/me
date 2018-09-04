@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import Error from "./error";
 
-const ErrorWrapper = props => {
+const ErrorWrapper = ({children, ...props}) => {
     return <Fragment>
         {
             props.hasError
                 ? <Error {...props} />
-                : props.children
+                : children
         }
     </Fragment>;
 };

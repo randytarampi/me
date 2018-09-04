@@ -3,8 +3,11 @@
     &-description,
     &-date,
     &-body,
-    &-source,
-    &-text {
+    &-source {
+        &__link, &__text, &__label, &__date {
+            @extend .post-text;
+        }
+
         &__link {
             text-decoration: underline;
             text-decoration-color: $link-color;
@@ -35,6 +38,10 @@
     &--loading {
         @extend .loading;
     }
+}
+
+.photo-text {
+    @extend .post-text; // NOTE-RT: Legacy content hooked into this.
 }
 
 .row .col.post-metadata {

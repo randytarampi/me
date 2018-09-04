@@ -7,7 +7,7 @@ import LoadingSpinner from "../components/loadingSpinner";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
 
-const PostsComponent = props => {
+export const PostsComponent = props => {
     const postsArray = props.posts && props.posts.toArray();
     const elementHeight = postsArray ? postsArray.map(computePostHeight(props.containerWidth)) : [window.innerHeight];
 
@@ -26,7 +26,8 @@ const PostsComponent = props => {
             postsArray
                 ? postsArray.map(post => {
                     const Constructor = getComponentForType(post.type);
-                    return <Constructor key={post.uid} post={post}/>;
+                    return <Constructor key={post.uid} post={post} containerHeight={props.containerHeight}
+                                        containerWidth={props.containerWidth}/>;
                 })
                 : <div/>
         }
@@ -45,11 +46,12 @@ PostsComponent.defaultProps = {
     isLoading: false
 };
 
-const DimensionWrappedPosts = Dimensions({
+export const DimensionsWrappedPosts = Dimensions({
     elementResize: true
 })(PostsComponent);
-const Posts = props => <div className="dimensions-container--posts">
-    <DimensionWrappedPosts {...props}/>
+
+export const DimensionsContainerWrappedPosts = props => <div className="dimensions-container--posts">
+    <DimensionsWrappedPosts {...props}/>
 </div>;
 
-export default Posts;
+export default DimensionsContainerWrappedPosts;

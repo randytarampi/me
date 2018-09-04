@@ -3,7 +3,6 @@ import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import Dimensions from "react-dimensions";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import Link from "./link";
@@ -18,17 +17,6 @@ export class PhotoComponent extends PostComponent {
         return this.selected.height;
     }
 
-    get scaledHeight() {
-        return Math.round(this.containerWidth * this.height / this.width);
-    }
-
-    get placeholder() {
-        const targetWidth = window.devicePixelRatio ?
-            this.containerWidth * window.devicePixelRatio :
-            this.containerWidth;
-        return this.props.post.getSizedPhotoForLoading(targetWidth);
-    }
-
     get selected() {
         const targetWidth = window.devicePixelRatio ?
             this.containerWidth * window.devicePixelRatio :
@@ -37,117 +25,128 @@ export class PhotoComponent extends PostComponent {
     }
 
     render() {
-        return <ProgressiveImage src={this.selected.url} placeholder={this.placeholder.url}>
-            {
-                (source, isLoading) => {
-                    const rowClassName = ["post--photo"];
+        const rowClassName = ["post post--photo"];
 
-                    if (isLoading) {
-                        rowClassName.push("post--loading");
-                    }
+        if (this.props.isLoading) {
+            rowClassName.push("post--loading");
+        }
 
-                    return <Row
-                        className={rowClassName.join(" ")}
-                        id={this.props.post.uid}
-                        style={{
-                            backgroundImage: `url(${source})`,
-                            height: this.scaledHeight
-                        }}
-                    >
-                        <Col
-                            className="post-metadata hide-on-med-and-up"
-                        >
-                            <h1 className="post-title">
-                                <Link className="post-title__link" href={this.props.post.sourceUrl}><span
-                                    className="post-text">{this.title}</span></Link>
-                            </h1>
-                        </Col>
-                        <Col
-                            className="post-metadata hide-on-small-and-down"
-                            l={4}
-                        >
-                            <h1 className="post-title">
-                                <Link className="post-title__link" href={this.props.post.sourceUrl}><span
-                                    className="post-text">{this.title}</span></Link>
-                            </h1>
+        return <Row
+            className={rowClassName.join(" ")}
+            id={this.props.post.uid}
+            style={{
+                backgroundImage: `url(${this.props.source})`,
+                height: this.scaledHeight
+            }}
+        >
+            <Col
+                className="post-metadata hide-on-med-and-up"
+            >
+                <h1 className="post-title">
+                    <Link className="post-title__link" href={this.props.post.sourceUrl}>{this.title}</Link>
+                </h1>
+            </Col>
+            <Col
+                className="post-metadata hide-on-small-and-down"
+                l={4}
+            >
+                <h1 className="post-title">
+                    <Link className="post-title__link" href={this.props.post.sourceUrl}>{this.title}</Link>
+                </h1>
+                {
+                    typeof this.props.post.body === "string" && this.props.post.body !== "" ?
+                        <div className="post-body">
                             {
-                                typeof this.props.post.body === "string" && this.props.post.body !== "" ?
-                                    <p className="post-body">
-                                        {
-                                            isHtml(this.props.post.body)
-                                                ? <span dangerouslySetInnerHTML={{__html: this.props.post.body}}></span>
-                                                : <span className="post-text"
-                                                        dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
-                                        }
-                                    </p> :
-                                    null
+                                isHtml(this.props.post.body)
+                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    : <p>
+                                        <span className="post-body__text"
+                                              dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
+                                    </p>
                             }
-                            {
-                                Array.isArray(this.props.post.body) ?
-                                    this.props.post.body.map((htmlString, index) => {
-                                        return <p className="post-body"
-                                                  key={`${this.props.post.id}:${this.props.post.type}:body:${index}`}>
-                                            {
-                                                isHtml(htmlString)
-                                                    ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
-                                                    : <span className="post-text"
-                                                            dangerouslySetInnerHTML={{__html: htmlString}}/>
-                                            }
-                                        </p>;
-                                    }) :
-                                    null
-                            }
-                            {
-                                this.props.post.datePublished || this.props.post.dateCreated ?
-                                    <p className="post-date">
-                                        {
-                                            this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
-                                                <Fragment>
-                                                    <strong className="post-text">Taken:</strong>
-                                                    <span
-                                                        className="post-text">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
-                                                </Fragment> :
-                                                null
-                                        }
-                                        {
-                                            this.props.post.datePublished ?
-                                                <Fragment>
-                                                    <strong className="post-text">Posted:</strong>
-                                                    <span
-                                                        className="post-text">{this.props.post.datePublished.toLocaleString(DateTime.DATETIME_MED)}</span>
-                                                </Fragment> :
-                                                null
-                                        }
-                                    </p> :
-                                    null
-                            }
-                            <p className="post-source">
-                                <strong className="post-text">More:</strong>
-                                <Link className="post-source__link" href={this.selected.url}><span
-                                    className="post-text">Source</span></Link>
-                                {
-                                    this.props.post.creator ?
-                                        <Link className="post-source__link"
-                                              href={this.props.post.creator.sourceUrl}><span
-                                            className="post-text">{this.props.post.creator.username} on {this.props.post.source}</span></Link> :
-                                        null
-                                }
-                            </p>
-                        </Col>
-                    </Row>;
+                        </div> :
+                        null
                 }
-            }
-        </ProgressiveImage>;
+                {
+                    Array.isArray(this.props.post.body) ?
+                        this.props.post.body.map((htmlString, index) => {
+                            return <div className="post-body"
+                                        key={`${this.props.post.id}:${this.props.post.type}:body:${index}`}>
+                                {
+                                    isHtml(htmlString)
+                                        ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
+                                        : <p>
+                                            <span className="post-body__text"
+                                                  dangerouslySetInnerHTML={{__html: htmlString}}/>
+                                        </p>
+                                }
+                            </div>;
+                        }) :
+                        null
+                }
+                {
+                    this.props.post.datePublished || this.props.post.dateCreated ?
+                        <p className="post-date">
+                            {
+                                this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
+                                    <Fragment>
+                                        <strong className="post-date__label post-date__label--created">Taken:</strong>
+                                        <span
+                                            className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
+                                    </Fragment> :
+                                    null
+                            }
+                            {
+                                this.props.post.datePublished ?
+                                    <Fragment>
+                                        <strong
+                                            className="post-date__label post-date__label--published">Posted:</strong>
+                                        <span
+                                            className="post-date__date post-date__date--published">{this.props.post.datePublished.toLocaleString(DateTime.DATETIME_MED)}</span>
+                                    </Fragment> :
+                                    null
+                            }
+                        </p> :
+                        null
+                }
+                <p className="post-source">
+                    <strong className="post-source__label">More:</strong>
+                    <Link className="post-source__link" href={this.selected.url}>Source</Link>
+                    {
+                        this.props.post.creator ?
+                            <Link className="post-source__link"
+                                  href={this.props.post.creator.sourceUrl}>{this.props.post.creator.username} on {this.props.post.source}</Link> :
+                            null
+                    }
+                </p>
+            </Col>
+        </Row>;
     }
 }
 
 PhotoComponent.propTypes = {
-    post: PropTypes.instanceOf(PhotoEntity).isRequired
+    post: PropTypes.instanceOf(PhotoEntity).isRequired,
+    source: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired
 };
 
-const DimensionWrappedPhoto = Dimensions()(PhotoComponent);
-const Photo = props => <div className="dimensions-container--photo">
-    <DimensionWrappedPhoto {...props}/>
-</div>;
+export const ProgressiveImageWrappedPhotoComponent = props => {
+    const targetWidth = window.devicePixelRatio ?
+        props.containerWidth * window.devicePixelRatio :
+        props.containerWidth;
+    const placeholder = props.post.getSizedPhotoForLoading(targetWidth);
+    const selected = props.post.getSizedPhotoForDisplay(targetWidth);
 
-export default Photo;
+    return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
+        {
+            (source, isLoading) => <PhotoComponent {...props} source={source} isLoading={isLoading}/>
+        }
+    </ProgressiveImage>;
+};
+
+ProgressiveImageWrappedPhotoComponent.propTypes = {
+    containerWidth: PropTypes.number.isRequired,
+    post: PropTypes.instanceOf(PhotoEntity).isRequired,
+};
+
+export default ProgressiveImageWrappedPhotoComponent;

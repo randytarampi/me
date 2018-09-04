@@ -2,8 +2,7 @@ import {Post as PostEntity} from "@randy.tarampi/js";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
-import React, {Component} from "react";
-import Dimensions from "react-dimensions";
+import React, {Component, Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import Link from "./link";
 
@@ -25,7 +24,7 @@ export class PostComponent extends Component {
     }
 
     get scaledHeight() {
-        return this.containerWidth * this.height / this.width;
+        return Math.round(this.containerWidth * this.height / this.width);
     }
 
     get title() {
@@ -47,21 +46,22 @@ export class PostComponent extends Component {
             >
                 <h1 className="post-title">
                     {
-                        this.props.post.url ?
-                            <Link className="post-text" href={this.props.post.url}>{this.title}</Link> :
-                            <span className="post-text">{this.title}</span>
+                        this.props.post.sourceUrl ?
+                            <Link className="post-title__link" href={this.props.post.sourceUrl}>{this.title}</Link> :
+                            <span className="post-title__text">{this.title}</span>
                     }
                 </h1>
                 <p className="post-date">
-                    <strong className="post-text">Posted:</strong>
-                    <span className="post-text">{this.date.toLocaleString(DateTime.DATETIME_MED)}</span>
+                    <strong className="post-date__label post-date__label--published">Posted:</strong>
+                    <span
+                        className="post-date__date post-date__date--published">{this.date.toLocaleString(DateTime.DATETIME_MED)}</span>
                     {
                         this.props.post.dateCreated ?
-                            <span>
-                                <strong className="post-text">Modified:</strong>
+                            <Fragment>
+                                <strong className="post-date__label post-date__label--created">Created:</strong>
                                 <span
-                                    className="post-text">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
-                            </span> :
+                                    className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
+                            </Fragment> :
                             null
                     }
                 </p>
@@ -70,20 +70,20 @@ export class PostComponent extends Component {
                         ? <div className="post-body">
                             {
                                 isHtml(this.props.post.body)
-                                    ? <p dangerouslySetInnerHTML={{__html: this.props.post.body}}></p>
-                                    : <span className="post-text" dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
+                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    : <p><span className="post-body__text">{this.props.post.body}</span></p>
                             }
                         </div> :
                         null
                 }
                 {
                     Array.isArray(this.props.post.body)
-                        ? this.props.post.body.map((htmlString, index) => {
+                        ? this.props.post.body.map((maybeHtmlString, index) => {
                             return <div className="post-body" key={index}>
                                 {
-                                    isHtml(htmlString)
-                                        ? <p dangerouslySetInnerHTML={{__html: htmlString}}></p>
-                                        : <span className="post-text" dangerouslySetInnerHTML={{__html: htmlString}}/>
+                                    isHtml(maybeHtmlString)
+                                        ? <div dangerouslySetInnerHTML={{__html: maybeHtmlString}}></div>
+                                        : <p><span className="post-body__text">{maybeHtmlString}</span></p>
                                 }
                             </div>;
                         })
@@ -100,9 +100,4 @@ PostComponent.propTypes = {
     containerHeight: PropTypes.number
 };
 
-const DimensionWrappedPost = Dimensions()(PostComponent);
-const Post = props => <div className="dimensions-container--post">
-    <DimensionWrappedPost {...props}/>
-</div>;
-
-export default Post;
+export default PostComponent;

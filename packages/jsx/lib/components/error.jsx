@@ -1,4 +1,5 @@
 import {DeadBear, DoubtBear, ShrugBear} from "@randy.tarampi/js";
+import {Map} from "immutable";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
@@ -87,7 +88,7 @@ Error.propTypes = {
         PropTypes.string
     ]),
     errorMessage: PropTypes.string,
-    location: PropTypes.object.isRequired,
+    location: PropTypes.instanceOf(Map).isRequired,
     redirectionLocation: PropTypes.string.isRequired,
     redirectionTimeout: PropTypes.number.isRequired,
     timedRedirect: PropTypes.func.isRequired
