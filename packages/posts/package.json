@@ -20,7 +20,7 @@
     "kill": "npm run kill:dynamodb-local",
     "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.posts.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.posts.dynamo.pid`; rm /tmp/ca.randytarampi.me.posts.dynamo.pid; fi;",
     "posttest": "npm run kill",
-    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local; NODE_ENV=test npx nyc gulp -LLLL --color test; npm run kill:dynamodb-local",
+    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test npx nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
     "prestart": "npm run kill",
     "start": "npm run dev",
     "start:dynamodb-local": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.posts.dynamo.pid",
