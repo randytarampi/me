@@ -11,11 +11,11 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case LOCATION_CHANGE: {
             const location = action.payload.location || action.payload;
-            const action = action.payload.action;
+            const actionPayloadAction = action.payload.action;
 
             return state
                 .set("location", fromJS(location))
-                .set("action", fromJS(action));
+                .set("action", fromJS(actionPayloadAction));
         }
 
         default:
