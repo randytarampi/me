@@ -6,7 +6,7 @@ import raven from "raven-js";
 import ConsoleStream from "./consoleStream";
 
 const getWindowVariables = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && window) {
         return {
             windowName: window.NAME,
             windowEnvironment: window.ENVIRONMENT,
@@ -72,7 +72,11 @@ export const buildBunyanConfiguration = () => {
         };
     }
 
-    return null;
+    return {
+        name: "jsx",
+        src: false, // NOTE-RT: Needs to be false because it needs DTrace
+        serializers: bunyan.stdSerializers
+    };
 };
 
 export const createLogger = () => {

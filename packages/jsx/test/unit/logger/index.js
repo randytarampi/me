@@ -40,7 +40,7 @@ describe("logger", function () {
             raven.install.restore();
         });
 
-        it("returns a valid bunyan configuration", function () {
+        it("returns a valid bunyan configuration (with a `window`)", function () {
             const stubName = "woof";
             const stubVersion = "grr";
             const stubEnironment = "meow";
@@ -75,6 +75,17 @@ describe("logger", function () {
             expect(bunyanConfiguration.streams[1].stream).to.be.instanceOf(SentryStream);
             expect(bunyanConfiguration.src).to.eql(false);
             expect(raven.install.calledOnce).to.eql(true);
+        });
+
+        it("returns a valid bunyan configuration (without a `window`)", function () {
+            global.window = undefined;
+            global.document = undefined;
+
+            const bunyanConfiguration = buildBunyanConfiguration();
+
+            expect(bunyanConfiguration).to.be.ok;
+            expect(bunyanConfiguration.name).to.eql("jsx");
+            expect(bunyanConfiguration.src).to.eql(false);
         });
     });
 });
