@@ -7,11 +7,11 @@ const initialState = Map({
 });
 
 // NOTE-RT: Lifted directly from https://github.com/gajus/redux-immutable/pull/71/files#diff-04c6e90faac2675aa89e2176d2eec7d8R105
-export default (state = initialState, {type, payload = {}} = {}) => {
-    switch (type) {
+export default (state = initialState, action) => {
+    switch (action.type) {
         case LOCATION_CHANGE: {
-            const location = payload.location || payload;
-            const action = payload.action;
+            const location = action.payload.location || action.payload;
+            const action = action.payload.action;
 
             return state
                 .set("location", fromJS(location))

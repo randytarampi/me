@@ -3,14 +3,14 @@ import {CLEAR_EMOJI} from "../actions/emoji/clearEmoji";
 import {INSTANTIATE_EMOJI} from "../actions/emoji/instantiateEmoji";
 import {UPDATE_EMOJI} from "../actions/emoji/updateEmoji";
 
-export default (state = Map(), {type, payload = {}} = {}) => {
-    switch (type) {
+export default (state = Map(), action) => {
+    switch (action.type) {
         case INSTANTIATE_EMOJI:
         case UPDATE_EMOJI:
-            return state.set(payload.id, payload);
+            return state.set(action.payload.id, action.payload);
 
         case CLEAR_EMOJI:
-            return state.delete(payload.id);
+            return state.delete(action.payload.id);
 
         default:
             return state;
