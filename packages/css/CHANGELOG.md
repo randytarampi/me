@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.23.8"></a>
+## [0.23.8](https://github.com/randytarampi/me/compare/v0.23.7...v0.23.8) (2018-09-04)
+
+
+### Bug Fixes
+
+* **jsx:** Add tests for some mostly stable components. Per [#12](https://github.com/randytarampi/me/issues/12). ([88abca3](https://github.com/randytarampi/me/commit/88abca3))
+
+
+
+
+
 <a name="0.23.4"></a>
 ## [0.23.4](https://github.com/randytarampi/me/compare/v0.23.3...v0.23.4) (2018-09-03)
 
