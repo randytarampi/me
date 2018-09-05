@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.23.10",
+  "version": "0.23.11",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
@@ -36,7 +36,7 @@
   "dependencies": {
     "@randy.tarampi/assets": "^0.23.0",
     "@randy.tarampi/css": "^0.23.8",
-    "@randy.tarampi/jsx": "^0.23.10",
+    "@randy.tarampi/jsx": "^0.23.11",
     "@randy.tarampi/views": "^0.23.4",
     "history": "^4.7.2",
     "immutable": "^4.0.0-rc.9",
