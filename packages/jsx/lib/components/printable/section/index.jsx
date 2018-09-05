@@ -8,4 +8,6 @@ export * from "./leftPullSection";
 export * from "./rightDescriptionSection";
 export * from "./rightPushSection";
 
+export * from "./rawHtmlSection";
+
 export default PrintableSection;

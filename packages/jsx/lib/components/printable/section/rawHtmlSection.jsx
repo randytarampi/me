@@ -1,40 +1,26 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Row} from "react-materialize";
+import {Col} from "react-materialize";
+import SectionWrapper from "./sectionWrapper";
 
 export const RawHtmlLetterSection = ({printableType, type, rawHtml, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className}) => {
-    const classNames = [
-        "printable-section",
-        "printable-section__raw-html",
-        "printable-" + type,
-        `${printableType}-${type}`
+    const sectionClassNames = [
+        "printable-section__raw-html"
     ];
 
-    if (hideOnScreen) {
-        classNames.push("hide-on-screen");
-    }
-
-    if (showOnA4) {
-        classNames.push("show-on-a4");
-    }
-
-    if (showOnLetter) {
-        classNames.push("show-on-letter");
-    }
-
-    if (showOnLegal) {
-        classNames.push("show-on-legal");
-    }
-
-    if (hideOnPrint && !showOnA4 && !showOnLetter && !showOnLegal) {
-        classNames.push("hide-on-print");
-    }
-
-    return <section id={type} className={classNames.concat(className).join(" ").trim()}>
-        <Row className={verticallyAlignContent ? "valign-wrapper" : null}>
-            <Col className="printable-section__content" dangerouslySetInnerHtml={{__html: rawHtml}}/>
-        </Row>
-    </section>;
+    return <SectionWrapper {...{
+        printableType,
+        type,
+        hideOnPrint,
+        showOnLetter,
+        showOnA4,
+        showOnLegal,
+        hideOnScreen,
+        verticallyAlignContent,
+        className: sectionClassNames.concat(className).join(" ").trim()
+    }}>
+        <Col className="printable-section__content" dangerouslySetInnerHtml={{__html: rawHtml}}/>
+    </SectionWrapper>;
 };
 
 RawHtmlLetterSection.propTypes = {
