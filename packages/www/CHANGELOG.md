@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/randytarampi/me/compare/v0.23.12...v0.24.0) (2018-09-06)
+
+
+### Features
+
+* **jsx:** Add more flavour to my browser logger messages. ([a730d1c](https://github.com/randytarampi/me/commit/a730d1c))
+
+
+
+
+
 <a name="0.23.12"></a>
 ## [0.23.12](https://github.com/randytarampi/me/compare/v0.23.11...v0.23.12) (2018-09-06)
 

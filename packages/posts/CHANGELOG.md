@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/randytarampi/me/compare/v0.23.12...v0.24.0) (2018-09-06)
+
+**Note:** Version bump only for package @randy.tarampi/posts
+
+
+
+
+
 <a name="0.23.9"></a>
 ## [0.23.9](https://github.com/randytarampi/me/compare/v0.23.8...v0.23.9) (2018-09-05)
 

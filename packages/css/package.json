@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "0.23.8",
+  "version": "0.24.0",
   "publishConfig": {
     "access": "public"
   },
