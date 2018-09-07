@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.24.0",
+  "version": "0.24.1",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -43,7 +43,7 @@
   "dependencies": {
     "@randy.tarampi/assets": "^0.24.0",
     "@randy.tarampi/css": "^0.24.0",
-    "@randy.tarampi/jsx": "^0.24.0",
+    "@randy.tarampi/jsx": "^0.24.1",
     "@randy.tarampi/views": "^0.24.0",
     "history": "^4.7.2",
     "luxon": "^1.3.3",

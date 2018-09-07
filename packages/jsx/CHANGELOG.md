@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.1"></a>
+## [0.24.1](https://github.com/randytarampi/me/compare/v0.24.0...v0.24.1) (2018-09-07)
+
+**Note:** Version bump only for package @randy.tarampi/jsx
+
+
+
+
+
 <a name="0.24.0"></a>
 # [0.24.0](https://github.com/randytarampi/me/compare/v0.23.12...v0.24.0) (2018-09-06)
 
