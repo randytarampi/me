@@ -72,7 +72,6 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
             extensions: [".js", ".jsx", ".json"]
         },
         module: {
-            noParse: util.webpackModuleNoParseInclusions,
             rules: [
                 {
                     test: /\.jsx?$/,

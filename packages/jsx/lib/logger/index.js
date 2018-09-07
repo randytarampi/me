@@ -1,6 +1,6 @@
 /* global window */
 
-import bunyan from "bunyan";
+import {createLogger as browserBunyanCreateLogger, stdSerializers} from "browser-bunyan";
 import {SentryStream} from "bunyan-sentry-stream";
 import raven from "raven-js";
 import ConsoleStream from "./consoleStream";
@@ -68,19 +68,19 @@ export const buildBunyanConfiguration = () => {
             src: false, // NOTE-RT: Needs to be false because it needs DTrace
             version: windowVersion,
             environment: windowEnvironment,
-            serializers: bunyan.stdSerializers
+            serializers: stdSerializers
         };
     }
 
     return {
         name: "jsx",
         src: false, // NOTE-RT: Needs to be false because it needs DTrace
-        serializers: bunyan.stdSerializers
+        serializers: stdSerializers
     };
 };
 
 export const createLogger = () => {
-    return bunyan.createLogger(buildBunyanConfiguration());
+    return browserBunyanCreateLogger(buildBunyanConfiguration());
 };
 
 export default createLogger();

@@ -1,5 +1,5 @@
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
-import bunyan from "bunyan";
+import {nameFromLevel} from "browser-bunyan";
 import {expect} from "chai";
 import sinon from "sinon";
 import ConsoleStream from "../../../lib/logger/consoleStream";
@@ -241,7 +241,7 @@ describe("ConsoleStream", function () {
                 "color: grey",
                 bears.bear.toString(),
                 `color: ${ConsoleStream.colorFromLevel(stubRecord.level)}`,
-                bunyan.nameFromLevel[stubRecord.level].toUpperCase(),
+                nameFromLevel[stubRecord.level].toUpperCase(),
                 "color: unset",
                 stubRecord.msg
             );

@@ -30,6 +30,7 @@
   "dependencies": {
     "@randy.tarampi/js": "^0.24.0",
     "bunyan": "beta",
+    "browser-bunyan": "^1.4.0",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "immutable": "^4.0.0-rc.9",
     "is-html": "^1.1.0",

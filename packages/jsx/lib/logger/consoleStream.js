@@ -1,5 +1,5 @@
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
-import bunyan from "bunyan";
+import {nameFromLevel} from "browser-bunyan";
 
 const bears = {
     lennyBear: new LennyBear(),
@@ -82,7 +82,7 @@ class ConsoleStream {
                 "color: grey",
                 bears.bear.toString(),
                 `color: ${ConsoleStream.colorFromLevel(record.level)}`,
-                bunyan.nameFromLevel[record.level].toUpperCase(),
+                nameFromLevel[record.level].toUpperCase(),
                 "color: unset",
                 record.msg
             );
