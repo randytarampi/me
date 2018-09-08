@@ -426,7 +426,7 @@ describe("Photo", function () {
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--photo");
 
-                const component = rendered.getElement().props.children[0]._self;
+                const component = rendered.instance();
                 expect(component).to.be.ok;
                 expect(component.width).to.be.ok;
                 expect(component.width).to.eql(component.selected.width);
@@ -448,7 +448,7 @@ describe("Photo", function () {
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--photo");
 
-                const component = rendered.getElement().props.children[0]._self;
+                const component = rendered.instance();
                 expect(component).to.be.ok;
                 expect(component.height).to.be.ok;
                 expect(component.height).to.eql(component.selected.height);
@@ -476,7 +476,7 @@ describe("Photo", function () {
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--photo");
 
-                const component = rendered.getElement().props.children[0]._self;
+                const component = rendered.instance();
                 expect(component).to.be.ok;
                 expect(component.selected).to.be.ok;
                 expect(component.selected).to.eql(stubPhoto.getSizedPhotoForLoading());
@@ -498,7 +498,7 @@ describe("Photo", function () {
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--photo");
 
-                const component = rendered.getElement().props.children[0]._self;
+                const component = rendered.instance();
                 expect(component).to.be.ok;
                 expect(component.selected).to.be.ok;
                 expect(component.selected).to.eql(stubPhoto.sortedSizedPhotos.last());

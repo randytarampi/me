@@ -201,7 +201,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.width).to.be.ok;
             expect(component.width).to.eql(stubProps.containerWidth);
@@ -221,7 +221,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.height).to.be.ok;
             expect(component.height).to.eql(stubProps.containerHeight);
@@ -241,7 +241,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.containerWidth).to.be.ok;
             expect(component.containerWidth).to.eql(stubProps.containerWidth);
@@ -261,7 +261,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.containerHeight).to.be.ok;
             expect(component.containerHeight).to.eql(stubProps.containerHeight);
@@ -281,7 +281,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.scaledHeight).to.be.ok;
             expect(component.scaledHeight).to.eql(component.height);
@@ -302,7 +302,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.title).to.be.ok;
             expect(component.title).to.eql("Untitled");
@@ -327,7 +327,7 @@ describe("Post", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
-            const component = rendered.getElement().props.children._self;
+            const component = rendered.instance();
             expect(component).to.be.ok;
             expect(component.title).to.be.ok;
             expect(component.title).to.eql(stubPost.title);
