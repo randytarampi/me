@@ -23,8 +23,8 @@ describe("Emoji", () => {
         });
     });
 
-    describe("fromJSON", () => {
-        it("should instantiate a. Emoji object from some plain JS Object", () => {
+    describe(".fromJSON", () => {
+        it("should instantiate an Emoji object from some plain JS Object", () => {
             const emojiJson = {
                 type: "woof",
                 components: defaultComponents
