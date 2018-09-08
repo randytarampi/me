@@ -8,7 +8,7 @@ import thunk from "redux-thunk";
 import sinon from "sinon";
 import * as api from "../../../lib/data/api";
 import selectors from "../../../lib/data/selectors";
-import {shallow} from "../../util";
+import {shallow} from "../../../lib/util/test";
 
 describe("Posts", function () {
     let mockStore;

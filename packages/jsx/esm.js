@@ -16,6 +16,8 @@ import ServerReduxRoot from "./lib/serverReduxRoot";
 
 import configureStore from "./lib/store/configureStore";
 
+import * as util from "./lib/util";
+
 export * from "./lib/containers/emoji";
 
 export {
@@ -36,5 +38,7 @@ export {
     logger,
 
     ClientReduxRoot,
-    ServerReduxRoot
+    ServerReduxRoot,
+
+    util
 };

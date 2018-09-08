@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
 import selectors from "../../../lib/data/selectors";
-import {shallow} from "../../util";
+import {shallow} from "../../../lib/util/test";
 
 describe("Error", function () {
     let mockStore;
@@ -128,7 +128,7 @@ describe("Error", function () {
         expect(rendered).to.have.prop("timedRedirect");
     });
 
-    it("dispatches `fetchPosts` properly", function () {
+    it("calls `timedRedirect` with the correct `redirectionLocation`", function () {
         const stubProps = {redirectionLocation: "/woof", redirectionTimeout: 1};
         const clearErrorStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
