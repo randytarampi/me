@@ -23,8 +23,8 @@ export const ResumeProjectsEntry = ({projectsEntry, index}) => {
                             <span className="text">
                             {
                                 projectsEntry.url
-                                    ? <CampaignLink href={projectsEntry.url}>{projectsEntry.name}</CampaignLink>
-                                    : projectsEntry.company
+                                    ? <CampaignLink href={projectsEntry.url} text={projectsEntry.name}/>
+                                    : projectsEntry.name
                             }
                             </span>
                         </span>

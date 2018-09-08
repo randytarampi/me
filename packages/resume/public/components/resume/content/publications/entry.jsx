@@ -20,7 +20,7 @@ export const ResumePublicationsEntry = ({publicationsEntry, index}) => {
                             <span className="text">
                             {
                                 publicationsEntry.url
-                                    ? <CampaignLink href={publicationsEntry.url}>{publicationsEntry.name}</CampaignLink>
+                                    ? <CampaignLink href={publicationsEntry.url} text={publicationsEntry.name}/>
                                     : publicationsEntry.name
                             }
                             </span>

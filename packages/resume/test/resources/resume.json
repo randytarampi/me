@@ -17,8 +17,26 @@
     "profiles": [
       {
         "network": "Twitter",
-        "username": "john",
         "url": "http://twitter.com/john"
+      },
+      {
+        "network": "Unsplash",
+        "username": "john",
+        "url": "http://unsplash.com/john"
+      },
+      {
+        "network": "StackExchange",
+        "username": "john"
+      },
+      {
+        "network": "StackOverflow",
+        "username": "john"
+      },
+      {
+        "network": "WoofNet"
+      },
+      {
+        "network": "Instagram"
       }
     ]
   },
@@ -100,7 +118,32 @@
       "name": "Wildlife",
       "keywords": [
         "Ferrets",
-        "Unicorns"
+        "Unicorns",
+        "Dogs",
+        "Cats",
+        "Bears"
+      ]
+    },
+    {
+      "name": "Woofs",
+      "keywords": [
+        "Retrievers",
+        "Beagles"
+      ]
+    },
+    {
+      "name": "Meows",
+      "keywords": [
+        "Tabby cats",
+        "Fishing cats"
+      ]
+    },
+    {
+      "name": "Bears",
+      "keywords": [
+        "Black",
+        "Grizzly",
+        "Polar"
       ]
     }
   ],
@@ -108,6 +151,26 @@
     {
       "name": "Jane Doe",
       "reference": "Reference..."
+    }
+  ],
+  "projects": [
+    {
+      "name": "My blog",
+      "description": "It's a blog",
+      "highlights": [
+        "My choice of technologies here was largely driven by my want to minimize costs"
+      ],
+      "keywords": [
+        "Ferrets",
+        "Unicorns"
+      ],
+      "startDate": "2018-08-01",
+      "roles": [
+        "Developer"
+      ],
+      "entity": "Me, myself & I",
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/blog"
     }
   ]
 }

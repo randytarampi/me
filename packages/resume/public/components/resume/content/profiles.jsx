@@ -38,7 +38,7 @@ const getLinkComponentForProfile = profile => {
         if (profile.url) {
             linkComponent = <span>
                 <span className="text">{network}</span>&nbsp;<CampaignLink
-                href={profile.url}>{profile.username}</CampaignLink>
+                href={profile.url} text={profile.username}/>
             </span>;
         } else if (profile.username) {
             linkComponent = <span>

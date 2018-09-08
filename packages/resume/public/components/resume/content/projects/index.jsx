@@ -8,7 +8,7 @@ const {PrintableSection} = Printable;
 export const ResumeProjects = ({resume}) => {
     return <PrintableSection
         printableType="resume"
-        type="project"
+        type="projects"
         label="Projects"
         hideOnPrint={true}
         descriptionNode={

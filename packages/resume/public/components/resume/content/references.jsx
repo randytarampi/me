@@ -12,10 +12,10 @@ export const ResumeReferences = ({resume}) => {
                 resume.references.map((referenceEntry, index) => {
                     return <Col s={12} className="resume-references__reference-entry" key={index}>
                         <blockquote className="resume-references__reference">
-                            <p>
+                            <p className="resume-references__reference-quote">
                                 <span className="text">{referenceEntry.reference}</span>
                             </p>
-                            <p>
+                            <p className="resume-references__reference-referee">
                                 &mdash;&nbsp;<strong className="text">{referenceEntry.name}</strong>
                             </p>
                         </blockquote>

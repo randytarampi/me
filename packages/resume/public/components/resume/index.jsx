@@ -44,7 +44,7 @@ export const Resume = props => <div className="printable resume">
         <link rel="canonical" href={props.resume.publish_url}/>
         <meta name="og:url" content={props.resume.publish_url}/>
     </Helmet>
-    <PrintableHeader {...props} printable={props.resume}/>
+    <PrintableHeader printable={props.resume}/>
     <div className="resume-content">
         <div className="container">
             <ResumeContact {...props} />

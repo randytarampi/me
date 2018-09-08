@@ -23,8 +23,7 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
                             <span className="text">
                             {
                                 educationEntry.website
-                                    ? <CampaignLink
-                                        href={educationEntry.website}>{educationEntry.institution}</CampaignLink>
+                                    ? <CampaignLink href={educationEntry.website} text={educationEntry.institution}/>
                                     : educationEntry.institution
                             }
                             </span>
@@ -60,7 +59,9 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
                             <ul className="resume-education-entry__highlights">
                                 {
                                     educationEntry.courses.map((highlight, index) => {
-                                        return <li className={`resume-education-entry__highlight${index > 3 ? " hide-on-print" : ""}`} key={index}>
+                                        return <li
+                                            className={`resume-education-entry__highlight${index < 3 ? " show-on-letter show-on-a4" : ""}${index >= 3 ? " show-on-legal" : ""}`}
+                                            key={index}>
                                             {highlight}
                                         </li>;
                                     })

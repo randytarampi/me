@@ -23,8 +23,7 @@ export const ResumeVolunteerEntry = ({volunteerEntry, index}) => {
                             <span className="text">
                             {
                                 volunteerEntry.website
-                                    ? <CampaignLink
-                                        href={volunteerEntry.website}>{volunteerEntry.organization}</CampaignLink>
+                                    ? <CampaignLink href={volunteerEntry.website} text={volunteerEntry.organization}/>
                                     : volunteerEntry.organization
                             }
                             </span>
@@ -66,7 +65,9 @@ export const ResumeVolunteerEntry = ({volunteerEntry, index}) => {
                             <ul className="resume-volunteer-entry__highlights">
                                 {
                                     volunteerEntry.highlights.map((highlight, index) => {
-                                        return <li className="resume-volunteer-entry__highlight" key={index}>
+                                        return <li
+                                            className={`resume-volunteer-entry__highlight${index < 3 ? " show-on-letter show-on-a4" : ""}${index >= 3 ? " show-on-legal" : ""}`}
+                                            key={index}>
                                             {highlight}
                                         </li>;
                                     })
