@@ -1,7 +1,7 @@
 import PhotoComponent from "../components/photo";
 import PostComponent from "../components/post";
 
-export const getComponentForType = type => {
+export default type => {
     switch (type) {
         case "Photo":
             return PhotoComponent;
@@ -13,5 +13,3 @@ export const getComponentForType = type => {
             throw new Error(`Can't \`getComponentForType\` for \`${type}\``);
     }
 };
-
-export default getComponentForType;

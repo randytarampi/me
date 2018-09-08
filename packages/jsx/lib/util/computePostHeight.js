@@ -1,4 +1,4 @@
-export const computePostHeight = containerWidth => post => {
+export default containerWidth => post => {
     if (post.height && post.width) {
         return containerWidth * post.height / post.width;
     }
@@ -9,5 +9,3 @@ export const computePostHeight = containerWidth => post => {
 
     return typeof window !== "undefined" && window.innerHeight || 600;
 };
-
-export default computePostHeight;

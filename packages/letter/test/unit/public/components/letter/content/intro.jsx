@@ -1,7 +1,7 @@
 import React from "react";
 import {expect} from "chai";
 import LetterIntro from "../../../../../../public/components/letter/content/intro";
-import {util} from "@randy.tarampi/jsx";
+import {shallow} from "@randy.tarampi/jsx/test/util";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {Map} from "immutable";
@@ -25,7 +25,7 @@ describe("LetterIntro", function () {
     });
 
     it("renders (default content)", function () {
-        const rendered = util.test.shallow(stubStore)(<LetterIntro contentConfiguration={stubContentConfiguration}/>);
+        const rendered = shallow(stubStore)(<LetterIntro contentConfiguration={stubContentConfiguration}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-intro__content");
@@ -43,7 +43,7 @@ describe("LetterIntro", function () {
             }
         });
 
-        const rendered = util.test.shallow(stubStore)(<LetterIntro contentConfiguration={stubContentConfiguration}/>);
+        const rendered = shallow(stubStore)(<LetterIntro contentConfiguration={stubContentConfiguration}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-intro__content");

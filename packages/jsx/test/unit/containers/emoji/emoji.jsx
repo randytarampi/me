@@ -7,7 +7,7 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
 import selectors from "../../../../lib/data/selectors";
-import {shallow} from "../../../../lib/util/test";
+import {shallow} from "../../../util";
 
 describe("Emoji", function () {
     let mockStore;
