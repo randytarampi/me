@@ -60,7 +60,7 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
                                 {
                                     educationEntry.courses.map((highlight, index) => {
                                         return <li
-                                            className={`resume-education-entry__highlight${index < 3 ? " show-on-letter show-on-a4" : ""}${index >= 3 ? " show-on-legal" : ""}`}
+                                            className={`resume-education-entry__highlight${index > 3 ? " hide-on-print" : ""}`}
                                             key={index}>
                                             {highlight}
                                         </li>;

@@ -48,8 +48,7 @@ describe("ResumeEducationEntry", function () {
         expect(rendered).to.have.descendants(".resume-education-entry__highlights");
         expect(rendered).to.have.descendants(".resume-education-entry__highlight");
         expect(rendered.find(".resume-education-entry__highlight")).to.have.length(stubResumeEducationEntry.courses.length);
-        expect(rendered.find(".resume-education-entry__highlight.show-on-letter.show-on-a4")).to.have.length(3);
-        expect(rendered.find(".resume-education-entry__highlight.show-on-legal")).to.have.length(stubResumeEducationEntry.courses.length - 3);
+        expect(rendered.find(".resume-education-entry__highlight.hide-on-print")).to.have.length(stubResumeEducationEntry.courses.length - 4);
     });
 
     it("renders (no end date)", function () {
