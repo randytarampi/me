@@ -30,7 +30,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
                     href="http://fetchauto.ca">startup fizzle out</Link>. I've seen a lot, learned a lot, failed a
                     couple of times, but I know I haven't done it all yet, and the best way for me to do that is to take
                     a giant leap and hopefully land somewhere
-                    like {letter.recipient && letter.recipient.company ? letter.recipient.company : "your company"}.
+                    like {letter.recipient && letter.recipient.worksFor ? letter.recipient.worksFor : "your company"}.
                 </Fragment>
             }
         </p>

@@ -10,10 +10,17 @@ class LetterSection extends Record({
         return this.get("contentProps").toJS();
     }
 
-    static fromJS(json) {
+    static fromJS(js) {
+        return new LetterSection({
+            ...js,
+            contentProps: js.contentProps ? Map(js.contentProps) : Map()
+        });
+    }
+
+    static fromJSON(json) {
         return new LetterSection({
             ...json,
-            contentProps: Map(json.contentProps)
+            contentProps: json.contentProps ? Map(json.contentProps) : Map()
         });
     }
 }

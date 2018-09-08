@@ -5,17 +5,17 @@ import {Helmet} from "react-helmet";
 
 const {PrintableHeader} = Printable;
 
-export const Letter = props => <div className="printable letter">
+export const Letter = ({letter, ...props}) => <div className="printable letter">
     <Helmet>
-        <title>{props.letter.basics.name} &mdash; {props.letter.basics.label}</title>
-        <meta itemProp="name" content={props.letter.basics.name}/>
-        <meta name="twitter:title" content={props.letter.basics.name}/>
-        <meta name="og:title" content={props.letter.basics.name}/>
-        <meta name="og:site_name" content={props.letter.basics.name}/>
-        <meta name="description" content={props.letter.basics.label}/>
-        <meta itemProp="description" content={props.letter.basics.label}/>
-        <meta name="twitter:description" content={props.letter.basics.label}/>
-        <meta name="og:description" content={props.letter.basics.label}/>
+        <title>{letter.basics.name} &mdash; {letter.basics.label}</title>
+        <meta itemProp="name" content={letter.basics.name}/>
+        <meta name="twitter:title" content={letter.basics.name}/>
+        <meta name="og:title" content={letter.basics.name}/>
+        <meta name="og:site_name" content={letter.basics.name}/>
+        <meta name="description" content={letter.basics.label}/>
+        <meta itemProp="description" content={letter.basics.label}/>
+        <meta name="twitter:description" content={letter.basics.label}/>
+        <meta name="og:description" content={letter.basics.label}/>
         <meta name="image" content="/ʕつ•ᴥ•ʔつ.svg"/>
         <meta itemProp="image" content="/ʕつ•ᴥ•ʔつ.svg"/>
         <meta name="twitter:image:src" content="/ʕつ•ᴥ•ʔつ.svg"/>
@@ -26,19 +26,20 @@ export const Letter = props => <div className="printable letter">
         <meta name="fb:admins" content="831915416"/>
         <meta name="fb:app_id" content="1705404522846104"/>
         <meta name="og:type" content="website"/>
-        <link rel="canonical" href={props.letter.publish_url}/>
-        <meta name="og:url" content={props.letter.publish_url}/>
+        <link rel="canonical" href={letter.publish_url}/>
+        <meta name="og:url" content={letter.publish_url}/>
     </Helmet>
-    <PrintableHeader {...props} printable={props.letter}/>
+    <PrintableHeader {...props} printable={letter}/>
     <div className="letter-content">
         <div className="container">
             {
-                props.letter.content.map(contentConfiguration => {
+                letter.content.map(contentConfiguration => {
                     const ContentComponent = contentConfiguration.component
                         ? contentConfiguration.component
                         : require(`./content/${contentConfiguration.contentKey}`).default;
                     return <ContentComponent
                         {...props}
+                        letter={letter}
                         contentConfiguration={contentConfiguration}
                         key={contentConfiguration.sectionId || contentConfiguration.contentKey}
                     />;
@@ -46,7 +47,7 @@ export const Letter = props => <div className="printable letter">
             }
         </div>
     </div>
-    {/*<LetterFooter {...props} />*/}
+    {/*<LetterFooter {...props} letter={letter}/>*/}
 </div>;
 
 Letter.propTypes = {

@@ -30,12 +30,22 @@ class Letter extends Record({
         return this.id;
     }
 
-    static fromJS(json) {
+    static fromJS(js) {
+        return new Letter({
+            ...js,
+            sender: js.sender ? Person.fromJS(js.sender) : null,
+            recipient: js.recipient ? Person.fromJS(js.recipient) : null,
+            content: js.content ? List(js.content.map(LetterSection.fromJS)) : null,
+            renderOptions: Map(js.renderOptions),
+        });
+    }
+
+    static fromJSON(json) {
         return new Letter({
             ...json,
-            sender: json.sender ? Person.fromJS(json.sender) : null,
-            recipient: json.recipient ? Person.fromJS(json.recipient) : null,
-            content: json.content ? List(json.content.map(LetterSection.fromJS)) : null,
+            sender: json.sender ? Person.fromJSON(json.sender) : null,
+            recipient: json.recipient ? Person.fromJSON(json.recipient) : null,
+            content: json.content ? List(json.content.map(LetterSection.fromJSON)) : null,
             renderOptions: Map(json.renderOptions),
         });
     }

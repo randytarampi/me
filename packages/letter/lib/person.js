@@ -44,11 +44,23 @@ class Person extends Record({
         return this.location && this.location.postalCode;
     }
 
-    static fromJS(json) {
+    get countryCode() {
+        return this.location && this.location.countryCode;
+    }
+
+    static fromJS(js) {
+        return new Person({
+            ...js,
+            location: js.location ? Location.fromJS(js.location) : null,
+            profiles: js.profiles ? List(js.profiles.map(Profile.fromJS)) : null
+        });
+    }
+
+    static fromJSON(json) {
         return new Person({
             ...json,
-            location: json.location ? Location.fromJS(json.location) : null,
-            profiles: json.profiles ? List(json.profiles.map(Profile.fromJS)) : null
+            location: json.location ? Location.fromJSON(json.location) : null,
+            profiles: json.profiles ? List(json.profiles.map(Profile.fromJSON)) : null
         });
     }
 }

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import assembleLetter from "./assembleLetter";
+import {assembleLetter} from "./assembleLetter";
 
 export const assembleLetters = (lettersDirectory = `${__dirname}/../letters`) => {
     return new Promise((resolve, reject) => {

@@ -5,7 +5,13 @@ class Profile extends Record({
     username: null,
     url: null
 }) {
-    static fromJS(json) {
+    static fromJS(js) {
+        return new Profile({
+            ...js
+        });
+    }
+
+    static fromJSON(json) {
         return new Profile({
             ...json
         });

@@ -6,7 +6,7 @@ import React from "react";
 const {PrintableSection} = Printable;
 
 export const LetterDate = ({contentConfiguration}) => {
-    const date = contentConfiguration.contentProps.date
+    const date = contentConfiguration.contentProps && contentConfiguration.contentProps.date
         ? DateTime.fromISO(contentConfiguration.contentProps.date)
         : DateTime.local();
 
@@ -24,7 +24,6 @@ export const LetterDate = ({contentConfiguration}) => {
 };
 
 LetterDate.propTypes = {
-    letter: PropTypes.object.isRequired,
     contentConfiguration: PropTypes.object.isRequired,
 };
 

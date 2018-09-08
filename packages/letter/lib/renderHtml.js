@@ -21,7 +21,8 @@ export const buildPugLocals = (letter, pageSize) => {
         sentryDsn: config.get("sentryDsn"),
         gtm: config.get("gtm"),
         environment: process.env.NODE_ENV || "local",
-        version: packageJson.version
+        version: packageJson.version,
+        logger: null
     };
 };
 

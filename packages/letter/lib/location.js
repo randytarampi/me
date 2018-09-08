@@ -7,7 +7,13 @@ class Location extends Record({
     countryCode: null,
     region: null
 }) {
-    static fromJS(json) {
+    static fromJS(js) {
+        return new Location({
+            ...js
+        });
+    }
+
+    static fromJSON(json) {
         return new Location({
             ...json
         });

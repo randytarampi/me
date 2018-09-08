@@ -1,6 +1,6 @@
 import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
-import React from "react";
+import React, {Fragment} from "react";
 
 const {PrintableSection} = Printable;
 
@@ -15,26 +15,28 @@ export const PrintableRecipient = ({letter, contentConfiguration}) => {
         printableType="letter"
     >
         {
-            letter.recipient.name ? <p className="printable-recipient__name">{letter.recipient.name}</p> : null
+            letter.recipient.name
+                ? <p className="printable-recipient__name">{letter.recipient.name}</p>
+                : null
         }
         {
-            letter.recipient.jobTitle ? <p className="printable-recipient__title">{letter.recipient.jobTitle}</p> : null
+            letter.recipient.jobTitle
+                ? <p className="printable-recipient__title">{letter.recipient.jobTitle}</p>
+                : null
         }
         {
-            letter.recipient.worksFor ?
-                <p className="printable-recipient__company">{letter.recipient.worksFor}</p> : null
+            letter.recipient.worksFor
+                ? <p className="printable-recipient__company">{letter.recipient.worksFor}</p>
+                : null
         }
         {
-            letter.recipient.address ?
-                <p className="printable-recipient__street-address">{letter.recipient.address}</p> : null
-        }
-        {
-            letter.recipient.city && letter.recipient.region ?
-                <p className="printable-recipient__city-region">{letter.recipient.city}, {letter.recipient.region}</p> : null
-        }
-        {
-            letter.recipient.postalCode ?
-                <p className="printable-recipient__postal-code">{letter.recipient.postalCode}</p> : null
+            letter.recipient.address && letter.recipient.city && letter.recipient.region && letter.recipient.postalCode
+                ? <Fragment>
+                    <p className="printable-recipient__street-address">{letter.recipient.address}</p>
+                    <p className="printable-recipient__city-region">{letter.recipient.city}, {letter.recipient.region}</p>
+                    <p className="printable-recipient__postal-code">{letter.recipient.postalCode}</p>
+                </Fragment>
+                : null
         }
     </PrintableSection>;
 };
