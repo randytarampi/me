@@ -22,7 +22,11 @@
 
         @media print {
             & > .row {
-                margin-bottom: 10px;
+                margin-bottom: 0px;
+
+                @media #{$a4-page-up} {
+                    margin-bottom: 10px;
+                }
             }
         }
     }

@@ -1,4 +1,6 @@
 .letter-recipient {
+    margin: 20px 0;
+
     @media #{$a4-page-up} {
         margin: 30px 0;
     }
