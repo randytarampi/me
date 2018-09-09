@@ -1,18 +1,18 @@
-import {RowBlock} from "@randy.tarampi/jsx";
 import {
     BlogAppLink,
     EmailLink,
     GitHubLink,
+    HelloBear,
     InstagramLink,
     LinkedInLink,
     ResumeAppLink,
+    RowBlock,
     SmsLink
-} from "@randy.tarampi/jsx/lib/components/link";
-import {HelloBear} from "@randy.tarampi/jsx/lib/containers/emoji";
+} from "@randy.tarampi/jsx";
 import React, {Fragment} from "react";
 import {Col} from "react-materialize";
 
-const IntroText = () =>
+export const IntroText = () =>
     <Fragment>
         <h2>
             <span className="text">Hey!</span>
@@ -37,7 +37,7 @@ const IntroText = () =>
         </p>
     </Fragment>;
 
-const Intro = () =>
+export const Intro = () =>
     <Fragment>
         <RowBlock name="intro" className="intro--large hide-on-med-and-down">
             <Col className="block__bear" l={5} m={8} s={12} offset="m2">

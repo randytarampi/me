@@ -1,7 +1,5 @@
 import {DoubtBear} from "@randy.tarampi/js";
-import {RowBlock} from "@randy.tarampi/jsx";
-import Link, {F00pxLink, FlickrLink, InstagramLink} from "@randy.tarampi/jsx/lib/components/link";
-import {Bear} from "@randy.tarampi/jsx/lib/containers/emoji";
+import {Bear, F00pxLink, FlickrLink, InstagramLink, Link, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
 

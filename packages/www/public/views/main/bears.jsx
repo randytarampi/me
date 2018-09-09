@@ -1,5 +1,4 @@
-import {Link, RowBlock} from "@randy.tarampi/jsx";
-import {Bear} from "@randy.tarampi/jsx/lib/containers/emoji";
+import {Bear, Link, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
 

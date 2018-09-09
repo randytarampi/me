@@ -4,19 +4,19 @@ import React, {Fragment} from "react";
 import Helmet from "react-helmet";
 import Main from "../views/main";
 
-const Photos = () => <Fragment>
+export const PhotosRouteHandler = () => <Fragment>
     <Helmet>
         <title>📸</title>
     </Helmet>
     <Posts fetchUrl={`${__PHOTOS_SERVICE_URL__}`}/>
 </Fragment>;
-const Words = () => <Fragment>
+export const WordsRouteHandler = () => <Fragment>
     <Helmet>
         <title>📝</title>
     </Helmet>
     <Posts fetchUrl={`${__WORDS_SERVICE_URL__}`}/>
 </Fragment>;
-const Blog = () => <Fragment>
+export const BlogRouteHandler = () => <Fragment>
     <Helmet>
         <title>📸📝</title>
     </Helmet>
@@ -30,17 +30,17 @@ const routes = [
         path: "/"
     },
     {
-        component: Photos,
+        component: PhotosRouteHandler,
         exact: true,
         path: "/photos"
     },
     {
-        component: Words,
+        component: WordsRouteHandler,
         exact: true,
         path: "/words"
     },
     {
-        component: Blog,
+        component: BlogRouteHandler,
         exact: true,
         path: "/blog"
     },

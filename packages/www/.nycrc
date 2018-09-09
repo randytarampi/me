@@ -20,7 +20,7 @@
   ],
   "cache": true,
   "all": true,
-  "check-coverage": false,
+  "check-coverage": true,
   "sourceMap": false,
   "instrument": false,
   "watermarks": {
