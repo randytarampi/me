@@ -20,8 +20,11 @@ export const ResumeProjects = ({resume}) => {
                 <p><span className="text">Tried to keep myself disciplined here, but I'm a lot better when I have people actually holding me to account</span>
                 </p>
                 <div>
-                    <Link href="https://coveralls.io/github/randytarampi/me" aria-label="Coveralls"
-                          name="Coveralls score"><img
+                    <Link href="https://travis-ci.org/randytarampi/me" aria-label="Travis build"
+                          name="Travis"><img
+                        src="https://img.shields.io/travis/randytarampi/me.svg?style=flat-square"/></Link>
+                    <Link href="https://coveralls.io/github/randytarampi/me" aria-label="Coveralls score"
+                          name="Coveralls"><img
                         src="https://img.shields.io/coveralls/github/randytarampi/me.svg?style=flat-square"/></Link>
                     <Link href="https://codeclimate.com/github/randytarampi/me/maintainability"
                           aria-label="Code Climate score" name="Code Climate"><img
