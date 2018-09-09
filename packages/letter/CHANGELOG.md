@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/randytarampi/me/compare/v0.24.1...v0.24.2) (2018-09-09)
+
+
+### Bug Fixes
+
+* **letter:** Fix letter size styling. ([1d0c8de](https://github.com/randytarampi/me/commit/1d0c8de))
+
+
+### Reverts
+
+* chore(jsx): Export store decorated `shallow` and `mount`. ([027be89](https://github.com/randytarampi/me/commit/027be89))
+
+
+
+
+
 <a name="0.24.1"></a>
 ## [0.24.1](https://github.com/randytarampi/me/compare/v0.24.0...v0.24.1) (2018-09-07)
 

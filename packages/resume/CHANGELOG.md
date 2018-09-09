@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/randytarampi/me/compare/v0.24.1...v0.24.2) (2018-09-09)
+
+
+### Bug Fixes
+
+* **resume:** Fix legal page overflow. ([b1def0b](https://github.com/randytarampi/me/commit/b1def0b))
+
+
+
+
+
 <a name="0.24.1"></a>
 ## [0.24.1](https://github.com/randytarampi/me/compare/v0.24.0...v0.24.1) (2018-09-07)
 

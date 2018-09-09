@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/randytarampi/me/compare/v0.24.1...v0.24.2) (2018-09-09)
+
+
+### Bug Fixes
+
+* **posts:** `test` (and related) scripts should fail fast, per [#59](https://github.com/randytarampi/me/issues/59). ([9099db5](https://github.com/randytarampi/me/commit/9099db5))
+
+
+
+
+
 <a name="0.24.0"></a>
 # [0.24.0](https://github.com/randytarampi/me/compare/v0.23.12...v0.24.0) (2018-09-06)
 

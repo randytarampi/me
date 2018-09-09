@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/randytarampi/me/compare/v0.24.1...v0.24.2) (2018-09-09)
+
+
+### Bug Fixes
+
+* **jsx:** Actually export `util` as I wanted in d09c6637d1703cc98b00297b339d2ad9faa5a5e6. ([5a9eebf](https://github.com/randytarampi/me/commit/5a9eebf))
+* **letter:** Fix letter size styling. ([1d0c8de](https://github.com/randytarampi/me/commit/1d0c8de))
+* **posts:** `test` (and related) scripts should fail fast, per [#59](https://github.com/randytarampi/me/issues/59). ([9099db5](https://github.com/randytarampi/me/commit/9099db5))
+* **resume:** Fix legal page overflow. ([b1def0b](https://github.com/randytarampi/me/commit/b1def0b))
+
+
+### Reverts
+
+* chore(jsx): Export store decorated `shallow` and `mount`. ([027be89](https://github.com/randytarampi/me/commit/027be89))
+
+
+
+
+
 <a name="0.24.1"></a>
 ## [0.24.1](https://github.com/randytarampi/me/compare/v0.24.0...v0.24.1) (2018-09-07)
 
