@@ -15572,36 +15572,6 @@ ul:not(.browser-default) {
 .printable-signature .row {
   margin-bottom: 0; }
 
-.printable {
-  min-width: 320px; }
-  .printable-section {
-    margin-bottom: 0;
-    page-break-inside: avoid; }
-    .printable-section__content .row {
-      margin-bottom: 0; }
-    .printable-section__label {
-      font-size: 1.78rem;
-      margin-bottom: 1rem; }
-    .printable-section__description {
-      font-size: 0.75rem; }
-    @media print {
-      .printable-section > .row {
-        margin-bottom: 0px; } }
-  @media print and (min-width: 6in) and (min-height: 6.37in) {
-    .printable-section > .row {
-      margin-bottom: 10px; } }
-  @media print {
-    .printable:before {
-      font-family: "Font Awesome 5 Brands";
-      font-weight: 900;
-      content: "\0feff";
-      visibility: hidden; }
-    .printable:after {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      content: "\0feff";
-      visibility: hidden; } }
-
 .resume-contact__email, .resume-contact__tel, .resume-contact__web {
   display: block;
   margin-bottom: 10px;
