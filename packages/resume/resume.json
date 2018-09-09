@@ -183,7 +183,8 @@
       "name": "My blog",
       "description": "A small project I kicked off shortly after leaving Yardi and then subsequently dropped as I went off travelling around the Mediterranean",
       "highlights": [
-        "My choice of technologies here was largely driven by my want to minimize costs"
+        "My choice of technologies here was largely driven by my want to minimize costs",
+        "The dominant cost here is the 1 USD/month I pay for DNS related services"
       ],
       "keywords": [
         "node.js",
