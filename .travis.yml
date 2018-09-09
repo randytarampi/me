@@ -14,10 +14,11 @@ env:
   - SENTRY_PROJECT=me
   - SENTRY_LOG_LEVEL=debug
   - secure: ZTBYFZ10aI9BZPy5svRBilIqEbx88fLxUVgblqhlWStF8jhnWslOULzjXFbz2dpTboEYDxlFwfo9+K0hYUJmL7iDtpnKX9pbA5SXQxok2W9zoGGrNDedcXIQxyCWMKKmpcco5B6PFS+uScuYSQzUu9FEwkcEXoxr1hUom2THEXm3FxRHMP5iCr9HwNb0ZmHq622G5jEtCImWErHauLYyuay9A9geFysHuUE5qNITsQP5IjNH2vEqs3KAGZxLAUbV7OKwafEh2mPDqYV/96uOf4uGtQA5EV2yfoemkLN1OgffGGLoPqdL5kDzkcrPacbVvQSc8pL5T4irsNOngs3PsiEtz21qdkA0o9pwsbmC4HWRxq/4A86ECH1mWoLXp6aF6LmUpxclnQIj46986Dm+DSfg9wmUHP4WJsfrQOfJ4ZIgtAG0hS5nKSHY9qep9bkLNgP4K6ZCVosUG3QgA5nImyP++90H8eM6hzNCpXCBX71S1QmW6iQqPT1B34S2fJzPQYU3mFX05itP7V9ikKsFXy9YDjmzc8f1E09/WH1bJcW/4kcHUxyki6PZy4hWM7252H7iI1wcseOExzmS9awkZUKyGqVrVQ9D7/KZxmh9zHfRHXRZj1FSDtLBaPSlAS8Do0EDToFpUsFEdHUyvgf3QWg6jwweS9zXlXTmKxBPxz8=
+  - secure: oxfqOoaXj7BuY0mNwqJdvj/3HPShjhKpS5iCAhd02IvrJHXsYVzOf1JEj6fO94VntDNKpep/2fzl+pfIBgsyGCB8JsGVTyszitbJVSZio7kJFgNj9XZr6WajFU2jfSmqV7H7Z1pGcEESTbPdGdLAwL7PJnik8OEWKleP6WDC5IPDN7yVycn6h72vMoX8VDqZPnP0ZuaiW1VaGrHCcg5Fg9Id5TRzHsmz5yE0DYOPL5QO8NI3JAk5Sq+nqCvb0/Ac0pSTJgqfKXDryIws17y18VubKuLAQMhfHXC9k5C2HSR/TWUqvzv6X0+tnxhJmvcmk6O2zF5YhLInJSrRjTOWnHAgYfBOC+8+Zoz7kl/YYKAFnn7LGT5e3L11KFO6Esip84MPJWU95swiQcu014Kf906WYN2kKlW5J5njOwrGqY3pXh9VrZp+7tUH1611F7/HBmXqe874pByDUdUBcnVEnCUdtvAYlJLVeIvmemQDn3oiXcHXrC+454BbDUL5CDlUGIhwibxbxj+Z9wPdHuflXf0ecegFopAjDBSQhJpQ1CxP3BiDSPKiI5J1UmA5HGnxuTF5/EEbDSvWC3VCm0MzN9SlmU74bAaCLDWIU4HKESmzfmX7z12gGpDgpALyjXq+zGTeGSkpMBa1NBWHzqWxn8WsKKMUgqM8FGMDzRNpl90=
 cache:
   timeout: 1200
   directories:
-  - $HOME/.npm
+  - "$HOME/.npm"
 before_install:
 - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
 - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
@@ -28,8 +29,13 @@ before_install:
 - npm install -g npm
 before_script:
 - npm run pretest
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
 script:
 - npm run travis
+after_script:
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after_failure:
 - npm run kill --prefix packages/posts
 after_success:
@@ -62,7 +68,8 @@ jobs:
     after_script: skip
     before_deploy:
     - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
-    - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/ $TRAVIS_BUILD_DIR
+    - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/
+      $TRAVIS_BUILD_DIR
     - git config --local user.name "Travis"
     - export TRAVIS_AUTHOR=travis@randytarampi.ca
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
@@ -70,11 +77,16 @@ jobs:
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
     - npm run resume --prefix packages/resume
     - npm run docs --prefix packages/resume
-    - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json; fi;
+    - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs
+      $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
+      fi;
     - npm run docs --prefix packages/www
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html; fi;
-    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Commit release artifacts"; fi;'
-    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --conventional-commits --yes --message "release(travis): Release %s." --git-remote ci-push; fi;'
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
+      $WWW_PACKAGE_DIR/*.html; fi;
+    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Commit release
+      artifacts"; fi;'
+    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --conventional-commits
+      --yes --message "release(travis): Release %s." --git-remote ci-push; fi;'
     deploy:
     - provider: releases
       api_key:
@@ -82,7 +94,7 @@ jobs:
       file: me.tar.gz
       skip_cleanup: true
       on:
-        condition: -n $HAS_PUBLISHABLE_CHANGES
+        condition: "-n $HAS_PUBLISHABLE_CHANGES"
   - stage: Deploy (dev)
     name: www
     node_js: '8'
@@ -101,11 +113,14 @@ jobs:
     before_deploy:
     - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
     - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs $WWW_PACKAGE_DIR/*.html; fi;
-    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
+    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
+      $WWW_PACKAGE_DIR/*.html; fi;
+    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
+      to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
     deploy:
     - provider: script
-      script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io.git `git subtree split --prefix packages/www`:master
+      script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io.git
+        `git subtree split --prefix packages/www`:master
       skip_cleanup: true
       on:
         branch: master
@@ -141,7 +156,8 @@ jobs:
     before_deploy: skip
     deploy:
     - provider: script
-      script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git `git subtree split --prefix packages/www`:gh-pages
+      script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+        `git subtree split --prefix packages/www`:gh-pages
       skip_cleanup: true
       on:
         tags: true
@@ -158,7 +174,7 @@ jobs:
     before_deploy: skip
     deploy:
     - provider: script
-      script: $TRAVIS_BUILD_DIR/bin/split.sh resume
+      script: "$TRAVIS_BUILD_DIR/bin/split.sh resume"
       skip_cleanup: true
       on:
         tags: true
