@@ -22,3 +22,4 @@ exclude_patterns:
 - "**/node_modules/"
 - "packages/**/dist/"
 - "packages/**/docs/"
+- "packages/**/test/"
