@@ -15524,7 +15524,10 @@ ul:not(.browser-default) {
       font-size: 0.75rem; }
     @media print {
       .printable-section > .row {
-        margin-bottom: 10px; } }
+        margin-bottom: 0px; } }
+  @media print and (min-width: 6in) and (min-height: 6.37in) {
+    .printable-section > .row {
+      margin-bottom: 10px; } }
   @media print {
     .printable:before {
       font-family: "Font Awesome 5 Brands";
@@ -15566,6 +15569,9 @@ ul:not(.browser-default) {
   .printable-footer > .container > .row {
     margin-bottom: 0; }
 
+.printable-signature .row {
+  margin-bottom: 0; }
+
 .printable {
   min-width: 320px; }
   .printable-section {
@@ -15580,7 +15586,10 @@ ul:not(.browser-default) {
       font-size: 0.75rem; }
     @media print {
       .printable-section > .row {
-        margin-bottom: 10px; } }
+        margin-bottom: 0px; } }
+  @media print and (min-width: 6in) and (min-height: 6.37in) {
+    .printable-section > .row {
+      margin-bottom: 10px; } }
   @media print {
     .printable:before {
       font-family: "Font Awesome 5 Brands";
