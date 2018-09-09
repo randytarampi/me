@@ -24,7 +24,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "peerDependencies": {
-    "materialize-css": "^0.100.2"
+    "materialize-css": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "latest",
