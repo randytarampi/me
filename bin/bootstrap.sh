@@ -2,10 +2,10 @@
 
 set -e;
 
-REPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`}
+REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
 
-cd $REPO_ROOT;
+cd "${REPO_ROOT}";
 
-$REPO_ROOT/bin/install.sh;
+"${REPO_ROOT}/bin/install.sh";
 
-$REPO_ROOT/bin/postinstall.sh;
+"${REPO_ROOT}/bin/postinstall.sh";

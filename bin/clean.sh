@@ -2,9 +2,9 @@
 
 set -e;
 
-REPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`}
+REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
 
-cd $REPO_ROOT;
+cd "${REPO_ROOT}";
 
 rm -rf packages/*/package-lock.json packages/*/dist packages/*/coverage packages/*/.nyc_output packages/*/.serverless packages/*/.webpack packages/*/.dynamodb;
 

@@ -2,8 +2,8 @@
 
 set -e;
 
-REPO_ROOT=${TRAVIS_BUILD_DIR:=`pwd`}
+REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
 
-cd $REPO_ROOT;
+cd "${REPO_ROOT}";
 
 npx lerna link;
