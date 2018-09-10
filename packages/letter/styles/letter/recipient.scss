@@ -1,7 +1,11 @@
 .letter-recipient {
-    margin: 20px 0;
+    margin: 5px 0;
 
     @media #{$a4-page-up} {
+        margin: 10px 0;
+    }
+
+    @media #{$legal-page-up} {
         margin: 30px 0;
     }
 

@@ -24,8 +24,8 @@
             & > .row {
                 margin-bottom: 0px;
 
-                @media #{$a4-page-up} {
-                    margin-bottom: 10px;
+                @media #{$legal-page-up} {
+                    margin-bottom: 5px;
                 }
             }
         }
