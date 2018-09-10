@@ -7,8 +7,9 @@ $blockLineHeight: 1.5;
 
 $link-color: color("orange", "darken-1");
 
-$roboto-font-path: "./";
-$fa-font-path: ".";
+$asset-url: "" !default;
+$roboto-font-path: "#{$asset-url}/";
+$fa-font-path: $asset-url;
 
 @import "materialize-css/sass/components/variables";
 

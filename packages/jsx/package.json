@@ -15,7 +15,7 @@
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
     "start": "npm run dev",
     "dev": "npm run dev:client",
-    "dev:client": "rm -rf dist/*.js && npx webpack-serve ./webpack.client.config.js --hotClient",
+    "dev:client": "rm -rf dist/*.js dist/*.css && npx webpack-serve ./webpack.client.config.js --hotClient",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
   },
   "description": "Some common JSX components",
@@ -110,7 +110,6 @@
     "redux": "^4.0.0",
     "redux-mock-store": "^1.5.3",
     "sinon": "^6.1.4",
-    "style-loader": "^0.23.0",
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-serve": "^2.0.2",

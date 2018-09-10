@@ -99,35 +99,6 @@ gulp.task("docs", gulp.series([
     "docs:index"
 ]));
 
-gulp.task("styles:dev", () => {
-    const autoprefixer = require("gulp-autoprefixer");
-    const sass = require("gulp-sass");
-    const concat = require("gulp-concat");
-
-    return gulp.src([
-            "styles/style.scss"
-        ])
-        .pipe(sass({
-            includePaths: ["node_modules", "../../node_modules"]
-        }).on("error", sass.logError))
-        .pipe(concat("styles.css"))
-        .pipe(autoprefixer({
-            cascade: false
-        }))
-        .pipe(gulp.dest("dist"));
-});
-
-gulp.task("styles", gulp.series(["styles:dev"]), () => {
-    const cleanCss = require("gulp-clean-css");
-    const sourcemaps = require("gulp-sourcemaps");
-
-    return gulp.src("dist/styles.css")
-        .pipe(sourcemaps.init())
-        .pipe(cleanCss())
-        .pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest("dist"));
-});
-
 gulp.task("webpack:dev", function (callback) {
     const WebPack = require("webpack");
     const WebPackConfig = require("./webpack.client.config");
@@ -170,7 +141,7 @@ gulp.task("eslint", () => {
 gulp.task("sassLint", () => {
     const sassLint = require("gulp-sass-lint");
 
-    return gulp.src("sass/**/*.s+(a|c)ss")
+    return gulp.src("sass/**/*.+(sa|sc|c)ss")
         .pipe(sassLint())
         .pipe(sassLint.format())
         .pipe(sassLint.failOnError());
@@ -205,13 +176,13 @@ gulp.task("test", gulp.parallel([
 gulp.task("build", gulp.series([
     "clean",
     "resume:json",
-    gulp.parallel(["copy", "styles", "webpack"]),
+    gulp.parallel(["copy", "webpack"]),
     "views"
 ]));
 
 gulp.task("build:dev", gulp.series([
     "resume:json",
-    gulp.parallel(["lint", "copy", "styles:dev", "webpack:dev"]),
+    gulp.parallel(["lint", "copy", "webpack:dev"]),
     "views"
 ]));
 

@@ -5,6 +5,7 @@ module.exports = webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
     entry: {
-        www: ["@babel/polyfill", path.join(__dirname, "./public/views/index.jsx")]
+        www: ["@babel/polyfill", path.join(__dirname, "./public/views/index.jsx")],
+        styles: path.join(__dirname, "./styles/style.scss")
     }
 });

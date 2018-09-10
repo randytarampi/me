@@ -1,8 +1,14 @@
 const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
+const config = require("config");
 const SentryPlugin = require("webpack-sentry-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const PostCssPresetEnv = require("postcss-preset-env");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
 const util = require("./util");
 
 const isDevelopment = process.env.WEBPACK_SERVE
@@ -17,7 +23,9 @@ const resolveMode = () => {
     return "production";
 };
 
-const plugins = [];
+const plugins = [
+    new MiniCssExtractPlugin()
+];
 
 if (process.env.WEBPACK_BUNDLE_ANALYZER) {
     plugins.push(
@@ -83,8 +91,34 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
                     }
                 },
                 {
-                    test: /\.css$/,
-                    loader: "style-loader!css-loader"
+                    test: /\.(sa|sc|c)ss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        "css-loader",
+                        {
+                            loader: "postcss-loader",
+                            options: {
+                                ident: "postcss",
+                                plugins: () => [PostCssPresetEnv()]
+                            }
+                        },
+                        "resolve-url-loader",
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                includePaths: ["node_modules", "../../node_modules"],
+                                data: `$asset-url: "${config.get("assetUrl")}";\n`
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(eot|ttf|woff|woff2|svg|gif|png|ico)$/,
+                    loader: "file-loader",
+                    options: {
+                        name: "[name].[ext]",
+                        outputPath: "dist/"
+                    }
                 }
             ]
         },
@@ -120,8 +154,8 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
                             type: "broadcast",
                             data: {
                                 type: "window-reload",
-                                data: {},
-                            },
+                                data: {}
+                            }
                         };
 
                         socket.send(stringify(data));
@@ -130,7 +164,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
                     server.on("close", () => {
                         watcher.close();
                     });
-                },
+                }
             },
             add: (app, middleware) => {
                 const history = require("connect-history-api-fallback");
@@ -157,7 +191,18 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
                         chunks: "all"
                     }
                 }
-            }
+            },
+            minimizer:
+                isDevelopment
+                    ? []
+                    : [
+                        new UglifyJsPlugin({
+                            cache: true,
+                            parallel: true,
+                            sourceMap: true
+                        }),
+                        new OptimizeCSSAssetsPlugin()
+                    ]
         },
         ...configOverrides
     };

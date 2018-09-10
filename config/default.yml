@@ -7,7 +7,7 @@ postsAppUrl: /blog
 wordsAppUrl: /words
 resumeAppUrl: /resume
 letterAppUrl: /letter
-assetUrl: ""
+assetUrl: http://localhost:8080
 gtm: "GTM-K26GTD2"
 sentryDsn: https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735
 resume:
