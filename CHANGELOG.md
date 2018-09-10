@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.6"></a>
+## [0.24.6](https://github.com/randytarampi/me/compare/v0.24.5...v0.24.6) (2018-09-10)
+
+
+### Bug Fixes
+
+* **css:** Fix `.printable`s for the return of Roboto. ([7386eed](https://github.com/randytarampi/me/commit/7386eed))
+* **jsx:** Fix test due to change in `assetUrl`. ([d32ed7b](https://github.com/randytarampi/me/commit/d32ed7b))
+* **www:** Add pages for `blog`, `photos`, `words` and `resume`. ([516f37d](https://github.com/randytarampi/me/commit/516f37d))
+
+
+
+
+
 <a name="0.24.5"></a>
 ## [0.24.5](https://github.com/randytarampi/me/compare/v0.24.4...v0.24.5) (2018-09-10)
 
