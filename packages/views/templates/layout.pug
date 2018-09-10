@@ -64,11 +64,11 @@ html(lang="en")
         meta(name="msapplication-TileImage", content=`${assetUrl}/ms-icon-144x144.png`)
         meta(name="theme-color", content="#ffffff")
         script.
-            window.SENTRY_DSN = "#{sentryDsn}";
-            window.ENVIRONMENT = "#{environment}";
-            window.NAME = "#{name}";
-            window.VERSION = "#{version}";
-            window.LOGGER = !{logger};
+            window.SENTRY_DSN = "#{sentryDsn}" || null;
+            window.ENVIRONMENT = "#{environment}" || null;
+            window.NAME = "#{name}" || null;
+            window.VERSION = "#{version}" || null;
+            window.LOGGER = !{logger} || null;
             window.GTM_DATALAYER = [
                 {appName: window.NAME},
                 {appVersion: window.VERSION},

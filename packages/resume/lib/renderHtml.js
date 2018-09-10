@@ -23,7 +23,7 @@ export const buildPugLocals = (resume, pageSize) => {
         gtm: config.get("gtm"),
         environment: process.env.NODE_ENV || "local",
         version: packageJson.version,
-        logger: null
+        logger: JSON.stringify(null)
     };
 };
 
