@@ -2,6 +2,8 @@ import {Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
+import baseLetter from "../../../lib/baseLetter";
+import LetterEntity from "../../../lib/letter";
 
 const {PrintableHeader} = Printable;
 
@@ -52,6 +54,10 @@ export const Letter = ({letter, ...props}) => <div className="printable letter">
 
 Letter.propTypes = {
     letter: PropTypes.object.isRequired
+};
+
+Letter.defaultProps = {
+    letter: LetterEntity.fromJSON(baseLetter)
 };
 
 export default Letter;
