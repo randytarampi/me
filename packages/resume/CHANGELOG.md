@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.7"></a>
+## [0.24.7](https://github.com/randytarampi/me/compare/v0.24.6...v0.24.7) (2018-09-10)
+
+**Note:** Version bump only for package jsonresume-theme-randytarampi
+
+
+
+
+
 <a name="0.24.6"></a>
 ## [0.24.6](https://github.com/randytarampi/me/compare/v0.24.5...v0.24.6) (2018-09-10)
 
