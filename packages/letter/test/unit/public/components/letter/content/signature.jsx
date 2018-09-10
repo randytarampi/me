@@ -1,9 +1,9 @@
-import React from "react";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import LetterSignature from "../../../../../../public/components/letter/content/signature";
-import LetterSection from "../../../../../../lib/letterSection";
+import React from "react";
 import LetterEntity from "../../../../../../lib/letter";
+import LetterSection from "../../../../../../lib/letterSection";
+import LetterSignature from "../../../../../../public/components/letter/content/signature";
 
 describe("LetterSignature", function () {
     let stubContentConfiguration;
@@ -59,6 +59,6 @@ describe("LetterSignature", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-signature__content");
         expect(rendered).to.have.descendants(".signature.letter-signature__signature");
-        expect(rendered.find(".signature.letter-signature__signature")).to.have.prop("src", "/signature.svg");
+        expect(rendered.find(".signature.letter-signature__signature")).to.have.prop("src", `${__ASSET_URL__}/signature.svg`);
     });
 });
