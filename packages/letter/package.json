@@ -28,7 +28,7 @@
     "build": "npx gulp -LLLL --color build && npm run letter",
     "start:express": "npm run kill:express; node ./express.js & echo $! > /tmp/ca.randytarampi.me.letter.express.pid; echo \"Started express (`cat /tmp/ca.randytarampi.me.letter.express.pid`) from /tmp/ca.randytarampi.me.letter.express.pid\";",
     "kill:express": "if [ -f /tmp/ca.randytarampi.me.letter.express.pid ]; then echo \"Killing express (`cat /tmp/ca.randytarampi.me.letter.express.pid`) from /tmp/ca.randytarampi.me.letter.express.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.express.pid`; rm /tmp/ca.randytarampi.me.letter.express.pid; fi;",
-    "letter": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=letter npx gulp -LLLL --color letter",
+    "letter": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=letter CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx gulp -LLLL --color letter",
     "docs": "npx gulp -LLLL --color docs",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
   },
