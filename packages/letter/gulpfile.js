@@ -47,9 +47,6 @@ gulp.task("views", () => {
 });
 
 gulp.task("letter:pdf", async () => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
     const assembleLetters = require("./lib/assembleLetters").default;
     const renderHtml = require("./lib/renderHtml").default;
     const renderPdf = require("./lib/renderPdf").default;
@@ -65,9 +62,6 @@ gulp.task("letter:pdf", async () => {
 });
 
 gulp.task("letter:html", () => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
     const fs = require("fs");
     const assembleLetters = require("./lib/assembleLetters").default;
     const renderHtml = require("./lib/renderHtml").default;
@@ -93,9 +87,6 @@ gulp.task("letter:html", () => {
 });
 
 gulp.task("letter:json", done => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
     const fs = require("fs");
     const config = require("config");
     const baseLetterPath = path.join(__dirname, "lib/baseLetter.json");

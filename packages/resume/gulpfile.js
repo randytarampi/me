@@ -47,9 +47,6 @@ gulp.task("views", () => {
 });
 
 gulp.task("resume:html", done => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
     const fs = require("fs");
     const letter = require("./resume.json");
     const renderHtml = require("./lib/renderHtml").default;
@@ -59,9 +56,6 @@ gulp.task("resume:html", done => {
 });
 
 gulp.task("resume:json", done => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
     const fs = require("fs");
     const config = require("config");
     const resume = require("./resume.json");
