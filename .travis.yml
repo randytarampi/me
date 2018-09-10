@@ -75,6 +75,8 @@ jobs:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email $TRAVIS_AUTHOR
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --no-push --conventional-commits
+      --yes --message "release(travis): Release %s." --git-remote ci-push; fi;'
     - npm run resume --prefix packages/resume
     - npm run docs --prefix packages/resume
     - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs
@@ -83,10 +85,7 @@ jobs:
     - npm run docs --prefix packages/www
     - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
       $WWW_PACKAGE_DIR/*.html; fi;
-    - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Commit release
-      artifacts"; fi;'
-    - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --conventional-commits
-      --yes --message "release(travis): Release %s." --git-remote ci-push; fi;'
+    - 'if [[ -n $(git status -s) ]]; then npx lerna version --amend; git push ci-push master; fi;'
     deploy:
     - provider: releases
       api_key:
