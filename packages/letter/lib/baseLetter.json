@@ -1,9 +1,12 @@
 {
   "recipient": {
-    "jobTitle": "Cover letter reader",
-    "worksFor": "Some awesome company",
+    "name": "Cover letter reader",
+    "jobTitle": "At some awesome organization",
     "location": {
-      "address": "Over there, somewhere"
+      "address": " ",
+      "city": "Somewhere over the rainbow",
+      "region": "way up high",
+      "postalCode": " "
     }
   },
   "content": [
