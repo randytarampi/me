@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.5"></a>
+## [0.24.5](https://github.com/randytarampi/me/compare/v0.24.4...v0.24.5) (2018-09-10)
+
+
+### Bug Fixes
+
+* **styles:** Fix build for https://github.com/Dogfalo/materialize/commit/3bb2847f679b0e42f3adf4b30c04c6eb0adbbe28. ([18ad26a](https://github.com/randytarampi/me/commit/18ad26a))
+
+
+
+
+
 <a name="0.24.3"></a>
 ## [0.24.3](https://github.com/randytarampi/me/compare/v0.24.2...v0.24.3) (2018-09-09)
 
