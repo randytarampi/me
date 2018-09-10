@@ -13,7 +13,7 @@ export default async (html, letter) => {
     const page = await browser.newPage();
 
     await page.emulateMedia(letter.pdfRenderOptions && letter.pdfRenderOptions.mediaType || "screen");
-    await page.goto(`data:text/html,${html}`, {waitUntil: "networkidle2"});
+    await page.goto(`data:text/html,${html}`, {waitUntil: "networkidle0"});
     await page.pdf({
         path: `${__dirname}/../dist/${letter.fileName}.pdf`,
         format: "Letter",
