@@ -39,7 +39,7 @@ export const PrintableSection = ({printableType, type, label, labelNode, descrip
                     : null
             }
         </aside>
-        <Col m={9} s={11} offset="s1" className="printable-section__content">
+        <Col m={9} className="printable-section__content">
             {children}
         </Col>
     </SectionWrapper>;
