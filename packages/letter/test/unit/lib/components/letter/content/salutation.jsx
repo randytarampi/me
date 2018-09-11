@@ -1,7 +1,7 @@
-import React from "react";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import LetterSalutation from "../../../../../../public/components/letter/content/salutation";
+import React from "react";
+import LetterSalutation from "../../../../../../lib/components/letter/content/salutation";
 import LetterEntity from "../../../../../../lib/letter";
 import LetterSection from "../../../../../../lib/letterSection";
 

@@ -1,9 +1,9 @@
-import React from "react";
+import {Printable} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import Letter from "../../../../../public/components/letter";
+import React from "react";
+import Letter from "../../../../../lib/components/letter";
 import LetterEntity from "../../../../../lib/letter";
-import {Printable} from "@randy.tarampi/jsx";
 
 const {PrintableHeader} = Printable;
 
@@ -89,7 +89,7 @@ describe("Letter", function () {
         stubLetter.content.map(contentConfiguration => {
             const ContentComponent = contentConfiguration.component
                 ? contentConfiguration.component
-                : require(`../../../../../public/components/letter/content/${contentConfiguration.contentKey}`).default;
+                : require(`../../../../../lib/components/letter/content/${contentConfiguration.contentKey}`).default;
             expect(rendered).to.have.contain(<ContentComponent
                 letter={stubLetter}
                 contentConfiguration={contentConfiguration}
@@ -124,7 +124,7 @@ describe("Letter", function () {
         stubLetter.content.map(contentConfiguration => {
             const ContentComponent = contentConfiguration.component
                 ? contentConfiguration.component
-                : require(`../../../../../public/components/letter/content/${contentConfiguration.contentKey}`).default;
+                : require(`../../../../../lib/components/letter/content/${contentConfiguration.contentKey}`).default;
             expect(rendered).to.have.contain(<ContentComponent
                 letter={stubLetter}
                 contentConfiguration={contentConfiguration}
@@ -163,7 +163,7 @@ describe("Letter", function () {
         stubLetter.content.map(contentConfiguration => {
             const ContentComponent = contentConfiguration.component
                 ? contentConfiguration.component
-                : require(`../../../../../public/components/letter/content/${contentConfiguration.contentKey}`).default;
+                : require(`../../../../../lib/components/letter/content/${contentConfiguration.contentKey}`).default;
             expect(rendered).to.have.contain(<ContentComponent
                 letter={stubLetter}
                 contentConfiguration={contentConfiguration}

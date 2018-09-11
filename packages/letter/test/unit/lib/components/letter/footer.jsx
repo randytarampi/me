@@ -1,28 +1,22 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import LetterEntity from "../../../../../../lib/letter";
-import LetterSection from "../../../../../../lib/letterSection";
-import LetterSignature from "../../../../../../public/components/letter/content/signature";
+import Footer from "../../../../../lib/components/letter/footer";
+import LetterEntity from "../../../../../lib/letter";
 
-describe("LetterSignature", function () {
-    let stubContentConfiguration;
+describe("Footer", function () {
     let stubPersonJs;
     let stubSenderJs;
     let stubRecipientJs;
     let stubLetter;
 
     beforeEach(function () {
-        stubContentConfiguration = LetterSection.fromJS({
-            type: "signature"
-        });
-
         stubPersonJs = {
             name: null,
             firstName: "Woof",
             lastName: "Woof",
-            worksFor: "Woofs",
-            jobTitle: "Wf.",
+            worksFor: null,
+            jobTitle: null,
             label: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
@@ -53,12 +47,10 @@ describe("LetterSignature", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<LetterSignature letter={stubLetter}
-                                                  contentConfiguration={stubContentConfiguration}/>);
+        const rendered = shallow(<Footer letter={stubLetter}/>);
 
         expect(rendered).to.be.ok;
-        expect(rendered).to.have.descendants(".letter-signature__content");
-        expect(rendered).to.have.descendants(".signature.letter-signature__signature");
-        expect(rendered.find(".signature.letter-signature__signature")).to.have.prop("src", `${__ASSET_URL__}/signature.svg`);
+        expect(rendered).to.have.descendants(".hide-on-print");
+        expect(rendered).to.have.descendants(".hide-on-screen");
     });
 });

@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
+import LetterQuality from "../../../../../../lib/components/letter/content/quality";
 import LetterSection from "../../../../../../lib/letterSection";
-import LetterQuality from "../../../../../../public/components/letter/content/quality";
 
 describe("LetterQuality", function () {
     let stubContentConfiguration;

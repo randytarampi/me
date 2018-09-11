@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import Letter from "../components/letter";
+import Letter from "../../lib/components/letter";
 
 const routes = [
     {

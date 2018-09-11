@@ -1,22 +1,28 @@
-import React from "react";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import Footer from "../../../../../public/components/letter/footer";
-import LetterEntity from "../../../../../lib/letter";
+import React from "react";
+import LetterSignature from "../../../../../../lib/components/letter/content/signature";
+import LetterEntity from "../../../../../../lib/letter";
+import LetterSection from "../../../../../../lib/letterSection";
 
-describe("Footer", function () {
+describe("LetterSignature", function () {
+    let stubContentConfiguration;
     let stubPersonJs;
     let stubSenderJs;
     let stubRecipientJs;
     let stubLetter;
 
     beforeEach(function () {
+        stubContentConfiguration = LetterSection.fromJS({
+            type: "signature"
+        });
+
         stubPersonJs = {
             name: null,
             firstName: "Woof",
             lastName: "Woof",
-            worksFor: null,
-            jobTitle: null,
+            worksFor: "Woofs",
+            jobTitle: "Wf.",
             label: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
@@ -47,10 +53,12 @@ describe("Footer", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<Footer letter={stubLetter}/>);
+        const rendered = shallow(<LetterSignature letter={stubLetter}
+                                                  contentConfiguration={stubContentConfiguration}/>);
 
         expect(rendered).to.be.ok;
-        expect(rendered).to.have.descendants(".hide-on-print");
-        expect(rendered).to.have.descendants(".hide-on-screen");
+        expect(rendered).to.have.descendants(".letter-signature__content");
+        expect(rendered).to.have.descendants(".signature.letter-signature__signature");
+        expect(rendered.find(".signature.letter-signature__signature")).to.have.prop("src", `${__ASSET_URL__}/signature.svg`);
     });
 });

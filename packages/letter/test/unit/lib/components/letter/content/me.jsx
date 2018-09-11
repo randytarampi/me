@@ -1,7 +1,7 @@
-import React from "react";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import LetterMe from "../../../../../../public/components/letter/content/me";
+import React from "react";
+import LetterMe from "../../../../../../lib/components/letter/content/me";
 import LetterSection from "../../../../../../lib/letterSection";
 
 describe("LetterMe", function () {

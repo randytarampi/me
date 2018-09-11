@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
+import LetterWhy from "../../../../../../lib/components/letter/content/why";
 import LetterEntity from "../../../../../../lib/letter";
 import LetterSection from "../../../../../../lib/letterSection";
-import LetterWhy from "../../../../../../public/components/letter/content/why";
 
 describe("LetterWhy", function () {
     let stubContentConfiguration;

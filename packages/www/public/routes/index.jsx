@@ -1,5 +1,5 @@
 import {Error, Posts} from "@randy.tarampi/jsx";
-import Letter from "@randy.tarampi/letter/public/components/letter";
+import Letter from "@randy.tarampi/letter/lib/components/letter";
 import Resume from "jsonresume-theme-randytarampi/public/components/resume";
 import React, {Fragment} from "react";
 import Helmet from "react-helmet";

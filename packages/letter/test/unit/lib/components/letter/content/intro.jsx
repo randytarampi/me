@@ -1,10 +1,10 @@
-import React from "react";
-import {expect} from "chai";
-import LetterIntro from "../../../../../../public/components/letter/content/intro";
 import {shallow} from "@randy.tarampi/jsx/test/util";
+import {expect} from "chai";
+import {Map} from "immutable";
+import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {Map} from "immutable";
+import LetterIntro from "../../../../../../lib/components/letter/content/intro";
 import LetterSection from "../../../../../../lib/letterSection";
 
 describe("LetterIntro", function () {

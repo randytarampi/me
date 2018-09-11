@@ -1,9 +1,9 @@
-import React from "react";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import LetterDate from "../../../../../../public/components/letter/content/date";
 import {DateTime} from "luxon";
+import React from "react";
 import sinon from "sinon";
+import LetterDate from "../../../../../../lib/components/letter/content/date";
 import LetterSection from "../../../../../../lib/letterSection";
 
 describe("LetterDate", function () {
