@@ -11,9 +11,8 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const util = require("./util");
 
-const isDevelopment = (
-    process.env.WEBPACK_SERVE || !["production", "prd"].includes(process.env.NODE_ENV)
-) && true;
+const nodeEnvIsNotProduction = !["production", "prd"].includes(process.env.NODE_ENV);
+const isDevelopment = nodeEnvIsNotProduction;
 
 const resolveMode = () => {
     if (isDevelopment) {

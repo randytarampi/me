@@ -6,11 +6,8 @@ const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 const util = require("../../util");
 
-const isDevelopment = process.env.WEBPACK_SERVE
-    || process.env.NODE_ENV !== "production"
-    || process.env.NODE_ENV !== "prd"
-    || slsw.lib.webpack.isLocal
-    || true;
+const nodeEnvIsNotProduction = !["production", "prd"].includes(process.env.NODE_ENV);
+const isDevelopment = nodeEnvIsNotProduction;
 
 const resolveMode = () => {
     if (isDevelopment) {
