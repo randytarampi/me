@@ -1,6 +1,6 @@
 import {Error, Posts} from "@randy.tarampi/jsx";
 import Letter from "@randy.tarampi/letter/lib/components/letter";
-import Resume from "jsonresume-theme-randytarampi/public/components/resume";
+import Resume from "jsonresume-theme-randytarampi/lib/components/resume";
 import React, {Fragment} from "react";
 import Helmet from "react-helmet";
 import Main from "../views/main";
