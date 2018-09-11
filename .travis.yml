@@ -60,6 +60,7 @@ jobs:
     install:
     - git checkout $TRAVIS_BRANCH
     - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
+    - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
     - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm install; fi;
@@ -77,6 +78,11 @@ jobs:
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
     - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --no-push --conventional-commits
       --yes --message "release(travis): Release %s." --git-remote ci-push; fi;'
+    - npm run letter --prefix packages/letter
+    - npm run docs --prefix packages/letter
+    - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
+      $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf;
+      fi;
     - npm run resume --prefix packages/resume
     - npm run docs --prefix packages/resume
     - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs
