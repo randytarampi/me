@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.1"></a>
+## [0.25.1](https://github.com/randytarampi/me/compare/v0.25.0...v0.25.1) (2018-09-11)
+
+
+### Bug Fixes
+
+* **travis:** Actually build `letter` assets before running the `release`. ([3790eb3](https://github.com/randytarampi/me/commit/3790eb3))
+
+
+
+
+
 <a name="0.25.0"></a>
 # [0.25.0](https://github.com/randytarampi/me/compare/v0.24.7...v0.25.0) (2018-09-11)
 
