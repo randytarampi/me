@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/randytarampi/me/compare/v0.24.7...v0.25.0) (2018-09-11)
+
+
+### Bug Fixes
+
+* **letter:** `puppeteer` waits for 0 network I/O before PDFing. ([edac2a4](https://github.com/randytarampi/me/commit/edac2a4))
+* **letter:** Add a test for changes in f084d0153903344a4fbf1f2450fb0f098f92dc4d. ([07f07e2](https://github.com/randytarampi/me/commit/07f07e2))
+* **letter:** Better default letter content. ([ef687ed](https://github.com/randytarampi/me/commit/ef687ed))
+* **letter:** Fix tests for changes in f084d0153903344a4fbf1f2450fb0f098f92dc4d. ([9d0cf26](https://github.com/randytarampi/me/commit/9d0cf26))
+
+
+### Features
+
+* **letter:** Boast about code quality per [#91](https://github.com/randytarampi/me/issues/91). ([f084d01](https://github.com/randytarampi/me/commit/f084d01))
+* **letter:** Bring back the `LetterFooter`. ([118757e](https://github.com/randytarampi/me/commit/118757e))
+
+
+
+
+
 <a name="0.24.7"></a>
 ## [0.24.7](https://github.com/randytarampi/me/compare/v0.24.6...v0.24.7) (2018-09-10)
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/randytarampi/me/compare/v0.24.7...v0.25.0) (2018-09-11)
+
+
+### Features
+
+* **letter:** Boast about code quality per [#91](https://github.com/randytarampi/me/issues/91). ([f084d01](https://github.com/randytarampi/me/commit/f084d01))
+
+
+
+
+
 <a name="0.24.6"></a>
 ## [0.24.6](https://github.com/randytarampi/me/compare/v0.24.5...v0.24.6) (2018-09-10)
 

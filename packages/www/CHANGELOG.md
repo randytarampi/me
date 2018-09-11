@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/randytarampi/me/compare/v0.24.7...v0.25.0) (2018-09-11)
+
+
+### Features
+
+* **www:** Start serving up a generic `letter`. ([aecbd51](https://github.com/randytarampi/me/commit/aecbd51)), closes [#55](https://github.com/randytarampi/me/issues/55) [#68](https://github.com/randytarampi/me/issues/68)
+
+
+
+
+
 <a name="0.24.6"></a>
 ## [0.24.6](https://github.com/randytarampi/me/compare/v0.24.5...v0.24.6) (2018-09-10)
 
