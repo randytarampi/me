@@ -1,5 +1,4 @@
-import {Printable} from "@randy.tarampi/jsx";
-import Link from "@randy.tarampi/jsx/lib/components/link";
+import {CampaignLink, Printable} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
@@ -11,7 +10,8 @@ export const LetterFooter = () => {
     return <PrintableFooter>
         <Row className="row valign-wrapper center-align hide-on-screen">
             <Col s={12}>
-                <em>Check out (a generic copy of) this letter online at <Link href={onlineUrl}>{onlineUrl}</Link></em>
+                <em>Check out (a generic copy of) this letter online at <CampaignLink
+                    href={onlineUrl}>{onlineUrl}</CampaignLink></em>
             </Col>
         </Row>
         <Row className="row valign-wrapper center-align hide-on-print">
