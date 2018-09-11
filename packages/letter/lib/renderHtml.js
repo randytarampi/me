@@ -8,17 +8,20 @@ import renderCss from "./renderCss";
 import renderJsx, {getRenderedHelmet} from "./renderJsx";
 
 export const buildPugLocals = (letter, pageSize) => {
+    const content = renderJsx({letter, pageSize}); // NOTE-RT: This needs to come *before* we call `getRenderedHelmet()
+    const helmetContent = getRenderedHelmet();
+
     return {
         bundleName: "letter",
-        injectedBase: getRenderedHelmet().base.toString(),
-        injectedTitle: getRenderedHelmet().title.toString(),
-        injectedLink: getRenderedHelmet().link.toString(),
-        injectedMeta: getRenderedHelmet().meta.toString(),
-        injectedStyle: getRenderedHelmet().style.toString(),
-        injectedScript: getRenderedHelmet().script.toString(),
-        injectedNoScript: getRenderedHelmet().noscript.toString(),
+        content,
         css: renderCss(),
-        content: renderJsx({letter, pageSize}),
+        injectedBase: helmetContent.base.toString(),
+        injectedTitle: helmetContent.title.toString(),
+        injectedLink: helmetContent.link.toString(),
+        injectedMeta: helmetContent.meta.toString(),
+        injectedStyle: helmetContent.style.toString(),
+        injectedScript: helmetContent.script.toString(),
+        injectedNoScript: helmetContent.noscript.toString(),
         assetUrl: config.get("assetUrl"),
         sentryDsn: config.get("sentryDsn"),
         gtm: config.get("gtm"),
