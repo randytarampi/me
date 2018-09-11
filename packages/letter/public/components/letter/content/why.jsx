@@ -16,30 +16,38 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
         type={contentConfiguration.contentKey}
         printableType="letter"
     >
-        <p className="letter-why__content">
+        <div className="letter-why__content">
             {
                 contentConfiguration.contentProps.why || <Fragment>
-                    I've spent the last few years working as a full stack developer on small to medium sized teams for
-                    the newest of auto financing startups to the top name in property management software and I'd like
-                    to think that I've seen a bit of everything. I've dealt with what happens when your sales team
-                    catches fire and you rack up technical debt to meet your deadlines. I've watched what happens when
-                    new hires drop production database tables (<Link
-                    href="https://www.reddit.com/r/cscareerquestions/comments/6ez8ag">the opposite of this</Link>). I've
-                    seen what happens to your team when you get acquired and then tried to keep spirits high after it
-                    gets liquidated. I know what it feels like to get laid off and see a <Link
-                    href="http://fetchauto.ca">startup fizzle out</Link>. I've seen a lot, learned a lot, failed a
-                    couple of times, but I know I haven't done it all yet, and the best way for me to do that is to take
-                    a giant leap and hopefully land somewhere
-                    like {letter.recipient && letter.recipient.worksFor ? letter.recipient.worksFor : "your company"}.
+                    <p>
+                        I spent the last few years developing on smaller teams for
+                        the newest of auto financing startups to the top name in property management software and I
+                        think that I've seen a bit of everything.
+                    </p>
+                    <p>
+                        I've dealt with what happens when your sales team
+                        catches fire and you rack up technical debt to meet your deadlines, watched what happens
+                        when
+                        new hires drop production database tables (<Link
+                        href="https://www.reddit.com/r/cscareerquestions/comments/6ez8ag">the opposite of this</Link>),
+                        seen what happens to your team when you get acquired and then tried to keep spirits high after
+                        it
+                        gets liquidated. I know what it feels like to get laid off and see a <Link
+                        href="http://fetchauto.ca">startup fizzle out</Link>. I've seen a lot, learned a lot, failed a
+                        couple of times, but I know I haven't done it all yet, and the best way for me to do that is to
+                        take
+                        a giant leap and hopefully land somewhere
+                        like {letter.recipient && letter.recipient.worksFor ? letter.recipient.worksFor : "your company"}.
+                    </p>
                 </Fragment>
             }
-        </p>
+        </div>
     </LeftDescriptionSection>;
 };
 
 LetterWhy.propTypes = {
     letter: PropTypes.object.isRequired,
-    contentConfiguration: PropTypes.object.isRequired,
+    contentConfiguration: PropTypes.object.isRequired
 };
 
 export default LetterWhy;

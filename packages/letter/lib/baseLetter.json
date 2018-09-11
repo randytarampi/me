@@ -1,6 +1,6 @@
 {
   "recipient": {
-    "name": "Cover letter reader",
+    "name": "Cover Letter Reader",
     "jobTitle": "At some awesome organization",
     "location": {
       "address": " ",
@@ -24,6 +24,12 @@
     },
     {
       "contentKey": "me"
+    },
+    {
+      "contentKey": "quality",
+      "contentProps": {
+        "showOnLegal": true
+      }
     },
     {
       "contentKey": "why"

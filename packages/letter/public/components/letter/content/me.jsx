@@ -19,7 +19,7 @@ export const LetterAboutMe = ({contentConfiguration}) => {
             {
                 contentConfiguration.contentProps.aboutMe || <Fragment>
                     I'm not your run of the mill software developer. I love being away from my
-                    screens &mdash; going <Link
+                    screens &mdash; getting <Link
                     href="https://www.flickr.com/photos/randytarampi/29098786007">outdoors</Link>, travelling to <Link
                     href="https://500px.com/photo/202736697/that-camera-emoji-by-randy-tarampi">far off
                     places</Link> and getting <Link href="https://unsplash.com/photos/LWYW0EIBXyQ">as far away from an
