@@ -6,12 +6,12 @@ import {Col, Row} from "react-materialize";
 
 const {PrintableFooter} = Printable;
 
-export const LetterFooter = ({letter}) => {
-    const onlineUrl = `${__PUBLISHED_LETTER_URL__}/${letter.id}`;
+export const LetterFooter = () => {
+    const onlineUrl = `${__PUBLISHED_LETTER_URL__}`;
     return <PrintableFooter>
         <Row className="row valign-wrapper center-align hide-on-screen">
             <Col s={12}>
-                <em>Check out this letter online at <Link href={onlineUrl}>{onlineUrl}</Link></em>
+                <em>Check out (a generic copy of) this letter online at <Link href={onlineUrl}>{onlineUrl}</Link></em>
             </Col>
         </Row>
         <Row className="row valign-wrapper center-align hide-on-print">

@@ -4,6 +4,7 @@ import React from "react";
 import {Helmet} from "react-helmet";
 import baseLetter from "../../../lib/baseLetter";
 import LetterEntity from "../../../lib/letter";
+import LetterFooter from "./footer";
 
 const {PrintableHeader} = Printable;
 
@@ -49,7 +50,7 @@ export const Letter = ({letter, ...props}) => <div className="printable letter">
             }
         </div>
     </div>
-    {/*<LetterFooter {...props} letter={letter}/>*/}
+    <LetterFooter {...props} letter={letter}/>
 </div>;
 
 Letter.propTypes = {
