@@ -1,9 +1,9 @@
-import React from "react";
 import {expect} from "chai";
 import {shallow} from "enzyme";
-import LetterWhy from "../../../../../../public/components/letter/content/why";
-import LetterSection from "../../../../../../lib/letterSection";
+import React from "react";
 import LetterEntity from "../../../../../../lib/letter";
+import LetterSection from "../../../../../../lib/letterSection";
+import LetterWhy from "../../../../../../public/components/letter/content/why";
 
 describe("LetterWhy", function () {
     let stubContentConfiguration;
@@ -57,7 +57,7 @@ describe("LetterWhy", function () {
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-why__content");
-        expect(rendered.find(".letter-why__content").html()).to.match(/I&#x27;ve spent the last few years working as a full stack developer/);
+        expect(rendered.find(".letter-why__content").html()).to.match(/I spent the last few years developing on smaller teams/);
     });
 
     it("renders (custom content)", function () {

@@ -20,7 +20,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
             {
                 contentConfiguration.contentProps.why || <Fragment>
                     <p>
-                        I spent the last few years developing on smaller teams for
+                        I spent the last few years developing on smaller teams &mdash; for
                         the newest of auto financing startups to the top name in property management software and I
                         think that I've seen a bit of everything.
                     </p>
