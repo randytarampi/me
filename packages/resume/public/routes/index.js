@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import Resume from "../components/resume";
+import Resume from "../../lib/components/resume";
 
 const routes = [
     {
