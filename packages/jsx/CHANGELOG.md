@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.3"></a>
+## [0.25.3](https://github.com/randytarampi/me/compare/v0.25.2...v0.25.3) (2018-09-11)
+
+
+### Bug Fixes
+
+* **jsx:** `PrintableSection` should just be full width on mobile. ([7fa18f6](https://github.com/randytarampi/me/commit/7fa18f6))
+
+
+
+
+
 <a name="0.25.2"></a>
 ## [0.25.2](https://github.com/randytarampi/me/compare/v0.25.1...v0.25.2) (2018-09-11)
 

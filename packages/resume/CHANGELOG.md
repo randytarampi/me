@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.3"></a>
+## [0.25.3](https://github.com/randytarampi/me/compare/v0.25.2...v0.25.3) (2018-09-11)
+
+
+### Bug Fixes
+
+* **resume:** Don't create a `index.html` that contains content. ([ad3344d](https://github.com/randytarampi/me/commit/ad3344d))
+* `renderJsx` before we `getRenderedHelmet` to fix [#22](https://github.com/randytarampi/me/issues/22). ([00958cd](https://github.com/randytarampi/me/commit/00958cd))
+
+
+
+
+
 <a name="0.25.2"></a>
 ## [0.25.2](https://github.com/randytarampi/me/compare/v0.25.1...v0.25.2) (2018-09-11)
 

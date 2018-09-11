@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.3"></a>
+## [0.25.3](https://github.com/randytarampi/me/compare/v0.25.2...v0.25.3) (2018-09-11)
+
+
+### Bug Fixes
+
+* **jsx:** `PrintableSection` should just be full width on mobile. ([7fa18f6](https://github.com/randytarampi/me/commit/7fa18f6))
+* **resume:** Don't create a `index.html` that contains content. ([ad3344d](https://github.com/randytarampi/me/commit/ad3344d))
+* **www:** Fix reference broken in a8f9a049680397e577b969b2ae5f94debf1f9237. ([4cd20ee](https://github.com/randytarampi/me/commit/4cd20ee))
+* `renderJsx` before we `getRenderedHelmet` to fix [#22](https://github.com/randytarampi/me/issues/22). ([00958cd](https://github.com/randytarampi/me/commit/00958cd))
+* Actually minify assets. ([19971a5](https://github.com/randytarampi/me/commit/19971a5))
+
+
+
+
+
 <a name="0.25.2"></a>
 ## [0.25.2](https://github.com/randytarampi/me/compare/v0.25.1...v0.25.2) (2018-09-11)
 
