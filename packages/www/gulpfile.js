@@ -13,10 +13,7 @@ gulp.task("clean", () => {
 gulp.task("copy", () => {
     return gulp
         .src([
-            "../../node_modules/materialize-css/dist/fonts/roboto/**",
-            "../../node_modules/@fortawesome/fontawesome-free/webfonts/**",
             "node_modules/@randy.tarampi/assets/web/**",
-            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
         ])
         .pipe(gulp.dest("./dist"));
