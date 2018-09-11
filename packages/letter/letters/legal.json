@@ -1,6 +1,7 @@
 {
-    "renderOptions": {
-        "format": "Legal",
-        "mediaType": "print"
-    }
+  "fileName": "letter.legal",
+  "renderOptions": {
+    "format": "Legal",
+    "mediaType": "print"
+  }
 }

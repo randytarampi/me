@@ -93,7 +93,8 @@ jobs:
       file_glob: true
       file:
       - me.tar.gz
-      - $TRAVIS_BUILD_DIR/packages/resume/*.pdf
+      - $TRAVIS_BUILD_DIR/packages/resume/resume.*.pdf
+      - $TRAVIS_BUILD_DIR/packages/letter/letter.*.pdf
       skip_cleanup: true
       on:
         condition: "-n $HAS_PUBLISHABLE_CHANGES"
