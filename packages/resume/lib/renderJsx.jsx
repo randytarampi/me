@@ -1,9 +1,9 @@
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToStaticMarkup} from "react-dom/server";
 import Helmet from "react-helmet";
 import ServerApp from "../public/views/serverApp";
 
-export default ({pageSize, ...props}) => renderToString(
+export default ({pageSize, ...props}) => renderToStaticMarkup(
     <ServerApp {...props} pageSize={pageSize && pageSize.toLowerCase()}/>
 );
 
