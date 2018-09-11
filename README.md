@@ -11,6 +11,7 @@ _  / / / / /  __/_/_ __|
 
 A monorepo for everything that goes into [www.randytarampi.ca](https://www.randytarampi.ca).
 
+- [letter](packages/letter)
 - [posts](packages/posts)
 - [resume](packages/resume)
 - [www](packages/www)

@@ -38,6 +38,7 @@
     "@randy.tarampi/css": "^0.24.6",
     "@randy.tarampi/js": "^0.24.2",
     "@randy.tarampi/jsx": "^0.24.6",
+    "@randy.tarampi/letter": "^0.24.7",
     "@randy.tarampi/views": "^0.24.3",
     "history": "^4.7.2",
     "jsonresume-theme-randytarampi": "^0.24.6",
