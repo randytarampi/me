@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.26.0"></a>
+# [0.26.0](https://github.com/randytarampi/me/compare/v0.25.4...v0.26.0) (2018-09-12)
+
+
+### Bug Fixes
+
+* **pseudoimage:** `main` should refer to the correct file. ([1c3b3da](https://github.com/randytarampi/me/commit/1c3b3da))
+* **pseudolocalize:** `main` should refer to the correct file. ([f5625e7](https://github.com/randytarampi/me/commit/f5625e7))
+
+
+### Features
+
+* Close [#24](https://github.com/randytarampi/me/issues/24) and fully flesh out module's public interfaces. ([0042eda](https://github.com/randytarampi/me/commit/0042eda)), closes [#67](https://github.com/randytarampi/me/issues/67)
+
+
+
+
+
 <a name="0.25.4"></a>
 ## [0.25.4](https://github.com/randytarampi/me/compare/v0.25.3...v0.25.4) (2018-09-12)
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.26.0"></a>
+# [0.26.0](https://github.com/randytarampi/me/compare/v0.25.4...v0.26.0) (2018-09-12)
+
+
+### Bug Fixes
+
+* **pseudoimage:** `main` should refer to the correct file. ([1c3b3da](https://github.com/randytarampi/me/commit/1c3b3da))
+
+
+
+
+
 <a name="0.25.4"></a>
 ## [0.25.4](https://github.com/randytarampi/me/compare/v0.25.3...v0.25.4) (2018-09-12)
 
