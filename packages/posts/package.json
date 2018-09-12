@@ -100,5 +100,9 @@
   },
   "engines": {
     "node": ">=8"
+  },
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
   }
 }

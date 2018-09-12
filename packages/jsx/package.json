@@ -119,5 +119,9 @@
     "node": ">=8"
   },
   "module": "esm.js",
-  "main": "esm.js"
+  "main": "esm.js",
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
+  }
 }
