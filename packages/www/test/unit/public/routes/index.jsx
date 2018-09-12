@@ -1,11 +1,11 @@
-import {BlogRouteHandler, PhotosRouteHandler, WordsRouteHandler} from "../../../../public/routes";
-import React from "react";
+import {ConnectedPosts} from "@randy.tarampi/jsx";
+import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
-import {Posts} from "@randy.tarampi/jsx";
-import {shallow} from "@randy.tarampi/jsx/test/util";
+import {Map} from "immutable";
+import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {Map} from "immutable";
+import {BlogRouteHandler, PhotosRouteHandler, WordsRouteHandler} from "../../../../public/routes";
 
 describe("Intro", function () {
     let mockStore;
@@ -29,7 +29,7 @@ describe("Intro", function () {
                 <title>📝</title>
             );
             expect(rendered).to.contain(
-                <Posts fetchUrl={`${__WORDS_SERVICE_URL__}`}/>
+                <ConnectedPosts fetchUrl={`${__WORDS_SERVICE_URL__}`}/>
             );
         });
     });
@@ -43,7 +43,7 @@ describe("Intro", function () {
                 <title>📸</title>
             );
             expect(rendered).to.contain(
-                <Posts fetchUrl={`${__PHOTOS_SERVICE_URL__}`}/>
+                <ConnectedPosts fetchUrl={`${__PHOTOS_SERVICE_URL__}`}/>
             );
         });
     });
@@ -57,7 +57,7 @@ describe("Intro", function () {
                 <title>📸📝</title>
             );
             expect(rendered).to.contain(
-                <Posts fetchUrl={`${__POSTS_SERVICE_URL__}`}/>
+                <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`}/>
             );
         });
     });

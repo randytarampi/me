@@ -1,12 +1,10 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import ResumeEducation from "../../../../../../../lib/components/resume/content/education";
 import ResumeEducationEntry from "../../../../../../../lib/components/resume/content/education/entry";
 import testResumeJson from "../../../../../../resources/resume";
-
-const {PrintableSection} = Printable;
 
 describe("ResumeEducation", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);

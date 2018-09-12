@@ -6,7 +6,7 @@ import updateEmoji from "./updateEmoji";
 
 export const HANDLE_BEAR_COMPONENT_CLICK = "HANDLE_BEAR_COMPONENT_CLICK";
 
-export default (emojiId, componentId, event) => (dispatch, getState) => {
+export const onBearComponentClickCreator = (emojiId, componentId, event) => (dispatch, getState) => {
     dispatch(onComponentClick(emojiId, componentId, event));
 
     const state = getState();
@@ -51,3 +51,5 @@ export default (emojiId, componentId, event) => (dispatch, getState) => {
 };
 
 export const onBearComponentClick = createAction(HANDLE_BEAR_COMPONENT_CLICK);
+
+export default onBearComponentClickCreator;

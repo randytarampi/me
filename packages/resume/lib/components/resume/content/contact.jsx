@@ -1,10 +1,7 @@
-import {Printable} from "@randy.tarampi/jsx";
-import {CampaignLink, EmailLink, TelLink} from "@randy.tarampi/jsx/lib/components/link";
+import {CampaignLink, EmailLink, PrintableSection, TelLink} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-
-const {PrintableSection} = Printable;
 
 export const ResumeContact = ({resume}) => {
     return <PrintableSection printableType="resume" type="contact" label="Contact" hideOnPrint={true}>

@@ -1,8 +1,6 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {RightPushSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-
-const {RightPushSection} = Printable;
 
 export const LetterSalutation = ({letter, contentConfiguration}) => {
     const greeting = contentConfiguration.contentProps.greeting || "Hello";

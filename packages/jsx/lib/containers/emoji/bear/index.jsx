@@ -1,6 +1,6 @@
-import Bear from "./bear";
+import ConnectedBear from "./bear";
 
 export * from "./bear";
 export * from "./helloBear";
 
-export default Bear;
+export default ConnectedBear;

@@ -8,7 +8,7 @@ import {
     FETCHING_POSTS_SUCCESS
 } from "../actions/fetchPosts";
 
-export default (state = Map(), action) => {
+export const apiReducer = (state = Map(), action) => {
     switch (action.type) {
         case FETCHING_POSTS: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
@@ -53,6 +53,8 @@ export default (state = Map(), action) => {
             return state;
     }
 };
+
+export default apiReducer;
 
 // NOTE-RT: Global selectors
 export const getApiState = state => state;

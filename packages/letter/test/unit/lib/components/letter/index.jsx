@@ -1,13 +1,11 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableHeader} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import Letter from "../../../../../lib/components/letter";
+import LetterComponent from "../../../../../lib/components/letter";
 import LetterEntity from "../../../../../lib/letter";
 
-const {PrintableHeader} = Printable;
-
-describe("Letter", function () {
+describe("LetterComponent", function () {
     let stubPersonJs;
     let stubSenderJs;
     let stubRecipientJs;
@@ -52,7 +50,7 @@ describe("Letter", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<Letter letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -78,7 +76,7 @@ describe("Letter", function () {
             }
         });
 
-        const rendered = shallow(<Letter letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -113,7 +111,7 @@ describe("Letter", function () {
             }
         });
 
-        const rendered = shallow(<Letter letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -152,7 +150,7 @@ describe("Letter", function () {
             }
         });
 
-        const rendered = shallow(<Letter letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");

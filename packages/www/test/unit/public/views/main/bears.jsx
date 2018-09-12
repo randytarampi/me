@@ -1,11 +1,11 @@
-import React from "react";
+import {ConnectedBear, RowBlock} from "@randy.tarampi/jsx";
+import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
-import {Bear, RowBlock} from "@randy.tarampi/jsx";
-import Bears from "../../../../../public/views/main/bears";
-import {shallow} from "@randy.tarampi/jsx/test/util";
+import {Map} from "immutable";
+import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {Map} from "immutable";
+import Bears from "../../../../../public/views/main/bears";
 
 describe("Bears", function () {
     let mockStore;
@@ -30,7 +30,7 @@ describe("Bears", function () {
             </h2>
         );
         expect(rendered).to.contain(
-            <Bear id="bears-bear"/>
+            <ConnectedBear id="bears-bear"/>
         );
         expect(rendered.find(RowBlock)).to.have.length(1);
     });

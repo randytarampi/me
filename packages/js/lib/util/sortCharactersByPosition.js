@@ -4,7 +4,7 @@
  * @param b {Character}
  * @returns {number}
  */
-export default (a, b) => {
+export const sortCharactersByPosition = (a, b) => {
     if (a.position < b.position) {
         return -1;
     } else if (a.position > b.position) {
@@ -13,3 +13,5 @@ export default (a, b) => {
         return 0;
     }
 };
+
+export default sortCharactersByPosition;

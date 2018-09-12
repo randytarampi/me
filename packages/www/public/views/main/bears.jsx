@@ -1,11 +1,11 @@
-import {Bear, CampaignLink, RowBlock} from "@randy.tarampi/jsx";
+import {CampaignLink, ConnectedBear, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
 
 const Bears = () =>
     <RowBlock name="bears">
         <Col className="block__bear hide-on-med-and-down" l={5} s={12}>
-            <Bear id="bears-bear"/>
+            <ConnectedBear id="bears-bear"/>
         </Col>
         <Col className="block__text" l={7} m={8} s={12} offset="m2">
             <h2>

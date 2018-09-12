@@ -1,8 +1,8 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableHeader} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import Resume from "../../../../../lib/components/resume";
+import ResumeComponent from "../../../../../lib/components/resume";
 import ResumeAbout from "../../../../../lib/components/resume/content/about";
 import ResumeAwards from "../../../../../lib/components/resume/content/awards";
 import ResumeContact from "../../../../../lib/components/resume/content/contact";
@@ -19,9 +19,7 @@ import ResumeWork from "../../../../../lib/components/resume/content/work";
 import ResumeFooter from "../../../../../lib/components/resume/footer";
 import testResumeJson from "../../../../resources/resume";
 
-const {PrintableHeader} = Printable;
-
-describe("Resume", function () {
+describe("ResumeComponent", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);
     let stubResume;
 
@@ -30,7 +28,7 @@ describe("Resume", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -57,7 +55,7 @@ describe("Resume", function () {
     it("renders (no `ResumeAbout`)", function () {
         delete stubResume.basics.summary;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -84,7 +82,7 @@ describe("Resume", function () {
     it("renders (no `ResumeProfiles`)", function () {
         delete stubResume.basics.profiles;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -111,7 +109,7 @@ describe("Resume", function () {
     it("renders (no `ResumeWork`)", function () {
         delete stubResume.work;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -138,7 +136,7 @@ describe("Resume", function () {
     it("renders (no `ResumeProjects`)", function () {
         delete stubResume.projects;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -165,7 +163,7 @@ describe("Resume", function () {
     it("renders (no `ResumeSkills`)", function () {
         delete stubResume.skills;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -192,7 +190,7 @@ describe("Resume", function () {
     it("renders (no `ResumeEducation`)", function () {
         delete stubResume.education;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -219,7 +217,7 @@ describe("Resume", function () {
     it("renders (no `ResumeAwards`)", function () {
         delete stubResume.awards;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -246,7 +244,7 @@ describe("Resume", function () {
     it("renders (no `ResumeVolunteer`)", function () {
         delete stubResume.volunteer;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -273,7 +271,7 @@ describe("Resume", function () {
     it("renders (no `ResumePublications`)", function () {
         delete stubResume.publications;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -300,7 +298,7 @@ describe("Resume", function () {
     it("renders (no `ResumeLanguages`)", function () {
         delete stubResume.languages;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -327,7 +325,7 @@ describe("Resume", function () {
     it("renders (no `ResumeInterests`)", function () {
         delete stubResume.interests;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -354,7 +352,7 @@ describe("Resume", function () {
     it("renders (no `ResumeReferences`)", function () {
         delete stubResume.references;
 
-        const rendered = shallow(<Resume resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");

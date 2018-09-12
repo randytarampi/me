@@ -1,4 +1,4 @@
-import {util} from "@randy.tarampi/js";
+import {compositeKeySeparator} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
@@ -202,7 +202,7 @@ class CachedDataSource extends DataSource {
     async cachedPostGetter(postId, searchParams) {
         let cacheParams = searchParams
             ? searchParams.set("id", postId).set("source", this.type)
-            : SearchParams.fromJS({uid: `${this.type}${util.compositeKeySeparator}${postId}`});
+            : SearchParams.fromJS({uid: `${this.type}${compositeKeySeparator}${postId}`});
 
         return this.cacheClient.getPost(cacheParams);
     }

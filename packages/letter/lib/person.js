@@ -2,7 +2,7 @@ import {List, Record} from "immutable";
 import Location from "./location";
 import Profile from "./profile";
 
-class Person extends Record({
+export class Person extends Record({
     name: null,
     firstName: null,
     lastName: null,

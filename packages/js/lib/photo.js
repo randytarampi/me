@@ -3,7 +3,7 @@ import Post, {PostClassGenerator} from "./post";
 import SizedPhoto from "./sizedPhoto";
 import * as util from "./util";
 
-class Photo extends PostClassGenerator({
+export class Photo extends PostClassGenerator({
     width: null,
     height: null,
     sizedPhotos: List()

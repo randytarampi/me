@@ -83,4 +83,6 @@ export const createLogger = () => {
     return browserBunyanCreateLogger(buildBunyanConfiguration());
 };
 
-export default createLogger();
+export const logger = createLogger();
+
+export default logger;

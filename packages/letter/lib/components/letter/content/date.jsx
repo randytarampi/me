@@ -1,9 +1,7 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
-
-const {PrintableSection} = Printable;
 
 export const LetterDate = ({contentConfiguration}) => {
     const date = contentConfiguration.contentProps && contentConfiguration.contentProps.date

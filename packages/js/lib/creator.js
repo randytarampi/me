@@ -1,6 +1,6 @@
 import {Record} from "immutable";
 
-class Creator extends Record({
+export class Creator extends Record({
     id: null,
     username: null,
     name: null,

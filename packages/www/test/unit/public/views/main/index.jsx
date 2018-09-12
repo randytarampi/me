@@ -1,15 +1,15 @@
-import React from "react";
-import {expect} from "chai";
 import {logger} from "@randy.tarampi/jsx";
+import {shallow} from "@randy.tarampi/jsx/test";
+import {expect} from "chai";
+import {Map} from "immutable";
+import React from "react";
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import sinon from "sinon";
+import Main from "../../../../../public/views/main";
 import Bears from "../../../../../public/views/main/bears";
 import Intro from "../../../../../public/views/main/intro";
 import Works from "../../../../../public/views/main/works";
-import Main from "../../../../../public/views/main";
-import {shallow} from "@randy.tarampi/jsx/test/util";
-import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
-import {Map} from "immutable";
-import sinon from "sinon";
 
 describe("Main", function () {
     let mockStore;

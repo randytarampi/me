@@ -1,15 +1,11 @@
-import {CampaignLink, Printable} from "@randy.tarampi/jsx";
-import {EmailLink} from "@randy.tarampi/jsx/lib/components/link";
-import {HelloBear} from "@randy.tarampi/jsx/lib/containers/emoji/bear/helloBear";
+import {CampaignLink, ConnectedHelloBear, EmailLink, LeftDescriptionSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-
-const {LeftDescriptionSection} = Printable;
 
 export const LetterIntro = ({contentConfiguration}) => {
     return <LeftDescriptionSection
         labelNode={<h3 className="printable-section__label">
-            <HelloBear textEffect={true} id="letter-intro-hello-bear"/>
+            <ConnectedHelloBear textEffect={true} id="letter-intro-hello-bear"/>
         </h3>}
         descriptionNode={<Fragment>
             <p>

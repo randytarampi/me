@@ -1,9 +1,7 @@
-import {CampaignLink, Printable} from "@randy.tarampi/jsx";
+import {CampaignLink, PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import ResumeEducationEntry from "./entry";
-
-const {PrintableSection} = Printable;
 
 export const ResumeEducation = ({resume}) => {
     return <PrintableSection

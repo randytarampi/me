@@ -1,11 +1,9 @@
-import {CampaignLink, Printable, StackOverflowLink, TwitterLink} from "@randy.tarampi/jsx";
+import {CampaignLink, PrintableSection, StackOverflowLink, TwitterLink} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import ResumeProfiles from "../../../../../../lib/components/resume/content/profiles";
 import testResumeJson from "../../../../../resources/resume";
-
-const {PrintableSection} = Printable;
 
 describe("ResumeProfiles", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);

@@ -1,8 +1,6 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-
-const {PrintableSection} = Printable;
 
 export const LetterThanks = ({contentConfiguration}) => {
     return <PrintableSection

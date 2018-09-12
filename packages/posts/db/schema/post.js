@@ -1,4 +1,4 @@
-import {Photo, Post, util} from "@randy.tarampi/js";
+import {compositeKeySeparator, getEntityForType, Photo, Post} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
 const throughput = {read: 4, write: 4};
@@ -7,7 +7,7 @@ const post = new Schema({
     uid: {
         type: String,
         hashKey: true,
-        default: model => `${model.source}${util.compositeKeySeparator}${model.id}`
+        default: model => `${model.source}${compositeKeySeparator}${model.id}`
     },
     id: {
         type: String
@@ -91,7 +91,7 @@ const post = new Schema({
 });
 
 post.methods.toEntity = function () {
-    const Constructor = util.getEntityForType(this.type);
+    const Constructor = getEntityForType(this.type);
     return Constructor.fromJSON(this);
 };
 

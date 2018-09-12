@@ -1,9 +1,9 @@
-import {Photo, Post, util} from "@randy.tarampi/js";
+import {Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
 import {Map, Set} from "immutable";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
 
-export default (state = Map({posts: Set([])}), action) => {
+export const postsReducer = (state = Map({posts: Set([])}), action) => {
     switch (action.type) {
         case FETCHING_POSTS_SUCCESS: {
             if (action.payload.posts) {
@@ -18,6 +18,8 @@ export default (state = Map({posts: Set([])}), action) => {
     }
 };
 
+export default postsReducer;
+
 export const getPosts = state => state.get("posts");
 
 export const getPhotoPosts = createSelector(
@@ -31,15 +33,15 @@ export const getWordPosts = createSelector(
 
 export const getPostsSortedByDate = createSelector(
     getPosts,
-    posts => posts.sort(util.sortPostsByDate)
+    posts => posts.sort(sortPostsByDate)
 );
 export const getPhotoPostsSortedByDate = createSelector(
     getPhotoPosts,
-    posts => posts.sort(util.sortPostsByDate)
+    posts => posts.sort(sortPostsByDate)
 );
 export const getWordPostsSortedByDate = createSelector(
     getWordPosts,
-    posts => posts.sort(util.sortPostsByDate)
+    posts => posts.sort(sortPostsByDate)
 );
 
 export const getOldestPost = createSelector(

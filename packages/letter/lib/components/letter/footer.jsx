@@ -1,9 +1,7 @@
-import {CampaignLink, Printable} from "@randy.tarampi/jsx";
+import {CampaignLink, PrintableFooter} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-
-const {PrintableFooter} = Printable;
 
 export const LetterFooter = () => {
     const onlineUrl = `${__PUBLISHED_LETTER_URL__}`;

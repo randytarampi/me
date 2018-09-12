@@ -1,11 +1,11 @@
-import React from "react";
+import {ConnectedHelloBear, RowBlock} from "@randy.tarampi/jsx";
+import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
-import {HelloBear, RowBlock} from "@randy.tarampi/jsx";
-import Intro, {IntroText} from "../../../../../public/views/main/intro";
-import {shallow} from "@randy.tarampi/jsx/test/util";
+import {Map} from "immutable";
+import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {Map} from "immutable";
+import Intro, {IntroText} from "../../../../../public/views/main/intro";
 
 describe("Intro", function () {
     let mockStore;
@@ -26,10 +26,10 @@ describe("Intro", function () {
         expect(rendered).to.be.ok;
         expect(rendered.find(IntroText)).to.have.length(2);
         expect(rendered).to.contain(
-            <HelloBear id="intro-hello-bear" htmlId="intro-large-hello-bear"/>
+            <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-large-hello-bear"/>
         );
         expect(rendered).to.contain(
-            <HelloBear id="intro-hello-bear" htmlId="intro-responsive-hello-bear"/>
+            <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-responsive-hello-bear"/>
         );
         expect(rendered.find(RowBlock)).to.have.length(3);
     });

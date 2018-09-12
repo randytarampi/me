@@ -1,4 +1,4 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableHeader} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
@@ -6,9 +6,7 @@ import baseLetter from "../../../lib/baseLetter";
 import LetterEntity from "../../../lib/letter";
 import LetterFooter from "./footer";
 
-const {PrintableHeader} = Printable;
-
-export const Letter = ({letter, ...props}) => <div className="printable letter">
+export const LetterComponent = ({letter, ...props}) => <div className="printable letter">
     <Helmet>
         <title>{letter.basics.name} &mdash; {letter.basics.label}</title>
         <meta itemProp="name" content={letter.basics.name}/>
@@ -53,12 +51,12 @@ export const Letter = ({letter, ...props}) => <div className="printable letter">
     <LetterFooter {...props} letter={letter}/>
 </div>;
 
-Letter.propTypes = {
+LetterComponent.propTypes = {
     letter: PropTypes.object.isRequired
 };
 
-Letter.defaultProps = {
+LetterComponent.defaultProps = {
     letter: LetterEntity.fromJSON(baseLetter)
 };
 
-export default Letter;
+export default LetterComponent;

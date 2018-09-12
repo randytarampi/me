@@ -8,7 +8,7 @@ import thunk from "redux-thunk";
 import sinon from "sinon";
 import {shallow} from "../../../../util";
 
-describe("HelloBear", function () {
+describe("ConnectedHelloBear", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;

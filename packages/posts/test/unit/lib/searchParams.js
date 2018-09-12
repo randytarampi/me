@@ -1,4 +1,4 @@
-import {util} from "@randy.tarampi/js";
+import {compositeKeySeparator} from "@randy.tarampi/js";
 import {expect} from "chai";
 import SearchParams from "../../../lib/searchParams";
 
@@ -209,7 +209,7 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    uid: {eq: `meow${util.compositeKeySeparator}woof`}
+                    uid: {eq: `meow${compositeKeySeparator}woof`}
                 },
                 _options: {limit: 100, descending: true, all: false}
             });

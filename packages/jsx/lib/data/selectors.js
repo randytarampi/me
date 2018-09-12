@@ -13,7 +13,7 @@ import {
 } from "./posts";
 import {getLocation} from "./routing";
 
-export default {
+export const selectors = {
     hasError: state => hasError(state.get("error")),
     getError: state => getError(state.get("error")),
     getErrorCode: state => getErrorCode(state.get("error")),
@@ -37,3 +37,5 @@ export default {
     getEmoji: (state, emojiId) => getEmoji(state.get("emoji"), emojiId),
     hasEmoji: (state, emojiId) => hasEmoji(state.get("emoji"), emojiId)
 };
+
+export default selectors;

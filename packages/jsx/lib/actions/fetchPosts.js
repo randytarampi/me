@@ -11,13 +11,13 @@ export const FETCHING_POSTS = "FETCHING_POSTS";
 
 export const FETCHING_POSTS_PER_PAGE = 16;
 
-export default fetchUrl => (dispatch, getState) => {
+export const fetchPostsCreator = fetchUrl => (dispatch, getState) => {
     const state = getState();
     const urlState = selectors.getApiStateForUrl(state, fetchUrl);
     const isLoading = isUrlStateLoading(urlState);
 
     if (isLoading) {
-        dispatch(fetchingCancelled({
+        dispatch(fetchingPostsCancelled({
             fetchUrl,
             isLoading
         }));
@@ -29,7 +29,7 @@ export default fetchUrl => (dispatch, getState) => {
     const oldestPostAvailableDate = urlState && urlState.get("oldest");
 
     if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
-        dispatch(fetchingCancelled({
+        dispatch(fetchingPostsCancelled({
             fetchUrl,
             oldestPostAvailableDate,
             oldestLoadedPostDate
@@ -58,7 +58,7 @@ export default fetchUrl => (dispatch, getState) => {
 
     return fetchPosts(fetchUrl, searchParams)
         .then(postsResponse => {
-            dispatch(fetchingSuccess({
+            dispatch(fetchingPostsSuccess({
                 fetchUrl,
                 ...postsResponse
             }));
@@ -68,7 +68,7 @@ export default fetchUrl => (dispatch, getState) => {
             }
         })
         .catch(error => {
-            dispatch(fetchingFailure({
+            dispatch(fetchingPostsFailure({
                 fetchUrl,
                 error
             }));
@@ -79,6 +79,8 @@ export default fetchUrl => (dispatch, getState) => {
 };
 
 export const fetchingPosts = createAction(FETCHING_POSTS);
-export const fetchingCancelled = createAction(FETCHING_POSTS_CANCELLED);
-export const fetchingSuccess = createAction(FETCHING_POSTS_SUCCESS);
-export const fetchingFailure = createAction(FETCHING_POSTS_FAILURE);
+export const fetchingPostsCancelled = createAction(FETCHING_POSTS_CANCELLED);
+export const fetchingPostsSuccess = createAction(FETCHING_POSTS_SUCCESS);
+export const fetchingPostsFailure = createAction(FETCHING_POSTS_FAILURE);
+
+export default fetchPostsCreator;

@@ -1,4 +1,4 @@
-import {Photo, Post, util} from "@randy.tarampi/js";
+import {Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
 import _ from "lodash";
 import searchPosts from "../../../lib/searchPosts";
 import configureEnvironment from "../../util/configureEnvironment";
@@ -32,7 +32,7 @@ export default (event, context, callback) => {
                 )
                 .then((results) => {
                     const flattenedPosts = _.flatten(results.map(result => result.posts));
-                    const sortedPosts = flattenedPosts.sort(util.sortPostsByDate);
+                    const sortedPosts = flattenedPosts.sort(sortPostsByDate);
                     const paginatedPosts = sortedPosts.slice(0, parsedQuerystringParameters && parsedQuerystringParameters.perPage || 100);
                     const globalTotal = results.reduce((globalTotal, result) => globalTotal + result.total, 0);
                     const globalFirst = _.sortBy(results, result => result && result.first && result.first.date)[0].first;

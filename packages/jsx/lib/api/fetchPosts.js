@@ -1,8 +1,8 @@
-import {util} from "@randy.tarampi/js";
+import {getEntityForType} from "@randy.tarampi/js";
 import fetch from "isomorphic-fetch";
 import queryString from "query-string";
 
-export default (fetchUrl, searchParams) => {
+export const fetchPostsApi = (fetchUrl, searchParams) => {
     const parsedFetchUrl = queryString.parseUrl(fetchUrl);
     return fetch(`${parsedFetchUrl.url}?${queryString.stringify({
         ...parsedFetchUrl.query,
@@ -19,9 +19,11 @@ export default (fetchUrl, searchParams) => {
             return {
                 ...postsResponse,
                 posts: postsResponse.posts.map(postJson => {
-                    const Constructor = util.getEntityForType(postJson.type);
+                    const Constructor = getEntityForType(postJson.type);
                     return Constructor.fromJSON(postJson);
                 })
             };
         });
 };
+
+export default fetchPostsApi;

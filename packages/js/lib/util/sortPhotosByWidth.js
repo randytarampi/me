@@ -4,7 +4,7 @@
  * @param b {Photo}
  * @returns {number}
  */
-export default (a, b) => {
+export const sortPhotosByWidth = (a, b) => {
     if (a.width < b.width) {
         return -1;
     } else if (a.width > b.width) {
@@ -13,3 +13,5 @@ export default (a, b) => {
         return 0;
     }
 };
+
+export default sortPhotosByWidth;

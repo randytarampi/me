@@ -4,10 +4,10 @@ import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import {Col, Row} from "react-materialize";
-import {Bear} from "../containers/emoji/bear";
+import {ConnectedBear} from "../containers/emoji/bear";
 import {EmailLink, InternalLink} from "./link";
 
-class Error extends Component {
+export class Error extends Component {
     componentDidMount() {
         if (
             !this.props.errorCode
@@ -24,7 +24,7 @@ class Error extends Component {
             case 500:
             case "EFETCH":
                 errorContent =
-                    <Bear emoji={DeadBear.fromJS()} id="error-dead-bear">
+                    <ConnectedBear emoji={DeadBear.fromJS()} id="error-dead-bear">
                         <h2 className="error__message--header">
                             <span className="text">He's dead, Jim.</span>
                         </h2>
@@ -34,12 +34,12 @@ class Error extends Component {
                             me know</EmailLink> if you're super keen and I can probably walk you through what
                             happened.
                         </p>
-                    </Bear>;
+                    </ConnectedBear>;
                 break;
 
             case "ENOPOSTS":
                 errorContent =
-                    <Bear emoji={ShrugBear.fromJS()} id="error-shrug-bear">
+                    <ConnectedBear emoji={ShrugBear.fromJS()} id="error-shrug-bear">
                         <h2 className="error__message--header">
                             <span className="text">Nothing to see here... yet.</span>
                         </h2>
@@ -48,14 +48,14 @@ class Error extends Component {
                             something
                             here.
                         </p>
-                    </Bear>;
+                    </ConnectedBear>;
                 break;
 
             case 404:
             case "ENOTFOUND":
             default:
                 errorContent =
-                    <Bear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
+                    <ConnectedBear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
                         <h2 className="error__message--header">
                             <span className="text">What are you looking for?</span>
                         </h2>
@@ -67,7 +67,7 @@ class Error extends Component {
                                                                                     href={`${this.props.redirectionLocation}`}>home
                             page</InternalLink> in {this.props.redirectionTimeout} seconds.
                         </p>
-                    </Bear>;
+                    </ConnectedBear>;
                 break;
         }
 

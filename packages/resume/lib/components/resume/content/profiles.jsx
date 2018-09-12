@@ -1,4 +1,3 @@
-import {Printable} from "@randy.tarampi/jsx";
 import {
     AngelListLink,
     CampaignLink,
@@ -8,14 +7,13 @@ import {
     GitHubLink,
     InstagramLink,
     LinkedInLink,
+    PrintableSection,
     StackOverflowLink,
     TwitterLink
-} from "@randy.tarampi/jsx/lib/components/link";
+} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-
-const {PrintableSection} = Printable;
 
 const networkLinkMap = {
     angellist: AngelListLink,
@@ -26,7 +24,7 @@ const networkLinkMap = {
     instagram: InstagramLink,
     linkedin: LinkedInLink,
     stackoverflow: StackOverflowLink,
-    twitter: TwitterLink,
+    twitter: TwitterLink
 };
 
 const getLinkComponentForProfile = profile => {

@@ -1,6 +1,6 @@
 import {Record} from "immutable";
 
-class Location extends Record({
+export class Location extends Record({
     address: null,
     postalCode: null,
     city: null,

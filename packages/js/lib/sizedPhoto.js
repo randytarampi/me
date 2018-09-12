@@ -1,6 +1,6 @@
 import {Record} from "immutable";
 
-class SizedPhoto extends Record({
+export class SizedPhoto extends Record({
     url: null,
     width: null,
     height: null,

@@ -1,11 +1,9 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import ResumeLanguages from "../../../../../../lib/components/resume/content/languages";
 import testResumeJson from "../../../../../resources/resume";
-
-const {PrintableSection} = Printable;
 
 describe("ResumeLanguages", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);

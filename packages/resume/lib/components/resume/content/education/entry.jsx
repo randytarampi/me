@@ -1,4 +1,4 @@
-import {CampaignLink} from "@randy.tarampi/jsx/lib/components/link";
+import {CampaignLink} from "@randy.tarampi/jsx";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";

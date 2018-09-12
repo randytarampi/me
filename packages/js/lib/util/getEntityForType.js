@@ -1,7 +1,7 @@
 import Photo from "../photo";
 import Post from "../post";
 
-export default type => {
+export const getEntityForType = type => {
     switch (type) {
         case "Photo":
             return Photo;
@@ -13,3 +13,5 @@ export default type => {
             throw new Error(`Can't \`getEntityForType\` for \`${type}\``);
     }
 };
+
+export default getEntityForType;

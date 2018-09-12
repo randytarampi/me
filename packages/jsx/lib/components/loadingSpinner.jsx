@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoadingSpinner = () => <div className="loading-spinner">
+export const LoadingSpinner = () => <div className="loading-spinner">
     <div className="preloader-wrapper big active">
         <div className="spinner-layer spinner-blue">
             <div className="circle-clipper left">

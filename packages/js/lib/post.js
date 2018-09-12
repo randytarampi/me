@@ -88,7 +88,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
 
 export const AbstractPost = PostClassGenerator();
 
-class Post extends PostClassGenerator() {
+export class Post extends PostClassGenerator() {
 }
 
 export default Post;

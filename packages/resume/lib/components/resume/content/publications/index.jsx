@@ -1,9 +1,7 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import ResumePublicationsEntry from "./entry";
-
-const {PrintableSection} = Printable;
 
 export const ResumePublications = ({resume}) => {
     return <PrintableSection printableType="resume" type="publications" label="Publications">

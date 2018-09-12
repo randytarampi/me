@@ -4,12 +4,12 @@ import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
 import {renderRoutes} from "react-router-config";
 import {ConnectedRouter} from "react-router-redux";
+import Sniffr from "sniffr";
 import ErrorWrapper from "./containers/errorWrapper";
 import logger from "./logger";
 import metricsConfig from "./metrics/config";
-import Sniffr from "sniffr";
 
-class ClientReduxRoot extends Component {
+export class ClientReduxRoot extends Component {
     constructor(props) {
         super(props);
 

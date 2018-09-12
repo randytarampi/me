@@ -1,4 +1,4 @@
-import {Photo, Post, util} from "@randy.tarampi/js";
+import {getEntityForType, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
@@ -63,7 +63,7 @@ describe("fetchPosts", function () {
             .then(postsResponse => {
                 expect(postsResponse).to.be.ok;
                 expect(postsResponse).to.eql({
-                    posts: stubPosts.map(post => util.getEntityForType(post.type).fromJS(post)),
+                    posts: stubPosts.map(post => getEntityForType(post.type).fromJS(post)),
                     total: stubPosts.length,
                     oldest: stubPost.dateCreated.toISO(),
                     newest: stubPhoto.dateCreated.toISO()

@@ -1,9 +1,7 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import ResumeVolunteerEntry from "./entry";
-
-const {PrintableSection} = Printable;
 
 export const ResumeVolunteer = ({resume}) => {
     return <PrintableSection

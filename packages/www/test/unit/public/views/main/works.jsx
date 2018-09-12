@@ -1,12 +1,12 @@
-import React from "react";
-import {expect} from "chai";
 import {DoubtBear} from "@randy.tarampi/js";
-import {Bear, RowBlock} from "@randy.tarampi/jsx";
-import Works from "../../../../../public/views/main/works";
-import {shallow} from "@randy.tarampi/jsx/test/util";
+import {ConnectedBear, RowBlock} from "@randy.tarampi/jsx";
+import {shallow} from "@randy.tarampi/jsx/test";
+import {expect} from "chai";
+import {Map} from "immutable";
+import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {Map} from "immutable";
+import Works from "../../../../../public/views/main/works";
 
 describe("Works", function () {
     let mockStore;
@@ -31,7 +31,7 @@ describe("Works", function () {
             </h2>
         );
         expect(rendered).to.contain(
-            <Bear emoji={DoubtBear.fromJS()} id="code-bear"/>
+            <ConnectedBear emoji={DoubtBear.fromJS()} id="code-bear"/>
         );
         expect(rendered.find(RowBlock)).to.have.length(1);
     });

@@ -1,6 +1,6 @@
 import {Record} from "immutable";
 
-class Profile extends Record({
+export class Profile extends Record({
     network: null,
     username: null,
     url: null

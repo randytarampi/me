@@ -2,7 +2,7 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {Map, Set} from "immutable";
 import {createAction} from "redux-actions";
-import {fetchingSuccess} from "../../../lib/actions/fetchPosts";
+import {fetchingPostsSuccess} from "../../../lib/actions/fetchPosts";
 import reducer, {
     getNewestPost,
     getOldestPost,
@@ -43,7 +43,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
             expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubPosts);
@@ -58,7 +58,7 @@ describe("posts", function () {
             stubInitialState = Map({
                 posts: new Set(["grr"])
             });
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
             expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
@@ -70,7 +70,7 @@ describe("posts", function () {
             stubInitialState = Map({
                 posts: new Set(["grr"])
             });
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
             expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").toArray());
@@ -89,7 +89,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getWordPostsSortedByDate(updatedState);
             expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([
@@ -111,7 +111,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPhotoPostsSortedByDate(updatedState);
             expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([
@@ -133,7 +133,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPostsSortedByDate(updatedState);
             expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([
@@ -157,7 +157,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getWordPosts(updatedState);
             expect(posts).to.be.ok;
             posts.toArray().forEach(post => {
@@ -179,7 +179,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPhotoPosts(updatedState);
             expect(posts).to.be.ok;
             posts.toArray().forEach(post => {
@@ -201,7 +201,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const post = getOldestPost(updatedState);
             expect(post).to.be.ok;
             expect(post).to.eql(stubPosts[1]);
@@ -220,7 +220,7 @@ describe("posts", function () {
                 posts: stubPosts
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const post = getNewestPost(updatedState);
             expect(post).to.be.ok;
             expect(post).to.eql(stubPosts[3]);

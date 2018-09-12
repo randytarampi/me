@@ -3,7 +3,7 @@ import selectors from "../../data/selectors";
 
 export const UPDATE_EMOJI = "UPDATE_EMOJI";
 
-export default emoji => (dispatch, getState) => {
+export const updateEmojiCreator = emoji => (dispatch, getState) => {
     const state = getState();
 
     if (selectors.hasEmoji(state, emoji.id)) {
@@ -12,3 +12,5 @@ export default emoji => (dispatch, getState) => {
 };
 
 export const updateEmoji = createAction(UPDATE_EMOJI);
+
+export default updateEmojiCreator;

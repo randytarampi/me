@@ -2,7 +2,7 @@ import {List, Map, Record} from "immutable";
 import LetterSection from "./letterSection";
 import Person from "./person";
 
-class Letter extends Record({
+export class Letter extends Record({
     sender: null,
     recipient: null,
     id: null,

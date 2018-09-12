@@ -1,8 +1,6 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {LeftDescriptionSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-
-const {LeftDescriptionSection} = Printable;
 
 export const LetterAboutYou = ({contentConfiguration}) => {
     return <LeftDescriptionSection

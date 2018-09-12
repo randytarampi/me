@@ -1,4 +1,4 @@
-import {Photo, util} from "@randy.tarampi/js";
+import {Photo, sortPostsByDate} from "@randy.tarampi/js";
 import {expect} from "chai";
 import fs from "fs";
 import path from "path";
@@ -45,7 +45,7 @@ describe("LocalSource", function () {
                     expect(photos).to.be.ok;
                     expect(photos).to.have.length(fs.readdirSync(process.env.LOCAL_DIRECTORY).filter(LocalSource.fileIsSupported).length);
                     photos.map(photo => expect(photo).to.be.instanceOf(Photo));
-                    expect(photos).to.eql(photos.sort(util.sortPostsByDate));
+                    expect(photos).to.eql(photos.sort(sortPostsByDate));
                 });
         });
     });
@@ -60,7 +60,7 @@ describe("LocalSource", function () {
                     expect(photos).to.be.ok;
                     expect(photos).to.have.length(fs.readdirSync(process.env.LOCAL_DIRECTORY).filter(LocalSource.fileIsSupported).length);
                     photos.map(photo => expect(photo).to.be.instanceOf(Photo));
-                    expect(photos).to.eql(photos.sort(util.sortPostsByDate));
+                    expect(photos).to.eql(photos.sort(sortPostsByDate));
                 });
         });
     });

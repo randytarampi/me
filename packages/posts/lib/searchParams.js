@@ -1,4 +1,4 @@
-import {util} from "@randy.tarampi/js";
+import {compositeKeySeparator} from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
 import {DateTime} from "luxon";
@@ -204,7 +204,7 @@ class SearchParams extends SearchParamsRecord {
         if (this.source) {
             if (this.id) {
                 return {
-                    _query: {uid: {eq: `${this.source}${util.compositeKeySeparator}${this.id}`}},
+                    _query: {uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}},
                     _options: options
                 };
             }

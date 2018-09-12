@@ -3,7 +3,7 @@ import selectors from "../../data/selectors";
 
 export const INSTANTIATE_EMOJI = "INSTANTIATE_EMOJI";
 
-export default emoji => (dispatch, getState) => {
+export const instantiateEmojiCreator = emoji => (dispatch, getState) => {
     const state = getState();
 
     if (!selectors.hasEmoji(state, emoji.id)) {
@@ -12,3 +12,5 @@ export default emoji => (dispatch, getState) => {
 };
 
 export const instantiateEmoji = createAction(INSTANTIATE_EMOJI);
+
+export default instantiateEmojiCreator;

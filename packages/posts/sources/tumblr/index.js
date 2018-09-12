@@ -1,4 +1,4 @@
-import {Photo, Post, SizedPhoto, util} from "@randy.tarampi/js";
+import {Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
@@ -58,7 +58,7 @@ class TumblrSource extends CachedDataSource {
         const dateStringWithoutTimezone = dateString.slice(0, -4);
         const timezone = dateString.slice(-3);
         const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
-        const biggestPhoto = sizedPhotos.sort(util.sortPhotosByWidth)[sizedPhotos.length - 1];
+        const biggestPhoto = sizedPhotos.sort(sortPhotosByWidth)[sizedPhotos.length - 1];
 
         return Photo.fromJS({
             id: postJson.id,

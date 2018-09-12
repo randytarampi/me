@@ -3,7 +3,7 @@ import logger from "../logger";
 
 export const SET_ERROR = "SET_ERROR";
 
-export default (error, errorCode, errorMessage) => dispatch => {
+export const setErrorCreator = (error, errorCode, errorMessage) => dispatch => {
     if (error) {
         logger.error(error);
     } else {
@@ -13,3 +13,5 @@ export default (error, errorCode, errorMessage) => dispatch => {
 };
 
 export const setError = createAction(SET_ERROR);
+
+export default setErrorCreator;

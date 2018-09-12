@@ -1,4 +1,4 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableHeader} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Helmet} from "react-helmet";
@@ -18,9 +18,7 @@ import ResumeVolunteer from "./content/volunteer";
 import ResumeWork from "./content/work";
 import ResumeFooter from "./footer";
 
-const {PrintableHeader} = Printable;
-
-export const Resume = props => <div className="printable resume">
+export const ResumeComponent = props => <div className="printable resume">
     <Helmet>
         <title>{props.resume.basics.name} &mdash; {props.resume.basics.label}</title>
         <meta itemProp="name" content={props.resume.basics.name}/>
@@ -113,12 +111,12 @@ export const Resume = props => <div className="printable resume">
     <ResumeFooter {...props} />
 </div>;
 
-Resume.propTypes = {
+ResumeComponent.propTypes = {
     resume: PropTypes.object.isRequired
 };
 
-Resume.defaultProps = {
+ResumeComponent.defaultProps = {
     resume: ResumeJson
 };
 
-export default Resume;
+export default ResumeComponent;

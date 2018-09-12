@@ -4,10 +4,10 @@ import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
 import {
     FETCHING_POSTS_PER_PAGE,
-    fetchingCancelled,
-    fetchingFailure,
     fetchingPosts,
-    fetchingSuccess
+    fetchingPostsCancelled,
+    fetchingPostsFailure,
+    fetchingPostsSuccess
 } from "../../../lib/actions/fetchPosts";
 import reducer, {getApiStateForUrl, getErrorForUrlState} from "../../../lib/data/api";
 
@@ -113,7 +113,7 @@ describe("api", function () {
                 searchParams: stubSearchParams
             };
 
-            const updatedState = reducer(stubInitialState, fetchingCancelled(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsCancelled(stubPayload));
             const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
             expect(apiStateForUrl).to.be.ok;
 
@@ -145,7 +145,7 @@ describe("api", function () {
                     newest: DateTime.utc(2018, 8, 22)
                 })
             });
-            const updatedState = reducer(stubInitialState, fetchingCancelled(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsCancelled(stubPayload));
             const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
             expect(apiStateForUrl).to.be.ok;
 
@@ -172,7 +172,7 @@ describe("api", function () {
                 error: new Error("woof")
             };
 
-            const updatedState = reducer(stubInitialState, fetchingFailure(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsFailure(stubPayload));
             const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
             expect(apiStateForUrl).to.be.ok;
 
@@ -202,7 +202,7 @@ describe("api", function () {
                     newest: DateTime.utc(2018, 8, 22)
                 })
             });
-            const updatedState = reducer(stubInitialState, fetchingFailure(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsFailure(stubPayload));
             const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
             expect(apiStateForUrl).to.be.ok;
 
@@ -231,7 +231,7 @@ describe("api", function () {
                 newest: DateTime.utc().toISO()
             };
 
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
             expect(apiStateForUrl).to.be.ok;
 
@@ -263,7 +263,7 @@ describe("api", function () {
                     newest: DateTime.fromISO(stubPayload.newest)
                 })
             });
-            const updatedState = reducer(stubInitialState, fetchingSuccess(stubPayload));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const apiStateForUrl = getApiStateForUrl(updatedState, stubFetchUrl);
             expect(apiStateForUrl).to.be.ok;
 

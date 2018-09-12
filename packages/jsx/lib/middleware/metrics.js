@@ -1,7 +1,7 @@
 import _ from "lodash";
 import metrics from "../metrics";
 
-export default () => next => action => {
+export const metricsMiddleware = () => next => action => {
     next(action);
 
     const trackReduxAction = metrics
@@ -18,3 +18,5 @@ export default () => next => action => {
             trackReduxAction([action]);
     }
 };
+
+export default metricsMiddleware;

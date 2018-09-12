@@ -5,7 +5,7 @@ import Posts from "../components/posts";
 import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api";
 import selectors from "../data/selectors";
 
-const ConnectedPosts = connect(
+export const ConnectedPosts = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const errorForUrlSelector = createGetErrorForUrlSelector();

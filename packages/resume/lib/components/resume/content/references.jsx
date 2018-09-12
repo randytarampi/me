@@ -1,9 +1,7 @@
-import {Printable} from "@randy.tarampi/jsx";
+import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-
-const {PrintableSection} = Printable;
 
 export const ResumeReferences = ({resume}) => {
     return <PrintableSection printableType="resume" type="references" label="References" hideOnPrint={true}>

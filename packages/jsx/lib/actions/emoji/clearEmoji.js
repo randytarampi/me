@@ -3,7 +3,7 @@ import selectors from "../../data/selectors";
 
 export const CLEAR_EMOJI = "CLEAR_EMOJI";
 
-export default emoji => (dispatch, getState) => {
+export const clearEmojiCreator = emoji => (dispatch, getState) => {
     const state = getState();
 
     if (selectors.hasEmoji(state, emoji.id)) {
@@ -12,3 +12,5 @@ export default emoji => (dispatch, getState) => {
 };
 
 export const clearEmoji = createAction(CLEAR_EMOJI);
+
+export default clearEmojiCreator;

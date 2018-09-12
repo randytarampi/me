@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Row} from "react-materialize";
 
-const RowBlock = ({name, className, ...props}) =>
+export const RowBlock = ({name, className, ...props}) =>
     <Row id={name} name={name} {...props} className={["block", className].join(" ").trim()}/>;
 
 RowBlock.propTypes = {

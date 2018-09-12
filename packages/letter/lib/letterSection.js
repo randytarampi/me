@@ -1,6 +1,6 @@
 import {Map, Record} from "immutable";
 
-class LetterSection extends Record({
+export class LetterSection extends Record({
     contentKey: null,
     sectionId: null,
     contentProps: Map(),

@@ -28,7 +28,7 @@ export const connectError = connect(
     }
 );
 
-const ConnectedError = connectError(Error);
+export const ConnectedError = connectError(Error);
 
 ConnectedError.propTypes = {
     redirectionLocation: PropTypes.string.isRequired,

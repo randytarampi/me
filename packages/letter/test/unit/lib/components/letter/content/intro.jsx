@@ -1,4 +1,4 @@
-import {shallow} from "@randy.tarampi/jsx/test/util";
+import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";

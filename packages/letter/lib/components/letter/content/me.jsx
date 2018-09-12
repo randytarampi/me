@@ -1,8 +1,6 @@
-import {CampaignLink, Printable} from "@randy.tarampi/jsx";
+import {CampaignLink, LeftDescriptionSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-
-const {LeftDescriptionSection} = Printable;
 
 export const LetterAboutMe = ({contentConfiguration}) => {
     return <LeftDescriptionSection
