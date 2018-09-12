@@ -42,7 +42,7 @@ gulp.task("eslint", () => {
         .pipe(eslint({fix: true}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
-        .pipe(eslint.failOnError());
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task("pugLint", () => {
