@@ -11,7 +11,7 @@
   },
   "version": "0.25.4",
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
-  "main": "pseudolocalize.woof.js",
+  "main": "lib/pseudolocalizer.js",
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
