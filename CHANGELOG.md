@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.4"></a>
+## [0.25.4](https://github.com/randytarampi/me/compare/v0.25.3...v0.25.4) (2018-09-12)
+
+
+### Bug Fixes
+
+* Travis runners need Japanese language support to render `ʕ•ᴥ•ʔﾉ゛`. ([108502b](https://github.com/randytarampi/me/commit/108502b)), closes [#107](https://github.com/randytarampi/me/issues/107) [#107](https://github.com/randytarampi/me/issues/107)
+* Webpack config defers to `NODE_ENV` for `mode` definition. ([0306f1a](https://github.com/randytarampi/me/commit/0306f1a))
+* **assets:** Use the same font stack from `css` for our `ʕつ•ᴥ•ʔつ`s. ([2034ba7](https://github.com/randytarampi/me/commit/2034ba7)), closes [#107](https://github.com/randytarampi/me/issues/107)
+* **letter:** Give the footer a bit of room to breathe on `letter`s. ([bfbde6d](https://github.com/randytarampi/me/commit/bfbde6d)), closes [#107](https://github.com/randytarampi/me/issues/107)
+
+
+
+
+
 <a name="0.25.3"></a>
 ## [0.25.3](https://github.com/randytarampi/me/compare/v0.25.2...v0.25.3) (2018-09-11)
 

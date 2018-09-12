@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.4"></a>
+## [0.25.4](https://github.com/randytarampi/me/compare/v0.25.3...v0.25.4) (2018-09-12)
+
+
+### Bug Fixes
+
+* **assets:** Use the same font stack from `css` for our `ʕつ•ᴥ•ʔつ`s. ([2034ba7](https://github.com/randytarampi/me/commit/2034ba7)), closes [#107](https://github.com/randytarampi/me/issues/107)
+
+
+
+
+
 <a name="0.25.3"></a>
 ## [0.25.3](https://github.com/randytarampi/me/compare/v0.25.2...v0.25.3) (2018-09-11)
 
