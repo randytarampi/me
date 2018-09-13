@@ -2,6 +2,7 @@ photosServiceUrl: http://localhost:3006/posts?type=Photo
 postsServiceUrl: http://localhost:3006/posts
 wordsServiceUrl: http://localhost:3006/posts?type=Post
 resumeServiceUrl: /api/resume
+letterServiceUrl: /api/letter
 codeAppUrl: /code
 photosAppUrl: /photos
 postsAppUrl: /blog

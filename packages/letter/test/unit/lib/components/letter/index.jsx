@@ -1,7 +1,8 @@
-import {PrintableHeader} from "@randy.tarampi/jsx";
+import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
+import sinon from "sinon";
 import LetterComponent from "../../../../../lib/components/letter";
 import LetterEntity from "../../../../../lib/letter";
 
@@ -11,6 +12,7 @@ describe("LetterComponent", function () {
     let stubRecipientJs;
     let stubLetterContentComponent;
     let stubLetter;
+    let stubFetchLetter;
 
     beforeEach(function () {
         stubPersonJs = {
@@ -47,16 +49,60 @@ describe("LetterComponent", function () {
                 format: "bar"
             }
         });
+
+        stubFetchLetter = sinon.stub();
+    });
+
+
+    describe("componentDidMount", function () {
+        it("calls `fetchLetter` if `variant`", function () {
+            const stubVariant = "woof";
+            const rendered = shallow(<LetterComponent
+                variant={stubVariant}
+                fetchLetter={stubFetchLetter}
+                match={{}}
+                letter={stubLetter}
+            />);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.className("printable");
+            expect(rendered).to.have.className("letter");
+            expect(rendered).to.have.descendants("title");
+            expect(rendered).to.have.descendants(".letter-content");
+            expect(stubFetchLetter.calledOnce).to.be.ok;
+            sinon.assert.calledWith(stubFetchLetter, stubVariant);
+        });
+
+        it("doesn't call `fetchLetter` if there's no `variant` defined", function () {
+            const rendered = shallow(<LetterComponent
+                fetchLetter={stubFetchLetter}
+                match={{}}
+                letter={stubLetter}
+            />);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.className("printable");
+            expect(rendered).to.have.className("letter");
+            expect(rendered).to.have.descendants("title");
+            expect(rendered).to.have.descendants(".letter-content");
+            expect(stubFetchLetter.notCalled).to.be.ok;
+        });
     });
 
     it("renders", function () {
-        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={false}
+            match={{}}
+            letter={stubLetter}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
         expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
+        expect(rendered).to.not.contain(<LoadingSpinner/>);
         expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
     });
 
@@ -76,7 +122,12 @@ describe("LetterComponent", function () {
             }
         });
 
-        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={false}
+            match={{}}
+            letter={stubLetter}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -111,7 +162,12 @@ describe("LetterComponent", function () {
             }
         });
 
-        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={false}
+            match={{}}
+            letter={stubLetter}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -150,7 +206,12 @@ describe("LetterComponent", function () {
             }
         });
 
-        const rendered = shallow(<LetterComponent letter={stubLetter}/>);
+        const rendered = shallow(<LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={false}
+            match={{}}
+            letter={stubLetter}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -167,5 +228,22 @@ describe("LetterComponent", function () {
                 contentConfiguration={contentConfiguration}
             />);
         });
+    });
+
+    it("renders (`isLoading`)", function () {
+        const rendered = shallow(<LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={true}
+            match={{}}
+            letter={stubLetter}
+        />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.className("printable");
+        expect(rendered).to.have.className("letter");
+        expect(rendered).to.not.have.descendants("title");
+        expect(rendered).to.not.have.descendants(".letter-content");
+        expect(rendered).to.contain(<LoadingSpinner/>);
+        expect(rendered).to.not.contain(<PrintableHeader printable={stubLetter}/>);
     });
 });
