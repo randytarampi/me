@@ -1,10 +1,10 @@
-import LetterComponent from "../../lib/components/letter";
+import React from "react"; // eslint-disable-line no-unused-vars
+import LetterContainer from "../../lib/containers/letter";
 
 const routes = [
     {
-        component: LetterComponent,
-        exact: true,
-        path: "/"
+        component: LetterContainer,
+        path: "/:variant?"
     }
 ];
 

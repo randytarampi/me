@@ -1,30 +1,30 @@
 import {createIsLoadingUrlSelector} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchResumeCreator} from "../actions";
-import {ResumeComponent} from "../components/resume";
+import {fetchLetterCreator} from "../actions";
+import {LetterComponent} from "../components/letter";
 import selectors from "../data/selectors";
 
-export const ConnectedResume = connect(
+export const ConnectedLetter = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const variant = ownProps.match.params.variant || "default";
 
         return {
-            resume: ownProps.resume || selectors.getResumeVariant(state, variant),
+            letter: ownProps.letter || selectors.getLetterVariant(state, variant),
             isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl) || false,
             variant
         };
     },
     dispatch => {
         return {
-            fetchResume: variant => dispatch(fetchResumeCreator(variant))
+            fetchLetter: variant => dispatch(fetchLetterCreator(variant))
         };
     }
-)(ResumeComponent);
+)(LetterComponent);
 
-ConnectedResume.propTypes = {
+ConnectedLetter.propTypes = {
     match: PropTypes.object.isRequired
 };
 
-export default ConnectedResume;
+export default ConnectedLetter;

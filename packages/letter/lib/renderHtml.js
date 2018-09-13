@@ -1,8 +1,8 @@
 import config from "config";
 import path from "path";
 import pug from "pug";
+import baseLetterJson from "../letters/default";
 import packageJson from "../package.json";
-import baseLetterJson from "./baseLetter";
 import Letter from "./letter";
 import renderCss from "./renderCss";
 import renderJsx, {getRenderedHelmet} from "./renderJsx";

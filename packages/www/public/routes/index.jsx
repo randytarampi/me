@@ -1,5 +1,5 @@
 import {ConnectedError, ConnectedPosts} from "@randy.tarampi/jsx";
-import {LetterComponent} from "@randy.tarampi/letter";
+import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "jsonresume-theme-randytarampi";
 import React, {Fragment} from "react";
 import Helmet from "react-helmet";
@@ -50,9 +50,8 @@ const routes = [
         path: "/resume/:variant?"
     },
     {
-        component: LetterComponent,
-        exact: true,
-        path: "/letter"
+        component: ConnectedLetter,
+        path: "/letter/:variant?"
     },
     {
         component: ConnectedError,

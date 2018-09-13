@@ -2,6 +2,7 @@ photosServiceUrl: https://posts.randytarampi.ca/posts?type=Photo
 postsServiceUrl: https://posts.randytarampi.ca/posts
 wordsServiceUrl: https://posts.randytarampi.ca/posts?type=Post
 resumeServiceUrl: https://raw.githubusercontent.com/randytarampi/me.resume/master/resumes
+letterServiceUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
 assetUrl: /docs
 gtm: "GTM-W6NFL6M"
 logger:

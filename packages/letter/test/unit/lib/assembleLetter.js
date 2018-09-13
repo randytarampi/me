@@ -5,7 +5,7 @@ import Letter from "../../../lib/letter";
 
 describe("assembleLetter", function () {
     it("works with JSON", function () {
-        const letter = assembleLetter(path.join(__dirname, "../../resources/test.json"));
+        const letter = assembleLetter(path.join(__dirname, "../../../letters/test.json"));
 
         expect(letter).to.be.ok;
         expect(letter).to.be.instanceof(Letter);

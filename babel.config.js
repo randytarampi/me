@@ -36,6 +36,13 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__LETTER_SERVICE_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("letterServiceUrl")
+                }
+            },
+            {
                 identifierName: "__CODE_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
