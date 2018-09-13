@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.27.1"></a>
+## [0.27.1](https://github.com/randytarampi/me/compare/v0.27.0...v0.27.1) (2018-09-13)
+
+
+### Bug Fixes
+
+* **resume:** The resume templates actually live in `/resumes`, not `/`. ([cea4edf](https://github.com/randytarampi/me/commit/cea4edf))
+
+
+
+
+
 <a name="0.27.0"></a>
 # [0.27.0](https://github.com/randytarampi/me/compare/v0.26.1...v0.27.0) (2018-09-13)
 
