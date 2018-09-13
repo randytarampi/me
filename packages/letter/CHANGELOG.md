@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.27.0"></a>
+# [0.27.0](https://github.com/randytarampi/me/compare/v0.26.1...v0.27.0) (2018-09-13)
+
+
+### Features
+
+* **resume:** Redux `resume` per [#69](https://github.com/randytarampi/me/issues/69). ([10544a4](https://github.com/randytarampi/me/commit/10544a4)), closes [#67](https://github.com/randytarampi/me/issues/67) [#68](https://github.com/randytarampi/me/issues/68)
+
+
+
+
+
 <a name="0.26.1"></a>
 ## [0.26.1](https://github.com/randytarampi/me/compare/v0.26.0...v0.26.1) (2018-09-12)
 
