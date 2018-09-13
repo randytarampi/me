@@ -2,7 +2,7 @@ import config from "config";
 import path from "path";
 import pug from "pug";
 import packageJson from "../package.json";
-import resumeJson from "../resume.json";
+import defaultResumeJson from "../resumes/default.json";
 import renderCss from "./renderCss";
 import renderJsx, {getRenderedHelmet} from "./renderJsx";
 
@@ -30,7 +30,7 @@ export const buildPugLocals = (resume, pageSize) => {
     };
 };
 
-export default (resume = resumeJson, pageSize = process.env.RESUME_PDF_SIZE) => {
+export default (resume = defaultResumeJson, pageSize = process.env.RESUME_PDF_SIZE) => {
     const pugLocals = buildPugLocals(resume, pageSize);
     return pug.renderFile(path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
 };

@@ -29,6 +29,13 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__RESUME_SERVICE_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("resumeServiceUrl")
+                }
+            },
+            {
                 identifierName: "__CODE_APP_URL__",
                 replacement: {
                     type: "stringLiteral",

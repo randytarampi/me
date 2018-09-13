@@ -60,7 +60,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverrides}) => {
+module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, ...configOverrides}) => {
     return {
         node: {
             fs: "empty",
@@ -174,6 +174,13 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
                 app.use(convert(history({
                     verbose: true
                 })));
+
+                if (webpackServeMiddleware) {
+                    webpackServeMiddleware.forEach(middleware => {
+                        app.use(middleware);
+                    });
+                }
+                
                 middleware.webpack();
                 middleware.content();
             },
