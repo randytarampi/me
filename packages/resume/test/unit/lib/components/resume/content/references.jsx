@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import ResumeReferences from "../../../../../../lib/components/resume/content/references";
-import testResumeJson from "../../../../../resources/resume";
+import testResumeJson from "../../../../../../resumes/test";
 
 describe("ResumeReferences", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);

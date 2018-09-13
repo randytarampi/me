@@ -1,11 +1,10 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import ResumeComponent from "../../lib/components/resume";
+import ResumeContainer from "../../lib/containers/resume";
 
 const routes = [
     {
-        component: ResumeComponent,
-        exact: true,
-        path: "/"
+        component: ResumeContainer,
+        path: "/:variant?"
     }
 ];
 

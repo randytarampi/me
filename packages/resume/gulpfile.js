@@ -45,7 +45,7 @@ gulp.task("views", () => {
 
 gulp.task("resume:html", done => {
     const fs = require("fs");
-    const letter = require("./resume.json");
+    const letter = require("./resumes/default.json");
     const renderHtml = require("./lib/renderHtml").default;
     const letterHtml = renderHtml(letter);
 
@@ -55,7 +55,7 @@ gulp.task("resume:html", done => {
 gulp.task("resume:json", done => {
     const fs = require("fs");
     const config = require("config");
-    const resume = require("./resume.json");
+    const resume = require("./resumes/default.json");
 
     return fs.writeFile("resume.json", JSON.stringify({
         ...resume,

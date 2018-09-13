@@ -4,7 +4,7 @@ import {shallow} from "enzyme";
 import React from "react";
 import ResumeVolunteer from "../../../../../../../lib/components/resume/content/volunteer";
 import ResumeVolunteerEntry from "../../../../../../../lib/components/resume/content/volunteer/entry";
-import testResumeJson from "../../../../../../resources/resume";
+import testResumeJson from "../../../../../../../resumes/test";
 
 describe("ResumeVolunteer", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);

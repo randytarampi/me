@@ -1,6 +1,7 @@
 photosServiceUrl: https://posts.randytarampi.ca/posts?type=Photo
 postsServiceUrl: https://posts.randytarampi.ca/posts
 wordsServiceUrl: https://posts.randytarampi.ca/posts?type=Post
+resumeServiceUrl: https://raw.githubusercontent.com/randytarampi/me.resume/master
 assetUrl: /docs
 gtm: "GTM-W6NFL6M"
 logger:

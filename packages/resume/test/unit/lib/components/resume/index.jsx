@@ -1,7 +1,8 @@
-import {PrintableHeader} from "@randy.tarampi/jsx";
+import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
+import sinon from "sinon";
 import ResumeComponent from "../../../../../lib/components/resume";
 import ResumeAbout from "../../../../../lib/components/resume/content/about";
 import ResumeAwards from "../../../../../lib/components/resume/content/awards";
@@ -17,24 +18,66 @@ import ResumeSkills from "../../../../../lib/components/resume/content/skills";
 import ResumeVolunteer from "../../../../../lib/components/resume/content/volunteer";
 import ResumeWork from "../../../../../lib/components/resume/content/work";
 import ResumeFooter from "../../../../../lib/components/resume/footer";
-import testResumeJson from "../../../../resources/resume";
+import testResumeJson from "../../../../../resumes/test";
 
 describe("ResumeComponent", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);
     let stubResume;
+    let stubFetchResume;
 
     beforeEach(function () {
         stubResume = JSON.parse(testResumeJsonString);
+        stubFetchResume = sinon.stub();
+    });
+
+    describe("componentDidMount", function () {
+        it("calls `fetchResume` if `variant`", function () {
+            const stubVariant = "woof";
+            const rendered = shallow(<ResumeComponent
+                variant={stubVariant}
+                fetchResume={stubFetchResume}
+                match={{}}
+                resume={stubResume}
+            />);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.className("printable");
+            expect(rendered).to.have.className("resume");
+            expect(rendered).to.have.descendants("title");
+            expect(rendered).to.have.descendants(".resume-content");
+            expect(stubFetchResume.calledOnce).to.be.ok;
+            sinon.assert.calledWith(stubFetchResume, stubVariant);
+        });
+
+        it("doesn't call `fetchResume` if there's no `variant` defined", function () {
+            const rendered = shallow(<ResumeComponent
+                fetchResume={stubFetchResume}
+                match={{}}
+                resume={stubResume}
+            />);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.className("printable");
+            expect(rendered).to.have.className("resume");
+            expect(rendered).to.have.descendants("title");
+            expect(rendered).to.have.descendants(".resume-content");
+            expect(stubFetchResume.notCalled).to.be.ok;
+        });
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
+        expect(rendered).to.not.contain(<LoadingSpinner/>);
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
         expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
@@ -55,7 +98,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeAbout`)", function () {
         delete stubResume.basics.summary;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -82,7 +129,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeProfiles`)", function () {
         delete stubResume.basics.profiles;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -109,7 +160,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeWork`)", function () {
         delete stubResume.work;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -136,7 +191,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeProjects`)", function () {
         delete stubResume.projects;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -163,7 +222,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeSkills`)", function () {
         delete stubResume.skills;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -190,7 +253,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeEducation`)", function () {
         delete stubResume.education;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume
+            }/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -217,7 +284,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeAwards`)", function () {
         delete stubResume.awards;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -244,7 +315,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeVolunteer`)", function () {
         delete stubResume.volunteer;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -271,7 +346,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumePublications`)", function () {
         delete stubResume.publications;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -298,7 +377,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeLanguages`)", function () {
         delete stubResume.languages;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -325,7 +408,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeInterests`)", function () {
         delete stubResume.interests;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -352,7 +439,11 @@ describe("ResumeComponent", function () {
     it("renders (no `ResumeReferences`)", function () {
         delete stubResume.references;
 
-        const rendered = shallow(<ResumeComponent resume={stubResume}/>);
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            match={{}}
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -374,5 +465,38 @@ describe("ResumeComponent", function () {
         expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
         expect(rendered).to.not.contain(<ResumeReferences resume={stubResume}/>);
         expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+    });
+
+    it("renders (`isLoading`)", function () {
+        delete stubResume.references;
+
+        const rendered = shallow(<ResumeComponent
+            fetchResume={stubFetchResume}
+            isLoading={true}
+            match={{}}
+            resume={stubResume}
+        />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.className("printable");
+        expect(rendered).to.have.className("resume");
+        expect(rendered).to.not.have.descendants("title");
+        expect(rendered).to.not.have.descendants(".resume-content");
+        expect(rendered).to.contain(<LoadingSpinner/>);
+        expect(rendered).to.not.contain(<PrintableHeader printable={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeContact resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeAbout resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeProfiles resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeWork resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeProjects resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeSkills resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeEducation resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeAwards resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeVolunteer resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumePublications resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeLanguages resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeInterests resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeReferences resume={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeFooter resume={stubResume}/>);
     });
 });

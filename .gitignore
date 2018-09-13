@@ -56,3 +56,6 @@ package-lock.json
 
 # Secrets
 .secrets.*.yml
+
+# Local configuration
+config/local.yml
