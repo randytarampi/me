@@ -66,7 +66,6 @@ describe("LetterComponent", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.className("printable");
             expect(rendered).to.have.className("letter");
-            expect(rendered).to.have.descendants("title");
             expect(rendered).to.have.descendants(".letter-content");
             expect(stubFetchLetter.calledOnce).to.be.ok;
             sinon.assert.calledWith(stubFetchLetter, stubVariant);
@@ -82,7 +81,6 @@ describe("LetterComponent", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.className("printable");
             expect(rendered).to.have.className("letter");
-            expect(rendered).to.have.descendants("title");
             expect(rendered).to.have.descendants(".letter-content");
             expect(stubFetchLetter.notCalled).to.be.ok;
         });
@@ -99,7 +97,6 @@ describe("LetterComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
         expect(rendered).to.not.contain(<LoadingSpinner/>);
         expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
@@ -131,7 +128,6 @@ describe("LetterComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
         stubLetter.content.map(contentConfiguration => {
@@ -171,7 +167,6 @@ describe("LetterComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
         stubLetter.content.map(contentConfiguration => {
@@ -215,7 +210,6 @@ describe("LetterComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
         stubLetter.content.map(contentConfiguration => {
@@ -240,7 +234,6 @@ describe("LetterComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
-        expect(rendered).to.not.have.descendants("title");
         expect(rendered).to.not.have.descendants(".letter-content");
         expect(rendered).to.contain(<LoadingSpinner/>);
         expect(rendered).to.not.contain(<PrintableHeader printable={stubLetter}/>);

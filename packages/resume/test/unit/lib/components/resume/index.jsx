@@ -43,7 +43,6 @@ describe("ResumeComponent", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.className("printable");
             expect(rendered).to.have.className("resume");
-            expect(rendered).to.have.descendants("title");
             expect(rendered).to.have.descendants(".resume-content");
             expect(stubFetchResume.calledOnce).to.be.ok;
             sinon.assert.calledWith(stubFetchResume, stubVariant);
@@ -59,7 +58,6 @@ describe("ResumeComponent", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.className("printable");
             expect(rendered).to.have.className("resume");
-            expect(rendered).to.have.descendants("title");
             expect(rendered).to.have.descendants(".resume-content");
             expect(stubFetchResume.notCalled).to.be.ok;
         });
@@ -75,7 +73,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.not.contain(<LoadingSpinner/>);
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
@@ -107,7 +104,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -138,7 +134,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -169,7 +164,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -200,7 +194,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -231,7 +224,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -262,7 +254,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -293,7 +284,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -324,7 +314,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -355,7 +344,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -386,7 +374,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -417,7 +404,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -448,7 +434,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
         expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
@@ -478,7 +463,6 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
-        expect(rendered).to.not.have.descendants("title");
         expect(rendered).to.not.have.descendants(".resume-content");
         expect(rendered).to.contain(<LoadingSpinner/>);
         expect(rendered).to.not.contain(<PrintableHeader printable={stubResume}/>);
