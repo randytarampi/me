@@ -31,7 +31,7 @@ describe("fetchLetter", function () {
         return proxyquiredFetchLetter.default(stubVariant)
             .then(letterResponse => {
                 expect(letterResponse).to.be.ok;
-                expect(letterResponse.toJSON()).to.eql(Letter.fromResume({
+                expect(letterResponse.toJSON()).to.eql(Letter.fromJSON({
                     ...testLetterJson,
                     id: stubVariant
                 }).toJSON());

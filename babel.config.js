@@ -11,77 +11,77 @@ const configuredMinifyReplace = [
                 identifierName: "__WORDS_SERVICE_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("wordsServiceUrl")
+                    value: config.get("posts.wordsUrl")
                 }
             },
             {
                 identifierName: "__POSTS_SERVICE_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("postsServiceUrl")
+                    value: config.get("posts.postsUrl")
                 }
             },
             {
                 identifierName: "__PHOTOS_SERVICE_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("photosServiceUrl")
+                    value: config.get("posts.photosUrl")
                 }
             },
             {
                 identifierName: "__RESUME_SERVICE_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("resumeServiceUrl")
+                    value: config.get("posts.resumeUrl")
                 }
             },
             {
                 identifierName: "__LETTER_SERVICE_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("letterServiceUrl")
+                    value: config.get("posts.letterUrl")
                 }
             },
             {
                 identifierName: "__CODE_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("codeAppUrl")
+                    value: config.get("www.codeUrl")
                 }
             },
             {
                 identifierName: "__WORDS_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("wordsAppUrl")
+                    value: config.get("www.wordsUrl")
                 }
             },
             {
                 identifierName: "__POSTS_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("postsAppUrl")
+                    value: config.get("www.postsUrl")
                 }
             },
             {
                 identifierName: "__PHOTOS_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("photosAppUrl")
+                    value: config.get("www.photosUrl")
                 }
             },
             {
                 identifierName: "__RESUME_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("resumeAppUrl")
+                    value: config.get("www.resumeUrl")
                 }
             },
             {
                 identifierName: "__ASSET_URL__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("assetUrl")
+                    value: config.get("www.assetUrl")
                 }
             },
             {

@@ -33,8 +33,8 @@ export class Letter extends Record({
     static fromJS(js) {
         return new Letter({
             ...js,
-            sender: js.sender ? Person.fromResume(js.sender) : null, // FIXME-RT: This should be `Person.fromJS`
-            recipient: js.recipient ? Person.fromResume(js.recipient) : null, // FIXME-RT: This should be `Person.fromJS`
+            sender: js.sender ? Person.fromJS(js.sender) : null,
+            recipient: js.recipient ? Person.fromJS(js.recipient) : null,
             content: js.content ? List(js.content.map(LetterSection.fromJS)) : null,
             renderOptions: Map(js.renderOptions),
         });
@@ -43,8 +43,8 @@ export class Letter extends Record({
     static fromJSON(json) {
         return new Letter({
             ...json,
-            sender: json.sender ? Person.fromResume(json.sender) : null, // FIXME-RT: This should be `Person.fromJSON`
-            recipient: json.recipient ? Person.fromResume(json.recipient) : null, // FIXME-RT: This should be `Person.fromJSON`
+            sender: json.sender ? Person.fromJSON(json.sender) : null,
+            recipient: json.recipient ? Person.fromJSON(json.recipient) : null,
             content: json.content ? List(json.content.map(LetterSection.fromJSON)) : null,
             renderOptions: Map(json.renderOptions),
         });

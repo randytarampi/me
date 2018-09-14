@@ -19,16 +19,15 @@ describe("LetterSalutation", function () {
 
         stubPersonJs = {
             name: null,
-            firstName: "Woof",
-            lastName: "Woof",
+            givenName: "Woof",
+            familyName: "Woof",
             worksFor: "Woofs",
-            jobTitle: "Wf.",
-            label: "Woof",
+            jobTitle: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
             phone: "+1234567890",
-            website: "woof.woof/woof",
-            summary: "Woof woof woof",
+            url: "woof.woof/woof",
+            description: "Woof woof woof",
             location: {
                 address: "woof",
                 postalCode: "meow",
@@ -38,7 +37,7 @@ describe("LetterSalutation", function () {
             }
         };
         stubSenderJs = Object.assign({}, stubPersonJs);
-        stubSalutationJs = Object.assign({}, stubPersonJs, {firstName: "Meow", email: "meow@randytarampi.ca"});
+        stubSalutationJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
 
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
@@ -55,7 +54,7 @@ describe("LetterSalutation", function () {
     it("renders (default content)", function () {
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
-            recipient: Object.assign({}, stubPersonJs, {firstName: null, lastName: null}),
+            recipient: Object.assign({}, stubPersonJs, {givenName: null, familyName: null}),
             id: "foo",
             fileName: null,
             content: [],

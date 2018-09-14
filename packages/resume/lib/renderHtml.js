@@ -21,7 +21,7 @@ export const buildPugLocals = (resume, pageSize) => {
         injectedStyle: helmetContent.style.toString(),
         injectedScript: helmetContent.script.toString(),
         injectedNoScript: helmetContent.noscript.toString(),
-        assetUrl: config.get("assetUrl"),
+        assetUrl: config.get("www.assetUrl"),
         sentryDsn: config.get("sentryDsn"),
         gtm: config.get("gtm"),
         environment: process.env.NODE_ENV || "local",

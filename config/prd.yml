@@ -1,9 +1,11 @@
-photosServiceUrl: https://posts.randytarampi.ca/posts?type=Photo
-postsServiceUrl: https://posts.randytarampi.ca/posts
-wordsServiceUrl: https://posts.randytarampi.ca/posts?type=Post
-resumeServiceUrl: https://raw.githubusercontent.com/randytarampi/me.resume/master/resumes
-letterServiceUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
-assetUrl: /docs
+posts:
+  photosUrl: https://posts.randytarampi.ca/posts?type=Photo
+  postsUrl: https://posts.randytarampi.ca/posts
+  wordsUrl: https://posts.randytarampi.ca/posts?type=Post
+  resumeUrl: https://raw.githubusercontent.com/randytarampi/me.resume/master/resumes
+  letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
+www:
+  assetUrl: /docs
 gtm: "GTM-W6NFL6M"
 logger:
   streams:

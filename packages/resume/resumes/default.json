@@ -1,18 +1,20 @@
 {
   "basics": {
     "name": "Randy Tarampi",
+    "firstName": "Randy",
+    "lastName": "Tarampi",
     "label": "Going places | building software",
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+    "phone": "+16043747128",
     "email": "jobs@randytarampi.ca",
-    "phone": "+1 (604) 374-7128",
     "website": "https://www.randytarampi.ca",
     "summary": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
     "location": {
       "address": "4663 Todd Street",
       "postalCode": "V5R 3P7",
+      "region": "BC",
       "city": "Vancouver",
-      "countryCode": "CA",
-      "region": "BC"
+      "countryCode": "Canada"
     },
     "profiles": [
       {

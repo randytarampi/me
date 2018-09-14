@@ -83,7 +83,7 @@ export class Person extends Record({
     static fromJS(js) {
         return new Person({
             ...js,
-            address: js.location ? PostalAddress.fromJS(js.location) : null,
+            address: js.address ? PostalAddress.fromJS(js.address) : null,
             profiles: js.profiles ? List(js.profiles.map(Profile.fromJS)) : null
         });
     }
@@ -91,7 +91,7 @@ export class Person extends Record({
     static fromJSON(json) {
         return new Person({
             ...json,
-            address: json.location ? PostalAddress.fromJSON(json.location) : null,
+            address: json.address ? PostalAddress.fromJSON(json.address) : null,
             profiles: json.profiles ? List(json.profiles.map(Profile.fromJSON)) : null
         });
     }

@@ -18,26 +18,25 @@ describe("LetterRecipient", function () {
         });
 
         stubPersonJs = {
-            name: null,
-            firstName: "Woof",
-            lastName: "Woof",
+            givenName: "Woof",
+            familyName: "Woof",
             worksFor: "Woofs",
-            label: "Woof",
-            picture: null,
+            jobTitle: "Woof",
+            image: null,
             email: "woof@randytarampi.ca",
-            phone: "+1234567890",
-            website: "woof.woof/woof",
-            summary: "Woof woof woof",
-            location: {
-                address: "woof",
+            telephone: "+1234567890",
+            url: "woof.woof/woof",
+            description: "Woof woof woof",
+            address: {
+                streetAddress: "woof",
                 postalCode: "meow",
-                city: "grr",
-                countryCode: "CA",
-                region: "BC"
+                addressLocality: "grr",
+                addressCountry: "CA",
+                addressRegion: "BC"
             }
         };
         stubSenderJs = Object.assign({}, stubPersonJs);
-        stubRecipientJs = Object.assign({}, stubPersonJs, {firstName: "Meow", email: "meow@randytarampi.ca"});
+        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
 
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
@@ -86,7 +85,7 @@ describe("LetterRecipient", function () {
     it("renders (no name)", function () {
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
-            recipient: Object.assign({}, stubPersonJs, {firstName: null, lastName: null}),
+            recipient: Object.assign({}, stubPersonJs, {givenName: null, familyName: null}),
             id: "foo",
             fileName: null,
             content: [],
@@ -110,7 +109,7 @@ describe("LetterRecipient", function () {
     it("renders (no title)", function () {
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
-            recipient: Object.assign({}, stubPersonJs, {label: null}),
+            recipient: Object.assign({}, stubPersonJs, {jobTitle: null}),
             id: "foo",
             fileName: null,
             content: [],
@@ -158,7 +157,7 @@ describe("LetterRecipient", function () {
     it("renders (no location)", function () {
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
-            recipient: Object.assign({}, stubPersonJs, {location: null}),
+            recipient: Object.assign({}, stubPersonJs, {address: null}),
             id: "foo",
             fileName: null,
             content: [],

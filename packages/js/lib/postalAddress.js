@@ -5,7 +5,9 @@ export class PostalAddress extends Record({
     postalCode: null,
     addressLocality: null,
     addressCountry: null,
-    addressRegion: null
+    addressRegion: null,
+    postOfficeBoxNumber: null,
+    countryCode: null
 }) {
     get address() {
         return this.get("streetAddress");
@@ -19,8 +21,12 @@ export class PostalAddress extends Record({
         return this.get("addressLocality");
     }
 
-    get countryCode() {
+    get country() {
         return this.get("addressCountry");
+    }
+
+    get countryCode() {
+        return this.get("countryCode") || this.country;
     }
 
     static fromJS(js) {
@@ -51,7 +57,7 @@ export class PostalAddress extends Record({
             postalCode: this.postalCode,
             region: this.region,
             city: this.city,
-            countryCode: this.countryCode
+            countryCode: this.countryCode || this.country
         };
     }
 }

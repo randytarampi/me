@@ -1,15 +1,15 @@
 export default {
     recipient: {
-        firstName: "Meow",
-        lastName: "Meow",
+        givenName: "Meow",
+        familyName: "Meow",
         jobTitle: "Meow",
         worksFor: "MeowMeowMeow",
-        location: {
-            address: "742 Evergreen Terrace",
+        address: {
+            streetAddress: "742 Evergreen Terrace",
             postalCode: "H0H 0H0",
-            city: "Vancouver",
-            countryCode: "CA",
-            region: "BC"
+            addressLocality: "Vancouver",
+            addressCountry: "CA",
+            addressRegion: "BC"
         }
     },
     renderOptions: {

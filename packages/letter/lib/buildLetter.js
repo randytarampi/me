@@ -3,7 +3,7 @@ import Letter from "./letter";
 
 export const buildLetter = (letterTemplate, id) => {
     const json = Object.assign({}, baseLetter, letterTemplate);
-    const letter = Letter.fromResume({
+    const letter = Letter.fromJSON({
         id,
         ...json
     });

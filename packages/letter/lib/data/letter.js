@@ -6,7 +6,7 @@ import Letter from "../letter";
 
 const defaultState = Map({
     letters: Set([
-        Map({variant: "default", letter: Letter.fromResume(defaultLetter)})
+        Map({variant: "default", letter: Letter.fromJSON(defaultLetter)})
     ])
 });
 
