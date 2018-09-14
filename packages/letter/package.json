@@ -39,6 +39,7 @@
     "@randy.tarampi/js": "^0.29.1",
     "@randy.tarampi/jsx": "^0.29.1",
     "@randy.tarampi/views": "^0.29.1",
+    "exiftool-vendored": "^6.2.2",
     "history": "^4.7.2",
     "immutable": "^4.0.0-rc.9",
     "isomorphic-fetch": "^2.2.1",
