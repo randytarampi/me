@@ -39,8 +39,7 @@ jobs:
   include:
     - stage: Test
       env:
-        global:
-          - NODE_ENV=test
+        - NODE_ENV=test
       before_script:
         - npm run pretest
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
