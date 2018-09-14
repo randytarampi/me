@@ -37,8 +37,5 @@
     "coveralls": "cat coverage/lcov.info | npx coveralls",
     "travis": "npm run cover && npm run coveralls",
     "kill": "npx lerna run kill"
-  },
-  "dependencies": {
-    "resolve-url-loader": "next"
   }
 }

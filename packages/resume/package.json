@@ -112,7 +112,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "reselect": "^3.0.1",
-    "resolve-url-loader": "next",
+    "resolve-url-loader": "^3.0.0",
     "resume-cli": "github:randytarampi/resume-cli#me-release",
     "sass-loader": "^7.1.0",
     "sinon": "^6.1.4",
