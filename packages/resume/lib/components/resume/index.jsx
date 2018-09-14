@@ -2,7 +2,8 @@ import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
-import ResumeJson from "../../../resumes/default.json";
+import defaultResume from "../../../resumes/default";
+import Resume from "../../resume";
 import ResumeAbout from "./content/about";
 import ResumeAwards from "./content/awards";
 import ResumeContact from "./content/contact";
@@ -66,57 +67,57 @@ export class ResumeComponent extends Component {
                                         : null
                                 }
                                 {
-                                    props.resume.basics.profiles && props.resume.basics.profiles.length
+                                    props.resume.basics.profiles && props.resume.basics.profiles.size
                                         ? <ResumeProfiles {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.work && props.resume.work.length
+                                    props.resume.work && props.resume.work.size
                                         ? <ResumeWork {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.projects && props.resume.projects.length
+                                    props.resume.projects && props.resume.projects.size
                                         ? <ResumeProjects{...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.skills && props.resume.skills.length
+                                    props.resume.skills && props.resume.skills.size
                                         ? <ResumeSkills{...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.education && props.resume.education.length
+                                    props.resume.education && props.resume.education.size
                                         ? <ResumeEducation {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.awards && props.resume.awards.length
+                                    props.resume.awards && props.resume.awards.size
                                         ? <ResumeAwards {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.volunteer && props.resume.volunteer.length
+                                    props.resume.volunteer && props.resume.volunteer.size
                                         ? <ResumeVolunteer {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.publications && props.resume.publications.length
+                                    props.resume.publications && props.resume.publications.size
                                         ? <ResumePublications {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.languages && props.resume.languages.length
+                                    props.resume.languages && props.resume.languages.size
                                         ? <ResumeLanguages {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.interests && props.resume.interests.length
+                                    props.resume.interests && props.resume.interests.size
                                         ? <ResumeInterests {...props} />
                                         : null
                                 }
                                 {
-                                    props.resume.references && props.resume.references.length
+                                    props.resume.references && props.resume.references.size
                                         ? <ResumeReferences {...props} />
                                         : null
                                 }
@@ -137,7 +138,7 @@ ResumeComponent.propTypes = {
 };
 
 ResumeComponent.defaultProps = {
-    resume: ResumeJson
+    resume: Resume.fromResume(defaultResume)
 };
 
 export default ResumeComponent;

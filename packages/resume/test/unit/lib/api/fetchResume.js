@@ -1,5 +1,6 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
+import Resume from "../../../../lib/resume";
 import testResumeJson from "../../../../resumes/test";
 
 describe("fetchResume", function () {
@@ -30,7 +31,7 @@ describe("fetchResume", function () {
         return proxyquiredFetchResume.default(stubVariant)
             .then(resumeResponse => {
                 expect(resumeResponse).to.be.ok;
-                expect(resumeResponse).to.eql(testResumeJson);
+                expect(resumeResponse).to.eql(Resume.fromResume(testResumeJson));
             });
     });
 

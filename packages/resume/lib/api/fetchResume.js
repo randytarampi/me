@@ -1,5 +1,6 @@
 import fetch from "isomorphic-fetch";
 import queryString from "query-string";
+import Resume from "../resume";
 
 export const buildFetchUrlForVariant = variant => {
     return `${__RESUME_SERVICE_URL__}/${variant}.json`;
@@ -24,6 +25,13 @@ export const fetchResumeApi = (variant, searchParams) => {
             }
 
             return body.json();
+        })
+        .then(json => {
+            if (json) {
+                return Resume.fromResume(json);
+            }
+
+            return json;
         });
 };
 

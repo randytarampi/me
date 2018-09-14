@@ -1,7 +1,8 @@
 import {expect} from "chai";
 import Helmet from "react-helmet";
 import renderHtml from "../../../lib/renderHtml";
-import resumeJson from "../../../resumes/default.json";
+import Resume from "../../../lib/resume";
+import resumeJson from "../../../resumes/default";
 
 describe("renderHtml", function () {
     this.timeout(60000);
@@ -25,7 +26,7 @@ describe("renderHtml", function () {
     it("accepts a passed in resume", function () {
         const stubResumeJson = Object.assign({}, resumeJson);
         stubResumeJson.basics.name = "First Woof Last Woof";
-        const resumeHtml = renderHtml(stubResumeJson);
+        const resumeHtml = renderHtml(Resume.fromResume(stubResumeJson));
 
         expect(resumeHtml).to.be.ok;
         expect(resumeHtml).to.be.a("string");

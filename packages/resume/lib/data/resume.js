@@ -2,10 +2,11 @@ import {Map, Set} from "immutable";
 import {createSelector} from "reselect";
 import defaultResume from "../../resumes/default";
 import {FETCHING_RESUME_SUCCESS} from "../actions/fetchResume";
+import Resume from "../resume";
 
 const defaultState = Map({
     resumes: Set([
-        Map({variant: "default", resume: defaultResume})
+        Map({variant: "default", resume: Resume.fromResume(defaultResume)})
     ])
 });
 
@@ -15,7 +16,7 @@ export const resumeReducer = (state = defaultState, action) => {
             if (action.payload.resume) {
                 return state.set("resumes", state.get("resumes").add(Map({
                     variant: action.payload.variant || "default",
-                    resume: action.payload.resume // NOTE-RT: Plain object for now, until we create a `Resume` record.
+                    resume: action.payload.resume
                 })));
             }
 
