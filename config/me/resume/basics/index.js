@@ -1,7 +1,7 @@
 const person = require("../../persons/me");
-const profiles = require("../../profiles");
+const {buildResumeProfilesByName} = require("../../util");
 
 module.exports = {
     ...person,
-    profiles: profiles.slice(0, 6)
+    profiles: buildResumeProfilesByName(["GitHub", "Instagram", "LinkedIn", "Flickr", "AngelList", "StackOverflow"])
 };

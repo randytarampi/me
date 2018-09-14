@@ -23,7 +23,7 @@ module.exports = {
         postalCode: "V5R 3P7",
         streetAddress: "4663 Todd Street"
     },
-    sameAs: ["https://www.randytarampi.ca/resume"].concat(profiles.map(profile => profile.url)),
+    sameAs: ["https://www.randytarampi.ca/resume"].concat(Object.values(profiles).map(profile => profile.url).filter(value => !!value)),
     knowsLanguage: [
         {alternateName: "en", name: "English"},
         {alternateName: "fr", name: "French"},

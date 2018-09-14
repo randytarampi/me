@@ -1,10 +1,10 @@
 const me = require("../persons/me");
-const profiles = require("../profiles");
+const {buildResumeProfilesByName} = require("../util");
 
 module.exports = {
     sender: {
         ...me,
-        profiles
+        profiles: buildResumeProfilesByName()
     },
     recipient: {
         additionalName: "Cover Letter Reader",
