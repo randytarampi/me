@@ -7,6 +7,9 @@ checks:
   method-complexity:
     config:
       threshold: 10
+  method-count:
+    config:
+      threshold: 25
 plugins:
   eslint:
     enabled: true
