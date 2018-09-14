@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.29.1"></a>
+## [0.29.1](https://github.com/randytarampi/me/compare/v0.29.0...v0.29.1) (2018-09-14)
+
+
+### Bug Fixes
+
+* Fix tests for changes in dd64c995231941c67b1782baebc895d3e5942079. ([45b94dc](https://github.com/randytarampi/me/commit/45b94dc))
+* **travis:** Explicitly define a `Test` job for each `node_js` version. ([074fb94](https://github.com/randytarampi/me/commit/074fb94))
+* **travis:** Try defining the `Test` stage explicitly. ([a0acd81](https://github.com/randytarampi/me/commit/a0acd81))
+
+
+### Reverts
+
+* chore(travis): Explicitly define a `Test` stage job. ([cc313a3](https://github.com/randytarampi/me/commit/cc313a3))
+* fix: Fix `.travis.yml` after f1a250f989c51373254320d46281f8d452a71992. ([c69c0bd](https://github.com/randytarampi/me/commit/c69c0bd))
+
+
+
+
+
 <a name="0.29.0"></a>
 # [0.29.0](https://github.com/randytarampi/me/compare/v0.28.0...v0.29.0) (2018-09-14)
 
