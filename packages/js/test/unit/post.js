@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import Creator from "../../lib/creator";
 import Post from "../../lib/post";
+import Profile from "../../lib/profile";
 import {compositeKeySeparator} from "../../lib/util";
 
 describe("Post", () => {
@@ -19,11 +19,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 
@@ -54,7 +54,7 @@ describe("Post", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
 
@@ -85,7 +85,7 @@ describe("Post", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
 
@@ -116,7 +116,7 @@ describe("Post", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
             const post = Post.fromJSON(postJson);
@@ -139,11 +139,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 
@@ -170,11 +170,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 
@@ -202,11 +202,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 
@@ -230,11 +230,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 
@@ -261,11 +261,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 
@@ -290,11 +290,11 @@ describe("Post", () => {
                     "ʕ◠ᴥ◠ʔ"
                 ],
                 sourceUrl: "woof://woof.woof/woof",
-                creator: new Creator({
+                creator: new Profile({
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 })
             };
 

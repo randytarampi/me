@@ -18,15 +18,15 @@ import ResumeSkills from "../../../../../lib/components/resume/content/skills";
 import ResumeVolunteer from "../../../../../lib/components/resume/content/volunteer";
 import ResumeWork from "../../../../../lib/components/resume/content/work";
 import ResumeFooter from "../../../../../lib/components/resume/footer";
+import Resume from "../../../../../lib/resume";
 import testResumeJson from "../../../../../resumes/test";
 
 describe("ResumeComponent", function () {
-    const testResumeJsonString = JSON.stringify(testResumeJson);
     let stubResume;
     let stubFetchResume;
 
     beforeEach(function () {
-        stubResume = JSON.parse(testResumeJsonString);
+        stubResume = Resume.fromResume(testResumeJson);
         stubFetchResume = sinon.stub();
     });
 
@@ -96,7 +96,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeAbout`)", function () {
-        delete stubResume.basics.summary;
+        stubResume = stubResume.setIn(["basics", "description"], null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -127,7 +127,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeProfiles`)", function () {
-        delete stubResume.basics.profiles;
+        stubResume = stubResume.setIn(["basics", "profiles"], null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -158,7 +158,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeWork`)", function () {
-        delete stubResume.work;
+        stubResume = stubResume.set("work", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -189,7 +189,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeProjects`)", function () {
-        delete stubResume.projects;
+        stubResume = stubResume.set("projects", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -220,7 +220,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeSkills`)", function () {
-        delete stubResume.skills;
+        stubResume = stubResume.set("skills", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -251,13 +251,13 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeEducation`)", function () {
-        delete stubResume.education;
+        stubResume = stubResume.set("education", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
             match={{}}
-            resume={stubResume
-            }/>);
+            resume={stubResume}
+        />);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
@@ -282,7 +282,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeAwards`)", function () {
-        delete stubResume.awards;
+        stubResume = stubResume.set("awards", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -313,7 +313,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeVolunteer`)", function () {
-        delete stubResume.volunteer;
+        stubResume = stubResume.set("volunteer", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -344,7 +344,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumePublications`)", function () {
-        delete stubResume.publications;
+        stubResume = stubResume.set("publications", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -375,7 +375,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeLanguages`)", function () {
-        delete stubResume.languages;
+        stubResume = stubResume.set("languages", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -406,7 +406,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeInterests`)", function () {
-        delete stubResume.interests;
+        stubResume = stubResume.set("interests", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -437,7 +437,7 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (no `ResumeReferences`)", function () {
-        delete stubResume.references;
+        stubResume = stubResume.set("references", null);
 
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
@@ -468,8 +468,6 @@ describe("ResumeComponent", function () {
     });
 
     it("renders (`isLoading`)", function () {
-        delete stubResume.references;
-
         const rendered = shallow(<ResumeComponent
             fetchResume={stubFetchResume}
             isLoading={true}

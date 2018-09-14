@@ -13,16 +13,15 @@ describe("Footer", function () {
     beforeEach(function () {
         stubPersonJs = {
             name: null,
-            firstName: "Woof",
-            lastName: "Woof",
+            givenName: "Woof",
+            familyName: "Woof",
             worksFor: null,
-            jobTitle: null,
-            label: "Woof",
+            jobTitle: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
             phone: "+1234567890",
-            website: "woof.woof/woof",
-            summary: "Woof woof woof",
+            url: "woof.woof/woof",
+            description: "Woof woof woof",
             location: {
                 address: "woof",
                 postalCode: "meow",
@@ -32,7 +31,7 @@ describe("Footer", function () {
             }
         };
         stubSenderJs = Object.assign({}, stubPersonJs);
-        stubRecipientJs = Object.assign({}, stubPersonJs, {firstName: "Meow", email: "meow@randytarampi.ca"});
+        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
 
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,

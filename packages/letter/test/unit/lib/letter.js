@@ -1,8 +1,8 @@
+import {Person} from "@randy.tarampi/js";
 import {expect} from "chai";
-import LetterSection from "../../../lib/letterSection";
-import Person from "../../../lib/person";
-import Letter from "../../../lib/letter";
 import {List, Map} from "immutable";
+import Letter from "../../../lib/letter";
+import LetterSection from "../../../lib/letterSection";
 
 describe("Letter", function () {
     let stubPersonJs;
@@ -14,26 +14,25 @@ describe("Letter", function () {
     beforeEach(function () {
         stubPersonJs = {
             name: null,
-            firstName: "Woof",
-            lastName: "Woof",
+            givenName: "Woof",
+            familyName: "Woof",
             worksFor: null,
-            jobTitle: null,
-            label: "Woof",
+            jobTitle: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
-            phone: "+1234567890",
-            website: "woof.woof/woof",
-            summary: "Woof woof woof",
-            location: {
-                address: "woof",
+            telephone: "+1234567890",
+            url: "woof.woof/woof",
+            description: "Woof woof woof",
+            address: {
+                streetAddress: "woof",
                 postalCode: "meow",
-                city: "grr",
-                countryCode: "CA",
-                region: "BC"
+                addressLocality: "grr",
+                addressCountry: "CA",
+                addressRegion: "BC"
             }
         };
         stubSenderJs = Object.assign({}, stubPersonJs);
-        stubRecipientJs = Object.assign({}, stubPersonJs, {firstName: "Meow", email: "meow@randytarampi.ca"});
+        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
 
         stubLetterSectionJs = {
             contentKey: "woof",
@@ -70,9 +69,9 @@ describe("Letter", function () {
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.sender).to.be.instanceOf(Person);
-            expect(letter.sender.firstName).to.eql(stubSenderJs.firstName);
+            expect(letter.sender.givenName).to.eql(stubSenderJs.givenName);
             expect(letter.recipient).to.be.instanceOf(Person);
-            expect(letter.recipient.firstName).to.eql(stubRecipientJs.firstName);
+            expect(letter.recipient.givenName).to.eql(stubRecipientJs.givenName);
             expect(letter.content).to.be.instanceOf(List);
             letter.content.map(letterContent => {
                 expect(letterContent).to.be.instanceOf(LetterSection);
@@ -80,6 +79,13 @@ describe("Letter", function () {
             });
             expect(letter.renderOptions).to.be.instanceOf(Map);
             expect(letter.renderOptions.get("format")).to.eql("bar");
+        });
+
+        it("returns an empty Letter", function () {
+            const letter = new Letter();
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
         });
     });
 
@@ -90,9 +96,9 @@ describe("Letter", function () {
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.sender).to.be.instanceOf(Person);
-            expect(letter.sender.firstName).to.eql(stubSenderJs.firstName);
+            expect(letter.sender.givenName).to.eql(stubSenderJs.givenName);
             expect(letter.recipient).to.be.instanceOf(Person);
-            expect(letter.recipient.firstName).to.eql(stubRecipientJs.firstName);
+            expect(letter.recipient.givenName).to.eql(stubRecipientJs.givenName);
             expect(letter.content).to.be.instanceOf(List);
             letter.content.map(letterContent => {
                 expect(letterContent).to.be.instanceOf(LetterSection);
@@ -100,6 +106,13 @@ describe("Letter", function () {
             });
             expect(letter.renderOptions).to.be.instanceOf(Map);
             expect(letter.renderOptions.get("format")).to.eql("bar");
+        });
+
+        it("returns an empty Letter", function () {
+            const letter = Letter.fromJS();
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
         });
     });
 
@@ -110,9 +123,9 @@ describe("Letter", function () {
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.sender).to.be.instanceOf(Person);
-            expect(letter.sender.firstName).to.eql(stubSenderJs.firstName);
+            expect(letter.sender.givenName).to.eql(stubSenderJs.givenName);
             expect(letter.recipient).to.be.instanceOf(Person);
-            expect(letter.recipient.firstName).to.eql(stubRecipientJs.firstName);
+            expect(letter.recipient.givenName).to.eql(stubRecipientJs.givenName);
             expect(letter.content).to.be.instanceOf(List);
             letter.content.map(letterContent => {
                 expect(letterContent).to.be.instanceOf(LetterSection);
@@ -121,11 +134,18 @@ describe("Letter", function () {
             expect(letter.renderOptions).to.be.instanceOf(Map);
             expect(letter.renderOptions.get("format")).to.eql("bar");
         });
+
+        it("returns an empty Letter", function () {
+            const letter = Letter.fromJSON();
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+        });
     });
 
     describe("#basics", function () {
         it("returns the `sender`", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -135,7 +155,7 @@ describe("Letter", function () {
 
     describe("#pdfRenderOptions", function () {
         it("returns `renderOptions` as JS Object", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -145,7 +165,7 @@ describe("Letter", function () {
 
     describe("#pageSize", function () {
         it("returns `renderOptions.format`", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -156,7 +176,7 @@ describe("Letter", function () {
     describe("#fileName", function () {
         it("returns `fileName`", function () {
             stubLetterJs.fileName = "woof";
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -164,7 +184,7 @@ describe("Letter", function () {
         });
 
         it("returns `id` if no `fileName`", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);

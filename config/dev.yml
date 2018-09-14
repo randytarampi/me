@@ -1,13 +1,15 @@
-photosServiceUrl: https://posts.dev.randytarampi.ca/posts?type=Photo
-postsServiceUrl: https://posts.dev.randytarampi.ca/posts
-wordsServiceUrl: https://posts.dev.randytarampi.ca/posts?type=Post
-resumeServiceUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/resumes
-letterServiceUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
-assetUrl: /docs
+posts:
+  photosUrl: https://posts.dev.randytarampi.ca/posts?type=Photo
+  postsUrl: https://posts.dev.randytarampi.ca/posts
+  wordsUrl: https://posts.dev.randytarampi.ca/posts?type=Post
+  resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/resumes
+  letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
 resume:
   publishUrl: https://dev.randytarampi.ca/resume
 letter:
   publishUrl: https://dev.randytarampi.ca/letter
+www:
+  assetUrl: /docs
 gtm: "GTM-T3FHTVC"
 logger:
   streams:

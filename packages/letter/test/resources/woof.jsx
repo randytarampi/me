@@ -42,14 +42,14 @@ export default {
         }
     ],
     recipient: {
-        name: "Woof Woof",
+        additionalName: "Woof Woof",
         jobTitle: "Woof",
         worksFor: "WoofWoofWoof",
-        location: {
-            address: "742 Evergreen Terrace",
-            city: "Vancouver",
-            countryCode: "CA",
-            region: "BC"
+        address: {
+            streetAddress: "742 Evergreen Terrace",
+            addressLocality: "Vancouver",
+            addressCountry: "CA",
+            addressRegion: "BC"
         }
     },
     renderOptions: {

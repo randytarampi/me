@@ -8,7 +8,7 @@ export const ResumeSkillsEntry = ({skillsEntry, index}) => {
             <h5><span className="text">{skillsEntry.name}</span></h5>
         </div>
         {
-            skillsEntry.keywords && skillsEntry.keywords.length
+            skillsEntry.keywords && skillsEntry.keywords.size
                 ? <ul className="resume-skills-entry__keywords">
                     {
                         skillsEntry.keywords.map((keyword, index) => {

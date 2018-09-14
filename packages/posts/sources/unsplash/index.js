@@ -59,8 +59,8 @@ class UnsplashSource extends CachedDataSource {
                 id: json.user.id,
                 username: json.user.username,
                 name: json.user.name,
-                sourceUrl: json.user.links.html,
-                imageUrl: json.user.profile_image.large
+                url: json.user.links.html,
+                image: json.user.profile_image.large
             }
         });
     }

@@ -2,12 +2,13 @@ import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import ResumeSkillsEntry from "../../../../../../../lib/components/resume/content/skills/entry";
+import ResumeSkill from "../../../../../../../lib/skill";
 
 describe("ResumeSkillsEntry", function () {
     let stubResumeSkillsEntry;
 
     beforeEach(function () {
-        stubResumeSkillsEntry = {
+        stubResumeSkillsEntry = ResumeSkill.fromJS({
             "name": "Web Development",
             "level": "Master",
             "keywords": [
@@ -19,7 +20,7 @@ describe("ResumeSkillsEntry", function () {
                 "Complaining about clients around the water cooler",
                 "Complaining about sales around the water cooler"
             ]
-        };
+        });
     });
 
     it("renders", function () {
@@ -32,8 +33,8 @@ describe("ResumeSkillsEntry", function () {
         expect(rendered).to.have.descendants(".resume-skills-entry__name");
         expect(rendered).to.have.descendants(".resume-skills-entry__keywords");
         expect(rendered).to.have.descendants(".resume-skills-entry__keyword");
-        expect(rendered.find(".resume-skills-entry__keyword")).to.have.length(stubResumeSkillsEntry.keywords.length);
-        expect(rendered.find(".resume-skills-entry__keyword.hide-on-print")).to.have.length(stubResumeSkillsEntry.keywords.length - 6);
+        expect(rendered.find(".resume-skills-entry__keyword")).to.have.length(stubResumeSkillsEntry.keywords.size);
+        expect(rendered.find(".resume-skills-entry__keyword.hide-on-print")).to.have.length(stubResumeSkillsEntry.keywords.size - 6);
     });
 
     it("renders (`.hide-on-print` if 4th or subsequent skill)", function () {
@@ -52,7 +53,7 @@ describe("ResumeSkillsEntry", function () {
     });
 
     it("renders (no `skillsEntry.keywords`)", function () {
-        delete stubResumeSkillsEntry.keywords;
+        stubResumeSkillsEntry = stubResumeSkillsEntry.set("keywords", null);
 
         const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 

@@ -2,9 +2,10 @@ import config from "config";
 import path from "path";
 import pug from "pug";
 import packageJson from "../package.json";
-import defaultResumeJson from "../resumes/default.json";
+import defaultResumeJson from "../resumes/default";
 import renderCss from "./renderCss";
 import renderJsx, {getRenderedHelmet} from "./renderJsx";
+import Resume from "./resume";
 
 export const buildPugLocals = (resume, pageSize) => {
     const content = renderJsx({resume, pageSize}); // NOTE-RT: This needs to come *before* we call `getRenderedHelmet()
@@ -21,7 +22,7 @@ export const buildPugLocals = (resume, pageSize) => {
         injectedStyle: helmetContent.style.toString(),
         injectedScript: helmetContent.script.toString(),
         injectedNoScript: helmetContent.noscript.toString(),
-        assetUrl: config.get("assetUrl"),
+        assetUrl: config.get("www.assetUrl"),
         sentryDsn: config.get("sentryDsn"),
         gtm: config.get("gtm"),
         environment: process.env.NODE_ENV || "local",
@@ -30,7 +31,7 @@ export const buildPugLocals = (resume, pageSize) => {
     };
 };
 
-export default (resume = defaultResumeJson, pageSize = process.env.RESUME_PDF_SIZE) => {
+export default (resume = Resume.fromResume(defaultResumeJson), pageSize = process.env.RESUME_PDF_SIZE) => {
     const pugLocals = buildPugLocals(resume, pageSize);
     return pug.renderFile(path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
 };

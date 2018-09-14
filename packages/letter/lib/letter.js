@@ -1,6 +1,6 @@
+import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
 import LetterSection from "./letterSection";
-import Person from "./person";
 
 export class Letter extends Record({
     sender: null,
@@ -30,7 +30,7 @@ export class Letter extends Record({
         return this.id;
     }
 
-    static fromJS(js) {
+    static fromJS(js = {}) {
         return new Letter({
             ...js,
             sender: js.sender ? Person.fromJS(js.sender) : null,
@@ -40,7 +40,7 @@ export class Letter extends Record({
         });
     }
 
-    static fromJSON(json) {
+    static fromJSON(json = {}) {
         return new Letter({
             ...json,
             sender: json.sender ? Person.fromJSON(json.sender) : null,

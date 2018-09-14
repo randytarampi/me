@@ -31,7 +31,7 @@ gulp.task("views", () => {
         .pipe(pug({
             locals: {
                 bundleName: "resume",
-                assetUrl: config.get("assetUrl"),
+                assetUrl: config.get("www.assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
                 environment: process.env.NODE_ENV || "local",
@@ -55,11 +55,15 @@ gulp.task("resume:html", done => {
 gulp.task("resume:json", done => {
     const fs = require("fs");
     const config = require("config");
-    const resume = require("./resumes/default.json");
+    const path = require("path");
+    const baseResumePath = path.join(__dirname, "./resumes/default.json");
+    const resume = require(baseResumePath);
+    const {Person} = require("@randy.tarampi/js");
+    const basics = Person.fromJSON(config.get("me.resume.basics")).toResume();
 
-    return fs.writeFile("resume.json", JSON.stringify({
+    return fs.writeFile(baseResumePath, JSON.stringify({
         ...resume,
-        basics: config.get("me.basics")
+        basics
     }, null, 2), done);
 });
 

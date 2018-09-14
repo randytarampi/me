@@ -14,7 +14,7 @@ gulp.task("views:index", () => {
         .pipe(pug({
             locals: {
                 bundleName: "woof",
-                assetUrl: config.get("assetUrl"),
+                assetUrl: config.get("www.assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
                 environment: process.env.NODE_ENV || "local",

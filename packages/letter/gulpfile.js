@@ -31,7 +31,7 @@ gulp.task("views", () => {
         .pipe(pug({
             locals: {
                 bundleName: "letter",
-                assetUrl: config.get("assetUrl"),
+                assetUrl: config.get("www.assetUrl"),
                 sentryDsn: config.get("sentryDsn"),
                 gtm: config.get("gtm"),
                 environment: process.env.NODE_ENV || "local",
@@ -86,12 +86,13 @@ gulp.task("letter:html", () => {
 gulp.task("letter:json", done => {
     const fs = require("fs");
     const config = require("config");
+    const path = require("path");
     const baseLetterPath = path.join(__dirname, "letters/default.json");
     const baseLetter = require(baseLetterPath);
 
     return fs.writeFile(baseLetterPath, JSON.stringify({
         ...baseLetter,
-        sender: config.get("me.basics")
+        ...config.get("me.letter")
     }, null, 2), done);
 });
 

@@ -3,14 +3,14 @@ import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import ResumeInterests from "../../../../../../lib/components/resume/content/interests";
+import Resume from "../../../../../../lib/resume";
 import testResumeJson from "../../../../../../resumes/test";
 
 describe("ResumeInterests", function () {
-    const testResumeJsonString = JSON.stringify(testResumeJson);
     let stubResume;
 
     beforeEach(function () {
-        stubResume = JSON.parse(testResumeJsonString);
+        stubResume = Resume.fromResume(testResumeJson);
     });
 
     it("renders", function () {
@@ -21,7 +21,7 @@ describe("ResumeInterests", function () {
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");
         expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__interest-entry")).to.have.length(stubResume.interests.length);
+        expect(rendered.find(".resume-interests__interest-entry")).to.have.length(stubResume.interests.size);
 
         const printableSection = rendered.find(PrintableSection);
         expect(printableSection).to.have.length(1);
@@ -38,7 +38,7 @@ describe("ResumeInterests", function () {
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");
         expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__interest-entry")).to.have.length(stubResume.interests.length);
+        expect(rendered.find(".resume-interests__interest-entry")).to.have.length(stubResume.interests.size);
         expect(rendered.find(".resume-interests__interest-entry.hide-on-print")).to.have.length(1);
     });
 
@@ -50,7 +50,7 @@ describe("ResumeInterests", function () {
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");
         expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__keyword")).to.have.length(stubResume.interests.reduce((keywordCount, interest) => keywordCount += interest.keywords.length, 0));
+        expect(rendered.find(".resume-interests__keyword")).to.have.length(stubResume.interests.reduce((keywordCount, interest) => keywordCount += interest.keywords.size, 0));
         expect(rendered.find(".resume-interests__keyword.show-on-legal")).to.have.length(1);
     });
 });

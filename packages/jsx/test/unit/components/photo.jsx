@@ -31,7 +31,7 @@ describe("Photo", function () {
                 id: -1,
                 username: "ʕ•ᴥ•ʔ",
                 name: "ʕ•ᴥ•ʔ",
-                sourceUrl: "woof://woof.woof/woof/woof/woof"
+                url: "woof://woof.woof/woof/woof/woof"
             }
         });
     });
@@ -115,7 +115,7 @@ describe("Photo", function () {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             });
 
@@ -158,7 +158,7 @@ describe("Photo", function () {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             });
 
@@ -205,7 +205,7 @@ describe("Photo", function () {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             });
 
@@ -252,7 +252,7 @@ describe("Photo", function () {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             });
 
@@ -301,7 +301,7 @@ describe("Photo", function () {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             });
 
@@ -354,7 +354,7 @@ describe("Photo", function () {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             });
 
@@ -409,7 +409,7 @@ describe("Photo", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "woof://woof.woof/woof/woof/woof"
+                        url: "woof://woof.woof/woof/woof/woof"
                     }
                 });
 
