@@ -3,7 +3,7 @@ import PostalAddress from "../../lib/postalAddress";
 
 describe("PostalAddress", function () {
     describe("constructor", function () {
-        it("returns a Location", function () {
+        it("returns a PostalAddress", function () {
             const stubLocation = {
                 streetAddress: "woof",
                 postalCode: "meow",
@@ -24,7 +24,7 @@ describe("PostalAddress", function () {
     });
 
     describe(".fromJS", function () {
-        it("returns a Location", function () {
+        it("returns a PostalAddress", function () {
             const stubLocation = {
                 streetAddress: "woof",
                 postalCode: "meow",
@@ -45,7 +45,7 @@ describe("PostalAddress", function () {
     });
 
     describe(".fromJSON", function () {
-        it("returns a Location", function () {
+        it("returns a PostalAddress", function () {
             const stubLocation = {
                 streetAddress: "woof",
                 postalCode: "meow",
@@ -66,7 +66,7 @@ describe("PostalAddress", function () {
     });
 
     describe(".fromResume", function () {
-        it("returns a Location", function () {
+        it("returns a PostalAddress", function () {
             const stubLocation = {
                 address: "woof",
                 postalCode: "meow",

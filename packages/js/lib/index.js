@@ -1,6 +1,8 @@
 export * from "./emoji";
 export * from "./util";
 
+export * from "./organization";
+export * from "./place";
 export * from "./profile";
 export * from "./postalAddress";
 export * from "./person";
