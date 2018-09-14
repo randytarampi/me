@@ -9,7 +9,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
             I've babysat hours long database migrations, <CampaignLink
             href="https://github.com/highcharts/highcharts/issues/1476">fiddled with VML in IE8</CampaignLink> and built
             data
-            crunching microservices &mdash; a bit of it all
+            crunching microservices — a bit of it all
         </Fragment>}
         {...contentConfiguration.sectionProps}
         type={contentConfiguration.contentKey}
@@ -19,7 +19,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
             {
                 contentConfiguration.contentProps.why || <Fragment>
                     <p>
-                        I spent the last few years developing on smaller teams &mdash; for
+                        I spent the last few years developing on smaller teams — for
                         the newest of auto financing startups to the top name in property management software and I
                         think that I've seen a bit of everything.
                     </p>

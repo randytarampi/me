@@ -15,7 +15,7 @@ export const LetterFooter = () => {
         <Row className="row valign-wrapper center-align hide-on-print">
             <Col l={8} offset="l2">
                 <p>If you're going to print this out please do it in Chrome, or with a Chromium backed
-                    client &mdash; I didn't work on those print styles for nothing!</p>
+                    client — I didn't work on those print styles for nothing!</p>
                 <p>It should fit neatly onto a single A4, US Letter, or US Legal sized page, provided you <em>set
                     the margins to nil</em>, <em>clear the page headers and footers</em>, and for best results, <em>include
                     background colours and images</em></p>

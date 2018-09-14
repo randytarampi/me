@@ -75,13 +75,13 @@ export const LetterQuality = ({contentConfiguration}) => {
                         to use <em>and extend</em>. My first real job in tech as a test developer showed me how quickly
                         teams can move when they have well written and wide-ranging test automation. But it wasn't until
                         I got to Pulse Energy that I saw what you can do and how much you can when you strive for
-                        quality &mdash; in the code you write, the applications that are deployed and how you handle
+                        quality — in the code you write, the applications that are deployed and how you handle
                         things when they go wrong.
                     </p>
                     <p>
                         If you're lucky enough to be reading this letter it's because I think you and your team go about
                         your business with quality in mind. You know that the green badges to the left of this text
-                        don't come easy &mdash; that there's loads of time and energy that goes into having high
+                        don't come easy — that there's loads of time and energy that goes into having high
                         availability, respectable test coverage, regular releases and well maintained code. I think that
                         you folks do these things (amongst others) and have a culture of quality that extends past your
                         product and to your staff, and I hope to gain from it.

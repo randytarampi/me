@@ -6,7 +6,7 @@ export const LetterAboutMe = ({contentConfiguration}) => {
     return <LeftDescriptionSection
         label="I love to code"
         description={<Fragment>
-            Need someone to ramp up quickly and keep pace? That's me &mdash; just take a look at my <CampaignLink
+            Need someone to ramp up quickly and keep pace? That's me — just take a look at my <CampaignLink
             href="https://github.com/randytarampi">GitHub contribution history</CampaignLink>
         </Fragment>}
         {...contentConfiguration.contentProps}
@@ -17,7 +17,7 @@ export const LetterAboutMe = ({contentConfiguration}) => {
             {
                 contentConfiguration.contentProps.aboutMe || <Fragment>
                     I'm not your run of the mill software developer. I love being away from my
-                    screens &mdash; getting <CampaignLink
+                    screens — getting <CampaignLink
                     href="https://www.flickr.com/photos/randytarampi/29098786007">outdoors</CampaignLink>, travelling
                     to <CampaignLink
                     href="https://500px.com/photo/202736697/that-camera-emoji-by-randy-tarampi">far off
@@ -29,7 +29,7 @@ export const LetterAboutMe = ({contentConfiguration}) => {
                     yourself</em>, and that's why I build software. There are better ways to spend your time than doing
                     your accounting by hand, queueing up to order your morning coffee or editing your photos to look
                     "good". We have software to do these things better and faster than we can ourselves, to make our
-                    lives and easier &mdash; and that's the kind software that I like to build.
+                    lives and easier — and that's the kind software that I like to build.
                 </Fragment>
             }
         </p>

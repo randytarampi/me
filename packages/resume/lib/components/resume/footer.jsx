@@ -14,7 +14,7 @@ export const ResumeFooter = () => {
         <Row className="row valign-wrapper center-align hide-on-print">
             <Col l={8} offset="l2">
                 <p>If you're going to print this out please do it in Chrome, or with a Chromium backed
-                    client &mdash; I didn't work on those print styles for nothing!</p>
+                    client — I didn't work on those print styles for nothing!</p>
                 <p>It should fit neatly onto a single <CampaignLink
                     href="https://github.com/randytarampi/me.resume/raw/master/a4.pdf">A4</CampaignLink>, <CampaignLink
                     href="https://github.com/randytarampi/me.resume/raw/master/letter.pdf">US Letter</CampaignLink>,

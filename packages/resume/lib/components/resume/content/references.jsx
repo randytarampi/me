@@ -14,7 +14,7 @@ export const ResumeReferences = ({resume}) => {
                                 <span className="text">{referenceEntry.reference}</span>
                             </p>
                             <p className="resume-references__reference-referee">
-                                &mdash;&nbsp;<strong className="text">{referenceEntry.name}</strong>
+                                —&nbsp;<strong className="text">{referenceEntry.name}</strong>
                             </p>
                         </blockquote>
                     </Col>;

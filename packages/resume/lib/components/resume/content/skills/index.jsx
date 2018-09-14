@@ -12,7 +12,7 @@ export const ResumeSkills = ({resume}) => {
         descriptionNode={
             <Fragment>
                 <p><span className="text">I'm more or less a full stack JavaScript developer</span></p>
-                <p><span className="text">Ask me about my soft skills &mdash; those are more fun</span></p>
+                <p><span className="text">Ask me about my soft skills — those are more fun</span></p>
             </Fragment>
         }
     >
