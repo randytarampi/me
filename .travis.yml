@@ -1,5 +1,9 @@
 language: node_js
 dist: trusty
+matrix:
+  fast_finish: true
+  allow_failures:
+    - node_js: '10'
 env:
   global:
     - SENTRY_ORG=randytarampi
@@ -30,14 +34,9 @@ stages:
     if: tag IS present
 jobs:
   include:
-    - stage: Test
-      node_js:
-        - '10'
-        - '8'
-      matrix:
-        fast_finish: true
-        allow_failures:
-          - node_js: '10'
+    - &testJob
+      stage: Test
+      node_js: '8'
       env:
         - NODE_ENV=test
       before_script:
@@ -53,6 +52,8 @@ jobs:
         - npm run kill --prefix packages/posts
       after_success:
         - npm run coveralls
+    - <<: *testJob
+      node_js: '10'
     - stage: Release
       name: GitHub
       node_js: '8'
