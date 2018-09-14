@@ -30,7 +30,7 @@ export class Letter extends Record({
         return this.id;
     }
 
-    static fromJS(js) {
+    static fromJS(js = {}) {
         return new Letter({
             ...js,
             sender: js.sender ? Person.fromJS(js.sender) : null,
@@ -40,23 +40,13 @@ export class Letter extends Record({
         });
     }
 
-    static fromJSON(json) {
+    static fromJSON(json = {}) {
         return new Letter({
             ...json,
             sender: json.sender ? Person.fromJSON(json.sender) : null,
             recipient: json.recipient ? Person.fromJSON(json.recipient) : null,
             content: json.content ? List(json.content.map(LetterSection.fromJSON)) : null,
             renderOptions: Map(json.renderOptions),
-        });
-    }
-
-    static fromResume(json) {
-        return new Letter({
-            ...json,
-            sender: json.sender ? Person.fromResume(json.sender) : null,
-            recipient: json.recipient ? Person.fromResume(json.recipient) : null,
-            content: json.content ? List(json.content.map(LetterSection.fromJSON)) : null,
-            renderOptions: Map(json.renderOptions)
         });
     }
 }

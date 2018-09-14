@@ -80,6 +80,13 @@ describe("Letter", function () {
             expect(letter.renderOptions).to.be.instanceOf(Map);
             expect(letter.renderOptions.get("format")).to.eql("bar");
         });
+
+        it("returns an empty Letter", function () {
+            const letter = new Letter();
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+        });
     });
 
     describe(".fromJS", function () {
@@ -100,6 +107,13 @@ describe("Letter", function () {
             expect(letter.renderOptions).to.be.instanceOf(Map);
             expect(letter.renderOptions.get("format")).to.eql("bar");
         });
+
+        it("returns an empty Letter", function () {
+            const letter = Letter.fromJS();
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+        });
     });
 
     describe(".fromJSON", function () {
@@ -119,6 +133,13 @@ describe("Letter", function () {
             });
             expect(letter.renderOptions).to.be.instanceOf(Map);
             expect(letter.renderOptions.get("format")).to.eql("bar");
+        });
+
+        it("returns an empty Letter", function () {
+            const letter = Letter.fromJSON();
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
         });
     });
 
