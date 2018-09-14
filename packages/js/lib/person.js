@@ -1,4 +1,5 @@
 import {List, Record} from "immutable";
+import {formatNumber} from "libphonenumber-js";
 import PostalAddress from "./postalAddress";
 import Profile from "./profile";
 
@@ -44,8 +45,12 @@ export class Person extends Record({
         return this.get("image");
     }
 
+    get telephone() {
+        return formatNumber(this.get("telephone"), "International");
+    }
+
     get phone() {
-        return this.get("telephone");
+        return this.telephone;
     }
 
     get website() {
