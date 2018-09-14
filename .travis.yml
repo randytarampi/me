@@ -9,7 +9,6 @@ matrix:
   - node_js: '10'
 env:
   global:
-  - NODE_ENV=test
   - SENTRY_ORG=randytarampi
   - SENTRY_PROJECT=me
   - SENTRY_LOG_LEVEL=debug
@@ -27,19 +26,6 @@ before_install:
 - uname -a
 - lscpu
 - npm install -g npm
-before_script:
-- npm run pretest
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- ./cc-test-reporter before-build
-script:
-- npm run travis
-after_script:
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-after_failure:
-- npm run kill --prefix packages/posts
-after_success:
-- npm run coveralls
 stages:
 - name: Test
   if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
@@ -51,6 +37,22 @@ stages:
   if: tag IS present
 jobs:
   include:
+    - stage: Test
+      env:
+        - NODE_ENV=test
+      before_script:
+        - npm run pretest
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+      script:
+        - npm run travis
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+      after_failure:
+        - npm run kill --prefix packages/posts
+      after_success:
+        - npm run coveralls
   - stage: Release
     name: GitHub
     node_js: '8'
