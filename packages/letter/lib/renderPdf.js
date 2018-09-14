@@ -1,6 +1,8 @@
 import {ExifTool} from "exiftool-vendored";
 import path from "path";
 import puppeteer from "puppeteer";
+import config from "config";
+import assert from "assert";
 
 export default async (html, letter) => {
     const exifTool = new ExifTool();
@@ -26,6 +28,16 @@ export default async (html, letter) => {
     });
 
     await browser.close();
+
+    const pdfExpectations = config.get("letter.expectations");
+
+    if (pdfExpectations) {
+        const pdfMetadata = await exifTool.read(pdfPath);
+
+        if (pdfExpectations.pages) {
+            assert.strictEqual(pdfMetadata.PageCount, pdfExpectations.pages, `Expected PDF to have ${pdfExpectations.pages} pages, but it has ${pdfMetadata.PageCount} instead`);
+        }
+    }
 
     await exifTool
         .write(pdfPath, {

@@ -4,9 +4,15 @@ module.exports = {
     gtm: "GTM-K26GTD2",
     sentryDsn: "https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735",
     resume: {
+        expectations: {
+            pages: 1,
+        },
         publishUrl: "https://www.randytarampi.ca/resume"
     },
     letter: {
+        expectations: {
+            pages: 1,
+        },
         publishUrl: "https://www.randytarampi.ca/letter"
     },
     posts: {
