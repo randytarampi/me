@@ -1,27 +1,18 @@
 require("../../babel.register.js");
 
-const path = require("path");
-process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
 const gulp = require("gulp");
 
 gulp.task("views:index", () => {
-    const config = require("config");
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
+    const {buildPugLocals} = require("./lib");
 
     return gulp.src(["templates/index.pug"])
         .pipe(pug({
-            locals: {
-                bundleName: "woof",
-                assetUrl: config.get("www.assetUrl"),
-                sentryDsn: config.get("sentryDsn"),
-                gtm: config.get("gtm"),
-                environment: process.env.NODE_ENV || "local",
-                version: packageJson.version,
-                name: packageJson.name,
-                logger: null
-            }
+            locals: buildPugLocals({
+                bundleName: "views",
+                packageJson
+            })
         }))
         .pipe(gulp.dest("./dist"));
 });

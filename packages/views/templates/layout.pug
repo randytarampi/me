@@ -3,33 +3,33 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         meta(http-equiv="x-ua-compatible", content="ie=edge")
-        meta(name="viewport" content="width=device-width")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
 
-        title Randy Tarampi
-        meta(itemprop="name", content="Randy Tarampi")
-        meta(name="twitter:title", content="Randy Tarampi")
-        meta(name="og:title", content="Randy Tarampi")
-        meta(name="og:site_name", content="Randy Tarampi")
+        title !{pugTitle}
+        meta(itemprop="name", content=`${pugTitle}`)
+        meta(name="twitter:title", content=`${pugTitle}`)
+        meta(name="og:title", content=`${pugTitle}`)
+        meta(name="og:site_name", content=`${pugTitle}`)
 
-        meta(name="description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
-        meta(itemprop="description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
-        meta(name="twitter:description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
-        meta(name="og:description", content="Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Shoot me a message if this got your eye!")
+        meta(name="description", content=`${pugDescription}`)
+        meta(itemprop="description", content=`${pugDescription}`)
+        meta(name="twitter:description", content=`${pugDescription}`)
+        meta(name="og:description", content=`${pugDescription}`)
 
         meta(name="image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
         meta(itemprop="image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
         meta(name="twitter:image:src", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
         meta(name="og:image", content=`${assetUrl}/ʕつ•ᴥ•ʔつ.svg`)
 
-        meta(name="twitter:site", content="@randytarampi")
-        meta(name="twitter:creator", content="@randytarampi")
+        meta(name="twitter:site", content=`@${twitterUsername}`)
+        meta(name="twitter:creator", content=`@${twitterUsername}`)
         meta(name="og:locale", content="en_CA")
-        meta(name="fb:admins", content="831915416")
+        meta(name="fb:admins", content=`@${facebookUsername}`)
         meta(name="fb:app_id", content="1705404522846104")
         meta(name="og:type", content="website")
 
-        link(rel="canonical", href="https://www.randytarampi.ca/resume")
-        meta(name="og:url", content="https://www.randytarampi.ca/resume")
+        link(rel="canonical", href=`${pugUrl}`)
+        meta(name="og:url", content=`${pugUrl}`)
 
         | !{injectedBase}
         | !{injectedTitle}

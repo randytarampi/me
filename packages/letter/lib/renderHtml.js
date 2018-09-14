@@ -1,4 +1,4 @@
-import config from "config";
+import {buildPugLocals as genericBuildPugLocals} from "@randy.tarampi/views";
 import path from "path";
 import pug from "pug";
 import baseLetterJson from "../letters/default";
@@ -11,24 +11,13 @@ export const buildPugLocals = (letter, pageSize) => {
     const content = renderJsx({letter, pageSize}); // NOTE-RT: This needs to come *before* we call `getRenderedHelmet()
     const helmetContent = getRenderedHelmet();
 
-    return {
-        bundleName: "letter",
+    return genericBuildPugLocals({
+        bundleName: "resume",
+        packageJson,
         content,
         css: renderCss(),
-        injectedBase: helmetContent.base.toString(),
-        injectedTitle: helmetContent.title.toString(),
-        injectedLink: helmetContent.link.toString(),
-        injectedMeta: helmetContent.meta.toString(),
-        injectedStyle: helmetContent.style.toString(),
-        injectedScript: helmetContent.script.toString(),
-        injectedNoScript: helmetContent.noscript.toString(),
-        assetUrl: config.get("www.assetUrl"),
-        sentryDsn: config.get("sentryDsn"),
-        gtm: config.get("gtm"),
-        environment: process.env.NODE_ENV || "local",
-        version: packageJson.version,
-        logger: JSON.stringify(null)
-    };
+        helmetContent
+    });
 };
 
 export default (letter = Letter.fromResume(baseLetterJson), pageSize = process.env.LETTER_PDF_SIZE) => {

@@ -25,6 +25,10 @@
     "build": "npx gulp -LLLL --color build"
   },
   "license": "MIT",
+  "dependencies": {
+    "@randy.tarampi/js": "^0.29.0",
+    "config": "^2.0.1"
+  },
   "devDependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
@@ -37,7 +41,6 @@
     "babel-plugin-istanbul": "next",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-minify-replace": "^0.4.3",
-    "config": "^2.0.1",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
     "gulp": "^4.0.0",
@@ -48,5 +51,10 @@
   },
   "engines": {
     "node": ">=8"
+  },
+  "main": "./lib/index.js",
+  "esm": "./lib/index.js",
+  "directories": {
+    "lib": "./lib"
   }
 }

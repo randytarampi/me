@@ -20,26 +20,17 @@ gulp.task("copy", () => {
 });
 
 gulp.task("views", () => {
-    const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
-
-    const config = require("config");
     const pug = require("gulp-pug");
     const rename = require("gulp-rename");
     const packageJson = require("./package.json");
+    const {buildPugLocals} = require("@randy.tarampi/views");
 
     return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
-            locals: {
+            locals: buildPugLocals({
                 bundleName: "www",
-                assetUrl: config.get("www.assetUrl"),
-                sentryDsn: config.get("sentryDsn"),
-                gtm: config.get("gtm"),
-                environment: process.env.NODE_ENV || "local",
-                version: packageJson.version,
-                name: packageJson.name,
-                logger: JSON.stringify(config.get("logger"))
-            }
+                packageJson
+            })
         }))
         .pipe(gulp.dest("./dist"))
         .pipe(rename({basename: "404"}))

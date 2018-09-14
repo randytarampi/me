@@ -23,22 +23,16 @@ gulp.task("copy", () => {
 });
 
 gulp.task("views", () => {
-    const config = require("config");
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
+    const {buildPugLocals} = require("@randy.tarampi/views");
 
     return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
-            locals: {
+            locals: buildPugLocals({
                 bundleName: "resume",
-                assetUrl: config.get("www.assetUrl"),
-                sentryDsn: config.get("sentryDsn"),
-                gtm: config.get("gtm"),
-                environment: process.env.NODE_ENV || "local",
-                version: packageJson.version,
-                name: packageJson.name,
-                logger: JSON.stringify(config.get("logger"))
-            }
+                packageJson
+            })
         }))
         .pipe(gulp.dest("./dist"));
 });
