@@ -28,7 +28,7 @@ describe("Photo", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
             const photo = new Photo(photoJS);
@@ -64,7 +64,7 @@ describe("Photo", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
 
@@ -107,7 +107,7 @@ describe("Photo", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
 
@@ -147,7 +147,7 @@ describe("Photo", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
             const photo = Photo.fromJSON(photoJson);
@@ -194,7 +194,7 @@ describe("Photo", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
             const photo = Photo.fromJSON(photoJson);
@@ -245,7 +245,7 @@ describe("Photo", () => {
                     id: -1,
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
-                    sourceUrl: "woof://woof.woof/woof/woof/woof"
+                    url: "woof://woof.woof/woof/woof/woof"
                 }
             };
             const photo = Photo.fromJSON(photoJson);

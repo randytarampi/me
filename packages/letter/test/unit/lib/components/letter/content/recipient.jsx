@@ -22,7 +22,6 @@ describe("LetterRecipient", function () {
             firstName: "Woof",
             lastName: "Woof",
             worksFor: "Woofs",
-            jobTitle: "Wf.",
             label: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
@@ -111,7 +110,7 @@ describe("LetterRecipient", function () {
     it("renders (no title)", function () {
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
-            recipient: Object.assign({}, stubPersonJs, {jobTitle: null}),
+            recipient: Object.assign({}, stubPersonJs, {label: null}),
             id: "foo",
             fileName: null,
             content: [],

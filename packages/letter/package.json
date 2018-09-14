@@ -36,6 +36,7 @@
   "dependencies": {
     "@randy.tarampi/assets": "^0.28.0",
     "@randy.tarampi/css": "^0.28.0",
+    "@randy.tarampi/js": "^0.28.0",
     "@randy.tarampi/jsx": "^0.28.0",
     "@randy.tarampi/views": "^0.28.0",
     "history": "^4.7.2",

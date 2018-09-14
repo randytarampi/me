@@ -1,6 +1,6 @@
 import {Record} from "immutable";
 import {DateTime} from "luxon";
-import Creator from "./creator";
+import Profile from "./profile";
 import {compositeKeySeparator} from "./util";
 
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
@@ -48,7 +48,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             datePublished: js.datePublished && !(js.datePublished instanceof DateTime)
                 ? js.datePublished.valueOf ? DateTime.fromMillis(js.datePublished.valueOf()) : null
                 : js.datePublished,
-            creator: js.creator ? Creator.fromJS(js.creator) : null
+            creator: js.creator ? Profile.fromJS(js.creator) : null
         };
     }
 
@@ -61,7 +61,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             ...json,
             dateCreated: json.dateCreated ? DateTime.fromISO(json.dateCreated) : null,
             datePublished: json.datePublished ? DateTime.fromISO(json.datePublished) : null,
-            creator: json.creator ? Creator.fromJSON(json.creator) : null
+            creator: json.creator ? Profile.fromJSON(json.creator) : null
         };
     }
 

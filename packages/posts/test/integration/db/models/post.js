@@ -27,7 +27,7 @@ describe("Post", function () {
                 id: -1,
                 username: "ʕ•ᴥ•ʔ",
                 name: "ʕ•ᴥ•ʔ",
-                sourceUrl: "woof://woof.woof/woof/woof/woof"
+                url: "woof://woof.woof/woof/woof/woof"
             }
         });
         stubPhoto = Photo.fromJSON({
@@ -51,7 +51,7 @@ describe("Post", function () {
                 id: -1,
                 username: "ʕ•ᴥ•ʔ",
                 name: "ʕ•ᴥ•ʔ",
-                sourceUrl: "meow://meow.meow/meow/meow/meow"
+                url: "meow://meow.meow/meow/meow/meow"
             }
         });
         stubPosts = [
@@ -154,7 +154,7 @@ describe("Post", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                        url: "grr://grr.grr/grr/grr/grr"
                     }
                 })
             ]);
@@ -192,7 +192,7 @@ describe("Post", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                        url: "grr://grr.grr/grr/grr/grr"
                     }
                 })
             ]);
@@ -256,7 +256,7 @@ describe("Post", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                        url: "grr://grr.grr/grr/grr/grr"
                     }
                 })
             ]);
@@ -303,7 +303,7 @@ describe("Post", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                        url: "grr://grr.grr/grr/grr/grr"
                     }
                 })
             ]);
@@ -336,7 +336,7 @@ describe("Post", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                        url: "grr://grr.grr/grr/grr/grr"
                     }
                 })
             ]);
@@ -383,7 +383,7 @@ describe("Post", function () {
                         id: -1,
                         username: "ʕ•ᴥ•ʔ",
                         name: "ʕ•ᴥ•ʔ",
-                        sourceUrl: "grr://grr.grr/grr/grr/grr"
+                        url: "grr://grr.grr/grr/grr/grr"
                     }
                 })
             ]);

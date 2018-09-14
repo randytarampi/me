@@ -8,9 +8,6 @@ export * from "./data";
 
 export * from "./letter";
 export * from "./letterSection";
-export * from "./location";
-export * from "./person";
-export * from "./profile";
 
 export {
     baseLetter

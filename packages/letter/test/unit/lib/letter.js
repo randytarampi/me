@@ -1,8 +1,8 @@
+import {Person} from "@randy.tarampi/js";
 import {expect} from "chai";
-import LetterSection from "../../../lib/letterSection";
-import Person from "../../../lib/person";
-import Letter from "../../../lib/letter";
 import {List, Map} from "immutable";
+import Letter from "../../../lib/letter";
+import LetterSection from "../../../lib/letterSection";
 
 describe("Letter", function () {
     let stubPersonJs;
@@ -61,8 +61,8 @@ describe("Letter", function () {
         it("returns a Letter", function () {
             const letter = new Letter({
                 ...stubLetterJs,
-                sender: Person.fromJS(stubLetterJs.sender),
-                recipient: Person.fromJS(stubLetterJs.recipient),
+                sender: Person.fromResume(stubLetterJs.sender),
+                recipient: Person.fromResume(stubLetterJs.recipient),
                 content: List(stubLetterJs.content.map(LetterSection.fromJS)),
                 renderOptions: Map(stubLetterJs.renderOptions)
             });
@@ -125,7 +125,7 @@ describe("Letter", function () {
 
     describe("#basics", function () {
         it("returns the `sender`", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromResume(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -135,7 +135,7 @@ describe("Letter", function () {
 
     describe("#pdfRenderOptions", function () {
         it("returns `renderOptions` as JS Object", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromResume(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -145,7 +145,7 @@ describe("Letter", function () {
 
     describe("#pageSize", function () {
         it("returns `renderOptions.format`", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromResume(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -156,7 +156,7 @@ describe("Letter", function () {
     describe("#fileName", function () {
         it("returns `fileName`", function () {
             stubLetterJs.fileName = "woof";
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromResume(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
@@ -164,7 +164,7 @@ describe("Letter", function () {
         });
 
         it("returns `id` if no `fileName`", function () {
-            const letter = Letter.fromJSON(stubLetterJs);
+            const letter = Letter.fromResume(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);

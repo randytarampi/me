@@ -128,7 +128,7 @@ class LocalSource extends CachedDataSource {
             sourceUrl: fileUrl,
             title: fileName,
             creator: {
-                sourceUrl: fileUrl
+                url: fileUrl
             }
         });
     }
