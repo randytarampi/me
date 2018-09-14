@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/randytarampi/me/compare/v0.28.0...v0.29.0) (2018-09-14)
+
+
+### Features
+
+* **config:** Pull more details about `me` into the config, per [#54](https://github.com/randytarampi/me/issues/54). ([c198fdd](https://github.com/randytarampi/me/commit/c198fdd)), closes [#25](https://github.com/randytarampi/me/issues/25)
+
+
+
+
+
 <a name="0.28.0"></a>
 # [0.28.0](https://github.com/randytarampi/me/compare/v0.27.1...v0.28.0) (2018-09-13)
 
