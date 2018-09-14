@@ -2,8 +2,6 @@ import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
-import baseLetter from "../../../letters/default";
-import LetterEntity from "../../../lib/letter";
 import LetterFooter from "./footer";
 
 export class LetterComponent extends Component {
@@ -78,7 +76,6 @@ LetterComponent.propTypes = {
 
 LetterComponent.defaultProps = {
     isLoading: false,
-    letter: LetterEntity.fromJSON(baseLetter)
 };
 
 export default LetterComponent;
