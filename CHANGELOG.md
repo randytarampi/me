@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.31.2"></a>
+## [0.31.2](https://github.com/randytarampi/me/compare/v0.31.1...v0.31.2) (2018-09-15)
+
+
+### Bug Fixes
+
+* **jsx:** Fix bad Photo creator link. ([a7e04da](https://github.com/randytarampi/me/commit/a7e04da))
+
+
+
+
+
 <a name="0.31.1"></a>
 ## [0.31.1](https://github.com/randytarampi/me/compare/v0.31.0...v0.31.1) (2018-09-15)
 
