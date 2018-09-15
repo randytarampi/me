@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
+import {Container} from "react-materialize";
 import Footer from "../../../../lib/components/printable/footer";
 
 describe("Footer", function () {
@@ -11,9 +12,9 @@ describe("Footer", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <footer id="footer" className="printable-footer">
-                <div className="container">
+                <Container>
                     {stubChildren}
-                </div>
+                </Container>
             </footer>
         );
     });

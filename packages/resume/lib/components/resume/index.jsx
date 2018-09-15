@@ -2,6 +2,7 @@ import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
+import {Container} from "react-materialize";
 import defaultResume from "../../../resumes/default";
 import Resume from "../../resume";
 import ResumeAbout from "./content/about";
@@ -40,7 +41,7 @@ export class ResumeComponent extends Component {
                         </Helmet>
                         <PrintableHeader printable={props.resume}/>
                         <div className="resume-content">
-                            <div className="container">
+                            <Container>
                                 <ResumeContact {...props} />
                                 {
                                     props.resume.basics.summary
@@ -102,7 +103,7 @@ export class ResumeComponent extends Component {
                                         ? <ResumeReferences {...props} />
                                         : null
                                 }
-                            </div>
+                            </Container>
                         </div>
                         <ResumeFooter {...props} />
                     </Fragment>

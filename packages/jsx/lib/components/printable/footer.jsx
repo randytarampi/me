@@ -1,10 +1,11 @@
 import React from "react";
+import {Container} from "react-materialize";
 
 export const PrintableFooter = ({children}) => {
     return <footer id="footer" className="printable-footer">
-        <div className="container">
+        <Container>
             {children}
-        </div>
+        </Container>
     </footer>;
 };
 

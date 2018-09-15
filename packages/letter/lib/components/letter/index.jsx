@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
 import LetterFooter from "./footer";
+import {Container} from "react-materialize";
 
 export class LetterComponent extends Component {
     componentDidMount() {
@@ -25,7 +26,7 @@ export class LetterComponent extends Component {
                         </Helmet>
                         <PrintableHeader {...props} printable={letter}/>
                         <div className="letter-content">
-                            <div className="container">
+                            <Container>
                                 {
                                     letter.content.map(contentConfiguration => {
                                         const ContentComponent = contentConfiguration.component
@@ -39,7 +40,7 @@ export class LetterComponent extends Component {
                                         />;
                                     })
                                 }
-                            </div>
+                            </Container>
                         </div>
                         <LetterFooter {...props} letter={letter}/>
                     </Fragment>

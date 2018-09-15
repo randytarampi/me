@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Row} from "react-materialize";
+import {Col, Row, Container} from "react-materialize";
 import {CampaignLink, EmailLink, TelLink} from "../link/index";
 
 export const PrintableHeader = ({printable}) => {
     return <header id="header" className="printable-header">
-        <div className="container">
+        <Container>
             <Row className="valign-wrapper">
                 <Col s={3}>
                     {
@@ -57,7 +57,7 @@ export const PrintableHeader = ({printable}) => {
                     </div>
                 </Col>
             </Row>
-        </div>
+        </Container>
     </header>;
 };
 
