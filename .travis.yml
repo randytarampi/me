@@ -94,7 +94,7 @@ jobs:
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html; fi;
-        - 'if [[ -n $(git status -s) ]]; then npx lerna version --amend; git push ci-push master; fi;'
+        - 'if [[ -n $(git status -s) ]]; then git commit --amend --no-edit; git push ci-push master; fi;'
       deploy:
         - provider: releases
           api_key:
