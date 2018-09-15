@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.31.2",
+  "version": "0.31.3",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -41,11 +41,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@randy.tarampi/assets": "^0.31.2",
-    "@randy.tarampi/css": "^0.31.2",
-    "@randy.tarampi/js": "^0.31.2",
-    "@randy.tarampi/jsx": "^0.31.2",
-    "@randy.tarampi/views": "^0.31.2",
+    "@randy.tarampi/assets": "^0.31.3",
+    "@randy.tarampi/css": "^0.31.3",
+    "@randy.tarampi/js": "^0.31.3",
+    "@randy.tarampi/jsx": "^0.31.3",
+    "@randy.tarampi/views": "^0.31.3",
     "history": "^4.7.2",
     "immutable": "^4.0.0-rc.9",
     "isomorphic-fetch": "^2.2.1",

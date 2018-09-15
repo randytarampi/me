@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.31.3"></a>
+## [0.31.3](https://github.com/randytarampi/me/compare/v0.31.2...v0.31.3) (2018-09-15)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tests. ([c995543](https://github.com/randytarampi/me/commit/c995543))
+* **www:** Encapsulate `Main` content in a `Container`. ([3829891](https://github.com/randytarampi/me/commit/3829891))
+
+
+
+
+
 <a name="0.31.2"></a>
 ## [0.31.2](https://github.com/randytarampi/me/compare/v0.31.1...v0.31.2) (2018-09-15)
 
