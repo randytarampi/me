@@ -132,6 +132,11 @@ describe("Photo", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
             expect(rendered).to.have.className("post--loading");
+
+            const links = rendered.find(".post-source__link");
+            expect(links).to.have.length(2);
+            expect(links.first()).to.have.prop("href", stubPhoto.getSizedPhotoForLoading().url);
+            expect(links.last()).to.have.prop("href", stubPhoto.creator.url);
         });
 
         it("renders (no dateCreated)", function () {

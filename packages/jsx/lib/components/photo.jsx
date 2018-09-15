@@ -115,7 +115,7 @@ export class PhotoComponent extends PostComponent {
                     {
                         this.props.post.creator ?
                             <Link className="post-source__link"
-                                  href={this.props.post.creator.sourceUrl}>{this.props.post.creator.username} on {this.props.post.source}</Link> :
+                                  href={this.props.post.creator.url}>{this.props.post.creator.username} on {this.props.post.source}</Link> :
                             null
                     }
                 </p>
