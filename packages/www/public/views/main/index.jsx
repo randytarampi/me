@@ -3,6 +3,7 @@ import {logger} from "@randy.tarampi/jsx";
 import Intro from "./intro";
 import Works from "./works";
 import Bears from "./bears";
+import {Container} from "react-materialize";
 
 export class Main extends Component {
     componentDidMount() {
@@ -11,9 +12,11 @@ export class Main extends Component {
 
     render() {
         return <Fragment>
-            <Intro/>
-            <Works/>
-            <Bears/>
+            <Container>
+                <Intro/>
+                <Works/>
+                <Bears/>
+            </Container>
         </Fragment>;
     }
 }
