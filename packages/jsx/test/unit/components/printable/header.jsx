@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
+import {Container} from "react-materialize";
 import Header from "../../../../lib/components/printable/header";
 
 describe("Header", function () {
@@ -36,7 +37,7 @@ describe("Header", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(".container");
+        expect(rendered).to.have.descendants(Container);
         expect(rendered).to.have.descendants(".printable-header__picture");
         expect(rendered).to.have.descendants(".printable-header__name");
         expect(rendered).to.have.descendants(".printable-header__label");
@@ -58,7 +59,7 @@ describe("Header", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(".container");
+        expect(rendered).to.have.descendants(Container);
         expect(rendered).to.not.have.descendants(".printable-header__picture");
         expect(rendered).to.have.descendants(".printable-header__name");
         expect(rendered).to.have.descendants(".printable-header__label");
@@ -81,7 +82,7 @@ describe("Header", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(".container");
+        expect(rendered).to.have.descendants(Container);
         expect(rendered).to.have.descendants(".printable-header__picture");
         expect(rendered).to.have.descendants(".printable-header__name");
         expect(rendered).to.have.descendants(".printable-header__label");
