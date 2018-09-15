@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.30.0"></a>
+# [0.30.0](https://github.com/randytarampi/me/compare/v0.29.1...v0.30.0) (2018-09-15)
+
+
+### Features
+
+* Assert that generated PDFs are to our expectations. ([13a81f8](https://github.com/randytarampi/me/commit/13a81f8)), closes [#106](https://github.com/randytarampi/me/issues/106) [randytarampi/resume-cli#8c1db9cdb16444eafdfc1889adb4989d0f2fe6](https://github.com/randytarampi/resume-cli/issues/8c1db9cdb16444eafdfc1889adb4989d0f2fe6) [#106](https://github.com/randytarampi/me/issues/106)
+
+
+
+
+
 <a name="0.29.1"></a>
 ## [0.29.1](https://github.com/randytarampi/me/compare/v0.29.0...v0.29.1) (2018-09-14)
 

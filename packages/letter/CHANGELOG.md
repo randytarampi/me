@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.30.0"></a>
+# [0.30.0](https://github.com/randytarampi/me/compare/v0.29.1...v0.30.0) (2018-09-15)
+
+
+### Features
+
+* **letter:** Add PDF metadata per [#114](https://github.com/randytarampi/me/issues/114) and randytarampi/resume-cli#f6f8e73bed15a9817fbc4a3a22fa77affcf43fd6. ([13a1d0a](https://github.com/randytarampi/me/commit/13a1d0a)), closes [randytarampi/resume-cli#f6f8e73bed15a9817fbc4a3a22fa77affcf43fd6](https://github.com/randytarampi/resume-cli/issues/f6f8e73bed15a9817fbc4a3a22fa77affcf43fd6)
+* Assert that generated PDFs actually exist. ([8e1d56b](https://github.com/randytarampi/me/commit/8e1d56b)), closes [#110](https://github.com/randytarampi/me/issues/110) [randytarampi/resume-cli#11d0b4ff48d68781addb8237faa1464d4d1a9d22](https://github.com/randytarampi/resume-cli/issues/11d0b4ff48d68781addb8237faa1464d4d1a9d22) [#110](https://github.com/randytarampi/me/issues/110)
+* Assert that generated PDFs are to our expectations. ([13a81f8](https://github.com/randytarampi/me/commit/13a81f8)), closes [#106](https://github.com/randytarampi/me/issues/106) [randytarampi/resume-cli#8c1db9cdb16444eafdfc1889adb4989d0f2fe6](https://github.com/randytarampi/resume-cli/issues/8c1db9cdb16444eafdfc1889adb4989d0f2fe6) [#106](https://github.com/randytarampi/me/issues/106)
+
+
+
+
+
 <a name="0.29.1"></a>
 ## [0.29.1](https://github.com/randytarampi/me/compare/v0.29.0...v0.29.1) (2018-09-14)
 
