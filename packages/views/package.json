@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.30.0",
+  "version": "0.31.1",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -26,7 +26,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@randy.tarampi/js": "^0.30.0",
+    "@randy.tarampi/js": "^0.31.1",
     "config": "^2.0.1"
   },
   "devDependencies": {
