@@ -14,6 +14,7 @@ export default callback =>
      */
         error => {
         if (error instanceof RequestError) {
+            logger.info(error, `Returning ${error.statusCode} error response`);
             callback(null, responseBuilder({
                 error: {
                     message: error.message,
