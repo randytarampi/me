@@ -94,7 +94,8 @@ class InstagramSource extends CachedDataSource {
                 id: photoJson.user.id,
                 username: photoJson.user.username,
                 name: photoJson.user.full_name,
-                url: `https://www.instagram.com/${photoJson.user.username}`
+                url: `https://www.instagram.com/${photoJson.user.username}`,
+                image: photoJson.user.profile_picture
             }
         });
     }
