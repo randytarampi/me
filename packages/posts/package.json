@@ -11,24 +11,24 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "npx sls dynamodb install",
-    "preuninstall": "npx sls dynamodb remove",
-    "pretest": "npx gulp -LLLL --color lint",
+    "postinstall": "sls dynamodb install",
+    "preuninstall": "sls dynamodb remove",
+    "pretest": "gulp -LLLL --color lint",
     "pretest:dynamodb-local": "npm run kill:dynamodb-local && npm run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\";",
     "test": "npm run pretest:dynamodb-local && npm run test:actual",
-    "test:actual": "NODE_ENV=test npx gulp -LLLL --color test",
+    "test:actual": "NODE_ENV=test gulp -LLLL --color test",
     "kill": "npm run kill:dynamodb-local",
     "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.posts.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.posts.dynamo.pid`; rm /tmp/ca.randytarampi.me.posts.dynamo.pid; fi;",
     "posttest": "npm run kill",
-    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test npx nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
+    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
     "prestart": "npm run kill",
     "start": "npm run dev",
     "start:dynamodb-local": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.posts.dynamo.pid",
     "dev": "npm run dev:serverless",
-    "dev:serverless": "npx sls offline start --stage local",
+    "dev:serverless": "sls offline start --stage local",
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
-    "deploy:dev": "npx sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
-    "deploy:prd": "npx sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1"
+    "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
+    "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1"
   },
   "description": "A backend to @randy.tarampi/www",
   "bugs": {

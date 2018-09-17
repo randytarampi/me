@@ -32,11 +32,11 @@
     "postinstall:posts": "./bin/postinstall-posts.sh",
     "postinstall:pseudoimage": "./bin/postinstall-pseudoimage.sh",
     "postinstall:resume": "./bin/postinstall-resume.sh",
-    "pretest": "NODE_ENV=test npx lerna run pretest --no-bail",
-    "test": "NODE_ENV=test npx lerna run test --no-bail",
-    "cover": "rm -rf .nyc_output/ coverage/ && npx lerna run cover --no-bail && mkdir .nyc_output/ coverage/ && npx lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -rv .nyc_output ../..; fi;\" && npx nyc report --reporter=lcov && ls -al .nyc_output && ls -al coverage",
-    "coveralls": "cat coverage/lcov.info | npx coveralls",
+    "pretest": "NODE_ENV=test lerna run pretest --no-bail",
+    "test": "NODE_ENV=test lerna run test --no-bail",
+    "cover": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail && mkdir .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -rv .nyc_output ../..; fi;\" && nyc report --reporter=lcov && ls -al .nyc_output && ls -al coverage",
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "travis": "npm run cover && npm run coveralls",
-    "kill": "npx lerna run kill"
+    "kill": "lerna run kill"
   }
 }

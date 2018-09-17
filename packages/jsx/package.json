@@ -11,14 +11,14 @@
     "access": "public"
   },
   "scripts": {
-    "pretest": "npx gulp -LLLL --color lint",
-    "test": "NODE_ENV=test npx gulp -LLLL --color test",
+    "pretest": "gulp -LLLL --color lint",
+    "test": "NODE_ENV=test gulp -LLLL --color test",
     "postinstall": "npm run build",
-    "build": "npx gulp -LLLL --color build",
+    "build": "gulp -LLLL --color build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
-    "dev:client": "rm -rf dist/*.js dist/*.css && npx webpack-serve ./webpack.client.config.js --hotClient",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
+    "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test"
   },
   "description": "Some common JSX components",
   "bugs": {
