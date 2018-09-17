@@ -127,7 +127,7 @@ jobs:
         - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
         - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
-          $WWW_PACKAGE_DIR/*.html; fi;
+          $WWW_PACKAGE_DIR/*.html; $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
         - git subtree split --prefix packages/www
