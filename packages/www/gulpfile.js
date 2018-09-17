@@ -72,26 +72,12 @@ gulp.task("docs", gulp.series([
     "docs:index"
 ]));
 
-gulp.task("webpack:dev", function (callback) {
-    const WebPack = require("webpack");
-    const WebPackConfig = require("./webpack.client.config");
-    const webpackConfig = Object.assign({}, WebPackConfig);
-
-    WebPack(webpackConfig, function (err, stats) {
-        console.log("[webpack:dev]", stats.toString({colors: true})); // eslint-disable-line no-console
-        callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
-    });
-});
-
 gulp.task("webpack", function (callback) {
-    const WebPack = require("webpack");
-    const WebPackConfig = require("./webpack.client.config");
-    const webpackConfig = Object.assign({}, WebPackConfig, {
-        mode: "production"
-    });
+    const Webpack = require("webpack");
+    const webpackConfig = require("./webpack.client.config");
 
-    WebPack(webpackConfig, function (err, stats) {
-        console.log("[webpack:prod]", stats.toString({colors: true})); // eslint-disable-line no-console
+    Webpack(webpackConfig, function (err, stats) {
+        console.log(stats.toString({colors: true})); // eslint-disable-line no-console
         callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
     });
 });
@@ -186,7 +172,7 @@ gulp.task("build", gulp.series([
 ]));
 
 gulp.task("build:dev", gulp.series([
-    gulp.parallel(["lint", "copy", "views", "webpack:dev", "sitemap"]),
+    gulp.parallel(["lint", "copy", "views", "webpack", "sitemap"]),
 ]));
 
 gulp.task("dev",
