@@ -13,6 +13,8 @@
   "scripts": {
     "pretest": "npx gulp -LLLL --color lint",
     "test": "NODE_ENV=test npx gulp -LLLL --color test",
+    "postinstall": "npm run build",
+    "build": "npx gulp -LLLL --color build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && npx webpack-serve ./webpack.client.config.js --hotClient",
