@@ -6,6 +6,8 @@ matrix:
     - node_js: '10'
 env:
   global:
+    - TRAVIS_AUTHOR_EMAIL=travis@randytarampi.ca
+    - TRAVIS_AUTHOR_NAME=Travis
     - SENTRY_ORG=randytarampi
     - SENTRY_PROJECT=me
     - SENTRY_LOG_LEVEL=debug
@@ -74,10 +76,9 @@ jobs:
         - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
         - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/
           $TRAVIS_BUILD_DIR
-        - git config --local user.name "Travis"
-        - export TRAVIS_AUTHOR=travis@randytarampi.ca
+        - git config --local user.name "$TRAVIS_AUTHOR_NAME"
         - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
-        - git config --local user.email $TRAVIS_AUTHOR
+        - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
         - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; fi;'
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
@@ -129,10 +130,16 @@ jobs:
           $WWW_PACKAGE_DIR/*.html; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
+        - git subtree split --prefix packages/www
       deploy:
-        - provider: script
-          script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io.git
-            `git subtree split --prefix packages/www`:master
+        - provider: pages
+          keep-history: true
+          repo: ${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io
+          target-branch: master
+          verbose: true
+          email: $TRAVIS_AUTHOR_EMAIL
+          name: $TRAVIS_AUTHOR_NAME
+          github-token: $GITHUB_TOKEN
           skip_cleanup: true
           on:
             branch: master
@@ -165,11 +172,17 @@ jobs:
       before_script: skip
       script: skip
       after_script: skip
-      before_deploy: skip
+      before_deploy:
+        - git subtree split --prefix packages/www
       deploy:
-        - provider: script
-          script: git push --force https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-            `git subtree split --prefix packages/www`:gh-pages
+        - provider: pages
+          keep-history: true
+          repo: $TRAVIS_REPO_SLUG
+          target-branch: gh-pages
+          verbose: true
+          email: $TRAVIS_AUTHOR_EMAIL
+          name: $TRAVIS_AUTHOR_NAME
+          github-token: $GITHUB_TOKEN
           skip_cleanup: true
           on:
             tags: true
@@ -183,10 +196,17 @@ jobs:
       before_script: skip
       script: skip
       after_script: skip
-      before_deploy: skip
+      before_deploy:
+        - git subtree split --prefix packages/resume
       deploy:
-        - provider: script
-          script: "$TRAVIS_BUILD_DIR/bin/split.sh resume"
+        - provider: pages
+          keep-history: true
+          repo: ${TRAVIS_REPO_OWNER}/me.resume
+          target-branch: gh-pages
+          verbose: true
+          email: $TRAVIS_AUTHOR_EMAIL
+          name: $TRAVIS_AUTHOR_NAME
+          github-token: $GITHUB_TOKEN
           skip_cleanup: true
           on:
             tags: true
