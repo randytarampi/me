@@ -31,10 +31,12 @@ gulp.task("test", gulp.parallel([
     "test.unit"
 ]));
 
-gulp.task("clean", (callback) => {
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
     const del = require("del");
 
-    del(["dist"], callback);
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
 });
 
 gulp.task("webpack", function (callback) {
