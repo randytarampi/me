@@ -6,16 +6,9 @@ const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 const util = require("../../util");
 
-const nodeEnvIsNotProduction = !["production", "prd"].includes(process.env.NODE_ENV);
-const isDevelopment = nodeEnvIsNotProduction;
-
-const resolveMode = () => {
-    if (isDevelopment) {
-        return "development";
-    }
-
-    return "production";
-};
+const {
+    resolveWebpackMode: resolveMode
+} = util;
 
 const plugins = [
     new webpack.DefinePlugin({

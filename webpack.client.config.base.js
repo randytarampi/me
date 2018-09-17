@@ -8,19 +8,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-
 const util = require("./util");
 
-const nodeEnvIsNotProduction = !["production", "prd"].includes(process.env.NODE_ENV);
-const isDevelopment = nodeEnvIsNotProduction;
-
-const resolveMode = () => {
-    if (isDevelopment) {
-        return "development";
-    }
-
-    return "production";
-};
+const {
+    isDevelopment,
+    resolveWebpackMode: resolveMode
+} = util;
 
 const plugins = [
     new MiniCssExtractPlugin()
