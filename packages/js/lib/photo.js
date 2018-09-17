@@ -1,3 +1,4 @@
+import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
 import Post, {PostClassGenerator} from "./post";
 import SizedPhoto from "./sizedPhoto";
@@ -32,8 +33,42 @@ export class Photo extends PostClassGenerator({
         return widthAppropriatePhotos.first() || this.sortedSizedPhotos.last();
     }
 
-    getSizedPhotoForLoading() {
+    get smallestImage() {
         return this.sortedSizedPhotos.first();
+    }
+
+    get largestImage() {
+        return this.sortedSizedPhotos.last();
+    }
+
+    getSizedPhotoForLoading() {
+        return this.smallestImage;
+    }
+
+    toSchema() {
+        const {sizedPhotos, ...superSchema} = super.toSchema(); // eslint-disable-line no-unused-vars
+        const imagePostSchema = {
+            ...superSchema,
+            accessMode: "visual",
+            image: this.largestImage ? this.largestImage.url : null
+        };
+
+        delete imagePostSchema.sharedContent;
+
+        return new SchemaBlogPosting({
+            ...imagePostSchema,
+            sharedContent: this.sortedSizedPhotos.size
+                ? new SchemaImageObject({
+                    ...imagePostSchema,
+                    uploadDate: superSchema.datePublished,
+                    height: `${this.largestImage.height}px`,
+                    width: `${this.largestImage.width}px`,
+                    caption: superSchema.articleBody,
+                    thumbnail: this.smallestImage.url,
+                    contentUrl: imagePostSchema.image
+                })
+                : null
+        });
     }
 }
 

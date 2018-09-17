@@ -1,4 +1,5 @@
 import {Photo as PhotoEntity} from "@randy.tarampi/js";
+import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
@@ -39,6 +40,7 @@ export class PhotoComponent extends PostComponent {
                 height: this.scaledHeight
             }}
         >
+            <SchemaJsonLdComponent markup={this.props.post.toSchema()}/>
             <Col
                 className="post-metadata hide-on-med-and-up"
             >

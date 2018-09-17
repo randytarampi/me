@@ -1,4 +1,5 @@
 import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
@@ -39,6 +40,7 @@ export class ResumeComponent extends Component {
                             <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
                             <meta name="og:url" content={__PUBLISHED_RESUME_URL__}/>
                         </Helmet>
+                        <SchemaJsonLdComponent markup={props.resume.toSchema()}/>
                         <PrintableHeader printable={props.resume}/>
                         <div className="resume-content">
                             <Container>

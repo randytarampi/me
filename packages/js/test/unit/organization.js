@@ -200,7 +200,6 @@ describe("Organization", function () {
                     addressCountry: "CA",
                     addressLocality: "grr",
                     addressRegion: "BC",
-                    countryCode: null,
                     postOfficeBoxNumber: null,
                     postalCode: "meow",
                     streetAddress: "woof"

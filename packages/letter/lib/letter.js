@@ -49,6 +49,10 @@ export class Letter extends Record({
             renderOptions: Map(json.renderOptions),
         });
     }
+
+    toSchema() {
+        return this.sender ? this.sender.toSchema() : null;
+    }
 }
 
 export default Letter;

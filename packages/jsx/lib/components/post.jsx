@@ -1,4 +1,5 @@
 import {Post as PostEntity} from "@randy.tarampi/js";
+import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
@@ -40,6 +41,7 @@ export class PostComponent extends Component {
             className="post"
             id={this.props.post.uid}
         >
+            <SchemaJsonLdComponent markup={this.props.post.toSchema()}/>
             <Col
                 className="post-metadata"
                 s={12}

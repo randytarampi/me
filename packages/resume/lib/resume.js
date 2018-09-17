@@ -74,6 +74,10 @@ export class Resume extends Record({
             references: json.references ? List(json.references.map(reference => Reference.fromResume(reference))) : null
         });
     }
+
+    toSchema() {
+        return this.basics ? this.basics.toSchema() : null;
+    }
 }
 
 export default Resume;

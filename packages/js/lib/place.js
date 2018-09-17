@@ -1,6 +1,6 @@
+import {Place as SchemaPlace} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber} from "libphonenumber-js";
-import {Place as SchemaPlace} from "schema-dot-org-types/lib/generated/place";
 import PostalAddress from "./postalAddress";
 
 export class Place extends Record({

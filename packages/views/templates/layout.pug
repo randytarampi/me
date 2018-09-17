@@ -63,7 +63,7 @@ html(lang="en")
         meta(name="msapplication-TileColor", content="#ffffff")
         meta(name="msapplication-TileImage", content=`${assetUrl}/ms-icon-144x144.png`)
         meta(name="theme-color", content="#ffffff")
-        script.
+        script(type="application/javascript").
             window.SENTRY_DSN = "#{sentryDsn}" || null;
             window.ENVIRONMENT = "#{environment}" || null;
             window.NAME = "#{name}" || null;
@@ -74,7 +74,7 @@ html(lang="en")
                 {appVersion: window.VERSION},
                 {appEnvironment: window.ENVIRONMENT}
             ];
-        script.
+        script(type="application/javascript").
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
@@ -88,6 +88,8 @@ html(lang="en")
                     "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                 f.parentNode.insertBefore(j, f);
             })(window, document, "script", "GTM_DATALAYER", "#{gtm}");
+        script(type="application/ld+json").
+            !{meJsonLd}
     body
         noscript
             iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`

@@ -1,7 +1,7 @@
+import {Person as SchemaPerson} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber} from "libphonenumber-js";
 import {DateTime} from "luxon";
-import {Person as SchemaPerson} from "schema-dot-org-types/lib/generated/person";
 import Organization from "./organization";
 import Place from "./place";
 import PostalAddress from "./postalAddress";
@@ -19,8 +19,7 @@ export class Person extends Record({
     nationality: null,
     height: null,
     weight: null,
-    dateOfBirth: null,
-    logo: null,
+    birthDate: null,
     image: null,
     email: null,
     telephone: null,
@@ -124,7 +123,7 @@ export class Person extends Record({
     static fromJS(js = {}) {
         return new Person({
             ...js,
-            dateOfBirth: js.dateOfBirth ? DateTime.fromJSDate(js.dateOfBirth) : null,
+            birthDate: js.birthDate ? DateTime.fromJSDate(js.birthDate) : null,
             birthPlace: js.birthPlace ? Place.fromJS(js.birthPlace) : null,
             brand: js.brand ? Organization.fromJS(js.brand) : null,
             worksFor: js.worksFor ? Organization.fromJS(js.worksFor) : null,
@@ -140,7 +139,7 @@ export class Person extends Record({
     static fromJSON(json = {}) {
         return new Person({
             ...json,
-            dateOfBirth: json.dateOfBirth ? DateTime.fromISO(json.dateOfBirth) : null,
+            birthDate: json.birthDate ? DateTime.fromISO(json.birthDate) : null,
             birthPlace: json.birthPlace ? Place.fromJSON(json.birthPlace) : null,
             brand: json.brand ? Organization.fromJSON(json.brand) : null,
             worksFor: json.worksFor ? Organization.fromJSON(json.worksFor) : null,
@@ -187,17 +186,28 @@ export class Person extends Record({
     }
 
     toSchema() {
+        const {profiles, knowsLanguage, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
+
         return new SchemaPerson({
-            ...this.toJS(),
-            dateOfBirth: this.dateOfBirth ? this.dateOfBirth.toISODate() : null,
+            ...js,
+            birthDate: this.birthDate ? this.birthDate.toISODate() : null,
             birthPlace: this.birthPlace ? this.birthPlace.toSchema() : null,
             brand: this.brand ? this.brand.toSchema() : null,
             worksFor: this.worksFor ? this.worksFor.toSchema() : null,
             alumniOf: this.alumniOf ? this.alumniOf.toSchema() : null,
             address: this.location ? this.location.toSchema() : null,
             sameAs: this.sameAs ? this.sameAs.toJS() : null,
-            profiles: this.profiles ? this.profiles.toJS() : null,
-            knowsLanguage: this.knowsLanguage ? this.knowsLanguage.toJS() : null,
+            knowsLanguage: knowsLanguage
+                ? Array.isArray(knowsLanguage)
+                    ? knowsLanguage.map(language =>
+                        typeof language === "string"
+                            ? language
+                            : Object.assign({
+                                "@type": "Language"
+                            })
+                    )
+                    : knowsLanguage
+                : null,
             knowsAbout: this.knowsAbout ? this.knowsAbout.toJS() : null
         });
     }

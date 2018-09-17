@@ -16,7 +16,7 @@ module.exports = {
     nationality: "Canadian",
     height: "175cm",
     weight: "67kg",
-    dateOfBirth: "1991-11-14",
+    birthDate: "1991-11-14",
     birthPlace: svh,
     brand: me,
     worksFor: me,

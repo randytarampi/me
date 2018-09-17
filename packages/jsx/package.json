@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "@randy.tarampi/js": "^0.31.7",
+    "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
+    "@randy.tarampi/schema-dot-org-types": "latest",
     "browser-bunyan": "^1.4.0",
     "bunyan": "beta",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",

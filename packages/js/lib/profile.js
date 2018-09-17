@@ -1,6 +1,7 @@
+import {Person as SchemaPerson} from "@randy.tarampi/schema-dot-org-types";
 import {Record} from "immutable";
 
-export class Profile extends Record({
+export class Profile extends Record({ // NOTE-RT: This should really just be a `Person` no?
     id: null,
     username: null,
     name: null,
@@ -26,6 +27,13 @@ export class Profile extends Record({
             username: this.username,
             url: this.url
         };
+    }
+
+    toSchema() {
+        const {username, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
+        return new SchemaPerson({
+            ...js
+        });
     }
 }
 

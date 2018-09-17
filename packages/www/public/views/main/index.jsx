@@ -1,9 +1,10 @@
-import React, {Component, Fragment} from "react";
 import {logger} from "@randy.tarampi/jsx";
+import React, {Component, Fragment} from "react";
+import Helmet from "react-helmet";
+import {Container} from "react-materialize";
+import Bears from "./bears";
 import Intro from "./intro";
 import Works from "./works";
-import Bears from "./bears";
-import {Container} from "react-materialize";
 
 export class Main extends Component {
     componentDidMount() {
@@ -12,6 +13,8 @@ export class Main extends Component {
 
     render() {
         return <Fragment>
+            <Helmet>
+            </Helmet>
             <Container>
                 <Intro/>
                 <Works/>

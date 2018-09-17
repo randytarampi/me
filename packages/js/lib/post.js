@@ -1,3 +1,4 @@
+import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {Record} from "immutable";
 import {DateTime} from "luxon";
 import Profile from "./profile";
@@ -52,7 +53,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         };
     }
 
-    static fromJS(js) {
+    static fromJS(js = {}) {
         return new this(this.parsePropertiesFromJs(js));
     }
 
@@ -65,7 +66,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         };
     }
 
-    static fromJSON(json) {
+    static fromJSON(json = {}) {
         return new this(this.parsePropertiesFromJson(json));
     }
 
@@ -83,6 +84,28 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             type: this.type,
             datePublished: this.datePublished
         };
+    }
+
+    toSchema() {
+        const {type, body, sourceUrl, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
+
+        return new SchemaBlogPosting({
+            ...js,
+            accessMode: "textual",
+            creator: this.creator && this.creator.toSchema(),
+            author: this.creator && this.creator.toSchema(),
+            publisher: this.creator && this.creator.toSchema(),
+            sharedContent: this.sourceUrl,
+            articleBody: this.body,
+            text: this.body,
+            headline: this.title,
+            name: this.title,
+            articleSection: this.type,
+            dateCreated: this.dateCreated ? this.dateCreated.toISO() : null,
+            datePublished: this.datePublished ? this.datePublished.toISO() : null,
+            dateModified: this.datePublished ? this.datePublished.toISO() : null,
+            mainEntityOfPage: this.sourceUrl
+        });
     }
 };
 

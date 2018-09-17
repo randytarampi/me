@@ -33,7 +33,7 @@ describe("Person", function () {
 
         stubPersonJson = {
             additionalName: "Woof Woof Woof",
-            dateOfBirth: "1991-11-14",
+            birthDate: "1991-11-14",
             birthPlace: {
                 name: "Simpson residence",
                 address: {
@@ -255,7 +255,6 @@ describe("Person", function () {
                     addressCountry: "CA",
                     addressLocality: "grr",
                     addressRegion: "BC",
-                    countryCode: null,
                     postOfficeBoxNumber: null,
                     postalCode: "meow",
                     streetAddress: "woof"
@@ -268,9 +267,9 @@ describe("Person", function () {
                     email: null,
                     faxNumber: null,
                     image: null,
+                    logo: null,
                     knowsAbout: null,
                     knowsLanguage: null,
-                    logo: null,
                     name: "Meow",
                     sameAs: null,
                     telephone: null,
@@ -282,7 +281,6 @@ describe("Person", function () {
                         addressCountry: "USA",
                         addressLocality: "Springfield",
                         addressRegion: null,
-                        countryCode: null,
                         postOfficeBoxNumber: null,
                         postalCode: null,
                         streetAddress: "742 Evergreen Terrace"
@@ -306,7 +304,6 @@ describe("Person", function () {
                         addressCountry: "CA",
                         addressLocality: "grr",
                         addressRegion: "BC",
-                        countryCode: null,
                         postOfficeBoxNumber: null,
                         postalCode: "meow",
                         streetAddress: "woof"
@@ -323,7 +320,7 @@ describe("Person", function () {
                     telephone: "+1234567890",
                     url: "woof.woof/woof"
                 },
-                dateOfBirth: "1991-11-14",
+                birthDate: "1991-11-14",
                 description: "Woof woof woof",
                 email: "woof@randytarampi.ca",
                 familyName: null,
@@ -344,27 +341,8 @@ describe("Person", function () {
                 knowsLanguage: [
                     "Javascript"
                 ],
-                logo: null,
                 name: null,
                 nationality: null,
-                profiles: [
-                    {
-                        id: null,
-                        image: null,
-                        name: null,
-                        network: "woof",
-                        url: null,
-                        username: "woof"
-                    },
-                    {
-                        id: null,
-                        image: null,
-                        name: null,
-                        network: "meow",
-                        url: "meow://meow.meow",
-                        username: null
-                    }
-                ],
                 sameAs: [
                     "woof://woof.woof/woof"
                 ],
@@ -404,7 +382,7 @@ describe("Person", function () {
                 alumniOf: null,
                 birthPlace: null,
                 brand: null,
-                dateOfBirth: null,
+                birthDate: null,
                 description: null,
                 email: null,
                 familyName: null,
@@ -418,10 +396,8 @@ describe("Person", function () {
                 jobTitle: null,
                 knowsAbout: null,
                 knowsLanguage: null,
-                logo: null,
                 name: null,
                 nationality: null,
-                profiles: null,
                 sameAs: null,
                 telephone: null,
                 url: null,

@@ -125,6 +125,95 @@ describe("Photo", () => {
         });
     });
 
+    describe("#toSchema", function () {
+        it("returns expected Schema.org JSON", function () {
+            const photoJson = {
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                width: -1,
+                height: -2,
+                sizedPhotos: [
+                    {url: "woof://woof.woof/woof/woofto", width: 640, height: 480},
+                    {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
+                ],
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }
+            };
+
+            const photofromJS = Photo.fromJS(photoJson);
+
+            const schemaJson = photofromJS.toSchema();
+            const {body, sourceUrl, type, sizedPhotos, ...js} = photofromJS.toJS(); // eslint-disable-line no-unused-vars
+            const photoSchemaJson = {
+                ...js,
+                creator: photofromJS.creator.toSchema(),
+                author: photofromJS.creator.toSchema(),
+                publisher: photofromJS.creator.toSchema(),
+                dateCreated: photofromJS.dateCreated.toISO(),
+                dateModified: photofromJS.datePublished.toISO(),
+                datePublished: photofromJS.datePublished.toISO(),
+                accessMode: "visual",
+                articleBody: photofromJS.body,
+                articleSection: photofromJS.type,
+                headline: photofromJS.title,
+                name: photofromJS.title,
+                text: photofromJS.body,
+                mainEntityOfPage: photofromJS.sourceUrl,
+                image: photofromJS.largestImage.url
+            };
+
+            expect(schemaJson).to.eql({
+                ...photoSchemaJson,
+                sharedContent: {
+                    ...photoSchemaJson,
+                    uploadDate: photoSchemaJson.datePublished,
+                    height: `${photofromJS.largestImage.height}px`,
+                    width: `${photofromJS.largestImage.width}px`,
+                    caption: photoSchemaJson.articleBody,
+                    thumbnail: photofromJS.smallestImage.url,
+                    contentUrl: photoSchemaJson.image
+                }
+            });
+        });
+
+        it("returns some empty Schema.org JSON", function () {
+            const photofromJS = Photo.fromJS();
+
+            const schemaJson = photofromJS.toSchema();
+            const {body, sourceUrl, type, sizedPhotos, ...js} = photofromJS.toJS(); // eslint-disable-line no-unused-vars
+
+            expect(schemaJson).to.eql({
+                ...js,
+                accessMode: "visual",
+                articleSection: photofromJS.type,
+                articleBody: null,
+                headline: null,
+                name: null,
+                author: null,
+                publisher: null,
+                dateModified: null,
+                mainEntityOfPage: null,
+                sharedContent: null,
+                text: null,
+                image: null
+            });
+        });
+    });
+
     describe("#getSizedPhotoForDisplay", () => {
         it("should return 0 objects if `.sizedPhotos` is empty", () => {
             const photoJson = {

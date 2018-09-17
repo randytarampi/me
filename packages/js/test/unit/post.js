@@ -97,6 +97,76 @@ describe("Post", () => {
         });
     });
 
+    describe("#toSchema", function () {
+        it("returns expected Schema.org JSON", function () {
+            const postJS = {
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }
+            };
+
+            const postfromJS = Post.fromJS(postJS);
+
+            const schemaJson = postfromJS.toSchema();
+            const {body, sourceUrl, type, ...js} = postfromJS.toJS(); // eslint-disable-line no-unused-vars
+
+            expect(schemaJson).to.eql({
+                ...js,
+                creator: postfromJS.creator.toSchema(),
+                author: postfromJS.creator.toSchema(),
+                publisher: postfromJS.creator.toSchema(),
+                dateCreated: postfromJS.dateCreated.toISO(),
+                dateModified: postfromJS.datePublished.toISO(),
+                datePublished: postfromJS.datePublished.toISO(),
+                accessMode: "textual",
+                articleBody: postfromJS.body,
+                articleSection: postfromJS.type,
+                headline: postfromJS.title,
+                name: postfromJS.title,
+                sharedContent: postfromJS.sourceUrl,
+                mainEntityOfPage: postfromJS.sourceUrl,
+                text: postfromJS.body
+            });
+        });
+
+        it("returns some empty Schema.org JSON", function () {
+            const postfromJS = Post.fromJS();
+
+            const schemaJson = postfromJS.toSchema();
+            const {body, sourceUrl, type, ...js} = postfromJS.toJS(); // eslint-disable-line no-unused-vars
+
+            expect(schemaJson).to.eql({
+                ...js,
+                accessMode: "textual",
+                articleSection: postfromJS.type,
+                articleBody: null,
+                headline: null,
+                name: null,
+                author: null,
+                publisher: null,
+                dateModified: null,
+                sharedContent: null,
+                mainEntityOfPage: null,
+                text: null
+            });
+        });
+    });
+
     describe("#uid", () => {
         it("should return a uid (composite key, based on source and the id in the source's context)", () => {
             const postJson = {

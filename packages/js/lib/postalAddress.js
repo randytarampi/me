@@ -1,5 +1,5 @@
+import {PostalAddress as SchemaPostalAddress} from "@randy.tarampi/schema-dot-org-types";
 import {Record} from "immutable";
-import {PostalAddress as SchemaPostalAddress} from "schema-dot-org-types/lib/generated/postal-address";
 
 export class PostalAddress extends Record({
     streetAddress: null,
@@ -63,8 +63,9 @@ export class PostalAddress extends Record({
     }
 
     toSchema() {
+        const {countryCode, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
         return new SchemaPostalAddress({
-            ...this.toJS()
+            ...js
         });
     }
 }

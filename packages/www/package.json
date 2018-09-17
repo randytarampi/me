@@ -42,6 +42,7 @@
     "@randy.tarampi/js": "^0.31.7",
     "@randy.tarampi/jsx": "^0.31.7",
     "@randy.tarampi/letter": "^0.31.7",
+    "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "^0.31.7",
     "history": "^4.7.2",
     "jsonresume-theme-randytarampi": "^0.31.7",

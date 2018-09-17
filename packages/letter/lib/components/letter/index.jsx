@@ -1,9 +1,10 @@
 import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
-import LetterFooter from "./footer";
 import {Container} from "react-materialize";
+import LetterFooter from "./footer";
 
 export class LetterComponent extends Component {
     componentDidMount() {
@@ -24,6 +25,7 @@ export class LetterComponent extends Component {
                             <link rel="canonical" href={__PUBLISHED_LETTER_URL__}/>
                             <meta name="og:url" content={__PUBLISHED_LETTER_URL__}/>
                         </Helmet>
+                        <SchemaJsonLdComponent markup={letter.toSchema()}/>
                         <PrintableHeader {...props} printable={letter}/>
                         <div className="letter-content">
                             <Container>

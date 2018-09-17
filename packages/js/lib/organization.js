@@ -1,6 +1,6 @@
+import {Organization as SchemaOrganization} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber} from "libphonenumber-js";
-import {Organization as SchemaOrganization} from "schema-dot-org-types/lib/generated/organization";
 import PostalAddress from "./postalAddress";
 
 export class Organization extends Record({
@@ -130,12 +130,24 @@ export class Organization extends Record({
     }
 
     toSchema() {
+        const {knowsLanguage, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
+
         return new SchemaOrganization({
-            ...this.toJS(),
+            ...js,
             brand: this.brand ? this.brand.toSchema() : null,
             address: this.location ? this.location.toSchema() : null,
             sameAs: this.sameAs ? this.sameAs.toJS() : null,
-            knowsLanguage: this.knowsLanguage ? this.knowsLanguage.toJS() : null,
+            knowsLanguage: knowsLanguage
+                ? Array.isArray(knowsLanguage)
+                    ? knowsLanguage.map(language =>
+                        typeof language === "string"
+                            ? language
+                            : Object.assign({
+                                "@type": "Language"
+                            })
+                    )
+                    : knowsLanguage
+                : null,
             knowsAbout: this.knowsAbout ? this.knowsAbout.toJS() : null
         });
     }
