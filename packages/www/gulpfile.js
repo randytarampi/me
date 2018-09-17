@@ -1,5 +1,8 @@
 require("../../babel.register.js");
 
+const path = require("path");
+process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
 const gulp = require("gulp");
 
 gulp.task("clean", () => {
@@ -58,7 +61,8 @@ gulp.task("docs:dist", () => {
 gulp.task("docs:index", () => {
     return gulp
         .src([
-            "dist/*.html"
+            "dist/*.html",
+            "dist/robots.txt"
         ])
         .pipe(gulp.dest("."));
 });
@@ -138,18 +142,51 @@ gulp.task("test.unit", () => {
     return gulp.src("test/unit/**/*.{js,jsx}", {read: false, allowEmpty: true})
         .pipe(mocha(mochaConfig));
 });
+
 gulp.task("test", gulp.parallel([
     "test.unit"
 ]));
 
+gulp.task("sitemap", (done) => {
+    const config = require("config");
+    const fs = require("fs");
+    const ReactRouterSitemap = require("react-router-sitemap").default;
+    const routes = require("./public/routes").default;
+
+    const publishUrl = config.get("www.publishUrl");
+
+    try {
+        ReactRouterSitemap.fromRouteConfiguration(routes)
+            .filterPaths({
+                isValid: false,
+                rules: [
+                    /\*/
+                ]
+            })
+            .applyParams({
+                "/resume/:variant?": [
+                    {variant: ""}
+                ],
+                "/letter/:variant?": [
+                    {variant: ""}
+                ]
+            })
+            .build(publishUrl)
+            .save(path.join(__dirname, "dist/sitemap.xml"));
+
+        fs.writeFile(path.join(__dirname, "dist/robots.txt"), `Sitemap: ${config.get("www.assetUrl")}/sitemap.xml`, done);
+    } catch (error) {
+        done(error);
+    }
+});
+
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "views", "webpack"])
+    gulp.parallel(["copy", "views", "webpack", "sitemap"]),
 ]));
 
 gulp.task("build:dev", gulp.series([
-    gulp.parallel(["lint", "copy", "views"]),
-    "webpack:dev"
+    gulp.parallel(["lint", "copy", "views", "webpack:dev", "sitemap"]),
 ]));
 
 gulp.task("dev",

@@ -85,16 +85,16 @@ jobs:
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
-          $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf;
+          $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf $LETTER_PACKAGE_DIR/robots.txt;
           fi;
         - npm run resume --prefix packages/resume
         - npm run docs --prefix packages/resume
         - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs
-          $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
+          $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/robots.txt $RESUME_PACKAGE_DIR/resume.json;
           fi;
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
-          $WWW_PACKAGE_DIR/*.html; fi;
+          $WWW_PACKAGE_DIR/*.html; $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Release v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; fi;'
       deploy:
         - provider: releases

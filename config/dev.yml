@@ -4,12 +4,15 @@ posts:
   wordsUrl: https://posts.dev.randytarampi.ca/posts?type=Post
   resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/resumes
   letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
+www:
+  publishUrl: https://dev.randytarampi.ca
+    assetUrl: &wwwAssetUrl /docs
 resume:
   publishUrl: https://dev.randytarampi.ca/resume
+  assetUrl: *wwwAssetUrl
 letter:
   publishUrl: https://dev.randytarampi.ca/letter
-www:
-  assetUrl: /docs
+  assetUrl: *wwwAssetUrl
 gtm: "GTM-T3FHTVC"
 logger:
   streams:

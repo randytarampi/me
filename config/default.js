@@ -7,13 +7,15 @@ module.exports = {
         expectations: {
             pages: 1,
         },
-        publishUrl: "https://www.randytarampi.ca/resume"
+        publishUrl: "http://localhost:8080",
+        assetUrl: "http://localhost:8080"
     },
     letter: {
         expectations: {
             pages: 1,
         },
-        publishUrl: "https://www.randytarampi.ca/letter"
+        publishUrl: "http://localhost:8080",
+        assetUrl: "http://localhost:8080"
     },
     posts: {
         photosUrl: "http://localhost:3006/posts?type=Photo",
@@ -29,6 +31,7 @@ module.exports = {
         wordsUrl: "/words",
         resumeUrl: "/resume",
         letterUrl: "/letter",
+        publishUrl: "http://localhost:8080",
         assetUrl: "http://localhost:8080"
     },
     logger: {

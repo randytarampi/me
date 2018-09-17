@@ -5,7 +5,14 @@ posts:
   resumeUrl: https://raw.githubusercontent.com/randytarampi/me.resume/master/resumes
   letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
 www:
-  assetUrl: /docs
+  publishUrl: https://www.randytarampi.ca
+  assetUrl: &wwwAssetUrl /docs
+resume:
+  publishUrl: https://www.randytarampi.ca/resume
+  assetUrl: *wwwAssetUrl
+letter:
+  publishUrl: https://www.randytarampi.ca/letter
+  assetUrl: *wwwAssetUrl
 gtm: "GTM-W6NFL6M"
 logger:
   streams:

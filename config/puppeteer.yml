@@ -1,4 +1,11 @@
+resume:
+  publishUrl: https://www.randytarampi.ca/resume
+  assetUrl: http://localhost:3000
+letter:
+  publishUrl: https://www.randytarampi.ca/letter
+  assetUrl: http://localhost:3000
 www:
+  publishUrl: https://www.randytarampi.ca
   assetUrl: http://localhost:3000
 me:
   campaign:
