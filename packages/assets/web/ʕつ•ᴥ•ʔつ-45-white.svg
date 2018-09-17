@@ -32,26 +32,17 @@
 <?xpacket end="w"?></metadata>
 <defs>
     <style>
-      .cls-1, .cls-3 {
+      .cls-1 {
         font-size: 67.733px;
         text-anchor: middle;
+        fill: #fff;
         font-family: Roboto;
-      }
-
-      .cls-1 {
-        fill: #fb8c00;
-        text-decoration: underline;
       }
 
       .cls-2 {
         font-family: KozGoPr6N-Regular, "Kozuka Gothic Pr6N";
       }
-
-      .cls-3 {
-        fill: #fefefe;
-      }
     </style>
   </defs>
-  <text id="ʕつ_ʔつ_underline" data-name="ʕつ•ᴥ•ʔつ underline" class="cls-1" transform="translate(300.166 288.664) rotate(-45) scale(2)"><tspan x="0">ʕ<tspan class="cls-2">つ</tspan>•ᴥ•ʔ<tspan>つ</tspan></tspan></text>
-  <text id="ʕつ_ʔつ" data-name="ʕつ•ᴥ•ʔつ" class="cls-3" transform="translate(300.166 288.664) rotate(-45) scale(2)"><tspan x="0">ʕ<tspan class="cls-2">つ</tspan>•ᴥ•ʔ<tspan>つ</tspan></tspan></text>
+  <text id="ʕつ_ʔつ" data-name="ʕつ•ᴥ•ʔつ" class="cls-1" transform="translate(294.167 290.664) rotate(-45) scale(2)"><tspan x="0">ʕ<tspan class="cls-2">つ</tspan>•ᴥ•ʔ<tspan>つ</tspan></tspan></text>
 </svg>
