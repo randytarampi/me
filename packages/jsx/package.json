@@ -65,7 +65,7 @@
     "history": "^4.7.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-materialize": "^2.4.5",
+    "react-materialize": "github:react-materialize/react-materialize#3.0.0-beta.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0"
   },
@@ -109,7 +109,6 @@
     "proxyquire": "^2.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-materialize": "^2.4.5",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-mock-store": "^1.5.3",
