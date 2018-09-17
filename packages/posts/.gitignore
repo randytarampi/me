@@ -48,6 +48,7 @@ dist
 data/flickr
 .webpack
 .dynamoDb
+.dynamodb
 
 # Environment variables
 
