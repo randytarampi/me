@@ -14,17 +14,19 @@ export const PostsComponent = props => {
     const elementHeight = postsArray
         ? postsArray.map(computePostHeight(props.containerWidth))
         : [window.innerHeight];
-    const itemList = new SchemaItemList({
-        numberOfItems: postsArray.length,
-        itemListOrder: "Descending",
-        itemListElement: postsArray
-            ? postsArray.map((post, index) => new SchemaListItem({
-                item: post.toSchema(),
-                position: index + 1,
-                url: `${window.location.origin}${window.location.pathname}#${post.uid}`
-            }))
-            : []
-    });
+    const itemList = postsArray
+        ? new SchemaItemList({
+            numberOfItems: postsArray.length,
+            itemListOrder: "Descending",
+            itemListElement: postsArray
+                ? postsArray.map((post, index) => new SchemaListItem({
+                    item: post.toSchema(),
+                    position: index + 1,
+                    url: `${window.location.origin}${window.location.pathname}#${post.uid}`
+                }))
+                : []
+        })
+        : [];
 
     return <Fragment>
         <SchemaJsonLdComponent markup={itemList}/>
