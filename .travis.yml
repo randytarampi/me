@@ -94,9 +94,7 @@ jobs:
           fi;
         - npm run docs --prefix packages/www
         - ls -al $WWW_PACKAGE_DIR/robots.txt;
-        - chmod ug+w $WWW_PACKAGE_DIR/robots.txt;
-        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
-          $WWW_PACKAGE_DIR/*.html; $WWW_PACKAGE_DIR/robots.txt; fi;
+          $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; fi;'
       deploy:
         - provider: releases
@@ -128,10 +126,8 @@ jobs:
       before_deploy:
         - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
         - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-        - ls -al $WWW_PACKAGE_DIR/robots.txt;
-        - chmod ug+w $WWW_PACKAGE_DIR/robots.txt;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
-          $WWW_PACKAGE_DIR/*.html; $WWW_PACKAGE_DIR/robots.txt; fi;
+          $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
         - git subtree split --prefix packages/www
