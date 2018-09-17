@@ -163,48 +163,15 @@ gulp.task("test", gulp.parallel([
     "test.integration"
 ]));
 
-gulp.task("sitemap", (done) => {
-    const config = require("config");
-    const fs = require("fs");
-    const ReactRouterSitemap = require("react-router-sitemap").default;
-    const routes = require("./public/routes").default;
-
-    const publishUrl = config.get("resume.publishUrl");
-
-    try {
-        ReactRouterSitemap.fromRouteConfiguration(routes)
-            .filterPaths({
-                isValid: false,
-                rules: [
-                    /\*/
-                ]
-            })
-            .applyParams({
-                "/resume/:variant?": [
-                    {variant: ""}
-                ],
-                "/letter/:variant?": [
-                    {variant: ""}
-                ]
-            })
-            .build(publishUrl)
-            .save(path.join(__dirname, "dist/sitemap.xml"));
-
-        fs.writeFile(path.join(__dirname, "dist/robots.txt"), `Sitemap: ${config.get("resume.assetUrl")}/sitemap.xml`, done);
-    } catch (error) {
-        done(error);
-    }
-});
-
 gulp.task("build", gulp.series([
     "clean",
     "resume:json",
-    gulp.parallel(["copy", "webpack", "views", "sitemap"])
+    gulp.parallel(["copy", "webpack", "views"])
 ]));
 
 gulp.task("build:dev", gulp.series([
     "resume:json",
-    gulp.parallel(["lint", "copy", "webpack:dev", "views", "sitemap"])
+    gulp.parallel(["lint", "copy", "webpack:dev", "views"])
 ]));
 
 gulp.task("dev",
