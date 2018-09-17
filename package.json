@@ -12,7 +12,8 @@
     "coveralls": "^3.0.2",
     "js-yaml": "^3.12.0",
     "lerna": "^3.2.1",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "syncpack": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
