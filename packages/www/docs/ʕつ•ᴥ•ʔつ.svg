@@ -1,34 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="6499.994" height="6499.994" viewBox="0 0 256 256">
-	<metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
-		<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">
-			<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-				<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/"
-				                 rdf:about="">
-					<xmp:CreatorTool>Adobe Photoshop CC 2018 (Macintosh)</xmp:CreatorTool>
-				</rdf:Description>
-			</rdf:RDF>
-		</x:xmpmeta>
+    <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+        <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+                                 rdf:about="">
+                    <xmp:CreatorTool>Adobe Photoshop CC 2018 (Macintosh)</xmp:CreatorTool>
+                </rdf:Description>
+            </rdf:RDF>
+        </x:xmpmeta>
 
 
-		<?xpacket end="w"?>
-	</metadata>
-	<defs>
-		<style>
-			.cls-1 {
-			font-size: 67.733px;
-			text-anchor: middle;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
-            "Helvetica Neue", sans-serif;
-			}
+        <?xpacket end="w"?>
+    </metadata>
+    <defs>
+        <style>
+            .cls-1 {
+            font-size: 67.733px;
+            text-anchor: middle;
+            font-family: Roboto;
+            }
 
-			.cls-2 {
-			font-family: KozGoPr6N-Regular, "Kozuka Gothic Pr6N";
-			}
-		</style>
-	</defs>
-	<text id="ʕつ_ʔつ" data-name="ʕつ•ᴥ•ʔつ" class="cls-1" transform="translate(147.083 145.332) rotate(-45)">
-		<tspan x="0">ʕ<tspan class="cls-2">つ</tspan>•ᴥ•ʔ
-			<tspan>つ</tspan>
-		</tspan>
-	</text>
+            .cls-2 {
+            font-family: KozGoPr6N-Regular, "Kozuka Gothic Pr6N";
+            }
+        </style>
+    </defs>
+    <text id="ʕつ_ʔつ" data-name="ʕつ•ᴥ•ʔつ" class="cls-1" transform="translate(147.083 145.332) rotate(-45)">
+        <tspan x="0">ʕ<tspan class="cls-2">つ</tspan>•ᴥ•ʔ
+            <tspan>つ</tspan>
+        </tspan>
+    </text>
 </svg>
