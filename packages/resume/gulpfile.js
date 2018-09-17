@@ -78,8 +78,7 @@ gulp.task("docs:index", () => {
     return gulp
         .src([
             "dist/*.html",
-            "dist/*.pdf",
-            "dist/robots.txt"
+            "dist/*.pdf"
         ])
         .pipe(gulp.dest("."));
 });
