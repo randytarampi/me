@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.32.0",
+  "version": "0.32.1",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -28,7 +28,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.32.0",
+    "@randy.tarampi/js": "^0.32.1",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/schema-dot-org-types": "latest",
     "browser-bunyan": "^1.4.0",

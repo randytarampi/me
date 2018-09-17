@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.32.1"></a>
+## [0.32.1](https://github.com/randytarampi/me/compare/v0.32.0...v0.32.1) (2018-09-17)
+
+
+### Bug Fixes
+
+* Try fixing iOS 6 Safari and IE<=10 brokenness by `babel`ing `libphonenumber-js`. ([9efbd31](https://github.com/randytarampi/me/commit/9efbd31))
+
+
+
+
+
 <a name="0.32.0"></a>
 # [0.32.0](https://github.com/randytarampi/me/compare/v0.31.7...v0.32.0) (2018-09-17)
 
