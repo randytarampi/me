@@ -139,7 +139,7 @@ jobs:
           verbose: true
           email: $TRAVIS_AUTHOR_EMAIL
           name: $TRAVIS_AUTHOR_NAME
-          github-token: $GITHUB_TOKEN
+          github-token: $GH_TOKEN
           skip_cleanup: true
           on:
             branch: master
@@ -182,7 +182,7 @@ jobs:
           verbose: true
           email: $TRAVIS_AUTHOR_EMAIL
           name: $TRAVIS_AUTHOR_NAME
-          github-token: $GITHUB_TOKEN
+          github-token: $GH_TOKEN
           skip_cleanup: true
           on:
             tags: true
@@ -206,7 +206,7 @@ jobs:
           verbose: true
           email: $TRAVIS_AUTHOR_EMAIL
           name: $TRAVIS_AUTHOR_NAME
-          github-token: $GITHUB_TOKEN
+          github-token: $GH_TOKEN
           skip_cleanup: true
           on:
             tags: true
