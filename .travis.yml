@@ -81,7 +81,6 @@ jobs:
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
         - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; fi;'
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
-        - git add .;
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
@@ -95,7 +94,7 @@ jobs:
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html; $WWW_PACKAGE_DIR/robots.txt; fi;
-        - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Release v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; fi;'
+        - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; fi;'
       deploy:
         - provider: releases
           api_key:
