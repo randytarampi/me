@@ -62,7 +62,7 @@ export class PostComponent extends Component {
                             <Fragment>
                                 <strong className="post-date__label post-date__label--created">Created:</strong>
                                 <span
-                                    className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_MED)}</span>
+                                    className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_FULL)}</span>
                             </Fragment> :
                             null
                     }
