@@ -93,7 +93,7 @@ jobs:
           $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
           fi;
         - npm run docs --prefix packages/www
-        - ls -al $WWW_PACKAGE_DIR/robots.txt;
+        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; fi;'
       deploy:
