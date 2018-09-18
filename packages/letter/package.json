@@ -26,8 +26,8 @@
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
     "build": "gulp -LLLL --color build && npm run letter",
-    "start:express": "npm run kill:express; node ./express.js & echo $! > /tmp/ca.randytarampi.me.letter.express.pid; echo \"Started express (`cat /tmp/ca.randytarampi.me.letter.express.pid`) from /tmp/ca.randytarampi.me.letter.express.pid\";",
-    "kill:express": "if [ -f /tmp/ca.randytarampi.me.letter.express.pid ]; then echo \"Killing express (`cat /tmp/ca.randytarampi.me.letter.express.pid`) from /tmp/ca.randytarampi.me.letter.express.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.express.pid`; rm /tmp/ca.randytarampi.me.letter.express.pid; fi;",
+    "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
+    "kill:server": "if [ -f /tmp/ca.randytarampi.me.letter.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.server.pid`; rm /tmp/ca.randytarampi.me.letter.server.pid; fi;",
     "letter": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=letter CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color letter",
     "docs": "gulp -LLLL --color docs",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test"

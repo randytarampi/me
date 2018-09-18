@@ -41,7 +41,7 @@ gulp.task("letter:pdf", async () => {
     const assembleLetters = require("./lib/assembleLetters").default;
     const renderHtml = require("./lib/renderHtml").default;
     const renderPdf = require("./lib/renderPdf").default;
-    const server = require("./express");
+    const server = require("./server");
 
     return assembleLetters()
         .then(letters => Promise.all(letters.map(letter => {
