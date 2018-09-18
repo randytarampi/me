@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.34.0"></a>
+# [0.34.0](https://github.com/randytarampi/me/compare/v0.33.2...v0.34.0) (2018-09-18)
+
+
+### Features
+
+* **posts:** Remove the long unused `local` source. ([6049a9a](https://github.com/randytarampi/me/commit/6049a9a))
+
+
+### Reverts
+
+* chore(posts): Add a `build` script. ([04e1b8e](https://github.com/randytarampi/me/commit/04e1b8e))
+
+
+
+
+
 <a name="0.33.2"></a>
 ## [0.33.2](https://github.com/randytarampi/me/compare/v0.33.1...v0.33.2) (2018-09-18)
 
