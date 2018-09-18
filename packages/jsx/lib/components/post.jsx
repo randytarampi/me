@@ -72,7 +72,7 @@ export class PostComponent extends Component {
                         ? <div className="post-body">
                             {
                                 isHtml(this.props.post.body)
-                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    ? <div className="post-body__html"><div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div></div>
                                     : <p><span className="post-body__text">{this.props.post.body}</span></p>
                             }
                         </div> :
@@ -84,7 +84,7 @@ export class PostComponent extends Component {
                             return <div className="post-body" key={index}>
                                 {
                                     isHtml(maybeHtmlString)
-                                        ? <div dangerouslySetInnerHTML={{__html: maybeHtmlString}}></div>
+                                        ? <div className="post-body__html"><div dangerouslySetInnerHTML={{__html: maybeHtmlString}}></div></div>
                                         : <p><span className="post-body__text">{maybeHtmlString}</span></p>
                                 }
                             </div>;

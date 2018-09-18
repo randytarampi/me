@@ -60,7 +60,7 @@ export class PhotoComponent extends PostComponent {
                         <div className="post-body">
                             {
                                 isHtml(this.props.post.body)
-                                    ? <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+                                    ? <div className="post-body__html"><div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div></div>
                                     : <p>
                                         <span className="post-body__text"
                                               dangerouslySetInnerHTML={{__html: this.props.post.body}}/>
@@ -76,7 +76,7 @@ export class PhotoComponent extends PostComponent {
                                         key={`${this.props.post.id}:${this.props.post.type}:body:${index}`}>
                                 {
                                     isHtml(htmlString)
-                                        ? <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
+                                        ? <div className="post-body__html"><div dangerouslySetInnerHTML={{__html: htmlString}}></div></div>
                                         : <p>
                                             <span className="post-body__text"
                                                   dangerouslySetInnerHTML={{__html: htmlString}}/>

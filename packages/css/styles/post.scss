@@ -4,6 +4,10 @@
     &-date,
     &-body,
     &-source {
+        &__html {
+            @extend .post-html;
+        }
+
         &__link, &__text, &__label, &__date {
             @extend .post-text;
         }
@@ -14,13 +18,17 @@
         }
     }
 
-    &-text {
+    &-html {
         line-height: $blockLineHeight;
         padding: $blockPadding;
+        margin-right: 4px;
         box-decoration-break: clone;
+    }
+
+    &-text {
+        @extend .post-html;
         background-color: $blockColour;
         color: $blockTextColour;
-        margin-right: 4px;
     }
 
     &-title {
