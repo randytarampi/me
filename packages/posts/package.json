@@ -54,7 +54,6 @@
     "js-yaml": "^3.12.0",
     "lodash": "^4.17.10",
     "luxon": "^1.3.3",
-    "lwip": "github:kant2002/lwip#node-10",
     "raven": "^2.6.3",
     "redux": "^4.0.0",
     "tumblr.js": "^2.0.0",
