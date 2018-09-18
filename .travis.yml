@@ -130,10 +130,9 @@ jobs:
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
-        - git subtree split --prefix packages/www
       deploy:
         - provider: pages
-          keep-history: true
+          local-dir: $TRAVIS_BUILD_DIR/packages/www/
           repo: ${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io
           target-branch: master
           verbose: true
@@ -172,11 +171,9 @@ jobs:
       before_script: skip
       script: skip
       after_script: skip
-      before_deploy:
-        - git subtree split --prefix packages/www
       deploy:
         - provider: pages
-          keep-history: true
+          local-dir: $TRAVIS_BUILD_DIR/packages/www/
           repo: $TRAVIS_REPO_SLUG
           target-branch: gh-pages
           verbose: true
@@ -196,13 +193,11 @@ jobs:
       before_script: skip
       script: skip
       after_script: skip
-      before_deploy:
-        - git subtree split --prefix packages/resume
       deploy:
         - provider: pages
-          keep-history: true
+          local-dir: $TRAVIS_BUILD_DIR/packages/resume/
           repo: ${TRAVIS_REPO_OWNER}/me.resume
-          target-branch: gh-pages
+          target-branch: master
           verbose: true
           email: $TRAVIS_AUTHOR_EMAIL
           name: $TRAVIS_AUTHOR_NAME
