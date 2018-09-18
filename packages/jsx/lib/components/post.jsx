@@ -38,7 +38,7 @@ export class PostComponent extends Component {
 
     render() {
         return <Row
-            className="post"
+            className="post post--words"
             id={this.props.post.uid}
         >
             <SchemaJsonLdComponent markup={this.props.post.toSchema()}/>
@@ -56,7 +56,7 @@ export class PostComponent extends Component {
                 <p className="post-date">
                     <strong className="post-date__label post-date__label--published">Posted:</strong>
                     <span
-                        className="post-date__date post-date__date--published">{this.date.toLocaleString(DateTime.DATETIME_MED)}</span>
+                        className="post-date__date post-date__date--published">{this.date.toLocaleString(DateTime.DATE_MED)}</span>
                     {
                         this.props.post.dateCreated ?
                             <Fragment>

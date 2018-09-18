@@ -104,7 +104,7 @@ export class PhotoComponent extends PostComponent {
                                         <strong
                                             className="post-date__label post-date__label--published">Posted:</strong>
                                         <span
-                                            className="post-date__date post-date__date--published">{this.props.post.datePublished.toLocaleString(DateTime.DATETIME_MED)}</span>
+                                            className="post-date__date post-date__date--published">{this.props.post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
                                     </Fragment> :
                                     null
                             }
