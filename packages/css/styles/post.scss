@@ -17,8 +17,8 @@
     &-text {
         line-height: $blockLineHeight;
         padding: $blockPadding;
-        background-color: $blockColour;
         box-decoration-break: clone;
+        background-color: $blockColour;
         color: $blockTextColour;
         margin-right: 4px;
     }
@@ -33,6 +33,15 @@
     &--photo {
         margin-bottom: 0;
         background-size: cover;
+    }
+
+    &--words {
+        .post-body {
+            &__text {
+                background-color: unset;
+                color: unset;
+            }
+        }
     }
 
     &--loading {
