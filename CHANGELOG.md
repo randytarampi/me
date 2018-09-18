@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/randytarampi/me/compare/v0.32.1...v0.33.0) (2018-09-18)
+
+
+### Bug Fixes
+
+* **config:** Fix bad yaml indentation. ([b76d0f7](https://github.com/randytarampi/me/commit/b76d0f7))
+* Also remove these `robots.txt` references per f0049204940cc8f2b5f981397877e01739ddef07. ([47b3166](https://github.com/randytarampi/me/commit/47b3166))
+* No `robots.txt` file in `resume` or `letter` after de88eec7b542bcfae3d9b89c207ae627bd27c69c. ([f004920](https://github.com/randytarampi/me/commit/f004920))
+* **jsx:** Fix bad `clean` task. ([185d804](https://github.com/randytarampi/me/commit/185d804))
+* **jsx:** Restore files accidentally deleted in de017fd50409f071f7dbbebf31f64b5edc33d05f. ([70c6466](https://github.com/randytarampi/me/commit/70c6466))
+* **travis:** `$GITHUB_TOKEN` -> `$GH_TOKEN`. ([591083b](https://github.com/randytarampi/me/commit/591083b))
+* **travis:** `local-dir` is forcibly relative, so act like it. ([2406c0a](https://github.com/randytarampi/me/commit/2406c0a)), closes [/travis-ci.org/randytarampi/me/jobs/429837240#L8963](https://github.com//travis-ci.org/randytarampi/me/jobs/429837240/issues/L8963)
+* **travis:** Don't bother with `git subtree split`, just let Travis figure it out. ([277d1ea](https://github.com/randytarampi/me/commit/277d1ea))
+* **travis:** Restore mistakenly deleted line in 33e294483f69f48dae1494582a812da6efdb2197. ([121f8c1](https://github.com/randytarampi/me/commit/121f8c1))
+
+
+### Features
+
+* **www:** Build sitemaps. ([b3e4823](https://github.com/randytarampi/me/commit/b3e4823))
+
+
+### Reverts
+
+* chore: Use `react-materialize@3.0.0-beta.0`. ([62289f0](https://github.com/randytarampi/me/commit/62289f0))
+
+
+
+
+
 <a name="0.32.1"></a>
 ## [0.32.1](https://github.com/randytarampi/me/compare/v0.32.0...v0.32.1) (2018-09-17)
 

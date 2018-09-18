@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/randytarampi/me/compare/v0.32.1...v0.33.0) (2018-09-18)
+
+
+### Features
+
+* **www:** Build sitemaps. ([b3e4823](https://github.com/randytarampi/me/commit/b3e4823))
+
+
+### Reverts
+
+* chore: Use `react-materialize@3.0.0-beta.0`. ([62289f0](https://github.com/randytarampi/me/commit/62289f0))
+
+
+
+
+
 <a name="0.32.1"></a>
 ## [0.32.1](https://github.com/randytarampi/me/compare/v0.32.0...v0.32.1) (2018-09-17)
 

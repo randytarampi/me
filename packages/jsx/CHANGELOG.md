@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/randytarampi/me/compare/v0.32.1...v0.33.0) (2018-09-18)
+
+
+### Bug Fixes
+
+* **jsx:** Fix bad `clean` task. ([185d804](https://github.com/randytarampi/me/commit/185d804))
+* **jsx:** Restore files accidentally deleted in de017fd50409f071f7dbbebf31f64b5edc33d05f. ([70c6466](https://github.com/randytarampi/me/commit/70c6466))
+
+
+### Reverts
+
+* chore: Use `react-materialize@3.0.0-beta.0`. ([62289f0](https://github.com/randytarampi/me/commit/62289f0))
+
+
+
+
+
 <a name="0.32.1"></a>
 ## [0.32.1](https://github.com/randytarampi/me/compare/v0.32.0...v0.32.1) (2018-09-17)
 
