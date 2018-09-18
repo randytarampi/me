@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.2"></a>
+## [0.33.2](https://github.com/randytarampi/me/compare/v0.33.1...v0.33.2) (2018-09-18)
+
+
+### Bug Fixes
+
+* **css:** `words` `.post-body__text` shouldn't have any background. ([570582b](https://github.com/randytarampi/me/commit/570582b))
+* **jsx:** `Post` and `Photo` dates should be on separate lines. ([b043a92](https://github.com/randytarampi/me/commit/b043a92))
+* **jsx:** Display `dateCreated` as a `DATETIME_FULL`, not `DATETIME_MED`. ([7d26456](https://github.com/randytarampi/me/commit/7d26456))
+* **jsx:** Display `datePublished` as a `DATE_MED`, not `DATETIME_MED`. ([c9d21c9](https://github.com/randytarampi/me/commit/c9d21c9))
+* **jsx:** Display `datePublished` before `dateCreated`. ([e859651](https://github.com/randytarampi/me/commit/e859651))
+* **jsx:** Fix test for change made in 94aa5e781caebbf5514130c404bd76af7dc8ff14. ([ae069c4](https://github.com/randytarampi/me/commit/ae069c4))
+* **jsx:** Photo `.post-source` link points to the image page at the source. ([94aa5e7](https://github.com/randytarampi/me/commit/94aa5e7))
+* **jsx:** Walk back my `dateCreated` formatting change in 7d26456b5ecd689b197fb6f209706d4eede70b91. ([afa0664](https://github.com/randytarampi/me/commit/afa0664))
+* **jsx:** Words `Post`s raw HTML content should be well contained. ([c652ef4](https://github.com/randytarampi/me/commit/c652ef4))
+* **posts:** Reduce `words` post text in as a string, even when it's an array. ([b554a7f](https://github.com/randytarampi/me/commit/b554a7f))
+
+
+
+
+
 <a name="0.33.1"></a>
 ## [0.33.1](https://github.com/randytarampi/me/compare/v0.33.0...v0.33.1) (2018-09-18)
 

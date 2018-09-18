@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.2"></a>
+## [0.33.2](https://github.com/randytarampi/me/compare/v0.33.1...v0.33.2) (2018-09-18)
+
+
+### Bug Fixes
+
+* **posts:** Reduce `words` post text in as a string, even when it's an array. ([b554a7f](https://github.com/randytarampi/me/commit/b554a7f))
+
+
+
+
+
 <a name="0.33.1"></a>
 ## [0.33.1](https://github.com/randytarampi/me/compare/v0.33.0...v0.33.1) (2018-09-18)
 

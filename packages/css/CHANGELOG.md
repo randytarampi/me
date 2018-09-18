@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.2"></a>
+## [0.33.2](https://github.com/randytarampi/me/compare/v0.33.1...v0.33.2) (2018-09-18)
+
+
+### Bug Fixes
+
+* **css:** `words` `.post-body__text` shouldn't have any background. ([570582b](https://github.com/randytarampi/me/commit/570582b))
+* **jsx:** Words `Post`s raw HTML content should be well contained. ([c652ef4](https://github.com/randytarampi/me/commit/c652ef4))
+
+
+
+
+
 <a name="0.33.1"></a>
 ## [0.33.1](https://github.com/randytarampi/me/compare/v0.33.0...v0.33.1) (2018-09-18)
 
