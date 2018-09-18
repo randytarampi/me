@@ -1,4 +1,5 @@
 import {buildPugLocals as genericBuildPugLocals} from "@randy.tarampi/views";
+import config from "config";
 import path from "path";
 import pug from "pug";
 import packageJson from "../package.json";
@@ -16,7 +17,8 @@ export const buildPugLocals = (resume, pageSize) => {
         packageJson,
         content,
         css: renderCss(),
-        helmetContent
+        helmetContent,
+        pageUrl: config.get("resume.publishUrl")
     });
 };
 

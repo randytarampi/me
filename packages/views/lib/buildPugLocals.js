@@ -8,7 +8,7 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
     const meLocals = {
         pugTitle: `${mePerson.name} — ${mePerson.label}`,
         pugDescription: mePerson.description,
-        pugUrl: mePerson.url,
+        pageUrl: mePerson.url,
         meJsonLd: JSON.stringify(mePerson.toSchema())
     };
 

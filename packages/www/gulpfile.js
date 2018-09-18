@@ -4,6 +4,7 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
+const config = require("config");
 
 gulp.task("clean", () => {
     const vinylPaths = require("vinyl-paths");
@@ -22,7 +23,7 @@ gulp.task("copy", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("views", () => {
+const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) => () => {
     const pug = require("gulp-pug");
     const rename = require("gulp-rename");
     const packageJson = require("./package.json");
@@ -32,23 +33,23 @@ gulp.task("views", () => {
         .pipe(pug({
             locals: buildPugLocals({
                 bundleName: "www",
-                packageJson
+                packageJson,
+                pageUrl
             })
         }))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "404"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "blog"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "photos"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "words"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "resume"}))
-        .pipe(gulp.dest("./dist"))
-        .pipe(rename({basename: "letter"}))
+        .pipe(rename({basename}))
         .pipe(gulp.dest("./dist"));
-});
+};
+
+gulp.task("views", gulp.parallel([
+    buildViewForPageUrl("index"),
+    buildViewForPageUrl("404"),
+    buildViewForPageUrl("blog", `${config.get("www.publishUrl")}${config.get("www.postsUrl")}`),
+    buildViewForPageUrl("photos", `${config.get("www.publishUrl")}${config.get("www.photosUrl")}`),
+    buildViewForPageUrl("words", `${config.get("www.publishUrl")}${config.get("www.wordsUrl")}`),
+    buildViewForPageUrl("resume", `${config.get("www.publishUrl")}${config.get("www.resumeUrl")}`),
+    buildViewForPageUrl("letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`),
+]));
 
 gulp.task("docs:dist", () => {
     return gulp

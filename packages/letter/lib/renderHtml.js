@@ -1,6 +1,7 @@
 import {buildPugLocals as genericBuildPugLocals} from "@randy.tarampi/views";
 import path from "path";
 import pug from "pug";
+import config from "config";
 import baseLetterJson from "../letters/default";
 import packageJson from "../package.json";
 import Letter from "./letter";
@@ -16,7 +17,8 @@ export const buildPugLocals = (letter, pageSize) => {
         packageJson,
         content,
         css: renderCss(),
-        helmetContent
+        helmetContent,
+        pageUrl: config.get("letter.publishUrl")
     });
 };
 

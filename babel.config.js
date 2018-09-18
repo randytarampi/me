@@ -78,10 +78,24 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__LETTER_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("www.letterUrl")
+                }
+            },
+            {
                 identifierName: "__ASSET_URL__",
                 replacement: {
                     type: "stringLiteral",
                     value: config.get("www.assetUrl")
+                }
+            },
+            {
+                identifierName: "__APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("www.publishUrl")
                 }
             },
             {
@@ -158,6 +172,8 @@ module.exports = (api) => {
     ];
 
     let plugins = [
+        "lodash",
+        configuredMinifyReplace,
         "@babel/plugin-proposal-class-properties",
         ["@babel/plugin-transform-classes", {
             loose: true
@@ -165,8 +181,6 @@ module.exports = (api) => {
         "@babel/plugin-proposal-object-rest-spread",
         "@babel/plugin-transform-proto-to-assign",
         "react-hot-loader/babel",
-        "lodash",
-        configuredMinifyReplace
     ];
 
     switch (api.env()) {

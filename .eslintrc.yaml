@@ -49,17 +49,18 @@ env:
 globals:
   Promise: true
   __ASSET_URL__: false
+  __APP_URL__: false
   __CODE_APP_URL__: false
   __WORDS_APP_URL__: false
   __POSTS_APP_URL__: false
   __PHOTOS_APP_URL__: false
   __RESUME_APP_URL__: false
+  __LETTER_APP_URL__: false
   __PHOTOS_SERVICE_URL__: false
   __WORDS_SERVICE_URL__: false
   __POSTS_SERVICE_URL__: false
   __RESUME_SERVICE_URL__: false
   __LETTER_SERVICE_URL__: false
-  __CLIENT_URL__: false
   __PUBLISHED_RESUME_URL__: false
   __PUBLISHED_LETTER_URL__: false
   __CAMPAIGN_SOURCE__: false
