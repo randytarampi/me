@@ -21,7 +21,6 @@
   },
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
-    "postinstall": "npm run build",
     "build": "gulp -LLLL --color build"
   },
   "license": "MIT",
