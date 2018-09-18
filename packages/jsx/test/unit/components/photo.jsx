@@ -135,7 +135,7 @@ describe("Photo", function () {
 
             const links = rendered.find(".post-source__link");
             expect(links).to.have.length(2);
-            expect(links.first()).to.have.prop("href", stubPhoto.getSizedPhotoForLoading().url);
+            expect(links.first()).to.have.prop("href", stubPhoto.sourceUrl);
             expect(links.last()).to.have.prop("href", stubPhoto.creator.url);
         });
 
