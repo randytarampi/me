@@ -41,15 +41,20 @@ const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) =
         .pipe(gulp.dest("./dist"));
 };
 
-gulp.task("views", gulp.parallel([
-    buildViewForPageUrl("index"),
-    buildViewForPageUrl("404"),
-    buildViewForPageUrl("blog", `${config.get("www.publishUrl")}${config.get("www.postsUrl")}`),
-    buildViewForPageUrl("photos", `${config.get("www.publishUrl")}${config.get("www.photosUrl")}`),
-    buildViewForPageUrl("words", `${config.get("www.publishUrl")}${config.get("www.wordsUrl")}`),
-    buildViewForPageUrl("resume", `${config.get("www.publishUrl")}${config.get("www.resumeUrl")}`),
-    buildViewForPageUrl("letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`),
-]));
+const viewsTasks = [
+    ["index"],
+    ["404"],
+    ["blog", `${config.get("www.publishUrl")}${config.get("www.postsUrl")}`],
+    ["photos", `${config.get("www.publishUrl")}${config.get("www.photosUrl")}`],
+    ["words", `${config.get("www.publishUrl")}${config.get("www.wordsUrl")}`],
+    ["resume", `${config.get("www.publishUrl")}${config.get("www.resumeUrl")}`],
+    ["letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`]
+];
+viewsTasks.forEach(([pageName, pageUrl]) =>
+    gulp.task(`views:${pageName}`, buildViewForPageUrl(pageName, pageUrl))
+);
+
+gulp.task("views", gulp.parallel(viewsTasks.map(([pageName]) => `views:${pageName}`)));
 
 gulp.task("docs:dist", () => {
     return gulp
