@@ -106,8 +106,7 @@ export class PhotoComponent extends PostComponent {
                         null
                 }
                 <p className="post-source">
-                    <strong className="post-source__label">More:</strong>
-                    <Link className="post-source__link" href={this.selected.url}>Source</Link>
+                    <Link className="post-source__link" href={this.props.post.sourceUrl}>View on {this.props.post.source}</Link>
                     {
                         this.props.post.creator ?
                             <Link className="post-source__link"
