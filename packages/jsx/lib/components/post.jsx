@@ -57,16 +57,16 @@ export class PostComponent extends Component {
                     <strong className="post-date__label post-date__label--published">Posted:</strong>
                     <span
                         className="post-date__date post-date__date--published">{this.date.toLocaleString(DateTime.DATE_MED)}</span>
-                    {
-                        this.props.post.dateCreated ?
-                            <Fragment>
-                                <strong className="post-date__label post-date__label--created">Created:</strong>
-                                <span
-                                    className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_FULL)}</span>
-                            </Fragment> :
-                            null
-                    }
                 </p>
+                {
+                    this.props.post.dateCreated ?
+                        <p className="post-date">
+                            <strong className="post-date__label post-date__label--created">Created:</strong>
+                            <span
+                                className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_FULL)}</span>
+                        </p> :
+                        null
+                }
                 {
                     typeof this.props.post.body === "string"
                         ? <div className="post-body">

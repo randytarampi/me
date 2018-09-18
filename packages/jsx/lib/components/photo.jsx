@@ -87,27 +87,21 @@ export class PhotoComponent extends PostComponent {
                         null
                 }
                 {
-                    this.props.post.datePublished || this.props.post.dateCreated ?
+                    this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
                         <p className="post-date">
-                            {
-                                this.props.post.dateCreated && this.props.post.dateCreated.valueOf() !== this.props.post.datePublished.valueOf() ?
-                                    <Fragment>
-                                        <strong className="post-date__label post-date__label--created">Taken:</strong>
-                                        <span
-                                            className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_FULL)}</span>
-                                    </Fragment> :
-                                    null
-                            }
-                            {
-                                this.props.post.datePublished ?
-                                    <Fragment>
-                                        <strong
-                                            className="post-date__label post-date__label--published">Posted:</strong>
-                                        <span
-                                            className="post-date__date post-date__date--published">{this.props.post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
-                                    </Fragment> :
-                                    null
-                            }
+                            <strong className="post-date__label post-date__label--created">Taken:</strong>
+                            <span
+                                className="post-date__date post-date__date--created">{this.props.post.dateCreated.toLocaleString(DateTime.DATETIME_FULL)}</span>
+                        </p> :
+                        null
+                }
+                {
+                    this.props.post.datePublished ?
+                        <p className="post-date">
+                            <strong
+                                className="post-date__label post-date__label--published">Posted:</strong>
+                            <span
+                                className="post-date__date post-date__date--published">{this.props.post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
                         </p> :
                         null
                 }
