@@ -71,7 +71,13 @@ const post = new Schema({
         type: String
     },
     body: {
-        type: String
+        type: String,
+        set: body => body instanceof Array ? body.join(compositeKeySeparator) : body,
+        get: body => {
+            const splitBody = body.split(compositeKeySeparator);
+
+            return splitBody.length > 1 ? splitBody : splitBody[0];
+        }
     },
     sourceUrl: {
         type: String
