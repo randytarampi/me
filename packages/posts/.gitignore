@@ -50,7 +50,8 @@ data/flickr
 .dynamoDb
 .dynamodb
 
-# Environment variables
+# Posts content
+posts/
 
 # Serverless
 .serverless
