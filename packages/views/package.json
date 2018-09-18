@@ -32,7 +32,9 @@
   "devDependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
     "@babel/plugin-proposal-object-rest-spread": "latest",
+    "@babel/plugin-transform-classes": "latest",
     "@babel/plugin-transform-proto-to-assign": "latest",
     "@babel/polyfill": "latest",
     "@babel/preset-env": "latest",

@@ -159,6 +159,9 @@ module.exports = (api) => {
 
     let plugins = [
         "@babel/plugin-proposal-class-properties",
+        ["@babel/plugin-transform-classes", {
+            loose: true
+        }],
         "@babel/plugin-proposal-object-rest-spread",
         "@babel/plugin-transform-proto-to-assign",
         "react-hot-loader/babel",
