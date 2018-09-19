@@ -18,7 +18,8 @@ export const buildPugLocals = (letter, pageSize) => {
         content,
         css: renderCss(),
         helmetContent,
-        pageUrl: config.get("letter.publishUrl")
+        pageUrl: config.get("letter.publishUrl"),
+        environment: "printable"
     });
 };
 
