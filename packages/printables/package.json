@@ -1,0 +1,40 @@
+{
+  "name": "@randy.tarampi/printables",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "version": "0.34.0",
+  "homepage": "https://www.randytarampi.ca",
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "description": "A wrapper around some common printable tasks.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@randy.tarampi/views": "^0.34.0",
+    "exiftool-vendored": "^6.2.3",
+    "puppeteer": "^1.8.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-helmet": "^5.2.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "module": "./lib/index.js",
+  "main": "./lib/index.js",
+  "directories": {
+    "lib": "./lib"
+  }
+}

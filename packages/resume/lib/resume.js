@@ -47,6 +47,30 @@ export class Resume extends Record({
         return this.id;
     }
 
+    get pdfMetadata() {
+        return {
+            Author: this.basics.name,
+            Creator: this.basics.name,
+            Producer: this.basics.name,
+            Subject: this.basics.name,
+            Title: this.basics.name,
+            Keywords: [
+                "resume",
+                "cv",
+                "resume.json",
+                "JSON resume",
+                "resume-cli",
+                "@randy.tarampi/resume",
+                this.basics.name,
+                this.basics.label,
+                this.basics.website,
+                this.basics.phone,
+                this.basics.email,
+                this.fileName
+            ]
+        };
+    }
+
     static fromJS(js = {}) {
         return new Resume({
             ...js,

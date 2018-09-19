@@ -37,44 +37,43 @@ gulp.task("views", () => {
         .pipe(gulp.dest("./dist"));
 });
 
+const buildPrintablesParameters = () => {
+    const path = require("path");
+    const config = require("config");
+    const packageJson = require("./package");
+    const printableComponent = require("./public/views/serverApp").default;
+    const printableBuilder = require("./lib/buildResume").default;
+
+    return {
+        printableComponent,
+        printableStylesPath: path.join(__dirname, "dist/styles.css"),
+        printableBuilder,
+        printableTemplateDirectory: path.join(__dirname, "resumes"),
+        printableRenderOptions: {
+            bundleName: "resume",
+            pageUrl: config.get("resume.publishUrl"),
+            packageJson
+        },
+        printableDestinationDirectory: path.join(__dirname, "dist")
+    };
+};
+
 gulp.task("resume:pdf", async () => {
-    const assembleResumes = require("./lib/assembleResumes").default;
-    const renderHtml = require("./lib/renderHtml").default;
-    const renderPdf = require("./lib/renderPdf").default;
     const server = require("./server");
+    const {renderPrintablesToPdf} = require("@randy.tarampi/printables");
 
-    return assembleResumes()
-        .then(resumes => Promise.all(resumes.map(resume => {
-            let resumeHtml = renderHtml(resume);
-
-            return renderPdf(resumeHtml, resume)
-                .then(() => server.close());
-        })));
+    return renderPrintablesToPdf(buildPrintablesParameters())
+        .then(() => server.close())
+        .catch(error => {
+            server.close();
+            throw error;
+        });
 });
 
 gulp.task("resume:html", () => {
-    const fs = require("fs");
-    const assembleResumes = require("./lib/assembleResumes").default;
-    const renderHtml = require("./lib/renderHtml").default;
+    const {renderPrintablesToHtml} = require("@randy.tarampi/printables");
 
-    return assembleResumes()
-        .then(resumes => Promise.all(resumes.map(resume => new Promise((resolve, reject) => {
-            let resumeHtml;
-
-            try {
-                resumeHtml = renderHtml(resume);
-            } catch (error) {
-                return reject(error);
-            }
-
-            return fs.writeFile(`${__dirname}/dist/${resume.fileName}.html`, resumeHtml, error => {
-                if (error) {
-                    return reject(error);
-                }
-
-                resolve();
-            });
-        }))));
+    return renderPrintablesToHtml(buildPrintablesParameters());
 });
 
 gulp.task("resume:json", done => {
