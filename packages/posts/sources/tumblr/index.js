@@ -43,7 +43,7 @@ class TumblrSource extends CachedDataSource {
     jsonToPost(postJson, blogJson) {
         switch (postJson.type) {
             case "photo":
-                return postJson.photos.map(photoJson => this._jsonToPhoto(photoJson, postJson, blogJson));
+                return this._jsonToPhoto(postJson.photos[0], postJson, blogJson); // FIXME-RT: Support galleries of photos per #133.
 
             default:
                 return this._jsonToPost(postJson, blogJson);
