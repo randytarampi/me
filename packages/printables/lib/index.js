@@ -83,3 +83,5 @@ export const renderPrintablesToPdf = ({
     })
         .then(printableHtmlPairs => Promise.all(printableHtmlPairs.map(({printableHtml, printable}) => renderPdf({printable, printableHtml, printableDestinationDirectory}))));
 };
+
+export {renderHtml} from "./renderHtml";

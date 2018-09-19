@@ -18,7 +18,8 @@ export const buildPugLocalsBuilder = ({printableComponent, printableStylesPath})
             content,
             css,
             helmetContent,
-            environment: "printable"
+            environment: "printable",
+            ...renderLocals
         });
     };
 };

@@ -24,6 +24,7 @@
   "dependencies": {
     "@randy.tarampi/views": "^0.34.0",
     "exiftool-vendored": "^6.2.3",
+    "pug": "^2.0.3",
     "puppeteer": "^1.8.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
