@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.34.1"></a>
+## [0.34.1](https://github.com/randytarampi/me/compare/v0.34.0...v0.34.1) (2018-09-19)
+
+
+### Bug Fixes
+
+* **posts:** Only show the first photo in a gallery, per [#133](https://github.com/randytarampi/me/issues/133). ([e2f0292](https://github.com/randytarampi/me/commit/e2f0292))
+* **style:** Only bump `.post-html ul` over a bit to the right. ([11936d2](https://github.com/randytarampi/me/commit/11936d2))
+
+
+
+
+
 <a name="0.34.0"></a>
 # [0.34.0](https://github.com/randytarampi/me/compare/v0.33.2...v0.34.0) (2018-09-18)
 
