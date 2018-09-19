@@ -19,14 +19,20 @@
     }
 
     &-html {
-        line-height: $blockLineHeight;
-        padding: $blockPadding;
-        margin-right: 4px;
         box-decoration-break: clone;
+
+        ul {
+            line-height: $blockLineHeight;
+            padding: $blockPadding;
+            margin-right: 4px;
+        }
     }
 
     &-text {
         @extend .post-html;
+        line-height: $blockLineHeight;
+        padding: $blockPadding;
+        margin-right: 4px;
         background-color: $blockColour;
         color: $blockTextColour;
     }
