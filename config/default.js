@@ -1,5 +1,15 @@
 const me = require("./me");
 
+const POSTS_SERVER_PORT = 3006;
+const RESUME_SERVER_PORT = 3004;
+const LETTER_SERVER_PORT = 3002;
+
+const WWW_APP_PORT = 8080;
+const RESUME_APP_PORT = WWW_APP_PORT;
+const LETTER_APP_PORT = WWW_APP_PORT;
+
+const POSTS_DB_PORT = 8000;
+
 module.exports = {
     gtm: "GTM-K26GTD2",
     sentryDsn: "https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735",
@@ -7,22 +17,28 @@ module.exports = {
         expectations: {
             pages: 1,
         },
-        publishUrl: "http://localhost:8080",
-        assetUrl: "http://localhost:8080"
+        publishUrl: `http://localhost:${RESUME_APP_PORT}`,
+        assetUrl: `http://localhost:${RESUME_APP_PORT}`,
+        appPort: RESUME_APP_PORT,
+        serverPort: RESUME_SERVER_PORT
     },
     letter: {
         expectations: {
             pages: 1,
         },
-        publishUrl: "http://localhost:8080",
-        assetUrl: "http://localhost:8080"
+        publishUrl: `http://localhost:${LETTER_APP_PORT}`,
+        assetUrl: `http://localhost:${LETTER_APP_PORT}`,
+        appPort: LETTER_APP_PORT,
+        serverPort: LETTER_SERVER_PORT
     },
     posts: {
-        photosUrl: "http://localhost:3006/posts?type=Photo",
-        postsUrl: "http://localhost:3006/posts",
-        wordsUrl: "http://localhost:3006/posts?type=Post",
+        photosUrl: `http://localhost:${POSTS_SERVER_PORT}/posts?type=Photo`,
+        postsUrl: `http://localhost:${POSTS_SERVER_PORT}/posts`,
+        wordsUrl: `http://localhost:${POSTS_SERVER_PORT}/posts?type=Post`,
         resumeUrl: "/api/resume",
-        letterUrl: "/api/letter"
+        letterUrl: "/api/letter",
+        serverPort: POSTS_SERVER_PORT,
+        dbPort: POSTS_DB_PORT
     },
     www: {
         codeUrl: "/code",
@@ -31,8 +47,9 @@ module.exports = {
         wordsUrl: "/words",
         resumeUrl: "/resume",
         letterUrl: "/letter",
-        publishUrl: "http://localhost:8080",
-        assetUrl: "http://localhost:8080"
+        publishUrl: `http://localhost:${WWW_APP_PORT}`,
+        assetUrl: `http://localhost:${WWW_APP_PORT}`,
+        appPort: WWW_APP_PORT
     },
     logger: {
         enabled: true,

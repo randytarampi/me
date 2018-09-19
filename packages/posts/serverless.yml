@@ -76,9 +76,9 @@ plugins:
 custom:
   dynamodb:
     start:
-      port: 8000
+      port: ${file(./serverless/util/loadConfig.js):default.posts.dbPort}
       inMemory: true
-    #      sharedDb: true
+      # sharedDb: true
     migration:
       dir: serverless/dynamoDb/migrations
   webpack:
@@ -97,7 +97,7 @@ custom:
       prd: "alias/serverless-prd"
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
-    port: 3006
+    port: ${file(./serverless/util/loadConfig.js):default.posts.serverPort}
   customDomain:
     domainName: ${file(env.yml):${self:provider.stage}.domainName}
     certificateName: ${file(env.yml):${self:provider.stage}.acmName}

@@ -4,6 +4,7 @@ module.exports.default = () => {
     const config = require("config");
 
     return {
+        posts: config.get("posts"),
         logger: {
             enabled: config.has("logger").toString(),
             streams: Object.keys(config.get("logger.streams")).reduce((streams, key) => {
