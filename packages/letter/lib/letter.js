@@ -35,6 +35,26 @@ export class Letter extends Record({
         return this.id;
     }
 
+    get pdfMetadata() {
+        return {
+            Author: this.basics.name,
+            Creator: this.basics.name,
+            Producer: this.basics.name,
+            Subject: this.basics.name,
+            Title: this.basics.name,
+            Keywords: [
+                "cover letter",
+                "@randy.tarampi/letter",
+                this.basics.name,
+                this.basics.label,
+                this.basics.website,
+                this.basics.phone,
+                this.basics.email,
+                this.fileName
+            ]
+        };
+    }
+
     static fromJS(js = {}) {
         return new Letter({
             ...js,
@@ -42,7 +62,7 @@ export class Letter extends Record({
             recipient: js.recipient ? Person.fromJS(js.recipient) : null,
             content: js.content ? List(js.content.map(LetterSection.fromJS)) : null,
             renderOptions: js.renderOptions ? Map(js.renderOptions) : null,
-            renderExpectations: js.renderExpectations ? Map(js.renderExpectations) : null,
+            renderExpectations: js.renderExpectations ? Map(js.renderExpectations) : null
         });
     }
 
@@ -53,7 +73,7 @@ export class Letter extends Record({
             recipient: json.recipient ? Person.fromJSON(json.recipient) : null,
             content: json.content ? List(json.content.map(LetterSection.fromJSON)) : null,
             renderOptions: json.renderOptions ? Map(json.renderOptions) : null,
-            renderExpectations: json.renderExpectations ? Map(json.renderExpectations) : null,
+            renderExpectations: json.renderExpectations ? Map(json.renderExpectations) : null
         });
     }
 
