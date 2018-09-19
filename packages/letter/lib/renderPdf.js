@@ -18,7 +18,7 @@ export default async (html, letter) => {
     const page = await browser.newPage();
     const pdfPath = path.join(__dirname, `../dist/${letter.fileName}.pdf`);
 
-    await page.emulateMedia(letter.pdfRenderOptions && letter.pdfRenderOptions.mediaType || "screen");
+    await page.emulateMedia(letter.pdfRenderOptions && letter.pdfRenderOptions.mediaType || "print");
     await page.goto(`data:text/html,${html}`, {waitUntil: "networkidle0"});
     await page.pdf({
         path: pdfPath,
@@ -29,7 +29,7 @@ export default async (html, letter) => {
 
     await browser.close();
 
-    const pdfExpectations = config.get("letter.expectations") || {};
+    const pdfExpectations = letter.pdfRenderExpectations || config.get("letter.expectations") || {};
     const pdfMetadata = await exifTool.read(pdfPath);
 
     if (pdfExpectations.pages) {
