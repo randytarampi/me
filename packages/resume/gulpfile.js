@@ -37,13 +37,44 @@ gulp.task("views", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("resume:html", done => {
-    const fs = require("fs");
-    const letter = require("./resumes/default.json");
+gulp.task("resume:pdf", async () => {
+    const assembleResumes = require("./lib/assembleResumes").default;
     const renderHtml = require("./lib/renderHtml").default;
-    const letterHtml = renderHtml(letter);
+    const renderPdf = require("./lib/renderPdf").default;
+    const server = require("./server");
 
-    return fs.writeFile(`${__dirname}/dist/index.html`, letterHtml, done);
+    return assembleResumes()
+        .then(resumes => Promise.all(resumes.map(resume => {
+            let resumeHtml = renderHtml(resume);
+
+            return renderPdf(resumeHtml, resume)
+                .then(() => server.close());
+        })));
+});
+
+gulp.task("resume:html", () => {
+    const fs = require("fs");
+    const assembleResumes = require("./lib/assembleResumes").default;
+    const renderHtml = require("./lib/renderHtml").default;
+
+    return assembleResumes()
+        .then(resumes => Promise.all(resumes.map(resume => new Promise((resolve, reject) => {
+            let resumeHtml;
+
+            try {
+                resumeHtml = renderHtml(resume);
+            } catch (error) {
+                return reject(error);
+            }
+
+            return fs.writeFile(`${__dirname}/dist/${resume.fileName}.html`, resumeHtml, error => {
+                if (error) {
+                    return reject(error);
+                }
+
+                resolve();
+            });
+        }))));
 });
 
 gulp.task("resume:json", done => {
@@ -63,7 +94,7 @@ gulp.task("resume:json", done => {
 
 gulp.task("resume", gulp.series([
     "resume:json",
-    gulp.parallel(["resume:html"])
+    gulp.parallel(["resume:html", "resume:pdf"])
 ]));
 
 gulp.task("docs:dist", () => {
@@ -150,13 +181,13 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
-    "resume:json",
-    gulp.parallel(["copy", "webpack", "views"])
+    gulp.parallel(["copy", "webpack", "views"]),
+    "resume"
 ]));
 
 gulp.task("build:dev", gulp.series([
-    "resume:json",
-    gulp.parallel(["lint", "copy", "webpack", "views"])
+    gulp.parallel(["lint", "copy", "webpack", "views"]),
+    "resume"
 ]));
 
 gulp.task("dev",

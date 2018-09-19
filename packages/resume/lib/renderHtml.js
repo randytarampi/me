@@ -18,7 +18,8 @@ export const buildPugLocals = (resume, pageSize) => {
         content,
         css: renderCss(),
         helmetContent,
-        pageUrl: config.get("resume.publishUrl")
+        pageUrl: config.get("resume.publishUrl"),
+        environment: "printable"
     });
 };
 

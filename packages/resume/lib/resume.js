@@ -1,5 +1,5 @@
 import {Person} from "@randy.tarampi/js";
-import {List, Record} from "immutable";
+import {List, Map, Record} from "immutable";
 import {Award} from "./award";
 import {Education} from "./education";
 import {Interest} from "./interest";
@@ -12,6 +12,7 @@ import {Volunteer} from "./volunteer";
 import {Work} from "./work";
 
 export class Resume extends Record({
+    id: null,
     basics: null,
     work: List(),
     volunteer: List(),
@@ -22,11 +23,35 @@ export class Resume extends Record({
     skills: List(),
     languages: List(),
     interests: List(),
-    references: List()
+    references: List(),
+    renderOptions: Map(),
+    renderExpectations: Map()
 }) {
+    get pdfRenderOptions() {
+        return this.renderOptions ? this.renderOptions.toJS() : null;
+    }
+
+    get pdfRenderExpectations() {
+        return this.renderExpectations ? this.renderExpectations.toJS() : null;
+    }
+
+    get pageSize() {
+        return this.renderOptions ? this.renderOptions.get("format") : null;
+    }
+
+    get fileName() {
+        if (this.get("fileName")) {
+            return this.get("fileName");
+        }
+
+        return this.id;
+    }
+
     static fromJS(js = {}) {
         return new Resume({
             ...js,
+            renderOptions: js.renderOptions ? Map(js.renderOptions) : null,
+            renderExpectations: js.renderExpectations ? Map(js.renderExpectations) : null,
             basics: js.basics ? Person.fromJS(js.basics) : null,
             work: js.work ? List(js.work.map(work => Work.fromJS(work))) : null,
             volunteer: js.volunteer ? List(js.volunteer.map(volunteer => Volunteer.fromJS(volunteer))) : null,
@@ -44,6 +69,8 @@ export class Resume extends Record({
     static fromJSON(json = {}) {
         return new Resume({
             ...json,
+            renderOptions: json.renderOptions ? Map(json.renderOptions) : null,
+            renderExpectations: json.renderExpectations ? Map(json.renderExpectations) : null,
             basics: json.basics ? Person.fromJSON(json.basics) : null,
             work: json.work ? List(json.work.map(work => Work.fromJSON(work))) : null,
             volunteer: json.volunteer ? List(json.volunteer.map(volunteer => Volunteer.fromJSON(volunteer))) : null,
@@ -61,6 +88,8 @@ export class Resume extends Record({
     static fromResume(json = {}) {
         return new Resume({
             ...json,
+            renderOptions: json.renderOptions ? Map(json.renderOptions) : null,
+            renderExpectations: json.renderExpectations ? Map(json.renderExpectations) : null,
             basics: json.basics ? Person.fromResume(json.basics) : null,
             work: json.work ? List(json.work.map(work => Work.fromResume(work))) : null,
             volunteer: json.volunteer ? List(json.volunteer.map(volunteer => Volunteer.fromResume(volunteer))) : null,
