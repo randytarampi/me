@@ -8,7 +8,7 @@ export default async (html, resume) => {
     const exifTool = new ExifTool();
     const puppeteerLaunchArgs = [];
 
-    if (process.env.resume_PUPPETEER_NO_SANDBOX) {
+    if (process.env.RESUME_PUPPETEER_NO_SANDBOX) {
         puppeteerLaunchArgs.push("--no-sandbox");
     }
 
