@@ -12,6 +12,7 @@ import Resume from "../../../lib/resume";
 import Skill from "../../../lib/skill";
 import Volunteer from "../../../lib/volunteer";
 import Work from "../../../lib/work";
+import packageJson from "../../../package";
 import testResumeJson from "../../../resumes/test";
 
 describe("Resume", function () {
@@ -331,12 +332,19 @@ describe("Resume", function () {
                 Subject: resume.basics.name,
                 Title: resume.basics.name,
                 Keywords: [
+                    "resume-cli",
+                    "jsonresume",
+                    "jsonresume-theme",
+                    packageJson.name,
+                    "theme",
                     "resume",
                     "cv",
-                    "resume.json",
-                    "JSON resume",
-                    "resume-cli",
-                    "@randy.tarampi/resume",
+                    "curriculum vitae",
+                    "curriculum",
+                    "portfolio",
+                    "json resume",
+                    "jsonresume theme",
+                    "theme",
                     resume.basics.name,
                     resume.basics.label,
                     resume.basics.website,

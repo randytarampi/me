@@ -1,5 +1,6 @@
 import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
+import packageJson from "../package";
 import {Award} from "./award";
 import {Education} from "./education";
 import {Interest} from "./interest";
@@ -56,12 +57,19 @@ export class Resume extends Record({
             Subject: this.basics.name,
             Title: this.basics.name,
             Keywords: [
+                "resume-cli",
+                "jsonresume",
+                "jsonresume-theme",
+                packageJson.name,
+                "theme",
                 "resume",
                 "cv",
-                "resume.json",
-                "JSON resume",
-                "resume-cli",
-                "@randy.tarampi/resume",
+                "curriculum vitae",
+                "curriculum",
+                "portfolio",
+                "json resume",
+                "jsonresume theme",
+                "theme",
                 this.basics.name,
                 this.basics.label,
                 this.basics.website,
