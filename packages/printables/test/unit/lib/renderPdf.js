@@ -66,6 +66,8 @@ describe("renderPdf", function () {
     });
 
     it("is hooked into `puppeteer` correctly", function () {
+        delete process.env.PRINTABLE_PUPPETEER_NO_SANDBOX;
+
         return renderPdf({
             printableHtml: stubPrintableHtml,
             printable: stubPrintable,
