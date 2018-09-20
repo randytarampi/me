@@ -14,6 +14,7 @@ import {
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
+import {ResumeCustomContent} from "../../../resumeCustomContent";
 
 const networkLinkMap = {
     angellist: AngelListLink,
@@ -54,8 +55,16 @@ const getLinkComponentForProfile = profile => {
     return linkComponent;
 };
 
-export const ResumeProfiles = ({resume}) => {
-    return <PrintableSection printableType="resume" type="profiles" label="Profiles" showOnA4={true}>
+export const ResumeProfiles = ({resume, customContent, type, label}) => {
+    return <PrintableSection
+        printableType="resume"
+        showOnA4={true}
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
+    >
         <Row>
             {
                 resume.basics.profiles.map(profile => {
@@ -75,7 +84,16 @@ export const ResumeProfiles = ({resume}) => {
 };
 
 ResumeProfiles.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
+};
+
+ResumeProfiles.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "Profiles",
+    type: "profiles"
 };
 
 export default ResumeProfiles;

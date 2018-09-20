@@ -2,9 +2,18 @@ import {CampaignLink, EmailLink, PrintableSection, TelLink} from "@randy.tarampi
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
+import {ResumeCustomContent} from "../../../resumeCustomContent";
 
-export const ResumeContact = ({resume}) => {
-    return <PrintableSection printableType="resume" type="contact" label="Contact" hideOnPrint={true}>
+export const ResumeContact = ({resume, customContent, type, label}) => {
+    return <PrintableSection
+        printableType="resume"
+        hideOnPrint={true}
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
+    >
         <Row>
             <Col m={6} s={12} className="resume-contact__email">
                 <EmailLink email={resume.basics.email}/>
@@ -24,7 +33,16 @@ export const ResumeContact = ({resume}) => {
 };
 
 ResumeContact.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
+};
+
+ResumeContact.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "Contact",
+    type: "contact"
 };
 
 export default ResumeContact;

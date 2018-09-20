@@ -2,9 +2,18 @@ import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
+import {ResumeCustomContent} from "../../../resumeCustomContent";
 
-export const ResumeLanguages = ({resume}) => {
-    return <PrintableSection printableType="resume" type="languages" label="Languages" hideOnPrint={true}>
+export const ResumeLanguages = ({resume, customContent, type, label}) => {
+    return <PrintableSection
+        printableType="resume"
+        hideOnPrint={true}
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
+    >
         <Row>
             {
                 resume.languages.map((languageEntry, index) => {
@@ -21,7 +30,16 @@ export const ResumeLanguages = ({resume}) => {
 };
 
 ResumeLanguages.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
+};
+
+ResumeLanguages.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "Languages",
+    type: "languages"
 };
 
 export default ResumeLanguages;

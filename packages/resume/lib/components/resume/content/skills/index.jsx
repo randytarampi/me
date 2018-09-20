@@ -1,20 +1,18 @@
 import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
-import React, {Fragment} from "react";
+import React from "react";
 import {Row} from "react-materialize";
+import {ResumeCustomContent} from "../../../../resumeCustomContent";
 import ResumeSkillsEntry from "./entry";
 
-export const ResumeSkills = ({resume}) => {
+export const ResumeSkills = ({resume, customContent, type, label}) => {
     return <PrintableSection
         printableType="resume"
-        type="skills"
-        label="Skills"
-        descriptionNode={
-            <Fragment>
-                <p><span className="text">I'm more or less a full stack JavaScript developer</span></p>
-                <p><span className="text">Ask me about my soft skills — those are more fun</span></p>
-            </Fragment>
-        }
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
     >
         <Row>
             {
@@ -27,7 +25,16 @@ export const ResumeSkills = ({resume}) => {
 };
 
 ResumeSkills.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
+};
+
+ResumeSkills.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "Skills",
+    type: "skills"
 };
 
 export default ResumeSkills;

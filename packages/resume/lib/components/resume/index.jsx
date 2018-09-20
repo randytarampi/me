@@ -29,85 +29,89 @@ export class ResumeComponent extends Component {
     }
 
     render() {
-        const {isLoading, fetchResume, match, variant, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {isLoading, fetchResume, match, variant, resume, ...props} = this.props; // eslint-disable-line no-unused-vars
+        let contentProps = {
+            ...props,
+            resume
+        };
 
         return <div className="printable resume">
             {
-                isLoading || !props.resume
+                isLoading || !resume
                     ? <LoadingSpinner/>
                     : <Fragment>
                         <Helmet>
                             <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
                             <meta name="og:url" content={__PUBLISHED_RESUME_URL__}/>
                         </Helmet>
-                        <SchemaJsonLdComponent markup={props.resume.toSchema()}/>
-                        <PrintableHeader printable={props.resume}/>
+                        <SchemaJsonLdComponent markup={resume.toSchema()}/>
+                        <PrintableHeader printable={resume}/>
                         <div className="resume-content">
                             <Container>
-                                <ResumeContact {...props} />
+                                <ResumeContact {...contentProps} />
                                 {
-                                    props.resume.basics.summary
-                                        ? <ResumeAbout {...props} />
+                                    resume.basics.summary
+                                        ? <ResumeAbout {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.basics.profiles && props.resume.basics.profiles.size
-                                        ? <ResumeProfiles {...props} />
+                                    resume.basics.profiles && resume.basics.profiles.size
+                                        ? <ResumeProfiles {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.work && props.resume.work.size
-                                        ? <ResumeWork {...props} />
+                                    resume.work && resume.work.size
+                                        ? <ResumeWork {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.projects && props.resume.projects.size
-                                        ? <ResumeProjects{...props} />
+                                    resume.projects && resume.projects.size
+                                        ? <ResumeProjects{...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.skills && props.resume.skills.size
-                                        ? <ResumeSkills{...props} />
+                                    resume.skills && resume.skills.size
+                                        ? <ResumeSkills{...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.education && props.resume.education.size
-                                        ? <ResumeEducation {...props} />
+                                    resume.education && resume.education.size
+                                        ? <ResumeEducation {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.awards && props.resume.awards.size
-                                        ? <ResumeAwards {...props} />
+                                    resume.awards && resume.awards.size
+                                        ? <ResumeAwards {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.volunteer && props.resume.volunteer.size
-                                        ? <ResumeVolunteer {...props} />
+                                    resume.volunteer && resume.volunteer.size
+                                        ? <ResumeVolunteer {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.publications && props.resume.publications.size
-                                        ? <ResumePublications {...props} />
+                                    resume.publications && resume.publications.size
+                                        ? <ResumePublications {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.languages && props.resume.languages.size
-                                        ? <ResumeLanguages {...props} />
+                                    resume.languages && resume.languages.size
+                                        ? <ResumeLanguages {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.interests && props.resume.interests.size
-                                        ? <ResumeInterests {...props} />
+                                    resume.interests && resume.interests.size
+                                        ? <ResumeInterests {...contentProps} />
                                         : null
                                 }
                                 {
-                                    props.resume.references && props.resume.references.size
-                                        ? <ResumeReferences {...props} />
+                                    resume.references && resume.references.size
+                                        ? <ResumeReferences {...contentProps} />
                                         : null
                                 }
                             </Container>
                         </div>
-                        <ResumeFooter {...props} />
+                        <ResumeFooter {...contentProps} />
                     </Fragment>
             }
         </div>;

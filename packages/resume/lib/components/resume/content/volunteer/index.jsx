@@ -1,22 +1,18 @@
 import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
-import React, {Fragment} from "react";
+import React from "react";
+import {ResumeCustomContent} from "../../../../resumeCustomContent";
 import ResumeVolunteerEntry from "./entry";
 
-export const ResumeVolunteer = ({resume}) => {
+export const ResumeVolunteer = ({resume, customContent, type, label}) => {
     return <PrintableSection
         printableType="resume"
-        type="volunteer"
-        label="Volunteering"
         hideOnPrint={true}
-        descriptionNode={
-            <Fragment>
-                <p><span className="text">I never really <em>want</em> to volunteer, but when it happens it seems that I really enjoy it</span>
-                </p>
-                <p><span className="text">People always looked at me as a shy and reserved, but it actually turns out that I've got a knack for leadership and mentorship</span>
-                </p>
-            </Fragment>
-        }
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
     >
         {
             resume.volunteer.map((volunteerEntry, index) => {
@@ -27,7 +23,16 @@ export const ResumeVolunteer = ({resume}) => {
 };
 
 ResumeVolunteer.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
+};
+
+ResumeVolunteer.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "Volunteering",
+    type: "volunteer"
 };
 
 export default ResumeVolunteer;

@@ -2,9 +2,18 @@ import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
+import {ResumeCustomContent} from "../../../resumeCustomContent";
 
-export const ResumeReferences = ({resume}) => {
-    return <PrintableSection printableType="resume" type="references" label="References" hideOnPrint={true}>
+export const ResumeReferences = ({resume, customContent, type, label}) => {
+    return <PrintableSection
+        printableType="resume"
+        hideOnPrint={true}
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
+    >
         <Row>
             {
                 resume.references.map((referenceEntry, index) => {
@@ -25,7 +34,16 @@ export const ResumeReferences = ({resume}) => {
 };
 
 ResumeReferences.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
+};
+
+ResumeReferences.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "References",
+    type: "references"
 };
 
 export default ResumeReferences;

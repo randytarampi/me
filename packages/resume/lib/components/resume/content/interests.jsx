@@ -2,9 +2,18 @@ import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
+import {ResumeCustomContent} from "../../../resumeCustomContent";
 
-export const ResumeInterests = ({resume}) => {
-    return <PrintableSection printableType="resume" type="interests" label="Interests" showOnLegal={true}>
+export const ResumeInterests = ({resume, customContent, type, label}) => {
+    return <PrintableSection
+        printableType="resume"
+        showOnLegal={true}
+        type={type}
+        label={customContent[type].label || label}
+        labelNode={customContent[type].labelNode}
+        description={customContent[type].description}
+        descriptionNode={customContent[type].descriptionNode}
+    >
         <Row>
             {
                 resume.interests.map((interestEntry, index) => {
@@ -37,7 +46,15 @@ export const ResumeInterests = ({resume}) => {
 };
 
 ResumeInterests.propTypes = {
-    resume: PropTypes.object.isRequired
+    resume: PropTypes.object.isRequired,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    customContent: PropTypes.object.isRequired
 };
 
+ResumeInterests.defaultProps = {
+    customContent: new ResumeCustomContent(),
+    label: "Interests",
+    type: "interests"
+};
 export default ResumeInterests;
