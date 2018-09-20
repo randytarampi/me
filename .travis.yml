@@ -64,7 +64,7 @@ jobs:
       install:
         - git checkout $TRAVIS_BRANCH
         - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
-        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo true`
+        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo true || true`
         - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
         - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
