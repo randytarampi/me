@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/views",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },

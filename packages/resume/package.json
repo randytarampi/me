@@ -1,6 +1,5 @@
 {
   "name": "jsonresume-theme-randytarampi",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },
