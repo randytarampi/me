@@ -1,29 +1,25 @@
-import {buildPugLocals as genericBuildPugLocals} from "@randy.tarampi/views";
+import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables";
 import config from "config";
 import path from "path";
-import pug from "pug";
-import packageJson from "../package.json";
-import defaultResumeJson from "../resumes/default";
-import renderCss from "./renderCss";
-import renderJsx, {getRenderedHelmet} from "./renderJsx";
+import packageJson from "../package";
+import ResumeComponent from "../public/views/serverApp";
+import resumeJson from "../resumes";
 import Resume from "./resume";
 
-export const buildPugLocals = (resume, pageSize) => {
-    const content = renderJsx({resume, pageSize}); // NOTE-RT: This needs to come *before* we call `getRenderedHelmet()
-    const helmetContent = getRenderedHelmet();
+export const renderHtml = ({passedPrintable, ...renderLocals} = {}) => {
+    const printable = passedPrintable || Resume.fromResume(resumeJson);
 
-    return genericBuildPugLocals({
+    return genericRenderHtml({
+        printableComponent: ResumeComponent,
+        printableStylesPath: path.join(__dirname, "../dist/styles.css"),
+        printable
+    })({
         bundleName: "resume",
+        pageUrl: config.get("resume.publishUrl"),
         packageJson,
-        content,
-        css: renderCss(),
-        helmetContent,
-        pageUrl: config.get("resume.publishUrl")
+        printable,
+        ...renderLocals
     });
 };
 
-export default (resume = Resume.fromResume(defaultResumeJson), pageSize = process.env.RESUME_PDF_SIZE) => {
-    const pugLocals = buildPugLocals(resume, pageSize);
-    return pug.renderFile(path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
-};
-
+export default renderHtml;

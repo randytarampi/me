@@ -20,8 +20,7 @@ cache:
 before_install:
   - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
   - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
-  - export RESUME_PUPPETEER_NO_SANDBOX=${CI:=true}
-  - export LETTER_PUPPETEER_NO_SANDBOX=${CI:=true}
+  - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
   - uname -a
   - lscpu
   - npm install -g npm

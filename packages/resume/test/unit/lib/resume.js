@@ -18,7 +18,14 @@ describe("Resume", function () {
     let stubResumeJs;
 
     beforeEach(function () {
-        stubResumeJs = Object.assign({}, testResumeJson);
+        stubResumeJs = Object.assign({
+            renderOptions: {
+                format: "bar"
+            },
+            renderExpectations: {
+                pages: "baz"
+            }
+        }, testResumeJson);
     });
 
     describe("constructor", function () {
@@ -229,6 +236,115 @@ describe("Resume", function () {
             expect(resume.languages).to.eql(null);
             expect(resume.interests).to.eql(null);
             expect(resume.references).to.eql(null);
+        });
+    });
+
+    describe("#pdfRenderOptions", function () {
+        it("returns `renderOptions` as JS Object", function () {
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pdfRenderOptions).to.eql(stubResumeJs.renderOptions);
+        });
+
+        it("returns `null` if no `renderOptions`", function () {
+            delete stubResumeJs.renderOptions;
+
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pdfRenderOptions).to.eql(null);
+        });
+    });
+
+    describe("#pdfrenderExpectations", function () {
+        it("returns `renderExpectations` as JS Object", function () {
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pdfRenderExpectations).to.eql(stubResumeJs.renderExpectations);
+        });
+
+        it("returns `null` if no `renderExpectations`", function () {
+            delete stubResumeJs.renderExpectations;
+
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pdfRenderExpectations).to.eql(null);
+        });
+    });
+
+    describe("#pageSize", function () {
+        it("returns `renderOptions.format`", function () {
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pageSize).to.eql(stubResumeJs.renderOptions.format);
+        });
+
+        it("returns `null` if no `renderOptions`", function () {
+            delete stubResumeJs.renderOptions;
+
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pdfRenderOptions).to.eql(null);
+        });
+    });
+
+    describe("#fileName", function () {
+        it("returns `fileName`", function () {
+            stubResumeJs.fileName = "woof";
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.fileName).to.eql(stubResumeJs.fileName);
+        });
+
+        it("returns `id` if no `fileName`", function () {
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.fileName).to.eql(null);
+        });
+    });
+
+    describe("#pdfMetadata", function () {
+        it("returns ExifTool parsable tags", function () {
+            const resume = Resume.fromJS(stubResumeJs);
+
+            expect(resume).to.be.ok;
+            expect(resume).to.be.instanceOf(Resume);
+            expect(resume.pdfMetadata).to.eql({
+                Author: resume.basics.name,
+                Creator: resume.basics.name,
+                Producer: resume.basics.name,
+                Subject: resume.basics.name,
+                Title: resume.basics.name,
+                Keywords: [
+                    "resume",
+                    "cv",
+                    "resume.json",
+                    "JSON resume",
+                    "resume-cli",
+                    "@randy.tarampi/resume",
+                    resume.basics.name,
+                    resume.basics.label,
+                    resume.basics.website,
+                    resume.basics.phone,
+                    resume.basics.email,
+                    resume.fileName
+                ]
+            });
         });
     });
 });

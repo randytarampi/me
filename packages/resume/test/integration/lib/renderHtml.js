@@ -26,7 +26,8 @@ describe("renderHtml", function () {
     it("accepts a passed in resume", function () {
         const stubResumeJson = Object.assign({}, resumeJson);
         stubResumeJson.basics.name = "First Woof Last Woof";
-        const resumeHtml = renderHtml(Resume.fromResume(stubResumeJson));
+        const resume = Resume.fromResume(stubResumeJson);
+        const resumeHtml = renderHtml(resume);
 
         expect(resumeHtml).to.be.ok;
         expect(resumeHtml).to.be.a("string");

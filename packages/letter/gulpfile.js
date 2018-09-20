@@ -37,44 +37,43 @@ gulp.task("views", () => {
         .pipe(gulp.dest("./dist"));
 });
 
+const buildPrintablesParameters = () => {
+    const path = require("path");
+    const config = require("config");
+    const packageJson = require("./package");
+    const printableComponent = require("./public/views/serverApp").default;
+    const printableBuilder = require("./lib/buildLetter").default;
+
+    return {
+        printableComponent,
+        printableStylesPath: path.join(__dirname, "dist/styles.css"),
+        printableBuilder,
+        printableTemplateDirectory: path.join(__dirname, "letters"),
+        printableRenderOptions: {
+            bundleName: "resume",
+            pageUrl: config.get("resume.publishUrl"),
+            packageJson
+        },
+        printableDestinationDirectory: path.join(__dirname, "dist")
+    };
+};
+
 gulp.task("letter:pdf", async () => {
-    const assembleLetters = require("./lib/assembleLetters").default;
-    const renderHtml = require("./lib/renderHtml").default;
-    const renderPdf = require("./lib/renderPdf").default;
     const server = require("./server");
+    const {renderPrintablesToPdf} = require("@randy.tarampi/printables");
 
-    return assembleLetters()
-        .then(letters => Promise.all(letters.map(letter => {
-            let letterHtml = renderHtml(letter);
-
-            return renderPdf(letterHtml, letter)
-                .then(() => server.close());
-        })));
+    return renderPrintablesToPdf(buildPrintablesParameters())
+        .then(() => server.close())
+        .catch(error => {
+            server.close();
+            throw error;
+        });
 });
 
 gulp.task("letter:html", () => {
-    const fs = require("fs");
-    const assembleLetters = require("./lib/assembleLetters").default;
-    const renderHtml = require("./lib/renderHtml").default;
+    const {renderPrintablesToHtml} = require("@randy.tarampi/printables");
 
-    return assembleLetters()
-        .then(letters => Promise.all(letters.map(letter => new Promise((resolve, reject) => {
-            let letterHtml;
-
-            try {
-                letterHtml = renderHtml(letter);
-            } catch (error) {
-                return reject(error);
-            }
-
-            return fs.writeFile(`${__dirname}/dist/${letter.fileName}.html`, letterHtml, error => {
-                if (error) {
-                    return reject(error);
-                }
-
-                resolve();
-            });
-        }))));
+    return renderPrintablesToHtml(buildPrintablesParameters());
 });
 
 gulp.task("letter:json", done => {
