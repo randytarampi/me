@@ -31,7 +31,7 @@ stages:
   - name: Deploy (dev)
     if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
   - name: Release
-    if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
+    if: commit_message ~= /(?:^release\(force\):)/ OR (tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/)
   - name: Deploy (prd)
     if: tag IS present
 jobs:
@@ -65,6 +65,7 @@ jobs:
       install:
         - git checkout $TRAVIS_BRANCH
         - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
+        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo true`
         - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
         - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
@@ -81,6 +82,7 @@ jobs:
         - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
         - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; fi;'
+        - 'if [ -n "$IS_FORCED_RELEASE" ]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; fi;'
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
