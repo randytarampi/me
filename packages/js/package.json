@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.34.3",
+  "version": "0.35.0",
   "publishConfig": {
     "access": "public"
   },

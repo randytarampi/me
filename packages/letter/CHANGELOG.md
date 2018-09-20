@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/randytarampi/me/compare/v0.34.3...v0.35.0) (2018-09-20)
+
+
+### Features
+
+* **printables:** `letter` relies on `printables` to generate PDFs. ([839cfe4](https://github.com/randytarampi/me/commit/839cfe4))
+* **printables:** Actually add these tests. ([7dcbe63](https://github.com/randytarampi/me/commit/7dcbe63))
+* **printables:** Add `[@randy](https://github.com/randy).tarampi/printables`. ([#134](https://github.com/randytarampi/me/issues/134)) ([eae7675](https://github.com/randytarampi/me/commit/eae7675))
+
+
+
+
+
 <a name="0.34.3"></a>
 ## [0.34.3](https://github.com/randytarampi/me/compare/v0.34.1...v0.34.3) (2018-09-20)
 

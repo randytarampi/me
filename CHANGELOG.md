@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/randytarampi/me/compare/v0.34.3...v0.35.0) (2018-09-20)
+
+
+### Bug Fixes
+
+* **package:** update react-progressive-image to version 0.5.0 ([6519622](https://github.com/randytarampi/me/commit/6519622))
+* **printables:** Fix test for CI environments. ([55083f9](https://github.com/randytarampi/me/commit/55083f9))
+* **resume:** Fix bad copy/replace. ([76f559b](https://github.com/randytarampi/me/commit/76f559b))
+* **resume:** Restore compatibility with `resume-cli`. ([f16f759](https://github.com/randytarampi/me/commit/f16f759))
+* **travis:** `IS_FORCED_RELEASE` should swallow regex test errors. ([6e07c11](https://github.com/randytarampi/me/commit/6e07c11))
+* **travis:** Do the same thing when `HAS_PUBLISHABLE_CHANGES` or `IS_FORCED_RELEASE`. ([d184e73](https://github.com/randytarampi/me/commit/d184e73)), closes [#134](https://github.com/randytarampi/me/issues/134)
+
+
+### Features
+
+* **printables:** `letter` relies on `printables` to generate PDFs. ([839cfe4](https://github.com/randytarampi/me/commit/839cfe4))
+* **printables:** `resume` relies on `printables` to generate PDFs. ([1fb57c4](https://github.com/randytarampi/me/commit/1fb57c4))
+* **printables:** Actually add these tests. ([7dcbe63](https://github.com/randytarampi/me/commit/7dcbe63))
+
+
+
+
+
 <a name="0.34.3"></a>
 ## [0.34.3](https://github.com/randytarampi/me/compare/v0.34.1...v0.34.3) (2018-09-20)
 
