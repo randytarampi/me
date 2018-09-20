@@ -138,5 +138,11 @@
   "directories": {
     "lib": "./lib",
     "test": "./test"
-  }
+  },
+  "files": [
+    "lib",
+    "styles",
+    "esm.js",
+    "index.js"
+  ]
 }
