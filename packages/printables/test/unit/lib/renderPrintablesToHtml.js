@@ -63,4 +63,46 @@ describe("renderPrintablesToHtml", function () {
                 });
             });
     });
+
+    it("handles errors", function () {
+        fs.writeFile.restore();
+        sinon.stub(fs, "writeFile").throws(new Error("woof"));
+
+        return renderPrintablesToHtml({
+            printableComponent: stubPrintableComponent,
+            printableStylesPath: stubPrintableStylesPath,
+            printableBuilder: stubPrintableBuilder,
+            printableTemplateDirectory: stubPrintableTemplateDirectory,
+            printableRenderOptions: stubPrintableRenderOptions,
+            printableDestinationDirectory: stubPrintableDestinationDirectory
+        })
+            .then(() => {
+                throw new Error("Wtf? This should've thrown");
+            })
+            .catch(error => {
+                expect(error).to.be.ok;
+                expect(error.message).to.eql("woof");
+            });
+    });
+
+    it("handles `fs.writeFile` errors", function () {
+        fs.writeFile.restore();
+        sinon.stub(fs, "writeFile").callsFake((path, file, callback) => callback(new Error("meow")));
+
+        return renderPrintablesToHtml({
+            printableComponent: stubPrintableComponent,
+            printableStylesPath: stubPrintableStylesPath,
+            printableBuilder: stubPrintableBuilder,
+            printableTemplateDirectory: stubPrintableTemplateDirectory,
+            printableRenderOptions: stubPrintableRenderOptions,
+            printableDestinationDirectory: stubPrintableDestinationDirectory
+        })
+            .then(() => {
+                throw new Error("Wtf? This should've thrown");
+            })
+            .catch(error => {
+                expect(error).to.be.ok;
+                expect(error.message).to.eql("meow");
+            });
+    });
 });

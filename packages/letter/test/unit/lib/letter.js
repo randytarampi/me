@@ -52,6 +52,9 @@ describe("Letter", function () {
             ],
             renderOptions: {
                 format: "bar"
+            },
+            renderExpectations: {
+                pages: "baz"
             }
         };
     });
@@ -161,6 +164,36 @@ describe("Letter", function () {
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfRenderOptions).to.eql(stubLetterJs.renderOptions);
         });
+
+        it("returns `null` if no `renderOptions`", function () {
+            delete stubLetterJs.renderOptions;
+
+            const letter = Letter.fromJS(stubLetterJs);
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+            expect(letter.pdfRenderOptions).to.eql(null);
+        });
+    });
+
+    describe("#pdfRenderExpectations", function () {
+        it("returns `renderExpectations` as JS Object", function () {
+            const letter = Letter.fromJS(stubLetterJs);
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+            expect(letter.pdfRenderExpectations).to.eql(stubLetterJs.renderExpectations);
+        });
+
+        it("returns `null` if no `renderExpectations`", function () {
+            delete stubLetterJs.renderExpectations;
+
+            const letter = Letter.fromJS(stubLetterJs);
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+            expect(letter.pdfRenderExpectations).to.eql(null);
+        });
     });
 
     describe("#pageSize", function () {
@@ -170,6 +203,16 @@ describe("Letter", function () {
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pageSize).to.eql(stubLetterJs.renderOptions.format);
+        });
+
+        it("returns `null` if no `renderOptions`", function () {
+            delete stubLetterJs.renderOptions;
+
+            const letter = Letter.fromJS(stubLetterJs);
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+            expect(letter.pdfRenderOptions).to.eql(null);
         });
     });
 
@@ -189,6 +232,32 @@ describe("Letter", function () {
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.fileName).to.eql(stubLetterJs.id);
+        });
+    });
+
+    describe("#pdfMetadata", function () {
+        it("returns ExifTool parsable tags", function () {
+            const letter = Letter.fromJS(stubLetterJs);
+
+            expect(letter).to.be.ok;
+            expect(letter).to.be.instanceOf(Letter);
+            expect(letter.pdfMetadata).to.eql({
+                Author: letter.basics.name,
+                Creator: letter.basics.name,
+                Producer: letter.basics.name,
+                Subject: letter.basics.name,
+                Title: letter.basics.name,
+                Keywords: [
+                    "cover letter",
+                    "@randy.tarampi/letter",
+                    letter.basics.name,
+                    letter.basics.label,
+                    letter.basics.website,
+                    letter.basics.phone,
+                    letter.basics.email,
+                    letter.fileName
+                ]
+            });
         });
     });
 });

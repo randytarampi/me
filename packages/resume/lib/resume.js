@@ -13,6 +13,7 @@ import {Work} from "./work";
 
 export class Resume extends Record({
     id: null,
+    fileName: null,
     basics: null,
     work: List(),
     volunteer: List(),
