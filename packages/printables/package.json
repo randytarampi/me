@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.34.0",
+  "version": "0.34.1",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -20,15 +20,53 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "scripts": {
+    "pretest": "gulp -LLLL --color lint",
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
+  },
   "license": "MIT",
   "dependencies": {
     "@randy.tarampi/views": "^0.34.0",
     "exiftool-vendored": "^6.2.3",
     "pug": "^2.0.3",
     "puppeteer": "^1.8.0",
+    "pug": "^2.0.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "latest",
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
+    "@babel/plugin-proposal-object-rest-spread": "latest",
+    "@babel/plugin-transform-classes": "latest",
+    "@babel/plugin-transform-proto-to-assign": "latest",
+    "@babel/polyfill": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
+    "@babel/register": "latest",
+    "babel-loader": "next",
+    "babel-plugin-istanbul": "next",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-minify-replace": "^0.4.3",
+    "chai": "^4.1.2",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "config": "^2.0.1",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-react": "^7.10.0",
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-mocha": "^6.0.0",
+    "jsdom": "^12.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "proxyquire": "^2.1.0",
+    "sinon": "^6.1.4"
   },
   "engines": {
     "node": ">=8"

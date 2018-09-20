@@ -2,35 +2,42 @@ import {expect} from "chai";
 import fs from "fs";
 import path from "path";
 import sinon from "sinon";
-import * as assembleLetterModule from "../../../lib/assembleLetter";
-import assembleLetters from "../../../lib/assembleLetters";
+import * as assemblePrintableModule from "../../../lib/assemblePrintable";
+import assemblePrintables from "../../../lib/assemblePrintables";
 
-describe("assembleLetters", function () {
+describe("assemblePrintables", function () {
     let stubFiles;
+    let stubPrintableBuilder;
 
     beforeEach(function () {
         stubFiles = ["woof", "grr", "meow"];
 
-        sinon.stub(assembleLetterModule, "assembleLetter").returns(Promise.resolve());
+        stubPrintableBuilder = sinon.stub().callsFake((printableJson, printableFilename) => {
+            return {
+                printableJson,
+                printableFilename
+            };
+        });
+        sinon.stub(assemblePrintableModule, "assemblePrintable").returns(stubPrintableBuilder);
         sinon.stub(fs, "readdir").callsFake((directory, callback) => {
             callback(null, stubFiles);
         });
     });
 
     afterEach(function () {
-        assembleLetterModule.assembleLetter.restore();
+        assemblePrintableModule.assemblePrintable.restore();
         fs.readdir.restore();
     });
 
     it("delegates to `assembleLetter`", function () {
         const stubDirectory = path.join(__dirname, "../../resources");
 
-        return assembleLetters(stubDirectory)
+        return assemblePrintables(stubPrintableBuilder)(stubDirectory)
             .then(letters => {
                 expect(letters).to.be.ok;
                 expect(letters).to.have.length(stubFiles.length);
-                expect(assembleLetterModule.assembleLetter.callCount).to.eql(3);
-                stubFiles.map(stubFile => sinon.assert.calledWith(assembleLetterModule.assembleLetter, path.join(stubDirectory, stubFile)));
+                expect(stubPrintableBuilder.callCount).to.eql(3);
+                stubFiles.map(stubFile => sinon.assert.calledWith(stubPrintableBuilder, path.join(stubDirectory, stubFile)));
                 expect(fs.readdir.calledOnce).to.eql(true);
                 sinon.assert.calledWith(fs.readdir, stubDirectory);
             });
@@ -44,7 +51,7 @@ describe("assembleLetters", function () {
             callback(new Error("ʕ•ᴥ•ʔ"));
         });
 
-        return assembleLetters(stubDirectory)
+        return assemblePrintables(stubPrintableBuilder)(stubDirectory)
             .then(() => {
                 throw new Error("Wtf? This should've thrown");
             })

@@ -2,20 +2,16 @@ import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables";
 import config from "config";
 import path from "path";
 import packageJson from "../package";
-import ResumeComponent from "../public/views/serverApp";
-import resumeJson from "../resumes";
-import Resume from "./resume";
+import LetterComponent from "../public/views/serverApp";
 
-export const renderHtml = ({passedPrintable, ...renderLocals} = {}) => {
-    const printable = passedPrintable || Resume.fromResume(resumeJson);
-
+export const renderHtml = ({printable, ...renderLocals} = {}) => {
     return genericRenderHtml({
-        printableComponent: ResumeComponent,
+        printableComponent: LetterComponent,
         printableStylesPath: path.join(__dirname, "../dist/styles.css"),
         printable
     })({
-        bundleName: "resume",
-        pageUrl: config.get("resume.publishUrl"),
+        bundleName: "letter",
+        pageUrl: config.get("letter.publishUrl"),
         packageJson,
         printable,
         ...renderLocals

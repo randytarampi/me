@@ -98,6 +98,7 @@
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
     "gulp-mocha": "^6.0.0",
+    "gulp-pug": "^4.0.1",
     "gulp-sass-lint": "^1.4.0",
     "js-yaml": "^3.12.0",
     "jsdom": "^12.0.0",

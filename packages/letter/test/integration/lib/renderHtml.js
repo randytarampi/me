@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import path from "path";
 import Helmet from "react-helmet";
-import assembleLetter from "../../../lib/assembleLetter";
+import buildLetter from "../../../lib/buildLetter";
 import renderHtml from "../../../lib/renderHtml";
 
 describe("renderHtml", function () {
@@ -16,7 +16,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JSON", function () {
-        const letter = assembleLetter(path.join(__dirname, "../../../letters/test.json"));
+        const letter = buildLetter(path.join(__dirname, "../../../letters/test.json"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.ok;
@@ -25,7 +25,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JS", function () {
-        const letter = assembleLetter(path.join(__dirname, "../../resources/meow.js"));
+        const letter = buildLetter(path.join(__dirname, "../../resources/meow.js"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.ok;
@@ -34,7 +34,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JSX", function () {
-        const letter = assembleLetter(path.join(__dirname, "../../resources/woof.jsx"));
+        const letter = buildLetter(path.join(__dirname, "../../resources/woof.jsx"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.ok;
