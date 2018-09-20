@@ -81,8 +81,9 @@ jobs:
         - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
         - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-        - 'if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; fi;'
-        - 'if [ -n "$IS_FORCED_RELEASE" ]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; fi;'
+        - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]];
+          then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes;
+          fi;
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
