@@ -2,6 +2,14 @@ require("../../babel.register.js");
 
 const gulp = require("gulp");
 
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src([".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
 function isFixed(file) {
     return file.eslint && file.eslint.fixed;
 }

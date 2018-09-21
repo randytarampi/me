@@ -47,7 +47,6 @@ jspm_packages
 dist
 build
 .webpack
-.dynamoDb
 .dynamodb
 
 # Posts content
