@@ -8,7 +8,7 @@
     "**/build/**",
     "**/docs/**",
     "**/coverage/**",
-    "**/src/letters/**",
+    "**/letters/**",
     "**/src/resumes/**",
     "**/src/resume-custom-content/**",
     "**/.nyc_output/**",

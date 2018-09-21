@@ -7,7 +7,7 @@ module.exports = webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
     webpackServeMiddleware: [
-        mount("/api/letter", serve("./src/letters"))
+        mount("/api/letter", serve("./letters"))
     ],
     entry: {
         letter: ["@babel/polyfill", path.join(__dirname, "./public/views/index.jsx")],

@@ -48,7 +48,7 @@ const buildPrintablesParameters = () => {
         printableComponent,
         printableStylesPath: path.join(__dirname, "dist/styles.css"),
         printableBuilder,
-        printableTemplateDirectory: path.join(__dirname, "src/letters"),
+        printableTemplateDirectory: path.join(__dirname, "letters"),
         printableRenderOptions: {
             bundleName: "resume",
             pageUrl: config.get("resume.publishUrl"),

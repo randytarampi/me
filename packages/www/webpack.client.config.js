@@ -8,7 +8,7 @@ module.exports = webpackBaseConfig({
     compliationDirectoryPath: path.join(__dirname, "dist"),
     webpackServeMiddleware: [
         mount("/api/resume", serve(path.join(__dirname, "../resume/src/resumes"))),
-        mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
+        mount("/api/letter", serve(path.join(__dirname, "../letter/letters")))
     ],
     entry: {
         www: ["@babel/polyfill", path.join(__dirname, "./public/views/index.jsx")],
