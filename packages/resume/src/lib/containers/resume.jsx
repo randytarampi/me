@@ -5,10 +5,10 @@ import {fetchResumeCreator} from "../actions";
 import {ResumeComponent} from "../components/resume";
 import selectors from "../data/selectors";
 
-let customContent = {};
+let allResumeCustomContent = {};
 
 try {
-    customContent = require("../../resume-custom-content");
+    allResumeCustomContent = require("../../resume-custom-content");
 } catch (error) {
     if (error.code !== "MODULE_NOT_FOUND") {
         throw error;
@@ -19,16 +19,21 @@ export const ConnectedResume = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const variant = ownProps.match.params.variant || "default";
-        const resumeCustomContent = ownProps.resume && ownProps.resume.id
-            ? customContent[ownProps.resume.id]
-            : customContent[variant];
-
-        return {
+        const props = {
             resume: ownProps.resume || selectors.getResumeVariant(state, variant),
             isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl) || false,
-            customContent: resumeCustomContent || null,
             variant
         };
+
+        const customContent = ownProps.resume && ownProps.resume.id
+            ? allResumeCustomContent[ownProps.resume.id]
+            : allResumeCustomContent[variant];
+
+        if (customContent) {
+            props.customContent = customContent;
+        }
+
+        return props;
     },
     dispatch => {
         return {
