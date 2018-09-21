@@ -24,3 +24,5 @@ export class ResumeCustomContent extends Record({
     references: new ResumeCustomPrintableSectionContent()
 }) {
 }
+
+export default ResumeCustomContent;
