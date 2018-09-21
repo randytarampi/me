@@ -5,6 +5,14 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
 
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
 function isFixed(file) {
     return file.eslint && file.eslint.fixed;
 }

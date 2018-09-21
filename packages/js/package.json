@@ -14,7 +14,9 @@
     "test": "NODE_ENV=test gulp -LLLL --color test",
     "build": "BABEL_ENV=client NODE_ENV=prd babel src --out-dir build --root-mode upward --copy-files",
     "prepare": "npm run build",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run clean"
   },
   "description": "Some common JS entities",
   "bugs": {

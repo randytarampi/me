@@ -30,7 +30,9 @@
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.letter.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.server.pid`; rm /tmp/ca.randytarampi.me.letter.server.pid; fi;",
     "letter": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=letter CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color letter",
     "docs": "gulp -LLLL --color docs",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run clean"
   },
   "license": "MIT",
   "dependencies": {

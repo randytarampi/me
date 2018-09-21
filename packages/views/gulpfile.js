@@ -2,6 +2,14 @@ require("../../babel.register.js");
 
 const gulp = require("gulp");
 
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
 gulp.task("views:index", () => {
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
@@ -52,6 +60,7 @@ gulp.task("lint", gulp.parallel([
 ]));
 
 gulp.task("build", gulp.series([
+    "clean",
     "views"
 ]));
 

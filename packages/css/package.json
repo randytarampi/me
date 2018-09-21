@@ -11,7 +11,9 @@
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "build": "gulp -LLLL --color build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run clean"
   },
   "description": "Some common styles",
   "bugs": {
