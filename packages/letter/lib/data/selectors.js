@@ -1,4 +1,4 @@
-import {selectors as jsxSelectors} from "../../../jsx/esm";
+import {selectors as jsxSelectors} from "@randy.tarampi/jsx";
 import {getLetterVariant} from "./letter";
 
 export const selectors = {

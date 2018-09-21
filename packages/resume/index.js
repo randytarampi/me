@@ -1,21 +1,14 @@
-require("../../babel.register.js");
+var builtOrUnbuiltModule;
 
-const config = require("config");
+try {
+    require("../../babel.register");
+    builtOrUnbuiltModule = require("./src");
+} catch (error) {
+    if (error.code === "MODULE_NOT_FOUND") {
+        builtOrUnbuiltModule = require("./build"); // eslint-disable-line import/no-unresolved
+    } else {
+        throw error;
+    }
+}
 
-module.exports = {
-    render: (resumeJson, pageSize) => {
-        const {renderHtml} = require("./lib/renderHtml");
-        const Resume = require("./lib/resume").default;
-
-        return renderHtml({
-            printable: Resume.fromResume(resumeJson),
-            pageSize
-        });
-    },
-    pdfRenderOptions: {
-        format: process.env.RESUME_PDF_SIZE || "Letter",
-        mediaType: "print"
-    },
-    pdfRenderExpectations: config.get("resume.expectations")
-};
-
+module.exports = builtOrUnbuiltModule;

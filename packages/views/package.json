@@ -20,7 +20,10 @@
   },
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
-    "build": "gulp -LLLL --color build"
+    "build": "npm run build:gulp && npm run build:babel",
+    "build:babel": "BABEL_ENV=client NODE_ENV=prd babel src --out-dir build --root-mode upward --copy-files",
+    "build:gulp": "gulp -LLLL --color build",
+    "prepare": "npm run build"
   },
   "license": "MIT",
   "dependencies": {
@@ -53,9 +56,13 @@
   "engines": {
     "node": ">=8"
   },
-  "main": "./lib/index.js",
-  "esm": "./lib/index.js",
+  "main": "./index.js",
+  "esm": "./index.js",
   "directories": {
     "lib": "./lib"
-  }
+  },
+  "files": [
+    "build",
+    "index.js"
+  ]
 }

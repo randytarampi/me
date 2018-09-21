@@ -5,9 +5,12 @@
   "exclude": [
     "**/node_modules/**",
     "**/dist/**",
+    "**/build/**",
     "**/docs/**",
     "**/coverage/**",
-    "**/letters/**",
+    "**/src/letters/**",
+    "**/src/resumes/**",
+    "**/src/resume-custom-content/**",
     "**/.nyc_output/**",
     "**/test/**",
     "packages/*/*.js",

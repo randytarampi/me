@@ -12,7 +12,10 @@
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test gulp -LLLL --color test",
-    "build": "gulp -LLLL --color build",
+    "build": "npm run build:gulp && npm run build:babel",
+    "build:gulp": "gulp -LLLL --color build",
+    "build:babel": "BABEL_ENV=client NODE_ENV=prd babel src --out-dir build --root-mode upward --copy-files",
+    "prepare": "npm run build",
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
@@ -122,10 +125,14 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "esm.js",
-  "main": "esm.js",
+  "module": "./index.js",
+  "main": "./index.js",
   "directories": {
     "lib": "./lib",
     "test": "./test"
-  }
+  },
+  "files": [
+    "build",
+    "index.js"
+  ]
 }

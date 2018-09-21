@@ -27,6 +27,7 @@
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
     "build": "gulp -LLLL --color build",
+    "prepare": "npm run build",
     "docs": "gulp -LLLL --color docs"
   },
   "author": {

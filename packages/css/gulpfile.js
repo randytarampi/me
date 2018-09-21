@@ -2,6 +2,14 @@ require("../../babel.register.js");
 
 const gulp = require("gulp");
 
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
 gulp.task("sassLint", () => {
     const sassLint = require("gulp-sass-lint");
 
@@ -12,12 +20,6 @@ gulp.task("sassLint", () => {
 });
 
 gulp.task("lint", gulp.series(["sassLint"]));
-
-gulp.task("clean", (callback) => {
-    const del = require("del");
-
-    del(["dist"], callback);
-});
 
 gulp.task("copy", () => {
     return gulp
