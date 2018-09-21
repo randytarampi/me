@@ -1,6 +1,5 @@
 {
   "name": "jsonresume-theme-randytarampi",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },
@@ -19,13 +18,30 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "keywords": [
+    "jsonresume",
+    "jsonresume-theme",
+    "jsonresume-theme-randytarampi",
+    "theme",
+    "resume",
+    "cv",
+    "curriculum vitae",
+    "curriculum",
+    "portfolio",
+    "json resume",
+    "jsonresume theme",
+    "theme"
+  ],
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test gulp -LLLL --color test",
     "start": "npm run dev",
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
-    "build": "gulp -LLLL --color build && npm run resume",
+    "build": "npm run build:gulp && npm run build:babel",
+    "build:gulp": "gulp -LLLL --color build",
+    "build:babel": "BABEL_ENV=client NODE_ENV=prd babel src --out-dir build --root-mode upward --copy-files",
+    "prepare": "npm run build",
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.resume.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.resume.server.pid`) from /tmp/ca.randytarampi.me.resume.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.resume.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.resume.server.pid`) from /tmp/ca.randytarampi.me.resume.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.resume.server.pid`; rm /tmp/ca.randytarampi.me.resume.server.pid; fi;",
@@ -36,7 +52,9 @@
     "resume:legal": "RESUME_PDF_SIZE=Legal NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=legal,$(node -p \"require(\\\"./package.json\\\").version\") npx --node-arg=\"--require ../../babel.config.js\" resume export dist/resume.legal.pdf --force -f pdf --theme randytarampi && (cp dist/resume.legal.pdf dist/legal.pdf 2>/dev/null || :)",
     "resume:html": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx --node-arg=\"--require ../../babel.config.js\" resume export dist/resume.html --force -f html --theme randytarampi",
     "docs": "gulp -LLLL --color docs",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run clean"
   },
   "license": "MIT",
   "dependencies": {
@@ -47,7 +65,7 @@
     "@randy.tarampi/printables": "^0.35.0",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "^0.35.0",
-    "exiftool-vendored": "^6.2.2",
+    "exiftool-vendored": "^6.2.3",
     "history": "^4.7.2",
     "immutable": "^4.0.0-rc.9",
     "isomorphic-fetch": "^2.2.1",
@@ -103,7 +121,6 @@
     "js-yaml": "^3.12.0",
     "jsdom": "^12.0.0",
     "json-stringify-safe": "^5.0.1",
-    "jsonresume-theme-randytarampi": "file:./",
     "koa-compress": "^3.0.0",
     "koa-connect": "^2.0.1",
     "koa-mount": "^3.0.0",
@@ -133,10 +150,16 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "esm.js",
-  "main": "index.js",
+  "module": "./src/esm.js",
+  "main": "./index.js",
+  "browser": "./build/esm.js",
   "directories": {
     "lib": "./lib",
     "test": "./test"
-  }
+  },
+  "files": [
+    "build",
+    "index.js",
+    "resume.json"
+  ]
 }

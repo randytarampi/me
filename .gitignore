@@ -45,6 +45,7 @@ jspm_packages
 
 # Compiled resources
 dist
+build
 .webpack
 package-lock.json
 

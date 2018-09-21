@@ -5,8 +5,11 @@
   "exclude": [
     "node_modules/**",
     "dist/**",
+    "build/**",
     "docs/**",
     "coverage/**",
+    "src/resumes/**",
+    "src/resume-custom-content/**",
     ".nyc_output/**",
     "test/**",
     "*.js"

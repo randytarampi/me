@@ -27,7 +27,10 @@
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
     "build": "gulp -LLLL --color build",
-    "docs": "gulp -LLLL --color docs"
+    "prepare": "npm run build",
+    "docs": "gulp -LLLL --color docs",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run clean"
   },
   "author": {
     "name": "Randy Tarampi",

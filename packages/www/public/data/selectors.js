@@ -1,6 +1,6 @@
 import {selectors as jsxSelectors} from "@randy.tarampi/jsx";
 import {selectors as letterSelectors} from "@randy.tarampi/letter";
-import {selectors as resumeSelectors} from "jsonresume-theme-randytarampi/lib";
+import {selectors as resumeSelectors} from "jsonresume-theme-randytarampi";
 
 export const selectors = {
     ...jsxSelectors,

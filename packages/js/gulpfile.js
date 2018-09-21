@@ -2,16 +2,25 @@ require("../../babel.register.js");
 
 const gulp = require("gulp");
 
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
 function isFixed(file) {
-    return file.eslint !== null && file.eslint.fixed;
+    return file.eslint && file.eslint.fixed;
 }
 
 gulp.task("eslint", () => {
+    const path = require("path");
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./coverage/**/*"])
-        .pipe(eslint({fix: true}))
+    return gulp.src(["**/*.js"])
+        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
         .pipe(eslint.failAfterError());

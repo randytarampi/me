@@ -2,10 +2,18 @@ require("../../babel.register.js");
 
 const gulp = require("gulp");
 
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
+
 gulp.task("views:index", () => {
     const pug = require("gulp-pug");
     const packageJson = require("./package.json");
-    const {buildPugLocals} = require("./lib");
+    const {buildPugLocals} = require("./src/lib");
 
     return gulp.src(["templates/index.pug"])
         .pipe(pug({
@@ -22,15 +30,16 @@ gulp.task("views", gulp.parallel([
 ]));
 
 function isFixed(file) {
-    return file.eslint !== null && file.eslint.fixed;
+    return file.eslint && file.eslint.fixed;
 }
 
 gulp.task("eslint", () => {
+    const path = require("path");
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./docs/**/*", "!./coverage/**/*", "!./.nyc_output/**/*"])
-        .pipe(eslint({fix: true}))
+    return gulp.src(["**/*.js"])
+        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
         .pipe(eslint.failAfterError());
@@ -51,6 +60,7 @@ gulp.task("lint", gulp.parallel([
 ]));
 
 gulp.task("build", gulp.series([
+    "clean",
     "views"
 ]));
 

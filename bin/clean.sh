@@ -6,6 +6,8 @@ REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
 
 cd "${REPO_ROOT}";
 
+npx lerna run preuninstall;
+
 rm -rf packages/*/package-lock.json packages/*/dist packages/*/coverage packages/*/.nyc_output packages/*/.serverless packages/*/.webpack packages/*/.dynamodb;
 
 npx lerna clean --yes;

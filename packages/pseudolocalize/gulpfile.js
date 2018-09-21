@@ -1,15 +1,16 @@
 const gulp = require("gulp");
 
 function isFixed(file) {
-    return file.eslint !== null && file.eslint.fixed;
+    return file.eslint && file.eslint.fixed;
 }
 
 gulp.task("eslint", () => {
+    const path = require("path");
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./coverage/**/*"])
-        .pipe(eslint({fix: true}))
+    return gulp.src(["**/*.js"])
+        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
         .pipe(eslint.failAfterError());

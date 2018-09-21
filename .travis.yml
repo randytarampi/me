@@ -30,41 +30,52 @@ stages:
   - name: Deploy (dev)
     if: tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/
   - name: Release
-    if: commit_message ~= /(?:^release\(force\):)/ OR (tag IS blank AND type = push AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/)
+    if: commit_message ~= /(?:^release\(force\):)/ OR (tag IS blank AND type = push
+      AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/)
   - name: Deploy (prd)
     if: tag IS present
 jobs:
   include:
-    - &testJob
-      stage: Test
+    - stage: Test
       node_js: '8'
-      env:
+      env: &1
         - NODE_ENV=test
-      before_script:
+      before_script: &2
         - npm run pretest
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+          > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build
-      script:
-        - npm run travis
-      after_script:
-        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-      after_failure:
-        - npm run kill --prefix packages/posts
-      after_success:
+        - "./cc-test-reporter before-build"
+      script: &3
+        - npm run cover:actual
+      after_script: &4
+        - npm run cover:collect
         - npm run coveralls
-    - <<: *testJob
+        - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+      after_failure: &5
+        - npm run kill --prefix packages/posts
+      after_success: &6
+        - npm run coveralls
+    - stage: Test
       node_js: '10'
+      env: *1
+      before_script: *2
+      script: *3
+      after_script: *4
+      after_failure: *5
+      after_success: *6
     - stage: Release
       name: GitHub
       node_js: '8'
       env:
         - NODE_ENV=prd
         - RELEASE=true
+        - secure: l/mIj3vj8aL4F1sC7pQpzkMe6F0M+i1PaFBymsOHEYlEpSJEpgLvKX8oCv55lKeTj6ix5rIBN+QJLYz23btTG2Ed0FgBs3Q3fM0mZ+2sSK+++EM0rNjyZ9w+GteLO9jgnD4+eKIaJwfVmOj608rVExNiRltfZUoBsOq0vMYLme/2tdZzK++dLsa6pE2yDFu56eMZmTGUXrQmiwP+SZFDmY5OD1H5HtB55wYk1xeHFKUSg1Iyxdd5zf1wZeAWrDfOoiBbxxR3CImLTAjZQl5PGq35JUVStSgSfQ1rsL/tXqrLp7esDdAmVZf8sdSHJKfoUvhdzOUZV2Z7lK86NFq/STCsSzxTsfBk+GIHKjCxgpVaMdf/6tjzlixyByUVv1MjJQOGYMdM2OhtdFavFT35lLQpzcPZJW8K2IvE2EAd7TjSzYSuCSShscwkWIPF+rjTrhq2AitbiLtRUy5Riz/iSYrhxeoEpTTRCvNuE+dLnIGPrKmkW6VUHngOq5DGFhfp6TK2xtYBeL/84osIP7+LiKJzmaETv4ftBJE51Y4AHOAQMj/aPFTOl3t4u4BEjvkr7szSg7IjhFv9kMwwWV+LqJUclWZgx+i4lnuzV85gxjLxYZylty/ekB2CYpyOAS/qXEniKywljlqjtEq6WKWZrOIHmlz5HkNwUuBUe86m0kI=
       install:
         - git checkout $TRAVIS_BRANCH
         - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
-        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo true || true`
+        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo
+          true || true`
         - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
         - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
@@ -80,15 +91,14 @@ jobs:
         - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
         - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-        - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]];
-          then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes;
-          fi;
+        - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then git
+          status; npx lerna version --no-git-tag-version --no-push --conventional-commits
+          --yes; fi;
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
-          $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf;
-          fi;
+          $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf; fi;
         - npm run resume --prefix packages/resume
         - npm run docs --prefix packages/resume
         - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs
@@ -97,7 +107,8 @@ jobs:
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
-        - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; fi;'
+        - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
+      v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; npx lerna publish from-git --yes; fi;'
       deploy:
         - provider: releases
           api_key:
@@ -105,8 +116,8 @@ jobs:
           file_glob: true
           file:
             - me.tar.gz
-            - $TRAVIS_BUILD_DIR/packages/resume/resume.*.pdf
-            - $TRAVIS_BUILD_DIR/packages/letter/letter.*.pdf
+            - "$TRAVIS_BUILD_DIR/packages/resume/resume.*.pdf"
+            - "$TRAVIS_BUILD_DIR/packages/letter/letter.*.pdf"
           skip_cleanup: true
           on:
             condition: "-n $HAS_PUBLISHABLE_CHANGES"
@@ -135,12 +146,12 @@ jobs:
       deploy:
         - provider: pages
           local-dir: packages/www/
-          repo: ${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io
+          repo: "${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io"
           target-branch: master
           verbose: true
-          email: $TRAVIS_AUTHOR_EMAIL
-          name: $TRAVIS_AUTHOR_NAME
-          github-token: $GH_TOKEN
+          email: "$TRAVIS_AUTHOR_EMAIL"
+          name: "$TRAVIS_AUTHOR_NAME"
+          github-token: "$GH_TOKEN"
           skip_cleanup: true
           on:
             branch: master
@@ -176,12 +187,12 @@ jobs:
       deploy:
         - provider: pages
           local-dir: packages/www/
-          repo: $TRAVIS_REPO_SLUG
+          repo: "$TRAVIS_REPO_SLUG"
           target-branch: gh-pages
           verbose: true
-          email: $TRAVIS_AUTHOR_EMAIL
-          name: $TRAVIS_AUTHOR_NAME
-          github-token: $GH_TOKEN
+          email: "$TRAVIS_AUTHOR_EMAIL"
+          name: "$TRAVIS_AUTHOR_NAME"
+          github-token: "$GH_TOKEN"
           skip_cleanup: true
           on:
             tags: true
@@ -198,12 +209,12 @@ jobs:
       deploy:
         - provider: pages
           local-dir: packages/resume/
-          repo: ${TRAVIS_REPO_OWNER}/me.resume
+          repo: "${TRAVIS_REPO_OWNER}/me.resume"
           target-branch: master
           verbose: true
-          email: $TRAVIS_AUTHOR_EMAIL
-          name: $TRAVIS_AUTHOR_NAME
-          github-token: $GH_TOKEN
+          email: "$TRAVIS_AUTHOR_EMAIL"
+          name: "$TRAVIS_AUTHOR_NAME"
+          github-token: "$GH_TOKEN"
           skip_cleanup: true
           on:
             tags: true

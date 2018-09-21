@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/assets",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },

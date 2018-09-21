@@ -41,14 +41,14 @@ const buildPrintablesParameters = () => {
     const path = require("path");
     const config = require("config");
     const packageJson = require("./package");
-    const printableComponent = require("./public/views/serverApp").default;
-    const printableBuilder = require("./lib/buildResume").default;
+    const printableComponent = require("./src/public/views/serverApp").default;
+    const printableBuilder = require("./src/lib/buildResume").default;
 
     return {
         printableComponent,
         printableStylesPath: path.join(__dirname, "dist/styles.css"),
         printableBuilder,
-        printableTemplateDirectory: path.join(__dirname, "resumes"),
+        printableTemplateDirectory: path.join(__dirname, "src/resumes"),
         printableRenderOptions: {
             bundleName: "resume",
             pageUrl: config.get("resume.publishUrl"),
@@ -80,7 +80,7 @@ gulp.task("resume:json", done => {
     const fs = require("fs");
     const config = require("config");
     const path = require("path");
-    const baseResumePath = path.join(__dirname, "./resumes/default.json");
+    const baseResumePath = path.join(__dirname, "./resume.json");
     const resume = require(baseResumePath);
     const {Person} = require("@randy.tarampi/js");
     const basics = Person.fromJSON(config.get("me.resume.basics")).toResume();
@@ -129,15 +129,15 @@ gulp.task("webpack", function (callback) {
 });
 
 function isFixed(file) {
-    return file.eslint !== null && file.eslint.fixed;
+    return file.eslint && file.eslint.fixed;
 }
 
 gulp.task("eslint", () => {
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src(["**/*.js", "!./node_modules/**/*", "!./dist/**/*", "!./docs/**/*", "!./coverage/**/*", "!./.nyc_output/**/*"])
-        .pipe(eslint({fix: true}))
+    return gulp.src(["**/*.js"])
+        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest("./")))
         .pipe(eslint.failAfterError());
@@ -180,13 +180,11 @@ gulp.task("test", gulp.parallel([
 
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "webpack", "views"]),
-    "resume"
+    gulp.parallel(["copy", "webpack", "views"])
 ]));
 
 gulp.task("build:dev", gulp.series([
-    gulp.parallel(["lint", "copy", "webpack", "views"]),
-    "resume"
+    gulp.parallel(["lint", "copy", "webpack", "views"])
 ]));
 
 gulp.task("dev",

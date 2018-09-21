@@ -7,4 +7,3 @@ REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
 cd "${REPO_ROOT}";
 
 npx lerna link;
-npx lerna run build

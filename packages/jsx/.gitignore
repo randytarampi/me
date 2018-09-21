@@ -45,6 +45,7 @@ jspm_packages
 
 # Compiled resources
 dist
+build
 data/flickr
 
 # Environment variables

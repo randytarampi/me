@@ -1,4 +1,4 @@
-import Posts from "../../../lib/containers/posts";
+import Posts from "../../../src/lib/containers/posts";
 
 const routes = [
     {

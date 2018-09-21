@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/views",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +20,12 @@
   },
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
-    "build": "gulp -LLLL --color build"
+    "build": "npm run build:gulp && npm run build:babel",
+    "build:babel": "BABEL_ENV=client NODE_ENV=prd babel src --out-dir build --root-mode upward --copy-files",
+    "build:gulp": "gulp -LLLL --color build",
+    "prepare": "npm run build",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run clean"
   },
   "license": "MIT",
   "dependencies": {
@@ -43,20 +47,26 @@
     "babel-plugin-istanbul": "next",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-minify-replace": "^0.4.3",
+    "del": "^3.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
     "gulp": "^4.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
     "gulp-pug": "^4.0.1",
-    "gulp-pug-linter": "^0.6.0"
+    "gulp-pug-linter": "^0.6.0",
+    "vinyl-paths": "^2.1.0"
   },
   "engines": {
     "node": ">=8"
   },
-  "main": "./lib/index.js",
-  "esm": "./lib/index.js",
+  "main": "./index.js",
+  "esm": "./index.js",
   "directories": {
     "lib": "./lib"
-  }
+  },
+  "files": [
+    "build",
+    "index.js"
+  ]
 }
