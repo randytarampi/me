@@ -34,9 +34,10 @@
     "postinstall:resume": "./bin/postinstall-resume.sh",
     "pretest": "NODE_ENV=test lerna run pretest --no-bail",
     "test": "NODE_ENV=test lerna run test --no-bail",
-    "cover": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail && mkdir .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -rv .nyc_output ../..; fi;\" && nyc report --reporter=lcov && ls -al .nyc_output && ls -al coverage",
+    "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail",
+    "cover:collect": "mkdir .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -r .nyc_output ../..; fi;\" && nyc report --reporter=lcov",
+    "cover": "npm run cover:actual && npm run cover:collect",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "travis": "npm run cover && npm run coveralls",
     "kill": "lerna run kill"
   }
 }
