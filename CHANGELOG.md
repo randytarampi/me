@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/randytarampi/me/compare/v0.35.0...v0.38.0) (2018-09-22)
+
+
+### Bug Fixes
+
+* **letters:** Fix copy/pasta'd `letters` source directory. ([8efe337](https://github.com/randytarampi/me/commit/8efe337))
+* **resume:** `ConnectedResume` only propagates `customContent` if it exists. ([3ff73ec](https://github.com/randytarampi/me/commit/3ff73ec))
+
+
+### Features
+
+* **resume:** Make `resume` publishable per [#67](https://github.com/randytarampi/me/issues/67). ([7686d58](https://github.com/randytarampi/me/commit/7686d58))
+
+
+
+
+
 <a name="0.37.0"></a>
 # [0.37.0](https://github.com/randytarampi/me/compare/v0.35.0...v0.37.0) (2018-09-22)
 
