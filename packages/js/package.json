@@ -6,6 +6,7 @@
     "url": "https://www.randytarampi.ca"
   },
   "version": "0.39.0",
+  "description": "Some common JS entities for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
   },
@@ -18,7 +19,6 @@
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },
-  "description": "Some common JS entities",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
@@ -27,6 +27,22 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "license": "MIT",
+  "keywords": [
+    "bear",
+    "woof",
+    "纬",
+    "横糸",
+    "씨",
+    "subtegmine",
+    "гав",
+    "υφάδι",
+    "نسيج",
+    "پود",
+    "বুনন",
+    "ʕ•ᴥ•ʔ",
+    "emoji"
+  ],
   "dependencies": {
     "@randy.tarampi/schema-dot-org-types": "latest",
     "immutable": "^4.0.0-rc.9",

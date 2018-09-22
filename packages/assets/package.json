@@ -9,6 +9,7 @@
     "url": "https://www.randytarampi.ca"
   },
   "version": "0.39.0",
+  "description": "Some common assets for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -18,5 +19,5 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
-  "license": "MIT"
+  "license": "CC-BY-NC-3.0"
 }

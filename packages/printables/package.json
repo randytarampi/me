@@ -9,16 +9,17 @@
     "url": "https://www.randytarampi.ca"
   },
   "version": "0.39.0",
+  "description": "A wrapper around some common printable tasks for jsonresume-theme-randytarampi and @randy.tarampi/letter",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
   },
-  "description": "A wrapper around some common printable tasks.",
   "repository": {
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "license": "MIT",
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test gulp -LLLL --color test",
@@ -28,7 +29,6 @@
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },
-  "license": "MIT",
   "dependencies": {
     "@randy.tarampi/views": "^0.39.0",
     "exiftool-vendored": "^6.2.3",

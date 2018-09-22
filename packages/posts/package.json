@@ -6,6 +6,7 @@
     "url": "https://www.randytarampi.ca"
   },
   "version": "0.39.0",
+  "description": "The backend for www.randytarampi.ca",
   "private": true,
   "publishConfig": {
     "access": "public"
@@ -32,7 +33,6 @@
     "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
     "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1"
   },
-  "description": "A backend to @randy.tarampi/www",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
@@ -41,6 +41,7 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "license": "MIT",
   "dependencies": {
     "@randy.tarampi/js": "^0.39.0",
     "aws-sdk": "^2.279.1",

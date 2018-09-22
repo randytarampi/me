@@ -5,6 +5,7 @@
     "access": "public"
   },
   "version": "0.39.0",
+  "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -14,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
-  "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
+  "license": "MIT",
   "directories": {
     "lib": "./lib",
     "test": "./test"
@@ -37,7 +38,6 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "license": "ISC",
   "dependencies": {
     "@randy.tarampi/assets": "^0.39.0",
     "@randy.tarampi/css": "^0.39.0",

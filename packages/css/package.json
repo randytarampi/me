@@ -5,6 +5,7 @@
     "email": "rt@randytarampi.ca"
   },
   "version": "0.39.0",
+  "description": "Some common styles for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
   },
@@ -15,7 +16,6 @@
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },
-  "description": "Some common styles",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
@@ -24,6 +24,7 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "license": "MIT",
   "peerDependencies": {
     "materialize-css": "^1.0.0"
   },

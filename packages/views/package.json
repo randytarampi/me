@@ -9,6 +9,7 @@
     "url": "https://www.randytarampi.ca"
   },
   "version": "0.39.0",
+  "description": "Some common Pug templates for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -18,6 +19,7 @@
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
+  "license": "MIT",
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "build": "npm run build:gulp && npm run build:babel",
@@ -27,7 +29,6 @@
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },
-  "license": "MIT",
   "dependencies": {
     "@randy.tarampi/js": "^0.39.0",
     "config": "^2.0.1"
