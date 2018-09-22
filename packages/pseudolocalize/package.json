@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/pseudolocalize",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },
