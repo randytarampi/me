@@ -15,7 +15,9 @@ export const renderHtml = ({passedPrintable, ...renderLocals} = {}) => {
         printable
     })({
         bundleName: "resume",
-        pageUrl: config.get("resume.publishUrl"),
+        pageUrl: config.has("resume.publishUrl")
+            ? config.get("resume.publishUrl")
+            : null,
         packageJson,
         printable,
         ...renderLocals

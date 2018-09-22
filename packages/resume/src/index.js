@@ -1,5 +1,6 @@
 const config = require("config");
 
+// NOTE-RT: This default module export is built to conform to the expectations of https://github.com/jsonresume/resume-cli
 module.exports = {
     render: (resumeJson, pageSize) => {
         const {renderHtml} = require("./lib/renderHtml");
@@ -14,6 +15,10 @@ module.exports = {
         format: process.env.RESUME_PDF_SIZE || "Letter",
         mediaType: "print"
     },
-    pdfRenderExpectations: config.get("resume.expectations")
+    pdfRenderExpectations: config.has("resume.expectations")
+        ? config.get("resume.expectations")
+        : {
+            pages: 1
+        }
 };
 
