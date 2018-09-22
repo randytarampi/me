@@ -41,14 +41,14 @@ const buildPrintablesParameters = () => {
     const path = require("path");
     const config = require("config");
     const packageJson = require("./package");
-    const printableComponent = require("./public/views/serverApp").default;
-    const printableBuilder = require("./lib/buildLetter").default;
+    const printableComponent = require("./src/public/views/serverApp").default;
+    const printableBuilder = require("./src/lib/buildLetter").default;
 
     return {
         printableComponent,
         printableStylesPath: path.join(__dirname, "dist/styles.css"),
         printableBuilder,
-        printableTemplateDirectory: path.join(__dirname, "letters"),
+        printableTemplateDirectory: path.join(__dirname, "src/letters"),
         printableRenderOptions: {
             bundleName: "resume",
             pageUrl: config.get("resume.publishUrl"),
@@ -80,7 +80,7 @@ gulp.task("letter:json", done => {
     const fs = require("fs");
     const config = require("config");
     const path = require("path");
-    const baseLetterPath = path.join(__dirname, "letters/default.json");
+    const baseLetterPath = path.join(__dirname, "src/letters/default.json");
     const baseLetter = require(baseLetterPath);
 
     return fs.writeFile(baseLetterPath, JSON.stringify({

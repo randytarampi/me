@@ -8,7 +8,7 @@
     "build/**",
     "docs/**",
     "coverage/**",
-    "letters/**",
+    "src/letters/**",
     ".nyc_output/**",
     "test/**",
     "*.js"

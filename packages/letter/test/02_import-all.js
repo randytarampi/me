@@ -1,1 +1,1 @@
-import "../public/routes";
+import "../src";
