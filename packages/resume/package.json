@@ -168,7 +168,7 @@
   "files": [
     "build",
     "styles",
-    "dist",
+    "dist/styles.css",
     "index.js",
     "resume.json"
   ]
