@@ -99,6 +99,5 @@ html(lang="en")
             height="0" width="0" style="display:none;visibility:hidden")
         block content
         if environment !== "puppeteer"
-            script(src=`${assetUrl}/polyfill.js`)
             script(src=`${assetUrl}/vendor.js`)
             script(src=`${assetUrl}/${bundleName}.js`)

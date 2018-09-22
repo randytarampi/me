@@ -11,8 +11,7 @@ module.exports = webpackBaseConfig({
         mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
     ],
     entry: {
-        polyfill: "@babel/polyfill",
-        www: [path.join(__dirname, "./public/views/index.jsx")],
+        www: ["@babel/polyfill", path.join(__dirname, "./public/views/index.jsx")],
         styles: path.join(__dirname, "./styles/style.scss")
     }
 });
