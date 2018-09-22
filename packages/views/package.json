@@ -68,6 +68,8 @@
   },
   "files": [
     "build",
+    "templates",
+    "dist",
     "index.js"
   ]
 }
