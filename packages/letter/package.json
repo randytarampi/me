@@ -39,6 +39,7 @@
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
     "build": "gulp -LLLL --color build",
     "prepare": "npm run build",
+    "prepack": "NODE_ENV=prd npm run build",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.letter.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.server.pid`; rm /tmp/ca.randytarampi.me.letter.server.pid; fi;",
     "letter": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=letter CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color letter",

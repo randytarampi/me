@@ -13,6 +13,7 @@
     "pretest": "gulp -LLLL --color lint",
     "build": "gulp -LLLL --color build",
     "prepare": "npm run build",
+    "prepack": "NODE_ENV=prd npm run build",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },

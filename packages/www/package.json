@@ -29,6 +29,7 @@
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
     "build": "gulp -LLLL --color build",
     "prepare": "npm run build",
+    "prepack": "NODE_ENV=prd npm run build",
     "docs": "gulp -LLLL --color docs",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
