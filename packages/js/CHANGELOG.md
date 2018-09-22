@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.2"></a>
+## [0.39.2](https://github.com/randytarampi/me/compare/v0.39.1...v0.39.2) (2018-09-22)
+
+
+### Bug Fixes
+
+* **docs:** `https://nodei.co/npm` -> `https://nodeico.herokuapp.com`. ([25a8929](https://github.com/randytarampi/me/commit/25a8929))
+
+
+
+
+
 <a name="0.39.1"></a>
 ## [0.39.1](https://github.com/randytarampi/me/compare/v0.39.0...v0.39.1) (2018-09-22)
 
