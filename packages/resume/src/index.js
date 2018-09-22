@@ -1,4 +1,12 @@
-const config = require("config");
+let config;
+
+try {
+    config = require("config");
+} catch (error) {
+    if (error.code !== "MODULE_NOT_FOUND") {
+        throw error;
+    }
+}
 
 // NOTE-RT: This default module export is built to conform to the expectations of https://github.com/jsonresume/resume-cli
 module.exports = {
@@ -15,7 +23,7 @@ module.exports = {
         format: process.env.RESUME_PDF_SIZE || "Letter",
         mediaType: "print"
     },
-    pdfRenderExpectations: config.has("resume.expectations")
+    pdfRenderExpectations: config && config.has("resume.expectations")
         ? config.get("resume.expectations")
         : {
             pages: 1

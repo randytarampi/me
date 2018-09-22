@@ -1,5 +1,4 @@
 import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables";
-import config from "config";
 import path from "path";
 import packageJson from "../../package";
 import ResumeComponent from "../public/views/serverApp";
@@ -15,9 +14,7 @@ export const renderHtml = ({passedPrintable, ...renderLocals} = {}) => {
         printable
     })({
         bundleName: "resume",
-        pageUrl: config.has("resume.publishUrl")
-            ? config.get("resume.publishUrl")
-            : null,
+        pageUrl: __PUBLISHED_RESUME_URL__,
         packageJson,
         printable,
         ...renderLocals
