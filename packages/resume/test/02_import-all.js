@@ -1,1 +1,1 @@
-import "../src/public/routes";
+import "../src/index.server";

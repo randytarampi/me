@@ -146,8 +146,8 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "index.js",
-  "main": "index.js",
+  "main": "./index.server.js",
+  "browser": "./index.client.js",
   "directories": {
     "lib": "./lib",
     "test": "./test"
