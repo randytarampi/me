@@ -1,4 +1,5 @@
-const nodeEnvIsNotProduction = !["production", "prd"].includes(process.env.NODE_ENV);
+const productionNodeEnvs = ["production", "prd"];
+const nodeEnvIsNotProduction = !productionNodeEnvs.includes(process.env.NODE_ENV);
 const isDevelopment = nodeEnvIsNotProduction;
 
 const WEBPACK_MODE_PRODUCTION = "production";
@@ -16,6 +17,7 @@ const webpackMode = resolveWebpackMode();
 module.exports = {
     WEBPACK_MODE_PRODUCTION,
     WEBPACK_MODE_DEVELOPMENT,
+    productionNodeEnvs,
     nodeEnvIsNotProduction,
     isDevelopment,
     resolveWebpackMode,

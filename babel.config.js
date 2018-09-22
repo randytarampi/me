@@ -2,6 +2,7 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
 const config = require("config");
+const util = require("./util");
 
 const configuredMinifyReplace = [
     "minify-replace",
@@ -166,7 +167,7 @@ module.exports = (api) => {
         [
             "@babel/preset-react",
             {
-                development: api.env() !== "prd"
+                development: !util.productionNodeEnvs.includes(api.env())
             }
         ]
     ];
@@ -219,7 +220,7 @@ module.exports = (api) => {
                 [
                     "@babel/preset-react",
                     {
-                        development: api.env() !== "prd"
+                        development: !util.productionNodeEnvs.includes(api.env())
                     }
                 ]
             ];
