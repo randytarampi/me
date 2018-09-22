@@ -77,7 +77,7 @@ jobs:
         - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo
           true || true`
         - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
-        - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
+        - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
         - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm install; fi;
       before_script: skip
@@ -99,11 +99,8 @@ jobs:
         - npm run docs --prefix packages/letter
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
           $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf; fi;
-        - npm run resume --prefix packages/resume
-        - npm run docs --prefix packages/resume
-        - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs
-          $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
-          fi;
+        - npm run resume --prefix packages/jsonresume-theme
+        - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
@@ -209,7 +206,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: pages
-          local-dir: packages/resume/
+          local-dir: packages/jsonresume-theme/
           repo: "${TRAVIS_REPO_OWNER}/me.resume"
           target-branch: master
           verbose: true

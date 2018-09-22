@@ -6,6 +6,7 @@
         "packages/assets/package.json",
         "packages/css/package.json",
         "packages/js/package.json",
+        "packages/jsonresume-theme/package.json",
         "packages/jsx/package.json",
         "packages/letter/package.json",
         "packages/posts/package.json",

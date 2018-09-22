@@ -31,7 +31,7 @@
     "postinstall:css": "./bin/postinstall-css.sh",
     "postinstall:posts": "./bin/postinstall-posts.sh",
     "postinstall:pseudoimage": "./bin/postinstall-pseudoimage.sh",
-    "postinstall:resume": "./bin/postinstall-resume.sh",
+    "postinstall:jsonresume-theme": "./bin/postinstall-jsonresume-theme.sh",
     "pretest": "NODE_ENV=test lerna run pretest --no-bail",
     "test": "NODE_ENV=test lerna run test --no-bail",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail",

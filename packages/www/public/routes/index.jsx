@@ -1,6 +1,6 @@
 import {ConnectedError, ConnectedPosts} from "@randy.tarampi/jsx";
 import {ConnectedLetter} from "@randy.tarampi/letter";
-import {ConnectedResume} from "jsonresume-theme-randytarampi";
+import {ConnectedResume} from "@randy.tarampi/resume";
 import React, {Fragment} from "react";
 import Helmet from "react-helmet";
 import Main from "../views/main";

@@ -180,8 +180,7 @@ module.exports = (api) => {
             loose: true
         }],
         "@babel/plugin-proposal-object-rest-spread",
-        "@babel/plugin-transform-proto-to-assign",
-        "react-hot-loader/babel",
+        "@babel/plugin-transform-proto-to-assign"
     ];
 
     switch (api.env()) {
@@ -208,6 +207,27 @@ module.exports = (api) => {
         }
 
         case "client": {
+            plugins.push("react-hot-loader/babel");
+            presets = [
+                [
+                    "@babel/preset-env",
+                    {
+                        forceAllTransforms: true,
+                        useBuiltIns: "entry",
+                        shippedProposals: true
+                    }
+                ],
+                [
+                    "@babel/preset-react",
+                    {
+                        development: !util.productionNodeEnvs.includes(api.env())
+                    }
+                ]
+            ];
+            break;
+        }
+
+        case "publish": {
             presets = [
                 [
                     "@babel/preset-env",

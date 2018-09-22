@@ -23,7 +23,7 @@
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "build": "npm run build:gulp && npm run build:babel",
-    "build:babel": "BABEL_ENV=client babel src --out-dir build --root-mode upward --copy-files",
+    "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
     "build:gulp": "gulp -LLLL --color build",
     "prepare": "npm run build",
     "prepack": "NODE_ENV=prd npm run build",

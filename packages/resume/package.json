@@ -1,5 +1,5 @@
 {
-  "name": "jsonresume-theme-randytarampi",
+  "name": "@randy.tarampi/resume",
   "publishConfig": {
     "access": "public"
   },
@@ -48,25 +48,21 @@
     "dev:client": "rm -rf dist/*.js dist/*.css && webpack-serve ./webpack.client.config.js --hotClient",
     "build": "npm run build:gulp && npm run build:babel",
     "build:gulp": "gulp -LLLL --color build",
-    "build:babel": "BABEL_ENV=client babel src --out-dir build --root-mode upward --copy-files",
+    "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
     "prepare": "npm run build",
     "prepack": "NODE_ENV=prd npm run build",
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.resume.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.resume.server.pid`) from /tmp/ca.randytarampi.me.resume.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.resume.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.resume.server.pid`) from /tmp/ca.randytarampi.me.resume.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.resume.server.pid`; rm /tmp/ca.randytarampi.me.resume.server.pid; fi;",
     "resume:json": "gulp -LLLL --color resume:json",
-    "resume:pdf": "npm run start:server; npm run resume:letter & npm run resume:a4 & npm run resume:legal; npm run kill:server",
-    "resume:letter": "RESUME_PDF_SIZE=Letter NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=letter,$(node -p \"require(\\\"./package.json\\\").version\") npx --node-arg=\"--require ../../babel.config.js\" resume export dist/resume.letter.pdf --force -f pdf --theme randytarampi && (cp dist/resume.letter.pdf dist/letter.pdf 2>/dev/null || :)",
-    "resume:a4": "RESUME_PDF_SIZE=A4 NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=a4,$(node -p \"require(\\\"./package.json\\\").version\") npx --node-arg=\"--require ../../babel.config.js\" resume export dist/resume.a4.pdf --force -f pdf --theme randytarampi && (cp dist/resume.a4.pdf dist/a4.pdf 2>/dev/null || :)",
-    "resume:legal": "RESUME_PDF_SIZE=Legal NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=legal,$(node -p \"require(\\\"./package.json\\\").version\") npx --node-arg=\"--require ../../babel.config.js\" resume export dist/resume.legal.pdf --force -f pdf --theme randytarampi && (cp dist/resume.legal.pdf dist/legal.pdf 2>/dev/null || :)",
-    "resume:html": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx --node-arg=\"--require ../../babel.config.js\" resume export dist/resume.html --force -f html --theme randytarampi",
+    "resume:pdf": " NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp resume:pdf",
+    "resume:html": " NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp resume:html",
     "docs": "gulp -LLLL --color docs",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },
   "dependencies": {
-    "@babel/polyfill": "latest",
     "@randy.tarampi/assets": "^0.39.4",
     "@randy.tarampi/css": "^0.39.4",
     "@randy.tarampi/js": "^0.39.4",
@@ -101,6 +97,7 @@
     "@babel/plugin-proposal-object-rest-spread": "latest",
     "@babel/plugin-transform-classes": "latest",
     "@babel/plugin-transform-proto-to-assign": "latest",
+    "@babel/polyfill": "latest",
     "@babel/preset-env": "latest",
     "@babel/preset-react": "latest",
     "@babel/register": "latest",
@@ -144,7 +141,6 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^3.0.1",
     "resolve-url-loader": "^3.0.0",
-    "resume-cli": "github:randytarampi/resume-cli#me-release",
     "sass-loader": "^7.1.0",
     "sinon": "^6.1.4",
     "uglifyjs-webpack-plugin": "^2.0.0",
@@ -158,9 +154,8 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./src/esm.js",
-  "main": "./index.js",
-  "browser": "./build/esm.js",
+  "main": "./index.server.js",
+  "browser": "./index.client.js",
   "directories": {
     "lib": "./lib",
     "test": "./test"
