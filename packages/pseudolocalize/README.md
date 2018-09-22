@@ -1,8 +1,12 @@
-#Text-to-ʕ•ᴥ•ʔ translations
+# Text-to-ʕ•ᴥ•ʔ translations
+
+[![npm versions](https://img.shields.io/npm/v/@randy.tarampi/pseudolocalize.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudolocalize) [![npm downloads](https://img.shields.io/npm/dt/@randy.tarampi/pseudolocalize.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudolocalize) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/react.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudolocalize) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/react.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudolocalize) [![npm license](https://img.shields.io/npm/l/@randy.tarampi/pseudolocalize.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudolocalize)  [![Waffle.io board](https://badge.waffle.io/randytarampi/randytarampi.github.io.svg?columns=all&style=flat-square)](https://waffle.io/randytarampi/randytarampi.github.io) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/github/randytarampi/me/tree/master/packages/pseudolocalize?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
+
+[![Install @randy.tarampi/pseudolocalize](https://nodei.co/npm/@randy.tarampi/pseudolocalize.png)](https://www.npmjs.com/package/@randy.tarampi/pseudolocalize)
 
 Or, otherwise user defined pseudolocalizations...
 
-##Usage
+## Usage
 
 ```javascript
 let Pseudolocalizer = require("@randy.tarampi/pseudolocalize");
