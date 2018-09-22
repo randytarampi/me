@@ -2,7 +2,7 @@
 
 [![npm versions](https://img.shields.io/npm/v/@randy.tarampi/pseudoimage.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage) [![npm downloads](https://img.shields.io/npm/dt/@randy.tarampi/pseudoimage.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/react.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/react.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage) [![npm license](https://img.shields.io/npm/l/@randy.tarampi/pseudoimage.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage) [![Waffle.io board](https://badge.waffle.io/randytarampi/randytarampi.github.io.svg?columns=all&style=flat-square)](https://waffle.io/randytarampi/randytarampi.github.io) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/github/randytarampi/me/tree/master/packages/pseudoimage?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
 
-[![Install @randy.tarampi/pseudoimage](https://nodei.co/npm/@randy.tarampi/pseudoimage.png)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage)
+[![Install @randy.tarampi/pseudoimage](https://nodeico.herokuapp.com/@randy.tarampi/pseudoimage.svg)](https://www.npmjs.com/package/@randy.tarampi/pseudoimage)
 
 This uses [lwip](https://github.com/EyalAr/lwip) to modify your images to create a fake, which gets saved somewhere.
 
