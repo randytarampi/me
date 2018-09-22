@@ -10,7 +10,8 @@ module.exports = webpackBaseConfig({
         mount("/api/letter", serve("./src/letters"))
     ],
     entry: {
-        letter: ["@babel/polyfill", path.join(__dirname, "./src/public/views/index.jsx")],
+        polyfill: "@babel/polyfill",
+        letter: [path.join(__dirname, "./src/public/views/index.jsx")],
         styles: path.join(__dirname, "./styles/style.scss")
     }
 });
