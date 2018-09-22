@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.38.0",
+  "version": "0.39.0",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -58,13 +58,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@randy.tarampi/assets": "^0.38.0",
-    "@randy.tarampi/css": "^0.38.0",
-    "@randy.tarampi/js": "^0.38.0",
-    "@randy.tarampi/jsx": "^0.38.0",
-    "@randy.tarampi/printables": "^0.38.0",
+    "@randy.tarampi/assets": "^0.39.0",
+    "@randy.tarampi/css": "^0.39.0",
+    "@randy.tarampi/js": "^0.39.0",
+    "@randy.tarampi/jsx": "^0.39.0",
+    "@randy.tarampi/printables": "^0.39.0",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
-    "@randy.tarampi/views": "^0.38.0",
+    "@randy.tarampi/views": "^0.39.0",
     "exiftool-vendored": "^6.2.3",
     "history": "^4.7.2",
     "immutable": "^4.0.0-rc.9",
