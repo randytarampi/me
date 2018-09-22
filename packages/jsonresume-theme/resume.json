@@ -1,0 +1,350 @@
+{
+  "basics": {
+    "name": "Randy Tarampi",
+    "firstName": "Randy",
+    "lastName": "Tarampi",
+    "label": "Going places | building software",
+    "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+    "phone": "+1 604 374 7128",
+    "email": "jobs@randytarampi.ca",
+    "website": "https://www.randytarampi.ca",
+    "summary": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
+    "location": {
+      "address": "4663 Todd Street",
+      "postalCode": "V5R 3P7",
+      "region": "BC",
+      "city": "Vancouver",
+      "countryCode": "CA"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "randytarampi",
+        "url": "https://github.com/randytarampi"
+      },
+      {
+        "network": "Instagram",
+        "username": "randytarampi",
+        "url": "https://instagram.com/randytarampi"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "randytarampi",
+        "url": "https://linkedin.com/in/randytarampi"
+      },
+      {
+        "network": "Flickr",
+        "username": "randytarampi",
+        "url": "https://www.flickr.com/people/randytarampi"
+      },
+      {
+        "network": "AngelList",
+        "username": "randytarampi",
+        "url": "https://angel.co/randytarampi"
+      },
+      {
+        "network": "StackOverflow",
+        "username": "randytarampi",
+        "url": "https://stackoverflow.com/story/randytarampi"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "Fetch Auto",
+      "position": "Senior Software Developer",
+      "website": "https://fetchauto.ca",
+      "startDate": "2017-02-14",
+      "endDate": "2018-06-01",
+      "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to help build out the first end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
+      "highlights": [
+        "Took a UI prototype to a fully integrated, production application in less than 6 months",
+        "Rapidly iterated on new features and designs to drive user growth",
+        "Implemented a comprehensive user tracking & analytics platform",
+        "Designed and developed a serverless service platform",
+        "Got asked to be their first employee while passing Sardinia on a container ship"
+      ]
+    },
+    {
+      "company": "Yardi Energy | EnerNOC | Pulse Energy",
+      "position": "Software Developer",
+      "website": "https://pulseenergy.com",
+      "startDate": "2014-06-02",
+      "endDate": "2016-09-16",
+      "summary": "Returned to Pulse Energy as a new grad in Summer 2014 looking to further grow my skillset – by year's end we were acquired by EnerNOC and then in Summer 2016 sold off to Yardi",
+      "highlights": [
+        "Mentored and developed co-operative education students",
+        "Led a year-long, platform wide internationalization effort",
+        "Dove deep in support of a platform wide localization effort into Italian",
+        "Designed a centralized, platform wide notification and subscription workflow",
+        "Visited the office and found that much of the code I wrote was still running – untouched and error free"
+      ]
+    },
+    {
+      "company": "Pulse Energy",
+      "position": "Software Developer",
+      "website": "https://pulseenergy.com",
+      "startDate": "2013-01-07",
+      "endDate": "2013-08-30",
+      "summary": "I cut my chops at a mid-size start-up that gave utilities like British Gas, PG&E and BC Hydro an understanding of their​ commercial and industrial customers while serving up actionable energy intelligence for small, medium and large businesses alike",
+      "highlights": [
+        "Built out a service oriented node.js platform atop a legacy Java monolith",
+        "Designed, prototyped and delivered single page, user facing web applications",
+        "Scalably configured applications, services and servers via Chef",
+        "Learned how much a little bit of free food served at the right time can keep spirits high"
+      ]
+    },
+    {
+      "company": "Metro Vancouver",
+      "position": "Project Research Assistant",
+      "website": "http://www.metrovancouver.org",
+      "startDate": "2012-05-01",
+      "endDate": "2012-09-01",
+      "summary": "I was curious about how bureaucracy dealt with data and I was equal parts surprised and horrified",
+      "highlights": [
+        "Maintained and developed internal data manipulation and entry tools",
+        "Performed business analysis, wrote & presented annual financial reports",
+        "Performed systems and data analysis, database spot checks and ensured database integrity",
+        "It turns out that engineers think they can do everything in Excel, and they do"
+      ]
+    },
+    {
+      "company": "SAP",
+      "position": "Software Developer in Test",
+      "website": "https://www.sap.com",
+      "startDate": "2011-09-01",
+      "endDate": "2011-12-31",
+      "summary": "My first \"real\" job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
+      "highlights": [
+        "Administered the daily automated testing of SAP Business Objects Enterprise for the Crystal Reports team"
+      ]
+    },
+    {
+      "company": "Simon Fraser University",
+      "position": "IT Technician",
+      "website": "https://itservices.sfu.ca",
+      "startDate": "2011-05-01",
+      "endDate": "2014-04-30",
+      "summary": "My first \"real\" job, pretty much exactly as it sounds – sat at a desk waiting for problems to arise",
+      "highlights": [
+        "Helped students and staff with printer, network and other general IT issues",
+        "Flamed trolls and policed computing labs, seeking students who could not read the large \"NO FOOD AND DRINK\" signs"
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Simon Fraser University",
+      "position": "Orientation leader",
+      "startDate": "2011-09-01",
+      "endDate": "2011-12-31",
+      "url": "",
+      "summary": "What started off as me making good on a bet to get involved and volunteer in the wider university community ended up being a pretty fun time where I ended up meeting a bunch of cool people",
+      "highlights": [
+        "Marched a group of 10-15 students around SFU's Burnaby Campus for two days pointing out various points of interest and extolling the benefits of community involvement, meeting new people and in general, making the most their first semester",
+        "Mentored the group for the duration of the semester, answering various questions regarding course selection, best/cheapest food on campus, fun things to do on campus, and other common questions for university neophytes"
+      ]
+    },
+    {
+      "organization": "Windermere Community Programs",
+      "position": "Program Volunteer",
+      "startDate": "2006-09-01",
+      "endDate": "2009-06-30",
+      "url": "",
+      "summary": "The Education Ministry of BC mandated that high school students complete some number of civil service hours before graduating – I ended up starting off begrudgingly and ended up loving it so much that I did it for much longer than required",
+      "highlights": [
+        "Organized and supervised children's activities for various after school programs at a number of East Vancouver elementary schools"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "My résumé",
+      "description": "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
+      "highlights": [
+        "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised",
+        "Builds off and adheres to the JSON Resume standard"
+      ],
+      "keywords": [
+        "ES6",
+        "react",
+        "sass",
+        "jsonresume",
+        "Print styles",
+        "Puppeteer"
+      ],
+      "startDate": "2018-08-01",
+      "roles": [
+        "Developer"
+      ],
+      "entity": "Me, myself & I",
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/resume"
+    },
+    {
+      "name": "My blog",
+      "description": "A small project I kicked off shortly after leaving Yardi and then subsequently dropped as I went off travelling around the Mediterranean",
+      "highlights": [
+        "My choice of technologies here was largely driven by my want to minimize operating costs – almost eveything happens on continuning AWS free tier services",
+        "The 2 USD/month I pay for key management services dominates the total bill, which is usually less than 3 USD"
+      ],
+      "keywords": [
+        "node.js",
+        "ES6",
+        "react",
+        "redux",
+        "User tracking",
+        "GitHub Pages",
+        "serverless",
+        "AWS Lambda",
+        "DynamoDB",
+        "Tumblr",
+        "Instagram",
+        "Unsplash",
+        "Flickr",
+        "S3"
+      ],
+      "startDate": "2016-10-06",
+      "roles": [
+        "Developer"
+      ],
+      "entity": "Me, myself & I",
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/blog"
+    }
+  ],
+  "education": [
+    {
+      "institution": "Simon Fraser University",
+      "area": "Computing Science & Political Science",
+      "studyType": "Bachelor's degree",
+      "startDate": "2009-09-03",
+      "endDate": "2014-06-02",
+      "gpa": "3.33",
+      "courses": [
+        "CMPT 470 – Web Information Systems",
+        "CMPT 431 – Distributed Systems",
+        "CMPT 305 – Computer Simulation and Modelling",
+        "POL 451 – Public Policy Analysis",
+        "CMPT 471 – Networking II",
+        "CMPT 475 – Software Engineering II",
+        "CMPT 363 – User Interface Design",
+        "CMPT 300 – Operating Systems"
+      ]
+    }
+  ],
+  "awards": [],
+  "publications": [],
+  "skills": [
+    {
+      "name": "Front end",
+      "level": "Master",
+      "keywords": [
+        "ES6",
+        "react",
+        "redux",
+        "i18n",
+        "a11y",
+        "User analytics",
+        "sass",
+        "User testing",
+        "UI design",
+        "Data visualization"
+      ]
+    },
+    {
+      "name": "Back end",
+      "level": "Master",
+      "keywords": [
+        "node.js",
+        "Data architecture",
+        "Serverless computing",
+        "Performance tuning",
+        "Microservices",
+        "i18n",
+        "Spring",
+        "Postgres",
+        "Redis",
+        "Service architecture",
+        "API security"
+      ]
+    },
+    {
+      "name": "Operations",
+      "level": "Intermediate",
+      "keywords": [
+        "AWS",
+        "CloudFormation",
+        "Chef",
+        "Configuration as code",
+        "Network security",
+        "Fault tolerance",
+        "Monitoring",
+        "Alerting"
+      ]
+    },
+    {
+      "name": "Data analysis",
+      "level": "Beginner",
+      "keywords": [
+        "Excel",
+        "VBA",
+        "Python",
+        "Jupyter Notebook",
+        "R"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native"
+    },
+    {
+      "language": "Italian",
+      "fluency": "Beginner"
+    },
+    {
+      "language": "French",
+      "fluency": "Intermediate"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Auto racing",
+      "keywords": [
+        "WEC",
+        "WTSC",
+        "F1",
+        "IndyCar"
+      ]
+    },
+    {
+      "name": "Photography",
+      "keywords": [
+        "Landscapes",
+        "Night",
+        "Long exposures",
+        "Events",
+        "Weddings"
+      ]
+    },
+    {
+      "name": "Food & drink",
+      "keywords": [
+        "Comfort foods",
+        "Baked goods",
+        "Iced beverages"
+      ]
+    },
+    {
+      "name": "People",
+      "keywords": [
+        "That have stories to tell",
+        "Who have a sense of humor",
+        "That read this far down"
+      ]
+    }
+  ],
+  "references": []
+}

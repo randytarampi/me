@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.5"></a>
+## [0.39.5](https://github.com/randytarampi/me/compare/v0.39.4...v0.39.5) (2018-09-22)
+
+
+### Bug Fixes
+
+* **resume:** Split out `jsonresume-theme` from `[@randy](https://github.com/randy).tarampi/resume`. ([abf0005](https://github.com/randytarampi/me/commit/abf0005))
+
+
+### Reverts
+
+* chore(www): Bring polyfills in before `vendor`. ([03e0d8c](https://github.com/randytarampi/me/commit/03e0d8c))
+
+
+
+
+
 <a name="0.39.4"></a>
 ## [0.39.4](https://github.com/randytarampi/me/compare/v0.39.3...v0.39.4) (2018-09-22)
 
