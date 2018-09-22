@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.4"></a>
+## [0.39.4](https://github.com/randytarampi/me/compare/v0.39.3...v0.39.4) (2018-09-22)
+
+
+### Bug Fixes
+
+* **resume:** Include `[@babel](https://github.com/babel)/polyfill` in the `resume-cli` index. ([ef85c30](https://github.com/randytarampi/me/commit/ef85c30))
+* **resume:** Per ef85c30c5b2713e791e956ad408aa0d46bde53ef, `[@babel](https://github.com/babel)/polyfill` needs to be a dependency. ([93a8c70](https://github.com/randytarampi/me/commit/93a8c70))
+
+
+
+
+
 <a name="0.39.3"></a>
 ## [0.39.3](https://github.com/randytarampi/me/compare/v0.39.2...v0.39.3) (2018-09-22)
 

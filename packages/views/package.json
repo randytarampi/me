@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.39.3",
+  "version": "0.39.4",
   "description": "Some common Pug templates for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
@@ -31,7 +31,7 @@
     "preuninstall": "npm run clean"
   },
   "dependencies": {
-    "@randy.tarampi/js": "^0.39.3",
+    "@randy.tarampi/js": "^0.39.4",
     "config": "^2.0.1"
   },
   "devDependencies": {
