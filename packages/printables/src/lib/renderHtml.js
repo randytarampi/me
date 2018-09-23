@@ -7,7 +7,7 @@ export const renderHtml = ({printableComponent, printableStylesPath, printable})
 
     return renderLocals => {
         const pugLocals = printablePugLocalsBuilder(renderLocals);
-        return pug.renderFile(path.join(__dirname, "../../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
+        return pug.renderFile(process.env.PRINTABLE_TEMPLATE_PATH || path.join(__dirname, "../../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
     };
 };
 

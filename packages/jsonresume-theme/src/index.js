@@ -1,15 +1,10 @@
 import "@babel/polyfill";
 import {renderHtml, Resume} from "@randy.tarampi/resume";
+import config from "config";
+import path from "path";
 
-let config;
-
-try {
-    config = require("config");
-} catch (error) {
-    if (error.code !== "MODULE_NOT_FOUND") {
-        throw error;
-    }
-}
+process.env.RESUME_STYLES_PATH = process.env.RESUME_STYLES_PATH || path.join(__dirname, "../dist/styles.css");
+process.env.PRINTABLE_TEMPLATE_PATH = process.env.PRINTABLE_TEMPLATE_PATH || path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug");
 
 export const render = (resumeJson, pageSize) => {
     return renderHtml({

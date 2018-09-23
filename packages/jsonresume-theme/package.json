@@ -44,8 +44,9 @@
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test npm run resume",
     "start": "npm run resume",
-    "build": "npm run build:babel",
+    "build": "npm run build:babel && npm run build:styles",
     "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
+    "build:styles": "mkdir -p dist && cp -n \"node_modules/@randy.tarampi/resume/dist/styles.css\" ./dist/styles.css || true",
     "postinstall": "npm run resume:json && npm run build",
     "prepack": "NODE_ENV=prd npm run build",
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
@@ -59,8 +60,9 @@
     "resume:html": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume export resume.html --force -f html --theme randytarampi"
   },
   "dependencies": {
-    "@babel/polyfill": "latest",
-    "@randy.tarampi/resume": "^0.39.6"
+    "@randy.tarampi/resume": "^0.39.5",
+    "@randy.tarampi/views": "^0.39.6",
+    "config": "^2.0.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",
