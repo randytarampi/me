@@ -25,7 +25,7 @@ describe("CampaignLink", function () {
                 href={`${stubProps.href}?${queryString.stringify({
                     utm_source: stubProps.source,
                     utm_medium: stubProps.medium,
-                    utm_name: stubProps.name,
+                    utm_campaign: stubProps.name,
                     utm_term: stubProps.term,
                     utm_content: stubProps.content
                 })}`}
@@ -48,7 +48,7 @@ describe("CampaignLink", function () {
         const href = `${stubProps.href}?${queryString.stringify({
             utm_source: stubProps.source,
             utm_medium: stubProps.medium,
-            utm_name: stubProps.name,
+            utm_campaign: stubProps.name,
             utm_term: stubProps.term,
             utm_content: stubProps.content
         })}`;
@@ -78,7 +78,7 @@ describe("CampaignLink", function () {
             ...queryString.parseUrl(stubProps.href).query,
             utm_source: stubProps.source,
             utm_medium: stubProps.medium,
-            utm_name: stubProps.name,
+            utm_campaign: stubProps.name,
             utm_term: stubProps.term,
             utm_content: stubProps.content
         })}`;

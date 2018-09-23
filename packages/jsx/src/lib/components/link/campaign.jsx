@@ -10,7 +10,7 @@ export const CampaignLink = ({useBranding, href, source, medium, name, term, con
     const passedCampaignParameters = {
         utm_source: source,
         utm_medium: medium,
-        utm_name: name,
+        utm_campaign: name,
         utm_term: term,
         utm_content: content
     };
