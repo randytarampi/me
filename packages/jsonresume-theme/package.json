@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.39.5",
+  "version": "0.39.6",
   "description": "A JSON resume theme for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "latest",
-    "@randy.tarampi/resume": "^0.39.5"
+    "@randy.tarampi/resume": "^0.39.6"
   },
   "devDependencies": {
     "@babel/cli": "latest",

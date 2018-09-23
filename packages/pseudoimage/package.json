@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.39.5",
+  "version": "0.39.6",
   "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
   "main": "lib/pseudoimage.js",
   "directories": {

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.6"></a>
+## [0.39.6](https://github.com/randytarampi/me/compare/v0.39.5...v0.39.6) (2018-09-23)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Need `resume-cli` in `devDependencies`. ([4871e33](https://github.com/randytarampi/me/commit/4871e33))
+* **jsonresume-theme:** Need `resume-cli` in `devDependencies`. Again. ([fd6346d](https://github.com/randytarampi/me/commit/fd6346d))
+* **jsx:** Resolve `PostsComponent` `DimensionsHOC` `ref` warning. ([f47ed77](https://github.com/randytarampi/me/commit/f47ed77))
+* **www:** Try supporting IE8 and other ES3 environments. ([e5bfb11](https://github.com/randytarampi/me/commit/e5bfb11))
+
+
+### Reverts
+
+* fix(jsonresume-theme): Need `resume-cli` in `devDependencies`. ([bdaaa12](https://github.com/randytarampi/me/commit/bdaaa12))
+
+
+
+
+
 <a name="0.39.5"></a>
 ## [0.39.5](https://github.com/randytarampi/me/compare/v0.39.4...v0.39.5) (2018-09-22)
 
