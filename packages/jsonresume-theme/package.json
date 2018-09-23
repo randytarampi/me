@@ -64,7 +64,8 @@
   "dependencies": {
     "@randy.tarampi/resume": "^0.39.8",
     "@randy.tarampi/views": "^0.39.8",
-    "config": "^2.0.1"
+    "config": "^2.0.1",
+    "core-js": "^2.5.7"
   },
   "devDependencies": {
     "@babel/cli": "latest",
