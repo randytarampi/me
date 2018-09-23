@@ -44,8 +44,8 @@
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test npm run resume",
     "start": "npm run resume",
-    "build": "npm run build:babel && npm run build:styles",
-    "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
+    "build": "npm run build:webpack && npm run build:styles",
+    "build:webpack": "webpack --config webpack.publish.config",
     "build:styles": "mkdir -p dist && cp -n \"node_modules/@randy.tarampi/resume/dist/styles.css\" ./dist/styles.css || true",
     "postinstall": "npm run resume:json && npm run build:styles",
     "prepack": "NODE_ENV=prd npm run build",
@@ -64,13 +64,13 @@
   "dependencies": {
     "@randy.tarampi/resume": "^0.39.9",
     "@randy.tarampi/views": "^0.39.9",
-    "config": "^2.0.1",
-    "core-js": "^2.5.7"
+    "config": "^2.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "latest",
     "gulp": "^4.0.0",
-    "resume-cli": "github:randytarampi/resume-cli#me-release"
+    "resume-cli": "github:randytarampi/resume-cli#me-release",
+    "webpack": "^4.16.0",
+    "webpack-bundle-analyzer": "^3.0.0"
   },
   "engines": {
     "node": ">=8"
