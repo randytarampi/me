@@ -55,14 +55,8 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 
 module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, ...configOverrides}) => {
     return {
-        node: {
-            fs: "empty",
-            module: "empty",
-            os: "empty",
-            stream: "empty"
-        },
         mode: resolveMode(),
-        devtool: "source-map",
+        devtool: "nosources-source-map",
         output: {
             path: compliationDirectoryPath,
             filename: "[name].js",
