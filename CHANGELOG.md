@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.9"></a>
+## [0.39.9](https://github.com/randytarampi/me/compare/v0.39.8...v0.39.9) (2018-09-23)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Explicitly depend on core-js^2.5.7. ([33d25ed](https://github.com/randytarampi/me/commit/33d25ed))
+
+
+
+
+
 <a name="0.39.8"></a>
 ## [0.39.8](https://github.com/randytarampi/me/compare/v0.39.7...v0.39.8) (2018-09-23)
 
