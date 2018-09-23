@@ -22,6 +22,7 @@ module.exports = {
     isDevelopment,
     resolveWebpackMode,
     webpackMode,
+    webpackNodeExternalsWhitelist: /@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap/,
     babelLoaderExclusions: webpackMode === WEBPACK_MODE_DEVELOPMENT
         ? /\/node_modules\/(?!(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap)\/)/
         : /!^/,
