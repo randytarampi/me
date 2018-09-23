@@ -39,6 +39,7 @@ gulp.task("views", () => {
 
 const buildPrintablesParameters = () => {
     const path = require("path");
+    const config = require("config");
     const packageJson = require("./package");
     const printableComponent = require("./src/public/views/serverApp").default;
     const printableBuilder = require("./src/lib/buildResume").default;
@@ -50,7 +51,7 @@ const buildPrintablesParameters = () => {
         printableTemplateDirectory: path.join(__dirname, "src/resumes"),
         printableRenderOptions: {
             bundleName: "resume",
-            pageUrl: __PUBLISHED_RESUME_URL__,
+            pageUrl: config.get("resume.publishUrl"),
             packageJson
         },
         printableDestinationDirectory: path.join(__dirname, "dist")
