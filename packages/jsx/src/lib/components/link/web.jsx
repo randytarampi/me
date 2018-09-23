@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Link from "./link";
+import CampaignLink from "./campaign";
 
 export const WebLink = ({useBranding, ...props}) => {
-    return <Link {...props}
-                 className={["link--web", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
-                 text={props.text || props.href}/>;
+    return <CampaignLink {...props}
+                         className={["link--web", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
+                         text={props.text || props.href}/>;
 };
 
 WebLink.propTypes = {

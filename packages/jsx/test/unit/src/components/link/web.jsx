@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import Link from "../../../../../src/lib/components/link/link";
+import CampaignLink from "../../../../../src/lib/components/link/campaign";
 import WebLink from "../../../../../src/lib/components/link/web";
 
 describe("WebLink", function () {
@@ -14,7 +14,7 @@ describe("WebLink", function () {
 
         expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
-            <Link
+            <CampaignLink
                 className="link--web"
                 href={stubProps.href}
                 text={stubProps.text}
@@ -32,7 +32,7 @@ describe("WebLink", function () {
 
         expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
-            <Link
+            <CampaignLink
                 className="link--web link--no-branding"
                 tel={stubProps.tel}
                 href={stubProps.href}

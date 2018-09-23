@@ -5,7 +5,7 @@ import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import {Col, Row} from "react-materialize";
-import Link from "./link";
+import {CampaignLink} from "./link";
 
 export class PostComponent extends Component {
     get width() {
@@ -49,7 +49,8 @@ export class PostComponent extends Component {
                 <h1 className="post-title">
                     {
                         this.props.post.sourceUrl ?
-                            <Link className="post-title__link" href={this.props.post.sourceUrl}>{this.title}</Link> :
+                            <CampaignLink className="post-title__link"
+                                          href={this.props.post.sourceUrl}>{this.title}</CampaignLink> :
                             <span className="post-title__text">{this.title}</span>
                     }
                 </h1>

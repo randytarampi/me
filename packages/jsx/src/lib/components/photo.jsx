@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
-import Link from "./link";
+import {CampaignLink} from "./link";
 import {PostComponent} from "./post";
 
 export class PhotoComponent extends PostComponent {
@@ -45,7 +45,8 @@ export class PhotoComponent extends PostComponent {
                 className="post-metadata hide-on-med-and-up"
             >
                 <h1 className="post-title">
-                    <Link className="post-title__link" href={this.props.post.sourceUrl}>{this.title}</Link>
+                    <CampaignLink className="post-title__link"
+                                  href={this.props.post.sourceUrl}>{this.title}</CampaignLink>
                 </h1>
             </Col>
             <Col
@@ -53,7 +54,8 @@ export class PhotoComponent extends PostComponent {
                 l={4}
             >
                 <h1 className="post-title">
-                    <Link className="post-title__link" href={this.props.post.sourceUrl}>{this.title}</Link>
+                    <CampaignLink className="post-title__link"
+                                  href={this.props.post.sourceUrl}>{this.title}</CampaignLink>
                 </h1>
                 {
                     typeof this.props.post.body === "string" && this.props.post.body !== "" ?
@@ -110,11 +112,12 @@ export class PhotoComponent extends PostComponent {
                         null
                 }
                 <p className="post-source">
-                    <Link className="post-source__link" href={this.props.post.sourceUrl}>View on {this.props.post.source}</Link>
+                    <CampaignLink className="post-source__link" href={this.props.post.sourceUrl}>View
+                        on {this.props.post.source}</CampaignLink>
                     {
                         this.props.post.creator ?
-                            <Link className="post-source__link"
-                                  href={this.props.post.creator.url}>{this.props.post.creator.username} on {this.props.post.source}</Link> :
+                            <CampaignLink className="post-source__link"
+                                          href={this.props.post.creator.url}>{this.props.post.creator.username} on {this.props.post.source}</CampaignLink> :
                             null
                     }
                 </p>

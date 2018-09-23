@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Link from "../link";
+import CampaignLink from "../campaign";
 
 export const BrandedLink = ({serviceName, serviceType, serviceUrl, username, useBranding, ...props}) => { // eslint-disable-line no-unused-vars
-    return <Link
+    return <CampaignLink
         text={username}
         href={`${serviceUrl}/${username}`}
         {...props}
