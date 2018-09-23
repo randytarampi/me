@@ -65,7 +65,8 @@
   },
   "devDependencies": {
     "@babel/cli": "latest",
-    "gulp": "^4.0.0"
+    "gulp": "^4.0.0",
+    "resume-cli": "github:randytarampi/resume-cli#me-release"
   },
   "engines": {
     "node": ">=8"
