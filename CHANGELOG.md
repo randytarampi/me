@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.8"></a>
+## [0.39.8](https://github.com/randytarampi/me/compare/v0.39.7...v0.39.8) (2018-09-23)
+
+
+### Bug Fixes
+
+* **jsx:** `utm_name` -> `utm_campaign`. ([fb2d041](https://github.com/randytarampi/me/commit/fb2d041))
+* **letter:** ESLint. ([9924810](https://github.com/randytarampi/me/commit/9924810))
+
+
+
+
+
 <a name="0.39.7"></a>
 ## [0.39.7](https://github.com/randytarampi/me/compare/v0.39.6...v0.39.7) (2018-09-23)
 
