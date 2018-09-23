@@ -1,7 +1,7 @@
 var builtOrUnbuiltModule;
 
 try {
-    require("../../babel.register");
+    require("./babel.register");
     builtOrUnbuiltModule = require("./src");
 } catch (error) {
     if (error.code === "MODULE_NOT_FOUND") {
