@@ -4,7 +4,7 @@ import {Map, Set} from "immutable";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import testLetterJson from "../../../../../src/letters/default";
+import testLetterJson from "../../../../../letter";
 import {
     FETCHING_LETTER,
     FETCHING_LETTER_CANCELLED,

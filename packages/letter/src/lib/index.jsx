@@ -1,4 +1,4 @@
-import baseLetter from "../letters/default";
+import baseLetter from "../../letter";
 
 export * from "./components";
 export * from "./containers";

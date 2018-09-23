@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
-import testLetterJson from "../../../../../src/letters/default";
+import testLetterJson from "../../../../../letter";
 import Letter from "../../../../../src/lib/letter";
 
 describe("fetchLetter", function () {
