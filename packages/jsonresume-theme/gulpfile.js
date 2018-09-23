@@ -24,4 +24,10 @@ gulp.task("lint", gulp.parallel([
     "eslint"
 ]));
 
-gulp.task("default", gulp.series(["lint"]));
+gulp.task("clean", () => {
+    const vinylPaths = require("vinyl-paths");
+    const del = require("del");
+
+    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
+        .pipe(vinylPaths(del));
+});
