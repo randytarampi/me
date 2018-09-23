@@ -25,7 +25,6 @@ rules:
     ignore:
     - "@randy\\.tarampi\\/\\w+"
   import/default: 2
-  import/no-extraneous-dependencies: 1
   react/no-unescaped-entities: 0
   no-global-assign:
   - 2

@@ -31,24 +31,7 @@
   },
   "devDependencies": {
     "@babel/cli": "latest",
-    "@babel/core": "latest",
-    "@babel/plugin-proposal-class-properties": "latest",
-    "@babel/plugin-proposal-object-rest-spread": "latest",
-    "@babel/plugin-transform-classes": "latest",
-    "@babel/plugin-transform-proto-to-assign": "latest",
-    "@babel/preset-env": "latest",
-    "@babel/register": "latest",
-    "del": "^3.0.0",
-    "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^6.0.0",
-    "gulp-clean-css": "^3.9.4",
-    "gulp-concat": "^2.6.1",
-    "gulp-eslint": "^5.0.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sass-lint": "^1.4.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "materialize-css": "^1.0.0",
-    "vinyl-paths": "^2.1.0"
+    "gulp": "^4.0.0"
   },
   "engines": {
     "node": ">=8"
