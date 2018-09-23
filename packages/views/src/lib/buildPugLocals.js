@@ -2,15 +2,19 @@ import {Person} from "@randy.tarampi/js";
 import config from "config";
 
 export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) => {
-    const mePerson = Person.fromJSON(config.get("me.person"));
-    const meProfiles = config.get("me.profiles");
+    const mePerson = config.has("me.person") ? Person.fromJSON(config.get("me.person")) : null;
+    const meProfiles = config.has("me.profiles") ? config.get("me.profiles") : null;
 
-    const meLocals = {
-        pugTitle: `${mePerson.name} — ${mePerson.label}`,
-        pugDescription: mePerson.description,
-        pageUrl: mePerson.url,
-        meJsonLd: JSON.stringify(mePerson.toSchema())
-    };
+    let meLocals = {};
+
+    if (mePerson) {
+        meLocals = {
+            pugTitle: `${mePerson.name} — ${mePerson.label}`,
+            pugDescription: mePerson.description,
+            pageUrl: mePerson.url,
+            meJsonLd: JSON.stringify(mePerson.toSchema())
+        };
+    }
 
     if (meProfiles) {
         if (meProfiles.Twitter) {
@@ -25,10 +29,10 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
 
     const locals = {
         environment: process.env.NODE_ENV || "local",
-        assetUrl: config.get("www.assetUrl"),
-        sentryDsn: config.get("sentryDsn"),
-        gtm: config.get("gtm"),
-        logger: JSON.stringify(config.get("logger")),
+        assetUrl: config.has("www.assetUrl") ? config.get("www.assetUrl") : null,
+        sentryDsn: config.has("sentryDsn") ? config.get("sentryDsn") : null,
+        gtm: config.has("gtm") ? config.get("gtm") : null,
+        logger: config.has("logger") ? JSON.stringify(config.get("logger")) : null,
         ...meLocals,
         ...passedLocals
     };
