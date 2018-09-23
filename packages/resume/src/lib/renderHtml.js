@@ -1,4 +1,4 @@
-import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables";
+import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables/html";
 import path from "path";
 import packageJson from "../../package";
 import ResumeComponent from "../public/views/serverApp";
@@ -10,7 +10,7 @@ export const renderHtml = ({passedPrintable, ...renderLocals} = {}) => {
 
     return genericRenderHtml({
         printableComponent: ResumeComponent,
-        printableStylesPath: path.join(__dirname, "../../dist/styles.css"),
+        printableStylesPath: process.env.RESUME_STYLES_PATH || path.join(__dirname, "../../dist/styles.css"),
         printable
     })({
         bundleName: "resume",
