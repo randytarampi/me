@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.39.6",
+  "version": "0.39.7",
   "description": "A JSON resume theme for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
@@ -60,8 +60,8 @@
     "resume:html": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume export resume.html --force -f html --theme randytarampi"
   },
   "dependencies": {
-    "@randy.tarampi/resume": "^0.39.5",
-    "@randy.tarampi/views": "^0.39.6",
+    "@randy.tarampi/resume": "^0.39.7",
+    "@randy.tarampi/views": "^0.39.7",
     "config": "^2.0.1"
   },
   "devDependencies": {
