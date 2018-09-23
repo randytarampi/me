@@ -101,6 +101,7 @@
     "build",
     "styles",
     "dist/styles.css",
-    "index.js"
+    "index.client.js",
+    "index.server.js"
   ]
 }
