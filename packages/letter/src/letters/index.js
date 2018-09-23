@@ -1,3 +1,3 @@
-import defaultLetter from "./default";
+import defaultLetter from "../../letter";
 
 export default defaultLetter;

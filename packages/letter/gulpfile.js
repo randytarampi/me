@@ -80,7 +80,7 @@ gulp.task("letter:json", done => {
     const fs = require("fs");
     const config = require("config");
     const path = require("path");
-    const baseLetterPath = path.join(__dirname, "src/letters/default.json");
+    const baseLetterPath = path.join(__dirname, "./letter.json");
     const baseLetter = require(baseLetterPath);
 
     return fs.writeFile(baseLetterPath, JSON.stringify({

@@ -40,7 +40,7 @@
     "build": "npm run build:gulp && npm run build:babel",
     "build:gulp": "gulp -LLLL --color build",
     "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
-    "prepare": "if [ ! -z \"$CI\" ]; then npm run build; fi;",
+    "prepare": "if [ -z \"$CI\" ]; then npm run build; fi;",
     "prepack": "NODE_ENV=prd npm run build",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.letter.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.server.pid`; rm /tmp/ca.randytarampi.me.letter.server.pid; fi;",
@@ -102,6 +102,7 @@
     "styles",
     "dist/styles.css",
     "index.client.js",
-    "index.server.js"
+    "index.server.js",
+    "letter.json"
   ]
 }

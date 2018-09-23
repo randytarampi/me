@@ -1,6 +1,6 @@
 import {Map, Set} from "immutable";
 import {createSelector} from "reselect";
-import defaultLetter from "../../letters/default";
+import defaultLetter from "../../../letter";
 import {FETCHING_LETTER_SUCCESS} from "../actions/fetchLetter";
 import Letter from "../letter";
 
