@@ -52,7 +52,8 @@ const buildPrintablesParameters = () => {
         printableRenderOptions: {
             bundleName: "resume",
             pageUrl: config.get("resume.publishUrl"),
-            packageJson
+            packageJson,
+            assetUrl: config.get("resume.assetUrl")
         },
         printableDestinationDirectory: path.join(__dirname, "dist")
     };

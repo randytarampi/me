@@ -9,7 +9,10 @@ process.env.PRINTABLE_TEMPLATE_PATH = process.env.PRINTABLE_TEMPLATE_PATH || pat
 export const render = (resumeJson, pageSize) => {
     return renderHtml({
         printable: Resume.fromResume(resumeJson),
-        pageSize
+        pageSize,
+        assetUrl: config && config.has("resume.assetUrl")
+            ? config.get("resume.assetUrl")
+            : "http://localhost:3000"
     });
 };
 

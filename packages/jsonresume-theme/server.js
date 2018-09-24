@@ -7,4 +7,4 @@ const config = require("config");
 const server = require("express");
 const app = server();
 app.use(server.static(`${__dirname}/dist`));
-module.exports = app.listen(config.get("resume.serverPort"));
+module.exports = app.listen(config.has("resume.serverPort") ? config.get("resume.serverPort") : 3000);

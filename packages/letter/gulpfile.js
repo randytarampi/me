@@ -52,7 +52,8 @@ const buildPrintablesParameters = () => {
         printableRenderOptions: {
             bundleName: "letter",
             pageUrl: config.get("letter.publishUrl"),
-            packageJson
+            packageJson,
+            assetUrl: config.get("letter.assetUrl")
         },
         printableDestinationDirectory: path.join(__dirname, "dist")
     };

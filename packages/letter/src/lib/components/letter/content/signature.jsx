@@ -12,7 +12,7 @@ export const LetterSignature = ({letter, contentConfiguration}) => {
             Hope to hear from you soon,
         </p>
         <img className="signature letter-signature__signature" alt={letter.basics.name}
-             src={`${__ASSET_URL__}/signature.svg`}/>
+             src={`${__LETTER_ASSET_URL__}/signature.svg`}/>
     </RightDescriptionSection>;
 };
 

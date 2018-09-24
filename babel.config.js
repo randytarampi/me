@@ -72,6 +72,13 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__RESUME_ASSET_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("resume.assetUrl")
+                }
+            },
+            {
                 identifierName: "__RESUME_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
@@ -79,10 +86,31 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__PUBLISHED_RESUME_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("resume.publishUrl")
+                }
+            },
+            {
+                identifierName: "__LETTER_ASSET_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("letter.assetUrl")
+                }
+            },
+            {
                 identifierName: "__LETTER_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
                     value: config.get("www.letterUrl")
+                }
+            },
+            {
+                identifierName: "__PUBLISHED_LETTER_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("letter.publishUrl")
                 }
             },
             {
@@ -97,20 +125,6 @@ const configuredMinifyReplace = [
                 replacement: {
                     type: "stringLiteral",
                     value: config.get("www.publishUrl")
-                }
-            },
-            {
-                identifierName: "__PUBLISHED_RESUME_URL__",
-                replacement: {
-                    type: "stringLiteral",
-                    value: config.get("resume.publishUrl")
-                }
-            },
-            {
-                identifierName: "__PUBLISHED_LETTER_URL__",
-                replacement: {
-                    type: "stringLiteral",
-                    value: config.get("letter.publishUrl")
                 }
             },
             {
