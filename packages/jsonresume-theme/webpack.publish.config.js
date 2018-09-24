@@ -10,13 +10,7 @@ module.exports = webpackBaseConfig({
         index: ["@babel/polyfill", path.join(__dirname, "./src/index.js")]
     },
     node: {
-        console: false,
-        global: false,
-        process: false,
-        __filename: false,
-        __dirname: false,
-        Buffer: false,
-        setImmediate: false
+        __dirname: false
     },
     target: "node",
     externals: [nodeExternals({
