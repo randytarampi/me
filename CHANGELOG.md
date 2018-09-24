@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.12"></a>
+## [0.39.12](https://github.com/randytarampi/me/compare/v0.39.11...v0.39.12) (2018-09-24)
+
+
+### Bug Fixes
+
+* **config:** Use the correct `puppeteer` env `assetUrl`s. ([b32d016](https://github.com/randytarampi/me/commit/b32d016))
+* **jsonresume-theme:** Make sure webpack doesn't mangle `__dirname`. ([26e9b4b](https://github.com/randytarampi/me/commit/26e9b4b))
+* **resume:** ESLint. ([3718983](https://github.com/randytarampi/me/commit/3718983))
+* **views:** Don't include `scripts` when `environment` is `puppeteer` or `printable`. ([e9b093a](https://github.com/randytarampi/me/commit/e9b093a))
+
+
+
+
+
 <a name="0.39.11"></a>
 ## [0.39.11](https://github.com/randytarampi/me/compare/v0.39.10...v0.39.11) (2018-09-23)
 
