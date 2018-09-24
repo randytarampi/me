@@ -48,7 +48,7 @@ dist
 build
 .webpack
 package-lock.json
-.pdf_original
+*.pdf_original
 
 # Environment variables
 .env
