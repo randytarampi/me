@@ -14,7 +14,7 @@ import {Work} from "./work";
 
 export class Resume extends Record({
     id: null,
-    fileName: null,
+    filename: null,
     basics: null,
     work: List(),
     volunteer: List(),
@@ -41,9 +41,9 @@ export class Resume extends Record({
         return this.renderOptions ? this.renderOptions.get("format") : null;
     }
 
-    get fileName() {
-        if (this.get("fileName")) {
-            return this.get("fileName");
+    get filename() {
+        if (this.get("filename")) {
+            return this.get("filename");
         }
 
         return this.id;
@@ -75,7 +75,7 @@ export class Resume extends Record({
                 this.basics.website,
                 this.basics.phone,
                 this.basics.email,
-                this.fileName
+                this.filename
             ]
         };
     }

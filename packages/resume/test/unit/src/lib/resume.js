@@ -300,22 +300,22 @@ describe("Resume", function () {
         });
     });
 
-    describe("#fileName", function () {
-        it("returns `fileName`", function () {
-            stubResumeJs.fileName = "woof";
+    describe("#filename", function () {
+        it("returns `filename`", function () {
+            stubResumeJs.filename = "woof";
             const resume = Resume.fromJS(stubResumeJs);
 
             expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
-            expect(resume.fileName).to.eql(stubResumeJs.fileName);
+            expect(resume.filename).to.eql(stubResumeJs.filename);
         });
 
-        it("returns `id` if no `fileName`", function () {
+        it("returns `id` if no `filename`", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
             expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
-            expect(resume.fileName).to.eql(null);
+            expect(resume.filename).to.eql(null);
         });
     });
 
@@ -350,7 +350,7 @@ describe("Resume", function () {
                     resume.basics.website,
                     resume.basics.phone,
                     resume.basics.email,
-                    resume.fileName
+                    resume.filename
                 ]
             });
         });

@@ -42,7 +42,7 @@ describe("LetterRecipient", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -55,7 +55,7 @@ describe("LetterRecipient", function () {
             sender: stubSenderJs,
             recipient: null,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -87,7 +87,7 @@ describe("LetterRecipient", function () {
             sender: stubSenderJs,
             recipient: Object.assign({}, stubPersonJs, {givenName: null, familyName: null}),
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -111,7 +111,7 @@ describe("LetterRecipient", function () {
             sender: stubSenderJs,
             recipient: Object.assign({}, stubPersonJs, {jobTitle: null}),
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -135,7 +135,7 @@ describe("LetterRecipient", function () {
             sender: stubSenderJs,
             recipient: Object.assign({}, stubPersonJs, {worksFor: null}),
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -159,7 +159,7 @@ describe("LetterRecipient", function () {
             sender: stubSenderJs,
             recipient: Object.assign({}, stubPersonJs, {address: null}),
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"

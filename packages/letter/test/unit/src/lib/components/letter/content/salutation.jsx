@@ -43,7 +43,7 @@ describe("LetterSalutation", function () {
             sender: stubSenderJs,
             recipient: stubSalutationJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -56,7 +56,7 @@ describe("LetterSalutation", function () {
             sender: stubSenderJs,
             recipient: Object.assign({}, stubPersonJs, {givenName: null, familyName: null}),
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"

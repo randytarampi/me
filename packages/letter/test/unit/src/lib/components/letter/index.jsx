@@ -42,7 +42,7 @@ describe("LetterComponent", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"
@@ -107,7 +107,7 @@ describe("LetterComponent", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [
                 {
                     component: stubLetterContentComponent
@@ -146,7 +146,7 @@ describe("LetterComponent", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [
                 {
                     contentKey: "intro"
@@ -185,7 +185,7 @@ describe("LetterComponent", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [
                 {
                     contentKey: "date",

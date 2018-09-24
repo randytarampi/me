@@ -37,7 +37,7 @@ describe("Footer", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [],
             renderOptions: {
                 format: "bar"

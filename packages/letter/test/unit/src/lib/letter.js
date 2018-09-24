@@ -46,7 +46,7 @@ describe("Letter", function () {
             sender: stubSenderJs,
             recipient: stubRecipientJs,
             id: "foo",
-            fileName: null,
+            filename: null,
             content: [
                 stubLetterSectionJs
             ],
@@ -216,22 +216,22 @@ describe("Letter", function () {
         });
     });
 
-    describe("#fileName", function () {
-        it("returns `fileName`", function () {
-            stubLetterJs.fileName = "woof";
+    describe("#filename", function () {
+        it("returns `filename`", function () {
+            stubLetterJs.filename = "woof";
             const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
-            expect(letter.fileName).to.eql(stubLetterJs.fileName);
+            expect(letter.filename).to.eql(stubLetterJs.filename);
         });
 
-        it("returns `id` if no `fileName`", function () {
+        it("returns `id` if no `filename`", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
             expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
-            expect(letter.fileName).to.eql(stubLetterJs.id);
+            expect(letter.filename).to.eql(stubLetterJs.id);
         });
     });
 
@@ -255,7 +255,7 @@ describe("Letter", function () {
                     letter.basics.website,
                     letter.basics.phone,
                     letter.basics.email,
-                    letter.fileName
+                    letter.filename
                 ]
             });
         });

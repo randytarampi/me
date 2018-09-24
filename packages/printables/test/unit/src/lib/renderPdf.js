@@ -25,7 +25,7 @@ describe("renderPdf", function () {
         stubPrintableDestinationDirectory = "/foo/bar";
         stubPrintableHtml = "woof";
         stubPrintable = { // NOTE-RT: Ideally this would be a class that implemented a printable interface, but don't do that or the fanciness we're doing with `@randy.tarampi/js/lib/emoji/bear` yet either.
-            fileName: "meow",
+            filename: "meow",
             pdfRenderOptions: {
                 mediaType: "grr"
             },
@@ -88,7 +88,7 @@ describe("renderPdf", function () {
 
                 expect(stubPuppeteerPage.pdf.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerPage.pdf, {
-                    path: path.join(stubPrintableDestinationDirectory, `${stubPrintable.fileName}.pdf`),
+                    path: path.join(stubPrintableDestinationDirectory, `${stubPrintable.filename}.pdf`),
                     format: "Letter",
                     printBackground: true,
                     ...stubPrintable.pdfRenderOptions
@@ -140,7 +140,7 @@ describe("renderPdf", function () {
             printableDestinationDirectory: stubPrintableDestinationDirectory
         })
             .then(() => {
-                const stubPdfPath = path.join(stubPrintableDestinationDirectory, `${stubPrintable.fileName}.pdf`);
+                const stubPdfPath = path.join(stubPrintableDestinationDirectory, `${stubPrintable.filename}.pdf`);
 
                 expect(stubExifToolRead.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubExifToolRead, stubPdfPath);
@@ -168,7 +168,7 @@ describe("renderPdf", function () {
                 expect(error).to.be.ok;
                 expect(error.message).to.eql(`Expected PDF to have ${stubPrintable.pdfRenderExpectations.pages} pages, but it has ${stubActualPages} instead`);
 
-                const stubPdfPath = path.join(stubPrintableDestinationDirectory, `${stubPrintable.fileName}.pdf`);
+                const stubPdfPath = path.join(stubPrintableDestinationDirectory, `${stubPrintable.filename}.pdf`);
 
                 expect(stubExifToolRead.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubExifToolRead, stubPdfPath);

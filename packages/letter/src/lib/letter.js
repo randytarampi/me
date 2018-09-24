@@ -6,7 +6,7 @@ export class Letter extends Record({
     sender: null,
     recipient: null,
     id: null,
-    fileName: null,
+    filename: null,
     content: List(),
     renderOptions: Map(),
     renderExpectations: Map()
@@ -27,9 +27,9 @@ export class Letter extends Record({
         return this.renderOptions ? this.renderOptions.get("format") : null;
     }
 
-    get fileName() {
-        if (this.get("fileName")) {
-            return this.get("fileName");
+    get filename() {
+        if (this.get("filename")) {
+            return this.get("filename");
         }
 
         return this.id;
@@ -50,7 +50,7 @@ export class Letter extends Record({
                 this.basics.website,
                 this.basics.phone,
                 this.basics.email,
-                this.fileName
+                this.filename
             ]
         };
     }

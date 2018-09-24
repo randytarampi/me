@@ -1,5 +1,5 @@
 export const index = {
-    fileName: "letter.letter",
+    filename: "letter.letter",
     renderOptions: {
         format: "Letter",
         mediaType: "print"

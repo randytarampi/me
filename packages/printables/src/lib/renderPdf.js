@@ -15,7 +15,7 @@ export const renderPdf = async ({printableHtml, printable, printableDestinationD
         args: puppeteerLaunchArgs
     });
     const page = await browser.newPage();
-    const pdfPath = path.join(printableDestinationDirectory, `${printable.fileName}.pdf`);
+    const pdfPath = path.join(printableDestinationDirectory, `${printable.filename}.pdf`);
 
     await page.emulateMedia(printable.pdfRenderOptions && printable.pdfRenderOptions.mediaType || "print"); // NOTE-RT: Different from `printable-cli` default
     await page.goto(`data:text/html,${printableHtml}`, {waitUntil: "networkidle0"});

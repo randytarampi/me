@@ -19,7 +19,7 @@ export const renderPrintablesToHtml = ({
     })
         .then(printableHtmlPairs => Promise.all(printableHtmlPairs.map(({printableHtml, printable}) => new Promise((resolve, reject) => {
             try {
-                return fs.writeFile(path.join(printableDestinationDirectory, `${printable.fileName}.html`), printableHtml, error => {
+                return fs.writeFile(path.join(printableDestinationDirectory, `${printable.filename}.html`), printableHtml, error => {
                     if (error) {
                         return reject(error);
                     }
