@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.0"></a>
+# [0.40.0](https://github.com/randytarampi/me/compare/v0.39.13...v0.40.0) (2018-09-24)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Just assume the box is running *nix and hardcode paths here. ([58bac39](https://github.com/randytarampi/me/commit/58bac39))
+* **jsonresume-theme:** Remove mistakenly placed comma. ([531c855](https://github.com/randytarampi/me/commit/531c855))
+
+
+### Features
+
+* **job-applications:** Add the resume/cover letter generator I've been using for the last couple of days now. ([a0d8f09](https://github.com/randytarampi/me/commit/a0d8f09))
+
+
+
+
+
 <a name="0.39.13"></a>
 ## [0.39.13](https://github.com/randytarampi/me/compare/v0.39.12...v0.39.13) (2018-09-24)
 
