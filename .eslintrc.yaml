@@ -69,6 +69,9 @@ globals:
   __CAMPAIGN_NAME__: false
   __CAMPAIGN_TERM__: false
   __CAMPAIGN_CONTENT__: false
+  __RESUME_STYLES_PATH__: false
+  __LETTER_STYLES_PATH__: false
+  __PRINTABLE_TEMPLATE_PATH__: false
 plugins:
 - react
 - import

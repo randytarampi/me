@@ -161,6 +161,27 @@ const configuredMinifyReplace = [
                     type: "stringLiteral",
                     value: process.env.CAMPAIGN_CONTENT || config.get("me.campaign.content")
                 }
+            },
+            {
+                identifierName: "__RESUME_STYLES_PATH__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.RESUME_STYLES_PATH || ""
+                }
+            },
+            {
+                identifierName: "__LETTER_STYLES_PATH__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.LETTER_STYLES_PATH || ""
+                }
+            },
+            {
+                identifierName: "__PRINTABLE_TEMPLATE_PATH__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.PRINTABLE_TEMPLATE_PATH || ""
+                }
             }
         ]
     }

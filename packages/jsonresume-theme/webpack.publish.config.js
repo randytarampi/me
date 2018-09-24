@@ -9,10 +9,11 @@ module.exports = webpackBaseConfig({
     entry: {
         index: ["@babel/polyfill", path.join(__dirname, "./src/index.js")]
     },
+    node: false,
     target: "node",
     externals: [nodeExternals({
         whitelist: [
             webpackNodeExternalsWhitelist
         ]
-    })]
+    }), "pug"]
 });

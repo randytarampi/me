@@ -3,16 +3,15 @@ import {renderHtml, Resume} from "@randy.tarampi/resume";
 import config from "config";
 import path from "path";
 
-process.env.RESUME_STYLES_PATH = process.env.RESUME_STYLES_PATH || path.join(__dirname, "../dist/styles.css");
-process.env.PRINTABLE_TEMPLATE_PATH = process.env.PRINTABLE_TEMPLATE_PATH || path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug");
-
 export const render = (resumeJson, pageSize) => {
     return renderHtml({
         printable: Resume.fromResume(resumeJson),
         pageSize,
         assetUrl: config && config.has("resume.assetUrl")
             ? config.get("resume.assetUrl")
-            : "http://localhost:3000"
+            : "http://localhost:3000",
+        printableStylesPath: path.join(__dirname, "../dist/styles.css"),
+        printableTemplatePath: path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug")
     });
 };
 

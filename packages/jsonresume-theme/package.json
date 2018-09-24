@@ -45,7 +45,7 @@
     "test": "NODE_ENV=test npm run resume",
     "start": "npm run resume",
     "build": "npm run build:webpack && npm run build:styles",
-    "build:webpack": "RESUME_STYLES_PATH=\"../dist/styles.css\" PRINTABLE_TEMPLATE_PATH=\"../node_modules/@randy.tarampi/views/templates/index.pug\" webpack --config webpack.publish.config",
+    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../node_modules/@randy.tarampi/views/templates/index.pug\" webpack --config webpack.publish.config",
     "build:styles": "mkdir -p dist && cp -n \"node_modules/@randy.tarampi/resume/dist/styles.css\" ./dist/styles.css || true",
     "postinstall": "npm run resume:json && npm run build:styles",
     "prepack": "NODE_ENV=prd npm run build",
