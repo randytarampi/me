@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.1"></a>
+## [0.40.1](https://github.com/randytarampi/me/compare/v0.40.0...v0.40.1) (2018-09-24)
+
+
+### Bug Fixes
+
+* **job-applications:** Don't rely on harcoded package version in tests. ([957ab77](https://github.com/randytarampi/me/commit/957ab77))
+* **jsonresume-theme:** Get this working on my local `theme-manager`. ([145c581](https://github.com/randytarampi/me/commit/145c581))
+
+
+
+
+
 <a name="0.40.0"></a>
 # [0.40.0](https://github.com/randytarampi/me/compare/v0.39.13...v0.40.0) (2018-09-24)
 
