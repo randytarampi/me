@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.3"></a>
+## [0.40.3](https://github.com/randytarampi/me/compare/v0.40.2...v0.40.3) (2018-09-24)
+
+
+### Bug Fixes
+
+* **package:** update react-progressive-image to version 0.6.0 ([84283ad](https://github.com/randytarampi/me/commit/84283ad))
+
+
+
+
+
 <a name="0.40.2"></a>
 ## [0.40.2](https://github.com/randytarampi/me/compare/v0.40.1...v0.40.2) (2018-09-24)
 
