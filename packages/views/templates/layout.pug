@@ -98,6 +98,6 @@ html(lang="en")
             iframe(src=`https://www.googletagmanager.com/ns.html?id=${gtm}`
             height="0" width="0" style="display:none;visibility:hidden")
         block content
-        if environment !== "puppeteer"
+        if environment !== "puppeteer" && environment !== "printable"
             script(src=`${assetUrl}/vendor.js`)
             script(src=`${assetUrl}/${bundleName}.js`)
