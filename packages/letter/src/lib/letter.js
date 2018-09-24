@@ -24,7 +24,9 @@ export class Letter extends Record({
     }
 
     get pageSize() {
-        return this.renderOptions ? this.renderOptions.get("format") : null;
+        return this.renderOptions && this.renderOptions.get("format")
+            ? this.renderOptions.get("format")
+            : null;
     }
 
     get filename() {

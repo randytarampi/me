@@ -77,7 +77,7 @@ export const ResumeProfiles = ({resume, customContent, type, label}) => {
                     } else {
                         return null;
                     }
-                })
+                }).filter(element => !!element).slice(0, 6)
             }
         </Row>
     </PrintableSection>;

@@ -1,6 +1,16 @@
 import {assemblePrintables} from "./assemblePrintables";
 import {renderHtml} from "./renderHtml";
 
+export const renderPrintableHtml = (htmlRenderer, printableRenderOptions) => printable => {
+    return Promise.resolve({
+        printableHtml: htmlRenderer({
+            printable,
+            ...printableRenderOptions
+        }),
+        printable
+    });
+};
+
 export const renderPrintablesHtml = ({
                                          printableComponent,
                                          printableStylesPath,
@@ -12,17 +22,10 @@ export const renderPrintablesHtml = ({
         printableComponent,
         printableStylesPath
     });
+    const printableRenderer = renderPrintableHtml(htmlRenderer, printableRenderOptions);
 
     return assemblePrintables(printableBuilder)(printableTemplateDirectory)
-        .then(printables => Promise.all(printables.map(printable => {
-            return {
-                printableHtml: htmlRenderer({
-                    printable,
-                    ...printableRenderOptions
-                }),
-                printable
-            };
-        })));
+        .then(printables => Promise.all(printables.map(printableRenderer)));
 };
 
 export default renderPrintablesHtml;

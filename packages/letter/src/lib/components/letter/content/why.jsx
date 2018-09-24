@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 
 export const LetterWhy = ({letter, contentConfiguration}) => {
+    const companyName = letter.recipient && letter.recipient.worksFor && typeof letter.recipient.worksFor === "object"
+        ? letter.recipient.worksFor.name
+        : letter.recipient.worksFor;
+
     return <LeftDescriptionSection
         label="You could use someone like me"
         description={<Fragment>
@@ -38,7 +42,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
                         couple of times, but I know I haven't done it all yet, and the best way for me to do that is to
                         take
                         a giant leap and hopefully land somewhere
-                        like {letter.recipient && letter.recipient.worksFor ? letter.recipient.worksFor : "your company"}.
+                        like {companyName ? companyName : "your company"}.
                     </p>
                 </Fragment>
             }

@@ -7,6 +7,10 @@ export const PrintableRecipient = ({letter, contentConfiguration}) => {
         return null;
     }
 
+    const companyName = letter.recipient.worksFor && typeof letter.recipient.worksFor === "object"
+        ? letter.recipient.worksFor.name
+        : letter.recipient.worksFor;
+
     return <PrintableSection
         {...contentConfiguration.contentProps}
         type={contentConfiguration.contentKey}
@@ -24,7 +28,7 @@ export const PrintableRecipient = ({letter, contentConfiguration}) => {
         }
         {
             letter.recipient.worksFor
-                ? <p className="printable-recipient__company">{letter.recipient.worksFor}</p>
+                ? <p className="printable-recipient__company">{companyName}</p>
                 : null
         }
         {
@@ -41,7 +45,7 @@ export const PrintableRecipient = ({letter, contentConfiguration}) => {
 
 PrintableRecipient.propTypes = {
     letter: PropTypes.object.isRequired,
-    contentConfiguration: PropTypes.object.isRequired,
+    contentConfiguration: PropTypes.object.isRequired
 };
 
 export default PrintableRecipient;
