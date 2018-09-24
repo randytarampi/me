@@ -6,6 +6,7 @@ import routes from "../routes";
 
 const history = createMemoryHistory();
 const store = configureStore(undefined, history, reducers);
-const ServerApp = ({printable, ...props}) => <ServerReduxRoot resume={printable} {...props} history={history} routes={routes} store={store}/>;
+export const ServerApp = ({printable, ...props}) => <ServerReduxRoot resume={printable} {...props} history={history}
+                                                                     routes={routes} store={store}/>;
 
 export default ServerApp;
