@@ -3,6 +3,7 @@ import {Resume} from "@randy.tarampi/resume";
 import testResumeJson from "@randy.tarampi/resume/src/resumes/test";
 import {expect} from "chai";
 import {List, Map} from "immutable";
+import packageJson from "../../../../package";
 import JobApplication from "../../../../src/lib/jobApplication";
 
 describe("JobApplication", function () {
@@ -198,7 +199,7 @@ describe("JobApplication", function () {
                 expect(jobApplication).to.be.instanceOf(JobApplication);
                 expect(jobApplication.pdfRenderOptions).to.eql({
                     ...stubJobApplicationJs.renderOptions,
-                    content: "0.39.6,a4,bar",
+                    content: `${packageJson.version},a4,bar`,
                     name: "",
                     term: "woof"
                 });
@@ -222,7 +223,7 @@ describe("JobApplication", function () {
                 expect(jobApplication).to.be.instanceOf(JobApplication);
                 expect(jobApplication.pdfRenderOptions).to.eql({
                     ...stubJobApplicationJs.renderOptions,
-                    content: "0.39.6",
+                    content: `${packageJson.version}`,
                     name: "meow,ugh",
                     term: "argh+grr"
                 });
@@ -270,7 +271,7 @@ describe("JobApplication", function () {
             expect(jobApplication.resume).to.be.instanceOf(Resume);
             expect(jobApplication.pdfRenderOptions).to.eql({
                 ...stubJobApplicationJs.renderOptions,
-                content: "0.39.6,a4,bar",
+                content: `${packageJson.version},a4,bar`,
                 name: "",
                 term: "woof"
             });
