@@ -27,27 +27,19 @@
         }
     }
 
-    &--github {
+    &--angelList {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\0f09b\000A0";
+            content: "\0f209\000A0";
         }
     }
 
-    &--linkedin {
+    &--facebook {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\0f08c\000A0";
-        }
-    }
-
-    &--instagram {
-        &:before, &::before {
-            font-family: "Font Awesome 5 Brands";
-            font-weight: 900;
-            content: "\0f16d\000A0";
+            content: "\0f09a\000A0";
         }
     }
 
@@ -67,11 +59,27 @@
         }
     }
 
-    &--angelList {
+    &--github {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
-            content: "\0f209\000A0";
+            content: "\0f09b\000A0";
+        }
+    }
+
+    &--instagram {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0f16d\000A0";
+        }
+    }
+
+    &--linkedin {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0f08c\000A0";
         }
     }
 
@@ -80,6 +88,14 @@
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
             content: "\0f16c\000A0";
+        }
+    }
+
+    &--twitter {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0f099\000A0";
         }
     }
 
