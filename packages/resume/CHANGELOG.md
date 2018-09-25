@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.4"></a>
+## [0.40.4](https://github.com/randytarampi/me/compare/v0.40.3...v0.40.4) (2018-09-25)
+
+
+### Bug Fixes
+
+* **resume:** Give `.resume-profiles__profile`s more room to breathe. ([88119fa](https://github.com/randytarampi/me/commit/88119fa))
+* **resume:** Resume referees' names don't need to be `.text`. ([6c33acc](https://github.com/randytarampi/me/commit/6c33acc))
+* **resume:** Support a `SoundCloudLink` from `[@randy](https://github.com/randy).tarampi/jsx`. ([0fa9d93](https://github.com/randytarampi/me/commit/0fa9d93))
+
+
+
+
+
 <a name="0.40.3"></a>
 ## [0.40.3](https://github.com/randytarampi/me/compare/v0.40.2...v0.40.3) (2018-09-24)
 
