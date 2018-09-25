@@ -83,7 +83,7 @@ const defaultContent = new ResumeCustomContent({
         descriptionNode: <Fragment>
             <p><span className="text">I never really <em>want</em> to volunteer, but when it happens it seems that I really enjoy it</span>
             </p>
-            <p><span className="text">People always looked at me as a shy and reserved, but it actually turns out that I've got a knack for leadership and mentorship</span>
+            <p><span className="text">People have always seen me as shy and reserved but it actually turns out that I've got a knack for leadership and mentorship</span>
             </p>
         </Fragment>
     }),
