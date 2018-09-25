@@ -10,7 +10,7 @@ export const render = (resumeJson, pageSize) => {
         assetUrl: config && config.has("resume.assetUrl")
             ? config.get("resume.assetUrl")
             : "http://localhost:3000",
-        printableStylesPath: path.join(__dirname, "../dist/styles.css"),
+        printableStylesPath: path.join(__dirname, "../node_modules/@randy.tarampi/resume/dist/styles.css"),
         printableTemplatePath: path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug")
     });
 };
