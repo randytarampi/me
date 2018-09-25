@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.5"></a>
+## [0.40.5](https://github.com/randytarampi/me/compare/v0.40.4...v0.40.5) (2018-09-25)
+
+
+### Bug Fixes
+
+* **resume:** GrammarLint. ([9ab52c0](https://github.com/randytarampi/me/commit/9ab52c0))
+
+
+
+
+
 <a name="0.40.4"></a>
 ## [0.40.4](https://github.com/randytarampi/me/compare/v0.40.3...v0.40.4) (2018-09-25)
 
