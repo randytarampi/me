@@ -8,6 +8,7 @@ import {
     InstagramLink,
     LinkedInLink,
     PrintableSection,
+    SoundCloudLink,
     StackOverflowLink,
     TwitterLink
 } from "@randy.tarampi/jsx";
@@ -24,6 +25,7 @@ const networkLinkMap = {
     github: GitHubLink,
     instagram: InstagramLink,
     linkedin: LinkedInLink,
+    soundcloud: SoundCloudLink,
     stackoverflow: StackOverflowLink,
     twitter: TwitterLink
 };

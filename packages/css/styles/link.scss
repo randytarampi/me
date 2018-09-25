@@ -83,6 +83,14 @@
         }
     }
 
+    &--soundCloud {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0f1be\000A0";
+        }
+    }
+
     &--stackOverflow {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";
