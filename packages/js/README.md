@@ -18,7 +18,6 @@ Some common JS entities and utilities for [www](../www) and [posts](../posts).
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation

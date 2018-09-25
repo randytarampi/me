@@ -23,7 +23,6 @@ My résumé [online](https://www.randytarampi.ca/resume) and in print on [A4](ht
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation
@@ -47,7 +46,6 @@ npm test
 # Generation
 
 ```
-npm run build
 npm run resume
 ```
 

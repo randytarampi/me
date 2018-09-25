@@ -20,7 +20,6 @@ Some common code to support the generation of HTML templates for [www](../www) a
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation

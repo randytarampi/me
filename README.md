@@ -11,9 +11,9 @@ _  / / / / /  __/_/_ __|
 
 A monorepo for everything that goes into [www.randytarampi.ca](https://www.randytarampi.ca).
 
-- [letter](packages/letter)
+- [job-applications](packages/job-applications) (which ties together my [resume](packages/resume) and a personalized [cover letter](packages/letter))
+- [jsonresume-theme-randytarampi](packages/jsonresume-theme) (A JSON resume theme, just for me)
 - [posts](packages/posts)
-- [resume](packages/resume)
 - [www](packages/www)
 
 And also a couple semi-related modules I wrote a couple years back that I'm planning on using at some point to build out an internationalized resume template.
@@ -34,7 +34,7 @@ npm install -g npm
 npm install
 ```
 
-# Configuration
+# Configuration, Usage, Deployment, etc.
 
 You'll want to read each package's README.
 

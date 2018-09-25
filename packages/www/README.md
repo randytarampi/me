@@ -23,7 +23,6 @@ The front-end to [`me`](../../), available in both [production](https://www.rand
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation

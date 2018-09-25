@@ -22,7 +22,6 @@ Scan some post sources for posts, then display them on a single page.
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation

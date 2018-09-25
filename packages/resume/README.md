@@ -13,12 +13,15 @@ $$ | $$ | $$ |\$$$$$$$\ $$\ $$ |      \$$$$$$$\ $$$$$$$  |\$$$$$$  |$$ | $$ | $$
 
 The backing markup and styles for [`jsonresume-theme-randytarampi`](../jsonresume-theme) and [`www`](../www).
 
+1. Place a JS/JSON/JSX file (say `some-awesome-company.json`) that can be parsed into an instance of [`Resume`](./src/lib/resume) in `/src/letters`
+2. Generate your resumes by running `npm run resume`
+3. View them with `open ./dist`
+
 # Dependencies
 
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation

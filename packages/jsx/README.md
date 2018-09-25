@@ -18,7 +18,6 @@ Some common components for [www](../www), [letter](../letter) and [resume](../re
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation

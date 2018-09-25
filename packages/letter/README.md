@@ -11,12 +11,15 @@
 
 The spiritual companion to my [résumé](../resume). Just generate some cover letters that match everything else in this monorepo.
 
+1. Place a JS/JSON/JSX file (say `some-awesome-company.json`) that can be parsed into an instance of [`Letter`](./src/lib/letter) in `/src/letters`
+2. Generate your letters by running `npm run letter`
+3. View them with `open ./dist`
+
 # Dependencies
 
 ```
 brew install nvm
 nvm install 8
-npm install -g gulp-cli
 ```
 
 # Installation
