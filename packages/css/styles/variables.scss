@@ -6,6 +6,7 @@ $blockTextColour: white;
 $blockLineHeight: 1.5;
 
 $link-color: color("orange", "darken-1");
+$primary-color: $link-color;
 
 $asset-url: "" !default;
 $roboto-font-path: "#{$asset-url}/";
