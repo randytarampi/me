@@ -1,6 +1,10 @@
 .resume-profiles {
     &__profile {
         display: block;
-        margin-top: 10px;
+        margin: 10px 0;
+
+        @media print {
+            margin-bottom: 0;
+        }
     }
 }
