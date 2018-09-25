@@ -23,7 +23,7 @@ export const ResumeReferences = ({resume, customContent, type, label}) => {
                                 <span className="text">{referenceEntry.reference}</span>
                             </p>
                             <p className="resume-references__reference-referee">
-                                —&nbsp;<strong className="text">{referenceEntry.name}</strong>
+                                —&nbsp;<strong>{referenceEntry.name}</strong>
                             </p>
                         </blockquote>
                     </Col>;
