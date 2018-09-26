@@ -69,7 +69,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: util.babelLoaderExclusions,
+                    exclude: isDevelopment ? util.babelLoaderExclusions : util.matchNothing,
                     loader: "babel-loader",
                     options: {
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
