@@ -245,7 +245,9 @@ module.exports = (api) => {
         }
 
         case "client": {
-            plugins.push("react-hot-loader/babel");
+            if (!util.productionNodeEnvs.includes(api.env())) {
+                plugins.push("react-hot-loader/babel");
+            }
             presets = [
                 [
                     "@babel/preset-env",
