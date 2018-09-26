@@ -1,4 +1,6 @@
 .text {
+    @extend .z-depth-1;
+
     line-height: $blockLineHeight;
     padding: $blockPadding;
     background-color: $blockColour;

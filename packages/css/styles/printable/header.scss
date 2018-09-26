@@ -6,6 +6,8 @@
     }
 
     &__picture {
+        @extend .z-depth-1;
+
         max-height: 100%;
         max-width: 100%;
         margin: 20px 0;
