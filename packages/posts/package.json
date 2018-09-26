@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.40.5",
+  "version": "0.40.6",
   "description": "The backend for www.randytarampi.ca",
   "private": true,
   "publishConfig": {
@@ -43,7 +43,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@randy.tarampi/js": "^0.40.5",
+    "@randy.tarampi/js": "^0.40.6",
     "aws-sdk": "^2.279.1",
     "bunyan": "beta",
     "bunyan-format": "^0.2.1",

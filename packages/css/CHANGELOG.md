@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.6"></a>
+## [0.40.6](https://github.com/randytarampi/me/compare/v0.40.5...v0.40.6) (2018-09-26)
+
+
+### Bug Fixes
+
+* **css:** Restore `.z-depth-*` on `.text` and other block-y elements. ([9b106ac](https://github.com/randytarampi/me/commit/9b106ac))
+
+
+
+
+
 <a name="0.40.5"></a>
 ## [0.40.5](https://github.com/randytarampi/me/compare/v0.40.4...v0.40.5) (2018-09-25)
 
