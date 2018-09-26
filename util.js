@@ -22,10 +22,10 @@ module.exports = {
     isDevelopment,
     resolveWebpackMode,
     webpackMode,
-    webpackNodeExternalsWhitelist: /@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap/,
+    webpackNodeExternalsWhitelist: /@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader/,
     babelLoaderExclusions: webpackMode === WEBPACK_MODE_DEVELOPMENT
-        ? /\/node_modules\/(?!(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap)\/)/
+        ? /\/node_modules\/(?!(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader)\/)/
         : /!^/,
-    babelRegisterInclusions: /\/(?:node_modules\/(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap)|packages)\//,
-    webpackVendorInclusions: /\/node_modules\//,
+    babelRegisterInclusions: /\/(?:node_modules\/(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader)|packages)\//,
+    webpackVendorInclusions: /\/node_modules\//
 };
