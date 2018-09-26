@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.8"></a>
+## [0.40.8](https://github.com/randytarampi/me/compare/v0.40.7...v0.40.8) (2018-09-26)
+
+
+### Bug Fixes
+
+* Don't push the `react-hot-loader` plugin during production builds. ([5a162e2](https://github.com/randytarampi/me/commit/5a162e2))
+
+
+
+
+
 <a name="0.40.7"></a>
 ## [0.40.7](https://github.com/randytarampi/me/compare/v0.40.6...v0.40.7) (2018-09-26)
 
