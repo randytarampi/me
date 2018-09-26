@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const util = require("./util");
 
 const {
-    isDevelopment,
     resolveWebpackMode: resolveMode
 } = util;
 
@@ -39,7 +38,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: isDevelopment ? util.babelLoaderExclusions : util.matchEverything,
+                    exclude: util.babelLoaderExclusions,
                     loader: "babel-loader",
                     options: {
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
