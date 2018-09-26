@@ -2,7 +2,7 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
 const config = require("config");
-const util = require("./util");
+const {isDevelopment} = require("./util");
 
 const configuredMinifyReplace = [
     "minify-replace",
@@ -202,7 +202,7 @@ module.exports = (api) => {
         [
             "@babel/preset-react",
             {
-                development: !util.productionNodeEnvs.includes(api.env())
+                development: isDevelopment
             }
         ]
     ];
@@ -245,7 +245,7 @@ module.exports = (api) => {
         }
 
         case "client": {
-            if (!util.productionNodeEnvs.includes(api.env())) {
+            if (isDevelopment) {
                 plugins.push("react-hot-loader/babel");
             }
             presets = [
@@ -260,7 +260,7 @@ module.exports = (api) => {
                 [
                     "@babel/preset-react",
                     {
-                        development: !util.productionNodeEnvs.includes(api.env())
+                        development: isDevelopment
                     }
                 ]
             ];
@@ -280,7 +280,7 @@ module.exports = (api) => {
                 [
                     "@babel/preset-react",
                     {
-                        development: !util.productionNodeEnvs.includes(api.env())
+                        development: isDevelopment
                     }
                 ]
             ];
