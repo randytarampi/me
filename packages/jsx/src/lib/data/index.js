@@ -3,5 +3,5 @@ export * from "./emoji";
 export * from "./error";
 export * from "./posts";
 export * from "./reducers";
-export * from "./routing";
+export * from "./router";
 export * from "./selectors";

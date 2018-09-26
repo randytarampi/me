@@ -1,5 +1,5 @@
+import {connectRouter, routerMiddleware} from "connected-react-router/immutable";
 import {Map} from "immutable";
-import {routerMiddleware} from "react-router-redux";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
@@ -14,9 +14,8 @@ export const configureStore = (initialState = Map(), history, reducers) => {
         middlewares.unshift(raven());
     }
 
-    //noinspection UnnecessaryLocalVariableJS
     const store = createStore(
-        reducers,
+        connectRouter(history)(reducers),
         initialState,
         composeWithDevTools(applyMiddleware(...middlewares))
     );

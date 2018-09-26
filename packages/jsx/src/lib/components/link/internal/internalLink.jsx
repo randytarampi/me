@@ -1,7 +1,7 @@
+import {push} from "connected-react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
-import {push} from "react-router-redux";
 import Link from "../link";
 
 const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => { // eslint-disable-line no-unused-vars

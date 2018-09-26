@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {LOCATION_CHANGE} from "react-router-redux";
+import {LOCATION_CHANGE} from "connected-react-router";
 import sinon from "sinon";
 import router from "../../../../src/lib/middleware/router";
 

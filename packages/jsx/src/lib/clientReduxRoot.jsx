@@ -1,9 +1,9 @@
+import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
 import {renderRoutes} from "react-router-config";
-import {ConnectedRouter} from "react-router-redux";
 import Sniffr from "sniffr";
 import ErrorWrapper from "./containers/errorWrapper";
 import logger from "./logger";

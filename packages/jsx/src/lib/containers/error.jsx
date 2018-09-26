@@ -1,6 +1,6 @@
+import {push} from "connected-react-router";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {push} from "react-router-redux";
 import clearError from "../actions/clearError";
 import Error from "../components/error";
 import selectors from "../data/selectors";

@@ -10,7 +10,7 @@ import {
     getWordPosts,
     getWordPostsSortedByDate
 } from "./posts";
-import {getLocation} from "./routing";
+import {getLocation} from "./router";
 
 export const selectors = {
     hasError: state => hasError(state.get("error")),
@@ -28,7 +28,7 @@ export const selectors = {
 
     getApiStateForUrl: (state, url) => getApiStateForUrl(state.get("api"), url),
 
-    getLocation: state => getLocation(state.get("routing")),
+    getLocation: state => getLocation(state.get("router")),
 
     getEmoji: (state, emojiId) => getEmoji(state.get("emoji"), emojiId),
     hasEmoji: (state, emojiId) => hasEmoji(state.get("emoji"), emojiId)

@@ -1,4 +1,4 @@
-import {emojiReducer, errorReducer, routingReducer} from "@randy.tarampi/jsx";
+import {emojiReducer, errorReducer} from "@randy.tarampi/jsx";
 import {combineReducers} from "redux-immutable";
 import api from "./api";
 import letter from "./letter";
@@ -7,8 +7,7 @@ export const reducers = {
     api,
     letter,
     emoji: emojiReducer,
-    error: errorReducer,
-    routing: routingReducer
+    error: errorReducer
 };
 
 export const combinedReducers = combineReducers(reducers);

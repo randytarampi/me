@@ -1,10 +1,10 @@
 import {expect} from "chai";
-import createBrowserHistory from "history/createBrowserHistory";
+import {ConnectedRouter} from "connected-react-router/immutable";
+import {createBrowserHistory} from "history";
 import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
 import * as reactRouter from "react-router-config";
-import {ConnectedRouter} from "react-router-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
@@ -27,8 +27,10 @@ describe("ClientReduxRoot", function () {
         mockStore = configureStore(stubMiddleware);
         stubInitialState = fromJS({
             error: {},
-            routing: {
-                location: "woof"
+            router: {
+                location: {
+                    pathname: "about:blank"
+                }
             }
         });
         stubStore = mockStore(stubInitialState);

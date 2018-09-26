@@ -53,7 +53,7 @@ describe("Error", function () {
             "../actions/clearError": {
                 "default": clearErrorStub
             },
-            "react-router-redux": {
+            "connected-react-router": {
                 "push": routerPushStub
             }
         });
@@ -95,7 +95,7 @@ describe("Error", function () {
             "../actions/clearError": {
                 "default": clearErrorStub
             },
-            "react-router-redux": {
+            "connected-react-router": {
                 "push": routerPushStub
             }
         });
@@ -136,7 +136,7 @@ describe("Error", function () {
             "../actions/clearError": {
                 "default": clearErrorStub
             },
-            "react-router-redux": {
+            "connected-react-router": {
                 "push": routerPushStub
             }
         });
