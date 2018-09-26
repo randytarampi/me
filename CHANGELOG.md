@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.40.7"></a>
+## [0.40.7](https://github.com/randytarampi/me/compare/v0.40.6...v0.40.7) (2018-09-26)
+
+
+### Bug Fixes
+
+* Also babel-ize `react-hot-loader`. ([527ba48](https://github.com/randytarampi/me/commit/527ba48))
+
+
+### Reverts
+
+* fix: `babel` _everything_ to support as many old browsers as possible. ([3215a12](https://github.com/randytarampi/me/commit/3215a12))
+
+
+
+
+
 <a name="0.40.6"></a>
 ## [0.40.6](https://github.com/randytarampi/me/compare/v0.40.5...v0.40.6) (2018-09-26)
 
