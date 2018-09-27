@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.40.10",
+  "version": "0.40.11",
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "lib/pseudolocalizer.js",
   "directories": {
