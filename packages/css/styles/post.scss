@@ -1,4 +1,7 @@
 .post {
+    @extend .z-depth-1;
+    margin-bottom: 0;
+
     &-title,
     &-description,
     &-date,
@@ -45,7 +48,6 @@
     }
 
     &--photo {
-        margin-bottom: 0;
         background-size: cover;
     }
 
