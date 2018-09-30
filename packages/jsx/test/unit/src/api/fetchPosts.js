@@ -52,7 +52,7 @@ describe("fetchPosts", function () {
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8",
-                    "ME-API-VERSION": 2
+                    "ME-API-VERSION": 3
                 });
 
                 return Promise.resolve(stubPostsResponse);

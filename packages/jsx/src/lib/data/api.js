@@ -43,8 +43,14 @@ export const apiReducer = (state = Map(), action) => {
 
             return state.set(action.payload.fetchUrl, fromJS({
                 ...currentFetchUrlState.toJS(),
-                oldest: action.payload.oldest && DateTime.fromISO(action.payload.oldest),
-                newest: action.payload.newest && DateTime.fromISO(action.payload.newest),
+                oldest: action.payload.oldest && Object.keys(action.payload.oldest).reduce((oldest, oldestKey) => {
+                    oldest[oldestKey] = DateTime.fromISO(action.payload.oldest[oldestKey]);
+                    return oldest;
+                }, {}),
+                newest: action.payload.newest && Object.keys(action.payload.newest).reduce((newest, newestKey) => {
+                    newest[newestKey] = DateTime.fromISO(action.payload.newest[newestKey]);
+                    return newest;
+                }, {}),
                 isLoading: false
             }));
         }

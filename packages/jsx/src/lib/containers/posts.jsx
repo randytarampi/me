@@ -9,22 +9,37 @@ export const ConnectedPosts = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const errorForUrlSelector = createGetErrorForUrlSelector();
+        let postsSelector = selectors.getPostsSortedByDate;
+
+        switch (ownProps.type) {
+            case "Photo":
+                postsSelector = selectors.getPhotoPostsSortedByDate;
+                break;
+
+            case "Post":
+                postsSelector = selectors.getWordPostsSortedByDate;
+                break;
+        }
 
         return {
             isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl),
             error: errorForUrlSelector(state, ownProps.fetchUrl),
-            posts: selectors.getPostsSortedByDate(state)
+            posts: postsSelector(state)
         };
     },
     (dispatch, ownProps) => {
         return {
-            fetchPosts: () => dispatch(fetchPosts(ownProps.fetchUrl))
+            fetchPosts: () => dispatch(fetchPosts(ownProps.fetchUrl, ownProps.type))
         };
     }
 )(Posts);
 
 ConnectedPosts.propTypes = {
-    fetchUrl: PropTypes.string.isRequired
+    fetchUrl: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([
+        "Post",
+        "Photo"
+    ])
 };
 
 ConnectedPosts.defaultProps = {

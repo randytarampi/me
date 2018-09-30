@@ -97,8 +97,14 @@ describe("fetchPosts", function () {
                     [stubFetchUrl]: Map({
                         isLoading: false,
                         fetchUrl: stubFetchUrl,
-                        oldest: DateTime.fromISO(stubPostsResponse.oldest),
-                        newest: DateTime.fromISO(stubPostsResponse.newest)
+                        oldest: Map({
+                            global: DateTime.fromISO(stubPostsResponse.oldest),
+                            Post: DateTime.fromISO(stubPostsResponse.oldest)
+                        }),
+                        newest: Map({
+                            global: DateTime.fromISO(stubPostsResponse.newest),
+                            Post: DateTime.fromISO(stubPostsResponse.newest)
+                        })
                     })
                 }),
                 posts: Map({posts: Set([stubLoadedPost])})
@@ -116,7 +122,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_CANCELLED,
                             payload: {
                                 fetchUrl: stubFetchUrl,
-                                oldestPostAvailableDate: stubInitialState.getIn(["api", stubFetchUrl, "oldest"]),
+                                oldestPostAvailableDate: stubInitialState.getIn(["api", stubFetchUrl, "oldest", "global"]),
                                 oldestLoadedPostDate: stubLoadedPost.dateCreated
                             }
                         }
@@ -132,8 +138,14 @@ describe("fetchPosts", function () {
             const stubPostsResponse = {
                 posts: ["woof"],
                 total: ["woof"].length,
-                oldest: DateTime.utc().toISO(),
-                newest: DateTime.utc().toISO()
+                oldest: {
+                    global: DateTime.utc().toISO(),
+                    Post: DateTime.utc().toISO()
+                },
+                newest: {
+                    Post: DateTime.utc().toISO(),
+                    global: DateTime.utc().toISO()
+                }
             };
 
             const proxyquiredFetchPosts = proxyquire("../../../../src/lib/actions/fetchPosts", {
