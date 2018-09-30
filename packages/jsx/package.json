@@ -78,7 +78,7 @@
     "redux-immutable": "^4.0.0",
     "redux-raven-middleware": "^1.2.0",
     "redux-thunk": "^2.3.0",
-    "reselect": "^3.0.1",
+    "reselect": "^4.0.0",
     "sniffr": "^1.1.4"
   },
   "peerDependencies": {
