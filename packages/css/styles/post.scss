@@ -33,6 +33,8 @@
 
     &-text {
         @extend .post-html;
+        @extend .z-depth-1;
+
         line-height: $blockLineHeight;
         padding: $blockPadding;
         margin-right: 4px;
@@ -54,6 +56,7 @@
     &--words {
         .post-body {
             &__text {
+                @extend .z-depth-0;
                 background-color: unset;
                 color: unset;
             }
