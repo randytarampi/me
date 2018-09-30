@@ -48,7 +48,7 @@
     "bunyan": "beta",
     "bunyan-format": "^0.2.1",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "dynamoose": "^0.8.7",
+    "dynamoose": "^1.0.0",
     "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
     "immutable": "^4.0.0-rc.9",
