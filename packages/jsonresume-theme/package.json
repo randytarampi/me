@@ -44,8 +44,9 @@
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test npm run resume",
     "start": "npm run resume",
-    "build": "npm run build:webpack",
-    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../node_modules/@randy.tarampi/views/templates/index.pug\" RESUME_STYLES_PATH=\"../node_modules/@randy.tarampi/resume/dist/styles.css\" webpack --config webpack.publish.config",
+    "build": "npm run build:copy && npm run build:webpack",
+    "build:copy": "mkdir -p dist && cp ./node_modules/@randy.tarampi/views/templates/index.pug ./dist/index.pug && cp ./node_modules/@randy.tarampi/resume/dist/styles.css ./dist/styles.css",
+    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config",
     "postinstall": "npm run resume:json",
     "prepack": "NODE_ENV=prd npm run build",
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
@@ -82,6 +83,7 @@
   },
   "files": [
     "build",
+    "dist",
     "index.js"
   ]
 }
