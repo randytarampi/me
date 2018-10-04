@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.14](https://github.com/randytarampi/me/compare/v0.40.13...v0.40.14) (2018-10-04)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Copy assets from dependent node_modules on build. ([dfbaba7](https://github.com/randytarampi/me/commit/dfbaba7))
+
+
+
+
+
 <a name="0.40.13"></a>
 ## [0.40.13](https://github.com/randytarampi/me/compare/v0.40.12...v0.40.13) (2018-09-30)
 
