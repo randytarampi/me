@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.40.14",
+  "version": "0.40.15",
   "description": "Some common JS entities for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"

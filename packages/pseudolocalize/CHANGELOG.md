@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.15](https://github.com/randytarampi/me/compare/v0.40.14...v0.40.15) (2018-10-05)
+
+**Note:** Version bump only for package @randy.tarampi/pseudolocalize
+
+
+
+
+
 ## [0.40.14](https://github.com/randytarampi/me/compare/v0.40.13...v0.40.14) (2018-10-04)
 
 **Note:** Version bump only for package @randy.tarampi/pseudolocalize
