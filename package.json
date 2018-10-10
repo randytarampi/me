@@ -128,7 +128,7 @@
     "pretest": "NODE_ENV=test lerna run pretest --no-bail",
     "test": "NODE_ENV=test lerna run test --no-bail",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail",
-    "cover:collect": "mkdir .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -r .nyc_output ../..; fi;\" && nyc report --reporter=lcov",
+    "cover:collect": "mkdir -p .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -r .nyc_output ../..; fi;\" && nyc report --reporter=lcov",
     "cover": "npm run cover:actual; npm run cover:collect",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "kill": "lerna run kill"
