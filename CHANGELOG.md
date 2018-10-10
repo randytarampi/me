@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.19](https://github.com/randytarampi/me/compare/v0.40.18...v0.40.19) (2018-10-10)
+
+
+### Bug Fixes
+
+* **package:** `mkdir .nyc_output/` -> `mkdir -p .nyc_output/`. ([b31acea](https://github.com/randytarampi/me/commit/b31acea))
+* **resume:** Don't include my custom content when publishing modules. ([09abcd6](https://github.com/randytarampi/me/commit/09abcd6))
+
+
+
+
+
 ## [0.40.18](https://github.com/randytarampi/me/compare/v0.40.17...v0.40.18) (2018-10-10)
 
 
