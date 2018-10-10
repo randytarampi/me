@@ -12,7 +12,7 @@ _  / / / / /  __/_/_ __|
 A monorepo for everything that goes into [www.randytarampi.ca](https://www.randytarampi.ca).
 
 - [job-applications](packages/job-applications) (which ties together my [resume](packages/resume) and a personalized [cover letter](packages/letter))
-- [jsonresume-theme-randytarampi](packages/jsonresume-theme) (A JSON resume theme, just for me)
+- [jsonresume-theme-randytarampi](packages/jsonresume-theme) (A [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi), built for me but shared for all)
 - [posts](packages/posts)
 - [www](packages/www)
 
