@@ -9,6 +9,41 @@ const configuredMinifyReplace = [
     {
         replacements: [
             {
+                identifierName: "__BUILD_IS_DEVELOPMENT__",
+                replacement: {
+                    type: "booleanLiteral",
+                    value: isDevelopment
+                }
+            },
+            {
+                identifierName: "__BUILD_IS_PUBLISHED__",
+                replacement: {
+                    type: "booleanLiteral",
+                    value: process.env.IS_PUBLISHING ? process.env.IS_PUBLISHING === "true" : false
+                }
+            },
+            {
+                identifierName: "__BUILD_IS_GENERATING__",
+                replacement: {
+                    type: "booleanLiteral",
+                    value: !!process.env.IS_PUBLISHING
+                }
+            },
+            {
+                identifierName: "__BUILD_NODE_ENV__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.NODE_ENV || ""
+                }
+            },
+            {
+                identifierName: "__BUILD_BABEL_ENV__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: process.env.BABEL_ENV || ""
+                }
+            },
+            {
                 identifierName: "__WORDS_SERVICE_URL__",
                 replacement: {
                     type: "stringLiteral",

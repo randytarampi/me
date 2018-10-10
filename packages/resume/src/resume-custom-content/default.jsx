@@ -100,4 +100,10 @@ const defaultContent = new ResumeCustomContent({
     })
 });
 
-export default defaultContent;
+let exportedDefaultContent = defaultContent;
+
+if (__BUILD_IS_PUBLISHED__) {
+    exportedDefaultContent = null;
+}
+
+export default exportedDefaultContent;

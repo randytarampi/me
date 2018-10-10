@@ -106,7 +106,7 @@ jobs:
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
-      v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; npx lerna publish from-git --yes; fi;'
+      v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes; fi;'
       deploy:
         - provider: releases
           api_key:

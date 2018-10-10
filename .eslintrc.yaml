@@ -47,6 +47,10 @@ env:
   mocha: true
 globals:
   Promise: true
+  __BUILD_IS_DEVELOPMENT__: false
+  __BUILD_IS_PUBLISHED__: false
+  __BUILD_NODE_ENV__: false
+  __BUILD_BABEL_ENV__: false
   __ASSET_URL__: false
   __RESUME_ASSET_URL__: false
   __LETTER_ASSET_URL__: false
