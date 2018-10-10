@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.17](https://github.com/randytarampi/me/compare/v0.40.16...v0.40.17) (2018-10-10)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Don't use fancy ES6 template string syntax. ([88f08a4](https://github.com/randytarampi/me/commit/88f08a4))
+
+
+
+
+
 ## [0.40.16](https://github.com/randytarampi/me/compare/v0.40.15...v0.40.16) (2018-10-09)
 
 
