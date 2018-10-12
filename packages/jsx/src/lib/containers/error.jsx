@@ -2,6 +2,8 @@ import {push} from "connected-react-router";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import clearError from "../actions/clearError";
+import clearErrorTimeoutHandler from "../actions/clearErrorTimeoutHandler";
+import setErrorTimeout from "../actions/setErrorTimeoutHandler";
 import Error from "../components/error";
 import selectors from "../data/selectors";
 
@@ -12,18 +14,26 @@ export const connectError = connect(
             hasError: selectors.hasError(state),
             error: selectors.getError(state),
             errorCode: selectors.getErrorCode(state),
-            errorMessage: selectors.getErrorMessage(state)
+            errorMessage: selectors.getErrorMessage(state),
+            errorTimeoutHandlerId: selectors.getErrorTimeoutHandlerId(state)
         };
     },
     (dispatch, ownProps) => {
         return {
-            timedRedirect: () => new Promise(resolve => setTimeout(() => {
-                if (window.location && window.location.pathname !== ownProps.redirectionLocation) {
-                    dispatch(clearError());
-                    dispatch(push(ownProps.redirectionLocation));
-                }
-                resolve();
-            }, ownProps.redirectionTimeout * 1000))
+            timedRedirect: () => {
+                return new Promise(resolve => {
+                    const timeoutId = setTimeout(() => {
+                        if (window.location && window.location.pathname !== ownProps.redirectionLocation) {
+                            dispatch(clearError());
+                            dispatch(push(ownProps.redirectionLocation));
+                        }
+                        resolve();
+                    }, ownProps.redirectionTimeout * 1000);
+
+                    dispatch(setErrorTimeout(timeoutId));
+                });
+            },
+            clearErrorTimeoutHandler
         };
     }
 );

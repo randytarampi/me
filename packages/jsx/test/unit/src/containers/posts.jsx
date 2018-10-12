@@ -15,6 +15,8 @@ describe("Posts", function () {
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
+    let stubWords;
+    let stubPhotos;
     let stubPosts;
     let isLoadingForUrlStub;
     let getErrorForUrlStub;
@@ -27,11 +29,17 @@ describe("Posts", function () {
         stubInitialState = Map();
         stubStore = mockStore(stubInitialState);
 
-        stubPosts = List([
-            Post.fromJSON({id: "woof", dateCreated: new Date(2500, 0, 1).toISOString()}),
+        stubPhotos = List([
             Photo.fromJSON({id: "meow", dateCreated: new Date(1900, 0, 1).toISOString()}),
-            Post.fromJSON({id: "grr", dateCreated: new Date().toISOString()}),
             Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+        ]);
+        stubWords = List([
+            Post.fromJSON({id: "woof", dateCreated: new Date(2500, 0, 1).toISOString()}),
+            Post.fromJSON({id: "grr", dateCreated: new Date().toISOString()})
+        ]);
+        stubPosts = List([
+            ...stubPhotos.toArray(),
+            ...stubWords.toArray()
         ]);
 
         isLoadingForUrlStub = false;
@@ -41,12 +49,16 @@ describe("Posts", function () {
         sinon.stub(api, "createIsLoadingUrlSelector").returns(isLoadingForUrlSelectorStub);
         sinon.stub(api, "createGetErrorForUrlSelector").returns(getErrorForUrlSelectorStub);
         sinon.stub(selectors, "getPostsSortedByDate").returns(stubPosts);
+        sinon.stub(selectors, "getPhotoPostsSortedByDate").returns(stubPhotos);
+        sinon.stub(selectors, "getWordPostsSortedByDate").returns(stubWords);
     });
 
     afterEach(function () {
         api.createIsLoadingUrlSelector.restore();
         api.createGetErrorForUrlSelector.restore();
         selectors.getPostsSortedByDate.restore();
+        selectors.getPhotoPostsSortedByDate.restore();
+        selectors.getWordPostsSortedByDate.restore();
     });
 
     it("receives default props", function () {
@@ -81,7 +93,7 @@ describe("Posts", function () {
         expect(rendered).to.have.prop("fetchPosts");
     });
 
-    it("propagates props", function () {
+    it("propagates props (any post type)", function () {
         const stubProps = {fetchUrl: "/woof"};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../src/lib/containers/posts", {
@@ -108,6 +120,70 @@ describe("Posts", function () {
         expect(rendered).to.have.prop("isLoading", isLoadingForUrlStub);
         expect(rendered).to.have.prop("error", getErrorForUrlStub);
         expect(rendered).to.have.prop("posts", stubPosts);
+
+        expect(fetchPostsStub.notCalled).to.eql(true);
+        expect(rendered).to.have.prop("fetchPosts");
+    });
+
+    it("propagates props (only `Photo`s)", function () {
+        const stubProps = {fetchUrl: "/woof", type: "Photo"};
+        const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
+        const proxyquiredPosts = proxyquire("../../../../src/lib/containers/posts", {
+            "../actions/fetchPosts": {
+                "default": fetchPostsStub
+            }
+        });
+        const Posts = proxyquiredPosts.default;
+
+        const rendered = shallow(stubStore)(<Posts {...stubProps} />);
+        let renderCount = 1;
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+
+        expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
+        expect(api.createGetErrorForUrlSelector.callCount).to.eql(renderCount);
+        expect(selectors.getPhotoPostsSortedByDate.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(selectors.getPhotoPostsSortedByDate, stubInitialState);
+        expect(isLoadingForUrlSelectorStub.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(isLoadingForUrlSelectorStub, stubInitialState, stubProps.fetchUrl);
+        expect(getErrorForUrlSelectorStub.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(getErrorForUrlSelectorStub, stubInitialState, stubProps.fetchUrl);
+        expect(rendered).to.have.prop("isLoading", isLoadingForUrlStub);
+        expect(rendered).to.have.prop("error", getErrorForUrlStub);
+        expect(rendered).to.have.prop("posts", stubPhotos);
+
+        expect(fetchPostsStub.notCalled).to.eql(true);
+        expect(rendered).to.have.prop("fetchPosts");
+    });
+
+    it("propagates props (only `Post`s)", function () {
+        const stubProps = {fetchUrl: "/woof", type: "Post"};
+        const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
+        const proxyquiredPosts = proxyquire("../../../../src/lib/containers/posts", {
+            "../actions/fetchPosts": {
+                "default": fetchPostsStub
+            }
+        });
+        const Posts = proxyquiredPosts.default;
+
+        const rendered = shallow(stubStore)(<Posts {...stubProps} />);
+        let renderCount = 1;
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+
+        expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
+        expect(api.createGetErrorForUrlSelector.callCount).to.eql(renderCount);
+        expect(selectors.getWordPostsSortedByDate.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(selectors.getWordPostsSortedByDate, stubInitialState);
+        expect(isLoadingForUrlSelectorStub.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(isLoadingForUrlSelectorStub, stubInitialState, stubProps.fetchUrl);
+        expect(getErrorForUrlSelectorStub.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(getErrorForUrlSelectorStub, stubInitialState, stubProps.fetchUrl);
+        expect(rendered).to.have.prop("isLoading", isLoadingForUrlStub);
+        expect(rendered).to.have.prop("error", getErrorForUrlStub);
+        expect(rendered).to.have.prop("posts", stubWords);
 
         expect(fetchPostsStub.notCalled).to.eql(true);
         expect(rendered).to.have.prop("fetchPosts");

@@ -7,8 +7,9 @@ import * as middleware from "./middleware";
 import * as store from "./store";
 import * as util from "./util";
 
-export {default as ClientReduxRoot} from "./clientReduxRoot";
-export {default as ServerReduxRoot} from "./serverReduxRoot";
+export {default as ClientSwipeableReduxRouterRoot} from "./clientSwipeableReduxRouterRoot";
+export {default as ClientReduxRoot, default as ClientReduxRouterRoot} from "./clientReduxRouterRoot";
+export {default as ServerReduxRoot, default as ServerReduxRouterRoot} from "./serverReduxRouterRoot";
 
 export {
     actions,

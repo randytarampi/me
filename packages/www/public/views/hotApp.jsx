@@ -1,4 +1,4 @@
-import {ClientReduxRoot, configureStore} from "@randy.tarampi/jsx";
+import {ClientSwipeableReduxRouterRoot, configureStore, setRoutesCreator} from "@randy.tarampi/jsx";
 import {createBrowserHistory} from "history";
 import React from "react";
 import {hot} from "react-hot-loader";
@@ -7,6 +7,9 @@ import routes from "../routes";
 
 const history = createBrowserHistory();
 const store = configureStore(undefined, history, combinedReducers);
-const App = () => <ClientReduxRoot history={history} routes={routes} store={store}/>;
+
+store.dispatch(setRoutesCreator(routes));
+
+const App = () => <ClientSwipeableReduxRouterRoot history={history} routes={routes} store={store}/>;
 
 export default hot(module)(App);

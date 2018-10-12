@@ -14,6 +14,10 @@ $fa-font-path: $asset-url;
 
 @import "materialize-css/sass/components/variables";
 
+$tabs-bg-color: $blockColour;
+$tabs-text-color: $blockTextColour;
+$tabs-underline-color: $primary-color-light;
+
 $small-screen: 594px;
 $small-screen-up: 595px;
 

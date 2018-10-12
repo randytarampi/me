@@ -4,16 +4,16 @@ import {createBrowserHistory} from "history";
 import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
-import * as reactRouter from "react-router-config";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
-import {ClientReduxRoot} from "../../../src/lib/clientReduxRoot";
+import {ClientSwipeableReduxRouterRoot} from "../../../src/lib/clientSwipeableReduxRouterRoot";
 import ErrorWrapper from "../../../src/lib/containers/errorWrapper";
 import logger from "../../../src/lib/logger";
+import * as renderSwipeableRoutesModule from "../../../src/lib/util/renderSwipeableRoutes";
 import {mount} from "../../util";
 
-describe("ClientReduxRoot", function () {
+describe("ClientSwipeableReduxRouterRoot", function () {
     const globalNavigator = global.navigator;
     let mockStore;
     let stubMiddleware;
@@ -27,6 +27,14 @@ describe("ClientReduxRoot", function () {
         mockStore = configureStore(stubMiddleware);
         stubInitialState = fromJS({
             error: {},
+            ui: {
+                routes: [],
+                swipeable: {
+                    index: null,
+                    indexLatest: null,
+                    meta: null
+                }
+            },
             router: {
                 location: {
                     pathname: "about:blank"
@@ -44,22 +52,22 @@ describe("ClientReduxRoot", function () {
             }
         ];
 
-        sinon.spy(reactRouter, "renderRoutes");
+        sinon.spy(renderSwipeableRoutesModule, "renderSwipeableRoutes");
         sinon.spy(logger, "info");
         sinon.spy(logger, "warn");
     });
 
     afterEach(function () {
-        reactRouter.renderRoutes.restore();
+        renderSwipeableRoutesModule.renderSwipeableRoutes.restore();
         logger.info.restore();
         logger.warn.restore();
-        global.navigator = globalNavigator;
+        global.navigator = Object.assign({}, globalNavigator);
     });
 
     describe("constructor", function () {
         it("logs a greeting (generic)", function () {
-            const rendered = mount(stubStore)(<ClientReduxRoot store={stubStore} history={stubHistory}
-                                                               routes={stubRoutes}/>);
+            const rendered = mount(stubStore)(<ClientSwipeableReduxRouterRoot store={stubStore} history={stubHistory}
+                                                                              routes={stubRoutes}/>);
 
             expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(4);
@@ -70,8 +78,8 @@ describe("ClientReduxRoot", function () {
 
         it("logs a greeting (Firefox)", function () {
             global.navigator.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0";
-            const rendered = mount(stubStore)(<ClientReduxRoot store={stubStore} history={stubHistory}
-                                                               routes={stubRoutes}/>);
+            const rendered = mount(stubStore)(<ClientSwipeableReduxRouterRoot store={stubStore} history={stubHistory}
+                                                                              routes={stubRoutes}/>);
 
             expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(5);
@@ -81,8 +89,8 @@ describe("ClientReduxRoot", function () {
 
         it("logs a greeting (Chrome)", function () {
             global.navigator.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
-            const rendered = mount(stubStore)(<ClientReduxRoot store={stubStore} history={stubHistory}
-                                                               routes={stubRoutes}/>);
+            const rendered = mount(stubStore)(<ClientSwipeableReduxRouterRoot store={stubStore} history={stubHistory}
+                                                                              routes={stubRoutes}/>);
 
             expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(5);
@@ -92,8 +100,8 @@ describe("ClientReduxRoot", function () {
 
         it("logs a greeting (IE)", function () {
             global.navigator.userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-            const rendered = mount(stubStore)(<ClientReduxRoot store={stubStore} history={stubHistory}
-                                                               routes={stubRoutes}/>);
+            const rendered = mount(stubStore)(<ClientSwipeableReduxRouterRoot store={stubStore} history={stubHistory}
+                                                                              routes={stubRoutes}/>);
 
             expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(4);
@@ -107,8 +115,9 @@ describe("ClientReduxRoot", function () {
         const stubProps = {
             woof: "meow"
         };
-        const rendered = mount(stubStore)(<ClientReduxRoot {...stubProps} store={stubStore} history={stubHistory}
-                                                           routes={stubRoutes}/>);
+        const rendered = mount(stubStore)(<ClientSwipeableReduxRouterRoot {...stubProps} store={stubStore}
+                                                                          history={stubHistory}
+                                                                          routes={stubRoutes}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(Provider);
@@ -118,7 +127,7 @@ describe("ClientReduxRoot", function () {
         expect(rendered).to.have.descendants(ConnectedRouter);
         expect(rendered.find(ConnectedRouter)).to.have.prop("history", stubHistory);
 
-        expect(reactRouter.renderRoutes.calledOnce).to.eql(true);
-        sinon.assert.calledWith(reactRouter.renderRoutes, stubRoutes, stubProps);
+        expect(renderSwipeableRoutesModule.renderSwipeableRoutes.calledOnce).to.eql(true);
+        sinon.assert.calledWith(renderSwipeableRoutesModule.renderSwipeableRoutes, stubRoutes, stubProps);
     });
 });

@@ -26,10 +26,7 @@ describe("Intro", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <title>📝</title>
-            );
-            expect(rendered).to.contain(
-                <ConnectedPosts fetchUrl={`${__WORDS_SERVICE_URL__}`}/>
+                <ConnectedPosts type="Post" fetchUrl={`${__WORDS_SERVICE_URL__}`}/>
             );
         });
     });
@@ -40,10 +37,7 @@ describe("Intro", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <title>📸</title>
-            );
-            expect(rendered).to.contain(
-                <ConnectedPosts fetchUrl={`${__PHOTOS_SERVICE_URL__}`}/>
+                <ConnectedPosts type="Photo" fetchUrl={`${__PHOTOS_SERVICE_URL__}`}/>
             );
         });
     });
@@ -53,9 +47,6 @@ describe("Intro", function () {
             const rendered = shallow(stubStore)(<BlogRouteHandler/>);
 
             expect(rendered).to.be.ok;
-            expect(rendered).to.contain(
-                <title>📸📝</title>
-            );
             expect(rendered).to.contain(
                 <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`}/>
             );
