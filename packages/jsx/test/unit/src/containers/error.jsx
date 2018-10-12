@@ -18,6 +18,7 @@ describe("Error", function () {
     let stubError;
     let stubErrorCode;
     let stubErrorMessage;
+    let stubErrorTimeoutHandlerId;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
@@ -30,12 +31,14 @@ describe("Error", function () {
         stubError = "meow";
         stubErrorCode = "rawr";
         stubErrorMessage = "boof";
+        stubErrorTimeoutHandlerId = "argh";
 
         sinon.stub(selectors, "getLocation").returns(stubLocation);
         sinon.stub(selectors, "hasError").returns(stubHasError);
         sinon.stub(selectors, "getError").returns(stubError);
         sinon.stub(selectors, "getErrorCode").returns(stubErrorCode);
         sinon.stub(selectors, "getErrorMessage").returns(stubErrorMessage);
+        sinon.stub(selectors, "getErrorTimeoutHandlerId").returns(stubErrorTimeoutHandlerId);
     });
 
     afterEach(function () {
@@ -44,14 +47,19 @@ describe("Error", function () {
         selectors.getError.restore();
         selectors.getErrorCode.restore();
         selectors.getErrorMessage.restore();
+        selectors.getErrorTimeoutHandlerId.restore();
     });
 
     it("receives default props", function () {
         const clearErrorStub = sinon.stub().returns(() => Promise.resolve());
+        const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../src/lib/containers/error", {
             "../actions/clearError": {
                 "default": clearErrorStub
+            },
+            "../actions/clearErrorTimeoutHandler": {
+                "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {
                 "push": routerPushStub
@@ -83,17 +91,23 @@ describe("Error", function () {
         expect(rendered).to.have.prop("errorMessage", stubErrorMessage);
 
         expect(clearErrorStub.notCalled).to.eql(true);
+        expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
         expect(routerPushStub.notCalled).to.eql(true);
         expect(rendered).to.have.prop("timedRedirect");
+        expect(rendered).to.have.prop("clearErrorTimeoutHandler");
     });
 
     it("propagates props", function () {
         const stubProps = {redirectionLocation: "/woof", redirectionTimeout: 1};
         const clearErrorStub = sinon.stub().returns(() => Promise.resolve());
+        const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../src/lib/containers/error", {
             "../actions/clearError": {
                 "default": clearErrorStub
+            },
+            "../actions/clearErrorTimeoutHandler": {
+                "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {
                 "push": routerPushStub
@@ -124,17 +138,23 @@ describe("Error", function () {
         expect(rendered).to.have.prop("errorMessage", stubErrorMessage);
 
         expect(clearErrorStub.notCalled).to.eql(true);
+        expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
         expect(routerPushStub.notCalled).to.eql(true);
         expect(rendered).to.have.prop("timedRedirect");
+        expect(rendered).to.have.prop("clearErrorTimeoutHandler");
     });
 
-    it("dispatches `fetchPosts` properly", function () {
+    it("dispatches `timedRedirect` properly", function () {
         const stubProps = {redirectionLocation: "/woof", redirectionTimeout: 1};
         const clearErrorStub = sinon.stub().returns(() => Promise.resolve());
+        const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../src/lib/containers/error", {
             "../actions/clearError": {
                 "default": clearErrorStub
+            },
+            "../actions/clearErrorTimeoutHandler": {
+                "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {
                 "push": routerPushStub
@@ -148,14 +168,17 @@ describe("Error", function () {
         expect(rendered).to.have.props(stubProps);
 
         expect(clearErrorStub.notCalled).to.eql(true);
+        expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
         expect(routerPushStub.notCalled).to.eql(true);
         expect(rendered).to.have.prop("timedRedirect");
+        expect(rendered).to.have.prop("clearErrorTimeoutHandler");
 
         const mappedTimedRedirect = rendered.prop("timedRedirect");
 
         return mappedTimedRedirect()
             .then(() => {
                 expect(clearErrorStub.calledOnce).to.eql(true);
+                expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
                 expect(routerPushStub.calledOnce).to.eql(true);
                 sinon.assert.calledWith(routerPushStub, stubProps.redirectionLocation);
             });

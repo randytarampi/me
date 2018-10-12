@@ -11,7 +11,7 @@ export const FETCHING_POSTS = "FETCHING_POSTS";
 
 export const FETCHING_POSTS_PER_PAGE = 16;
 
-export const fetchPostsCreator = fetchUrl => (dispatch, getState) => {
+export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getState) => {
     const state = getState();
     const urlState = selectors.getApiStateForUrl(state, fetchUrl);
     const isLoading = isUrlStateLoading(urlState);
@@ -26,7 +26,7 @@ export const fetchPostsCreator = fetchUrl => (dispatch, getState) => {
 
     const oldestLoadedPost = selectors.getOldestPost(state);
     const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.datePublished;
-    const oldestPostAvailableDate = urlState && urlState.get("oldest");
+    const oldestPostAvailableDate = urlState && urlState.getIn(["oldest", type]);
 
     if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
         dispatch(fetchingPostsCancelled({
@@ -40,7 +40,7 @@ export const fetchPostsCreator = fetchUrl => (dispatch, getState) => {
     const searchParams = {
         perPage: FETCHING_POSTS_PER_PAGE,
         ...(
-            oldestLoadedPostDate
+            oldestLoadedPostDate && (type === "global" || oldestLoadedPost.type === type)
                 ? {
                     orderBy: "datePublished",
                     orderOperator: "lt",

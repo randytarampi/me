@@ -3,11 +3,13 @@ import {Map} from "immutable";
 import {createAction} from "redux-actions";
 import {clearError} from "../../../../src/lib/actions/clearError";
 import {setError} from "../../../../src/lib/actions/setError";
+import {setErrorTimeoutHandler} from "../../../../src/lib/actions/setErrorTimeoutHandler";
 import reducer, {
     getError,
     getErrorCode,
     getErrorMessage,
     getErrorState,
+    getErrorTimeoutHandlerId,
     hasError
 } from "../../../../src/lib/data/error";
 
@@ -125,6 +127,31 @@ describe("error", function () {
             expect(errorCode).to.eql(undefined);
             const errorMessage = getErrorMessage(errorState);
             expect(errorMessage).to.eql(undefined);
+        });
+    });
+
+    describe("SET_ERROR_TIMEOUT_HANDLER", function () {
+        it("reduces the correct state (no prior state)", function () {
+            const stubTimeoutId = "woof";
+            const updatedState = reducer(stubInitialState, setErrorTimeoutHandler(stubTimeoutId));
+            const errorState = getErrorState(updatedState);
+            expect(errorState).to.be.ok;
+
+            const timeoutHandlerId = getErrorTimeoutHandlerId(errorState);
+            expect(timeoutHandlerId).to.eql(stubTimeoutId);
+        });
+
+        it("reduces the correct state (has existing state)", function () {
+            stubInitialState = Map({
+                errorTimeoutHandler: "meow"
+            });
+            const stubTimeoutId = "woof";
+            const updatedState = reducer(stubInitialState, setErrorTimeoutHandler(stubTimeoutId));
+            const errorState = getErrorState(updatedState);
+            expect(errorState).to.be.ok;
+
+            const timeoutHandlerId = getErrorTimeoutHandlerId(errorState);
+            expect(timeoutHandlerId).to.eql(stubTimeoutId);
         });
     });
 });

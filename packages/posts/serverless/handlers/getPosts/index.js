@@ -32,17 +32,30 @@ export default (event, context, callback) => {
                 )
                 .then((results) => {
                     const flattenedPosts = _.flatten(results.map(result => result.posts));
-                    const sortedPosts = flattenedPosts.sort(sortPostsByDate);
+                    const uniquePosts = Object.values(flattenedPosts.reduce((keyedPosts, post) => {
+                        keyedPosts[post.uid] = post;
+                        return keyedPosts;
+                    }, {}));
+                    const sortedPosts = uniquePosts.sort(sortPostsByDate);
                     const paginatedPosts = sortedPosts.slice(0, parsedQuerystringParameters && parsedQuerystringParameters.perPage || 100);
-                    const globalTotal = results.reduce((globalTotal, result) => globalTotal + result.total, 0);
-                    const globalFirst = _.sortBy(results, result => result && result.first && result.first.date)[0].first;
-                    const globalLast = _.sortBy(results, result => result && result.last && result.last.date)[results.length - 1].last;
 
                     return {
                         posts: paginatedPosts,
-                        total: globalTotal,
-                        first: globalFirst,
-                        last: globalLast
+                        total: {
+                            global: results.reduce((globalTotal, result) => globalTotal + result.total, 0),
+                            [Post.name]: results[0].total,
+                            [Photo.name]: results[1].total
+                        },
+                        first: {
+                            global: _.sortBy(results, result => result && result.first && result.first.date)[0].first,
+                            [Post.name]: results[0].first,
+                            [Photo.name]: results[1].first
+                        },
+                        last: {
+                            global: _.sortBy(results, result => result && result.last && result.last.date)[results.length - 1].last,
+                            [Post.name]: results[0].last,
+                            [Photo.name]: results[1].last
+                        }
                     };
                 })
                 .then(postsResult => {

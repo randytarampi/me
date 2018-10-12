@@ -13,6 +13,12 @@ global.document = jsdom.window.document;
 global.navigator = {
     userAgent: "node.js"
 };
+global.location = jsdom.window.location;
+
+global.$ = global.jQuery = require("jquery");
+global.Hammer = require("materialize-css/js/hammer.min");
+global.Velocity = require("materialize-css/js/velocity.min");
+global.Materialize = {}; // NOTE-RT: Gross – gotta do this up here to sidestep all the weirdness of mocking how we're requiring `materialize-css` in `@randy.tarampi/jsx`.
 
 Enzyme.configure({adapter: new EnzymeAdapter()});
 chai.use(chaiEnzyme());

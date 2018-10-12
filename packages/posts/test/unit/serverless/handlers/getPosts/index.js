@@ -16,9 +16,21 @@ describe("getPosts", function () {
         const stubQuerystringParameters = {};
         const expectedPostsResult = {
             posts: stubPosts,
-            total: stubPosts.length,
-            first: stubPost,
-            last: stubPhoto
+            total: {
+                global: stubPosts.length,
+                [Post.name]: 1,
+                [Photo.name]: 1
+            },
+            first: {
+                global: stubPost,
+                [Post.name]: stubPost,
+                [Photo.name]: stubPhoto
+            },
+            last: {
+                global: stubPhoto,
+                [Post.name]: stubPost,
+                [Photo.name]: stubPhoto
+            }
         };
         const stubResponse = "meow";
         const proxyquireStubs = {

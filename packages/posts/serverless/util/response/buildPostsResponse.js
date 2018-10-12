@@ -7,6 +7,29 @@ import RequestError, {codes} from "../request/requestError";
 import responseBuilder from "./responseBuilder";
 
 /**
+ * Build a version 3 GET [Posts]{@link Post} response – some array of Post objects with some metadata
+ * @param posts {Post[]} The posts returned for some query
+ * @param total {number} The total number of posts available for some query
+ * @param first {(object|undefined)} The first (oldest) [Post]{@link Post}s for some query
+ * @param last {(object|undefined)} The latest (newest) [Post]{@link Post}s for some query
+ * @returns {{posts: {Post[]}, total: {number}, oldest: {(object|undefined)}, newest: {(object|undefined)}}}
+ */
+export const buildPostsV3ResponseBody = ({posts, total, first, last}) => {
+    return {
+        posts,
+        total,
+        oldest: first && Object.keys(first).reduce((oldest, oldestKey) => {
+            oldest[oldestKey] = first[oldestKey] && first[oldestKey].date && first[oldestKey].date.toISO();
+            return oldest;
+        }, {}),
+        newest: last && Object.keys(last).reduce((newest, newestKey) => {
+            newest[newestKey] = last[newestKey] && last[newestKey].date && last[newestKey].date.toISO();
+            return newest;
+        }, {})
+    };
+};
+
+/**
  * Build a version 2 GET [Posts]{@link Post} response – some array of Post objects with some metadata
  * @param posts {Post[]} The posts returned for some query
  * @param total {number} The total number of posts available for some query
@@ -19,7 +42,7 @@ export const buildPostsV2ResponseBody = ({posts, total, first, last}) => {
         posts,
         total,
         oldest: first && first.date && first.date.toISO(),
-        newest: last && last.date && last.date.toISO(),
+        newest: last && last.date && last.date.toISO()
     };
 };
 
@@ -51,7 +74,16 @@ export default parsedHeaders =>
         }
 
         if (checkMeVersionHeader(parsedHeaders, 2)) {
-            return responseBuilder(buildPostsV2ResponseBody({posts, total, first, last}));
+            return responseBuilder(buildPostsV2ResponseBody({
+                posts,
+                total: total.global,
+                first: first.global,
+                last: last.global
+            }));
+        }
+
+        if (checkMeVersionHeader(parsedHeaders, 3)) {
+            return responseBuilder(buildPostsV3ResponseBody({posts, total, first, last}));
         }
 
         throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);

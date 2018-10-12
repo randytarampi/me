@@ -1,6 +1,7 @@
 import {Map} from "immutable";
 import {CLEAR_ERROR} from "../actions/clearError";
 import {SET_ERROR} from "../actions/setError";
+import {SET_ERROR_TIMEOUT_HANDLER} from "../actions/setErrorTimeoutHandler";
 
 export const errorReducer = (state = Map(), action) => {
     switch (action.type) {
@@ -9,6 +10,11 @@ export const errorReducer = (state = Map(), action) => {
                 .set("error", action.payload.error)
                 .set("errorMessage", action.payload.errorMessage)
                 .set("errorCode", action.payload.errorCode);
+        }
+
+        case SET_ERROR_TIMEOUT_HANDLER: {
+            return state
+                .set("errorTimeoutHandler", action.payload);
         }
 
         case CLEAR_ERROR: {
@@ -27,3 +33,4 @@ export const getErrorState = state => state;
 export const getError = state => getErrorState(state).get("error");
 export const getErrorMessage = state => getErrorState(state).get("errorMessage");
 export const getErrorCode = state => getErrorState(state).get("errorCode");
+export const getErrorTimeoutHandlerId = state => getErrorState(state).get("errorTimeoutHandler");

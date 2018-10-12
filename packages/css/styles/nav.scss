@@ -1,0 +1,15 @@
+.nav {
+    &-container {
+        .row {
+            margin: 0;
+
+            .col {
+                padding: 0;
+            }
+        }
+    }
+
+    @media print {
+        display: none;
+    }
+}

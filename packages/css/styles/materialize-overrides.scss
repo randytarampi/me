@@ -52,3 +52,22 @@ html {
         font-size: 1.2rem;
     }
 }
+
+.tabs {
+    @extend .tabs-fixed-width;
+    @extend .z-depth-1;
+
+    &.tabs-fixed-width {
+        @media print {
+            display: none;
+        }
+    }
+
+    .tab {
+        text-transform: none;
+    }
+
+    @media print {
+        display: none;
+    }
+}

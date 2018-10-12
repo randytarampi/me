@@ -227,8 +227,16 @@ describe("api", function () {
             const stubFetchUrl = "/woof";
             const stubPayload = {
                 fetchUrl: stubFetchUrl,
-                oldest: DateTime.utc().toISO(),
-                newest: DateTime.utc().toISO()
+                oldest: {
+                    global: DateTime.utc().toISO(),
+                    Post: DateTime.utc().toISO(),
+                    Photo: DateTime.utc().toISO()
+                },
+                newest: {
+                    Post: DateTime.utc().toISO(),
+                    Photo: DateTime.utc().toISO(),
+                    global: DateTime.utc().toISO()
+                }
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -239,8 +247,16 @@ describe("api", function () {
             expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql({
                 isLoading: false,
-                oldest: DateTime.fromISO(stubPayload.oldest),
-                newest: DateTime.fromISO(stubPayload.newest)
+                oldest: {
+                    global: DateTime.fromISO(stubPayload.oldest.global),
+                    Post: DateTime.fromISO(stubPayload.oldest.Post),
+                    Photo: DateTime.fromISO(stubPayload.oldest.Photo)
+                },
+                newest: {
+                    Post: DateTime.fromISO(stubPayload.newest.Post),
+                    Photo: DateTime.fromISO(stubPayload.newest.Photo),
+                    global: DateTime.fromISO(stubPayload.newest.global)
+                }
             });
 
             const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
@@ -252,15 +268,31 @@ describe("api", function () {
             const stubFetchUrl = "/woof";
             const stubPayload = {
                 fetchUrl: stubFetchUrl,
-                oldest: DateTime.utc().toISO(),
-                newest: DateTime.utc().toISO()
+                oldest: {
+                    global: DateTime.utc().toISO(),
+                    Post: DateTime.utc().toISO(),
+                    Photo: DateTime.utc().toISO()
+                },
+                newest: {
+                    Post: DateTime.utc().toISO(),
+                    Photo: DateTime.utc().toISO(),
+                    global: DateTime.utc().toISO()
+                }
             };
 
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
                     isLoading: false,
-                    oldest: DateTime.fromISO(stubPayload.oldest),
-                    newest: DateTime.fromISO(stubPayload.newest)
+                    oldest: Map({
+                        global: DateTime.fromISO(stubPayload.oldest.global),
+                        Post: DateTime.fromISO(stubPayload.oldest.Post),
+                        Photo: DateTime.fromISO(stubPayload.oldest.Photo)
+                    }),
+                    newest: Map({
+                        Post: DateTime.fromISO(stubPayload.newest.Post),
+                        Photo: DateTime.fromISO(stubPayload.newest.Photo),
+                        global: DateTime.fromISO(stubPayload.newest.global)
+                    })
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -273,8 +305,16 @@ describe("api", function () {
                 stubInitialState
                     .get(stubFetchUrl)
                     .set("isLoading", false)
-                    .set("oldest", DateTime.fromISO(stubPayload.oldest))
-                    .set("newest", DateTime.fromISO(stubPayload.newest))
+                    .set("oldest", Map({
+                        global: DateTime.fromISO(stubPayload.oldest.global),
+                        Post: DateTime.fromISO(stubPayload.oldest.Post),
+                        Photo: DateTime.fromISO(stubPayload.oldest.Photo)
+                    }))
+                    .set("newest", Map({
+                        Post: DateTime.fromISO(stubPayload.newest.Post),
+                        Photo: DateTime.fromISO(stubPayload.newest.Photo),
+                        global: DateTime.fromISO(stubPayload.newest.global)
+                    }))
                     .toJS()
             );
 

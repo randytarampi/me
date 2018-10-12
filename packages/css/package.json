@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "materialize-css": "^1.0.0"
+    "materialize-css": "^0.100.2"
   },
   "devDependencies": {
     "@babel/cli": "latest",

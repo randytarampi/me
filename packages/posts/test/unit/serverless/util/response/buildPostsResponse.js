@@ -134,6 +134,32 @@ describe("buildPostsResponse", function () {
             expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts));
         });
 
+        it("delegates to buildPostsV3ResponseBody for version 3", function () {
+            const stubSearchPostsResponse = {
+                posts: stubPosts,
+                total: stubPosts.length,
+                first: {
+                    global: stubPost,
+                    Post: stubPost,
+                    Photo: stubPhoto
+                },
+                last: {
+                    global: stubPhoto,
+                    Post: stubPost,
+                    Photo: stubPhoto
+                }
+            };
+            const stubParsedHeaders = {
+                [versionHeader.headerName]: 3
+            };
+
+            const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
+
+            expect(response).to.be.ok;
+            expect(response.body).to.be.ok;
+            expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts));
+        });
+
         it("throws if API version is unsupported", function () {
             const stubSearchPostsResponse = {
                 posts: stubPosts,
@@ -142,7 +168,7 @@ describe("buildPostsResponse", function () {
                 last: stubPhoto
             };
             const stubParsedHeaders = {
-                [versionHeader.headerName]: 3
+                [versionHeader.headerName]: 999
             };
 
             try {
@@ -150,7 +176,7 @@ describe("buildPostsResponse", function () {
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
                 expect(error).to.be.ok;
-                expect(error.message).to.match(/^`ME-API-VERSION` specifies unsupported version of `3`$/);
+                expect(error.message).to.match(/^`ME-API-VERSION` specifies unsupported version of `999`$/);
             }
         });
     });

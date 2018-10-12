@@ -14,7 +14,8 @@ describe("Error", function () {
             }),
             redirectionLocation: "boof",
             redirectionTimeout: 0.1,
-            timedRedirect: sinon.stub()
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
@@ -26,7 +27,7 @@ describe("Error", function () {
 
         setTimeout(() => {
             try {
-                expect(stubProps.timedRedirect.calledOnce).to.eql(true);
+                expect(stubProps.timedRedirect.notCalled).to.eql(true);
                 done();
             } catch (error) {
                 done(error);
@@ -43,7 +44,8 @@ describe("Error", function () {
             }),
             redirectionLocation: "boof",
             redirectionTimeout: 0.1,
-            timedRedirect: sinon.stub()
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
@@ -72,7 +74,8 @@ describe("Error", function () {
             }),
             redirectionLocation: "boof",
             redirectionTimeout: 0.1,
-            timedRedirect: sinon.stub()
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
@@ -101,7 +104,8 @@ describe("Error", function () {
             }),
             redirectionLocation: "boof",
             redirectionTimeout: 0.1,
-            timedRedirect: sinon.stub()
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
@@ -130,7 +134,8 @@ describe("Error", function () {
             }),
             redirectionLocation: "boof",
             redirectionTimeout: 0.1,
-            timedRedirect: sinon.stub()
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
@@ -159,7 +164,8 @@ describe("Error", function () {
             }),
             redirectionLocation: "boof",
             redirectionTimeout: 0.1,
-            timedRedirect: sinon.stub()
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
@@ -177,5 +183,26 @@ describe("Error", function () {
                 done(error);
             }
         }, stubProps.redirectionTimeout * 1250);
+    });
+
+    it("calls `clearErrorTimeoutHandler` on `componentDidUnmount`", function () {
+        const stubProps = {
+            errorCode: "ENOPOSTS",
+            errorMessage: "ugh",
+            location: Map({
+                pathname: "grr"
+            }),
+            redirectionLocation: "boof",
+            redirectionTimeout: 0.1,
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
+        };
+        const rendered = shallow(<Error {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.className("error");
+
+        rendered.unmount();
+        expect(stubProps.clearErrorTimeoutHandler.calledOnce).to.eql(true);
     });
 });

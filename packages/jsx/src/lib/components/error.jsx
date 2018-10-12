@@ -1,5 +1,4 @@
 import {DeadBear, DoubtBear, ShrugBear} from "@randy.tarampi/js";
-import {Map} from "immutable";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
@@ -10,8 +9,7 @@ import {EmailLink, InternalLink} from "./link";
 export class Error extends Component {
     componentDidMount() {
         if (
-            !this.props.errorCode
-            || [404, "ENOTFOUND"].includes(this.props.errorCode)
+            [404, "ENOTFOUND"].includes(this.props.errorCode) && !this.props.errorTimeoutHandlerId
         ) {
             this.props.timedRedirect();
         }
@@ -53,6 +51,23 @@ export class Error extends Component {
 
             case 404:
             case "ENOTFOUND":
+                errorContent =
+                    <ConnectedBear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
+                        <h2 className="error__message--header">
+                            <span className="text">What are you looking for?</span>
+                        </h2>
+                        <p className="error__message">
+                            I don't know who told you to come
+                            to <code>{`${window.location.origin}${this.props.location ? this.props.location.get("pathname") : window.location.pathname}`}</code>,
+                            but
+                            there's
+                            nothing here. You'll be redirected to the <InternalLink target="_self"
+                                                                                    href={`${this.props.redirectionLocation}`}>home
+                            page</InternalLink> in {this.props.redirectionTimeout} seconds.
+                        </p>
+                    </ConnectedBear>;
+                break;
+
             default:
                 errorContent =
                     <ConnectedBear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
@@ -61,11 +76,12 @@ export class Error extends Component {
                         </h2>
                         <p className="error__message">
                             I don't know who told you to come
-                            to <code>{`${window.location.origin}${this.props.location.get("pathname")}`}</code>, but
+                            to <code>{`${window.location.origin}${this.props.location ? this.props.location.get("pathname") : window.location.pathname}`}</code>,
+                            but
                             there's
-                            nothing here. You'll be redirected to the <InternalLink target="_self"
-                                                                                    href={`${this.props.redirectionLocation}`}>home
-                            page</InternalLink> in {this.props.redirectionTimeout} seconds.
+                            nothing here. Go back to the <InternalLink target="_self"
+                                                                       href={`${this.props.redirectionLocation}`}>home
+                            page</InternalLink>.
                         </p>
                     </ConnectedBear>;
                 break;
@@ -79,6 +95,10 @@ export class Error extends Component {
             </Row>
         </div>;
     }
+
+    componentWillUnmount() {
+        this.props.clearErrorTimeoutHandler();
+    }
 }
 
 Error.propTypes = {
@@ -88,10 +108,12 @@ Error.propTypes = {
         PropTypes.string
     ]),
     errorMessage: PropTypes.string,
-    location: PropTypes.instanceOf(Map).isRequired,
+    errorTimeoutHandlerId: PropTypes.number,
+    location: PropTypes.object.isRequired,
     redirectionLocation: PropTypes.string.isRequired,
     redirectionTimeout: PropTypes.number.isRequired,
-    timedRedirect: PropTypes.func.isRequired
+    timedRedirect: PropTypes.func.isRequired,
+    clearErrorTimeoutHandler: PropTypes.func.isRequired
 };
 
 export default Error;

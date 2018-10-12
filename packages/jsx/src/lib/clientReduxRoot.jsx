@@ -1,56 +1,24 @@
-import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React from "react";
 import {metrics} from "react-metrics";
-import {Provider} from "react-redux";
-import {renderRoutes} from "react-router-config";
-import Sniffr from "sniffr";
-import ErrorWrapper from "./containers/errorWrapper";
-import logger from "./logger";
+import {ClientRoot} from "./clientRoot";
 import metricsConfig from "./metrics/config";
+import ReduxRoot from "./reduxRoot";
 
-export class ClientReduxRoot extends Component {
-    constructor(props) {
-        super(props);
-
-        logger.info("Hey! I see you looking over there.");
-        logger.info("Looking for this?\n\t\thttps://www.randytarampi.ca/resume");
-        logger.info("Or was it this?\n\t\thttps://github.com/randytarampi/me/#readme");
-        logger.info("Or maybe even this?\n\t\thttps://waffle.io/randytarampi/randytarampi.github.io");
-
-        const sniffr = new Sniffr();
-        sniffr.sniff();
-
-        if (sniffr.browser) {
-            if (sniffr.browser.name === "firefox") {
-                logger.info("If you don't already have them, these should make your analysis a bit more interesting.\n\t\thttps://addons.mozilla.org/en-US/firefox/addon/react-devtools\n\t\thttps://addons.mozilla.org/en-US/firefox/addon/remotedev");
-            } else if (sniffr.browser.name === "chrome") {
-                logger.info("If you don't already have them, these should make your analysis a bit more interesting.\n\t\thttps://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi\n\t\thttps://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd");
-            } else if (sniffr.browser.name === "ie") {
-                logger.warn("Do yourself a favour and go here before you do anything else:\n\t\thttp://outdatedbrowser.com");
-            } else {
-                logger.warn("If you're a developer and you're reading this message, do the right thing, give me a fair shake and come back in Chrome or Firefox.\n\t\thttps://www.mozilla.org/firefox\n\t\thttps://www.google.com/chrome");
-            }
-        }
-    }
-
+export class ClientReduxRoot extends ClientRoot {
     render() {
-        const {store, history, routes, ...props} = this.props;
+        const {store, children, ...props} = this.props;
 
-        return <Provider store={store}>
-            <ErrorWrapper {...props}>
-                <ConnectedRouter history={history}>
-                    {renderRoutes(routes, props)}
-                </ConnectedRouter>
-            </ErrorWrapper>
-        </Provider>;
+        return <ReduxRoot store={store} {...props}>
+            <main>
+                {children}
+            </main>
+        </ReduxRoot>;
     }
 }
 
 ClientReduxRoot.propTypes = {
-    store: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-    routes: PropTypes.array.isRequired
+    store: PropTypes.object.isRequired
 };
 
 export default metrics(metricsConfig)(ClientReduxRoot);

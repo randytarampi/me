@@ -61,11 +61,11 @@ const post = new Schema({
     datePublished: {
         type: Date,
         required: true,
-        get: date => date ? date.toISOString() : date
+        get: date => date && date.toISOString()
     },
     dateCreated: {
         type: Date,
-        get: date => date ? date.toISOString() : date
+        get: date => date && date.toISOString()
     },
     title: {
         type: String
