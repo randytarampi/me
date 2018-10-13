@@ -22,6 +22,7 @@ export class LetterComponent extends Component {
                     ? <LoadingSpinner/>
                     : <Fragment>
                         <Helmet>
+                            <title>{`${letter.basics.name} – ${letter.basics.label}`}</title>
                             <link rel="canonical" href={__PUBLISHED_LETTER_URL__}/>
                             <meta name="og:url" content={__PUBLISHED_LETTER_URL__}/>
                         </Helmet>

@@ -97,6 +97,7 @@ describe("LetterComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
+        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
         expect(rendered).to.not.contain(<LoadingSpinner/>);
         expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
