@@ -73,6 +73,7 @@ describe("ResumeComponent", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
+        expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.not.contain(<LoadingSpinner/>);
         expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);

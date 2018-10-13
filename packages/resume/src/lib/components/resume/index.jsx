@@ -41,6 +41,7 @@ export class ResumeComponent extends Component {
                     ? <LoadingSpinner/>
                     : <Fragment>
                         <Helmet>
+                            <title>{`${resume.basics.name} – ${resume.basics.label}`}</title>
                             <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
                             <meta name="og:url" content={__PUBLISHED_RESUME_URL__}/>
                         </Helmet>
