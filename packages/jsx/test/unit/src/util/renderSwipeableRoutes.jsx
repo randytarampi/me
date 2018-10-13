@@ -34,6 +34,16 @@ describe("renderSwipeableRoutes", function () {
         const rendered = shallow(stubStore)(component);
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(Route);
-        expect(rendered.find(Route)).to.have.length(stubRoutes.length);
+    });
+
+    it("only renders routes with a `path`", function () {
+        const stubRoutes = routes;
+        const component = renderSwipeableRoutes(stubRoutes);
+        expect(component).to.be.ok;
+
+        const rendered = shallow(stubStore)(component);
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.descendants(Route);
+        expect(rendered.find(Route)).to.have.length(stubRoutes.filter(route => !route.path).length);
     });
 });
