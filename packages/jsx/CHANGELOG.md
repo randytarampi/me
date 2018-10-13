@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.1](https://github.com/randytarampi/me/compare/v0.41.0...v0.41.1) (2018-10-13)
+
+
+### Bug Fixes
+
+* **jsx:** Only render routes with defined `path`s. ([35ea87b](https://github.com/randytarampi/me/commit/35ea87b))
+* **www:** Change manifest display from `minimal-ui` to `fullscreen`. ([22a7f6f](https://github.com/randytarampi/me/commit/22a7f6f))
+
+
+
+
+
 # [0.41.0](https://github.com/randytarampi/me/compare/v0.40.19...v0.41.0) (2018-10-13)
 
 

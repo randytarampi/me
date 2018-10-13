@@ -3,7 +3,7 @@
   "short_name": "ʕ•ᴥ•ʔﾉ゛",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "lang": "en-CA",
   "orientation": "natural",
   "icons": [
