@@ -20,7 +20,10 @@ export const ConnectedSwipeableRoutes = withRouter(connect(
 
         return {
             location,
-            index
+            index,
+            resistance: true,
+            ignoreNativeScroll: true,
+            hysteresis: 0.3
         };
     },
     {
