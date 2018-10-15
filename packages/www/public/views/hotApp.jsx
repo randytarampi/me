@@ -10,6 +10,6 @@ const store = configureStore(undefined, history, combinedReducers);
 
 store.dispatch(setRoutesCreator(routes));
 
-const App = () => <ClientSwipeableReduxRouterRoot history={history} routes={routes} store={store}/>;
+export const App = () => <ClientSwipeableReduxRouterRoot history={history} routes={routes} store={store}/>;
 
 export default hot(module)(App);

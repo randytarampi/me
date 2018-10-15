@@ -127,6 +127,14 @@ gulp.task("lint", gulp.parallel([
     "pugLint"
 ]));
 
+gulp.task("test.integration", () => {
+    const mocha = require("gulp-mocha");
+    const mochaConfig = require("./mocha.config");
+
+    return gulp.src("test/integration/**/*.{js,jsx}", {read: false, allowEmpty: true})
+        .pipe(mocha(mochaConfig));
+});
+
 gulp.task("test.unit", () => {
     const mocha = require("gulp-mocha");
     const mochaConfig = require("./mocha.config");
@@ -136,6 +144,7 @@ gulp.task("test.unit", () => {
 });
 
 gulp.task("test", gulp.parallel([
+    "test.integration",
     "test.unit"
 ]));
 
