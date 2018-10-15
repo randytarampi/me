@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.6](https://github.com/randytarampi/me/compare/v0.41.5...v0.41.6) (2018-10-15)
+
+
+### Bug Fixes
+
+* **views:** Burn the `.loading-spinner` into the HTML. ([ed317ed](https://github.com/randytarampi/me/commit/ed317ed))
+
+
+
+
+
 ## [0.41.5](https://github.com/randytarampi/me/compare/v0.41.4...v0.41.5) (2018-10-15)
 
 **Note:** Version bump only for package @randy.tarampi/views
