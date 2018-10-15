@@ -49,7 +49,7 @@ describe("ui", function () {
     });
 
     it("doesn't swipe tabs on `LOCATION_CHANGE` if there are no tabs to swipe", function () {
-        stub$Tabs.length = 0;
+        stub$Tabs.tabs = null;
 
         const stubAction = {
             type: LOCATION_CHANGE,
@@ -64,6 +64,34 @@ describe("ui", function () {
         expect(stubStore.getState.notCalled).to.eql(true);
         expect(stub$.calledOnce).to.eql(true);
         expect(stubTabs.notCalled).to.eql(true);
+    });
+
+    it("defers swipe tabs on `LOCATION_CHANGE` if there are no tabs to swipe", function () {
+        stub$Tabs.length = 0;
+
+        const stubAction = {
+            type: LOCATION_CHANGE,
+            payload: "grr"
+        };
+        const ui = proxyquire("../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
+
+        ui(stubStore)(stubNext)(stubAction);
+        expect(stubNext.calledOnce).to.eql(true);
+        expect(stubStore.getState.calledOnce).to.eql(true);
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                try {
+                    expect(stub$.calledTwice).to.eql(true);
+                    expect(stubTabs.calledOnce).to.eql(true);
+                    resolve();
+                } catch (e) {
+                    reject(e);
+                }
+            }, 250);
+        });
     });
 
     it("dispatches `clearError` on `SWIPEABLE_CHANGE_INDEX`", function () {
