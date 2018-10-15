@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.42.0](https://github.com/randytarampi/me/compare/v0.41.7...v0.42.0) (2018-10-15)
+
+
+### Bug Fixes
+
+* **jsx:** `renderSwipeableRoutes` only renders the best matching route. ([6ed752c](https://github.com/randytarampi/me/commit/6ed752c))
+
+
+### Features
+
+* **www:** `/(photos|words)` -> `/blog`. ([5c83275](https://github.com/randytarampi/me/commit/5c83275))
+
+
+### Reverts
+
+* fix(jsx): Only render routes with defined `path`s. ([f328672](https://github.com/randytarampi/me/commit/f328672))
+
+
+
+
+
 ## [0.41.7](https://github.com/randytarampi/me/compare/v0.41.6...v0.41.7) (2018-10-15)
 
 
