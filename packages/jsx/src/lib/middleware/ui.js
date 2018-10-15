@@ -10,13 +10,17 @@ export const uiMiddleware = store => next => action => {
         case LOCATION_CHANGE: {
             const swipeableTabs = $(".nav-tabs__swipeable");
 
-            if (swipeableTabs.length) {
+            if (swipeableTabs.tabs) {
                 const state = store.getState();
                 const location = action.payload.location || action.payload;
                 const index = selectors.getIndexForRoute(state, location.pathname);
                 const expectedTabIndex = formatIndexForMaterializeTabs(index);
 
-                swipeableTabs.tabs("select_tab", `tab_${expectedTabIndex}`);
+                if (swipeableTabs.length) {
+                    swipeableTabs.tabs("select_tab", `tab_${expectedTabIndex}`);
+                } else {
+                    setTimeout(() => $(".nav-tabs__swipeable").tabs("select_tab", `tab_${expectedTabIndex}`), 50);
+                }
             }
             break;
         }
