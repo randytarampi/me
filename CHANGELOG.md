@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.7](https://github.com/randytarampi/me/compare/v0.41.6...v0.41.7) (2018-10-15)
+
+
+### Bug Fixes
+
+* **travis:** Always add `packages/*/CHANGELOG.md` on release. ([7e1ca72](https://github.com/randytarampi/me/commit/7e1ca72))
+* **travis:** Need to `build` `www` again after the version bump. ([2aabdb3](https://github.com/randytarampi/me/commit/2aabdb3))
+
+
+
+
+
 ## [0.41.6](https://github.com/randytarampi/me/compare/v0.41.5...v0.41.6) (2018-10-15)
 
 
