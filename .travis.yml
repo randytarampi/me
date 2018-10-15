@@ -101,6 +101,7 @@ jobs:
           $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf; fi;
         - npm run resume --prefix packages/jsonresume-theme
         - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
+        - npm run build --prefix packages/www
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/robots.txt; fi;
