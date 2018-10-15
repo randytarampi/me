@@ -23,7 +23,8 @@ export const ConnectedSwipeableRoutes = withRouter(connect(
             index,
             resistance: true,
             ignoreNativeScroll: true,
-            hysteresis: 0.3
+            hysteresis: 0.3,
+            springConfig: {duration: "0.5s", easeFunction: "ease", delay: "0s"}
         };
     },
     {
