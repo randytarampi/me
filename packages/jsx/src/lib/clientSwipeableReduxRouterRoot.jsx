@@ -1,7 +1,6 @@
 import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {Tab} from "react-materialize";
 import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
 import {ClientRoot} from "./clientRoot";
@@ -19,30 +18,11 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
                 <header>
                     <div className="nav-container">
                         <ConnectedSwipeableTabs id="swipeable-nav-tabs" className="nav-tabs nav-tabs__swipeable">
-                            <Tab title={
-                                <Fragment>
-                                    <i className="far fa-hand-paper"></i>
-                                    <span className="hide-on-med-and-down">&nbsp;–&nbsp;Hey!</span>
-                                </Fragment>
-                            }></Tab>
-                            <Tab title={
-                                <Fragment>
-                                    <i className="fas fa-rss-square"></i>
-                                    <span className="hide-on-med-and-down">&nbsp;–&nbsp;Blog</span>
-                                </Fragment>
-                            }/>
-                            <Tab title={
-                                <Fragment>
-                                    <i className="fas fa-file-signature"></i>
-                                    <span className="hide-on-med-and-down">&nbsp;–&nbsp;Readme</span>
-                                </Fragment>
-                            }/>
-                            <Tab title={
-                                <Fragment>
-                                    <i className="fas fa-id-card"></i>
-                                    <span className="hide-on-med-and-down">&nbsp;–&nbsp;Resume</span>
-                                </Fragment>
-                            }/>
+                            {
+                                routes
+                                    .filter(route => !!route.tab)
+                                    .map(route => route.tab)
+                            }
                         </ConnectedSwipeableTabs>
                     </div>
                 </header>

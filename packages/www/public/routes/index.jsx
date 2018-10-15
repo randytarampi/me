@@ -2,7 +2,8 @@ import {ConnectedError, ConnectedPosts} from "@randy.tarampi/jsx";
 import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
 import pathToRegExp from "path-to-regexp";
-import React from "react";
+import React, {Fragment} from "react";
+import {Tab} from "react-materialize";
 import {Redirect} from "react-router";
 import Main from "../views/main";
 
@@ -27,23 +28,47 @@ const routes = [
         component: Main,
         exact: true,
         path: "/",
-        index: 0
+        index: 0,
+        tab: <Tab title={
+            <Fragment>
+                <i className="far fa-hand-paper"></i>
+                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Hey!</span>
+            </Fragment>
+        }></Tab>
     },
     {
         component: BlogRouteHandler,
         exact: true,
         path: "/blog",
-        index: 1
+        index: 1,
+        tab: <Tab title={
+            <Fragment>
+                <i className="fas fa-rss-square"></i>
+                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Blog</span>
+            </Fragment>
+        }/>
     },
     {
         component: ConnectedLetter,
         path: "/letter/:variant?",
-        index: 2
+        index: 2,
+        tab: <Tab title={
+            <Fragment>
+                <i className="fas fa-file-signature"></i>
+                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Readme</span>
+            </Fragment>
+        }/>
     },
     {
         component: ConnectedResume,
         path: "/resume/:variant?",
-        index: 3
+        index: 3,
+        tab: <Tab title={
+            <Fragment>
+                <i className="fas fa-id-card"></i>
+                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Resume</span>
+            </Fragment>
+        }/>
     },
 
     // NOTE-RT: We need to render these redirect in `ReduxRouterRoot` for them to work so these need to be pulled out
