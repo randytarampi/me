@@ -33,18 +33,6 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
                             }/>
                             <Tab title={
                                 <Fragment>
-                                    <i className="far fa-images"></i>
-                                    <span className="hide-on-med-and-down">&nbsp;–&nbsp;Photos</span>
-                                </Fragment>
-                            }/>
-                            <Tab title={
-                                <Fragment>
-                                    <i className="far fa-file-alt"></i>
-                                    <span className="hide-on-med-and-down">&nbsp;–&nbsp;Words</span>
-                                </Fragment>
-                            }/>
-                            <Tab title={
-                                <Fragment>
                                     <i className="fas fa-file-signature"></i>
                                     <span className="hide-on-med-and-down">&nbsp;–&nbsp;Readme</span>
                                 </Fragment>

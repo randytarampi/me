@@ -3,11 +3,12 @@ import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
+import {Redirect} from "react-router";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {BlogRouteHandler, PhotosRouteHandler, WordsRouteHandler} from "../../../../public/routes";
 
-describe("Intro", function () {
+describe("routes", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
@@ -26,7 +27,7 @@ describe("Intro", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <ConnectedPosts type="Post" fetchUrl={`${__WORDS_SERVICE_URL__}`}/>
+                <Redirect to="/blog"/>
             );
         });
     });
@@ -37,7 +38,7 @@ describe("Intro", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <ConnectedPosts type="Photo" fetchUrl={`${__PHOTOS_SERVICE_URL__}`}/>
+                <Redirect to="/blog"/>
             );
         });
     });
