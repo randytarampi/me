@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.3](https://github.com/randytarampi/me/compare/v0.41.2...v0.41.3) (2018-10-15)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tests for 02634515f0009dffce2e330dda3663a3dde6f78e. ([ca87a38](https://github.com/randytarampi/me/commit/ca87a38))
+* **jsx:** Show the correct `swipeableTabs` state on load. ([0263451](https://github.com/randytarampi/me/commit/0263451))
+
+
+
+
+
 ## [0.41.2](https://github.com/randytarampi/me/compare/v0.41.1...v0.41.2) (2018-10-14)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
