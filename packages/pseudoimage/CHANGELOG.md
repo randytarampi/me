@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.5](https://github.com/randytarampi/me/compare/v0.41.4...v0.41.5) (2018-10-15)
+
+**Note:** Version bump only for package @randy.tarampi/pseudoimage
+
+
+
+
+
 ## [0.41.4](https://github.com/randytarampi/me/compare/v0.41.3...v0.41.4) (2018-10-15)
 
 **Note:** Version bump only for package @randy.tarampi/pseudoimage

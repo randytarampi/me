@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.5](https://github.com/randytarampi/me/compare/v0.41.4...v0.41.5) (2018-10-15)
+
+
+### Bug Fixes
+
+* **resume:** Extract my custom `ResumeFooter` content. ([acd56b6](https://github.com/randytarampi/me/commit/acd56b6))
+
+
+
+
+
 ## [0.41.4](https://github.com/randytarampi/me/compare/v0.41.3...v0.41.4) (2018-10-15)
 
 **Note:** Version bump only for package me
