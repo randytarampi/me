@@ -4,9 +4,9 @@ import React from "react";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {App} from "../../../../public/views/hotApp";
+import App from "../../../../../public/views/hotApp";
 
-describe("views", function () {
+describe("hotApp", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;

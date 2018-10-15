@@ -13,6 +13,7 @@ global.document = jsdom.window.document;
 global.navigator = {
     userAgent: "node.js"
 };
+global.location = jsdom.window.location;
 
 global.$ = global.jQuery = require("jquery");
 global.Hammer = require("materialize-css/js/hammer.min");
