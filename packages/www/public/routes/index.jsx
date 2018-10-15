@@ -59,7 +59,8 @@ const routes = [
     },
 
     {
-        component: ConnectedError
+        component: ConnectedError,
+        path: "/:unsupportedPath+"
     }
 ].map(augmentWithPathRegExp);
 

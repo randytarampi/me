@@ -27,7 +27,7 @@ describe("Error", function () {
 
         setTimeout(() => {
             try {
-                expect(stubProps.timedRedirect.notCalled).to.eql(true);
+                expect(stubProps.timedRedirect.calledOnce).to.eql(true);
                 done();
             } catch (error) {
                 done(error);

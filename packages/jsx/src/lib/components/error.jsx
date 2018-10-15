@@ -9,7 +9,8 @@ import {EmailLink, InternalLink} from "./link";
 export class Error extends Component {
     componentDidMount() {
         if (
-            [404, "ENOTFOUND"].includes(this.props.errorCode) && !this.props.errorTimeoutHandlerId
+            !this.props.errorCode
+            || [404, "ENOTFOUND"].includes(this.props.errorCode) && !this.props.errorTimeoutHandlerId
         ) {
             this.props.timedRedirect();
         }
@@ -51,6 +52,7 @@ export class Error extends Component {
 
             case 404:
             case "ENOTFOUND":
+            default:
                 errorContent =
                     <ConnectedBear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
                         <h2 className="error__message--header">
@@ -58,7 +60,7 @@ export class Error extends Component {
                         </h2>
                         <p className="error__message">
                             I don't know who told you to come
-                            to <code>{`${window.location.origin}${this.props.location ? this.props.location.get("pathname") : window.location.pathname}`}</code>,
+                            to <code>{`${window.location.origin}${this.props.location.get("pathname")}`}</code>,
                             but
                             there's
                             nothing here. You'll be redirected to the <InternalLink target="_self"
@@ -68,7 +70,8 @@ export class Error extends Component {
                     </ConnectedBear>;
                 break;
 
-            default:
+            case "ENORESUME":
+            case "ENOLETTER":
                 errorContent =
                     <ConnectedBear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
                         <h2 className="error__message--header">
@@ -76,7 +79,7 @@ export class Error extends Component {
                         </h2>
                         <p className="error__message">
                             I don't know who told you to come
-                            to <code>{`${window.location.origin}${this.props.location ? this.props.location.get("pathname") : window.location.pathname}`}</code>,
+                            to <code>{`${window.location.origin}${this.props.location.get("pathname")}`}</code>,
                             but
                             there's
                             nothing here. Go back to the <InternalLink target="_self"
@@ -102,6 +105,7 @@ export class Error extends Component {
 }
 
 Error.propTypes = {
+    match: PropTypes.object,
     error: PropTypes.object,
     errorCode: PropTypes.oneOfType([
         PropTypes.number,
