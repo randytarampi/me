@@ -47,13 +47,18 @@ export const getSwipeableIndex = createSelector(
 );
 
 export const getRoutes = state => state.get("routes");
+export const getIndexedRoutes = createSelector(
+    getRoutes,
+    routes => routes.filter(route => !!route.tab)
+);
 export const getRouteForIndex = (state, index) => {
-    const routes = getRoutes(state);
-    const foundRoute = routes && routes.find(route => route.index === index);
+    const routes = getIndexedRoutes(state);
+    const foundRoute = routes && routes.get(index);
     return foundRoute || null;
 };
 export const getIndexForRoute = (state, pathname) => {
-    let routes = getRoutes(state)
+    const indexedRoutes = getIndexedRoutes(state);
+    let routes = indexedRoutes
         .filter(route => route.pathRegExp && route.pathRegExp.exec(pathname) !== null)
         .sort((a, b) => {
             const aMatch = a.pathRegExp.exec(pathname).filter(match => match !== null);
@@ -68,8 +73,9 @@ export const getIndexForRoute = (state, pathname) => {
             return 0;
         });
     const bestRoute = routes && routes.first();
+    const bestRouteIndex = indexedRoutes.indexOf(bestRoute);
 
-    return bestRoute
-        ? bestRoute.index
+    return bestRouteIndex !== -1
+        ? bestRouteIndex
         : null;
 };

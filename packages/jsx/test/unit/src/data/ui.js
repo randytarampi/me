@@ -91,9 +91,9 @@ describe("ui", function () {
         it("reduces the correct state (has existing state)", function () {
             stubInitialState = Map({
                 routes: List([
-                    {path: "woof", index: 1, pathRegExp: /wooof/}, // NOTE-RT: Deliberately match `woof` to `/.*/`
-                    {path: "meow", index: 2, pathRegExp: /meow/},
-                    {path: "grr", index: 3, pathRegExp: /.*/}
+                    {path: "woof", tab: 1, pathRegExp: /wooof/}, // NOTE-RT: Deliberately match `woof` to `/.*/`
+                    {path: "meow", tab: 2, pathRegExp: /meow/},
+                    {path: "grr", tab: 3, pathRegExp: /.*/}
                 ]),
                 swipeable: Map({
                     index: 0,
@@ -115,12 +115,12 @@ describe("ui", function () {
             expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubInitialState.get("routes").size);
             const route = getRouteForIndex(updatedState, 1);
-            expect(route).to.eql(stubInitialState.get("routes").get(0));
+            expect(route).to.eql(stubInitialState.get("routes").get(1));
             const routeIndex = getIndexForRoute(updatedState, stubRoute);
-            expect(routeIndex).to.eql(3);
+            expect(routeIndex).to.eql(2);
 
             const swipeableIndex = getSwipeableIndex(updatedState);
-            expect(swipeableIndex).to.eql(3);
+            expect(swipeableIndex).to.eql(2);
         });
     });
 
@@ -149,9 +149,9 @@ describe("ui", function () {
         it("reduces the correct state (has existing state)", function () {
             stubInitialState = Map({
                 routes: List([
-                    {path: "woof", index: 1, pathRegExp: /woof/}, // NOTE-RT: Properly match `woof`
-                    {path: "meow", index: 2, pathRegExp: /meow/},
-                    {path: "grr", index: 3, pathRegExp: /.*/}
+                    {path: "woof", tab: 1, pathRegExp: /woof/}, // NOTE-RT: Properly match `woof`
+                    {path: "meow", tab: 2, pathRegExp: /meow/},
+                    {path: "grr", tab: 3, pathRegExp: /.*/}
                 ]),
                 swipeable: Map({
                     index: 0,
@@ -174,9 +174,9 @@ describe("ui", function () {
             expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubInitialState.get("routes").size);
             const route = getRouteForIndex(updatedState, 1);
-            expect(route).to.eql(stubInitialState.get("routes").get(0));
+            expect(route).to.eql(stubInitialState.get("routes").get(1));
             const routeIndex = getIndexForRoute(updatedState, "woof");
-            expect(routeIndex).to.eql(1);
+            expect(routeIndex).to.eql(0);
 
             const swipeableState = getSwipeable(updatedState);
             expect(swipeableState).to.be.ok;
@@ -213,9 +213,9 @@ describe("ui", function () {
         it("reduces the correct state (has existing state)", function () {
             stubInitialState = Map({
                 routes: List([
-                    {path: "woof", index: 1, pathRegExp: /woof/}, // NOTE-RT: Properly match `woof`
-                    {path: "meow", index: 2, pathRegExp: /meow/},
-                    {path: "grr", index: 3, pathRegExp: /.*/}
+                    {path: "woof", tab: 1, pathRegExp: /woof/}, // NOTE-RT: Properly match `woof`
+                    {path: "meow", tab: 2, pathRegExp: /meow/},
+                    {path: "grr", tab: 3, pathRegExp: /.*/}
                 ]),
                 swipeable: Map({
                     index: 0,
@@ -238,9 +238,9 @@ describe("ui", function () {
             expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubInitialState.get("routes").size);
             const route = getRouteForIndex(updatedState, 1);
-            expect(route).to.eql(stubInitialState.get("routes").get(0));
+            expect(route).to.eql(stubInitialState.get("routes").get(1));
             const routeIndex = getIndexForRoute(updatedState, "woof");
-            expect(routeIndex).to.eql(1);
+            expect(routeIndex).to.eql(0);
 
             const swipeableState = getSwipeable(updatedState);
             expect(swipeableState).to.be.ok;

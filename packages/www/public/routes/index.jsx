@@ -28,7 +28,6 @@ const routes = [
         component: Main,
         exact: true,
         path: "/",
-        index: 0,
         tab: <Tab title={
             <Fragment>
                 <i className="far fa-hand-paper"></i>
@@ -40,7 +39,6 @@ const routes = [
         component: BlogRouteHandler,
         exact: true,
         path: "/blog",
-        index: 1,
         tab: <Tab title={
             <Fragment>
                 <i className="fas fa-rss-square"></i>
@@ -51,7 +49,6 @@ const routes = [
     {
         component: ConnectedLetter,
         path: "/letter/:variant?",
-        index: 2,
         tab: <Tab title={
             <Fragment>
                 <i className="fas fa-file-signature"></i>
@@ -62,7 +59,6 @@ const routes = [
     {
         component: ConnectedResume,
         path: "/resume/:variant?",
-        index: 3,
         tab: <Tab title={
             <Fragment>
                 <i className="fas fa-id-card"></i>
