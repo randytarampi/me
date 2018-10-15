@@ -8,6 +8,11 @@ export class ResumeCustomPrintableSectionContent extends Record({
 }) {
 }
 
+export class ResumeCustomPrintableFooterContent extends Record({
+    body: null
+}) {
+}
+
 export class ResumeCustomContent extends Record({
     awards: new ResumeCustomPrintableSectionContent(),
     education: new ResumeCustomPrintableSectionContent(),
@@ -21,7 +26,8 @@ export class ResumeCustomContent extends Record({
     interests: new ResumeCustomPrintableSectionContent(),
     languages: new ResumeCustomPrintableSectionContent(),
     profiles: new ResumeCustomPrintableSectionContent(),
-    references: new ResumeCustomPrintableSectionContent()
+    references: new ResumeCustomPrintableSectionContent(),
+    footer: new ResumeCustomPrintableFooterContent()
 }) {
 }
 
