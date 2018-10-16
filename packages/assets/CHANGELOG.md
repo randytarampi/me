@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.2](https://github.com/randytarampi/me/compare/v0.43.1...v0.43.2) (2018-10-16)
+
+
+### Bug Fixes
+
+* **views:** Add apple specific splash screens. ([91a5765](https://github.com/randytarampi/me/commit/91a5765))
+* **www:** Add a `start_url` to the `manifest.json`. ([a31a471](https://github.com/randytarampi/me/commit/a31a471))
+
+
+
+
+
 ## [0.43.1](https://github.com/randytarampi/me/compare/v0.43.0...v0.43.1) (2018-10-16)
 
 **Note:** Version bump only for package @randy.tarampi/assets

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.2](https://github.com/randytarampi/me/compare/v0.43.1...v0.43.2) (2018-10-16)
+
+
+### Bug Fixes
+
+* **www:** Consolidate the service worker caches. ([1d73a0d](https://github.com/randytarampi/me/commit/1d73a0d))
+* **www:** Make `Sitemap` absolute in `robots.txt`. ([0cdd1c1](https://github.com/randytarampi/me/commit/0cdd1c1))
+* **www:** Service worker needs `navigateFallback` defined. ([4bb211c](https://github.com/randytarampi/me/commit/4bb211c))
+
+
+
+
+
 ## [0.43.1](https://github.com/randytarampi/me/compare/v0.43.0...v0.43.1) (2018-10-16)
 
 

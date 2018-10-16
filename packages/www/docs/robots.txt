@@ -1,1 +1,1 @@
-Sitemap: /docs/sitemap.xml
+Sitemap: https://www.randytarampi.ca/docs/sitemap.xml

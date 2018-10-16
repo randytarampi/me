@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.2b97bc69b7da7dcdf107e78c1aa067e1.js"
+  "/precache-manifest.38b6f95fc2fd9b34716167bd9935e6cd.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
@@ -31,10 +31,10 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico|html)$/, workbox.strategies.staleWhileRevalidate({ "cacheName":"assets", plugins: [] }), 'GET');
-workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com/, workbox.strategies.staleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({"maxEntries":100,"purgeOnQuotaError":true})] }), 'GET');
+workbox.routing.registerNavigationRoute("/");
+
+workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico)$|.*(fonts\.googleapis|fonts\.gstatic|googletagmanager)\.com/, workbox.strategies.staleWhileRevalidate({ "cacheName":"assets", plugins: [] }), 'GET');
+workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io/, workbox.strategies.staleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({"maxEntries":100,"purgeOnQuotaError":true})] }), 'GET');
 workbox.routing.registerRoute(/^https:\/\/posts.randytarampi.ca\/posts/, workbox.strategies.staleWhileRevalidate({ "cacheName":"posts", plugins: [] }), 'GET');
-workbox.routing.registerRoute(/^https:\/\/fonts\.googleapis\.com/, workbox.strategies.staleWhileRevalidate({ "cacheName":"google-fonts-stylesheets", plugins: [] }), 'GET');
-workbox.routing.registerRoute(/^https:\/\/fonts\.gstatic\.com/, workbox.strategies.staleWhileRevalidate({ "cacheName":"google-fonts-webfonts", plugins: [] }), 'GET');
 
 workbox.googleAnalytics.initialize({});
