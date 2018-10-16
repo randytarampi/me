@@ -31,7 +31,7 @@ const routes = [
         tab: <Tab title={
             <Fragment>
                 <i className="far fa-hand-paper"></i>
-                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Hey!</span>
+                <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hey!</span>
             </Fragment>
         }></Tab>
     },
@@ -42,7 +42,7 @@ const routes = [
         tab: <Tab title={
             <Fragment>
                 <i className="fas fa-rss-square"></i>
-                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Blog</span>
+                <span className="hide-on-med-and-down">&nbsp;|&nbsp;Blog</span>
             </Fragment>
         }/>
     },
@@ -52,7 +52,7 @@ const routes = [
         tab: <Tab title={
             <Fragment>
                 <i className="fas fa-file-signature"></i>
-                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Readme</span>
+                <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hire me</span>
             </Fragment>
         }/>
     },
@@ -62,7 +62,7 @@ const routes = [
         tab: <Tab title={
             <Fragment>
                 <i className="fas fa-id-card"></i>
-                <span className="hide-on-med-and-down">&nbsp;–&nbsp;Resume</span>
+                <span className="hide-on-med-and-down">&nbsp;|&nbsp;About me</span>
             </Fragment>
         }/>
     },
