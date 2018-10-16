@@ -70,6 +70,7 @@ gulp.task("docs:index", () => {
     return gulp
         .src([
             "dist/*.html",
+            "dist/manifest.json",
             "dist/precache-manifest.*.js",
             "dist/robots.txt"
         ])

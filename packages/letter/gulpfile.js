@@ -108,7 +108,8 @@ gulp.task("docs:index", () => {
     return gulp
         .src([
             "dist/*.html",
-            "dist/*.pdf"
+            "dist/*.pdf",
+            "dist/manifest.json"
         ])
         .pipe(gulp.dest("."));
 });
