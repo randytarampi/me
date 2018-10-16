@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.43.0](https://github.com/randytarampi/me/compare/v0.42.2...v0.43.0) (2018-10-16)
+
+
+### Bug Fixes
+
+* **jsx:** Make `.nav-header__tabs` sticky. ([0c03512](https://github.com/randytarampi/me/commit/0c03512))
+* **www:** `ConnectedSwipeableRoutes` is bound to keyboard arrows. ([d635233](https://github.com/randytarampi/me/commit/d635233))
+* **www:** `external` cache has 100 `maxEntries`. ([9667f65](https://github.com/randytarampi/me/commit/9667f65))
+* **www:** `external` cache will `purgeOnQuotaError`. ([035a720](https://github.com/randytarampi/me/commit/035a720))
+* **www:** Need to copy Roboto fonts 'cause of `materialize-css@0.100.2`. ([b82782b](https://github.com/randytarampi/me/commit/b82782b))
+
+
+### Features
+
+* **www:** Add a basic service worker that caches some assets. ([f1e8ab7](https://github.com/randytarampi/me/commit/f1e8ab7))
+* **www:** Also see if we can cache `posts.postsUrl` responses. ([90966c6](https://github.com/randytarampi/me/commit/90966c6))
+
+
+
+
+
 ## [0.42.2](https://github.com/randytarampi/me/compare/v0.42.1...v0.42.2) (2018-10-16)
 
 
