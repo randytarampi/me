@@ -102,7 +102,7 @@ jobs:
         - npm run resume --prefix packages/jsonresume-theme
         - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
         - npm run build --prefix packages/www
-        - git rm --ignore-unmatch --verbose $WWW_PACKAGE_DIR/precache-manifest.*.js;
+        - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/precache-manifest.*.js $WWW_PACKAGE_DIR/robots.txt; fi;
@@ -140,7 +140,7 @@ jobs:
       before_deploy:
         - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
         - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-        - git rm --ignore-unmatch --verbose $WWW_PACKAGE_DIR/precache-manifest.*.js;
+        - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
           $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/precache-manifest.*.js $WWW_PACKAGE_DIR/robots.txt; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
