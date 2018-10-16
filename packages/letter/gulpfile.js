@@ -122,7 +122,10 @@ gulp.task("webpack", function (callback) {
     const Webpack = require("webpack");
     const webpackConfig = require("./webpack.client.config");
 
-    Webpack(webpackConfig, function (err, stats) {
+    Webpack(webpackConfig, function (error, stats) {
+        if (error) {
+            return callback(error);
+        }
         console.log(stats.toString({colors: true})); // eslint-disable-line no-console
         callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
     });
