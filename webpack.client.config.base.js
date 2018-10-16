@@ -53,7 +53,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, ...configOverrides}) => {
+module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], ...configOverrides}) => {
     return {
         mode: resolveMode(),
         devtool: "nosources-source-map",
@@ -108,7 +108,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                 }
             ]
         },
-        plugins,
+        plugins: plugins.concat(otherPlugins),
         serve: {
             clipboard: false,
             content: compliationDirectoryPath,
