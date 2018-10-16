@@ -1,5 +1,13 @@
 .nav {
+    &-header__tabs {
+        min-height: 48px;
+    }
+
     &-container {
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+
         .row {
             margin: 0;
 

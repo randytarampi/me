@@ -15,7 +15,7 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
 
         return <Provider store={store}>
             <Fragment>
-                <header>
+                <header className="nav-header nav-header__tabs nav-header__swipeable">
                     <div className="nav-container">
                         <ConnectedSwipeableTabs id="swipeable-nav-tabs" className="nav-tabs nav-tabs__swipeable">
                             {
