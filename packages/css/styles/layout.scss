@@ -68,6 +68,7 @@ ul:not(.browser-default) {
     list-style-type: square;
 
     & li {
+        list-style-position: inside;
         list-style-type: unset;
     }
 }
