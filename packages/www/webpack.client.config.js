@@ -27,9 +27,10 @@ module.exports = webpackBaseConfig({
             offlineGoogleAnalytics: true,
             maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
             cacheId: packageJson.name,
+            navigateFallback: "/",
             runtimeCaching: [
                 {
-                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico|html)$/,
+                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico)$/,
                     handler: "staleWhileRevalidate",
                     options: {
                         cacheName: "assets"
