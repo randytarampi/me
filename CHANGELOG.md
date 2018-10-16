@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.1](https://github.com/randytarampi/me/compare/v0.43.0...v0.43.1) (2018-10-16)
+
+
+### Bug Fixes
+
+* **travis:** `git rm --ignore-unmatch` files that may not exist yet. ([32969d0](https://github.com/randytarampi/me/commit/32969d0))
+* **travis:** `git rm --verbose` -> `git rm --force`. ([085b966](https://github.com/randytarampi/me/commit/085b966))
+* **www:** Also cache `html` files. ([7421d3d](https://github.com/randytarampi/me/commit/7421d3d))
+* **www:** We need to copy the `precache-manifest` to the root directory. ([e5d3245](https://github.com/randytarampi/me/commit/e5d3245))
+
+
+
+
+
 # [0.43.0](https://github.com/randytarampi/me/compare/v0.42.2...v0.43.0) (2018-10-16)
 
 
