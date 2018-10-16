@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import SwipeableViews from "react-swipeable-views";
+import {bindKeyboard} from "react-swipeable-views-utils";
 import {swipeableChangeIndexCreator} from "../actions";
 import selectors from "../data/selectors";
 
@@ -23,6 +24,7 @@ export const ConnectedSwipeableRoutes = withRouter(connect(
             index,
             resistance: true,
             ignoreNativeScroll: true,
+            enableMouseEvents: true,
             hysteresis: 0.3,
             springConfig: {duration: "0.5s", easeFunction: "ease", delay: "0s"}
         };
@@ -30,6 +32,6 @@ export const ConnectedSwipeableRoutes = withRouter(connect(
     {
         onChangeIndex: swipeableChangeIndexCreator
     }
-)(SwipeableViews));
+)(bindKeyboard(SwipeableViews)));
 
 export default ConnectedSwipeableRoutes;
