@@ -30,14 +30,14 @@ module.exports = webpackBaseConfig({
             navigateFallback: "/",
             runtimeCaching: [
                 {
-                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico)$/,
+                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico)$|.*(fonts\.googleapis|fonts\.gstatic|googletagmanager)\.com/,
                     handler: "staleWhileRevalidate",
                     options: {
                         cacheName: "assets"
                     }
                 },
                 {
-                    urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com/,
+                    urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io/,
                     handler: "staleWhileRevalidate",
                     options: {
                         cacheName: "external",
@@ -52,20 +52,6 @@ module.exports = webpackBaseConfig({
                     handler: "staleWhileRevalidate",
                     options: {
                         cacheName: "posts"
-                    }
-                },
-                {
-                    urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-                    handler: "staleWhileRevalidate",
-                    options: {
-                        cacheName: "google-fonts-stylesheets"
-                    }
-                },
-                {
-                    urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-                    handler: "staleWhileRevalidate",
-                    options: {
-                        cacheName: "google-fonts-webfonts"
                     }
                 }
             ]
