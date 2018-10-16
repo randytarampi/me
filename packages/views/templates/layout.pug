@@ -44,6 +44,13 @@ html(lang="en")
             style(type="text/css")
                 | !{css}
         else
+            if !!serviceWorkerBundleName
+                script(type="application/javascript").
+                    if ("serviceWorker" in navigator) {
+                        window.addEventListener("load", function () {
+                            navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");
+                        });
+                    }
             link(rel="stylesheet", href=assetUrl + "/styles.css")
         link(rel="apple-touch-icon", sizes="57x57", href=assetUrl + "/apple-touch-icon-57x57.png")
         link(rel="apple-touch-icon", sizes="60x60", href=assetUrl + "/apple-touch-icon-60x60.png")
@@ -108,12 +115,5 @@ html(lang="en")
             iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtm height="0" width="0" style="display:none;visibility:hidden")
         block content
         if environment !== "puppeteer" && environment !== "printable"
-            if !!serviceWorkerBundleName
-                script(type="application/javascript").
-                    if ("serviceWorker" in navigator) {
-                        window.addEventListener("load", function () {
-                            navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");
-                        });
-                    }
             script(src=assetUrl + "/vendor.js")
             script(src=assetUrl + "/" + bundleName + ".js")
