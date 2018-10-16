@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.42.1](https://github.com/randytarampi/me/compare/v0.42.0...v0.42.1) (2018-10-16)
+
+
+### Bug Fixes
+
+* **jsx:** `ConnectedSwipeableTabs` grabs `Tab`s off the `routes`. ([6c71e1f](https://github.com/randytarampi/me/commit/6c71e1f))
+* **jsx:** Couple `indexedRoutes` to the idea of "routes with tabs". ([1d79d88](https://github.com/randytarampi/me/commit/1d79d88))
+
+
+
+
+
 # [0.42.0](https://github.com/randytarampi/me/compare/v0.41.7...v0.42.0) (2018-10-15)
 
 
