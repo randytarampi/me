@@ -29,7 +29,7 @@ module.exports = webpackBaseConfig({
             cacheId: packageJson.name,
             runtimeCaching: [
                 {
-                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico)$/,
+                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico|html)$/,
                     handler: "staleWhileRevalidate",
                     options: {
                         cacheName: "assets"
