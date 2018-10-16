@@ -1,4 +1,7 @@
 const path = require("path");
+process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
+
+const config = require("config");
 const webpackBaseConfig = require("../../webpack.client.config.base");
 const serve = require("koa-static");
 const mount = require("koa-mount");
@@ -41,6 +44,13 @@ module.exports = webpackBaseConfig({
                             maxEntries: 100,
                             purgeOnQuotaError: true
                         }
+                    }
+                },
+                {
+                    urlPattern: new RegExp("^" + config.get("posts.postsUrl")),
+                    handler: "staleWhileRevalidate",
+                    options: {
+                        cacheName: "posts"
                     }
                 },
                 {
