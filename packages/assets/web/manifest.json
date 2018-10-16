@@ -1,6 +1,7 @@
 {
   "name": "randytarampi.ca",
   "short_name": "ʕ•ᴥ•ʔﾉ゛",
+  "start_url": "/?utm_medium=pwa",
   "background_color": "#000000",
   "theme_color": "#000000",
   "display": "fullscreen",
