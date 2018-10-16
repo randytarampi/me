@@ -11,7 +11,7 @@ import {
     getWordPostsSortedByDate
 } from "./posts";
 import {getLocation} from "./router";
-import {getIndexForRoute, getRouteForIndex, getSwipeableIndex} from "./ui";
+import {getIndexedRoutes, getIndexForRoute, getRouteForIndex, getSwipeableIndex} from "./ui";
 
 export const selectors = {
     hasError: state => hasError(state.get("error")),
@@ -33,6 +33,7 @@ export const selectors = {
     getLocation: state => getLocation(state.get("router")),
 
     getSwipeableIndex: state => getSwipeableIndex(state.get("ui")),
+    getIndexedRoutes: state => getIndexedRoutes(state.get("ui")),
     getRouteForIndex: (state, index) => getRouteForIndex(state.get("ui"), index),
     getIndexForRoute: (state, route) => getIndexForRoute(state.get("ui"), route),
 
