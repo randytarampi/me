@@ -168,15 +168,16 @@ gulp.task("sitemap", (done) => {
             .filterPaths({
                 isValid: false,
                 rules: [
-                    /\*/
+                    /\*/,
+                    /^\/:unsupportedPath/
                 ]
             })
             .applyParams({
                 "/resume/:variant?": [
-                    {variant: ""}
+                    {"variant?": ""}
                 ],
                 "/letter/:variant?": [
-                    {variant: ""}
+                    {"variant?": ""}
                 ]
             })
             .build(publishUrl)
