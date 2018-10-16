@@ -38,6 +38,7 @@ module.exports = webpackBaseConfig({
                     options: {
                         cacheName: "external",
                         expiration: {
+                            maxEntries: 100,
                             purgeOnQuotaError: true
                         }
                     }
