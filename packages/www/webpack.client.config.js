@@ -36,7 +36,10 @@ module.exports = webpackBaseConfig({
                     urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com/,
                     handler: "staleWhileRevalidate",
                     options: {
-                        cacheName: "external"
+                        cacheName: "external",
+                        expiration: {
+                            purgeOnQuotaError: true
+                        }
                     }
                 },
                 {
