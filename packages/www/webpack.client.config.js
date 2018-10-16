@@ -28,14 +28,21 @@ module.exports = webpackBaseConfig({
             maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
             cacheId: packageJson.name,
             navigateFallback: "/",
+            modifyUrlPrefix: {
+                "/": `/${config.get("www.assetUrl")}/`
+            },
+            globDirectory: "dist/",
+            globPatterns: ["**/*.{js,css,html,png,jpg,jpeg,eot,ttf,woff,woff2,svg,gif,ico}"],
+            manifestTransforms: [
+                originalManifest => {
+                    const manifest = originalManifest.map(entry => {
+                        entry.url = `${config.get("www.assetUrl")}/${entry.url}`;
+                        return entry;
+                    });
+                    return {manifest};
+                }
+            ],
             runtimeCaching: [
-                {
-                    urlPattern: /\.(?:png|jpg|jpeg|eot|ttf|woff|woff2|svg|gif|ico)$|.*(fonts\.googleapis|fonts\.gstatic|googletagmanager)\.com/,
-                    handler: "staleWhileRevalidate",
-                    options: {
-                        cacheName: "assets"
-                    }
-                },
                 {
                     urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io/,
                     handler: "staleWhileRevalidate",
