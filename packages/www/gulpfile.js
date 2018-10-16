@@ -181,7 +181,7 @@ gulp.task("sitemap", (done) => {
             .build(publishUrl)
             .save(path.join(__dirname, "dist/sitemap.xml"));
 
-        fs.writeFile(path.join(__dirname, "dist/robots.txt"), `Sitemap: ${config.get("www.assetUrl")}/sitemap.xml`, done);
+        fs.writeFile(path.join(__dirname, "dist/robots.txt"), `Sitemap: ${config.get("www.publishUrl")}${config.get("www.assetUrl")}/sitemap.xml`, done);
     } catch (error) {
         done(error);
     }
