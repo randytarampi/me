@@ -9,6 +9,7 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 const packageJson = require("./package");
 
 module.exports = webpackBaseConfig({
+    publicPath: `${config.get("www.assetUrl")}/`,
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
     webpackServeMiddleware: [

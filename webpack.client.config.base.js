@@ -53,14 +53,14 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], ...configOverrides}) => {
+module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], publicPath = "/", ...configOverrides}) => {
     return {
         mode: resolveMode(),
         devtool: "nosources-source-map",
         output: {
             path: compliationDirectoryPath,
             filename: "[name].js",
-            publicPath: "/"
+            publicPath
         },
         resolve: {
             extensions: [".js", ".jsx", ".json"]
@@ -122,7 +122,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                 logTime: true
             },
             devMiddleware: {
-                publicPath: "/",
+                publicPath,
                 logLevel: "trace",
                 logTime: true
             },
