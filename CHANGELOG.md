@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.4](https://github.com/randytarampi/me/compare/v0.43.3...v0.43.4) (2018-10-17)
+
+
+### Bug Fixes
+
+* **www:** Turns out the manifest `start_url` is relative to the manifest? ([6ffb680](https://github.com/randytarampi/me/commit/6ffb680))
+
+
+
+
+
 ## [0.43.3](https://github.com/randytarampi/me/compare/v0.43.2...v0.43.3) (2018-10-17)
 
 
