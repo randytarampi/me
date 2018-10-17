@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.7](https://github.com/randytarampi/me/compare/v0.43.6...v0.43.7) (2018-10-17)
+
+
+### Bug Fixes
+
+* **www:** Fix hardcoded references to `/docs/**` ([ff26f77](https://github.com/randytarampi/me/commit/ff26f77))
+
+
+
+
+
 ## [0.43.6](https://github.com/randytarampi/me/compare/v0.43.5...v0.43.6) (2018-10-17)
 
 
