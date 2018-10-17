@@ -140,9 +140,7 @@ jobs:
       script: skip
       after_script: skip
       before_deploy:
-        - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
-        - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
-        - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
+        - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/docs/CNAME;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
