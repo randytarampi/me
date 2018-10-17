@@ -100,7 +100,7 @@ jobs:
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
           $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf $LETTER_PACKAGE_DIR/manifest.json; fi;
         - npm run resume --prefix packages/jsonresume-theme
-        - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/manifest.json $RESUME_PACKAGE_DIR/resume.json;
+        - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
         - npm run build --prefix packages/www
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
         - npm run docs --prefix packages/www
