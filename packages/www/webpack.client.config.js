@@ -37,7 +37,9 @@ module.exports = webpackBaseConfig({
             manifestTransforms: [
                 originalManifest => {
                     const manifest = originalManifest.map(entry => {
-                        if (!entry.url.match(/\.html?$/)) {
+                        if (entry.url.match(/\.html?$/)) {
+                            entry.url = `/${entry.url}`; // NOTE-RT: Explicitly serve `html` files out of `/`
+                        } else {
                             entry.url = `${config.get("www.assetUrl")}/${entry.url}`;
                         }
                         return entry;
