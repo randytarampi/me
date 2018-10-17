@@ -65,7 +65,8 @@ gulp.task("views", gulp.parallel(viewsTasks.map(([pageName]) => `views:${pageNam
 gulp.task("docs:dist", () => {
     return gulp
         .src([
-            "dist/**"
+            "dist/**",
+            "CNAME"
         ])
         .pipe(gulp.dest("./docs"));
 });
