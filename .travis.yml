@@ -207,7 +207,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: pages
-          local-dir: packages/jsonresume-theme/
+          local-dir: packages/jsonresume-theme/dist
           repo: "${TRAVIS_REPO_OWNER}/me.resume"
           target-branch: master
           verbose: true
