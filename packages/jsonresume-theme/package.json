@@ -52,7 +52,7 @@
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.jsonresume-theme.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`; rm /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; fi;",
-    "resume:json": "cp -n \"node_modules/@randy.tarampi/resume/resume.json\" ./resume.json || true; cp resume.json dist/resume.json",
+    "resume:json": "cp -n \"node_modules/@randy.tarampi/resume/resume.json\" ./resume.json || true; mkdir -p dist; cp resume.json dist/resume.json",
     "resume:pdf": "npm run start:server; npm run resume:letter & npm run resume:a4 & npm run resume:legal; npm run kill:server",
     "resume:letter": "RESUME_PDF_SIZE=Letter NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=letter,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.letter.pdf --force -f pdf --theme randytarampi && (cp dist/resume.letter.pdf dist/letter.pdf 2>/dev/null || :)",
     "resume:a4": "RESUME_PDF_SIZE=A4 NODE_ENV=puppeteer CAMPAIGN_SOURCE=resume CAMPAIGN_CONTENT=a4,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.a4.pdf --force -f pdf --theme randytarampi && (cp dist/resume.a4.pdf dist/a4.pdf 2>/dev/null || :)",
