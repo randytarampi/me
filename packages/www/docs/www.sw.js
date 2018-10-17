@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.82e10e14231c26cfdab6bdf4cae4b94a.js"
+  "/precache-manifest.fb88592978fc9a506396ad21b073b862.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
@@ -30,7 +30,7 @@ workbox.clientsClaim();
 self.__precacheManifest = [
   {
     "url": "/404.html",
-    "revision": "0c4c92e80df77ed6ab56a6700d395ecd"
+    "revision": "858f0440e9579d21b25eeb21b3e72305"
   },
   {
     "url": "/android-chrome-144x144.png",
@@ -150,7 +150,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/blog.html",
-    "revision": "fe1c6f1cbba1d7ce1bf036e064241725"
+    "revision": "39d9d7f0e40481c6df764f7652b9c255"
   },
   {
     "url": "/fa-brands-400.eot",
@@ -230,7 +230,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/index.html",
-    "revision": "0c4c92e80df77ed6ab56a6700d395ecd"
+    "revision": "858f0440e9579d21b25eeb21b3e72305"
   },
   {
     "url": "/ipad_splash.png",
@@ -262,7 +262,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/letter.html",
-    "revision": "c0dbd69525514e7e22e67b37b0d63122"
+    "revision": "4a286ae266f5c86dad8faee8e44164ec"
   },
   {
     "url": "/mstile-144x144.png",
@@ -286,11 +286,11 @@ self.__precacheManifest = [
   },
   {
     "url": "/photos.html",
-    "revision": "f6c6dd0c74472fde8179b62e560c889c"
+    "revision": "81b0655f7c68ca6732c8eed3bb46074f"
   },
   {
     "url": "/resume.html",
-    "revision": "a9d47f17d474cf952048200fcd4a1a6b"
+    "revision": "b3ebc22c232db04a15fce78e44f5ffd7"
   },
   {
     "url": "/Roboto-Bold.woff",
@@ -342,11 +342,11 @@ self.__precacheManifest = [
   },
   {
     "url": "/words.html",
-    "revision": "7398e9c2c3c1d5084c44fa706f14f2d8"
+    "revision": "e92f71a86860dff6b13a27d3d364b07b"
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-30-knockout.svg",
-    "revision": "969f5047a7ce5071e0dbc696148694e0"
+    "revision": "77022339074abc73801ac9a682ae462b"
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-30.svg",
@@ -354,11 +354,11 @@ self.__precacheManifest = [
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-45-knockout-black.svg",
-    "revision": "5902c0148f278f7ddb4e2e0f7d6d2b80"
+    "revision": "449b02bf9c6f994c51e9cc09d13dc695"
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-45-knockout.svg",
-    "revision": "5902c0148f278f7ddb4e2e0f7d6d2b80"
+    "revision": "449b02bf9c6f994c51e9cc09d13dc695"
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-45-white.svg",

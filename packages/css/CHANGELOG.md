@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.9](https://github.com/randytarampi/me/compare/v0.43.8...v0.43.9) (2018-10-17)
+
+
+### Bug Fixes
+
+* **css:** Ugh. Just hardcode the `orange` here to be `#ec7500`. ([a9d473f](https://github.com/randytarampi/me/commit/a9d473f)), closes [#ec7500](https://github.com/randytarampi/me/issues/ec7500)
+
+
+
+
+
 ## [0.43.8](https://github.com/randytarampi/me/compare/v0.43.7...v0.43.8) (2018-10-17)
 
 **Note:** Version bump only for package @randy.tarampi/css
