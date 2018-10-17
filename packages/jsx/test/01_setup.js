@@ -8,6 +8,7 @@ import {JSDOM} from "jsdom";
 import packageJson from "../package.json";
 
 const jsdom = new JSDOM();
+global._jsdom = jsdom;
 global.window = jsdom.window;
 global.document = jsdom.window.document;
 global.navigator = {

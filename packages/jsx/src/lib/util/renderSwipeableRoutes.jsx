@@ -3,19 +3,17 @@ import {matchPath, Route} from "react-router";
 import {matchRoutes} from "react-router-config";
 import {ConnectedSwipeableRoutes} from "../containers";
 
-const renderRoute = (routes, route, extraProps) => props => {
+export const renderRoute = (routes, route, extraProps) => props => {
     // FIXME-RT: It'd be nice to not have to compute matches for every route here
     // NOTE-RT: Shamelessly stolen from https://github.com/sanfilippopablo/react-swipeable-routes/blob/master/src/index.js#L132
     const matchedRoutes = matchRoutes(routes, window.location.pathname);
     const bestMatchedRoute = matchedRoutes[0];
     const match = matchPath(window.location.pathname, route);
 
-    if (match.path === bestMatchedRoute.match.path) {
+    if (match && match.path === bestMatchedRoute.match.path) {
         match.type = "full";
     } else if (matchedRoutes.length) {
         match.type = "outOfView";
-    } else {
-        match.type = "none";
     }
 
     props.match = match;
