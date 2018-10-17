@@ -4,36 +4,24 @@ import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
 import * as reactRouter from "react-router-config";
-import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
 import sinon from "sinon";
 import ErrorWrapper from "../../../src/lib/containers/errorWrapper";
+import reducers from "../../../src/lib/data/reducers";
 import logger from "../../../src/lib/logger";
 import {ServerReduxRouterRoot} from "../../../src/lib/serverReduxRouterRoot";
+import configureStore from "../../../src/lib/store/configureStore";
 import {mount} from "../../util";
 
 describe("ServerReduxRouterRoot", function () {
-    let mockStore;
-    let stubMiddleware;
     let stubInitialState;
     let stubStore;
     let stubHistory;
     let stubRoutes;
 
     beforeEach(function () {
-        stubMiddleware = [thunk];
-        mockStore = configureStore(stubMiddleware);
-        stubInitialState = fromJS({
-            error: {},
-            ui: {},
-            router: {
-                location: {
-                    pathname: "about:blank"
-                }
-            }
-        });
-        stubStore = mockStore(stubInitialState);
         stubHistory = createBrowserHistory();
+        stubInitialState = fromJS({});
+        stubStore = configureStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
                 component: () => <div className="testing">

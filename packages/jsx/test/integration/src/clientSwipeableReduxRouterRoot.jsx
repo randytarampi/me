@@ -4,45 +4,26 @@ import {createBrowserHistory} from "history";
 import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
 import sinon from "sinon";
 import {ClientSwipeableReduxRouterRoot} from "../../../src/lib/clientSwipeableReduxRouterRoot";
 import ErrorWrapper from "../../../src/lib/containers/errorWrapper";
+import reducers from "../../../src/lib/data/reducers";
 import logger from "../../../src/lib/logger";
+import configureStore from "../../../src/lib/store/configureStore";
 import * as renderSwipeableRoutesModule from "../../../src/lib/util/renderSwipeableRoutes";
 import {mount} from "../../util";
 
 describe("ClientSwipeableReduxRouterRoot", function () {
     const globalNavigator = global.navigator;
-    let mockStore;
-    let stubMiddleware;
     let stubInitialState;
     let stubStore;
     let stubHistory;
     let stubRoutes;
 
     beforeEach(function () {
-        stubMiddleware = [thunk];
-        mockStore = configureStore(stubMiddleware);
-        stubInitialState = fromJS({
-            error: {},
-            ui: {
-                routes: [],
-                swipeable: {
-                    index: null,
-                    indexLatest: null,
-                    meta: null
-                }
-            },
-            router: {
-                location: {
-                    pathname: "about:blank"
-                }
-            }
-        });
-        stubStore = mockStore(stubInitialState);
         stubHistory = createBrowserHistory();
+        stubInitialState = fromJS({});
+        stubStore = configureStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
                 component: <div className="testing">

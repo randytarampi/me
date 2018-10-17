@@ -1,10 +1,12 @@
 import {expect} from "chai";
-import SearchParams from "../../../../lib/searchParams";
-import {parseQueryStringParametersIntoSearchParams} from "../../../../serverless/util/parseQueryStringParametersIntoSearchParams";
-import loadServerlessSecrets from "../../../../serverless/util/loadServerlessSecrets";
+import config from "config";
 import proxyquire from "proxyquire";
 import serverlessSecretsClient from "serverless-secrets/client";
 import sinon from "sinon";
+import SearchParams from "../../../../lib/searchParams";
+import loadConfig from "../../../../serverless/util/loadConfig";
+import loadServerlessSecrets from "../../../../serverless/util/loadServerlessSecrets";
+import {parseQueryStringParametersIntoSearchParams} from "../../../../serverless/util/parseQueryStringParametersIntoSearchParams";
 
 describe("util", function () {
     describe("parseQueryStringParametersIntoSearchParams", function () {
@@ -91,6 +93,26 @@ describe("util", function () {
                 .then(() => {
                     expect(serverlessSecretsClient.load.notCalled).to.eql(true);
                 });
+        });
+    });
+
+    describe("loadConfig", function () {
+        it("delegates to `config`", function () {
+            const loadedConfig = loadConfig.default();
+
+            expect(loadedConfig).to.be.ok;
+            expect(loadedConfig).to.be.an("object");
+            expect(loadedConfig.posts).to.eql(config.get("posts"));
+            expect(loadedConfig.me).to.eql(config.get("me"));
+            expect(loadedConfig.logger).to.eql({
+                enabled: config.has("logger").toString(),
+                streams: Object.keys(config.get("logger.streams")).reduce((streams, key) => {
+                    streams[key] = config.get(`logger.streams.${key}`).toString();
+                    return streams;
+                }, {}),
+                level: config.get("logger.level"),
+                src: config.get("logger.src").toString()
+            });
         });
     });
 });
