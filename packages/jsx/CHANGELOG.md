@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.5](https://github.com/randytarampi/me/compare/v0.43.4...v0.43.5) (2018-10-17)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tests added in 1bf8b9dbc0f26c55e808f3a8fb02d6ce58264cee. ([62b8ba4](https://github.com/randytarampi/me/commit/62b8ba4))
+
+
+
+
+
 ## [0.43.4](https://github.com/randytarampi/me/compare/v0.43.3...v0.43.4) (2018-10-17)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

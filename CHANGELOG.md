@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.5](https://github.com/randytarampi/me/compare/v0.43.4...v0.43.5) (2018-10-17)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Don't assume that `dist` will exist on build. ([742540d](https://github.com/randytarampi/me/commit/742540d))
+* **jsonresume-theme:** Push `jsonresume-theme/docs` on `github-pages` deploy. ([290f7d6](https://github.com/randytarampi/me/commit/290f7d6))
+* **jsx:** Fix tests added in 1bf8b9dbc0f26c55e808f3a8fb02d6ce58264cee. ([62b8ba4](https://github.com/randytarampi/me/commit/62b8ba4))
+* **resume:** Retain `$RESUME_PACKAGE_DIR/docs` in VCS. ([2dda63c](https://github.com/randytarampi/me/commit/2dda63c))
+* **www:** Add the CNAME to `$WWW_PACKAGE_DIR/docs/CNAME`. ([c56d57a](https://github.com/randytarampi/me/commit/c56d57a))
+* **www:** Throw in the towel and just serve everything out of `/docs`. ([91a09fe](https://github.com/randytarampi/me/commit/91a09fe))
+
+
+### Reverts
+
+* fix(www): Turns out the manifest `start_url` is relative to the manifest? ([700ff29](https://github.com/randytarampi/me/commit/700ff29))
+
+
+
+
+
 ## [0.43.4](https://github.com/randytarampi/me/compare/v0.43.3...v0.43.4) (2018-10-17)
 
 

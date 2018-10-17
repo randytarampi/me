@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.5](https://github.com/randytarampi/me/compare/v0.43.4...v0.43.5) (2018-10-17)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Don't assume that `dist` will exist on build. ([742540d](https://github.com/randytarampi/me/commit/742540d))
+* **jsonresume-theme:** Push `jsonresume-theme/docs` on `github-pages` deploy. ([290f7d6](https://github.com/randytarampi/me/commit/290f7d6))
+
+
+
+
+
 ## [0.43.4](https://github.com/randytarampi/me/compare/v0.43.3...v0.43.4) (2018-10-17)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi
