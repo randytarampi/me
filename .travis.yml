@@ -77,7 +77,8 @@ jobs:
         - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo
           true || true`
         - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
-        - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
+        - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
+        - JSONRESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
         - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm install; fi;
       before_script: skip
@@ -98,8 +99,11 @@ jobs:
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs; fi;
+        - npm run resume --prefix packages/resume
+        - npm run docs --prefix packages/resume
+        - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs; fi;
         - npm run resume --prefix packages/jsonresume-theme
-        - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
+        - git add --verbose --force --all $JSONRESUME_PACKAGE_DIR/*.html $JSONRESUME_PACKAGE_DIR/*.pdf $JSONRESUME_PACKAGE_DIR/resume.json;
         - npm run build --prefix packages/www
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
         - npm run docs --prefix packages/www
