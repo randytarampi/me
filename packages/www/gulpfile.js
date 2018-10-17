@@ -37,7 +37,10 @@ const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) =
                 bundleName: "www",
                 serviceWorkerBundleName: "www.sw",
                 packageJson,
-                pageUrl
+                pageUrl,
+                injectedScript: [
+                    `<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="${config.get("crisp")}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`
+                ].join("")
             })
         }))
         .pipe(rename({basename}))

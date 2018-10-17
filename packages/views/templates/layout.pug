@@ -31,14 +31,6 @@ html(lang="en")
         link(rel="canonical", href=pageUrl)
         meta(name="og:url", content=pageUrl)
 
-        | !{injectedBase}
-        | !{injectedTitle}
-        | !{injectedLink}
-        | !{injectedMeta}
-        | !{injectedStyle}
-        | !{injectedScript}
-        | !{injectedNoScript}
-
         if environment === "puppeteer" || environment === "printable"
             link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/all.css",integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU", crossorigin="anonymous")
             style(type="text/css")
@@ -110,6 +102,15 @@ html(lang="en")
             })(window, document, "script", "GTM_DATALAYER", "!{gtm}");
         script(type="application/ld+json").
             !{meJsonLd}
+
+        | !{injectedBase}
+        | !{injectedTitle}
+        | !{injectedLink}
+        | !{injectedMeta}
+        | !{injectedStyle}
+        | !{injectedScript}
+        | !{injectedNoScript}
+
     body
         noscript
             iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtm height="0" width="0" style="display:none;visibility:hidden")
