@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.3](https://github.com/randytarampi/me/compare/v0.43.2...v0.43.3) (2018-10-17)
+
+
+### Bug Fixes
+
+* **www:** Don't include `unsupportedPath` in the sitemap. ([3b04ab5](https://github.com/randytarampi/me/commit/3b04ab5))
+* **www:** Just precache all my `assets`. ([721d86c](https://github.com/randytarampi/me/commit/721d86c))
+* **www:** Precache `html` files correctly. ([8f7d381](https://github.com/randytarampi/me/commit/8f7d381))
+* **www:** Precache `html` files explicitly out of `/`. ([f2bc410](https://github.com/randytarampi/me/commit/f2bc410))
+* **www:** Properly define a webpack `publicPath`. ([68e33f5](https://github.com/randytarampi/me/commit/68e33f5)), closes [/github.com/GoogleChrome/workbox/issues/1227#issuecomment-428277030](https://github.com//github.com/GoogleChrome/workbox/issues/1227/issues/issuecomment-428277030)
+* **www:** Serve the `manifest.json` alongside `index.html`. ([fb71364](https://github.com/randytarampi/me/commit/fb71364))
+
+
+
+
+
 ## [0.43.2](https://github.com/randytarampi/me/compare/v0.43.1...v0.43.2) (2018-10-16)
 
 

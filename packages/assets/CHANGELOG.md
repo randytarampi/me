@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.3](https://github.com/randytarampi/me/compare/v0.43.2...v0.43.3) (2018-10-17)
+
+
+### Bug Fixes
+
+* **assets:** Update iOS PWA splash screens. ([b7ad6f8](https://github.com/randytarampi/me/commit/b7ad6f8))
+* **www:** Explicitly define manifest `scope` to be the root. ([9645d3d](https://github.com/randytarampi/me/commit/9645d3d))
+
+
+
+
+
 ## [0.43.2](https://github.com/randytarampi/me/compare/v0.43.1...v0.43.2) (2018-10-16)
 
 
