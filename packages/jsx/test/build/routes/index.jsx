@@ -6,16 +6,22 @@ const routes = [
     {
         component: Error,
         path: "/",
+        exact: true,
         tab: <span>Home</span>
     },
     {
         component: Posts,
         path: "/posts",
+        exact: true,
         tab: <span>Posts</span>
     },
     {
         component: Error,
-        path: "/error"
+        path: "/error",
+        exact: true
+    },
+    {
+        component: Error
     }
 ];
 

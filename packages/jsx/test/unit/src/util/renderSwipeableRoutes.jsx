@@ -44,6 +44,7 @@ describe("renderSwipeableRoutes", function () {
         afterEach(function () {
             global._jsdom.reconfigure({url: originalJsdomWindowLocation.href});
             global.window = originalJsdomWindow;
+            global.location = global.window.location;
         });
 
         it("doesn't render a non-matching route", function () {

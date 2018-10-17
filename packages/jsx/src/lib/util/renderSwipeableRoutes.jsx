@@ -10,10 +10,12 @@ export const renderRoute = (routes, route, extraProps) => props => {
     const bestMatchedRoute = matchedRoutes[0];
     const match = matchPath(window.location.pathname, route);
 
-    if (match && match.path === bestMatchedRoute.match.path) {
-        match.type = "full";
-    } else if (matchedRoutes.length) {
-        match.type = "outOfView";
+    if (match) {
+        if (match.path === bestMatchedRoute.match.path) {
+            match.type = "full";
+        } else if (matchedRoutes.length) {
+            match.type = "outOfView";
+        }
     }
 
     props.match = match;
