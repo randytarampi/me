@@ -45,7 +45,7 @@ module.exports = webpackBaseConfig({
             ],
             runtimeCaching: [
                 {
-                    urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io/,
+                    urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
                     handler: "staleWhileRevalidate",
                     options: {
                         cacheName: "external",
