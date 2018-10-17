@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.6](https://github.com/randytarampi/me/compare/v0.43.5...v0.43.6) (2018-10-17)
+
+
+### Bug Fixes
+
+* **www:** Also cache the Crisp chat JS file. ([6b233d6](https://github.com/randytarampi/me/commit/6b233d6))
+* **www:** Also need to copy the CNAME to `/docs` on release. ([283a870](https://github.com/randytarampi/me/commit/283a870))
+
+
+
+
+
 ## [0.43.5](https://github.com/randytarampi/me/compare/v0.43.4...v0.43.5) (2018-10-17)
 
 

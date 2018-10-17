@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.d43fe8b0205d0f0540dfff3ab8f6eb67.js"
+  "/precache-manifest.33d5c32454164e8607dbc4d8ced9d512.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
@@ -30,7 +30,7 @@ workbox.clientsClaim();
 self.__precacheManifest = [
   {
     "url": "/404.html",
-    "revision": "09765fb11b89c6dfd20cd171416ea63d"
+    "revision": "4e41466071a0466f09f6aa1b5385e2c2"
   },
   {
     "url": "/android-chrome-144x144.png",
@@ -150,7 +150,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/blog.html",
-    "revision": "ef5b9829df30972c1e0f2161e14b26cc"
+    "revision": "370ba7f568c69036b6ab192e748ba0e5"
   },
   {
     "url": "/fa-brands-400.eot",
@@ -230,7 +230,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/index.html",
-    "revision": "09765fb11b89c6dfd20cd171416ea63d"
+    "revision": "4e41466071a0466f09f6aa1b5385e2c2"
   },
   {
     "url": "/ipad_splash.png",
@@ -262,7 +262,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/letter.html",
-    "revision": "1ea778cddf04b40830471124d907007e"
+    "revision": "ab69c7dab2d10e0b25f4178028f7f39d"
   },
   {
     "url": "/mstile-144x144.png",
@@ -286,11 +286,11 @@ self.__precacheManifest = [
   },
   {
     "url": "/photos.html",
-    "revision": "8483ea275734b8316534749aa1cc3958"
+    "revision": "eb89e50ca7224397eea49e88958b4053"
   },
   {
     "url": "/resume.html",
-    "revision": "305b1915f25015f5e243a5baa13961fb"
+    "revision": "d0042def0b4d5b54f4b2e1fcdf2416e0"
   },
   {
     "url": "/Roboto-Bold.woff",
@@ -342,7 +342,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/words.html",
-    "revision": "d3296554ab3c35b5bd1a74ebf5c427b9"
+    "revision": "7a9596878f9870a3b4deccae19b2f8bb"
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-30-knockout.svg",
@@ -374,7 +374,7 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute("/");
 
-workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io/, workbox.strategies.staleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({"maxEntries":100,"purgeOnQuotaError":true})] }), 'GET');
+workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/, workbox.strategies.staleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({"maxEntries":100,"purgeOnQuotaError":true})] }), 'GET');
 workbox.routing.registerRoute(/^https:\/\/posts.randytarampi.ca\/posts/, workbox.strategies.staleWhileRevalidate({ "cacheName":"posts", plugins: [] }), 'GET');
 
 workbox.googleAnalytics.initialize({});
