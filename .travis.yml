@@ -97,15 +97,13 @@ jobs:
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
-        - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs
-          $LETTER_PACKAGE_DIR/*.html $LETTER_PACKAGE_DIR/*.pdf $LETTER_PACKAGE_DIR/manifest.json; fi;
+        - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs; fi;
         - npm run resume --prefix packages/jsonresume-theme
         - git add --verbose --force --all $RESUME_PACKAGE_DIR/*.html $RESUME_PACKAGE_DIR/*.pdf $RESUME_PACKAGE_DIR/resume.json;
         - npm run build --prefix packages/www
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
         - npm run docs --prefix packages/www
-        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
-          $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/manifest.json $WWW_PACKAGE_DIR/precache-manifest.*.js $WWW_PACKAGE_DIR/robots.txt; fi;
+        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - git add packages/*/CHANGELOG.md
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
@@ -141,13 +139,12 @@ jobs:
         - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/CNAME;
         - git add --verbose --force --all $WWW_PACKAGE_DIR/CNAME;
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
-        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs
-          $WWW_PACKAGE_DIR/*.html $WWW_PACKAGE_DIR/manifest.json $WWW_PACKAGE_DIR/precache-manifest.*.js $WWW_PACKAGE_DIR/robots.txt; fi;
+        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
       deploy:
         - provider: pages
-          local-dir: packages/www/
+          local-dir: packages/www/docs
           repo: "${TRAVIS_REPO_OWNER}/${TRAVIS_REPO_OWNER}.github.io"
           target-branch: master
           verbose: true
@@ -188,7 +185,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: pages
-          local-dir: packages/www/
+          local-dir: packages/www/docs
           repo: "$TRAVIS_REPO_SLUG"
           target-branch: gh-pages
           verbose: true

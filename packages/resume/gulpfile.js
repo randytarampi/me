@@ -16,6 +16,7 @@ gulp.task("clean", () => {
 gulp.task("copy", () => {
     return gulp
         .src([
+            "*.md",
             "node_modules/@randy.tarampi/assets/web/**",
             "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
             "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
@@ -106,19 +107,8 @@ gulp.task("docs:dist", () => {
         .pipe(gulp.dest("./docs"));
 });
 
-gulp.task("docs:index", () => {
-    return gulp
-        .src([
-            "dist/*.html",
-            "dist/*.pdf",
-            "dist/manifest.json"
-        ])
-        .pipe(gulp.dest("."));
-});
-
 gulp.task("docs", gulp.series([
-    "docs:dist",
-    "docs:index"
+    "docs:dist"
 ]));
 
 gulp.task("webpack", function (callback) {

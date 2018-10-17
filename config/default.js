@@ -18,7 +18,7 @@ module.exports = {
             pages: 1,
         },
         publishUrl: `http://localhost:${RESUME_APP_PORT}`,
-        assetUrl: `http://localhost:${RESUME_APP_PORT}`,
+        assetUrl: "",
         appPort: RESUME_APP_PORT,
         serverPort: RESUME_SERVER_PORT
     },
@@ -27,7 +27,7 @@ module.exports = {
             pages: 1,
         },
         publishUrl: `http://localhost:${LETTER_APP_PORT}`,
-        assetUrl: `http://localhost:${LETTER_APP_PORT}`,
+        assetUrl: "",
         appPort: LETTER_APP_PORT,
         serverPort: LETTER_SERVER_PORT
     },
@@ -48,7 +48,7 @@ module.exports = {
         resumeUrl: "/resume",
         letterUrl: "/letter",
         publishUrl: `http://localhost:${WWW_APP_PORT}`,
-        assetUrl: `http://localhost:${WWW_APP_PORT}`,
+        assetUrl: "",
         appPort: WWW_APP_PORT
     },
     logger: {

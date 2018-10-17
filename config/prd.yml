@@ -6,7 +6,7 @@ posts:
   letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
 www:
   publishUrl: https://www.randytarampi.ca
-  assetUrl: &wwwAssetUrl /docs
+  assetUrl: &wwwAssetUrl ""
 resume:
   publishUrl: https://www.randytarampi.ca/resume
   assetUrl: *wwwAssetUrl
