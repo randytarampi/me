@@ -5,7 +5,7 @@ $blockColour: black;
 $blockTextColour: white;
 $blockLineHeight: 1.5;
 
-$link-color: color("orange", "darken-1");
+$link-color: #ec7500;
 $primary-color: $link-color;
 
 $asset-url: "" !default;
@@ -16,7 +16,7 @@ $fa-font-path: $asset-url;
 
 $tabs-bg-color: $blockColour;
 $tabs-text-color: $blockTextColour;
-$tabs-underline-color: $primary-color-light;
+$tabs-underline-color: $primary-color;
 
 $small-screen: 594px;
 $small-screen-up: 595px;
