@@ -119,8 +119,8 @@ jobs:
           file_glob: true
           file:
             - me.tar.gz
-            - "$TRAVIS_BUILD_DIR/packages/jsonresume-theme/resume.*.pdf"
-            - "$TRAVIS_BUILD_DIR/packages/letter/letter.*.pdf"
+            - "$TRAVIS_BUILD_DIR/packages/jsonresume-theme/dist/resume.*.pdf"
+            - "$TRAVIS_BUILD_DIR/packages/letter/dist/letter.*.pdf"
           skip_cleanup: true
           on:
             condition: "-n $HAS_PUBLISHABLE_CHANGES"
