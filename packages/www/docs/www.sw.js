@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.3ef6fb843978879748fce0eb2737d35e.js"
+  "/precache-manifest.64dbe39a6f70e53432fa2d51bf2f58bb.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
@@ -30,7 +30,7 @@ workbox.clientsClaim();
 self.__precacheManifest = [
   {
     "url": "/404.html",
-    "revision": "648acd059fe93d3a74cfa6c5d7321c23"
+    "revision": "a5c0e6f8044c08267df72b82185e8c3e"
   },
   {
     "url": "/android-chrome-144x144.png",
@@ -150,7 +150,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/blog.html",
-    "revision": "e839d4b4b436267a77ad8d90716ca2c8"
+    "revision": "08274761bc50a01f5d446f2d2c11f2eb"
   },
   {
     "url": "/fa-brands-400.eot",
@@ -230,7 +230,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/index.html",
-    "revision": "648acd059fe93d3a74cfa6c5d7321c23"
+    "revision": "a5c0e6f8044c08267df72b82185e8c3e"
   },
   {
     "url": "/ipad_splash.png",
@@ -262,7 +262,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/letter.html",
-    "revision": "87b6072e69166036a16bdaeaad3d7a6b"
+    "revision": "9fb50ebd6d23c2887f47c380cda577ef"
   },
   {
     "url": "/mstile-144x144.png",
@@ -286,11 +286,11 @@ self.__precacheManifest = [
   },
   {
     "url": "/photos.html",
-    "revision": "52619352a95a2be012498e242b2f19ee"
+    "revision": "c5dce0e7ec08f749078e63878c9ea22c"
   },
   {
     "url": "/resume.html",
-    "revision": "3cb790b8011215c1e4b39e8b12b5cb16"
+    "revision": "bad6b8abeeef9bc19f830733ea1d2b91"
   },
   {
     "url": "/Roboto-Bold.woff",
@@ -342,7 +342,7 @@ self.__precacheManifest = [
   },
   {
     "url": "/words.html",
-    "revision": "7bd7ff7147a2b1b0c5238a1dc477262c"
+    "revision": "872ac88944a3c787409ff817f424764e"
   },
   {
     "url": "/ʕつ•ᴥ•ʔつ-30-knockout.svg",
