@@ -103,9 +103,11 @@ class TumblrSource extends CachedDataSource {
 
 // # NOTE-RT: This is pretty gross modifying the HTML we're passing along, but I think this'll be more common than not for other post providers going forwards, especially the more sophisticated platforms.
 export const processCaptionHtml = caption => {
-    return caption
-        .replace(/<p>/g, "<p><span class=\"photo-text\">")
-        .replace(/<\/p>/g, "</span></p>");
+    const tags = ["p", "ol", "ul"];
+
+    return tags.reduce((processedCaption, tag) => processedCaption
+        .replace(new RegExp(`<${tag}>`, "g"), `<${tag}><span class="photo-text">`)
+        .replace(new RegExp(`</${tag}>`, "g"), `</span></${tag}>`), caption);
 };
 
 export default TumblrSource;
