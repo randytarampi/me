@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.10](https://github.com/randytarampi/me/compare/v0.43.9...v0.43.10) (2018-10-18)
+
+
+### Bug Fixes
+
+* **css:** Nudge over `.post-html` by `$blockPadding` as `.post-text` is. ([15803f7](https://github.com/randytarampi/me/commit/15803f7))
+
+
+
+
+
 ## [0.43.9](https://github.com/randytarampi/me/compare/v0.43.8...v0.43.9) (2018-10-17)
 
 
