@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.13](https://github.com/randytarampi/me/compare/v0.43.12...v0.43.13) (2018-10-18)
+
+
+### Bug Fixes
+
+* **posts:** `processCaptionHtml` also works on `ol` and `ul` elements. ([8450eff](https://github.com/randytarampi/me/commit/8450eff))
+* **posts:** Only `processCaptionHtml` for Tumblr `Photo`s. ([41deda7](https://github.com/randytarampi/me/commit/41deda7))
+
+
+
+
+
 ## [0.43.12](https://github.com/randytarampi/me/compare/v0.43.11...v0.43.12) (2018-10-18)
 
 **Note:** Version bump only for package me
