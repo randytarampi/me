@@ -8,6 +8,9 @@
 html, body {
     height: 100%;
     width: 100%;
+    font-variant-ligatures: normal;
+    font-feature-settings: normal;
+    text-rendering: optimizeLegibility;
 
     @media print {
         min-width: $small-screen-up;
@@ -79,11 +82,13 @@ li {
             display: list-item;
         }
     }
+
     &.show-on-letter {
         @media #{$letter-page-up} {
             display: list-item;
         }
     }
+
     &.show-on-legal {
         @media #{$legal-page-up} {
             display: list-item;
@@ -97,11 +102,13 @@ table {
             display: table;
         }
     }
+
     &.show-on-letter {
         @media #{$letter-page-up} {
             display: table;
         }
     }
+
     &.show-on-legal {
         @media #{$legal-page-up} {
             display: table;
