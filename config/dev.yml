@@ -14,6 +14,7 @@ letter:
   publishUrl: https://dev.randytarampi.ca/letter
   assetUrl: *wwwAssetUrl
 gtm: "GTM-T3FHTVC"
+crisp: "03689d2b-80ab-4f5d-90cb-a2de269ea9c3"
 logger:
   streams:
     stdout: true
