@@ -23,10 +23,10 @@
 
     &-html {
         box-decoration-break: clone;
+        padding: $blockPadding;
 
         ul {
             line-height: $blockLineHeight;
-            padding: $blockPadding;
             margin-right: 4px;
         }
     }
