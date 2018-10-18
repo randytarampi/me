@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "0.43.10",
+  "version": "0.43.11",
   "description": "Some common styles for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"

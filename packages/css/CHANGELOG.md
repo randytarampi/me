@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.43.11](https://github.com/randytarampi/me/compare/v0.43.10...v0.43.11) (2018-10-18)
+
+
+### Bug Fixes
+
+* **css:** Force ligature support. ([4ae8531](https://github.com/randytarampi/me/commit/4ae8531))
+
+
+
+
+
 ## [0.43.10](https://github.com/randytarampi/me/compare/v0.43.9...v0.43.10) (2018-10-18)
 
 
