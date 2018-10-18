@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "gulp": "^4.0.0",
-    "resume-cli": "github:randytarampi/resume-cli#me-release",
+    "resume-cli": "^1.1.2",
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^3.0.0"
   },
