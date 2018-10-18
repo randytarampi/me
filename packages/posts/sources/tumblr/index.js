@@ -89,7 +89,7 @@ class TumblrSource extends CachedDataSource {
             source: this.type,
             datePublished: date,
             title: postJson.title,
-            body: postJson.body && processCaptionHtml(postJson.body),
+            body: postJson.body,
             sourceUrl: postJson.post_url,
             creator: blogJson && {
                 id: blogJson.name,
