@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.44.0](https://github.com/randytarampi/me/compare/v0.43.13...v0.44.0) (2018-10-19)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Remove mistakenly committed `node_modules`. ([559565c](https://github.com/randytarampi/me/commit/559565c))
+* **jsx:** Fix bad file references from 875ad4bcb837c7a1ae77911ff185d1c37c3716d8. ([af84c83](https://github.com/randytarampi/me/commit/af84c83))
+* **www:** Only precache my signature, everything else can just get cached when it comes down. ([c0438ff](https://github.com/randytarampi/me/commit/c0438ff))
+
+
+### Features
+
+* **www:** `$crisp` callbacks dispatch redux actions. ([90ad97d](https://github.com/randytarampi/me/commit/90ad97d))
+* **www:** `$crisp` callbacks get picked up by metrics middleware. ([d3f01df](https://github.com/randytarampi/me/commit/d3f01df))
+
+
+
+
+
 ## [0.43.13](https://github.com/randytarampi/me/compare/v0.43.12...v0.43.13) (2018-10-18)
 
 

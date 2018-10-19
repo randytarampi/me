@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.44.0](https://github.com/randytarampi/me/compare/v0.43.13...v0.44.0) (2018-10-19)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Remove mistakenly committed `node_modules`. ([559565c](https://github.com/randytarampi/me/commit/559565c))
+
+
+
+
+
 ## [0.43.13](https://github.com/randytarampi/me/compare/v0.43.12...v0.43.13) (2018-10-18)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi
