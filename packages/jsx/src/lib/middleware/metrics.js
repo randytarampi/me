@@ -1,4 +1,12 @@
 import _ from "lodash";
+import {
+    CRISP_MESSAGE_SENT,
+    CRISP_SESSION_LOADED,
+    CRISP_USER_AVATAR_CHANGED,
+    CRISP_USER_EMAIL_CHANGED,
+    CRISP_USER_NICKNAME_CHANGED,
+    CRISP_USER_PHONE_CHANGED
+} from "../actions/crisp";
 import metrics from "../metrics";
 
 export const metricsMiddleware = () => next => action => {
@@ -14,6 +22,57 @@ export const metricsMiddleware = () => next => action => {
     }
 
     switch (action.type) {
+        case CRISP_SESSION_LOADED:
+            trackReduxAction([action, {
+                crisp: {
+                    session_id: action.payload
+                }
+            }]);
+            break;
+
+        case CRISP_MESSAGE_SENT:
+            trackReduxAction([action, {
+                crisp: {
+                    user_id: action.payload.user.user_id
+                },
+                user: {
+                    name: action.payload.user.nickname
+                }
+            }]);
+            break;
+
+        case CRISP_USER_AVATAR_CHANGED:
+            trackReduxAction([action, {
+                user: {
+                    avatar: action.payload
+                }
+            }]);
+            break;
+
+        case CRISP_USER_EMAIL_CHANGED:
+            trackReduxAction([action, {
+                user: {
+                    email: action.payload
+                }
+            }]);
+            break;
+
+        case CRISP_USER_NICKNAME_CHANGED:
+            trackReduxAction([action, {
+                user: {
+                    name: action.payload
+                }
+            }]);
+            break;
+
+        case CRISP_USER_PHONE_CHANGED:
+            trackReduxAction([action, {
+                user: {
+                    phone: action.payload
+                }
+            }]);
+            break;
+
         default:
             trackReduxAction([action]);
     }

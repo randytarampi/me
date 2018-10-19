@@ -2,6 +2,14 @@ import {expect} from "chai";
 import sinon from "sinon";
 import metricsInstance from "../../../../../src/lib/metrics";
 import metrics from "../../../../../src/lib/middleware/metrics";
+import {
+    CRISP_MESSAGE_SENT,
+    CRISP_SESSION_LOADED,
+    CRISP_USER_AVATAR_CHANGED,
+    CRISP_USER_EMAIL_CHANGED,
+    CRISP_USER_NICKNAME_CHANGED,
+    CRISP_USER_PHONE_CHANGED
+} from "./../../../../../src/lib/actions/crisp";
 
 describe("metrics", function () {
     const metricsInstanceApi = metricsInstance.api;
@@ -77,5 +85,127 @@ describe("metrics", function () {
         metrics()(stubNext)(stubAction);
 
         expect(stubNext.calledOnce).to.eql(true);
+    });
+
+    describe("CRISP_MESSAGE_SENT", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_MESSAGE_SENT,
+                payload: {
+                    user: {
+                        user_id: "woof",
+                        nickname: "meow"
+                    }
+                }
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                crisp: {
+                    user_id: stubAction.payload.user.user_id
+                },
+                user: {
+                    name: stubAction.payload.user.nickname
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_SESSION_LOADED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_SESSION_LOADED,
+                payload: "woof"
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                crisp: {
+                    session_id: stubAction.payload
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_USER_AVATAR_CHANGED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_USER_AVATAR_CHANGED,
+                payload: "woof"
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                user: {
+                    avatar: stubAction.payload
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_USER_EMAIL_CHANGED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_USER_EMAIL_CHANGED,
+                payload: "woof"
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                user: {
+                    email: stubAction.payload
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_USER_NICKNAME_CHANGED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_USER_NICKNAME_CHANGED,
+                payload: "woof"
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                user: {
+                    name: stubAction.payload
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_USER_PHONE_CHANGED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_USER_PHONE_CHANGED,
+                payload: "woof"
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                user: {
+                    phone: stubAction.payload
+                }
+            }]);
+        });
     });
 });
