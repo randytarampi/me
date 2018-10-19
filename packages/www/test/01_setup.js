@@ -33,3 +33,4 @@ global.window.LOGGER = {
         console: true
     }
 };
+global.window.$crisp = [];

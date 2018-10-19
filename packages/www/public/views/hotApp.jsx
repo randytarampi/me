@@ -1,4 +1,9 @@
-import {ClientSwipeableReduxRouterRoot, configureStore, setRoutesCreator} from "@randy.tarampi/jsx";
+import {
+    ClientSwipeableReduxRouterRoot,
+    configureStore,
+    initializeCrispCreator,
+    setRoutesCreator
+} from "@randy.tarampi/jsx";
 import {createBrowserHistory} from "history";
 import React from "react";
 import {hot} from "react-hot-loader";
@@ -7,6 +12,10 @@ import routes from "../routes";
 
 const history = createBrowserHistory();
 const store = configureStore(undefined, history, combinedReducers);
+
+if (window.$crisp) {
+    store.dispatch(initializeCrispCreator(window.$crisp));
+}
 
 store.dispatch(setRoutesCreator(routes));
 
