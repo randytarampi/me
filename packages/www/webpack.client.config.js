@@ -33,7 +33,9 @@ module.exports = webpackBaseConfig({
                 "/": `/${config.get("www.assetUrl")}/`
             },
             globDirectory: "dist/",
-            globPatterns: ["**/*.{js,css,html,png,jpg,jpeg,eot,ttf,woff,woff2,svg,gif,ico}"],
+            globPatterns: [
+                "signature.svg"
+            ],
             manifestTransforms: [
                 originalManifest => {
                     const manifest = originalManifest.map(entry => {
