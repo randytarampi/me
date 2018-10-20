@@ -85,7 +85,6 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "resolve-url-loader": "^3.0.0",
-    "resume-cli": "github:randytarampi/resume-cli#me-release",
     "sass-loader": "^7.1.0",
     "serverless": "^1.28.0",
     "serverless-domain-manager": "^2.6.0",
