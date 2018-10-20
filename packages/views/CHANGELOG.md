@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.1](https://github.com/randytarampi/me/compare/v0.45.0...v0.45.1) (2018-10-20)
+
+
+### Bug Fixes
+
+* **views:** Bring `views` GTM `app` data layer variable into line with the changes in d4a7141bfef999e256c2cea1f69d1a2613ade979. ([6984956](https://github.com/randytarampi/me/commit/6984956))
+
+
+
+
+
 # [0.45.0](https://github.com/randytarampi/me/compare/v0.44.0...v0.45.0) (2018-10-20)
 
 **Note:** Version bump only for package @randy.tarampi/views
