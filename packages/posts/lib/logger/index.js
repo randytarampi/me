@@ -73,7 +73,7 @@ if (process.env.LOGGER_ENABLED === "true") {
 export default bunyan.createLogger({
     name: packageJson.name,
     streams: bunyanStreams,
-    src: process.env.LOGGER_SRC_ENABLED === "true" || false,
+    src: process.env.LOGGER_SRC_ENABLED === "true",
     version: packageJson.version,
     environment: process.env.SERVERLESS_STAGE,
     serializers: bunyan.stdSerializers
