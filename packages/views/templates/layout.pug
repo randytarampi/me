@@ -44,6 +44,7 @@ html(lang="en")
                         });
                     }
             link(rel="stylesheet", href=assetUrl + "/styles.css")
+
         link(rel="apple-touch-icon", sizes="57x57", href=assetUrl + "/apple-touch-icon-57x57.png")
         link(rel="apple-touch-icon", sizes="60x60", href=assetUrl + "/apple-touch-icon-60x60.png")
         link(rel="apple-touch-icon", sizes="72x72", href=assetUrl + "/apple-touch-icon-72x72.png")
@@ -68,19 +69,22 @@ html(lang="en")
         link(href=assetUrl + "/ipadpro1_splash-landscape.png", media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
         link(href=assetUrl + "/ipadpro2_splash.png", media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", rel="apple-touch-startup-image")
         link(href=assetUrl + "/ipadpro2_splash-landscape.png", media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(rel="mask-icon", href=assetUrl + "/safari-pinned-tab.svg", color="#ec7500")
+        meta(name="apple-mobile-web-app-capable", content="yes")
+        meta(name="apple-mobile-web-app-status-bar-style", content="black")
 
-        link(rel="icon", type="image/png", sizes="192x192", href=assetUrl + "/android-chrome-192x192.png")
         link(rel="icon", type="image/png", sizes="32x32", href=assetUrl + "/favicon-32x32.png")
         link(rel="icon", type="image/png", sizes="16x16", href=assetUrl + "/favicon-16x16.png")
         link(rel="icon", type="image/png", sizes="194x194", href=assetUrl + "/favicon-194x194.png")
-        link(rel="mask-icon", href=assetUrl + "/safari-pinned-tab.svg", color="#ec7500")
-        link(rel="shortcut icon", type="image/x-icon", href=assetUrl + "/favicon.ico")
-        link(rel="manifest", href=assetUrl + "/manifest.json")
         meta(name="msapplication-TileColor", content="#000000")
         meta(name="msapplication-TileImage", content=assetUrl + "/mstile-144x144.png")
         meta(name="msapplication-config", content=assetUrl + "/browserconfig.xml")
+
+        link(rel="icon", type="image/png", sizes="192x192", href=assetUrl + "/android-chrome-192x192.png")
         meta(name="theme-color", content="#000000")
-        meta(name="apple-mobile-web-app-capable", content="yes")
+        link(rel="manifest", href=assetUrl + "/manifest.json")
+
+        link(rel="shortcut icon", type="image/x-icon", href=assetUrl + "/favicon.ico")
 
         script(type="application/javascript").
             window.SENTRY_DSN = "!{sentryDsn}" || null;
