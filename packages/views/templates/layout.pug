@@ -84,7 +84,14 @@ html(lang="en")
             window.GTM_DATALAYER = [
                 {appName: window.NAME},
                 {appVersion: window.VERSION},
-                {appEnvironment: window.ENVIRONMENT}
+                {appEnvironment: window.ENVIRONMENT},
+                {
+                    app: {
+                        name: window.NAME,
+                        version: window.VERSION,
+                        environment: window.ENVIRONMENT
+                    }
+                }
             ];
         script(type="application/javascript").
             (function (w, d, s, l, i) {
