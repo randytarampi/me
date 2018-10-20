@@ -1,10 +1,10 @@
 {
-  "name": "randytarampi.ca",
+  "name": "ʕ•ᴥ•ʔﾉ゛",
   "short_name": "ʕ•ᴥ•ʔﾉ゛",
   "scope": "/",
   "start_url": "/blog?utm_medium=pwa",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#ec7500",
+  "theme_color": "#ec7500",
   "display": "fullscreen",
   "lang": "en-CA",
   "orientation": "natural",
@@ -55,9 +55,9 @@
       "type": "image/png"
     },
     {
-      "src": "/ʕつ•ᴥ•ʔつ-45-knockout.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml"
+      "src": "/ʕつ•ᴥ•ʔつ-square-knockout-orange.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
     }
   ]
 }

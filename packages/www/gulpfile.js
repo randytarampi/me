@@ -15,13 +15,20 @@ gulp.task("clean", () => {
 });
 
 gulp.task("copy", () => {
+    const sources = [
+        "*.md",
+        "node_modules/@randy.tarampi/assets/web/*",
+        `node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`,
+        "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
+        "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
+    ];
+
+    if (process.env.NODE_ENV) {
+        sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
+    }
+
     return gulp
-        .src([
-            "*.md",
-            "node_modules/@randy.tarampi/assets/web/**",
-            "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
-            "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
-        ])
+        .src(sources)
         .pipe(gulp.dest("./dist"));
 });
 
