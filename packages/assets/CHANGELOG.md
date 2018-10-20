@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.4](https://github.com/randytarampi/me/compare/v0.45.3...v0.45.4) (2018-10-20)
+
+
+### Bug Fixes
+
+* **assets:** Bring back `ʕつ•ᴥ•ʔつ.svg` for link previews. ([8e5de71](https://github.com/randytarampi/me/commit/8e5de71))
+
+
+
+
+
 ## [0.45.3](https://github.com/randytarampi/me/compare/v0.45.2...v0.45.3) (2018-10-20)
 
 **Note:** Version bump only for package @randy.tarampi/assets

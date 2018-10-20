@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.4](https://github.com/randytarampi/me/compare/v0.45.3...v0.45.4) (2018-10-20)
+
+
+### Bug Fixes
+
+* **views:** Explicitly set `apple-mobile-web-app-status-bar-style` to black. ([7aaea9c](https://github.com/randytarampi/me/commit/7aaea9c))
+* **views:** iOS splash screens explicitly target device orientations. ([42c9e6e](https://github.com/randytarampi/me/commit/42c9e6e))
+
+
+
+
+
 ## [0.45.3](https://github.com/randytarampi/me/compare/v0.45.2...v0.45.3) (2018-10-20)
 
 **Note:** Version bump only for package @randy.tarampi/views
