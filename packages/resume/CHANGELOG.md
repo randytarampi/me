@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.45.0](https://github.com/randytarampi/me/compare/v0.44.0...v0.45.0) (2018-10-20)
+
+
+### Features
+
+* **assets:** Use separate favicons and splash screens for each environment. ([e1b799e](https://github.com/randytarampi/me/commit/e1b799e))
+
+
+
+
+
 # [0.44.0](https://github.com/randytarampi/me/compare/v0.43.13...v0.44.0) (2018-10-19)
 
 **Note:** Version bump only for package @randy.tarampi/resume

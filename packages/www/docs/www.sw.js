@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.8c1b2fed4a5dfaecac6545e401dd517b.js"
+  "/precache-manifest.7f5666f7e0f6759dad5f8d22270adff4.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});

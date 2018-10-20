@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.45.0](https://github.com/randytarampi/me/compare/v0.44.0...v0.45.0) (2018-10-20)
+
+
+### Features
+
+* **jsx:** Push info into the GTM data layer for `CRISP_CHAT_CLOSED`, `CRISP_CHAT_OPENED` and `CRISP_WEBSITE_AVAILABILITY_CHANGED`. ([d4a7141](https://github.com/randytarampi/me/commit/d4a7141))
+
+
+
+
+
 # [0.44.0](https://github.com/randytarampi/me/compare/v0.43.13...v0.44.0) (2018-10-19)
 
 
