@@ -31,6 +31,7 @@ global.window.SENTRY_DSN = "https://meow@sentry.io/woof";
 global.window.LOGGER = {
     level: "trace",
     streams: {
-        console: true
+        console: true,
+        sentry: true,
     }
 };

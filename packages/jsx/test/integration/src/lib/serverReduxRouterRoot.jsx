@@ -1,6 +1,5 @@
 import {expect} from "chai";
 import {createBrowserHistory} from "history";
-import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
 import * as reactRouter from "react-router-config";
@@ -20,7 +19,6 @@ describe("ServerReduxRouterRoot", function () {
 
     beforeEach(function () {
         stubHistory = createBrowserHistory();
-        stubInitialState = fromJS({});
         stubStore = configureStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {

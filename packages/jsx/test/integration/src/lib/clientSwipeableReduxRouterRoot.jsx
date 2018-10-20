@@ -29,7 +29,8 @@ describe("ClientSwipeableReduxRouterRoot", function () {
                 component: <div className="testing">
                     Testing...
                 </div>,
-                path: "/"
+                path: "/",
+                tab: <div>Test Tab</div>
             }
         ];
 
