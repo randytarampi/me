@@ -3,12 +3,15 @@ import sinon from "sinon";
 import metricsInstance from "../../../../../src/lib/metrics";
 import metrics from "../../../../../src/lib/middleware/metrics";
 import {
+    CRISP_CHAT_CLOSED,
+    CRISP_CHAT_OPENED,
     CRISP_MESSAGE_SENT,
     CRISP_SESSION_LOADED,
     CRISP_USER_AVATAR_CHANGED,
     CRISP_USER_EMAIL_CHANGED,
     CRISP_USER_NICKNAME_CHANGED,
-    CRISP_USER_PHONE_CHANGED
+    CRISP_USER_PHONE_CHANGED,
+    CRISP_WEBSITE_AVAILABILITY_CHANGED
 } from "./../../../../../src/lib/actions/crisp";
 
 describe("metrics", function () {
@@ -85,6 +88,44 @@ describe("metrics", function () {
         metrics()(stubNext)(stubAction);
 
         expect(stubNext.calledOnce).to.eql(true);
+    });
+
+    describe("CRISP_CHAT_OPENED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_CHAT_OPENED,
+                payload: {}
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                crisp: {
+                    chat: "open"
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_CHAT_CLOSED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_CHAT_CLOSED,
+                payload: {}
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                crisp: {
+                    chat: "closed"
+                }
+            }]);
+        });
     });
 
     describe("CRISP_MESSAGE_SENT", function () {
@@ -204,6 +245,25 @@ describe("metrics", function () {
             sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
                 user: {
                     phone: stubAction.payload
+                }
+            }]);
+        });
+    });
+
+    describe("CRISP_WEBSITE_AVAILABILITY_CHANGED", function () {
+        it("calls `trackReduxAction` with the correct properties", function () {
+            const stubNext = sinon.stub();
+            const stubAction = {
+                type: CRISP_WEBSITE_AVAILABILITY_CHANGED,
+                payload: "woof"
+            };
+
+            metrics()(stubNext)(stubAction);
+            expect(stubNext.calledOnce).to.eql(true);
+            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+                app: {
+                    availability: stubAction.payload
                 }
             }]);
         });
