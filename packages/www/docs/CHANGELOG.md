@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.6](https://github.com/randytarampi/me/compare/v0.45.5...v0.45.6) (2018-10-21)
+
+
+### Bug Fixes
+
+* **www:** Service worker caches consistently `purgeOnQuotaError`. ([9982f79](https://github.com/randytarampi/me/commit/9982f79))
+
+
+
+
+
 ## [0.45.5](https://github.com/randytarampi/me/compare/v0.45.4...v0.45.5) (2018-10-21)
 
 **Note:** Version bump only for package @randy.tarampi/www
