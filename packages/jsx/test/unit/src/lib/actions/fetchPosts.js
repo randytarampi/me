@@ -310,6 +310,66 @@ describe("fetchPosts", function () {
                 });
         });
 
+        it("is dispatched with the expected payload (has posts)", function () {
+            const stubFetchUrl = "/woof";
+            const stubLoadedPost = Post.fromJSON({dateCreated: DateTime.utc(2018, 8, 22)});
+            const stubSearchParams = {
+                perPage: FETCHING_POSTS_PER_PAGE,
+                orderComparator: stubLoadedPost.dateCreated.toISO(),
+                orderBy: "datePublished",
+                orderComparatorType: "String",
+                orderOperator: "lt"
+            };
+            const stubPostsResponse = new Error("woof");
+
+            const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/actions/fetchPosts", {
+                "../api/fetchPosts": {
+                    "default": () => Promise.reject(stubPostsResponse)
+                }
+            });
+
+            stubInitialState = Map({
+                api: Map({
+                    [stubFetchUrl]: Map({
+                        oldest: DateTime.utc(2018, 8, 22),
+                        newest: DateTime.utc()
+                    })
+                }),
+                posts: Map({
+                    posts: Set([stubLoadedPost])
+                })
+            });
+            stubStore = mockStore(stubInitialState);
+
+            return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
+                .catch(error => {
+                    expect(error).to.be.ok;
+                    expect(error).to.eql(stubPostsResponse);
+
+                    const actions = stubStore.getActions();
+                    const expectedActions = [
+                        {
+                            type: FETCHING_POSTS,
+                            payload: {
+                                fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams
+                            }
+                        },
+                        {
+                            type: FETCHING_POSTS_FAILURE,
+                            payload: {
+                                fetchUrl: stubFetchUrl,
+                                error: stubPostsResponse
+                            }
+                        }
+                    ];
+
+                    expect(actions).to.be.ok;
+                    expect(actions).to.have.length(expectedActions.length);
+                    expect(actions).to.eql(expectedActions);
+                });
+        });
+
         it("is dispatched with the expected payload (fetch error)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {

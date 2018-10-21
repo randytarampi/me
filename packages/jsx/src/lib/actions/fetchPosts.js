@@ -63,7 +63,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                 ...postsResponse
             }));
 
-            if (!postsResponse || !postsResponse.posts || !postsResponse.posts.length) {
+            if (!oldestLoadedPostDate && (!postsResponse || !postsResponse.posts || !postsResponse.posts.length)) {
                 dispatch(setError(undefined, "ENOPOSTS"));
             }
         })
@@ -72,7 +72,10 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                 fetchUrl,
                 error
             }));
-            dispatch(setError(error, "EFETCH"));
+
+            if (!oldestLoadedPostDate) {
+                dispatch(setError(error, "EFETCH"));
+            }
 
             throw error;
         });
