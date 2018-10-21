@@ -61,7 +61,11 @@ module.exports = webpackBaseConfig({
                     urlPattern: new RegExp("^" + config.get("posts.postsUrl")),
                     handler: "staleWhileRevalidate",
                     options: {
-                        cacheName: "posts"
+                        cacheName: "posts",
+                        expiration: {
+                            maxEntries: 100,
+                            purgeOnQuotaError: true
+                        }
                     }
                 }
             ]
