@@ -23,7 +23,6 @@
 
     &-html {
         box-decoration-break: clone;
-        padding: $blockPadding;
 
         ul {
             line-height: $blockLineHeight;
@@ -57,6 +56,8 @@
         .post-body {
             &__text {
                 @extend .z-depth-0;
+
+                padding: 0;
                 background-color: unset;
                 color: unset;
             }
