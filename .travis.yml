@@ -105,7 +105,7 @@ jobs:
         - npm run resume --prefix packages/jsonresume-theme
         - git add --verbose --force --all $JSONRESUME_PACKAGE_DIR/*.html $JSONRESUME_PACKAGE_DIR/*.pdf $JSONRESUME_PACKAGE_DIR/resume.json;
         - npm run build --prefix packages/www
-        - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/precache-manifest.*.js;
+        - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/docs/precache-manifest.*.js;
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - git add packages/*/CHANGELOG.md
