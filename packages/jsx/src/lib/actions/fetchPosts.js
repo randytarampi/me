@@ -9,7 +9,7 @@ export const FETCHING_POSTS_SUCCESS = "FETCHING_POSTS_SUCCESS";
 export const FETCHING_POSTS_CANCELLED = "FETCHING_POSTS_CANCELLED";
 export const FETCHING_POSTS = "FETCHING_POSTS";
 
-export const FETCHING_POSTS_PER_PAGE = 16;
+export const FETCHING_POSTS_PER_PAGE = 20;
 
 export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getState) => {
     const state = getState();
