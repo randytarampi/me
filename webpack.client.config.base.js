@@ -16,17 +16,12 @@ const {
 } = util;
 
 const plugins = [
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
+    new BundleAnalyzerPlugin({
+        analyzerMode: "static",
+        openAnalyzer: false
+    })
 ];
-
-if (process.env.WEBPACK_BUNDLE_ANALYZER) {
-    plugins.push(
-        new BundleAnalyzerPlugin({
-            analyzerMode: "static",
-            openAnalyzer: false
-        })
-    );
-}
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(

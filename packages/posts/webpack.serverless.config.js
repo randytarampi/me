@@ -4,6 +4,7 @@ const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const util = require("../../util");
 
 const {
@@ -19,7 +20,11 @@ const plugins = [
             from: ".serverless-secrets.json",
             to: ".serverless-secrets.json"
         }
-    ])
+    ]),
+    new BundleAnalyzerPlugin({
+        analyzerMode: "static",
+        openAnalyzer: false
+    })
 ];
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
