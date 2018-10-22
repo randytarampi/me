@@ -2,8 +2,8 @@ posts:
   photosUrl: https://posts.dev.randytarampi.ca/posts?type=Photo
   postsUrl: https://posts.dev.randytarampi.ca/posts
   wordsUrl: https://posts.dev.randytarampi.ca/posts?type=Post
-  resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/resumes
-  letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/letters
+  resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/src/resumes
+  letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/src/letters
 www:
   publishUrl: https://dev.randytarampi.ca
   assetUrl: &wwwAssetUrl ""
