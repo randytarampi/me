@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
+
+
+### Bug Fixes
+
+* **www:** Run builds with `CAMPAIGN_SOURCE` and `CAMPAIGN_CONTENT`. ([5bd93ec](https://github.com/randytarampi/me/commit/5bd93ec))
+
+
+
+
+
 ## [0.45.7](https://github.com/randytarampi/me/compare/v0.45.6...v0.45.7) (2018-10-22)
 
 **Note:** Version bump only for package @randy.tarampi/www

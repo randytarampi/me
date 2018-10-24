@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
+
+
+### Bug Fixes
+
+* **www:** Run builds with `CAMPAIGN_SOURCE` and `CAMPAIGN_CONTENT`. ([5bd93ec](https://github.com/randytarampi/me/commit/5bd93ec))
+
+
+### Reverts
+
+* chore(build): `lwip` -> `[@mcph](https://github.com/mcph)/lwip`. ([beb251c](https://github.com/randytarampi/me/commit/beb251c))
+* fix(travis): Install `giflib-dbg` and `giflib-tools`. ([35ba132](https://github.com/randytarampi/me/commit/35ba132))
+* fix(travis): Install `giflib` as we do `language-pack-ja`, etc. ([7420564](https://github.com/randytarampi/me/commit/7420564))
+* fix(travis): Install `libgif-dev` as we do `language-pack-ja`, etc. ([a872e3d](https://github.com/randytarampi/me/commit/a872e3d))
+* fix(travis): Install `libgif4` as we do `language-pack-ja`, etc. ([200425e](https://github.com/randytarampi/me/commit/200425e))
+* fix(travis): Just gamble that we already have `giflib` (and `libgif7`). ([63510c4](https://github.com/randytarampi/me/commit/63510c4))
+
+
+
+
+
 ## [0.45.7](https://github.com/randytarampi/me/compare/v0.45.6...v0.45.7) (2018-10-22)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.45.7](https://github.com/randytarampi/me/compare/v0.45.6...v0.45.7) (2018-10-22)
+
+
+### Bug Fixes
+
+* **resume:** Fix `.resume-profiles__profile` regression introduced in 88119fa6deb2274986612b0c95d7ad09a88a3691. ([bdd7d08](https://github.com/randytarampi/me/commit/bdd7d08))
+
+
+
+
+
 ## [0.45.6](https://github.com/randytarampi/me/compare/v0.45.5...v0.45.6) (2018-10-21)
 
 **Note:** Version bump only for package @randy.tarampi/resume
