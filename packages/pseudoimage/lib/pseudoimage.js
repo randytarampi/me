@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const lwip = require("lwip");
+const lwip = require("@mcph/lwip");
 const mkdirp = require("mkdirp");
 
 class Pseudoimage {

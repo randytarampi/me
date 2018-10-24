@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const lwip = require("lwip");
+const lwip = require("@mcph/lwip");
 const sinon = require("sinon");
 const expect = require("chai").expect;
 const Pseudoimage = require("../../../lib/pseudoimage");
