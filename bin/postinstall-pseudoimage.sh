@@ -6,6 +6,8 @@ REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
 
 cd "${REPO_ROOT}";
 
+# NOTE-RT: Rebuild lwip if we need to
+if [[ ! -d "${REPO_ROOT}/node_modules/lwip/build/Release" ]]; then npm rebuild lwip; fi;
+
 # NOTE-RT: Use the same `lwip` for `posts` and `pseudoimage`
-mkdir -p "${REPO_ROOT}/packages/pseudoimage/node_modules/@mcph/"
-ln -snf "${REPO_ROOT}/node_modules/@mcph/lwip/" "${REPO_ROOT}/packages/pseudoimage/node_modules/@mcph/lwip";
+ln -snf "${REPO_ROOT}/node_modules/lwip/" "${REPO_ROOT}/packages/pseudoimage/node_modules/lwip";

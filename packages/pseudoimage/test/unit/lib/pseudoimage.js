@@ -1,7 +1,7 @@
 const path = require("path");
 const sinon = require("sinon");
 const expect = require("chai").expect;
-const lwip = require("@mcph/lwip");
+const lwip = require("lwip");
 const Pseudoimage = require("../../../lib/pseudoimage");
 
 describe("pseudoimage", function () {

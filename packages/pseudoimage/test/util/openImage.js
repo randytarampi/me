@@ -1,4 +1,4 @@
-const lwip = require("@mcph/lwip");
+const lwip = require("lwip");
 
 const openImage = imagePath => {
     return new Promise((resolve, reject) => {
