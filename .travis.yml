@@ -251,5 +251,7 @@ addons:
       - libgif-dev
       - giflib-dbg
       - giflib-tools
+      - libpng++-dev
+      - libpng-dev
   hosts:
     - dynamodb-local
