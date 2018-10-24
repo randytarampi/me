@@ -249,5 +249,7 @@ addons:
       - ttf-wqy-microhei
       - libgif4
       - libgif-dev
+      - giflib-dbg
+      - giflib-tools
   hosts:
     - dynamodb-local
