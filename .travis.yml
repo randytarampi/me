@@ -248,6 +248,5 @@ addons:
       - fonts-wqy-microhei
       - ttf-wqy-microhei
       - libgif4
-      - libgif-dev
   hosts:
     - dynamodb-local
