@@ -247,6 +247,5 @@ addons:
       - japan*
       - fonts-wqy-microhei
       - ttf-wqy-microhei
-      - libgif4
   hosts:
     - dynamodb-local
