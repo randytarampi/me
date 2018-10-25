@@ -1,5 +1,5 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {fromJS, Map} from "immutable";
-import {DateTime} from "luxon";
 import {createSelector} from "reselect";
 import {
     FETCHING_POSTS,
@@ -44,11 +44,11 @@ export const apiReducer = (state = Map(), action) => {
             return state.set(action.payload.fetchUrl, fromJS({
                 ...currentFetchUrlState.toJS(),
                 oldest: action.payload.oldest && Object.keys(action.payload.oldest).reduce((oldest, oldestKey) => {
-                    oldest[oldestKey] = DateTime.fromISO(action.payload.oldest[oldestKey]);
+                    oldest[oldestKey] = castDatePropertyToDateTime(action.payload.oldest[oldestKey]);
                     return oldest;
                 }, {}),
                 newest: action.payload.newest && Object.keys(action.payload.newest).reduce((newest, newestKey) => {
-                    newest[newestKey] = DateTime.fromISO(action.payload.newest[newestKey]);
+                    newest[newestKey] = castDatePropertyToDateTime(action.payload.newest[newestKey]);
                     return newest;
                 }, {}),
                 isLoading: false

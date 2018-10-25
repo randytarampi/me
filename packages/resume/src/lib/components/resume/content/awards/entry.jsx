@@ -1,10 +1,11 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
 export const ResumeAwardsEntry = ({awardsEntry, index}) => {
-    const date = DateTime.fromISO(awardsEntry.date);
+    const date = castDatePropertyToDateTime(awardsEntry.date);
     const dateString = date.toLocaleString(DateTime.DATE_FULL);
 
     return <Row className={index > 2 ? "hide-on-print" : null}>
