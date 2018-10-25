@@ -1,11 +1,11 @@
 import {Person as SchemaPerson} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber} from "libphonenumber-js";
-import {DateTime} from "luxon";
 import Organization from "./organization";
 import Place from "./place";
 import PostalAddress from "./postalAddress";
 import Profile from "./profile";
+import {castDatePropertyToDateTime} from "./util";
 
 export class Person extends Record({
     honorificPrefix: null,
@@ -36,6 +36,13 @@ export class Person extends Record({
     knowsLanguage: List(),
     knowsAbout: List()
 }) {
+    constructor({birthDate, ...properties} = {}) {
+        super({
+            birthDate: castDatePropertyToDateTime(birthDate),
+            ...properties
+        });
+    }
+
     get firstName() {
         return this.get("givenName");
     }
@@ -123,7 +130,6 @@ export class Person extends Record({
     static fromJS(js = {}) {
         return new Person({
             ...js,
-            birthDate: js.birthDate ? DateTime.fromJSDate(js.birthDate) : null,
             birthPlace: js.birthPlace ? Place.fromJS(js.birthPlace) : null,
             brand: js.brand ? Organization.fromJS(js.brand) : null,
             worksFor: js.worksFor ? Organization.fromJS(js.worksFor) : null,
@@ -139,7 +145,6 @@ export class Person extends Record({
     static fromJSON(json = {}) {
         return new Person({
             ...json,
-            birthDate: json.birthDate ? DateTime.fromISO(json.birthDate) : null,
             birthPlace: json.birthPlace ? Place.fromJSON(json.birthPlace) : null,
             brand: json.brand ? Organization.fromJSON(json.brand) : null,
             worksFor: json.worksFor ? Organization.fromJSON(json.worksFor) : null,

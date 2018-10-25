@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import {formatNumber} from "libphonenumber-js";
 import Person from "../../../../src/lib/person";
 import PostalAddress from "../../../../src/lib/postalAddress";
@@ -115,6 +116,8 @@ describe("Person", function () {
             expect(person.summary).to.eql(stubPersonJson.description);
             expect(person.label).to.eql(stubPersonJson.jobTitle);
             expect(person.name).to.eql(stubPersonJson.additionalName);
+            expect(person.birthDate).to.be.instanceOf(DateTime);
+            expect(person.birthDate.toISO()).to.contain(stubPersonJson.birthDate);
         });
 
         it("returns an empty Person", function () {
