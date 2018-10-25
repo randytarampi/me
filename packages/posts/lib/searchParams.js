@@ -1,7 +1,6 @@
-import {compositeKeySeparator} from "@randy.tarampi/js";
+import {castDatePropertyToDateTime, compositeKeySeparator} from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
-import {DateTime} from "luxon";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -41,6 +40,17 @@ const SearchParamsRecord = Record(searchParamsRecordDefinition);
  * @extends SearchParamsRecord
  */
 class SearchParams extends SearchParamsRecord {
+    constructor({beforeDate, width, height, page, perPage, ...properties} = {}) {
+        super({
+            ...properties,
+            beforeDate: castDatePropertyToDateTime(beforeDate),
+            width: width && Number(width),
+            height: height && Number(height),
+            perPage: perPage ? Number(perPage) : 100,
+            page: page ? Number(page) : 1
+        });
+    }
+
     get Flickr() {
         return {
             page: this.page,
@@ -266,10 +276,7 @@ class SearchParams extends SearchParamsRecord {
         return {
             orderBy: "descending",
             all: false,
-            perPage: 100,
-            page: 1,
-            ...js,
-            beforeDate: js && js.beforeDate ? DateTime.fromMillis(js.beforeDate.valueOf()) : null
+            ...js
         };
     }
 
@@ -281,12 +288,7 @@ class SearchParams extends SearchParamsRecord {
         return {
             orderBy: "descending",
             all: false,
-            ...json,
-            width: json && json.width ? parseInt(json.width, 10) : undefined,
-            height: json && json.width ? parseInt(json.height, 10) : undefined,
-            beforeDate: json && json.beforeDate ? DateTime.fromISO(json.beforeDate) : null,
-            perPage: json && json.perPage ? parseInt(json.perPage, 10) : 100,
-            page: json && json.page ? parseInt(json.page, 10) : 1
+            ...json
         };
     }
 
