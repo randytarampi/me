@@ -6,7 +6,7 @@ import {compositeKeySeparator} from "../../../../src/lib/util";
 
 describe("Post", () => {
     describe("constructor", () => {
-        it("should build a `Post` object", () => {
+        it("should build a Post object", () => {
             const postJs = {
                 id: "woof",
                 source: "Woofdy",
@@ -32,6 +32,13 @@ describe("Post", () => {
             expect(post.type).to.eql(Post.name);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
+        });
+
+        it("returns an empty Post", function () {
+            const post = new Post();
+
+            expect(post).to.be.ok;
+            expect(post).to.be.instanceOf(Post);
         });
     });
 

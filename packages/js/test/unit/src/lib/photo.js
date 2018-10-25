@@ -6,7 +6,7 @@ import SizedPhoto from "../../../../src/lib/sizedPhoto";
 
 describe("Photo", () => {
     describe("constructor", () => {
-        it("should build a `Photo` object", () => {
+        it("should build a Photo object", () => {
             const photoJS = {
                 id: "woof",
                 source: "Woofdy",
@@ -37,6 +37,13 @@ describe("Photo", () => {
             expect(photo.dateCreated).to.be.an.instanceOf(DateTime);
             expect(photo.datePublished).to.be.an.instanceOf(DateTime);
             expect(photo.sizedPhotos).to.be.an.instanceOf(List);
+        });
+
+        it("returns an empty Photo", function () {
+            const photo = new Photo();
+
+            expect(photo).to.be.ok;
+            expect(photo).to.be.instanceOf(Photo);
         });
     });
 

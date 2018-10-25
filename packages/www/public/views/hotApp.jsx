@@ -78,7 +78,6 @@ export class App extends Component {
                 },
                 [
                     createImmutableBlacklistFilter("ui", ["routes"]), // FIXME-RT: Need to not rely on reducing `Component`s and `RegExp`s
-                    createImmutableBlacklistFilter("posts", ["posts"]), // FIXME-RT: Need to not rely on reducing `DateTime`s
                     createImmutableBlacklistFilter("letter", ["letters"]), // FIXME-RT: Need to not rely on reducing `Component`s and `DateTime`s
                     createImmutableBlacklistFilter("resume", ["resumes"]) // FIXME-RT: Need to not rely on reducing `Component`s and `DateTime`s
                 ]
