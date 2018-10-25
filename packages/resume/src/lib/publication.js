@@ -1,5 +1,5 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {Record} from "immutable";
-import {DateTime} from "luxon";
 
 export class Publication extends Record({
     name: null,
@@ -8,18 +8,19 @@ export class Publication extends Record({
     summary: null,
     url: null
 }) {
-    static fromJS(js = {}) {
-        return new Publication({
-            ...js,
-            releaseDate: js.releaseDate ? DateTime.fromJSDate(js.releaseDate) : null
+    constructor({releaseDate, ...properties} = {}) {
+        super({
+            releaseDate: castDatePropertyToDateTime(releaseDate),
+            ...properties
         });
     }
 
-    static fromJSON(json = {}) {
-        return new Publication({
-            ...json,
-            releaseDate: json.releaseDate ? DateTime.fromISO(json.releaseDate) : null
-        });
+    static fromJS(js) {
+        return new Publication(js);
+    }
+
+    static fromJSON(json) {
+        return new Publication(json);
     }
 
     static fromResume(json = {}) {

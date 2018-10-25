@@ -1,5 +1,5 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {List, Record} from "immutable";
-import {DateTime} from "luxon";
 
 export class Project extends Record({
     name: null,
@@ -12,11 +12,17 @@ export class Project extends Record({
     keywords: List(),
     roles: List()
 }) {
+    constructor({startDate, endDate, ...properties} = {}) {
+        super({
+            startDate: castDatePropertyToDateTime(startDate),
+            endDate: castDatePropertyToDateTime(endDate),
+            ...properties
+        });
+    }
+
     static fromJS(js = {}) {
         return new Project({
             ...js,
-            startDate: js.startDate ? DateTime.fromJSDate(js.startDate) : null,
-            endDate: js.endDate ? DateTime.fromJSDate(js.endDate) : null,
             highlights: js.highlights ? List(js.highlights) : null,
             keywords: js.highlights ? List(js.keywords) : null,
             roles: js.roles ? List(js.roles) : null
@@ -26,8 +32,6 @@ export class Project extends Record({
     static fromJSON(json = {}) {
         return new Project({
             ...json,
-            startDate: json.startDate ? DateTime.fromISO(json.startDate) : null,
-            endDate: json.endDate ? DateTime.fromISO(json.endDate) : null,
             highlights: json.highlights ? List(json.highlights) : null,
             keywords: json.keywords ? List(json.keywords) : null,
             roles: json.roles ? List(json.roles) : null
