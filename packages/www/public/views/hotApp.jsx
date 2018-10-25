@@ -7,10 +7,9 @@ import {
     LoadingSpinner,
     logger,
     reduxOfflineImmutableTransformRecords,
-    Route,
     setRoutesCreator
 } from "@randy.tarampi/jsx";
-import {Letter} from "@randy.tarampi/letter";
+import {Letter, LetterSection} from "@randy.tarampi/letter";
 import {
     Award,
     Education,
@@ -57,8 +56,8 @@ export class App extends Component {
                     },
                     persistOptions: {
                         records: reduxOfflineImmutableTransformRecords.concat([
-                            Route,
                             Letter,
+                            LetterSection,
                             Award,
                             Education,
                             Interest,
