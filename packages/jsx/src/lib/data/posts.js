@@ -1,4 +1,4 @@
-import {Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
+import {castDatePropertyToDateTime, Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
 import {Map, Set} from "immutable";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
@@ -7,7 +7,22 @@ export const postsReducer = (state = Map({posts: Set([])}), action) => {
     switch (action.type) {
         case FETCHING_POSTS_SUCCESS: {
             if (action.payload.posts) {
-                return state.set("posts", state.get("posts").union(action.payload.posts));
+                return state
+                    .set("posts", state.get("posts").union(action.payload.posts))
+                    .set("oldest", action.payload.oldest
+                        ? Object.keys(action.payload.oldest).reduce((oldest, oldestKey) => {
+                            oldest[oldestKey] = castDatePropertyToDateTime(action.payload.oldest[oldestKey]);
+                            return oldest;
+                        }, {})
+                        : Map()
+                    )
+                    .set("newest", action.payload.newest
+                        ? Map(Object.keys(action.payload.newest).reduce((newest, newestKey) => {
+                            newest[newestKey] = castDatePropertyToDateTime(action.payload.newest[newestKey]);
+                            return newest;
+                        }, {}))
+                        : Map()
+                    );
             }
 
             return state;
@@ -20,6 +35,7 @@ export const postsReducer = (state = Map({posts: Set([])}), action) => {
 
 export default postsReducer;
 
+export const getPostsState = state => state;
 export const getPosts = state => state.get("posts");
 
 export const getPhotoPosts = createSelector(

@@ -27,7 +27,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
 
     const oldestLoadedPost = selectors.getOldestPost(state);
     const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.datePublished;
-    const oldestPostAvailableDate = urlState && urlState.getIn(["oldest", type]);
+    const oldestPostAvailableDate = selectors.getPostsState(state).getIn(["oldest", type]);
 
     if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
         dispatch(fetchingPostsCancelled({
