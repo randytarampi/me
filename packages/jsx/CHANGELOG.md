@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/randytarampi/me/compare/v0.45.8...v0.46.0) (2018-10-26)
+
+
+### Bug Fixes
+
+* **jsx:** `fetchPosts` follows `fetchResume` in its failure handling. ([d91be33](https://github.com/randytarampi/me/commit/d91be33))
+* **jsx:** `fetchPosts` graceful error handling dispatches a `FETCHING_POSTS_FAILURE_RECOVERY`. ([5cf4ca3](https://github.com/randytarampi/me/commit/5cf4ca3)), closes [/github.com/redux-offline/redux-offline#3](https://github.com//github.com/redux-offline/redux-offline/issues/3)
+* ESLint. ([f60cddf](https://github.com/randytarampi/me/commit/f60cddf))
+* **jsx:** ESLint. ([3d96ce9](https://github.com/randytarampi/me/commit/3d96ce9))
+* **jsx:** ESLint. ([76084bd](https://github.com/randytarampi/me/commit/76084bd))
+* **jsx:** Revive `DateTime` `posts` metadata on `REHYDRATE`. ([e90d503](https://github.com/randytarampi/me/commit/e90d503))
+* **www:** Don't cache API responses. ([9747ef9](https://github.com/randytarampi/me/commit/9747ef9))
+
+
+### Features
+
+* **www:** Initial work integrating `redux-offline`. ([24e93f2](https://github.com/randytarampi/me/commit/24e93f2))
+* Buy into `castDatePropertyToDateTime` everywhere. ([e40b777](https://github.com/randytarampi/me/commit/e40b777))
+
+
+
+
+
 ## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

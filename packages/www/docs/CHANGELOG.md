@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/randytarampi/me/compare/v0.45.8...v0.46.0) (2018-10-26)
+
+
+### Bug Fixes
+
+* **www:** `redux-offline` also needs to know things about `LetterSection`s. ([e82ca73](https://github.com/randytarampi/me/commit/e82ca73))
+* **www:** Don't cache API responses. ([9747ef9](https://github.com/randytarampi/me/commit/9747ef9))
+
+
+### Features
+
+* **www:** `redux-offline` persists `Person`s properly. ([7adff23](https://github.com/randytarampi/me/commit/7adff23))
+* **www:** `redux-offline` persists `Post`s properly. ([2e08933](https://github.com/randytarampi/me/commit/2e08933))
+* **www:** `redux-offline` persists `Resume` sub-entities properly. ([5e90b41](https://github.com/randytarampi/me/commit/5e90b41))
+* **www:** Initial work integrating `redux-offline`. ([24e93f2](https://github.com/randytarampi/me/commit/24e93f2))
+
+
+
+
+
 ## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
 
 

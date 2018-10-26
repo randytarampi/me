@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "0.45.8",
+  "version": "0.46.0",
   "description": "Some common JSX components for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
@@ -50,8 +50,8 @@
     "emoji"
   ],
   "dependencies": {
-    "@actra-development-oss/redux-persist-transform-filter-immutable":  "^1.0.0",
-    "@randy.tarampi/js": "^0.45.8",
+    "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
+    "@randy.tarampi/js": "^0.46.0",
     "@randy.tarampi/react-dimensions": "^2.0.0-alpha.3",
     "@randy.tarampi/redux-offline-immutable-config": "latest",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",

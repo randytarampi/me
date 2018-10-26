@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/randytarampi/me/compare/v0.45.8...v0.46.0) (2018-10-26)
+
+
+### Bug Fixes
+
+* **babel:** Whoops, didn't want a `loose` `[@babel](https://github.com/babel)/preset-env`. ([7015a90](https://github.com/randytarampi/me/commit/7015a90))
+* **jsx:** `fetchPosts` follows `fetchResume` in its failure handling. ([d91be33](https://github.com/randytarampi/me/commit/d91be33))
+* **jsx:** `fetchPosts` graceful error handling dispatches a `FETCHING_POSTS_FAILURE_RECOVERY`. ([5cf4ca3](https://github.com/randytarampi/me/commit/5cf4ca3)), closes [/github.com/redux-offline/redux-offline#3](https://github.com//github.com/redux-offline/redux-offline/issues/3)
+* **jsx:** ESLint. ([76084bd](https://github.com/randytarampi/me/commit/76084bd))
+* **jsx:** ESLint. ([3d96ce9](https://github.com/randytarampi/me/commit/3d96ce9))
+* **jsx:** Revive `DateTime` `posts` metadata on `REHYDRATE`. ([e90d503](https://github.com/randytarampi/me/commit/e90d503))
+* **letter:** `fetchLetter` graceful error handling dispatches a `FETCHING_LETTER_FAILURE_RECOVERY`. ([4d5c59c](https://github.com/randytarampi/me/commit/4d5c59c))
+* **letter:** Always attempt to fetch a `Letter` variant. ([55baecf](https://github.com/randytarampi/me/commit/55baecf))
+* **resume:** `fetchResume` graceful error handling dispatches a `FETCHING_RESUME_FAILURE_RECOVERY`. ([8144d12](https://github.com/randytarampi/me/commit/8144d12))
+* **resume:** Always attempt to fetch a `Resume` variant. ([a0eb3e2](https://github.com/randytarampi/me/commit/a0eb3e2))
+* **www:** `redux-offline` also needs to know things about `LetterSection`s. ([e82ca73](https://github.com/randytarampi/me/commit/e82ca73))
+* **www:** Don't cache API responses. ([9747ef9](https://github.com/randytarampi/me/commit/9747ef9))
+* Actually add the files mentioned in 24eff7edf9b2f4f7cad912e03d1b1efacf4022cb. ([12285ad](https://github.com/randytarampi/me/commit/12285ad))
+* ESLint. ([f60cddf](https://github.com/randytarampi/me/commit/f60cddf))
+* Rename `default` resume, letter and job-application files as `resume`, `letter` and `job-application` respectively. ([24eff7e](https://github.com/randytarampi/me/commit/24eff7e))
+
+
+### Features
+
+* **posts:** `SearchParams` buys into `castDatePropertyToDateTime`. ([e97465f](https://github.com/randytarampi/me/commit/e97465f))
+* **www:** `redux-offline` persists `Person`s properly. ([7adff23](https://github.com/randytarampi/me/commit/7adff23))
+* **www:** `redux-offline` persists `Post`s properly. ([2e08933](https://github.com/randytarampi/me/commit/2e08933))
+* **www:** `redux-offline` persists `Resume` sub-entities properly. ([5e90b41](https://github.com/randytarampi/me/commit/5e90b41))
+* **www:** Initial work integrating `redux-offline`. ([24e93f2](https://github.com/randytarampi/me/commit/24e93f2))
+* Buy into `castDatePropertyToDateTime` everywhere. ([e40b777](https://github.com/randytarampi/me/commit/e40b777))
+
+
+
+
+
 ## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
 
 
