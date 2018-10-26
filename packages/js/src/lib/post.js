@@ -1,8 +1,7 @@
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {Record} from "immutable";
-import {DateTime} from "luxon";
 import Profile from "./profile";
-import {compositeKeySeparator} from "./util";
+import {castDatePropertyToDateTime, compositeKeySeparator} from "./util";
 
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
     id: null,
@@ -16,6 +15,14 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     creator: null,
     ...otherProperties
 }) {
+    constructor({dateCreated, datePublished, ...properties} = {}) {
+        super({
+            dateCreated: castDatePropertyToDateTime(dateCreated),
+            datePublished: castDatePropertyToDateTime(datePublished),
+            ...properties
+        });
+    }
+
     get uid() {
         return `${this.source}${compositeKeySeparator}${this.id}`;
     }
@@ -43,12 +50,6 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     static parsePropertiesFromJs(js) {
         return {
             ...js,
-            dateCreated: js.dateCreated && !(js.dateCreated instanceof DateTime)
-                ? js.dateCreated.valueOf ? DateTime.fromMillis(js.dateCreated.valueOf()) : null
-                : js.dateCreated,
-            datePublished: js.datePublished && !(js.datePublished instanceof DateTime)
-                ? js.datePublished.valueOf ? DateTime.fromMillis(js.datePublished.valueOf()) : null
-                : js.datePublished,
             creator: js.creator ? Profile.fromJS(js.creator) : null
         };
     }
@@ -60,8 +61,6 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     static parsePropertiesFromJson(json) {
         return {
             ...json,
-            dateCreated: json.dateCreated ? DateTime.fromISO(json.dateCreated) : null,
-            datePublished: json.datePublished ? DateTime.fromISO(json.datePublished) : null,
             creator: json.creator ? Profile.fromJSON(json.creator) : null
         };
     }

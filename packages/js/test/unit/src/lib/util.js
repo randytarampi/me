@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import {DateTime} from "luxon";
 import {Character} from "../../../../src/lib/emoji";
 import Photo from "../../../../src/lib/photo";
 import Post from "../../../../src/lib/post";
@@ -102,6 +103,46 @@ describe("util", function () {
                 expect(error).to.be.ok;
                 expect(error.message).to.match(/Can't `getEntityForType` for `woof`/);
             }
+        });
+    });
+
+    describe("castDatePropertyToDateTime", function () {
+        it("returns null for falsy values", function () {
+            const castedDate = util.castDatePropertyToDateTime(null);
+
+            expect(castedDate).to.eql(null);
+        });
+
+        it("returns a DateTime from a DateTime", function () {
+            const baseDate = DateTime.fromISO("1991-11-14");
+            const castedDate = util.castDatePropertyToDateTime(baseDate);
+
+            expect(castedDate).to.be.instanceOf(DateTime);
+            expect(castedDate).to.eql(baseDate);
+        });
+
+        it("returns a DateTime from an ISO8601 string", function () {
+            const baseDate = "1991-11-14";
+            const castedDate = util.castDatePropertyToDateTime(baseDate);
+
+            expect(castedDate).to.be.instanceOf(DateTime);
+            expect(castedDate.toISO()).to.contain(baseDate);
+        });
+
+        it("returns a DateTime from an ISO8601 string", function () {
+            const baseDate = DateTime.fromISO("1991-11-14").valueOf();
+            const castedDate = util.castDatePropertyToDateTime(baseDate);
+
+            expect(castedDate).to.be.instanceOf(DateTime);
+            expect(castedDate.valueOf()).to.eql(baseDate);
+        });
+
+        it("returns a DateTime from a Date", function () {
+            const baseDate = new Date("1991-11-14");
+            const castedDate = util.castDatePropertyToDateTime(baseDate);
+
+            expect(castedDate).to.be.instanceOf(DateTime);
+            expect(castedDate.valueOf()).to.eql(baseDate.valueOf());
         });
     });
 });

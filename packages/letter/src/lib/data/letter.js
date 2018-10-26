@@ -1,12 +1,12 @@
 import {Map, Set} from "immutable";
 import {createSelector} from "reselect";
-import defaultLetter from "../../../letter";
+import defaultLetter from "../../letters/letter.json";
 import {FETCHING_LETTER_SUCCESS} from "../actions/fetchLetter";
 import Letter from "../letter";
 
 const defaultState = Map({
     letters: Set([
-        Map({variant: "default", letter: Letter.fromJSON(defaultLetter)})
+        Map({variant: "letter", letter: Letter.fromJSON(defaultLetter)})
     ])
 });
 
@@ -15,7 +15,7 @@ export const letterReducer = (state = defaultState, action) => {
         case FETCHING_LETTER_SUCCESS: {
             if (action.payload.letter) {
                 return state.set("letters", state.get("letters").add(Map({
-                    variant: action.payload.variant || "default",
+                    variant: action.payload.variant || "letter",
                     letter: action.payload.letter
                 })));
             }

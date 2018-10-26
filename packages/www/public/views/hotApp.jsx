@@ -1,24 +1,104 @@
 import {
+    buildReduxOfflineConfig,
     ClientSwipeableReduxRouterRoot,
     configureStore,
+    createImmutableBlacklistFilter,
     initializeCrispCreator,
+    LoadingSpinner,
+    logger,
+    reduxOfflineImmutableTransformRecords,
     setRoutesCreator
 } from "@randy.tarampi/jsx";
+import {Letter, LetterSection} from "@randy.tarampi/letter";
+import {
+    Award,
+    Education,
+    Interest,
+    Language,
+    Project,
+    Publication,
+    Reference,
+    Resume,
+    ResumeCustomContent,
+    ResumeCustomPrintableFooterContent,
+    ResumeCustomPrintableSectionContent,
+    Skill,
+    Volunteer,
+    Work
+} from "@randy.tarampi/resume";
 import {createBrowserHistory} from "history";
-import React from "react";
+import React, {Component} from "react";
 import {hot} from "react-hot-loader";
 import {combinedReducers} from "../data/reducers";
 import routes from "../routes";
 
-const history = createBrowserHistory();
-const store = configureStore(undefined, history, combinedReducers);
+export class App extends Component {
+    constructor() {
+        super();
 
-if (window.$crisp) {
-    store.dispatch(initializeCrispCreator(window.$crisp));
+        const history = createBrowserHistory();
+        const store = configureStore(
+            undefined,
+            history,
+            combinedReducers,
+            buildReduxOfflineConfig(
+                {
+                    persistCallback: () => {
+                        logger.debug("Rehydrated state!");
+
+                        if (window.$crisp) {
+                            store.dispatch(initializeCrispCreator(window.$crisp));
+                        }
+
+                        store.dispatch(setRoutesCreator(routes));
+
+                        this.setState({rehydrated: true});
+                    },
+                    persistOptions: {
+                        records: reduxOfflineImmutableTransformRecords.concat([
+                            Letter,
+                            LetterSection,
+                            Award,
+                            Education,
+                            Interest,
+                            Language,
+                            Project,
+                            Publication,
+                            Reference,
+                            Resume,
+                            ResumeCustomContent,
+                            ResumeCustomPrintableFooterContent,
+                            ResumeCustomPrintableSectionContent,
+                            Skill,
+                            Volunteer,
+                            Work
+                        ])
+                    }
+                },
+                [
+                    createImmutableBlacklistFilter("ui", ["routes"]), // FIXME-RT: Need to not rely on reducing `Component`s and `RegExp`s
+                ]
+            )
+        );
+
+        this.state = {
+            store,
+            history,
+            rehydrated: false
+        };
+    }
+
+    render() {
+        if (!this.state.rehydrated) {
+            return <LoadingSpinner/>;
+        }
+
+        return <ClientSwipeableReduxRouterRoot
+            history={this.state.history}
+            routes={routes}
+            store={this.state.store}
+        />;
+    }
 }
-
-store.dispatch(setRoutesCreator(routes));
-
-export const App = () => <ClientSwipeableReduxRouterRoot history={history} routes={routes} store={store}/>;
 
 export default hot(module)(App);

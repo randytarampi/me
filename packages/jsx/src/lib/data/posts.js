@@ -1,13 +1,27 @@
-import {Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
+import {castDatePropertyToDateTime, Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
 import {Map, Set} from "immutable";
+import {REHYDRATE} from "redux-persist/constants";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
 
-export const postsReducer = (state = Map({posts: Set([])}), action) => {
+export const postsReducer = (state = Map({posts: Set([]), oldest: Map(), newest: Map()}), action) => {
     switch (action.type) {
+        case REHYDRATE: {
+            if (action.payload.posts) {
+                return state
+                    .set("oldest", buildOldestOrNewestPostMeta(action.payload.posts.toJS(), "oldest"))
+                    .set("newest", buildOldestOrNewestPostMeta(action.payload.posts.toJS(), "newest"));
+            }
+
+            return state;
+        }
+
         case FETCHING_POSTS_SUCCESS: {
             if (action.payload.posts) {
-                return state.set("posts", state.get("posts").union(action.payload.posts));
+                return state
+                    .set("posts", state.get("posts").union(action.payload.posts))
+                    .set("oldest", buildOldestOrNewestPostMeta(action.payload, "oldest"))
+                    .set("newest", buildOldestOrNewestPostMeta(action.payload, "newest"));
             }
 
             return state;
@@ -18,8 +32,16 @@ export const postsReducer = (state = Map({posts: Set([])}), action) => {
     }
 };
 
+const buildOldestOrNewestPostMeta = (payload, key) => payload[key]
+    ? Map(Object.keys(payload[key]).reduce((keyest, keyestKey) => {
+        keyest[keyestKey] = castDatePropertyToDateTime(payload[key][keyestKey]);
+        return keyest;
+    }, {}))
+    : Map();
+
 export default postsReducer;
 
+export const getPostsState = state => state;
 export const getPosts = state => state.get("posts");
 
 export const getPhotoPosts = createSelector(

@@ -1,5 +1,6 @@
 /* global global */
 
+import "mock-local-storage";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import Enzyme from "enzyme";

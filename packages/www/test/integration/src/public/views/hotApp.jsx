@@ -1,3 +1,4 @@
+import {LoadingSpinner} from "@randy.tarampi/jsx";
 import {mount} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
 import React from "react";
@@ -19,10 +20,24 @@ describe("hotApp", function () {
         stubStore = mockStore(stubInitialState);
     });
 
-    it("renders", function () {
+    it("renders (while rehydrating)", function () {
         const rendered = mount(stubStore)(<App/>);
 
         expect(rendered).to.be.ok;
-        expect(rendered).to.have.descendants(Provider);
+        expect(rendered).to.have.descendants(LoadingSpinner);
+    });
+
+    it("renders (rehydrated)", function () {
+        const rendered = mount(stubStore)(<App/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.descendants(LoadingSpinner);
+
+        const loaded = rendered.setState({
+            ...rendered.state(),
+            rehydrated: true
+        });
+        expect(loaded).to.be.ok;
+        expect(loaded).to.have.descendants(Provider);
     });
 });

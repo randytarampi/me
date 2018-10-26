@@ -2,7 +2,7 @@ import {expect} from "chai";
 import Helmet from "react-helmet";
 import renderHtml from "../../../../src/lib/renderHtml";
 import Resume from "../../../../src/lib/resume";
-import resumeJson from "../../../../src/resumes";
+import resumeJson from "../../../../src/resumes/resume.json";
 
 describe("renderHtml", function () {
     this.timeout(60000);

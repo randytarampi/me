@@ -1,4 +1,4 @@
-import baseResume from "../resumes";
+import baseResume from "../resumes/resume.json";
 import Resume from "./resume";
 
 export const buildResume = (resumeTemplate, id) => {

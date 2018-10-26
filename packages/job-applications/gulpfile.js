@@ -124,7 +124,7 @@ gulp.task("job-applications:pdf", async () => {
     const path = require("path");
     const args = require("yargs").argv;
     const server = require("./server");
-    let jobApplication = require(path.join(__dirname, "src/job-applications", args.file || args.name || "")).default;
+    const jobApplication = require(path.join(__dirname, "src/job-applications", args.file || args.name || "")).default;
 
     return Promise.all([
             renderLetter(jobApplication.letter),

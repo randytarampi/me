@@ -2,6 +2,7 @@ import {fromJS, Map} from "immutable";
 import {
     FETCHING_RESUME,
     FETCHING_RESUME_CANCELLED,
+    FETCHING_RESUME_FAILURE_RECOVERY,
     FETCHING_RESUME_FAILURE,
     FETCHING_RESUME_SUCCESS
 } from "../actions/fetchResume";
@@ -17,7 +18,8 @@ export const apiReducer = (state = Map(), action) => {
             }));
         }
 
-        case FETCHING_RESUME_CANCELLED: {
+        case FETCHING_RESUME_CANCELLED:
+        case FETCHING_RESUME_FAILURE_RECOVERY: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
 
             return state.set(action.payload.fetchUrl, fromJS({

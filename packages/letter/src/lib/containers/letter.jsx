@@ -8,7 +8,7 @@ import selectors from "../data/selectors";
 export const ConnectedLetter = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
-        const variant = ownProps.match.params.variant || "default";
+        const variant = ownProps.match.params.variant || "letter";
 
         return {
             letter: ownProps.letter || selectors.getLetterVariant(state, variant),

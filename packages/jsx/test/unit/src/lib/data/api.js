@@ -1,6 +1,5 @@
 import {expect} from "chai";
 import {Map} from "immutable";
-import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
 import {
     FETCHING_POSTS_PER_PAGE,
@@ -78,9 +77,7 @@ describe("api", function () {
 
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
-                    isLoading: false,
-                    oldest: DateTime.utc(1991, 11, 14),
-                    newest: DateTime.utc(2018, 8, 22)
+                    isLoading: false
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingPosts(stubPayload));
@@ -140,9 +137,7 @@ describe("api", function () {
 
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
-                    isLoading: false,
-                    oldest: DateTime.utc(1991, 11, 14),
-                    newest: DateTime.utc(2018, 8, 22)
+                    isLoading: false
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingPostsCancelled(stubPayload));
@@ -197,9 +192,7 @@ describe("api", function () {
 
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
-                    isLoading: false,
-                    oldest: DateTime.utc(1991, 11, 14),
-                    newest: DateTime.utc(2018, 8, 22)
+                    isLoading: false
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingPostsFailure(stubPayload));
@@ -226,17 +219,7 @@ describe("api", function () {
         it("reduces the correct state (no prior state)", function () {
             const stubFetchUrl = "/woof";
             const stubPayload = {
-                fetchUrl: stubFetchUrl,
-                oldest: {
-                    global: DateTime.utc().toISO(),
-                    Post: DateTime.utc().toISO(),
-                    Photo: DateTime.utc().toISO()
-                },
-                newest: {
-                    Post: DateTime.utc().toISO(),
-                    Photo: DateTime.utc().toISO(),
-                    global: DateTime.utc().toISO()
-                }
+                fetchUrl: stubFetchUrl
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -246,17 +229,7 @@ describe("api", function () {
             const apiStateForUrlObject = apiStateForUrl.toJS();
             expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql({
-                isLoading: false,
-                oldest: {
-                    global: DateTime.fromISO(stubPayload.oldest.global),
-                    Post: DateTime.fromISO(stubPayload.oldest.Post),
-                    Photo: DateTime.fromISO(stubPayload.oldest.Photo)
-                },
-                newest: {
-                    Post: DateTime.fromISO(stubPayload.newest.Post),
-                    Photo: DateTime.fromISO(stubPayload.newest.Photo),
-                    global: DateTime.fromISO(stubPayload.newest.global)
-                }
+                isLoading: false
             });
 
             const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
@@ -267,32 +240,12 @@ describe("api", function () {
         it("reduces the correct state (has existing state)", function () {
             const stubFetchUrl = "/woof";
             const stubPayload = {
-                fetchUrl: stubFetchUrl,
-                oldest: {
-                    global: DateTime.utc().toISO(),
-                    Post: DateTime.utc().toISO(),
-                    Photo: DateTime.utc().toISO()
-                },
-                newest: {
-                    Post: DateTime.utc().toISO(),
-                    Photo: DateTime.utc().toISO(),
-                    global: DateTime.utc().toISO()
-                }
+                fetchUrl: stubFetchUrl
             };
 
             stubInitialState = Map({
                 [stubFetchUrl]: Map({
-                    isLoading: false,
-                    oldest: Map({
-                        global: DateTime.fromISO(stubPayload.oldest.global),
-                        Post: DateTime.fromISO(stubPayload.oldest.Post),
-                        Photo: DateTime.fromISO(stubPayload.oldest.Photo)
-                    }),
-                    newest: Map({
-                        Post: DateTime.fromISO(stubPayload.newest.Post),
-                        Photo: DateTime.fromISO(stubPayload.newest.Photo),
-                        global: DateTime.fromISO(stubPayload.newest.global)
-                    })
+                    isLoading: false
                 })
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -305,16 +258,6 @@ describe("api", function () {
                 stubInitialState
                     .get(stubFetchUrl)
                     .set("isLoading", false)
-                    .set("oldest", Map({
-                        global: DateTime.fromISO(stubPayload.oldest.global),
-                        Post: DateTime.fromISO(stubPayload.oldest.Post),
-                        Photo: DateTime.fromISO(stubPayload.oldest.Photo)
-                    }))
-                    .set("newest", Map({
-                        Post: DateTime.fromISO(stubPayload.newest.Post),
-                        Photo: DateTime.fromISO(stubPayload.newest.Photo),
-                        global: DateTime.fromISO(stubPayload.newest.global)
-                    }))
                     .toJS()
             );
 

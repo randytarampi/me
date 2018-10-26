@@ -69,6 +69,7 @@
     "materialize-css": "^0.100.2",
     "mini-css-extract-plugin": "^0.4.2",
     "mocha": "^5.2.0",
+    "mock-local-storage": "^1.1.7",
     "nyc": "^13.0.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",

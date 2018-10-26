@@ -1,4 +1,4 @@
-import baseLetter from "../../letter";
+import baseLetter from "../letters/letter.json";
 import Letter from "./letter";
 
 export const buildLetter = (letterTemplate, id) => {

@@ -1,3 +1,3 @@
-import defaultLetter from "../../letter";
+import defaultLetter from "./letter.json";
 
 export default defaultLetter;

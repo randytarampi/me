@@ -1,7 +1,7 @@
 import {Letter} from "@randy.tarampi/letter";
-import defaultLetterJson from "@randy.tarampi/letter/letter";
+import defaultLetterJson from "@randy.tarampi/letter/src/letters/letter.json";
 import {Resume} from "@randy.tarampi/resume";
-import defaultResumeJson from "@randy.tarampi/resume/resume";
+import defaultResumeJson from "@randy.tarampi/resume/src/resumes/resume";
 import {List, Map, Record} from "immutable";
 import _ from "lodash";
 import packageJson from "../../package";

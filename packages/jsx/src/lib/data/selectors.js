@@ -7,6 +7,7 @@ import {
     getPhotoPosts,
     getPhotoPostsSortedByDate,
     getPostsSortedByDate,
+    getPostsState,
     getWordPosts,
     getWordPostsSortedByDate
 } from "./posts";
@@ -20,6 +21,7 @@ export const selectors = {
     getErrorMessage: state => getErrorMessage(state.get("error")),
     getErrorTimeoutHandlerId: state => getErrorTimeoutHandlerId(state.get("error")),
 
+    getPostsState: state => getPostsState(state.get("posts")),
     getPhotoPosts: state => getPhotoPosts(state.get("posts")),
     getWordPosts: state => getWordPosts(state.get("posts")),
     getPostsSortedByDate: state => getPostsSortedByDate(state.get("posts")),

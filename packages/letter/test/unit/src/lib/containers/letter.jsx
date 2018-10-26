@@ -54,7 +54,7 @@ describe("ConnectedLetter", function () {
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("letter", stubLetter);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "default");
+        expect(rendered).to.have.prop("variant", "letter");
         expect(rendered).to.have.prop("fetchLetter");
 
         expect(fetchLetter.fetchLetterCreator.notCalled).to.eql(true);
@@ -75,7 +75,7 @@ describe("ConnectedLetter", function () {
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("letter", stubLetter);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "default");
+        expect(rendered).to.have.prop("variant", "letter");
         expect(rendered).to.have.prop("fetchLetter");
 
         expect(fetchLetter.fetchLetterCreator.notCalled).to.eql(true);

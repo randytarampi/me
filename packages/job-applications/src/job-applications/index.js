@@ -1,4 +1,4 @@
 import {JobApplication} from "../lib";
-import defaultJobApplicationJs from "../../jobApplication";
+import defaultJobApplicationJs from "./jobApplication";
 
 export default JobApplication.fromJSON(defaultJobApplicationJs);

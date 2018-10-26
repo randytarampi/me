@@ -1,5 +1,5 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {List, Record} from "immutable";
-import {DateTime} from "luxon";
 
 export class Education extends Record({
     institution: null,
@@ -12,11 +12,17 @@ export class Education extends Record({
     website: null,
     courses: List()
 }) {
+    constructor({startDate, endDate, ...properties} = {}) {
+        super({
+            startDate: castDatePropertyToDateTime(startDate),
+            endDate: castDatePropertyToDateTime(endDate),
+            ...properties
+        });
+    }
+
     static fromJS(js = {}) {
         return new Education({
             ...js,
-            startDate: js.startDate ? DateTime.fromJSDate(js.startDate) : null,
-            endDate: js.endDate ? DateTime.fromJSDate(js.endDate) : null,
             courses: js.courses ? List(js.courses) : null
         });
     }
@@ -24,8 +30,6 @@ export class Education extends Record({
     static fromJSON(json = {}) {
         return new Education({
             ...json,
-            startDate: json.startDate ? DateTime.fromISO(json.startDate) : null,
-            endDate: json.endDate ? DateTime.fromISO(json.endDate) : null,
             courses: json.courses ? List(json.courses) : null
         });
     }

@@ -1,5 +1,5 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {Record} from "immutable";
-import {DateTime} from "luxon";
 
 export class Award extends Record({
     title: null,
@@ -7,21 +7,22 @@ export class Award extends Record({
     date: null,
     summary: null
 }) {
-    static fromJS(js = {}) {
-        return new Award({
-            ...js,
-            date: js.date ? DateTime.fromJSDate(js.date) : null
+    constructor({date, ...properties} = {}) {
+        super({
+            date: castDatePropertyToDateTime(date),
+            ...properties
         });
     }
 
-    static fromJSON(json = {}) {
-        return new Award({
-            ...json,
-            date: json.date ? DateTime.fromISO(json.date) : null
-        });
+    static fromJS(js) {
+        return new Award(js);
     }
 
-    static fromResume(json = {}) {
+    static fromJSON(json) {
+        return new Award(json);
+    }
+
+    static fromResume(json) {
         return Award.fromJSON(json);
     }
 }

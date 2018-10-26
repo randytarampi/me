@@ -5,6 +5,7 @@ import selectors from "../data/selectors";
 import setError from "./setError";
 
 export const FETCHING_POSTS_FAILURE = "FETCHING_POSTS_FAILURE";
+export const FETCHING_POSTS_FAILURE_RECOVERY = "FETCHING_POSTS_FAILURE_RECOVERY";
 export const FETCHING_POSTS_SUCCESS = "FETCHING_POSTS_SUCCESS";
 export const FETCHING_POSTS_CANCELLED = "FETCHING_POSTS_CANCELLED";
 export const FETCHING_POSTS = "FETCHING_POSTS";
@@ -26,7 +27,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
 
     const oldestLoadedPost = selectors.getOldestPost(state);
     const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.datePublished;
-    const oldestPostAvailableDate = urlState && urlState.getIn(["oldest", type]);
+    const oldestPostAvailableDate = selectors.getPostsState(state).getIn(["oldest", type]);
 
     if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
         dispatch(fetchingPostsCancelled({
@@ -45,7 +46,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                     orderBy: "datePublished",
                     orderOperator: "lt",
                     orderComparator: oldestLoadedPostDate && oldestLoadedPostDate.toISO(),
-                    orderComparatorType: "String",
+                    orderComparatorType: "String"
                 }
                 : null
         )
@@ -63,7 +64,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                 ...postsResponse
             }));
 
-            if (!postsResponse || !postsResponse.posts || !postsResponse.posts.length) {
+            if (!oldestLoadedPostDate && (!postsResponse || !postsResponse.posts || !postsResponse.posts.length)) {
                 dispatch(setError(undefined, "ENOPOSTS"));
             }
         })
@@ -72,7 +73,16 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                 fetchUrl,
                 error
             }));
-            dispatch(setError(error, "EFETCH"));
+
+            if (!oldestLoadedPostDate) {
+                dispatch(setError(error, "EFETCH"));
+            } else {
+                dispatch(fetchingPostsFailureRecovery({
+                    fetchUrl,
+                    oldestPostAvailableDate,
+                    oldestLoadedPostDate
+                }));
+            }
 
             throw error;
         });
@@ -82,5 +92,6 @@ export const fetchingPosts = createAction(FETCHING_POSTS);
 export const fetchingPostsCancelled = createAction(FETCHING_POSTS_CANCELLED);
 export const fetchingPostsSuccess = createAction(FETCHING_POSTS_SUCCESS);
 export const fetchingPostsFailure = createAction(FETCHING_POSTS_FAILURE);
+export const fetchingPostsFailureRecovery = createAction(FETCHING_POSTS_FAILURE_RECOVERY);
 
 export default fetchPostsCreator;

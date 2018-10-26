@@ -1,3 +1,4 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {PrintableSection} from "@randy.tarampi/jsx";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
@@ -5,7 +6,7 @@ import React from "react";
 
 export const LetterDate = ({contentConfiguration}) => {
     const date = contentConfiguration.contentProps && contentConfiguration.contentProps.date
-        ? DateTime.fromISO(contentConfiguration.contentProps.date)
+        ? castDatePropertyToDateTime(contentConfiguration.contentProps.date)
         : DateTime.local();
 
     return <PrintableSection
@@ -22,7 +23,7 @@ export const LetterDate = ({contentConfiguration}) => {
 };
 
 LetterDate.propTypes = {
-    contentConfiguration: PropTypes.object.isRequired,
+    contentConfiguration: PropTypes.object.isRequired
 };
 
 export default LetterDate;

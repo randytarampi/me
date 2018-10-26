@@ -3,6 +3,7 @@ import {
     FETCHING_LETTER,
     FETCHING_LETTER_CANCELLED,
     FETCHING_LETTER_FAILURE,
+    FETCHING_LETTER_FAILURE_RECOVERY,
     FETCHING_LETTER_SUCCESS
 } from "../actions/fetchLetter";
 
@@ -17,7 +18,8 @@ export const apiReducer = (state = Map(), action) => {
             }));
         }
 
-        case FETCHING_LETTER_CANCELLED: {
+        case FETCHING_LETTER_CANCELLED:
+        case FETCHING_LETTER_FAILURE_RECOVERY: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
 
             return state.set(action.payload.fetchUrl, fromJS({

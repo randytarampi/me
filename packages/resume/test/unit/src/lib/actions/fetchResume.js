@@ -8,6 +8,7 @@ import {
     FETCHING_RESUME,
     FETCHING_RESUME_CANCELLED,
     FETCHING_RESUME_FAILURE,
+    FETCHING_RESUME_FAILURE_RECOVERY,
     FETCHING_RESUME_SUCCESS
 } from "../../../../../src/lib/actions/fetchResume";
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchResume";
@@ -71,50 +72,6 @@ describe("fetchResume", function () {
                 });
         });
 
-        it("isn't dispatched if already loaded the resume variant", function () {
-            const stubVariant = "test";
-            const stubResumeResponse = testResumeJson;
-
-            const proxyquiredFetchResume = proxyquire("../../../../../src/lib/actions/fetchResume", {
-                "../api/fetchResume": {
-                    "default": () => Promise.resolve(stubResumeResponse)
-                }
-            });
-
-            stubInitialState = Map({
-                api: Map({
-                    [buildFetchUrlForVariant(stubVariant)]: Map({
-                        isLoading: false,
-                        variant: stubVariant
-                    })
-                }),
-                resume: Map({
-                    resumes: Set([
-                        Map({variant: stubVariant, resume: testResumeJson})
-                    ])
-                })
-            });
-            stubStore = mockStore(stubInitialState);
-
-            return stubStore.dispatch(proxyquiredFetchResume.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
-
-                    expect(actions).to.be.ok;
-                    expect(actions).to.have.length(1);
-                    expect(actions).to.eql([
-                        {
-                            type: FETCHING_RESUME_CANCELLED,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                resume: testResumeJson
-                            }
-                        }
-                    ]);
-                });
-        });
-
         it("is dispatched with the expected payload (first variant)", function () {
             const stubVariant = "test";
             const stubResumeResponse = testResumeJson;
@@ -172,13 +129,13 @@ describe("fetchResume", function () {
 
             stubInitialState = Map({
                 api: Map({
-                    [`${__RESUME_SERVICE_URL__}/default.json`]: Map({
+                    [`${__RESUME_SERVICE_URL__}/resume.json`]: Map({
                         isLoading: false
                     })
                 }),
                 resume: Map({
                     resumes: Set([
-                        Map({variant: "default", resume: testResumeJson})
+                        Map({variant: "resume", resume: testResumeJson})
                     ])
                 })
             });
@@ -302,6 +259,65 @@ describe("fetchResume", function () {
                     expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
+                });
+        });
+
+        it("is dispatched with the expected payload (fetch error but already loaded the resume variant)", function () {
+            const stubVariant = "test";
+            const stubResumeResponse = testResumeJson;
+
+            const proxyquiredFetchResume = proxyquire("../../../../../src/lib/actions/fetchResume", {
+                "../api/fetchResume": {
+                    "default": () => Promise.reject(stubResumeResponse)
+                }
+            });
+
+            stubInitialState = Map({
+                api: Map({
+                    [buildFetchUrlForVariant(stubVariant)]: Map({
+                        isLoading: false,
+                        variant: stubVariant
+                    })
+                }),
+                resume: Map({
+                    resumes: Set([
+                        Map({variant: stubVariant, resume: testResumeJson})
+                    ])
+                })
+            });
+            stubStore = mockStore(stubInitialState);
+
+            return stubStore.dispatch(proxyquiredFetchResume.default(stubVariant))
+                .then(() => {
+                    const actions = stubStore.getActions();
+
+                    expect(actions).to.be.ok;
+                    expect(actions).to.have.length(3);
+                    expect(actions).to.eql([
+                        {
+                            type: FETCHING_RESUME,
+                            payload: {
+                                fetchUrl: buildFetchUrlForVariant(stubVariant),
+                                variant: stubVariant
+                            }
+                        },
+                        {
+                            type: FETCHING_RESUME_FAILURE,
+                            payload: {
+                                fetchUrl: buildFetchUrlForVariant(stubVariant),
+                                variant: stubVariant,
+                                error: stubResumeResponse
+                            }
+                        },
+                        {
+                            type: FETCHING_RESUME_FAILURE_RECOVERY,
+                            payload: {
+                                fetchUrl: buildFetchUrlForVariant(stubVariant),
+                                variant: stubVariant,
+                                resume: testResumeJson
+                            }
+                        }
+                    ]);
                 });
         });
     });

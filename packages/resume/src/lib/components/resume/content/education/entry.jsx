@@ -1,5 +1,5 @@
+import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {CampaignLink} from "@randy.tarampi/jsx";
-import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
@@ -7,8 +7,8 @@ import {Col, Row} from "react-materialize";
 const monthYearFormat = {month: "long", year: "numeric"};
 
 export const ResumeEducationEntry = ({educationEntry, index}) => {
-    const startDate = DateTime.fromISO(educationEntry.startDate);
-    const endDate = educationEntry.endDate && DateTime.fromISO(educationEntry.endDate) || null;
+    const startDate = castDatePropertyToDateTime(educationEntry.startDate);
+    const endDate = educationEntry.endDate && castDatePropertyToDateTime(educationEntry.endDate) || null;
     const dateString = `${startDate.toLocaleString(monthYearFormat)} to ${endDate ? endDate.toLocaleString(monthYearFormat) : "Present"}`;
 
     return <Row className={index > 2 ? "hide-on-print" : null}>

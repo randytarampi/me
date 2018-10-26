@@ -54,7 +54,7 @@ describe("ConnectedResume", function () {
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("resume", stubResume);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "default");
+        expect(rendered).to.have.prop("variant", "resume");
         expect(rendered).to.have.prop("fetchResume");
 
         expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
@@ -75,7 +75,7 @@ describe("ConnectedResume", function () {
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("resume", stubResume);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "default");
+        expect(rendered).to.have.prop("variant", "resume");
         expect(rendered).to.have.prop("fetchResume");
 
         expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
