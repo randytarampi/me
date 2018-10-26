@@ -6,6 +6,7 @@ import selectors from "../data/selectors";
 export const FETCHING_RESUME_FAILURE = "FETCHING_RESUME_FAILURE";
 export const FETCHING_RESUME_SUCCESS = "FETCHING_RESUME_SUCCESS";
 export const FETCHING_RESUME_CANCELLED = "FETCHING_RESUME_CANCELLED";
+export const FETCHING_RESUME_FAILURE_RECOVERY = "FETCHING_RESUME_FAILURE_RECOVERY";
 export const FETCHING_RESUME = "FETCHING_RESUME";
 
 export const fetchResumeCreator = variant => (dispatch, getState) => {
@@ -51,7 +52,7 @@ export const fetchResumeCreator = variant => (dispatch, getState) => {
 
             const alreadyLoadedVariant = selectors.getResumeVariant(state, variant);
             if (alreadyLoadedVariant) {
-                dispatch(fetchingResumeCancelled({
+                dispatch(fetchingResumeFailureRecovery({
                     fetchUrl,
                     variant,
                     resume: alreadyLoadedVariant
@@ -71,3 +72,4 @@ export const fetchingResume = createAction(FETCHING_RESUME);
 export const fetchingResumeCancelled = createAction(FETCHING_RESUME_CANCELLED);
 export const fetchingResumeSuccess = createAction(FETCHING_RESUME_SUCCESS);
 export const fetchingResumeFailure = createAction(FETCHING_RESUME_FAILURE);
+export const fetchingResumeFailureRecovery = createAction(FETCHING_RESUME_FAILURE_RECOVERY);

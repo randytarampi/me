@@ -8,6 +8,7 @@ import {
     FETCHING_RESUME,
     FETCHING_RESUME_CANCELLED,
     FETCHING_RESUME_FAILURE,
+    FETCHING_RESUME_FAILURE_RECOVERY,
     FETCHING_RESUME_SUCCESS
 } from "../../../../../src/lib/actions/fetchResume";
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchResume";
@@ -291,7 +292,7 @@ describe("fetchResume", function () {
                     const actions = stubStore.getActions();
 
                     expect(actions).to.be.ok;
-                    expect(actions).to.have.length(1);
+                    expect(actions).to.have.length(3);
                     expect(actions).to.eql([
                         {
                             type: FETCHING_RESUME,
@@ -309,7 +310,7 @@ describe("fetchResume", function () {
                             }
                         },
                         {
-                            type: FETCHING_RESUME_CANCELLED,
+                            type: FETCHING_RESUME_FAILURE_RECOVERY,
                             payload: {
                                 fetchUrl: buildFetchUrlForVariant(stubVariant),
                                 variant: stubVariant,
