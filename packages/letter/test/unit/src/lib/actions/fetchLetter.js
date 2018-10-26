@@ -71,50 +71,6 @@ describe("fetchLetter", function () {
                 });
         });
 
-        it("isn't dispatched if already loaded the letter variant", function () {
-            const stubVariant = "test";
-            const stubLetterResponse = testLetterJson;
-
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": () => Promise.resolve(stubLetterResponse)
-                }
-            });
-
-            stubInitialState = Map({
-                api: Map({
-                    [buildFetchUrlForVariant(stubVariant)]: Map({
-                        isLoading: false,
-                        variant: stubVariant
-                    })
-                }),
-                letter: Map({
-                    letters: Set([
-                        Map({variant: stubVariant, letter: testLetterJson})
-                    ])
-                })
-            });
-            stubStore = mockStore(stubInitialState);
-
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
-
-                    expect(actions).to.be.ok;
-                    expect(actions).to.have.length(1);
-                    expect(actions).to.eql([
-                        {
-                            type: FETCHING_LETTER_CANCELLED,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                letter: testLetterJson
-                            }
-                        }
-                    ]);
-                });
-        });
-
         it("is dispatched with the expected payload (first variant)", function () {
             const stubVariant = "test";
             const stubLetterResponse = testLetterJson;
@@ -302,6 +258,65 @@ describe("fetchLetter", function () {
                     expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
+                });
+        });
+
+        it("is dispatched with the expected payload (fetch error but already loaded the letter variant)", function () {
+            const stubVariant = "test";
+            const stubLetterResponse = testLetterJson;
+
+            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
+                "../api/fetchLetter": {
+                    "default": () => Promise.reject(stubLetterResponse)
+                }
+            });
+
+            stubInitialState = Map({
+                api: Map({
+                    [buildFetchUrlForVariant(stubVariant)]: Map({
+                        isLoading: false,
+                        variant: stubVariant
+                    })
+                }),
+                letter: Map({
+                    letters: Set([
+                        Map({variant: stubVariant, letter: testLetterJson})
+                    ])
+                })
+            });
+            stubStore = mockStore(stubInitialState);
+
+            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
+                .then(() => {
+                    const actions = stubStore.getActions();
+
+                    expect(actions).to.be.ok;
+                    expect(actions).to.have.length(3);
+                    expect(actions).to.eql([
+                        {
+                            type: FETCHING_LETTER,
+                            payload: {
+                                fetchUrl: buildFetchUrlForVariant(stubVariant),
+                                variant: stubVariant
+                            }
+                        },
+                        {
+                            type: FETCHING_LETTER_FAILURE,
+                            payload: {
+                                fetchUrl: buildFetchUrlForVariant(stubVariant),
+                                variant: stubVariant,
+                                error: stubLetterResponse
+                            }
+                        },
+                        {
+                            type: FETCHING_LETTER_CANCELLED,
+                            payload: {
+                                fetchUrl: buildFetchUrlForVariant(stubVariant),
+                                variant: stubVariant,
+                                letter: testLetterJson
+                            }
+                        }
+                    ]);
                 });
         });
     });

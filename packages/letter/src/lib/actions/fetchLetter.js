@@ -23,16 +23,6 @@ export const fetchLetterCreator = variant => (dispatch, getState) => {
         return Promise.resolve();
     }
 
-    const alreadyLoadedVariant = selectors.getLetterVariant(state, variant);
-    if (alreadyLoadedVariant) {
-        dispatch(fetchingLetterCancelled({
-            fetchUrl,
-            variant,
-            letter: alreadyLoadedVariant
-        }));
-        return Promise.resolve(alreadyLoadedVariant);
-    }
-
     dispatch(fetchingLetter({
         fetchUrl,
         variant
@@ -58,6 +48,17 @@ export const fetchLetterCreator = variant => (dispatch, getState) => {
                 variant,
                 error
             }));
+
+            const alreadyLoadedVariant = selectors.getLetterVariant(state, variant);
+            if (alreadyLoadedVariant) {
+                dispatch(fetchingLetterCancelled({
+                    fetchUrl,
+                    variant,
+                    letter: alreadyLoadedVariant
+                }));
+                return Promise.resolve(alreadyLoadedVariant);
+            }
+
             dispatch(setErrorCreator(error, "EFETCH"));
 
             throw error;
