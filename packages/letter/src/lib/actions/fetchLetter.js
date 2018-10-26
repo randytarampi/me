@@ -4,6 +4,7 @@ import fetchLetter, {buildFetchUrlForVariant} from "../api/fetchLetter";
 import selectors from "../data/selectors";
 
 export const FETCHING_LETTER_FAILURE = "FETCHING_LETTER_FAILURE";
+export const FETCHING_LETTER_FAILURE_RECOVERY = "FETCHING_LETTER_FAILURE_RECOVERY";
 export const FETCHING_LETTER_SUCCESS = "FETCHING_LETTER_SUCCESS";
 export const FETCHING_LETTER_CANCELLED = "FETCHING_LETTER_CANCELLED";
 export const FETCHING_LETTER = "FETCHING_LETTER";
@@ -51,7 +52,7 @@ export const fetchLetterCreator = variant => (dispatch, getState) => {
 
             const alreadyLoadedVariant = selectors.getLetterVariant(state, variant);
             if (alreadyLoadedVariant) {
-                dispatch(fetchingLetterCancelled({
+                dispatch(fetchingLetterFailureRecovery({
                     fetchUrl,
                     variant,
                     letter: alreadyLoadedVariant
@@ -71,3 +72,4 @@ export const fetchingLetter = createAction(FETCHING_LETTER);
 export const fetchingLetterCancelled = createAction(FETCHING_LETTER_CANCELLED);
 export const fetchingLetterSuccess = createAction(FETCHING_LETTER_SUCCESS);
 export const fetchingLetterFailure = createAction(FETCHING_LETTER_FAILURE);
+export const fetchingLetterFailureRecovery = createAction(FETCHING_LETTER_FAILURE_RECOVERY);

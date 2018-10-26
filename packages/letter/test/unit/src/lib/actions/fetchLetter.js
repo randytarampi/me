@@ -9,6 +9,7 @@ import {
     FETCHING_LETTER,
     FETCHING_LETTER_CANCELLED,
     FETCHING_LETTER_FAILURE,
+    FETCHING_LETTER_FAILURE_RECOVERY,
     FETCHING_LETTER_SUCCESS
 } from "../../../../../src/lib/actions/fetchLetter";
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchLetter";
@@ -309,7 +310,7 @@ describe("fetchLetter", function () {
                             }
                         },
                         {
-                            type: FETCHING_LETTER_CANCELLED,
+                            type: FETCHING_LETTER_FAILURE_RECOVERY,
                             payload: {
                                 fetchUrl: buildFetchUrlForVariant(stubVariant),
                                 variant: stubVariant,
