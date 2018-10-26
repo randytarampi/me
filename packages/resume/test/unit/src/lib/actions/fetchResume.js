@@ -129,13 +129,13 @@ describe("fetchResume", function () {
 
             stubInitialState = Map({
                 api: Map({
-                    [`${__RESUME_SERVICE_URL__}/default.json`]: Map({
+                    [`${__RESUME_SERVICE_URL__}/resume.json`]: Map({
                         isLoading: false
                     })
                 }),
                 resume: Map({
                     resumes: Set([
-                        Map({variant: "default", resume: testResumeJson})
+                        Map({variant: "resume", resume: testResumeJson})
                     ])
                 })
             });

@@ -2,7 +2,7 @@ import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables/html";
 import path from "path";
 import packageJson from "../../package";
 import ResumeComponent from "../public/views/serverApp";
-import resumeJson from "../resumes";
+import resumeJson from "../resumes/resume.json";
 import Resume from "./resume";
 
 export const renderHtml = ({passedPrintable, printableStylesPath, ...renderLocals} = {}) => {

@@ -4,7 +4,7 @@ import {Map, Set} from "immutable";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import testLetterJson from "../../../../../letter";
+import testLetterJson from "../../../../../src/letters/letter.json";
 import {
     FETCHING_LETTER,
     FETCHING_LETTER_CANCELLED,
@@ -129,13 +129,13 @@ describe("fetchLetter", function () {
 
             stubInitialState = Map({
                 api: Map({
-                    [`${__LETTER_SERVICE_URL__}/default.json`]: Map({
+                    [`${__LETTER_SERVICE_URL__}/letter.json`]: Map({
                         isLoading: false
                     })
                 }),
                 letter: Map({
                     letters: Set([
-                        Map({variant: "default", letter: testLetterJson})
+                        Map({variant: "letter", letter: testLetterJson})
                     ])
                 })
             });

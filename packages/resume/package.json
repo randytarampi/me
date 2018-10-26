@@ -113,7 +113,6 @@
     "styles",
     "dist/styles.css",
     "index.client.js",
-    "index.server.js",
-    "resume.json"
+    "index.server.js"
   ]
 }

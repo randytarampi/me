@@ -18,7 +18,7 @@ try {
 export const ConnectedResume = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
-        const variant = ownProps.match.params.variant || "default";
+        const variant = ownProps.match.params.variant || "resume";
         const props = {
             resume: ownProps.resume || selectors.getResumeVariant(state, variant),
             isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl) || false,

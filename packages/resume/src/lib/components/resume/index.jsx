@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
-import defaultResume from "../../../resumes";
+import defaultResume from "../../../resumes/resume.json";
 import Resume from "../../resume";
 import ResumeAbout from "./content/about";
 import ResumeAwards from "./content/awards";
