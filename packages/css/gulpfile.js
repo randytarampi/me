@@ -1,24 +1,16 @@
 require("../../babel.register.js");
 
 const gulp = require("gulp");
+const baseGulpfile = require("../../gulpfile.base");
 
-gulp.task("clean", () => {
-    const vinylPaths = require("vinyl-paths");
-    const del = require("del");
+const taskParameters = {
+    relativePath: __dirname,
+    gulp
+};
 
-    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
-        .pipe(vinylPaths(del));
-});
+baseGulpfile.clean(taskParameters);
 
-gulp.task("sassLint", () => {
-    const sassLint = require("gulp-sass-lint");
-
-    return gulp.src("sass/**/*.s+(a|c)ss")
-        .pipe(sassLint())
-        .pipe(sassLint.format())
-        .pipe(sassLint.failOnError());
-});
-
+baseGulpfile.sassLint(taskParameters);
 gulp.task("lint", gulp.series(["sassLint"]));
 
 gulp.task("copy", () => {
@@ -30,34 +22,8 @@ gulp.task("copy", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("styles:dev", () => {
-    const autoprefixer = require("gulp-autoprefixer");
-    const concat = require("gulp-concat");
-    const sass = require("gulp-sass");
-
-    return gulp.src([
-            "styles/style.scss"
-        ])
-        .pipe(sass({
-            includePaths: ["node_modules", "../../node_modules"]
-        }).on("error", sass.logError))
-        .pipe(autoprefixer({
-            cascade: false
-        }))
-        .pipe(concat("styles.css"))
-        .pipe(gulp.dest("dist"));
-});
-
-gulp.task("styles", gulp.series(["styles:dev"]), () => {
-    const cleanCss = require("gulp-clean-css");
-    const sourcemaps = require("gulp-sourcemaps");
-
-    return gulp.src("dist/styles.css")
-        .pipe(sourcemaps.init())
-        .pipe(cleanCss())
-        .pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest("dist"));
-});
+baseGulpfile.stylesDev(taskParameters);
+baseGulpfile.styles(taskParameters);
 
 gulp.task("build", gulp.series([
     "copy",

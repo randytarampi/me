@@ -1,66 +1,23 @@
 require("../../babel.register.js");
 
 const gulp = require("gulp");
+const baseGulpfile = require("../../gulpfile.base");
 
-function isFixed(file) {
-    return file.eslint && file.eslint.fixed;
-}
+const taskParameters = {
+    relativePath: __dirname,
+    gulp
+};
 
-gulp.task("eslint", () => {
-    const path = require("path");
-    const eslint = require("gulp-eslint");
-    const gulpIf = require("gulp-if");
+baseGulpfile.clean(taskParameters);
 
-    return gulp.src(["**/*.js"])
-        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
-        .pipe(eslint.format())
-        .pipe(gulpIf(isFixed, gulp.dest("./")))
-        .pipe(eslint.failAfterError());
-});
+baseGulpfile.eslint(taskParameters);
+gulp.task("lint", gulp.parallel(["eslint"]));
 
-gulp.task("lint", gulp.series(["eslint"]));
+baseGulpfile.testUnit(taskParameters);
+baseGulpfile.testIntegration(taskParameters);
+baseGulpfile.test(taskParameters);
 
-gulp.task("test.unit", () => {
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require("./mocha.config");
-
-    return gulp.src("test/unit/**/*.{js,jsx}", {read: false, allowEmpty: true})
-        .pipe(mocha(mochaConfig));
-});
-
-gulp.task("test.integration", () => {
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require("./mocha.config");
-
-    return gulp.src("test/integration/**/*.{js,jsx}", {read: false, allowEmpty: true})
-        .pipe(mocha(mochaConfig));
-});
-
-gulp.task("test", gulp.parallel([
-    "test.unit",
-    "test.integration"
-]));
-
-gulp.task("clean", () => {
-    const vinylPaths = require("vinyl-paths");
-    const del = require("del");
-
-    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
-        .pipe(vinylPaths(del));
-});
-
-gulp.task("webpack", function (callback) {
-    const Webpack = require("webpack");
-    const webpackConfig = require("./webpack.client.config");
-
-    Webpack(webpackConfig, function (error, stats) {
-        if (error) {
-            return callback(error);
-        }
-        console.log(stats.toString({colors: true})); // eslint-disable-line no-console
-        callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
-    });
-});
+baseGulpfile.webpack(taskParameters);
 
 gulp.task("build", gulp.series([
     "clean",

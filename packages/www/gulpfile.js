@@ -5,14 +5,24 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
 const config = require("config");
+const baseGulpfile = require("../../gulpfile.base");
 
-gulp.task("clean", () => {
-    const vinylPaths = require("vinyl-paths");
-    const del = require("del");
+const taskParameters = {
+    relativePath: __dirname,
+    gulp
+};
 
-    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
-        .pipe(vinylPaths(del));
-});
+baseGulpfile.clean(taskParameters);
+
+baseGulpfile.eslint(taskParameters);
+baseGulpfile.sassLint(taskParameters);
+gulp.task("lint", gulp.parallel(["eslint", "sassLint"]));
+
+baseGulpfile.testUnit(taskParameters);
+baseGulpfile.testIntegration(taskParameters);
+baseGulpfile.test(taskParameters);
+
+baseGulpfile.webpack(taskParameters);
 
 gulp.task("copy", () => {
     const sources = [
@@ -80,79 +90,6 @@ gulp.task("docs:dist", () => {
 
 gulp.task("docs", gulp.series([
     "docs:dist"
-]));
-
-gulp.task("webpack", function (callback) {
-    const Webpack = require("webpack");
-    const webpackConfig = require("./webpack.client.config");
-
-    Webpack(webpackConfig, function (error, stats) {
-        if (error) {
-            return callback(error);
-        }
-        console.log(stats.toString({colors: true})); // eslint-disable-line no-console
-        callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
-    });
-});
-
-function isFixed(file) {
-    return file.eslint && file.eslint.fixed;
-}
-
-gulp.task("eslint", () => {
-    const eslint = require("gulp-eslint");
-    const gulpIf = require("gulp-if");
-
-    return gulp.src(["**/*.js"])
-        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
-        .pipe(eslint.format())
-        .pipe(gulpIf(isFixed, gulp.dest("./")))
-        .pipe(eslint.failAfterError());
-});
-
-gulp.task("sassLint", () => {
-    const sassLint = require("gulp-sass-lint");
-
-    return gulp.src("sass/**/*.+(sa|sc|c)ss")
-        .pipe(sassLint())
-        .pipe(sassLint.format())
-        .pipe(sassLint.failOnError());
-});
-
-gulp.task("pugLint", () => {
-    var pugLinter = require("gulp-pug-linter");
-
-    return gulp
-        .src("views/**/*.pug")
-        .pipe(pugLinter())
-        .pipe(pugLinter.reporter("fail"));
-});
-
-gulp.task("lint", gulp.parallel([
-    "eslint",
-    "sassLint",
-    "pugLint"
-]));
-
-gulp.task("test.integration", () => {
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require("./mocha.config");
-
-    return gulp.src("test/integration/**/*.{js,jsx}", {read: false, allowEmpty: true})
-        .pipe(mocha(mochaConfig));
-});
-
-gulp.task("test.unit", () => {
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require("./mocha.config");
-
-    return gulp.src("test/unit/**/*.{js,jsx}", {read: false, allowEmpty: true})
-        .pipe(mocha(mochaConfig));
-});
-
-gulp.task("test", gulp.parallel([
-    "test.integration",
-    "test.unit"
 ]));
 
 gulp.task("sitemap", (done) => {

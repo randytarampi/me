@@ -1,14 +1,18 @@
 require("../../babel.register.js");
 
 const gulp = require("gulp");
+const baseGulpfile = require("../../gulpfile.base");
 
-gulp.task("clean", () => {
-    const vinylPaths = require("vinyl-paths");
-    const del = require("del");
+const taskParameters = {
+    relativePath: __dirname,
+    gulp
+};
 
-    return gulp.src(["dist/", "build/", "coverage/", ".nyc_output/"], {allowEmpty: true})
-        .pipe(vinylPaths(del));
-});
+baseGulpfile.clean(taskParameters);
+
+baseGulpfile.eslint(taskParameters);
+baseGulpfile.pugLint(taskParameters);
+gulp.task("lint", gulp.parallel(["eslint", "pugLint"]));
 
 gulp.task("views:index", () => {
     const pug = require("gulp-pug");
@@ -27,36 +31,6 @@ gulp.task("views:index", () => {
 
 gulp.task("views", gulp.parallel([
     "views:index"
-]));
-
-function isFixed(file) {
-    return file.eslint && file.eslint.fixed;
-}
-
-gulp.task("eslint", () => {
-    const path = require("path");
-    const eslint = require("gulp-eslint");
-    const gulpIf = require("gulp-if");
-
-    return gulp.src(["**/*.js"])
-        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
-        .pipe(eslint.format())
-        .pipe(gulpIf(isFixed, gulp.dest("./")))
-        .pipe(eslint.failAfterError());
-});
-
-gulp.task("pugLint", () => {
-    var pugLinter = require("gulp-pug-linter");
-
-    return gulp
-        .src("templates/**/*.pug")
-        .pipe(pugLinter())
-        .pipe(pugLinter.reporter("fail"));
-});
-
-gulp.task("lint", gulp.parallel([
-    "eslint",
-    "pugLint"
 ]));
 
 gulp.task("build", gulp.series([

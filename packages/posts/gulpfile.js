@@ -1,48 +1,18 @@
 require("../../babel.register.js");
 
 const gulp = require("gulp");
+const baseGulpfile = require("../../gulpfile.base");
 
-gulp.task("clean", () => {
-    const vinylPaths = require("vinyl-paths");
-    const del = require("del");
+const taskParameters = {
+    relativePath: __dirname,
+    gulp
+};
 
-    return gulp.src([".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/"], {allowEmpty: true})
-        .pipe(vinylPaths(del));
-});
+baseGulpfile.clean(taskParameters);
 
-function isFixed(file) {
-    return file.eslint && file.eslint.fixed;
-}
+baseGulpfile.eslint(taskParameters);
+gulp.task("lint", gulp.parallel(["eslint"]));
 
-gulp.task("eslint", () => {
-    const path = require("path");
-    const eslint = require("gulp-eslint");
-    const gulpIf = require("gulp-if");
-
-    return gulp.src(["**/*.js"])
-        .pipe(eslint({fix: true, ignorePath: path.join(__dirname, "../../.eslintignore")}))
-        .pipe(eslint.format())
-        .pipe(gulpIf(isFixed, gulp.dest("./")))
-        .pipe(eslint.failAfterError());
-});
-gulp.task("lint", gulp.parallel([
-    "eslint"
-]));
-
-gulp.task("test.unit", function () {
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require("./mocha.config");
-
-    return gulp.src("test/unit/**/*.js", {read: false})
-        .pipe(mocha(mochaConfig));
-});
-
-gulp.task("test.integration", function () {
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require("./mocha.config");
-
-    return gulp.src("test/integration/**/*.js", {read: false})
-        .pipe(mocha(mochaConfig));
-});
-
-gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
+baseGulpfile.testUnit(taskParameters);
+baseGulpfile.testIntegration(taskParameters);
+baseGulpfile.test(taskParameters);
