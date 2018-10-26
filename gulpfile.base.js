@@ -19,7 +19,7 @@ module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
 
-    return gulp.src([path.join(relativePath, "/**/*.{js,jsx}")])
+    return gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
         .pipe(eslint({fix: true, ignorePath: path.join(relativePath, "../../.eslintignore")}))
         .pipe(eslint.format())
         .pipe(gulpIf(isFixed, gulp.dest(relativePath)))

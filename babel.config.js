@@ -227,6 +227,7 @@ module.exports = (api) => {
         [
             "@babel/preset-env",
             {
+                loose: true,
                 targets: {
                     node: "current"
                 },
@@ -245,10 +246,8 @@ module.exports = (api) => {
     let plugins = [
         "lodash",
         configuredMinifyReplace,
-        "@babel/plugin-proposal-class-properties",
-        ["@babel/plugin-transform-classes", {
-            loose: true
-        }],
+        ["@babel/plugin-proposal-class-properties", {loose: true}],
+        ["@babel/plugin-transform-classes", {loose: true}],
         "@babel/plugin-proposal-object-rest-spread",
         "@babel/plugin-transform-proto-to-assign",
         "@babel/plugin-transform-member-expression-literals",
@@ -267,6 +266,7 @@ module.exports = (api) => {
                 [
                     "@babel/preset-env",
                     {
+                        loose: true,
                         targets: {
                             node: "current"
                         },
@@ -274,7 +274,12 @@ module.exports = (api) => {
                         shippedProposals: true
                     }
                 ],
-                "@babel/preset-react"
+                [
+                    "@babel/preset-react",
+                    {
+                        development: isDevelopment
+                    }
+                ]
             ];
             break;
         }
@@ -287,6 +292,7 @@ module.exports = (api) => {
                 [
                     "@babel/preset-env",
                     {
+                        loose: true,
                         forceAllTransforms: true,
                         useBuiltIns: "entry",
                         shippedProposals: true
@@ -307,6 +313,7 @@ module.exports = (api) => {
                 [
                     "@babel/preset-env",
                     {
+                        loose: true,
                         forceAllTransforms: true,
                         useBuiltIns: "entry",
                         shippedProposals: true

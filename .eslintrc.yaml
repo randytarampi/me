@@ -22,8 +22,6 @@ rules:
   import/no-unresolved:
   - 2
   - commonjs: true
-    ignore:
-    - "@randy\\.tarampi\\/\\w+"
   import/default: 2
   react/no-unescaped-entities: 0
   no-global-assign:

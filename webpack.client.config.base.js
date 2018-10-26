@@ -187,7 +187,10 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                         new UglifyJsPlugin({
                             cache: true,
                             parallel: true,
-                            sourceMap: true
+                            sourceMap: true,
+                            uglifyOptions: {
+                                ie8: true
+                            }
                         }),
                         new OptimizeCSSAssetsPlugin()
                     ]
