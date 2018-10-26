@@ -227,7 +227,6 @@ module.exports = (api) => {
         [
             "@babel/preset-env",
             {
-                loose: true,
                 targets: {
                     node: "current"
                 },
@@ -266,7 +265,6 @@ module.exports = (api) => {
                 [
                     "@babel/preset-env",
                     {
-                        loose: true,
                         targets: {
                             node: "current"
                         },
@@ -292,7 +290,6 @@ module.exports = (api) => {
                 [
                     "@babel/preset-env",
                     {
-                        loose: true,
                         forceAllTransforms: true,
                         useBuiltIns: "entry",
                         shippedProposals: true
@@ -313,7 +310,6 @@ module.exports = (api) => {
                 [
                     "@babel/preset-env",
                     {
-                        loose: true,
                         forceAllTransforms: true,
                         useBuiltIns: "entry",
                         shippedProposals: true
