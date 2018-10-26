@@ -5,6 +5,7 @@ import selectors from "../data/selectors";
 import setError from "./setError";
 
 export const FETCHING_POSTS_FAILURE = "FETCHING_POSTS_FAILURE";
+export const FETCHING_POSTS_FAILURE_RECOVERY = "FETCHING_POSTS_FAILURE_RECOVERY";
 export const FETCHING_POSTS_SUCCESS = "FETCHING_POSTS_SUCCESS";
 export const FETCHING_POSTS_CANCELLED = "FETCHING_POSTS_CANCELLED";
 export const FETCHING_POSTS = "FETCHING_POSTS";
@@ -76,7 +77,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
             if (!oldestLoadedPostDate) {
                 dispatch(setError(error, "EFETCH"));
             } else {
-                dispatch(fetchingPostsCancelled({
+                dispatch(fetchingPostsFailureRecovery({
                     fetchUrl,
                     oldestPostAvailableDate,
                     oldestLoadedPostDate
@@ -91,5 +92,6 @@ export const fetchingPosts = createAction(FETCHING_POSTS);
 export const fetchingPostsCancelled = createAction(FETCHING_POSTS_CANCELLED);
 export const fetchingPostsSuccess = createAction(FETCHING_POSTS_SUCCESS);
 export const fetchingPostsFailure = createAction(FETCHING_POSTS_FAILURE);
+export const fetchingPostsFailureRecovery = createAction(FETCHING_POSTS_FAILURE_RECOVERY);
 
 export default fetchPostsCreator;

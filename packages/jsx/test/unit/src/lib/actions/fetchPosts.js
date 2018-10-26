@@ -9,6 +9,7 @@ import {
     FETCHING_POSTS,
     FETCHING_POSTS_CANCELLED,
     FETCHING_POSTS_FAILURE,
+    FETCHING_POSTS_FAILURE_RECOVERY,
     FETCHING_POSTS_PER_PAGE,
     FETCHING_POSTS_SUCCESS
 } from "../../../../../src/lib/actions/fetchPosts";
@@ -363,7 +364,7 @@ describe("fetchPosts", function () {
                             }
                         },
                         {
-                            type: FETCHING_POSTS_CANCELLED,
+                            type: FETCHING_POSTS_FAILURE_RECOVERY,
                             payload: {
                                 fetchUrl: stubFetchUrl,
                                 oldestPostAvailableDate: stubInitialState.getIn(["api", stubFetchUrl, "oldest", "global"]),
