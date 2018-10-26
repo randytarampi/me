@@ -15,6 +15,8 @@ describe("LetterComponent", function () {
     let stubFetchLetter;
 
     beforeEach(function () {
+        const testComponent = () => <span className="rawr">foo</span>;
+
         stubPersonJs = {
             name: null,
             givenName: "Woof",
@@ -37,7 +39,7 @@ describe("LetterComponent", function () {
         stubSenderJs = Object.assign({}, stubPersonJs);
         stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
 
-        stubLetterContentComponent = () => <span className="rawr">foo</span>;
+        stubLetterContentComponent = testComponent;
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
             recipient: stubRecipientJs,

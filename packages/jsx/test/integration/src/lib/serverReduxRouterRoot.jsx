@@ -18,13 +18,15 @@ describe("ServerReduxRouterRoot", function () {
     let stubRoutes;
 
     beforeEach(function () {
+        const testComponent = () => <div className="testing">
+            Testing...
+        </div>;
+
         stubHistory = createBrowserHistory();
         stubStore = configureStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
-                component: () => <div className="testing">
-                    Testing...
-                </div>,
+                component: testComponent,
                 path: "/"
             }
         ];
