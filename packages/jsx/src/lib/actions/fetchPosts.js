@@ -45,7 +45,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                     orderBy: "datePublished",
                     orderOperator: "lt",
                     orderComparator: oldestLoadedPostDate && oldestLoadedPostDate.toISO(),
-                    orderComparatorType: "String",
+                    orderComparatorType: "String"
                 }
                 : null
         )
@@ -75,6 +75,12 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
 
             if (!oldestLoadedPostDate) {
                 dispatch(setError(error, "EFETCH"));
+            } else {
+                dispatch(fetchingPostsCancelled({
+                    fetchUrl,
+                    oldestPostAvailableDate,
+                    oldestLoadedPostDate
+                }));
             }
 
             throw error;

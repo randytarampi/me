@@ -361,6 +361,14 @@ describe("fetchPosts", function () {
                                 fetchUrl: stubFetchUrl,
                                 error: stubPostsResponse
                             }
+                        },
+                        {
+                            type: FETCHING_POSTS_CANCELLED,
+                            payload: {
+                                fetchUrl: stubFetchUrl,
+                                oldestPostAvailableDate: stubInitialState.getIn(["api", stubFetchUrl, "oldest", "global"]),
+                                oldestLoadedPostDate: stubLoadedPost.dateCreated
+                            }
                         }
                     ];
 
