@@ -58,7 +58,7 @@ export const reduxOfflineImmutableTransformRecords = [
 export const reduxOfflineConfig = {
     ...defaultReduxOfflineConfig,
     persist,
-    persistAutoRehydrate: () => persistAutoRehydrate({log: true}),
+    persistAutoRehydrate: () => persistAutoRehydrate({log: __BUILD_IS_DEVELOPMENT__}),
     persistOptions: {
         records: reduxOfflineImmutableTransformRecords,
         transforms: [
