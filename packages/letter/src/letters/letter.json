@@ -1,0 +1,276 @@
+{
+  "sender": {
+    "email": "jobs@randytarampi.ca",
+    "telephone": "+16043747128",
+    "image": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+    "logo": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+    "name": "Randy Tarampi",
+    "url": "https://www.randytarampi.ca",
+    "description": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
+    "address": {
+      "countryCode": "CA",
+      "addressCountry": "CA",
+      "addressLocality": "Vancouver",
+      "addressRegion": "BC",
+      "postalCode": "V5R 3P7",
+      "streetAddress": "4663 Todd Street"
+    },
+    "sameAs": [
+      "https://www.randytarampi.ca/resume",
+      "https://github.com/randytarampi",
+      "https://instagram.com/randytarampi",
+      "https://linkedin.com/in/randytarampi",
+      "https://www.flickr.com/people/randytarampi",
+      "https://angel.co/randytarampi",
+      "https://stackoverflow.com/story/randytarampi",
+      "https://facebook.com/randytarampi",
+      "https://twitter.com/randytarampi",
+      "https://unsplash.com/@randytarampi",
+      "https://tumblr.randytarampi.ca",
+      "https://500px.com/randytarampi"
+    ],
+    "knowsLanguage": [
+      {
+        "alternateName": "en",
+        "name": "English"
+      },
+      {
+        "alternateName": "fr",
+        "name": "French"
+      },
+      {
+        "alternateName": "it",
+        "name": "Italian"
+      }
+    ],
+    "givenName": "Randy",
+    "familyName": "Tarampi",
+    "honorificPrefix": "Mr.",
+    "jobTitle": "Going places | building software",
+    "gender": "Male",
+    "nationality": "Canadian",
+    "height": "175cm",
+    "weight": "67kg",
+    "birthDate": "1991-11-14",
+    "birthPlace": {
+      "name": "St. Vincent's Hospital",
+      "address": {
+        "addressCountry": "Canada",
+        "addressLocality": "Vancouver",
+        "addressRegion": "BC",
+        "postalCode": "V5Z 0A7",
+        "streetAddress": "4875 Heather Street"
+      }
+    },
+    "brand": {
+      "email": "jobs@randytarampi.ca",
+      "telephone": "+16043747128",
+      "image": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+      "logo": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+      "name": "Randy Tarampi",
+      "url": "https://www.randytarampi.ca",
+      "description": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
+      "address": {
+        "countryCode": "CA",
+        "addressCountry": "CA",
+        "addressLocality": "Vancouver",
+        "addressRegion": "BC",
+        "postalCode": "V5R 3P7",
+        "streetAddress": "4663 Todd Street"
+      },
+      "sameAs": [
+        "https://www.randytarampi.ca/resume",
+        "https://github.com/randytarampi",
+        "https://instagram.com/randytarampi",
+        "https://linkedin.com/in/randytarampi",
+        "https://www.flickr.com/people/randytarampi",
+        "https://angel.co/randytarampi",
+        "https://stackoverflow.com/story/randytarampi",
+        "https://facebook.com/randytarampi",
+        "https://twitter.com/randytarampi",
+        "https://unsplash.com/@randytarampi",
+        "https://tumblr.randytarampi.ca",
+        "https://500px.com/randytarampi"
+      ],
+      "knowsLanguage": [
+        {
+          "alternateName": "en",
+          "name": "English"
+        },
+        {
+          "alternateName": "fr",
+          "name": "French"
+        },
+        {
+          "alternateName": "it",
+          "name": "Italian"
+        }
+      ]
+    },
+    "worksFor": {
+      "email": "jobs@randytarampi.ca",
+      "telephone": "+16043747128",
+      "image": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+      "logo": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
+      "name": "Randy Tarampi",
+      "url": "https://www.randytarampi.ca",
+      "description": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
+      "address": {
+        "countryCode": "CA",
+        "addressCountry": "CA",
+        "addressLocality": "Vancouver",
+        "addressRegion": "BC",
+        "postalCode": "V5R 3P7",
+        "streetAddress": "4663 Todd Street"
+      },
+      "sameAs": [
+        "https://www.randytarampi.ca/resume",
+        "https://github.com/randytarampi",
+        "https://instagram.com/randytarampi",
+        "https://linkedin.com/in/randytarampi",
+        "https://www.flickr.com/people/randytarampi",
+        "https://angel.co/randytarampi",
+        "https://stackoverflow.com/story/randytarampi",
+        "https://facebook.com/randytarampi",
+        "https://twitter.com/randytarampi",
+        "https://unsplash.com/@randytarampi",
+        "https://tumblr.randytarampi.ca",
+        "https://500px.com/randytarampi"
+      ],
+      "knowsLanguage": [
+        {
+          "alternateName": "en",
+          "name": "English"
+        },
+        {
+          "alternateName": "fr",
+          "name": "French"
+        },
+        {
+          "alternateName": "it",
+          "name": "Italian"
+        }
+      ]
+    },
+    "alumniOf": {
+      "name": "Simon Fraser University",
+      "address": {
+        "addressCountry": "Canada",
+        "addressLocality": "Burnaby",
+        "addressRegion": "BC",
+        "postalCode": "V5A 1S6",
+        "streetAddress": "8888 University Drive"
+      },
+      "telephone": "+17787823111",
+      "url": "https://www.sfu.ca"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "randytarampi",
+        "url": "https://github.com/randytarampi"
+      },
+      {
+        "network": "Instagram",
+        "username": "randytarampi",
+        "userId": "51039588",
+        "url": "https://instagram.com/randytarampi"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "randytarampi",
+        "url": "https://linkedin.com/in/randytarampi"
+      },
+      {
+        "network": "Flickr",
+        "username": "randytarampi",
+        "url": "https://www.flickr.com/people/randytarampi"
+      },
+      {
+        "network": "AngelList",
+        "username": "randytarampi",
+        "url": "https://angel.co/randytarampi"
+      },
+      {
+        "network": "StackOverflow",
+        "username": "randytarampi",
+        "url": "https://stackoverflow.com/story/randytarampi"
+      },
+      {
+        "network": "Facebook",
+        "username": "randytarampi",
+        "userId": "831915416",
+        "url": "https://facebook.com/randytarampi"
+      },
+      {
+        "network": "Twitter",
+        "username": "randytarampi",
+        "url": "https://twitter.com/randytarampi"
+      },
+      {
+        "network": "Unsplash",
+        "username": "randytarampi",
+        "url": "https://unsplash.com/@randytarampi"
+      },
+      {
+        "network": "Tumblr",
+        "username": "randytarampi",
+        "url": "https://tumblr.randytarampi.ca"
+      },
+      {
+        "network": "500px",
+        "username": "randytarampi",
+        "url": "https://500px.com/randytarampi"
+      }
+    ]
+  },
+  "recipient": {
+    "additionalName": "Cover Letter Reader",
+    "jobTitle": "At some awesome organization",
+    "address": {
+      "streetAddress": " ",
+      "addressLocality": "Somewhere over the rainbow",
+      "addressRegion": "way up high",
+      "postalCode": " "
+    }
+  },
+  "renderOptions": {
+    "format": "A4",
+    "mediaType": "print"
+  },
+  "content": [
+    {
+      "contentKey": "date"
+    },
+    {
+      "contentKey": "recipient"
+    },
+    {
+      "contentKey": "salutation"
+    },
+    {
+      "contentKey": "intro"
+    },
+    {
+      "contentKey": "me"
+    },
+    {
+      "contentKey": "quality",
+      "contentProps": {
+        "showOnLegal": true
+      }
+    },
+    {
+      "contentKey": "why"
+    },
+    {
+      "contentKey": "you"
+    },
+    {
+      "contentKey": "thanks"
+    },
+    {
+      "contentKey": "signature"
+    }
+  ]
+}
