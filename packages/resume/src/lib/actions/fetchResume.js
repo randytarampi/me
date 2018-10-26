@@ -23,16 +23,6 @@ export const fetchResumeCreator = variant => (dispatch, getState) => {
         return Promise.resolve();
     }
 
-    const alreadyLoadedVariant = selectors.getResumeVariant(state, variant);
-    if (alreadyLoadedVariant) {
-        dispatch(fetchingResumeCancelled({
-            fetchUrl,
-            variant,
-            resume: alreadyLoadedVariant
-        }));
-        return Promise.resolve(alreadyLoadedVariant);
-    }
-
     dispatch(fetchingResume({
         fetchUrl,
         variant
@@ -58,6 +48,17 @@ export const fetchResumeCreator = variant => (dispatch, getState) => {
                 variant,
                 error
             }));
+
+            const alreadyLoadedVariant = selectors.getResumeVariant(state, variant);
+            if (alreadyLoadedVariant) {
+                dispatch(fetchingResumeCancelled({
+                    fetchUrl,
+                    variant,
+                    resume: alreadyLoadedVariant
+                }));
+                return Promise.resolve(alreadyLoadedVariant);
+            }
+
             dispatch(setErrorCreator(error, "EFETCH"));
 
             throw error;
