@@ -22,10 +22,10 @@ module.exports = {
     isDevelopment,
     resolveWebpackMode,
     webpackMode,
-    webpackNodeExternalsWhitelist: /@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet/,
+    webpackNodeExternalsWhitelist: /@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet/,
     babelLoaderExclusions: webpackMode === WEBPACK_MODE_DEVELOPMENT
-        ? /\/node_modules\/(?!(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet)\/)/
+        ? /\/node_modules\/(?!(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet)\/)/
         : /!^/,
-    babelRegisterInclusions: /\/(?:node_modules\/(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|react-dimensions|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet)|packages)\//,
+    babelRegisterInclusions: /\/(?:node_modules\/(?:@randy\.tarampi|query-string|strict-uri-encode|strip-ansi|ansi-regex|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet)|packages)\//,
     webpackVendorInclusions: /\/node_modules\//
 };

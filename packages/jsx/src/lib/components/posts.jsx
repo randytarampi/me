@@ -1,9 +1,9 @@
+import Dimensions from "@randy.tarampi/react-dimensions";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
 import {Set} from "immutable";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
-import Dimensions from "react-dimensions";
 import Infinite from "react-infinite";
 import LoadingSpinner from "../components/loadingSpinner";
 import computePostHeight from "../util/computePostHeight";
