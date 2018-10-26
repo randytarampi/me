@@ -1,9 +1,10 @@
 import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {fromJS, Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
+import {REHYDRATE} from "redux-persist/constants";
 import thunk from "redux-thunk";
 import {
     FETCHING_POSTS,
@@ -539,6 +540,38 @@ describe("fetchPosts", function () {
                         }
                     );
                 });
+        });
+    });
+
+    describe("REHYDRATE", function () {
+        it("is dispatched with the expected payload", function () {
+            const stubPayload = {
+                posts: fromJS({
+                    oldest: {
+                        global: DateTime.utc().toISO(),
+                        Post: DateTime.utc().toISO(),
+                        Photo: DateTime.utc().toISO()
+                    },
+                    newest: {
+                        Post: DateTime.utc().toISO(),
+                        Photo: DateTime.utc().toISO(),
+                        global: DateTime.utc().toISO()
+                    }
+                })
+            };
+
+            stubStore.dispatch({payload: stubPayload, type: REHYDRATE});
+
+            const actions = stubStore.getActions();
+
+            expect(actions).to.be.ok;
+            expect(actions).to.have.length(1);
+            expect(actions[0]).to.eql(
+                {
+                    type: REHYDRATE,
+                    payload: stubPayload
+                }
+            );
         });
     });
 });
