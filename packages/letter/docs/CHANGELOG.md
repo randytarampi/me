@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/randytarampi/me/compare/v0.45.8...v0.46.0) (2018-10-26)
+
+
+### Bug Fixes
+
+* **letter:** `fetchLetter` graceful error handling dispatches a `FETCHING_LETTER_FAILURE_RECOVERY`. ([4d5c59c](https://github.com/randytarampi/me/commit/4d5c59c))
+* **letter:** Always attempt to fetch a `Letter` variant. ([55baecf](https://github.com/randytarampi/me/commit/55baecf))
+* Actually add the files mentioned in 24eff7edf9b2f4f7cad912e03d1b1efacf4022cb. ([12285ad](https://github.com/randytarampi/me/commit/12285ad))
+* ESLint. ([f60cddf](https://github.com/randytarampi/me/commit/f60cddf))
+* Rename `default` resume, letter and job-application files as `resume`, `letter` and `job-application` respectively. ([24eff7e](https://github.com/randytarampi/me/commit/24eff7e))
+
+
+### Features
+
+* Buy into `castDatePropertyToDateTime` everywhere. ([e40b777](https://github.com/randytarampi/me/commit/e40b777))
+
+
+
+
+
 ## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
 
 **Note:** Version bump only for package @randy.tarampi/letter

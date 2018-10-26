@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.46.1](https://github.com/randytarampi/me/compare/v0.46.0...v0.46.1) (2018-10-26)
+
+
+### Bug Fixes
+
+* **jsx:** `persistAutoRehydrate` should only log when `__BUILD_IS_DEVELOPMENT__`. ([836374f](https://github.com/randytarampi/me/commit/836374f))
+
+
+
+
+
 # [0.46.0](https://github.com/randytarampi/me/compare/v0.45.8...v0.46.0) (2018-10-26)
 
 

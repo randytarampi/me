@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/randytarampi/me/compare/v0.45.8...v0.46.0) (2018-10-26)
+
+
+### Bug Fixes
+
+* **resume:** `fetchResume` graceful error handling dispatches a `FETCHING_RESUME_FAILURE_RECOVERY`. ([8144d12](https://github.com/randytarampi/me/commit/8144d12))
+* **resume:** Always attempt to fetch a `Resume` variant. ([a0eb3e2](https://github.com/randytarampi/me/commit/a0eb3e2))
+* Actually add the files mentioned in 24eff7edf9b2f4f7cad912e03d1b1efacf4022cb. ([12285ad](https://github.com/randytarampi/me/commit/12285ad))
+* Rename `default` resume, letter and job-application files as `resume`, `letter` and `job-application` respectively. ([24eff7e](https://github.com/randytarampi/me/commit/24eff7e))
+
+
+### Features
+
+* **www:** `redux-offline` persists `Resume` sub-entities properly. ([5e90b41](https://github.com/randytarampi/me/commit/5e90b41))
+* Buy into `castDatePropertyToDateTime` everywhere. ([e40b777](https://github.com/randytarampi/me/commit/e40b777))
+
+
+
+
+
 ## [0.45.8](https://github.com/randytarampi/me/compare/v0.45.7...v0.45.8) (2018-10-24)
 
 **Note:** Version bump only for package @randy.tarampi/resume
