@@ -1,29 +1,13 @@
+import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
-import queryString from "query-string";
 import React from "react";
 import Link from "./link";
 
 export const CampaignLink = ({useBranding, href, source, medium, name, term, content, ...props}) => {
-    const parsedHref = queryString.parseUrl(href);
-    const hrefUrl = parsedHref.url;
-    const hrefQueryParameters = parsedHref.query;
-    const passedCampaignParameters = {
-        utm_source: source,
-        utm_medium: medium,
-        utm_campaign: name,
-        utm_term: term,
-        utm_content: content
-    };
-    const combinedQueryString = queryString.stringify({
-        ...passedCampaignParameters,
-        ...hrefQueryParameters
-    });
-    const augmentedHref = hrefUrl + (combinedQueryString ? ("?" + combinedQueryString) : "");
-
     return <Link
         {...props}
         className={["link--campaign", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
-        href={augmentedHref}
+        href={augmentUrlWithTrackingParams(href, {source, medium, name, term, content})}
         text={props.text || href}
     />;
 };
@@ -37,7 +21,7 @@ CampaignLink.propTypes = {
     medium: PropTypes.string,
     name: PropTypes.string,
     term: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.string
 };
 
 CampaignLink.defaultProps = {
