@@ -70,6 +70,17 @@ export class Photo extends PostClassGenerator({
                 : null
         });
     }
+
+    toRss() {
+        return {
+            ...super.toRss(),
+            enclosure: this.largestImage
+                ? {
+                    url: this.largestImage.url
+                }
+                : null
+        };
+    }
 }
 
 export default Photo;

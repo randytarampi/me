@@ -106,6 +106,17 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             mainEntityOfPage: this.sourceUrl
         });
     }
+
+    toRss() {
+        return {
+            title: this.title,
+            description: this.body,
+            url: this.sourceUrl,
+            guid: this.uid,
+            date: this.date ? this.date.toJSDate() : null,
+            author: this.creator ? `${this.creator.url} (${this.creator.name})` : null
+        };
+    }
 };
 
 export const AbstractPost = PostClassGenerator();
