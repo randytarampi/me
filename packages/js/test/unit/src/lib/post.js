@@ -2,7 +2,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import Post from "../../../../src/lib/post";
 import Profile from "../../../../src/lib/profile";
-import {compositeKeySeparator} from "../../../../src/lib/util";
+import {augmentUrlWithTrackingParams, compositeKeySeparator} from "../../../../src/lib/util";
 
 describe("Post", () => {
     describe("constructor", () => {
@@ -204,10 +204,10 @@ describe("Post", () => {
             expect(rssJson).to.eql({
                 title: postfromJS.title,
                 description: postfromJS.body,
-                url: postfromJS.sourceUrl,
+                url: augmentUrlWithTrackingParams(postfromJS.sourceUrl),
                 guid: postfromJS.uid,
                 date: postfromJS.date.toJSDate(),
-                author: `${postfromJS.creator.url} (${postfromJS.creator.name})`,
+                author: `${augmentUrlWithTrackingParams(postfromJS.creator.url)} (${postfromJS.creator.name})`
             });
         });
 

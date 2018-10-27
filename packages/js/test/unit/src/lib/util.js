@@ -171,6 +171,22 @@ describe("util", function () {
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
 
+        it("augments the passed href (no passed params)", function () {
+            const stubHref = "/woof";
+
+            const augmentedHref = util.augmentUrlWithTrackingParams(stubHref);
+            const expectedAugmentedHref = `/woof?${queryString.stringify({
+                utm_source: __CAMPAIGN_SOURCE__,
+                utm_medium: __CAMPAIGN_MEDIUM__,
+                utm_campaign: __CAMPAIGN_NAME__,
+                utm_term: __CAMPAIGN_TERM__,
+                utm_content: __CAMPAIGN_CONTENT__
+            })}`;
+
+            expect(augmentedHref).to.be.ok;
+            expect(augmentedHref).to.eql(expectedAugmentedHref);
+        });
+
         it("augments the passed href (default properties)", function () {
             const stubHref = "/woof";
             const stubParameters = {};

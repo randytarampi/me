@@ -3,6 +3,7 @@ import {List} from "immutable";
 import {DateTime} from "luxon";
 import Photo from "../../../../src/lib/photo";
 import SizedPhoto from "../../../../src/lib/sizedPhoto";
+import {augmentUrlWithTrackingParams} from "../../../../src/lib/util";
 
 describe("Photo", () => {
     describe("constructor", () => {
@@ -257,12 +258,12 @@ describe("Photo", () => {
             expect(rssJson).to.eql({
                 title: photofromJS.title,
                 description: photofromJS.body,
-                url: photofromJS.sourceUrl,
+                url: augmentUrlWithTrackingParams(photofromJS.sourceUrl),
                 guid: photofromJS.uid,
                 date: photofromJS.date.toJSDate(),
-                author: `${photofromJS.creator.url} (${photofromJS.creator.name})`,
+                author: `${augmentUrlWithTrackingParams(photofromJS.creator.url)} (${photofromJS.creator.name})`,
                 enclosure: {
-                    url: photofromJS.largestImage.url
+                    url: augmentUrlWithTrackingParams(photofromJS.largestImage.url)
                 }
             });
         });

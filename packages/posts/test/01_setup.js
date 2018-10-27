@@ -36,3 +36,12 @@ process.env.LOGGER_STREAM_HUMAN_ENABLED = "true";
 process.env.LOGGER_STREAM_STDOUT_ENABLED = "true";
 process.env.LOGGER_STREAM_SENTRY_ENABLED = "true";
 process.env.LOGGER_SRC_ENABLED = "true";
+
+process.env.ME_PERSON_NAME = "Woof Woof";
+process.env.ME_PERSON_JOB_TITLE = "Woofer";
+process.env.ME_PERSON_DESCRIPTION = "Woofiest of Woofs";
+process.env.ME_PERSON_IMAGE = "woof://woof.woof/image";
+process.env.ME_PERSON_EMAIL = "woof@randytarampi.ca";
+
+process.env.BLOG_URL = "woof://woof.woof/blog";
+process.env.FEED_URL = "woof://woof.woof/feed.rss";

@@ -1,3 +1,4 @@
+import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
 import RssFeed from "../../../lib/rssFeed";
 import configureEnvironment from "../../util/configureEnvironment";
 import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters";
@@ -28,9 +29,9 @@ export default (event, context, callback) => {
             const feed = new RssFeed({
                 title: `${process.env.ME_PERSON_NAME} — ${process.env.ME_PERSON_JOB_TITLE}`,
                 description: process.env.ME_PERSON_DESCRIPTION,
-                imageUrl: process.env.ME_PERSON_IMAGE,
-                siteUrl: process.env.BLOG_URL,
-                feedUrl: process.env.FEED_URL,
+                imageUrl: augmentUrlWithTrackingParams(process.env.ME_PERSON_IMAGE),
+                siteUrl: augmentUrlWithTrackingParams(process.env.BLOG_URL),
+                feedUrl: augmentUrlWithTrackingParams(process.env.FEED_URL),
                 managingEditor: `${process.env.ME_PERSON_EMAIL} (${process.env.ME_PERSON_NAME})`,
                 webMaster: `${process.env.ME_PERSON_EMAIL} (${process.env.ME_PERSON_NAME})`,
                 copyright: `© ${process.env.ME_PERSON_NAME}`

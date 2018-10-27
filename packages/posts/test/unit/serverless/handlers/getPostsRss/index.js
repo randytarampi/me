@@ -20,8 +20,16 @@ describe("getPostsRss", function () {
     it("delegates to `getPostsForParsedQuerystringParameters`", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+        const stubPost = Post.fromJS({
+            id: "woof",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "woof://woof.woof/woof"
+        });
+        const stubPhoto = Photo.fromJS({
+            id: "meow",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "meow://meow.meow/meow"
+        });
         const stubPosts = [stubPhoto, stubPost];
         const stubHeaders = {};
         const stubQuerystringParameters = {};
@@ -119,8 +127,16 @@ describe("getPostsRss", function () {
     it("`returnErrorResponse` on error", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+        const stubPost = Post.fromJS({
+            id: "woof",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "woof://woof.woof/woof"
+        });
+        const stubPhoto = Photo.fromJS({
+            id: "meow",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "meow://meow.meow/meow"
+        });
         const stubHeaders = {};
         const stubQuerystringParameters = {};
         const stubError = new Error("woof");
@@ -197,8 +213,16 @@ describe("getPostsRss", function () {
     it("`returnErrorResponse` on parse error", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+        const stubPost = Post.fromJS({
+            id: "woof",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "woof://woof.woof/woof"
+        });
+        const stubPhoto = Photo.fromJS({
+            id: "meow",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "meow://meow.meow/meow"
+        });
         const stubHeaders = {};
         const stubError = new Error("woof");
         const proxyquireStubs = {
