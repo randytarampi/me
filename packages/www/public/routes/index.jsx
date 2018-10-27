@@ -41,7 +41,7 @@ const routes = [
         path: "/blog",
         tab: <Tab title={
             <Fragment>
-                <i className="fas fa-rss-square"></i>
+                <i className="fas fa-comment-alt"></i>
                 <span className="hide-on-med-and-down">&nbsp;|&nbsp;Blog</span>
             </Fragment>
         }/>
