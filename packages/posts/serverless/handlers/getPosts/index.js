@@ -1,3 +1,4 @@
+import callbackOnWarmup from "../../util/callbackOnWarmup";
 import configureEnvironment from "../../util/configureEnvironment";
 import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters";
 import parseHeaders from "../../util/request/parseHeaders";
@@ -7,7 +8,7 @@ import returnErrorResponse from "../../util/response/returnErrorResponse";
 
 export default (event, context, callback) => {
     if (event.source === "serverless-plugin-warmup") {
-        return callback(null, "Lambda is warm!");
+        return callbackOnWarmup(event, context, callback);
     }
 
     const errorHandler = returnErrorResponse(callback);
