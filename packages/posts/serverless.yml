@@ -119,6 +119,12 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
+  getPostsRss:
+    warmup: true
+    handler: serverless/handlers/getPostsRss/initialized.default
+    events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
+    onError:
+      Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
     handler: serverless/handlers/instagramAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}

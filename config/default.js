@@ -36,6 +36,7 @@ module.exports = {
         photosUrl: `http://localhost:${POSTS_SERVER_PORT}/posts?type=Photo`,
         postsUrl: `http://localhost:${POSTS_SERVER_PORT}/posts`,
         wordsUrl: `http://localhost:${POSTS_SERVER_PORT}/posts?type=Post`,
+        feedUrl: `http://localhost:${POSTS_SERVER_PORT}/posts/feed.rss`,
         resumeUrl: "/api/resume",
         letterUrl: "/api/letter",
         serverPort: POSTS_SERVER_PORT,

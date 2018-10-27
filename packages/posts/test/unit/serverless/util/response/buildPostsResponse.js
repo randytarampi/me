@@ -30,7 +30,7 @@ describe("buildPostsResponse", function () {
                 posts: stubPosts,
                 total: stubPosts.length,
                 oldest: stubPost.dateCreated.toISO(),
-                newest: stubPhoto.dateCreated.toISO(),
+                newest: stubPhoto.dateCreated.toISO()
             });
         });
 
@@ -48,7 +48,7 @@ describe("buildPostsResponse", function () {
                 posts: stubSearchPostsResponse.posts,
                 total: stubSearchPostsResponse.total,
                 oldest: undefined,
-                newest: undefined,
+                newest: undefined
             });
         });
     });
@@ -98,7 +98,7 @@ describe("buildPostsResponse", function () {
             expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts));
         });
 
-        it("delegates to buildPostsV2ResponseBody for version 1", function () {
+        it("delegates to buildPostsV1ResponseBody for version 1", function () {
             const stubSearchPostsResponse = {
                 posts: stubPosts,
                 total: stubPosts.length,
