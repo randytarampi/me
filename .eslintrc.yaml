@@ -59,6 +59,7 @@ globals:
   __PHOTOS_APP_URL__: false
   __RESUME_APP_URL__: false
   __LETTER_APP_URL__: false
+  __POSTS_FEED_URL__: false
   __PHOTOS_SERVICE_URL__: false
   __WORDS_SERVICE_URL__: false
   __POSTS_SERVICE_URL__: false
