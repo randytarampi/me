@@ -61,7 +61,7 @@ const routes = [
         path: "/resume/:variant?",
         tab: <Tab title={
             <Fragment>
-                <i className="fas fa-id-card"></i>
+                <i className="fas fa-portrait"></i>
                 <span className="hide-on-med-and-down">&nbsp;|&nbsp;About me</span>
             </Fragment>
         }/>
