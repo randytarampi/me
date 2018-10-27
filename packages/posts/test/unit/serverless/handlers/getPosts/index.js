@@ -4,14 +4,12 @@ import proxyquire from "proxyquire";
 import sinon from "sinon";
 
 describe("getPosts", function () {
-    it("delegates to `searchPosts`", function (done) {
-        this.timeout(5000);
-
+    it("delegates to `getPostsForParsedQuerystringParameters`", function (done) {
         const stubEvent = {};
         const stubContext = {};
         const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
         const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
-        const stubPosts = [stubPost, stubPhoto];
+        const stubPosts = [stubPhoto, stubPost];
         const stubHeaders = {};
         const stubQuerystringParameters = {};
         const expectedPostsResult = {
@@ -34,27 +32,37 @@ describe("getPosts", function () {
         };
         const stubResponse = "meow";
         const proxyquireStubs = {
-            "../../../lib/searchPosts": {
-                "default": sinon.stub().callsFake(searchParams => {
-                    const baseResult = searchParams.type === Photo.name
-                        ? stubPhoto
-                        : stubPost;
+            "../../util/getPostsForParsedQuerystringParameters": {
+                "default": sinon.stub().callsFake(() => {
+                    const stubPosts = [stubPhoto, stubPost];
                     return Promise.resolve({
-                        first: baseResult,
-                        last: baseResult,
-                        posts: [baseResult],
-                        total: 1
+                        first: {
+                            global: stubPost,
+                            [Post.name]: stubPost,
+                            [Photo.name]: stubPhoto
+                        },
+                        last: {
+                            global: stubPhoto,
+                            [Post.name]: stubPost,
+                            [Photo.name]: stubPhoto
+                        },
+                        posts: stubPosts,
+                        total: {
+                            global: stubPosts.length,
+                            [stubPhoto.constructor.name]: 1,
+                            [stubPost.constructor.name]: 1
+                        }
                     });
-                }),
+                })
             },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/request/parseHeaders": {
-                "default": sinon.stub().returns(stubHeaders),
+                "default": sinon.stub().returns(stubHeaders)
             },
             "../../util/request/parseQuerystringParameters": {
-                "default": sinon.stub().returns(stubQuerystringParameters),
+                "default": sinon.stub().returns(stubQuerystringParameters)
             },
             "../../util/response/buildPostsResponse": {
                 "default": sinon.stub().callsFake(headers => postsResult => {
@@ -84,8 +92,8 @@ describe("getPosts", function () {
                 expect(postsResult).to.eql(stubResponse);
                 expect(proxyquireStubs["../../util/request/parseHeaders"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../../lib/searchPosts"].default.calledTwice).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
@@ -107,27 +115,37 @@ describe("getPosts", function () {
         const stubQuerystringParameters = {};
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../lib/searchPosts": {
-                "default": sinon.stub().callsFake(searchParams => {
-                    const baseResult = searchParams.type === Photo.name
-                        ? stubPhoto
-                        : stubPost;
+            "../../util/getPostsForParsedQuerystringParameters": {
+                "default": sinon.stub().callsFake(() => {
+                    const stubPosts = [stubPost, stubPhoto];
                     return Promise.resolve({
-                        first: baseResult,
-                        last: baseResult,
-                        posts: [baseResult],
-                        total: 1
+                        first: {
+                            global: stubPost,
+                            [Post.name]: stubPost,
+                            [Photo.name]: stubPhoto
+                        },
+                        last: {
+                            global: stubPhoto,
+                            [Post.name]: stubPost,
+                            [Photo.name]: stubPhoto
+                        },
+                        posts: stubPosts,
+                        total: {
+                            global: stubPosts.length,
+                            [stubPhoto.constructor.name]: 1,
+                            [stubPost.constructor.name]: 1
+                        }
                     });
-                }),
+                })
             },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/request/parseHeaders": {
-                "default": sinon.stub().returns(stubHeaders),
+                "default": sinon.stub().returns(stubHeaders)
             },
             "../../util/request/parseQuerystringParameters": {
-                "default": sinon.stub().returns(stubQuerystringParameters),
+                "default": sinon.stub().returns(stubQuerystringParameters)
             },
             "../../util/response/buildPostsResponse": {
                 "default": sinon.stub().throws(stubError)
@@ -152,8 +170,8 @@ describe("getPosts", function () {
                 expect(error.message).to.eql(stubError.message);
                 expect(proxyquireStubs["../../util/request/parseHeaders"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../../lib/searchPosts"].default.calledTwice).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
@@ -174,27 +192,37 @@ describe("getPosts", function () {
         const stubHeaders = {};
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../lib/searchPosts": {
-                "default": sinon.stub().callsFake(searchParams => {
-                    const baseResult = searchParams.type === Photo.name
-                        ? stubPhoto
-                        : stubPost;
+            "../../util/getPostsForParsedQuerystringParameters": {
+                "default": sinon.stub().callsFake(() => {
+                    const stubPosts = [stubPost, stubPhoto];
                     return Promise.resolve({
-                        first: baseResult,
-                        last: baseResult,
-                        posts: [baseResult],
-                        total: 1
+                        first: {
+                            global: stubPost,
+                            [Post.name]: stubPost,
+                            [Photo.name]: stubPhoto
+                        },
+                        last: {
+                            global: stubPhoto,
+                            [Post.name]: stubPost,
+                            [Photo.name]: stubPhoto
+                        },
+                        posts: stubPosts,
+                        total: {
+                            global: stubPosts.length,
+                            [stubPhoto.constructor.name]: 1,
+                            [stubPost.constructor.name]: 1
+                        }
                     });
-                }),
+                })
             },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/request/parseHeaders": {
-                "default": sinon.stub().returns(stubHeaders),
+                "default": sinon.stub().returns(stubHeaders)
             },
             "../../util/request/parseQuerystringParameters": {
-                "default": sinon.stub().throws(stubError),
+                "default": sinon.stub().throws(stubError)
             },
             "../../util/response/buildPostsResponse": {
                 "default": sinon.stub().throws(new Error("Wtf? This should've thrown"))
@@ -219,8 +247,8 @@ describe("getPosts", function () {
                 expect(error.message).to.eql(stubError.message);
                 expect(proxyquireStubs["../../util/request/parseHeaders"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../../lib/searchPosts"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.notCalled).to.eql(true);
+                expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
@@ -237,7 +265,7 @@ describe("getPosts", function () {
         const stubEvent = {source: "serverless-plugin-warmup"};
         const stubContext = {};
         const proxyquireStubs = {
-            "../../../lib/searchPosts": {
+            "../../util/getPostsForParsedQuerystringParameters": {
                 "default": sinon.stub().throws(new Error("Wtf? This should've thrown"))
             },
             "../../util/configureEnvironment": {
@@ -262,8 +290,8 @@ describe("getPosts", function () {
                 expect(lambdaIsWarm).to.match(/Lambda is warm!/);
                 expect(proxyquireStubs["../../util/request/parseHeaders"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.notCalled).to.eql(true);
-                expect(proxyquireStubs["../../../lib/searchPosts"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.notCalled).to.eql(true);
+                expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.notCalled).to.eql(true);
                 done();
