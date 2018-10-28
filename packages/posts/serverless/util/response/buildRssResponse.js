@@ -28,7 +28,10 @@ export default parsedHeaders =>
      */
     ({rss}) => {
         if (checkMeVersionHeader(parsedHeaders, 1)) {
-            return responseBuilder(buildRssV1ResponseBody(rss), 200, {"Content-Type": mime.types.rss});
+            return responseBuilder(buildRssV1ResponseBody(rss), 200, {
+                "Content-Disposition": "attachment",
+                "Content-Type": mime.types.rss
+            });
         }
 
         throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);
