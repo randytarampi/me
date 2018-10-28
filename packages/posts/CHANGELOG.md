@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.1](https://github.com/randytarampi/me/compare/v0.47.0...v0.47.1) (2018-10-28)
+
+
+### Bug Fixes
+
+* **posts:** RSS file is served with `Content-Disposition: attachment`. ([9bbbb8b](https://github.com/randytarampi/me/commit/9bbbb8b))
+
+
+
+
+
 # [0.47.0](https://github.com/randytarampi/me/compare/v0.46.1...v0.47.0) (2018-10-28)
 
 
