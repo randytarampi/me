@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@randy.tarampi/views": "^0.47.1",
-    "exiftool-vendored": "^6.2.3",
+    "exiftool-vendored": "^7.1.0",
     "pug": "^2.0.3",
     "puppeteer": "^1.8.0",
     "react": "^16.4.1",
