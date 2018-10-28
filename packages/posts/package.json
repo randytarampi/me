@@ -45,6 +45,7 @@
   "dependencies": {
     "@randy.tarampi/js": "^0.47.2",
     "aws-sdk": "^2.279.1",
+    "aws-xray-sdk": "^2.0.1",
     "bunyan": "beta",
     "bunyan-format": "^0.2.1",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",

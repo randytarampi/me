@@ -1,12 +1,12 @@
 import {Post} from "@randy.tarampi/js";
-import Aws from "aws-sdk";
 import jsyaml from "js-yaml";
+import XRayedAwsSdk from "../../serverless/util/xRayedAwsSdk";
 import CachedDataSource from "../../lib/cachedDataSource";
 
 class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super("S3",
-            dataClient || new Aws.S3(),
+            dataClient || new XRayedAwsSdk.S3(),
             cacheClient
         );
     }

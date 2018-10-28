@@ -14,6 +14,8 @@ provider:
   memorySize: 256
   timeout: 10
 
+  tracing: true
+
   apiKeys:
   - ${self:provider.stage}-${self:service}-user
 
@@ -47,6 +49,12 @@ provider:
     Action:
     - lambda:InvokeFunction
     Resource: arn:aws:lambda:${self:provider.region}:471964952458:function:${self:service}-${self:provider.stage}-*
+  - Effect: Allow
+    Action:
+      - xray:PutTraceSegments
+      - xray:PutTelemetryRecords
+    Resource:
+      - "*"
 
   environment: ${file(env.yml):${self:provider.stage}.environment}
   environmentSecrets: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.environmentSecrets}` because `serverless-secrets` makes assumptions about what's actually in your configuration file

@@ -11,6 +11,8 @@ if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
     dynamoose.local();
 }
 
+process.env.AWS_XRAY_CONTEXT_MISSING = "LOG_ERROR";
+
 process.env.LOCAL_DIRECTORY = "LOCAL_DIRECTORY";
 
 process.env.FLICKR_API_KEY = "FLICKR_API_KEY";

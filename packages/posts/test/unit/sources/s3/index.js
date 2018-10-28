@@ -1,10 +1,10 @@
 import {Post} from "@randy.tarampi/js";
-import Aws from "aws-sdk";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import SearchParams from "../../../../lib/searchParams";
 import S3Source from "../../../../sources/s3";
+import XRayedAwsSdk from "../../../../serverless/util/xRayedAwsSdk";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../lib/util";
 
@@ -153,11 +153,11 @@ describe("S3Source", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `S3Source` instance (including the default `Aws.S3` client)", function () {
+        it("should build a `S3Source` instance (including the default `XRayedAwsSdk.S3` client)", function () {
             const s3Source = new S3Source(null, stubCacheClient);
 
             expect(s3Source.type).to.eql("S3");
-            expect(s3Source.client).to.be.instanceof(Aws.S3);
+            expect(s3Source.client).to.be.instanceof(XRayedAwsSdk.S3);
             expect(s3Source.cacheClient).to.eql(stubCacheClient);
             expect(s3Source.initializing).to.be.instanceOf(Promise);
             expect(s3Source).to.be.instanceOf(S3Source);
