@@ -20,7 +20,7 @@ const augmentWithPathRegExp = ({routes, ...route}) => {
         route.routes = routes.map(augmentWithPathRegExp);
     }
 
-    return route;
+    return route; // FIXME-RT: This would really be a lot better if it returned some kind of `Route` record instead of a plain object, that way I could properly revive the `pathRegExp` when `redux-offline` revives my local state.
 };
 
 const routes = [
