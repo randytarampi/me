@@ -83,6 +83,14 @@
         }
     }
 
+    &--rss {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\0f143\000A0";
+        }
+    }
+
     &--soundCloud {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";

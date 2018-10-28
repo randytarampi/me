@@ -1,3 +1,4 @@
+import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import config from "config";
 import proxyquire from "proxyquire";
@@ -113,6 +114,103 @@ describe("util", function () {
                 level: config.get("logger.level"),
                 src: config.get("logger.src").toString()
             });
+        });
+    });
+
+    describe("getPostsForParsedQuerystringParameters", function () {
+        it("delegates to `searchPosts` (all types)", function () {
+            const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
+            const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+            const stubPosts = [stubPost, stubPhoto];
+            const stubQueryParameters = {};
+            const expectedPostsResult = {
+                posts: stubPosts,
+                total: {
+                    global: stubPosts.length,
+                    [Post.name]: 1,
+                    [Photo.name]: 1
+                },
+                first: {
+                    global: stubPost,
+                    [Post.name]: stubPost,
+                    [Photo.name]: stubPhoto
+                },
+                last: {
+                    global: stubPhoto,
+                    [Post.name]: stubPost,
+                    [Photo.name]: stubPhoto
+                }
+            };
+            const proxyquireStubs = {
+                "../../lib/searchPosts": {
+                    "default": sinon.stub().callsFake(searchParams => {
+                        const baseResult = searchParams.type === Photo.name
+                            ? stubPhoto
+                            : stubPost;
+                        return Promise.resolve({
+                            first: baseResult,
+                            last: baseResult,
+                            posts: [baseResult],
+                            total: 1
+                        });
+                    })
+                }
+            };
+
+            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
+
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
+                .then(postsResult => {
+                    expect(postsResult).to.be.ok;
+                    expect(postsResult).to.eql(expectedPostsResult);
+                    expect(proxyquireStubs["../../lib/searchPosts"].default.calledTwice).to.eql(true);
+                });
+        });
+
+        it("delegates to `searchPosts` (a single type)", function () {
+            const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
+            const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+            const stubPosts = [stubPost];
+            const stubQueryParameters = {type: Post.name};
+            const expectedPostsResult = {
+                posts: stubPosts,
+                total: {
+                    global: stubPosts.length,
+                    [Post.name]: 1
+                },
+                first: {
+                    global: stubPost,
+                    [Post.name]: stubPost
+                },
+                last: {
+                    global: stubPost,
+                    [Post.name]: stubPost
+                }
+            };
+            const proxyquireStubs = {
+                "../../lib/searchPosts": {
+                    "default": sinon.stub().callsFake(searchParams => {
+                        const baseResult = searchParams.type === Photo.name
+                            ? stubPhoto
+                            : stubPost;
+                        return Promise.resolve({
+                            first: baseResult,
+                            last: baseResult,
+                            posts: [baseResult],
+                            total: 1
+                        });
+                    })
+                }
+            };
+
+            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
+
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
+                .then(postsResult => {
+                    expect(postsResult).to.be.ok;
+                    expect(postsResult).to.eql(expectedPostsResult);
+                    expect(proxyquireStubs["../../lib/searchPosts"].default.calledOnce).to.eql(true);
+                });
         });
     });
 });

@@ -2,7 +2,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import Post from "../../../../src/lib/post";
 import Profile from "../../../../src/lib/profile";
-import {compositeKeySeparator} from "../../../../src/lib/util";
+import {augmentUrlWithTrackingParams, compositeKeySeparator} from "../../../../src/lib/util";
 
 describe("Post", () => {
     describe("constructor", () => {
@@ -170,6 +170,59 @@ describe("Post", () => {
                 sharedContent: null,
                 mainEntityOfPage: null,
                 text: null
+            });
+        });
+    });
+
+    describe("#toRss", function () {
+        it("returns expected `rss` item", function () {
+            const postJS = {
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }
+            };
+
+            const postfromJS = Post.fromJS(postJS);
+
+            const rssJson = postfromJS.toRss();
+
+            expect(rssJson).to.eql({
+                title: postfromJS.title,
+                description: postfromJS.body,
+                url: augmentUrlWithTrackingParams(postfromJS.sourceUrl),
+                guid: postfromJS.uid,
+                date: postfromJS.date.toJSDate(),
+                author: `${augmentUrlWithTrackingParams(postfromJS.creator.url)} (${postfromJS.creator.name})`
+            });
+        });
+
+        it("returns some empty `rss` item", function () {
+            const postfromJS = Post.fromJS();
+
+            const rssJson = postfromJS.toRss();
+
+            expect(rssJson).to.eql({
+                title: null,
+                description: null,
+                url: null,
+                guid: postfromJS.uid,
+                date: null,
+                author: null
             });
         });
     });

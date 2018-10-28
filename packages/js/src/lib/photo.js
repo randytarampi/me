@@ -2,7 +2,7 @@ import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from
 import {List} from "immutable";
 import Post, {PostClassGenerator} from "./post";
 import SizedPhoto from "./sizedPhoto";
-import * as util from "./util";
+import {augmentUrlWithTrackingParams, sortPhotosByWidth} from "./util";
 
 export class Photo extends PostClassGenerator({
     width: null,
@@ -24,7 +24,7 @@ export class Photo extends PostClassGenerator({
     }
 
     get sortedSizedPhotos() {
-        return this.sizedPhotos.sort(util.sortPhotosByWidth);
+        return this.sizedPhotos.sort(sortPhotosByWidth);
     }
 
     getSizedPhotoForDisplay(width) {
@@ -69,6 +69,17 @@ export class Photo extends PostClassGenerator({
                 })
                 : null
         });
+    }
+
+    toRss() {
+        return {
+            ...super.toRss(),
+            enclosure: this.largestImage
+                ? {
+                    url: augmentUrlWithTrackingParams(this.largestImage.url)
+                }
+                : null
+        };
     }
 }
 

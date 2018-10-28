@@ -1,5 +1,6 @@
 import {expect} from "chai";
 import {DateTime} from "luxon";
+import queryString from "query-string";
 import {Character} from "../../../../src/lib/emoji";
 import Photo from "../../../../src/lib/photo";
 import Post from "../../../../src/lib/post";
@@ -106,7 +107,7 @@ describe("util", function () {
         });
     });
 
-    describe("castDatePropertyToDateTime", function () {
+    describe(".castDatePropertyToDateTime", function () {
         it("returns null for falsy values", function () {
             const castedDate = util.castDatePropertyToDateTime(null);
 
@@ -143,6 +144,88 @@ describe("util", function () {
 
             expect(castedDate).to.be.instanceOf(DateTime);
             expect(castedDate.valueOf()).to.eql(baseDate.valueOf());
+        });
+    });
+
+    describe(".augmentUrlWithTrackingParams", function () {
+        it("augments the passed href", function () {
+            const stubHref = "/woof";
+            const stubParameters = {
+                source: "woof",
+                medium: "meow",
+                name: "grr",
+                term: "rawr",
+                content: "content"
+            };
+
+            const augmentedHref = util.augmentUrlWithTrackingParams(stubHref, stubParameters);
+            const expectedAugmentedHref = `/woof?${queryString.stringify({
+                utm_source: stubParameters.source,
+                utm_medium: stubParameters.medium,
+                utm_campaign: stubParameters.name,
+                utm_term: stubParameters.term,
+                utm_content: stubParameters.content
+            })}`;
+
+            expect(augmentedHref).to.be.ok;
+            expect(augmentedHref).to.eql(expectedAugmentedHref);
+        });
+
+        it("augments the passed href (no passed params)", function () {
+            const stubHref = "/woof";
+
+            const augmentedHref = util.augmentUrlWithTrackingParams(stubHref);
+            const expectedAugmentedHref = `/woof?${queryString.stringify({
+                utm_source: __CAMPAIGN_SOURCE__,
+                utm_medium: __CAMPAIGN_MEDIUM__,
+                utm_campaign: __CAMPAIGN_NAME__,
+                utm_term: __CAMPAIGN_TERM__,
+                utm_content: __CAMPAIGN_CONTENT__
+            })}`;
+
+            expect(augmentedHref).to.be.ok;
+            expect(augmentedHref).to.eql(expectedAugmentedHref);
+        });
+
+        it("augments the passed href (default properties)", function () {
+            const stubHref = "/woof";
+            const stubParameters = {};
+
+            const augmentedHref = util.augmentUrlWithTrackingParams(stubHref, stubParameters);
+            const expectedAugmentedHref = `/woof?${queryString.stringify({
+                utm_source: __CAMPAIGN_SOURCE__,
+                utm_medium: __CAMPAIGN_MEDIUM__,
+                utm_campaign: __CAMPAIGN_NAME__,
+                utm_term: __CAMPAIGN_TERM__,
+                utm_content: __CAMPAIGN_CONTENT__
+            })}`;
+
+            expect(augmentedHref).to.be.ok;
+            expect(augmentedHref).to.eql(expectedAugmentedHref);
+        });
+
+        it("augments the passed href (existing query string)", function () {
+            const stubHref = "/woof?woof=meow";
+            const stubParameters = {
+                source: "woof",
+                medium: "meow",
+                name: "grr",
+                term: "rawr",
+                content: "content"
+            };
+
+            const augmentedHref = util.augmentUrlWithTrackingParams(stubHref, stubParameters);
+            const expectedAugmentedHref = `/woof?${queryString.stringify({
+                ...queryString.parseUrl(stubHref).query,
+                utm_source: stubParameters.source,
+                utm_medium: stubParameters.medium,
+                utm_campaign: stubParameters.name,
+                utm_term: stubParameters.term,
+                utm_content: stubParameters.content
+            })}`;
+
+            expect(augmentedHref).to.be.ok;
+            expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
     });
 });

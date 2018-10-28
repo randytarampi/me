@@ -14,6 +14,9 @@ module.exports.default = () => {
             level: config.get("logger.level"),
             src: config.get("logger.src").toString()
         },
+        www: config.get("www"),
+        resume: config.get("resume"),
+        letter: config.get("letter"),
         me: config.get("me")
     };
 };

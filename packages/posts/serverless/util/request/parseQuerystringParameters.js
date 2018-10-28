@@ -3,7 +3,7 @@ import RequestError, {codes} from "./requestError";
 
 export default (querystringParameters = {}) => {
     if (!querystringParameters) {
-        return querystringParameters;
+        return {};
     }
 
     const numberProperties = [

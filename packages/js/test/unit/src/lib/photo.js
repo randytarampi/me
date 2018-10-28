@@ -3,6 +3,7 @@ import {List} from "immutable";
 import {DateTime} from "luxon";
 import Photo from "../../../../src/lib/photo";
 import SizedPhoto from "../../../../src/lib/sizedPhoto";
+import {augmentUrlWithTrackingParams} from "../../../../src/lib/util";
 
 describe("Photo", () => {
     describe("constructor", () => {
@@ -217,6 +218,69 @@ describe("Photo", () => {
                 sharedContent: null,
                 text: null,
                 image: null
+            });
+        });
+    });
+
+    describe("#toRss", function () {
+        it("returns expected `rss` item", function () {
+            const photoJson = {
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                width: -1,
+                height: -2,
+                sizedPhotos: [
+                    {url: "woof://woof.woof/woof/woofto", width: 640, height: 480},
+                    {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
+                ],
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }
+            };
+
+            const photofromJS = Photo.fromJS(photoJson);
+
+            const rssJson = photofromJS.toRss();
+
+            expect(rssJson).to.eql({
+                title: photofromJS.title,
+                description: photofromJS.body,
+                url: augmentUrlWithTrackingParams(photofromJS.sourceUrl),
+                guid: photofromJS.uid,
+                date: photofromJS.date.toJSDate(),
+                author: `${augmentUrlWithTrackingParams(photofromJS.creator.url)} (${photofromJS.creator.name})`,
+                enclosure: {
+                    url: augmentUrlWithTrackingParams(photofromJS.largestImage.url)
+                }
+            });
+        });
+
+        it("returns some empty `rss` item", function () {
+            const photofromJS = Photo.fromJS();
+
+            const rssJson = photofromJS.toRss();
+
+            expect(rssJson).to.eql({
+                title: null,
+                description: null,
+                url: null,
+                guid: photofromJS.uid,
+                date: null,
+                author: null,
+                enclosure: null
             });
         });
     });

@@ -2,6 +2,7 @@ posts:
   photosUrl: https://posts.randytarampi.ca/posts?type=Photo
   postsUrl: https://posts.randytarampi.ca/posts
   wordsUrl: https://posts.randytarampi.ca/posts?type=Post
+  feedUrl: https://posts.randytarampi.ca/posts/feed.rss
   resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/src/resumes
   letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/src/letters
 www:

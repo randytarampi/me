@@ -1,7 +1,7 @@
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {Record} from "immutable";
 import Profile from "./profile";
-import {castDatePropertyToDateTime, compositeKeySeparator} from "./util";
+import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util";
 
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
     id: null,
@@ -105,6 +105,17 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             dateModified: this.datePublished ? this.datePublished.toISO() : null,
             mainEntityOfPage: this.sourceUrl
         });
+    }
+
+    toRss() {
+        return {
+            title: this.title,
+            description: this.body,
+            url: this.sourceUrl ? augmentUrlWithTrackingParams(this.sourceUrl) : null,
+            guid: this.uid,
+            date: this.date ? this.date.toJSDate() : null,
+            author: this.creator ? `${this.creator.url ? augmentUrlWithTrackingParams(this.creator.url) : this.creator.username} (${this.creator.name})` : null
+        };
     }
 };
 

@@ -2,34 +2,50 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
+import RssFeed from "../../../../../lib/rssFeed";
 
-describe("getPosts", function () {
+describe("getPostsRss", function () {
+    let clock;
+    let now;
+
+    beforeEach(function () {
+        now = new Date();
+        clock = sinon.useFakeTimers(now);
+    });
+
+    afterEach(function () {
+        clock.restore();
+    });
+
     it("delegates to `getPostsForParsedQuerystringParameters`", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+        const stubPost = Post.fromJS({
+            id: "woof",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "woof://woof.woof/woof"
+        });
+        const stubPhoto = Photo.fromJS({
+            id: "meow",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "meow://meow.meow/meow"
+        });
         const stubPosts = [stubPhoto, stubPost];
         const stubHeaders = {};
         const stubQuerystringParameters = {};
-        const expectedPostsResult = {
-            posts: stubPosts,
-            total: {
-                global: stubPosts.length,
-                [Post.name]: 1,
-                [Photo.name]: 1
-            },
-            first: {
-                global: stubPost,
-                [Post.name]: stubPost,
-                [Photo.name]: stubPhoto
-            },
-            last: {
-                global: stubPhoto,
-                [Post.name]: stubPost,
-                [Photo.name]: stubPhoto
-            }
-        };
+        const expectedFeedResult = new RssFeed({
+            title: `${process.env.ME_PERSON_NAME} — ${process.env.ME_PERSON_JOB_TITLE}`,
+            description: process.env.ME_PERSON_DESCRIPTION,
+            imageUrl: process.env.ME_PERSON_IMAGE,
+            siteUrl: process.env.BLOG_URL,
+            feedUrl: process.env.FEED_URL,
+            managingEditor: `${process.env.ME_PERSON_NAME} <${process.env.ME_PERSON_EMAIL}>`,
+            webMaster: `${process.env.ME_PERSON_NAME} <${process.env.ME_PERSON_EMAIL}>`,
+            copyright: `© ${process.env.ME_PERSON_NAME}`,
+            language: "en_CA"
+        });
+        stubPosts.forEach(post => expectedFeedResult.item(post.toRss()));
+
         const stubResponse = "meow";
         const proxyquireStubs = {
             "../../util/getPostsForParsedQuerystringParameters": {
@@ -64,11 +80,13 @@ describe("getPosts", function () {
             "../../util/request/parseQuerystringParameters": {
                 "default": sinon.stub().returns(stubQuerystringParameters)
             },
-            "../../util/response/buildPostsResponse": {
-                "default": sinon.stub().callsFake(headers => postsResult => {
+            "../../util/response/buildRssResponse": {
+                "default": sinon.stub().callsFake(headers => ({rss: rssResult}) => { // eslint-disable-line no-unused-vars
                     try {
                         expect(headers).to.eql(stubHeaders);
-                        expect(postsResult).to.eql(expectedPostsResult);
+                        expect(rssResult.docs).to.eql(expectedFeedResult.docs);
+                        expect(rssResult.title).to.eql(expectedFeedResult.title);
+                        expect(rssResult.items).to.eql(expectedFeedResult.items);
                         return stubResponse;
                     } catch (error) {
                         done(error);
@@ -94,23 +112,31 @@ describe("getPosts", function () {
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/response/buildRssResponse"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
             } catch (expectationError) {
                 done(expectationError);
             }
         };
-        const proxyquiredGetPosts = proxyquire("../../../../../serverless/handlers/getPosts", proxyquireStubs);
+        const proxyquiredgetPostsRss = proxyquire("../../../../../serverless/handlers/getPostsRss", proxyquireStubs);
 
-        proxyquiredGetPosts.default(stubEvent, stubContext, stubCallback);
+        proxyquiredgetPostsRss.default(stubEvent, stubContext, stubCallback);
     });
 
     it("`returnErrorResponse` on error", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+        const stubPost = Post.fromJS({
+            id: "woof",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "woof://woof.woof/woof"
+        });
+        const stubPhoto = Photo.fromJS({
+            id: "meow",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "meow://meow.meow/meow"
+        });
         const stubHeaders = {};
         const stubQuerystringParameters = {};
         const stubError = new Error("woof");
@@ -147,7 +173,7 @@ describe("getPosts", function () {
             "../../util/request/parseQuerystringParameters": {
                 "default": sinon.stub().returns(stubQuerystringParameters)
             },
-            "../../util/response/buildPostsResponse": {
+            "../../util/response/buildRssResponse": {
                 "default": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
@@ -172,23 +198,31 @@ describe("getPosts", function () {
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/response/buildRssResponse"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
             } catch (expectationError) {
                 done(expectationError);
             }
         };
-        const proxyquiredGetPosts = proxyquire("../../../../../serverless/handlers/getPosts", proxyquireStubs);
+        const proxyquiredgetPostsRss = proxyquire("../../../../../serverless/handlers/getPostsRss", proxyquireStubs);
 
-        proxyquiredGetPosts.default(stubEvent, stubContext, stubCallback);
+        proxyquiredgetPostsRss.default(stubEvent, stubContext, stubCallback);
     });
 
     it("`returnErrorResponse` on parse error", function (done) {
         const stubEvent = {};
         const stubContext = {};
-        const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
-        const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+        const stubPost = Post.fromJS({
+            id: "woof",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "woof://woof.woof/woof"
+        });
+        const stubPhoto = Photo.fromJS({
+            id: "meow",
+            dateCreated: new Date(1900, 0, 1),
+            sourceUrl: "meow://meow.meow/meow"
+        });
         const stubHeaders = {};
         const stubError = new Error("woof");
         const proxyquireStubs = {
@@ -224,7 +258,7 @@ describe("getPosts", function () {
             "../../util/request/parseQuerystringParameters": {
                 "default": sinon.stub().throws(stubError)
             },
-            "../../util/response/buildPostsResponse": {
+            "../../util/response/buildRssResponse": {
                 "default": sinon.stub().throws(new Error("Wtf? This should've thrown"))
             },
             "../../util/response/returnErrorResponse": {
@@ -249,16 +283,16 @@ describe("getPosts", function () {
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.notCalled).to.eql(true);
-                expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.notCalled).to.eql(true);
+                expect(proxyquireStubs["../../util/response/buildRssResponse"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
             } catch (expectationError) {
                 done(expectationError);
             }
         };
-        const proxyquiredGetPosts = proxyquire("../../../../../serverless/handlers/getPosts", proxyquireStubs);
+        const proxyquiredgetPostsRss = proxyquire("../../../../../serverless/handlers/getPostsRss", proxyquireStubs);
 
-        proxyquiredGetPosts.default(stubEvent, stubContext, stubCallback);
+        proxyquiredgetPostsRss.default(stubEvent, stubContext, stubCallback);
     });
 
     it("returns early after being warmed", function (done) {
@@ -277,7 +311,7 @@ describe("getPosts", function () {
             "../../util/request/parseQuerystringParameters": {
                 "default": sinon.stub().throws(new Error("Wtf? This should've thrown"))
             },
-            "../../util/response/buildPostsResponse": {
+            "../../util/response/buildRssResponse": {
                 "default": sinon.stub().throws(new Error("Wtf? This should've thrown"))
             },
             "../../util/response/returnErrorResponse": {
@@ -292,15 +326,15 @@ describe("getPosts", function () {
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/getPostsForParsedQuerystringParameters"].default.notCalled).to.eql(true);
-                expect(proxyquireStubs["../../util/response/buildPostsResponse"].default.notCalled).to.eql(true);
+                expect(proxyquireStubs["../../util/response/buildRssResponse"].default.notCalled).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.notCalled).to.eql(true);
                 done();
             } catch (expectationError) {
                 done(expectationError);
             }
         };
-        const proxyquiredGetPosts = proxyquire("../../../../../serverless/handlers/getPosts", proxyquireStubs);
+        const proxyquiredgetPostsRss = proxyquire("../../../../../serverless/handlers/getPostsRss", proxyquireStubs);
 
-        proxyquiredGetPosts.default(stubEvent, stubContext, stubCallback);
+        proxyquiredgetPostsRss.default(stubEvent, stubContext, stubCallback);
     });
 });

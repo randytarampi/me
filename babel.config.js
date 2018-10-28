@@ -79,6 +79,13 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__POSTS_FEED_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("posts.feedUrl")
+                }
+            },
+            {
                 identifierName: "__CODE_APP_URL__",
                 replacement: {
                     type: "stringLiteral",

@@ -2,11 +2,11 @@ import {expect} from "chai";
 import parseQuerystringParameters from "../../../../../serverless/util/request/parseQuerystringParameters";
 
 describe("parseQuerystringParameters", function () {
-    it("returns no query string parameters if it receives no query string parameters", function () {
+    it("returns empty query string parameters if it receives no query string parameters", function () {
         const stubQuerystringParameters = null;
         const parsedQuerystringParameters = parseQuerystringParameters(stubQuerystringParameters);
 
-        expect(parsedQuerystringParameters).to.eql(stubQuerystringParameters);
+        expect(parsedQuerystringParameters).to.eql({});
     });
 
     it("only inspects custom QuerystringParameters", function () {
