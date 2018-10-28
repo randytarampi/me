@@ -3,10 +3,10 @@ import XRayedAwsSdk from "./xRayedAwsSdk";
 import logger, {configureLogger} from "../../lib/logger";
 import loadServerlessSecrets from "./loadServerlessSecrets";
 
+dynamoose.setDDB(new XRayedAwsSdk.DynamoDB());
+
 if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
     dynamoose.local();
-} else {
-    dynamoose.setDDB(new XRayedAwsSdk.dynamoDB());
 }
 
 export default () => {
