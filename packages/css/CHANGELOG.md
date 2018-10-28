@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.47.0](https://github.com/randytarampi/me/compare/v0.46.1...v0.47.0) (2018-10-28)
+
+
+### Features
+
+* **www:** Shill my RSS feed on `/`. ([f386e05](https://github.com/randytarampi/me/commit/f386e05)), closes [randytarampi/me.blog#3](https://github.com/randytarampi/me.blog/issues/3)
+
+
+
+
+
 ## [0.46.1](https://github.com/randytarampi/me/compare/v0.46.0...v0.46.1) (2018-10-26)
 
 **Note:** Version bump only for package @randy.tarampi/css

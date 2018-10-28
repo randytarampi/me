@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.47.0](https://github.com/randytarampi/me/compare/v0.46.1...v0.47.0) (2018-10-28)
+
+
+### Bug Fixes
+
+* **posts:** `parseQuerystringParameters` should always return an object. ([85f0dab](https://github.com/randytarampi/me/commit/85f0dab))
+* Lock down `immutable@4.0.0-rc.10`. ([fc34855](https://github.com/randytarampi/me/commit/fc34855))
+
+
+### Features
+
+* **posts:** `augmentUrlWithTrackingParams` for each RSS link. ([e5b2083](https://github.com/randytarampi/me/commit/e5b2083))
+* **posts:** Add RSS support. ([7ed77dd](https://github.com/randytarampi/me/commit/7ed77dd)), closes [randytarampi/me.blog#3](https://github.com/randytarampi/me.blog/issues/3)
+
+
+
+
+
 ## [0.46.1](https://github.com/randytarampi/me/compare/v0.46.0...v0.46.1) (2018-10-26)
 
 **Note:** Version bump only for package @randy.tarampi/posts
