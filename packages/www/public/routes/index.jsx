@@ -28,7 +28,7 @@ const routes = [
         component: Main,
         exact: true,
         path: "/",
-        tab: <Tab title={
+        tab: <Tab title={ // FIXME-RT: Ideally these `Tab`s wouldn't be instantiated, but stateless components. Can't do that because of how `react-materialize` and `$` interact to manage the selection state internally. Maybe this goes away with `react-materialize^3` and `materialize^1`?
             <Fragment>
                 <i className="far fa-hand-paper"></i>
                 <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hey!</span>
