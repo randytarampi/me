@@ -56,7 +56,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "habitat": "^3.1.2",
     "history": "^4.7.2",
-    "immutable": "^4.0.0-rc.9",
+    "immutable": "4.0.0-rc.10",
     "js-yaml": "^3.12.0",
     "jsdom": "^12.0.0",
     "json-stringify-safe": "^5.0.1",
