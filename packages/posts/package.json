@@ -12,7 +12,7 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "sls dynamodb install",
+    "prepare": "sls dynamodb install",
     "preuninstall:dynamodb": "sls dynamodb remove",
     "pretest": "gulp -LLLL --color lint",
     "pretest:dynamodb-local": "npm run kill:dynamodb-local && npm run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.posts.dynamo.pid`) from /tmp/ca.randytarampi.me.posts.dynamo.pid\";",
