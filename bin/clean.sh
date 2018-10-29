@@ -10,4 +10,4 @@ npx lerna run preuninstall;
 
 npx lerna clean --yes;
 
-rm -rf packages/*/package-lock.json node_modules package-lock.json coverage .nyc_output;
+rm -rf node_modules coverage .nyc_output;
