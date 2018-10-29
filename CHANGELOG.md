@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.9](https://github.com/randytarampi/me/compare/v0.47.8...v0.47.9) (2018-10-29)
+
+
+### Reverts
+
+* chore(travis): Need to `bootstrap --no-ci` on deploy. ([45f5279](https://github.com/randytarampi/me/commit/45f5279))
+* chore(travis): Scope our `bootstrap` to the package we're deploying. ([565886f](https://github.com/randytarampi/me/commit/565886f))
+
+
+
+
+
 ## [0.47.8](https://github.com/randytarampi/me/compare/v0.47.7...v0.47.8) (2018-10-29)
 
 
