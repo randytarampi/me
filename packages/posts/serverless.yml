@@ -14,7 +14,7 @@ provider:
   memorySize: 256
   timeout: 10
 
-  tracing: true
+  tracing: false
 
   apiKeys:
   - ${self:provider.stage}-${self:service}-user
