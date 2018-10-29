@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.5](https://github.com/randytarampi/me/compare/v0.47.4...v0.47.5) (2018-10-29)
+
+
+### Bug Fixes
+
+* **www:** RSS Feed link should actually open in a new tab. ([d0ba7a0](https://github.com/randytarampi/me/commit/d0ba7a0))
+
+
+
+
+
 ## [0.47.4](https://github.com/randytarampi/me/compare/v0.47.3...v0.47.4) (2018-10-29)
 
 
