@@ -4,8 +4,8 @@ import bunyanSentryStream from "bunyan-sentry-stream";
 import raven from "raven";
 import packageJson from "../../package.json";
 
-const configureRaven = () => new Promise((resolve, reject) => {
-    try {
+const configureRaven = () => Promise.resolve()
+    .then(() => {
         if (process.env.SENTRY_DSN) {
             raven.config(
                 process.env.SENTRY_DSN,
@@ -34,11 +34,7 @@ const configureRaven = () => new Promise((resolve, reject) => {
                 raven.install();
             }
         }
-        resolve();
-    } catch (e) {
-        reject(e);
-    }
-});
+    });
 
 export const configureLogger = () => configureRaven();
 
