@@ -74,27 +74,21 @@ jobs:
       install:
         - git checkout $TRAVIS_BRANCH
         - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
-        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo
-          true || true`
+        - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo true || true`
         - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
         - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
         - JSONRESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
-        - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm install; fi;
-      before_script: skip
-      script: skip
-      after_script: skip
-      before_deploy:
-        - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
-        - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/
-          $TRAVIS_BUILD_DIR
         - git config --local user.name "$TRAVIS_AUTHOR_NAME"
         - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
         - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-        - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then git
-          status; npx lerna version --no-git-tag-version --no-push --conventional-commits
-          --yes; fi;
+        - npm install --production
+        - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then git status; npx lerna version --no-git-tag-version --no-push --conventional-commits --yes; npm install; fi;
+      before_script: skip
+      script: skip
+      after_script: skip
+      before_deploy:
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
         - npm run letter --prefix packages/letter
         - npm run docs --prefix packages/letter
@@ -108,10 +102,12 @@ jobs:
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/docs/precache-manifest.*.js;
         - npm run docs --prefix packages/www
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
-        - git add packages/*/CHANGELOG.md
+        - git add packages/*/CHANGELOG.md packages/*/package-lock.json package-lock.json
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
       v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes; fi;'
+        - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
+        - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/$TRAVIS_BUILD_DIR
       deploy:
         - provider: releases
           api_key:
