@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.8](https://github.com/randytarampi/me/compare/v0.47.7...v0.47.8) (2018-10-29)
+
+**Note:** Version bump only for package @randy.tarampi/job-applications
+
+
+
+
+
 ## [0.47.7](https://github.com/randytarampi/me/compare/v0.47.6...v0.47.7) (2018-10-29)
 
 **Note:** Version bump only for package @randy.tarampi/job-applications
