@@ -91,6 +91,7 @@ custom:
     migration:
       dir: serverless/dynamoDb/migrations
   webpack:
+    individually: true
     webpackConfig: ./webpack.serverless.config.js
     includeModules:
       forceInclude:
