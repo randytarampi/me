@@ -8,4 +8,5 @@ cd "${REPO_ROOT}";
 
 npx lerna link;
 npx lerna run postinstall
+npx lerna run prepare
 npx lerna run build

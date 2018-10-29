@@ -8,4 +8,4 @@ cd "${REPO_ROOT}";
 
 "${REPO_ROOT}/bin/install.sh";
 
-"${REPO_ROOT}/bin/postinstall.sh";
+"${REPO_ROOT}/bin/prepare.sh";
