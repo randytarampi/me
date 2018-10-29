@@ -6,7 +6,7 @@
     "url": "https://www.randytarampi.ca"
   },
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
     "@babel/plugin-proposal-class-properties": "latest",
