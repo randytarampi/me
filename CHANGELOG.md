@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.4](https://github.com/randytarampi/me/compare/v0.47.3...v0.47.4) (2018-10-29)
+
+
+### Bug Fixes
+
+* **posts:** Enable `serverless-plugin-tracing`. ([2ee492d](https://github.com/randytarampi/me/commit/2ee492d))
+
+
+
+
+
 ## [0.47.3](https://github.com/randytarampi/me/compare/v0.47.2...v0.47.3) (2018-10-28)
 
 
