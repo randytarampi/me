@@ -55,6 +55,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 module.exports = {
     entry: slsw.lib.entries,
     mode: resolveMode(),
+    target: "node",
     optimization: {
         minimize: false
     },
