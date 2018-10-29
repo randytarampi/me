@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "materialize-css": "^0.100.2",
+    "materialize-css": "0.100.2",
     "@fortawesome/fontawesome-free": "^5.3.1"
   },
   "devDependencies": {
