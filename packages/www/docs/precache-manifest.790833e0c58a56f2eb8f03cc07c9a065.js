@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/www.js"
   },
   {
-    "revision": "fdf6537b0367f490e4d0",
+    "revision": "c1c2ca4f20a7384c403b",
     "url": "/vendor.js"
   },
   {

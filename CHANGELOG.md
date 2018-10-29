@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.10](https://github.com/randytarampi/me/compare/v0.47.9...v0.47.10) (2018-10-29)
+
+
+### Bug Fixes
+
+* **css:** Bring in `node-sass-tilde-importer` per a3cd53bf685bf6fd5a3ed7996f19510bb276f257. ([2605402](https://github.com/randytarampi/me/commit/2605402))
+* **css:** Fix `materialize-css` to `0.100.2`. ([815c6f5](https://github.com/randytarampi/me/commit/815c6f5))
+* **jsx:** Explicitly depend on `query-string`. ([f6a3729](https://github.com/randytarampi/me/commit/f6a3729))
+* **package:** Just nuke all these `package-lock`s for now. ([a6c7d72](https://github.com/randytarampi/me/commit/a6c7d72))
+* **package:** Prefer to `prepare` my dev dependencies instead of `postinstall`. ([8dfb0dd](https://github.com/randytarampi/me/commit/8dfb0dd))
+* **travis:** If `HAS_PUBLISHABLE_CHANGES`, then `version` and `install`. ([b9dcfb0](https://github.com/randytarampi/me/commit/b9dcfb0))
+* **www:** `workbox-webpack-plugin` is actually a `devDependency`. ([f676871](https://github.com/randytarampi/me/commit/f676871))
+* **www:** Pull `react-router-sitemap` dependencies up to the root. ([051b018](https://github.com/randytarampi/me/commit/051b018))
+
+
+### Reverts
+
+* fix(travis): If `HAS_PUBLISHABLE_CHANGES`, then `version` and `install`. ([d20c2ec](https://github.com/randytarampi/me/commit/d20c2ec))
+
+
+
+
+
 ## [0.47.9](https://github.com/randytarampi/me/compare/v0.47.8...v0.47.9) (2018-10-29)
 
 

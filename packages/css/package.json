@@ -4,7 +4,7 @@
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "0.47.9",
+  "version": "0.47.10",
   "description": "Some common styles for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
@@ -27,8 +27,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "materialize-css": "0.100.2",
-    "@fortawesome/fontawesome-free": "^5.3.1"
+    "@fortawesome/fontawesome-free": "^5.3.1",
+    "materialize-css": "0.100.2"
   },
   "devDependencies": {
     "@babel/cli": "latest",
