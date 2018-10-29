@@ -1,4 +1,4 @@
-@import "materialize-css/sass/components/color";
+@import "~materialize-css/sass/components/color";
 
 $blockPadding: 0.1em 0.5rem;
 $blockColour: black;
@@ -12,7 +12,7 @@ $asset-url: "" !default;
 $roboto-font-path: "#{$asset-url}/";
 $fa-font-path: $asset-url;
 
-@import "materialize-css/sass/components/variables";
+@import "~materialize-css/sass/components/variables";
 
 $tabs-bg-color: $blockColour;
 $tabs-text-color: $blockTextColour;
