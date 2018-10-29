@@ -96,8 +96,6 @@ custom:
     includeModules:
       forceInclude:
       - mime
-      forceExclude:
-      - aws-sdk
   serverlessSecrets:
     throwOnMissingSecret: true
     providerOptions:
