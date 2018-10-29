@@ -37,7 +37,7 @@ stages:
 jobs:
   include:
     - stage: Test
-      node_js: '8'
+      node_js: '8.10'
       env: &1
         - NODE_ENV=test
       before_script: &2
@@ -66,7 +66,7 @@ jobs:
       after_success: *6
     - stage: Release
       name: GitHub
-      node_js: '8'
+      node_js: '8.10'
       env:
         - NODE_ENV=prd
         - RELEASE=true
@@ -126,7 +126,7 @@ jobs:
             condition: "-n $HAS_PUBLISHABLE_CHANGES"
     - stage: Deploy (dev)
       name: www
-      node_js: '8'
+      node_js: '8.10'
       env:
         - NODE_ENV=dev
         - DEPLOY=true
@@ -158,7 +158,7 @@ jobs:
             branch: master
     - stage: Deploy (dev)
       name: posts
-      node_js: '8'
+      node_js: '8.10'
       env:
         - NODE_ENV=dev
         - DEPLOY=true
@@ -176,7 +176,7 @@ jobs:
             master: true
     - stage: Deploy (prd)
       name: www
-      node_js: '8'
+      node_js: '8.10'
       env:
         - NODE_ENV=prd
         - DEPLOY=true
@@ -199,7 +199,7 @@ jobs:
             tags: true
     - stage: Deploy (prd)
       name: resume
-      node_js: '8'
+      node_js: '8.10'
       env:
         - NODE_ENV=prd
         - DEPLOY=true
@@ -221,7 +221,7 @@ jobs:
             tags: true
     - stage: Deploy (prd)
       name: posts
-      node_js: '8'
+      node_js: '8.10'
       env:
         - NODE_ENV=prd
         - DEPLOY=true
