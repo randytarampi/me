@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.6](https://github.com/randytarampi/me/compare/v0.47.5...v0.47.6) (2018-10-29)
+
+
+### Bug Fixes
+
+* **posts:** Correct `*_URL` environment variables. ([92ca171](https://github.com/randytarampi/me/commit/92ca171))
+
+
+
+
+
 ## [0.47.5](https://github.com/randytarampi/me/compare/v0.47.4...v0.47.5) (2018-10-29)
 
 **Note:** Version bump only for package @randy.tarampi/posts
