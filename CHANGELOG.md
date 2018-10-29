@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.7](https://github.com/randytarampi/me/compare/v0.47.6...v0.47.7) (2018-10-29)
+
+
+### Bug Fixes
+
+* **posts:** I don't know how this isn't creating a `Promise` in `ca-central-1`, but try this. ([56348a3](https://github.com/randytarampi/me/commit/56348a3))
+* **posts:** Webpack explicitly targets `node`. ([c205b93](https://github.com/randytarampi/me/commit/c205b93))
+
+
+### Reverts
+
+* chore(posts): Don't use `console` when logging failed raven pushes. ([720b400](https://github.com/randytarampi/me/commit/720b400))
+
+
+
+
+
 ## [0.47.6](https://github.com/randytarampi/me/compare/v0.47.5...v0.47.6) (2018-10-29)
 
 
