@@ -47,7 +47,6 @@ jspm_packages
 dist
 build
 .webpack
-package-lock.json
 *.pdf_original
 
 # Environment variables
