@@ -32,6 +32,7 @@ rules:
     - __CAMPAIGN_NAME__
     - __CAMPAIGN_TERM__
     - __CAMPAIGN_CONTENT__
+parser: babel-eslint
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
