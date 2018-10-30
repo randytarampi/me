@@ -81,7 +81,7 @@ jobs:
         - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
         - JSONRESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
-        - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm install --production && npx lerna bootstrap --no-ci --hoist --ignore-scripts --concurrency ${CPUS_COUNT} && npx lerna run postinstall --concurrency ${CPUS_COUNT}; fi;
+        - if [ -n "$HAS_PUBLISHABLE_CHANGES" ]; then npm install; fi;
       before_script: skip
       script: skip
       after_script: skip
