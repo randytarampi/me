@@ -49,12 +49,14 @@ module.exports.stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () 
     const autoprefixer = require("gulp-autoprefixer");
     const concat = require("gulp-concat");
     const sass = require("gulp-sass");
-    const sassTildeImporter = require("node-sass-tilde-importer");
 
     return gulp.src([path.join(relativePath, "styles/style.scss")])
         .pipe(sass({
-            importer: sassTildeImporter,
-            includePaths: ["node_modules", path.join(relativePath, "node_modules")]
+            includePaths: [
+                path.join(relativePath, "node_modules"),
+                path.join(relativePath, "../css/node_modules"),
+                path.join(relativePath, "../../node_modules")
+            ]
         })
             .on("error", sass.logError))
         .pipe(autoprefixer({

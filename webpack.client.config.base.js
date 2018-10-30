@@ -87,7 +87,11 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                         {
                             loader: "sass-loader",
                             options: {
-                                includePaths: ["node_modules", "../../node_modules"],
+                                includePaths: [
+                                    path.join(sourceDirectoryPath, "node_modules"),
+                                    path.join(sourceDirectoryPath, "../css/node_modules"),
+                                    path.join(sourceDirectoryPath, "../../node_modules")
+                                ],
                                 data: `$asset-url: "${config.get("www.assetUrl")}";\n`
                             }
                         }
