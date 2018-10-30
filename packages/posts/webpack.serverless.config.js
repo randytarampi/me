@@ -1,10 +1,15 @@
-const path = require("path");const slsw = require("serverless-webpack");
+const path = require("path");
+const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
-const {babelLoaderExclusions, WEBPACK_MODE_DEVELOPMENT} = require("../../util");
+const util = require("../../util");
+
+const {
+    resolveWebpackMode: resolveMode
+} = util;
 
 const plugins = [
     new webpack.DefinePlugin({
@@ -49,7 +54,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 
 module.exports = {
     entry: slsw.lib.entries,
-    mode: WEBPACK_MODE_DEVELOPMENT, // FIXME-RT: Don't exactly know what `production` mode is bungling [here](https://github.com/randytarampi/me/commit/56348a3c3928a629016c1b5da850cdd8ad000797), but development mode code seems to work just fine when copy/pasted into `ca-central-1`
+    mode: resolveMode(),
     target: "node",
     optimization: {
         minimize: false
@@ -68,7 +73,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: babelLoaderExclusions,
+                exclude: util.babelLoaderExclusions,
                 loader: "babel-loader",
                 options: {
                     configFile: path.join(__dirname, "../../babel.config.js"),
