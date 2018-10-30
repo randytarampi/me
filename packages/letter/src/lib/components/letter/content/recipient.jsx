@@ -32,10 +32,10 @@ export const PrintableRecipient = ({letter, contentConfiguration}) => {
                 : null
         }
         {
-            letter.recipient.address && letter.recipient.city && letter.recipient.region && letter.recipient.postalCode
+            letter.recipient.address && letter.recipient.city && letter.recipient.postalCode
                 ? <Fragment>
                     <p className="printable-recipient__street-address">{letter.recipient.address}</p>
-                    <p className="printable-recipient__city-region">{letter.recipient.city}, {letter.recipient.region}</p>
+                    <p className="printable-recipient__city-region">{[letter.recipient.city, letter.recipient.region].filter(lineItem => !!lineItem).join(", ")}</p>
                     <p className="printable-recipient__postal-code">{letter.recipient.postalCode}</p>
                 </Fragment>
                 : null
