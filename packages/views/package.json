@@ -51,6 +51,7 @@
     "build",
     "templates",
     "dist",
+    "npm-shrinkwrap.json",
     "index.js"
   ]
 }

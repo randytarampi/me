@@ -116,6 +116,7 @@
   },
   "files": [
     "build",
+    "npm-shrinkwrap.json",
     "index.js"
   ]
 }

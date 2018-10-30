@@ -37,5 +37,9 @@
   },
   "engines": {
     "node": ">=8"
-  }
+  },
+  "files": [
+    "npm-shrinkwrap.json",
+    "styles"
+  ]
 }

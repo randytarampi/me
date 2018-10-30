@@ -86,6 +86,7 @@
   "files": [
     "build",
     "dist",
+    "npm-shrinkwrap.json",
     "index.js"
   ]
 }

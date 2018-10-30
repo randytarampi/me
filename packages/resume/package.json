@@ -112,6 +112,7 @@
   "files": [
     "build",
     "styles",
+    "npm-shrinkwrap.json",
     "dist/styles.css",
     "index.client.js",
     "index.server.js"

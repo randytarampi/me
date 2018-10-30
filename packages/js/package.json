@@ -69,6 +69,7 @@
     "test": "./test"
   },
   "files": [
+    "npm-shrinkwrap.json",
     "build",
     "index.js"
   ]

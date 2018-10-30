@@ -52,10 +52,12 @@
   "module": "./index.js",
   "main": "./index.js",
   "directories": {
-    "lib": "./lib"
+    "lib": "./lib",
+    "test": "./test"
   },
   "files": [
     "build",
+    "npm-shrinkwrap.json",
     "index.js"
   ]
 }
