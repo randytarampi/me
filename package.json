@@ -125,6 +125,7 @@
     "clean": "./bin/clean.sh",
     "bootstrap": "./bin/hoist.sh",
     "prepare": "npm run bootstrap",
+    "pretest": "NODE_ENV=test lerna run pretest --no-bail",
     "test": "NODE_ENV=test lerna run test --no-bail",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail",
     "cover:collect": "mkdir -p .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -r .nyc_output ../..; fi;\" && nyc report --reporter=lcov",
