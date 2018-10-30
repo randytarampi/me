@@ -28,7 +28,7 @@
     "dev": "npm run dev:client",
     "dev:client": "rm -rf dist/*.js dist/*.css && CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") webpack-serve ./webpack.client.config.js --hotClient",
     "build": "CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color build",
-    "prepare": "if [ -z \"$CI\" ]; then npm run build; fi;",
+    "prepare": "npm run build",
     "prepack": "NODE_ENV=prd npm run build",
     "docs": "gulp -LLLL --color docs",
     "clean": "gulp -LLLL --color clean",
