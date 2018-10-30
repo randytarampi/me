@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.15](https://github.com/randytarampi/me/compare/v0.47.14...v0.47.15) (2018-10-30)
+
+
+### Bug Fixes
+
+* **resume:** Fix `customContent` regression from 80c912a3402422413059c3c256a01afc77d100fe. ([c53913b](https://github.com/randytarampi/me/commit/c53913b))
+
+
+
+
+
 ## [0.47.14](https://github.com/randytarampi/me/compare/v0.47.13...v0.47.14) (2018-10-30)
 
 
