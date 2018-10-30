@@ -80,6 +80,7 @@ plugins:
 - serverless-offline
 - serverless-mocha-plugin
 - serverless-domain-manager
+- serverless-plugin-tracing
 
 custom:
   dynamodb:
