@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/letter",
-  "private": true,
   "publishConfig": {
     "access": "public"
   },
