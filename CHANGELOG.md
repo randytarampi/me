@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.12](https://github.com/randytarampi/me/compare/v0.47.11...v0.47.12) (2018-10-30)
+
+
+### Bug Fixes
+
+* **package:** Restore deleted `pretest` script. ([2870ba9](https://github.com/randytarampi/me/commit/2870ba9))
+* **package:** Run monorepo `lerna` scripts with the proper concurrency. ([3273280](https://github.com/randytarampi/me/commit/3273280))
+* **posts:** Remove `serverless-plugin-tracing`. ([0135a5e](https://github.com/randytarampi/me/commit/0135a5e))
+* **travis:** Consistently `--hoist --no-ci` on deploy, even for `posts`. ([5850d17](https://github.com/randytarampi/me/commit/5850d17))
+* **travis:** Don't `--ignore-scripts` on deploy. ([6edaf17](https://github.com/randytarampi/me/commit/6edaf17))
+* **travis:** Don't `--ignore-scripts` on release. ([4790b10](https://github.com/randytarampi/me/commit/4790b10))
+* **travis:** Fix Lerna's concurrency to 2 on the Travis boxes. ([4bc154f](https://github.com/randytarampi/me/commit/4bc154f))
+* **travis:** Need to `bootstrap --ignore-scripts`, not `--production`. ([8eecc0c](https://github.com/randytarampi/me/commit/8eecc0c))
+
+
+
+
+
 
 
 **Note:** Version bump only for package me
