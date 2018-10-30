@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.14](https://github.com/randytarampi/me/compare/v0.47.13...v0.47.14) (2018-10-30)
+
+
+### Bug Fixes
+
+* **job-applications:** Build PDFs with `CAMPAIGN_MEDIUM` set. ([8fc76de](https://github.com/randytarampi/me/commit/8fc76de))
+* **job-applications:** Make `me` and `you` more flexible in terms of `contentConfiguration`. ([39876f4](https://github.com/randytarampi/me/commit/39876f4))
+
+
+
+
+
 ## [0.47.13](https://github.com/randytarampi/me/compare/v0.47.12...v0.47.13) (2018-10-30)
 
 
