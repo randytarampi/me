@@ -79,15 +79,15 @@ package:
   individually: true
 
 plugins:
-- serverless-aws-alias
-- serverless-plugin-tracing
-- serverless-mocha-plugin
-- serverless-domain-manager
-- serverless-plugin-warmup
 - serverless-secrets
 - serverless-webpack
 - serverless-dynamodb-local
+- serverless-plugin-warmup
 - serverless-offline
+- serverless-mocha-plugin
+- serverless-domain-manager
+- serverless-plugin-tracing
+- serverless-aws-alias
 
 custom:
   dynamodb:
