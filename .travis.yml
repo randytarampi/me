@@ -85,7 +85,7 @@ jobs:
         - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
         - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-        - if [[ -n "${HAS_PUBLISHABLE_CHANGES}" || -n "${IS_FORCED_RELEASE}" ]]; then
+        - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
           git status;
           npx lerna version --no-git-tag-version --no-push --conventional-commits --yes;
           npm install;
@@ -98,11 +98,11 @@ jobs:
       after_script: skip
       before_deploy:
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
-        - if [[ -d "${LETTER_PACKAGE_DIR/docs}" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs; fi;
-        - if [[ -d "${RESUME_PACKAGE_DIR/docs}" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs; fi;
+        - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs; fi;
+        - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs; fi;
         - git add --verbose --force --all $JSONRESUME_PACKAGE_DIR/*.html $JSONRESUME_PACKAGE_DIR/*.pdf $JSONRESUME_PACKAGE_DIR/resume.json;
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/docs/precache-manifest.*.js;
-        - if [[ -d "${WWW_PACKAGE_DIR/docs}" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
+        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - git add packages/*/CHANGELOG.md
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
@@ -139,7 +139,7 @@ jobs:
       after_script: skip
       before_deploy:
         - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/docs/CNAME;
-        - if [[ -d "${WWW_PACKAGE_DIR/docs}" ]]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
+        - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
       deploy:
