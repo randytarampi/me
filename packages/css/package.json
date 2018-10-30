@@ -14,6 +14,7 @@
     "build": "gulp -LLLL --color build",
     "prepare": "if [ -z \"$RELEASE\" ]; then npm run build; fi;",
     "prepack": "NODE_ENV=prd npm run build",
+    "prepublishOnly": "npm shrinkwrap",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },

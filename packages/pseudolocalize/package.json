@@ -23,7 +23,8 @@
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test gulp -LLLL --color test",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test"
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
+    "prepublishOnly": "npm shrinkwrap"
   },
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",

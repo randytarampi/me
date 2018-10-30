@@ -11,6 +11,9 @@
   "version": "0.47.16",
   "description": "Some common assets for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca",
+  "scripts": {
+    "prepublishOnly": "npm shrinkwrap"
+  },
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
     "email": "bugs@randytarampi.ca"
