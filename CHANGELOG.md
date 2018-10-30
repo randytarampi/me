@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.13](https://github.com/randytarampi/me/compare/v0.47.12...v0.47.13) (2018-10-30)
+
+
+### Bug Fixes
+
+* **css:** Don't bother with `node-sass-tilde-importer`. ([31e9361](https://github.com/randytarampi/me/commit/31e9361))
+* **letter:** `PrintableRecipient` address should require a city & region. ([4a4c477](https://github.com/randytarampi/me/commit/4a4c477))
+* **letter:** Give `LetterSection` some `sectionProps`. ([97505a6](https://github.com/randytarampi/me/commit/97505a6))
+* **package:** Fix inverted logic in 2bbe750e51d43f389ca8fb688fd8db8ab78ec9d0. ([118b1a2](https://github.com/randytarampi/me/commit/118b1a2))
+* **posts:** Build `prd` assets for release once. ([2bbe750](https://github.com/randytarampi/me/commit/2bbe750))
+* **posts:** Remove `serverless-aws-alias` for now. ([072c134](https://github.com/randytarampi/me/commit/072c134))
+* **posts:** See if plugin order changes things here? ([9a26498](https://github.com/randytarampi/me/commit/9a26498))
+* **travis:** Add missing semi-colons. ([174156b](https://github.com/randytarampi/me/commit/174156b))
+* **travis:** Publish with `${CPUS_COUNT}` concurrency. ([41bc90b](https://github.com/randytarampi/me/commit/41bc90b))
+* **travis:** Separate the building of `prd` assets from versioning them. ([32451cf](https://github.com/randytarampi/me/commit/32451cf))
+* **travis:** Turns out Travis uses `sh` instead of `bash`, so make these standard conditionals. ([76fef6b](https://github.com/randytarampi/me/commit/76fef6b))
+* Remove `package-lock`s. ([b2bf2db](https://github.com/randytarampi/me/commit/b2bf2db))
+
+
+### Reverts
+
+* chore: Webpack should `babel` everything in `production` mode. ([c0f793b](https://github.com/randytarampi/me/commit/c0f793b))
+* fix(posts): Disable `serverless-plugin-tracing` for now. ([de52187](https://github.com/randytarampi/me/commit/de52187))
+* fix(posts): Don't webpack in `production` mode. ([eb1dc2f](https://github.com/randytarampi/me/commit/eb1dc2f))
+* fix(posts): Remove `serverless-plugin-tracing`. ([a9efa93](https://github.com/randytarampi/me/commit/a9efa93))
+* fix(posts): See if plugin order changes things here? ([2ac726c](https://github.com/randytarampi/me/commit/2ac726c))
+
+
+
+
+
 ## [0.47.12](https://github.com/randytarampi/me/compare/v0.47.11...v0.47.12) (2018-10-30)
 
 

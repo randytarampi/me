@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.13](https://github.com/randytarampi/me/compare/v0.47.12...v0.47.13) (2018-10-30)
+
+
+### Bug Fixes
+
+* Remove `package-lock`s. ([b2bf2db](https://github.com/randytarampi/me/commit/b2bf2db))
+* **posts:** Remove `serverless-aws-alias` for now. ([072c134](https://github.com/randytarampi/me/commit/072c134))
+* **posts:** See if plugin order changes things here? ([9a26498](https://github.com/randytarampi/me/commit/9a26498))
+* **travis:** Turns out Travis uses `sh` instead of `bash`, so make these standard conditionals. ([76fef6b](https://github.com/randytarampi/me/commit/76fef6b))
+
+
+### Reverts
+
+* fix(posts): Disable `serverless-plugin-tracing` for now. ([de52187](https://github.com/randytarampi/me/commit/de52187))
+* fix(posts): Don't webpack in `production` mode. ([eb1dc2f](https://github.com/randytarampi/me/commit/eb1dc2f))
+* fix(posts): Remove `serverless-plugin-tracing`. ([a9efa93](https://github.com/randytarampi/me/commit/a9efa93))
+* fix(posts): See if plugin order changes things here? ([2ac726c](https://github.com/randytarampi/me/commit/2ac726c))
+
+
+
+
+
 ## [0.47.12](https://github.com/randytarampi/me/compare/v0.47.11...v0.47.12) (2018-10-30)
 
 
