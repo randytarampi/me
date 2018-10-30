@@ -27,7 +27,8 @@ export class Resume extends Record({
     interests: List(),
     references: List(),
     renderOptions: Map(),
-    renderExpectations: Map()
+    renderExpectations: Map(),
+    customContent: null
 }) {
     get pdfRenderOptions() {
         return this.renderOptions ? this.renderOptions.toJS() : null;

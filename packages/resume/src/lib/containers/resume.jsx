@@ -25,9 +25,17 @@ export const ConnectedResume = connect(
             variant
         };
 
-        const customContent = ownProps.resume && ownProps.resume.id
-            ? allResumeCustomContent[ownProps.resume.id]
-            : allResumeCustomContent[variant];
+        let customContent;
+
+        if (ownProps.resume) {
+            if (ownProps.resume.customContent) {
+                customContent = ownProps.resume.customContent;
+            } else if (ownProps.resume.id) {
+                customContent = allResumeCustomContent[ownProps.resume.id];
+            }
+        } else {
+            customContent = allResumeCustomContent[variant];
+        }
 
         if (customContent) {
             props.customContent = customContent;
