@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import sinon from "sinon";
 import * as fetchResume from "../../../../../src/lib/actions/fetchResume";
 import {ConnectedResume} from "../../../../../src/lib/containers/resume";
+import Resume from "../../../../../src/lib/resume";
 import selectors from "../../../../../src/lib/data/selectors";
 
 describe("ConnectedResume", function () {
@@ -25,7 +26,7 @@ describe("ConnectedResume", function () {
         stubInitialState = Map();
         stubStore = mockStore(stubInitialState);
 
-        stubResume = {woof: true};
+        stubResume = Resume.fromJSON({woof: true});
         sinon.stub(selectors, "getResumeVariant").returns(stubResume);
         sinon.stub(fetchResume, "fetchResumeCreator").returns({type: "MEOW"});
         stubIsLoadingUrl = false;
@@ -55,6 +56,54 @@ describe("ConnectedResume", function () {
         expect(rendered).to.have.prop("resume", stubResume);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
         expect(rendered).to.have.prop("variant", "resume");
+        expect(rendered).to.have.prop("fetchResume");
+
+        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
+    });
+
+    it("receives a Resume", function () {
+        stubResume = Resume.fromJSON({id: "meh"});
+
+        const stubProps = {
+            match: {
+                params: {
+                    variant: "rawr"
+                }
+            },
+            resume: stubResume
+        };
+
+        const rendered = shallow(stubStore)(<ConnectedResume {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.have.prop("resume", stubResume);
+        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
+        expect(rendered).to.have.prop("variant", "rawr");
+        expect(rendered).to.have.prop("fetchResume");
+
+        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
+    });
+
+    it("receives a Resume and pulls its `customContent`", function () {
+        stubResume = Resume.fromJSON({id: "meh", customContent: "foo"});
+
+        const stubProps = {
+            match: {
+                params: {
+                    variant: "rawr"
+                }
+            },
+            resume: stubResume
+        };
+
+        const rendered = shallow(stubStore)(<ConnectedResume {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.have.prop("resume", stubResume);
+        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
+        expect(rendered).to.have.prop("variant", "rawr");
         expect(rendered).to.have.prop("fetchResume");
 
         expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);

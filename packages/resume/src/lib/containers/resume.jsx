@@ -32,6 +32,8 @@ export const ConnectedResume = connect(
                 customContent = ownProps.resume.customContent;
             } else if (ownProps.resume.id) {
                 customContent = allResumeCustomContent[ownProps.resume.id];
+            } else {
+                customContent = allResumeCustomContent[variant];
             }
         } else {
             customContent = allResumeCustomContent[variant];
