@@ -256,7 +256,7 @@
     },
     {
       "contentKey": "quality",
-      "contentProps": {
+      "sectionProps": {
         "showOnLegal": true
       }
     },

@@ -8,6 +8,9 @@ describe("LetterSection", function () {
             const stubLetterSection = {
                 contentKey: "woof",
                 sectionId: "meow",
+                sectionProps: Map({
+                    woof: -1
+                }),
                 contentProps: Map({
                     meow: 1
                 }),
@@ -19,6 +22,9 @@ describe("LetterSection", function () {
             expect(letterSection).to.be.instanceOf(LetterSection);
             expect(letterSection.contentKey).to.eql(stubLetterSection.contentKey);
             expect(letterSection.sectionId).to.eql(stubLetterSection.sectionId);
+            expect(letterSection.sectionProps).to.eql(stubLetterSection.sectionProps.toJS());
+            expect(letterSection.sectionProps).to.eql(letterSection.get("sectionProps").toJS());
+            expect(letterSection.sectionProps).to.be.instanceOf(Object);
             expect(letterSection.contentProps).to.eql(stubLetterSection.contentProps.toJS());
             expect(letterSection.contentProps).to.eql(letterSection.get("contentProps").toJS());
             expect(letterSection.contentProps).to.be.instanceOf(Object);
@@ -31,6 +37,9 @@ describe("LetterSection", function () {
             const stubLetterSection = {
                 contentKey: "woof",
                 sectionId: "meow",
+                sectionProps: {
+                    woof: -1
+                },
                 contentProps: {
                     meow: 1
                 },
@@ -42,6 +51,9 @@ describe("LetterSection", function () {
             expect(letterSection).to.be.instanceOf(LetterSection);
             expect(letterSection.contentKey).to.eql(stubLetterSection.contentKey);
             expect(letterSection.sectionId).to.eql(stubLetterSection.sectionId);
+            expect(letterSection.sectionProps).to.eql(stubLetterSection.sectionProps);
+            expect(letterSection.sectionProps).to.eql(letterSection.get("sectionProps").toJS());
+            expect(letterSection.sectionProps).to.be.instanceOf(Object);
             expect(letterSection.contentProps).to.eql(stubLetterSection.contentProps);
             expect(letterSection.contentProps).to.eql(letterSection.get("contentProps").toJS());
             expect(letterSection.contentProps).to.be.instanceOf(Object);
@@ -54,6 +66,9 @@ describe("LetterSection", function () {
             const stubLetterSection = {
                 contentKey: "woof",
                 sectionId: "meow",
+                sectionProps: {
+                    woof: -1
+                },
                 contentProps: {
                     meow: 1
                 },
@@ -64,6 +79,9 @@ describe("LetterSection", function () {
             expect(letterSection).to.be.ok;
             expect(letterSection.contentKey).to.eql(stubLetterSection.contentKey);
             expect(letterSection.sectionId).to.eql(stubLetterSection.sectionId);
+            expect(letterSection.sectionProps).to.eql(stubLetterSection.sectionProps);
+            expect(letterSection.sectionProps).to.eql(letterSection.get("sectionProps").toJS());
+            expect(letterSection.sectionProps).to.be.instanceOf(Object);
             expect(letterSection.contentProps).to.eql(stubLetterSection.contentProps);
             expect(letterSection.contentProps).to.eql(letterSection.get("contentProps").toJS());
             expect(letterSection.contentProps).to.be.instanceOf(Object);
