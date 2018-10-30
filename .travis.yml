@@ -106,7 +106,7 @@ jobs:
         - git add packages/*/CHANGELOG.md
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
-      v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency=1; fi;'
+      v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency ${CPUS_COUNT}; fi;'
         - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
         - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/$TRAVIS_BUILD_DIR
       deploy:
