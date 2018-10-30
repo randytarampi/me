@@ -38,6 +38,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@randy.tarampi/jsx": "^0.47.13",
     "@randy.tarampi/letter": "^0.47.13",
     "@randy.tarampi/printables": "^0.47.13",
     "@randy.tarampi/resume": "^0.47.13"

@@ -13,9 +13,9 @@ export const LetterAboutMe = ({contentConfiguration}) => {
         type={contentConfiguration.contentKey}
         printableType="letter"
     >
-        <p className="letter-me__content">
+        <div className="letter-me__content">
             {
-                contentConfiguration.contentProps.aboutMe || <Fragment>
+                contentConfiguration.contentProps.aboutMe || <p>
                     I'm not your run of the mill software developer. I love being away from my
                     screens — getting <CampaignLink
                     href="https://www.flickr.com/photos/randytarampi/29098786007">outdoors</CampaignLink>, travelling
@@ -30,9 +30,9 @@ export const LetterAboutMe = ({contentConfiguration}) => {
                     your accounting by hand, queueing up to order your morning coffee or editing your photos to look
                     "good". We have software to do these things better and faster than we can ourselves, to make our
                     lives and easier — and that's the kind software that I like to build.
-                </Fragment>
+                </p>
             }
-        </p>
+        </div>
     </LeftDescriptionSection>;
 };
 
