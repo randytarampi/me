@@ -14,6 +14,12 @@ provider:
   memorySize: 256
   timeout: 10
 
+  aliasStage:
+    loggingLevel: ERROR
+    metricsEnabled: true
+    throttlingBurstLimit: 100
+    throttlingRateLimit: 100
+
   tracing: true
 
   apiKeys:
@@ -73,6 +79,7 @@ package:
   individually: true
 
 plugins:
+- serverless-aws-alias
 - serverless-plugin-tracing
 - serverless-mocha-plugin
 - serverless-domain-manager
