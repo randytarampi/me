@@ -89,9 +89,9 @@ jobs:
           git status;
           npx lerna version --no-git-tag-version --no-push --conventional-commits --yes;
           npm install;
-          npm run docs --prefix packages/letter
-          npm run docs --prefix packages/resume
-          npm run docs --prefix packages/www
+          npm run docs --prefix packages/letter;
+          npm run docs --prefix packages/resume;
+          npm run docs --prefix packages/www;
           fi;
       before_script: skip
       script: skip
