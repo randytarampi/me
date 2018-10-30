@@ -87,7 +87,6 @@ plugins:
 - serverless-mocha-plugin
 - serverless-domain-manager
 - serverless-plugin-tracing
-- serverless-aws-alias
 
 custom:
   dynamodb:
