@@ -4,7 +4,7 @@ import {REHYDRATE} from "redux-persist/constants";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
 
-export const postsReducer = (state = Map({posts: Set([]), oldest: Map(), newest: Map()}), action) => {
+export const postsReducer = (state = Map({posts: Set(), oldest: Map(), newest: Map()}), action) => {
     switch (action.type) {
         case REHYDRATE: {
             if (action.payload.posts) {

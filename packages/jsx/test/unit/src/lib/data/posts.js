@@ -1,6 +1,7 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {Map, Set} from "immutable";
+import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
 import {fetchingPostsSuccess} from "../../../../../src/lib/actions/fetchPosts";
 import reducer, {
@@ -19,12 +20,23 @@ describe("posts", function () {
 
     beforeEach(function () {
         stubInitialState = Map({
-            posts: new Set()
+            posts: Set(),
+            oldest: Map(),
+            newest: Map()
         });
     });
 
     it("reduces the current state for some other action", function () {
-        const stubPosts = ["woof", "meow"];
+        const stubPosts = [
+            Post.fromJSON({
+                id: "woof",
+                dateCreated: DateTime.utc().toISO()
+            }),
+            Photo.fromJSON({
+                id: "meow",
+                dateCreated: DateTime.utc().toISO()
+            })
+        ];
         const stubPayload = {
             posts: stubPosts
         };
@@ -38,7 +50,16 @@ describe("posts", function () {
 
     describe("FETCHING_POSTS_SUCCESS", function () {
         it("reduces the correct state (no prior state)", function () {
-            const stubPosts = ["woof", "meow"];
+            const stubPosts = [
+                Post.fromJSON({
+                    id: "woof",
+                    dateCreated: DateTime.utc().toISO()
+                }),
+                Photo.fromJSON({
+                    id: "meow",
+                    dateCreated: DateTime.utc().toISO()
+                })
+            ];
             const stubPayload = {
                 posts: stubPosts
             };
@@ -50,13 +71,25 @@ describe("posts", function () {
         });
 
         it("reduces the correct state (has existing state)", function () {
-            const stubPosts = ["woof", "meow"];
+            const stubPosts = [
+                Post.fromJSON({
+                    id: "woof",
+                    dateCreated: DateTime.utc().toISO()
+                }),
+                Photo.fromJSON({
+                    id: "meow",
+                    dateCreated: DateTime.utc().toISO()
+                })
+            ];
             const stubPayload = {
                 posts: stubPosts
             };
 
             stubInitialState = Map({
-                posts: new Set(["grr"])
+                posts: new Set([Post.fromJSON({
+                    id: "grr",
+                    dateCreated: DateTime.utc().toISO()
+                })])
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
@@ -64,11 +97,35 @@ describe("posts", function () {
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
         });
 
-        it("reduces the correct state (does nothing if no posts to add)", function () {
+        it("reduces the correct state (does nothing if no posts at all)", function () {
             const stubPayload = {};
 
             stubInitialState = Map({
-                posts: new Set(["grr"])
+                posts: new Set([
+                    Post.fromJSON({
+                        id: "grr",
+                        dateCreated: DateTime.utc().toISO()
+                    })
+                ])
+            });
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
+            const posts = getPosts(updatedState);
+            expect(posts).to.be.ok;
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toArray());
+        });
+
+        it("reduces the correct state (does nothing if no posts to add)", function () {
+            const stubPayload = {
+                posts: []
+            };
+
+            stubInitialState = Map({
+                posts: new Set([
+                    Post.fromJSON({
+                        id: "grr",
+                        dateCreated: DateTime.utc().toISO()
+                    })
+                ])
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
