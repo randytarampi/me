@@ -237,7 +237,7 @@ module.exports = (api) => {
                 targets: {
                     node: "current"
                 },
-                useBuiltIns: "usage"
+                useBuiltIns: "entry"
             }
         ],
         [
@@ -274,7 +274,7 @@ module.exports = (api) => {
                         targets: {
                             node: "current"
                         },
-                        useBuiltIns: "usage"
+                        useBuiltIns: "entry"
                     }
                 ],
                 [
@@ -296,7 +296,7 @@ module.exports = (api) => {
                     "@babel/preset-env",
                     {
                         forceAllTransforms: true,
-                        useBuiltIns: "usage"
+                        useBuiltIns: "entry"
                     }
                 ],
                 [
@@ -315,7 +315,7 @@ module.exports = (api) => {
                     "@babel/preset-env",
                     {
                         forceAllTransforms: true,
-                        useBuiltIns: "usage"
+                        useBuiltIns: "entry"
                     }
                 ],
                 [

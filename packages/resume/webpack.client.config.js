@@ -10,7 +10,7 @@ module.exports = webpackBaseConfig({
         mount("/api/resume", serve("./src/resumes"))
     ],
     entry: {
-        resume: ["raf/polyfill", path.join(__dirname, "./src/public/views/index.jsx")],
+        resume: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "./src/public/views/index.jsx")],
         styles: path.join(__dirname, "./styles/style.scss")
     }
 });
