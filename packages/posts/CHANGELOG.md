@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.48.0](https://github.com/randytarampi/me/compare/v0.47.22...v0.48.0) (2018-10-31)
+
+
+### Features
+
+* **posts:** Add a bunch of API keys to the `posts` lambda environment. ([3660d27](https://github.com/randytarampi/me/commit/3660d27)), closes [#79](https://github.com/randytarampi/me/issues/79) [#178](https://github.com/randytarampi/me/issues/178) [randytarampi/me.words#2](https://github.com/randytarampi/me.words/issues/2)
+
+
+
+
+
 ## [0.47.22](https://github.com/randytarampi/me/compare/v0.47.21...v0.47.22) (2018-10-31)
 
 
