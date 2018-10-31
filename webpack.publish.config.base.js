@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const util = require("./util");
 
 const {
+    isDevelopment,
     resolveWebpackMode: resolveMode
 } = util;
 
@@ -20,7 +21,7 @@ const plugins = [
 module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverrides}) => {
     return {
         mode: resolveMode(),
-        devtool: "nosources-source-map",
+        devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
         output: {
             libraryTarget: "commonjs2",
             path: compliationDirectoryPath,

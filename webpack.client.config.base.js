@@ -51,7 +51,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], publicPath = "/", ...configOverrides}) => {
     return {
         mode: resolveMode(),
-        devtool: "nosources-source-map",
+        devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
         output: {
             path: compliationDirectoryPath,
             filename: "[name].js",

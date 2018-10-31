@@ -8,6 +8,7 @@ const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const util = require("../../util");
 
 const {
+    isDevelopment,
     resolveWebpackMode: resolveMode
 } = util;
 
@@ -55,6 +56,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 module.exports = {
     entry: slsw.lib.entries,
     mode: resolveMode(),
+    devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
     target: "node",
     optimization: {
         minimize: false
