@@ -31,7 +31,7 @@ html(lang="en")
         link(rel="canonical", href=pageUrl)
         meta(name="og:url", content=pageUrl)
 
-        if environment === "puppeteer" || environment === "printable"
+        if environment === "printable"
             link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/all.css",integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU", crossorigin="anonymous")
             style(type="text/css")
                 | !{css}
@@ -110,6 +110,6 @@ html(lang="en")
         noscript
             iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtmContainerId height="0" width="0" style="display:none;visibility:hidden")
         block content
-        if environment !== "puppeteer" && environment !== "printable"
+        if environment !== "printable"
             script(src=assetUrl + "/vendor.js")
             script(src=assetUrl + "/" + bundleName + ".js")
