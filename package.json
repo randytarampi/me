@@ -93,7 +93,6 @@
     "serverless": "^1.28.0",
     "serverless-domain-manager": "^2.6.0",
     "serverless-dynamodb-local": "^0.2.33",
-    "serverless-mocha-plugin": "^1.8.3",
     "serverless-offline": "^3.25.6",
     "serverless-plugin-tracing": "^2.0.0",
     "serverless-plugin-warmup": "^3.6.2-rc.1",
