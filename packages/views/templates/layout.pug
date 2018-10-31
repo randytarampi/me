@@ -92,6 +92,10 @@ html(lang="en")
             window.NAME = "!{name}" || null;
             window.VERSION = "!{version}" || null;
             window.LOGGER = !{logger} || null;
+            window.GTM_CONTAINER = "!{gtmContainerId}" || null;
+            window.GA_PROPERTY = "!{gaPropertyId}" || null;
+            window.MIXPANEL_APP = "!{mixpanelAppId}" || null;
+            window.FACEBOOK_APP = "!{facebookAppId}" || null;
             window.GTM_DATALAYER = [
                 {appName: window.NAME},
                 {appVersion: window.VERSION},
