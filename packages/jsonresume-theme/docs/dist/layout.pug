@@ -1,0 +1,138 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="x-ua-compatible", content="ie=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+
+        title !{pugTitle}
+        meta(itemprop="name", content=pugTitle)
+        meta(name="twitter:title", content=pugTitle)
+        meta(name="og:title", content=pugTitle)
+        meta(name="og:site_name", content=pugTitle)
+
+        meta(name="description", content=pugDescription)
+        meta(itemprop="description", content=pugDescription)
+        meta(name="twitter:description", content=pugDescription)
+        meta(name="og:description", content=pugDescription)
+
+        meta(name="image", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
+        meta(itemprop="image", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
+        meta(name="twitter:image:src", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
+        meta(name="og:image", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
+
+        meta(name="twitter:site", content="@" + twitterUsername)
+        meta(name="twitter:creator", content="@" + twitterUsername)
+        meta(name="og:locale", content="en_CA")
+        meta(name="fb:admins", content=facebookUsername)
+        meta(name="fb:app_id", content="1705404522846104")
+        meta(name="og:type", content="website")
+
+        link(rel="canonical", href=pageUrl)
+        meta(name="og:url", content=pageUrl)
+
+        if environment === "puppeteer" || environment === "printable"
+            link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/all.css",integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU", crossorigin="anonymous")
+            style(type="text/css")
+                | !{css}
+        else
+            if !!serviceWorkerBundleName
+                script(type="application/javascript").
+                    if ("serviceWorker" in navigator) {
+                        window.addEventListener("load", function () {
+                            navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");
+                        });
+                    }
+            link(rel="stylesheet", href=assetUrl + "/styles.css")
+
+        link(rel="apple-touch-icon", sizes="57x57", href=assetUrl + "/apple-touch-icon-57x57.png")
+        link(rel="apple-touch-icon", sizes="60x60", href=assetUrl + "/apple-touch-icon-60x60.png")
+        link(rel="apple-touch-icon", sizes="72x72", href=assetUrl + "/apple-touch-icon-72x72.png")
+        link(rel="apple-touch-icon", sizes="76x76", href=assetUrl + "/apple-touch-icon-76x76.png")
+        link(rel="apple-touch-icon", sizes="114x114", href=assetUrl + "/apple-touch-icon-114x114.png")
+        link(rel="apple-touch-icon", sizes="120x120", href=assetUrl + "/apple-touch-icon-120x120.png")
+        link(rel="apple-touch-icon", sizes="144x144", href=assetUrl + "/apple-touch-icon-144x144.png")
+        link(rel="apple-touch-icon", sizes="152x152", href=assetUrl + "/apple-touch-icon-152x152.png")
+        link(rel="apple-touch-icon", sizes="180x180", href=assetUrl + "/apple-touch-icon-180x180.png")
+        link(rel="apple-touch-icon", sizes="180x180", href=assetUrl + "/apple-touch-icon.png")
+        link(href=assetUrl + "/iphone5_splash.png", media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphone5_splash-landscape.png", media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphone6_splash.png", media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphone6_splash-landscape.png", media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphoneplus_splash.png", media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphoneplus_splash-landscape.png", media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphonex_splash.png", media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/iphonex_splash-landscape.png", media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/ipad_splash.png", media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/ipad_splash-landscape.png", media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/ipadpro1_splash.png", media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/ipadpro1_splash-landscape.png", media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/ipadpro2_splash.png", media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", rel="apple-touch-startup-image")
+        link(href=assetUrl + "/ipadpro2_splash-landscape.png", media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)", rel="apple-touch-startup-image")
+        link(rel="mask-icon", href=assetUrl + "/safari-pinned-tab.svg", color="#ec7500")
+        meta(name="apple-mobile-web-app-capable", content="yes")
+        meta(name="apple-mobile-web-app-status-bar-style", content="black")
+
+        link(rel="icon", type="image/png", sizes="32x32", href=assetUrl + "/favicon-32x32.png")
+        link(rel="icon", type="image/png", sizes="16x16", href=assetUrl + "/favicon-16x16.png")
+        link(rel="icon", type="image/png", sizes="194x194", href=assetUrl + "/favicon-194x194.png")
+        meta(name="msapplication-TileColor", content="#000000")
+        meta(name="msapplication-TileImage", content=assetUrl + "/mstile-144x144.png")
+        meta(name="msapplication-config", content=assetUrl + "/browserconfig.xml")
+
+        link(rel="icon", type="image/png", sizes="192x192", href=assetUrl + "/android-chrome-192x192.png")
+        meta(name="theme-color", content="#000000")
+        link(rel="manifest", href=assetUrl + "/manifest.json")
+
+        link(rel="shortcut icon", type="image/x-icon", href=assetUrl + "/favicon.ico")
+
+        script(type="application/javascript").
+            window.SENTRY_DSN = "!{sentryDsn}" || null;
+            window.ENVIRONMENT = "!{environment}" || null;
+            window.NAME = "!{name}" || null;
+            window.VERSION = "!{version}" || null;
+            window.LOGGER = !{logger} || null;
+            window.GTM_DATALAYER = [
+                {appName: window.NAME},
+                {appVersion: window.VERSION},
+                {appEnvironment: window.ENVIRONMENT},
+                {
+                    app: {
+                        name: window.NAME,
+                        version: window.VERSION,
+                        environment: window.ENVIRONMENT
+                    }
+                }
+            ];
+        script(type="application/javascript").
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start": new Date().getTime(),
+                    event: "gtm.js"
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src =
+                    "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "GTM_DATALAYER", "!{gtm}");
+        script(type="application/ld+json").
+            !{meJsonLd}
+
+        | !{injectedBase}
+        | !{injectedTitle}
+        | !{injectedLink}
+        | !{injectedMeta}
+        | !{injectedStyle}
+        | !{injectedScript}
+        | !{injectedNoScript}
+
+    body
+        noscript
+            iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtm height="0" width="0" style="display:none;visibility:hidden")
+        block content
+        if environment !== "puppeteer" && environment !== "printable"
+            script(src=assetUrl + "/vendor.js")
+            script(src=assetUrl + "/" + bundleName + ".js")

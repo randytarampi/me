@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.20](https://github.com/randytarampi/me/compare/v0.47.19...v0.47.20) (2018-10-31)
+
+
+### Bug Fixes
+
+* **travis:** Only rebuild on `prepack` when `$RELEASE` and `$CI`. ([f76a911](https://github.com/randytarampi/me/commit/f76a911))
+
+
+
+
+
+## [0.47.19](https://github.com/randytarampi/me/compare/v0.47.18...v0.47.19) (2018-10-31)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
+## [0.47.18](https://github.com/randytarampi/me/compare/v0.47.17...v0.47.18) (2018-10-31)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
+## [0.47.17](https://github.com/randytarampi/me/compare/v0.47.16...v0.47.17) (2018-10-31)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
+## [0.47.16](https://github.com/randytarampi/me/compare/v0.47.15...v0.47.16) (2018-10-30)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
+## [0.47.15](https://github.com/randytarampi/me/compare/v0.47.14...v0.47.15) (2018-10-30)
+
+
+### Bug Fixes
+
+* **resume:** Fix `customContent` regression from 80c912a3402422413059c3c256a01afc77d100fe. ([c53913b](https://github.com/randytarampi/me/commit/c53913b))
+
+
+
+
+
+## [0.47.14](https://github.com/randytarampi/me/compare/v0.47.13...v0.47.14) (2018-10-30)
+
+
+### Bug Fixes
+
+* **job-applications:** Support assigning random `customContent` ad-hoc. ([db585e0](https://github.com/randytarampi/me/commit/db585e0))
+* **resume:** Consolidate custom content exports. ([80c912a](https://github.com/randytarampi/me/commit/80c912a))
+
+
+
+
+
+## [0.47.13](https://github.com/randytarampi/me/compare/v0.47.12...v0.47.13) (2018-10-30)
+
+
+### Bug Fixes
+
+* **css:** Don't bother with `node-sass-tilde-importer`. ([31e9361](https://github.com/randytarampi/me/commit/31e9361))
+* **package:** Fix inverted logic in 2bbe750e51d43f389ca8fb688fd8db8ab78ec9d0. ([118b1a2](https://github.com/randytarampi/me/commit/118b1a2))
+* **posts:** Build `prd` assets for release once. ([2bbe750](https://github.com/randytarampi/me/commit/2bbe750))
+* Remove `package-lock`s. ([b2bf2db](https://github.com/randytarampi/me/commit/b2bf2db))
+* **travis:** Turns out Travis uses `sh` instead of `bash`, so make these standard conditionals. ([76fef6b](https://github.com/randytarampi/me/commit/76fef6b))
+
+
+
+
+
+## [0.47.12](https://github.com/randytarampi/me/compare/v0.47.11...v0.47.12) (2018-10-30)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
 
 
 **Note:** Version bump only for package @randy.tarampi/resume
