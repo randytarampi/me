@@ -14,12 +14,6 @@ provider:
   memorySize: 256
   timeout: 10
 
-  aliasStage:
-    loggingLevel: ERROR
-    metricsEnabled: true
-    throttlingBurstLimit: 100
-    throttlingRateLimit: 100
-
   tracing: true
 
   apiKeys:
@@ -87,7 +81,6 @@ plugins:
 - serverless-mocha-plugin
 - serverless-domain-manager
 - serverless-plugin-tracing
-- serverless-aws-alias
 
 custom:
   dynamodb:

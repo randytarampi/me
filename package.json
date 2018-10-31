@@ -91,7 +91,6 @@
     "resolve-url-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "serverless": "^1.28.0",
-    "serverless-aws-alias": "^1.7.1",
     "serverless-domain-manager": "^2.6.0",
     "serverless-dynamodb-local": "^0.2.33",
     "serverless-mocha-plugin": "^1.8.3",
