@@ -24,7 +24,7 @@
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test gulp -LLLL --color test",
     "build": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
-    "prepare": "npm run build",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi;",
     "prepublishOnly": "npm shrinkwrap",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test npx nyc gulp -LLLL --color test",

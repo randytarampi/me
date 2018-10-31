@@ -39,7 +39,7 @@
     "build": "npm run build:gulp && npm run build:babel",
     "build:gulp": "gulp -LLLL --color build",
     "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
-    "prepare": "npm run build",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi;",
     "prepublishOnly": "npm shrinkwrap",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
