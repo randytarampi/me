@@ -117,7 +117,7 @@ html(lang="en")
                 j.src =
                     "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                 f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "GTM_DATALAYER", "!{gtm}");
+            })(window, document, "script", "GTM_DATALAYER", "!{gtmContainerId}");
         script(type="application/ld+json").
             !{meJsonLd}
 
@@ -131,7 +131,7 @@ html(lang="en")
 
     body
         noscript
-            iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtm height="0" width="0" style="display:none;visibility:hidden")
+            iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtmContainerId height="0" width="0" style="display:none;visibility:hidden")
         block content
         if environment !== "puppeteer" && environment !== "printable"
             script(src=assetUrl + "/vendor.js")

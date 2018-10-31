@@ -13,12 +13,52 @@ const POSTS_DB_PORT = 8000;
 module.exports = {
     facebook: {
         app: {
-            id: 1705404522846104
+            id: ""
         }
     },
-    gtm: "GTM-K26GTD2",
-    crisp: "f2a9cb20-888f-4103-8593-096e4571856d",
-    sentryDsn: "https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735",
+    instagram: {
+        app: {
+            id: ""
+        }
+    },
+    linkedIn: {
+        app: {
+            id: ""
+        }
+    },
+    github: {
+        app: {
+            id: ""
+        }
+    },
+    twitter: {
+        app: {
+            id: ""
+        }
+    },
+    gtm: {
+        container: {
+            id: ""
+        }
+    },
+    ga: {
+        property: {
+            id: ""
+        }
+    },
+    mixpanel: {
+        app: {
+            id: ""
+        }
+    },
+    crisp: {
+        app: {
+            id: ""
+        }
+    },
+    sentry: {
+        dsn: ""
+    },
     resume: {
         expectations: {
             pages: 1,

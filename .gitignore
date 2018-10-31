@@ -59,4 +59,4 @@ build
 .secrets.*.yml
 
 # Local configuration
-config/local.*
+config/local.js

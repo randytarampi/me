@@ -1,3 +1,26 @@
+twitter:
+  app:
+    id: 12953440
+github:
+  app:
+    id: a9cfba4f2c99ad5f8e8d
+instagram:
+  app:
+    id: c80068a8272c4953908ae92a7113d473
+gtm:
+  container:
+    id: GTM-T3FHTVC
+ga:
+  property:
+    id: UA-50921068-6
+mixpanel:
+  app:
+    id: 0c0d4669fdc9a52ecb789ab3c27cc900
+crisp:
+  app:
+    id: 03689d2b-80ab-4f5d-90cb-a2de269ea9c3
+sentry:
+  dsn: https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735
 posts:
   photosUrl: https://posts.dev.randytarampi.ca/posts?type=Photo
   postsUrl: https://posts.dev.randytarampi.ca/posts
@@ -14,8 +37,6 @@ resume:
 letter:
   publishUrl: https://dev.randytarampi.ca/letter
   assetUrl: *wwwAssetUrl
-gtm: "GTM-T3FHTVC"
-crisp: "03689d2b-80ab-4f5d-90cb-a2de269ea9c3"
 logger:
   streams:
     stdout: true
