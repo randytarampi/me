@@ -34,6 +34,7 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
         gtm: config.has("gtm") ? config.get("gtm") : null,
         logger: config.has("logger") ? JSON.stringify(config.get("logger")) : null,
         facebookAppId: config.has("facebook.app.id") ? Person.fromJSON(config.get("facebook.app.id")) : null,
+        locale: "en_CA",
         content: `<div className="loading-spinner">
     <div className="preloader-wrapper big active">
         <div className="spinner-layer spinner-blue">
