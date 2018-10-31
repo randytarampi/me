@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.22](https://github.com/randytarampi/me/compare/v0.47.21...v0.47.22) (2018-10-31)
+
+
+### Reverts
+
+* fix(posts): Remove `serverless-aws-alias` for now. ([27780f2](https://github.com/randytarampi/me/commit/27780f2))
+
+
+
+
+
 ## [0.47.21](https://github.com/randytarampi/me/compare/v0.47.20...v0.47.21) (2018-10-31)
 
 
