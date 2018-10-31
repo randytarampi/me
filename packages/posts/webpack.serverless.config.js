@@ -69,7 +69,7 @@ module.exports = {
             "serverless-secrets/client",
             /@randy\.tarampi\/\w+/
         ]
-    })],
+    }), "aws-sdk"],
     module: {
         rules: [
             {
