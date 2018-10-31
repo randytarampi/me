@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.19](https://github.com/randytarampi/me/compare/v0.47.18...v0.47.19) (2018-10-31)
+
+
+### Bug Fixes
+
+* **travis:** Actually version `resume` and `letter` PDFs on release. ([78f4d64](https://github.com/randytarampi/me/commit/78f4d64))
+
+
+
+
+
 ## [0.47.18](https://github.com/randytarampi/me/compare/v0.47.17...v0.47.18) (2018-10-31)
 
 
