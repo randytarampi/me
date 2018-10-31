@@ -7,7 +7,7 @@ module.exports.clean = ({relativePath, gulp}) => gulp.task("clean", () => {
     const del = require("del");
     const path = require("path");
 
-    const directories = [".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/"].map(directory => path.join(relativePath, directory));
+    const directories = [".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/", "dist/", "build/"].map(directory => path.join(relativePath, directory));
 
     return gulp.src(directories, {allowEmpty: true})
         .pipe(vinylPaths(del));
