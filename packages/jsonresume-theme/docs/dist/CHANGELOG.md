@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.47.21](https://github.com/randytarampi/me/compare/v0.47.20...v0.47.21) (2018-10-31)
+
+
+### Bug Fixes
+
+* **package:** Need trailing slashes otherwise unix `cp -r` gets confused. ([0e000bb](https://github.com/randytarampi/me/commit/0e000bb))
+* **travis:** Don't `build` on `prepare` when `$IS_PUBLISHING`. ([6cbf3c8](https://github.com/randytarampi/me/commit/6cbf3c8))
+
+
+### Reverts
+
+* chore(babel): `useBuiltIns: "entry"` -> `useBuiltIns: "usage"`. ([803e94d](https://github.com/randytarampi/me/commit/803e94d))
+
+
+
+
+
 ## [0.47.20](https://github.com/randytarampi/me/compare/v0.47.19...v0.47.20) (2018-10-31)
 
 
