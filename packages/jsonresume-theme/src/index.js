@@ -1,4 +1,3 @@
-import "@babel/polyfill";
 import {renderHtml, Resume} from "@randy.tarampi/resume";
 import config from "config";
 import path from "path";

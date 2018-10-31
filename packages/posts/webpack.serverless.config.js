@@ -64,7 +64,6 @@ module.exports = {
     performance: {
         hints: false
     },
-    devtool: "nosources-source-map",
     externals: [nodeExternals({
         whitelist: [
             "serverless-secrets/client",
