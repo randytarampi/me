@@ -25,8 +25,8 @@
     "build": "npm run build:gulp && npm run build:babel",
     "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
     "build:gulp": "gulp -LLLL --color build",
-    "prepare": "if [ -z \"$RELEASE\" ]; then npm run build; fi;",
-    "prepack": "NODE_ENV=prd npm run build",
+    "prepare": "npm run build",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi;",
     "prepublishOnly": "npm shrinkwrap",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
