@@ -38,11 +38,7 @@ html(lang="en")
         else
             if !!serviceWorkerBundleName
                 script(type="application/javascript").
-                    if ("serviceWorker" in navigator) {
-                        window.addEventListener("load", function () {
-                            navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");
-                        });
-                    }
+                    if ("serviceWorker" in navigator) {window.addEventListener("load", function () {navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}
             link(rel="stylesheet", href=assetUrl + "/styles.css")
 
         link(rel="apple-touch-icon", sizes="57x57", href=assetUrl + "/apple-touch-icon-57x57.png")
@@ -96,32 +92,9 @@ html(lang="en")
             window.GA_PROPERTY = "!{gaPropertyId}" || null;
             window.MIXPANEL_APP = "!{mixpanelAppId}" || null;
             window.FACEBOOK_APP = "!{facebookAppId}" || null;
-            window.GTM_DATALAYER = [
-                {appName: window.NAME},
-                {appVersion: window.VERSION},
-                {appEnvironment: window.ENVIRONMENT},
-                {
-                    app: {
-                        name: window.NAME,
-                        version: window.VERSION,
-                        environment: window.ENVIRONMENT
-                    }
-                }
-            ];
+            window.GTM_DATALAYER = [{appName: window.NAME}, {appVersion: window.VERSION}, {appEnvironment: window.ENVIRONMENT}, {app: {name: window.NAME, version: window.VERSION, environment: window.ENVIRONMENT}}];
         script(type="application/javascript").
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js"
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src =
-                    "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "GTM_DATALAYER", "!{gtmContainerId}");
+            (function (w, d, s, l, i) {w[l] = w[l] || [];w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";j.async = true;j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;f.parentNode.insertBefore(j, f);})(window, document, "script", "GTM_DATALAYER", "!{gtmContainerId}");
         script(type="application/ld+json").
             !{meJsonLd}
 
