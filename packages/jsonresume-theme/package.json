@@ -60,6 +60,7 @@
     "resume:a4": "RESUME_PDF_SIZE=A4 NODE_ENV=puppeteer CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=a4,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.a4.pdf --force -f pdf --theme randytarampi && (cp dist/resume.a4.pdf dist/a4.pdf 2>/dev/null || :)",
     "resume:legal": "RESUME_PDF_SIZE=Legal NODE_ENV=puppeteer CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=legal,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.legal.pdf --force -f pdf --theme randytarampi && (cp dist/resume.legal.pdf dist/legal.pdf 2>/dev/null || :)",
     "resume:html": "NODE_ENV=puppeteer CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.html --force -f html --theme randytarampi && (cp dist/resume.index dist/index.html 2>/dev/null || :)",
+    "docs": "cp -r dist docs",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
   },

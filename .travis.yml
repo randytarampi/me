@@ -94,6 +94,7 @@ jobs:
           npm run resume --prefix packages/jsonresume-theme;
           npm run docs --prefix packages/letter;
           npm run docs --prefix packages/resume;
+          npm run docs --prefix packages/jsonresume-theme;
           npm run docs --prefix packages/www;
           fi;
       before_script: skip
@@ -103,7 +104,7 @@ jobs:
         - REPO_VERSION=$(node -p 'require("./lerna.json").version')
         - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs; fi;
         - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs; fi;
-        - git add --verbose --force --all $JSONRESUME_PACKAGE_DIR/*.html $JSONRESUME_PACKAGE_DIR/*.pdf $JSONRESUME_PACKAGE_DIR/resume.json;
+        - if [ -d "$JSONRESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $JSONRESUME_PACKAGE_DIR/docs $JSONRESUME_PACKAGE_DIR/resume.json; fi;
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/docs/precache-manifest.*.js;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - git add packages/*/CHANGELOG.md
@@ -119,8 +120,8 @@ jobs:
           file_glob: true
           file:
             - me.tar.gz
-            - "$TRAVIS_BUILD_DIR/packages/jsonresume-theme/dist/resume.*.pdf"
-            - "$TRAVIS_BUILD_DIR/packages/letter/dist/letter.*.pdf"
+            - "$TRAVIS_BUILD_DIR/packages/jsonresume-theme/docs/resume.*.pdf"
+            - "$TRAVIS_BUILD_DIR/packages/letter/docs/letter.*.pdf"
           skip_cleanup: true
           on:
             condition: "-n $HAS_PUBLISHABLE_CHANGES"
@@ -213,7 +214,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: pages
-          local-dir: packages/jsonresume-theme/dist
+          local-dir: packages/jsonresume-theme/docs
           repo: "${TRAVIS_REPO_OWNER}/me.resume"
           target-branch: master
           verbose: true
