@@ -96,7 +96,7 @@
     "serverless-offline": "^3.25.6",
     "serverless-plugin-tracing": "^2.0.0",
     "serverless-plugin-warmup": "^3.6.2-rc.1",
-    "serverless-secrets": "^3.0.0-beta.12",
+    "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "serverless-webpack": "^5.2.0",
     "sinon": "^7.1.0",
     "syncpack": "^3.0.0",
