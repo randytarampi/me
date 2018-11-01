@@ -26,7 +26,7 @@
     "build": "npm run build:gulp && npm run build:babel",
     "build:gulp": "gulp -LLLL --color build",
     "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./build\" ]; then exit 75; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-applications.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-applications.server.pid`) from /tmp/ca.randytarampi.me.job-applications.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-applications.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-applications.server.pid`) from /tmp/ca.randytarampi.me.job-applications.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-applications.server.pid`; rm /tmp/ca.randytarampi.me.job-applications.server.pid; fi;",
     "job-applications": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",

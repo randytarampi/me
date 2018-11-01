@@ -123,7 +123,7 @@
   "scripts": {
     "clean": "./bin/clean.sh",
     "bootstrap": "./bin/hoist.sh",
-    "prepare": "npm run bootstrap",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run bootstrap; fi;",
     "lock": "npm run lock:generate",
     "lock:generate": "npm install --package-lock-only && npx lerna exec --concurrency $(node -p \"require(\\\"os\\\").cpus().length\") --no-bail -- npm install --package-lock-only;",
     "lock:clean": "rm package-lock.json packages/*/package-lock.json",
