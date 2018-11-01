@@ -12,8 +12,8 @@
   "scripts": {
     "pretest": "gulp -LLLL --color lint",
     "build": "gulp -LLLL --color build",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi; if [ ! -d \"./dist\" ]; then exit 75; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
     "prepublishOnly": "npm shrinkwrap",
     "clean": "gulp -LLLL --color clean",
     "preuninstall": "npm run clean"
