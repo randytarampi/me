@@ -187,6 +187,23 @@ describe("util", function () {
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
 
+        it("augments the passed href (explicitly null params)", function () {
+            const stubHref = "/woof";
+            const stubParameters = {
+                source: null,
+                medium: null,
+                name: null,
+                term: null,
+                content: null
+            };
+
+            const augmentedHref = util.augmentUrlWithTrackingParams(stubHref, stubParameters);
+            const expectedAugmentedHref = stubHref;
+
+            expect(augmentedHref).to.be.ok;
+            expect(augmentedHref).to.eql(expectedAugmentedHref);
+        });
+
         it("augments the passed href (default properties)", function () {
             const stubHref = "/woof";
             const stubParameters = {};

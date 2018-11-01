@@ -11,10 +11,19 @@ export const augmentUrlWithTrackingParams = (href, {source = __CAMPAIGN_SOURCE__
         utm_term: term,
         utm_content: content
     };
-    const combinedQueryString = queryString.stringify({
+    const combinedQueryParameters = {
         ...passedCampaignParameters,
         ...hrefQueryParameters
-    });
+    };
+    const combinedQueryString = queryString.stringify(
+        Object.keys(combinedQueryParameters)
+            .reduce((definedParameters, key) => {
+                if (![undefined, null].includes(combinedQueryParameters[key])) {
+                    definedParameters[key] = combinedQueryParameters[key];
+                }
+                return definedParameters;
+            }, {})
+    );
 
     return hrefUrl + (combinedQueryString ? ("?" + combinedQueryString) : "");
 };
