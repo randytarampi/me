@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/randytarampi/me/compare/v1.0.2...v1.1.0) (2018-11-01)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Add a bunch more `pugLocals` driven off the `resume.json`. ([b573729](https://github.com/randytarampi/me/commit/b573729))
+* **jsx:** `augmentUrlWithTrackingParams` shouldn't append empty query parameters. ([8f7c93b](https://github.com/randytarampi/me/commit/8f7c93b))
+* **package:** Don't publish custom `letter` or `resume` content. ([a04f77d](https://github.com/randytarampi/me/commit/a04f77d))
+* **resume:** Add configuration to `resume.json` for use with b57372918b7b8ce8268aab88962c4701d5a17b23. ([04b754e](https://github.com/randytarampi/me/commit/04b754e))
+* **views:** Don't render JS in `printable` environments. ([954fb4e](https://github.com/randytarampi/me/commit/954fb4e))
+* **views:** Only inject elements dependent on `renderLocals` if they're defined. ([f434f25](https://github.com/randytarampi/me/commit/f434f25))
+
+
+### Features
+
+* **views:** Inject specific scripts into the page, but only if `!gtmContainerId`. ([02e1486](https://github.com/randytarampi/me/commit/02e1486))
+
+
+
+
+
 ## [1.0.2](https://github.com/randytarampi/me/compare/v1.0.0...v1.0.2) (2018-11-01)
 
 

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/randytarampi/me/compare/v1.0.2...v1.1.0) (2018-11-01)
+
+
+### Bug Fixes
+
+* **views:** Don't render JS in `printable` environments. ([954fb4e](https://github.com/randytarampi/me/commit/954fb4e))
+* **views:** Only inject elements dependent on `renderLocals` if they're defined. ([f434f25](https://github.com/randytarampi/me/commit/f434f25))
+
+
+### Features
+
+* **views:** Inject specific scripts into the page, but only if `!gtmContainerId`. ([02e1486](https://github.com/randytarampi/me/commit/02e1486))
+
+
+
+
+
 ## [1.0.2](https://github.com/randytarampi/me/compare/v1.0.0...v1.0.2) (2018-11-01)
 
 

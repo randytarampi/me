@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/randytarampi/me/compare/v1.0.2...v1.1.0) (2018-11-01)
+
+
+### Bug Fixes
+
+* **jsx:** `augmentUrlWithTrackingParams` shouldn't append empty query parameters. ([8f7c93b](https://github.com/randytarampi/me/commit/8f7c93b))
+
+
+
+
+
 ## [1.0.2](https://github.com/randytarampi/me/compare/v1.0.0...v1.0.2) (2018-11-01)
 
 

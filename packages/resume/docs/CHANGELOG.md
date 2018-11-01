@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/randytarampi/me/compare/v1.0.2...v1.1.0) (2018-11-01)
+
+
+### Bug Fixes
+
+* **package:** Don't publish custom `letter` or `resume` content. ([a04f77d](https://github.com/randytarampi/me/commit/a04f77d))
+* **resume:** Add configuration to `resume.json` for use with b57372918b7b8ce8268aab88962c4701d5a17b23. ([04b754e](https://github.com/randytarampi/me/commit/04b754e))
+
+
+
+
+
 ## [1.0.2](https://github.com/randytarampi/me/compare/v1.0.0...v1.0.2) (2018-11-01)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/randytarampi/me/compare/v1.0.2...v1.1.0) (2018-11-01)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Add a bunch more `pugLocals` driven off the `resume.json`. ([b573729](https://github.com/randytarampi/me/commit/b573729))
+* **views:** Only inject elements dependent on `renderLocals` if they're defined. ([f434f25](https://github.com/randytarampi/me/commit/f434f25))
+
+
+
+
+
 ## [1.0.2](https://github.com/randytarampi/me/compare/v1.0.0...v1.0.2) (2018-11-01)
 
 
