@@ -98,7 +98,9 @@
     "test": "./test"
   },
   "files": [
-    "build",
+    "build/!(letters*)",
+    "build/letters/index.js",
+    "build/letters/letter.json",
     "styles",
     "npm-shrinkwrap.json",
     "dist/styles.css",

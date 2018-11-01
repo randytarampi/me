@@ -110,7 +110,9 @@
     "test": "./test"
   },
   "files": [
-    "build",
+    "build/!(resume*)",
+    "build/resumes/index.js",
+    "build/resumes/resume.json",
     "styles",
     "npm-shrinkwrap.json",
     "dist/styles.css",
