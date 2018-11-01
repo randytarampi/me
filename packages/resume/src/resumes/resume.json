@@ -346,5 +346,33 @@
       ]
     }
   ],
-  "references": []
+  "references": [],
+  "twitter": {
+    "user": {
+      "username": "randytarampi"
+    }
+  },
+  "facebook": {
+    "app": {
+      "id": "1705404522846104"
+    },
+    "user": {
+      "username": "randytarampi"
+    }
+  },
+  "gtm": {
+    "container": {
+      "id": "GTM-W6NFL6M"
+    }
+  },
+  "ga": {
+    "property": {
+      "id": "UA-50921068-1"
+    }
+  },
+  "mixpanel": {
+    "app": {
+      "id": "388362ac34ccae4a08c1dbf86791e4ee"
+    }
+  }
 }
