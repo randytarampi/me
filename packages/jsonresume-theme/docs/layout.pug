@@ -16,33 +16,29 @@ html(lang="en")
         meta(name="twitter:description", content=pugDescription)
         meta(name="og:description", content=pugDescription)
 
-        meta(name="image", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
-        meta(itemprop="image", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
-        meta(name="twitter:image:src", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
-        meta(name="og:image", content=assetUrl + "/ʕつ•ᴥ•ʔつ.svg")
+        meta(name="image", content=meImageUrl)
+        meta(itemprop="image", content=meImageUrl)
+        meta(name="twitter:image:src", content=meImageUrl)
+        meta(name="og:image", content=meImageUrl)
 
         meta(name="twitter:site", content="@" + twitterUsername)
         meta(name="twitter:creator", content="@" + twitterUsername)
-        meta(name="og:locale", content="en_CA")
+        meta(name="og:locale", content=locale)
         meta(name="fb:admins", content=facebookUsername)
-        meta(name="fb:app_id", content="1705404522846104")
+        meta(name="fb:app_id", content=facebookAppId)
         meta(name="og:type", content="website")
 
         link(rel="canonical", href=pageUrl)
         meta(name="og:url", content=pageUrl)
 
-        if environment === "puppeteer" || environment === "printable"
+        if environment === "printable"
             link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/all.css",integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU", crossorigin="anonymous")
             style(type="text/css")
                 | !{css}
         else
             if !!serviceWorkerBundleName
                 script(type="application/javascript").
-                    if ("serviceWorker" in navigator) {
-                        window.addEventListener("load", function () {
-                            navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");
-                        });
-                    }
+                    if ("serviceWorker" in navigator) {window.addEventListener("load", function () {navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}
             link(rel="stylesheet", href=assetUrl + "/styles.css")
 
         link(rel="apple-touch-icon", sizes="57x57", href=assetUrl + "/apple-touch-icon-57x57.png")
@@ -92,32 +88,13 @@ html(lang="en")
             window.NAME = "!{name}" || null;
             window.VERSION = "!{version}" || null;
             window.LOGGER = !{logger} || null;
-            window.GTM_DATALAYER = [
-                {appName: window.NAME},
-                {appVersion: window.VERSION},
-                {appEnvironment: window.ENVIRONMENT},
-                {
-                    app: {
-                        name: window.NAME,
-                        version: window.VERSION,
-                        environment: window.ENVIRONMENT
-                    }
-                }
-            ];
+            window.GTM_CONTAINER = "!{gtmContainerId}" || null;
+            window.GA_PROPERTY = "!{gaPropertyId}" || null;
+            window.MIXPANEL_APP = "!{mixpanelAppId}" || null;
+            window.FACEBOOK_APP = "!{facebookAppId}" || null;
+            window.GTM_DATALAYER = [{appName: window.NAME}, {appVersion: window.VERSION}, {appEnvironment: window.ENVIRONMENT}, {app: {name: window.NAME, version: window.VERSION, environment: window.ENVIRONMENT}}];
         script(type="application/javascript").
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js"
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src =
-                    "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "GTM_DATALAYER", "!{gtm}");
+            (function (w, d, s, l, i) {w[l] = w[l] || [];w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";j.async = true;j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;f.parentNode.insertBefore(j, f);})(window, document, "script", "GTM_DATALAYER", "!{gtmContainerId}");
         script(type="application/ld+json").
             !{meJsonLd}
 
@@ -131,8 +108,8 @@ html(lang="en")
 
     body
         noscript
-            iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtm height="0" width="0" style="display:none;visibility:hidden")
+            iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtmContainerId height="0" width="0" style="display:none;visibility:hidden")
         block content
-        if environment !== "puppeteer" && environment !== "printable"
+        if environment !== "printable"
             script(src=assetUrl + "/vendor.js")
             script(src=assetUrl + "/" + bundleName + ".js")

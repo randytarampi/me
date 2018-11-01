@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/randytarampi/me/compare/v0.48.0...v1.0.0) (2018-10-31)
+
+
+### Bug Fixes
+
+* Still need to link dependencies for hoisted `[@randy](https://github.com/randy).tarampi/css`. ([68e1dc2](https://github.com/randytarampi/me/commit/68e1dc2))
+
+
+### chore
+
+* **jsonresume:** Collapse `puppeteer` environment settings into `printable` ([c8e01ab](https://github.com/randytarampi/me/commit/c8e01ab))
+
+
+### BREAKING CHANGES
+
+* **jsonresume:** Pretty straight forward. Might as well get over the 1.x hump now.
+
+
+
+
+
 # [0.48.0](https://github.com/randytarampi/me/compare/v0.47.22...v0.48.0) (2018-10-31)
 
 
