@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/randytarampi/me/compare/v1.0.0...v1.0.1) (2018-11-01)
+
+**Note:** Version bump only for package @randy.tarampi/js
+
+
+
+
+
 # [1.0.0](https://github.com/randytarampi/me/compare/v0.48.0...v1.0.0) (2018-10-31)
 
 **Note:** Version bump only for package @randy.tarampi/js
