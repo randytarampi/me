@@ -87,7 +87,7 @@
   },
   "files": [
     "build",
-    "dist",
+    "dist/*{pug,css}",
     "npm-shrinkwrap.json",
     "index.js"
   ]
