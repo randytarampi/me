@@ -6,7 +6,7 @@ import {Map} from "immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import Works from "../../../../../public/views/main/works";
+import Works from "../../../../../src/public/views/main/works";
 
 describe("Works", function () {
     let mockStore;

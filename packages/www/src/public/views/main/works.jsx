@@ -1,7 +1,7 @@
-import {DoubtBear} from "@randy.tarampi/js";
-import {CampaignLink, ConnectedBear, F00pxLink, FlickrLink, InstagramLink, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
+import {DoubtBear} from "../../../../../js";
+import {CampaignLink, ConnectedBear, F00pxLink, FlickrLink, InstagramLink, RowBlock} from "../../../../../jsx";
 
 const Works = () =>
     <RowBlock name="code">

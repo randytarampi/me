@@ -1,3 +1,5 @@
+import React, {Fragment} from "react";
+import {Col} from "react-materialize";
 import {
     BlogAppLink,
     CampaignLink,
@@ -9,9 +11,7 @@ import {
     ResumeAppLink,
     RowBlock,
     SmsLink
-} from "@randy.tarampi/jsx";
-import React, {Fragment} from "react";
-import {Col} from "react-materialize";
+} from "../../../../../jsx";
 
 export const IntroText = () =>
     <Fragment>
@@ -26,7 +26,8 @@ export const IntroText = () =>
                 <span className="text">If you're interested in my work check me out on <GitHubLink useBranding={false}
                                                                                                    text="GitHub"/>, look at where I've been on <InstagramLink
                     useBranding={false} text="Instagram"/> or peek in on what's going on in my life at my <BlogAppLink
-                    text="blog"/>. I've even got an <CampaignLink useBranding={false} className="link--rss" text="RSS feed" href={__POSTS_FEED_URL__}/>!</span>
+                    text="blog"/>. I've even got an <CampaignLink useBranding={false} className="link--rss"
+                                                                  text="RSS feed" href={__POSTS_FEED_URL__}/>!</span>
         </p>
         <p>
                 <span className="text">

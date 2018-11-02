@@ -6,7 +6,7 @@ import React from "react";
 import {Redirect} from "react-router";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {BlogRouteHandler, PhotosRouteHandler, WordsRouteHandler} from "../../../../public/routes";
+import {BlogRouteHandler, PhotosRouteHandler, WordsRouteHandler} from "../../../../src/public/routes";
 
 describe("routes", function () {
     let mockStore;

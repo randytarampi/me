@@ -6,10 +6,10 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
-import Main from "../../../../../public/views/main";
-import Bears from "../../../../../public/views/main/bears";
-import Intro from "../../../../../public/views/main/intro";
-import Works from "../../../../../public/views/main/works";
+import Main from "../../../../../src/public/views/main";
+import Bears from "../../../../../src/public/views/main/bears";
+import Intro from "../../../../../src/public/views/main/intro";
+import Works from "../../../../../src/public/views/main/works";
 
 describe("Main", function () {
     let mockStore;

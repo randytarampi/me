@@ -29,7 +29,7 @@ describe("index", function () {
         expect(global.window.document.getElementById("react-root")).to.be.ok;
         expect(global.window.document.getElementById("react-root").children.length).to.eql(0);
 
-        require("../../../../../public/views/index");
+        require("../../../../../src/public/views/index");
 
         expect(global.window).to.be.ok;
         expect(global.window.document.getElementById("react-root")).to.be.ok;

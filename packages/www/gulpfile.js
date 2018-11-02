@@ -96,7 +96,7 @@ gulp.task("sitemap", (done) => {
     const config = require("config");
     const fs = require("fs");
     const ReactRouterSitemap = require("react-router-sitemap").default;
-    const routes = require("./public/routes").default;
+    const routes = require("./src/public/routes").default;
 
     const publishUrl = config.get("www.publishUrl");
 

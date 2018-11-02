@@ -5,7 +5,7 @@ import {Map} from "immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import Bears from "../../../../../public/views/main/bears";
+import Bears from "../../../../../src/public/views/main/bears";
 
 describe("Bears", function () {
     let mockStore;
