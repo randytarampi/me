@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/randytarampi/me/compare/v1.1.2...v1.1.3) (2018-11-02)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Rebuild when `IS_PUBLISHING` so we don't publish with my default `resume-custom-content`. ([bfc4398](https://github.com/randytarampi/me/commit/bfc4398))
+
+
+
+
+
 ## [1.1.2](https://github.com/randytarampi/me/compare/v1.1.1...v1.1.2) (2018-11-02)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi
