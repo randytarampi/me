@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/randytarampi/me/compare/v1.1.0...v1.1.1) (2018-11-02)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Only publish `dist/*{pug,css}`, not PDFs, etc. ([ca12f43](https://github.com/randytarampi/me/commit/ca12f43))
+
+
+
+
+
 # [1.1.0](https://github.com/randytarampi/me/compare/v1.0.2...v1.1.0) (2018-11-01)
 
 
