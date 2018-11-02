@@ -38,7 +38,7 @@ describe("swipeableTabChangeIndex", function () {
     });
 
     describe("SWIPEABLE_TAB_CHANGE_INDEX", function () {
-        it("is dispatched with the expected payload", function () {
+        it("is dispatched with the expected payload (actual route)", function () {
             const stubPayload = "05";
             stubStore.dispatch(swipeableTabChangeIndex(stubPayload));
 
@@ -60,6 +60,29 @@ describe("swipeableTabChangeIndex", function () {
                 }
             ]);
             expect(connectedReactRouter.push.calledOnce).to.eql(true);
+            expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
+        });
+
+        it("is dispatched with the expected payload (fake route)", function () {
+            selectors.getRouteForIndex.restore();
+            sinon.stub(selectors, "getRouteForIndex").callsFake(() => null);
+
+            const stubPayload = "15";
+            stubStore.dispatch(swipeableTabChangeIndex(stubPayload));
+
+            const actions = stubStore.getActions();
+
+            expect(actions).to.be.ok;
+            expect(actions).to.have.length(1);
+            expect(actions).to.eql([
+                {
+                    type: SWIPEABLE_TAB_CHANGE_INDEX,
+                    payload: {
+                        index: Number(stubPayload)
+                    }
+                }
+            ]);
+            expect(connectedReactRouter.push.notCalled).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
     });

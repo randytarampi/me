@@ -139,6 +139,35 @@ describe("ConnectedEmoji", function () {
         sinon.assert.calledWith(clearEmojiAction.clearEmojiCreator, passedEmoji);
     });
 
+    it("dispatches passed `clearEmojiAction.clearEmojiCreator` properly", function () {
+        selectors.getEmoji.restore();
+        sinon.stub(selectors, "getEmoji").returns(null);
+
+        const clearEmojiCreatorStub = sinon.stub().returns({type: "MEOW"});
+        const stubProps = {id: "meow", emoji: EmojiEntity.fromJS({id: "meow"}), clearEmoji: clearEmojiCreatorStub};
+        const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.have.prop("emoji");
+
+        const passedEmoji = rendered.prop("emoji");
+        expect(passedEmoji).to.be.instanceof(EmojiEntity);
+        expect(passedEmoji).to.eql(stubProps.emoji);
+
+        expect(clearEmojiAction.clearEmojiCreator.notCalled).to.eql(true);
+        expect(clearEmojiCreatorStub.notCalled).to.eql(true);
+        expect(instantiateEmojiAction.instantiateEmojiCreator.notCalled).to.eql(true);
+        expect(onComponentClickAction.onComponentClickCreator.notCalled).to.eql(true);
+
+        const mappedClearEmoji = rendered.prop("clearEmoji");
+
+        mappedClearEmoji();
+
+        expect(clearEmojiAction.clearEmojiCreator.notCalled).to.eql(true);
+        expect(clearEmojiCreatorStub.calledOnce).to.eql(true);
+    });
+
     it("dispatches `instantiateEmoji` properly", function () {
         selectors.getEmoji.restore();
         sinon.stub(selectors, "getEmoji").returns(null);
@@ -165,6 +194,40 @@ describe("ConnectedEmoji", function () {
 
         expect(instantiateEmojiAction.instantiateEmojiCreator.calledOnce).to.eql(true);
         sinon.assert.calledWith(instantiateEmojiAction.instantiateEmojiCreator, passedEmoji);
+    });
+
+    it("dispatches passed`instantiateEmoji` properly", function () {
+        selectors.getEmoji.restore();
+        sinon.stub(selectors, "getEmoji").returns(null);
+
+        const instantiateEmojiCreatorStub = sinon.stub().returns({type: "MEOW"});
+        const stubProps = {
+            id: "meow",
+            emoji: EmojiEntity.fromJS({id: "meow"}),
+            instantiateEmoji: instantiateEmojiCreatorStub
+        };
+
+        const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.have.prop("emoji");
+
+        const passedEmoji = rendered.prop("emoji");
+        expect(passedEmoji).to.be.instanceof(EmojiEntity);
+        expect(passedEmoji).to.eql(stubProps.emoji);
+
+        expect(clearEmojiAction.clearEmojiCreator.notCalled).to.eql(true);
+        expect(instantiateEmojiAction.instantiateEmojiCreator.notCalled).to.eql(true);
+        expect(instantiateEmojiCreatorStub.notCalled).to.eql(true);
+        expect(onComponentClickAction.onComponentClickCreator.notCalled).to.eql(true);
+
+        const mappedInstantiateEmoji = rendered.prop("instantiateEmoji");
+
+        mappedInstantiateEmoji();
+
+        expect(instantiateEmojiAction.instantiateEmojiCreator.notCalled).to.eql(true);
+        expect(instantiateEmojiCreatorStub.calledOnce).to.eql(true);
     });
 
     it("dispatches `onComponentClick` properly", function () {
@@ -195,5 +258,38 @@ describe("ConnectedEmoji", function () {
 
         expect(onComponentClickAction.onComponentClickCreator.calledOnce).to.eql(true);
         sinon.assert.calledWith(onComponentClickAction.onComponentClickCreator, passedEmoji.id, stubComponentId, stubClickEvent);
+    });
+
+    it("dispatches passed `onComponentClick` properly", function () {
+        selectors.getEmoji.restore();
+        sinon.stub(selectors, "getEmoji").returns(null);
+
+        const onComponentClickStub = sinon.stub().returns({type: "MEOW"});
+        const stubProps = {id: "meow", emoji: EmojiEntity.fromJS({id: "meow"}), onComponentClick: onComponentClickStub};
+
+        const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.have.prop("emoji");
+
+        const passedEmoji = rendered.prop("emoji");
+        expect(passedEmoji).to.be.instanceof(EmojiEntity);
+        expect(passedEmoji).to.eql(stubProps.emoji);
+
+        expect(clearEmojiAction.clearEmojiCreator.notCalled).to.eql(true);
+        expect(instantiateEmojiAction.instantiateEmojiCreator.notCalled).to.eql(true);
+        expect(onComponentClickAction.onComponentClickCreator.notCalled).to.eql(true);
+        expect(onComponentClickStub.notCalled).to.eql(true);
+
+        const mappedOnComponentClick = rendered.prop("onComponentClick");
+        const stubComponentId = "grr";
+        const stubClickEvent = "rawr";
+
+        mappedOnComponentClick(stubComponentId, stubClickEvent);
+
+        expect(onComponentClickAction.onComponentClickCreator.notCalled).to.eql(true);
+        expect(onComponentClickStub.calledOnce).to.eql(true);
+        sinon.assert.calledWith(onComponentClickStub, stubComponentId, stubClickEvent);
     });
 });

@@ -38,7 +38,7 @@ describe("swipeableChangeIndex", function () {
     });
 
     describe("SWIPEABLE_CHANGE_INDEX", function () {
-        it("is dispatched with the expected payload", function () {
+        it("is dispatched with the expected payload (real route)", function () {
             const stubPayload = "woof";
             stubStore.dispatch(swipeableChangeIndex(stubPayload));
 
@@ -62,6 +62,31 @@ describe("swipeableChangeIndex", function () {
                 }
             ]);
             expect(connectedReactRouter.push.calledOnce).to.eql(true);
+            expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
+        });
+
+        it("is dispatched with the expected payload (fake route)", function () {
+            selectors.getRouteForIndex.restore();
+            sinon.stub(selectors, "getRouteForIndex").callsFake(() => null);
+
+            const stubPayload = "woof";
+            stubStore.dispatch(swipeableChangeIndex(stubPayload));
+
+            const actions = stubStore.getActions();
+
+            expect(actions).to.be.ok;
+            expect(actions).to.have.length(1);
+            expect(actions).to.eql([
+                {
+                    type: SWIPEABLE_CHANGE_INDEX,
+                    payload: {
+                        index: stubPayload,
+                        indexLatest: undefined,
+                        meta: undefined
+                    }
+                }
+            ]);
+            expect(connectedReactRouter.push.notCalled).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
     });

@@ -84,4 +84,32 @@ describe("ConnectedBear", function () {
         expect(onBearComponentClickAction.onBearComponentClickCreator.calledOnce).to.eql(true);
         sinon.assert.calledWith(onBearComponentClickAction.onBearComponentClickCreator, passedEmoji.id, stubComponentId, stubClickEvent);
     });
+
+    it("dispatches passed `onComponentClick` properly", function () {
+        const onComponentClickStub = sinon.stub().returns({type: "MEOW"});
+        const stubProps = {id: "meow", emoji: BearEntity.fromJS({id: "meow"}), onComponentClick: onComponentClickStub};
+
+        const rendered = shallow(stubStore)(<ConnectedBear {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.have.prop("emoji");
+
+        const passedEmoji = rendered.prop("emoji");
+        expect(passedEmoji).to.be.instanceof(BearEntity);
+        expect(passedEmoji.id).to.eql(stubProps.id);
+
+        expect(onBearComponentClickAction.onBearComponentClickCreator.notCalled).to.eql(true);
+        expect(onComponentClickStub.notCalled).to.eql(true);
+
+        const mappedOnComponentClick = rendered.prop("onComponentClick");
+        const stubComponentId = "grr";
+        const stubClickEvent = "rawr";
+
+        mappedOnComponentClick(stubComponentId, stubClickEvent);
+
+        expect(onBearComponentClickAction.onBearComponentClickCreator.notCalled).to.eql(true);
+        expect(onComponentClickStub.calledOnce).to.eql(true);
+        sinon.assert.calledWith(onComponentClickStub, stubComponentId, stubClickEvent);
+    });
 });
