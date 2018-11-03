@@ -1,5 +1,4 @@
 import {emojiReducer, errorReducer, uiReducer} from "@randy.tarampi/jsx";
-import {combineReducers} from "redux-immutable";
 import api from "./api";
 import resume from "./resume";
 
@@ -11,6 +10,4 @@ export const reducers = {
     ui: uiReducer
 };
 
-export const combinedReducers = combineReducers(reducers);
-
-export default combinedReducers;
+export default reducers;

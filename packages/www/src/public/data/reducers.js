@@ -1,7 +1,6 @@
 import {reducers as jsxReducers} from "@randy.tarampi/jsx";
 import {reducers as letterReducers} from "@randy.tarampi/letter";
 import {reducers as resumeReducers} from "@randy.tarampi/resume";
-import {combineReducers} from "redux-immutable";
 import api from "./api";
 
 export const reducers = {
@@ -11,6 +10,4 @@ export const reducers = {
     api
 };
 
-export const combinedReducers = combineReducers(reducers);
-
-export default combinedReducers;
+export default reducers;
