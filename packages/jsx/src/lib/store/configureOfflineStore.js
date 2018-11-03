@@ -25,6 +25,7 @@ import {connectRouter, routerMiddleware} from "connected-react-router/immutable"
 import {Map} from "immutable";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
+import {combineReducers} from "redux-immutable";
 import thunk from "redux-thunk";
 import logger from "../logger";
 import {
@@ -97,7 +98,10 @@ export const configureOfflineStore = (initialState = Map(), history, reducers, o
     }
 
     const store = createStore(
-        connectRouter(history)(reducers),
+        combineReducers({
+            router: connectRouter(history),
+            ...reducers
+        }),
         initialState,
         composeWithDevTools(applyMiddleware(...middlewares), offline(offlineConfig))
     );

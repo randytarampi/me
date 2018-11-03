@@ -29,7 +29,7 @@ import {
 import {createBrowserHistory} from "history";
 import React, {Component} from "react";
 import {hot} from "react-hot-loader";
-import {combinedReducers} from "../data/reducers";
+import {reducers} from "../data/reducers";
 import routes from "../routes";
 
 export class App extends Component {
@@ -40,7 +40,7 @@ export class App extends Component {
         const store = configureOfflineStore(
             undefined,
             history,
-            combinedReducers,
+            reducers,
             buildReduxOfflineConfig(
                 {
                     persistCallback: () => {
