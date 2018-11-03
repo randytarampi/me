@@ -23,7 +23,6 @@ describe("Person", function () {
                 address: "woof",
                 postalCode: "meow",
                 city: "grr",
-                postOfficeBoxNumber: "rawr",
                 countryCode: "CA",
                 region: "BC"
             },
@@ -54,6 +53,7 @@ describe("Person", function () {
                 image: stubPersonResumeJson.picture,
                 address: {
                     streetAddress: stubPersonResumeJson.location.address,
+                    postOfficeBoxNumber: "rawr",
                     postalCode: stubPersonResumeJson.location.postalCode,
                     addressLocality: stubPersonResumeJson.location.city,
                     addressCountry: stubPersonResumeJson.location.countryCode,
@@ -87,6 +87,7 @@ describe("Person", function () {
             image: stubPersonResumeJson.picture,
             address: {
                 streetAddress: stubPersonResumeJson.location.address,
+                postOfficeBoxNumber: "rawr",
                 postalCode: stubPersonResumeJson.location.postalCode,
                 addressLocality: stubPersonResumeJson.location.city,
                 addressCountry: stubPersonResumeJson.location.countryCode,
@@ -259,7 +260,7 @@ describe("Person", function () {
                     addressCountry: "CA",
                     addressLocality: "grr",
                     addressRegion: "BC",
-                    postOfficeBoxNumber: null,
+                    postOfficeBoxNumber: "rawr",
                     postalCode: "meow",
                     streetAddress: "woof"
                 },
@@ -308,7 +309,7 @@ describe("Person", function () {
                         addressCountry: "CA",
                         addressLocality: "grr",
                         addressRegion: "BC",
-                        postOfficeBoxNumber: null,
+                        postOfficeBoxNumber: "rawr",
                         postalCode: "meow",
                         streetAddress: "woof"
                     },
@@ -472,11 +473,11 @@ describe("Person", function () {
 
     describe("#postOfficeBoxNumber", function () {
         it("returns `location.postOfficeBoxNumber`", function () {
-            const person = Person.fromResume(stubPersonResumeJson);
+            const person = Person.fromJSON(stubPersonJson);
 
             expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.postOfficeBoxNumber).to.eql(stubPersonResumeJson.location.postOfficeBoxNumber);
+            expect(person.postOfficeBoxNumber).to.eql(stubPersonJson.address.postOfficeBoxNumber);
         });
 
         it("returns `null` if no `location", function () {
