@@ -87,16 +87,21 @@ const renderLetter = letter => {
     return renderPrintable(letter, buildPrintableLetterRendererParameters());
 };
 
-gulp.task("job-applications:pdf", async () => {
+const renderJobApplication = name => {
     const path = require("path");
-    const args = require("yargs").argv;
-    const server = require("./server");
-    const jobApplication = require(path.join(__dirname, "src/job-applications", args.file || args.name || "")).default;
+    const jobApplication = require(path.join(__dirname, "src/job-applications", name || "")).default;
 
     return Promise.all([
-            renderLetter(jobApplication.letter),
-            renderResume(jobApplication.resume)
-        ])
+        jobApplication.letter ? renderLetter(jobApplication.letter) : null,
+        jobApplication.resume ? renderResume(jobApplication.resume) : null
+    ]);
+};
+
+gulp.task("job-application:pdf", async () => {
+    const args = require("yargs").argv;
+    const server = require("./server");
+
+    return renderJobApplication(args.file || args.name)
         .then(() => server.close())
         .catch(error => {
             server.close();
@@ -104,8 +109,33 @@ gulp.task("job-applications:pdf", async () => {
         });
 });
 
-gulp.task("job-applications", gulp.series([
-    "job-applications:pdf"
+gulp.task("job-applications", async () => {
+    const fs = require("fs");
+    const server = require("./server");
+
+    return new Promise((resolve, reject) => {
+        fs.readdir(path.join(__dirname, "src/job-applications"), (error, files) => {
+            if (error) {
+                return reject(error);
+            }
+            resolve(
+                Promise.all(
+                    files
+                        .filter(file => path.extname(file) === ".jsx")
+                        .map(file => renderJobApplication(file))
+                )
+            );
+        });
+    })
+        .then(() => server.close())
+        .catch(error => {
+            server.close();
+            throw error;
+        });
+});
+
+gulp.task("job-application", gulp.series([
+    "job-application:pdf"
 ]));
 
 gulp.task("build", gulp.series([
