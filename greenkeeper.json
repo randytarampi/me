@@ -5,7 +5,7 @@
         "package.json",
         "packages/assets/package.json",
         "packages/css/package.json",
-        "packages/job-applications/package.json",
+        "packages/job-application/package.json",
         "packages/js/package.json",
         "packages/jsonresume-theme/package.json",
         "packages/jsx/package.json",

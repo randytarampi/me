@@ -12,7 +12,7 @@ const defaultRenderOptions = Map({
     format: "A4",
     mediaType: "print",
 
-    source: "job-applications",
+    source: "job-application",
     medium: "pdf",
     content: `a4,${packageJson.version}`
 });
