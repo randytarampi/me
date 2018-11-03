@@ -62,7 +62,7 @@
     "bunyan": "beta",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "connected-react-router": "^5.0.0",
-    "immutable": "4.0.0-rc.12",
+    "immutable": "4.0.0-rc.10",
     "is-html": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.3.1",
