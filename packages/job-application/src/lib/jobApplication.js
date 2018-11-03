@@ -1,7 +1,7 @@
 import {Letter} from "@randy.tarampi/letter";
 import defaultLetterJson from "@randy.tarampi/letter/src/letters/letter.json";
 import {Resume} from "@randy.tarampi/resume";
-import defaultResumeJson from "@randy.tarampi/resume/src/resumes/resume";
+import defaultResumeJson from "@randy.tarampi/resume/src/resumes/resume.json";
 import {List, Map, Record} from "immutable";
 import _ from "lodash";
 import packageJson from "../../package";
@@ -12,7 +12,7 @@ const defaultRenderOptions = Map({
     format: "A4",
     mediaType: "print",
 
-    source: "job-application",
+    source: packageJson.name,
     medium: "pdf",
     content: `a4,${packageJson.version}`
 });

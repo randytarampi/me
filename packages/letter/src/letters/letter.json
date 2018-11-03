@@ -234,10 +234,6 @@
       "postalCode": " "
     }
   },
-  "renderOptions": {
-    "format": "A4",
-    "mediaType": "print"
-  },
   "content": [
     {
       "contentKey": "date"
