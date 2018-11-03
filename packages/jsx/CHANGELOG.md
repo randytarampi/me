@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/randytarampi/me/compare/v1.1.3...v1.1.4) (2018-11-03)
+
+
+### Bug Fixes
+
+* **jsx:** `configureStore` -> `configureOfflineStore`, and add plain `configureStore` from [c79241c9df71a1a9da829b3a38573c40e3bc9b48](https://github.com/randytarampi/me/blob/c79241c9df71a1a9da829b3a38573c40e3bc9b48/packages/jsx/src/lib/store/configureStore.js). ([690e21a](https://github.com/randytarampi/me/commit/690e21a))
+
+
+
+
+
 ## [1.1.3](https://github.com/randytarampi/me/compare/v1.1.2...v1.1.3) (2018-11-02)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

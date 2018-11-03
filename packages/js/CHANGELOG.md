@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/randytarampi/me/compare/v1.1.3...v1.1.4) (2018-11-03)
+
+
+### Bug Fixes
+
+* **js:** Fix tests broken in 2f3ac10b80f086e812e66ae85262bebdaec5dff3. ([7882012](https://github.com/randytarampi/me/commit/7882012))
+* **letter:** Recipient section renders `PostalAddress#postOfficeBoxNumber` ([2f3ac10](https://github.com/randytarampi/me/commit/2f3ac10)), closes [PostalAddress#address2](https://github.com/PostalAddress/issues/address2)
+
+
+
+
+
 ## [1.1.3](https://github.com/randytarampi/me/compare/v1.1.2...v1.1.3) (2018-11-02)
 
 **Note:** Version bump only for package @randy.tarampi/js

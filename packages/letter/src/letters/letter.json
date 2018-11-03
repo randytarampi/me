@@ -268,5 +268,9 @@
     {
       "contentKey": "signature"
     }
-  ]
+  ],
+  "renderOptions": {
+    "format": "A4",
+    "mediaType": "print"
+  }
 }
