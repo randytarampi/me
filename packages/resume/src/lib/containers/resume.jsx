@@ -2,6 +2,7 @@ import {createIsLoadingUrlSelector} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {fetchResumeCreator} from "../actions";
+import {buildFetchUrlForVariant} from "../api";
 import {ResumeComponent} from "../components/resume";
 import selectors from "../data/selectors";
 
@@ -19,9 +20,10 @@ export const ConnectedResume = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const variant = ownProps.match.params.variant || "resume";
+        const fetchUrl = ownProps.fetchUrl || buildFetchUrlForVariant(variant);
         const props = {
             resume: ownProps.resume || selectors.getResumeVariant(state, variant),
-            isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl) || false,
+            isLoading: isLoadingUrlSelector(state, fetchUrl) || false,
             variant
         };
 

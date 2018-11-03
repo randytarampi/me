@@ -1,7 +1,7 @@
 import {
     buildReduxOfflineConfig,
     ClientSwipeableReduxRouterRoot,
-    configureStore,
+    configureOfflineStore,
     createImmutableBlacklistFilter,
     initializeCrispCreator,
     LoadingSpinner,
@@ -37,7 +37,7 @@ export class App extends Component {
         super();
 
         const history = createBrowserHistory();
-        const store = configureStore(
+        const store = configureOfflineStore(
             undefined,
             history,
             combinedReducers,

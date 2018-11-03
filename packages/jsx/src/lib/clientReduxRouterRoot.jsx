@@ -19,7 +19,7 @@ export const ClientReduxRouterRoot = ({store, routes, history, ...props}) => {
 
 ClientReduxRouterRoot.propTypes = {
     store: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired
 };
 

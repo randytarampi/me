@@ -9,7 +9,7 @@ import {ClientSwipeableReduxRouterRoot} from "../../../../src/lib/clientSwipeabl
 import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
 import reducers from "../../../../src/lib/data/reducers";
 import logger from "../../../../src/lib/logger";
-import configureStore from "../../../../src/lib/store/configureStore";
+import configureOfflineStore from "../../../../src/lib/store/configureOfflineStore";
 import * as renderSwipeableRoutesModule from "../../../../src/lib/util/renderSwipeableRoutes";
 import {mount} from "../../../util";
 
@@ -23,7 +23,7 @@ describe("ClientSwipeableReduxRouterRoot", function () {
     beforeEach(function () {
         stubHistory = createBrowserHistory();
         stubInitialState = fromJS({});
-        stubStore = configureStore(stubInitialState, stubHistory, reducers);
+        stubStore = configureOfflineStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
                 component: <div className="testing">

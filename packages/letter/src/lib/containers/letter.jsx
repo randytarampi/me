@@ -2,6 +2,7 @@ import {createIsLoadingUrlSelector} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {fetchLetterCreator} from "../actions";
+import {buildFetchUrlForVariant} from "../api";
 import {LetterComponent} from "../components/letter";
 import selectors from "../data/selectors";
 
@@ -9,10 +10,11 @@ export const ConnectedLetter = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const variant = ownProps.match.params.variant || "letter";
+        const fetchUrl = ownProps.fetchUrl || buildFetchUrlForVariant(variant);
 
         return {
             letter: ownProps.letter || selectors.getLetterVariant(state, variant),
-            isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl) || false,
+            isLoading: isLoadingUrlSelector(state, fetchUrl) || false,
             variant
         };
     },
