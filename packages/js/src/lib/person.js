@@ -111,6 +111,10 @@ export class Person extends Record({
         return this.location && this.location.address;
     }
 
+    get postOfficeBoxNumber() {
+        return this.location && this.location.postOfficeBoxNumber;
+    }
+
     get city() {
         return this.location && this.location.city;
     }

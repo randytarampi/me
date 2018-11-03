@@ -85,7 +85,18 @@ describe("LetterRecipient", function () {
     it("renders (no name)", function () {
         stubLetter = LetterEntity.fromJS({
             sender: stubSenderJs,
-            recipient: Object.assign({}, stubPersonJs, {givenName: null, familyName: null}),
+            recipient: Object.assign({}, stubPersonJs, {
+                givenName: null,
+                familyName: null,
+                address: {
+                    streetAddress: "woof",
+                    postalCode: "meow",
+                    addressLocality: "grr",
+                    postOfficeBoxNumber: "rawr",
+                    addressCountry: "CA",
+                    addressRegion: "BC"
+                }
+            }),
             id: "foo",
             filename: null,
             content: [],
@@ -102,6 +113,7 @@ describe("LetterRecipient", function () {
         expect(rendered).to.have.descendants(".printable-recipient__title");
         expect(rendered).to.have.descendants(".printable-recipient__company");
         expect(rendered).to.have.descendants(".printable-recipient__street-address");
+        expect(rendered).to.have.descendants(".printable-recipient__post-office-box-number");
         expect(rendered).to.have.descendants(".printable-recipient__city-region");
         expect(rendered).to.have.descendants(".printable-recipient__postal-code");
     });

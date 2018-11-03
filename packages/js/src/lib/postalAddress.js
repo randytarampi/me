@@ -44,11 +44,11 @@ export class PostalAddress extends Record({
 
     static fromResume(json) {
         return PostalAddress.fromJSON({
-            ...json,
             streetAddress: json.address,
             addressRegion: json.region,
             addressLocality: json.city,
-            addressCountry: json.countryCode
+            addressCountry: json.countryCode,
+            postalCode: json.postalCode
         });
     }
 

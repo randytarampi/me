@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import {DateTime} from "luxon";
 import {formatNumber} from "libphonenumber-js";
+import {DateTime} from "luxon";
 import Person from "../../../../src/lib/person";
 import PostalAddress from "../../../../src/lib/postalAddress";
 
@@ -23,6 +23,7 @@ describe("Person", function () {
                 address: "woof",
                 postalCode: "meow",
                 city: "grr",
+                postOfficeBoxNumber: "rawr",
                 countryCode: "CA",
                 region: "BC"
             },
@@ -466,6 +467,25 @@ describe("Person", function () {
             expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.address).to.eql(null);
+        });
+    });
+
+    describe("#postOfficeBoxNumber", function () {
+        it("returns `location.postOfficeBoxNumber`", function () {
+            const person = Person.fromResume(stubPersonResumeJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.postOfficeBoxNumber).to.eql(stubPersonResumeJson.location.postOfficeBoxNumber);
+        });
+
+        it("returns `null` if no `location", function () {
+            delete stubPersonResumeJson.location;
+            const person = Person.fromResume(stubPersonResumeJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.postOfficeBoxNumber).to.eql(null);
         });
     });
 
