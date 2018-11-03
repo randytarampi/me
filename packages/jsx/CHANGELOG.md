@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/randytarampi/me/compare/v1.1.4...v1.1.5) (2018-11-03)
+
+
+### Bug Fixes
+
+* **package:** Fix for `connected-react-router^5.0.0`, per [#183](https://github.com/randytarampi/me/issues/183). ([1119b69](https://github.com/randytarampi/me/commit/1119b69))
+* **package:** Fix to `immutable@4.0.0-rc.10`, per [#174](https://github.com/randytarampi/me/issues/174). ([a1bda81](https://github.com/randytarampi/me/commit/a1bda81))
+
+
+
+
+
 ## [1.1.4](https://github.com/randytarampi/me/compare/v1.1.3...v1.1.4) (2018-11-03)
 
 
