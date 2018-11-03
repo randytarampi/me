@@ -144,7 +144,7 @@ describe("Error", function () {
         expect(rendered).to.have.prop("clearErrorTimeoutHandler");
     });
 
-    it("dispatches `timedRedirect` properly", function () {
+    it("dispatches `timedRedirect` properly (redirects)", function () {
         const stubProps = {redirectionLocation: "/woof", redirectionTimeout: 1};
         const clearErrorStub = sinon.stub().returns(() => Promise.resolve());
         const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
@@ -181,6 +181,45 @@ describe("Error", function () {
                 expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
                 expect(routerPushStub.calledOnce).to.eql(true);
                 sinon.assert.calledWith(routerPushStub, stubProps.redirectionLocation);
+            });
+    });
+
+    it("dispatches `timedRedirect` properly (no redirect)", function () {
+        const stubProps = {redirectionLocation: window.location.pathname, redirectionTimeout: 1};
+        const clearErrorStub = sinon.stub().returns(() => Promise.resolve());
+        const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
+        const routerPushStub = sinon.stub().returns({type: "WOOF"});
+        const proxyquiredError = proxyquire("../../../../../src/lib/containers/error", {
+            "../actions/clearError": {
+                "default": clearErrorStub
+            },
+            "../actions/clearErrorTimeoutHandler": {
+                "default": clearErrorTimeoutHandlerStub
+            },
+            "connected-react-router": {
+                "push": routerPushStub
+            }
+        });
+        const Error = proxyquiredError.default;
+
+        const rendered = shallow(stubStore)(<Error {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+
+        expect(clearErrorStub.notCalled).to.eql(true);
+        expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
+        expect(routerPushStub.notCalled).to.eql(true);
+        expect(rendered).to.have.prop("timedRedirect");
+        expect(rendered).to.have.prop("clearErrorTimeoutHandler");
+
+        const mappedTimedRedirect = rendered.prop("timedRedirect");
+
+        return mappedTimedRedirect()
+            .then(() => {
+                expect(clearErrorStub.notCalled).to.eql(true);
+                expect(clearErrorTimeoutHandlerStub.notCalled).to.eql(true);
+                expect(routerPushStub.notCalled).to.eql(true);
             });
     });
 });

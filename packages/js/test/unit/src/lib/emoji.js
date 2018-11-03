@@ -43,4 +43,18 @@ describe("Emoji", () => {
             });
         });
     });
+
+    describe(".toString", () => {
+        it("should delegate to `Component.toString`", () => {
+            const emojiJson = {
+                type: "woof",
+                components: defaultComponents
+            };
+            const instantiatedEmoji = Emoji.fromJSON(emojiJson);
+
+            expect(instantiatedEmoji).to.be.ok;
+            expect(instantiatedEmoji).to.be.instanceof(Emoji);
+            expect(instantiatedEmoji.toString()).to.eql(instantiatedEmoji.components.map(emoji => emoji.toString()).join(""));
+        });
+    });
 });

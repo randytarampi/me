@@ -95,6 +95,66 @@ describe("Error", function () {
         }, stubProps.redirectionTimeout * 1250);
     });
 
+    it("renders (ENORESUME)", function (done) {
+        const stubProps = {
+            errorCode: "ENORESUME",
+            errorMessage: "ugh",
+            location: Map({
+                pathname: "grr"
+            }),
+            redirectionLocation: "boof",
+            redirectionTimeout: 0.1,
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
+        };
+        const rendered = shallow(<Error {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.className("error");
+        expect(rendered).to.have.descendants("#error-doubt-bear");
+        expect(rendered).to.have.descendants(".error__message--header");
+        expect(rendered).to.have.descendants(".error__message");
+
+        setTimeout(() => {
+            try {
+                expect(stubProps.timedRedirect.notCalled).to.eql(true);
+                done();
+            } catch (error) {
+                done(error);
+            }
+        }, stubProps.redirectionTimeout * 1250);
+    });
+
+    it("renders (ENOLETTER)", function (done) {
+        const stubProps = {
+            errorCode: "ENOLETTER",
+            errorMessage: "ugh",
+            location: Map({
+                pathname: "grr"
+            }),
+            redirectionLocation: "boof",
+            redirectionTimeout: 0.1,
+            timedRedirect: sinon.stub(),
+            clearErrorTimeoutHandler: sinon.stub()
+        };
+        const rendered = shallow(<Error {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.className("error");
+        expect(rendered).to.have.descendants("#error-doubt-bear");
+        expect(rendered).to.have.descendants(".error__message--header");
+        expect(rendered).to.have.descendants(".error__message");
+
+        setTimeout(() => {
+            try {
+                expect(stubProps.timedRedirect.notCalled).to.eql(true);
+                done();
+            } catch (error) {
+                done(error);
+            }
+        }, stubProps.redirectionTimeout * 1250);
+    });
+
     it("renders (500)", function (done) {
         const stubProps = {
             errorCode: 500,
