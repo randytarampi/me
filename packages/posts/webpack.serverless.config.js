@@ -28,13 +28,17 @@ const plugins = [
     })
 ];
 
-if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
+if (process.env.SENTRY_AUTH_TOKEN) {
+    let sentryRelease = process.env.REPO_VERSION
+        ? `v${process.env.REPO_VERSION}`
+        : process.env.TRAVIS_TAG || process.env.TRAVIS_COMMIT;
+
     plugins.push(
         new SentryPlugin({
             organization: process.env.SENTRY_ORG,
             project: process.env.SENTRY_PROJECT,
             apiKey: process.env.SENTRY_AUTH_TOKEN,
-            release: process.env.TRAVIS_TAG || process.env.TRAVIS_COMMIT,
+            release: sentryRelease,
             releaseBody: (version, projects) => {
                 return {
                     version,
