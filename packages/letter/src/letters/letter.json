@@ -268,5 +268,8 @@
     {
       "contentKey": "signature"
     }
-  ]
+  ],
+  "renderOptions": {
+    "mediaType": "print"
+  }
 }

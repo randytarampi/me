@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.6](https://github.com/randytarampi/me/compare/v1.1.5...v1.1.6) (2018-11-04)
+
+
+### Bug Fixes
+
+* **letter:** Don't hardcode `letter.renderOptions.format`. ([73c1a55](https://github.com/randytarampi/me/commit/73c1a55))
+
+
+
+
+
 ## [1.1.5](https://github.com/randytarampi/me/compare/v1.1.4...v1.1.5) (2018-11-03)
 
 
