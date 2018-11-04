@@ -136,7 +136,6 @@ jobs:
       install:
         - npm install --production
         - npx lerna bootstrap --hoist --no-ci --scope @randy.tarampi/www --include-filtered-dependencies --concurrency ${CPUS_COUNT}
-        - npm run build --prefix packages/www
         - npm run docs --prefix packages/www
       before_script: skip
       script: skip
@@ -189,7 +188,6 @@ jobs:
       install:
         - npm install --production
         - npx lerna bootstrap --hoist --no-ci --scope @randy.tarampi/www --include-filtered-dependencies --concurrency ${CPUS_COUNT}
-        - npm run build --prefix packages/www
         - npm run docs --prefix packages/www
       before_script: skip
       script: skip
