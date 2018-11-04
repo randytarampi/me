@@ -1,15 +1,36 @@
 import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import React from "react";
+import {CampaignContext} from "../../contexts";
 import Link from "./link";
 
 export const CampaignLink = ({useBranding, href, source, medium, name, term, content, ...props}) => {
-    return <Link
-        {...props}
-        className={["link--campaign", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
-        href={augmentUrlWithTrackingParams(href, {source, medium, name, term, content})}
-        text={props.text || href}
-    />;
+    return <CampaignContext.Consumer>
+        {
+            campaignContext => {
+                const {
+                    source: contextSource,
+                    medium: contextMedium,
+                    name: contextName,
+                    term: contextTerm,
+                    content: contextContent
+                } = campaignContext || {};
+
+                return <Link
+                    {...props}
+                    className={["link--campaign", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
+                    href={augmentUrlWithTrackingParams(href, {
+                        source: source || contextSource,
+                        medium: medium || contextMedium,
+                        name: name || contextName,
+                        term: term || contextTerm,
+                        content: content || contextContent
+                    })}
+                    text={props.text || href}
+                />;
+            }
+        }
+    </CampaignContext.Consumer>;
 };
 
 CampaignLink.propTypes = {
@@ -25,12 +46,7 @@ CampaignLink.propTypes = {
 };
 
 CampaignLink.defaultProps = {
-    useBranding: true,
-    source: __CAMPAIGN_SOURCE__ || undefined,
-    medium: __CAMPAIGN_MEDIUM__ || undefined,
-    name: __CAMPAIGN_NAME__ || undefined,
-    term: __CAMPAIGN_TERM__ || undefined,
-    content: __CAMPAIGN_CONTENT__ || undefined
+    useBranding: true
 };
 
 export default CampaignLink;

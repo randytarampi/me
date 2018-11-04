@@ -2,6 +2,7 @@ import * as actions from "./actions";
 import * as api from "./api";
 import * as components from "./components";
 import * as containers from "./containers";
+import * as contexts from "./contexts";
 import * as data from "./data";
 import * as middleware from "./middleware";
 import * as store from "./store";
@@ -16,6 +17,7 @@ export {
     api,
     components,
     containers,
+    contexts,
     data,
     middleware,
     store,
@@ -26,6 +28,7 @@ export * from "./actions";
 export * from "./api";
 export * from "./components";
 export * from "./containers";
+export * from "./contexts";
 export * from "./data";
 export * from "./logger";
 export * from "./metrics";

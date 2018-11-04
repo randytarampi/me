@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {mount} from "enzyme";
 import queryString from "query-string";
 import React from "react";
 import CampaignLink from "../../../../../../src/lib/components/link/campaign";
@@ -16,7 +16,7 @@ describe("CampaignLink", function () {
             term: "rawr",
             content: "content"
         };
-        const rendered = shallow(<CampaignLink {...stubProps}/>);
+        const rendered = mount(<CampaignLink {...stubProps}/>);
 
         expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
@@ -44,7 +44,7 @@ describe("CampaignLink", function () {
             content: "content",
             useBranding: false
         };
-        const rendered = shallow(<CampaignLink {...stubProps}/>);
+        const rendered = mount(<CampaignLink {...stubProps}/>);
         const href = `${stubProps.href}?${queryString.stringify({
             utm_source: stubProps.source,
             utm_medium: stubProps.medium,
@@ -73,7 +73,7 @@ describe("CampaignLink", function () {
             content: "content",
             useBranding: false
         };
-        const rendered = shallow(<CampaignLink {...stubProps}/>);
+        const rendered = mount(<CampaignLink {...stubProps}/>);
         const href = `/woof?${queryString.stringify({
             ...queryString.parseUrl(stubProps.href).query,
             utm_source: stubProps.source,

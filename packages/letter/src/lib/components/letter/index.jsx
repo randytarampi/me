@@ -1,7 +1,7 @@
-import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import {CampaignContext, LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
-import React, {Component, Fragment} from "react";
+import React, {Component} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
 import LetterFooter from "./footer";
@@ -20,7 +20,7 @@ export class LetterComponent extends Component {
             {
                 isLoading || !letter
                     ? <LoadingSpinner/>
-                    : <Fragment>
+                    : <CampaignContext.Provider value={letter.renderOptions && letter.renderOptions.toJS()}>
                         <Helmet>
                             <title>{`${letter.basics.name} — ${letter.basics.label}`}</title>
                             <link rel="canonical" href={__PUBLISHED_LETTER_URL__}/>
@@ -46,7 +46,7 @@ export class LetterComponent extends Component {
                             </Container>
                         </div>
                         <LetterFooter {...props} letter={letter}/>
-                    </Fragment>
+                    </CampaignContext.Provider>
             }
         </div>;
     }
@@ -60,7 +60,7 @@ LetterComponent.propTypes = {
 };
 
 LetterComponent.defaultProps = {
-    isLoading: false,
+    isLoading: false
 };
 
 export default LetterComponent;

@@ -1,7 +1,7 @@
-import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import {CampaignContext, LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
-import React, {Component, Fragment} from "react";
+import React, {Component} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
 import defaultResume from "../../../resumes/resume.json";
@@ -39,7 +39,7 @@ export class ResumeComponent extends Component {
             {
                 isLoading || !resume
                     ? <LoadingSpinner/>
-                    : <Fragment>
+                    : <CampaignContext.Provider value={resume.renderOptions && resume.renderOptions.toJS()}>
                         <Helmet>
                             <title>{`${resume.basics.name} — ${resume.basics.label}`}</title>
                             <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
@@ -113,7 +113,7 @@ export class ResumeComponent extends Component {
                             </Container>
                         </div>
                         <ResumeFooter {...contentProps} />
-                    </Fragment>
+                    </CampaignContext.Provider>
             }
         </div>;
     }
