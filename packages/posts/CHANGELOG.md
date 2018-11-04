@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.8](https://github.com/randytarampi/me/compare/v1.1.7...v1.1.8) (2018-11-04)
+
+
+### Reverts
+
+* fix(webpack): Actually upload artifacts to Sentry on release builds. ([d9b1125](https://github.com/randytarampi/me/commit/d9b1125))
+
+
+
+
+
 ## [1.1.7](https://github.com/randytarampi/me/compare/v1.1.6...v1.1.7) (2018-11-04)
 
 
