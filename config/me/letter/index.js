@@ -17,7 +17,6 @@ module.exports = {
         }
     },
     renderOptions: {
-        format: "A4",
         mediaType: "print"
     }
 };
