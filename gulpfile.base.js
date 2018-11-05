@@ -40,8 +40,7 @@ module.exports.pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
 
     return gulp
         .src(path.join(relativePath, "views/**/*.pug"))
-        .pipe(pugLinter())
-        .pipe(pugLinter.reporter("fail"));
+        .pipe(pugLinter({failAfterError: true}));
 });
 
 module.exports.stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () => {
