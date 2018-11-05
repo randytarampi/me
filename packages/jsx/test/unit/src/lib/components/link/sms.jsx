@@ -45,4 +45,43 @@ describe("SmsLink", function () {
             />
         );
     });
+
+    it("renders (no text)", function () {
+        const stubProps = {
+            tel: "+16043747128",
+            body: "Woof woof woof",
+            useBranding: false
+        };
+        const rendered = shallow(<SmsLink {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <Link
+                className="link--sms link--no-branding"
+                tel={stubProps.tel}
+                body={stubProps.body}
+                href={`sms:${stubProps.tel};?&body=${encodeURIComponent(stubProps.body)}`}
+                text={stubProps.tel}
+            />
+        );
+    });
+
+    it("renders (no body)", function () {
+        const stubProps = {
+            tel: "+16043747128",
+            text: "WOOF",
+            useBranding: false
+        };
+        const rendered = shallow(<SmsLink {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <Link
+                className="link--sms link--no-branding"
+                tel={stubProps.tel}
+                href={`sms:${stubProps.tel}`}
+                text={stubProps.text}
+            />
+        );
+    });
 });

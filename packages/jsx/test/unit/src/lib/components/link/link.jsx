@@ -165,4 +165,30 @@ describe("Link", function () {
             </a>
         );
     });
+
+    it("renders (no onClick and no href)", function () {
+        const stubChildren = "WOOF";
+        const stubProps = {
+            "aria-label": "close"
+        };
+        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+        expect(rendered).to.containMatchingElement(
+            <a
+                target="__blank"
+                rel="noopener noreferrer"
+                data-metrics-event-name="anchor"
+                data-metrics-type={undefined}
+                data-metrics-name={stubProps["aria-label"]}
+                data-metrics-label={stubProps["aria-label"]}
+                data-metrics-value={undefined}
+                className="link"
+                aria-label={stubProps["aria-label"]}
+            >
+                {stubChildren}
+            </a>
+        );
+    });
 });

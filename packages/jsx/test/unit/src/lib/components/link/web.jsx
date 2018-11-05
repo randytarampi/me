@@ -34,9 +34,25 @@ describe("WebLink", function () {
         expect(rendered).to.containMatchingElement(
             <CampaignLink
                 className="link--web link--no-branding"
-                tel={stubProps.tel}
                 href={stubProps.href}
                 text={stubProps.text}
+            />
+        );
+    });
+
+    it("renders (no text)", function () {
+        const stubProps = {
+            href: "/woof",
+            useBranding: false
+        };
+        const rendered = shallow(<WebLink {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <CampaignLink
+                className="link--web link--no-branding"
+                href={stubProps.href}
+                text={stubProps.href}
             />
         );
     });

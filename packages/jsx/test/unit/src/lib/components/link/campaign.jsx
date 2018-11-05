@@ -4,6 +4,7 @@ import queryString from "query-string";
 import React from "react";
 import CampaignLink from "../../../../../../src/lib/components/link/campaign";
 import Link from "../../../../../../src/lib/components/link/link";
+import CampaignContext from "../../../../../../src/lib/contexts/campaign";
 
 describe("CampaignLink", function () {
     it("renders (href with branding)", function () {
@@ -81,6 +82,71 @@ describe("CampaignLink", function () {
             utm_campaign: stubProps.name,
             utm_term: stubProps.term,
             utm_content: stubProps.content
+        })}`;
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <Link
+                className="link--campaign link--no-branding"
+                href={href}
+                text={stubProps.href}
+            />
+        );
+    });
+
+    it("renders (no CampaignContext)", function () {
+        const stubProps = {
+            href: "/woof?woof=meow",
+            useBranding: false
+        };
+        const rendered = mount(
+            <CampaignContext.Provider value={null}>
+                <CampaignLink {...stubProps}/>
+            </CampaignContext.Provider>
+        );
+        const href = `/woof?${queryString.stringify({
+            ...queryString.parseUrl(stubProps.href).query,
+            utm_source: "",
+            utm_medium: "",
+            utm_campaign: "",
+            utm_term: "",
+            utm_content: ""
+        })}`;
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <Link
+                className="link--campaign link--no-branding"
+                href={href}
+                text={stubProps.href}
+            />
+        );
+    });
+
+    it("renders (with CampaignContext)", function () {
+        const stubProps = {
+            href: "/woof?woof=meow",
+            useBranding: false
+        };
+        const stubContext = {
+            source: "woof",
+            medium: "meow",
+            name: "grr",
+            term: "rawr",
+            content: "content"
+        };
+        const rendered = mount(
+            <CampaignContext.Provider value={stubContext}>
+                <CampaignLink {...stubProps}/>
+            </CampaignContext.Provider>
+        );
+        const href = `/woof?${queryString.stringify({
+            ...queryString.parseUrl(stubProps.href).query,
+            utm_source: stubContext.source,
+            utm_medium: stubContext.medium,
+            utm_campaign: stubContext.name,
+            utm_term: stubContext.term,
+            utm_content: stubContext.content
         })}`;
 
         expect(rendered).to.be.ok;

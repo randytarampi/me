@@ -56,4 +56,46 @@ describe("EmailLink", function () {
             />
         );
     });
+
+    it("renders (no body)", function () {
+        const stubProps = {
+            email: "woof@randytarampi.ca",
+            subject: "Meow meow meow",
+            text: "WOOF",
+            useBranding: false
+        };
+        const rendered = shallow(<EmailLink {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <Link
+                className="link--email link--no-branding"
+                target="_self"
+                subject={stubProps.subject}
+                href={`mailto:${stubProps.email}?${queryString.stringify({
+                    subject: stubProps.subject
+                })}`}
+                text={stubProps.text}
+            />
+        );
+    });
+
+    it("renders (no body and no subject)", function () {
+        const stubProps = {
+            email: "woof@randytarampi.ca",
+            text: "WOOF",
+            useBranding: false
+        };
+        const rendered = shallow(<EmailLink {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.containMatchingElement(
+            <Link
+                className="link--email link--no-branding"
+                target="_self"
+                href={`mailto:${stubProps.email}`}
+                text={stubProps.text}
+            />
+        );
+    });
 });
