@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/randytarampi/me/compare/v1.2.3...v1.2.4) (2018-11-05)
+
+
+### Bug Fixes
+
+* **jsx:** Grossly export un`babel`ed test utilities for use elsewhere. ([145f40e](https://github.com/randytarampi/me/commit/145f40e))
+* **package:** `lib` now lives in `src/lib`. ([84cced2](https://github.com/randytarampi/me/commit/84cced2))
+* **views:** Need to `JSON.stringify` this `null` Pug local value. ([2100cf6](https://github.com/randytarampi/me/commit/2100cf6))
+
+
+
+
+
 ## [1.2.3](https://github.com/randytarampi/me/compare/v1.2.2...v1.2.3) (2018-11-05)
 
 
