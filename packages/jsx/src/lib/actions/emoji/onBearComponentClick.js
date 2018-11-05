@@ -39,7 +39,6 @@ export const onBearComponentClickCreator = (emojiId, componentId, event) => (dis
             ));
             break;
 
-        case 3:
         case 0:
             dispatch(updateEmoji(
                 emoji
