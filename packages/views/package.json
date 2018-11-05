@@ -45,7 +45,7 @@
   "main": "./index.js",
   "esm": "./index.js",
   "directories": {
-    "lib": "./lib"
+    "lib": "./src/lib"
   },
   "files": [
     "build",

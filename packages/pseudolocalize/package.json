@@ -12,7 +12,7 @@
   "description": "Text-to-ʕ•ᴥ•ʔ translations",
   "main": "lib/pseudolocalizer.js",
   "directories": {
-    "lib": "./lib",
+    "lib": "./src/lib",
     "bin": "./bin",
     "test": "./test"
   },

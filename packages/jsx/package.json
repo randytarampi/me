@@ -111,7 +111,7 @@
   "module": "./index.js",
   "main": "./index.js",
   "directories": {
-    "lib": "./lib",
+    "lib": "./src/lib",
     "test": "./test"
   },
   "files": [

@@ -78,7 +78,7 @@
     "node": ">=8"
   },
   "directories": {
-    "lib": "./lib",
+    "lib": "./src/lib",
     "test": "./test"
   }
 }

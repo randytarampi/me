@@ -12,7 +12,7 @@
   "description": "ʕつ◕ᴥ◕ʔつ 📷 → Your application's pseudolocales' image folders",
   "main": "lib/pseudoimage.js",
   "directories": {
-    "lib": "./lib",
+    "lib": "./src/lib",
     "bin": "./bin",
     "test": "./test"
   },

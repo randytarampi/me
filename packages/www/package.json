@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "directories": {
-    "lib": "./lib",
+    "lib": "./src/lib",
     "test": "./test"
   },
   "scripts": {
