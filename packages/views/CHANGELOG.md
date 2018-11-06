@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://github.com/randytarampi/me/compare/v1.3.1...v1.3.2) (2018-11-06)
+
+
+### Bug Fixes
+
+* **views:** Fix GTM datalayer regression from 2d261d23677e0c832f84a99c30f57ebad4349582. ([038a544](https://github.com/randytarampi/me/commit/038a544))
+
+
+
+
+
 ## [1.3.1](https://github.com/randytarampi/me/compare/v1.3.0...v1.3.1) (2018-11-06)
 
 **Note:** Version bump only for package @randy.tarampi/views
