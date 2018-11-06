@@ -90,11 +90,11 @@ export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) =>
     };
 };
 
-export const configureOfflineStore = (initialState = Map(), history, reducers, offlineConfig = buildReduxOfflineConfig()) => {
-    const middlewares = [thunk, metricsMiddleware, routerMiddleware(history), meRouterMiddleware, uiMiddleware, errorMiddleware];
+export const configureOfflineStore = (initialState = Map(), history, reducers, middleware = [], offlineConfig = buildReduxOfflineConfig()) => {
+    const combinedMiddleware = [thunk, metricsMiddleware, routerMiddleware(history), meRouterMiddleware, uiMiddleware, errorMiddleware, ...middleware];
 
     if (typeof window !== "undefined" && window.SENTRY_DSN && window.LOGGER && window.LOGGER.streams.sentry) {
-        middlewares.unshift(ravenMiddleware());
+        combinedMiddleware.unshift(ravenMiddleware());
     }
 
     const store = createStore(
@@ -103,7 +103,7 @@ export const configureOfflineStore = (initialState = Map(), history, reducers, o
             ...reducers
         }),
         initialState,
-        composeWithDevTools(applyMiddleware(...middlewares), offline(offlineConfig))
+        composeWithDevTools(applyMiddleware(...combinedMiddleware), offline(offlineConfig))
     );
 
     return store;

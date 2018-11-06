@@ -41,6 +41,7 @@ export class App extends Component {
             undefined,
             history,
             reducers,
+            undefined,
             buildReduxOfflineConfig(
                 {
                     persistCallback: () => {

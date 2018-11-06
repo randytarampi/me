@@ -12,11 +12,11 @@ import {
     uiMiddleware
 } from "../middleware";
 
-export const configureStore = (initialState = Map(), history, reducers) => {
-    const middlewares = [thunk, metricsMiddleware, routerMiddleware(history), meRouterMiddleware, uiMiddleware, errorMiddleware];
+export const configureStore = (initialState = Map(), history, reducers, middleware = []) => {
+    const combinedMiddleware = [thunk, metricsMiddleware, routerMiddleware(history), meRouterMiddleware, uiMiddleware, errorMiddleware, ...middleware];
 
     if (typeof window !== "undefined" && window.SENTRY_DSN && window.LOGGER && window.LOGGER.streams.sentry) {
-        middlewares.unshift(ravenMiddleware());
+        combinedMiddleware.unshift(ravenMiddleware());
     }
 
     const store = createStore(
@@ -25,7 +25,7 @@ export const configureStore = (initialState = Map(), history, reducers) => {
             ...reducers
         }),
         initialState,
-        composeWithDevTools(applyMiddleware(...middlewares))
+        composeWithDevTools(applyMiddleware(...combinedMiddleware))
     );
 
     return store;
