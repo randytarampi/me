@@ -22,7 +22,7 @@ import {offlineStateLens, persist, persistAutoRehydrate} from "@randy.tarampi/re
 import {offline} from "@redux-offline/redux-offline";
 import defaultReduxOfflineConfig from "@redux-offline/redux-offline/lib/defaults";
 import {connectRouter, routerMiddleware} from "connected-react-router/immutable";
-import {Map} from "immutable";
+import Immutable, {Map} from "immutable";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {combineReducers} from "redux-immutable";
@@ -103,7 +103,7 @@ export const configureOfflineStore = (initialState = Map(), history, reducers, m
             ...reducers
         }),
         initialState,
-        composeWithDevTools(applyMiddleware(...combinedMiddleware), offline(offlineConfig))
+        composeWithDevTools({serialize: {immutable: Immutable}})(applyMiddleware(...combinedMiddleware), offline(offlineConfig))
     );
 
     return store;

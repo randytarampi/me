@@ -1,5 +1,5 @@
 import {connectRouter, routerMiddleware} from "connected-react-router/immutable";
-import {Map} from "immutable";
+import Immutable, {Map} from "immutable";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {combineReducers} from "redux-immutable";
@@ -25,7 +25,7 @@ export const configureStore = (initialState = Map(), history, reducers, middlewa
             ...reducers
         }),
         initialState,
-        composeWithDevTools(applyMiddleware(...combinedMiddleware))
+        composeWithDevTools({serialize: {immutable: Immutable}})(applyMiddleware(...combinedMiddleware))
     );
 
     return store;
