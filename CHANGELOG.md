@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/randytarampi/me/compare/v1.3.5...v1.3.6) (2018-11-07)
+
+
+### Reverts
+
+* chore(package): Refresh `package-lock.json`. ([f33affa](https://github.com/randytarampi/me/commit/f33affa))
+* chore(travis): Turns out I can `npm ci --ignore-scripts`. ([3e2b174](https://github.com/randytarampi/me/commit/3e2b174))
+* revert: chore(package): Refresh `package-lock.json`. ([974f2c0](https://github.com/randytarampi/me/commit/974f2c0))
+
+
+
+
+
 ## [1.3.5](https://github.com/randytarampi/me/compare/v1.3.4...v1.3.5) (2018-11-07)
 
 **Note:** Version bump only for package me
