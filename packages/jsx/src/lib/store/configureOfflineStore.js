@@ -97,13 +97,19 @@ export const configureOfflineStore = (initialState = Map(), history, reducers, m
         combinedMiddleware.unshift(ravenMiddleware());
     }
 
+    const reduxDevToolsOptions = {
+        serialize: {
+            immutable: Immutable,
+            refs: offlineConfig && offlineConfig.persistOptions && offlineConfig.persistOptions.records
+        }
+    };
     const store = createStore(
         combineReducers({
             router: connectRouter(history),
             ...reducers
         }),
         initialState,
-        composeWithDevTools({serialize: {immutable: Immutable}})(applyMiddleware(...combinedMiddleware), offline(offlineConfig))
+        composeWithDevTools(reduxDevToolsOptions)(applyMiddleware(...combinedMiddleware), offline(offlineConfig))
     );
 
     return store;

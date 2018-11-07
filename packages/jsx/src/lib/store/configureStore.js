@@ -19,13 +19,18 @@ export const configureStore = (initialState = Map(), history, reducers, middlewa
         combinedMiddleware.unshift(ravenMiddleware());
     }
 
+    const reduxDevToolsOptions = {
+        serialize: {
+            immutable: Immutable
+        }
+    };
     const store = createStore(
         combineReducers({
             router: connectRouter(history),
             ...reducers
         }),
         initialState,
-        composeWithDevTools({serialize: {immutable: Immutable}})(applyMiddleware(...combinedMiddleware))
+        composeWithDevTools(reduxDevToolsOptions)(applyMiddleware(...combinedMiddleware))
     );
 
     return store;
