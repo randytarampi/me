@@ -1,4 +1,4 @@
-import {CampaignLink, LeftDescriptionSection} from "@randy.tarampi/jsx";
+import {LeftDescriptionSection, Shields} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 
@@ -9,58 +9,7 @@ export const LetterQuality = ({contentConfiguration}) => {
             <p>
                 <span className="text">With badges to prove it:</span>
             </p>
-            <div className="shields">
-                <CampaignLink
-                    className="shield"
-                    href="https://www.randytarampi.ca"
-                    aria-label="Is www.randytarampi.ca up?"
-                    name="Up status">
-                    <img
-                        className="shield__image"
-                        src="https://img.shields.io/website-up-down-green-red/https/www.randytarampi.ca.svg?label=www.randytarampi.ca&style=flat-square"
-                    />
-                </CampaignLink>
-                <CampaignLink
-                    className="shield"
-                    href="https://uptime.randytarampi.ca"
-                    aria-label="Uptime status"
-                    name="Uptime">
-                    <img
-                        className="shield__image"
-                        src="https://img.shields.io/uptimerobot/ratio/m780949566-9b1b7cc0bdd3be425a9e6ac8.svg?style=flat-square"
-                    />
-                </CampaignLink>
-                <CampaignLink
-                    className="shield"
-                    href="https://travis-ci.org/randytarampi/me"
-                    aria-label="Travis build"
-                    name="Travis">
-                    <img
-                        className="shield__image"
-                        src="https://img.shields.io/travis/randytarampi/me.svg?style=flat-square"
-                    />
-                </CampaignLink>
-                <CampaignLink
-                    className="shield"
-                    href="https://coveralls.io/github/randytarampi/me"
-                    aria-label="Coveralls score"
-                    name="Coveralls">
-                    <img
-                        className="shield__image"
-                        src="https://img.shields.io/coveralls/github/randytarampi/me.svg?style=flat-square"
-                    />
-                </CampaignLink>
-                <CampaignLink
-                    className="shield"
-                    href="https://codeclimate.com/github/randytarampi/me/maintainability"
-                    aria-label="Code Climate score"
-                    name="Code Climate">
-                    <img
-                        className="shield__image"
-                        src="https://img.shields.io/codeclimate/maintainability-percentage/randytarampi/me.svg?style=flat-square"
-                    />
-                </CampaignLink>
-            </div>
+            <Shields/>
         </Fragment>}
         showOnLegal={true}
         {...contentConfiguration.sectionProps}

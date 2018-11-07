@@ -8,6 +8,7 @@ export * from "./web";
 export * from "./branded";
 export * from "./internal";
 export * from "./campaign";
+export * from "./shields";
 
 export * from "./link";
 
