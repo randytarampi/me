@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.7](https://github.com/randytarampi/me/compare/v1.3.6...v1.3.7) (2018-11-08)
+
+
+### Bug Fixes
+
+* **package:** update gulp-pug-linter to version 1.1.0 ([5eb24ec](https://github.com/randytarampi/me/commit/5eb24ec))
+
+
+
+
+
 ## [1.3.6](https://github.com/randytarampi/me/compare/v1.3.5...v1.3.6) (2018-11-07)
 
 
