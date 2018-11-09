@@ -1,4 +1,4 @@
-import CacheClient from "../../lib/cacheClient";
+import CacheClient from "../../src/lib/cacheClient";
 import DummyDataClientGenerator from "./dummyDataClientGenerator";
 
 export const DummyCacheClientGenerator = ({

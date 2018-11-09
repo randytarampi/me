@@ -1,4 +1,4 @@
-import DataSource from "../../lib/dataSource";
+import DataSource from "../../src/lib/dataSource";
 
 export const DummyDataSourceGenerator = ({
                                              stubIsEnabled = () => true,

@@ -86,11 +86,11 @@ custom:
   contentCompression: 1024
   dynamodb:
     start:
-      port: ${file(./serverless/util/loadConfig.js):default.posts.dbPort}
+      port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
       inMemory: true
       # sharedDb: true
     migration:
-      dir: serverless/dynamoDb/migrations
+      dir: src/serverless/dynamoDb/migrations
   webpack:
     individually: true
     webpackConfig: ./webpack.serverless.config.js
@@ -106,7 +106,7 @@ custom:
       prd: "alias/serverless-prd"
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
-    port: ${file(./serverless/util/loadConfig.js):default.posts.serverPort}
+    port: ${file(src/serverless/util/loadConfig.js):default.posts.serverPort}
   customDomain:
     domainName: ${file(env.yml):${self:provider.stage}.domainName}
     certificateName: ${file(env.yml):${self:provider.stage}.acmName}
@@ -117,32 +117,32 @@ custom:
 
 functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.functions}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
   cachePosts:
-    handler: serverless/handlers/cachePosts/initialized.default
+    handler: src/serverless/handlers/cachePosts/initialized.default
     timeout: 60
     events: ${file(env.yml):${self:provider.stage}.functions.cachePosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPosts:
     warmup: true
-    handler: serverless/handlers/getPosts/initialized.default
+    handler: src/serverless/handlers/getPosts/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPostsRss:
     warmup: true
-    handler: serverless/handlers/getPostsRss/initialized.default
+    handler: src/serverless/handlers/getPostsRss/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
     onError:
       Ref: LambdaDeadLetterQueue
     environment:
       CAMPAIGN_MEDIUM: rss
   instagramAuthRedirect:
-    handler: serverless/handlers/instagramAuthRedirect/initialized.default
+    handler: src/serverless/handlers/instagramAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}
     onError:
       Ref: LambdaDeadLetterQueue
   instagramAuthReturn:
-    handler: serverless/handlers/instagramAuthReturn/initialized.default
+    handler: src/serverless/handlers/instagramAuthReturn/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthReturn.events}
     onError:
       Ref: LambdaDeadLetterQueue

@@ -1,4 +1,4 @@
-import CachedDataSource from "../../lib/cachedDataSource";
+import CachedDataSource from "../../src/lib/cachedDataSource";
 
 export const DummyCachedDataSourceGenerator = ({
                                                    stubIsEnabled = () => true,

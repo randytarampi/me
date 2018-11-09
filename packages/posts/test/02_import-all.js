@@ -1,5 +1,5 @@
-import "../serverless/handlers/cachePosts/initialized";
-import "../serverless/handlers/getPosts/initialized";
-import "../serverless/handlers/getPostsRss/initialized";
-import "../serverless/handlers/instagramAuthRedirect/initialized";
-import "../serverless/handlers/instagramAuthReturn/initialized";
+import "../src/serverless/handlers/cachePosts/initialized";
+import "../src/serverless/handlers/getPosts/initialized";
+import "../src/serverless/handlers/getPostsRss/initialized";
+import "../src/serverless/handlers/instagramAuthRedirect/initialized";
+import "../src/serverless/handlers/instagramAuthReturn/initialized";
