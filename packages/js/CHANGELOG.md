@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.9](https://github.com/randytarampi/me/compare/v1.3.8...v1.3.9) (2018-11-10)
+
+
+### Bug Fixes
+
+* **js:** `Person` parses phone numbers according to their `countryCode`. ([f8601cf](https://github.com/randytarampi/me/commit/f8601cf))
+* **js:** Generate correct `Language` Schema.org JSON. ([6279baf](https://github.com/randytarampi/me/commit/6279baf))
+
+
+
+
+
 ## [1.3.8](https://github.com/randytarampi/me/compare/v1.3.7...v1.3.8) (2018-11-10)
 
 

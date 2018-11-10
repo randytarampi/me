@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "A JSON resume theme and resume generator for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
@@ -64,13 +64,13 @@
     "preuninstall": "npm run clean"
   },
   "dependencies": {
-    "@randy.tarampi/assets": "^1.3.8",
-    "@randy.tarampi/css": "^1.3.8",
-    "@randy.tarampi/js": "^1.3.8",
-    "@randy.tarampi/jsx": "^1.3.8",
-    "@randy.tarampi/printables": "^1.3.8",
+    "@randy.tarampi/assets": "^1.3.9",
+    "@randy.tarampi/css": "^1.3.9",
+    "@randy.tarampi/js": "^1.3.9",
+    "@randy.tarampi/jsx": "^1.3.9",
+    "@randy.tarampi/printables": "^1.3.9",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
-    "@randy.tarampi/views": "^1.3.8",
+    "@randy.tarampi/views": "^1.3.9",
     "config": "^2.0.1",
     "exiftool-vendored": "^7.1.0",
     "history": "^4.7.2",
