@@ -717,4 +717,44 @@ describe("Person", function () {
             expect(person.fax).to.eql(person.faxNumber);
         });
     });
+
+    describe("#label", function () {
+        it("returns `jobTitle`", function () {
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.label).to.eql(stubPersonJson.jobTitle);
+        });
+    });
+
+    describe("#picture", function () {
+        it("returns `image`", function () {
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.picture).to.eql(stubPersonJson.image);
+        });
+    });
+
+    describe("#website", function () {
+        it("returns `url`", function () {
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.website).to.eql(stubPersonJson.url);
+        });
+    });
+
+    describe("#summary", function () {
+        it("returns `description`", function () {
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.summary).to.eql(stubPersonJson.description);
+        });
+    });
 });
