@@ -1,6 +1,6 @@
 import {Person as SchemaPerson} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
-import {formatNumber} from "libphonenumber-js";
+import {formatNumber, parseNumber} from "libphonenumber-js";
 import Organization from "./organization";
 import Place from "./place";
 import PostalAddress from "./postalAddress";
@@ -77,14 +77,18 @@ export class Person extends Record({
 
     get telephone() {
         return this.get("telephone")
-            ? formatNumber(this.get("telephone"), "International")
+            ? this._formatPhoneNumber(this.get("telephone"))
             : null;
     }
 
     get faxNumber() {
         return this.get("faxNumber")
-            ? formatNumber(this.get("faxNumber"), "International")
+            ? this._formatPhoneNumber(this.get("faxNumber"))
             : null;
+    }
+
+    _formatPhoneNumber(number) {
+        return formatNumber(parseNumber(number, this.countryCode || "CA"), "International");
     }
 
     get phone() {

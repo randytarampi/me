@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {formatNumber} from "libphonenumber-js";
+import {formatNumber, parseNumber} from "libphonenumber-js";
 import {DateTime} from "luxon";
 import Person from "../../../../src/lib/person";
 import PostalAddress from "../../../../src/lib/postalAddress";
@@ -16,7 +16,7 @@ describe("Person", function () {
             label: "Woof",
             picture: "Woof",
             email: "woof@randytarampi.ca",
-            phone: "+1234567890",
+            phone: "+16692216251",
             website: "woof.woof/woof",
             summary: "Woof woof woof",
             location: {
@@ -315,21 +315,21 @@ describe("Person", function () {
                     },
                     description: "Woof woof woof",
                     email: "woof@randytarampi.ca",
-                    faxNumber: "+1234567890",
+                    faxNumber: "+16692216251",
                     image: "Woof",
                     knowsAbout: null,
                     knowsLanguage: null,
                     logo: null,
                     name: "Woof Woof Woof",
                     sameAs: null,
-                    telephone: "+1234567890",
+                    telephone: "+16692216251",
                     url: "woof.woof/woof"
                 },
                 birthDate: "1991-11-14",
                 description: "Woof woof woof",
                 email: "woof@randytarampi.ca",
                 familyName: null,
-                faxNumber: "+1234567890",
+                faxNumber: "+16692216251",
                 gender: null,
                 givenName: null,
                 height: null,
@@ -351,7 +351,7 @@ describe("Person", function () {
                 sameAs: [
                     "woof://woof.woof/woof"
                 ],
-                telephone: "+1234567890",
+                telephone: "+16692216251",
                 url: "woof.woof/woof",
                 weight: null,
                 worksFor: {
@@ -566,6 +566,66 @@ describe("Person", function () {
         });
     });
 
+    describe("#telephone", function () {
+        it("returns Internationally formatted number for E.164 input", function () {
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.telephone).to.be.ok;
+            expect(person.telephone).to.eql(formatNumber(stubPersonJson.telephone, "International"));
+            expect(person.phone).to.eql(person.telephone);
+        });
+
+        it("returns Internationally formatted number for US National input", function () {
+            stubPersonJson.telephone = "(669) 221-6251";
+
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.telephone).to.be.ok;
+            expect(person.telephone).to.eql(formatNumber(parseNumber(stubPersonJson.telephone, stubPersonJson.address.addressCountry), "International"));
+            expect(person.phone).to.eql(person.telephone);
+        });
+
+        it("returns Internationally formatted number for US National input, assuming CA country code", function () {
+            stubPersonJson.telephone = "(669) 221-6251";
+            stubPersonJson.address.addressCountry = null;
+
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.telephone).to.be.ok;
+            expect(person.telephone).to.eql(formatNumber(parseNumber(stubPersonJson.telephone, "CA"), "International"));
+            expect(person.phone).to.eql(person.telephone);
+        });
+
+        it("returns Internationally formatted number for RU National input", function () {
+            stubPersonJson.telephone = "(800) 555-35-35";
+            stubPersonJson.address.addressCountry = "RU";
+
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.telephone).to.be.ok;
+            expect(person.telephone).to.eql(formatNumber(parseNumber(stubPersonJson.telephone, stubPersonJson.address.addressCountry), "International"));
+            expect(person.phone).to.eql(person.telephone);
+        });
+
+        it("returns `null` if no `telephone`", function () {
+            delete stubPersonJson.telephone;
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.telephone).to.eql(null);
+            expect(person.phone).to.eql(person.telephone);
+        });
+    });
+
     describe("#phone", function () {
         it("returns `telephone`", function () {
             const person = Person.fromJSON(stubPersonJson);
@@ -584,6 +644,56 @@ describe("Person", function () {
             expect(person).to.be.instanceOf(Person);
             expect(person.telephone).to.eql(null);
             expect(person.phone).to.eql(person.telephone);
+        });
+    });
+
+    describe("#faxNumber", function () {
+        it("returns Internationally formatted number for E.164 input", function () {
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.faxNumber).to.be.ok;
+            expect(person.faxNumber).to.eql(formatNumber(stubPersonJson.faxNumber, "International"));
+            expect(person.fax).to.eql(person.faxNumber);
+        });
+
+        it("returns Internationally formatted number for US National input", function () {
+            stubPersonJson.faxNumber = "(669) 221-6251";
+
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.faxNumber).to.be.ok;
+            expect(person.faxNumber).to.eql(formatNumber(parseNumber(stubPersonJson.faxNumber, stubPersonJson.address.addressCountry), "International"));
+            expect(person.fax).to.eql(person.faxNumber);
+        });
+
+        it("returns Internationally formatted number for US National input, assuming CA country code", function () {
+            stubPersonJson.faxNumber = "(669) 221-6251";
+            stubPersonJson.address.addressCountry = null;
+
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.faxNumber).to.be.ok;
+            expect(person.faxNumber).to.eql(formatNumber(parseNumber(stubPersonJson.faxNumber, "CA"), "International"));
+            expect(person.fax).to.eql(person.faxNumber);
+        });
+
+        it("returns Internationally formatted number for RU National input", function () {
+            stubPersonJson.faxNumber = "(800) 555-35-35";
+            stubPersonJson.address.addressCountry = "RU";
+
+            const person = Person.fromJSON(stubPersonJson);
+
+            expect(person).to.be.ok;
+            expect(person).to.be.instanceOf(Person);
+            expect(person.faxNumber).to.be.ok;
+            expect(person.faxNumber).to.eql(formatNumber(parseNumber(stubPersonJson.faxNumber, stubPersonJson.address.addressCountry), "International"));
+            expect(person.fax).to.eql(person.faxNumber);
         });
     });
 
