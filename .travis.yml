@@ -4,6 +4,7 @@ matrix:
   fast_finish: true
   allow_failures:
     - node_js: '10'
+    - node_js: '11'
 env:
   global:
     - CPUS_COUNT=2
@@ -59,6 +60,14 @@ jobs:
         - npm run coveralls
     - stage: Test
       node_js: '10'
+      env: *1
+      before_script: *2
+      script: *3
+      after_script: *4
+      after_failure: *5
+      after_success: *6
+    - stage: Test
+      node_js: '11'
       env: *1
       before_script: *2
       script: *3
