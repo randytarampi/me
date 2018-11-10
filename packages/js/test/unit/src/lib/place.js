@@ -12,7 +12,7 @@ describe("Place", function () {
             name: "Woof Woof Woof",
             picture: "Woof",
             email: "woof@randytarampi.ca",
-            phone: "+1234567890",
+            phone: "+16692216251",
             website: "woof.woof/woof",
             summary: "Woof woof woof",
             location: {
@@ -206,7 +206,7 @@ describe("Place", function () {
                 },
                 description: "Woof woof woof",
                 email: "woof@randytarampi.ca",
-                faxNumber: "+1234567890",
+                faxNumber: "+16692216251",
                 image: "Woof",
                 knowsAbout: [
                     "Woofs",
@@ -222,7 +222,7 @@ describe("Place", function () {
                 sameAs: [
                     "woof://woof.woof/woof"
                 ],
-                telephone: "+1234567890",
+                telephone: "+16692216251",
                 url: "woof.woof/woof"
             });
         });

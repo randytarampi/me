@@ -25,7 +25,7 @@ describe("LetterSignature", function () {
             jobTitle: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
-            phone: "+1234567890",
+            phone: "+16692216251",
             url: "woof.woof/woof",
             description: "Woof woof woof",
             location: {

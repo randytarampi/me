@@ -24,7 +24,7 @@ describe("JobApplication", function () {
             jobTitle: "Woof",
             picture: null,
             email: "woof@randytarampi.ca",
-            telephone: "+1234567890",
+            telephone: "+16692216251",
             url: "woof.woof/woof",
             description: "Woof woof woof",
             address: {
