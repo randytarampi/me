@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "Some common JSX components for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
@@ -52,7 +52,7 @@
   ],
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
-    "@randy.tarampi/js": "^1.3.7",
+    "@randy.tarampi/js": "^1.3.8",
     "@randy.tarampi/react-dimensions": "^2.0.0-alpha.3",
     "@randy.tarampi/redux-offline-immutable-config": "latest",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
