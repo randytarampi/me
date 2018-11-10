@@ -132,6 +132,8 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
     onError:
       Ref: LambdaDeadLetterQueue
+    environment:
+      CAMPAIGN_MEDIUM: rss
   instagramAuthRedirect:
     handler: serverless/handlers/instagramAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}

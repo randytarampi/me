@@ -71,12 +71,12 @@ export class Photo extends PostClassGenerator({
         });
     }
 
-    toRss() {
+    toRss(options = {}) {
         return {
-            ...super.toRss(),
+            ...super.toRss(options),
             enclosure: this.largestImage
                 ? {
-                    url: augmentUrlWithTrackingParams(this.largestImage.url)
+                    url: augmentUrlWithTrackingParams(this.largestImage.url, options.campaign)
                 }
                 : null
         };

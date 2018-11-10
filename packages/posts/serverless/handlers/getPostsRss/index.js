@@ -27,18 +27,25 @@ export default (event, context, callback) => {
     configureEnvironment()
         .then(() => getPostsForParsedQuerystringParameters(parsedQuerystringParameters))
         .then(({posts}) => {
+            const campaign = {
+                source: process.env.CAMPAIGN_SOURCE,
+                medium: process.env.CAMPAIGN_MEDIUM,
+                name: process.env.CAMPAIGN_NAME,
+                term: process.env.CAMPAIGN_TERM,
+                content: process.env.CAMPAIGN_CONTENT
+            };
             const feed = new RssFeed({
                 title: `${process.env.ME_PERSON_NAME} — ${process.env.ME_PERSON_JOB_TITLE}`,
                 description: process.env.ME_PERSON_DESCRIPTION,
-                imageUrl: augmentUrlWithTrackingParams(process.env.ME_PERSON_IMAGE),
-                siteUrl: augmentUrlWithTrackingParams(process.env.BLOG_URL),
-                feedUrl: augmentUrlWithTrackingParams(process.env.FEED_URL),
+                imageUrl: augmentUrlWithTrackingParams(process.env.ME_PERSON_IMAGE, campaign),
+                siteUrl: augmentUrlWithTrackingParams(process.env.BLOG_URL, campaign),
+                feedUrl: augmentUrlWithTrackingParams(process.env.FEED_URL, campaign),
                 managingEditor: `${process.env.ME_PERSON_EMAIL} (${process.env.ME_PERSON_NAME})`,
                 webMaster: `${process.env.ME_PERSON_EMAIL} (${process.env.ME_PERSON_NAME})`,
                 copyright: `© ${process.env.ME_PERSON_NAME}`
             });
 
-            posts.forEach(post => feed.item(post.toRss()));
+            posts.forEach(post => feed.item(post.toRss({campaign})));
 
             return feed;
         })

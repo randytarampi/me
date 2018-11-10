@@ -107,14 +107,14 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         });
     }
 
-    toRss() {
+    toRss({campaign} = {}) {
         return {
             title: this.title,
             description: this.body,
-            url: this.sourceUrl ? augmentUrlWithTrackingParams(this.sourceUrl) : null,
+            url: this.sourceUrl ? augmentUrlWithTrackingParams(this.sourceUrl, campaign) : null,
             guid: this.uid,
             date: this.date ? this.date.toJSDate() : null,
-            author: this.creator ? `${this.creator.url ? augmentUrlWithTrackingParams(this.creator.url) : this.creator.username} (${this.creator.name})` : null
+            author: this.creator ? `${this.creator.url ? augmentUrlWithTrackingParams(this.creator.url, campaign) : this.creator.username} (${this.creator.name})` : null
         };
     }
 };
