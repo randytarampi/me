@@ -216,7 +216,7 @@ describe("Organization", function () {
                     "Rawrs"
                 ],
                 knowsLanguage: [
-                    "Javascript"
+                    {"@type": "Language", name: "Javascript"}
                 ],
                 logo: null,
                 name: null,

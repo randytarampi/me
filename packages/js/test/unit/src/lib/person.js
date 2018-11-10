@@ -344,7 +344,7 @@ describe("Person", function () {
                     "Rawrs"
                 ],
                 knowsLanguage: [
-                    "Javascript"
+                    {"@type": "Language", name: "Javascript"}
                 ],
                 name: null,
                 nationality: null,

@@ -137,16 +137,12 @@ export class Organization extends Record({
             brand: this.brand ? this.brand.toSchema() : null,
             address: this.location ? this.location.toSchema() : null,
             sameAs: this.sameAs ? this.sameAs.toJS() : null,
-            knowsLanguage: knowsLanguage
-                ? Array.isArray(knowsLanguage)
-                    ? knowsLanguage.map(language =>
-                        typeof language === "string"
-                            ? language
-                            : Object.assign({
-                                "@type": "Language"
-                            })
-                    )
-                    : knowsLanguage
+            knowsLanguage: Array.isArray(knowsLanguage)
+                ? knowsLanguage.map(language =>
+                    typeof language === "string"
+                        ? Object.assign({"@type": "Language"}, {name: language})
+                        : Object.assign({"@type": "Language"}, language)
+                )
                 : null,
             knowsAbout: this.knowsAbout ? this.knowsAbout.toJS() : null
         });
