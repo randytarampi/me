@@ -13,7 +13,7 @@ checks:
 plugins:
   eslint:
     enabled: true
-    channel: eslint-4
+    channel: eslint-5
     config: .eslintrc.yaml
   fixme:
     enabled: true
