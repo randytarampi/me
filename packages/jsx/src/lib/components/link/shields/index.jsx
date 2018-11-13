@@ -7,11 +7,13 @@ import {WebsiteUpDownShield} from "./websiteUpDown";
 
 export * from "./codeClimate";
 export * from "./coveralls";
+export * from "./npmVersion";
 export * from "./travis";
 export * from "./uptimeRobot";
 export * from "./websiteUpDown";
 
-export const Shields = () => <div className="shields">
+export const Shields = ({children}) => <div className="shields">
+    {children}
     <WebsiteUpDownShield/>
     <UptimeRobotShield/>
     <TravisShield/>

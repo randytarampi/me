@@ -1,4 +1,4 @@
-import {LeftDescriptionSection, Shields} from "@randy.tarampi/jsx";
+import {LeftDescriptionSection, LetterNpmVersionShield, Shields} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 
@@ -9,7 +9,9 @@ export const LetterQuality = ({contentConfiguration}) => {
             <p>
                 <span className="text">With badges to prove it:</span>
             </p>
-            <Shields/>
+            <Shields>
+                <LetterNpmVersionShield/>
+            </Shields>
         </Fragment>}
         showOnLegal={true}
         {...contentConfiguration.sectionProps}

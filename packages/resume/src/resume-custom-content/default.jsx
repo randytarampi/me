@@ -1,4 +1,4 @@
-import {CampaignLink, Shields} from "@randy.tarampi/jsx";
+import {CampaignLink, ResumeNpmVersionShield, Shields} from "@randy.tarampi/jsx";
 import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import {
@@ -24,7 +24,9 @@ const defaultContent = new ResumeCustomContent({
             </p>
             <p><span className="text">Tried to keep myself disciplined here, but I'm a lot better when I have people actually holding me to account</span>
             </p>
-            <Shields/>
+            <Shields>
+                <ResumeNpmVersionShield/>
+            </Shields>
         </Fragment>
     }),
     skills: new ResumeCustomPrintableSectionContent({

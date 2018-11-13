@@ -76,6 +76,8 @@ globals:
   __RESUME_STYLES_PATH__: false
   __LETTER_STYLES_PATH__: false
   __PRINTABLE_TEMPLATE_PATH__: false
+  __RESUME_PACKAGE_NAME__: false
+  __LETTER_PACKAGE_NAME__: false
 plugins:
 - react
 - import

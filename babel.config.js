@@ -224,6 +224,20 @@ const configuredMinifyReplace = [
                     type: "stringLiteral",
                     value: process.env.PRINTABLE_TEMPLATE_PATH || ""
                 }
+            },
+            {
+                identifierName: "__RESUME_PACKAGE_NAME__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: require("./packages/resume/package").name
+                }
+            },
+            {
+                identifierName: "__LETTER_PACKAGE_NAME__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: require("./packages/letter/package").name
+                }
             }
         ]
     }
