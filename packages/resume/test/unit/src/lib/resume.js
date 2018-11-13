@@ -13,7 +13,7 @@ import Resume from "../../../../src/lib/resume";
 import Skill from "../../../../src/lib/skill";
 import Volunteer from "../../../../src/lib/volunteer";
 import Work from "../../../../src/lib/work";
-import testResumeJson from "../../../../src/resumes/test";
+import testResumeJson from "../../../../src/resumes/some-awesome-company";
 
 describe("Resume", function () {
     let stubResumeJs;

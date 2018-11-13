@@ -1,0 +1,83 @@
+{
+  "sender": {
+    "givenName": "John",
+    "familyName": "Doe",
+    "jobTitle": "Programmer",
+    "image": "",
+    "email": "john@gmail.com",
+    "telephone": "(912) 555-4321",
+    "url": "http://johndoe.com",
+    "description": "A summary of John Doe...",
+    "address": {
+      "streetAddress": "2712 Broadway St",
+      "postalCode": "CA 94115",
+      "addressLocality": "San Francisco",
+      "addressCountry": "US",
+      "addressRegion": "California"
+    },
+    "profiles": [
+      {
+        "network": "Twitter",
+        "username": "john",
+        "url": "http://twitter.com/john"
+      }
+    ]
+  },
+  "recipient": {
+    "additionalName": "Cover Letter Reader",
+    "worksFor": {
+      "name": "Some Awesome Company"
+    },
+    "address": {
+      "streetAddress": "742 Evergreen Terrace",
+      "addressLocality": "Springfield",
+      "addressRegion": "USA",
+      "postalCode": " "
+    }
+  },
+  "renderOptions": {
+    "format": "Legal",
+    "mediaType": "print"
+  },
+  "content": [
+    {
+      "contentKey": "date",
+      "contentProps": {
+        "date": "2018-10-31"
+      }
+    },
+    {
+      "contentKey": "recipient"
+    },
+    {
+      "contentKey": "salutation",
+      "contentProps": {
+        "greeting": "Greetings"
+      }
+    },
+    {
+      "contentKey": "intro",
+      "contentProps": {
+        "intro": "So. I've been a bit lax on the documentation here, but if you're seriously looking at this, you should be able to figure out how I managed to customize this content block. It's a bit difficult with straight JSON, but pretty easy with JSX or JS. You'll want to compare and contrast this `some-awesome-company.json` with the default `letter.json`, but it should be pretty straightforward."
+      }
+    },
+    {
+      "contentKey": "me"
+    },
+    {
+      "contentKey": "quality"
+    },
+    {
+      "contentKey": "why"
+    },
+    {
+      "contentKey": "you"
+    },
+    {
+      "contentKey": "thanks"
+    },
+    {
+      "contentKey": "signature"
+    }
+  ]
+}

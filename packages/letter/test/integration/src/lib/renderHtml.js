@@ -16,7 +16,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JSON", function () {
-        const letter = buildLetter(path.join(__dirname, "../../../../src/letters/test.json"));
+        const letter = buildLetter(path.join(__dirname, "../../../../src/letters/some-awesome-company.json"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.ok;

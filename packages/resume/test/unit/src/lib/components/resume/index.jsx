@@ -19,7 +19,7 @@ import ResumeVolunteer from "../../../../../../src/lib/components/resume/content
 import ResumeWork from "../../../../../../src/lib/components/resume/content/work";
 import ResumeFooter from "../../../../../../src/lib/components/resume/footer";
 import Resume from "../../../../../../src/lib/resume";
-import testResumeJson from "../../../../../../src/resumes/test";
+import testResumeJson from "../../../../../../src/resumes/some-awesome-company";
 
 describe("ResumeComponent", function () {
     let stubResume;

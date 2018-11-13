@@ -12,7 +12,7 @@ import {
     FETCHING_RESUME_SUCCESS
 } from "../../../../../src/lib/actions/fetchResume";
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchResume";
-import testResumeJson from "../../../../../src/resumes/test";
+import testResumeJson from "../../../../../src/resumes/some-awesome-company";
 
 describe("fetchResume", function () {
     let mockStore;

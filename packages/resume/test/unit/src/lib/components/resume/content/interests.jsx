@@ -4,7 +4,7 @@ import {shallow} from "enzyme";
 import React from "react";
 import ResumeInterests from "../../../../../../../src/lib/components/resume/content/interests";
 import Resume from "../../../../../../../src/lib/resume";
-import testResumeJson from "../../../../../../../src/resumes/test";
+import testResumeJson from "../../../../../../../src/resumes/some-awesome-company";
 
 describe("ResumeInterests", function () {
     let stubResume;

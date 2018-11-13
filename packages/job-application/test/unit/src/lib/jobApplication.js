@@ -1,6 +1,6 @@
 import {Letter} from "@randy.tarampi/letter";
 import {Resume} from "@randy.tarampi/resume";
-import testResumeJson from "@randy.tarampi/resume/src/resumes/test";
+import testResumeJson from "@randy.tarampi/resume/src/resumes/some-awesome-company";
 import {expect} from "chai";
 import {List, Map} from "immutable";
 import packageJson from "../../../../package";

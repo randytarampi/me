@@ -18,7 +18,7 @@
 
 My resume [online](https://www.randytarampi.ca/resume) and in print on [A4](https://github.com/randytarampi/me.resume/blob/master/a4.pdf), [US Letter](https://github.com/randytarampi/me.resume/blob/master/letter.pdf) and [US Legal](https://github.com/randytarampi/me.resume/blob/master/legal.pdf).
 
-It's really just another generic [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi). Nothing too special here.
+It's really just another generic [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi). [Try it out here!](http://registry.jsonresume.org/#randytarampi)
 
 # Dependencies
 

@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
 import Resume from "../../../../../src/lib/resume";
-import testResumeJson from "../../../../../src/resumes/test";
+import testResumeJson from "../../../../../src/resumes/some-awesome-company";
 
 describe("fetchResume", function () {
     it("delegates to `fetch` with the correct parameters", function () {
