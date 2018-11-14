@@ -7,7 +7,7 @@ export const computePostHeight = containerWidth => post => {
         return document.getElementById(post.uid).clientHeight;
     }
 
-    return typeof window !== "undefined" && window.innerHeight || 600;
+    return typeof window !== "undefined" && window.innerHeight || 1000;
 };
 
 export default computePostHeight;

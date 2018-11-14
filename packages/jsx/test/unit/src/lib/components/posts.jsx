@@ -12,6 +12,7 @@ import DimensionsContainerWrappedPosts, {
 } from "../../../../../src/lib/components/posts";
 import computePostHeight from "../../../../../src/lib/util/computePostHeight";
 import getComponentForType from "../../../../../src/lib/util/getComponentForType";
+import {FETCHING_POSTS_PER_PAGE} from "../../../../../src/lib/actions/fetchPosts";
 
 describe("Posts", function () {
     let stubPosts;
@@ -61,9 +62,9 @@ describe("Posts", function () {
                 <Infinite
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
-                    infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(4)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(4)}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight / FETCHING_POSTS_PER_PAGE}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                     elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
@@ -98,9 +99,9 @@ describe("Posts", function () {
                 <Infinite
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
-                    infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(4)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(4)}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight / FETCHING_POSTS_PER_PAGE}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                     elementHeight={[window.innerHeight]}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
