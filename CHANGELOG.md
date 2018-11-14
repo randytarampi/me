@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/randytarampi/me/compare/v1.5.0...v1.5.1) (2018-11-14)
+
+
+### Bug Fixes
+
+* **jsx:** Smoother scrolling through `Posts`. ([ff54429](https://github.com/randytarampi/me/commit/ff54429))
+
+
+
+
+
 # [1.5.0](https://github.com/randytarampi/me/compare/v1.4.0...v1.5.0) (2018-11-14)
 
 
