@@ -152,7 +152,6 @@ jobs:
       before_deploy:
         - echo "dev.randytarampi.ca" > $WWW_PACKAGE_DIR/docs/CNAME;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
-        - git rm **/*.pdf_original # FIXME-RT: Ugh. Can't just pass `exiftool` `--overwrite_original` otherwise it just seems to hang. At least on my machine.
         - 'if [[ -n $(git status -s) ]]; then git commit -m "release(travis): Prepare
       to deploy \`www\` to ${TRAVIS_REPO_OWNER}.github.io.git"; fi;'
       deploy:
