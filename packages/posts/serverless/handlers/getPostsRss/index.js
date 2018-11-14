@@ -39,7 +39,7 @@ export default (event, context, callback) => {
                 description: process.env.ME_PERSON_DESCRIPTION,
                 imageUrl: augmentUrlWithTrackingParams(process.env.ME_PERSON_IMAGE, campaign),
                 siteUrl: augmentUrlWithTrackingParams(process.env.BLOG_URL, campaign),
-                feedUrl: augmentUrlWithTrackingParams(process.env.FEED_URL, campaign),
+                feedUrl: process.env.FEED_URL,
                 managingEditor: `${process.env.ME_PERSON_EMAIL} (${process.env.ME_PERSON_NAME})`,
                 webMaster: `${process.env.ME_PERSON_EMAIL} (${process.env.ME_PERSON_NAME})`,
                 copyright: `© ${process.env.ME_PERSON_NAME}`
