@@ -2,7 +2,7 @@ import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from
 import {List} from "immutable";
 import Post, {PostClassGenerator} from "./post";
 import SizedPhoto from "./sizedPhoto";
-import {augmentUrlWithTrackingParams, sortPhotosByWidth} from "./util";
+import {sortPhotosByWidth} from "./util";
 
 export class Photo extends PostClassGenerator({
     width: null,
@@ -76,7 +76,7 @@ export class Photo extends PostClassGenerator({
             ...super.toRss(options),
             enclosure: this.largestImage
                 ? {
-                    url: augmentUrlWithTrackingParams(this.largestImage.url, options.campaign)
+                    url: this.largestImage.url
                 }
                 : null
         };

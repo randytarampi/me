@@ -263,7 +263,7 @@ describe("Photo", () => {
                 date: photofromJS.date.toJSDate(),
                 author: `${augmentUrlWithTrackingParams(photofromJS.creator.url)} (${photofromJS.creator.name})`,
                 enclosure: {
-                    url: augmentUrlWithTrackingParams(photofromJS.largestImage.url)
+                    url: photofromJS.largestImage.url
                 }
             });
         });
