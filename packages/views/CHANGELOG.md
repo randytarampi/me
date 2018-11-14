@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/randytarampi/me/compare/v1.4.0...v1.5.0) (2018-11-14)
+
+
+### Features
+
+* **views:** Burn a `link` to our feed in the `layout.pug` template. ([31d9043](https://github.com/randytarampi/me/commit/31d9043))
+
+
+
+
+
 # [1.4.0](https://github.com/randytarampi/me/compare/v1.3.9...v1.4.0) (2018-11-14)
 
 **Note:** Version bump only for package @randy.tarampi/views

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/randytarampi/me/compare/v1.4.0...v1.5.0) (2018-11-14)
+
+
+### Bug Fixes
+
+* **posts:** `Rss.feedUrl` shouldn't have any query parameters. ([0de395c](https://github.com/randytarampi/me/commit/0de395c))
+
+
+### Features
+
+* **posts:** gzip encode Lambda API Gateway responses. ([2482452](https://github.com/randytarampi/me/commit/2482452))
+
+
+
+
+
 # [1.4.0](https://github.com/randytarampi/me/compare/v1.3.9...v1.4.0) (2018-11-14)
 
 **Note:** Version bump only for package @randy.tarampi/posts

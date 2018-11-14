@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/randytarampi/me/compare/v1.4.0...v1.5.0) (2018-11-14)
+
+
+### Bug Fixes
+
+* **posts:** `enclosure.url` shouldn't have any query parameters. ([95e4bea](https://github.com/randytarampi/me/commit/95e4bea))
+
+
+
+
+
 # [1.4.0](https://github.com/randytarampi/me/compare/v1.3.9...v1.4.0) (2018-11-14)
 
 **Note:** Version bump only for package @randy.tarampi/js

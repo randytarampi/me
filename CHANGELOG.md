@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/randytarampi/me/compare/v1.4.0...v1.5.0) (2018-11-14)
+
+
+### Bug Fixes
+
+* **posts:** `enclosure.url` shouldn't have any query parameters. ([95e4bea](https://github.com/randytarampi/me/commit/95e4bea))
+* **posts:** `Rss.feedUrl` shouldn't have any query parameters. ([0de395c](https://github.com/randytarampi/me/commit/0de395c))
+
+
+### Features
+
+* **posts:** gzip encode Lambda API Gateway responses. ([2482452](https://github.com/randytarampi/me/commit/2482452))
+* **views:** Burn a `link` to our feed in the `layout.pug` template. ([31d9043](https://github.com/randytarampi/me/commit/31d9043))
+
+
+
+
+
 # [1.4.0](https://github.com/randytarampi/me/compare/v1.3.9...v1.4.0) (2018-11-14)
 
 
