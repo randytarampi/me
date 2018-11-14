@@ -32,6 +32,7 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
     const locals = {
         environment: process.env.NODE_ENV || "local",
         assetUrl,
+        feedUrl: config.has("posts.feedUrl") ? config.get("posts.feedUrl") : null,
         logger: config.has("logger") ? JSON.stringify(config.get("logger")) : JSON.stringify(null),
         sentryDsn: config.has("sentry.dsn") ? config.get("sentry.dsn") : null,
         gtmContainerId: config.has("gtm.container.id") ? config.get("gtm.container.id") : null,
