@@ -117,7 +117,7 @@ jobs:
         - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/docs/precache-manifest.*.js;
         - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs; fi;
         - git add packages/*/CHANGELOG.md
-        - git rm **/*.pdf_original # FIXME-RT: Ugh. Can't just pass `exiftool` `--overwrite_original` otherwise it just seems to hang. At least on my machine.
+        - git rm --ignore-unmatch --force **/*.pdf_original # FIXME-RT: Ugh. Can't just pass `exiftool` `--overwrite_original` otherwise it just seems to hang. At least on my machine.
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
       v$REPO_VERSION."; git tag v$REPO_VERSION; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency ${CPUS_COUNT}; fi;'
