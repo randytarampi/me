@@ -11,11 +11,13 @@ $$ | $$ | $$ |\$$$$$$$\ $$\ $$ |      \$$$$$$$\ $$$$$$$  |\$$$$$$  |$$ | $$ | $$
 
 [![Install @randy.tarampi/resume](https://nodeico.herokuapp.com/@randy.tarampi/resume.svg)](https://www.npmjs.com/package/@randy.tarampi/resume)
 
-The backing markup and styles for [`jsonresume-theme-randytarampi`](../jsonresume-theme) and [`www`](../www).
+The backing markup and styles for [`jsonresume-theme-randytarampi`](../jsonresume-theme) and my resume in [`www`](../www) – [online](https://www.randytarampi.ca/resume) and [in print](https://github.com/randytarampi/me/blob/master/packages/resume/docs/resume.pdf).
 
-1. Place a JS/JSON/JSX file (say `some-awesome-company.json`) that can be parsed into an instance of [`Resume`](./src/lib/resume) in `/src/letters`
+**You probably want to head over to [job-application](../job-application) instead, since it offers some additional niceties.**
+
+1. Place a JS/JSON/JSX file (say [`some-awesome-company.json`](./src/resumes/some-awesome-company.json)) that can be parsed into an instance of [`Resume`](./src/lib/resume) in `/src/resumes`
 2. Generate your resumes by running `npm run resume`
-3. View them with `open ./dist`
+3. View it with [`open ./dist/some-awesome-company.pdf`](./dist/some-awesome-company.pdf)
 
 # Dependencies
 

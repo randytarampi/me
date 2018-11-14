@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/randytarampi/me/compare/v1.3.9...v1.4.0) (2018-11-14)
+
+
+### Bug Fixes
+
+* **travis:** `git rm --ignore-unmatch --force **/*.pdf_original`. ([33b52ec](https://github.com/randytarampi/me/commit/33b52ec))
+* **travis:** Don't `bootstrap` twice on `Deploy`. ([b27ed5b](https://github.com/randytarampi/me/commit/b27ed5b))
+* **travis:** Don't delete any `**/*.pdf_original` on `Deploy (dev) www`. ([b4b65b4](https://github.com/randytarampi/me/commit/b4b65b4))
+
+
+### Features
+
+* **job-application:** Add `NpmVersionShield`s to `resume` and `letter`. ([5a91eaa](https://github.com/randytarampi/me/commit/5a91eaa))
+
+
+
+
+
 ## [1.3.9](https://github.com/randytarampi/me/compare/v1.3.8...v1.3.9) (2018-11-10)
 
 
