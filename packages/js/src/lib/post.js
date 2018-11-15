@@ -114,7 +114,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             url: this.sourceUrl ? augmentUrlWithTrackingParams(this.sourceUrl, campaign) : null,
             guid: this.uid,
             date: this.date ? this.date.toJSDate() : null,
-            author: this.creator ? `${this.creator.url ? augmentUrlWithTrackingParams(this.creator.url, campaign) : this.creator.username} (${this.creator.name})` : null
+            author: this.creator ? `${this.creator.url ? this.creator.url : this.creator.username} (${this.creator.name})` : null
         };
     }
 };

@@ -261,7 +261,7 @@ describe("Photo", () => {
                 url: augmentUrlWithTrackingParams(photofromJS.sourceUrl),
                 guid: photofromJS.uid,
                 date: photofromJS.date.toJSDate(),
-                author: `${augmentUrlWithTrackingParams(photofromJS.creator.url)} (${photofromJS.creator.name})`,
+                author: `${photofromJS.creator.url} (${photofromJS.creator.name})`,
                 enclosure: {
                     url: photofromJS.largestImage.url
                 }

@@ -207,7 +207,7 @@ describe("Post", () => {
                 url: augmentUrlWithTrackingParams(postfromJS.sourceUrl),
                 guid: postfromJS.uid,
                 date: postfromJS.date.toJSDate(),
-                author: `${augmentUrlWithTrackingParams(postfromJS.creator.url)} (${postfromJS.creator.name})`
+                author: `${postfromJS.creator.url} (${postfromJS.creator.name})`
             });
         });
 
