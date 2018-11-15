@@ -12,11 +12,13 @@ const Bears = () =>
                 <span className="text">And the Bears?</span>
             </h2>
             <p>
-                <span className="text">Well, there was this co-op student and then I got tasked with internationalization... If you <em>really</em> want to know, get in touch and I'll come up with some coherent and appropriate explanation, depending entirely on who you introduce yourself as.</span>
+                Well, there was this co-op student and then I got tasked with internationalization... If
+                you <em>really</em> want to know, get in touch and I'll come up with some coherent and appropriate
+                explanation, depending entirely on who you introduce yourself as.
             </p>
             <p>
-                <span className="text">Try not to bonk them on the nose, they're not big fans of that. Also, if you're really interested, you can even <CampaignLink
-                    href="https://society6.com/randytarampi">buy some merchandise</CampaignLink>.</span>
+                Try not to bonk them on the nose, they're not big fans of that. Also, if you're really interested, you
+                can even <CampaignLink href="https://society6.com/randytarampi">buy some merchandise</CampaignLink>.
             </p>
         </Col>
     </RowBlock>;

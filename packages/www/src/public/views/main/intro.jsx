@@ -19,23 +19,23 @@ export const IntroText = () =>
             <span className="text">Hey!</span>
         </h2>
         <p>
-            <span className="text">I'm looking for work, but you probably knew that already because let's be real, you probably clicked through to here from my <ResumeAppLink>resume</ResumeAppLink> or my <LinkedInLink
-                useBranding={false} text="LinkedIn"/>.</span>
+            I'm looking for work, but you probably knew that already because let's be real, you probably clicked through
+            to here from my <ResumeAppLink>resume</ResumeAppLink> or my <LinkedInLink useBranding={false}
+                                                                                      text="LinkedIn"/>.
         </p>
         <p>
-                <span className="text">If you're interested in my work check me out on <GitHubLink useBranding={false}
-                                                                                                   text="GitHub"/>, look at where I've been on <InstagramLink
-                    useBranding={false} text="Instagram"/> or peek in on what's going on in my life at my <BlogAppLink
-                    text="blog"/>. I've even got an <CampaignLink useBranding={false} className="link--rss"
-                                                                  text="RSS feed" href={__POSTS_FEED_URL__}/>!</span>
+            If you're interested in my work check me out on <GitHubLink useBranding={false} text="GitHub"/>, look at
+            where I've been on <InstagramLink useBranding={false} text="Instagram"/> or peek in on what's going on in my
+            life at my <BlogAppLink text="blog"/>. I've even got an <CampaignLink useBranding={false}
+                                                                                  className="link--rss" text="RSS feed"
+                                                                                  href={__POSTS_FEED_URL__}/>!
         </p>
         <p>
-                <span className="text">
-                    And if you're still interested after all that, shoot me an <EmailLink useBranding={false}
-                                                                                          text="email" subject="Hey!"
-                                                                                          body="I bothered to click on the email link..."/> or <SmsLink
-                    useBranding={false} text="text" body="Hey!"/> and let's have a chat!
-                </span>
+
+            And if you're still interested after all that, shoot me an <EmailLink useBranding={false} text="email"
+                                                                                  subject="Hey!"
+                                                                                  body="I bothered to click on the email link..."/> or <SmsLink
+            useBranding={false} text="text" body="Hey!"/> and let's have a chat!
         </p>
     </Fragment>;
 
