@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/randytarampi/me/compare/v1.5.2...v1.5.3) (2018-11-15)
+
+**Note:** Version bump only for package @randy.tarampi/letter
+
+
+
+
+
 ## [1.5.2](https://github.com/randytarampi/me/compare/v1.5.1...v1.5.2) (2018-11-15)
 
 **Note:** Version bump only for package @randy.tarampi/letter
