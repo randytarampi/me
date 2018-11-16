@@ -94,7 +94,7 @@ describe("getPostsRss", function () {
                 })
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubCallback;
@@ -177,7 +177,7 @@ describe("getPostsRss", function () {
                 "default": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubErrorCallback;
@@ -262,7 +262,7 @@ describe("getPostsRss", function () {
                 "default": sinon.stub().throws(new Error("Wtf? This should've thrown"))
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubErrorCallback;

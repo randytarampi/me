@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import sinon from "sinon";
 import proxyquire from "proxyquire";
+import sinon from "sinon";
 
 describe("instagramAuthRedirect", function () {
     it("delegates to `getAuthTokenForCode`", function (done) {
@@ -29,7 +29,7 @@ describe("instagramAuthRedirect", function () {
                 })
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubCallback;
@@ -69,7 +69,7 @@ describe("instagramAuthRedirect", function () {
                 "default": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubErrorCallback;

@@ -33,7 +33,7 @@ describe("instagramAuthReturn", function () {
                 })
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubCallback;
@@ -81,7 +81,7 @@ describe("instagramAuthReturn", function () {
                 "default": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubErrorCallback;
@@ -128,7 +128,7 @@ describe("instagramAuthReturn", function () {
                 "default": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubErrorCallback;

@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import sinon from "sinon";
 import proxyquire from "proxyquire";
+import sinon from "sinon";
 
 describe("cachePosts", function () {
     it("delegates to `cachePosts`", function (done) {
@@ -28,7 +28,7 @@ describe("cachePosts", function () {
                 })
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubCallback;
@@ -72,7 +72,7 @@ describe("cachePosts", function () {
                 "default": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake(callback => {
+                "default": sinon.stub().callsFake((event, context, callback) => {
                     try {
                         expect(callback).to.eql(stubCallback);
                         return stubErrorCallback;

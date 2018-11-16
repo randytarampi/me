@@ -4,7 +4,9 @@ import returnErrorResponse from "../../../../../serverless/util/response/returnE
 
 describe("returnErrorResponse", function () {
     it("handles `RequestError`s", function () {
-        const callback = (error, response) => {
+        const stubEvent = {};
+        const stubContext = {};
+        const stubCallback = (error, response) => {
             expect(error).to.not.be.ok;
 
             expect(response).to.be.ok;
@@ -14,11 +16,13 @@ describe("returnErrorResponse", function () {
         };
         const stubError = new RequestError("woof", codes.badRequest);
 
-        returnErrorResponse(callback)(stubError);
+        returnErrorResponse(stubEvent, stubContext, stubCallback)(stubError);
     });
 
     it("handles other errors", function () {
-        const callback = (error, response) => {
+        const stubEvent = {};
+        const stubContext = {};
+        const stubCallback = (error, response) => {
             expect(error).to.be.ok;
 
             expect(response).to.be.ok;
@@ -28,6 +32,6 @@ describe("returnErrorResponse", function () {
         };
         const stubError = new Error("meow");
 
-        returnErrorResponse(callback)(stubError);
+        returnErrorResponse(stubEvent, stubContext, stubCallback)(stubError);
     });
 });

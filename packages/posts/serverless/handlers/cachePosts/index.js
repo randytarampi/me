@@ -1,3 +1,4 @@
+import logger from "../../../lib/logger";
 import cachePosts from "../../../sources/cachePosts";
 import configureEnvironment from "../../util/configureEnvironment";
 import parseQueryStringParametersIntoSearchParams from "../../util/parseQueryStringParametersIntoSearchParams";
@@ -6,6 +7,8 @@ import responseBuilder from "../../util/response/responseBuilder";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 
 export default (event, context, callback) => {
+    logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
+
     const {sources: postSources, ...eventParameters} = event.body || event.queryStringParameters || {};
 
     configureEnvironment()
@@ -15,5 +18,5 @@ export default (event, context, callback) => {
             )
                 .then(sortedPosts => callback(null, responseBuilder(sortedPosts)));
         })
-        .catch(returnErrorResponse(callback));
+        .catch(returnErrorResponse(event, context, callback));
 };

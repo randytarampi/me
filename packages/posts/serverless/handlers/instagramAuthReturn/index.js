@@ -1,3 +1,4 @@
+import logger from "../../../lib/logger";
 import {getAuthTokenForCode} from "../../../sources/instagram/client";
 import configureEnvironment from "../../util/configureEnvironment";
 import RequestError, {codes} from "../../util/request/requestError";
@@ -5,7 +6,9 @@ import responseBuilder from "../../util/response/responseBuilder";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 
 export default (event, context, callback) => {
-    const errorHandler = returnErrorResponse(callback);
+    logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
+
+    const errorHandler = returnErrorResponse(event, context, callback);
 
     configureEnvironment()
         .then(() => {
