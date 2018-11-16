@@ -12,8 +12,10 @@ const sources = {
     tumblr
 };
 
-export const initializeSources = () => Promise.all(
-    Object.values(sources)
+export const initializeSources = namedSources => Promise.all(
+    Object.entries(sources)
+        .filter(keyValuePair => !namedSources || !namedSources.length || namedSources.includes(keyValuePair[0]))
+        .map(keyValuePair => keyValuePair[1])
         .map(postSourceConstructor => {
             return new postSourceConstructor();
         })
