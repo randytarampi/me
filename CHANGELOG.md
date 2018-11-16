@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/randytarampi/me/compare/v1.6.0...v1.6.1) (2018-11-16)
+
+
+### Bug Fixes
+
+* **posts:** Only cache `Post`s for specific `PostSource`s. ([1d3a026](https://github.com/randytarampi/me/commit/1d3a026))
+
+
+
+
+
 # [1.6.0](https://github.com/randytarampi/me/compare/v1.5.3...v1.6.0) (2018-11-16)
 
 
