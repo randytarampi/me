@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "A wrapper around some common printable tasks for jsonresume-theme-randytarampi and @randy.tarampi/letter",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
@@ -32,7 +32,7 @@
     "preuninstall": "npm run clean"
   },
   "dependencies": {
-    "@randy.tarampi/views": "^1.6.1",
+    "@randy.tarampi/views": "^1.6.2",
     "exiftool-vendored": "^7.1.0",
     "pug": "^2.0.3",
     "puppeteer": "^1.8.0",
