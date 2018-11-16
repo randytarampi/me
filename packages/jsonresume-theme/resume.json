@@ -159,7 +159,7 @@
   ],
   "projects": [
     {
-      "name": "My résumé",
+      "name": "This resume",
       "description": "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
       "highlights": [
         "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised",
@@ -175,11 +175,34 @@
       ],
       "startDate": "2018-08-01",
       "roles": [
-        "Developer"
+        "👨‍💻",
+        "📝"
       ],
       "entity": "Me, myself & I",
       "type": "Application",
       "url": "https://www.randytarampi.ca/resume"
+    },
+    {
+      "name": "That cover letter",
+      "description": "That cover letter that you've read – and if you haven't you should!",
+      "highlights": [
+        "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised"
+      ],
+      "keywords": [
+        "ES6",
+        "react",
+        "sass",
+        "Print styles",
+        "Puppeteer"
+      ],
+      "startDate": "2018-08-01",
+      "roles": [
+        "👨‍💻",
+        "📝"
+      ],
+      "entity": "Me, myself & I",
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/letter"
     },
     {
       "name": "My blog",
@@ -206,7 +229,9 @@
       ],
       "startDate": "2016-10-06",
       "roles": [
-        "Developer"
+        "👨‍💻",
+        "📸",
+        "📝"
       ],
       "entity": "Me, myself & I",
       "type": "Application",
@@ -346,5 +371,33 @@
       ]
     }
   ],
-  "references": []
+  "references": [],
+  "twitter": {
+    "user": {
+      "username": "randytarampi"
+    }
+  },
+  "facebook": {
+    "app": {
+      "id": "1705404522846104"
+    },
+    "user": {
+      "username": "randytarampi"
+    }
+  },
+  "gtm": {
+    "container": {
+      "id": "GTM-W6NFL6M"
+    }
+  },
+  "ga": {
+    "property": {
+      "id": "UA-50921068-1"
+    }
+  },
+  "mixpanel": {
+    "app": {
+      "id": "388362ac34ccae4a08c1dbf86791e4ee"
+    }
+  }
 }

@@ -58,7 +58,7 @@ const defaultContent = new ResumeCustomContent({
         body: <Fragment>
             <Row className="row valign-wrapper center-align hide-on-screen">
                 <Col s={12}>
-                    <em>Print styles are hard to write and one page résumés are harder – check out the full copy
+                    <em>Print styles are hard to write and one page resumes are harder – check out the full copy
                         at <CampaignLink href={__PUBLISHED_RESUME_URL__}/></em>
                 </Col>
             </Row>

@@ -2,7 +2,7 @@ const me = require("../../organizations/me");
 
 module.exports = {
     entity: me,
-    name: "My résumé",
+    name: "This resume",
     description: "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
     highlights: [
         "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised",
@@ -18,7 +18,8 @@ module.exports = {
     ],
     startDate: "2018-08-01",
     roles: [
-        "Developer"
+        "👨‍💻",
+        "📝"
     ],
     type: "Application",
     url: "https://www.randytarampi.ca/resume"

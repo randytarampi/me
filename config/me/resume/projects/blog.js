@@ -26,7 +26,9 @@ module.exports = {
     ],
     startDate: "2016-10-06",
     roles: [
-        "Developer"
+        "👨‍💻",
+        "📸",
+        "📝"
     ],
     type: "Application",
     url: "https://www.randytarampi.ca/blog"
