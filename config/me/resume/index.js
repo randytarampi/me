@@ -11,6 +11,7 @@ const sfuVolunteer = require("./volunteer/sfu");
 const windermereCommunityPrograms = require("./volunteer/windermereCommunityPrograms");
 
 const blog = require("./projects/blog");
+const letter = require("./projects/letter");
 const resume = require("./projects/resume");
 
 const sfuEducation = require("./education/sfu");
@@ -30,8 +31,9 @@ module.exports = {
         windermereCommunityPrograms
     ],
     projects: [
-        blog,
-        resume
+        resume,
+        letter,
+        blog
     ],
     education: [
         sfuEducation
