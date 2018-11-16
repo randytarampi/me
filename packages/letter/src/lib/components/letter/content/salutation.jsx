@@ -4,8 +4,10 @@ import React from "react";
 
 export const LetterSalutation = ({letter, contentConfiguration}) => {
     const greeting = contentConfiguration.contentProps.greeting || "Hello";
-    const salutation = letter.recipient && letter.recipient.name
-        ? `${greeting} ${letter.recipient.name},`
+    const punctuation = contentConfiguration.contentProps.punctuation || ",";
+    const name = contentConfiguration.contentProps.name || letter.recipient && letter.recipient.firstName;
+    const salutation = name
+        ? `${greeting} ${name}${punctuation}`
         : "To whom it may concern,";
 
     return <RightPushSection

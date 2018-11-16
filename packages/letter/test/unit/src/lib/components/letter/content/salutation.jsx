@@ -78,7 +78,7 @@ describe("LetterSalutation", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-salutation__content");
         expect(rendered).to.contain(<h3
-            className="letter-salutation__content">{`Hello ${stubLetter.recipient.name},`}</h3>);
+            className="letter-salutation__content">{`Hello ${stubLetter.recipient.firstName},`}</h3>);
     });
 
     it("renders (with custom greeting)", function () {
@@ -95,6 +95,6 @@ describe("LetterSalutation", function () {
         expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-salutation__content");
         expect(rendered).to.contain(<h3
-            className="letter-salutation__content">{`Woof ${stubLetter.recipient.name},`}</h3>);
+            className="letter-salutation__content">{`Woof ${stubLetter.recipient.firstName},`}</h3>);
     });
 });
