@@ -11,7 +11,7 @@ module.exports = {
     name: defer(function () {
         return `${this.me.resume.basics.givenName} ${this.me.resume.basics.familyName}`;
     }),
-    url: "https://www.randytarampi.ca",
+    url: "https://www.randytarampi.ca/blog",
     description: "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
     address: {
         countryCode: defer(function () {

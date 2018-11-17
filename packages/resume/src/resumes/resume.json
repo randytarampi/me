@@ -1,4 +1,6 @@
 {
+  "id": null,
+  "filename": null,
   "basics": {
     "name": "Randy Tarampi",
     "firstName": "Randy",
@@ -7,7 +9,7 @@
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
     "phone": "+1 604 374 7128",
     "email": "jobs@randytarampi.ca",
-    "website": "https://www.randytarampi.ca",
+    "website": "https://www.randytarampi.ca/blog",
     "summary": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
     "location": {
       "address": "4663 Todd Street",
@@ -53,10 +55,10 @@
     {
       "company": "Fetch Auto",
       "position": "Senior Software Developer",
-      "website": "https://fetchauto.ca",
-      "startDate": "2017-02-14",
-      "endDate": "2018-06-01",
+      "startDate": "2017-02-14T00:00:00.000-08:00",
+      "endDate": "2018-06-01T00:00:00.000-07:00",
       "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to help build out the first end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
+      "website": "https://www.fetchauto.ca",
       "highlights": [
         "Took a UI prototype to a fully integrated, production application in less than 6 months",
         "Rapidly iterated on new features and designs to drive user growth",
@@ -67,11 +69,11 @@
     },
     {
       "company": "Yardi Energy | EnerNOC | Pulse Energy",
-      "position": "Software Developer",
-      "website": "https://pulseenergy.com",
-      "startDate": "2014-06-02",
-      "endDate": "2016-09-16",
+      "position": "Software Engineer",
+      "startDate": "2014-06-02T00:00:00.000-07:00",
+      "endDate": "2016-09-16T00:00:00.000-07:00",
       "summary": "Returned to Pulse Energy as a new grad in Summer 2014 looking to further grow my skillset – by year's end we were acquired by EnerNOC and then in Summer 2016 sold off to Yardi",
+      "website": "https://pulseenergy.com",
       "highlights": [
         "Mentored and developed co-operative education students",
         "Led a year-long, platform wide internationalization effort",
@@ -83,10 +85,10 @@
     {
       "company": "Pulse Energy",
       "position": "Software Developer",
-      "website": "https://pulseenergy.com",
-      "startDate": "2013-01-07",
-      "endDate": "2013-08-30",
+      "startDate": "2013-01-07T00:00:00.000-08:00",
+      "endDate": "2013-08-30T00:00:00.000-07:00",
       "summary": "I cut my chops at a mid-size start-up that gave utilities like British Gas, PG&E and BC Hydro an understanding of their​ commercial and industrial customers while serving up actionable energy intelligence for small, medium and large businesses alike",
+      "website": "https://pulseenergy.com",
       "highlights": [
         "Built out a service oriented node.js platform atop a legacy Java monolith",
         "Designed, prototyped and delivered single page, user facing web applications",
@@ -97,10 +99,10 @@
     {
       "company": "Metro Vancouver",
       "position": "Project Research Assistant",
-      "website": "http://www.metrovancouver.org",
-      "startDate": "2012-05-01",
-      "endDate": "2012-09-01",
+      "startDate": "2012-05-01T00:00:00.000-07:00",
+      "endDate": "2012-09-01T00:00:00.000-07:00",
       "summary": "I was curious about how bureaucracy dealt with data and I was equal parts surprised and horrified",
+      "website": null,
       "highlights": [
         "Maintained and developed internal data manipulation and entry tools",
         "Performed business analysis, wrote & presented annual financial reports",
@@ -111,10 +113,10 @@
     {
       "company": "SAP",
       "position": "Software Developer in Test",
-      "website": "https://www.sap.com",
-      "startDate": "2011-09-01",
-      "endDate": "2011-12-31",
+      "startDate": "2011-09-01T00:00:00.000-07:00",
+      "endDate": "2011-12-31T00:00:00.000-08:00",
       "summary": "My first \"real\" job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
+      "website": null,
       "highlights": [
         "Administered the daily automated testing of SAP Business Objects Enterprise for the Crystal Reports team"
       ]
@@ -122,10 +124,10 @@
     {
       "company": "Simon Fraser University",
       "position": "IT Technician",
-      "website": "https://itservices.sfu.ca",
-      "startDate": "2011-05-01",
-      "endDate": "2014-04-30",
+      "startDate": "2011-05-01T00:00:00.000-07:00",
+      "endDate": "2014-04-30T00:00:00.000-07:00",
       "summary": "My first \"real\" job, pretty much exactly as it sounds – sat at a desk waiting for problems to arise",
+      "website": "https://www.sfu.ca",
       "highlights": [
         "Helped students and staff with printer, network and other general IT issues",
         "Flamed trolls and policed computing labs, seeking students who could not read the large \"NO FOOD AND DRINK\" signs"
@@ -136,10 +138,10 @@
     {
       "organization": "Simon Fraser University",
       "position": "Orientation leader",
-      "startDate": "2011-09-01",
-      "endDate": "2011-12-31",
-      "url": "",
+      "startDate": "2011-09-01T00:00:00.000-07:00",
+      "endDate": "2011-12-31T00:00:00.000-08:00",
       "summary": "What started off as me making good on a bet to get involved and volunteer in the wider university community ended up being a pretty fun time where I ended up meeting a bunch of cool people",
+      "website": null,
       "highlights": [
         "Marched a group of 10-15 students around SFU's Burnaby Campus for two days pointing out various points of interest and extolling the benefits of community involvement, meeting new people and in general, making the most their first semester",
         "Mentored the group for the duration of the semester, answering various questions regarding course selection, best/cheapest food on campus, fun things to do on campus, and other common questions for university neophytes"
@@ -148,10 +150,10 @@
     {
       "organization": "Windermere Community Programs",
       "position": "Program Volunteer",
-      "startDate": "2006-09-01",
-      "endDate": "2009-06-30",
-      "url": "",
+      "startDate": "2006-09-01T00:00:00.000-07:00",
+      "endDate": "2009-06-30T00:00:00.000-07:00",
       "summary": "The Education Ministry of BC mandated that high school students complete some number of civil service hours before graduating – I ended up starting off begrudgingly and ended up loving it so much that I did it for much longer than required",
+      "website": null,
       "highlights": [
         "Organized and supervised children's activities for various after school programs at a number of East Vancouver elementary schools"
       ]
@@ -161,6 +163,10 @@
     {
       "name": "This resume",
       "description": "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
+      "startDate": "2018-08-01T00:00:00.000-07:00",
+      "endDate": null,
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/resume",
       "highlights": [
         "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised",
         "Builds off and adheres to the JSON Resume standard"
@@ -173,18 +179,18 @@
         "Print styles",
         "Puppeteer"
       ],
-      "startDate": "2018-08-01",
       "roles": [
         "👨‍💻",
         "📝"
-      ],
-      "entity": "Me, myself & I",
-      "type": "Application",
-      "url": "https://www.randytarampi.ca/resume"
+      ]
     },
     {
       "name": "That cover letter",
       "description": "That cover letter that you've read – and if you haven't you should!",
+      "startDate": "2018-08-01T00:00:00.000-07:00",
+      "endDate": null,
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/letter",
       "highlights": [
         "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised"
       ],
@@ -195,18 +201,18 @@
         "Print styles",
         "Puppeteer"
       ],
-      "startDate": "2018-08-01",
       "roles": [
         "👨‍💻",
         "📝"
-      ],
-      "entity": "Me, myself & I",
-      "type": "Application",
-      "url": "https://www.randytarampi.ca/letter"
+      ]
     },
     {
       "name": "My blog",
       "description": "A small project I kicked off shortly after leaving Yardi and then subsequently dropped as I went off travelling around the Mediterranean",
+      "startDate": "2016-10-06T00:00:00.000-07:00",
+      "endDate": null,
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/blog",
       "highlights": [
         "My choice of technologies here was largely driven by my want to minimize operating costs – almost eveything happens on continuning AWS free tier services",
         "The 2 USD/month I pay for key management services dominates the total bill, which is usually less than 3 USD"
@@ -227,15 +233,11 @@
         "Flickr",
         "S3"
       ],
-      "startDate": "2016-10-06",
       "roles": [
         "👨‍💻",
         "📸",
         "📝"
-      ],
-      "entity": "Me, myself & I",
-      "type": "Application",
-      "url": "https://www.randytarampi.ca/blog"
+      ]
     }
   ],
   "education": [
@@ -243,9 +245,11 @@
       "institution": "Simon Fraser University",
       "area": "Computing Science & Political Science",
       "studyType": "Bachelor's degree",
-      "startDate": "2009-09-03",
-      "endDate": "2014-06-02",
       "gpa": "3.33",
+      "startDate": "2009-09-03T00:00:00.000-07:00",
+      "endDate": "2014-06-02T00:00:00.000-07:00",
+      "summary": null,
+      "website": null,
       "courses": [
         "CMPT 470 – Web Information Systems",
         "CMPT 431 – Distributed Systems",
@@ -322,21 +326,22 @@
   ],
   "languages": [
     {
-      "language": "English",
-      "fluency": "Native"
+      "fluency": "Native",
+      "language": "English"
     },
     {
-      "language": "Italian",
-      "fluency": "Beginner"
+      "fluency": "Beginner",
+      "language": "Italian"
     },
     {
-      "language": "French",
-      "fluency": "Intermediate"
+      "fluency": "Intermediate",
+      "language": "French"
     }
   ],
   "interests": [
     {
       "name": "Auto racing",
+      "level": null,
       "keywords": [
         "WEC",
         "WTSC",
@@ -346,6 +351,7 @@
     },
     {
       "name": "Photography",
+      "level": null,
       "keywords": [
         "Landscapes",
         "Night",
@@ -356,6 +362,7 @@
     },
     {
       "name": "Food & drink",
+      "level": null,
       "keywords": [
         "Comfort foods",
         "Baked goods",
@@ -364,6 +371,7 @@
     },
     {
       "name": "People",
+      "level": null,
       "keywords": [
         "That have stories to tell",
         "Who have a sense of humor",
@@ -372,32 +380,7 @@
     }
   ],
   "references": [],
-  "twitter": {
-    "user": {
-      "username": "randytarampi"
-    }
-  },
-  "facebook": {
-    "app": {
-      "id": "1705404522846104"
-    },
-    "user": {
-      "username": "randytarampi"
-    }
-  },
-  "gtm": {
-    "container": {
-      "id": "GTM-W6NFL6M"
-    }
-  },
-  "ga": {
-    "property": {
-      "id": "UA-50921068-1"
-    }
-  },
-  "mixpanel": {
-    "app": {
-      "id": "388362ac34ccae4a08c1dbf86791e4ee"
-    }
-  }
+  "renderOptions": null,
+  "renderExpectations": null,
+  "customContent": null
 }
