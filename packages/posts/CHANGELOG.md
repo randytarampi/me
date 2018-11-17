@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/randytarampi/me/compare/v1.7.0...v1.7.1) (2018-11-17)
+
+
+### Bug Fixes
+
+* **posts:** Actually pull `postSources` from cron events correctly. ([e2f6db0](https://github.com/randytarampi/me/commit/e2f6db0))
+
+
+
+
+
 # [1.7.0](https://github.com/randytarampi/me/compare/v1.6.3...v1.7.0) (2018-11-17)
 
 **Note:** Version bump only for package @randy.tarampi/posts
