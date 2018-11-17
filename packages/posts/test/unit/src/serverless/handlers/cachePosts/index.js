@@ -3,19 +3,81 @@ import proxyquire from "proxyquire";
 import sinon from "sinon";
 
 describe("cachePosts", function () {
-    it("delegates to `cachePosts`", function (done) {
+    it("delegates to `cachePosts` (API trigger)", function (done) {
         this.timeout(5000);
 
-        const stubEvent = {};
+        const stubEvent = {queryStringParameters: {}};
         const stubContext = {};
         const stubPosts = ["woof"];
         const stubResponse = ["meow"];
         const proxyquireStubs = {
             "../../../sources/cachePosts": {
-                "default": sinon.stub().returns(Promise.resolve(stubPosts)),
+                "default": sinon.stub().callsFake((searchParams, postSources) => {
+                    expect(searchParams).to.be.ok;
+                    expect(postSources).to.not.be.ok;
+                    return Promise.resolve(stubPosts);
+                })
             },
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve()),
+            },
+            "../../util/response/responseBuilder": {
+                "default": sinon.stub().callsFake(posts => {
+                    try {
+                        expect(posts).to.eql(stubPosts);
+                        return stubResponse;
+                    } catch (error) {
+                        done(error);
+                    }
+                })
+            },
+            "../../util/response/returnErrorResponse": {
+                "default": sinon.stub().callsFake((event, context, callback) => {
+                    try {
+                        expect(callback).to.eql(stubCallback);
+                        return stubCallback;
+                    } catch (error) {
+                        done(error);
+                    }
+                })
+            }
+        };
+        const stubCallback = (error, postResponse) => {
+            try {
+                expect(error).to.not.be.ok;
+                expect(postResponse).to.eql(stubResponse);
+                expect(proxyquireStubs["../../../sources/cachePosts"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
+                done();
+            } catch (expectationError) {
+                done(expectationError);
+            }
+        };
+        const proxyquiredCachePosts = proxyquire("../../../../../../src/serverless/handlers/cachePosts", proxyquireStubs);
+
+        proxyquiredCachePosts.default(stubEvent, stubContext, stubCallback);
+    });
+
+    it("delegates to `cachePosts` (scheduled event)", function (done) {
+        this.timeout(5000);
+
+        const stubEvent = {sources: ["foo"]};
+        const stubContext = {};
+        const stubPosts = ["woof"];
+        const stubResponse = ["meow"];
+        const proxyquireStubs = {
+            "../../../sources/cachePosts": {
+                "default": sinon.stub().callsFake((searchParams, postSources) => {
+                    expect(searchParams).to.be.ok;
+                    expect(postSources).to.be.ok;
+                    expect(postSources).to.eql(stubEvent.sources);
+                    return Promise.resolve(stubPosts);
+                })
+            },
+            "../../util/configureEnvironment": {
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/response/responseBuilder": {
                 "default": sinon.stub().callsFake(posts => {
