@@ -140,6 +140,13 @@ export class Resume extends Record({
         });
     }
 
+    toResume() {
+        return {
+            ...this.toJS(),
+            basics: this.basics.toResume()
+        };
+    }
+
     toSchema() {
         return this.basics ? this.basics.toSchema() : null;
     }

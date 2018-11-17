@@ -101,13 +101,13 @@ gulp.task("resume:json", done => {
     const config = require("config");
     const path = require("path");
     const baseResumePath = path.join(__dirname, "src/resumes/resume.json");
-    const resume = require(baseResumePath);
-    const {Person} = require("@randy.tarampi/js");
-    const basics = Person.fromJSON(config.get("me.resume.basics")).toResume();
+    const baseResume = require(baseResumePath);
+    const {Resume} = require("./");
+    const resume = Resume.fromJSON(config.get("me.resume")).toResume();
 
     return fs.writeFile(baseResumePath, JSON.stringify({
-        ...resume,
-        basics
+        ...baseResume,
+        ...resume
     }, null, 2), done);
 });
 

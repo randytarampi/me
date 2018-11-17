@@ -2,7 +2,7 @@ const sfu = require("../../organizations/sfu");
 
 module.exports = {
     entity: sfu,
-    organization: sfu.name,
+    institution: sfu.name,
     url: sfu.url,
     area: "Computing Science & Political Science",
     studyType: "Bachelor's degree",
