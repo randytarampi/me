@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/randytarampi/me/compare/v1.6.3...v1.7.0) (2018-11-17)
+
+
+### Bug Fixes
+
+* **resume:** `resume:json` task builds `resume.json` from the config. ([d4f216f](https://github.com/randytarampi/me/commit/d4f216f))
+
+
+### Features
+
+* **config:** Just point people to my blog 'cause it's exciting. ([8f39efd](https://github.com/randytarampi/me/commit/8f39efd))
+
+
+
+
+
 ## [1.6.3](https://github.com/randytarampi/me/compare/v1.6.2...v1.6.3) (2018-11-16)
 
 
