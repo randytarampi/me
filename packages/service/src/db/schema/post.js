@@ -70,8 +70,8 @@ const post = new Schema({
     }
 }, {
     throughput,
-    useNativeBooleans: false,
-    useDocumentTypes: false,
+    useNativeBooleans: true,
+    useDocumentTypes: true,
     timestamps: true,
     expires: 24 * 60 * 60
 });
