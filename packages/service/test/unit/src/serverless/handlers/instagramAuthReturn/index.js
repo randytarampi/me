@@ -13,7 +13,7 @@ describe("instagramAuthReturn", function () {
         const stubToken = "woof";
         const stubResponse = ["meow"];
         const proxyquireStubs = {
-            "../../../sources/instagram/client": {
+            "../../../lib/sources/instagram/client": {
                 "getAuthTokenForCode": sinon.stub().callsFake(code => {
                     expect(code).to.eql(stubCode);
                     return Promise.resolve(stubToken);
@@ -47,7 +47,7 @@ describe("instagramAuthReturn", function () {
             try {
                 expect(error).to.not.be.ok;
                 expect(postResponse).to.eql(stubResponse);
-                expect(proxyquireStubs["../../../sources/instagram/client"].getAuthTokenForCode.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../../lib/sources/instagram/client"].getAuthTokenForCode.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
@@ -68,7 +68,7 @@ describe("instagramAuthReturn", function () {
         const stubToken = "woof";
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../sources/instagram/client": {
+            "../../../lib/sources/instagram/client": {
                 "getAuthTokenForCode": sinon.stub().callsFake(code => {
                     expect(code).to.eql(stubCode);
                     return Promise.resolve(stubToken);
@@ -115,7 +115,7 @@ describe("instagramAuthReturn", function () {
         const stubToken = "woof";
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../sources/instagram/client": {
+            "../../../lib/sources/instagram/client": {
                 "getAuthTokenForCode": sinon.stub().callsFake(code => {
                     expect(code).to.eql(stubCode);
                     return Promise.resolve(stubToken);

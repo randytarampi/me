@@ -17,7 +17,7 @@ describe("client", function () {
             }
         };
 
-        const proxyquiredInstagramClient = proxyquire("../../../../../src/sources/instagram/client", {
+        const proxyquiredInstagramClient = proxyquire("../../../../../../src/lib/sources/instagram/client", {
             "isomorphic-fetch": (fetchUrl, options) => {
                 expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.eql("https://api.instagram.com/oauth/access_token");

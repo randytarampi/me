@@ -2,7 +2,7 @@ import {Photo} from "@randy.tarampi/js";
 import Flickr from "flickr-sdk";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import CachedDataSource from "../../lib/cachedDataSource";
+import CachedDataSource from "../../cachedDataSource";
 
 class FlickrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {

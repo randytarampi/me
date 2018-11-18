@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import * as sources from "../../../../src/sources";
-import {cachePosts} from "../../../../src/sources/cachePosts";
+import * as sources from "../../../../../src/lib/sources";
+import {cachePosts} from "../../../../../src/lib/sources/cachePosts";
 
 describe("cachePosts", function () {
     let stubSearchParams;

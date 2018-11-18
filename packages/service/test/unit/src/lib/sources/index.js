@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import sources, {initializeSources} from "../../../../src/sources";
+import sources, {initializeSources} from "../../../../../src/lib/sources";
 
 describe("sources", function () {
     describe("initializeSources", function () {

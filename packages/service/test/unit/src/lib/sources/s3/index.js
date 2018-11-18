@@ -2,11 +2,11 @@ import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
-import SearchParams from "../../../../../src/lib/searchParams";
-import XRayedAwsSdk from "../../../../../src/serverless/util/xRayedAwsSdk";
-import S3Source from "../../../../../src/sources/s3";
-import dummyClassesGenerator from "../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../lib/util";
+import SearchParams from "../../../../../../src/lib/searchParams";
+import S3Source from "../../../../../../src/lib/sources/s3";
+import XRayedAwsSdk from "../../../../../../src/lib/util/xRayedAwsSdk";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../../../../lib/util";
 
 describe("S3Source", function () {
     let stubServiceClient;

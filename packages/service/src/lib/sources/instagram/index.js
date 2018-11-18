@@ -3,7 +3,7 @@ import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import CachedDataSource from "../../lib/cachedDataSource";
+import CachedDataSource from "../../cachedDataSource";
 
 class InstagramSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {

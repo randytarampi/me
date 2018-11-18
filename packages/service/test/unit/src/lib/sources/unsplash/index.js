@@ -3,10 +3,10 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import Unsplash from "unsplash-js";
-import SearchParams from "../../../../../src/lib/searchParams";
-import UnsplashSource from "../../../../../src/sources/unsplash";
-import dummyClassesGenerator from "../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../lib/util";
+import SearchParams from "../../../../../../src/lib/searchParams";
+import UnsplashSource from "../../../../../../src/lib/sources/unsplash";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../../../../lib/util";
 
 describe("UnsplashSource", function () {
     let stubServiceClient;

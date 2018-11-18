@@ -3,10 +3,10 @@ import {expect} from "chai";
 import Flickr from "flickr-sdk";
 import {DateTime} from "luxon";
 import sinon from "sinon";
-import SearchParams from "../../../../../src/lib/searchParams";
-import FlickrSource from "../../../../../src/sources/flickr";
-import dummyClassesGenerator from "../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../lib/util";
+import SearchParams from "../../../../../../src/lib/searchParams";
+import FlickrSource from "../../../../../../src/lib/sources/flickr";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../../../../lib/util";
 
 describe("FlickrSource", function () {
     let stubServiceClient;
