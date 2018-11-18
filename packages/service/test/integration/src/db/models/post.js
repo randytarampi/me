@@ -70,9 +70,7 @@ describe("Post", function () {
         it("persists a post from a Post", async function () {
             const createdPost = await createPost(stubPost);
             expect(createdPost).to.be.ok;
-            expect(createdPost.id).to.eql(stubPost.id);
             expect(createdPost.uid).to.eql(stubPost.uid);
-            expect(createdPost).to.be.instanceof(Post);
             const postFromDb = await PostModel.get(createdPost.uid);
             expect(postFromDb).to.be.ok;
         });
@@ -80,11 +78,7 @@ describe("Post", function () {
         it("persists a post from a Photo", async function () {
             const createdPhoto = await createPost(stubPhoto);
             expect(createdPhoto).to.be.ok;
-            expect(createdPhoto.id).to.eql(stubPhoto.id);
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
-            expect(createdPhoto.sizedPhotos).to.be.ok;
-            expect(createdPhoto.sizedPhotos.size).to.eql(stubPhoto.sizedPhotos.size);
-            expect(createdPhoto).to.be.instanceof(Photo);
             const photoFromDb = await PostModel.get(createdPhoto.uid);
             expect(photoFromDb).to.be.ok;
         });
@@ -96,7 +90,7 @@ describe("Post", function () {
             const retrievedPost = await getPost({_query: {uid: {eq: stubPost.uid}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
-            expect(retrievedPost).to.be.instanceof(Post);
+            expect(retrievedPost.type).to.eql(Post.name);
         });
 
         it("retrieves a Post (type)", async function () {
@@ -104,7 +98,7 @@ describe("Post", function () {
             const retrievedPost = await getPost({_query: {type: {eq: stubPost.type}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
-            expect(retrievedPost).to.be.instanceof(Post);
+            expect(retrievedPost.type).to.eql(Post.name);
         });
 
         it("retrieves a Photo (source)", async function () {
@@ -112,7 +106,7 @@ describe("Post", function () {
             const retrievedPhoto = await getPost({_query: {source: {eq: stubPhoto.source}}});
             expect(retrievedPhoto).to.be.ok;
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
-            expect(retrievedPhoto).to.be.instanceof(Photo);
+            expect(retrievedPhoto.type).to.eql(Photo.name);
         });
     });
 
@@ -168,7 +162,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.type).to.eql(Photo.name);
             }));
         });
 
@@ -207,7 +201,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.type).to.eql(Photo.name);
             }));
         });
 
@@ -219,7 +213,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.type).to.eql(Photo.name);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
@@ -232,7 +226,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.type).to.eql(Photo.name);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
@@ -278,7 +272,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost).to.be.instanceOf(Photo);
+                expect(retrievedPost.type).to.eql(Photo.name);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
