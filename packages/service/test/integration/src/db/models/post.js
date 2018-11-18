@@ -62,7 +62,7 @@ describe("Post", function () {
         ];
 
         return await PostModel.batchDelete(stubPosts.map(post => {
-            return {uid: post.uid};
+            return {id: post.id, source: post.source};
         }));
     });
 
@@ -71,7 +71,7 @@ describe("Post", function () {
             const createdPost = await createPost(stubPost);
             expect(createdPost).to.be.ok;
             expect(createdPost.uid).to.eql(stubPost.uid);
-            const postFromDb = await PostModel.get(createdPost.uid);
+            const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
             expect(postFromDb).to.be.ok;
         });
 
@@ -79,7 +79,7 @@ describe("Post", function () {
             const createdPhoto = await createPost(stubPhoto);
             expect(createdPhoto).to.be.ok;
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
-            const photoFromDb = await PostModel.get(createdPhoto.uid);
+            const photoFromDb = await PostModel.get({id: createdPhoto.id, source: createdPhoto.source});
             expect(photoFromDb).to.be.ok;
         });
     });
@@ -119,7 +119,7 @@ describe("Post", function () {
             return await Promise.all(stubPosts.map(async createdPost => {
                 expect(createdPost).to.be.ok;
                 expect(createdPost.uid).to.be.ok;
-                const postFromDb = await PostModel.get(createdPost.uid);
+                const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
                 expect(postFromDb).to.be.ok;
                 expect(postFromDb.uid).to.eql(createdPost.uid);
             }));
@@ -262,10 +262,9 @@ describe("Post", function () {
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({
                 _query: {
-                    hash: {type: {eq: Photo.name}},
+                    hash: {id: {eq: stubPhoto.id}},
                     range: {source: {eq: stubPhoto.source}}
-                },
-                _options: {indexName: "type-source-index"}
+                }
             });
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
@@ -392,10 +391,9 @@ describe("Post", function () {
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPostCount({
                 _query: {
-                    hash: {type: {eq: Photo.name}},
+                    hash: {id: {eq: stubPhoto.id}},
                     range: {source: {eq: stubPhoto.source}}
-                },
-                _options: {indexName: "type-source-index"}
+                }
             });
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(1);

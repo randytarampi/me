@@ -140,14 +140,14 @@ describe("CachedDataSource", function () {
                     expect(stubGetPosts.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPosts, {
                         _query: {
-                            hash: {type: {eq: "Photo"}},
-                            range: {source: {eq: stubType}}
+                            hash: {source: {eq: stubType}},
+                            range: {type: {eq: "Photo"}}
                         },
                         _options: {
-                            indexName: "type-source-index",
                             limit: 100,
                             descending: true,
-                            all: false
+                            all: false,
+                            indexName: "source-type-index"
                         }
                     });
                     sinon.assert.calledTwice(cachedDataSource.jsonToPost);
@@ -167,14 +167,14 @@ describe("CachedDataSource", function () {
                     expect(stubGetPosts.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPosts, {
                         _query: {
-                            hash: {type: {eq: "Photo"}},
-                            range: {source: {eq: stubType}}
+                            hash: {source: {eq: stubType}},
+                            range: {type: {eq: "Photo"}}
                         },
                         _options: {
-                            indexName: "type-source-index",
                             limit: 100,
                             descending: true,
-                            all: true
+                            all: true,
+                            indexName: "source-type-index"
                         }
                     });
                 });
@@ -481,8 +481,8 @@ describe("CachedDataSource", function () {
                     expect(cachedPost).to.eql(stubPost);
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
-                        _query: {uid: {eq: stubPost.uid}},
-                        _options: {limit: 100, descending: true, all: false}
+                        _query: {hash: {uid: {eq: stubPost.uid}}},
+                        _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                     });
                     sinon.assert.calledOnce(cachedDataSource.jsonToPost);
                 });
@@ -500,8 +500,8 @@ describe("CachedDataSource", function () {
                     expect(cachedPost).to.eql(stubPost);
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
-                        _query: {uid: {eq: stubPost.uid}},
-                        _options: {limit: 100, descending: true, all: false}
+                        _query: {hash: {uid: {eq: stubPost.uid}}},
+                        _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                     });
                     sinon.assert.calledOnce(cachedDataSource.jsonToPost);
                 });
