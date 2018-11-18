@@ -3,10 +3,10 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
 import sinon from "sinon";
-import SearchParams from "../../../../../src/lib/searchParams";
-import InstagramSource from "../../../../../src/sources/instagram";
-import dummyClassesGenerator from "../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../lib/util";
+import SearchParams from "../../../../../../src/lib/searchParams";
+import InstagramSource from "../../../../../../src/lib/sources/instagram";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../../../../lib/util";
 
 describe("InstagramSource", function () {
     let stubServiceClient;

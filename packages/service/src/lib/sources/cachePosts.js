@@ -1,5 +1,5 @@
 import {initializeSources} from ".";
-import logger from "../lib/logger";
+import logger from "../logger";
 
 export const cachePosts = (searchParams, postSources) => {
     return initializeSources(postSources)

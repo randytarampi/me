@@ -3,10 +3,10 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import tumblr from "tumblr.js";
-import SearchParams from "../../../../../src/lib/searchParams";
-import TumblrSource from "../../../../../src/sources/tumblr";
-import dummyClassesGenerator from "../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../lib/util";
+import SearchParams from "../../../../../../src/lib/searchParams";
+import TumblrSource from "../../../../../../src/lib/sources/tumblr";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+import {timedPromise} from "../../../../../lib/util";
 
 describe("TumblrSource", function () {
     let stubServiceClient;

@@ -11,7 +11,7 @@ describe("cachePosts", function () {
         const stubPosts = ["woof"];
         const stubResponse = ["meow"];
         const proxyquireStubs = {
-            "../../../sources/cachePosts": {
+            "../../../lib/sources/cachePosts": {
                 "default": sinon.stub().callsFake((searchParams, postSources) => {
                     expect(searchParams).to.be.ok;
                     expect(postSources).to.not.be.ok;
@@ -46,7 +46,7 @@ describe("cachePosts", function () {
             try {
                 expect(error).to.not.be.ok;
                 expect(postResponse).to.eql(stubResponse);
-                expect(proxyquireStubs["../../../sources/cachePosts"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../../lib/sources/cachePosts"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
@@ -68,7 +68,7 @@ describe("cachePosts", function () {
         const stubPosts = ["woof"];
         const stubResponse = ["meow"];
         const proxyquireStubs = {
-            "../../../sources/cachePosts": {
+            "../../../lib/sources/cachePosts": {
                 "default": sinon.stub().callsFake((searchParams, postSources) => {
                     expect(searchParams).to.be.ok;
                     expect(postSources).to.be.ok;
@@ -104,7 +104,7 @@ describe("cachePosts", function () {
             try {
                 expect(error).to.not.be.ok;
                 expect(postResponse).to.eql(stubResponse);
-                expect(proxyquireStubs["../../../sources/cachePosts"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["../../../lib/sources/cachePosts"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
@@ -124,7 +124,7 @@ describe("cachePosts", function () {
         const stubPosts = ["woof"];
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../sources/cachePosts": {
+            "../../../lib/sources/cachePosts": {
                 "default": sinon.stub().returns(Promise.resolve(stubPosts)),
             },
             "../../util/configureEnvironment": {

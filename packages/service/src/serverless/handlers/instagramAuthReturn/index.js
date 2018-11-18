@@ -1,5 +1,5 @@
 import logger from "../../../lib/logger";
-import {getAuthTokenForCode} from "../../../sources/instagram/client";
+import {getAuthTokenForCode} from "../../../lib/sources/instagram/client";
 import configureEnvironment from "../../util/configureEnvironment";
 import RequestError, {codes} from "../../util/request/requestError";
 import responseBuilder from "../../util/response/responseBuilder";
