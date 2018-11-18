@@ -6,8 +6,18 @@ const throughput = {read: 4, write: 4};
 const post = new Schema({
     uid: {
         type: String,
-        hashKey: true,
-        default: model => `${model.source}${compositeKeySeparator}${model.id}`
+        default: model => `${model.source}${compositeKeySeparator}${model.id}`,
+        index: [
+            {
+                global: true,
+                name: "uid-index",
+                throughput
+            }
+        ]
+    },
+    id: {
+        type: String,
+        rangeKey: true
     },
     type: {
         type: String,
@@ -17,6 +27,10 @@ const post = new Schema({
             Post.name
         ],
         index: [
+            {
+                global: false,
+                name: "source-type-index"
+            },
             {
                 global: true,
                 name: "type-datePublished-index",
@@ -28,41 +42,34 @@ const post = new Schema({
                 name: "type-dateCreated-index",
                 rangeKey: "dateCreated",
                 throughput
-            },
-            {
-                global: true,
-                name: "type-source-index",
-                rangeKey: "source",
-                throughput
             }
         ]
     },
     source: {
         type: String,
-        required: true,
-        index: [
-            {
-                global: true,
-                name: "source-datePublished-index",
-                rangeKey: "datePublished",
-                throughput
-            },
-            {
-                global: true,
-                name: "source-dateCreated-index",
-                rangeKey: "dateCreated",
-                throughput
-            }
-        ]
+        hashKey: true,
+        required: true
     },
     datePublished: {
         type: Date,
         required: true,
-        get: date => date && date.toISOString()
+        get: date => date && date.toISOString(),
+        index: [
+            {
+                global: false,
+                name: "source-datePublished-index"
+            }
+        ]
     },
     dateCreated: {
         type: Date,
-        get: date => date && date.toISOString()
+        get: date => date && date.toISOString(),
+        index: [
+            {
+                global: false,
+                name: "source-dateCreated-index"
+            }
+        ]
     },
     raw: {
         type: Object,

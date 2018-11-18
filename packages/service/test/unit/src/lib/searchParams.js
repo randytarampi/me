@@ -125,9 +125,9 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    uid: {eq: "woof"}
+                    hash: {uid: {eq: "woof"}}
                 },
-                _options: {limit: 100, descending: true, all: false}
+                _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
             });
         });
 
@@ -136,9 +136,9 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    uid: {eq: "woof"}
+                    hash: {uid: {eq: "woof"}}
                 },
-                _options: {limit: 100, descending: true, all: false}
+                _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
             });
         });
 
@@ -147,9 +147,9 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    uid: {eq: "woof"}
+                    hash: {uid: {eq: "woof"}}
                 },
-                _options: {limit: 100, descending: false, all: false}
+                _options: {limit: 100, descending: false, all: false, indexName: "uid-index"}
             });
         });
 
@@ -169,7 +169,7 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    source: {eq: "meow"},
+                    hash: {source: {eq: "meow"}}
                 },
                 _options: {limit: 100, descending: true, all: false}
             });
@@ -180,10 +180,10 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    hash: {type: {eq: "woof"}},
-                    range: {source: {eq: "meow"}},
+                    hash: {source: {eq: "meow"}},
+                    range: {type: {eq: "woof"}}
                 },
-                _options: {indexName: "type-source-index", limit: 100, descending: true, all: false}
+                _options: {limit: 100, descending: true, all: false, indexName: "source-type-index"}
             });
         });
 
@@ -209,9 +209,9 @@ describe("SearchParams", function () {
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    uid: {eq: `meow${compositeKeySeparator}woof`}
+                    hash: {uid: {eq: `meow${compositeKeySeparator}woof`}}
                 },
-                _options: {limit: 100, descending: true, all: false}
+                _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
             });
         });
 

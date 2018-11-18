@@ -172,9 +172,12 @@ class SearchParams extends SearchParamsRecord {
         if (this.uid) {
             return {
                 _query: {
-                    uid: {eq: this.uid}
+                    hash: {uid: {eq: this.uid}}
                 },
-                _options: options
+                _options: {
+                    ...options,
+                    indexName: "uid-index"
+                }
             };
         }
 
@@ -182,12 +185,12 @@ class SearchParams extends SearchParamsRecord {
             if (this.source) {
                 return {
                     _query: {
-                        hash: {type: {eq: this.type}},
-                        range: {source: {eq: this.source}}
+                        hash: {source: {eq: this.source}},
+                        range: {type: {eq: this.type}}
                     },
                     _options: {
                         ...options,
-                        indexName: "type-source-index"
+                        indexName: "source-type-index"
                     }
                 };
             }
@@ -214,8 +217,13 @@ class SearchParams extends SearchParamsRecord {
         if (this.source) {
             if (this.id) {
                 return {
-                    _query: {uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}},
-                    _options: options
+                    _query: {
+                        hash: {uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "uid-index"
+                    }
                 };
             }
 
@@ -233,7 +241,9 @@ class SearchParams extends SearchParamsRecord {
             }
 
             return {
-                _query: {source: {eq: this.source}},
+                _query: {
+                    hash: {source: {eq: this.source}}
+                },
                 _options: options
             };
         }
