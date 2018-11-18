@@ -73,7 +73,8 @@ describe("TumblrSource", function () {
         };
         tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {
             id: stubPost.id,
-            type: stubPost.type.toLowerCase()
+            type: stubPost.type.toLowerCase(),
+            blog: tumblrBlog
         }));
         stubServiceClient = {
             blogPosts: sinon.stub().callsFake((tumblrUser, params) => {
