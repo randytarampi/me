@@ -1,5 +1,5 @@
+import {compositeKeySeparator} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
-import {compositeKeySeparator} from "../../../js";
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
 import logger from "./logger";

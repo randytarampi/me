@@ -1,6 +1,6 @@
+import {Photo} from "@randy.tarampi/js";
 import "isomorphic-fetch";
 import Unsplash, {toJson} from "unsplash-js";
-import {Photo} from "../../../../js";
 import CachedDataSource from "../../lib/cachedDataSource";
 
 class UnsplashSource extends CachedDataSource {

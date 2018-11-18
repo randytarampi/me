@@ -1,6 +1,6 @@
+import {castDatePropertyToDateTime, compositeKeySeparator} from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
-import {castDatePropertyToDateTime, compositeKeySeparator} from "../../../js";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition

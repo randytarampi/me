@@ -1,5 +1,5 @@
+import {Post} from "@randy.tarampi/js";
 import jsyaml from "js-yaml";
-import {Post} from "../../../../js";
 import CachedDataSource from "../../lib/cachedDataSource";
 import XRayedAwsSdk from "../../serverless/util/xRayedAwsSdk";
 

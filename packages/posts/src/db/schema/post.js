@@ -1,5 +1,5 @@
+import {compositeKeySeparator, getEntityForType, Photo, Post} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
-import {compositeKeySeparator, getEntityForType, Photo, Post} from "../../../../js";
 
 const throughput = {read: 4, write: 4};
 

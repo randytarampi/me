@@ -1,4 +1,4 @@
-import {Photo, Post} from "../../../../js";
+import {Photo, Post} from "@randy.tarampi/js";
 
 export const postTypes = [Post.name, Photo.name];
 

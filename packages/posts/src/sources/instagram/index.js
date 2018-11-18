@@ -1,8 +1,8 @@
+import {Photo, SizedPhoto} from "@randy.tarampi/js";
 import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import {Photo, SizedPhoto} from "../../../../js";
 import CachedDataSource from "../../lib/cachedDataSource";
 
 class InstagramSource extends CachedDataSource {

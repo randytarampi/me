@@ -1,7 +1,7 @@
+import {Photo} from "@randy.tarampi/js";
 import Flickr from "flickr-sdk";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import {Photo} from "../../../../js";
 import CachedDataSource from "../../lib/cachedDataSource";
 
 class FlickrSource extends CachedDataSource {

@@ -1,7 +1,7 @@
+import {Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
-import {Photo, Post, SizedPhoto, sortPhotosByWidth} from "../../../../js";
 import CachedDataSource from "../../lib/cachedDataSource";
 
 class TumblrSource extends CachedDataSource {
