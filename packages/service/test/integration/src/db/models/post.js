@@ -12,6 +12,7 @@ describe("Post", function () {
 
     beforeEach(async function () {
         stubPost = Post.fromJSON({
+            raw: {},
             id: "woof",
             source: "Woofdy",
             dateCreated: DateTime.utc().toISO(),
@@ -31,6 +32,7 @@ describe("Post", function () {
             }
         });
         stubPhoto = Photo.fromJSON({
+            raw: {},
             id: "meow",
             source: "Meowdy",
             dateCreated: DateTime.utc().toISO(),
@@ -134,6 +136,7 @@ describe("Post", function () {
         it("retrieves posts (type)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
+                    raw: {},
                     id: "grr",
                     source: "Grrdy",
                     dateCreated: DateTime.utc().toISO(),
@@ -172,6 +175,7 @@ describe("Post", function () {
         it("retrieves posts (with a limit)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
+                    raw: {},
                     id: "grr",
                     source: "Grrdy",
                     dateCreated: DateTime.utc().toISO(),
@@ -236,6 +240,7 @@ describe("Post", function () {
         it("retrieves posts (type & source index)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
+                    raw: {},
                     id: "grr",
                     source: "Grrdy",
                     dateCreated: DateTime.utc().toISO(),
@@ -283,6 +288,7 @@ describe("Post", function () {
         it("retrieves posts (type)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
+                    raw: {},
                     id: "grr",
                     source: "Grrdy",
                     dateCreated: DateTime.utc().toISO(),
@@ -316,6 +322,7 @@ describe("Post", function () {
         it("retrieves posts (ignores limit)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
+                    raw: {},
                     id: "grr",
                     source: "Grrdy",
                     dateCreated: DateTime.utc().toISO(),
@@ -363,6 +370,7 @@ describe("Post", function () {
         it("retrieves posts (type & source index)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
+                    raw: {},
                     id: "grr",
                     source: "Grrdy",
                     dateCreated: DateTime.utc().toISO(),

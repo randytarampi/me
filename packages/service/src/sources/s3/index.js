@@ -58,6 +58,7 @@ class S3Source extends CachedDataSource {
 
     jsonToPost(postJson) {
         return Post.fromJSON({
+            raw: postJson,
             id: postJson.Key,
             source: this.type,
             datePublished: postJson.date,

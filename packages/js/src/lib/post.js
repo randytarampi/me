@@ -13,6 +13,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     body: null,
     sourceUrl: null,
     creator: null,
+    raw: null,
     ...otherProperties
 }) {
     constructor({dateCreated, datePublished, ...properties} = {}) {

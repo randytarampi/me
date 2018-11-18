@@ -36,7 +36,8 @@ class CachedDataSource extends DataSource {
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async cachedPostsGetter(searchParams) {
-        return this.cacheClient.getPosts(searchParams.set("source", this.type));
+        return this.cacheClient.getPosts(searchParams.set("source", this.type))
+            .then(cachedPosts => cachedPosts.map(cachedPost => this.jsonToPost(cachedPost.raw)));
     }
 
     /**
@@ -204,7 +205,8 @@ class CachedDataSource extends DataSource {
             ? searchParams.set("id", postId).set("source", this.type)
             : SearchParams.fromJS({uid: `${this.type}${compositeKeySeparator}${postId}`});
 
-        return this.cacheClient.getPost(cacheParams);
+        return this.cacheClient.getPost(cacheParams)
+            .then(cachedPost => cachedPost && this.jsonToPost(cachedPost.raw));
     }
 
     /**
