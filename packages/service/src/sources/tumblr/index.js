@@ -18,7 +18,7 @@ class TumblrSource extends CachedDataSource {
 
     async postsGetter(searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
-            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson, response.blog))));
+            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson))));
     }
 
     async allPostsGetter(searchParams) {
@@ -37,20 +37,21 @@ class TumblrSource extends CachedDataSource {
 
     async postGetter(id, searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
-            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson, response.blog)))[0]);
+            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson)))[0]);
     }
 
-    jsonToPost(postJson, blogJson) {
+    jsonToPost(postJson) {
         switch (postJson.type) {
             case "photo":
-                return this._jsonToPhoto(postJson.photos[0], postJson, blogJson); // FIXME-RT: Support galleries of photos per #133.
+                return this._jsonToPhoto(postJson);
 
             default:
-                return this._jsonToPost(postJson, blogJson);
+                return this._jsonToPost(postJson);
         }
     }
 
-    _jsonToPhoto(photoJson, postJson, blogJson) {
+    _jsonToPhoto(postJson) {
+        const photoJson = postJson.photos[0]; // FIXME-RT: Support galleries of photos per #133.
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return SizedPhoto.fromJSON(photo);
         });
@@ -70,15 +71,15 @@ class TumblrSource extends CachedDataSource {
             sourceUrl: postJson.post_url,
             body: processCaptionHtml(photoJson.caption || postJson.caption),
             creator: {
-                id: blogJson.name,
-                username: blogJson.name,
-                name: blogJson.title,
-                url: blogJson.url
+                id: postJson.blog.name,
+                username: postJson.blog.name,
+                name: postJson.blog.title,
+                url: postJson.blog.url
             }
         });
     }
 
-    _jsonToPost(postJson, blogJson) {
+    _jsonToPost(postJson) {
         const dateString = postJson.date;
         const dateStringWithoutTimezone = dateString.slice(0, -4);
         const timezone = dateString.slice(-3);
@@ -91,11 +92,11 @@ class TumblrSource extends CachedDataSource {
             title: postJson.title,
             body: postJson.body,
             sourceUrl: postJson.post_url,
-            creator: blogJson && {
-                id: blogJson.name,
-                username: blogJson.name,
-                name: blogJson.title,
-                url: blogJson.url
+            creator: {
+                id: postJson.blog.name,
+                username: postJson.blog.name,
+                name: postJson.blog.title,
+                url: postJson.blog.url
             }
         });
     }
