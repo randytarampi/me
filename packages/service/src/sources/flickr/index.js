@@ -52,6 +52,7 @@ class FlickrSource extends CachedDataSource {
 
     jsonToPost(json) {
         return Photo.fromJS({
+            raw: json,
             id: json.id,
             source: this.type,
             dateCreated: json.datetaken && DateTime.fromSQL(json.datetaken) || null,

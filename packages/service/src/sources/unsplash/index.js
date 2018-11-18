@@ -43,6 +43,7 @@ class UnsplashSource extends CachedDataSource {
 
     jsonToPost(json) {
         return Photo.fromJSON({
+            raw: json,
             id: json.id,
             source: this.type,
             datePublished: json.created_at,

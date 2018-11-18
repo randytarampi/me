@@ -129,6 +129,10 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new CachedDataSource(stubType, stubServiceClient, stubCacheClient);
             const stubSearchParams = SearchParams.fromJS({type: Photo.name, source: stubType});
 
+            sinon.stub(cachedDataSource, "jsonToPost")
+                .onFirstCall().returns(stubPost)
+                .onSecondCall().returns(stubPhoto);
+
             return cachedDataSource.cachedPostsGetter(stubSearchParams)
                 .then(cachedPosts => {
                     expect(cachedPosts).to.be.ok;
@@ -146,6 +150,7 @@ describe("CachedDataSource", function () {
                             all: false
                         }
                     });
+                    sinon.assert.calledTwice(cachedDataSource.jsonToPost);
                 });
         });
     });
@@ -468,6 +473,8 @@ describe("CachedDataSource", function () {
         it("delegates to `this.cacheClient.getPost` (no params)", function () {
             const cachedDataSource = new CachedDataSource(stubType, stubServiceClient, stubCacheClient);
 
+            sinon.stub(cachedDataSource, "jsonToPost").returns(stubPost);
+
             return cachedDataSource.cachedPostGetter(stubPost.id)
                 .then(cachedPost => {
                     expect(cachedPost).to.be.ok;
@@ -477,12 +484,15 @@ describe("CachedDataSource", function () {
                         _query: {uid: {eq: stubPost.uid}},
                         _options: {limit: 100, descending: true, all: false}
                     });
+                    sinon.assert.calledOnce(cachedDataSource.jsonToPost);
                 });
         });
 
         it("delegates to `this.cacheClient.getPost` (with params)", function () {
             const cachedDataSource = new CachedDataSource(stubType, stubServiceClient, stubCacheClient);
             const stubSearchParams = SearchParams.fromJS();
+
+            sinon.stub(cachedDataSource, "jsonToPost").returns(stubPost);
 
             return cachedDataSource.cachedPostGetter(stubPost.id, stubSearchParams)
                 .then(cachedPost => {
@@ -493,6 +503,7 @@ describe("CachedDataSource", function () {
                         _query: {uid: {eq: stubPost.uid}},
                         _options: {limit: 100, descending: true, all: false}
                     });
+                    sinon.assert.calledOnce(cachedDataSource.jsonToPost);
                 });
         });
     });

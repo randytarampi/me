@@ -42,15 +42,19 @@ describe("S3Source", function () {
     beforeEach(function () {
         process.env.S3_BUCKET_NAME = "S3_BUCKET_NAME";
 
-        stubPost = Post.fromJSON({id: "woof.yaml"});
-        stubPosts = [stubPost, Post.fromJSON({id: "meow.yaml"}), Post.fromJSON({id: "grr.yaml"})];
-
         s3Post = {
-            id: stubPost.id,
+            id: "woof.yaml",
             date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
             Body: "<p>Woof woof woof</p>"
         };
+        s3Post.raw = s3Post;
+        stubPost = Post.fromJSON(s3Post);
+        stubPosts = [
+            stubPost,
+            Post.fromJSON({...s3Post, id: "meow.yaml"}),
+            Post.fromJSON({...s3Post, id: "grr.yaml"})
+        ];
         s3Posts = stubPosts.map(stubPost => Object.assign({}, s3Post, {id: stubPost.id}));
         stubServiceClient = {
             listObjectsV2: sinon.stub().callsFake(function (options) {

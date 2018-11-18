@@ -87,6 +87,10 @@ const post = new Schema({
     },
     sizedPhotos: {
         type: [Object]
+    },
+    raw: {
+        type: Object,
+        required: true
     }
 }, {
     throughput,

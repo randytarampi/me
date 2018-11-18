@@ -62,6 +62,7 @@ class TumblrSource extends CachedDataSource {
         const biggestPhoto = sizedPhotos.sort(sortPhotosByWidth)[sizedPhotos.length - 1];
 
         return Photo.fromJS({
+            raw: postJson,
             id: postJson.id,
             source: this.type,
             datePublished: date,
@@ -86,6 +87,7 @@ class TumblrSource extends CachedDataSource {
         const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
 
         return Post.fromJS({
+            raw: postJson,
             id: postJson.id,
             source: this.type,
             datePublished: date,

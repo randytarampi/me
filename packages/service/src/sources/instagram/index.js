@@ -81,6 +81,7 @@ class InstagramSource extends CachedDataSource {
         const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
 
         return Photo.fromJS({
+            raw: photoJson,
             id: photoJson.id,
             source: this.type,
             datePublished: DateTime.fromMillis(parseInt(photoJson.created_time, 10) * 1000),
