@@ -172,7 +172,7 @@ describe("InstagramSource", function () {
         it("should build a `InstagramSource` instance (including the default `instagram` client)", function () {
             const instagramSource = new InstagramSource(null, stubCacheClient);
 
-            expect(instagramSource.type).to.eql("Instagram");
+            expect(InstagramSource.type).to.eql("instagram");
             // expect(instagramSource.client).to.be.instanceof(Instagram); // NOTE-RT: It's not so much a class as it is just an exported anonymous function
             expect(instagramSource.cacheClient).to.eql(stubCacheClient);
             expect(instagramSource.initializing).to.be.instanceOf(Promise);
@@ -182,7 +182,7 @@ describe("InstagramSource", function () {
         it("should build a `InstagramSource` instance (with stubbed client)", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
 
-            expect(instagramSource.type).to.eql("Instagram");
+            expect(InstagramSource.type).to.eql("instagram");
             expect(instagramSource.client).to.eql(stubServiceClient);
             expect(instagramSource.cacheClient).to.eql(stubCacheClient);
             expect(instagramSource.initializing).to.be.instanceOf(Promise);

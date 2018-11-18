@@ -6,34 +6,11 @@ import CachedDataSource from "../../cachedDataSource";
 
 class FlickrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super("Flickr",
-            dataClient || new Flickr(process.env.FLICKR_API_KEY),
-            cacheClient
-        );
+        super(dataClient || new Flickr(process.env.FLICKR_API_KEY), cacheClient);
     }
 
-    postsGetter(searchParams) {
-        const client = this.client;
-        const userId = process.env.FLICKR_USER_ID;
-        let flickrRequest = Promise.resolve(userId);
-
-        if (!userId) {
-            flickrRequest = client.people.findByUsername({
-                    username: process.env.FLICKR_USER_NAME
-                })
-                .then(response => response.body && response.body.user && response.body.user.nsid);
-        }
-
-        return flickrRequest
-            .then(userId => {
-                return client.people.getPublicPhotos(_.extend({
-                        user_id: userId
-                    }, searchParams.Flickr))
-                    .then(response => response.body.photos.photo);
-            })
-            .then(photos => {
-                return photos.map(this.jsonToPost.bind(this));
-            });
+    static get type() {
+        return "flickr";
     }
 
     async allPostsGetter(searchParams) {
@@ -50,11 +27,11 @@ class FlickrSource extends CachedDataSource {
         return posts;
     }
 
-    jsonToPost(json) {
+    static jsonToPost(json) {
         return Photo.fromJS({
             raw: json,
             id: json.id,
-            source: this.type,
+            source: FlickrSource.type,
             dateCreated: json.datetaken && DateTime.fromSQL(json.datetaken) || null,
             datePublished: DateTime.fromMillis(parseInt(json.dateupload, 10) * 1000),
             width: json.width_o,
@@ -78,6 +55,30 @@ class FlickrSource extends CachedDataSource {
                 url: `https://www.flickr.com/${json.ownername}`
             }
         });
+    }
+
+    postsGetter(searchParams) {
+        const client = this.client;
+        const userId = process.env.FLICKR_USER_ID;
+        let flickrRequest = Promise.resolve(userId);
+
+        if (!userId) {
+            flickrRequest = client.people.findByUsername({
+                    username: process.env.FLICKR_USER_NAME
+                })
+                .then(response => response.body && response.body.user && response.body.user.nsid);
+        }
+
+        return flickrRequest
+            .then(userId => {
+                return client.people.getPublicPhotos(_.extend({
+                        user_id: userId
+                    }, searchParams.Flickr))
+                    .then(response => response.body.photos.photo);
+            })
+            .then(photos => {
+                return photos.map(FlickrSource.jsonToPost);
+            });
     }
 }
 

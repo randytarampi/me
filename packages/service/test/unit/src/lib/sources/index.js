@@ -17,7 +17,7 @@ describe("sources", function () {
         });
 
         it("returns filtered initialized sources", function () {
-            const filter = ["tumblr"];
+            const filter = [sources.tumblr.type];
 
             return initializeSources(filter)
                 .then(initializedSources => {

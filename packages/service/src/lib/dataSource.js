@@ -5,23 +5,19 @@
 class DataSource {
     /**
      * Build a data source that fetches [Post(s)]{@link Post} from some service using some client
-     * @param type {string} The type of [Posts]{@link Post} returned by this data source
      * @param client {object} A client that wraps some service that serves content to be transformed into [Posts]{@link Post}
      */
-    constructor(type, client) {
-        this.type = type;
+    constructor(client) {
         this.client = client;
         this.initializing = Promise.resolve(this);
     }
 
     /**
-     * A convenience function that returns `true` if we should care about this data source
-     * @returns {boolean}
+     * Return a string that describes this DataSource
+     * @returns {string}
      */
-    get isEnabled() {
-        const type = this.type.toUpperCase();
-        return !!process.env[`${type}_API_KEY`] &&
-            !!process.env[`${type}_API_SECRET`];
+    static get type() {
+        throw new Error("Please specify an actual Post type");
     }
 
     /**
@@ -135,11 +131,21 @@ class DataSource {
     }
 
     /**
+     * A convenience function that returns `true` if we should care about this data source
+     * @returns {boolean}
+     */
+    get isEnabled() {
+        const type = this.constructor.type.toUpperCase();
+        return !!process.env[`${type}_API_KEY`] &&
+            !!process.env[`${type}_API_SECRET`];
+    }
+
+    /**
      * Transform some raw JSON response from the [client]{@link DataSource.client} into a single [Post]{@link Post}
      * @param postJson {object} The raw post content returned from the [client]{@link DataSource.client}
      * @returns {Post}
      */
-    jsonToPost(postJson) {
+    static jsonToPost(postJson) {
         throw new Error(`Trying to turn ${postJson} into a Post – Please specify an actual Post transformation`);
     }
 }

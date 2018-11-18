@@ -1,4 +1,10 @@
-import CacheClient from "./cacheClient";
+import {sources} from ".";
+import CacheClient from "../cacheClient";
+
+const cachedValueToPost = cachedValue => cachedValue
+    && sources[cachedValue.source]
+    && sources[cachedValue.source].jsonToPost
+    && sources[cachedValue.source].jsonToPost(cachedValue.raw);
 
 /**
  * Search the [Post]{@link Post} cache for some given search parameters and return the found posts and some metadata
@@ -10,7 +16,8 @@ const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
 
     return Promise.all([
-            cacheClient.getPosts(searchParams),
+            cacheClient.getPosts(searchParams)
+                .then(cachedPosts => cachedPosts.map(cachedValueToPost)),
             cacheClient.getPostCount(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
@@ -21,13 +28,13 @@ const searchPosts = searchParams => {
                 .delete("orderComparator")
                 .delete("orderComparatorType")
                 .set("orderBy", "ascending")
-            ),
+            ).then(cachedValueToPost),
             cacheClient.getPost(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
                 .delete("orderComparatorType")
                 .set("orderBy", "descending")
-            ),
+            ).then(cachedValueToPost),
         ])
         .then(([posts, total, first, last]) => {
             return {

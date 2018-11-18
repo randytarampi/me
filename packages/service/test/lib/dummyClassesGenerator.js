@@ -1,8 +1,11 @@
 import DummyCacheClientGenerator from "./dummyCacheClientGenerator";
 import DummyCachedDataSourceGenerator from "./dummyCachedDataSourceGenerator";
 import DummyDataClientGenerator from "./dummyDataClientGenerator";
+import DummyDataSourceGenerator from "./dummyDataSourceGenerator";
 
 export const dummyClassesGenerator = ({
+                                          stubType,
+
                                           stubBeforePostsGetter,
                                           stubPostsGetter,
                                           stubAfterPostsGetter,
@@ -32,7 +35,24 @@ export const dummyClassesGenerator = ({
                                           stubCreatePost
                                       }) => {
     return {
+        DummyDataSource: DummyDataSourceGenerator({
+            stubType,
+
+            stubBeforePostsGetter,
+            stubPostsGetter,
+            stubAfterPostsGetter,
+
+            stubAllPostsGetter,
+
+            stubBeforePostGetter,
+            stubPostGetter,
+            stubAfterPostGetter,
+
+            stubJsonToPost
+        }),
         DummyCachedDataSource: DummyCachedDataSourceGenerator({
+            stubType,
+
             stubBeforePostsGetter,
             stubPostsGetter,
             stubAfterPostsGetter,

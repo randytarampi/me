@@ -142,7 +142,7 @@ describe("util", function () {
                 }
             };
             const proxyquireStubs = {
-                "../../lib/searchPosts": {
+                "../../lib/sources/searchPosts": {
                     "default": sinon.stub().callsFake(searchParams => {
                         const baseResult = searchParams.type === Photo.name
                             ? stubPhoto
@@ -163,7 +163,7 @@ describe("util", function () {
                 .then(postsResult => {
                     expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/searchPosts"].default.calledTwice).to.eql(true);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledTwice).to.eql(true);
                 });
         });
 
@@ -188,7 +188,7 @@ describe("util", function () {
                 }
             };
             const proxyquireStubs = {
-                "../../lib/searchPosts": {
+                "../../lib/sources/searchPosts": {
                     "default": sinon.stub().callsFake(searchParams => {
                         const baseResult = searchParams.type === Photo.name
                             ? stubPhoto
@@ -209,7 +209,7 @@ describe("util", function () {
                 .then(postsResult => {
                     expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/searchPosts"].default.calledOnce).to.eql(true);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
                 });
         });
     });

@@ -5,10 +5,7 @@ import {XRayedAwsSdk} from "../../util";
 
 class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super("S3",
-            dataClient || new XRayedAwsSdk.S3(),
-            cacheClient
-        );
+        super(dataClient || new XRayedAwsSdk.S3(), cacheClient);
     }
 
     get isEnabled() {
@@ -43,28 +40,32 @@ class S3Source extends CachedDataSource {
         return posts;
     }
 
+    static get type() {
+        return "s3";
+    }
+
+    static jsonToPost(postJson) {
+        return Post.fromJSON({
+            raw: postJson,
+            id: postJson.Key,
+            source: S3Source.type,
+            datePublished: postJson.date,
+            title: postJson.title,
+            body: postJson.body
+        });
+    }
+
     postGetter(key, searchParams) {
         return this.client.getObject(searchParams.set("id", key).S3)
             .promise()
             .then(data => {
-                return data && this.jsonToPost({
+                return data && S3Source.jsonToPost({
                     Bucket: process.env.S3_BUCKET_NAME,
                     Key: key,
                     ...data,
                     ...jsyaml.safeLoad(data.Body)
                 });
             });
-    }
-
-    jsonToPost(postJson) {
-        return Post.fromJSON({
-            raw: postJson,
-            id: postJson.Key,
-            source: this.type,
-            datePublished: postJson.date,
-            title: postJson.title,
-            body: postJson.body
-        });
     }
 }
 
