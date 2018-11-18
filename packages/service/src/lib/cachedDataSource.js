@@ -12,12 +12,11 @@ import SearchParams from "./searchParams";
 class CachedDataSource extends DataSource {
     /**
      * Build a data source that fetches [Post(s)]{@link Post} from some service using some client
-     * @param type {string} The type of [Posts]{@link Post} returned by this data source
      * @param client {object} A client that wraps some service that serves content to be transformed into [Posts]{@link Post}
      * @param cacheClient {object} A client to the cache
      */
-    constructor(type, client, cacheClient = new CacheClient()) {
-        super(type, client);
+    constructor(client, cacheClient = new CacheClient()) {
+        super(client);
         this.cacheClient = cacheClient;
     }
 
@@ -36,8 +35,8 @@ class CachedDataSource extends DataSource {
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async cachedPostsGetter(searchParams) {
-        return this.cacheClient.getPosts(searchParams.set("source", this.type))
-            .then(cachedPosts => cachedPosts.map(cachedPost => this.jsonToPost(cachedPost.raw)));
+        return this.cacheClient.getPosts(searchParams.set("source", this.constructor.type))
+            .then(cachedPosts => cachedPosts.map(cachedPost => this.constructor.jsonToPost(cachedPost.raw)));
     }
 
     /**
@@ -92,7 +91,8 @@ class CachedDataSource extends DataSource {
      * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async allCachedPostsGetter(searchParams) {
-        return this.cacheClient.getPosts(searchParams.set("source", this.type).set("all", true));
+        return this.cacheClient.getPosts(searchParams.set("source", this.constructor.type).set("all", true))
+            .then(cachedPosts => cachedPosts.map(cachedPost => this.constructor.jsonToPost(cachedPost.raw)));
     }
 
     /**
@@ -202,11 +202,11 @@ class CachedDataSource extends DataSource {
      */
     async cachedPostGetter(postId, searchParams) {
         let cacheParams = searchParams
-            ? searchParams.set("id", postId).set("source", this.type)
-            : SearchParams.fromJS({uid: `${this.type}${compositeKeySeparator}${postId}`});
+            ? searchParams.set("id", postId).set("source", this.constructor.type)
+            : SearchParams.fromJS({uid: `${this.constructor.type}${compositeKeySeparator}${postId}`});
 
         return this.cacheClient.getPost(cacheParams)
-            .then(cachedPost => cachedPost && this.jsonToPost(cachedPost.raw));
+            .then(cachedPost => cachedPost && this.constructor.jsonToPost(cachedPost.raw));
     }
 
     /**
@@ -236,7 +236,7 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Post]{@link Post} retrieved from the [cache]{@link CachedDataSource.cacheClient}
      * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
     async getCachedPost(postId, searchParams) {
@@ -259,7 +259,7 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Post]{@link Post} probably retrieved from the [service]{@link CachedDataSource.client}
      * @param postId {string} A single post to retrieve from the [service]{@link CachedDataSource.client}
-     * @param searchParams {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
     async getServicePost(postId, searchParams) {
@@ -278,7 +278,7 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Post]{@link Post}
      * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient} or [service]{@link CachedDataSource.client}
-     * @param searchParams {object} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
      */
     async getPost(postId, searchParams) {

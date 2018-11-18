@@ -178,7 +178,7 @@ describe("UnsplashSource", function () {
         it("should build a `UnsplashSource` instance (including the default `unsplash` client)", function () {
             const unsplashSource = new UnsplashSource(null, stubCacheClient);
 
-            expect(unsplashSource.type).to.eql("Unsplash");
+            expect(UnsplashSource.type).to.eql("unsplash");
             expect(unsplashSource.client).to.be.instanceof(Unsplash);
             expect(unsplashSource.cacheClient).to.eql(stubCacheClient);
             expect(unsplashSource.initializing).to.be.instanceOf(Promise);
@@ -188,7 +188,7 @@ describe("UnsplashSource", function () {
         it("should build a `UnsplashSource` instance (with stubbed client)", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
 
-            expect(unsplashSource.type).to.eql("Unsplash");
+            expect(UnsplashSource.type).to.eql("unsplash");
             expect(unsplashSource.client).to.eql(stubServiceClient);
             expect(unsplashSource.cacheClient).to.eql(stubCacheClient);
             expect(unsplashSource.initializing).to.be.instanceOf(Promise);

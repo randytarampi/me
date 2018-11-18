@@ -6,8 +6,7 @@ import CachedDataSource from "../../cachedDataSource";
 
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super("Tumblr",
-            dataClient || tumblr.createClient({
+        super(dataClient || tumblr.createClient({
                 consumer_key: process.env.TUMBLR_API_KEY,
                 consumer_secret: process.env.TUMBLR_API_SECRET,
                 returnPromises: true
@@ -16,9 +15,8 @@ class TumblrSource extends CachedDataSource {
         );
     }
 
-    async postsGetter(searchParams) {
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
-            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson))));
+    static get type() {
+        return "tumblr";
     }
 
     async allPostsGetter(searchParams) {
@@ -35,22 +33,17 @@ class TumblrSource extends CachedDataSource {
         return posts;
     }
 
-    async postGetter(id, searchParams) {
-        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
-            .then(response => _.flatten(response.posts.map(postJson => this.jsonToPost(postJson)))[0]);
-    }
-
-    jsonToPost(postJson) {
+    static jsonToPost(postJson) {
         switch (postJson.type) {
             case "photo":
-                return this._jsonToPhoto(postJson);
+                return TumblrSource._jsonToPhoto(postJson);
 
             default:
-                return this._jsonToPost(postJson);
+                return TumblrSource._jsonToPost(postJson);
         }
     }
 
-    _jsonToPhoto(postJson) {
+    static _jsonToPhoto(postJson) {
         const photoJson = postJson.photos[0]; // FIXME-RT: Support galleries of photos per #133.
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return SizedPhoto.fromJSON(photo);
@@ -64,7 +57,7 @@ class TumblrSource extends CachedDataSource {
         return Photo.fromJS({
             raw: postJson,
             id: postJson.id,
-            source: this.type,
+            source: TumblrSource.type,
             datePublished: date,
             width: biggestPhoto.width,
             height: biggestPhoto.height,
@@ -80,7 +73,7 @@ class TumblrSource extends CachedDataSource {
         });
     }
 
-    _jsonToPost(postJson) {
+    static _jsonToPost(postJson) {
         const dateString = postJson.date;
         const dateStringWithoutTimezone = dateString.slice(0, -4);
         const timezone = dateString.slice(-3);
@@ -89,7 +82,7 @@ class TumblrSource extends CachedDataSource {
         return Post.fromJS({
             raw: postJson,
             id: postJson.id,
-            source: this.type,
+            source: TumblrSource.type,
             datePublished: date,
             title: postJson.title,
             body: postJson.body,
@@ -101,6 +94,16 @@ class TumblrSource extends CachedDataSource {
                 url: postJson.blog.url
             }
         });
+    }
+
+    async postsGetter(searchParams) {
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
+            .then(response => _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson))));
+    }
+
+    async postGetter(id, searchParams) {
+        return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
+            .then(response => _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson)))[0]);
     }
 }
 

@@ -1,6 +1,6 @@
 import {sortPostsByDate} from "@randy.tarampi/js";
 import _ from "lodash";
-import searchPosts from "../../lib/searchPosts";
+import searchPosts from "../../lib/sources/searchPosts";
 import {postTypes} from "../../lib/util";
 import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams";
 

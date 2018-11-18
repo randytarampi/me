@@ -160,7 +160,7 @@ describe("FlickrSource", function () {
         it("should build a `FlickrSource` instance (including the default `flickr` client)", function () {
             const flickrSource = new FlickrSource(null, stubCacheClient);
 
-            expect(flickrSource.type).to.eql("Flickr");
+            expect(FlickrSource.type).to.eql("flickr");
             expect(flickrSource.client).to.be.instanceof(Flickr);
             expect(flickrSource.cacheClient).to.eql(stubCacheClient);
             expect(flickrSource.initializing).to.be.instanceOf(Promise);
@@ -170,7 +170,7 @@ describe("FlickrSource", function () {
         it("should build a `FlickrSource` instance (with stubbed client)", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
 
-            expect(flickrSource.type).to.eql("Flickr");
+            expect(FlickrSource.type).to.eql("flickr");
             expect(flickrSource.client).to.eql(stubServiceClient);
             expect(flickrSource.cacheClient).to.eql(stubCacheClient);
             expect(flickrSource.initializing).to.be.instanceOf(Promise);
@@ -293,7 +293,7 @@ describe("FlickrSource", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             expect(flickrSource).to.be.instanceOf(FlickrSource);
 
-            const photoFromFlickr = flickrSource.jsonToPost(flickrPhoto);
+            const photoFromFlickr = FlickrSource.jsonToPost(flickrPhoto);
 
             expect(photoFromFlickr).to.be.ok;
             expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);

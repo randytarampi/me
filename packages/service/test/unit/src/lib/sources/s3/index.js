@@ -160,7 +160,7 @@ describe("S3Source", function () {
         it("should build a `S3Source` instance (including the default `XRayedAwsSdk.S3` client)", function () {
             const s3Source = new S3Source(null, stubCacheClient);
 
-            expect(s3Source.type).to.eql("S3");
+            expect(S3Source.type).to.eql("s3");
             expect(s3Source.client).to.be.instanceof(XRayedAwsSdk.S3);
             expect(s3Source.cacheClient).to.eql(stubCacheClient);
             expect(s3Source.initializing).to.be.instanceOf(Promise);
@@ -170,7 +170,7 @@ describe("S3Source", function () {
         it("should build a `S3Source` instance (with stubbed client)", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 
-            expect(s3Source.type).to.eql("S3");
+            expect(S3Source.type).to.eql("s3");
             expect(s3Source.client).to.eql(stubServiceClient);
             expect(s3Source.cacheClient).to.eql(stubCacheClient);
             expect(s3Source.initializing).to.be.instanceOf(Promise);

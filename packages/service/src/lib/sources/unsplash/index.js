@@ -5,20 +5,15 @@ import CachedDataSource from "../../cachedDataSource";
 
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super("Unsplash",
-            dataClient || new Unsplash({
+        super(dataClient || new Unsplash({
                 applicationId: process.env.UNSPLASH_API_KEY,
                 secret: process.env.UNSPLASH_API_SECRET
             }),
             cacheClient);
     }
 
-    postsGetter(searchParams) {
-        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.Unsplash.page, searchParams.Unsplash.per_page, searchParams.Unsplash.order_by);
-
-        return unsplashRequest
-            .then(toJson)
-            .then(response => Promise.all(response.map(photo => this.jsonToPost(photo)))); // NOTE-RT: Need `that` because `toJson` uses an old school `function`
+    static get type() {
+        return "unsplash";
     }
 
     async allPostsGetter(searchParams) {
@@ -35,17 +30,11 @@ class UnsplashSource extends CachedDataSource {
         return posts;
     }
 
-    postGetter(photoId, searchParams) {
-        return this.client.photos.getPost(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
-            .then(toJson)
-            .then(json => json && this.jsonToPost(json));
-    }
-
-    jsonToPost(json) {
+    static jsonToPost(json) {
         return Photo.fromJSON({
             raw: json,
             id: json.id,
-            source: this.type,
+            source: UnsplashSource.type,
             datePublished: json.created_at,
             width: json.width,
             height: json.height,
@@ -64,6 +53,20 @@ class UnsplashSource extends CachedDataSource {
                 image: json.user.profile_image.large
             }
         });
+    }
+
+    postsGetter(searchParams) {
+        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.Unsplash.page, searchParams.Unsplash.per_page, searchParams.Unsplash.order_by);
+
+        return unsplashRequest
+            .then(toJson)
+            .then(response => Promise.all(response.map(photo => UnsplashSource.jsonToPost(photo)))); // NOTE-RT: Need `that` because `toJson` uses an old school `function`
+    }
+
+    postGetter(photoId, searchParams) {
+        return this.client.photos.getPost(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
+            .then(toJson)
+            .then(json => json && UnsplashSource.jsonToPost(json));
     }
 }
 

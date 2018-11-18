@@ -155,7 +155,7 @@ describe("TumblrSource", function () {
         it("should build a `TumblrSource` instance (including the default `tumblr` client)", function () {
             const tumblrSource = new TumblrSource(null, stubCacheClient);
 
-            expect(tumblrSource.type).to.eql("Tumblr");
+            expect(TumblrSource.type).to.eql("tumblr");
             expect(tumblrSource.client).to.be.instanceof(tumblr.Client);
             expect(tumblrSource.cacheClient).to.eql(stubCacheClient);
             expect(tumblrSource.initializing).to.be.instanceOf(Promise);
@@ -165,7 +165,7 @@ describe("TumblrSource", function () {
         it("should build a `TumblrSource` instance (with stubbed client)", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
 
-            expect(tumblrSource.type).to.eql("Tumblr");
+            expect(TumblrSource.type).to.eql("tumblr");
             expect(tumblrSource.client).to.eql(stubServiceClient);
             expect(tumblrSource.cacheClient).to.eql(stubCacheClient);
             expect(tumblrSource.initializing).to.be.instanceOf(Promise);

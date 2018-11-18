@@ -4,9 +4,11 @@ import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
 import SearchParams from "../../../../src/lib/searchParams";
+import sources from "../../../../src/lib/sources";
 import DummyCacheClientGenerator from "../../../lib/dummyCacheClientGenerator";
 
 describe("searchPosts", function () {
+    let stubSource;
     let stubPost;
     let stubPhoto;
     let stubPosts;
@@ -18,8 +20,18 @@ describe("searchPosts", function () {
     let DummyCacheClient;
 
     beforeEach(function () {
-        stubPost = Post.fromJSON({id: "woof", dateCreated: DateTime.utc()});
-        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: DateTime.utc()});
+        stubSource = "tumblr";
+
+        const stubRawPost = {id: "woof", source: stubSource, dateCreated: DateTime.utc().toISO(), type: "post"};
+        const stubRawPhoto = {
+            id: "meow",
+            source: stubSource,
+            dateCreated: DateTime.utc().plus({seconds: 1}).toISO(),
+            type: "photo"
+        };
+
+        stubPost = Post.fromJSON({...stubRawPost, raw: stubRawPost});
+        stubPhoto = Photo.fromJSON({...stubRawPhoto, raw: stubRawPhoto});
         stubPosts = [stubPost, stubPhoto];
 
         stubCreatePosts = sinon.stub().callsFake(posts => Promise.resolve(posts));
@@ -39,16 +51,32 @@ describe("searchPosts", function () {
                 stubCreatePost
             }
         });
+
+        sinon.stub(sources[stubSource], "jsonToPost")
+            .callsFake(json => {
+                if (json.type === "photo") {
+                    return stubPhoto;
+                } else if (json.type === "post") {
+                    return stubPost;
+                } else {
+                    return null;
+                }
+            });
+    });
+
+    afterEach(function () {
+        sources[stubSource].jsonToPost.restore();
     });
 
     it("delegates to `CacheClient` functions", async function () {
-        const proxyquiredSeachPosts = proxyquire("../../../../src/lib/searchPosts", {
-            "./cacheClient": {
+        const proxyquiredSeachPosts = proxyquire("../../../../src/lib/sources/searchPosts", {
+            "../cacheClient": {
                 "default": DummyCacheClient
             }
         });
 
         const stubSearchParams = new SearchParams();
+
 
         const postsResult = await proxyquiredSeachPosts.default(stubSearchParams);
 
@@ -57,7 +85,7 @@ describe("searchPosts", function () {
             posts: stubPosts,
             total: 2,
             first: stubPost,
-            last: stubPhoto,
+            last: stubPhoto
         });
     });
 });
