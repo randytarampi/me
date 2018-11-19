@@ -10,7 +10,7 @@
         "packages/jsonresume-theme/package.json",
         "packages/jsx/package.json",
         "packages/letter/package.json",
-        "packages/posts/package.json",
+        "packages/service/package.json",
         "packages/printables/package.json",
         "packages/pseudoimage/package.json",
         "packages/pseudolocalize/package.json",
