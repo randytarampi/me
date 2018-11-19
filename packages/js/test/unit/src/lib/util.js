@@ -34,7 +34,8 @@ describe("util", function () {
         it("sorts posts by descending `#date`", function () {
             const stubPhotos = [
                 Photo.fromJS({id: "grr", dateCreated: new Date(1991, 10, 14)}),
-                Photo.fromJS({id: "woof", datePublished: new Date()}),
+                Photo.fromJS({id: "woof", datePublished: new Date(Date.now() + 2000)}),
+                Photo.fromJS({id: "rawr", datePublished: new Date(Date.now() - 2000)}),
                 Photo.fromJS({id: "meow", dateCreated: new Date(1991, 10, 14)})
             ];
 
@@ -47,8 +48,9 @@ describe("util", function () {
             });
             expect(sortedPhotos.map(sortedPhoto => sortedPhoto.id)).to.eql([
                 stubPhotos[1].id,
+                stubPhotos[2].id,
                 stubPhotos[0].id,
-                stubPhotos[2].id
+                stubPhotos[3].id
             ]);
         });
     });
