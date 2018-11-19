@@ -264,7 +264,9 @@ describe("Photo", () => {
                 author: `${photofromJS.creator.url} (${photofromJS.creator.name})`,
                 enclosure: {
                     url: photofromJS.largestImage.url
-                }
+                },
+                lat: null,
+                long: null
             });
         });
 
@@ -280,7 +282,9 @@ describe("Photo", () => {
                 guid: photofromJS.uid,
                 date: null,
                 author: null,
-                enclosure: null
+                enclosure: null,
+                lat: null,
+                long: null
             });
         });
     });

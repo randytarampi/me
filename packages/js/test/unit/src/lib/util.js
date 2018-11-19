@@ -247,4 +247,18 @@ describe("util", function () {
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
     });
+
+    describe(".convertLatLongToGeohash", function () {
+        it("returns a geohash", function () {
+            const castedDate = util.convertLatLongToGeohash(49.2845, -123.1116);
+
+            expect(castedDate).to.eql("c2b2qebz5b9w");
+        });
+
+        it("returns a geohash (with custom precision)", function () {
+            const castedDate = util.convertLatLongToGeohash(49.2845, -123.1116, 8);
+
+            expect(castedDate).to.eql("c2b2qebz");
+        });
+    });
 });
