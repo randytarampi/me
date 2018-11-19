@@ -55,7 +55,7 @@ class SearchParams extends SearchParamsRecord {
         return {
             page: this.page,
             per_page: Math.min(this.perPage, 500),
-            extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags"
+            extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags, machine_tags"
         };
     }
 

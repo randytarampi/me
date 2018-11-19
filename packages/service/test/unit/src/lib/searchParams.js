@@ -36,7 +36,7 @@ describe("SearchParams", function () {
             expect(searchParams.Flickr).to.eql({
                 page: searchParams.page,
                 per_page: searchParams.perPage,
-                extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags"
+                extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags, machine_tags"
             });
         });
     });
