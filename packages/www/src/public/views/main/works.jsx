@@ -1,7 +1,7 @@
+import {CampaignLink, ConnectedBear, F00pxLink, FlickrLink, InstagramLink, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
 import {DoubtBear} from "../../../../../js";
-import {CampaignLink, ConnectedBear, F00pxLink, FlickrLink, InstagramLink, RowBlock} from "../../../../../jsx";
 
 const Works = () =>
     <RowBlock name="code">
@@ -12,17 +12,17 @@ const Works = () =>
             <p>
                 I've built a couple things of note that you might be interested in if you're into
                 software. <CampaignLink
-                    href="https://github.com/randytarampi/me/tree/master/packages/www#readme" text="This page"/> you're currently looking at, <CampaignLink
-                    href="https://github.com/randytarampi/me/tree/master/packages/posts#readme" text="that blog"/> I was shilling earlier, a <CampaignLink
-                    href="https://github.com/randytarampi/pseudolocalize.woof"
-                    text="string pseudolocalization library"/> and an <CampaignLink
+                href="https://github.com/randytarampi/me/tree/master/packages/www#readme" text="This page"/> you're currently looking at, <CampaignLink
+                href="https://github.com/randytarampi/me/tree/master/packages/posts#readme" text="that blog"/> I was shilling earlier, a <CampaignLink
+                href="https://github.com/randytarampi/pseudolocalize.woof"
+                text="string pseudolocalization library"/> and an <CampaignLink
                 href="https://github.com/randytarampi/pseudolocalize.woof" text="image pseudolocalization library"/>.
             </p>
             <p>
                 One of those people that's interested in my photography? You'll find my favourite works on <CampaignLink
-                    href="https://unsplash.com/@randytarampi">Unsplash</CampaignLink>. I stopped using <F00pxLink
-                    useBranding={false} text="500px"/> ages ago, don't really upload much to <FlickrLink
-                    useBranding={false} text="Flickr"/> and really only use <InstagramLink
+                href="https://unsplash.com/@randytarampi">Unsplash</CampaignLink>. I stopped using <F00pxLink
+                useBranding={false} text="500px"/> ages ago, don't really upload much to <FlickrLink
+                useBranding={false} text="Flickr"/> and really only use <InstagramLink
                 useBranding={false} text="Instagram"/> when I'm on the road and shamed into sharing.
             </p>
         </Col>

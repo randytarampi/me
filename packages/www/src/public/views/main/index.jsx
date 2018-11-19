@@ -1,7 +1,7 @@
+import {logger} from "@randy.tarampi/jsx";
 import React, {Component, Fragment} from "react";
 import Helmet from "react-helmet";
 import {Container} from "react-materialize";
-import {logger} from "../../../../../jsx";
 import Bears from "./bears";
 import Intro from "./intro";
 import Works from "./works";
