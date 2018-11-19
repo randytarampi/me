@@ -46,7 +46,10 @@ describe("S3Source", function () {
             id: "woof.yaml",
             date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
-            Body: "<p>Woof woof woof</p>"
+            Body: "<p>Woof woof woof</p>",
+            lat: 49.2845,
+            long: -123.1116,
+            geohash: "c2b2qebz5b9w"
         };
         s3Post.raw = s3Post;
         stubPost = Post.fromJSON(s3Post);
