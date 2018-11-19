@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import {List} from "immutable";
 import {DateTime} from "luxon";
 import Post from "../../../../src/lib/post";
 import Profile from "../../../../src/lib/profile";
@@ -62,7 +63,12 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                }
+                },
+                tags: [
+                    "woof",
+                    "meow",
+                    "grr"
+                ]
             };
 
             const postFromJson = Post.fromJSON(postJson);
@@ -70,6 +76,8 @@ describe("Post", () => {
             expect(postFromJson).to.be.ok;
             expect(postFromJson.id).to.eql(postJson.id);
             expect(postFromJson.dateCreated).to.be.instanceof(DateTime);
+            expect(postFromJson.tags).to.be.instanceof(List);
+            expect(postFromJson.tags.toJS()).to.eql(postJson.tags);
         });
     });
 
