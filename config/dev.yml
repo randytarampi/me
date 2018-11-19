@@ -22,10 +22,10 @@ crisp:
 sentry:
   dsn: https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735
 posts:
-  photosUrl: https://posts.dev.randytarampi.ca/posts?type=Photo
-  postsUrl: https://posts.dev.randytarampi.ca/posts
-  wordsUrl: https://posts.dev.randytarampi.ca/posts?type=Post
-  feedUrl: https://posts.dev.randytarampi.ca/posts/feed.rss
+  photosUrl: https://service.dev.randytarampi.ca/posts?type=Photo
+  postsUrl: https://service.dev.randytarampi.ca/posts
+  wordsUrl: https://service.dev.randytarampi.ca/posts?type=Post
+  feedUrl: https://service.dev.randytarampi.ca/posts/feed.rss
   resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/src/resumes
   letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/src/letters
 www:
