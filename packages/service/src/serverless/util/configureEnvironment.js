@@ -1,6 +1,6 @@
 import dynamoose from "dynamoose";
 import logger, {configureLogger} from "../../lib/logger";
-import XRayedAwsSdk from "../../lib/util/xRayedAwsSdk";
+import {XRayedAwsSdk} from "../../lib/util";
 import loadServerlessSecrets from "./loadServerlessSecrets";
 
 dynamoose.setDDB(new XRayedAwsSdk.DynamoDB());
