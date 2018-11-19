@@ -51,7 +51,8 @@ class S3Source extends CachedDataSource {
             source: S3Source.type,
             datePublished: postJson.date,
             title: postJson.title,
-            body: postJson.body
+            body: postJson.body,
+            tags: postJson.tags
         });
     }
 

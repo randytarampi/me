@@ -1,5 +1,5 @@
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
-import {Record} from "immutable";
+import {List, Record} from "immutable";
 import Profile from "./profile";
 import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util";
 
@@ -14,6 +14,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     sourceUrl: null,
     creator: null,
     raw: null,
+    tags: List(),
     ...otherProperties
 }) {
     constructor({dateCreated, datePublished, ...properties} = {}) {
@@ -51,7 +52,8 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     static parsePropertiesFromJs(js) {
         return {
             ...js,
-            creator: js.creator ? Profile.fromJS(js.creator) : null
+            creator: js.creator ? Profile.fromJS(js.creator) : null,
+            tags: js.tags ? List(js.tags) : null
         };
     }
 
@@ -62,7 +64,8 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     static parsePropertiesFromJson(json) {
         return {
             ...json,
-            creator: json.creator ? Profile.fromJSON(json.creator) : null
+            creator: json.creator ? Profile.fromJSON(json.creator) : null,
+            tags: json.tags ? List(json.tags) : null
         };
     }
 

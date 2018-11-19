@@ -69,7 +69,8 @@ class TumblrSource extends CachedDataSource {
                 username: postJson.blog.name,
                 name: postJson.blog.title,
                 url: postJson.blog.url
-            }
+            },
+            tags: postJson.tags
         });
     }
 
@@ -92,7 +93,8 @@ class TumblrSource extends CachedDataSource {
                 username: postJson.blog.name,
                 name: postJson.blog.title,
                 url: postJson.blog.url
-            }
+            },
+            tags: postJson.tags
         });
     }
 

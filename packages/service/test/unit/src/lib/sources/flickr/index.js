@@ -66,7 +66,8 @@ describe("FlickrSource", function () {
             title: "ʕ•ᴥ•ʔﾉ゛",
             description: {
                 _content: "<p>Woof woof woof</p>"
-            }
+            },
+            tags: "woof meow grr"
         };
         flickrPhotos = stubPosts.map(stubPost => Object.assign({}, flickrPhoto, {id: stubPost.id}));
         stubServiceClient = {

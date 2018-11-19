@@ -53,7 +53,8 @@ class FlickrSource extends CachedDataSource {
                 id: json.owner,
                 username: json.ownername,
                 url: `https://www.flickr.com/${json.ownername}`
-            }
+            },
+            tags: json.tags ? json.tags.split(" ") : []
         });
     }
 

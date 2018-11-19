@@ -74,6 +74,9 @@ const post = new Schema({
     raw: {
         type: Object,
         required: true
+    },
+    tags: {
+        type: [String]
     }
 }, {
     throughput,
