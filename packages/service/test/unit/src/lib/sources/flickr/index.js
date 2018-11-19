@@ -67,7 +67,9 @@ describe("FlickrSource", function () {
             description: {
                 _content: "<p>Woof woof woof</p>"
             },
-            tags: "woof meow grr"
+            tags: "woof meow grr",
+            latitude: "49.2845",
+            longitude: "-123.1116"
         };
         flickrPhotos = stubPosts.map(stubPost => Object.assign({}, flickrPhoto, {id: stubPost.id}));
         stubServiceClient = {
