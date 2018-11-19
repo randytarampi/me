@@ -4,7 +4,7 @@ import {DateTime} from "luxon";
 import sinon from "sinon";
 import SearchParams from "../../../../../../src/lib/searchParams";
 import S3Source from "../../../../../../src/lib/sources/s3";
-import XRayedAwsSdk from "../../../../../../src/lib/util/xRayedAwsSdk";
+import {XRayedAwsSdk} from "../../../../../../src/lib/util";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
