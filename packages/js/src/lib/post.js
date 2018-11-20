@@ -9,6 +9,13 @@ import {
     convertLatLongToGeohash
 } from "./util";
 
+const overridableTagProperties = {
+    dateCreated: tagValue => castDatePropertyToDateTime(Number(tagValue)),
+    lat: tagValue => Number(tagValue),
+    long: tagValue => Number(tagValue),
+    geohash: tagValue => tagValue
+};
+
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
     id: null,
     type: null,
@@ -27,6 +34,19 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     ...otherProperties
 }) {
     constructor({dateCreated, datePublished, ...properties} = {}) {
+        if (properties.tags) {
+            Object.keys(overridableTagProperties).forEach(overridableTagProperty => {
+                const overridingTagSentinel = `❕${overridableTagProperty}❔`;
+                const overridingTag = properties.tags.find(tag => tag.startsWith(overridingTagSentinel));
+
+                if (overridingTag) {
+                    const overridingTagValue = overridingTag.replace(overridingTagSentinel, "");
+
+                    properties[overridableTagProperty] = overridableTagProperties[overridableTagProperty](overridingTagValue);
+                }
+            });
+        }
+
         super({
             dateCreated: castDatePropertyToDateTime(dateCreated),
             datePublished: castDatePropertyToDateTime(datePublished),
