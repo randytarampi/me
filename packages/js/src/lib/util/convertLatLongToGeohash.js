@@ -7,6 +7,12 @@ import geohash from "latlon-geohash";
 export const GEOHASH_CHARACTER_PRECISION = 12;
 
 /**
+ * The default character to add to geohashes to focus their searches
+ * @type {number}
+ */
+export const GEOHASH_ADDITIONAL_PRECISION_CHARACTER = "s";
+
+/**
  * @function Convert a latitude and longitude to a geohash
  * @param lat {number}
  * @param long {number}
