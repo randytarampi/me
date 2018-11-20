@@ -23,7 +23,7 @@ plugins:
     enabled: true
   markdownlint:
     enabled: true
- sass-lint:
+  sass-lint:
     enabled: true
   shellcheck:
     enabled: true
