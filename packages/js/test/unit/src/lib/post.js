@@ -27,7 +27,8 @@ describe("Post", () => {
                     url: "woof://woof.woof/woof/woof/woof"
                 }),
                 lat: 49.2845,
-                long: -123.1116
+                long: -123.1116,
+                tags: []
             };
 
             const post = new Post(postJs);
@@ -74,6 +75,102 @@ describe("Post", () => {
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(postJs.tags[1]).to.have.string(post.dateCreated.valueOf().toString());
             expect(post.datePublished).to.eql(postJs.datePublished);
+        });
+
+        it("overrides lat", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: [
+                    `❕lat❔${-49.2845}`
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(postJs.tags[0]).to.have.string(post.lat.toString());
+            expect(post.long).to.eql(postJs.long);
+        });
+
+        it("overrides lat", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: [
+                    `❕long❔${+123.1116}`
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(post.lat).to.eql(postJs.lat);
+            expect(postJs.tags[0]).to.have.string(post.long.toString());
+        });
+
+        it("overrides geohash", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                tags: [
+                    "❕geohash❔c2b2qebz5b9w"
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(postJs.tags[0]).to.have.string(post.geohash.toString());
         });
 
         it("returns an empty Post", function () {

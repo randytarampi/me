@@ -10,7 +10,10 @@ import {
 } from "./util";
 
 const overridableTagProperties = {
-    dateCreated: tagValue => castDatePropertyToDateTime(Number(tagValue))
+    dateCreated: tagValue => castDatePropertyToDateTime(Number(tagValue)),
+    lat: tagValue => Number(tagValue),
+    long: tagValue => Number(tagValue),
+    geohash: tagValue => tagValue
 };
 
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
