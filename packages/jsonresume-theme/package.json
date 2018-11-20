@@ -68,7 +68,7 @@
   "dependencies": {
     "@randy.tarampi/resume": "^2.0.0",
     "@randy.tarampi/views": "^2.0.0",
-    "config": "^2.0.1"
+    "config": "^3.0.0"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
