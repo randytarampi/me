@@ -13,7 +13,7 @@ A monorepo for everything that goes into [www.randytarampi.ca](https://www.randy
 
 - [job-application](packages/job-application) (which ties together my [resume](packages/resume) and a personalized [cover letter](packages/letter))
 - [jsonresume-theme-randytarampi](packages/jsonresume-theme) (A [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi), built for me but shared for all)
-- [posts](packages/posts)
+- [service](packages/service)
 - [www](packages/www)
 
 And also a couple semi-related modules I wrote a couple years back that I'm planning on using at some point to build out an internationalized resume template.
