@@ -153,6 +153,24 @@ describe("SearchParams", function () {
             });
         });
 
+        it("supports `orderBy: \"geohash\"`", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                orderBy: "geohash",
+                orderOperator: "begins_with",
+                orderComparator: "woof",
+                orderComparatorType: "String"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: searchParams.source}},
+                    range: {[searchParams.orderBy]: {[searchParams.orderOperator]: searchParams.orderComparator}}
+                },
+                _options: {indexName: `source-${searchParams.orderBy}-index`, limit: 100, descending: true, all: false}
+            });
+        });
+
         it("should properly format properties for type", function () {
             const searchParams = SearchParams.fromJS({type: "woof"});
 
@@ -204,6 +222,26 @@ describe("SearchParams", function () {
             });
         });
 
+        it("should properly format properties for type & geohash", function () {
+            const searchParams = SearchParams.fromJS({
+                type: "post",
+                geohash: "woof"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {type: {eq: "post"}},
+                    range: {geohash: {begins_with: "woof"}}
+                },
+                _options: {
+                    indexName: "type-geohash-index",
+                    limit: 100,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
         it("should properly format properties for source & id", function () {
             const searchParams = SearchParams.fromJS({source: "meow", id: "woof"});
 
@@ -250,6 +288,26 @@ describe("SearchParams", function () {
                 _options: {
                     indexName: "source-meow-index",
                     limit: 20,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
+        it("should properly format properties for source & geohash", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                geohash: "woof"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: "tumblr"}},
+                    range: {geohash: {begins_with: "woof"}}
+                },
+                _options: {
+                    indexName: "source-geohash-index",
+                    limit: 100,
                     descending: true,
                     all: false
                 }

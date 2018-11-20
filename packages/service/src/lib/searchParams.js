@@ -11,6 +11,7 @@ const searchParamsRecordDefinition = {
     // NOTE-RT: For either
     type: undefined,
     source: undefined,
+    geohash: undefined,
     _rawFilter: undefined,
 
     // NOTE-RT: For lists
@@ -195,6 +196,19 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
+            if (this.geohash) {
+                return {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {geohash: {begins_with: this.geohash}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "type-geohash-index"
+                    }
+                };
+            }
+
             if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
                 return {
                     _query: {
@@ -223,6 +237,19 @@ class SearchParams extends SearchParamsRecord {
                     _options: {
                         ...options,
                         indexName: "uid-index"
+                    }
+                };
+            }
+
+            if (this.geohash) {
+                return {
+                    _query: {
+                        hash: {source: {eq: this.source}},
+                        range: {geohash: {begins_with: this.geohash}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "source-geohash-index"
                     }
                 };
             }
