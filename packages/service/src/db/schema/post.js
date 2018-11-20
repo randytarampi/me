@@ -42,6 +42,12 @@ const post = new Schema({
                 name: "type-dateCreated-index",
                 rangeKey: "dateCreated",
                 throughput
+            },
+            {
+                global: true,
+                name: "type-geohash-index",
+                rangeKey: "geohash",
+                throughput
             }
         ]
     },
@@ -77,6 +83,21 @@ const post = new Schema({
     },
     tags: {
         type: [String]
+    },
+    lat: {
+        type: Number
+    },
+    long: {
+        type: Number
+    },
+    geohash: {
+        type: String,
+        index: [
+            {
+                global: false,
+                name: "source-geohash-index"
+            }
+        ]
     }
 }, {
     throughput,

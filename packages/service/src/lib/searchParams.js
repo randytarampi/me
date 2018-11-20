@@ -1,6 +1,13 @@
-import {castDatePropertyToDateTime, compositeKeySeparator} from "@randy.tarampi/js";
+import {
+    castDatePropertyToDateTime,
+    compositeKeySeparator,
+    GEOHASH_ADDITIONAL_PRECISION_CHARACTER,
+    GEOHASH_CHARACTER_PRECISION
+} from "@randy.tarampi/js";
 import {Record} from "immutable";
+import geohash from "latlon-geohash";
 import _ from "lodash";
+import padRight from "pad-right";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -11,6 +18,10 @@ const searchParamsRecordDefinition = {
     // NOTE-RT: For either
     type: undefined,
     source: undefined,
+    geohash: undefined,
+    lat: undefined,
+    long: undefined,
+    geohashPrecision: undefined, // NOTE-RT: A `6` would be about 7km^2, er the table in http://www.movable-type.co.uk/scripts/geohash.html
     _rawFilter: undefined,
 
     // NOTE-RT: For lists
@@ -55,7 +66,7 @@ class SearchParams extends SearchParamsRecord {
         return {
             page: this.page,
             per_page: Math.min(this.perPage, 500),
-            extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags, machine_tags"
+            extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags, machine_tags, geo"
         };
     }
 
@@ -155,6 +166,16 @@ class SearchParams extends SearchParamsRecord {
             ...this._rawFilter
         };
         let comparator = this.orderComparator;
+        let geohashQuery = this.geohash;
+        let geohashQueryPrecision = this.geohashPrecision;
+
+        if (!geohashQuery && this.lat && this.long) {
+            geohashQuery = geohash.encode(this.lat, this.long, geohashQueryPrecision || GEOHASH_CHARACTER_PRECISION);
+        }
+
+        if (geohashQuery && geohashQueryPrecision) {
+            geohashQuery = padRight(geohashQuery, geohashQueryPrecision, GEOHASH_ADDITIONAL_PRECISION_CHARACTER).slice(0, geohashQueryPrecision);
+        }
 
         switch (this.orderComparatorType) {
             case "String":
@@ -195,6 +216,19 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
+            if (geohashQuery) {
+                return {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {geohash: {begins_with: geohashQuery}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "type-geohash-index"
+                    }
+                };
+            }
+
             if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
                 return {
                     _query: {
@@ -223,6 +257,19 @@ class SearchParams extends SearchParamsRecord {
                     _options: {
                         ...options,
                         indexName: "uid-index"
+                    }
+                };
+            }
+
+            if (geohashQuery) {
+                return {
+                    _query: {
+                        hash: {source: {eq: this.source}},
+                        range: {geohash: {begins_with: geohashQuery}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "source-geohash-index"
                     }
                 };
             }

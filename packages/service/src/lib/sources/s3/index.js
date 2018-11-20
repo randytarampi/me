@@ -52,7 +52,10 @@ class S3Source extends CachedDataSource {
             datePublished: postJson.date,
             title: postJson.title,
             body: postJson.body,
-            tags: postJson.tags
+            tags: postJson.tags,
+            lat: postJson.lat,
+            long: postJson.long,
+            geohash: postJson.geohash
         });
     }
 

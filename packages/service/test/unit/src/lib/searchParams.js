@@ -1,5 +1,6 @@
-import {compositeKeySeparator} from "@randy.tarampi/js";
+import {compositeKeySeparator, GEOHASH_ADDITIONAL_PRECISION_CHARACTER} from "@randy.tarampi/js";
 import {expect} from "chai";
+import padRight from "pad-right";
 import SearchParams from "../../../../src/lib/searchParams";
 
 describe("SearchParams", function () {
@@ -36,7 +37,7 @@ describe("SearchParams", function () {
             expect(searchParams.Flickr).to.eql({
                 page: searchParams.page,
                 per_page: searchParams.perPage,
-                extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags, machine_tags"
+                extras: "url_o, url_k, url_h, url_c, url_z, url_m, url_n, date_upload, date_taken, owner_name, path_alias, description, tags, machine_tags, geo"
             });
         });
     });
@@ -153,6 +154,24 @@ describe("SearchParams", function () {
             });
         });
 
+        it("supports `orderBy: \"geohash\"`", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                orderBy: "geohash",
+                orderOperator: "begins_with",
+                orderComparator: "woof",
+                orderComparatorType: "String"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: searchParams.source}},
+                    range: {[searchParams.orderBy]: {[searchParams.orderOperator]: searchParams.orderComparator}}
+                },
+                _options: {indexName: `source-${searchParams.orderBy}-index`, limit: 100, descending: true, all: false}
+            });
+        });
+
         it("should properly format properties for type", function () {
             const searchParams = SearchParams.fromJS({type: "woof"});
 
@@ -204,6 +223,26 @@ describe("SearchParams", function () {
             });
         });
 
+        it("should properly format properties for type & geohash", function () {
+            const searchParams = SearchParams.fromJS({
+                type: "post",
+                geohash: "woof"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {type: {eq: "post"}},
+                    range: {geohash: {begins_with: "woof"}}
+                },
+                _options: {
+                    indexName: "type-geohash-index",
+                    limit: 100,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
         it("should properly format properties for source & id", function () {
             const searchParams = SearchParams.fromJS({source: "meow", id: "woof"});
 
@@ -250,6 +289,111 @@ describe("SearchParams", function () {
                 _options: {
                     indexName: "source-meow-index",
                     limit: 20,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
+        it("should properly format properties for source & geohash", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                geohash: "woof"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: "tumblr"}},
+                    range: {geohash: {begins_with: "woof"}}
+                },
+                _options: {
+                    indexName: "source-geohash-index",
+                    limit: 100,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
+        it("should properly format properties for source & lat/long", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                lat: 49.2845,
+                long: -123.1116
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: "tumblr"}},
+                    range: {geohash: {begins_with: "c2b2qebz5b9w"}}
+                },
+                _options: {
+                    indexName: "source-geohash-index",
+                    limit: 100,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
+        it("should properly format properties for source & lat/long", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                lat: 49.2845,
+                long: -123.1116
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: "tumblr"}},
+                    range: {geohash: {begins_with: "c2b2qebz5b9w"}}
+                },
+                _options: {
+                    indexName: "source-geohash-index",
+                    limit: 100,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
+        it("should properly format properties for a geo query with a given precision (reduced)", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                lat: 49.2845,
+                long: -123.1116,
+                geohashPrecision: 8
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: "tumblr"}},
+                    range: {geohash: {begins_with: "c2b2qebz5b9w".slice(0, searchParams.geohashPrecision)}}
+                },
+                _options: {
+                    indexName: "source-geohash-index",
+                    limit: 100,
+                    descending: true,
+                    all: false
+                }
+            });
+        });
+
+        it("should properly format properties for a geo query with a given precision (increased)", function () {
+            const searchParams = SearchParams.fromJS({
+                source: "tumblr",
+                geohash: "c2b2qebz5b9w".slice(0, 8),
+                geohashPrecision: 12
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _query: {
+                    hash: {source: {eq: "tumblr"}},
+                    range: {geohash: {begins_with: padRight("c2b2qebz5b9w".slice(0, 8), searchParams.geohashPrecision, GEOHASH_ADDITIONAL_PRECISION_CHARACTER)}}
+                },
+                _options: {
+                    indexName: "source-geohash-index",
+                    limit: 100,
                     descending: true,
                     all: false
                 }

@@ -60,6 +60,11 @@ describe("InstagramSource", function () {
                 "small": {url: "woof://woof.woof/?size=small", height: 100, width: 100},
                 "regular": {url: "woof://woof.woof/?size=regular", height: 500, width: 500},
                 "full": {url: "woof://woof.woof/?size=full", height: 1000, width: 1000}
+            },
+            location: {
+                latitude: 49.2845,
+                longitude: -123.1116,
+                name: "SFU Vancouver"
             }
         };
         instagramPhotos = stubPosts.map(stubPost => Object.assign({}, instagramPhoto, {id: stubPost.id}));

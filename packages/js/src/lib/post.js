@@ -1,7 +1,13 @@
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
+import geohash from "latlon-geohash";
 import Profile from "./profile";
-import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util";
+import {
+    augmentUrlWithTrackingParams,
+    castDatePropertyToDateTime,
+    compositeKeySeparator,
+    convertLatLongToGeohash
+} from "./util";
 
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
     id: null,
@@ -15,6 +21,9 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     creator: null,
     raw: null,
     tags: List(),
+    geohash: null,
+    lat: null,
+    long: null,
     ...otherProperties
 }) {
     constructor({dateCreated, datePublished, ...properties} = {}) {
@@ -39,6 +48,42 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
 
     get date() {
         return this.datePublished || this.dateCreated;
+    }
+
+    get lat() {
+        if (this.get("lat")) {
+            return this.get("lat");
+        }
+
+        if (this.get("geohash")) {
+            return geohash.decode(this.get("geohash")).lat;
+        }
+
+        return null;
+    }
+
+    get long() {
+        if (this.get("long")) {
+            return this.get("long");
+        }
+
+        if (this.get("geohash")) {
+            return geohash.decode(this.get("geohash")).lon;
+        }
+
+        return null;
+    }
+
+    get geohash() {
+        if (this.get("geohash")) {
+            return this.get("geohash");
+        }
+
+        if (this.get("lat") && this.get("long")) {
+            return convertLatLongToGeohash(this.get("lat"), this.get("long"));
+        }
+
+        return null;
     }
 
     get datePublished() {
@@ -76,6 +121,9 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     toJS() {
         return {
             ...super.toJS(),
+            lat: this.lat,
+            long: this.long,
+            geohash: this.geohash,
             type: this.type,
             datePublished: this.datePublished
         };
@@ -84,6 +132,9 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     toJSON() {
         return {
             ...super.toJSON(),
+            lat: this.lat,
+            long: this.long,
+            geohash: this.geohash,
             type: this.type,
             datePublished: this.datePublished
         };
@@ -118,7 +169,9 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             url: this.sourceUrl ? augmentUrlWithTrackingParams(this.sourceUrl, campaign) : null,
             guid: this.uid,
             date: this.date ? this.date.toJSDate() : null,
-            author: this.creator ? `${this.creator.url ? this.creator.url : this.creator.username} (${this.creator.name})` : null
+            author: this.creator ? `${this.creator.url ? this.creator.url : this.creator.username} (${this.creator.name})` : null,
+            lat: this.lat,
+            long: this.long
         };
     }
 };
