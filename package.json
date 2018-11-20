@@ -30,7 +30,7 @@
     "cheerio": "^1.0.0-rc.2",
     "chokidar": "^2.0.4",
     "commander": "^2.17.1",
-    "config": "^2.0.1",
+    "config": "^3.0.0",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.2",
     "coveralls": "^3.0.2",
