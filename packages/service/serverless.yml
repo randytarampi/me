@@ -27,11 +27,11 @@ provider:
   - Effect: Allow
     Action:
     - S3:ListBucket
-    Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-${self:service}
+    Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}
   - Effect: Allow
     Action:
     - S3:GetObject
-    Resource: arn:aws:s3:::randytarampi-${self:provider.stage}-${self:service}/*
+    Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}/*
   - Effect: Allow
     Action:
     - SNS:Publish
