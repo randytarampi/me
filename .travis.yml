@@ -55,7 +55,7 @@ jobs:
         - npm run coveralls
         - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
       after_failure: &5
-        - npm run kill --prefix packages/posts
+        - npm run kill --prefix packages/service
       after_success: &6
         - npm run coveralls
     - stage: Test
@@ -180,7 +180,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: script
-          script: npm run deploy --prefix packages/posts
+          script: npm run deploy --prefix packages/service
           skip_cleanup: true
           on:
             master: true
@@ -245,7 +245,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: script
-          script: npm run deploy --prefix packages/posts
+          script: npm run deploy --prefix packages/service
           skip_cleanup: true
           on:
             tags: true
