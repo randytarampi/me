@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/randytarampi/me/compare/v2.0.0...v2.0.1) (2018-11-20)
+
+
+### Bug Fixes
+
+* **package:** update config to version 3.0.0 ([bb6794a](https://github.com/randytarampi/me/commit/bb6794a))
+
+
+
+
+
 # [2.0.0](https://github.com/randytarampi/me/compare/v1.7.2...v2.0.0) (2018-11-20)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi

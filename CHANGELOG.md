@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/randytarampi/me/compare/v2.0.0...v2.0.1) (2018-11-20)
+
+
+### Bug Fixes
+
+* **package:** update config to version 3.0.0 ([5994e07](https://github.com/randytarampi/me/commit/5994e07))
+* **package:** update config to version 3.0.0 ([3eacbed](https://github.com/randytarampi/me/commit/3eacbed))
+* **package:** update config to version 3.0.0 ([bb6794a](https://github.com/randytarampi/me/commit/bb6794a))
+* **service:** Actually grant permissions on the correct `S3_BUCKET_NAME`. ([bf8d46b](https://github.com/randytarampi/me/commit/bf8d46b))
+* **service:** Actually grant permissions on the correct `SERVICE_POSTS_S3_BUCKET_NAME`. ([98770f8](https://github.com/randytarampi/me/commit/98770f8))
+* **service:** Don't persist empty tags. ([99d203b](https://github.com/randytarampi/me/commit/99d203b))
+
+
+### Performance Improvements
+
+* **service:** Max out throughput for our 25 WCUs and RCUs. ([974cec0](https://github.com/randytarampi/me/commit/974cec0))
+
+
+
+
+
 # [2.0.0](https://github.com/randytarampi/me/compare/v1.7.2...v2.0.0) (2018-11-20)
 
 
