@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/randytarampi/me/compare/v1.7.2...v2.0.0) (2018-11-20)
+
+
+### Bug Fixes
+
+* **posts:** `buildPostsResponse` needs to `setPostRawToNull`. ([13e3e6c](https://github.com/randytarampi/me/commit/13e3e6c))
+* **posts:** Restore broken `searchPosts` behaviour. ([aaf98f0](https://github.com/randytarampi/me/commit/aaf98f0))
+* **posts:** Use a single, cross environment `SERVICE_POSTS_S3_BUCKET_NAME`. ([b647031](https://github.com/randytarampi/me/commit/b647031))
+
+
+### Features
+
+* **posts:** `Posts` has a `id`/`source` composite primary key. ([63af558](https://github.com/randytarampi/me/commit/63af558))
+* **posts:** Just store the raw `Post` response in the DB. ([b1e48cc](https://github.com/randytarampi/me/commit/b1e48cc)), closes [#77](https://github.com/randytarampi/me/issues/77)
+* **posts:** Remove unnecessary fields in DynamoDB. ([c70a011](https://github.com/randytarampi/me/commit/c70a011))
+* **posts:** Roll with a new `POSTS_DYNAMODB_TABLE`. ([b1e2fca](https://github.com/randytarampi/me/commit/b1e2fca))
+* **posts:** Set `useNativeBooleans` and `useDocumentTypes` to `true`. ([e743b6e](https://github.com/randytarampi/me/commit/e743b6e))
+* **service:** `[@randy](https://github.com/randy).tarampi/posts` -> `[@randy](https://github.com/randy).tarampi/service`. ([128d3e3](https://github.com/randytarampi/me/commit/128d3e3)), closes [#164](https://github.com/randytarampi/me/issues/164)
+* **service:** `SearchParams.dynamoDb` supports `lat`, `lng` and `geohashPrecision`. ([50b07f7](https://github.com/randytarampi/me/commit/50b07f7))
+* **service:** Actually support querying the cache by `geohash`. ([35e56db](https://github.com/randytarampi/me/commit/35e56db))
+* **service:** Pull `Flickr` `geo` data. ([d8ede58](https://github.com/randytarampi/me/commit/d8ede58))
+* **service:** Pull `Flickr` `machine_tags` while we're in here. ([06d7fb0](https://github.com/randytarampi/me/commit/06d7fb0))
+* **service:** Pull `Flickr` tags per [#76](https://github.com/randytarampi/me/issues/76). ([d2e5b46](https://github.com/randytarampi/me/commit/d2e5b46))
+* **service:** Pull `Instagram` `lat`/`long` data. ([61b0e58](https://github.com/randytarampi/me/commit/61b0e58))
+* **service:** Pull `Instagram` tags per [#76](https://github.com/randytarampi/me/issues/76). ([2fffdf6](https://github.com/randytarampi/me/commit/2fffdf6))
+* **service:** Pull `S3` `lat`/`long` and `geohash` data. ([a37352c](https://github.com/randytarampi/me/commit/a37352c))
+* **service:** Pull `S3` tags per [#76](https://github.com/randytarampi/me/issues/76). ([ecb7aff](https://github.com/randytarampi/me/commit/ecb7aff))
+* **service:** Pull `Tumblr` tags per [#76](https://github.com/randytarampi/me/issues/76). ([cb733d8](https://github.com/randytarampi/me/commit/cb733d8))
+
+
+### BREAKING CHANGES
+
+* **posts:** ** Yeah... It's easier and more expedient to do this than try and get the existing & deployed `@randy.tarampi/posts` to play nice with the resources stood up by this stack.
+* **posts:** Yeah, we'll need to rebuild the table after this.
+
+
+
+
+
 ## [1.7.2](https://github.com/randytarampi/me/compare/v1.7.1...v1.7.2) (2018-11-19)
 
 

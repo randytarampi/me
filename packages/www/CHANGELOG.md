@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/randytarampi/me/compare/v1.7.2...v2.0.0) (2018-11-20)
+
+
+### Bug Fixes
+
+* **www:** Fix link to `service` instead of `posts`. ([e52da59](https://github.com/randytarampi/me/commit/e52da59))
+
+
+
+
+
 ## [1.7.2](https://github.com/randytarampi/me/compare/v1.7.1...v1.7.2) (2018-11-19)
 
 

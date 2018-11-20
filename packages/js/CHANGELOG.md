@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/randytarampi/me/compare/v1.7.2...v2.0.0) (2018-11-20)
+
+
+### Features
+
+* **js:** `Post.tags` can override `lat`, `long` and `geohash`, per randytarampi/me.photos[#13](https://github.com/randytarampi/me/issues/13). ([546d793](https://github.com/randytarampi/me/commit/546d793))
+* **js:** `Post.tags` can override certain API returned values, per randytarampi/me.photos[#13](https://github.com/randytarampi/me/issues/13). ([b863797](https://github.com/randytarampi/me/commit/b863797))
+* **js:** Add `Post.lat`, `Post.long` and `Post.geohash`. ([30b8a1b](https://github.com/randytarampi/me/commit/30b8a1b))
+* **js:** Give `Post` some `tags` per [#76](https://github.com/randytarampi/me/issues/76). ([d017847](https://github.com/randytarampi/me/commit/d017847))
+* **posts:** Just store the raw `Post` response in the DB. ([b1e48cc](https://github.com/randytarampi/me/commit/b1e48cc)), closes [#77](https://github.com/randytarampi/me/issues/77)
+* **service:** `SearchParams.dynamoDb` supports `lat`, `lng` and `geohashPrecision`. ([50b07f7](https://github.com/randytarampi/me/commit/50b07f7))
+
+
+
+
+
 ## [1.7.2](https://github.com/randytarampi/me/compare/v1.7.1...v1.7.2) (2018-11-19)
 
 **Note:** Version bump only for package @randy.tarampi/js
