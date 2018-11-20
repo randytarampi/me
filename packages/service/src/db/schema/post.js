@@ -1,7 +1,7 @@
 import {compositeKeySeparator, Photo, Post} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
-const throughput = {read: 4, write: 4};
+const throughput = {read: 5, write: 5};
 
 const post = new Schema({
     uid: {
