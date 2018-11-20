@@ -35,6 +35,45 @@ describe("Post", () => {
             expect(post.type).to.eql(Post.name);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
+            expect(post.dateCreated).to.eql(postJs.dateCreated);
+            expect(post.datePublished).to.eql(postJs.datePublished);
+        });
+
+        it("overrides dateCreated", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: [
+                    "foo",
+                    `❕dateCreated❔${DateTime.utc().plus({years: 1}).valueOf()}`,
+                    `❕datePublished❔${DateTime.utc().plus({years: -1}).valueOf()}`
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(post.dateCreated).to.be.an.instanceOf(DateTime);
+            expect(post.datePublished).to.be.an.instanceOf(DateTime);
+            expect(postJs.tags[1]).to.have.string(post.dateCreated.valueOf().toString());
+            expect(post.datePublished).to.eql(postJs.datePublished);
         });
 
         it("returns an empty Post", function () {

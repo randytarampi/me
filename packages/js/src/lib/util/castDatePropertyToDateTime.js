@@ -2,7 +2,7 @@ import {DateTime} from "luxon";
 
 /**
  * @function Cast some representation of a `Date` to a `DateTime`
- * @param needsToBeCastToDateTimeOrNull {Character}
+ * @param needsToBeCastToDateTimeOrNull {string | number | Date | DateTime}
  * @returns {DateTime}
  */
 export const castDatePropertyToDateTime = needsToBeCastToDateTimeOrNull => {
