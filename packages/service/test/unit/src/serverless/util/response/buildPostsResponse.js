@@ -11,8 +11,8 @@ describe("buildPostsResponse", function () {
     let stubPosts;
 
     beforeEach(function () {
-        stubPost = Post.fromJSON({id: "woof", dateCreated: DateTime.utc().toISO()});
-        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: DateTime.utc().toISO()});
+        stubPost = Post.fromJSON({id: "woof", dateCreated: DateTime.utc().toISO(), raw: "woof"});
+        stubPhoto = Photo.fromJSON({id: "meow", dateCreated: DateTime.utc().toISO(), raw: "meow"});
         stubPosts = [stubPost, stubPhoto];
     });
 
@@ -28,7 +28,7 @@ describe("buildPostsResponse", function () {
 
             expect(response).to.be.ok;
             expect(response).to.eql({
-                posts: stubPosts,
+                posts: stubPosts.map(postsReponseBuilder.setPostRawToNull),
                 total: stubPosts.length,
                 oldest: stubPost.dateCreated.toISO(),
                 newest: stubPhoto.dateCreated.toISO()
@@ -65,7 +65,7 @@ describe("buildPostsResponse", function () {
             const response = postsReponseBuilder.buildPostsV1ResponseBody(stubSearchPostsResponse.posts);
 
             expect(response).to.be.ok;
-            expect(response).to.eql(stubPosts);
+            expect(response).to.eql(stubPosts.map(postsReponseBuilder.setPostRawToNull));
         });
 
         it("handles an empty response", function () {
@@ -96,7 +96,7 @@ describe("buildPostsResponse", function () {
 
             expect(response).to.be.ok;
             expect(response.body).to.be.ok;
-            expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts));
+            expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
         it("delegates to buildPostsV1ResponseBody for version 1", function () {
@@ -114,7 +114,7 @@ describe("buildPostsResponse", function () {
 
             expect(response).to.be.ok;
             expect(response.body).to.be.ok;
-            expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts));
+            expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
         it("delegates to buildPostsV2ResponseBody for version 2", function () {
@@ -132,7 +132,7 @@ describe("buildPostsResponse", function () {
 
             expect(response).to.be.ok;
             expect(response.body).to.be.ok;
-            expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts));
+            expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
         it("delegates to buildPostsV3ResponseBody for version 3", function () {
@@ -158,7 +158,7 @@ describe("buildPostsResponse", function () {
 
             expect(response).to.be.ok;
             expect(response.body).to.be.ok;
-            expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts));
+            expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
         it("throws if API version is unsupported", function () {
