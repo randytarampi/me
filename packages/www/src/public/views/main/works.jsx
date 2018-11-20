@@ -13,7 +13,8 @@ const Works = () =>
                 I've built a couple things of note that you might be interested in if you're into
                 software. <CampaignLink
                 href="https://github.com/randytarampi/me/tree/master/packages/www#readme" text="This page"/> you're currently looking at, <CampaignLink
-                href="https://github.com/randytarampi/me/tree/master/packages/posts#readme" text="that blog"/> I was shilling earlier, a <CampaignLink
+                href="https://github.com/randytarampi/me/tree/master/packages/service#readme" text="that blog"/> I was
+                shilling earlier, a <CampaignLink
                 href="https://github.com/randytarampi/pseudolocalize.woof"
                 text="string pseudolocalization library"/> and an <CampaignLink
                 href="https://github.com/randytarampi/pseudolocalize.woof" text="image pseudolocalization library"/>.
