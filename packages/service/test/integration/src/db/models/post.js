@@ -29,7 +29,13 @@ describe("Post", function () {
                 username: "ʕ•ᴥ•ʔ",
                 name: "ʕ•ᴥ•ʔ",
                 url: "woof://woof.woof/woof/woof/woof"
-            }
+            },
+            tags: [
+                "woof",
+                "meow",
+                "",
+                "grr"
+            ]
         });
         stubPhoto = Photo.fromJSON({
             raw: {},
@@ -81,6 +87,16 @@ describe("Post", function () {
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
             const photoFromDb = await PostModel.get({id: createdPhoto.id, source: createdPhoto.source});
             expect(photoFromDb).to.be.ok;
+        });
+
+        it("doesn't persist empty string tags", async function () {
+            const createdPost = await createPost(stubPost);
+            expect(createdPost).to.be.ok;
+            expect(createdPost.uid).to.eql(stubPost.uid);
+            const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
+            expect(postFromDb).to.be.ok;
+            expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).toArray());
+            expect(postFromDb.tags).to.not.have.members([""]);
         });
     });
 
