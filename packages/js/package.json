@@ -47,7 +47,7 @@
   ],
   "dependencies": {
     "@randy.tarampi/schema-dot-org-types": "latest",
-    "immutable": "4.0.0-rc.12",
+    "immutable": "4.0.0-rc.10",
     "latlon-geohash": "^1.1.0",
     "libphonenumber-js": "^1.4.6",
     "lodash": "^4.17.10",
