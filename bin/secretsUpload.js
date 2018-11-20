@@ -9,7 +9,7 @@ const commander = require("commander");
 const packageJson = require("../package.json");
 
 const REPO_ROOT = process.env.REPO_ROOT || process.env.TRAVIS_BUILD_DIR || path.join(__dirname, "..");
-const POSTS_ROOT = path.join(REPO_ROOT, "packages/posts");
+const SERVICE_ROOT = path.join(REPO_ROOT, "packages/service");
 const CONFIG_ROOT = path.join(REPO_ROOT, "config");
 
 const uploadSecretForRegion = region => (secretTextOrObject, secretName) => new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ const uploadSecretForRegion = region => (secretTextOrObject, secretName) => new 
     }
 
     const slsCommandOptions = {
-        cwd: POSTS_ROOT
+        cwd: SERVICE_ROOT
     };
 
     const slsCommand = slsArguments.join(" ");
