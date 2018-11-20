@@ -34,7 +34,8 @@ describe("util", function () {
         it("sorts posts by descending `#date`", function () {
             const stubPhotos = [
                 Photo.fromJS({id: "grr", dateCreated: new Date(1991, 10, 14)}),
-                Photo.fromJS({id: "woof", datePublished: new Date()}),
+                Photo.fromJS({id: "woof", datePublished: new Date(Date.now() + 2000)}),
+                Photo.fromJS({id: "rawr", datePublished: new Date(Date.now() - 2000)}),
                 Photo.fromJS({id: "meow", dateCreated: new Date(1991, 10, 14)})
             ];
 
@@ -47,8 +48,9 @@ describe("util", function () {
             });
             expect(sortedPhotos.map(sortedPhoto => sortedPhoto.id)).to.eql([
                 stubPhotos[1].id,
+                stubPhotos[2].id,
                 stubPhotos[0].id,
-                stubPhotos[2].id
+                stubPhotos[3].id
             ]);
         });
     });
@@ -243,6 +245,20 @@ describe("util", function () {
 
             expect(augmentedHref).to.be.ok;
             expect(augmentedHref).to.eql(expectedAugmentedHref);
+        });
+    });
+
+    describe(".convertLatLongToGeohash", function () {
+        it("returns a geohash", function () {
+            const castedDate = util.convertLatLongToGeohash(49.2845, -123.1116);
+
+            expect(castedDate).to.eql("c2b2qebz5b9w");
+        });
+
+        it("returns a geohash (with custom precision)", function () {
+            const castedDate = util.convertLatLongToGeohash(49.2845, -123.1116, 8);
+
+            expect(castedDate).to.eql("c2b2qebz");
         });
     });
 });

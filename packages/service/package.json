@@ -1,0 +1,86 @@
+{
+  "name": "@randy.tarampi/service",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "version": "1.7.2",
+  "description": "The backend for www.randytarampi.ca",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepare": "sls dynamodb install",
+    "preuninstall:dynamodb": "sls dynamodb remove",
+    "pretest": "gulp -LLLL --color lint",
+    "pretest:dynamodb-local": "npm run kill:dynamodb-local && npm run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\";",
+    "test": "npm run pretest:dynamodb-local && npm run test:actual",
+    "test:actual": "NODE_ENV=test gulp -LLLL --color test",
+    "kill": "npm run kill:dynamodb-local",
+    "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.service.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.service.dynamo.pid`; rm /tmp/ca.randytarampi.me.service.dynamo.pid; fi;",
+    "posttest": "npm run kill",
+    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
+    "clean": "gulp -LLLL --color clean",
+    "preuninstall": "npm run preuninstall:dynamodb && npm run clean",
+    "prestart": "npm run kill",
+    "start": "npm run dev",
+    "start:dynamodb-local": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
+    "dev": "npm run dev:serverless",
+    "dev:serverless": "sls offline start --stage local",
+    "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
+    "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
+    "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1"
+  },
+  "bugs": {
+    "url": "https://github.com/randytarampi/me/issues",
+    "email": "bugs@randytarampi.ca"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@randy.tarampi/js": "^1.7.2",
+    "aws-sdk": "^2.279.1",
+    "aws-xray-sdk": "^2.0.1",
+    "bunyan": "beta",
+    "bunyan-format": "^0.2.1",
+    "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
+    "dynamoose": "^1.0.0",
+    "flickr-sdk": "^3.7.0",
+    "form-data": "^2.3.2",
+    "immutable": "4.0.0-rc.10",
+    "instagram-api": "^1.0.3",
+    "isomorphic-fetch": "^2.2.1",
+    "js-yaml": "^3.12.0",
+    "latlon-geohash": "^1.1.0",
+    "lodash": "^4.17.10",
+    "luxon": "^1.3.3",
+    "mime-types": "^2.1.21",
+    "pad-right": "^0.2.2",
+    "raven": "^2.6.3",
+    "redux": "^4.0.0",
+    "rss": "^1.2.2",
+    "tumblr.js": "^2.0.0",
+    "unsplash-js": "^4.8.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "latest",
+    "gulp": "^4.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
+    "serverless": "^1.28.0",
+    "webpack": "^4.16.0",
+    "webpack-cli": "^3.0.8"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "directories": {
+    "lib": "./src/lib",
+    "test": "./test"
+  }
+}

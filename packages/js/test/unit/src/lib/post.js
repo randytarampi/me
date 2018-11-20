@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import {List} from "immutable";
 import {DateTime} from "luxon";
 import Post from "../../../../src/lib/post";
 import Profile from "../../../../src/lib/profile";
@@ -24,7 +25,10 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                })
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: []
             };
 
             const post = new Post(postJs);
@@ -32,6 +36,141 @@ describe("Post", () => {
             expect(post.type).to.eql(Post.name);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
+            expect(post.dateCreated).to.eql(postJs.dateCreated);
+            expect(post.datePublished).to.eql(postJs.datePublished);
+        });
+
+        it("overrides dateCreated", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: [
+                    "foo",
+                    `❕dateCreated❔${DateTime.utc().plus({years: 1}).valueOf()}`,
+                    `❕datePublished❔${DateTime.utc().plus({years: -1}).valueOf()}`
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(post.dateCreated).to.be.an.instanceOf(DateTime);
+            expect(post.datePublished).to.be.an.instanceOf(DateTime);
+            expect(postJs.tags[1]).to.have.string(post.dateCreated.valueOf().toString());
+            expect(post.datePublished).to.eql(postJs.datePublished);
+        });
+
+        it("overrides lat", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: [
+                    `❕lat❔${-49.2845}`
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(postJs.tags[0]).to.have.string(post.lat.toString());
+            expect(post.long).to.eql(postJs.long);
+        });
+
+        it("overrides lat", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116,
+                tags: [
+                    `❕long❔${+123.1116}`
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(post.lat).to.eql(postJs.lat);
+            expect(postJs.tags[0]).to.have.string(post.long.toString());
+        });
+
+        it("overrides geohash", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                tags: [
+                    "❕geohash❔c2b2qebz5b9w"
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.name);
+            expect(postJs.tags[0]).to.have.string(post.geohash.toString());
         });
 
         it("returns an empty Post", function () {
@@ -62,7 +201,13 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                }
+                },
+                tags: [
+                    "woof",
+                    "meow",
+                    "grr"
+                ],
+                geohash: "c2b2qebz5b9w"
             };
 
             const postFromJson = Post.fromJSON(postJson);
@@ -70,6 +215,8 @@ describe("Post", () => {
             expect(postFromJson).to.be.ok;
             expect(postFromJson.id).to.eql(postJson.id);
             expect(postFromJson.dateCreated).to.be.instanceof(DateTime);
+            expect(postFromJson.tags).to.be.instanceof(List);
+            expect(postFromJson.tags.toJS()).to.eql(postJson.tags);
         });
     });
 
@@ -93,7 +240,9 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                }
+                },
+                lat: 49.2845,
+                long: -123.1116
             };
 
             const postfromJS = Post.fromJS(postJS);
@@ -194,7 +343,9 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                }
+                },
+                lat: 49.2845,
+                long: -123.1116
             };
 
             const postfromJS = Post.fromJS(postJS);
@@ -207,7 +358,9 @@ describe("Post", () => {
                 url: augmentUrlWithTrackingParams(postfromJS.sourceUrl),
                 guid: postfromJS.uid,
                 date: postfromJS.date.toJSDate(),
-                author: `${postfromJS.creator.url} (${postfromJS.creator.name})`
+                author: `${postfromJS.creator.url} (${postfromJS.creator.name})`,
+                lat: 49.2845,
+                long: -123.1116
             });
         });
 
@@ -222,7 +375,9 @@ describe("Post", () => {
                 url: null,
                 guid: postfromJS.uid,
                 date: null,
-                author: null
+                author: null,
+                lat: null,
+                long: null
             });
         });
     });
@@ -365,14 +520,17 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                })
+                }),
+                lat: 49.2845,
+                long: -123.1116
             };
 
             const post = Post.fromJS(postJs);
 
             expect(post.toJS()).to.contain({
                 datePublished: postJs.dateCreated,
-                type: post.type
+                type: post.type,
+                geohash: "c2b2qebz5b9w"
             });
         });
     });
@@ -396,14 +554,16 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                })
+                }),
+                geohash: "c2b2qebz5b9w"
             };
 
             const post = Post.fromJSON(postJson);
+            const json = post.toJSON();
 
-            expect(post.toJSON()).to.contain({
-                datePublished: post.dateCreated
-            });
+            expect(json.datePublished).to.contain(post.dateCreated);
+            expect(json.lat).to.be.closeTo(49.2845, 0.0001);
+            expect(json.long).to.be.closeTo(-123.1116, 0.0001);
         });
 
         it("should set the value of `type` per `#type`", function () {
@@ -433,6 +593,283 @@ describe("Post", () => {
             expect(post.toJSON()).to.contain({
                 type: post.type
             });
+        });
+    });
+
+    describe("#lat", function () {
+        it("returns a passed lat", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.lat).to.eql(postJs.lat);
+        });
+
+        it("returns a lat from a geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                geohash: "c2b2qebz5b9w"
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.lat).to.be.closeTo(49.2845, 0.00001);
+        });
+
+        it("returns null if there's no lat or geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                })
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.lat).to.eql(null);
+        });
+    });
+
+    describe("#long", function () {
+        it("returns a passed long", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.long).to.eql(postJs.long);
+        });
+
+        it("returns a long from a geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                geohash: "c2b2qebz5b9w"
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.long).to.closeTo(-123.1116, 0.00001);
+        });
+
+        it("returns null if there's no long or geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                })
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.long).to.eql(null);
+        });
+    });
+
+    describe("#geohash", function () {
+        it("returns a passed geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                geohash: "c2b2qebz5b9w"
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.geohash).to.eql(postJs.geohash);
+        });
+
+        it("returns a geohash from a lat/long pair", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845,
+                long: -123.1116
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.geohash).to.eql("c2b2qebz5b9w");
+        });
+
+        it("returns null if there's no long or geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                lat: 49.2845
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.geohash).to.eql(null);
+        });
+
+        it("returns null if there's no lat or geohash", () => {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                long: -123.1116
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.geohash).to.eql(null);
         });
     });
 });
