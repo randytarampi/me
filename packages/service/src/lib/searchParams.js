@@ -303,7 +303,7 @@ class SearchParams extends SearchParamsRecord {
 
     get S3() {
         const baseRequest = {
-            Bucket: process.env.S3_BUCKET_NAME
+            Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME
         };
 
         if (this.id) {

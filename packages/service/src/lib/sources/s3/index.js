@@ -9,7 +9,7 @@ class S3Source extends CachedDataSource {
     }
 
     get isEnabled() {
-        return !!process.env.S3_BUCKET_NAME || false;
+        return !!process.env.SERVICE_POSTS_S3_BUCKET_NAME || false;
     }
 
     async postsGetter(searchParams) {
@@ -64,7 +64,7 @@ class S3Source extends CachedDataSource {
             .promise()
             .then(data => {
                 return data && S3Source.jsonToPost({
-                    Bucket: process.env.S3_BUCKET_NAME,
+                    Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                     Key: key,
                     ...data,
                     ...jsyaml.safeLoad(data.Body)

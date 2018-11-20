@@ -40,7 +40,7 @@ describe("S3Source", function () {
     let s3Posts;
 
     beforeEach(function () {
-        process.env.S3_BUCKET_NAME = "S3_BUCKET_NAME";
+        process.env.SERVICE_POSTS_S3_BUCKET_NAME = "SERVICE_POSTS_S3_BUCKET_NAME";
 
         s3Post = {
             id: "woof.yaml",
@@ -182,13 +182,13 @@ describe("S3Source", function () {
     });
 
     describe(".isEnabled", function () {
-        it("`isEnabled` if `process.env.S3_BUCKET_NAME` is defined", function () {
+        it("`isEnabled` if `process.env.SERVICE_POSTS_S3_BUCKET_NAME` is defined", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             expect(s3Source.isEnabled).to.eql(true);
         });
 
-        it("`!isEnabled` if `process.env.S3_BUCKET_NAME` is not defined", function () {
-            delete process.env.S3_BUCKET_NAME;
+        it("`!isEnabled` if `process.env.SERVICE_POSTS_S3_BUCKET_NAME` is not defined", function () {
+            delete process.env.SERVICE_POSTS_S3_BUCKET_NAME;
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             expect(s3Source.isEnabled).to.eql(false);
         });
@@ -209,7 +209,7 @@ describe("S3Source", function () {
                     });
                     sinon.assert.calledOnce(stubServiceClient.listObjectsV2);
                     sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
                 });
@@ -230,11 +230,11 @@ describe("S3Source", function () {
                     });
                     sinon.assert.calledTwice(stubServiceClient.listObjectsV2);
                     sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
                     sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage,
                         ContinuationToken: "woof"
                     });
@@ -252,7 +252,7 @@ describe("S3Source", function () {
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.listObjectsV2);
                     sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
                 });
@@ -275,11 +275,11 @@ describe("S3Source", function () {
                     });
                     sinon.assert.calledTwice(stubServiceClient.listObjectsV2);
                     sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
                     sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage,
                         ContinuationToken: "woof"
                     });
@@ -297,7 +297,7 @@ describe("S3Source", function () {
                     expect(post).to.be.instanceof(Post);
                     sinon.assert.calledOnce(stubServiceClient.getObject);
                     sinon.assert.calledWith(stubServiceClient.getObject, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         Key: stubPost.id
                     });
                 });
@@ -311,7 +311,7 @@ describe("S3Source", function () {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.getObject);
                     sinon.assert.calledWith(stubServiceClient.getObject, {
-                        Bucket: process.env.S3_BUCKET_NAME,
+                        Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         Key: "foo"
                     });
                 });

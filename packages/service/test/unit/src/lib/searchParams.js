@@ -406,7 +406,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS();
 
             expect(searchParams.S3).to.eql({
-                Bucket: process.env.S3_BUCKET_NAME,
+                Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                 MaxKeys: 100
             });
         });
@@ -415,7 +415,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({id: "woof"});
 
             expect(searchParams.S3).to.eql({
-                Bucket: process.env.S3_BUCKET_NAME,
+                Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                 Key: "woof"
             });
         });
