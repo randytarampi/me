@@ -28,6 +28,10 @@
             line-height: $blockLineHeight;
             margin-right: 4px;
         }
+
+        p {
+            margin-top: 0;
+        }
     }
 
     &-text {
@@ -75,6 +79,16 @@
 
 .row .col.post-metadata {
     padding: 0.75em;
+
+    @media #{$medium-and-up} {
+        padding-bottom: 0;
+    }
+}
+
+.row .col.post-content {
+    @media #{$medium-and-up} {
+        padding: 0.75em;
+    }
 }
 
 .dimensions-container--posts {
