@@ -45,6 +45,7 @@ export class PostComponent extends Component {
             <Col
                 className="post-metadata"
                 s={12}
+                l={4}
             >
                 <h1 className="post-title">
                     {
@@ -68,6 +69,12 @@ export class PostComponent extends Component {
                         </p> :
                         null
                 }
+            </Col>
+            <Col
+                className="post-content"
+                s={12}
+                l={8}
+            >
                 {
                     typeof this.props.post.body === "string"
                         ? <div className="post-body">
