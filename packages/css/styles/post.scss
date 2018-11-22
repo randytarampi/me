@@ -1,3 +1,17 @@
+.row .col.post-metadata {
+    padding: 0.75em;
+
+    @media #{$medium-and-up} {
+        padding-bottom: 0;
+    }
+}
+
+.row .col.post-content {
+    @media #{$medium-and-up} {
+        padding: 0.75em;
+    }
+}
+
 .post {
     @extend .z-depth-1;
     margin-bottom: 0;
@@ -48,12 +62,20 @@
     &-title {
         margin-top: 0;
         margin-bottom: 0;
-        overflow-wrap: break-word;
-        word-break: break-word;
     }
 
     &--photo {
         background-size: cover;
+
+        .post-content, .post-metadata {
+            background-size: cover;
+        }
+
+        & .col.post-content {
+            @media #{$medium-and-up} {
+                padding: 0;
+            }
+        }
     }
 
     &--words {
@@ -75,20 +97,6 @@
 
 .photo-text {
     @extend .post-text; // NOTE-RT: Legacy content hooked into this.
-}
-
-.row .col.post-metadata {
-    padding: 0.75em;
-
-    @media #{$medium-and-up} {
-        padding-bottom: 0;
-    }
-}
-
-.row .col.post-content {
-    @media #{$medium-and-up} {
-        padding: 0.75em;
-    }
 }
 
 .dimensions-container--posts {

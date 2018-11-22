@@ -48,8 +48,12 @@ export class PostsComponent extends Component {
                     postsArray
                         ? postsArray.map(post => {
                             const Constructor = getComponentForType(post.type);
-                            return <Constructor key={post.uid} post={post} containerHeight={props.containerHeight}
-                                                containerWidth={props.containerWidth}/>;
+                            return <Constructor
+                                key={post.uid}
+                                post={post}
+                                containerHeight={props.containerHeight}
+                                containerWidth={props.containerWidth}
+                            />;
                         })
                         : <div/>
                 }
