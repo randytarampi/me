@@ -35,6 +35,19 @@
         }
     }
 
+    &-body {
+        &__html {
+            ul {
+                @extend .row;
+
+                li {
+                    @extend .col;
+                    @extend .m6;
+                }
+            }
+        }
+    }
+
     &-html {
         box-decoration-break: clone;
 
