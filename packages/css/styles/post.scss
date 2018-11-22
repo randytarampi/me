@@ -20,7 +20,8 @@
     &-description,
     &-date,
     &-body,
-    &-source {
+    &-source,
+    &-tags {
         &__html {
             @extend .post-html;
         }
@@ -32,6 +33,12 @@
         &__link {
             text-decoration: underline;
             text-decoration-color: $link-color;
+        }
+
+        &__tag {
+            @extend .post-text;
+
+            line-height: 2 !important;
         }
     }
 
