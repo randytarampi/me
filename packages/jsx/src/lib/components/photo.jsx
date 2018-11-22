@@ -160,6 +160,18 @@ export const PostMetadataContent = ({post, title}) => <Fragment>
                 null
         }
     </p>
+    {
+        post.tags && post.tags.size
+            ? <p className="post-tags">
+                <strong className="post-tags__label">Tags:</strong>
+                {
+                    post.tags.map(tag => <Fragment key={tag}>
+                        <span className="post-tags__tag">{tag}</span>&ensp;
+                    </Fragment>)
+                }
+            </p>
+            : null
+    }
 </Fragment>;
 
 PostMetadataContent.propTypes = {
