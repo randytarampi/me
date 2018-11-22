@@ -2,7 +2,10 @@ import {Photo as PhotoEntity} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import ProgressiveImageWrappedPhotoComponent, {PhotoComponent} from "../../../../../src/lib/components/photo";
+import ProgressiveImageWrappedPhotoComponent, {
+    PhotoComponent,
+    PostMetadataContent
+} from "../../../../../src/lib/components/photo";
 
 describe("Photo", function () {
     let stubPhoto;
@@ -133,7 +136,9 @@ describe("Photo", function () {
             expect(rendered).to.have.className("post--photo");
             expect(rendered).to.have.className("post--loading");
 
-            const links = rendered.find(".post-source__link");
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
+            const links = renderedMetadata.find(".post-source__link");
             expect(links).to.have.length(2);
             expect(links.first()).to.have.prop("href", stubPhoto.sourceUrl);
             expect(links.last()).to.have.prop("href", stubPhoto.creator.url);
@@ -179,16 +184,21 @@ describe("Photo", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
+            expect(rendered).to.have.descendants(".post-metadata");
+            expect(rendered).to.have.descendants(".post-content");
 
-            expect(rendered).to.have.descendants(".post-title");
-            expect(rendered).to.have.descendants(".post-title__link");
-            expect(rendered).to.have.descendants(".post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
-            expect(rendered).to.not.have.descendants(".post-date__label.post-date__label--created");
-            expect(rendered).to.not.have.descendants(".post-date__date.post-date__date--created");
-            expect(rendered).to.have.descendants(".post-body");
-            expect(rendered).to.have.descendants(".post-body > p > .post-body__text");
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
+
+            expect(renderedMetadata).to.have.descendants(".post-title");
+            expect(renderedMetadata).to.have.descendants(".post-title__link");
+            expect(renderedMetadata).to.have.descendants(".post-date");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--published");
+            expect(renderedMetadata).to.not.have.descendants(".post-date__label.post-date__label--created");
+            expect(renderedMetadata).to.not.have.descendants(".post-date__date.post-date__date--created");
+            expect(renderedMetadata).to.have.descendants(".post-body");
+            expect(renderedMetadata).to.have.descendants(".post-body > p > .post-body__text");
         });
 
         it("renders (no body)", function () {
@@ -226,15 +236,20 @@ describe("Photo", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
+            expect(rendered).to.have.descendants(".post-metadata");
+            expect(rendered).to.have.descendants(".post-content");
 
-            expect(rendered).to.have.descendants(".post-title");
-            expect(rendered).to.have.descendants(".post-title__link");
-            expect(rendered).to.have.descendants(".post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--created");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--created");
-            expect(rendered).to.not.have.descendants(".post-body");
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
+
+            expect(renderedMetadata).to.have.descendants(".post-title");
+            expect(renderedMetadata).to.have.descendants(".post-title__link");
+            expect(renderedMetadata).to.have.descendants(".post-date");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--created");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--created");
+            expect(renderedMetadata).to.not.have.descendants(".post-body");
         });
 
         it("renders (plain string body)", function () {
@@ -273,17 +288,21 @@ describe("Photo", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
-
             expect(rendered).to.have.descendants(".post-metadata");
-            expect(rendered).to.have.descendants(".post-title");
-            expect(rendered).to.have.descendants(".post-title__link");
-            expect(rendered).to.have.descendants(".post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--created");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--created");
-            expect(rendered).to.have.descendants(".post-body");
-            expect(rendered).to.have.descendants(".post-body > p > .post-body__text");
+            expect(rendered).to.have.descendants(".post-content");
+
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
+
+            expect(renderedMetadata).to.have.descendants(".post-title");
+            expect(renderedMetadata).to.have.descendants(".post-title__link");
+            expect(renderedMetadata).to.have.descendants(".post-date");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--created");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--created");
+            expect(renderedMetadata).to.have.descendants(".post-body");
+            expect(renderedMetadata).to.have.descendants(".post-body > p > .post-body__text");
         });
 
         it("renders (html string body)", function () {
@@ -322,17 +341,20 @@ describe("Photo", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
-
             expect(rendered).to.have.descendants(".post-metadata");
-            expect(rendered).to.have.descendants(".post-title");
-            expect(rendered).to.have.descendants(".post-title__link");
-            expect(rendered).to.have.descendants(".post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--created");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--created");
-            expect(rendered).to.have.descendants(".post-body");
-            expect(rendered).to.have.descendants(".post-body > div");
+            expect(rendered).to.have.descendants(".post-content");
+
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
+            expect(renderedMetadata).to.have.descendants(".post-title");
+            expect(renderedMetadata).to.have.descendants(".post-title__link");
+            expect(renderedMetadata).to.have.descendants(".post-date");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--created");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--created");
+            expect(renderedMetadata).to.have.descendants(".post-body");
+            expect(renderedMetadata).to.have.descendants(".post-body > div");
         });
 
         it("renders (array body)", function () {
@@ -375,89 +397,22 @@ describe("Photo", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
-
             expect(rendered).to.have.descendants(".post-metadata");
-            expect(rendered).to.have.descendants(".post-title");
-            expect(rendered).to.have.descendants(".post-title__link");
-            expect(rendered).to.have.descendants(".post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--created");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--created");
-            expect(rendered).to.have.descendants(".post-body");
-            expect(rendered).to.have.descendants(".post-body > div");
-            expect(rendered).to.have.descendants(".post-body > p > .post-body__text");
-        });
+            expect(rendered).to.have.descendants(".post-content");
 
-        describe("#width", function () {
-            it("returns the `selected.width`", function () {
-                stubPhoto = PhotoEntity.fromJSON({
-                    id: "woof",
-                    type: "Woof",
-                    source: "Woofdy",
-                    dateCreated: new Date(1900, 0, 1).toISOString(),
-                    datePublished: new Date(2500, 0, 1).toISOString(),
-                    width: -1,
-                    height: -2,
-                    sizedPhotos: [
-                        {url: "woof://woof.woof/woof/woofto", width: 640, height: 480},
-                        {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
-                    ],
-                    title: "Woof woof woof",
-                    body: [
-                        "ʕ•ᴥ•ʔ",
-                        "<span class=\"Woof\">ʕ•ᴥ•ʔ</span>",
-                        "ʕ◠ᴥ◠ʔ"
-                    ],
-                    sourceUrl: "woof://woof.woof/woof",
-                    creator: {
-                        id: -1,
-                        username: "ʕ•ᴥ•ʔ",
-                        name: "ʕ•ᴥ•ʔ",
-                        url: "woof://woof.woof/woof/woof/woof"
-                    }
-                });
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
 
-                const stubProps = {
-                    post: stubPhoto,
-                    containerHeight: 123,
-                    containerWidth: 123,
-                    isLoading: false,
-                    source: stubPhoto.getSizedPhotoForLoading().url
-                };
-                const rendered = shallow(<PhotoComponent {...stubProps}/>);
-
-                expect(rendered).to.be.ok;
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--photo");
-
-                const component = rendered.instance();
-                expect(component).to.be.ok;
-                expect(component.width).to.be.ok;
-                expect(component.width).to.eql(component.selected.width);
-            });
-        });
-
-        describe("#height", function () {
-            it("returns the `selected.height`", function () {
-                const stubProps = {
-                    post: stubPhoto,
-                    containerHeight: 123,
-                    containerWidth: 123,
-                    isLoading: false,
-                    source: stubPhoto.getSizedPhotoForLoading().url
-                };
-                const rendered = shallow(<PhotoComponent {...stubProps}/>);
-
-                expect(rendered).to.be.ok;
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--photo");
-
-                const component = rendered.instance();
-                expect(component).to.be.ok;
-                expect(component.height).to.be.ok;
-                expect(component.height).to.eql(component.selected.height);
-            });
+            expect(renderedMetadata).to.have.descendants(".post-title");
+            expect(renderedMetadata).to.have.descendants(".post-title__link");
+            expect(renderedMetadata).to.have.descendants(".post-date");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--published");
+            expect(renderedMetadata).to.have.descendants(".post-date__label.post-date__label--created");
+            expect(renderedMetadata).to.have.descendants(".post-date__date.post-date__date--created");
+            expect(renderedMetadata).to.have.descendants(".post-body");
+            expect(renderedMetadata).to.have.descendants(".post-body > div");
+            expect(renderedMetadata).to.have.descendants(".post-body > p > .post-body__text");
         });
 
         describe("#selected", function () {
