@@ -9,19 +9,21 @@ import {CampaignLink} from "./link";
 
 export class PostComponent extends Component {
     get width() {
-        return this.containerWidth;
+        const postElement = document.getElementById(this.props.post.uid);
+        return postElement ? postElement.clientWidth : this.props.containerHeight;
     }
 
     get height() {
-        return this.containerHeight;
-    }
-
-    get containerWidth() {
-        return this.props.containerWidth;
+        const postElement = document.getElementById(this.props.post.uid);
+        return postElement ? postElement.clientHeight : this.props.containerWidth;
     }
 
     get containerHeight() {
         return this.props.containerHeight;
+    }
+
+    get containerWidth() {
+        return this.props.containerWidth;
     }
 
     get scaledHeight() {
