@@ -57,7 +57,13 @@
         }
 
         p {
-            margin-top: 0;
+            &:first-of-type {
+                margin-top: 0.5rem;
+            }
+
+            & + p {
+                margin-top: 0;
+            }
         }
     }
 
