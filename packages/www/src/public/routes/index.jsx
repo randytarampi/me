@@ -7,9 +7,9 @@ import {Tab} from "react-materialize";
 import {Redirect} from "react-router";
 import Main from "../views/main";
 
-export const PhotosRouteHandler = () => <Redirect to="/blog"/>;
-export const WordsRouteHandler = () => <Redirect to="/blog"/>;
-export const BlogRouteHandler = () => <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`}/>;
+export const PhotosRouteHandler = props => <Redirect {...props} to="/blog"/>;
+export const WordsRouteHandler = props => <Redirect {...props} to="/blog"/>;
+export const BlogRouteHandler = props => <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />;
 
 const augmentWithPathRegExp = ({routes, ...route}) => {
     if (route.path) {
