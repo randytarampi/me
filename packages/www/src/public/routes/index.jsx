@@ -28,54 +28,63 @@ const routes = [
         component: Main,
         exact: true,
         path: "/",
-        tab: <Tab title={ // FIXME-RT: Ideally these `Tab`s wouldn't be instantiated, but stateless components. Can't do that because of how `react-materialize` and `$` interact to manage the selection state internally. Maybe this goes away with `react-materialize^3` and `materialize^1`?
-            <Fragment>
-                <i className="far fa-hand-paper"></i>
-                <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hey!</span>
-            </Fragment>
-        }></Tab>
+        tab: <Tab
+            key="/"
+            title={ // FIXME-RT: Ideally these `Tab`s wouldn't be instantiated, but stateless components. Can't do that because of how `react-materialize` and `$` interact to manage the selection state internally. Maybe this goes away with `react-materialize^3` and `materialize^1`?
+                <Fragment>
+                    <i className="far fa-hand-paper"></i>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hey!</span>
+                </Fragment>
+            }
+        />
     },
     {
         component: BlogRouteHandler,
-        exact: true,
         path: "/blog",
-        tab: <Tab title={
-            <Fragment>
-                <i className="fas fa-comment-alt"></i>
-                <span className="hide-on-med-and-down">&nbsp;|&nbsp;Blog</span>
-            </Fragment>
-        }/>
+        tab: <Tab
+            key="/blog"
+            title={
+                <Fragment>
+                    <i className="fas fa-comment-alt"></i>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Blog</span>
+                </Fragment>
+            }
+        />
     },
     {
         component: ConnectedLetter,
         path: "/letter/:variant?",
-        tab: <Tab title={
-            <Fragment>
-                <i className="fas fa-file-signature"></i>
-                <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hire me</span>
-            </Fragment>
-        }/>
+        tab: <Tab
+            key="/letter"
+            title={
+                <Fragment>
+                    <i className="fas fa-file-signature"></i>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hire me</span>
+                </Fragment>
+            }
+        />
     },
     {
         component: ConnectedResume,
         path: "/resume/:variant?",
-        tab: <Tab title={
-            <Fragment>
-                <i className="fas fa-portrait"></i>
-                <span className="hide-on-med-and-down">&nbsp;|&nbsp;About me</span>
-            </Fragment>
-        }/>
+        tab: <Tab
+            key="/resume"
+            title={
+                <Fragment>
+                    <i className="fas fa-portrait"></i>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;About me</span>
+                </Fragment>
+            }
+        />
     },
 
     // NOTE-RT: We need to render these redirect in `ReduxRouterRoot` for them to work so these need to be pulled out
     {
         component: PhotosRouteHandler,
-        exact: true,
         path: "/photos"
     },
     {
         component: WordsRouteHandler,
-        exact: true,
         path: "/words"
     },
 
