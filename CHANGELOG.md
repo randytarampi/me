@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.5](https://github.com/randytarampi/me/compare/v2.0.4...v2.0.5) (2018-11-23)
+
+
+### Bug Fixes
+
+* **letter:** Fix very embarrassing spelling error. ([352c56a](https://github.com/randytarampi/me/commit/352c56a))
+
+
+
+
+
 ## [2.0.4](https://github.com/randytarampi/me/compare/v2.0.3...v2.0.4) (2018-11-22)
 
 
