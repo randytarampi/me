@@ -137,11 +137,3 @@ gulp.task("job-applications", async () => {
 gulp.task("job-application", gulp.series([
     "job-application:pdf"
 ]));
-
-gulp.task("build", gulp.series([
-    "job-applications"
-]));
-
-gulp.task("default", gulp.series([
-    "build"
-]));

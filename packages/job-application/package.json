@@ -23,8 +23,7 @@
   "scripts": {
     "postinstall": "mkdir -p dist",
     "pretest": "gulp -LLLL --color lint",
-    "build": "npm run build:gulp && npm run build:babel",
-    "build:gulp": "gulp -LLLL --color build",
+    "build": "npm run build:babel",
     "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
