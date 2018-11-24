@@ -11,7 +11,7 @@ import padRight from "pad-right";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
- * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, _rawFilter: object, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string}}
+ * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, _rawFilter: object, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string}}
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
@@ -36,6 +36,7 @@ const searchParamsRecordDefinition = {
     beforeId: null,
     afterId: null,
     continuationToken: null,
+    tags: null,
 
     // NOTE-RT: For individual posts
     width: undefined,
@@ -162,7 +163,7 @@ class SearchParams extends SearchParamsRecord {
             // NOTE-RT: Assume all other cases will have `orderComparator` defined, which takes care of any ambiguity here
         }
 
-        const filter = {
+        const filters = {
             ...this._rawFilter
         };
         let comparator = this.orderComparator;
@@ -188,6 +189,29 @@ class SearchParams extends SearchParamsRecord {
 
         if (this.perPage) {
             options.limit = this.perPage;
+        }
+
+        if (this.tags) { // FIXME-RT: Ideally this would do a filtered query on an index, but let's save that for when I blow this up and move the logic into db/models/post
+            filters.tags = {
+                contains: this.tags.split(",")
+            };
+
+            if (this.type) {
+                filters.type = this.type;
+            }
+
+            if (this.source) {
+                filters.source = this.source;
+            }
+
+            if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
+                filters[this.orderBy] = {[this.orderOperator]: comparator};
+            }
+
+            return {
+                _options: options,
+                _filter: filters
+            };
         }
 
         if (this.uid) {
@@ -297,7 +321,7 @@ class SearchParams extends SearchParamsRecord {
 
         return { // NOTE-RT: Just scan the entire table until we know enough of what we'd want to scan (instead of query) for
             _options: options,
-            _filter: filter
+            _filter: filters
         };
     }
 
