@@ -13,12 +13,21 @@ const routes = [
         component: Posts,
         path: "/posts",
         exact: true,
-        tab: <span>Posts</span>
+        tab: <span>Posts</span>,
+        routes: [
+            {
+                component: Posts,
+                path: "/posts/:filter"
+            },
+            {
+                component: Posts,
+                path: "/posts/:filter/:filterValue"
+            }
+        ]
     },
     {
         component: Error,
-        path: "/error",
-        exact: true
+        path: "/error"
     },
     {
         component: Error

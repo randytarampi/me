@@ -6,18 +6,17 @@ import {swipeableChangeIndexCreator} from "../actions";
 import selectors from "../data/selectors";
 
 export const ConnectedSwipeableRoutes = withRouter(connect(
-    (state, {routes, location: routerLocation}) => {
+    (state, {location}) => {
         const swipeableIndex = selectors.getSwipeableIndex(state);
-        const location = selectors.getLocation(state);
-        const indexForRouterLocation = selectors.getIndexForRoute(state, routerLocation.pathname);
+        const indexForRouterLocation = selectors.getIndexForRoute(state, location.pathname);
         const indexForRoute = Number.isInteger(indexForRouterLocation)
             ? indexForRouterLocation
-            : routes.length - 1;
+            : undefined;
         const index = swipeableIndex !== null
             ? swipeableIndex
             : indexForRoute !== -1
                 ? indexForRoute
-                : routes.length - 1;
+                : undefined;
 
         return {
             location,
