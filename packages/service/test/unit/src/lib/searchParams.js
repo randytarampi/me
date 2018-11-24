@@ -172,6 +172,66 @@ describe("SearchParams", function () {
             });
         });
 
+        it("should properly format properties for tags", function () {
+            const searchParams = SearchParams.fromJS({
+                tags: "woof"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _filter: {
+                    tags: {contains: ["woof"]}
+                },
+                _options: {limit: 100, descending: true, all: false}
+            });
+        });
+
+        it("should properly format properties for tags & type", function () {
+            const searchParams = SearchParams.fromJS({
+                tags: "woof,meow",
+                type: "Post"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _filter: {
+                    tags: {contains: ["woof", "meow"]},
+                    type: "Post"
+                },
+                _options: {limit: 100, descending: true, all: false}
+            });
+        });
+
+        it("should properly format properties for tags & source", function () {
+            const searchParams = SearchParams.fromJS({
+                tags: "woof",
+                source: "tumblr"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _filter: {
+                    tags: {contains: ["woof"]},
+                    source: "tumblr"
+                },
+                _options: {limit: 100, descending: true, all: false}
+            });
+        });
+
+        it("should properly format properties for tags & orderBy", function () {
+            const searchParams = SearchParams.fromJS({
+                tags: "woof",
+                orderBy: "meow",
+                orderOperator: "gt",
+                orderComparator: "5"
+            });
+
+            expect(searchParams.Dynamoose).to.eql({
+                _filter: {
+                    tags: {contains: ["woof"]},
+                    [searchParams.orderBy]: {[searchParams.orderOperator]: Number(searchParams.orderComparator)}
+                },
+                _options: {limit: 100, descending: true, all: false}
+            });
+        });
+
         it("should properly format properties for type", function () {
             const searchParams = SearchParams.fromJS({type: "woof"});
 
