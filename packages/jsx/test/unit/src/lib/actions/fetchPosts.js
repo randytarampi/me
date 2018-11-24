@@ -157,7 +157,8 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload (first page)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE
+                perPage: FETCHING_POSTS_PER_PAGE,
+                type: undefined
             };
             const stubPostsResponse = {
                 posts: ["woof"],
@@ -232,6 +233,7 @@ describe("fetchPosts", function () {
             const stubLoadedPost = Post.fromJSON({dateCreated: DateTime.utc(2018, 8, 22)});
             const stubSearchParams = {
                 perPage: FETCHING_POSTS_PER_PAGE,
+                type: undefined,
                 orderComparator: stubLoadedPost.dateCreated.toISO(),
                 orderBy: "datePublished",
                 orderComparatorType: "String",
@@ -304,7 +306,8 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload (no posts)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE
+                perPage: FETCHING_POSTS_PER_PAGE,
+                type: undefined
             };
             const stubPostsResponse = {
                 posts: [],
@@ -441,7 +444,8 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload (fetch error)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE
+                perPage: FETCHING_POSTS_PER_PAGE,
+                type: undefined
             };
             const stubPostsResponse = new Error("woof");
 
@@ -493,7 +497,8 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE
+                perPage: FETCHING_POSTS_PER_PAGE,
+                type: undefined
             };
             const stubPostsResponse = {
                 posts: ["woof"],

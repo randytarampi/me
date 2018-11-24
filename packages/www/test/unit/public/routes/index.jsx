@@ -27,7 +27,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <Redirect to="/blog"/>
+                <Redirect to="/blog/words"/>
             );
         });
     });
@@ -38,7 +38,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <Redirect to="/blog"/>
+                <Redirect to="/blog/photos"/>
             );
         });
     });

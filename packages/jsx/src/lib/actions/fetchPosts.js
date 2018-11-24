@@ -40,8 +40,9 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
 
     const searchParams = {
         perPage: FETCHING_POSTS_PER_PAGE,
+        type: type !== "global" && type || undefined,
         ...(
-            oldestLoadedPostDate && (type === "global" || oldestLoadedPost.type === type)
+            oldestLoadedPostDate
                 ? {
                     orderBy: "datePublished",
                     orderOperator: "lt",

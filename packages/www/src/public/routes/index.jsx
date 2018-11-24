@@ -1,26 +1,31 @@
 import {ConnectedError, ConnectedPosts} from "@randy.tarampi/jsx";
 import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
-import pathToRegExp from "path-to-regexp";
 import React, {Fragment} from "react";
 import {Tab} from "react-materialize";
 import {Redirect} from "react-router";
 import Main from "../views/main";
 
-export const PhotosRouteHandler = props => <Redirect {...props} to="/blog"/>;
-export const WordsRouteHandler = props => <Redirect {...props} to="/blog"/>;
+export const PhotosRouteHandler = props => <Redirect {...props} to="/blog/photos"/>;
+export const WordsRouteHandler = props => <Redirect {...props} to="/blog/words"/>;
 export const BlogRouteHandler = props => <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />;
+export const BlogPostRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Post" {...props} />;
+export const BlogPhotoRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Photo" {...props} />;
 
-const augmentWithPathRegExp = ({routes, ...route}) => {
-    if (route.path) {
-        route.pathRegExp = pathToRegExp(route.path);
+const augmentWithParent = (parent = null) => ({routes, ...route}) => {
+    if (parent) {
+        route.parent = {
+            path: parent.path,
+            tab: !!parent.tab,
+            parent: parent.parent
+        };
     }
 
     if (routes) {
-        route.routes = routes.map(augmentWithPathRegExp);
+        route.routes = routes.map(augmentWithParent(route));
     }
 
-    return route; // FIXME-RT: This would really be a lot better if it returned some kind of `Route` record instead of a plain object, that way I could properly revive the `pathRegExp` when `redux-offline` revives my local state.
+    return route;
 };
 
 const routes = [
@@ -49,11 +54,31 @@ const routes = [
                     <span className="hide-on-med-and-down">&nbsp;|&nbsp;Blog</span>
                 </Fragment>
             }
-        />
+        />,
+        routes: [
+            {
+                component: BlogPhotoRouteHandler,
+                exact: true,
+                path: "/blog/photos"
+            },
+            {
+                component: BlogPostRouteHandler,
+                exact: true,
+                path: "/blog/words"
+            },
+            {
+                component: BlogRouteHandler,
+                path: "/blog/:filter"
+            },
+            {
+                component: BlogRouteHandler,
+                path: "/blog/:filter/:filterValue",
+            }
+        ]
     },
     {
         component: ConnectedLetter,
-        path: "/letter/:variant?",
+        path: "/letter",
         tab: <Tab
             key="/letter"
             title={
@@ -62,11 +87,17 @@ const routes = [
                     <span className="hide-on-med-and-down">&nbsp;|&nbsp;Hire me</span>
                 </Fragment>
             }
-        />
+        />,
+        routes: [
+            {
+                component: ConnectedLetter,
+                path: "/letter/:variant",
+            }
+        ]
     },
     {
         component: ConnectedResume,
-        path: "/resume/:variant?",
+        path: "/resume",
         tab: <Tab
             key="/resume"
             title={
@@ -75,7 +106,13 @@ const routes = [
                     <span className="hide-on-med-and-down">&nbsp;|&nbsp;About me</span>
                 </Fragment>
             }
-        />
+        />,
+        routes: [
+            {
+                component: ConnectedResume,
+                path: "/resume/:variant",
+            }
+        ]
     },
 
     // NOTE-RT: We need to render these redirect in `ReduxRouterRoot` for them to work so these need to be pulled out
@@ -87,11 +124,9 @@ const routes = [
         component: WordsRouteHandler,
         path: "/words"
     },
-
     {
-        component: ConnectedError,
-        path: "/:unsupportedPath+"
+        component: ConnectedError
     }
-].map(augmentWithPathRegExp);
+].map(augmentWithParent());
 
 export default routes;
