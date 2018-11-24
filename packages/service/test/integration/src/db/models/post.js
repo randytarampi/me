@@ -124,6 +124,44 @@ describe("Post", function () {
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto.type).to.eql(Photo.name);
         });
+
+        it("retrieves a Post (tags)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    raw: {},
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        url: "grr://grr.grr/grr/grr/grr"
+                    },
+                    tags: [
+                        "woof"
+                    ]
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPost = await getPost({_filter: {tags: {CONTAINS: ["woof"]}}});
+            expect(retrievedPost).to.be.ok;
+            expect(retrievedPost.uid).to.eql(stubPost.uid);
+            expect(retrievedPost.type).to.eql(Post.name);
+        });
     });
 
     describe("createPosts", function () {
@@ -291,6 +329,90 @@ describe("Post", function () {
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
+
+        it("retrieves posts (tags)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    raw: {},
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        url: "grr://grr.grr/grr/grr/grr"
+                    },
+                    tags: [
+                        "woof"
+                    ]
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(2);
+            return await Promise.all(retrievedPosts.map(retrievedPost => {
+                expect(retrievedPost).to.be.ok;
+                expect(retrievedPost.tags).to.contain("woof");
+            }));
+        });
+
+        it("retrieves posts (scan with a limit)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    raw: {},
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        url: "grr://grr.grr/grr/grr/grr"
+                    },
+                    tags: [
+                        "woof"
+                    ]
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 1}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(1);
+            return await Promise.all(retrievedPosts.map(retrievedPost => {
+                expect(retrievedPost).to.be.ok;
+                expect(retrievedPost.type).to.eql(Post.name);
+            }));
+        });
     });
 
     describe("getPostCount", function () {
@@ -413,6 +535,43 @@ describe("Post", function () {
             });
             expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(1);
+        });
+
+        it("retrieves posts (tags)", async function () {
+            const moreThanOnePhoto = stubPosts.concat([
+                Photo.fromJSON({
+                    raw: {},
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        url: "grr://grr.grr/grr/grr/grr"
+                    },
+                    tags: [
+                        "woof"
+                    ]
+                })
+            ]);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPostCount({_filter: {tags: {CONTAINS: ["woof"]}}});
+            expect(retrievedPosts).to.be.ok;
+            expect(retrievedPosts).to.eql(2);
         });
     });
 });
