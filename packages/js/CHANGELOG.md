@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/randytarampi/me/compare/v2.0.5...v2.0.6) (2018-11-24)
+
+**Note:** Version bump only for package @randy.tarampi/js
+
+
+
+
+
 ## [2.0.5](https://github.com/randytarampi/me/compare/v2.0.4...v2.0.5) (2018-11-23)
 
 **Note:** Version bump only for package @randy.tarampi/js

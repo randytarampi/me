@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/randytarampi/me/compare/v2.0.5...v2.0.6) (2018-11-24)
+
+
+### Bug Fixes
+
+* **service:** `Post` model operations using `scan` should actually work. ([ffddbba](https://github.com/randytarampi/me/commit/ffddbba))
+* **service:** Don't run X-Ray when `IS_OFFLINE` or in `test`. ([23aeb4b](https://github.com/randytarampi/me/commit/23aeb4b))
+
+
+
+
+
 ## [2.0.5](https://github.com/randytarampi/me/compare/v2.0.4...v2.0.5) (2018-11-23)
 
 
