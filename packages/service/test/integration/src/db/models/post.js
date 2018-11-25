@@ -31,7 +31,7 @@ describe("Post", function () {
                 url: "woof://woof.woof/woof/woof/woof"
             },
             tags: [
-                "woof",
+                "Woof",
                 "meow",
                 "",
                 "grr"
@@ -95,7 +95,7 @@ describe("Post", function () {
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
             expect(postFromDb).to.be.ok;
-            expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).toArray());
+            expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).map(tag => tag.toLowerCase()).toArray());
             expect(postFromDb.tags).to.not.have.members([""]);
         });
     });
@@ -152,7 +152,7 @@ describe("Post", function () {
                         url: "grr://grr.grr/grr/grr/grr"
                     },
                     tags: [
-                        "woof"
+                        "Woof"
                     ]
                 })
             ]);

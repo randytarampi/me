@@ -193,7 +193,9 @@ class SearchParams extends SearchParamsRecord {
 
         if (this.tags) { // FIXME-RT: Ideally this would do a filtered query on an index, but let's save that for when I blow this up and move the logic into db/models/post
             filters.tags = {
-                contains: this.tags.split(",")
+                contains: this.tags
+                    .split(",")
+                    .map(string => string.toLowerCase())
             };
 
             if (this.type) {
