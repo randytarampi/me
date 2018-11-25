@@ -37,7 +37,7 @@ export class PostsComponent extends Component {
                 containerHeight={props.containerHeight}
                 useWindowAsScrollContainer={true}
                 elementHeight={elementHeight}
-                infiniteLoadBeginEdgeOffset={window.innerHeight / FETCHING_POSTS_PER_PAGE}
+                infiniteLoadBeginEdgeOffset={window.innerHeight}
                 preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
                 preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                 onInfiniteLoad={props.fetchPosts}
@@ -48,8 +48,12 @@ export class PostsComponent extends Component {
                     postsArray
                         ? postsArray.map(post => {
                             const Constructor = getComponentForType(post.type);
-                            return <Constructor key={post.uid} post={post} containerHeight={props.containerHeight}
-                                                containerWidth={props.containerWidth}/>;
+                            return <Constructor
+                                key={post.uid}
+                                post={post}
+                                containerHeight={props.containerHeight}
+                                containerWidth={props.containerWidth}
+                            />;
                         })
                         : <div/>
                 }

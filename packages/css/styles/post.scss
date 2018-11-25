@@ -1,3 +1,13 @@
+.row .col.post-metadata {
+    padding: 0.75rem 0.75rem 0;
+}
+
+.row .col.post-content {
+    @media #{$medium-and-up} {
+        padding: 0.75rem;
+    }
+}
+
 .post {
     @extend .z-depth-1;
     margin-bottom: 0;
@@ -6,18 +16,41 @@
     &-description,
     &-date,
     &-body,
-    &-source {
+    &-source,
+    &-tags {
         &__html {
             @extend .post-html;
         }
 
-        &__link, &__text, &__label, &__date {
+        &__link, &__text, &__label, &__date, &__tag {
             @extend .post-text;
         }
 
-        &__link {
+        &__link, &__tag {
             text-decoration: underline;
             text-decoration-color: $link-color;
+        }
+    }
+
+    &-source,
+    &-date,
+    &-tags {
+        &__link, &__text, &__label, &__date, &__tag {
+            line-height: 2 !important;
+        }
+    }
+
+    &-body {
+        &__html {
+            ul {
+                @extend .row;
+
+                li {
+                    @extend .col;
+                    @extend .m6;
+                    @extend .s12;
+                }
+            }
         }
     }
 
@@ -27,6 +60,16 @@
         ul {
             line-height: $blockLineHeight;
             margin-right: 4px;
+        }
+
+        p {
+            &:first-of-type {
+                margin-top: 0.5rem;
+            }
+
+            & + p {
+                margin-top: 0;
+            }
         }
     }
 
@@ -44,12 +87,20 @@
     &-title {
         margin-top: 0;
         margin-bottom: 0;
-        overflow-wrap: break-word;
-        word-break: break-word;
     }
 
     &--photo {
         background-size: cover;
+
+        .post-content, .post-metadata {
+            background-size: cover;
+        }
+
+        & .col.post-content {
+            @media #{$medium-and-up} {
+                padding: 0;
+            }
+        }
     }
 
     &--words {
@@ -71,10 +122,6 @@
 
 .photo-text {
     @extend .post-text; // NOTE-RT: Legacy content hooked into this.
-}
-
-.row .col.post-metadata {
-    padding: 0.75em;
 }
 
 .dimensions-container--posts {

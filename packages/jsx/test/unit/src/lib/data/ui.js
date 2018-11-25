@@ -91,9 +91,9 @@ describe("ui", function () {
         it("reduces the correct state (has existing state)", function () {
             stubInitialState = Map({
                 routes: List([
-                    {path: "woof", tab: 1, pathRegExp: /wooof/}, // NOTE-RT: Deliberately match `woof` to `/.*/`
-                    {path: "meow", tab: 2, pathRegExp: /meow/},
-                    {path: "grr", tab: 3, pathRegExp: /.*/}
+                    {path: "woof", tab: 1},
+                    {path: "meow", tab: 2},
+                    {path: "grr", tab: 3}
                 ]),
                 swipeable: Map({
                     index: 0,
@@ -117,10 +117,10 @@ describe("ui", function () {
             const route = getRouteForIndex(updatedState, 1);
             expect(route).to.eql(stubInitialState.get("routes").get(1));
             const routeIndex = getIndexForRoute(updatedState, stubRoute);
-            expect(routeIndex).to.eql(2);
+            expect(routeIndex).to.eql(0);
 
             const swipeableIndex = getSwipeableIndex(updatedState);
-            expect(swipeableIndex).to.eql(2);
+            expect(swipeableIndex).to.eql(0);
         });
     });
 
@@ -149,9 +149,9 @@ describe("ui", function () {
         it("reduces the correct state (has existing state)", function () {
             stubInitialState = Map({
                 routes: List([
-                    {path: "woof", tab: 1, pathRegExp: /woof/}, // NOTE-RT: Properly match `woof`
-                    {path: "meow", tab: 2, pathRegExp: /meow/},
-                    {path: "grr", tab: 3, pathRegExp: /.*/}
+                    {path: "woof", tab: 1},
+                    {path: "meow", tab: 2},
+                    {path: "grr", tab: 3}
                 ]),
                 swipeable: Map({
                     index: 0,
@@ -213,9 +213,9 @@ describe("ui", function () {
         it("reduces the correct state (has existing state)", function () {
             stubInitialState = Map({
                 routes: List([
-                    {path: "woof", tab: 1, pathRegExp: /woof/}, // NOTE-RT: Properly match `woof`
-                    {path: "meow", tab: 2, pathRegExp: /meow/},
-                    {path: "grr", tab: 3, pathRegExp: /.*/}
+                    {path: "woof", tab: 1},
+                    {path: "meow", tab: 2},
+                    {path: "grr", tab: 3}
                 ]),
                 swipeable: Map({
                     index: 0,

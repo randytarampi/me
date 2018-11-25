@@ -18,8 +18,14 @@ export const postsReducer = (state = Map({posts: Set(), oldest: Map(), newest: M
 
         case FETCHING_POSTS_SUCCESS: {
             if (action.payload.posts) {
-                return state
-                    .set("posts", state.get("posts").union(action.payload.posts))
+                const updatedState = state
+                    .set("posts", state.get("posts").union(action.payload.posts));
+
+                if (action.payload.searchParams.tags) {
+                    return updatedState;
+                }
+
+                return updatedState
                     .set("oldest", buildOldestOrNewestPostMeta(action.payload, "oldest"))
                     .set("newest", buildOldestOrNewestPostMeta(action.payload, "newest"));
             }
@@ -44,33 +50,28 @@ export default postsReducer;
 export const getPostsState = state => state;
 export const getPosts = state => state.get("posts");
 
-export const getPhotoPosts = createSelector(
-    getPosts,
-    posts => posts.filter(post => post instanceof Photo)
-);
-export const getWordPosts = createSelector(
-    getPosts,
-    posts => posts.filter(post => post instanceof Post)
-);
+export const createFilteredPostsSelector = (...filterOrSelectors) => filterOrSelectors.length > 1
+    ? createSelector(...filterOrSelectors)
+    : createSelector(getPosts, ...filterOrSelectors);
 
-export const getPostsSortedByDate = createSelector(
-    getPosts,
-    posts => posts.sort(sortPostsByDate)
-);
-export const getPhotoPostsSortedByDate = createSelector(
+export const getPhotoPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Photo));
+export const getWordPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Post));
+
+export const getPostsSortedByDate = createFilteredPostsSelector(posts => posts.sort(sortPostsByDate));
+export const getPhotoPostsSortedByDate = createFilteredPostsSelector(
     getPhotoPosts,
     posts => posts.sort(sortPostsByDate)
 );
-export const getWordPostsSortedByDate = createSelector(
+export const getWordPostsSortedByDate = createFilteredPostsSelector(
     getWordPosts,
     posts => posts.sort(sortPostsByDate)
 );
 
-export const getOldestPost = createSelector(
+export const getOldestPost = createFilteredPostsSelector(
     getPostsSortedByDate,
     sortedPosts => sortedPosts.last()
 );
-export const getNewestPost = createSelector(
+export const getNewestPost = createFilteredPostsSelector(
     getPostsSortedByDate,
     sortedPosts => sortedPosts.first()
 );

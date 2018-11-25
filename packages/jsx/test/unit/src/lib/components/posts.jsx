@@ -5,6 +5,7 @@ import {Set} from "immutable";
 import React from "react";
 import Infinite from "react-infinite";
 import sinon from "sinon";
+import {FETCHING_POSTS_PER_PAGE} from "../../../../../src/lib/actions/fetchPosts";
 import LoadingSpinner from "../../../../../src/lib/components/loadingSpinner";
 import DimensionsContainerWrappedPosts, {
     DimensionsWrappedPosts,
@@ -12,7 +13,6 @@ import DimensionsContainerWrappedPosts, {
 } from "../../../../../src/lib/components/posts";
 import computePostHeight from "../../../../../src/lib/util/computePostHeight";
 import getComponentForType from "../../../../../src/lib/util/getComponentForType";
-import {FETCHING_POSTS_PER_PAGE} from "../../../../../src/lib/actions/fetchPosts";
 
 describe("Posts", function () {
     let stubPosts;
@@ -62,7 +62,7 @@ describe("Posts", function () {
                 <Infinite
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
-                    infiniteLoadBeginEdgeOffset={window.innerHeight / FETCHING_POSTS_PER_PAGE}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
                     preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
                     preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                     elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
@@ -99,7 +99,7 @@ describe("Posts", function () {
                 <Infinite
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
-                    infiniteLoadBeginEdgeOffset={window.innerHeight / FETCHING_POSTS_PER_PAGE}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
                     preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
                     preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                     elementHeight={[window.innerHeight]}

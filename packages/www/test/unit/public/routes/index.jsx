@@ -6,7 +6,13 @@ import React from "react";
 import {Redirect} from "react-router";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {BlogRouteHandler, PhotosRouteHandler, WordsRouteHandler} from "../../../../src/public/routes";
+import {
+    BlogPhotoRouteHandler,
+    BlogRouteHandler,
+    BlogWordsRouteHandler,
+    PhotosRouteHandler,
+    WordsRouteHandler
+} from "../../../../src/public/routes";
 
 describe("routes", function () {
     let mockStore;
@@ -27,7 +33,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <Redirect to="/blog"/>
+                <Redirect to="/blog/words"/>
             );
         });
     });
@@ -38,7 +44,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <Redirect to="/blog"/>
+                <Redirect to="/blog/photos"/>
             );
         });
     });
@@ -50,6 +56,28 @@ describe("routes", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`}/>
+            );
+        });
+    });
+
+    describe("BlogPhotoRouteHandler", function () {
+        it("renders", function () {
+            const rendered = shallow(stubStore)(<BlogPhotoRouteHandler/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.contain(
+                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Photo"/>
+            );
+        });
+    });
+
+    describe("BlogWordsRouteHandler", function () {
+        it("renders", function () {
+            const rendered = shallow(stubStore)(<BlogWordsRouteHandler/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.contain(
+                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Post"/>
             );
         });
     });

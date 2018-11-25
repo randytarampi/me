@@ -3,6 +3,7 @@ import {expect} from "chai";
 import {Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
+import {REHYDRATE} from "redux-persist/constants";
 import {fetchingPostsSuccess} from "../../../../../src/lib/actions/fetchPosts";
 import reducer, {
     getNewestPost,
@@ -48,6 +49,69 @@ describe("posts", function () {
         expect(posts.toArray()).to.eql([]);
     });
 
+    describe("REHYDRATE", function () {
+        it("reduces the correct state (has existing posts)", function () {
+            const stubPosts = Set([
+                Post.fromJSON({
+                    id: "woof",
+                    dateCreated: DateTime.utc().toISO()
+                }),
+                Photo.fromJSON({
+                    id: "meow",
+                    dateCreated: DateTime.utc().toISO()
+                })
+            ]);
+            const stubPayload = {
+                posts: Map({
+                    posts: stubPosts,
+                    oldest: Map({
+                        Post: stubPosts.first().dateCreated,
+                        Photo: stubPosts.last().dateCreated,
+                        global: stubPosts.first().dateCreated
+                    }),
+                    newest: Map({
+                        Post: stubPosts.first().dateCreated,
+                        Photo: stubPosts.last().dateCreated,
+                        global: stubPosts.last().dateCreated
+                    })
+                })
+            };
+
+            stubInitialState = Map({
+                posts: stubPosts
+            });
+            const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
+            const posts = getPosts(updatedState);
+            expect(posts).to.be.ok;
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+        });
+
+        it("reduces the correct state (has no existing posts)", function () {
+            const stubPosts = Set([]);
+            const stubPayload = {
+                posts: Map({
+                    posts: stubPosts,
+                    oldest: Map({}),
+                    newest: Map({})
+                })
+            };
+
+            const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
+            const posts = getPosts(updatedState);
+            expect(posts).to.be.ok;
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+        });
+
+        it("reduces the correct state (has no posts)", function () {
+            const stubPayload = {};
+
+            const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
+            const posts = getPosts(updatedState);
+            expect(posts).to.be.ok;
+            expect(posts.toArray()).to.eql([]);
+        });
+    });
+
     describe("FETCHING_POSTS_SUCCESS", function () {
         it("reduces the correct state (no prior state)", function () {
             const stubPosts = [
@@ -61,7 +125,8 @@ describe("posts", function () {
                 })
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -82,11 +147,42 @@ describe("posts", function () {
                 })
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             stubInitialState = Map({
-                posts: new Set([Post.fromJSON({
+                posts: Set([Post.fromJSON({
+                    id: "grr",
+                    dateCreated: DateTime.utc().toISO()
+                })])
+            });
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
+            const posts = getPosts(updatedState);
+            expect(posts).to.be.ok;
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+        });
+
+        it("reduces the correct state (has tags)", function () {
+            const stubPosts = [
+                Post.fromJSON({
+                    id: "woof",
+                    dateCreated: DateTime.utc().toISO()
+                }),
+                Photo.fromJSON({
+                    id: "meow",
+                    dateCreated: DateTime.utc().toISO()
+                })
+            ];
+            const stubPayload = {
+                posts: stubPosts,
+                searchParams: {
+                    tags: "woof"
+                }
+            };
+
+            stubInitialState = Map({
+                posts: Set([Post.fromJSON({
                     id: "grr",
                     dateCreated: DateTime.utc().toISO()
                 })])
@@ -101,7 +197,7 @@ describe("posts", function () {
             const stubPayload = {};
 
             stubInitialState = Map({
-                posts: new Set([
+                posts: Set([
                     Post.fromJSON({
                         id: "grr",
                         dateCreated: DateTime.utc().toISO()
@@ -116,11 +212,12 @@ describe("posts", function () {
 
         it("reduces the correct state (does nothing if no posts to add)", function () {
             const stubPayload = {
-                posts: []
+                posts: [],
+                searchParams: {}
             };
 
             stubInitialState = Map({
-                posts: new Set([
+                posts: Set([
                     Post.fromJSON({
                         id: "grr",
                         dateCreated: DateTime.utc().toISO()
@@ -143,7 +240,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -165,7 +263,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -187,7 +286,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -211,7 +311,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -233,7 +334,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -255,7 +357,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
@@ -274,7 +377,8 @@ describe("posts", function () {
                 Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
             ];
             const stubPayload = {
-                posts: stubPosts
+                posts: stubPosts,
+                searchParams: {}
             };
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));

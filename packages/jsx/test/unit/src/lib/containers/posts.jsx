@@ -30,7 +30,7 @@ describe("Posts", function () {
         stubStore = mockStore(stubInitialState);
 
         stubPhotos = List([
-            Photo.fromJSON({id: "meow", dateCreated: new Date(1900, 0, 1).toISOString()}),
+            Photo.fromJSON({id: "meow", dateCreated: new Date(1900, 0, 1).toISOString(), tags: ["meow"]}),
             Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
         ]);
         stubWords = List([
@@ -94,7 +94,7 @@ describe("Posts", function () {
     });
 
     it("propagates props (any post type)", function () {
-        const stubProps = {fetchUrl: "/woof"};
+        const stubProps = {fetchUrl: "/woof", match: {params: {}}};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
             "../actions/fetchPosts": {
@@ -125,8 +125,41 @@ describe("Posts", function () {
         expect(rendered).to.have.prop("fetchPosts");
     });
 
+    it("propagates props (has tags)", function () {
+        const stubProps = {fetchUrl: "/woof", match: {params: {filter: "tags", filterValue: "meow"}}};
+        const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
+        const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
+            "../actions/fetchPosts": {
+                "default": fetchPostsStub
+            }
+        });
+        const Posts = proxyquiredPosts.default;
+
+        const rendered = shallow(stubStore)(<Posts {...stubProps} />);
+        let renderCount = 1;
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.props(stubProps);
+
+        expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
+        expect(api.createGetErrorForUrlSelector.callCount).to.eql(renderCount);
+        expect(selectors.getPostsSortedByDate.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(selectors.getPostsSortedByDate, stubInitialState);
+        expect(isLoadingForUrlSelectorStub.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(isLoadingForUrlSelectorStub, stubInitialState, stubProps.fetchUrl);
+        expect(getErrorForUrlSelectorStub.callCount).to.eql(renderCount);
+        sinon.assert.calledWith(getErrorForUrlSelectorStub, stubInitialState, stubProps.fetchUrl);
+        expect(rendered).to.have.prop("isLoading", isLoadingForUrlStub);
+        expect(rendered).to.have.prop("error", getErrorForUrlStub);
+        expect(rendered).to.have.prop("posts");
+        expect(rendered.prop("posts").size).to.eql(1);
+
+        expect(fetchPostsStub.notCalled).to.eql(true);
+        expect(rendered).to.have.prop("fetchPosts");
+    });
+
     it("propagates props (only `Photo`s)", function () {
-        const stubProps = {fetchUrl: "/woof", type: "Photo"};
+        const stubProps = {fetchUrl: "/woof", type: "Photo", match: {params: {}}};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
             "../actions/fetchPosts": {
@@ -158,7 +191,7 @@ describe("Posts", function () {
     });
 
     it("propagates props (only `Post`s)", function () {
-        const stubProps = {fetchUrl: "/woof", type: "Post"};
+        const stubProps = {fetchUrl: "/woof", type: "Post", match: {params: {}}};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
             "../actions/fetchPosts": {
@@ -190,7 +223,7 @@ describe("Posts", function () {
     });
 
     it("dispatches `fetchPosts` properly", function () {
-        const stubProps = {fetchUrl: "/woof"};
+        const stubProps = {fetchUrl: "/woof", match: {params: {}}};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
             "../actions/fetchPosts": {

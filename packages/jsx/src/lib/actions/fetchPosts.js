@@ -10,9 +10,9 @@ export const FETCHING_POSTS_SUCCESS = "FETCHING_POSTS_SUCCESS";
 export const FETCHING_POSTS_CANCELLED = "FETCHING_POSTS_CANCELLED";
 export const FETCHING_POSTS = "FETCHING_POSTS";
 
-export const FETCHING_POSTS_PER_PAGE = 4;
+export const FETCHING_POSTS_PER_PAGE = 8;
 
-export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getState) => {
+export const fetchPostsCreator = (fetchUrl, type = "global", {params: {filter, filterValue} = {}} = {}) => (dispatch, getState) => {
     const state = getState();
     const urlState = selectors.getApiStateForUrl(state, fetchUrl);
     const isLoading = isUrlStateLoading(urlState);
@@ -29,19 +29,10 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
     const oldestLoadedPostDate = oldestLoadedPost && oldestLoadedPost.datePublished;
     const oldestPostAvailableDate = selectors.getPostsState(state).getIn(["oldest", type]);
 
-    if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
-        dispatch(fetchingPostsCancelled({
-            fetchUrl,
-            oldestPostAvailableDate,
-            oldestLoadedPostDate
-        }));
-        return Promise.resolve();
-    }
-
     const searchParams = {
         perPage: FETCHING_POSTS_PER_PAGE,
         ...(
-            oldestLoadedPostDate && (type === "global" || oldestLoadedPost.type === type)
+            oldestLoadedPostDate
                 ? {
                     orderBy: "datePublished",
                     orderOperator: "lt",
@@ -52,14 +43,33 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
         )
     };
 
+    if (type && type !== "global") {
+        searchParams.type = type;
+    }
+
+    if (filter) {
+        searchParams[filter] = filterValue;
+    }
+
+    if (oldestPostAvailableDate && oldestLoadedPostDate && oldestLoadedPostDate.diff(oldestPostAvailableDate) <= 0) {
+        dispatch(fetchingPostsCancelled({
+            searchParams,
+            fetchUrl,
+            oldestPostAvailableDate,
+            oldestLoadedPostDate
+        }));
+        return Promise.resolve();
+    }
+
     dispatch(fetchingPosts({
-        fetchUrl,
-        searchParams
+        searchParams,
+        fetchUrl
     }));
 
     return fetchPosts(fetchUrl, searchParams)
         .then(postsResponse => {
             dispatch(fetchingPostsSuccess({
+                searchParams,
                 fetchUrl,
                 ...postsResponse
             }));
@@ -70,6 +80,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
         })
         .catch(error => {
             dispatch(fetchingPostsFailure({
+                searchParams,
                 fetchUrl,
                 error
             }));
@@ -78,6 +89,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global") => (dispatch, getSt
                 dispatch(setError(error, "EFETCH"));
             } else {
                 dispatch(fetchingPostsFailureRecovery({
+                    searchParams,
                     fetchUrl,
                     oldestPostAvailableDate,
                     oldestLoadedPostDate

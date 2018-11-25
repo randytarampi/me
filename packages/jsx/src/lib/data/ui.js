@@ -1,5 +1,6 @@
 import {LOCATION_CHANGE} from "connected-react-router";
 import {fromJS, List, Map} from "immutable";
+import {matchRoutes} from "react-router-config";
 import {createSelector} from "reselect";
 import {SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions";
 
@@ -38,6 +39,12 @@ export const uiReducer = (state = initialState, action) => {
 
 export default uiReducer;
 
+export const getRoutes = state => state.get("routes");
+export const getIndexedRoutes = createSelector(
+    getRoutes,
+    routes => routes.filter(route => !!route.tab)
+);
+
 export const getSwipeable = state => state.get("swipeable");
 export const getSwipeableIndex = createSelector(
     getSwipeable,
@@ -46,36 +53,26 @@ export const getSwipeableIndex = createSelector(
         : null
 );
 
-export const getRoutes = state => state.get("routes");
-export const getIndexedRoutes = createSelector(
-    getRoutes,
-    routes => routes.filter(route => !!route.tab)
-);
 export const getRouteForIndex = (state, index) => {
-    const routes = getIndexedRoutes(state);
-    const foundRoute = routes && routes.get(index);
+    const indexedRoutes = getIndexedRoutes(state);
+    const foundRoute = indexedRoutes && indexedRoutes.get(index);
     return foundRoute || null;
 };
 export const getIndexForRoute = (state, pathname) => {
     const indexedRoutes = getIndexedRoutes(state);
-    let routes = indexedRoutes
-        .filter(route => route.pathRegExp && route.pathRegExp.exec(pathname) !== null)
-        .sort((a, b) => {
-            const aMatch = a.pathRegExp.exec(pathname).filter(match => match !== null);
-            const bMatch = b.pathRegExp.exec(pathname).filter(match => match !== null);
+    const matchedRoutes = matchRoutes(indexedRoutes, pathname);
+    const bestMatchedRoute = matchedRoutes[matchedRoutes.length - 1];
+    let routeForIndexSearch = bestMatchedRoute && bestMatchedRoute.route;
+    let bestRouteIndex;
 
-            if (aMatch.length < bMatch.length) {
-                return -1;
-            }
-            if (aMatch.length > bMatch.length) {
-                return 1;
-            }
-            return 0;
-        });
-    const bestRoute = routes && routes.first();
-    const bestRouteIndex = indexedRoutes.indexOf(bestRoute);
+    do {
+        if (routeForIndexSearch) {
+            bestRouteIndex = indexedRoutes.findIndex(indexedRoute => indexedRoute.path === routeForIndexSearch.path);
+            routeForIndexSearch = routeForIndexSearch.parent;
+        }
+    } while (bestRouteIndex === -1 && routeForIndexSearch);
 
-    return bestRouteIndex !== -1
+    return Number.isFinite(bestRouteIndex) && bestRouteIndex !== -1
         ? bestRouteIndex
         : null;
 };

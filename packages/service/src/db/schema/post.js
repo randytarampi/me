@@ -83,7 +83,9 @@ const post = new Schema({
     },
     tags: {
         type: [String],
-        set: tags => tags && tags.filter(tag => !!tag)
+        lowercase: true,
+        set: tags => tags && tags
+            .filter(tag => !!tag)
     },
     lat: {
         type: Number
