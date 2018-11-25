@@ -187,7 +187,7 @@ describe("SearchParams", function () {
 
         it("should properly format properties for tags & type", function () {
             const searchParams = SearchParams.fromJS({
-                tags: "woof,meow",
+                tags: "woof,Meow",
                 type: "Post"
             });
 
