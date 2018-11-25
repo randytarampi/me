@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/randytarampi/me/compare/v2.0.7...v2.1.0) (2018-11-25)
+
+
+### Bug Fixes
+
+* **jsx:** `Post` `ul > li` are full-width on `small` screens ([612397e](https://github.com/randytarampi/me/commit/612397e))
+* **jsx:** `renderSwipeableRoutes` renders child routes. ([831c0cf](https://github.com/randytarampi/me/commit/831c0cf))
+* **jsx:** Fix `.post-tags` for Safari. ([7f4130a](https://github.com/randytarampi/me/commit/7f4130a)), closes [#0032](https://github.com/randytarampi/me/issues/0032)
+* **jsx:** Pass routes `props` along to `*RouteHandler`. ([1a878cc](https://github.com/randytarampi/me/commit/1a878cc))
+* **jsx:** Polish off coverage for `fetchPosts`. ([83afb98](https://github.com/randytarampi/me/commit/83afb98))
+* **jsx:** Suppress iterated `Tab` `key` warning. ([4b5fb1d](https://github.com/randytarampi/me/commit/4b5fb1d))
+* **jsx:** Tighten up `.post-html p` whitespace. ([862316d](https://github.com/randytarampi/me/commit/862316d))
+* **service:** Normalize `tags` `toLowerCase` in the DB for easier search. ([6e579a8](https://github.com/randytarampi/me/commit/6e579a8))
+
+
+### Features
+
+* **jsx:** `Photo` pulls `.post-metadata` out to the right on `.l` & `.xl` screens. ([1cd9251](https://github.com/randytarampi/me/commit/1cd9251)), closes [#131](https://github.com/randytarampi/me/issues/131)
+* **jsx:** `Post` pulls `.post-metadata` out to the right on `.l` & `.xl` screens. ([42bd6fd](https://github.com/randytarampi/me/commit/42bd6fd)), closes [#131](https://github.com/randytarampi/me/issues/131)
+* **jsx:** Polish off support for viewing `Post`s by `tags`, per [#76](https://github.com/randytarampi/me/issues/76). ([fa0b60e](https://github.com/randytarampi/me/commit/fa0b60e))
+* **jsx:** Show tags for `Photo`s, per [#76](https://github.com/randytarampi/me/issues/76). ([6fd6439](https://github.com/randytarampi/me/commit/6fd6439))
+* **jsx:** Show tags for `Post`s, per [#76](https://github.com/randytarampi/me/issues/76). ([217f25a](https://github.com/randytarampi/me/commit/217f25a))
+* **jsx:** Tighten up `Post` `ul > li` on `medium-and-up` screens. ([266dfee](https://github.com/randytarampi/me/commit/266dfee))
+* **service:** Add in better support for `tag` querying. ([c88cf14](https://github.com/randytarampi/me/commit/c88cf14))
+
+
+
+
+
 ## [2.0.7](https://github.com/randytarampi/me/compare/v2.0.6...v2.0.7) (2018-11-25)
 
 

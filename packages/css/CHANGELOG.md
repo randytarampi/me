@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/randytarampi/me/compare/v2.0.7...v2.1.0) (2018-11-25)
+
+
+### Bug Fixes
+
+* **jsx:** `Post` `ul > li` are full-width on `small` screens ([612397e](https://github.com/randytarampi/me/commit/612397e))
+* **jsx:** Tighten up `.post-html p` whitespace. ([862316d](https://github.com/randytarampi/me/commit/862316d))
+
+
+### Features
+
+* **jsx:** `Photo` pulls `.post-metadata` out to the right on `.l` & `.xl` screens. ([1cd9251](https://github.com/randytarampi/me/commit/1cd9251)), closes [#131](https://github.com/randytarampi/me/issues/131)
+* **jsx:** `Post` pulls `.post-metadata` out to the right on `.l` & `.xl` screens. ([42bd6fd](https://github.com/randytarampi/me/commit/42bd6fd)), closes [#131](https://github.com/randytarampi/me/issues/131)
+* **jsx:** Polish off support for viewing `Post`s by `tags`, per [#76](https://github.com/randytarampi/me/issues/76). ([fa0b60e](https://github.com/randytarampi/me/commit/fa0b60e))
+* **jsx:** Show tags for `Post`s, per [#76](https://github.com/randytarampi/me/issues/76). ([217f25a](https://github.com/randytarampi/me/commit/217f25a))
+* **jsx:** Tighten up `Post` `ul > li` on `medium-and-up` screens. ([266dfee](https://github.com/randytarampi/me/commit/266dfee))
+
+
+
+
+
 ## [2.0.7](https://github.com/randytarampi/me/compare/v2.0.6...v2.0.7) (2018-11-25)
 
 **Note:** Version bump only for package @randy.tarampi/css
