@@ -25,6 +25,8 @@ before_install:
   - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
   - uname -a
   - lscpu
+  - sudo apt autoremove
+  - sudo apt-get install -f -y libjpeg9-dev
   - npm install -g npm
 stages:
   - name: Test
@@ -261,6 +263,5 @@ addons:
       - ttf-wqy-microhei
       - libgif-dev
       - libpng16-dev
-      - libjpeg9-dev
   hosts:
     - dynamodb-local
