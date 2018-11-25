@@ -3,33 +3,57 @@ import {connect} from "react-redux";
 import fetchPosts from "../actions/fetchPosts";
 import Posts from "../components/posts";
 import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api";
+import {createFilteredPostsSelector} from "../data/posts";
 import selectors from "../data/selectors";
+
+const createPostsSelector = (filters, selectors) => createFilteredPostsSelector(
+    ...selectors,
+    selected => filters.reduce((filtered, filter) => filter(filtered), selected)
+);
+
+const filterNameToFilterFunction = {
+    tags: commaSeparatedTags => posts => {
+        const filteringTags = commaSeparatedTags.split(",");
+        return posts.filter(post => post.tags && post.tags.find(tag => filteringTags.includes(tag)));
+    }
+};
 
 export const ConnectedPosts = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const errorForUrlSelector = createGetErrorForUrlSelector();
+        const {type, fetchUrl} = ownProps;
+        const {filter, filterValue} = ownProps.match && ownProps.match.params || ownProps;
         let postsSelector = selectors.getPostsSortedByDate;
 
-        switch (ownProps.type) {
-            case "Photo":
-                postsSelector = selectors.getPhotoPostsSortedByDate;
-                break;
+        if (type) {
+            switch (type) {
+                case "Photo":
+                    postsSelector = selectors.getPhotoPostsSortedByDate;
+                    break;
 
-            case "Post":
-                postsSelector = selectors.getWordPostsSortedByDate;
-                break;
+                case "Post":
+                    postsSelector = selectors.getWordPostsSortedByDate;
+                    break;
+            }
+        }
+
+        if (filter) {
+            postsSelector = createPostsSelector(
+                [filterNameToFilterFunction[filter](filterValue)],
+                [postsSelector]
+            );
         }
 
         return {
-            isLoading: isLoadingUrlSelector(state, ownProps.fetchUrl),
-            error: errorForUrlSelector(state, ownProps.fetchUrl),
+            isLoading: isLoadingUrlSelector(state, fetchUrl),
+            error: errorForUrlSelector(state, fetchUrl),
             posts: postsSelector(state)
         };
     },
-    (dispatch, ownProps) => {
+    (dispatch, {fetchUrl, type, match}) => {
         return {
-            fetchPosts: () => dispatch(fetchPosts(ownProps.fetchUrl, ownProps.type))
+            fetchPosts: () => dispatch(fetchPosts(fetchUrl, type, match))
         };
     }
 )(Posts);

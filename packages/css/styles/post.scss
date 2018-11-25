@@ -1,14 +1,10 @@
 .row .col.post-metadata {
-    padding: 0.75em;
-
-    @media #{$medium-and-up} {
-        padding-bottom: 0;
-    }
+    padding: 0.75rem 0.75rem 0 0.75rem;
 }
 
 .row .col.post-content {
     @media #{$medium-and-up} {
-        padding: 0.75em;
+        padding: 0.75rem;
     }
 }
 
@@ -26,18 +22,20 @@
             @extend .post-html;
         }
 
-        &__link, &__text, &__label, &__date {
+        &__link, &__text, &__label, &__date, &__tag {
             @extend .post-text;
         }
 
-        &__link {
+        &__link, &__tag {
             text-decoration: underline;
             text-decoration-color: $link-color;
         }
+    }
 
-        &__tag {
-            @extend .post-text;
-
+    &-source,
+    &-date,
+    &-tags {
+        &__link, &__text, &__label, &__date, &__tag {
             line-height: 2 !important;
         }
     }

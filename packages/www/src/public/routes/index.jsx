@@ -9,7 +9,8 @@ import Main from "../views/main";
 export const PhotosRouteHandler = props => <Redirect {...props} to="/blog/photos"/>;
 export const WordsRouteHandler = props => <Redirect {...props} to="/blog/words"/>;
 export const BlogRouteHandler = props => <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />;
-export const BlogPostRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Post" {...props} />;
+export const BlogWordsRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`}
+                                                                type="Post" {...props} />;
 export const BlogPhotoRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Photo" {...props} />;
 
 const augmentWithParent = (parent = null) => ({routes, ...route}) => {
@@ -62,17 +63,23 @@ const routes = [
                 path: "/blog/photos"
             },
             {
-                component: BlogPostRouteHandler,
+                component: BlogWordsRouteHandler,
                 exact: true,
                 path: "/blog/words"
             },
             {
-                component: BlogRouteHandler,
-                path: "/blog/:filter"
+                component: BlogPhotoRouteHandler,
+                exact: true,
+                path: "/blog/photos/:filter(tags)/:filterValue"
+            },
+            {
+                component: BlogWordsRouteHandler,
+                exact: true,
+                path: "/blog/words/:filter(tags)/:filterValue"
             },
             {
                 component: BlogRouteHandler,
-                path: "/blog/:filter/:filterValue",
+                path: "/blog/:filter(tags)/:filterValue"
             }
         ]
     },
