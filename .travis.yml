@@ -260,7 +260,7 @@ addons:
       - fonts-wqy-microhei
       - ttf-wqy-microhei
       - libgif-dev
-      - libpng-dev
-      - libjpeg-dev
+      - libpng16-dev
+      - libjpeg9-dev
   hosts:
     - dynamodb-local
