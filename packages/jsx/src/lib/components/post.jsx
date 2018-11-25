@@ -40,7 +40,7 @@ export class PostComponent extends Component {
 
     render() {
         const {post} = this.props;
-        
+
         return <Row
             className="post post--words"
             id={post.uid}
@@ -78,9 +78,15 @@ export class PostComponent extends Component {
                         ? <p className="post-tags hide-on-med-and-down">
                             <strong className="post-tags__label">Tags:</strong>
                             {
-                                post.tags.map(tag => <Fragment key={tag}><InternalLink className="post-tags__tag"
-                                                                                       href={`${__POSTS_APP_URL__}/tags/${tag}`}>{tag}</InternalLink>
-                                </Fragment>)
+                                post.tags.map(
+                                    tag =>
+                                        <Fragment key={tag}><InternalLink
+                                            className="post-tags__tag"
+                                            href={`${__POSTS_APP_URL__}/tags/${tag}`}
+                                        >
+                                            {tag}
+                                        </InternalLink> </Fragment> // NOTE-RT: We need this ` ` between the `</InternalLink>` and the `</Fragment>` because Safari (Webkit?) seems to collapse `&#0032;` and not insert line breaks between each `<Fragment>` but doesn't with ` `
+                                )
                             }
                         </p>
                         : null
