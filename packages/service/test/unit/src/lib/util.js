@@ -1,5 +1,7 @@
+import AwsXRay from "aws-xray-sdk";
 import {expect} from "chai";
-import {firstResolved} from "../../../../src/lib/util";
+import sinon from "sinon";
+import {buildAwsClient, firstResolved} from "../../../../src/lib/util";
 import {timedPromise} from "../../../lib/util";
 
 describe("util", function () {
@@ -53,6 +55,36 @@ describe("util", function () {
                     expect(error.message).to.match(/`firstResolved` failed and returned 2 errors/);
                     expect(error.errors).to.have.length(2);
                 });
+        });
+    });
+
+    describe("buildAwsClient", function () {
+        const originalNodeEnv = process.env.NODE_ENV;
+
+        beforeEach(function () {
+            sinon.stub(AwsXRay, "setLogger");
+        });
+
+        afterEach(function () {
+            process.env.NODE_ENV = originalNodeEnv;
+
+            AwsXRay.setLogger.restore();
+        });
+
+        it("returns a client for NODE_ENV=test", function () {
+            const awsClient = buildAwsClient();
+
+            expect(awsClient).to.be.ok;
+            expect(AwsXRay.setLogger.notCalled).to.eql(true);
+        });
+
+        it("returns a client for NODE_ENV!=test", function () {
+            process.env.NODE_ENV = "woof";
+
+            const awsClient = buildAwsClient();
+
+            expect(awsClient).to.be.ok;
+            expect(AwsXRay.setLogger.calledOnce).to.eql(true);
         });
     });
 });
