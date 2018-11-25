@@ -1,10 +1,9 @@
 import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {fromJS, Map, Set} from "immutable";
+import {Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
-import {REHYDRATE} from "redux-persist/constants";
 import thunk from "redux-thunk";
 import {
     FETCHING_POSTS,
@@ -152,6 +151,86 @@ describe("fetchPosts", function () {
                                     orderComparatorType: "String",
                                     orderOperator: "lt",
                                     perPage: 8
+                                },
+                                oldestPostAvailableDate: stubInitialState.getIn(["posts", "oldest", "global"]),
+                                oldestLoadedPostDate: stubLoadedPost.dateCreated
+                            }
+                        }
+                    ]);
+                });
+        });
+
+        it("is dispatched with the correct searchParams", function () {
+            const stubFetchUrl = "/woof";
+            const stubPostsResponse = {
+                posts: [],
+                total: [].length,
+                oldest: {
+                    global: DateTime.utc().toISO(),
+                    Post: DateTime.utc().toISO(),
+                    Photo: DateTime.utc().toISO()
+                },
+                newest: {
+                    Post: DateTime.utc().toISO(),
+                    Photo: DateTime.utc().toISO(),
+                    global: DateTime.utc().toISO()
+                }
+            };
+            const stubLoadedPost = Post.fromJSON({dateCreated: stubPostsResponse.oldest.global});
+
+            const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/actions/fetchPosts", {
+                "../api/fetchPosts": {
+                    "default": () => Promise.resolve(stubPostsResponse)
+                }
+            });
+
+            stubInitialState = Map({
+                api: Map({
+                    [stubFetchUrl]: Map({
+                        isLoading: false,
+                        fetchUrl: stubFetchUrl
+                    })
+                }),
+                posts: Map({
+                    posts: Set([stubLoadedPost]),
+                    oldest: Map({
+                        global: DateTime.fromISO(stubPostsResponse.oldest.global),
+                        Photo: DateTime.fromISO(stubPostsResponse.oldest.Photo),
+                        Post: DateTime.fromISO(stubPostsResponse.oldest.Post)
+                    }),
+                    newest: Map({
+                        global: DateTime.fromISO(stubPostsResponse.newest.global),
+                        Photo: DateTime.fromISO(stubPostsResponse.newest.Photo),
+                        Post: DateTime.fromISO(stubPostsResponse.newest.Post)
+                    })
+                })
+            });
+            stubStore = mockStore(stubInitialState);
+
+            return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl, "Post", {
+                    params: {
+                        filter: "tags",
+                        filterValue: "meow"
+                    }
+                }))
+                .then(() => {
+                    const actions = stubStore.getActions();
+
+                    expect(actions).to.be.ok;
+                    expect(actions).to.have.length(1);
+                    expect(actions).to.eql([
+                        {
+                            type: FETCHING_POSTS_CANCELLED,
+                            payload: {
+                                fetchUrl: stubFetchUrl,
+                                searchParams: {
+                                    orderBy: "datePublished",
+                                    orderComparator: stubInitialState.getIn(["posts", "oldest", "global"]).toISO(),
+                                    orderComparatorType: "String",
+                                    orderOperator: "lt",
+                                    perPage: 8,
+                                    type: "Post",
+                                    tags: "meow"
                                 },
                                 oldestPostAvailableDate: stubInitialState.getIn(["posts", "oldest", "global"]),
                                 oldestLoadedPostDate: stubLoadedPost.dateCreated
@@ -397,21 +476,16 @@ describe("fetchPosts", function () {
                 }),
                 posts: Map({
                     posts: Set([stubLoadedPost]),
-                    oldest: Map({
-                        global: DateTime.utc(),
-                        Photo: DateTime.utc(),
-                        Post: DateTime.utc()
-                    }),
-                    newest: Map({
-                        global: DateTime.utc(),
-                        Photo: DateTime.utc(),
-                        Post: DateTime.utc()
-                    })
+                    oldest: Map({}),
+                    newest: Map({})
                 })
             });
             stubStore = mockStore(stubInitialState);
 
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch(error => {
                     expect(error).to.be.ok;
                     expect(error).to.eql(stubPostsResponse);
@@ -429,6 +503,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_FAILURE,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 error: stubPostsResponse
                             }
                         },
@@ -436,6 +511,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_FAILURE_RECOVERY,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 oldestPostAvailableDate: stubInitialState.getIn(["api", stubFetchUrl, "oldest", "global"]),
                                 oldestLoadedPostDate: stubLoadedPost.dateCreated
                             }
@@ -462,6 +538,9 @@ describe("fetchPosts", function () {
             });
 
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
                 .catch(error => {
                     expect(error).to.be.ok;
                     expect(error).to.eql(stubPostsResponse);
@@ -552,38 +631,6 @@ describe("fetchPosts", function () {
                         }
                     );
                 });
-        });
-    });
-
-    describe("REHYDRATE", function () {
-        it("is dispatched with the expected payload", function () {
-            const stubPayload = {
-                posts: fromJS({
-                    oldest: {
-                        global: DateTime.utc().toISO(),
-                        Post: DateTime.utc().toISO(),
-                        Photo: DateTime.utc().toISO()
-                    },
-                    newest: {
-                        Post: DateTime.utc().toISO(),
-                        Photo: DateTime.utc().toISO(),
-                        global: DateTime.utc().toISO()
-                    }
-                })
-            };
-
-            stubStore.dispatch({payload: stubPayload, type: REHYDRATE});
-
-            const actions = stubStore.getActions();
-
-            expect(actions).to.be.ok;
-            expect(actions).to.have.length(1);
-            expect(actions[0]).to.eql(
-                {
-                    type: REHYDRATE,
-                    payload: stubPayload
-                }
-            );
         });
     });
 });
