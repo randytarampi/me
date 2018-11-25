@@ -23,6 +23,7 @@ before_install:
   - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
   - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
   - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
+  - sudo apt-get install -y giflib
   - uname -a
   - lscpu
   - npm install -g npm
