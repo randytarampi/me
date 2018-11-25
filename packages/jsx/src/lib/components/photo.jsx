@@ -7,7 +7,7 @@ import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util";
-import {CampaignLink} from "./link";
+import {CampaignLink, InternalLink} from "./link";
 import {PostComponent} from "./post";
 
 export class PhotoComponent extends PostComponent {
@@ -30,7 +30,7 @@ export class PhotoComponent extends PostComponent {
     }
 
     render() {
-        const {post, isLoading, source} = this.props;
+        const {post, isLoading, source, placeholder} = this.props;
 
         const rowClassName = ["post post--photo"];
 
@@ -41,6 +41,9 @@ export class PhotoComponent extends PostComponent {
         return <Row
             className={rowClassName.join(" ")}
             id={post.uid}
+            style={{
+                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none"><defs><filter id="filter-blur-1"> <feGaussianBlur stdDeviation="5"/></filter></defs></svg>'), linear-gradient(to top right, rgba(0,0,0,0.67), rgba(0,0,0,0.33)), url(${placeholder})`
+            }}
         >
             <SchemaJsonLdComponent markup={post.toSchema()}/>
             <Col
@@ -87,6 +90,7 @@ export class PhotoComponent extends PostComponent {
 
 PhotoComponent.propTypes = {
     post: PropTypes.instanceOf(PhotoEntity).isRequired,
+    placeholder: PropTypes.string.isRequired,
     source: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired
 };
@@ -132,14 +136,23 @@ export const PostMetadataContent = ({post, title}) => <Fragment>
             null
     }
     {
-        post.datePublished ?
-            <p className="post-date">
-                <strong
-                    className="post-date__label post-date__label--published">Posted:</strong>
-                <span
-                    className="post-date__date post-date__date--published">{post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
-            </p> :
-            null
+        post.datePublished
+            ? <Fragment>
+                <p className="post-date">
+                    <strong
+                        className="post-date__label post-date__label--published">Posted:</strong>
+                    <span
+                        className="post-date__date post-date__date--published">{post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
+                    {
+                        post.creator ?
+                            <CampaignLink className="post-source__link"
+                                          href={post.creator.url}>{post.creator.username} on {post.source}</CampaignLink>
+
+                            : null
+                    }
+                </p>
+            </Fragment>
+            : null
     }
     {
         post.dateCreated && post.dateCreated.valueOf() !== post.datePublished.valueOf() ?
@@ -150,23 +163,13 @@ export const PostMetadataContent = ({post, title}) => <Fragment>
             </p> :
             null
     }
-    <p className="post-source">
-        <CampaignLink className="post-source__link" href={post.sourceUrl}>View
-            on {post.source}</CampaignLink>
-        {
-            post.creator ?
-                <CampaignLink className="post-source__link"
-                              href={post.creator.url}>{post.creator.username} on {post.source}</CampaignLink> :
-                null
-        }
-    </p>
     {
         post.tags && post.tags.size
-            ? <p className="post-tags">
+            ? <p className="post-tags hide-on-med-and-down">
                 <strong className="post-tags__label">Tags:</strong>
                 {
-                    post.tags.map(tag => <Fragment key={tag}>
-                        <span className="post-tags__tag">{tag}</span>&ensp;
+                    post.tags.map(tag => <Fragment key={tag}><InternalLink className="post-tags__tag"
+                                                                           href={`${__POSTS_APP_URL__}/tags/${tag}`}>{tag}</InternalLink>
                     </Fragment>)
                 }
             </p>
@@ -176,6 +179,7 @@ export const PostMetadataContent = ({post, title}) => <Fragment>
 
 PostMetadataContent.propTypes = {
     post: PropTypes.instanceOf(PhotoEntity).isRequired,
+    placeholder: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
 };
 
@@ -188,7 +192,8 @@ export const ProgressiveImageWrappedPhotoComponent = props => {
 
     return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
         {
-            (source, isLoading) => <PhotoComponent {...props} source={source} isLoading={isLoading}/>
+            (source, isLoading) => <PhotoComponent {...props} placeholder={placeholder.url} source={source}
+                                                   isLoading={isLoading}/>
         }
     </ProgressiveImage>;
 };

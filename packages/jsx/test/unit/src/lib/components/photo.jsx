@@ -139,9 +139,64 @@ describe("Photo", function () {
             const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
                                                                   title={rendered.instance().title}/>);
             const links = renderedMetadata.find(".post-source__link");
-            expect(links).to.have.length(2);
-            expect(links.first()).to.have.prop("href", stubPhoto.sourceUrl);
+            expect(links).to.have.length(1);
             expect(links.last()).to.have.prop("href", stubPhoto.creator.url);
+        });
+
+        it("renders (tags)", function () {
+            stubPhoto = PhotoEntity.fromJSON({
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: null,
+                datePublished: new Date(2500, 0, 1).toISOString(),
+                width: -1,
+                height: -2,
+                sizedPhotos: [
+                    {url: "woof://woof.woof/woof/woofto", width: 640, height: 480},
+                    {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
+                ],
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                },
+                tags: [
+                    "woof",
+                    "meow",
+                    "grr"
+                ]
+            });
+
+            const stubProps = {
+                post: stubPhoto,
+                containerHeight: 123,
+                containerWidth: 123,
+                isLoading: false,
+                source: stubPhoto.getSizedPhotoForLoading().url
+            };
+            const rendered = shallow(<PhotoComponent {...stubProps}/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.id(stubProps.post.uid);
+            expect(rendered).to.have.className("post--photo");
+            expect(rendered).to.have.descendants(".post-metadata");
+            expect(rendered).to.have.descendants(".post-content");
+
+            const renderedMetadata = shallow(<PostMetadataContent post={rendered.instance().props.post}
+                                                                  title={rendered.instance().title}/>);
+
+            expect(renderedMetadata).to.have.descendants(".post-tags");
+            expect(renderedMetadata).to.have.descendants(".post-tags__label");
+            expect(renderedMetadata).to.have.descendants(".post-tags__tag");
         });
 
         it("renders (no dateCreated)", function () {

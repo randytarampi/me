@@ -8,7 +8,40 @@ describe("Post", function () {
     let stubPost;
 
     beforeEach(function () {
-        stubPost = PostEntity.fromJSON({id: "woof", source: "ᶘ ◕ᴥ◕ᶅ", dateCreated: new Date(2500, 0, 1).toISOString()});
+        stubPost = PostEntity.fromJSON({
+            id: "woof",
+            source: "ᶘ ◕ᴥ◕ᶅ",
+            dateCreated: new Date(2500, 0, 1).toISOString()
+        });
+    });
+
+    it("renders (tags)", function () {
+        stubPost = PostEntity.fromJSON({
+            id: "woof",
+            source: "ᶘ ◕ᴥ◕ᶅ",
+            datePublished: new Date(2500, 0, 1).toISOString(),
+            sourceUrl: "woof.woof/woof",
+            tags: [
+                "woof",
+                "meow",
+                "grr"
+            ]
+        });
+
+        const stubProps = {
+            post: stubPost,
+            containerHeight: 123,
+            containerWidth: 123
+        };
+        const rendered = shallow(<Post {...stubProps}/>);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.id(stubProps.post.uid);
+        expect(rendered).to.have.className("post");
+
+        expect(rendered).to.have.descendants(".post-tags");
+        expect(rendered).to.have.descendants(".post-tags__label");
+        expect(rendered).to.have.descendants(".post-tags__tag");
     });
 
     it("renders (url instead of title)", function () {

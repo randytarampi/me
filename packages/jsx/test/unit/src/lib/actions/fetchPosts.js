@@ -146,6 +146,13 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_CANCELLED,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: {
+                                    orderBy: "datePublished",
+                                    orderComparator: stubInitialState.getIn(["posts", "oldest", "global"]).toISO(),
+                                    orderComparatorType: "String",
+                                    orderOperator: "lt",
+                                    perPage: 8
+                                },
                                 oldestPostAvailableDate: stubInitialState.getIn(["posts", "oldest", "global"]),
                                 oldestLoadedPostDate: stubLoadedPost.dateCreated
                             }
@@ -157,8 +164,7 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload (first page)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE,
-                type: undefined
+                perPage: FETCHING_POSTS_PER_PAGE
             };
             const stubPostsResponse = {
                 posts: ["woof"],
@@ -207,6 +213,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_SUCCESS,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 ...stubPostsResponse
                             }
                         }
@@ -233,7 +240,6 @@ describe("fetchPosts", function () {
             const stubLoadedPost = Post.fromJSON({dateCreated: DateTime.utc(2018, 8, 22)});
             const stubSearchParams = {
                 perPage: FETCHING_POSTS_PER_PAGE,
-                type: undefined,
                 orderComparator: stubLoadedPost.dateCreated.toISO(),
                 orderBy: "datePublished",
                 orderComparatorType: "String",
@@ -294,6 +300,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_SUCCESS,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 ...stubPostsResponse
                             }
                         }
@@ -306,8 +313,7 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload (no posts)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE,
-                type: undefined
+                perPage: FETCHING_POSTS_PER_PAGE
             };
             const stubPostsResponse = {
                 posts: [],
@@ -345,6 +351,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_SUCCESS,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 ...stubPostsResponse
                             }
                         },
@@ -444,8 +451,7 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload (fetch error)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE,
-                type: undefined
+                perPage: FETCHING_POSTS_PER_PAGE
             };
             const stubPostsResponse = new Error("woof");
 
@@ -473,6 +479,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_FAILURE,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 error: stubPostsResponse
                             }
                         },
@@ -497,8 +504,7 @@ describe("fetchPosts", function () {
         it("is dispatched with the expected payload", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {
-                perPage: FETCHING_POSTS_PER_PAGE,
-                type: undefined
+                perPage: FETCHING_POSTS_PER_PAGE
             };
             const stubPostsResponse = {
                 posts: ["woof"],
@@ -540,6 +546,7 @@ describe("fetchPosts", function () {
                             type: FETCHING_POSTS_SUCCESS,
                             payload: {
                                 fetchUrl: stubFetchUrl,
+                                searchParams: stubSearchParams,
                                 ...stubPostsResponse
                             }
                         }

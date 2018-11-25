@@ -37,7 +37,7 @@ export class PostsComponent extends Component {
                 containerHeight={props.containerHeight}
                 useWindowAsScrollContainer={true}
                 elementHeight={elementHeight}
-                infiniteLoadBeginEdgeOffset={window.innerHeight / FETCHING_POSTS_PER_PAGE}
+                infiniteLoadBeginEdgeOffset={window.innerHeight}
                 preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
                 preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                 onInfiniteLoad={props.fetchPosts}

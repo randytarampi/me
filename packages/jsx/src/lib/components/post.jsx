@@ -5,7 +5,7 @@ import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Col, Row} from "react-materialize";
-import {CampaignLink} from "./link";
+import {CampaignLink, InternalLink} from "./link";
 
 export class PostComponent extends Component {
     get width() {
@@ -75,11 +75,11 @@ export class PostComponent extends Component {
                 }
                 {
                     post.tags && post.tags.size
-                        ? <p className="post-tags">
+                        ? <p className="post-tags hide-on-med-and-down">
                             <strong className="post-tags__label">Tags:</strong>
                             {
-                                post.tags.map(tag => <Fragment key={tag}>
-                                    <span className="post-tags__tag">{tag}</span>&ensp;
+                                post.tags.map(tag => <Fragment key={tag}><InternalLink className="post-tags__tag"
+                                                                                       href={`${__POSTS_APP_URL__}/tags/${tag}`}>{tag}</InternalLink>
                                 </Fragment>)
                             }
                         </p>
