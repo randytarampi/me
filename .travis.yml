@@ -7,7 +7,7 @@ matrix:
     - node_js: '11'
 env:
   global:
-    - CPUS_COUNT=1 # NOTE-RT: We get 2 cores, but we'll actually be spawning more than 2 threads depending on what the actual builds'll be doing.
+    - CPUS_COUNT=4
     - TRAVIS_AUTHOR_EMAIL=travis@randytarampi.ca
     - TRAVIS_AUTHOR_NAME=Travis
     - SENTRY_ORG=randytarampi
