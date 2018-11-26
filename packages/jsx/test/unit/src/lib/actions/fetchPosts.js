@@ -166,16 +166,16 @@ describe("fetchPosts", function () {
                 posts: [],
                 total: [].length,
                 oldest: {
-                    global: DateTime.utc().toISO(),
-                    Post: DateTime.utc().toISO(),
-                    Photo: DateTime.utc().toISO()
+                    Post: DateTime.utc(2017, 11, 14).toISO(),
+                    Photo: DateTime.utc(2018, 11, 14).toISO()
                 },
                 newest: {
-                    Post: DateTime.utc().toISO(),
-                    Photo: DateTime.utc().toISO(),
-                    global: DateTime.utc().toISO()
+                    Post: DateTime.utc(2017, 11, 14).toISO(),
+                    Photo: DateTime.utc(2018, 11, 14).toISO()
                 }
             };
+            stubPostsResponse.oldest.global = stubPostsResponse.oldest.Post;
+            stubPostsResponse.newest.global = stubPostsResponse.oldest.Photo;
             const stubLoadedPost = Post.fromJSON({dateCreated: stubPostsResponse.oldest.global});
 
             const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/actions/fetchPosts", {
