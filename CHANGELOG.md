@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/randytarampi/me/compare/v2.1.2...v2.1.3) (2018-11-26)
+
+
+### Performance Improvements
+
+* **travis:** Use [my `lwip` branch](https://github.com/randytarampi/lwip/tree/me-release). ([99cb6d1](https://github.com/randytarampi/me/commit/99cb6d1)), closes [mixer/lwip#v1](https://github.com/mixer/lwip/issues/v1) [randytarampi/lwip#3d6e73b3da32c40e2d971630e460a22053a82228](https://github.com/randytarampi/lwip/issues/3d6e73b3da32c40e2d971630e460a22053a82228) [randytarampi/lwip#e8763cad70f66874ff7cda1a592217b1ba6bf7f1](https://github.com/randytarampi/lwip/issues/e8763cad70f66874ff7cda1a592217b1ba6bf7f1)
+
+
+### Reverts
+
+* perf(travis): Let's just try building things on a single core. ([7da1cde](https://github.com/randytarampi/me/commit/7da1cde))
+
+
+
+
+
 ## [2.1.2](https://github.com/randytarampi/me/compare/v2.1.1...v2.1.2) (2018-11-26)
 
 
