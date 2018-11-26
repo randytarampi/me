@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/randytarampi/me/compare/v2.1.1...v2.1.2) (2018-11-26)
+
+
+### Bug Fixes
+
+* **package:** Refresh the `package-lock` per the change in 02fd8d00faa20e5a6c948130afa4048c44bade6b. ([a4881fd](https://github.com/randytarampi/me/commit/a4881fd))
+* **travis:** Install `lib(gif|png|jpeg)-dev` per 89a1e892b90a60240a4277211b0289424732d74b. ([da88772](https://github.com/randytarampi/me/commit/da88772))
+* **travis:** Remove `libjpeg-turbo8-dev` before installing `libjpeg9-dev`. ([4105986](https://github.com/randytarampi/me/commit/4105986))
+* **travis:** Run `apt autoremove` before trying to install `libjpeg9-dev` since https://bugs.launchpad.net/ubuntu/+source/libjpeg9/+bug/1640467 isn't gonna get fixed any time soon. ([38dd115](https://github.com/randytarampi/me/commit/38dd115))
+* **travis:** Try building 02fd8d00faa20e5a6c948130afa4048c44bade6b without any other libs. ([89a1e89](https://github.com/randytarampi/me/commit/89a1e89))
+* **travis:** Use the correct versions of `lib(png|jpeg)-dev` per https://github.com/mixer/lwip/commit/f0b5d81bac641df54a3b9a40853e3b05ae9ef479. ([1ff6fe6](https://github.com/randytarampi/me/commit/1ff6fe6))
+
+
+### Performance Improvements
+
+* **travis:** Let's just try building things on a single core. ([86881d3](https://github.com/randytarampi/me/commit/86881d3)), closes [#173](https://github.com/randytarampi/me/issues/173)
+* **travis:** Use the xenial image to close [#176](https://github.com/randytarampi/me/issues/176) per 02fd8d00faa20e5a6c948130afa4048c44bade6b. ([3e0946a](https://github.com/randytarampi/me/commit/3e0946a))
+
+
+### Reverts
+
+* revert: chore(build): `lwip` -> `[@mcph](https://github.com/mcph)/lwip`. ([02fd8d0](https://github.com/randytarampi/me/commit/02fd8d0)), closes [#173](https://github.com/randytarampi/me/issues/173)
+
+
+
+
+
 ## [2.1.1](https://github.com/randytarampi/me/compare/v2.1.0...v2.1.1) (2018-11-25)
 
 

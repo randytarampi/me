@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/randytarampi/me/compare/v2.1.1...v2.1.2) (2018-11-26)
+
+
+### Reverts
+
+* revert: chore(build): `lwip` -> `[@mcph](https://github.com/mcph)/lwip`. ([02fd8d0](https://github.com/randytarampi/me/commit/02fd8d0)), closes [#173](https://github.com/randytarampi/me/issues/173)
+
+
+
+
+
 ## [2.1.1](https://github.com/randytarampi/me/compare/v2.1.0...v2.1.1) (2018-11-25)
 
 **Note:** Version bump only for package @randy.tarampi/pseudoimage
