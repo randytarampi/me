@@ -25,7 +25,6 @@ before_install:
   - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
   - uname -a
   - lscpu
-  - sudo apt autoremove
   - npm install -g npm
 stages:
   - name: Test
