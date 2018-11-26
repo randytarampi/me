@@ -7,7 +7,7 @@ const Pseudoimage = require("../../../lib/pseudoimage");
 const {rmrf, openImage} = require("../../util");
 
 describe("pseudoimage", function () {
-    this.timeout(60000);
+    this.timeout(120000);
 
     const resourceDir = path.join(__dirname, "../../resources");
     const tmpDir = path.join(__dirname, "../../tmp");
