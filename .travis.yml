@@ -1,5 +1,5 @@
 language: node_js
-dist: xenial
+dist: trusty
 matrix:
   fast_finish: true
   allow_failures:
@@ -26,7 +26,6 @@ before_install:
   - uname -a
   - lscpu
   - sudo apt autoremove
-  - sudo apt-get remove libjpeg-turbo8-dev libjpeg9-dev+
   - npm install -g npm
 stages:
   - name: Test
@@ -261,7 +260,5 @@ addons:
       - japan*
       - fonts-wqy-microhei
       - ttf-wqy-microhei
-      - libgif-dev
-      - libpng16-dev
   hosts:
     - dynamodb-local
