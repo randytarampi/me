@@ -26,7 +26,7 @@ before_install:
   - uname -a
   - lscpu
   - sudo apt autoremove
-  - sudo apt-get install -f -y libjpeg9-dev
+  - sudo apt-get remove libjpeg-turbo8-dev libjpeg9-dev+
   - npm install -g npm
 stages:
   - name: Test
