@@ -273,12 +273,8 @@ module.exports = (api) => {
         "lodash",
         configuredMinifyReplace,
         ["@babel/plugin-proposal-class-properties", {loose: true}],
-        ["@babel/plugin-transform-classes", {loose: true}],
         "@babel/plugin-proposal-object-rest-spread",
-        "@babel/plugin-transform-proto-to-assign",
-        "@babel/plugin-transform-member-expression-literals",
-        "@babel/plugin-transform-property-literals",
-        "@babel/plugin-transform-reserved-words"
+        "@babel/plugin-transform-property-literals"
     ];
 
     switch (api.env()) {
