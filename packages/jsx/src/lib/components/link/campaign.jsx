@@ -23,7 +23,7 @@ export const CampaignLink = ({useBranding, href, source, medium, name, term, con
                         source: source || contextSource,
                         medium: medium || contextMedium,
                         name: name || contextName,
-                        term: term || contextTerm,
+                        term: term || contextTerm || props.text,
                         content: content || contextContent
                     })}
                     text={props.text || href}
