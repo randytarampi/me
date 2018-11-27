@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.4](https://github.com/randytarampi/me/compare/v2.1.3...v2.1.4) (2018-11-27)
+
+
+### Performance Improvements
+
+* **travis:** I can't tell if randytarampi/lwip#me-release-2018-11-26 is slow, or if it's just travis, but let's find out. ([1c088dc](https://github.com/randytarampi/me/commit/1c088dc)), closes [randytarampi/lwip#me-release-2018-11-26](https://github.com/randytarampi/lwip/issues/me-release-2018-11-26)
+
+
+
+
+
 ## [2.1.3](https://github.com/randytarampi/me/compare/v2.1.2...v2.1.3) (2018-11-26)
 
 
