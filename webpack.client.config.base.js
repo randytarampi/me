@@ -16,12 +16,17 @@ const {
 } = util;
 
 const plugins = [
-    new MiniCssExtractPlugin(),
-    new BundleAnalyzerPlugin({
-        analyzerMode: "static",
-        openAnalyzer: false
-    })
+    new MiniCssExtractPlugin()
 ];
+
+if (!process.env.CI) {
+    plugins.push(
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false
+        })
+    );
+}
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(
