@@ -12,7 +12,8 @@ const defaultContent = new ResumeCustomContent({
         descriptionNode: <Fragment>
             <p><span className="text">I went to school on top of a mountain for 5 years</span></p>
             <p><span className="text">I remember some things better than others, like the snow days. For everything else there's <CampaignLink
-                href="https://www.goodreads.com/book/show/29437996-copying-and-pasting-from-stack-overflow">StackOverflow</CampaignLink></span>
+                href="https://www.goodreads.com/book/show/29437996-copying-and-pasting-from-stack-overflow"
+                text="StackOverflow"/></span>
             </p>
         </Fragment>
     }),
@@ -50,7 +51,8 @@ const defaultContent = new ResumeCustomContent({
             <p><span className="text">It's time to strike it out on my own though — he got me to come back and work with him not once, but twice and I'm looking for a place where I can settle down and build similarly close working relationships</span>
             </p>
             <p><span className="text">Ask me about how I ended up learning Italian on the job, my cadres of co-op students, or when I almost <CampaignLink
-                href="http://www.quickmeme.com/p/3vv8p3">brought down a busy test environment</CampaignLink> as an intern</span>
+                href="http://www.quickmeme.com/p/3vv8p3"
+                text="brought down a busy test environment"/> as an intern</span>
             </p>
         </Fragment>
     }),
@@ -67,11 +69,11 @@ const defaultContent = new ResumeCustomContent({
                     <p>If you're going to print this out please do it in Chrome, or with a Chromium backed
                         client — I didn't work on those print styles for nothing!</p>
                     <p>It should fit neatly onto a single <CampaignLink
-                        href="https://github.com/randytarampi/me.resume/raw/master/a4.pdf">A4</CampaignLink>, <CampaignLink
-                        href="https://github.com/randytarampi/me.resume/raw/master/letter.pdf">US Letter</CampaignLink>,
+                        href="https://github.com/randytarampi/me.resume/raw/master/a4.pdf" text="A4"/>, <CampaignLink
+                        href="https://github.com/randytarampi/me.resume/raw/master/letter.pdf" text="US Letter"/>,
                         or <CampaignLink
-                            href="https://github.com/randytarampi/me.resume/raw/master/legal.pdf">US
-                            Legal</CampaignLink> sized
+                            href="https://github.com/randytarampi/me.resume/raw/master/legal.pdf" text="US
+                            Legal"/> sized
                         page, provided you <em>set the margins to nil</em>, <em>clear the page headers and footers</em>,
                         and for best results, <em>include background colours and images</em></p>
                 </Col>
