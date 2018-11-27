@@ -18,7 +18,7 @@ const Bears = () =>
             </p>
             <p>
                 Try not to bonk them on the nose, they're not big fans of that. Also, if you're really interested, you
-                can even <CampaignLink href="https://society6.com/randytarampi">buy some merchandise</CampaignLink>.
+                can even <CampaignLink href="https://society6.com/randytarampi" text="buy some merchandise"/>.
             </p>
         </Col>
     </RowBlock>;

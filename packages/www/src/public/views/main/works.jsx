@@ -21,7 +21,7 @@ const Works = () =>
             </p>
             <p>
                 One of those people that's interested in my photography? You'll find my favourite works on <CampaignLink
-                href="https://unsplash.com/@randytarampi">Unsplash</CampaignLink>. I stopped using <F00pxLink
+                href="https://unsplash.com/@randytarampi" text="Unsplash"/>. I stopped using <F00pxLink
                 useBranding={false} text="500px"/> ages ago, don't really upload much to <FlickrLink
                 useBranding={false} text="Flickr"/> and really only use <InstagramLink
                 useBranding={false} text="Instagram"/> when I'm on the road and shamed into sharing.
