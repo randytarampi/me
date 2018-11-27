@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/randytarampi/me/compare/v2.1.4...v2.2.0) (2018-11-27)
+
+
+### Features
+
+* **jsx:** `CampaignLink` `text` is the fall back for `utm_term`. ([dfdac6e](https://github.com/randytarampi/me/commit/dfdac6e))
+* **letter:** Adjust `CampaignLink`s per dfdac6e1890a77f57ccbf78cbb9f189e7fdb7be6. ([4a609f8](https://github.com/randytarampi/me/commit/4a609f8))
+* **resume:** Adjust `CampaignLink`s per dfdac6e1890a77f57ccbf78cbb9f189e7fdb7be6. ([132a86f](https://github.com/randytarampi/me/commit/132a86f))
+* **www:** Adjust `CampaignLink`s per dfdac6e1890a77f57ccbf78cbb9f189e7fdb7be6. ([90da1d9](https://github.com/randytarampi/me/commit/90da1d9))
+
+
+
+
+
 ## [2.1.4](https://github.com/randytarampi/me/compare/v2.1.3...v2.1.4) (2018-11-27)
 
 

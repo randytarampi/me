@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/randytarampi/me/compare/v2.1.4...v2.2.0) (2018-11-27)
+
+
+### Features
+
+* **resume:** Adjust `CampaignLink`s per dfdac6e1890a77f57ccbf78cbb9f189e7fdb7be6. ([132a86f](https://github.com/randytarampi/me/commit/132a86f))
+
+
+
+
+
 ## [2.1.4](https://github.com/randytarampi/me/compare/v2.1.3...v2.1.4) (2018-11-27)
 
 **Note:** Version bump only for package @randy.tarampi/resume
