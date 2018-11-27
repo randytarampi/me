@@ -10,7 +10,8 @@ export const LetterIntro = ({contentConfiguration}) => {
         descriptionNode={<Fragment>
             <p>
                 <span className="text">That's a bear waving hello. They're a fixture in every <CampaignLink
-                    href="https://github.com/randytarampi/me/search?q=%CA%95%E2%80%A2%E1%B4%A5%E2%80%A2%CA%94&unscoped_q=%CA%95%E2%80%A2%E1%B4%A5%E2%80%A2%CA%94">codebase I touch</CampaignLink></span>
+                    href="https://github.com/randytarampi/me/search?q=%CA%95%E2%80%A2%E1%B4%A5%E2%80%A2%CA%94&unscoped_q=%CA%95%E2%80%A2%E1%B4%A5%E2%80%A2%CA%94"
+                    text="codebase I touch"/></span>
             </p>
         </Fragment>}
         {...contentConfiguration.contentProps}

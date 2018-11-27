@@ -7,7 +7,7 @@ export const LetterAboutMe = ({contentConfiguration}) => {
         label="I love to code"
         description={<Fragment>
             Need someone to ramp up quickly and keep pace? That's me — just take a look at my <CampaignLink
-            href="https://github.com/randytarampi">GitHub contribution history</CampaignLink>
+            href="https://github.com/randytarampi" text="GitHub contribution history"/>
         </Fragment>}
         {...contentConfiguration.contentProps}
         type={contentConfiguration.contentKey}
@@ -17,13 +17,13 @@ export const LetterAboutMe = ({contentConfiguration}) => {
             {
                 contentConfiguration.contentProps.aboutMe || <p>
                     I'm not your run of the mill software developer. I love being away from my
-                    screens — getting <CampaignLink
-                    href="https://www.flickr.com/photos/randytarampi/29098786007">outdoors</CampaignLink>, travelling
+                    screens — <CampaignLink
+                    href="https://www.flickr.com/photos/randytarampi/29098786007" text="getting outdoors"/>, travelling
                     to <CampaignLink
-                    href="https://500px.com/photo/202736697/that-camera-emoji-by-randy-tarampi">far off
-                    places</CampaignLink> and getting <CampaignLink href="https://unsplash.com/photos/LWYW0EIBXyQ">as
+                    href="https://500px.com/photo/202736697/that-camera-emoji-by-randy-tarampi" text="far off
+                    places"/> and getting <CampaignLink href="https://unsplash.com/photos/LWYW0EIBXyQ" text="as
                     far away from an
-                    internet connection as you can get</CampaignLink>. I don't like spending a lot of time in front of
+                    internet connection as you can get"/>. I don't like spending a lot of time in front of
                     the
                     computer and I think that there are a lot of people out there that feel the same way, <em>maybe even
                     yourself</em>, and that's why I build software. There are better ways to spend your time than doing

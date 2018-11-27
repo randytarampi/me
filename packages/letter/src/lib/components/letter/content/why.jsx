@@ -11,7 +11,7 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
         label="You could use someone like me"
         description={<Fragment>
             I've babysat hours long database migrations, <CampaignLink
-            href="https://github.com/highcharts/highcharts/issues/1476">fiddled with VML in IE8</CampaignLink> and built
+            href="https://github.com/highcharts/highcharts/issues/1476" text="fiddled with VML in IE8"/> and built
             data
             crunching microservices — a bit of it all
         </Fragment>}
@@ -32,12 +32,12 @@ export const LetterWhy = ({letter, contentConfiguration}) => {
                         catches fire and you rack up technical debt to meet your deadlines, watched what happens
                         when
                         new hires drop production database tables (<CampaignLink
-                        href="https://www.reddit.com/r/cscareerquestions/comments/6ez8ag">the opposite of
-                        this</CampaignLink>),
+                        href="https://www.reddit.com/r/cscareerquestions/comments/6ez8ag" text="the opposite of
+                        this"/>),
                         seen what happens to your team when you get acquired and then tried to keep spirits high after
                         it
                         gets liquidated. I know what it feels like to get laid off and see a <CampaignLink
-                        href="http://fetchauto.ca">startup fizzle out</CampaignLink>. I've seen a lot, learned a lot,
+                        href="http://fetchauto.ca" text="startup fizzle out"/>. I've seen a lot, learned a lot,
                         failed a
                         couple of times, but I know I haven't done it all yet, and the best way for me to do that is to
                         take
