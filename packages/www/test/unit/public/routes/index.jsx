@@ -67,7 +67,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.name}/>
+                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type}/>
             );
         });
     });
@@ -78,7 +78,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.name}/>
+                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type}/>
             );
         });
     });

@@ -159,7 +159,7 @@ describe("Posts", function () {
     });
 
     it("propagates props (only `Photo`s)", function () {
-        const stubProps = {fetchUrl: "/woof", type: Photo.name, match: {params: {}}};
+        const stubProps = {fetchUrl: "/woof", type: Photo.type, match: {params: {}}};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
             "../actions/fetchPosts": {
@@ -191,7 +191,7 @@ describe("Posts", function () {
     });
 
     it("propagates props (only `Post`s)", function () {
-        const stubProps = {fetchUrl: "/woof", type: Post.name, match: {params: {}}};
+        const stubProps = {fetchUrl: "/woof", type: Post.type, match: {params: {}}};
         const fetchPostsStub = sinon.stub().returns(() => Promise.resolve());
         const proxyquiredPosts = proxyquire("../../../../../src/lib/containers/posts", {
             "../actions/fetchPosts": {

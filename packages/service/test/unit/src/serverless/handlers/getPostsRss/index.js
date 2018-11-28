@@ -54,13 +54,13 @@ describe("getPostsRss", function () {
                     return Promise.resolve({
                         first: {
                             global: stubPost,
-                            [Post.name]: stubPost,
-                            [Photo.name]: stubPhoto
+                            [Post.type]: stubPost,
+                            [Photo.type]: stubPhoto
                         },
                         last: {
                             global: stubPhoto,
-                            [Post.name]: stubPost,
-                            [Photo.name]: stubPhoto
+                            [Post.type]: stubPost,
+                            [Photo.type]: stubPhoto
                         },
                         posts: stubPosts,
                         total: {
@@ -147,13 +147,13 @@ describe("getPostsRss", function () {
                     return Promise.resolve({
                         first: {
                             global: stubPost,
-                            [Post.name]: stubPost,
-                            [Photo.name]: stubPhoto
+                            [Post.type]: stubPost,
+                            [Photo.type]: stubPhoto
                         },
                         last: {
                             global: stubPhoto,
-                            [Post.name]: stubPost,
-                            [Photo.name]: stubPhoto
+                            [Post.type]: stubPost,
+                            [Photo.type]: stubPhoto
                         },
                         posts: stubPosts,
                         total: {
@@ -232,13 +232,13 @@ describe("getPostsRss", function () {
                     return Promise.resolve({
                         first: {
                             global: stubPost,
-                            [Post.name]: stubPost,
-                            [Photo.name]: stubPhoto
+                            [Post.type]: stubPost,
+                            [Photo.type]: stubPhoto
                         },
                         last: {
                             global: stubPhoto,
-                            [Post.name]: stubPost,
-                            [Photo.name]: stubPhoto
+                            [Post.type]: stubPost,
+                            [Photo.type]: stubPhoto
                         },
                         posts: stubPosts,
                         total: {

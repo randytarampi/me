@@ -127,24 +127,24 @@ describe("util", function () {
                 posts: stubPosts,
                 total: {
                     global: stubPosts.length,
-                    [Post.name]: 1,
-                    [Photo.name]: 1
+                    [Post.type]: 1,
+                    [Photo.type]: 1
                 },
                 first: {
                     global: stubPost,
-                    [Post.name]: stubPost,
-                    [Photo.name]: stubPhoto
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
                 },
                 last: {
                     global: stubPhoto,
-                    [Post.name]: stubPost,
-                    [Photo.name]: stubPhoto
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
                 }
             };
             const proxyquireStubs = {
                 "../../lib/sources/searchPosts": {
                     "default": sinon.stub().callsFake(searchParams => {
-                        const baseResult = searchParams.type === Photo.name
+                        const baseResult = searchParams.type === Photo.type
                             ? stubPhoto
                             : stubPost;
                         return Promise.resolve({
@@ -171,26 +171,26 @@ describe("util", function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubPost];
-            const stubQueryParameters = {type: Post.name};
+            const stubQueryParameters = {type: Post.type};
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {
                     global: stubPosts.length,
-                    [Post.name]: 1
+                    [Post.type]: 1
                 },
                 first: {
                     global: stubPost,
-                    [Post.name]: stubPost
+                    [Post.type]: stubPost
                 },
                 last: {
                     global: stubPost,
-                    [Post.name]: stubPost
+                    [Post.type]: stubPost
                 }
             };
             const proxyquireStubs = {
                 "../../lib/sources/searchPosts": {
                     "default": sinon.stub().callsFake(searchParams => {
-                        const baseResult = searchParams.type === Photo.name
+                        const baseResult = searchParams.type === Photo.type
                             ? stubPhoto
                             : stubPost;
                         return Promise.resolve({

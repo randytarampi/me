@@ -96,7 +96,7 @@ describe("SearchParams", function () {
 
     describe(".Tumblr", function () {
         it("should properly format properties for word posts", function () {
-            const searchParams = SearchParams.fromJS({type: Post.name});
+            const searchParams = SearchParams.fromJS({type: Post.type});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -108,7 +108,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for photo posts", function () {
-            const searchParams = SearchParams.fromJS({type: Photo.name});
+            const searchParams = SearchParams.fromJS({type: Photo.type});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -188,13 +188,13 @@ describe("SearchParams", function () {
         it("should properly format properties for tags & type", function () {
             const searchParams = SearchParams.fromJS({
                 tags: "woof,Meow",
-                type: Post.name
+                type: Post.type
             });
 
             expect(searchParams.Dynamoose).to.eql({
                 _filter: {
                     tags: {contains: ["woof", "meow"]},
-                    type: Post.name
+                    type: Post.type
                 },
                 _options: {limit: 100, descending: true, all: false}
             });
@@ -285,13 +285,13 @@ describe("SearchParams", function () {
 
         it("should properly format properties for type & geohash", function () {
             const searchParams = SearchParams.fromJS({
-                type: Post.name,
+                type: Post.type,
                 geohash: "woof"
             });
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    hash: {type: {eq: Post.name}},
+                    hash: {type: {eq: Post.type}},
                     range: {geohash: {begins_with: "woof"}}
                 },
                 _options: {

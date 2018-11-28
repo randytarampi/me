@@ -11,9 +11,9 @@ export const PhotosRouteHandler = props => <Redirect {...props} to="/blog/photos
 export const WordsRouteHandler = props => <Redirect {...props} to="/blog/words"/>;
 export const BlogRouteHandler = props => <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />;
 export const BlogWordsRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`}
-                                                                type={Post.name} {...props} />;
+                                                                type={Post.type} {...props} />;
 export const BlogPhotoRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`}
-                                                                type={Photo.name} {...props} />;
+                                                                type={Photo.type} {...props} />;
 
 const augmentWithParent = (parent = null) => ({routes, ...route}) => {
     if (parent) {

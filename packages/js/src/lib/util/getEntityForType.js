@@ -3,10 +3,10 @@ import Post from "../post";
 
 export const getEntityForType = type => {
     switch (type) {
-        case Photo.name:
+        case Photo.type:
             return Photo;
 
-        case Post.name:
+        case Post.type:
             return Post;
 
         default:

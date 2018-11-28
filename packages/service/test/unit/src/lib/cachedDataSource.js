@@ -141,7 +141,7 @@ describe("CachedDataSource", function () {
             stubCacheClient = new DummyCacheClient();
 
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
-            const stubSearchParams = SearchParams.fromJS({type: Photo.name, source: stubType});
+            const stubSearchParams = SearchParams.fromJS({type: Photo.type, source: stubType});
 
             return cachedDataSource.cachedPostsGetter(stubSearchParams)
                 .then(cachedPosts => {
@@ -155,7 +155,7 @@ describe("CachedDataSource", function () {
                     sinon.assert.calledWith(stubGetPosts, {
                         _query: {
                             hash: {source: {eq: stubType}},
-                            range: {type: {eq: Photo.name}}
+                            range: {type: {eq: Photo.type}}
                         },
                         _options: {
                             limit: 100,
@@ -182,7 +182,7 @@ describe("CachedDataSource", function () {
             stubCacheClient = new DummyCacheClient();
 
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
-            const stubSearchParams = SearchParams.fromJS({type: Photo.name, source: stubType});
+            const stubSearchParams = SearchParams.fromJS({type: Photo.type, source: stubType});
 
             return cachedDataSource.allCachedPostsGetter(stubSearchParams)
                 .then(cachedPosts => {
@@ -196,7 +196,7 @@ describe("CachedDataSource", function () {
                     sinon.assert.calledWith(stubGetPosts, {
                         _query: {
                             hash: {source: {eq: stubType}},
-                            range: {type: {eq: Photo.name}}
+                            range: {type: {eq: Photo.type}}
                         },
                         _options: {
                             limit: 100,

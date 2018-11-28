@@ -29,11 +29,11 @@ export const ConnectedPosts = connect(
 
         if (type) {
             switch (type) {
-                case Photo.name:
+                case Photo.type:
                     postsSelector = selectors.getPhotoPostsSortedByDate;
                     break;
 
-                case Post.name:
+                case Post.type:
                     postsSelector = selectors.getWordPostsSortedByDate;
                     break;
             }
@@ -62,8 +62,8 @@ export const ConnectedPosts = connect(
 ConnectedPosts.propTypes = {
     fetchUrl: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
-        Post.name,
-        Photo.name
+        Post.type,
+        Photo.type
     ])
 };
 

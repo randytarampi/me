@@ -33,7 +33,7 @@ describe("Post", () => {
 
             const post = new Post(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(post.dateCreated).to.eql(postJs.dateCreated);
@@ -70,7 +70,7 @@ describe("Post", () => {
 
             const post = new Post(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(postJs.tags[1]).to.have.string(post.dateCreated.valueOf().toString());
@@ -105,7 +105,7 @@ describe("Post", () => {
 
             const post = new Post(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(postJs.tags[0]).to.have.string(post.lat.toString());
             expect(post.long).to.eql(postJs.long);
         });
@@ -138,7 +138,7 @@ describe("Post", () => {
 
             const post = new Post(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(post.lat).to.eql(postJs.lat);
             expect(postJs.tags[0]).to.have.string(post.long.toString());
         });
@@ -169,7 +169,7 @@ describe("Post", () => {
 
             const post = new Post(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(postJs.tags[0]).to.have.string(post.geohash.toString());
         });
 
@@ -434,7 +434,7 @@ describe("Post", () => {
 
             const post = Post.fromJSON(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(post.datePublished.valueOf()).to.eql(post.dateCreated.valueOf());
@@ -465,7 +465,7 @@ describe("Post", () => {
 
             const post = Post.fromJS(postJs);
 
-            expect(post.type).to.eql(Post.name);
+            expect(post.type).to.eql(Post.type);
             expect(post.dateCreated).to.be.an.instanceOf(DateTime);
             expect(post.datePublished).to.be.an.instanceOf(DateTime);
             expect(post.datePublished.valueOf()).to.eql(post.dateCreated.valueOf());

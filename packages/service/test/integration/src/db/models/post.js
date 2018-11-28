@@ -106,7 +106,7 @@ describe("Post", function () {
             const retrievedPost = await getPost({_query: {uid: {eq: stubPost.uid}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
-            expect(retrievedPost.type).to.eql(Post.name);
+            expect(retrievedPost.type).to.eql(Post.type);
         });
 
         it("retrieves a Post (type)", async function () {
@@ -114,7 +114,7 @@ describe("Post", function () {
             const retrievedPost = await getPost({_query: {type: {eq: stubPost.type}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
-            expect(retrievedPost.type).to.eql(Post.name);
+            expect(retrievedPost.type).to.eql(Post.type);
         });
 
         it("retrieves a Photo (source)", async function () {
@@ -122,7 +122,7 @@ describe("Post", function () {
             const retrievedPhoto = await getPost({_query: {source: {eq: stubPhoto.source}}});
             expect(retrievedPhoto).to.be.ok;
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
-            expect(retrievedPhoto.type).to.eql(Photo.name);
+            expect(retrievedPhoto.type).to.eql(Photo.type);
         });
 
         it("retrieves a Post (tags)", async function () {
@@ -160,7 +160,7 @@ describe("Post", function () {
             const retrievedPost = await getPost({_filter: {tags: {CONTAINS: ["woof"]}}});
             expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
-            expect(retrievedPost.type).to.eql(Post.name);
+            expect(retrievedPost.type).to.eql(Post.type);
         });
     });
 
@@ -216,7 +216,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost.type).to.eql(Photo.name);
+                expect(retrievedPost.type).to.eql(Photo.type);
             }));
         });
 
@@ -255,7 +255,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost.type).to.eql(Photo.name);
+                expect(retrievedPost.type).to.eql(Photo.type);
             }));
         });
 
@@ -267,7 +267,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost.type).to.eql(Photo.name);
+                expect(retrievedPost.type).to.eql(Photo.type);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
@@ -280,7 +280,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost.type).to.eql(Photo.name);
+                expect(retrievedPost.type).to.eql(Photo.type);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
@@ -325,7 +325,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost.type).to.eql(Photo.name);
+                expect(retrievedPost.type).to.eql(Photo.type);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
         });
@@ -410,7 +410,7 @@ describe("Post", function () {
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost).to.be.ok;
-                expect(retrievedPost.type).to.eql(Post.name);
+                expect(retrievedPost.type).to.eql(Post.type);
             }));
         });
     });

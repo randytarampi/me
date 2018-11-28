@@ -125,11 +125,11 @@ class SearchParams extends SearchParamsRecord {
         };
 
         switch (this.type) {
-            case Post.name:
+            case Post.type:
                 baseRequest.type = "text";
                 break;
 
-            case Photo.name:
+            case Photo.type:
                 baseRequest.type = "photo";
                 break;
 

@@ -4,10 +4,10 @@ import PostComponent from "../components/post";
 
 export const getComponentForType = type => {
     switch (type) {
-        case Photo.name:
+        case Photo.type:
             return PhotoComponent;
 
-        case Post.name:
+        case Post.type:
             return PostComponent;
 
         default:

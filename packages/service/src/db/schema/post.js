@@ -23,8 +23,8 @@ const post = new Schema({
         type: String,
         required: true,
         enum: [
-            Photo.name,
-            Post.name
+            Photo.type,
+            Post.type
         ],
         index: [
             {

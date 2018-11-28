@@ -34,7 +34,7 @@ describe("Photo", () => {
             };
             const photo = new Photo(photoJS);
 
-            expect(photo.type).to.eql(Photo.name);
+            expect(photo.type).to.eql(Photo.type);
             expect(photo.dateCreated).to.be.an.instanceOf(DateTime);
             expect(photo.datePublished).to.be.an.instanceOf(DateTime);
             expect(photo.sizedPhotos).to.be.an.instanceOf(List);

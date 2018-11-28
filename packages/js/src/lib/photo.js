@@ -9,6 +9,10 @@ export class Photo extends PostClassGenerator({
     height: null,
     sizedPhotos: List()
 }) {
+    static get type() {
+        return "Photo";
+    }
+
     static parsePropertiesFromJs(js) {
         return {
             ...Post.parsePropertiesFromJs(js),

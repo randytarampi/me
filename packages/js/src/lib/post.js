@@ -58,12 +58,8 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         return `${this.source}${compositeKeySeparator}${this.id}`;
     }
 
-    get type() {
-        if (this.get("type")) {
-            return this.get("type");
-        }
-
-        return this.constructor.name;
+    static get type() {
+        return "Post";
     }
 
     get date() {
@@ -112,6 +108,14 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         }
 
         return this.dateCreated;
+    }
+
+    get type() {
+        if (this.get("type")) {
+            return this.get("type");
+        }
+
+        return this.constructor.type;
     }
 
     static parsePropertiesFromJs(js) {
