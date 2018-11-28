@@ -139,6 +139,7 @@ jobs:
       name: www
       node_js: '8.10'
       env:
+        - BABEL_ENV=production
         - NODE_ENV=dev
         - DEPLOY=true
         - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
@@ -170,6 +171,7 @@ jobs:
       name: posts
       node_js: '8.10'
       env:
+        - BABEL_ENV=production
         - NODE_ENV=dev
         - DEPLOY=true
         - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
