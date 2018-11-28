@@ -199,7 +199,7 @@ describe("JobApplication", function () {
                 expect(jobApplication).to.be.instanceOf(JobApplication);
                 expect(jobApplication.pdfRenderOptions).to.eql({
                     ...stubJobApplicationJs.renderOptions,
-                    content: `${packageJson.version},a4,bar`,
+                    content: `${packageJson.version},bar`,
                     name: "",
                     term: "woof"
                 });
@@ -271,7 +271,7 @@ describe("JobApplication", function () {
             expect(jobApplication.resume).to.be.instanceOf(Resume);
             expect(jobApplication.pdfRenderOptions).to.eql({
                 ...stubJobApplicationJs.renderOptions,
-                content: `${packageJson.version},a4,bar`,
+                content: `${packageJson.version},bar`,
                 name: "",
                 term: "woof"
             });

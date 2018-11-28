@@ -14,7 +14,7 @@ const defaultRenderOptions = Map({
 
     source: packageJson.name,
     medium: "pdf",
-    content: `a4,${packageJson.version}`
+    content: `${packageJson.version}`
 });
 
 export class JobApplication extends Record({
