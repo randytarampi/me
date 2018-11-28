@@ -9,7 +9,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.2.0",
+  "version": "2.2.1",
   "homepage": "https://www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -37,10 +37,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@randy.tarampi/jsx": "^2.2.0",
-    "@randy.tarampi/letter": "^2.2.0",
-    "@randy.tarampi/printables": "^2.2.0",
-    "@randy.tarampi/resume": "^2.2.0"
+    "@randy.tarampi/jsx": "^2.2.1",
+    "@randy.tarampi/letter": "^2.2.1",
+    "@randy.tarampi/printables": "^2.2.1",
+    "@randy.tarampi/resume": "^2.2.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",

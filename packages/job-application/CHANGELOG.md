@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/randytarampi/me/compare/v2.2.0...v2.2.1) (2018-11-28)
+
+
+### Bug Fixes
+
+* **job-application:** `defaultRenderOptions` shouldn't specify a paper size. ([17aac38](https://github.com/randytarampi/me/commit/17aac38))
+
+
+
+
+
 # [2.2.0](https://github.com/randytarampi/me/compare/v2.1.4...v2.2.0) (2018-11-27)
 
 **Note:** Version bump only for package @randy.tarampi/job-application
