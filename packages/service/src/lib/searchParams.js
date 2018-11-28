@@ -2,7 +2,9 @@ import {
     castDatePropertyToDateTime,
     compositeKeySeparator,
     GEOHASH_ADDITIONAL_PRECISION_CHARACTER,
-    GEOHASH_CHARACTER_PRECISION
+    GEOHASH_CHARACTER_PRECISION,
+    Photo,
+    Post
 } from "@randy.tarampi/js";
 import {Record} from "immutable";
 import geohash from "latlon-geohash";
@@ -122,11 +124,19 @@ class SearchParams extends SearchParamsRecord {
             limit: Math.min(this.perPage, 20)
         };
 
-        if (this.type) {
-            if (this.type === "Post") {
+        switch (this.type) {
+            case Post.name:
                 baseRequest.type = "text";
-            } else {
-                baseRequest.type = this.type.toLowerCase();
+                break;
+
+            case Photo.name:
+                baseRequest.type = "photo";
+                break;
+
+            default: {
+                if (this.type) {
+                    baseRequest.type = this.type.toLowerCase();
+                }
             }
         }
 

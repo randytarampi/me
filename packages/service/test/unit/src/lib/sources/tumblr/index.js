@@ -195,7 +195,7 @@ describe("TumblrSource", function () {
     describe("#postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, type: "Photo"});
+            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, type: Photo.name});
 
             return tumblrSource.postsGetter(stubParams)
                 .then(posts => {
@@ -203,10 +203,10 @@ describe("TumblrSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
                         expect(post).to.be.ok;
-                        if (post.type === "Photo") {
+                        if (post.type === Photo.name) {
                             expect(post).to.be.instanceof(Photo);
                         }
-                        if (post.type === "Post") {
+                        if (post.type === Post.name) {
                             expect(post).to.be.instanceof(Post);
                         }
                     });
@@ -222,7 +222,7 @@ describe("TumblrSource", function () {
 
         it("finds no posts", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 17, type: "Photo"});
+            const stubParams = SearchParams.fromJS({perPage: 17, type: Photo.name});
 
             return tumblrSource.postsGetter(stubParams)
                 .then(posts => {
@@ -265,7 +265,7 @@ describe("TumblrSource", function () {
             return tumblrSource.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
-                    if (post.type === "Photo") {
+                    if (post.type === Photo.name) {
                         expect(post).to.be.instanceof(Photo);
                     } else {
                         expect(post).to.be.instanceof(Post);

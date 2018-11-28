@@ -1,3 +1,4 @@
+import {Photo, Post} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import fetchPosts from "../actions/fetchPosts";
@@ -28,11 +29,11 @@ export const ConnectedPosts = connect(
 
         if (type) {
             switch (type) {
-                case "Photo":
+                case Photo.name:
                     postsSelector = selectors.getPhotoPostsSortedByDate;
                     break;
 
-                case "Post":
+                case Post.name:
                     postsSelector = selectors.getWordPostsSortedByDate;
                     break;
             }
@@ -61,8 +62,8 @@ export const ConnectedPosts = connect(
 ConnectedPosts.propTypes = {
     fetchUrl: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
-        "Post",
-        "Photo"
+        Post.name,
+        Photo.name
     ])
 };
 

@@ -207,7 +207,7 @@ describe("fetchPosts", function () {
             });
             stubStore = mockStore(stubInitialState);
 
-            return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl, "Post", {
+            return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl, Post.name, {
                     params: {
                         filter: "tags",
                         filterValue: "meow"
@@ -229,7 +229,7 @@ describe("fetchPosts", function () {
                                     orderComparatorType: "String",
                                     orderOperator: "lt",
                                     perPage: 8,
-                                    type: "Post",
+                                    type: Post.name,
                                     tags: "meow"
                                 },
                                 oldestPostAvailableDate: stubInitialState.getIn(["posts", "oldest", "global"]),

@@ -1,4 +1,4 @@
-import {compositeKeySeparator, GEOHASH_ADDITIONAL_PRECISION_CHARACTER} from "@randy.tarampi/js";
+import {compositeKeySeparator, GEOHASH_ADDITIONAL_PRECISION_CHARACTER, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import padRight from "pad-right";
 import SearchParams from "../../../../src/lib/searchParams";
@@ -96,7 +96,7 @@ describe("SearchParams", function () {
 
     describe(".Tumblr", function () {
         it("should properly format properties for word posts", function () {
-            const searchParams = SearchParams.fromJS({type: "Post"});
+            const searchParams = SearchParams.fromJS({type: Post.name});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -108,7 +108,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for photo posts", function () {
-            const searchParams = SearchParams.fromJS({type: "Photo"});
+            const searchParams = SearchParams.fromJS({type: Photo.name});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -188,13 +188,13 @@ describe("SearchParams", function () {
         it("should properly format properties for tags & type", function () {
             const searchParams = SearchParams.fromJS({
                 tags: "woof,Meow",
-                type: "Post"
+                type: Post.name
             });
 
             expect(searchParams.Dynamoose).to.eql({
                 _filter: {
                     tags: {contains: ["woof", "meow"]},
-                    type: "Post"
+                    type: Post.name
                 },
                 _options: {limit: 100, descending: true, all: false}
             });
@@ -285,13 +285,13 @@ describe("SearchParams", function () {
 
         it("should properly format properties for type & geohash", function () {
             const searchParams = SearchParams.fromJS({
-                type: "post",
+                type: Post.name,
                 geohash: "woof"
             });
 
             expect(searchParams.Dynamoose).to.eql({
                 _query: {
-                    hash: {type: {eq: "post"}},
+                    hash: {type: {eq: Post.name}},
                     range: {geohash: {begins_with: "woof"}}
                 },
                 _options: {

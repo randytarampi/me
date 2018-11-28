@@ -1,3 +1,4 @@
+import {Photo, Post} from "@randy.tarampi/js";
 import {ConnectedPosts} from "@randy.tarampi/jsx";
 import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
@@ -66,7 +67,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Photo"/>
+                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.name}/>
             );
         });
     });
@@ -77,7 +78,7 @@ describe("routes", function () {
 
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
-                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type="Post"/>
+                <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.name}/>
             );
         });
     });

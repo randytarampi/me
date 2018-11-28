@@ -1,12 +1,13 @@
+import {Photo, Post} from "@randy.tarampi/js";
 import PhotoComponent from "../components/photo";
 import PostComponent from "../components/post";
 
 export const getComponentForType = type => {
     switch (type) {
-        case "Photo":
+        case Photo.name:
             return PhotoComponent;
 
-        case "Post":
+        case Post.name:
             return PostComponent;
 
         default:
