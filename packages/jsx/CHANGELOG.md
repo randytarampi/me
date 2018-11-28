@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.2](https://github.com/randytarampi/me/compare/v2.2.1...v2.2.2) (2018-11-28)
+
+
+### Bug Fixes
+
+* **js:** Consistently use `Photo.name` and `Post.name` as keys instead of hardcoded strings. ([fb41257](https://github.com/randytarampi/me/commit/fb41257)), closes [/github.com/randytarampi/me/commit/2266e2252f5d1a6e82e36eefce655ee855d38cf5#diff-32607347f8126e6534ebc7ebaec4853](https://github.com//github.com/randytarampi/me/commit/2266e2252f5d1a6e82e36eefce655ee855d38cf5/issues/diff-32607347f8126e6534ebc7ebaec4853)
+* **js:** Explicitly give `Post` and `Photo` classes a `type` so we can rely on that instead of the `class`'s `name`, which seems to get rekt in the minification process. ([113058b](https://github.com/randytarampi/me/commit/113058b)), closes [/github.com/randytarampi/me/commit/2266e2252f5d1a6e82e36eefce655ee855d38cf5#diff-32607347f8126e6534ebc7ebaec4853](https://github.com//github.com/randytarampi/me/commit/2266e2252f5d1a6e82e36eefce655ee855d38cf5/issues/diff-32607347f8126e6534ebc7ebaec4853)
+
+
+
+
+
 ## [2.2.1](https://github.com/randytarampi/me/compare/v2.2.0...v2.2.1) (2018-11-28)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
