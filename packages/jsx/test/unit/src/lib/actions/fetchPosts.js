@@ -150,7 +150,7 @@ describe("fetchPosts", function () {
                                     orderComparator: stubInitialState.getIn(["posts", "oldest", "global"]).toISO(),
                                     orderComparatorType: "String",
                                     orderOperator: "lt",
-                                    perPage: 8
+                                    perPage: FETCHING_POSTS_PER_PAGE
                                 },
                                 oldestPostAvailableDate: stubInitialState.getIn(["posts", "oldest", "global"]),
                                 oldestLoadedPostDate: stubLoadedPost.dateCreated
@@ -228,7 +228,7 @@ describe("fetchPosts", function () {
                                     orderComparator: stubInitialState.getIn(["posts", "oldest", "global"]).toISO(),
                                     orderComparatorType: "String",
                                     orderOperator: "lt",
-                                    perPage: 8,
+                                    perPage: FETCHING_POSTS_PER_PAGE,
                                     type: Post.type,
                                     tags: "meow"
                                 },
