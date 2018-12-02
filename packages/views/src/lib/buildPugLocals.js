@@ -40,6 +40,7 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
         mixpanelAppId: config.has("mixpanel.app.id") ? config.get("mixpanel.app.id") : null,
         facebookAppId: config.has("facebook.app.id") ? config.get("facebook.app.id") : null,
         locale: "en_CA",
+        stylesheetName: "styles.css",
         ...meLocals,
         ...passedLocals
     };

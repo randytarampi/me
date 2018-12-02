@@ -47,7 +47,8 @@ html(lang="en")
                 | !{css}
         else
             if typeof assetUrl === "string"
-                link(rel="stylesheet", href=assetUrl + "/styles.css")
+                if stylesheetName
+                    link(rel="stylesheet", href=assetUrl + "/" + stylesheetName)
                 if !!serviceWorkerBundleName
                     script.
                         if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}
