@@ -125,7 +125,7 @@
                 color: $blockTextColour;
                 text-decoration: underline;
                 text-decoration-color: $blockColour;
-                padding-right: $blockPadding;
+                padding-right: $blockPaddingHorizontal / 2;
             }
         }
     }
