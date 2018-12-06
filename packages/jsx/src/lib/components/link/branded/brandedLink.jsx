@@ -7,7 +7,7 @@ export const BrandedLink = ({serviceName, serviceType, serviceUrl, username, use
         text={username}
         href={`${serviceUrl}/${username}`}
         {...props}
-        className={[`link--${serviceType}`, useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
+        className={[`link--branded link--${serviceType}`, useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
     />;
 };
 

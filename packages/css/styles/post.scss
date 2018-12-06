@@ -118,6 +118,17 @@
     &--loading {
         @extend .loading;
     }
+
+    .link {
+        &--branded {
+            &:before, &::before {
+                color: $blockTextColour;
+                text-decoration: underline;
+                text-decoration-color: $blockColour;
+                padding-right: $blockPadding;
+            }
+        }
+    }
 }
 
 .photo-text {

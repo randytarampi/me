@@ -6,7 +6,7 @@ import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import {Col, Row} from "react-materialize";
-import {CampaignLink, InternalLink} from "./link";
+import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link";
 
 export class PostComponent extends Component {
     get width() {
@@ -138,6 +138,24 @@ PostBodyAsArrayComponent.propTypes = {
 };
 
 export const PostDatePublishedComponent = ({post}) => {
+    let postSourceLink = null;
+
+    if (post.creator) {
+        const PostSourceLinkComponent = getBrandedLinkForNetwork(post.source);
+
+        if (PostSourceLinkComponent) {
+            postSourceLink = <PostSourceLinkComponent
+                className="post-source__link"
+                href={post.creator.url}
+                username={post.creator.username}
+            />;
+        } else {
+            postSourceLink = <CampaignLink className="post-source__link" href={post.creator.url}>
+                {post.creator.username} on {post.source}
+            </CampaignLink>;
+        }
+    }
+
     return post.datePublished
         ? <p className="post-date">
             <strong
@@ -145,11 +163,7 @@ export const PostDatePublishedComponent = ({post}) => {
             <span
                 className="post-date__date post-date__date--published">{post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
             {
-                post.creator ?
-                    <CampaignLink className="post-source__link" href={post.creator.url}>
-                        {post.creator.username} on {post.source}
-                    </CampaignLink>
-                    : null
+                postSourceLink
             }
         </p>
         : null;
