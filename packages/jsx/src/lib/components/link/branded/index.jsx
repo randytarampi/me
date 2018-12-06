@@ -8,6 +8,7 @@ import {InstagramLink} from "./instagram";
 import {LinkedInLink} from "./linkedIn";
 import {SoundCloudLink} from "./soundCloud";
 import {StackOverflowLink} from "./stackOverflow";
+import {TumblrLink} from "./tumblr";
 import {TwitterLink} from "./twitter";
 import {UnsplashLink} from "./unsplash";
 
@@ -20,6 +21,7 @@ export * from "./instagram";
 export * from "./linkedIn";
 export * from "./soundCloud";
 export * from "./stackOverflow";
+export * from "./tumblr";
 export * from "./twitter";
 export * from "./unsplash";
 
@@ -35,6 +37,7 @@ export const brandedLinkMap = {
     linkedin: LinkedInLink,
     soundcloud: SoundCloudLink,
     stackoverflow: StackOverflowLink,
+    tumblr: TumblrLink,
     twitter: TwitterLink,
     unsplash: UnsplashLink
 };

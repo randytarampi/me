@@ -107,6 +107,14 @@
         }
     }
 
+    &--tumblr {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0f173\000A0";
+        }
+    }
+
     &--twitter {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";
