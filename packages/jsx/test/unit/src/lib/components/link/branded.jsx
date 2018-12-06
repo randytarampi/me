@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import CampaignLink from "../../../../../../src/lib/components/link/campaign";
 import BrandedLink, * as brandedLinks from "../../../../../../src/lib/components/link/branded";
+import CampaignLink from "../../../../../../src/lib/components/link/campaign";
 
 describe("BrandedLink", function () {
     it("renders (href with branding)", function () {
@@ -43,7 +43,7 @@ describe("BrandedLink", function () {
     });
 
     Object.keys(brandedLinks)
-        .filter(key => !["default", "BrandedLink"].includes(key))
+        .filter(key => !["default", "BrandedLink", "brandedLinkMap", "getBrandedLinkForNetwork"].includes(key))
         .forEach(key => {
         describe(key, function () {
             it("renders", function () {
