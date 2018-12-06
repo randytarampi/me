@@ -10,6 +10,7 @@ export * from "./linkedIn";
 export * from "./soundCloud";
 export * from "./stackOverflow";
 export * from "./twitter";
+export * from "./unsplash";
 
 export * from "./brandedLink";
 

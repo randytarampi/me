@@ -115,6 +115,14 @@
         }
     }
 
+    &--unsplash {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            content: "\0f030\000A0";
+        }
+    }
+
     &--no-branding {
         &:before, &::before {
             font-family: "Font Awesome 5 Brands";

@@ -10,7 +10,8 @@ import {
     PrintableSection,
     SoundCloudLink,
     StackOverflowLink,
-    TwitterLink
+    TwitterLink,
+    UnsplashLink
 } from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
@@ -27,7 +28,8 @@ const networkLinkMap = {
     linkedin: LinkedInLink,
     soundcloud: SoundCloudLink,
     stackoverflow: StackOverflowLink,
-    twitter: TwitterLink
+    twitter: TwitterLink,
+    unsplash: UnsplashLink
 };
 
 const getLinkComponentForProfile = profile => {
