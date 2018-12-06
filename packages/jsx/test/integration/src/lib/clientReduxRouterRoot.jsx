@@ -1,3 +1,4 @@
+import {logger} from "@randy.tarampi/browser-logger";
 import {expect} from "chai";
 import {ConnectedRouter} from "connected-react-router/immutable";
 import {createBrowserHistory} from "history";
@@ -9,7 +10,6 @@ import sinon from "sinon";
 import {ClientReduxRouterRoot} from "../../../../src/lib/clientReduxRouterRoot";
 import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
 import reducers from "../../../../src/lib/data/reducers";
-import logger from "../../../../src/lib/logger";
 import configureOfflineStore from "../../../../src/lib/store/configureOfflineStore";
 import {mount} from "../../../util";
 

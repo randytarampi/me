@@ -1,9 +1,9 @@
+import {logger} from "@randy.tarampi/browser-logger";
 import {expect} from "chai";
 import {mount} from "enzyme";
 import React from "react";
 import sinon from "sinon";
 import {ClientRoot} from "../../../../src/lib/clientRoot";
-import logger from "../../../../src/lib/logger";
 
 describe("ClientRoot", function () {
     const globalNavigator = global.navigator;

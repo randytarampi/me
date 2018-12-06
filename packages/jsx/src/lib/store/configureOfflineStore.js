@@ -1,4 +1,5 @@
 import {createBlacklistFilter} from "@actra-development-oss/redux-persist-transform-filter-immutable";
+import {logger} from "@randy.tarampi/browser-logger";
 import {
     Bear,
     Character,
@@ -27,7 +28,6 @@ import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {combineReducers} from "redux-immutable";
 import thunk from "redux-thunk";
-import logger from "../logger";
 import {
     errorMiddleware,
     metricsMiddleware,

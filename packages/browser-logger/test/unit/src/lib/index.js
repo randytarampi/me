@@ -3,8 +3,8 @@ import {expect} from "chai";
 import {JSDOM} from "jsdom";
 import raven from "raven-js";
 import sinon from "sinon";
-import {buildBunyanConfiguration, buildRavenConfiguration} from "../../../../../src/lib/logger";
-import ConsoleStream from "../../../../../src/lib/logger/consoleStream";
+import {buildBunyanConfiguration, buildRavenConfiguration} from "../../../../src/lib";
+import ConsoleStream from "../../../../src/lib/consoleStream";
 
 describe("logger", function () {
     const globalWindow = global.window;

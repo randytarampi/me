@@ -30,7 +30,7 @@ export * from "./components";
 export * from "./containers";
 export * from "./contexts";
 export * from "./data";
-export * from "./logger";
+export * from "@randy.tarampi/browser-logger"; // FIXME-RT: Remove this in v3.
 export * from "./metrics";
 export * from "./middleware";
 export * from "./store";

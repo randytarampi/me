@@ -1,7 +1,7 @@
+import {logger} from "@randy.tarampi/browser-logger";
 import React, {Component} from "react";
 import {metrics} from "react-metrics";
 import Sniffr from "sniffr";
-import logger from "./logger";
 import metricsConfig from "./metrics/config";
 
 export class ClientRoot extends Component {

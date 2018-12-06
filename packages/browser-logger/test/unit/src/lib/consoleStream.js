@@ -2,7 +2,7 @@ import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.t
 import {nameFromLevel} from "browser-bunyan";
 import {expect} from "chai";
 import sinon from "sinon";
-import ConsoleStream from "../../../../../src/lib/logger/consoleStream";
+import ConsoleStream from "../../../../src/lib/consoleStream";
 
 describe("ConsoleStream", function () {
     let bears;

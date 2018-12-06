@@ -1,3 +1,4 @@
+import {logger} from "@randy.tarampi/browser-logger";
 import {expect} from "chai";
 import {createBrowserHistory} from "history";
 import React from "react";
@@ -6,7 +7,6 @@ import * as reactRouter from "react-router-config";
 import sinon from "sinon";
 import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
 import reducers from "../../../../src/lib/data/reducers";
-import logger from "../../../../src/lib/logger";
 import {ServerReduxRouterRoot} from "../../../../src/lib/serverReduxRouterRoot";
 import configureStore from "../../../../src/lib/store/configureStore";
 import {mount} from "../../../util";
