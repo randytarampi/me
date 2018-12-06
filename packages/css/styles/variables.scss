@@ -1,6 +1,8 @@
 @import "materialize-css/sass/components/color";
 
-$blockPadding: 0.1em 0.5rem;
+$blockPaddingVertical: 0.1rem;
+$blockPaddingHorizontal: 0.5rem;
+$blockPadding: $blockPaddingVertical $blockPaddingHorizontal;
 $blockColour: black;
 $blockTextColour: white;
 $blockLineHeight: 1.5;
