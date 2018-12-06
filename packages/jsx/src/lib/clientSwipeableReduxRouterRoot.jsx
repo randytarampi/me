@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import {ClientRoot} from "./clientRoot";
 import ErrorWrapper from "./containers/errorWrapper";
 import ConnectedSwipeableTabs from "./containers/swipeableTabs";
-import metricsConfig from "./metrics/config";
+import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 import {renderSwipeableRoutes} from "./util";
 
 export class ClientSwipeableReduxRouterRoot extends ClientRoot {

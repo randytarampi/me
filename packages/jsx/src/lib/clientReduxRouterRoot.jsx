@@ -5,7 +5,7 @@ import {metrics} from "react-metrics";
 import {renderRoutes} from "react-router-config";
 import ClientReduxRoot from "./clientReduxRoot";
 import ErrorWrapper from "./containers/errorWrapper";
-import metricsConfig from "./metrics/config";
+import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 
 export const ClientReduxRouterRoot = ({store, routes, history, ...props}) => {
     return <ClientReduxRoot store={store} {...props}>

@@ -2,7 +2,7 @@ import {logger} from "@randy.tarampi/browser-logger";
 import React, {Component} from "react";
 import {metrics} from "react-metrics";
 import Sniffr from "sniffr";
-import metricsConfig from "./metrics/config";
+import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 
 export class ClientRoot extends Component {
     constructor(props) {

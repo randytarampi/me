@@ -31,7 +31,7 @@ export * from "./containers";
 export * from "./contexts";
 export * from "./data";
 export * from "@randy.tarampi/browser-logger"; // FIXME-RT: Remove this in v3.
-export * from "./metrics";
+export * from "@randy.tarampi/redux-metrics"; // FIXME-RT: Remove this in v3.
 export * from "./middleware";
 export * from "./store";
 export * from "./util";

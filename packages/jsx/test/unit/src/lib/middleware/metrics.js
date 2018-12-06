@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import metricsInstance from "../../../../../src/lib/metrics";
+import metricsInstance from "@randy.tarampi/redux-metrics";
 import metrics from "../../../../../src/lib/middleware/metrics";
 import {
     CRISP_CHAT_CLOSED,

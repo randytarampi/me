@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {JSDOM} from "jsdom";
 import sinon from "sinon";
-import * as util from "../../../../../../src/lib/metrics/util";
-import GtmClient from "../../../../../../src/lib/metrics/vendors/gtm";
+import * as util from "../../../../../src/lib/util";
+import GtmClient from "../../../../../src/lib/vendors/gtm";
 
 describe("GtmClient", function () {
     const globalWindow = global.window;

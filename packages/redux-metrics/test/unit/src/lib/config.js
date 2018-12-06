@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import config, {gtmClient} from "../../../../../src/lib/metrics/config";
-import * as util from "../../../../../src/lib/metrics/util";
-import GtmClient from "../../../../../src/lib/metrics/vendors/gtm";
+import config, {gtmClient} from "../../../../src/lib/config";
+import * as util from "../../../../src/lib/util";
+import GtmClient from "../../../../src/lib/vendors/gtm";
 
 describe("config", function () {
     beforeEach(function () {
