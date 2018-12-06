@@ -1,40 +1,12 @@
-import {
-    AngelListLink,
-    CampaignLink,
-    F00pxLink,
-    FacebookLink,
-    FlickrLink,
-    GitHubLink,
-    InstagramLink,
-    LinkedInLink,
-    PrintableSection,
-    SoundCloudLink,
-    StackOverflowLink,
-    TwitterLink,
-    UnsplashLink
-} from "@randy.tarampi/jsx";
+import {CampaignLink, getBrandedLinkForNetwork, PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 import {ResumeCustomContent} from "../../../resumeCustomContent";
 
-const networkLinkMap = {
-    angellist: AngelListLink,
-    f00px: F00pxLink,
-    facebook: FacebookLink,
-    flickr: FlickrLink,
-    github: GitHubLink,
-    instagram: InstagramLink,
-    linkedin: LinkedInLink,
-    soundcloud: SoundCloudLink,
-    stackoverflow: StackOverflowLink,
-    twitter: TwitterLink,
-    unsplash: UnsplashLink
-};
-
 const getLinkComponentForProfile = profile => {
     const network = profile.network;
-    let ExistingLinkComponent = networkLinkMap[network.toLowerCase()];
+    let ExistingLinkComponent = getBrandedLinkForNetwork(network);
     let linkComponent = null;
 
     if (!ExistingLinkComponent) {
