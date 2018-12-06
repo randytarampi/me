@@ -18,7 +18,7 @@ describe("BrandedLink", function () {
             <CampaignLink
                 href={`${stubProps.serviceUrl}/${stubProps.username}`}
                 text={stubProps.username}
-                className={`link--${stubProps.serviceType}`}
+                className={`link--branded link--${stubProps.serviceType}`}
             />
         );
     });
@@ -37,7 +37,7 @@ describe("BrandedLink", function () {
             <CampaignLink
                 href={`${stubProps.serviceUrl}/${stubProps.username}`}
                 text={stubProps.username}
-                className={`link--${stubProps.serviceType} link--no-branding`}
+                className={`link--branded link--${stubProps.serviceType} link--no-branding`}
             />
         );
     });
