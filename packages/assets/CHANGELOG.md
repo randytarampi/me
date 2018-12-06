@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/randytarampi/me/compare/v2.2.3...v2.3.0) (2018-12-06)
+
+**Note:** Version bump only for package @randy.tarampi/assets
+
+
+
+
+
 ## [2.2.3](https://github.com/randytarampi/me/compare/v2.2.2...v2.2.3) (2018-12-02)
 
 **Note:** Version bump only for package @randy.tarampi/assets

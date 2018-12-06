@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "A client-side-logger for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
@@ -41,8 +41,8 @@
     "react-metrics"
   ],
   "dependencies": {
-    "react-metrics": "^2.4.1",
-    "luxon": "^1.3.3"
+    "luxon": "^1.3.3",
+    "react-metrics": "^2.4.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",

@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/randytarampi/me/compare/v2.2.3...v2.3.0) (2018-12-06)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tests broken in 6376e1c35206db5227a928aa60841f8f3430f24d. ([a9394a7](https://github.com/randytarampi/me/commit/a9394a7))
+* **jsx:** Fix tests broken in b80d861b2f578c7b2c4194a4b752886ef552e4e7. ([90f313e](https://github.com/randytarampi/me/commit/90f313e))
+
+
+### Features
+
+* **browser-logger:** [@randy](https://github.com/randy).tarampi/jsx/logger -> [@randy](https://github.com/randy).tarampi/browser-logger. ([e41f2a5](https://github.com/randytarampi/me/commit/e41f2a5)), closes [#206](https://github.com/randytarampi/me/issues/206)
+* **jsx:** `Post`s and `Photo`s use `BrandedLink`s where possible. ([6376e1c](https://github.com/randytarampi/me/commit/6376e1c)), closes [#210](https://github.com/randytarampi/me/issues/210)
+* **jsx:** Add a Tumblr `BrandedLink`. ([edd724d](https://github.com/randytarampi/me/commit/edd724d)), closes [#209](https://github.com/randytarampi/me/issues/209)
+* **jsx:** Add an Unsplash `BrandedLink`. ([59a03ef](https://github.com/randytarampi/me/commit/59a03ef)), closes [#209](https://github.com/randytarampi/me/issues/209)
+* **redux-metrics:** [@randy](https://github.com/randy).tarampi/jsx/metrics -> [@randy](https://github.com/randy).tarampi/redux-metrics. ([f78520e](https://github.com/randytarampi/me/commit/f78520e)), closes [#207](https://github.com/randytarampi/me/issues/207)
+
+
+
+
+
 ## [2.2.3](https://github.com/randytarampi/me/compare/v2.2.2...v2.2.3) (2018-12-02)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

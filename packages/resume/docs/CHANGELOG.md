@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/randytarampi/me/compare/v2.2.3...v2.3.0) (2018-12-06)
+
+
+### Bug Fixes
+
+* **jsx:** Fix test broken in 59a03ef9af5aac6548980d1d0dc2ab7def0287a2. ([9528ae3](https://github.com/randytarampi/me/commit/9528ae3))
+
+
+### Features
+
+* **jsx:** Add an Unsplash `BrandedLink`. ([59a03ef](https://github.com/randytarampi/me/commit/59a03ef)), closes [#209](https://github.com/randytarampi/me/issues/209)
+
+
+
+
+
 ## [2.2.3](https://github.com/randytarampi/me/compare/v2.2.2...v2.2.3) (2018-12-02)
 
 **Note:** Version bump only for package @randy.tarampi/resume

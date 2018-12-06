@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/randytarampi/me/compare/v2.2.3...v2.3.0) (2018-12-06)
+
+
+### Bug Fixes
+
+* **css:** More sensible `.link--branded::before` `padding-right`. ([d8ff0dc](https://github.com/randytarampi/me/commit/d8ff0dc))
+* **css:** Split out `$blockPadding` into `$blockPaddingVertical` and `$blockPaddingHorizontal`. ([7cad964](https://github.com/randytarampi/me/commit/7cad964))
+* **css:** The camera icon is actually in `Font Awesome 5 Free`, not `Font Awesome 5 Brands`. ([6ab7121](https://github.com/randytarampi/me/commit/6ab7121))
+
+
+### Features
+
+* **jsx:** `Post`s and `Photo`s use `BrandedLink`s where possible. ([6376e1c](https://github.com/randytarampi/me/commit/6376e1c)), closes [#210](https://github.com/randytarampi/me/issues/210)
+* **jsx:** Add a Tumblr `BrandedLink`. ([edd724d](https://github.com/randytarampi/me/commit/edd724d)), closes [#209](https://github.com/randytarampi/me/issues/209)
+* **jsx:** Add an Unsplash `BrandedLink`. ([59a03ef](https://github.com/randytarampi/me/commit/59a03ef)), closes [#209](https://github.com/randytarampi/me/issues/209)
+
+
+
+
+
 ## [2.2.3](https://github.com/randytarampi/me/compare/v2.2.2...v2.2.3) (2018-12-02)
 
 **Note:** Version bump only for package @randy.tarampi/css
