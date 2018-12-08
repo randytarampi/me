@@ -17,25 +17,24 @@ import {
 
 export class PhotoComponent extends PostComponent {
     get selected() {
-        const targetWidth = window.devicePixelRatio ?
-            this.props.containerWidth * window.devicePixelRatio :
-            this.props.containerWidth;
-        return this.props.post.getSizedPhotoForDisplay(targetWidth);
+        return this.props.post.getSizedPhotoForDisplay(this.targetWidth);
     }
 
     get scaledHeight() {
-        let scaledHeight = this.props.containerWidth * this.selected.height / this.selected.width;
+        return computeScaledHeight({
+            containerWidth: this.props.containerWidth,
+            photoHeight: this.selected.height,
+            photoWidth: this.selected.width,
+            postHtmlId: this.props.post.uid
+        });
+    }
 
-        if (window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
-            const photoElement = document.getElementById(this.props.post.uid);
-            scaledHeight = Math.max(scaledHeight * WINDOW_LARGE_PHOTO_SCALE, photoElement ? photoElement.querySelector(".post-metadata.l4").clientHeight : 0);
-        }
-
-        return scaledHeight;
+    get targetWidth() {
+        return computeTargetWidth(this.props);
     }
 
     render() {
-        const {post, isLoading, source, placeholder} = this.props;
+        const {post, isLoading, source} = this.props;
 
         const rowClassName = ["post post--photo"];
 
@@ -47,7 +46,7 @@ export class PhotoComponent extends PostComponent {
             className={rowClassName.join(" ")}
             id={post.uid}
             style={{
-                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none"><defs><filter><feGaussianBlur stdDeviation="5"/></filter></defs></svg>'),linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${placeholder})`
+                backgroundImage: `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${source})`
             }}
         >
             <SchemaJsonLdComponent markup={post.toSchema()}/>
@@ -101,22 +100,46 @@ export class PhotoComponent extends PostComponent {
 
 PhotoComponent.propTypes = {
     post: PropTypes.instanceOf(PhotoEntity).isRequired,
-    placeholder: PropTypes.string.isRequired,
     source: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired
 };
 
+export const computeScaledHeight = ({containerWidth, photoHeight, photoWidth, postHtmlId}) => {
+    let scaledHeight = containerWidth * photoHeight / photoWidth;
+
+    if (window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
+        const photoElement = document.getElementById(postHtmlId);
+
+        if (photoElement) {
+            const metadataColumnElement = photoElement.querySelector(".post-metadata.l4");
+            scaledHeight = Math.max(
+                scaledHeight * WINDOW_LARGE_PHOTO_SCALE,
+                photoElement && metadataColumnElement ? metadataColumnElement.clientHeight : 0
+            );
+        }
+    }
+
+    return scaledHeight;
+};
+
+export const computeTargetWidth = ({containerWidth}) => {
+    return window.devicePixelRatio ?
+        containerWidth * window.devicePixelRatio :
+        containerWidth;
+};
+
 export const ProgressiveImageWrappedPhotoComponent = props => {
-    const targetWidth = window.devicePixelRatio ?
-        props.containerWidth * window.devicePixelRatio :
-        props.containerWidth;
+    const targetWidth = computeTargetWidth(props);
     const placeholder = props.post.getSizedPhotoForLoading(targetWidth);
     const selected = props.post.getSizedPhotoForDisplay(targetWidth);
 
     return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
         {
-            (source, isLoading) => <PhotoComponent {...props} placeholder={placeholder.url} source={source}
-                                                   isLoading={isLoading}/>
+            (source, isLoading) => <PhotoComponent
+                {...props}
+                source={source}
+                isLoading={isLoading}
+            />
         }
     </ProgressiveImage>;
 };

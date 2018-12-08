@@ -1,4 +1,4 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import config from "config";
 import proxyquire from "proxyquire";
@@ -121,22 +121,26 @@ describe("util", function () {
         it("delegates to `searchPosts` (all types)", function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
-            const stubPosts = [stubPost, stubPhoto];
+            const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
             const stubQueryParameters = {};
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {
                     global: stubPosts.length,
+                    [Gallery.type]: 1,
                     [Post.type]: 1,
                     [Photo.type]: 1
                 },
                 first: {
                     global: stubPost,
+                    [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
                 },
                 last: {
-                    global: stubPhoto,
+                    global: stubGallery,
+                    [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
                 }
@@ -144,14 +148,31 @@ describe("util", function () {
             const proxyquireStubs = {
                 "../../lib/sources/searchPosts": {
                     "default": sinon.stub().callsFake(searchParams => {
-                        const baseResult = searchParams.type === Photo.type
-                            ? stubPhoto
-                            : stubPost;
+                        let baseResult = null;
+
+                        switch (searchParams.type) {
+                            case Gallery.type:
+                                baseResult = stubGallery;
+                                break;
+
+                            case Photo.type:
+                                baseResult = stubPhoto;
+                                break;
+
+                            case Post.type:
+                                baseResult = stubPost;
+                                break;
+                        }
+
                         return Promise.resolve({
                             first: baseResult,
                             last: baseResult,
-                            posts: [baseResult],
-                            total: 1
+                            posts: baseResult
+                                ? [baseResult]
+                                : [],
+                            total: baseResult
+                                ? 1
+                                : 0
                         });
                     })
                 }
@@ -163,7 +184,7 @@ describe("util", function () {
                 .then(postsResult => {
                     expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledTwice).to.eql(true);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledThrice).to.eql(true);
                 });
         });
 
@@ -190,9 +211,18 @@ describe("util", function () {
             const proxyquireStubs = {
                 "../../lib/sources/searchPosts": {
                     "default": sinon.stub().callsFake(searchParams => {
-                        const baseResult = searchParams.type === Photo.type
-                            ? stubPhoto
-                            : stubPost;
+                        let baseResult = null;
+
+                        switch (searchParams.type) {
+                            case Photo.type:
+                                baseResult = stubPhoto;
+                                break;
+
+                            case Post.type:
+                                baseResult = stubPost;
+                                break;
+                        }
+
                         return Promise.resolve({
                             first: baseResult,
                             last: baseResult,
@@ -210,6 +240,64 @@ describe("util", function () {
                     expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
+                });
+        });
+
+        it("delegates to `searchPosts` (multiple types)", function () {
+            const stubGallery = Gallery.fromJS({id: "woof", dateCreated: new Date(1900, 0, 2)});
+            const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+            const stubPosts = [stubGallery, stubPhoto];
+            const stubQueryParameters = {type: Gallery.type};
+            const expectedPostsResult = {
+                posts: stubPosts,
+                total: {
+                    global: stubPosts.length,
+                    [Gallery.type]: 1,
+                    [Photo.type]: 1
+                },
+                first: {
+                    global: stubPhoto,
+                    [Gallery.type]: stubGallery,
+                    [Photo.type]: stubPhoto
+                },
+                last: {
+                    global: stubGallery,
+                    [Gallery.type]: stubGallery,
+                    [Photo.type]: stubPhoto
+                }
+            };
+            const proxyquireStubs = {
+                "../../lib/sources/searchPosts": {
+                    "default": sinon.stub().callsFake(searchParams => {
+                        let baseResult = null;
+
+                        switch (searchParams.type) {
+                            case Photo.type:
+                                baseResult = stubPhoto;
+                                break;
+
+                            case Gallery.type:
+                                baseResult = stubGallery;
+                                break;
+                        }
+
+                        return Promise.resolve({
+                            first: baseResult,
+                            last: baseResult,
+                            posts: [baseResult],
+                            total: 1
+                        });
+                    })
+                }
+            };
+
+            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
+
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
+                .then(postsResult => {
+                    expect(postsResult).to.be.ok;
+                    expect(postsResult).to.eql(expectedPostsResult);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledTwice).to.eql(true);
                 });
         });
     });

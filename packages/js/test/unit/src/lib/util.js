@@ -2,6 +2,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import queryString from "query-string";
 import {Character} from "../../../../src/lib/emoji";
+import Gallery from "../../../../src/lib/gallery";
 import Photo from "../../../../src/lib/photo";
 import Post from "../../../../src/lib/post";
 import * as util from "../../../../src/lib/util";
@@ -79,6 +80,15 @@ describe("util", function () {
     });
 
     describe(".getEntityForType", function () {
+        it("gets `Gallery`s", function () {
+            const stubGallery = Gallery.fromJS({id: "grr", width: -2});
+
+            const GalleryConstructor = util.getEntityForType(stubGallery.type);
+
+            expect(stubGallery).to.be.instanceOf(GalleryConstructor);
+            expect(stubGallery).to.be.instanceOf(Gallery);
+        });
+
         it("gets `Photo`s", function () {
             const stubPhoto = Photo.fromJS({id: "grr", width: -2});
 

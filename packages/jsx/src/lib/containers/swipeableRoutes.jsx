@@ -22,8 +22,7 @@ export const ConnectedSwipeableRoutes = withRouter(connect(
             location,
             index,
             resistance: true,
-            ignoreNativeScroll: true,
-            enableMouseEvents: true
+            ignoreNativeScroll: true
         };
     },
     {

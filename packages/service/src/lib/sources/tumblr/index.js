@@ -1,4 +1,4 @@
-import {Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.tarampi/js";
+import {Gallery, Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
@@ -35,16 +35,46 @@ class TumblrSource extends CachedDataSource {
 
     static jsonToPost(postJson) {
         switch (postJson.type) {
-            case "photo":
+            case "photo": {
+                if (postJson.photos.length > 1) {
+                    return TumblrSource._jsonToGallery(postJson);
+                }
+
                 return TumblrSource._jsonToPhoto(postJson);
+            }
 
             default:
                 return TumblrSource._jsonToPost(postJson);
         }
     }
 
-    static _jsonToPhoto(postJson) {
-        const photoJson = postJson.photos[0]; // FIXME-RT: Support galleries of photos per #133.
+    static _jsonToGallery(postJson) {
+        const dateString = postJson.date;
+        const dateStringWithoutTimezone = dateString.slice(0, -4);
+        const timezone = dateString.slice(-3);
+        const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
+
+        return Gallery.fromJS({
+            raw: postJson,
+            id: postJson.id,
+            source: TumblrSource.type,
+            datePublished: date,
+            sourceUrl: postJson.post_url,
+            body: processCaptionHtml(postJson.caption),
+            creator: {
+                id: postJson.blog.name,
+                username: postJson.blog.name,
+                name: postJson.blog.title,
+                url: postJson.blog.url
+            },
+            tags: postJson.tags,
+            photos: postJson.photos
+                .map(specificPhoto => TumblrSource._jsonToPhoto(postJson, specificPhoto))
+        });
+    }
+
+    static _jsonToPhoto(postJson, specificPhoto) {
+        const photoJson = specificPhoto || postJson.photos[0];
         const sizedPhotos = photoJson.alt_sizes.map((photo) => {
             return SizedPhoto.fromJSON(photo);
         });
