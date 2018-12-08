@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/randytarampi/me/compare/v2.4.0...v2.4.1) (2018-12-08)
+
+
+### Bug Fixes
+
+* **jsx:** ESLint. ([a5bf2f2](https://github.com/randytarampi/me/commit/a5bf2f2))
+* **jsx:** Hack in smoother scrolling on mobile & tablet after [#133](https://github.com/randytarampi/me/issues/133). ([70b4622](https://github.com/randytarampi/me/commit/70b4622))
+
+
+
+
+
 # [2.4.0](https://github.com/randytarampi/me/compare/v2.3.0...v2.4.0) (2018-12-08)
 
 
