@@ -55,7 +55,7 @@ describe("Posts", function () {
                 fetchPosts: sinon.stub()
             };
             const rendered = shallow(<PostsComponent {...stubProps}/>);
-            const {containerWidth, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
             expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
@@ -63,8 +63,8 @@ describe("Posts", function () {
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 4)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(1 / 4 * 10 * 10)}
                     elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
@@ -92,7 +92,7 @@ describe("Posts", function () {
                 fetchPosts: sinon.stub()
             };
             const rendered = shallow(<PostsComponent {...stubProps}/>);
-            const {containerWidth, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
             expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(/* NOTE-RT: Not actually the `LoadingSpinner` because that requires `Infinite`'s internal state to change */
@@ -100,8 +100,8 @@ describe("Posts", function () {
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 4)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(1 / 4 * 10 * 10)}
                     elementHeight={[window.innerHeight]}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
