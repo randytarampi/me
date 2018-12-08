@@ -1,4 +1,4 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
@@ -45,7 +45,7 @@ describe("TumblrSource", function () {
         process.env.TUMBLR_API_SECRET = "TUMBLR_API_SECRET";
 
         stubPost = Post.fromJSON({id: "woof"});
-        stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"})];
+        stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"}), Gallery.fromJSON({id: "rawr"})];
 
         tumblrPhoto = {
             caption: "<p>Woof woof woof</p>",
@@ -66,20 +66,43 @@ describe("TumblrSource", function () {
             date: DateTime.utc().toISO(),
             title: "ʕ•ᴥ•ʔ",
             caption: "<p>Woof woof woof</p>",
-            post_url: "woof://woof.woof/woof/woof/woof",
-            photos: [
-                tumblrPhoto
-            ]
+            post_url: "woof://woof.woof/woof/woof/woof"
         };
-        tumblrBlogPosts = stubPosts.map(stubPost => Object.assign({}, tumblrBlogPost, {
-            id: stubPost.id,
-            type: stubPost.type.toLowerCase(),
-            blog: tumblrBlog
-        }));
+        tumblrBlogPosts = stubPosts.map(stubPost => {
+            const postJson = {
+                ...tumblrBlogPost,
+                id: stubPost.id,
+                type: "post",
+                blog: tumblrBlog
+            };
+
+            switch (stubPost.constructor.type) {
+                case Gallery.type:
+                    postJson.type = "photo";
+                    postJson.photos = [
+                        tumblrPhoto,
+                        tumblrPhoto
+                    ];
+                    break;
+
+                case Photo.type:
+                    postJson.type = "photo";
+                    postJson.photos = [
+                        tumblrPhoto
+                    ];
+                    break;
+            }
+
+            return postJson;
+        });
         stubServiceClient = {
             blogPosts: sinon.stub().callsFake((tumblrUser, params) => {
                 const response = {
-                    posts: (params.id ? [tumblrBlogPosts.find(tumblrBlogPost => tumblrBlogPost.id === params.id)] : tumblrBlogPosts).filter(value => !!value),
+                    posts: (
+                        params.id
+                            ? [tumblrBlogPosts.find(tumblrBlogPost => tumblrBlogPost.id === params.id)]
+                            : tumblrBlogPosts
+                    ).filter(value => !!value),
                     blog: tumblrBlog
                 };
 
@@ -203,11 +226,20 @@ describe("TumblrSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
                         expect(post).to.be.ok;
-                        if (post.type === Photo.type) {
-                            expect(post).to.be.instanceof(Photo);
-                        }
-                        if (post.type === Post.type) {
-                            expect(post).to.be.instanceof(Post);
+
+                        switch (post.type) {
+                            case Gallery.type:
+                                expect(post).to.be.instanceof(Gallery);
+                                break;
+
+                            case Photo.type:
+                                expect(post).to.be.instanceof(Photo);
+                                break;
+
+                            default:
+                            case Post.type:
+                                expect(post).to.be.instanceof(Post);
+                                break;
                         }
                     });
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
@@ -249,7 +281,7 @@ describe("TumblrSource", function () {
                 .then(posts => {
                     expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
-                    expect(posts).to.have.length(3);
+                    expect(posts).to.have.length(stubPosts.length);
                     sinon.assert.calledTwice(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         limit: stubParams.perPage
@@ -265,11 +297,22 @@ describe("TumblrSource", function () {
             return tumblrSource.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
-                    if (post.type === Photo.type) {
-                        expect(post).to.be.instanceof(Photo);
-                    } else {
-                        expect(post).to.be.instanceof(Post);
+
+                    switch (post.type) {
+                        case Gallery.type:
+                            expect(post).to.be.instanceof(Gallery);
+                            break;
+
+                        case Photo.type:
+                            expect(post).to.be.instanceof(Photo);
+                            break;
+
+                        default:
+                        case Post.type:
+                            expect(post).to.be.instanceof(Post);
+                            break;
                     }
+
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
                     sinon.assert.calledWith(stubServiceClient.blogPosts, process.env.TUMBLR_USER_NAME, sinon.match({
                         id: stubPost.id

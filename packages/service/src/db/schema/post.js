@@ -1,4 +1,4 @@
-import {compositeKeySeparator, Photo, Post} from "@randy.tarampi/js";
+import {compositeKeySeparator, Gallery, Photo, Post} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
 const throughput = {read: 5, write: 5};
@@ -23,6 +23,7 @@ const post = new Schema({
         type: String,
         required: true,
         enum: [
+            Gallery.type,
             Photo.type,
             Post.type
         ],
