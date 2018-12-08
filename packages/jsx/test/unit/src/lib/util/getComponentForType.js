@@ -1,10 +1,19 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
+import GalleryComponent from "../../../../../src/lib/components/gallery";
 import PhotoComponent from "../../../../../src/lib/components/photo";
 import PostComponent from "../../../../../src/lib/components/post";
 import getComponentForType from "../../../../../src/lib/util/getComponentForType";
 
 describe("getComponentForType", function () {
+    it("gets `Gallery`s", function () {
+        const stubGallery = Gallery.fromJS({id: "grr", width: -2});
+
+        const GalleryConstructor = getComponentForType(stubGallery.type);
+
+        expect(GalleryConstructor).to.eql(GalleryComponent);
+    });
+
     it("gets `Photo`s", function () {
         const stubPhoto = Photo.fromJS({id: "grr", width: -2});
 

@@ -1,4 +1,4 @@
-import {castDatePropertyToDateTime, Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
+import {castDatePropertyToDateTime, Gallery, Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
 import {Map, Set} from "immutable";
 import {REHYDRATE} from "redux-persist/constants";
 import {createSelector} from "reselect";
@@ -54,7 +54,7 @@ export const createFilteredPostsSelector = (...filterOrSelectors) => filterOrSel
     ? createSelector(...filterOrSelectors)
     : createSelector(getPosts, ...filterOrSelectors);
 
-export const getPhotoPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Photo));
+export const getPhotoPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Photo || post instanceof Gallery));
 export const getWordPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Post));
 
 export const getPostsSortedByDate = createFilteredPostsSelector(posts => posts.sort(sortPostsByDate));

@@ -89,11 +89,15 @@
         margin-bottom: 0;
     }
 
-    &--photo {
+    &--photo, &--gallery {
         background-size: cover;
 
         .post-content, .post-metadata {
             background-size: cover;
+        }
+
+        img {
+            object-fit: cover;
         }
 
         & .col.post-content {
