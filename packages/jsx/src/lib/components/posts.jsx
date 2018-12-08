@@ -5,6 +5,7 @@ import {Set} from "immutable";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import Infinite from "react-infinite";
+import {FETCHING_POSTS_PER_PAGE} from "../actions/fetchPosts";
 import LoadingSpinner from "../components/loadingSpinner";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
@@ -33,11 +34,12 @@ export class PostsComponent extends Component {
         return <Fragment>
             <SchemaJsonLdComponent markup={itemList}/>
             <Infinite
+                containerHeight={props.containerHeight}
                 useWindowAsScrollContainer={true}
                 elementHeight={elementHeight}
                 infiniteLoadBeginEdgeOffset={window.innerHeight}
-                preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 4)}
-                preloadAdditionalHeight={Infinite.containerHeightScaleFactor(2.5 * 10)}
+                preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
+                preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
                 onInfiniteLoad={props.fetchPosts}
                 isInfiniteLoading={props.isLoading}
                 loadingSpinnerDelegate={<LoadingSpinner/>}
