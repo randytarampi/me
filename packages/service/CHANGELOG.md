@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.4](https://github.com/randytarampi/me/compare/v2.4.3...v2.4.4) (2018-12-09)
+
+
+### Bug Fixes
+
+* **service:** Give DynamoDB some rest after caching `Flickr` posts. ([ae60a8c](https://github.com/randytarampi/me/commit/ae60a8c))
+
+
+
+
+
 ## [2.4.3](https://github.com/randytarampi/me/compare/v2.4.2...v2.4.3) (2018-12-09)
 
 **Note:** Version bump only for package @randy.tarampi/service

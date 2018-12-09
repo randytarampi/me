@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.a9018a7f2b47a9acb7da6c24d309b5c5.js"
+  "/precache-manifest.1f59eb7e477ccbf12eaf79d055dc3e19.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
@@ -39,5 +39,3 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 workbox.routing.registerNavigationRoute("/");
 
 workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/, workbox.strategies.staleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({"maxEntries":100,"purgeOnQuotaError":true})] }), 'GET');
-
-workbox.googleAnalytics.initialize({});

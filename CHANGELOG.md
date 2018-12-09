@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.4](https://github.com/randytarampi/me/compare/v2.4.3...v2.4.4) (2018-12-09)
+
+
+### Bug Fixes
+
+* **config:** Set the default `utm_medium` configuration to `referral`. ([4c153eb](https://github.com/randytarampi/me/commit/4c153eb)), closes [#212](https://github.com/randytarampi/me/issues/212)
+* **jsx:** Abide by Unsplash's attribution guidelines per [#212](https://github.com/randytarampi/me/issues/212). ([f576fa6](https://github.com/randytarampi/me/commit/f576fa6))
+* **service:** Give DynamoDB some rest after caching `Flickr` posts. ([ae60a8c](https://github.com/randytarampi/me/commit/ae60a8c))
+* **webpack:** Disable workbox service worker `offlineGoogleAnalytics`. ([1812f66](https://github.com/randytarampi/me/commit/1812f66))
+
+
+
+
+
 ## [2.4.3](https://github.com/randytarampi/me/compare/v2.4.2...v2.4.3) (2018-12-09)
 
 
