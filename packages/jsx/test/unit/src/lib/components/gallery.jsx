@@ -166,7 +166,7 @@ describe("Gallery", function () {
             });
         });
 
-        describe("#scaledHeight", function () {
+        xdescribe("#scaledHeight", function () {
             const windowInnerWidth = window.innerWidth;
 
             afterEach(function () {
