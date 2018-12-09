@@ -40,6 +40,12 @@
         }
     }
 
+    &-source {
+        &__source-name {
+            text-transform: capitalize;
+        }
+    }
+
     &-body {
         &__html {
             ul {
