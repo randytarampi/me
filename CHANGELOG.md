@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.3](https://github.com/randytarampi/me/compare/v2.4.2...v2.4.3) (2018-12-09)
+
+
+### Bug Fixes
+
+* **jsx:** Just show the lead `Gallery` `Photo` on mobile and tablet. ([05cc27c](https://github.com/randytarampi/me/commit/05cc27c))
+
+
+
+
+
 ## [2.4.2](https://github.com/randytarampi/me/compare/v2.4.1...v2.4.2) (2018-12-09)
 
 
