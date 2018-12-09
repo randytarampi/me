@@ -36,7 +36,6 @@ export class PostsComponent extends Component {
         return <Fragment>
             <SchemaJsonLdComponent markup={itemList}/>
             <Infinite
-                containerHeight={props.containerHeight}
                 useWindowAsScrollContainer={true}
                 elementHeight={elementHeight}
                 infiniteLoadBeginEdgeOffset={window.innerHeight}

@@ -56,7 +56,7 @@ describe("Posts", function () {
                 fetchPosts: sinon.stub()
             };
             const rendered = shallow(<PostsComponent {...stubProps}/>);
-            const {containerWidth, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
             expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
@@ -74,8 +74,8 @@ describe("Posts", function () {
                     {
                         stubPosts.toArray().map(post => {
                             const Constructor = getComponentForType(post.type);
-                            return <Constructor key={post.uid} post={post} containerHeight={stubProps.containerHeight}
-                                                containerWidth={stubProps.containerWidth}/>;
+                            return <Constructor key={post.uid} post={post} containerHeight={containerHeight}
+                                                containerWidth={containerWidth}/>;
                         })
                     }
                 </Infinite>
@@ -100,7 +100,7 @@ describe("Posts", function () {
                 fetchPosts: sinon.stub()
             };
             const rendered = shallow(<PostsComponent {...stubProps}/>);
-            const {containerWidth, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
             expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
@@ -117,8 +117,8 @@ describe("Posts", function () {
                 >
                     {
                         stubPosts.toArray().map(post => {
-                            return <PostComponent key={post.uid} post={post} containerHeight={stubProps.containerHeight}
-                                                  containerWidth={stubProps.containerWidth}/>;
+                            return <PostComponent key={post.uid} post={post} containerHeight={containerHeight}
+                                                  containerWidth={containerWidth}/>;
                         })
                     }
                 </Infinite>
@@ -136,7 +136,7 @@ describe("Posts", function () {
                 fetchPosts: sinon.stub()
             };
             const rendered = shallow(<PostsComponent {...stubProps}/>);
-            const {containerWidth, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
             expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(/* NOTE-RT: Not actually the `LoadingSpinner` because that requires `Infinite`'s internal state to change */

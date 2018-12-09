@@ -43,9 +43,6 @@ export class GalleryComponent extends PhotoComponent {
             <Carousel
                 options={{fullWidth: true, indicators: true, dist: 0}}
                 carouselId={this.carouselId}
-                style={{
-                    height: this.scaledHeight
-                }}
             >
                 {
                     post.photos.map((photo, index) => {
@@ -56,9 +53,6 @@ export class GalleryComponent extends PhotoComponent {
                         // NOTE-RT: Needs to be a `div` otherwise `react-materialize` can't cling onto these carousel items
                         return <div
                             key={`${post.uid}-${index}`}
-                            style={{
-                                height: this.scaledHeight
-                            }}
                         >
                             <ProgressiveImage
                                 src={selected.url}
@@ -140,9 +134,6 @@ export class GalleryComponent extends PhotoComponent {
                 <Col
                     className="post-content"
                     l={8}
-                    style={{
-                        height: this.scaledHeight
-                    }}
                 >
                     <Carousel options={{fullWidth: true, indicators: true, dist: 0}}
                               carouselId={this.carouselId}>
