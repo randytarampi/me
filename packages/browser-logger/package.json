@@ -5,7 +5,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.4.4",
+  "version": "2.4.5",
   "description": "A client-side-logger for www.randytarampi.ca",
   "publishConfig": {
     "access": "public"
@@ -42,7 +42,7 @@
     "raven"
   ],
   "dependencies": {
-    "@randy.tarampi/js": "^2.4.4",
+    "@randy.tarampi/js": "^2.4.5",
     "browser-bunyan": "^1.4.0",
     "bunyan": "beta",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",

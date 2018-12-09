@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.5](https://github.com/randytarampi/me/compare/v2.4.4...v2.4.5) (2018-12-09)
+
+
+### Bug Fixes
+
+* **jsx:** `Gallery` should just use a `Carousel` on all viewport sizes. ([134621b](https://github.com/randytarampi/me/commit/134621b))
+
+
+### Performance Improvements
+
+* **jsx:** `Gallery` and `Photo` `Row` have `backgroundImage` only on large screens. ([1b087a6](https://github.com/randytarampi/me/commit/1b087a6))
+* **jsx:** Try and limit `Posts` render jitter by rounding `scaledHeight`s. ([eeb6b0f](https://github.com/randytarampi/me/commit/eeb6b0f))
+
+
+
+
+
 ## [2.4.4](https://github.com/randytarampi/me/compare/v2.4.3...v2.4.4) (2018-12-09)
 
 
