@@ -1,3 +1,4 @@
+import {logger} from "@randy.tarampi/browser-logger";
 import Dimensions from "@randy.tarampi/react-dimensions";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
@@ -9,6 +10,7 @@ import {FETCHING_POSTS_PER_PAGE} from "../actions/fetchPosts";
 import LoadingSpinner from "../components/loadingSpinner";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
+import PostComponent from "./post";
 
 export class PostsComponent extends Component {
     render() {
@@ -47,7 +49,15 @@ export class PostsComponent extends Component {
                 {
                     postsArray
                         ? postsArray.map(post => {
-                            const Constructor = getComponentForType(post.type);
+                            let Constructor;
+
+                            try {
+                                Constructor = getComponentForType(post.type);
+                            } catch (error) {
+                                logger.warn(error, `Can't \`getComponentForType\` for \`${post.type}\`, just using \`Post\` instead\``);
+                                Constructor = PostComponent;
+                            }
+
                             return <Constructor
                                 key={post.uid}
                                 post={post}

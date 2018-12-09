@@ -1,4 +1,5 @@
-import {getEntityForType} from "@randy.tarampi/js";
+import {getEntityForType, Post} from "@randy.tarampi/js";
+import {logger} from "@randy.tarampi/browser-logger";
 import fetch from "isomorphic-fetch";
 import queryString from "query-string";
 
@@ -19,7 +20,15 @@ export const fetchPostsApi = (fetchUrl, searchParams) => {
             return {
                 ...postsResponse,
                 posts: postsResponse.posts.map(postJson => {
-                    const Constructor = getEntityForType(postJson.type);
+                    let Constructor;
+
+                    try {
+                        Constructor = getEntityForType(postJson.type);
+                    } catch (error) {
+                        logger.warn(error, `Can't \`getComponentForType\` for \`${postJson.type}\`, just using \`Post\` instead\``);
+                        Constructor = Post;
+                    }
+
                     return Constructor.fromJSON(postJson);
                 })
             };

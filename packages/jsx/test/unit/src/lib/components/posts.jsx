@@ -11,6 +11,7 @@ import DimensionsContainerWrappedPosts, {
     DimensionsWrappedPosts,
     PostsComponent
 } from "../../../../../src/lib/components/posts";
+import {PostComponent} from "../../../../../src/lib/components/post";
 import computePostHeight from "../../../../../src/lib/util/computePostHeight";
 import getComponentForType from "../../../../../src/lib/util/getComponentForType";
 
@@ -75,6 +76,49 @@ describe("Posts", function () {
                             const Constructor = getComponentForType(post.type);
                             return <Constructor key={post.uid} post={post} containerHeight={stubProps.containerHeight}
                                                 containerWidth={stubProps.containerWidth}/>;
+                        })
+                    }
+                </Infinite>
+            );
+
+            expect(stubProps.fetchPosts.notCalled).to.eql(true);
+        });
+
+        it("renders (with unknown `Post` types)", function () {
+            stubPosts = Set([
+                Post.fromJSON({id: "woof", type: "woof", dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", type: "meow", dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", type: "grr", dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", type: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ]);
+
+            const stubProps = {
+                posts: stubPosts,
+                containerHeight: 123,
+                containerWidth: 123,
+                isLoading: false,
+                fetchPosts: sinon.stub()
+            };
+            const rendered = shallow(<PostsComponent {...stubProps}/>);
+            const {containerWidth, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.containMatchingElement(
+                <Infinite
+                    {...expectedProps}
+                    useWindowAsScrollContainer={true}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
+                    elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
+                    onInfiniteLoad={stubProps.fetchPosts}
+                    isInfiniteLoading={stubProps.isLoading}
+                    loadingSpinnerDelegate={<LoadingSpinner/>}
+                >
+                    {
+                        stubPosts.toArray().map(post => {
+                            return <PostComponent key={post.uid} post={post} containerHeight={stubProps.containerHeight}
+                                                  containerWidth={stubProps.containerWidth}/>;
                         })
                     }
                 </Infinite>
