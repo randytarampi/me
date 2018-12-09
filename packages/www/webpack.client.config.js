@@ -25,7 +25,7 @@ module.exports = webpackBaseConfig({
             swDest: "www.sw.js",
             skipWaiting: true,
             clientsClaim: true,
-            offlineGoogleAnalytics: true,
+            offlineGoogleAnalytics: false,
             maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
             cacheId: packageJson.name,
             navigateFallback: "/",
