@@ -141,6 +141,7 @@ describe("Photo", function () {
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
             expect(rendered).to.have.className("post--loading");
+            expect(rendered).to.have.prop("style");
             expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPhoto} title={stubPhoto.title}/>);
             expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubPhoto}/>);
             expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubPhoto}/>);
@@ -196,6 +197,7 @@ describe("Photo", function () {
             expect(rendered).to.have.className("post--photo");
             expect(rendered).to.have.descendants(".post-metadata");
             expect(rendered).to.have.descendants(".post-content");
+            expect(rendered).to.have.prop("style");
             expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPhoto} title={stubPhoto.title}/>);
             expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubPhoto}/>);
             expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubPhoto}/>);

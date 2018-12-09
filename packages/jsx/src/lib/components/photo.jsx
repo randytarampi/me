@@ -34,7 +34,7 @@ export class PhotoComponent extends PostComponent {
     }
 
     render() {
-        const {post, isLoading, source} = this.props;
+        const {post, isLoading, source, placeholder} = this.props;
 
         const rowClassName = ["post post--photo"];
 
@@ -42,12 +42,16 @@ export class PhotoComponent extends PostComponent {
             rowClassName.push("post--loading");
         }
 
+        const rowStyle = {};
+
+        if (window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
+            rowStyle.backgroundImage = `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${placeholder})`;
+        }
+
         return <Row
             className={rowClassName.join(" ")}
             id={post.uid}
-            style={{
-                backgroundImage: `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${source})`
-            }}
+            style={rowStyle}
         >
             <SchemaJsonLdComponent markup={post.toSchema()}/>
             <Col
@@ -101,6 +105,7 @@ export class PhotoComponent extends PostComponent {
 PhotoComponent.propTypes = {
     post: PropTypes.instanceOf(PhotoEntity).isRequired,
     source: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired
 };
 
@@ -138,6 +143,7 @@ export const ProgressiveImageWrappedPhotoComponent = props => {
             (source, isLoading) => <PhotoComponent
                 {...props}
                 source={source}
+                placeholder={placeholder.url}
                 isLoading={isLoading}
             />
         }

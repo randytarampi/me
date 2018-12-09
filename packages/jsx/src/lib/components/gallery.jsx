@@ -113,6 +113,7 @@ export class GalleryComponent extends PhotoComponent {
 
     _renderLarge() {
         const {post} = this.props;
+        const placeholder = post.largestPhoto.getSizedPhotoForLoading(this.targetWidth).url;
 
         const rowClassName = ["post post--gallery"];
 
@@ -120,7 +121,7 @@ export class GalleryComponent extends PhotoComponent {
             className={rowClassName.join(" ")}
             id={post.uid}
             style={{
-                backgroundImage: `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${this.selected.url})`
+                backgroundImage: `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${placeholder})`
             }}
         >
             <SchemaJsonLdComponent markup={post.toSchema()}/>
@@ -177,8 +178,9 @@ export class GalleryComponent extends PhotoComponent {
 
     resizeCarouselHeight() {
         const carouselElement = document.getElementById(this.carouselId); // NOTE-RT: `react-materialize` won't let me pass a `style` prop to `Carousel`, so we need to manually set this ourselves...
+        const expectedCarouselElementHeight = `${this.scaledHeight}px`;
 
-        if (carouselElement) {
+        if (carouselElement && carouselElement.style.height !== expectedCarouselElementHeight) {
             carouselElement.style.height = `${this.scaledHeight}px`;
         }
     }
