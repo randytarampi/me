@@ -2,6 +2,7 @@ import {expect} from "chai";
 import {mount} from "enzyme";
 import queryString from "query-string";
 import React from "react";
+import config from "config";
 import CampaignLink from "../../../../../../src/lib/components/link/campaign";
 import Link from "../../../../../../src/lib/components/link/link";
 import CampaignContext from "../../../../../../src/lib/contexts/campaign";
@@ -106,11 +107,11 @@ describe("CampaignLink", function () {
         );
         const href = `/woof?${queryString.stringify({
             ...queryString.parseUrl(stubProps.href).query,
-            utm_source: "",
-            utm_medium: "",
-            utm_campaign: "",
-            utm_term: "",
-            utm_content: ""
+            utm_source: config.get("me.campaign.source"),
+            utm_medium: config.get("me.campaign.medium"),
+            utm_campaign: config.get("me.campaign.name"),
+            utm_term: config.get("me.campaign.term"),
+            utm_content: config.get("me.campaign.content")
         })}`;
 
         expect(rendered).to.be.ok;

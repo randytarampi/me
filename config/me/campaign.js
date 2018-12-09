@@ -1,6 +1,6 @@
 module.exports = {
     source: "",
-    medium: "",
+    medium: "referral",
     name: "",
     term: "",
     content: ""
