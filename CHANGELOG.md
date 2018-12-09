@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.2](https://github.com/randytarampi/me/compare/v2.4.1...v2.4.2) (2018-12-09)
+
+
+### Bug Fixes
+
+* **jsx:** Be a little safer around handling unknown `Post` types. ([f8d3fef](https://github.com/randytarampi/me/commit/f8d3fef))
+
+
+### Reverts
+
+* fix(jsx): ESLint. ([a25b744](https://github.com/randytarampi/me/commit/a25b744))
+* fix(jsx): Hack in smoother scrolling on mobile & tablet after [#133](https://github.com/randytarampi/me/issues/133). ([0bb540c](https://github.com/randytarampi/me/commit/0bb540c))
+
+
+
+
+
 ## [2.4.1](https://github.com/randytarampi/me/compare/v2.4.0...v2.4.1) (2018-12-08)
 
 
