@@ -56,6 +56,8 @@ export const reduxOfflineImmutableTransformRecords = [
     SizedPhoto
 ];
 
+const errorStateBlacklistFilter = createBlacklistFilter("error", ["error", "errorMessage", "errorCode", "errorTimeoutHandler"]);
+
 export const reduxOfflineConfig = {
     ...defaultReduxOfflineConfig,
     persist,
@@ -63,7 +65,7 @@ export const reduxOfflineConfig = {
     persistOptions: {
         records: reduxOfflineImmutableTransformRecords,
         transforms: [
-            createBlacklistFilter("error", ["error"])
+            errorStateBlacklistFilter
         ]
     },
     persistCallback: () => logger.warn("Rehydrated state, but did anything else dispatch before this? 🤔"),
@@ -76,7 +78,7 @@ export const createImmutableBlacklistFilter = createBlacklistFilter;
 export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) => {
     const transforms = (overrides.persistOptions && overrides.persistOptions.transforms) || [];
 
-    transforms.push(createBlacklistFilter("error", ["error"]));
+    transforms.push(errorStateBlacklistFilter);
     transforms.push.apply(transforms, otherTransforms);
 
     return {
