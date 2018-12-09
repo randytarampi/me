@@ -5,7 +5,7 @@ import React, {Fragment} from "react";
 import {Carousel, Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {WINDOW_LARGE_BREAKPOINT} from "../util";
-import {computeScaledHeight, PhotoComponent} from "./photo";
+import {PhotoComponent} from "./photo";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -20,6 +20,10 @@ export class GalleryComponent extends PhotoComponent {
         return this.props.post.largestPhoto.getSizedPhotoForDisplay(this.targetWidth);
     }
 
+    get carouselId() {
+        return `${this.props.post.uid}-carousel`;
+    }
+
     render() {
         return window.innerWidth >= WINDOW_LARGE_BREAKPOINT
             ? this._renderLarge()
@@ -28,56 +32,82 @@ export class GalleryComponent extends PhotoComponent {
 
     _renderSmall() {
         const {post} = this.props;
-        const photo = post.photos.first();
 
         const rowClassName = ["post post--gallery"];
 
-        const placeholder = photo.getSizedPhotoForLoading(this.targetWidth);
-        const selected = photo.getSizedPhotoForDisplay(this.targetWidth);
-        const title = `${this.title} (1/${post.photos.size})`;
-
         return <Row
             className={rowClassName.join(" ")}
-            key={`${post.uid}-0`}
-            id={`${post.uid}-0`}
-            style={{
-                backgroundImage: `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${this.selected.url})`
-            }}
+            id={post.uid}
         >
             <SchemaJsonLdComponent markup={post.toSchema()}/>
-            <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
+            <Carousel
+                options={{fullWidth: true, indicators: true, dist: 0}}
+                carouselId={this.carouselId}
+                style={{
+                    height: this.scaledHeight
+                }}
+            >
                 {
-                    (source, isLoading) => <Col
-                        id={`${post.uid}-1`}
-                        className={
-                            ["post-metadata hide-on-large-only"]
-                                .concat([isLoading ? "post--loading" : ""])
-                                .join(" ")
-                        }
-                        s={12}
-                        style={{
-                            backgroundImage: `url(${source})`,
-                            height: computeScaledHeight({
-                                containerWidth: this.containerWidth,
-                                photoWidth: selected.width,
-                                photoHeight: selected.height,
-                                postHtmlId: `${post.uid}-0`
-                            })
-                        }}
-                    >
-                        <div className="post-metadata hide-on-med-and-up">
-                            <PostTitleComponent post={post} title={title}/>
-                        </div>
-                        <div className="post-metadata hide-on-small-only hide-on-large-only">
-                            <PostTitleComponent post={post} title={title}/>
-                            <PostDatePublishedComponent post={post}/>
-                            <PostDateCreatedComponent post={post} label="Taken:"/>
-                            <PostBodyAsStringComponent post={post}/>
-                            <PostBodyAsArrayComponent post={post}/>
-                        </div>
-                    </Col>
+                    post.photos.map((photo, index) => {
+                        const placeholder = photo.getSizedPhotoForLoading(this.targetWidth);
+                        const selected = photo.getSizedPhotoForDisplay(this.targetWidth);
+                        const title = `${this.title} (${index + 1}/${post.photos.size})`;
+
+                        // NOTE-RT: Needs to be a `div` otherwise `react-materialize` can't cling onto these carousel items
+                        return <div
+                            key={`${post.uid}-${index}`}
+                            style={{
+                                height: this.scaledHeight
+                            }}
+                        >
+                            <ProgressiveImage
+                                src={selected.url}
+                                placeholder={placeholder.url}
+                            >
+                                {
+                                    (source, isLoading) => {
+                                        const columnClassName = ["post-metadata"];
+
+                                        if (isLoading) {
+                                            columnClassName.push("post--loading");
+                                        }
+
+                                        return <Col
+                                            className={columnClassName.join(" ")}
+                                            s={12}
+                                            style={{
+                                                backgroundImage: `url(${source})`,
+                                                height: this.scaledHeight
+                                            }}
+                                        >
+                                            {
+                                                index === 0
+                                                    ? <Fragment>
+                                                        <div className="post-metadata hide-on-med-and-up">
+                                                            <PostTitleComponent post={post} title={title}/>
+                                                        </div>
+                                                        <div
+                                                            className="post-metadata hide-on-small-only hide-on-large-only">
+                                                            <PostTitleComponent post={post} title={title}/>
+                                                            <PostDatePublishedComponent post={post}/>
+                                                            <PostDateCreatedComponent post={post} label="Taken:"/>
+                                                            <PostBodyAsStringComponent post={post}/>
+                                                            <PostBodyAsArrayComponent post={post}/>
+                                                        </div>
+                                                    </Fragment>
+                                                    : <div className="post-metadata">
+                                                        <PostTitleComponent post={post} title={title}/>
+                                                    </div>
+                                            }
+
+                                        </Col>;
+                                    }
+                                }
+                            </ProgressiveImage>
+                        </div>;
+                    })
                 }
-            </ProgressiveImage>
+            </Carousel>
         </Row>;
     }
 
@@ -96,7 +126,7 @@ export class GalleryComponent extends PhotoComponent {
             <SchemaJsonLdComponent markup={post.toSchema()}/>
             <Fragment>
                 <Col
-                    className="post-metadata hide-on-med-and-down"
+                    className="post-metadata"
                     l={4}
                 >
                     <PostTitleComponent post={post} title={this.title}/>
@@ -107,14 +137,14 @@ export class GalleryComponent extends PhotoComponent {
                     <PostTagsComponent post={post}/>
                 </Col>
                 <Col
-                    className="post-content hide-on-med-and-down"
+                    className="post-content"
                     l={8}
                     style={{
                         height: this.scaledHeight
                     }}
                 >
                     <Carousel options={{fullWidth: true, indicators: true, dist: 0}}
-                              carouselId={`${post.uid}-carousel`}>
+                              carouselId={this.carouselId}>
                         {
                             post.photos.map((photo, index) => {
                                 const placeholder = photo.getSizedPhotoForLoading(this.targetWidth);
@@ -143,6 +173,22 @@ export class GalleryComponent extends PhotoComponent {
                 </Col>
             </Fragment>
         </Row>;
+    }
+
+    resizeCarouselHeight() {
+        const carouselElement = document.getElementById(this.carouselId); // NOTE-RT: `react-materialize` won't let me pass a `style` prop to `Carousel`, so we need to manually set this ourselves...
+
+        if (carouselElement) {
+            carouselElement.style.height = `${this.scaledHeight}px`;
+        }
+    }
+
+    componentDidMount() {
+        this.resizeCarouselHeight();
+    }
+
+    componentDidUpdate() {
+        this.resizeCarouselHeight();
     }
 }
 
