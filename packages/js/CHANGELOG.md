@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/randytarampi/me/compare/v2.4.6...v2.6.0) (2018-12-10)
+
+
+### Features
+
+* **js:** `Post.tags` can override `title` per [#194](https://github.com/randytarampi/me/issues/194). ([5722e55](https://github.com/randytarampi/me/commit/5722e55))
+
+
+
+
+
 # [2.5.0](https://github.com/randytarampi/me/compare/v2.4.6...v2.5.0) (2018-12-10)
 
 
