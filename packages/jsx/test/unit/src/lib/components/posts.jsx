@@ -5,6 +5,7 @@ import {Set} from "immutable";
 import React from "react";
 import Infinite from "react-infinite";
 import sinon from "sinon";
+import {FETCHING_POSTS_PER_PAGE} from "../../../../../src/lib/actions/fetchPosts";
 import LoadingSpinner from "../../../../../src/lib/components/loadingSpinner";
 import DimensionsContainerWrappedPosts, {
     DimensionsWrappedPosts,

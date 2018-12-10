@@ -6,6 +6,7 @@ import {Set} from "immutable";
 import PropTypes from "prop-types";
 import React, {Component, Fragment} from "react";
 import Infinite from "react-infinite";
+import {FETCHING_POSTS_PER_PAGE} from "../actions/fetchPosts";
 import LoadingSpinner from "../components/loadingSpinner";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
