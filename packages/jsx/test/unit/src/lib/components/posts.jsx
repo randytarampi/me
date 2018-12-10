@@ -64,8 +64,8 @@ describe("Posts", function () {
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
                     elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
@@ -108,8 +108,8 @@ describe("Posts", function () {
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
                     elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
@@ -144,8 +144,8 @@ describe("Posts", function () {
                     {...expectedProps}
                     useWindowAsScrollContainer={true}
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
-                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / FETCHING_POSTS_PER_PAGE)}
-                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(FETCHING_POSTS_PER_PAGE)}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
                     elementHeight={[window.innerHeight]}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
