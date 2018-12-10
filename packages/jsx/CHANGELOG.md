@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/randytarampi/me/compare/v2.4.6...v2.5.0) (2018-12-10)
+
+
+### Bug Fixes
+
+* **jsx:** ESLint. ([4fc0bd5](https://github.com/randytarampi/me/commit/4fc0bd5))
+* **jsx:** Load even more content to reduce jitter on `posts`. ([5544c36](https://github.com/randytarampi/me/commit/5544c36))
+
+
+
+
+
 ## [2.4.6](https://github.com/randytarampi/me/compare/v2.4.5...v2.4.6) (2018-12-09)
 
 
