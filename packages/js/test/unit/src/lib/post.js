@@ -173,6 +173,36 @@ describe("Post", () => {
             expect(postJs.tags[0]).to.have.string(post.geohash.toString());
         });
 
+        it("overrides title", function () {
+            const postJs = {
+                id: "woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: new Profile({
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }),
+                tags: [
+                    "❕title❔Meow meow meow"
+                ]
+            };
+
+            const post = new Post(postJs);
+
+            expect(post.type).to.eql(Post.type);
+            expect(postJs.tags[0]).to.have.string(post.title.toString());
+        });
+
         it("returns an empty Post", function () {
             const post = new Post();
 
