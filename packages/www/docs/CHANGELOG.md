@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/randytarampi/me/compare/v2.6.0...v2.7.0) (2018-12-11)
+
+
+### Bug Fixes
+
+* **www:** Don't include `src/public/sw/**` in coverage calculations. ([b86cd09](https://github.com/randytarampi/me/commit/b86cd09))
+
+
+### Features
+
+* **www:** Support a custom `swInstaller` and use it to notify the user to reload the page after an update has been downloaded. ([11b835d](https://github.com/randytarampi/me/commit/11b835d))
+
+
+
+
+
 # [2.6.0](https://github.com/randytarampi/me/compare/v2.4.6...v2.6.0) (2018-12-10)
 
 **Note:** Version bump only for package @randy.tarampi/www
