@@ -25,7 +25,7 @@ export const CampaignLink = ({useBranding, href, source, medium, name, term, con
                     content: content || contextContent
                 });
 
-                if (href && href.startsWith(window.location.origin)) {
+                if (typeof window !== "undefined" && href && href.startsWith(window.location.origin)) {
                     LinkComponent = InternalLink;
                     actualHref = href.replace(window.location.origin, "");
                 }
