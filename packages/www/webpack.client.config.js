@@ -68,7 +68,7 @@ module.exports = webpackBaseConfig({
             ]
         }),
         new DefinePlugin({
-            SW_BUNDLE_PATH: JSON.stringify(path.join(publicPath, `${swBundleName}.js`))
+            __SW_BUNDLE_PATH__: JSON.stringify(path.join(publicPath, `${swBundleName}.js`))
         })
     ]
 });

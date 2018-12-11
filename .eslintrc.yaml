@@ -78,6 +78,7 @@ globals:
   __PRINTABLE_TEMPLATE_PATH__: false
   __RESUME_PACKAGE_NAME__: false
   __LETTER_PACKAGE_NAME__: false
+  __ME_PERSON_NAME__: false
 plugins:
 - react
 - import

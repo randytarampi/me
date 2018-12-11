@@ -170,10 +170,10 @@ const configuredMinifyReplace = [
                 }
             },
             {
-                identifierName: "__FEED_URL__",
+                identifierName: "__ME_PERSON_NAME__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("posts.feedUrl")
+                    value: config.get("me.person.name")
                 }
             },
             {

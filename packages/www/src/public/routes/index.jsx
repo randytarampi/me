@@ -1,19 +1,53 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {HelloBear, Photo, Post} from "@randy.tarampi/js";
 import {ConnectedError, ConnectedPosts} from "@randy.tarampi/jsx";
 import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
 import React, {Fragment} from "react";
+import Helmet from "react-helmet";
 import {Tab} from "react-materialize";
 import {Redirect} from "react-router";
 import Main from "../views/main";
 
+const helloBear = new HelloBear();
+
 export const PhotosRouteHandler = props => <Redirect {...props} to="/blog/photos"/>;
 export const WordsRouteHandler = props => <Redirect {...props} to="/blog/words"/>;
-export const BlogRouteHandler = props => <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />;
-export const BlogWordsRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`}
-                                                                type={Post.type} {...props} />;
-export const BlogPhotoRouteHandler = props => <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`}
-                                                                type={Photo.type} {...props} />;
+export const BlogRouteHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Blog</title>
+    </Helmet>
+    <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />
+</Fragment>;
+export const BlogWordsRouteHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Words</title>
+    </Helmet>
+    <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type} {...props} />
+</Fragment>;
+export const BlogPhotoRouteHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Photos</title>
+    </Helmet>
+    <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type} {...props} />
+</Fragment>;
+export const LetterHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Hire me</title>
+    </Helmet>
+    <ConnectedLetter {...props}/>
+</Fragment>;
+export const ResumeHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — About me</title>
+    </Helmet>
+    <ConnectedResume {...props}/>
+</Fragment>;
+export const MainHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — {helloBear.toString()}</title>
+    </Helmet>
+    <Main {...props}/>
+</Fragment>;
 
 const augmentWithParent = (parent = null) => ({routes, ...route}) => {
     if (parent) {
@@ -33,7 +67,7 @@ const augmentWithParent = (parent = null) => ({routes, ...route}) => {
 
 const routes = [
     {
-        component: Main,
+        component: MainHandler,
         exact: true,
         path: "/",
         tab: <Tab
@@ -86,7 +120,7 @@ const routes = [
         ]
     },
     {
-        component: ConnectedLetter,
+        component: LetterHandler,
         path: "/letter",
         tab: <Tab
             key="/letter"
@@ -99,13 +133,13 @@ const routes = [
         />,
         routes: [
             {
-                component: ConnectedLetter,
-                path: "/letter/:variant",
+                component: LetterHandler,
+                path: "/letter/:variant"
             }
         ]
     },
     {
-        component: ConnectedResume,
+        component: ResumeHandler,
         path: "/resume",
         tab: <Tab
             key="/resume"
@@ -118,8 +152,8 @@ const routes = [
         />,
         routes: [
             {
-                component: ConnectedResume,
-                path: "/resume/:variant",
+                component: ResumeHandler,
+                path: "/resume/:variant"
             }
         ]
     },

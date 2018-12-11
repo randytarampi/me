@@ -3,23 +3,23 @@
 import {logger} from "@randy.tarampi/browser-logger";
 
 export const onReady = () => {
-    logger.debug(`Service worker from ${SW_BUNDLE_PATH} is ready`);
+    logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} is ready`);
 };
 
 export const onRegistered = () => {
-    logger.debug(`Service worker from ${SW_BUNDLE_PATH} has been registered`);
+    logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has been registered`);
 };
 
 export const onCached = () => {
-    logger.debug(`Service worker from ${SW_BUNDLE_PATH} has cached assets`);
+    logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has cached assets`);
 };
 
 export const onUpdateFound = () => {
-    logger.debug(`Service worker from ${SW_BUNDLE_PATH} needs updating`);
+    logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} needs updating`);
 };
 
 export const onUpdated = () => {
-    logger.debug(`Service worker from ${SW_BUNDLE_PATH} has been updated`);
+    logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has been updated`);
 
     Materialize.toast(`
         <p>
@@ -62,9 +62,9 @@ export const onUpdated = () => {
 };
 
 export const onOffline = () => {
-    logger.debug(`Service worker from ${SW_BUNDLE_PATH} reports that we're offline`);
+    logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} reports that we're offline`);
 };
 
 export const onError = error => {
-    logger.error(error, `Could not install service worker from ${SW_BUNDLE_PATH}`);
+    logger.error(error, `Could not install service worker from ${__SW_BUNDLE_PATH__}`);
 };
