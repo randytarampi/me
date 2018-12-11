@@ -6,11 +6,11 @@ import React from "react";
 import Infinite from "react-infinite";
 import sinon from "sinon";
 import LoadingSpinner from "../../../../../src/lib/components/loadingSpinner";
+import {PostComponent} from "../../../../../src/lib/components/post";
 import DimensionsContainerWrappedPosts, {
     DimensionsWrappedPosts,
     PostsComponent
 } from "../../../../../src/lib/components/posts";
-import {PostComponent} from "../../../../../src/lib/components/post";
 import computePostHeight from "../../../../../src/lib/util/computePostHeight";
 import getComponentForType from "../../../../../src/lib/util/getComponentForType";
 
@@ -81,6 +81,83 @@ describe("Posts", function () {
             );
 
             expect(stubProps.fetchPosts.notCalled).to.eql(true);
+        });
+
+        it("renders (with `postsLimit`)", function () {
+            const stubProps = {
+                postsLimit: 2,
+                posts: stubPosts,
+                containerHeight: 123,
+                containerWidth: 123,
+                isLoading: false,
+                fetchPosts: sinon.stub()
+            };
+            const rendered = shallow(<PostsComponent {...stubProps}/>);
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, postsLimit, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.containMatchingElement(
+                <Infinite
+                    {...expectedProps}
+                    useWindowAsScrollContainer={true}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
+                    elementHeight={stubPosts.toArray().slice(0, stubProps.postsLimit).map(computePostHeight(stubProps.containerWidth))}
+                    onInfiniteLoad={stubProps.fetchPosts}
+                    isInfiniteLoading={stubProps.isLoading}
+                    loadingSpinnerDelegate={<LoadingSpinner/>}
+                >
+                    {
+                        stubPosts.toArray().slice(0, stubProps.postsLimit).map(post => {
+                            const Constructor = getComponentForType(post.type);
+                            return <Constructor key={post.uid} post={post} containerHeight={containerHeight}
+                                                containerWidth={containerWidth}/>;
+                        })
+                    }
+                </Infinite>
+            );
+
+            expect(stubProps.fetchPosts.notCalled).to.eql(true);
+        });
+
+        it("renders (with `shouldFetchPostsOnMount`)", function () {
+            const stubProps = {
+                shouldFetchPostsOnMount: true,
+                postsLimit: 2,
+                posts: stubPosts,
+                containerHeight: 123,
+                containerWidth: 123,
+                isLoading: false,
+                fetchPosts: sinon.stub()
+            };
+            const rendered = shallow(<PostsComponent {...stubProps}/>);
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, postsLimit, shouldFetchPostsOnMount, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.containMatchingElement(
+                <Infinite
+                    {...expectedProps}
+                    useWindowAsScrollContainer={true}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
+                    elementHeight={stubPosts.toArray().slice(0, stubProps.postsLimit).map(computePostHeight(stubProps.containerWidth))}
+                    onInfiniteLoad={stubProps.fetchPosts}
+                    isInfiniteLoading={stubProps.isLoading}
+                    loadingSpinnerDelegate={<LoadingSpinner/>}
+                >
+                    {
+                        stubPosts.toArray().slice(0, stubProps.postsLimit).map(post => {
+                            const Constructor = getComponentForType(post.type);
+                            return <Constructor key={post.uid} post={post} containerHeight={containerHeight}
+                                                containerWidth={containerWidth}/>;
+                        })
+                    }
+                </Infinite>
+            );
+
+            expect(stubProps.fetchPosts.calledOnce).to.eql(true);
         });
 
         it("renders (with unknown `Post` types)", function () {

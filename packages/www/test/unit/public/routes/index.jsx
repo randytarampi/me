@@ -1,6 +1,8 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {ConnectedPosts} from "@randy.tarampi/jsx";
 import {shallow} from "@randy.tarampi/jsx/test";
+import {ConnectedLetter} from "@randy.tarampi/letter";
+import {ConnectedResume} from "@randy.tarampi/resume";
 import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
@@ -11,9 +13,13 @@ import {
     BlogPhotoRouteHandler,
     BlogRouteHandler,
     BlogWordsRouteHandler,
+    LetterHandler,
+    MainHandler,
     PhotosRouteHandler,
+    ResumeHandler,
     WordsRouteHandler
 } from "../../../../src/public/routes";
+import Main from "../../../../src/public/views/main";
 
 describe("routes", function () {
     let mockStore;
@@ -79,6 +85,42 @@ describe("routes", function () {
             expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type}/>
+            );
+        });
+    });
+
+    describe("LetterHandler", function () {
+        it("renders", function () {
+            const stubProps = {woof: "meow"};
+            const rendered = shallow(stubStore)(<LetterHandler {...stubProps}/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.contain(
+                <ConnectedLetter {...stubProps}/>
+            );
+        });
+    });
+
+    describe("ResumeHandler", function () {
+        it("renders", function () {
+            const stubProps = {woof: "meow"};
+            const rendered = shallow(stubStore)(<ResumeHandler {...stubProps}/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.contain(
+                <ConnectedResume {...stubProps}/>
+            );
+        });
+    });
+
+    describe("MainHandler", function () {
+        it("renders", function () {
+            const stubProps = {woof: "meow"};
+            const rendered = shallow(stubStore)(<MainHandler {...stubProps}/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.contain(
+                <Main {...stubProps}/>
             );
         });
     });

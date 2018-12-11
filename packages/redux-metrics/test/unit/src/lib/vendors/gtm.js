@@ -137,5 +137,29 @@ describe("GtmClient", function () {
                     sinon.assert.calledWith(util.buildReduxActionEventDetails, stubAction, stubEventDetails);
                 });
         });
+
+        it("pushes the correct value into the dataLayer (no event details)", function () {
+            const stubAction = {
+                type: "woof",
+                payload: "rawr"
+            };
+            const stubDataLayer = [];
+            const stubDom = new JSDOM();
+            global.window = stubDom.window;
+            global.document = global.window.document;
+            global.window.GTM_DATALAYER = stubDataLayer;
+
+            const gtmClient = new GtmClient();
+
+            return gtmClient.trackReduxAction(stubAction)
+                .then(returnValue => {
+                    expect(returnValue).to.eql(stubDataLayer.length);
+                    expect(stubDataLayer).to.eql([{
+                        event: "action"
+                    }]);
+                    expect(util.buildReduxActionEventDetails.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(util.buildReduxActionEventDetails, stubAction);
+                });
+        });
     });
 });

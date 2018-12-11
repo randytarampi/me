@@ -177,6 +177,52 @@ describe("Post", function () {
             expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
         });
 
+        it("renders (has unknown creator source)", function () {
+            stubPost = PostEntity.fromJSON({
+                id: "woof",
+                source: "ᶘ ◕ᴥ◕ᶅ",
+                datePublished: new Date(2500, 0, 1).toISOString(),
+                creator: {
+                    username: "woof",
+                    url: "woof://woof.woof/woof/woof",
+                    network: "meow"
+                }
+            });
+
+            const stubProps = {
+                post: stubPost
+            };
+            const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.className("post-date");
+            expect(rendered).to.have.descendants(".post-source__link");
+            expect(rendered).to.not.have.descendants(".post-source__source-name");
+        });
+
+        it("renders (has known creator source)", function () {
+            stubPost = PostEntity.fromJSON({
+                id: "woof",
+                source: "unsplash",
+                datePublished: new Date(2500, 0, 1).toISOString(),
+                creator: {
+                    username: "woof",
+                    url: "woof://woof.woof/woof/woof",
+                    network: "unsplash"
+                }
+            });
+
+            const stubProps = {
+                post: stubPost
+            };
+            const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
+
+            expect(rendered).to.be.ok;
+            expect(rendered).to.have.className("post-date");
+            expect(rendered).to.have.descendants(".post-source__link");
+            expect(rendered).to.have.descendants(".post-source__source-name");
+        });
+
         it("renders (no datePublished)", function () {
             stubPost = PostEntity.fromJSON({
                 id: "woof",

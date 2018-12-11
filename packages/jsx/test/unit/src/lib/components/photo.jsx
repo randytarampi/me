@@ -53,6 +53,8 @@ describe("Photo", function () {
         });
 
         it("propagates the correct `src` for no DPR", function () {
+            delete window.devicePixelRatio;
+
             const stubProps = {
                 post: stubPhoto,
                 containerHeight: 123,
@@ -214,6 +216,8 @@ describe("Photo", function () {
             });
 
             it("returns the appropriate photo for no DPR", function () {
+                delete window.devicePixelRatio;
+
                 const stubProps = {
                     post: stubPhoto,
                     containerHeight: 123,

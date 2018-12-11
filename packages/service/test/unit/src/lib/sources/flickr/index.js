@@ -305,5 +305,38 @@ describe("FlickrSource", function () {
             expect(photoFromFlickr.dateCreated).to.be.instanceof(DateTime);
             expect(photoFromFlickr.dateCreated).to.eql(DateTime.fromSQL(flickrPhoto.datetaken));
         });
+
+        it("turns a flickr response into a `Photo` (falsy values)", function () {
+            flickrPhoto = {
+                id: stubPost.id,
+                type: "image",
+                owner: flickrUser.owner,
+                pathalias: flickrUser.owner,
+                owner_name: flickrUser.owner_name,
+                datetaken: null,
+                dateupload: DateTime.utc().valueOf().toString(),
+                width_o: 1080,
+                height_o: 1080,
+                url_o: "woof://woof.woof/?size=o",
+                title: "ʕ•ᴥ•ʔﾉ゛",
+                description: {
+                    _content: "<p>Woof woof woof</p>"
+                },
+                tags: null,
+                latitude: null,
+                longitude: null
+            };
+
+            const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
+            expect(flickrSource).to.be.instanceOf(FlickrSource);
+
+            const photoFromFlickr = FlickrSource.jsonToPost(flickrPhoto);
+
+            expect(photoFromFlickr).to.be.ok;
+            expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);
+            expect(photoFromFlickr.datePublished).to.be.instanceof(DateTime);
+            expect(photoFromFlickr.datePublished).to.eql(DateTime.fromMillis(parseInt(flickrPhoto.dateupload, 10) * 1000));
+            expect(photoFromFlickr.dateCreated).to.eql(null);
+        });
     });
 });

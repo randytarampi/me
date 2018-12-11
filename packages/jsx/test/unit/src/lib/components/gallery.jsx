@@ -208,6 +208,8 @@ describe("Gallery", function () {
             });
 
             it("returns the appropriate Gallery for no DPR", function () {
+                delete window.devicePixelRatio;
+
                 const stubProps = {
                     post: stubGallery,
                     containerHeight: window.innerHeight,

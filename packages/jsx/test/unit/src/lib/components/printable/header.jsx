@@ -92,4 +92,48 @@ describe("Header", function () {
         expect(rendered).to.not.have.descendants(".printable-header__web");
         expect(rendered).to.not.have.descendants(".printable-header__location");
     });
+
+    it("renders (without a location)", function () {
+        stubPrintable.basics.location = null;
+
+        const stubProps = {
+            printable: stubPrintable
+        };
+        const rendered = shallow(<Header {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.id("header");
+        expect(rendered).to.have.className("printable-header");
+        expect(rendered).to.have.descendants(Container);
+        expect(rendered).to.have.descendants(".printable-header__picture");
+        expect(rendered).to.have.descendants(".printable-header__name");
+        expect(rendered).to.have.descendants(".printable-header__label");
+        expect(rendered).to.have.descendants(".printable-header__contact");
+        expect(rendered).to.have.descendants(".printable-header__email");
+        expect(rendered).to.have.descendants(".printable-header__tel");
+        expect(rendered).to.have.descendants(".printable-header__web");
+        expect(rendered).to.not.have.descendants(".printable-header__location");
+    });
+
+    it("renders (without a website)", function () {
+        stubPrintable.basics.website = null;
+
+        const stubProps = {
+            printable: stubPrintable
+        };
+        const rendered = shallow(<Header {...stubProps} />);
+
+        expect(rendered).to.be.ok;
+        expect(rendered).to.have.id("header");
+        expect(rendered).to.have.className("printable-header");
+        expect(rendered).to.have.descendants(Container);
+        expect(rendered).to.have.descendants(".printable-header__picture");
+        expect(rendered).to.have.descendants(".printable-header__name");
+        expect(rendered).to.have.descendants(".printable-header__label");
+        expect(rendered).to.have.descendants(".printable-header__contact");
+        expect(rendered).to.have.descendants(".printable-header__email");
+        expect(rendered).to.have.descendants(".printable-header__tel");
+        expect(rendered).to.not.have.descendants(".printable-header__web");
+        expect(rendered).to.have.descendants(".printable-header__location");
+    });
 });

@@ -2,7 +2,6 @@ import {logger} from "@randy.tarampi/browser-logger";
 import {expect} from "chai";
 import {ConnectedRouter} from "connected-react-router/immutable";
 import {createBrowserHistory} from "history";
-import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
 import * as reactRouter from "react-router-config";
@@ -22,7 +21,6 @@ describe("ClientReduxRouterRoot", function () {
 
     beforeEach(function () {
         stubHistory = createBrowserHistory();
-        stubInitialState = fromJS({});
         stubStore = configureOfflineStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
