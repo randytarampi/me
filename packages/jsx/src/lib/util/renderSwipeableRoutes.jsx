@@ -73,7 +73,7 @@ export const RenderedSwipeableRoutes = ({location, routes, extraProps, swipeable
 
 export const RenderedSwipeableRoutesForLocation = withRouter(RenderedSwipeableRoutes);
 
-export const renderSwipeableRoutes = (routes, extraProps = {}, swipeableRoutesProps = {}) => {
+export const renderSwipeableRoutes = (routes, extraProps, swipeableRoutesProps) => {
     return <RenderedSwipeableRoutesForLocation
         routes={routes}
         extraProps={extraProps}
