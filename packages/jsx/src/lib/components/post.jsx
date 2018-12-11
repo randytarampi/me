@@ -35,10 +35,6 @@ export class PostComponent extends Component {
         return this.props.post.title || "Untitled";
     }
 
-    get date() {
-        return this.props.post.datePublished;
-    }
-
     render() {
         const {post} = this.props;
 
