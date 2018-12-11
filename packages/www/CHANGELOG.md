@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/randytarampi/me/compare/v2.7.0...v2.8.0) (2018-12-11)
+
+
+### Features
+
+* **www:** Add `Posts` to the home page and close [#170](https://github.com/randytarampi/me/issues/170). ([1f2e631](https://github.com/randytarampi/me/commit/1f2e631))
+* **www:** Page `title` varies with page content, per [#179](https://github.com/randytarampi/me/issues/179). ([3b88bfe](https://github.com/randytarampi/me/commit/3b88bfe))
+
+
+
+
+
 # [2.7.0](https://github.com/randytarampi/me/compare/v2.6.0...v2.7.0) (2018-12-11)
 
 

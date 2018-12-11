@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/randytarampi/me/compare/v2.7.0...v2.8.0) (2018-12-11)
+
+
+### Bug Fixes
+
+* **jsx:** `CampaignLink` can't rely on `window` to be present. ([bd4e310](https://github.com/randytarampi/me/commit/bd4e310))
+* **jsx:** `CampaignLink` defers to `InternalLink` when appropriate. ([e18d95a](https://github.com/randytarampi/me/commit/e18d95a))
+
+
+### Features
+
+* **www:** Add `Posts` to the home page and close [#170](https://github.com/randytarampi/me/issues/170). ([1f2e631](https://github.com/randytarampi/me/commit/1f2e631))
+
+
+
+
+
 # [2.7.0](https://github.com/randytarampi/me/compare/v2.6.0...v2.7.0) (2018-12-11)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
