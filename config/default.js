@@ -1,4 +1,5 @@
 const me = require("./me");
+const defer = require("config/defer").deferConfig;
 
 const POSTS_SERVER_PORT = 3006;
 const RESUME_SERVER_PORT = 3004;
@@ -88,6 +89,15 @@ module.exports = {
         dbPort: POSTS_DB_PORT
     },
     www: {
+        bundle: {
+            name: "www",
+            sw: defer(function () {
+                return `${this.www.bundle.name}.sw`;
+            }),
+            swInstaller: defer(function () {
+                return `${this.www.bundle.sw}.installer`;
+            })
+        },
         codeUrl: "/code",
         photosUrl: "/photos",
         postsUrl: "/blog",

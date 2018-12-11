@@ -1,0 +1,15 @@
+.toast {
+    &__sw-updated {
+        display: block;
+
+        @media #{$small-and-down} {
+            padding-right: 25%;
+            word-break: normal;
+        }
+
+        .toast-action {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

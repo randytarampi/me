@@ -51,8 +51,8 @@ const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) =
     return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
         .pipe(pug({
             locals: buildPugLocals({
-                bundleName: "www",
-                serviceWorkerBundleName: "www.sw",
+                bundleName: config.get("www.bundle.name"),
+                serviceWorkerInstallerBundleName: config.get("www.bundle.swInstaller"),
                 packageJson,
                 pageUrl,
                 injectedScript: [
