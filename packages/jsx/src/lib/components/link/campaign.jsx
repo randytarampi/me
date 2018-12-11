@@ -2,7 +2,8 @@ import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import React from "react";
 import {CampaignContext} from "../../contexts";
-import Link from "./link";
+import {InternalLink} from "./internal";
+import {Link} from "./link";
 
 export const CampaignLink = ({useBranding, href, source, medium, name, term, content, ...props}) => {
     return <CampaignContext.Consumer>
@@ -15,17 +16,24 @@ export const CampaignLink = ({useBranding, href, source, medium, name, term, con
                     term: contextTerm,
                     content: contextContent
                 } = campaignContext || {};
+                let LinkComponent = Link;
+                let actualHref = augmentUrlWithTrackingParams(href, {
+                    source: source || contextSource,
+                    medium: medium || contextMedium,
+                    name: name || contextName,
+                    term: term || contextTerm || props.text,
+                    content: content || contextContent
+                });
 
-                return <Link
+                if (href && href.startsWith(window.location.origin)) {
+                    LinkComponent = InternalLink;
+                    actualHref = href.replace(window.location.origin, "");
+                }
+
+                return <LinkComponent
                     {...props}
                     className={["link--campaign", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
-                    href={augmentUrlWithTrackingParams(href, {
-                        source: source || contextSource,
-                        medium: medium || contextMedium,
-                        name: name || contextName,
-                        term: term || contextTerm || props.text,
-                        content: content || contextContent
-                    })}
+                    href={actualHref}
                     text={props.text || href}
                 />;
             }
