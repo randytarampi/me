@@ -1,0 +1,20 @@
+.block--new {
+    .link--rss {
+        text-decoration: none;
+
+        &:before {
+            color: $link-color;
+            opacity: 0.87;
+        }
+    }
+
+    .post {
+        margin-bottom: 20px;
+
+        &--gallery {
+            .post-metadata.hide-on-med-and-up {
+                display: unset !important
+            }
+        }
+    }
+}

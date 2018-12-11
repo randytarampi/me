@@ -12,11 +12,23 @@ import getComponentForType from "../util/getComponentForType";
 import PostComponent from "./post";
 
 export class PostsComponent extends Component {
+    componentDidMount() {
+        if (this.props.shouldFetchPostsOnMount) {
+            this.props.fetchPosts();
+        }
+    }
+
     render() {
-        const props = this.props;
-        const postsArray = props.posts && props.posts.toArray();
+        const {posts, containerHeight, containerWidth, fetchPosts, isLoading, postsLimit, ...props} = this.props;
+
+        let postsArray = posts && posts.toArray();
+
+        if (Number.isFinite(postsLimit)) {
+            postsArray = postsArray.slice(0, postsLimit);
+        }
+
         const elementHeight = postsArray
-            ? postsArray.map(computePostHeight(props.containerWidth))
+            ? postsArray.map(computePostHeight(containerWidth))
             : [window.innerHeight];
         const itemList = postsArray
             ? new SchemaItemList({
@@ -40,9 +52,10 @@ export class PostsComponent extends Component {
                 infiniteLoadBeginEdgeOffset={window.innerHeight}
                 preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                 preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
-                onInfiniteLoad={props.fetchPosts}
-                isInfiniteLoading={props.isLoading}
+                onInfiniteLoad={fetchPosts}
+                isInfiniteLoading={isLoading}
                 loadingSpinnerDelegate={<LoadingSpinner/>}
+                {...props}
             >
                 {
                     postsArray
@@ -59,8 +72,8 @@ export class PostsComponent extends Component {
                             return <Constructor
                                 key={post.uid}
                                 post={post}
-                                containerHeight={props.containerHeight}
-                                containerWidth={props.containerWidth}
+                                containerHeight={containerHeight}
+                                containerWidth={containerWidth}
                             />;
                         })
                         : <div/>
@@ -73,13 +86,16 @@ export class PostsComponent extends Component {
 PostsComponent.propTypes = {
     containerHeight: PropTypes.number,
     containerWidth: PropTypes.number,
+    postsLimit: PropTypes.number,
     fetchPosts: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
     posts: PropTypes.instanceOf(Set)
 };
 
 PostsComponent.defaultProps = {
-    isLoading: false
+    isLoading: false,
+    shouldFetchPostsOnMount: false,
+    postsLimit: Infinity
 };
 
 export const DimensionsWrappedPosts = Dimensions({

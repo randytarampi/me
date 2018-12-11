@@ -42,7 +42,7 @@ export const IntroText = () =>
 export const Intro = () =>
     <Fragment>
         <RowBlock name="intro" className="intro--large hide-on-med-and-down">
-            <Col className="block__bear" l={5} m={8} s={12} offset="m2">
+            <Col className="block__bear" l={5} s={12}>
                 <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-large-hello-bear"/>
             </Col>
             <Col className="block__text" l={7}>
@@ -50,12 +50,12 @@ export const Intro = () =>
             </Col>
         </RowBlock>
         <RowBlock name="intro-responsive-bear" className="intro-responsive-bear hide-on-large-only">
-            <Col className="block__bear" l={5} m={8} s={12} offset="m2">
+            <Col className="block__bear" l={5} s={12}>
                 <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-responsive-hello-bear"/>
             </Col>
         </RowBlock>
         <RowBlock name="intro-responsive-text" className="intro-responsive-text hide-on-large-only">
-            <Col className="block__text" m={8} s={12} offset="m2">
+            <Col className="block__text" s={12}>
                 <IntroText/>
             </Col>
         </RowBlock>

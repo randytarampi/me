@@ -1,7 +1,7 @@
 import {Photo as PhotoEntity} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
-import React from "react";
+import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util";
@@ -44,7 +44,7 @@ export class PhotoComponent extends PostComponent {
 
         const rowStyle = {};
 
-        if (window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
+        if (this.props.containerWidth >= WINDOW_LARGE_BREAKPOINT) {
             rowStyle.backgroundImage = `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${placeholder})`;
         }
 
@@ -54,50 +54,57 @@ export class PhotoComponent extends PostComponent {
             style={rowStyle}
         >
             <SchemaJsonLdComponent markup={post.toSchema()}/>
-            <Col
-                className="post-metadata hide-on-med-and-up"
-                s={12}
-                style={{
-                    backgroundImage: `url(${source})`,
-                    height: this.scaledHeight
-                }}
-            >
-                <PostTitleComponent post={post} title={this.title}/>
-            </Col>
-            <Col
-                className="post-metadata hide-on-small-only hide-on-large-only"
-                m={12}
-                style={{
-                    backgroundImage: `url(${source})`,
-                    height: this.scaledHeight
-                }}
-            >
-                <PostTitleComponent post={post} title={this.title}/>
-                <PostDatePublishedComponent post={post}/>
-                <PostDateCreatedComponent post={post} label="Taken:"/>
-                <PostBodyAsStringComponent post={post}/>
-                <PostBodyAsArrayComponent post={post}/>
-            </Col>
-            <Col
-                className="post-metadata hide-on-med-and-down"
-                l={4}
-            >
-                <PostTitleComponent post={post} title={this.title}/>
-                <PostBodyAsStringComponent post={post}/>
-                <PostBodyAsArrayComponent post={post}/>
-                <PostDatePublishedComponent post={post}/>
-                <PostDateCreatedComponent post={post} label="Taken:"/>
-                <PostTagsComponent post={post}/>
-            </Col>
-            <Col
-                className="post-content hide-on-med-and-down"
-                l={8}
-                style={{
-                    backgroundImage: `url(${source})`,
-                    height: this.scaledHeight
-                }}
-            >
-            </Col>
+            {
+                this.props.containerWidth >= WINDOW_LARGE_BREAKPOINT
+                    ? <Fragment>
+                        <Col
+                            className="post-metadata hide-on-med-and-down"
+                            l={4}
+                        >
+                            <PostTitleComponent post={post} title={this.title}/>
+                            <PostBodyAsStringComponent post={post}/>
+                            <PostBodyAsArrayComponent post={post}/>
+                            <PostDatePublishedComponent post={post}/>
+                            <PostDateCreatedComponent post={post} label="Taken:"/>
+                            <PostTagsComponent post={post}/>
+                        </Col>
+                        <Col
+                            className="post-content hide-on-med-and-down"
+                            l={8}
+                            style={{
+                                backgroundImage: `url(${source})`,
+                                height: this.scaledHeight
+                            }}
+                        >
+                        </Col>
+                    </Fragment>
+                    : <Fragment>
+                        <Col
+                            className="post-metadata hide-on-med-and-up"
+                            s={12}
+                            style={{
+                                backgroundImage: `url(${source})`,
+                                height: this.scaledHeight
+                            }}
+                        >
+                            <PostTitleComponent post={post} title={this.title}/>
+                        </Col>
+                        <Col
+                            className="post-metadata hide-on-small-only"
+                            m={12}
+                            style={{
+                                backgroundImage: `url(${source})`,
+                                height: this.scaledHeight
+                            }}
+                        >
+                            <PostTitleComponent post={post} title={this.title}/>
+                            <PostDatePublishedComponent post={post}/>
+                            <PostDateCreatedComponent post={post} label="Taken:"/>
+                            <PostBodyAsStringComponent post={post}/>
+                            <PostBodyAsArrayComponent post={post}/>
+                        </Col>
+                    </Fragment>
+            }
         </Row>;
     }
 }
@@ -112,7 +119,7 @@ PhotoComponent.propTypes = {
 export const computeScaledHeight = ({containerWidth, photoHeight, photoWidth, postHtmlId}) => {
     let scaledHeight = containerWidth * photoHeight / photoWidth;
 
-    if (window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
+    if (containerWidth >= WINDOW_LARGE_BREAKPOINT) {
         const photoElement = document.getElementById(postHtmlId);
 
         if (photoElement) {

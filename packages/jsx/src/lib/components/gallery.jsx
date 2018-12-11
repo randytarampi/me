@@ -25,7 +25,7 @@ export class GalleryComponent extends PhotoComponent {
     }
 
     render() {
-        return window.innerWidth >= WINDOW_LARGE_BREAKPOINT
+        return this.props.containerWidth >= WINDOW_LARGE_BREAKPOINT
             ? this._renderLarge()
             : this._renderSmall();
     }

@@ -7,7 +7,7 @@ const Bears = () =>
         <Col className="block__bear hide-on-med-and-down" l={5} s={12}>
             <ConnectedBear id="bears-bear"/>
         </Col>
-        <Col className="block__text" l={7} m={8} s={12} offset="m2">
+        <Col className="block__text" l={7} s={12}>
             <h2>
                 <span className="text">And the Bears?</span>
             </h2>

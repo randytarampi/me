@@ -109,8 +109,8 @@ describe("Gallery", function () {
 
                 const stubProps = {
                     post: stubGallery,
-                    containerHeight: 123,
-                    containerWidth: 123
+                    containerHeight: window.innerHeight,
+                    containerWidth: window.innerWidth
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 
@@ -176,8 +176,8 @@ describe("Gallery", function () {
 
                 const stubProps = {
                     post: stubGallery,
-                    containerHeight: 123,
-                    containerWidth: 123
+                    containerHeight: window.innerHeight,
+                    containerWidth: window.innerWidth
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 
@@ -210,8 +210,8 @@ describe("Gallery", function () {
             it("returns the appropriate Gallery for no DPR", function () {
                 const stubProps = {
                     post: stubGallery,
-                    containerHeight: 123,
-                    containerWidth: 123
+                    containerHeight: window.innerHeight,
+                    containerWidth: window.innerWidth
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 

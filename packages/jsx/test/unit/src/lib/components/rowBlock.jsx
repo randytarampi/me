@@ -17,7 +17,7 @@ describe("RowBlock", function () {
         expect(rendered).to.containMatchingElement(
             <Row
                 {...stubProps}
-                className="block meow"
+                className="block block--woof meow"
                 id={stubProps.name}
             />
         );

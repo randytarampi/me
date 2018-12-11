@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import {Container} from "react-materialize";
 import Bears from "./bears";
 import Intro from "./intro";
+import New from "./new";
 import Works from "./works";
 
 export class Main extends Component {
@@ -19,6 +20,7 @@ export class Main extends Component {
                 <Intro/>
                 <Works/>
                 <Bears/>
+                <New/>
             </Container>
         </Fragment>;
     }

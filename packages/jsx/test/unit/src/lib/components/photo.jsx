@@ -130,8 +130,8 @@ describe("Photo", function () {
 
             const stubProps = {
                 post: stubPhoto,
-                containerHeight: 123,
-                containerWidth: 123,
+                containerHeight: window.innerHeight,
+                containerWidth: window.innerWidth,
                 isLoading: true,
                 source: stubPhoto.getSizedPhotoForLoading().url
             };
@@ -185,8 +185,8 @@ describe("Photo", function () {
 
             const stubProps = {
                 post: stubPhoto,
-                containerHeight: 123,
-                containerWidth: 123,
+                containerHeight: window.innerHeight,
+                containerWidth: window.innerWidth,
                 isLoading: false,
                 source: stubPhoto.getSizedPhotoForLoading().url
             };

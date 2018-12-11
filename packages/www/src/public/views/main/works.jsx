@@ -5,7 +5,7 @@ import {Col} from "react-materialize";
 
 const Works = () =>
     <RowBlock name="code">
-        <Col className="block__text" l={7} m={8} s={12} offset="m2">
+        <Col className="block__text" l={7} s={12}>
             <h2>
                 <span className="text">Still reading eh?</span>
             </h2>
