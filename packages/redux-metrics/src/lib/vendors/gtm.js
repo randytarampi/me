@@ -5,7 +5,7 @@ class GtmMetrics {
         const GTM_DATALAYER = typeof window !== "undefined" && window.GTM_DATALAYER;
 
         this.name = name;
-        this.options = options || {};
+        this.options = options;
         this.dataLayer = this.options.dataLayer || GTM_DATALAYER || [];
     }
 
