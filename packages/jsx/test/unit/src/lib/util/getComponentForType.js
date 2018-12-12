@@ -36,7 +36,6 @@ describe("getComponentForType", function () {
             getComponentForType(stubPost.type);
             throw new Error("Wtf? This should've thrown");
         } catch (error) {
-            expect(error).to.be.ok;
             expect(error.message).to.match(/Can't `getComponentForType` for `woof`/);
         }
     });

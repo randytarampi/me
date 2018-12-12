@@ -16,7 +16,6 @@ describe("ResumeReferences", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeReferences resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-references__reference");
         expect(rendered).to.have.descendants(".resume-references__reference-quote");
         expect(rendered).to.have.descendants(".resume-references__reference-referee");

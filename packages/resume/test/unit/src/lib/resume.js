@@ -46,7 +46,6 @@ describe("Resume", function () {
                 references: List(stubResumeJs.references.map(Reference.fromJSON))
             });
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.be.instanceOf(Person);
             expect(resume.work).to.be.instanceOf(List);
@@ -74,7 +73,6 @@ describe("Resume", function () {
         it("returns an empty Resume", function () {
             const resume = new Resume();
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.eql(null);
             expect(resume.work).to.eql(List());
@@ -96,7 +94,6 @@ describe("Resume", function () {
                 ...stubResumeJs
             });
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.be.instanceOf(Person);
             expect(resume.work).to.be.instanceOf(List);
@@ -124,7 +121,6 @@ describe("Resume", function () {
         it("returns an empty Resume", function () {
             const resume = Resume.fromJS();
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.eql(null);
             expect(resume.work).to.eql(null);
@@ -146,7 +142,6 @@ describe("Resume", function () {
                 ...stubResumeJs
             });
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.be.instanceOf(Person);
             expect(resume.work).to.be.instanceOf(List);
@@ -174,7 +169,6 @@ describe("Resume", function () {
         it("returns an empty Resume", function () {
             const resume = Resume.fromJSON();
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.eql(null);
             expect(resume.work).to.eql(null);
@@ -196,7 +190,6 @@ describe("Resume", function () {
                 ...stubResumeJs
             });
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.be.instanceOf(Person);
             expect(resume.work).to.be.instanceOf(List);
@@ -224,7 +217,6 @@ describe("Resume", function () {
         it("returns an empty Resume", function () {
             const resume = Resume.fromResume();
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.basics).to.eql(null);
             expect(resume.work).to.eql(null);
@@ -244,7 +236,6 @@ describe("Resume", function () {
         it("returns `renderOptions` as JS Object", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pdfRenderOptions).to.eql(stubResumeJs.renderOptions);
         });
@@ -254,7 +245,6 @@ describe("Resume", function () {
 
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pdfRenderOptions).to.eql(null);
         });
@@ -264,7 +254,6 @@ describe("Resume", function () {
         it("returns `renderExpectations` as JS Object", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pdfRenderExpectations).to.eql(stubResumeJs.renderExpectations);
         });
@@ -274,7 +263,6 @@ describe("Resume", function () {
 
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pdfRenderExpectations).to.eql(null);
         });
@@ -284,7 +272,6 @@ describe("Resume", function () {
         it("returns `renderOptions.format`", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pageSize).to.eql(stubResumeJs.renderOptions.format);
         });
@@ -294,7 +281,6 @@ describe("Resume", function () {
 
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pdfRenderOptions).to.eql(null);
         });
@@ -305,7 +291,6 @@ describe("Resume", function () {
             stubResumeJs.filename = "woof";
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.filename).to.eql(stubResumeJs.filename);
         });
@@ -313,7 +298,6 @@ describe("Resume", function () {
         it("returns `id` if no `filename`", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.filename).to.eql(null);
         });
@@ -323,7 +307,6 @@ describe("Resume", function () {
         it("returns ExifTool parsable tags", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
-            expect(resume).to.be.ok;
             expect(resume).to.be.instanceOf(Resume);
             expect(resume.pdfMetadata).to.eql({
                 Author: resume.basics.name,

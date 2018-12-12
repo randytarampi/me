@@ -55,7 +55,6 @@ describe("LetterSignature", function () {
         const rendered = shallow(<LetterSignature letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-signature__content");
         expect(rendered).to.have.descendants(".signature.letter-signature__signature");
         expect(rendered.find(".signature.letter-signature__signature")).to.have.prop("src", `${__LETTER_ASSET_URL__}/signature.svg`);

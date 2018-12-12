@@ -61,7 +61,6 @@ describe("Place", function () {
                 address: PostalAddress.fromJS(stubPlaceJson.address)
             });
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.location).to.be.instanceOf(PostalAddress);
             expect(place.email).to.eql(stubPlaceJson.email);
@@ -75,7 +74,6 @@ describe("Place", function () {
         it("returns an empty Place", function () {
             const place = new Place();
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
         });
     });
@@ -84,7 +82,6 @@ describe("Place", function () {
         it("returns a Place", function () {
             const place = Place.fromJS(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.location).to.be.instanceOf(PostalAddress);
             expect(place.email).to.eql(stubPlaceJson.email);
@@ -98,7 +95,6 @@ describe("Place", function () {
         it("returns an empty Place", function () {
             const place = Place.fromJS();
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
         });
     });
@@ -107,7 +103,6 @@ describe("Place", function () {
         it("returns a Place", function () {
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.location).to.be.instanceOf(PostalAddress);
             expect(place.email).to.eql(stubPlaceJson.email);
@@ -121,7 +116,6 @@ describe("Place", function () {
         it("returns an empty Place", function () {
             const place = Place.fromJSON();
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
         });
     });
@@ -130,7 +124,6 @@ describe("Place", function () {
         it("returns a Place", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.location).to.be.instanceOf(PostalAddress);
             expect(place.email).to.eql(stubPlaceJson.email);
@@ -144,7 +137,6 @@ describe("Place", function () {
         it("returns an empty Place", function () {
             const place = Place.fromResume();
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
         });
     });
@@ -153,7 +145,6 @@ describe("Place", function () {
         it("returns expected Resume JSON", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
 
             const resumeJson = place.toResume();
@@ -168,7 +159,6 @@ describe("Place", function () {
         it("returns some empty Resume JSON", function () {
             const place = Place.fromResume();
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
 
             const resumeJson = place.toResume();
@@ -189,7 +179,6 @@ describe("Place", function () {
         it("returns expected Schema.org JSON", function () {
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
 
             const schemaJson = place.toSchema();
@@ -230,7 +219,6 @@ describe("Place", function () {
         it("returns some empty Schema.org JSON", function () {
             const place = Place.fromJSON();
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
 
             const schemaJson = place.toSchema();
@@ -259,7 +247,6 @@ describe("Place", function () {
             stubPlaceResumeJson.additionalName = "Meow Meow Meow";
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.name).to.eql(stubPlaceResumeJson.name);
         });
@@ -269,7 +256,6 @@ describe("Place", function () {
             stubPlaceJson.additionalName = "Meow Meow Meow";
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.name).to.eql(stubPlaceJson.additionalName);
         });
@@ -278,7 +264,6 @@ describe("Place", function () {
             delete stubPlaceResumeJson.name;
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.name).to.eql(null);
         });
@@ -288,7 +273,6 @@ describe("Place", function () {
         it("returns `location.address`", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.address).to.eql(stubPlaceResumeJson.location.address);
         });
@@ -297,7 +281,6 @@ describe("Place", function () {
             delete stubPlaceResumeJson.location;
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.address).to.eql(null);
         });
@@ -307,7 +290,6 @@ describe("Place", function () {
         it("returns `location.city`", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.city).to.eql(stubPlaceResumeJson.location.city);
         });
@@ -316,7 +298,6 @@ describe("Place", function () {
             delete stubPlaceResumeJson.location;
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.city).to.eql(null);
         });
@@ -326,7 +307,6 @@ describe("Place", function () {
         it("returns `location.region`", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.region).to.eql(stubPlaceResumeJson.location.region);
         });
@@ -335,7 +315,6 @@ describe("Place", function () {
             delete stubPlaceResumeJson.location;
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.region).to.eql(null);
         });
@@ -345,7 +324,6 @@ describe("Place", function () {
         it("returns `location.postalCode`", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.postalCode).to.eql(stubPlaceResumeJson.location.postalCode);
         });
@@ -354,7 +332,6 @@ describe("Place", function () {
             delete stubPlaceResumeJson.location;
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.postalCode).to.eql(null);
         });
@@ -364,7 +341,6 @@ describe("Place", function () {
         it("returns `location.countryCode`", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.countryCode).to.eql(stubPlaceResumeJson.location.countryCode);
         });
@@ -373,7 +349,6 @@ describe("Place", function () {
             delete stubPlaceResumeJson.location;
             const place = Place.fromResume(stubPlaceResumeJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.countryCode).to.eql(null);
         });
@@ -383,7 +358,6 @@ describe("Place", function () {
         it("returns `telephone`", function () {
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.telephone).to.eql(formatNumber(stubPlaceJson.telephone, "International"));
             expect(place.phone).to.eql(place.telephone);
@@ -393,7 +367,6 @@ describe("Place", function () {
             delete stubPlaceJson.telephone;
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.telephone).to.eql(null);
             expect(place.phone).to.eql(place.telephone);
@@ -404,7 +377,6 @@ describe("Place", function () {
         it("returns `faxNumber`", function () {
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.faxNumber).to.eql(formatNumber(stubPlaceJson.faxNumber, "International"));
             expect(place.fax).to.eql(place.faxNumber);
@@ -414,7 +386,6 @@ describe("Place", function () {
             delete stubPlaceJson.faxNumber;
             const place = Place.fromJSON(stubPlaceJson);
 
-            expect(place).to.be.ok;
             expect(place).to.be.instanceOf(Place);
             expect(place.faxNumber).to.eql(null);
             expect(place.fax).to.eql(place.faxNumber);

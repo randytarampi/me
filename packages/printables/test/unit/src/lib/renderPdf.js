@@ -165,7 +165,6 @@ describe("renderPdf", function () {
                 throw new Error("Wtf? This should've thrown");
             })
             .catch(error => {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql(`Expected PDF to have ${stubPrintable.pdfRenderExpectations.pages} pages, but it has ${stubActualPages} instead`);
 
                 const stubPdfPath = path.join(stubPrintableDestinationDirectory, `${stubPrintable.filename}.pdf`);

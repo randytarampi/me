@@ -7,7 +7,6 @@ describe("ResumeFooter", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeFooter resume={{}}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".hide-on-print");
     });
 });

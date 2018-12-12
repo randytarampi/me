@@ -36,7 +36,6 @@ describe("ui", function () {
         const updatedState = reducer(stubInitialState, otherAction(stubPayload));
 
         const routesState = getRoutes(updatedState);
-        expect(routesState).to.be.ok;
         expect(routesState.size).to.eql(0);
         const route = getRouteForIndex(updatedState, 0);
         expect(route).to.eql(null);
@@ -44,7 +43,6 @@ describe("ui", function () {
         expect(routeIndex).to.eql(null);
 
         const swipeableState = getSwipeable(updatedState);
-        expect(swipeableState).to.be.ok;
         expect(swipeableState.size).to.eql(3);
         const swipeableIndex = getSwipeableIndex(swipeableState);
         expect(swipeableIndex).to.eql(null);
@@ -57,7 +55,6 @@ describe("ui", function () {
             const updatedState = reducer(stubInitialState, setRoutes(stubPayload));
 
             const routesState = getRoutes(updatedState);
-            expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubPayload.length);
         });
 
@@ -69,7 +66,6 @@ describe("ui", function () {
             });
             const updatedState = reducer(stubInitialState, setRoutes(stubPayload));
             const routesState = getRoutes(updatedState);
-            expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubPayload.length);
         });
     });
@@ -112,7 +108,6 @@ describe("ui", function () {
                 type: LOCATION_CHANGE
             });
             const routesState = getRoutes(updatedState);
-            expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubInitialState.get("routes").size);
             const route = getRouteForIndex(updatedState, 1);
             expect(route).to.eql(stubInitialState.get("routes").get(1));
@@ -138,7 +133,6 @@ describe("ui", function () {
             expect(routesState).to.eql(List());
 
             const swipeableState = getSwipeable(updatedState);
-            expect(swipeableState).to.be.ok;
             expect(swipeableState.size).to.eql(3);
             expect(swipeableState.get("indexLatest")).to.eql(stubPayload.indexLatest);
             expect(swipeableState.get("meta")).to.eql(fromJS(stubPayload.meta));
@@ -171,7 +165,6 @@ describe("ui", function () {
             };
             const updatedState = reducer(stubInitialState, swipeableChangeIndex(stubPayload));
             const routesState = getRoutes(updatedState);
-            expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubInitialState.get("routes").size);
             const route = getRouteForIndex(updatedState, 1);
             expect(route).to.eql(stubInitialState.get("routes").get(1));
@@ -179,7 +172,6 @@ describe("ui", function () {
             expect(routeIndex).to.eql(0);
 
             const swipeableState = getSwipeable(updatedState);
-            expect(swipeableState).to.be.ok;
             expect(swipeableState.size).to.eql(3);
             expect(swipeableState.get("indexLatest")).to.eql(stubPayload.indexLatest);
             expect(swipeableState.get("meta")).to.eql(fromJS(stubPayload.meta));
@@ -202,7 +194,6 @@ describe("ui", function () {
             expect(routesState).to.eql(List());
 
             const swipeableState = getSwipeable(updatedState);
-            expect(swipeableState).to.be.ok;
             expect(swipeableState.size).to.eql(3);
             expect(swipeableState.get("indexLatest")).to.eql(stubPayload.indexLatest);
             expect(swipeableState.get("meta")).to.eql(fromJS(stubPayload.meta));
@@ -235,7 +226,6 @@ describe("ui", function () {
             };
             const updatedState = reducer(stubInitialState, swipeableTabChangeIndex(stubPayload));
             const routesState = getRoutes(updatedState);
-            expect(routesState).to.be.ok;
             expect(routesState.size).to.eql(stubInitialState.get("routes").size);
             const route = getRouteForIndex(updatedState, 1);
             expect(route).to.eql(stubInitialState.get("routes").get(1));
@@ -243,7 +233,6 @@ describe("ui", function () {
             expect(routeIndex).to.eql(0);
 
             const swipeableState = getSwipeable(updatedState);
-            expect(swipeableState).to.be.ok;
             expect(swipeableState.size).to.eql(3);
             expect(swipeableState.get("indexLatest")).to.eql(stubPayload.indexLatest);
             expect(swipeableState.get("meta")).to.eql(fromJS(stubPayload.meta));

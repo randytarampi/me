@@ -20,7 +20,6 @@ describe("ResumePublicationsEntry", function () {
     it("renders", function () {
         const rendered = shallow(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.have.className("hide-on-print");
         expect(rendered).to.have.descendants(".resume-publications-entry");
         expect(rendered).to.have.descendants(".resume-publications-entry__basics");
@@ -42,7 +41,6 @@ describe("ResumePublicationsEntry", function () {
     it("renders (`.hide-on-print` if 4th or subsequent publication)", function () {
         const rendered = shallow(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={4}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("hide-on-print");
     });
 
@@ -50,7 +48,6 @@ describe("ResumePublicationsEntry", function () {
         delete stubResumePublicationsEntry.url;
         const rendered = shallow(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered.find(CampaignLink)).to.be.ok;
         expect(rendered.find(CampaignLink)).to.have.length(0);

@@ -26,7 +26,6 @@ describe("buildPostsResponse", function () {
             };
             const response = postsReponseBuilder.buildPostsV2ResponseBody(stubSearchPostsResponse);
 
-            expect(response).to.be.ok;
             expect(response).to.eql({
                 posts: stubPosts.map(postsReponseBuilder.setPostRawToNull),
                 total: stubPosts.length,
@@ -44,7 +43,6 @@ describe("buildPostsResponse", function () {
             };
             const response = postsReponseBuilder.buildPostsV2ResponseBody(stubSearchPostsResponse);
 
-            expect(response).to.be.ok;
             expect(response).to.eql({
                 posts: stubSearchPostsResponse.posts,
                 total: stubSearchPostsResponse.total,
@@ -64,7 +62,6 @@ describe("buildPostsResponse", function () {
             };
             const response = postsReponseBuilder.buildPostsV1ResponseBody(stubSearchPostsResponse.posts);
 
-            expect(response).to.be.ok;
             expect(response).to.eql(stubPosts.map(postsReponseBuilder.setPostRawToNull));
         });
 
@@ -77,7 +74,6 @@ describe("buildPostsResponse", function () {
             };
             const response = postsReponseBuilder.buildPostsV1ResponseBody(stubSearchPostsResponse.posts);
 
-            expect(response).to.be.ok;
             expect(response).to.eql(stubSearchPostsResponse.posts);
         });
     });
@@ -94,8 +90,6 @@ describe("buildPostsResponse", function () {
 
             const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
 
-            expect(response).to.be.ok;
-            expect(response.body).to.be.ok;
             expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
@@ -112,8 +106,6 @@ describe("buildPostsResponse", function () {
 
             const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
 
-            expect(response).to.be.ok;
-            expect(response.body).to.be.ok;
             expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
@@ -130,8 +122,6 @@ describe("buildPostsResponse", function () {
 
             const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
 
-            expect(response).to.be.ok;
-            expect(response.body).to.be.ok;
             expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
@@ -156,8 +146,6 @@ describe("buildPostsResponse", function () {
 
             const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
 
-            expect(response).to.be.ok;
-            expect(response.body).to.be.ok;
             expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
 
@@ -176,7 +164,6 @@ describe("buildPostsResponse", function () {
                 buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
-                expect(error).to.be.ok;
                 expect(error.message).to.match(/^`ME-API-VERSION` specifies unsupported version of `999`$/);
             }
         });

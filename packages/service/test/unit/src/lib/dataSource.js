@@ -112,7 +112,6 @@ describe("DataSource", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/Please specify an actual postsGetter implementation/);
                 });
         });
@@ -135,7 +134,6 @@ describe("DataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await dataSource.getPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -156,7 +154,6 @@ describe("DataSource", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/Please specify an actual allPostsGetter implementation/);
                 });
         });
@@ -179,7 +176,6 @@ describe("DataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await dataSource.getAllPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -200,7 +196,6 @@ describe("DataSource", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/Please specify an actual postGetter implementation/);
                 });
         });
@@ -223,7 +218,6 @@ describe("DataSource", function () {
             const stubParams = SearchParams.fromJS();
             const post = await dataSource.getPost(stubPost.id, stubParams);
 
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPost);
             expect(stubBeforePostGetter.calledOnce).to.eql(true);
             expect(stubBeforePostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);

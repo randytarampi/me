@@ -16,7 +16,6 @@ describe("LetterAboutYou", function () {
     it("renders (default content)", function () {
         const rendered = shallow(<LetterAboutYou contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-you__content");
         expect(rendered.find(".letter-you__content").first().html()).to.match(/I don&#x27;t usually talk about myself this often/);
         expect(rendered.find(".letter-you__content").last().html()).to.match(/I scoped out your team and it looks like/);
@@ -32,7 +31,6 @@ describe("LetterAboutYou", function () {
 
         const rendered = shallow(<LetterAboutYou contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-you__content");
         expect(rendered.find(".letter-you__content").first().html()).to.match(/I don&#x27;t usually talk about myself this often/);
         expect(rendered.find(".letter-you__content")).to.contain(stubContentConfiguration.contentProps.aboutYou);

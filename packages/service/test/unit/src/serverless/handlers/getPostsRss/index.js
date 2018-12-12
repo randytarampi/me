@@ -192,7 +192,6 @@ describe("getPostsRss", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql(stubError.message);
                 expect(proxyquireStubs["../../util/request/parseHeaders"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);
@@ -277,7 +276,6 @@ describe("getPostsRss", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql(stubError.message);
                 expect(proxyquireStubs["../../util/request/parseHeaders"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/request/parseQuerystringParameters"].default.calledOnce).to.eql(true);

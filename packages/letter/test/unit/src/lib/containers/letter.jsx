@@ -50,7 +50,6 @@ describe("ConnectedLetter", function () {
 
         const rendered = shallow(stubStore)(<ConnectedLetter {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("letter", stubLetter);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
@@ -71,7 +70,6 @@ describe("ConnectedLetter", function () {
 
         const rendered = shallow(stubStore)(<ConnectedLetter {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("letter", stubLetter);
         expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);

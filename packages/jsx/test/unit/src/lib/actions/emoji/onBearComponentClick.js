@@ -58,7 +58,6 @@ describe("onBearComponentClick", function () {
             const actions = stubStore.getActions();
             const emojiComponentClicks = ["components", clickedComponentId, "meta", "clicks"];
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(4 * numberOfClicks);
             expect(actions).to.eql([
                 {
@@ -103,7 +102,6 @@ describe("onBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(4 * numberOfClicks);
             expect(actions).to.eql(
                 [].concat(...Array(numberOfClicks).fill("").map((value, index) => {
@@ -152,7 +150,6 @@ describe("onBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(4 * numberOfClicks);
             expect(actions).to.eql(
                 [].concat(...Array(numberOfClicks).fill("").map((value, index) => {

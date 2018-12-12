@@ -190,11 +190,9 @@ describe("FlickrSource", function () {
 
             return flickrSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.calledOnce(stubServiceClient.people.findByUsername);
@@ -215,11 +213,9 @@ describe("FlickrSource", function () {
 
             return flickrSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.notCalled(stubServiceClient.people.findByUsername);
@@ -237,7 +233,6 @@ describe("FlickrSource", function () {
 
             return flickrSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.people.getPublicPhotos);
@@ -258,11 +253,9 @@ describe("FlickrSource", function () {
 
             return flickrSource.allPostsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.notCalled(stubServiceClient.people.findByUsername);
@@ -285,7 +278,6 @@ describe("FlickrSource", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/Please specify an actual postGetter implementation/);
                 });
         });
@@ -298,7 +290,6 @@ describe("FlickrSource", function () {
 
             const photoFromFlickr = FlickrSource.jsonToPost(flickrPhoto);
 
-            expect(photoFromFlickr).to.be.ok;
             expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);
             expect(photoFromFlickr.datePublished).to.be.instanceof(DateTime);
             expect(photoFromFlickr.datePublished).to.eql(DateTime.fromMillis(parseInt(flickrPhoto.dateupload, 10) * 1000));
@@ -332,7 +323,6 @@ describe("FlickrSource", function () {
 
             const photoFromFlickr = FlickrSource.jsonToPost(flickrPhoto);
 
-            expect(photoFromFlickr).to.be.ok;
             expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);
             expect(photoFromFlickr.datePublished).to.be.instanceof(DateTime);
             expect(photoFromFlickr.datePublished).to.eql(DateTime.fromMillis(parseInt(flickrPhoto.dateupload, 10) * 1000));

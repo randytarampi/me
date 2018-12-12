@@ -49,7 +49,6 @@ describe("ConnectedEmoji", function () {
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -74,7 +73,6 @@ describe("ConnectedEmoji", function () {
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -96,7 +94,6 @@ describe("ConnectedEmoji", function () {
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -119,7 +116,6 @@ describe("ConnectedEmoji", function () {
         const stubProps = {id: "meow", emoji: EmojiEntity.fromJS({id: "meow"})};
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -147,7 +143,6 @@ describe("ConnectedEmoji", function () {
         const stubProps = {id: "meow", emoji: EmojiEntity.fromJS({id: "meow"}), clearEmoji: clearEmojiCreatorStub};
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -176,7 +171,6 @@ describe("ConnectedEmoji", function () {
 
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -209,7 +203,6 @@ describe("ConnectedEmoji", function () {
 
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -238,7 +231,6 @@ describe("ConnectedEmoji", function () {
 
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -269,7 +261,6 @@ describe("ConnectedEmoji", function () {
 
         const rendered = shallow(stubStore)(<Emoji {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 

@@ -50,7 +50,6 @@ describe("util", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error).to.be.instanceof(Error);
                     expect(error.message).to.match(/`firstResolved` failed and returned 2 errors/);
                     expect(error.errors).to.have.length(2);

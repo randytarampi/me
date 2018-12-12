@@ -23,7 +23,6 @@ describe("Skill", function () {
                 keywords: List(stubSkillJs.keywords)
             });
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.name).to.eql(stubSkillJs.name);
             expect(skill.level).to.eql(stubSkillJs.level);
@@ -34,7 +33,6 @@ describe("Skill", function () {
         it("returns an empty Skill", function () {
             const skill = new Skill();
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.keywords).to.eql(List());
         });
@@ -46,7 +44,6 @@ describe("Skill", function () {
                 ...stubSkillJs
             });
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.name).to.eql(stubSkillJs.name);
             expect(skill.level).to.eql(stubSkillJs.level);
@@ -57,7 +54,6 @@ describe("Skill", function () {
         it("returns an empty Skill", function () {
             const skill = Skill.fromJS();
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.keywords).to.eql(null);
         });
@@ -69,7 +65,6 @@ describe("Skill", function () {
                 ...stubSkillJs
             });
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.name).to.eql(stubSkillJs.name);
             expect(skill.level).to.eql(stubSkillJs.level);
@@ -80,7 +75,6 @@ describe("Skill", function () {
         it("returns an empty Skill", function () {
             const skill = Skill.fromJSON();
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.keywords).to.eql(null);
         });
@@ -92,7 +86,6 @@ describe("Skill", function () {
                 ...stubSkillJs
             });
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.name).to.eql(stubSkillJs.name);
             expect(skill.level).to.eql(stubSkillJs.level);
@@ -103,7 +96,6 @@ describe("Skill", function () {
         it("returns an empty Skill", function () {
             const skill = Skill.fromResume();
 
-            expect(skill).to.be.ok;
             expect(skill).to.be.instanceOf(Skill);
             expect(skill.keywords).to.eql(null);
         });

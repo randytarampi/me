@@ -33,7 +33,6 @@ describe("Main", function () {
     it("renders", function () {
         const rendered = shallow(stubStore)(<Main/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered.find(Intro)).to.be.ok;
         expect(rendered.find(Intro).length).to.eql(1);
         expect(rendered.find(Bears)).to.be.ok;

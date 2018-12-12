@@ -23,7 +23,6 @@ describe("Intro", function () {
     it("renders", function () {
         const rendered = shallow(stubStore)(<Intro/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered.find(IntroText)).to.have.length(2);
         expect(rendered).to.contain(
             <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-large-hello-bear"/>
@@ -38,7 +37,6 @@ describe("Intro", function () {
         it("renders", function () {
             const rendered = shallow(stubStore)(<IntroText/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <h2>
                     <span className="text">Hey!</span>

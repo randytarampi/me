@@ -29,7 +29,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostBodyAsArrayComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("post-body");
         });
 
@@ -49,7 +48,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostBodyAsArrayComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.descendants(".post-body");
             expect(rendered.find(".post-body")).to.have.length(2);
             expect(rendered).to.have.descendants(".post-body > div");
@@ -64,7 +62,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostBodyAsStringComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("post-body");
         });
 
@@ -81,7 +78,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostBodyAsStringComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-body");
             expect(rendered).to.have.descendants(".post-body > p > .post-body__text");
         });
@@ -99,7 +95,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostBodyAsStringComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-body");
             expect(rendered).to.have.descendants(".post-body > div");
         });
@@ -119,7 +114,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDateCreatedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("post-date");
         });
 
@@ -136,7 +130,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDateCreatedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-date");
             expect(rendered).to.have.descendants(".post-date__label.post-date__label--created");
             expect(rendered).to.have.descendants(".post-date__date.post-date__date--created");
@@ -153,7 +146,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDateCreatedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("post-date");
         });
     });
@@ -171,7 +163,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-date");
             expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
             expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
@@ -194,7 +185,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-date");
             expect(rendered).to.have.descendants(".post-source__link");
             expect(rendered).to.not.have.descendants(".post-source__source-name");
@@ -217,7 +207,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-date");
             expect(rendered).to.have.descendants(".post-source__link");
             expect(rendered).to.have.descendants(".post-source__source-name");
@@ -234,7 +223,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("post-date");
         });
     });
@@ -258,7 +246,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostTagsComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-tags");
             expect(rendered).to.have.descendants(".post-tags__label");
             expect(rendered).to.have.descendants(".post-tags__tag");
@@ -270,7 +257,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostTagsComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("post-tags");
         });
     });
@@ -294,7 +280,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostTitleComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-title");
             expect(rendered).to.not.have.descendants(".post-title__text");
             expect(rendered).to.have.descendants(".post-title__link");
@@ -306,7 +291,6 @@ describe("Post", function () {
             };
             const rendered = shallow(<PostTitleComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("post-title");
             expect(rendered).to.have.descendants(".post-title__text");
             expect(rendered).to.not.have.descendants(".post-title__link");
@@ -322,13 +306,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.width).to.be.ok;
             expect(component.width).to.eql(stubProps.containerWidth);
         });
     });
@@ -342,13 +323,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.height).to.be.ok;
             expect(component.height).to.eql(stubProps.containerHeight);
         });
     });
@@ -362,13 +340,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.containerWidth).to.be.ok;
             expect(component.containerWidth).to.eql(stubProps.containerWidth);
         });
     });
@@ -382,13 +357,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.containerHeight).to.be.ok;
             expect(component.containerHeight).to.eql(stubProps.containerHeight);
         });
     });
@@ -402,13 +374,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.scaledHeight).to.be.ok;
             expect(component.scaledHeight).to.eql(component.height);
             expect(component.scaledHeight).to.eql(component.containerHeight);
         });
@@ -423,13 +392,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.title).to.be.ok;
             expect(component.title).to.eql("Untitled");
         });
 
@@ -448,13 +414,10 @@ describe("Post", function () {
             };
             const rendered = shallow(<Post {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post");
 
             const component = rendered.instance();
-            expect(component).to.be.ok;
-            expect(component.title).to.be.ok;
             expect(component.title).to.eql(stubPost.title);
         });
     });

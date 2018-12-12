@@ -32,7 +32,6 @@ describe("ResumeProjectsEntry", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeProjectsEntry projectsEntry={stubResumeProjectsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.have.className("hide-on-print");
         expect(rendered).to.have.descendants(".resume-projects-entry");
         expect(rendered).to.have.descendants(".resume-projects-entry__basics");
@@ -62,7 +61,6 @@ describe("ResumeProjectsEntry", function () {
 
         const rendered = shallow(<ResumeProjectsEntry projectsEntry={stubResumeProjectsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered.find(".resume-projects-entry__basics > .right.hide-on-small-only > .resume-projects-entry__date").html()).to.match(/ to Present/);
         expect(rendered.find(".resume-projects-entry__basics > .hide-on-med-and-up > .resume-projects-entry__date").html()).to.match(/ to Present/);
     });
@@ -70,7 +68,6 @@ describe("ResumeProjectsEntry", function () {
     it("renders (`.hide-on-print` if 4th or subsequent project)", function () {
         const rendered = shallow(<ResumeProjectsEntry projectsEntry={stubResumeProjectsEntry} index={4}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("hide-on-print");
     });
 
@@ -78,7 +75,6 @@ describe("ResumeProjectsEntry", function () {
         delete stubResumeProjectsEntry.url;
         const rendered = shallow(<ResumeProjectsEntry projectsEntry={stubResumeProjectsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered.find(CampaignLink)).to.be.ok;
         expect(rendered.find(CampaignLink)).to.have.length(0);
@@ -92,7 +88,6 @@ describe("ResumeProjectsEntry", function () {
         delete stubResumeProjectsEntry.highlights;
         const rendered = shallow(<ResumeProjectsEntry projectsEntry={stubResumeProjectsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered).to.not.have.descendants(".resume-projects-entry__highlights");
         expect(rendered).to.not.have.descendants(".resume-projects-entry__highlight");
@@ -102,7 +97,6 @@ describe("ResumeProjectsEntry", function () {
         delete stubResumeProjectsEntry.roles;
         const rendered = shallow(<ResumeProjectsEntry projectsEntry={stubResumeProjectsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered).to.have.descendants(".resume-projects-entry__details");
         expect(rendered).to.not.have.descendants(".resume-projects-entry__details > div > .resume-projects-entry__position");

@@ -18,7 +18,6 @@ describe("logger", function () {
         it("returns a valid raven configuration", function () {
             const ravenConfiguration = buildRavenConfiguration();
 
-            expect(ravenConfiguration).to.be.ok;
             expect(ravenConfiguration).to.eql({
                 logger: window.NAME,
                 autoBreadcrumbs: true,
@@ -63,11 +62,9 @@ describe("logger", function () {
 
             const bunyanConfiguration = buildBunyanConfiguration();
 
-            expect(bunyanConfiguration).to.be.ok;
             expect(bunyanConfiguration.name).to.eql(stubName);
             expect(bunyanConfiguration.version).to.eql(stubVersion);
             expect(bunyanConfiguration.environment).to.eql(stubEnironment);
-            expect(bunyanConfiguration.streams).to.be.ok;
             expect(bunyanConfiguration.streams).to.have.length(2);
             expect(bunyanConfiguration.streams[0].stream).to.be.ok;
             expect(bunyanConfiguration.streams[0].stream).to.be.instanceOf(ConsoleStream);
@@ -83,7 +80,6 @@ describe("logger", function () {
 
             const bunyanConfiguration = buildBunyanConfiguration();
 
-            expect(bunyanConfiguration).to.be.ok;
             expect(bunyanConfiguration.name).to.eql("jsx");
             expect(bunyanConfiguration.src).to.eql(false);
         });

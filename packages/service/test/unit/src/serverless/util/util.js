@@ -21,7 +21,6 @@ describe("util", function () {
             };
             const searchParams = parseQueryStringParametersIntoSearchParams(baseParameters)(queryStringParameters);
 
-            expect(searchParams).to.be.ok;
             expect(searchParams).to.be.instanceOf(SearchParams);
             expect(searchParams.type).to.eql("woof");
             expect(searchParams.source).to.eql("meow");
@@ -43,7 +42,6 @@ describe("util", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error.message).to.eql(stubErrorMessage);
                 });
         });
@@ -101,7 +99,6 @@ describe("util", function () {
         it("delegates to `config`", function () {
             const loadedConfig = loadConfig.default();
 
-            expect(loadedConfig).to.be.ok;
             expect(loadedConfig).to.be.an("object");
             expect(loadedConfig.posts).to.eql(config.get("posts"));
             expect(loadedConfig.me).to.eql(config.get("me"));
@@ -182,7 +179,6 @@ describe("util", function () {
 
             return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
                 .then(postsResult => {
-                    expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledThrice).to.eql(true);
                 });
@@ -237,7 +233,6 @@ describe("util", function () {
 
             return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
                 .then(postsResult => {
-                    expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
                 });
@@ -295,7 +290,6 @@ describe("util", function () {
 
             return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
                 .then(postsResult => {
-                    expect(postsResult).to.be.ok;
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledTwice).to.eql(true);
                 });

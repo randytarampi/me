@@ -15,7 +15,6 @@ describe("RawHtmlSection", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<RawHtmlSection {...stubProps}>{stubChildren}</RawHtmlSection>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.prop("className", "printable-section__raw-html meow");
         expect(rendered).to.not.have.descendants(".printable-section__header");
         expect(rendered).to.not.have.descendants(".printable-section__header > .printable-section__label");

@@ -73,7 +73,6 @@ describe("fetchPosts", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(1);
                     expect(actions).to.eql([
                         {
@@ -138,7 +137,6 @@ describe("fetchPosts", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(1);
                     expect(actions).to.eql([
                         {
@@ -216,7 +214,6 @@ describe("fetchPosts", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(1);
                     expect(actions).to.eql([
                         {
@@ -263,10 +260,8 @@ describe("fetchPosts", function () {
             const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/actions/fetchPosts", {
                 "../api/fetchPosts": {
                     "default": (fetchUrl, searchParams) => {
-                        expect(fetchUrl).to.be.ok;
                         expect(fetchUrl).to.eql(stubFetchUrl);
 
-                        expect(searchParams).to.be.ok;
                         expect(searchParams).to.eql(stubSearchParams);
 
                         return Promise.resolve(stubPostsResponse);
@@ -278,7 +273,6 @@ describe("fetchPosts", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(2);
                     expect(actions).to.eql([
                         {
@@ -328,10 +322,8 @@ describe("fetchPosts", function () {
             const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/actions/fetchPosts", {
                 "../api/fetchPosts": {
                     "default": (fetchUrl, searchParams) => {
-                        expect(fetchUrl).to.be.ok;
                         expect(fetchUrl).to.eql(stubFetchUrl);
 
-                        expect(searchParams).to.be.ok;
                         expect(searchParams).to.eql(stubSearchParams);
 
                         return Promise.resolve(stubPostsResponse);
@@ -365,7 +357,6 @@ describe("fetchPosts", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(2);
                     expect(actions).to.eql([
                         {
@@ -444,7 +435,6 @@ describe("fetchPosts", function () {
                         }
                     ];
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
                 });
@@ -487,7 +477,6 @@ describe("fetchPosts", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error).to.eql(stubPostsResponse);
 
                     const actions = stubStore.getActions();
@@ -518,7 +507,6 @@ describe("fetchPosts", function () {
                         }
                     ];
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
                 });
@@ -542,7 +530,6 @@ describe("fetchPosts", function () {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error).to.eql(stubPostsResponse);
 
                     const actions = stubStore.getActions();
@@ -572,7 +559,6 @@ describe("fetchPosts", function () {
                         }
                     ];
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
                 });
@@ -603,10 +589,8 @@ describe("fetchPosts", function () {
             const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/actions/fetchPosts", {
                 "../api/fetchPosts": {
                     "default": (fetchUrl, searchParams) => {
-                        expect(fetchUrl).to.be.ok;
                         expect(fetchUrl).to.eql(stubFetchUrl);
 
-                        expect(searchParams).to.be.ok;
                         expect(searchParams).to.eql(stubSearchParams);
 
                         return Promise.resolve(stubPostsResponse);
@@ -618,7 +602,6 @@ describe("fetchPosts", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(2);
                     expect(actions[1]).to.eql(
                         {

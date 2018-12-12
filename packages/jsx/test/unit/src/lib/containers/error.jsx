@@ -71,7 +71,6 @@ describe("Error", function () {
         let renderCount = 1;
         const expectedProps = {redirectionLocation: "/", redirectionTimeout: 10};
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(expectedProps);
 
         expect(selectors.getLocation.callCount).to.eql(renderCount);
@@ -118,7 +117,6 @@ describe("Error", function () {
         const rendered = shallow(stubStore)(<Error {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(selectors.getLocation.callCount).to.eql(renderCount);
@@ -164,7 +162,6 @@ describe("Error", function () {
 
         const rendered = shallow(stubStore)(<Error {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(clearErrorStub.notCalled).to.eql(true);
@@ -204,7 +201,6 @@ describe("Error", function () {
 
         const rendered = shallow(stubStore)(<Error {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(clearErrorStub.notCalled).to.eql(true);

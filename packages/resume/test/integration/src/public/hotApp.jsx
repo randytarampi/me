@@ -22,7 +22,6 @@ describe("hotApp", function () {
     it("renders", function () {
         const rendered = mount(stubStore)(<App/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(Provider);
     });
 });

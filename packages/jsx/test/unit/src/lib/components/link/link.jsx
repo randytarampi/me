@@ -13,7 +13,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.containMatchingElement(
             <a
@@ -39,7 +38,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.containMatchingElement(
             <a
@@ -65,7 +63,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.containMatchingElement(
             <a
@@ -90,7 +87,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.containMatchingElement(
             <a
@@ -116,7 +112,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.containMatchingElement(
             <a
@@ -144,7 +139,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props({
             ...stubProps,
             className: "link " + stubProps.className
@@ -173,7 +167,6 @@ describe("Link", function () {
         };
         const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.containMatchingElement(
             <a

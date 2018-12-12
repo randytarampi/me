@@ -14,7 +14,6 @@ describe("EmailLink", function () {
         };
         const rendered = shallow(<EmailLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--email"
@@ -41,7 +40,6 @@ describe("EmailLink", function () {
         };
         const rendered = shallow(<EmailLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--email link--no-branding"
@@ -66,7 +64,6 @@ describe("EmailLink", function () {
         };
         const rendered = shallow(<EmailLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--email link--no-branding"
@@ -88,7 +85,6 @@ describe("EmailLink", function () {
         };
         const rendered = shallow(<EmailLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--email link--no-branding"

@@ -32,7 +32,6 @@ describe("LetterDate", function () {
         });
         const rendered = shallow(<LetterDate contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-date__date-string");
         expect(rendered).to.contain(<p className="letter-date__date-string">
             {
@@ -44,7 +43,6 @@ describe("LetterDate", function () {
     it("renders (custom date)", function () {
         const rendered = shallow(<LetterDate contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-date__date-string");
         expect(rendered).to.contain(<p className="letter-date__date-string">
             {

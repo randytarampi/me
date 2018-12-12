@@ -106,7 +106,6 @@ describe("JobApplication", function () {
                 meta: Map(stubJobApplicationJs.meta)
             });
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
             expect(jobApplication.resume.basics.name).to.not.eql(stubResumeJs.basics.name);
@@ -127,7 +126,6 @@ describe("JobApplication", function () {
         it("returns an empty JobApplication", function () {
             const letter = new JobApplication();
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(JobApplication);
         });
     });
@@ -136,7 +134,6 @@ describe("JobApplication", function () {
         it("returns a JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
             expect(jobApplication.resume.basics.name).to.not.eql(stubResumeJs.basics.name);
@@ -157,7 +154,6 @@ describe("JobApplication", function () {
         it("returns an empty JobApplication", function () {
             const letter = JobApplication.fromJS();
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(JobApplication);
         });
     });
@@ -166,7 +162,6 @@ describe("JobApplication", function () {
         it("returns a JobApplication", function () {
             const jobApplication = JobApplication.fromJSON(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
             expect(jobApplication.resume.basics.name).to.not.eql(stubResumeJs.basics.name);
@@ -187,7 +182,6 @@ describe("JobApplication", function () {
         it("returns an empty JobApplication", function () {
             const letter = JobApplication.fromJSON();
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(JobApplication);
         });
 
@@ -195,7 +189,6 @@ describe("JobApplication", function () {
             it("augments `renderOptions` with default UTM parameters", function () {
                 const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-                expect(jobApplication).to.be.ok;
                 expect(jobApplication).to.be.instanceOf(JobApplication);
                 expect(jobApplication.pdfRenderOptions).to.eql({
                     ...stubJobApplicationJs.renderOptions,
@@ -219,7 +212,6 @@ describe("JobApplication", function () {
 
                 const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-                expect(jobApplication).to.be.ok;
                 expect(jobApplication).to.be.instanceOf(JobApplication);
                 expect(jobApplication.pdfRenderOptions).to.eql({
                     ...stubJobApplicationJs.renderOptions,
@@ -235,7 +227,6 @@ describe("JobApplication", function () {
         it("returns the `letter.sender`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.basics).to.eql(jobApplication.letter.sender);
         });
@@ -245,7 +236,6 @@ describe("JobApplication", function () {
         it("returns the `letter.sender`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.sender).to.eql(jobApplication.letter.sender);
         });
@@ -255,7 +245,6 @@ describe("JobApplication", function () {
         it("returns the `letter.recipient`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.recipient).to.eql(jobApplication.letter.recipient);
         });
@@ -265,7 +254,6 @@ describe("JobApplication", function () {
         it("returns `renderOptions` as JS Object", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -292,7 +280,6 @@ describe("JobApplication", function () {
                 meta: Map(stubJobApplicationJs.meta)
             });
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -315,7 +302,6 @@ describe("JobApplication", function () {
                 meta: Map(stubJobApplicationJs.meta)
             });
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -329,7 +315,6 @@ describe("JobApplication", function () {
         it("returns `renderExpectations` as JS Object", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -343,7 +328,6 @@ describe("JobApplication", function () {
 
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -358,7 +342,6 @@ describe("JobApplication", function () {
 
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -372,7 +355,6 @@ describe("JobApplication", function () {
         it("returns `renderOptions.format`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -386,7 +368,6 @@ describe("JobApplication", function () {
 
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);
@@ -401,7 +382,6 @@ describe("JobApplication", function () {
 
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
-            expect(jobApplication).to.be.ok;
             expect(jobApplication).to.be.instanceOf(JobApplication);
             expect(jobApplication.letter).to.be.instanceOf(Letter);
             expect(jobApplication.resume).to.be.instanceOf(Resume);

@@ -13,7 +13,6 @@ describe("RowBlock", function () {
         };
         const rendered = shallow(<RowBlock {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Row
                 {...stubProps}

@@ -35,7 +35,6 @@ describe("resume", function () {
 
             const updatedState = reducer(stubInitialState, fetchingResumeSuccess(stubPayload));
             const resume = getResume(updatedState);
-            expect(resume).to.be.ok;
             expect(resume).to.eql(stubResume);
         });
 
@@ -51,7 +50,6 @@ describe("resume", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingResumeSuccess(stubPayload));
             const resumes = getResumes(updatedState);
-            expect(resumes).to.be.ok;
             expect(resumes.toArray()).to.eql([
                 stubLoadedResume,
                 stubResume
@@ -67,7 +65,6 @@ describe("resume", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingResumeSuccess(stubPayload));
             const resume = getResume(updatedState);
-            expect(resume).to.be.ok;
             expect(resume).to.eql({rawr: "roar"});
         });
     });

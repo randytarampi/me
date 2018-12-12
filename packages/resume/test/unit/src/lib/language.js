@@ -17,7 +17,6 @@ describe("Language", function () {
                 ...stubLanguageJs
             });
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
             expect(language.fluency).to.eql(stubLanguageJs.fluency);
             expect(language.language).to.eql(stubLanguageJs.language);
@@ -26,7 +25,6 @@ describe("Language", function () {
         it("returns an empty Language", function () {
             const language = new Language();
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
         });
     });
@@ -37,7 +35,6 @@ describe("Language", function () {
                 ...stubLanguageJs
             });
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
             expect(language.fluency).to.eql(stubLanguageJs.fluency);
             expect(language.language).to.eql(stubLanguageJs.language);
@@ -46,7 +43,6 @@ describe("Language", function () {
         it("returns an empty Language", function () {
             const language = Language.fromJS();
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
         });
     });
@@ -57,7 +53,6 @@ describe("Language", function () {
                 ...stubLanguageJs
             });
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
             expect(language.fluency).to.eql(stubLanguageJs.fluency);
             expect(language.language).to.eql(stubLanguageJs.language);
@@ -66,7 +61,6 @@ describe("Language", function () {
         it("returns an empty Language", function () {
             const language = Language.fromJSON();
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
         });
     });
@@ -77,7 +71,6 @@ describe("Language", function () {
                 ...stubLanguageJs
             });
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
             expect(language.fluency).to.eql(stubLanguageJs.fluency);
             expect(language.language).to.eql(stubLanguageJs.language);
@@ -86,7 +79,6 @@ describe("Language", function () {
         it("returns an empty Language", function () {
             const language = Language.fromResume();
 
-            expect(language).to.be.ok;
             expect(language).to.be.instanceOf(Language);
         });
     });

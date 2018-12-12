@@ -16,7 +16,6 @@ describe("ResumeContact", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeContact resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-contact__email");
         expect(rendered).to.have.descendants(".resume-contact__tel");
         expect(rendered).to.have.descendants(".resume-contact__web");
@@ -33,7 +32,6 @@ describe("ResumeContact", function () {
 
         const rendered = shallow(<ResumeContact resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-contact__email");
         expect(rendered).to.have.descendants(".resume-contact__tel");
         expect(rendered).to.not.have.descendants(".resume-contact__web");

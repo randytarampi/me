@@ -107,7 +107,6 @@ describe("Person", function () {
                 address: PostalAddress.fromJS(stubPersonJson.address)
             });
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.location).to.be.instanceOf(PostalAddress);
             expect(person.email).to.eql(stubPersonJson.email);
@@ -125,7 +124,6 @@ describe("Person", function () {
         it("returns an empty Person", function () {
             const person = new Person();
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
         });
     });
@@ -134,7 +132,6 @@ describe("Person", function () {
         it("returns a Person", function () {
             const person = Person.fromJS(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.location).to.be.instanceOf(PostalAddress);
             expect(person.email).to.eql(stubPersonJson.email);
@@ -150,7 +147,6 @@ describe("Person", function () {
         it("returns an empty Person", function () {
             const person = Person.fromJS();
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
         });
     });
@@ -159,7 +155,6 @@ describe("Person", function () {
         it("returns a Person", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.location).to.be.instanceOf(PostalAddress);
             expect(person.email).to.eql(stubPersonJson.email);
@@ -175,7 +170,6 @@ describe("Person", function () {
         it("returns an empty Person", function () {
             const person = Person.fromJSON();
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
         });
     });
@@ -184,7 +178,6 @@ describe("Person", function () {
         it("returns a Person", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.location).to.be.instanceOf(PostalAddress);
             expect(person.email).to.eql(stubPersonJson.email);
@@ -200,7 +193,6 @@ describe("Person", function () {
         it("returns an empty Person", function () {
             const person = Person.fromResume();
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
         });
     });
@@ -209,7 +201,6 @@ describe("Person", function () {
         it("returns expected Resume JSON", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
 
             const resumeJson = person.toResume();
@@ -224,7 +215,6 @@ describe("Person", function () {
         it("returns some empty Resume JSON", function () {
             const person = Person.fromResume();
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
 
             const resumeJson = person.toResume();
@@ -249,7 +239,6 @@ describe("Person", function () {
         it("returns expected Schema.org JSON", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
 
             const schemaJson = person.toSchema();
@@ -376,7 +365,6 @@ describe("Person", function () {
         it("returns some empty Schema.org JSON", function () {
             const person = Person.fromJSON();
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
 
             const schemaJson = person.toSchema();
@@ -417,7 +405,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.name;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.name).to.eql(`${stubPersonResumeJson.firstName} ${stubPersonResumeJson.lastName}`);
         });
@@ -426,7 +413,6 @@ describe("Person", function () {
             stubPersonResumeJson.name = "Meow Meow";
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.name).to.eql(stubPersonResumeJson.name);
         });
@@ -435,7 +421,6 @@ describe("Person", function () {
             stubPersonJson.additionalName = "Meow Meow";
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.name).to.eql(stubPersonJson.additionalName);
         });
@@ -446,7 +431,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.name;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.name).to.eql(null);
         });
@@ -456,7 +440,6 @@ describe("Person", function () {
         it("returns `location.address`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.address).to.eql(stubPersonResumeJson.location.address);
         });
@@ -465,7 +448,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.location;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.address).to.eql(null);
         });
@@ -475,7 +457,6 @@ describe("Person", function () {
         it("returns `location.postOfficeBoxNumber`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.postOfficeBoxNumber).to.eql(stubPersonJson.address.postOfficeBoxNumber);
         });
@@ -484,7 +465,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.location;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.postOfficeBoxNumber).to.eql(null);
         });
@@ -494,7 +474,6 @@ describe("Person", function () {
         it("returns `location.city`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.city).to.eql(stubPersonResumeJson.location.city);
         });
@@ -503,7 +482,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.location;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.city).to.eql(null);
         });
@@ -513,7 +491,6 @@ describe("Person", function () {
         it("returns `location.region`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.region).to.eql(stubPersonResumeJson.location.region);
         });
@@ -522,7 +499,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.location;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.region).to.eql(null);
         });
@@ -532,7 +508,6 @@ describe("Person", function () {
         it("returns `location.postalCode`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.postalCode).to.eql(stubPersonResumeJson.location.postalCode);
         });
@@ -541,7 +516,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.location;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.postalCode).to.eql(null);
         });
@@ -551,7 +525,6 @@ describe("Person", function () {
         it("returns `location.countryCode`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.countryCode).to.eql(stubPersonResumeJson.location.countryCode);
         });
@@ -560,7 +533,6 @@ describe("Person", function () {
             delete stubPersonResumeJson.location;
             const person = Person.fromResume(stubPersonResumeJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.countryCode).to.eql(null);
         });
@@ -570,9 +542,7 @@ describe("Person", function () {
         it("returns Internationally formatted number for E.164 input", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.telephone).to.be.ok;
             expect(person.telephone).to.eql(formatNumber(stubPersonJson.telephone, "International"));
             expect(person.phone).to.eql(person.telephone);
         });
@@ -582,9 +552,7 @@ describe("Person", function () {
 
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.telephone).to.be.ok;
             expect(person.telephone).to.eql(formatNumber(parseNumber(stubPersonJson.telephone, stubPersonJson.address.addressCountry), "International"));
             expect(person.phone).to.eql(person.telephone);
         });
@@ -595,9 +563,7 @@ describe("Person", function () {
 
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.telephone).to.be.ok;
             expect(person.telephone).to.eql(formatNumber(parseNumber(stubPersonJson.telephone, "CA"), "International"));
             expect(person.phone).to.eql(person.telephone);
         });
@@ -608,9 +574,7 @@ describe("Person", function () {
 
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.telephone).to.be.ok;
             expect(person.telephone).to.eql(formatNumber(parseNumber(stubPersonJson.telephone, stubPersonJson.address.addressCountry), "International"));
             expect(person.phone).to.eql(person.telephone);
         });
@@ -619,7 +583,6 @@ describe("Person", function () {
             delete stubPersonJson.telephone;
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.telephone).to.eql(null);
             expect(person.phone).to.eql(person.telephone);
@@ -630,7 +593,6 @@ describe("Person", function () {
         it("returns `telephone`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.telephone).to.eql(formatNumber(stubPersonJson.telephone, "International"));
             expect(person.phone).to.eql(person.telephone);
@@ -640,7 +602,6 @@ describe("Person", function () {
             delete stubPersonJson.telephone;
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.telephone).to.eql(null);
             expect(person.phone).to.eql(person.telephone);
@@ -651,9 +612,7 @@ describe("Person", function () {
         it("returns Internationally formatted number for E.164 input", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.faxNumber).to.be.ok;
             expect(person.faxNumber).to.eql(formatNumber(stubPersonJson.faxNumber, "International"));
             expect(person.fax).to.eql(person.faxNumber);
         });
@@ -663,9 +622,7 @@ describe("Person", function () {
 
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.faxNumber).to.be.ok;
             expect(person.faxNumber).to.eql(formatNumber(parseNumber(stubPersonJson.faxNumber, stubPersonJson.address.addressCountry), "International"));
             expect(person.fax).to.eql(person.faxNumber);
         });
@@ -676,9 +633,7 @@ describe("Person", function () {
 
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.faxNumber).to.be.ok;
             expect(person.faxNumber).to.eql(formatNumber(parseNumber(stubPersonJson.faxNumber, "CA"), "International"));
             expect(person.fax).to.eql(person.faxNumber);
         });
@@ -689,9 +644,7 @@ describe("Person", function () {
 
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
-            expect(person.faxNumber).to.be.ok;
             expect(person.faxNumber).to.eql(formatNumber(parseNumber(stubPersonJson.faxNumber, stubPersonJson.address.addressCountry), "International"));
             expect(person.fax).to.eql(person.faxNumber);
         });
@@ -701,7 +654,6 @@ describe("Person", function () {
         it("returns `faxNumber`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.faxNumber).to.eql(formatNumber(stubPersonJson.faxNumber, "International"));
             expect(person.fax).to.eql(person.faxNumber);
@@ -711,7 +663,6 @@ describe("Person", function () {
             delete stubPersonJson.faxNumber;
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.faxNumber).to.eql(null);
             expect(person.fax).to.eql(person.faxNumber);
@@ -722,7 +673,6 @@ describe("Person", function () {
         it("returns `jobTitle`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.label).to.eql(stubPersonJson.jobTitle);
         });
@@ -732,7 +682,6 @@ describe("Person", function () {
         it("returns `image`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.picture).to.eql(stubPersonJson.image);
         });
@@ -742,7 +691,6 @@ describe("Person", function () {
         it("returns `url`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.website).to.eql(stubPersonJson.url);
         });
@@ -752,7 +700,6 @@ describe("Person", function () {
         it("returns `description`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
-            expect(person).to.be.ok;
             expect(person).to.be.instanceOf(Person);
             expect(person.summary).to.eql(stubPersonJson.description);
         });

@@ -45,7 +45,6 @@ describe("renderPrintablesToHtml", function () {
             printableDestinationDirectory: stubPrintableDestinationDirectory
         })
             .then(files => {
-                expect(files).to.be.ok;
                 expect(files).to.have.length(stubPrintableHtmlPairs.length);
 
                 expect(renderPrintablesHtmlModule.renderPrintablesHtml.calledOnce).to.be.ok;
@@ -80,7 +79,6 @@ describe("renderPrintablesToHtml", function () {
                 throw new Error("Wtf? This should've thrown");
             })
             .catch(error => {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql("woof");
             });
     });
@@ -101,7 +99,6 @@ describe("renderPrintablesToHtml", function () {
                 throw new Error("Wtf? This should've thrown");
             })
             .catch(error => {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql("meow");
             });
     });

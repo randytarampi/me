@@ -23,7 +23,6 @@ describe("parseQuerystringParameters", function () {
         };
         const parsedQuerystringParameters = parseQuerystringParameters(stubQuerystringParameters);
 
-        expect(parsedQuerystringParameters).to.be.ok;
         expect(parsedQuerystringParameters).to.eql({
             page: 5,
             perPage: 100
@@ -40,7 +39,6 @@ describe("parseQuerystringParameters", function () {
             parseQuerystringParameters(stubQuerystringParameters);
             throw new Error("Wtf? This should've thrown");
         } catch (error) {
-            expect(error).to.be.ok;
             expect(error.message).to.match(/^Expected `perPage` to be a number but got `woof` instead$/);
         }
     });

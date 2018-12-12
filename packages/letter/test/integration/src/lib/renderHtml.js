@@ -19,7 +19,6 @@ describe("renderHtml", function () {
         const letter = buildLetter(path.join(__dirname, "../../../../src/letters/some-awesome-company.json"));
         const letterHtml = renderHtml(letter);
 
-        expect(letterHtml).to.be.ok;
         expect(letterHtml).to.be.a("string");
         expect(letterHtml).to.have.string(letter.sender.name);
     });
@@ -28,7 +27,6 @@ describe("renderHtml", function () {
         const letter = buildLetter(path.join(__dirname, "../../resources/meow.js"));
         const letterHtml = renderHtml(letter);
 
-        expect(letterHtml).to.be.ok;
         expect(letterHtml).to.be.a("string");
         expect(letterHtml).to.have.string(letter.recipient.name);
     });
@@ -37,7 +35,6 @@ describe("renderHtml", function () {
         const letter = buildLetter(path.join(__dirname, "../../resources/woof.jsx"));
         const letterHtml = renderHtml(letter);
 
-        expect(letterHtml).to.be.ok;
         expect(letterHtml).to.be.a("string");
         expect(letterHtml).to.have.string(letter.sender.name);
     });

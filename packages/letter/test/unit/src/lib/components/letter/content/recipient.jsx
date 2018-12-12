@@ -65,7 +65,6 @@ describe("LetterRecipient", function () {
         const rendered = shallow(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered.getElement()).to.eql(null);
     });
 
@@ -73,7 +72,6 @@ describe("LetterRecipient", function () {
         const rendered = shallow(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-recipient__name");
         expect(rendered).to.have.descendants(".printable-recipient__title");
         expect(rendered).to.have.descendants(".printable-recipient__company");
@@ -108,7 +106,6 @@ describe("LetterRecipient", function () {
         const rendered = shallow(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.have.descendants(".printable-recipient__name");
         expect(rendered).to.have.descendants(".printable-recipient__title");
         expect(rendered).to.have.descendants(".printable-recipient__company");
@@ -133,7 +130,6 @@ describe("LetterRecipient", function () {
         const rendered = shallow(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-recipient__name");
         expect(rendered).to.not.have.descendants(".printable-recipient__title");
         expect(rendered).to.have.descendants(".printable-recipient__company");
@@ -157,7 +153,6 @@ describe("LetterRecipient", function () {
         const rendered = shallow(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-recipient__name");
         expect(rendered).to.have.descendants(".printable-recipient__title");
         expect(rendered).to.not.have.descendants(".printable-recipient__company");
@@ -181,7 +176,6 @@ describe("LetterRecipient", function () {
         const rendered = shallow(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-recipient__name");
         expect(rendered).to.have.descendants(".printable-recipient__title");
         expect(rendered).to.have.descendants(".printable-recipient__company");

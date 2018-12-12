@@ -59,7 +59,6 @@ describe("parseHeaders", function () {
             parseHeaders(stubHeaders);
             throw new Error("Wtf? This should've thrown");
         } catch (error) {
-            expect(error).to.be.ok;
             expect(error.message).to.match(/^💥$/);
             expect(stubVersionHeader.parseHeader.calledOnce).to.eql(true);
             expect(stubVersionHeader.validateHeader.calledOnce).to.eql(true);

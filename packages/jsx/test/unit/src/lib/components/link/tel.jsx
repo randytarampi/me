@@ -13,7 +13,6 @@ describe("TelLink", function () {
         };
         const rendered = shallow(<TelLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--tel"
@@ -34,7 +33,6 @@ describe("TelLink", function () {
         };
         const rendered = shallow(<TelLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--tel link--no-branding"
@@ -54,7 +52,6 @@ describe("TelLink", function () {
         };
         const rendered = shallow(<TelLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--tel link--no-branding"

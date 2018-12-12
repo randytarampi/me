@@ -35,7 +35,6 @@ describe("letter", function () {
 
             const updatedState = reducer(stubInitialState, fetchingLetterSuccess(stubPayload));
             const letter = getLetter(updatedState);
-            expect(letter).to.be.ok;
             expect(letter).to.eql(stubLetter);
         });
 
@@ -51,7 +50,6 @@ describe("letter", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingLetterSuccess(stubPayload));
             const letters = getLetters(updatedState);
-            expect(letters).to.be.ok;
             expect(letters.toArray()).to.eql([
                 stubLoadedLetter,
                 stubLetter
@@ -67,7 +65,6 @@ describe("letter", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingLetterSuccess(stubPayload));
             const letter = getLetter(updatedState);
-            expect(letter).to.be.ok;
             expect(letter).to.eql({rawr: "roar"});
         });
     });

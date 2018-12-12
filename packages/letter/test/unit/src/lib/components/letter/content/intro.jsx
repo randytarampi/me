@@ -27,7 +27,6 @@ describe("LetterIntro", function () {
     it("renders (default content)", function () {
         const rendered = shallow(stubStore)(<LetterIntro contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-intro__content");
 
         expect(rendered.find(".letter-intro__content").length).to.eql(2);
@@ -45,7 +44,6 @@ describe("LetterIntro", function () {
 
         const rendered = shallow(stubStore)(<LetterIntro contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-intro__content");
         expect(rendered).to.contain(stubContentConfiguration.contentProps.intro);
 

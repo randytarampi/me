@@ -49,7 +49,6 @@ describe("ServerReduxRouterRoot", function () {
         const rendered = mount(stubStore)(<ServerReduxRouterRoot {...stubProps} store={stubStore} history={stubHistory}
                                                                  routes={stubRoutes}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(Provider);
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
         expect(rendered).to.have.descendants(ErrorWrapper);

@@ -222,7 +222,6 @@ describe("TumblrSource", function () {
 
             return tumblrSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
                         expect(post).to.be.ok;
@@ -258,7 +257,6 @@ describe("TumblrSource", function () {
 
             return tumblrSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);
@@ -279,7 +277,6 @@ describe("TumblrSource", function () {
 
             return tumblrSource.allPostsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(stubPosts.length);
                     sinon.assert.calledTwice(stubServiceClient.blogPosts);

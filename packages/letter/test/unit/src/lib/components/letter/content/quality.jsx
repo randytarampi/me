@@ -16,7 +16,6 @@ describe("LetterQuality", function () {
     it("renders (default content)", function () {
         const rendered = shallow(<LetterQuality contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-quality__content");
         expect(rendered.find(".letter-quality__content").html()).to.match(/And it&#x27;s not like I just build software for end users either/);
     });
@@ -31,7 +30,6 @@ describe("LetterQuality", function () {
 
         const rendered = shallow(<LetterQuality contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-quality__content");
         expect(rendered.find(".letter-quality__content").html()).to.not.match(/And it&#x27;s not like I just build software for end users either/);
         expect(rendered.find(".letter-quality__content")).to.contain(stubContentConfiguration.contentProps.quality);

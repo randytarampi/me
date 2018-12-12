@@ -38,7 +38,6 @@ describe("routes", function () {
         it("renders", function () {
             const rendered = shallow(stubStore)(<WordsRouteHandler/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <Redirect to="/blog/words"/>
             );
@@ -49,7 +48,6 @@ describe("routes", function () {
         it("renders", function () {
             const rendered = shallow(stubStore)(<PhotosRouteHandler/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <Redirect to="/blog/photos"/>
             );
@@ -60,7 +58,6 @@ describe("routes", function () {
         it("renders", function () {
             const rendered = shallow(stubStore)(<BlogRouteHandler/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`}/>
             );
@@ -71,7 +68,6 @@ describe("routes", function () {
         it("renders", function () {
             const rendered = shallow(stubStore)(<BlogPhotoRouteHandler/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type}/>
             );
@@ -82,7 +78,6 @@ describe("routes", function () {
         it("renders", function () {
             const rendered = shallow(stubStore)(<BlogWordsRouteHandler/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type}/>
             );
@@ -94,7 +89,6 @@ describe("routes", function () {
             const stubProps = {woof: "meow"};
             const rendered = shallow(stubStore)(<LetterHandler {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <ConnectedLetter {...stubProps}/>
             );
@@ -106,7 +100,6 @@ describe("routes", function () {
             const stubProps = {woof: "meow"};
             const rendered = shallow(stubStore)(<ResumeHandler {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <ConnectedResume {...stubProps}/>
             );
@@ -118,7 +111,6 @@ describe("routes", function () {
             const stubProps = {woof: "meow"};
             const rendered = shallow(stubStore)(<MainHandler {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.contain(
                 <Main {...stubProps}/>
             );

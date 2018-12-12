@@ -19,7 +19,6 @@ describe("SectionWrapper", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<SectionWrapper {...stubProps}>{stubChildren}</SectionWrapper>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.type);
         expect(rendered).to.have.className(stubProps.className);
         expect(rendered).to.have.className("printable-section");
@@ -45,7 +44,6 @@ describe("SectionWrapper", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<SectionWrapper {...stubProps}>{stubChildren}</SectionWrapper>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.type);
         expect(rendered).to.have.className(stubProps.className);
         expect(rendered).to.have.className("printable-section");
@@ -71,7 +69,6 @@ describe("SectionWrapper", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<SectionWrapper {...stubProps}>{stubChildren}</SectionWrapper>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.type);
         expect(rendered).to.have.className(stubProps.className);
         expect(rendered).to.have.className("printable-section");
@@ -94,7 +91,6 @@ describe("SectionWrapper", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<SectionWrapper {...stubProps}>{stubChildren}</SectionWrapper>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.type);
         expect(rendered).to.have.className(stubProps.className);
         expect(rendered).to.have.className("printable-section");

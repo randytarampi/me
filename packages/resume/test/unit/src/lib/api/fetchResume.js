@@ -14,11 +14,8 @@ describe("fetchResume", function () {
 
         const proxyquiredFetchResume = proxyquire("../../../../../src/lib/api/fetchResume", {
             "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.match(/\/fetch!/);
 
-                expect(options).to.be.ok;
-                expect(options.headers).to.be.ok;
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8"
@@ -30,7 +27,6 @@ describe("fetchResume", function () {
 
         return proxyquiredFetchResume.default(stubVariant)
             .then(resumeResponse => {
-                expect(resumeResponse).to.be.ok;
                 expect(resumeResponse).to.eql(Resume.fromResume(testResumeJson));
             });
     });
@@ -46,11 +42,8 @@ describe("fetchResume", function () {
 
         const proxyquiredFetchResume = proxyquire("../../../../../src/lib/api/fetchResume", {
             "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.match(/\/fetch!/);
 
-                expect(options).to.be.ok;
-                expect(options.headers).to.be.ok;
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8"

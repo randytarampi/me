@@ -14,7 +14,6 @@ describe("ErrorWrapper", function () {
             {stubChildren}
         </ErrorWrapper>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Error {...stubProps}/>
         );
@@ -30,7 +29,6 @@ describe("ErrorWrapper", function () {
             {stubChildren}
         </ErrorWrapper>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.containMatchingElement(
             <Error {...stubProps}/>
         );

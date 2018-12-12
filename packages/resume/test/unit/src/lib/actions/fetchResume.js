@@ -57,7 +57,6 @@ describe("fetchResume", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(1);
                     expect(actions).to.eql([
                         {
@@ -79,7 +78,6 @@ describe("fetchResume", function () {
             const proxyquiredFetchResume = proxyquire("../../../../../src/lib/actions/fetchResume", {
                 "../api/fetchResume": {
                     "default": variant => {
-                        expect(variant).to.be.ok;
                         expect(variant).to.eql(stubVariant);
 
                         return Promise.resolve(stubResumeResponse);
@@ -91,7 +89,6 @@ describe("fetchResume", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(2);
                     expect(actions).to.eql([
                         {
@@ -119,7 +116,6 @@ describe("fetchResume", function () {
             const proxyquiredFetchResume = proxyquire("../../../../../src/lib/actions/fetchResume", {
                 "../api/fetchResume": {
                     "default": variant => {
-                        expect(variant).to.be.ok;
                         expect(variant).to.eql(stubVariant);
 
                         return Promise.resolve(stubResumeResponse);
@@ -145,7 +141,6 @@ describe("fetchResume", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(2);
                     expect(actions).to.eql([
                         {
@@ -208,7 +203,6 @@ describe("fetchResume", function () {
                         }
                     ];
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
                 });
@@ -226,7 +220,6 @@ describe("fetchResume", function () {
 
             return stubStore.dispatch(proxyquiredFetchResume.default(stubVariant))
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error).to.eql(stubResumeResponse);
 
                     const actions = stubStore.getActions();
@@ -256,7 +249,6 @@ describe("fetchResume", function () {
                         }
                     ];
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(expectedActions.length);
                     expect(actions).to.eql(expectedActions);
                 });
@@ -291,7 +283,6 @@ describe("fetchResume", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(3);
                     expect(actions).to.eql([
                         {
@@ -330,7 +321,6 @@ describe("fetchResume", function () {
             const proxyquiredFetchResume = proxyquire("../../../../../src/lib/actions/fetchResume", {
                 "../api/fetchResume": {
                     "default": variant => {
-                        expect(variant).to.be.ok;
                         expect(variant).to.eql(stubVariant);
 
                         return Promise.resolve(stubResumeResponse);
@@ -342,7 +332,6 @@ describe("fetchResume", function () {
                 .then(() => {
                     const actions = stubStore.getActions();
 
-                    expect(actions).to.be.ok;
                     expect(actions).to.have.length(2);
                     expect(actions[1]).to.eql(
                         {

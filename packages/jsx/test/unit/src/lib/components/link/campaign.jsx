@@ -20,7 +20,6 @@ describe("CampaignLink", function () {
         };
         const rendered = mount(<CampaignLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--campaign"
@@ -55,7 +54,6 @@ describe("CampaignLink", function () {
             utm_content: stubProps.content
         })}`;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--campaign link--no-branding"
@@ -85,7 +83,6 @@ describe("CampaignLink", function () {
             utm_content: stubProps.content
         })}`;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--campaign link--no-branding"
@@ -114,7 +111,6 @@ describe("CampaignLink", function () {
             utm_content: config.get("me.campaign.content")
         })}`;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--campaign link--no-branding"
@@ -150,7 +146,6 @@ describe("CampaignLink", function () {
             utm_content: stubContext.content
         })}`;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--campaign link--no-branding"

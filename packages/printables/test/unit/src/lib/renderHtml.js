@@ -42,7 +42,6 @@ describe("renderHtml", function () {
             printableStylesPath: stubPrintableStylesPath,
             printable: stubPrintable
         });
-        expect(pugLocalsBuilder).to.be.ok;
         expect(pugLocalsBuilder).to.be.instanceof(Function);
         expect(buildPugLocalsModule.buildPugLocalsBuilder.calledOnce).to.be.ok;
         sinon.assert.calledWith(buildPugLocalsModule.buildPugLocalsBuilder, {
@@ -52,7 +51,6 @@ describe("renderHtml", function () {
         });
 
         const renderedHtml = pugLocalsBuilder(stubRenderLocals);
-        expect(renderedHtml).to.be.ok;
         expect(renderedHtml).to.eql("grr");
         expect(stubPugLocalsBuilder.calledOnce).to.be.ok;
         sinon.assert.calledWith(stubPugLocalsBuilder, stubRenderLocals);

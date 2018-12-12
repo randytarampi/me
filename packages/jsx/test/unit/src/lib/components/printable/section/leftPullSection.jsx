@@ -15,7 +15,6 @@ describe("LeftPullSection", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<LeftPullSection {...stubProps}>{stubChildren}</LeftPullSection>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.prop("className", "printable-section--pull printable-section--pull-left meow");
         expect(rendered).to.have.descendants(".printable-section__content");
         expect(rendered).to.have.descendants(".printable-section__content + .printable-section__footer");

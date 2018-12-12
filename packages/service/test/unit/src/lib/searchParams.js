@@ -8,7 +8,6 @@ describe("SearchParams", function () {
         it("should build a `SearchParams` instance", function () {
             const searchParams = SearchParams.fromJS();
 
-            expect(searchParams).to.be.ok;
             expect(searchParams.page).to.eql(1);
             expect(searchParams.perPage).to.eql(100);
         });

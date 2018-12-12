@@ -24,7 +24,6 @@ describe("Emoji", function () {
         };
         const rendered = shallow(<Emoji {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.htmlId);
         expect(rendered).to.have.className(stubProps.emoji.type);
         expect(rendered).to.have.className(`${stubProps.emoji.type}--${stubProps.emoji.toString()}`);
@@ -56,7 +55,6 @@ describe("Emoji", function () {
         const stubChildren = <span id="woof-child">Woof</span>;
         const rendered = shallow(<Emoji {...stubProps}>{stubChildren}</Emoji>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.htmlId);
         expect(rendered).to.have.className(stubProps.emoji.type);
         expect(rendered).to.have.className(`${stubProps.emoji.type}--${stubProps.emoji.toString()}`);
@@ -90,7 +88,6 @@ describe("Emoji", function () {
         const stubChildren = <span id="woof-child">Woof</span>;
         const rendered = shallow(<Emoji {...stubProps}>{stubChildren}</Emoji>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.htmlId);
         expect(rendered).to.have.className(stubProps.emoji.type);
         expect(rendered).to.have.className(`${stubProps.emoji.type}--${stubProps.emoji.toString()}`);
@@ -115,7 +112,6 @@ describe("Emoji", function () {
         const stubChildren = <span id="woof-child">Woof</span>;
         const rendered = shallow(<Emoji {...stubProps}>{stubChildren}</Emoji>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id(stubProps.htmlId);
         expect(rendered).to.have.className(stubProps.emoji.type);
         expect(rendered).to.have.className(`${stubProps.emoji.type}--${stubProps.emoji.toString()}`);

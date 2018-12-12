@@ -104,7 +104,6 @@ describe("onHelloBearComponentClick", function () {
             const actions = stubStore.getActions();
             const emojiComponentClicks = ["components", clickedComponentId, "meta", "clicks"];
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(4 * numberOfClicks);
             expect(actions).to.eql([
                 {
@@ -149,7 +148,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(4 * numberOfClicks);
             expect(actions).to.eql(
                 [].concat(...Array(numberOfClicks).fill("").map((value, index) => {
@@ -198,7 +196,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(4 * numberOfClicks);
             expect(actions).to.eql(
                 [].concat(...Array(numberOfClicks).fill("").map((value, index) => {
@@ -247,7 +244,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 type: UPDATE_EMOJI,
                 payload: getExpectedEmoji(stubEmoji, numberOfClicks)
@@ -268,7 +264,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 type: UPDATE_EMOJI,
                 payload: getExpectedEmoji(stubEmoji, numberOfClicks)
@@ -289,7 +284,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 type: UPDATE_EMOJI,
                 payload: getExpectedEmoji(stubEmoji, numberOfClicks)
@@ -310,7 +304,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 type: UPDATE_EMOJI,
                 payload: getExpectedEmoji(stubEmoji, numberOfClicks)
@@ -336,7 +329,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 type: UPDATE_EMOJI,
                 payload: getExpectedEmoji(stubEmoji, numberOfClicks)
@@ -363,7 +355,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 payload: {
                     componentId: clickedComponentId,
@@ -393,7 +384,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 payload: {
                     componentId: clickedComponentId,
@@ -423,7 +413,6 @@ describe("onHelloBearComponentClick", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions[actions.length - 1]).to.eql({
                 type: UPDATE_EMOJI,
                 payload: getExpectedEmoji(stubEmoji, numberOfClicks)

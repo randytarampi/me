@@ -30,7 +30,6 @@ describe("Volunteer", function () {
                 highlights: List(stubVolunteerJs.highlights)
             });
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.organization).to.eql(stubVolunteerJs.organization);
             expect(volunteer.position).to.eql(stubVolunteerJs.position);
@@ -46,7 +45,6 @@ describe("Volunteer", function () {
         it("returns an empty Volunteer", function () {
             const volunteer = new Volunteer();
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.startDate).to.eql(null);
             expect(volunteer.endDate).to.eql(null);
@@ -62,7 +60,6 @@ describe("Volunteer", function () {
                 endDate: DateTime.fromISO(stubVolunteerJs.endDate).toJSDate()
             });
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.organization).to.eql(stubVolunteerJs.organization);
             expect(volunteer.position).to.eql(stubVolunteerJs.position);
@@ -78,7 +75,6 @@ describe("Volunteer", function () {
         it("returns an empty Volunteer", function () {
             const volunteer = Volunteer.fromJS();
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.startDate).to.eql(null);
             expect(volunteer.endDate).to.eql(null);
@@ -92,7 +88,6 @@ describe("Volunteer", function () {
                 ...stubVolunteerJs
             });
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.organization).to.eql(stubVolunteerJs.organization);
             expect(volunteer.position).to.eql(stubVolunteerJs.position);
@@ -108,7 +103,6 @@ describe("Volunteer", function () {
         it("returns an empty Volunteer", function () {
             const volunteer = Volunteer.fromJSON();
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.startDate).to.eql(null);
             expect(volunteer.endDate).to.eql(null);
@@ -122,7 +116,6 @@ describe("Volunteer", function () {
                 ...stubVolunteerJs
             });
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.organization).to.eql(stubVolunteerJs.organization);
             expect(volunteer.position).to.eql(stubVolunteerJs.position);
@@ -138,7 +131,6 @@ describe("Volunteer", function () {
         it("returns an empty Volunteer", function () {
             const volunteer = Volunteer.fromResume();
 
-            expect(volunteer).to.be.ok;
             expect(volunteer).to.be.instanceOf(Volunteer);
             expect(volunteer.startDate).to.eql(null);
             expect(volunteer.endDate).to.eql(null);

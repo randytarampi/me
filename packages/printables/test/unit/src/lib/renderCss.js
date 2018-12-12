@@ -16,7 +16,6 @@ describe("renderCss", function () {
         const stubPath = "woof";
         const renderedCss = renderCss(stubPath);
 
-        expect(renderedCss).to.be.ok;
         expect(renderedCss).to.eql(stubPath);
         expect(fs.readFileSync.calledOnce).to.eql(true);
         sinon.assert.calledWith(fs.readFileSync, stubPath);
@@ -34,7 +33,6 @@ describe("renderCss", function () {
         } catch (error) {
             expect(fs.readFileSync.calledOnce).to.eql(true);
             sinon.assert.calledWith(fs.readFileSync, stubPath);
-            expect(error).to.be.ok;
             expect(error.message).to.eql("ʕ•ᴥ•ʔ");
         }
     });

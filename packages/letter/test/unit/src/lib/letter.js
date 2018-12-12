@@ -69,7 +69,6 @@ describe("Letter", function () {
                 renderOptions: Map(stubLetterJs.renderOptions)
             });
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.sender).to.be.instanceOf(Person);
             expect(letter.sender.givenName).to.eql(stubSenderJs.givenName);
@@ -87,7 +86,6 @@ describe("Letter", function () {
         it("returns an empty Letter", function () {
             const letter = new Letter();
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
         });
     });
@@ -96,7 +94,6 @@ describe("Letter", function () {
         it("returns a Letter", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.sender).to.be.instanceOf(Person);
             expect(letter.sender.givenName).to.eql(stubSenderJs.givenName);
@@ -114,7 +111,6 @@ describe("Letter", function () {
         it("returns an empty Letter", function () {
             const letter = Letter.fromJS();
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
         });
     });
@@ -123,7 +119,6 @@ describe("Letter", function () {
         it("returns a Letter", function () {
             const letter = Letter.fromJSON(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.sender).to.be.instanceOf(Person);
             expect(letter.sender.givenName).to.eql(stubSenderJs.givenName);
@@ -141,7 +136,6 @@ describe("Letter", function () {
         it("returns an empty Letter", function () {
             const letter = Letter.fromJSON();
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
         });
     });
@@ -150,7 +144,6 @@ describe("Letter", function () {
         it("returns the `sender`", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.basics).to.eql(letter.sender);
         });
@@ -160,7 +153,6 @@ describe("Letter", function () {
         it("returns `renderOptions` as JS Object", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfRenderOptions).to.eql(stubLetterJs.renderOptions);
         });
@@ -170,7 +162,6 @@ describe("Letter", function () {
 
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfRenderOptions).to.eql(null);
         });
@@ -180,7 +171,6 @@ describe("Letter", function () {
         it("returns `renderExpectations` as JS Object", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfRenderExpectations).to.eql(stubLetterJs.renderExpectations);
         });
@@ -190,7 +180,6 @@ describe("Letter", function () {
 
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfRenderExpectations).to.eql(null);
         });
@@ -200,7 +189,6 @@ describe("Letter", function () {
         it("returns `renderOptions.format`", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pageSize).to.eql(stubLetterJs.renderOptions.format);
         });
@@ -210,7 +198,6 @@ describe("Letter", function () {
 
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfRenderOptions).to.eql(null);
         });
@@ -221,7 +208,6 @@ describe("Letter", function () {
             stubLetterJs.filename = "woof";
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.filename).to.eql(stubLetterJs.filename);
         });
@@ -229,7 +215,6 @@ describe("Letter", function () {
         it("returns `id` if no `filename`", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.filename).to.eql(stubLetterJs.id);
         });
@@ -239,7 +224,6 @@ describe("Letter", function () {
         it("returns ExifTool parsable tags", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
-            expect(letter).to.be.ok;
             expect(letter).to.be.instanceOf(Letter);
             expect(letter.pdfMetadata).to.eql({
                 Author: letter.basics.name,

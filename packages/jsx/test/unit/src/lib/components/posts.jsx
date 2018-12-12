@@ -35,7 +35,6 @@ describe("Posts", function () {
             };
             const rendered = shallow(<DimensionsContainerWrappedPosts {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("dimensions-container--posts");
             expect(rendered).to.containMatchingElement(
                 <DimensionsWrappedPosts
@@ -57,7 +56,6 @@ describe("Posts", function () {
             const rendered = shallow(<PostsComponent {...stubProps}/>);
             const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
                 <Infinite
                     {...expectedProps}
@@ -95,7 +93,6 @@ describe("Posts", function () {
             const rendered = shallow(<PostsComponent {...stubProps}/>);
             const {containerWidth, containerHeight, posts, isLoading, fetchPosts, postsLimit, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
                 <Infinite
                     {...expectedProps}
@@ -134,7 +131,6 @@ describe("Posts", function () {
             const rendered = shallow(<PostsComponent {...stubProps}/>);
             const {containerWidth, containerHeight, posts, isLoading, fetchPosts, postsLimit, shouldFetchPostsOnMount, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
                 <Infinite
                     {...expectedProps}
@@ -178,7 +174,6 @@ describe("Posts", function () {
             const rendered = shallow(<PostsComponent {...stubProps}/>);
             const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(
                 <Infinite
                     {...expectedProps}
@@ -214,7 +209,6 @@ describe("Posts", function () {
             const rendered = shallow(<PostsComponent {...stubProps}/>);
             const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.containMatchingElement(/* NOTE-RT: Not actually the `LoadingSpinner` because that requires `Infinite`'s internal state to change */
                 <Infinite
                     {...expectedProps}

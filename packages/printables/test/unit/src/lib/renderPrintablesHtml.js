@@ -45,7 +45,6 @@ describe("renderPrintablesHtml", function () {
             printableRenderOptions: stubPrintableRenderOptions
         })
             .then(pairs => {
-                expect(pairs).to.be.ok;
                 expect(pairs).to.have.length(stubPrintableHtmlPairs.length);
                 expect(pairs).to.eql(stubPrintableHtmlPairs);
 

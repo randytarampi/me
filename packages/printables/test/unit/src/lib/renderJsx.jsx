@@ -14,11 +14,9 @@ describe("renderJsx", function () {
             };
 
             const jsxRenderer = renderJsx(stubComponent);
-            expect(jsxRenderer).to.be.ok;
             expect(jsxRenderer).to.be.instanceof(Function);
 
             const rendered = jsxRenderer(stubProps);
-            expect(rendered).to.be.ok;
             expect(rendered).to.eql(`<div id="woof" meow="${stubProps.meow}" pageSize="${stubProps.pageSize.toLocaleLowerCase()}">Woof!</div>`);
         });
     });
@@ -35,7 +33,6 @@ describe("renderJsx", function () {
         it("gets calls `Helmet.renderStatic`", function () {
             const renderedHelmet = getRenderedHelmet();
 
-            expect(renderedHelmet).to.be.ok;
             expect(renderedHelmet).to.eql("woof");
 
             expect(Helmet.renderStatic.calledOnce).to.be.ok;

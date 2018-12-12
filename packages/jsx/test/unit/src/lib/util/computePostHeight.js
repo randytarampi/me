@@ -17,7 +17,6 @@ describe("computePostHeight", function () {
 
         const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
 
-        expect(computedPostHeight).to.be.ok;
         expect(computedPostHeight).to.eql(500 * WINDOW_LARGE_PHOTO_SCALE); // NOTE-RT: 500 * 1000 / 1000 * WINDOW_LARGE_PHOTO_SCALE
     });
 
@@ -37,7 +36,6 @@ describe("computePostHeight", function () {
 
         const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
 
-        expect(computedPostHeight).to.be.ok;
         expect(computedPostHeight).to.eql(stubHeight);
     });
 
@@ -50,7 +48,6 @@ describe("computePostHeight", function () {
 
         const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
 
-        expect(computedPostHeight).to.be.ok;
         expect(computedPostHeight).to.eql(global.window.innerHeight);
     });
 });

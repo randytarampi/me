@@ -36,7 +36,6 @@ describe("onComponentClick", function () {
             const expectedEmojiUpdate = stubEmoji
                 .setIn(emojiComponentClicks, numberOfClicks);
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(2 * numberOfClicks);
             expect(actions).to.eql([
                 {
@@ -68,7 +67,6 @@ describe("onComponentClick", function () {
             const expectedEmojiUpdate = stubEmoji
                 .setIn(emojiComponentClicks, numberOfClicks);
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(2 * numberOfClicks);
             expect(actions).to.eql(
                 [].concat(...Array(numberOfClicks).fill("").map((value, index) => {

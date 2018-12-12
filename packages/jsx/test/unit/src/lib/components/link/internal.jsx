@@ -41,7 +41,6 @@ describe("InternalLink", function () {
         };
         const rendered = mount(stubStore)(<InternalLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 target="_self"
@@ -60,11 +59,9 @@ describe("InternalLink", function () {
                     const specificInternalLink = internalLinks[key];
                     const rendered = mount(stubStore)(specificInternalLink());
 
-                    expect(rendered).to.be.ok;
                     expect(rendered).to.have.length(1);
 
                     const link = rendered;
-                    expect(link).to.be.ok;
                     expect(link).to.have.length(1);
                     expect(link).to.have.prop("serviceType");
                     expect(link).to.have.prop("serviceName");
@@ -81,7 +78,6 @@ describe("InternalLink", function () {
         };
         const rendered = mount(stubStore)(<InternalLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 target="_self"

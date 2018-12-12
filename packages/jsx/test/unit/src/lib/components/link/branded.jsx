@@ -13,7 +13,6 @@ describe("BrandedLink", function () {
         };
         const rendered = shallow(<BrandedLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <CampaignLink
                 href={`${stubProps.serviceUrl}/${stubProps.username}`}
@@ -32,7 +31,6 @@ describe("BrandedLink", function () {
         };
         const rendered = shallow(<BrandedLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <CampaignLink
                 href={`${stubProps.serviceUrl}/${stubProps.username}`}
@@ -53,11 +51,9 @@ describe("BrandedLink", function () {
                 const specificBrandedLink = brandedLinks[key];
                 const rendered = shallow(specificBrandedLink(stubProps));
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.length(1);
 
                 const campaignLink = rendered;
-                expect(campaignLink).to.be.ok;
                 expect(campaignLink).to.have.length(1);
                 expect(campaignLink).to.have.prop("text", stubProps.username);
                 expect(campaignLink).to.have.prop("href");

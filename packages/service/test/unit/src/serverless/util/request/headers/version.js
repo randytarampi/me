@@ -4,7 +4,6 @@ import * as versionHeader from "../../../../../../../src/serverless/util/request
 describe("version", function () {
     describe("headerName", function () {
         it("exists", function () {
-            expect(versionHeader.headerName).to.be.ok;
             expect(versionHeader.headerName).to.eql(versionHeader.ME_API_VERSION_HEADER);
         });
     });
@@ -48,7 +47,6 @@ describe("version", function () {
                 versionHeader.validateHeader(headers);
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
-                expect(error).to.be.ok;
                 expect(error.message).to.match(/^`ME-API-VERSION` is invalid$/);
             }
         });
@@ -62,7 +60,6 @@ describe("version", function () {
                 versionHeader.validateHeader(headers);
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
-                expect(error).to.be.ok;
                 expect(error.message).to.match(/^Expected `ME-API-VERSION` to be a number but got `woof` instead/);
             }
         });

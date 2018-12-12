@@ -45,7 +45,6 @@ describe("posts", function () {
 
         const updatedState = reducer(stubInitialState, otherAction(stubPayload));
         const posts = getPosts(updatedState);
-        expect(posts).to.be.ok;
         expect(posts.toArray()).to.eql([]);
     });
 
@@ -82,7 +81,6 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
         });
 
@@ -98,7 +96,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
         });
 
@@ -107,7 +104,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([]);
         });
     });
@@ -131,7 +127,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubPosts);
         });
 
@@ -159,7 +154,6 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
         });
 
@@ -189,7 +183,6 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
         });
 
@@ -206,7 +199,6 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").toArray());
         });
 
@@ -226,7 +218,6 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql(stubInitialState.get("posts").toArray());
         });
     });
@@ -246,7 +237,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getWordPostsSortedByDate(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([
                 stubPosts[0],
                 stubPosts[2]
@@ -269,7 +259,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPhotoPostsSortedByDate(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([
                 stubPosts[3],
                 stubPosts[1]
@@ -292,7 +281,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPostsSortedByDate(updatedState);
-            expect(posts).to.be.ok;
             expect(posts.toArray()).to.eql([
                 stubPosts[3],
                 stubPosts[0],
@@ -319,7 +307,6 @@ describe("posts", function () {
             const posts = getWordPosts(updatedState);
             expect(posts).to.be.ok;
             posts.toArray().forEach(post => {
-                expect(post).to.be.ok;
                 expect(post).to.be.instanceOf(Post);
             });
         });
@@ -342,7 +329,6 @@ describe("posts", function () {
             const posts = getPhotoPosts(updatedState);
             expect(posts).to.be.ok;
             posts.toArray().forEach(post => {
-                expect(post).to.be.ok;
                 expect(post).to.be.instanceOf(Photo);
             });
         });
@@ -363,7 +349,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const post = getOldestPost(updatedState);
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPosts[1]);
         });
     });
@@ -383,7 +368,6 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const post = getNewestPost(updatedState);
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPosts[3]);
         });
     });

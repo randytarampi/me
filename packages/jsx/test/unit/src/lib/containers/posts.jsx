@@ -74,7 +74,6 @@ describe("Posts", function () {
         let renderCount = 1;
         const expectedProps = {fetchUrl: "/posts"};
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(expectedProps);
 
         expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
@@ -106,7 +105,6 @@ describe("Posts", function () {
         const rendered = shallow(stubStore)(<Posts {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
@@ -138,7 +136,6 @@ describe("Posts", function () {
         const rendered = shallow(stubStore)(<Posts {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
@@ -171,7 +168,6 @@ describe("Posts", function () {
         const rendered = shallow(stubStore)(<Posts {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
@@ -203,7 +199,6 @@ describe("Posts", function () {
         const rendered = shallow(stubStore)(<Posts {...stubProps} />);
         let renderCount = 1;
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(api.createIsLoadingUrlSelector.callCount).to.eql(renderCount);
@@ -234,7 +229,6 @@ describe("Posts", function () {
 
         const rendered = shallow(stubStore)(<Posts {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
 
         expect(fetchPostsStub.notCalled).to.eql(true);

@@ -16,7 +16,6 @@ describe("LetterThanks", function () {
     it("renders (default content)", function () {
         const rendered = shallow(<LetterThanks contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-thanks__content");
         expect(rendered.find(".letter-thanks__content").html()).to.match(/I hope I didn&#x27;t waste your time/);
     });
@@ -31,7 +30,6 @@ describe("LetterThanks", function () {
 
         const rendered = shallow(<LetterThanks contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-thanks__content");
         expect(rendered.find(".letter-thanks__content")).to.contain(stubContentConfiguration.contentProps.thanks);
     });

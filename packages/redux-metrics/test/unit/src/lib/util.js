@@ -27,7 +27,6 @@ describe("util", function () {
 
             const eventDetails = buildEventDetails(stubDetails);
 
-            expect(eventDetails).to.be.ok;
             expect(eventDetails).to.be.instanceOf(Object);
             expect(eventDetails).to.contain(stubDetails);
             expect(eventDetails.timestamp).to.eql(now.valueOf());
@@ -51,7 +50,6 @@ describe("util", function () {
 
             const eventDetails = buildReduxActionEventDetails(stubAction, stubSupplementaryDetails);
 
-            expect(eventDetails).to.be.ok;
             expect(eventDetails).to.be.instanceOf(Object);
             expect(eventDetails).to.contain(stubSupplementaryDetails);
             expect(eventDetails.timestamp).to.eql(now.valueOf());

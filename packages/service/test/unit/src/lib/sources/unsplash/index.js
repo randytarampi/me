@@ -203,10 +203,8 @@ describe("UnsplashSource", function () {
 
             return unsplashSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
@@ -220,7 +218,6 @@ describe("UnsplashSource", function () {
 
             return unsplashSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
@@ -236,10 +233,8 @@ describe("UnsplashSource", function () {
 
             return unsplashSource.allPostsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.calledTwice(stubServiceClient.users.photos);
@@ -255,7 +250,6 @@ describe("UnsplashSource", function () {
 
             return unsplashSource.postGetter(stubPost.id, stubParams)
                 .then(post => {
-                    expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Photo);
                     sinon.assert.calledOnce(stubServiceClient.photos.getPost);
                     sinon.assert.calledWith(stubServiceClient.photos.getPost, stubPost.id, stubParams.width, stubParams.height, stubParams.crop);

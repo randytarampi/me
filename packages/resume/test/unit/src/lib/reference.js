@@ -17,7 +17,6 @@ describe("Reference", function () {
                 ...stubReferenceJs
             });
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
             expect(reference.name).to.eql(stubReferenceJs.name);
             expect(reference.reference).to.eql(stubReferenceJs.reference);
@@ -26,7 +25,6 @@ describe("Reference", function () {
         it("returns an empty Reference", function () {
             const reference = new Reference();
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
         });
     });
@@ -37,7 +35,6 @@ describe("Reference", function () {
                 ...stubReferenceJs
             });
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
             expect(reference.name).to.eql(stubReferenceJs.name);
             expect(reference.reference).to.eql(stubReferenceJs.reference);
@@ -46,7 +43,6 @@ describe("Reference", function () {
         it("returns an empty Reference", function () {
             const reference = Reference.fromJS();
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
         });
     });
@@ -57,7 +53,6 @@ describe("Reference", function () {
                 ...stubReferenceJs
             });
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
             expect(reference.name).to.eql(stubReferenceJs.name);
             expect(reference.reference).to.eql(stubReferenceJs.reference);
@@ -66,7 +61,6 @@ describe("Reference", function () {
         it("returns an empty Reference", function () {
             const reference = Reference.fromJSON();
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
         });
     });
@@ -77,7 +71,6 @@ describe("Reference", function () {
                 ...stubReferenceJs
             });
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
             expect(reference.name).to.eql(stubReferenceJs.name);
             expect(reference.reference).to.eql(stubReferenceJs.reference);
@@ -86,7 +79,6 @@ describe("Reference", function () {
         it("returns an empty Reference", function () {
             const reference = Reference.fromResume();
 
-            expect(reference).to.be.ok;
             expect(reference).to.be.instanceOf(Reference);
         });
     });

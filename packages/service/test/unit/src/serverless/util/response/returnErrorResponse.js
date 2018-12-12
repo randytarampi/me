@@ -9,7 +9,6 @@ describe("returnErrorResponse", function () {
         const stubCallback = (error, response) => {
             expect(error).to.not.be.ok;
 
-            expect(response).to.be.ok;
             expect(response.body).to.contain(stubError.message);
             expect(response.body).to.contain(stubError.code);
             expect(response.statusCode).to.eql(stubError.statusCode);
@@ -25,7 +24,6 @@ describe("returnErrorResponse", function () {
         const stubCallback = (error, response) => {
             expect(error).to.be.ok;
 
-            expect(response).to.be.ok;
             expect(response.body).to.contain("An unexpected error occurred");
             expect(response.body).to.not.contain(stubError.message);
             expect(response.statusCode).to.eql(500);

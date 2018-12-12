@@ -7,7 +7,6 @@ describe("Shield", function () {
     it("renders all Shields", function () {
         const rendered = shallow(<Shields/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("shields");
     });
 
@@ -19,7 +18,6 @@ describe("Shield", function () {
                     const specificShield = shieldLinks[key];
                     const rendered = shallow(specificShield());
 
-                    expect(rendered).to.be.ok;
                     expect(rendered).to.have.length(1);
                 });
             });

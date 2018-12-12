@@ -141,7 +141,6 @@ describe("CacheClient", function () {
             const stubParams = SearchParams.fromJS();
 
             const retrievedPosts = await cacheClient.getPostCount(stubParams);
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(stubPosts.length);
             expect(stubGetPostCount.calledOnce).to.eql(true);
             sinon.assert.calledWith(stubGetPostCount, stubParams[cacheClient.type]);
@@ -178,7 +177,6 @@ describe("CacheClient", function () {
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
             const createdPost = await cacheClient.setPost(stubPost);
-            expect(createdPost).to.be.ok;
             expect(createdPost).to.be.instanceOf(Post);
             expect(createdPost).to.eql(stubPost);
             expect(stubCreatePost.calledOnce).to.eql(true);
@@ -215,7 +213,6 @@ describe("CacheClient", function () {
 
             const stubParams = SearchParams.fromJS();
             const retrievedPost = await cacheClient.getPost(stubParams);
-            expect(retrievedPost).to.be.ok;
             expect(retrievedPost).to.be.instanceOf(Post);
             expect(retrievedPost).to.eql(stubPost);
             expect(stubGetPost.calledOnce).to.eql(true);

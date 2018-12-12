@@ -18,7 +18,6 @@ describe("util", function () {
 
             const sortedPhotos = [...stubPhotos].sort(util.sortPhotosByWidth);
 
-            expect(sortedPhotos).to.be.ok;
             expect(sortedPhotos).to.have.length(stubPhotos.length);
             sortedPhotos.forEach(sortedPhoto => {
                 expect(sortedPhoto).to.be.instanceOf(Photo);
@@ -42,7 +41,6 @@ describe("util", function () {
 
             const sortedPhotos = [...stubPhotos].sort(util.sortPostsByDate);
 
-            expect(sortedPhotos).to.be.ok;
             expect(sortedPhotos).to.have.length(stubPhotos.length);
             sortedPhotos.forEach(sortedPhoto => {
                 expect(sortedPhoto).to.be.instanceOf(Photo);
@@ -66,7 +64,6 @@ describe("util", function () {
 
             const sortedCharacters = [...stubCharacters].sort(util.sortCharactersByPosition);
 
-            expect(sortedCharacters).to.be.ok;
             expect(sortedCharacters).to.have.length(stubCharacters.length);
             sortedCharacters.forEach(sortedCharacter => {
                 expect(sortedCharacter).to.be.instanceOf(Character);
@@ -113,7 +110,6 @@ describe("util", function () {
                 util.getEntityForType(stubPost.type);
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
-                expect(error).to.be.ok;
                 expect(error.message).to.match(/Can't `getEntityForType` for `woof`/);
             }
         });
@@ -179,7 +175,6 @@ describe("util", function () {
                 utm_content: stubParameters.content
             })}`;
 
-            expect(augmentedHref).to.be.ok;
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
 
@@ -195,7 +190,6 @@ describe("util", function () {
                 utm_content: __CAMPAIGN_CONTENT__
             })}`;
 
-            expect(augmentedHref).to.be.ok;
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
 
@@ -212,7 +206,6 @@ describe("util", function () {
             const augmentedHref = util.augmentUrlWithTrackingParams(stubHref, stubParameters);
             const expectedAugmentedHref = stubHref;
 
-            expect(augmentedHref).to.be.ok;
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
 
@@ -229,7 +222,6 @@ describe("util", function () {
                 utm_content: __CAMPAIGN_CONTENT__
             })}`;
 
-            expect(augmentedHref).to.be.ok;
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
 
@@ -253,7 +245,6 @@ describe("util", function () {
                 utm_content: stubParameters.content
             })}`;
 
-            expect(augmentedHref).to.be.ok;
             expect(augmentedHref).to.eql(expectedAugmentedHref);
         });
     });

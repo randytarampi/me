@@ -23,7 +23,6 @@ describe("Interest", function () {
                 keywords: List(stubInterestJs.keywords)
             });
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.name).to.eql(stubInterestJs.name);
             expect(interest.level).to.eql(stubInterestJs.level);
@@ -34,7 +33,6 @@ describe("Interest", function () {
         it("returns an empty Interest", function () {
             const interest = new Interest();
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.keywords).to.eql(List());
         });
@@ -46,7 +44,6 @@ describe("Interest", function () {
                 ...stubInterestJs
             });
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.name).to.eql(stubInterestJs.name);
             expect(interest.level).to.eql(stubInterestJs.level);
@@ -57,7 +54,6 @@ describe("Interest", function () {
         it("returns an empty Interest", function () {
             const interest = Interest.fromJS();
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.keywords).to.eql(null);
         });
@@ -69,7 +65,6 @@ describe("Interest", function () {
                 ...stubInterestJs
             });
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.name).to.eql(stubInterestJs.name);
             expect(interest.level).to.eql(stubInterestJs.level);
@@ -80,7 +75,6 @@ describe("Interest", function () {
         it("returns an empty Interest", function () {
             const interest = Interest.fromJSON();
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.keywords).to.eql(null);
         });
@@ -92,7 +86,6 @@ describe("Interest", function () {
                 ...stubInterestJs
             });
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.name).to.eql(stubInterestJs.name);
             expect(interest.level).to.eql(stubInterestJs.level);
@@ -103,7 +96,6 @@ describe("Interest", function () {
         it("returns an empty Interest", function () {
             const interest = Interest.fromResume();
 
-            expect(interest).to.be.ok;
             expect(interest).to.be.instanceOf(Interest);
             expect(interest.keywords).to.eql(null);
         });

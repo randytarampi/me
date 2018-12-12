@@ -44,7 +44,6 @@ describe("swipeableTabChangeIndex", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(2);
             expect(actions).to.eql([
                 {
@@ -72,7 +71,6 @@ describe("swipeableTabChangeIndex", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(1);
             expect(actions).to.eql([
                 {

@@ -25,7 +25,6 @@ describe("renderSwipeableRoutes", function () {
         it("handles no routes", function () {
             const stubRoutes = null;
             const rendered = shallow(stubStore)(<RenderedSwipeableRoutes routes={stubRoutes}/>);
-            expect(rendered).to.be.ok;
             expect(rendered).to.not.have.className("routes-container");
             expect(rendered).to.not.have.className("routes-container__swipeable");
         });
@@ -34,7 +33,6 @@ describe("renderSwipeableRoutes", function () {
             const stubLocation = {pathname: "/posts/woof"};
             const stubRoutes = routes;
             const rendered = shallow(stubStore)(<RenderedSwipeableRoutes routes={stubRoutes} location={stubLocation}/>);
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.className("routes-container");
             expect(rendered).to.have.className("routes-container__swipeable");
             expect(rendered).to.have.descendants(Route);

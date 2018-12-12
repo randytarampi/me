@@ -61,7 +61,6 @@ describe("Organization", function () {
                 address: PostalAddress.fromJS(stubOrganizationJson.address)
             });
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.location).to.be.instanceOf(PostalAddress);
             expect(organization.email).to.eql(stubOrganizationJson.email);
@@ -75,7 +74,6 @@ describe("Organization", function () {
         it("returns an empty Organization", function () {
             const organization = new Organization();
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
         });
     });
@@ -84,7 +82,6 @@ describe("Organization", function () {
         it("returns a Organization", function () {
             const organization = Organization.fromJS(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.location).to.be.instanceOf(PostalAddress);
             expect(organization.email).to.eql(stubOrganizationJson.email);
@@ -98,7 +95,6 @@ describe("Organization", function () {
         it("returns an empty Organization", function () {
             const organization = Organization.fromJS();
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
         });
     });
@@ -107,7 +103,6 @@ describe("Organization", function () {
         it("returns a Organization", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.location).to.be.instanceOf(PostalAddress);
             expect(organization.email).to.eql(stubOrganizationJson.email);
@@ -121,7 +116,6 @@ describe("Organization", function () {
         it("returns an empty Organization", function () {
             const organization = Organization.fromJSON();
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
         });
     });
@@ -130,7 +124,6 @@ describe("Organization", function () {
         it("returns a Organization", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.location).to.be.instanceOf(PostalAddress);
             expect(organization.email).to.eql(stubOrganizationJson.email);
@@ -144,7 +137,6 @@ describe("Organization", function () {
         it("returns an empty Organization", function () {
             const organization = Organization.fromResume();
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
         });
     });
@@ -153,7 +145,6 @@ describe("Organization", function () {
         it("returns expected Resume JSON", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
 
             const resumeJson = organization.toResume();
@@ -168,7 +159,6 @@ describe("Organization", function () {
         it("returns some empty Resume JSON", function () {
             const organization = Organization.fromResume();
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
 
             const resumeJson = organization.toResume();
@@ -189,7 +179,6 @@ describe("Organization", function () {
         it("returns expected Schema.org JSON", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
 
             const schemaJson = organization.toSchema();
@@ -231,7 +220,6 @@ describe("Organization", function () {
         it("returns some empty Schema.org JSON", function () {
             const organization = Organization.fromJSON();
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
 
             const schemaJson = organization.toSchema();
@@ -261,7 +249,6 @@ describe("Organization", function () {
             stubOrganizationResumeJson.additionalName = "Meow Meow Meow";
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.name).to.eql(stubOrganizationResumeJson.name);
         });
@@ -271,7 +258,6 @@ describe("Organization", function () {
             stubOrganizationJson.additionalName = "Meow Meow Meow";
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.name).to.eql(stubOrganizationJson.additionalName);
         });
@@ -280,7 +266,6 @@ describe("Organization", function () {
             delete stubOrganizationResumeJson.name;
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.name).to.eql(null);
         });
@@ -290,7 +275,6 @@ describe("Organization", function () {
         it("returns `location.address`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.address).to.eql(stubOrganizationResumeJson.location.address);
         });
@@ -299,7 +283,6 @@ describe("Organization", function () {
             delete stubOrganizationResumeJson.location;
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.address).to.eql(null);
         });
@@ -309,7 +292,6 @@ describe("Organization", function () {
         it("returns `location.city`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.city).to.eql(stubOrganizationResumeJson.location.city);
         });
@@ -318,7 +300,6 @@ describe("Organization", function () {
             delete stubOrganizationResumeJson.location;
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.city).to.eql(null);
         });
@@ -328,7 +309,6 @@ describe("Organization", function () {
         it("returns `location.region`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.region).to.eql(stubOrganizationResumeJson.location.region);
         });
@@ -337,7 +317,6 @@ describe("Organization", function () {
             delete stubOrganizationResumeJson.location;
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.region).to.eql(null);
         });
@@ -347,7 +326,6 @@ describe("Organization", function () {
         it("returns `location.postalCode`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.postalCode).to.eql(stubOrganizationResumeJson.location.postalCode);
         });
@@ -356,7 +334,6 @@ describe("Organization", function () {
             delete stubOrganizationResumeJson.location;
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.postalCode).to.eql(null);
         });
@@ -366,7 +343,6 @@ describe("Organization", function () {
         it("returns `location.countryCode`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.countryCode).to.eql(stubOrganizationResumeJson.location.countryCode);
         });
@@ -375,7 +351,6 @@ describe("Organization", function () {
             delete stubOrganizationResumeJson.location;
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.countryCode).to.eql(null);
         });
@@ -385,7 +360,6 @@ describe("Organization", function () {
         it("returns `telephone`", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.telephone).to.eql(formatNumber(stubOrganizationJson.telephone, "International"));
             expect(organization.phone).to.eql(organization.telephone);
@@ -395,7 +369,6 @@ describe("Organization", function () {
             delete stubOrganizationJson.telephone;
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.telephone).to.eql(null);
             expect(organization.phone).to.eql(organization.telephone);
@@ -406,7 +379,6 @@ describe("Organization", function () {
         it("returns `faxNumber`", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.faxNumber).to.eql(formatNumber(stubOrganizationJson.faxNumber, "International"));
             expect(organization.fax).to.eql(organization.faxNumber);
@@ -416,7 +388,6 @@ describe("Organization", function () {
             delete stubOrganizationJson.faxNumber;
             const organization = Organization.fromJSON(stubOrganizationJson);
 
-            expect(organization).to.be.ok;
             expect(organization).to.be.instanceOf(Organization);
             expect(organization.faxNumber).to.eql(null);
             expect(organization.fax).to.eql(organization.faxNumber);

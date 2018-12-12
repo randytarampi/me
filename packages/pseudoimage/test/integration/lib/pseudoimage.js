@@ -62,7 +62,6 @@ describe("pseudoimage", function () {
                 })
                 .catch(error => {
                     lwip.open.restore();
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/^Grr grr grr$/);
                 });
         });
@@ -117,7 +116,6 @@ describe("pseudoimage", function () {
                 })
                 .catch(error => {
                     lwip.open.restore();
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/^Grr grr grr$/);
                 });
         });
@@ -165,7 +163,6 @@ describe("pseudoimage", function () {
                 })
                 .catch(error => {
                     lwip.open.restore();
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/^Grr grr grr$/);
                 });
         });

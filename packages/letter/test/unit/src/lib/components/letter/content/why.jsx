@@ -54,7 +54,6 @@ describe("LetterWhy", function () {
     it("renders (default content)", function () {
         const rendered = shallow(<LetterWhy letter={stubLetter} contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-why__content");
         expect(rendered.find(".letter-why__content").html()).to.match(/I spent the last few years developing on smaller teams/);
     });
@@ -69,7 +68,6 @@ describe("LetterWhy", function () {
 
         const rendered = shallow(<LetterWhy letter={stubLetter} contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-why__content");
         expect(rendered.find(".letter-why__content")).to.contain(stubContentConfiguration.contentProps.why);
     });

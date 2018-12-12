@@ -23,7 +23,6 @@ describe("New", function () {
     it("renders", function () {
         const rendered = shallow(stubStore)(<New/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.contain(
             <h2>
                 <span className="text">So what's new? <CampaignLink text=" " className="link--rss"

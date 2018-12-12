@@ -48,7 +48,6 @@ describe("Gallery", () => {
         it("returns an empty Gallery", function () {
             const gallery = new Gallery();
 
-            expect(gallery).to.be.ok;
             expect(gallery).to.be.instanceOf(Gallery);
         });
     });
@@ -88,13 +87,11 @@ describe("Gallery", () => {
 
             const galleryFromJson = Gallery.fromJSON(galleryJson);
 
-            expect(galleryFromJson).to.be.ok;
             expect(galleryFromJson.id).to.eql(galleryJson.id);
             expect(galleryFromJson.datePublished).to.be.instanceof(DateTime);
             expect(galleryFromJson.photos).to.be.instanceof(List);
             expect(galleryFromJson.photos.size).to.eql(galleryJson.photos.length);
             galleryFromJson.photos.forEach(photo => {
-                expect(photo).to.be.ok;
                 expect(photo).to.be.instanceof(Photo);
             });
         });
@@ -140,13 +137,11 @@ describe("Gallery", () => {
 
             const galleryFromJs = Gallery.fromJS(galleryJson);
 
-            expect(galleryFromJs).to.be.ok;
             expect(galleryFromJs.id).to.eql(galleryJson.id);
             expect(galleryFromJs.datePublished).to.be.instanceof(DateTime);
             expect(galleryFromJs.photos).to.be.instanceof(List);
             expect(galleryFromJs.photos.size).to.eql(galleryJson.photos.length);
             galleryFromJs.photos.forEach(photo => {
-                expect(photo).to.be.ok;
                 expect(photo).to.be.instanceof(Photo);
             });
         });

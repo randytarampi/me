@@ -16,7 +16,6 @@ describe("ResumeLanguages", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeLanguages resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-languages__language-entry");
         expect(rendered).to.have.descendants(".resume-languages__language");
         expect(rendered).to.have.descendants(".resume-languages__fluency");

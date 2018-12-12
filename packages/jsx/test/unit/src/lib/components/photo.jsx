@@ -64,7 +64,6 @@ describe("Photo", function () {
             };
             const rendered = shallow(<ProgressiveImageWrappedPhotoComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.prop("src", stubPhoto.sortedSizedPhotos.first().url);
         });
 
@@ -80,7 +79,6 @@ describe("Photo", function () {
             };
             const rendered = shallow(<ProgressiveImageWrappedPhotoComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.prop("src", stubPhoto.sortedSizedPhotos.last().url);
         });
 
@@ -96,7 +94,6 @@ describe("Photo", function () {
             };
             const rendered = shallow(<ProgressiveImageWrappedPhotoComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.prop("placeholder", stubPhoto.sortedSizedPhotos.first().url);
         });
     });
@@ -139,7 +136,6 @@ describe("Photo", function () {
             };
             const rendered = shallow(<PhotoComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
             expect(rendered).to.have.className("post--loading");
@@ -194,7 +190,6 @@ describe("Photo", function () {
             };
             const rendered = shallow(<PhotoComponent {...stubProps}/>);
 
-            expect(rendered).to.be.ok;
             expect(rendered).to.have.id(stubProps.post.uid);
             expect(rendered).to.have.className("post--photo");
             expect(rendered).to.have.descendants(".post-metadata");
@@ -227,13 +222,10 @@ describe("Photo", function () {
                 };
                 const rendered = shallow(<PhotoComponent {...stubProps}/>);
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--photo");
 
                 const component = rendered.instance();
-                expect(component).to.be.ok;
-                expect(component.selected).to.be.ok;
                 expect(component.selected).to.eql(stubPhoto.getSizedPhotoForLoading());
             });
 
@@ -249,13 +241,10 @@ describe("Photo", function () {
                 };
                 const rendered = shallow(<PhotoComponent {...stubProps}/>);
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--photo");
 
                 const component = rendered.instance();
-                expect(component).to.be.ok;
-                expect(component.selected).to.be.ok;
                 expect(component.selected).to.eql(stubPhoto.sortedSizedPhotos.last());
             });
         });

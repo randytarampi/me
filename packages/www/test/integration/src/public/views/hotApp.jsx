@@ -23,21 +23,18 @@ describe("hotApp", function () {
     it("renders (while rehydrating)", function () {
         const rendered = mount(stubStore)(<App/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(LoadingSpinner);
     });
 
     it("renders (rehydrated)", function () {
         const rendered = mount(stubStore)(<App/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(LoadingSpinner);
 
         const loaded = rendered.setState({
             ...rendered.state(),
             rehydrated: true
         });
-        expect(loaded).to.be.ok;
         expect(loaded).to.have.descendants(Provider);
     });
 });

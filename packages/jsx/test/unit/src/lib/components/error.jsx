@@ -19,7 +19,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-doubt-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -49,7 +48,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-doubt-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -79,7 +77,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-doubt-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -109,7 +106,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-doubt-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -139,7 +135,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-doubt-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -169,7 +164,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-dead-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -199,7 +193,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-dead-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -229,7 +222,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
         expect(rendered).to.have.descendants("#error-shrug-bear");
         expect(rendered).to.have.descendants(".error__message--header");
@@ -259,7 +251,6 @@ describe("Error", function () {
         };
         const rendered = shallow(<Error {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("error");
 
         rendered.unmount();

@@ -11,7 +11,6 @@ describe("SizedPhoto", () => {
             };
             const instantiatedSizedPhoto = SizedPhoto.fromJS(sizedPhotoJs);
 
-            expect(instantiatedSizedPhoto).to.be.ok;
             expect(instantiatedSizedPhoto.width).to.eql(sizedPhotoJs.width);
             expect(instantiatedSizedPhoto.height).to.eql(sizedPhotoJs.height);
             expect(instantiatedSizedPhoto.url).to.eql(sizedPhotoJs.url);
@@ -28,7 +27,6 @@ describe("SizedPhoto", () => {
             };
             const instantiatedSizedPhoto = SizedPhoto.fromJS(sizedPhotoJs);
 
-            expect(instantiatedSizedPhoto).to.be.ok;
             expect(instantiatedSizedPhoto.size).to.eql(sizedPhotoJs.size);
         });
 
@@ -40,7 +38,6 @@ describe("SizedPhoto", () => {
             };
             const instantiatedSizedPhoto = SizedPhoto.fromJS(sizedPhotoJs);
 
-            expect(instantiatedSizedPhoto).to.be.ok;
             expect(instantiatedSizedPhoto.size).to.eql(sizedPhotoJs.width.toString());
         });
     });

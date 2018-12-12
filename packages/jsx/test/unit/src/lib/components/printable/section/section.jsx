@@ -17,7 +17,6 @@ describe("PrintableSection", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<PrintableSection {...stubProps}>{stubChildren}</PrintableSection>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-section__header");
         expect(rendered).to.have.descendants(".printable-section__header > .printable-section__label");
         expect(rendered).to.have.descendants(".printable-section__header .printable-section__description");
@@ -41,7 +40,6 @@ describe("PrintableSection", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<PrintableSection {...stubProps}>{stubChildren}</PrintableSection>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-section__header");
         expect(rendered).to.not.have.descendants(".printable-section__header > .printable-section__label");
         expect(rendered).to.not.have.descendants(".printable-section__header .printable-section__description");
@@ -63,7 +61,6 @@ describe("PrintableSection", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<PrintableSection {...stubProps}>{stubChildren}</PrintableSection>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".printable-section__header");
         expect(rendered).to.not.have.descendants(".printable-section__header > .printable-section__label");
         expect(rendered).to.have.descendants(".printable-section__header .printable-section__description");

@@ -15,7 +15,6 @@ describe("config", function () {
 
     describe(".vendors", function () {
         it("has the expected vendors", function () {
-            expect(config.vendors).to.be.ok;
             expect(config.vendors).to.eql([
                 {api: gtmClient}
             ]);

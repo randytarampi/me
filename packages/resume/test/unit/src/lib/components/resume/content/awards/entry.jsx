@@ -18,7 +18,6 @@ describe("ResumeAwardsEntry", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeAwardsEntry awardsEntry={stubResumeAwardsEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.have.className("hide-on-print");
         expect(rendered).to.have.descendants(".resume-awards-entry");
         expect(rendered).to.have.descendants(".resume-awards-entry__basics");
@@ -33,7 +32,6 @@ describe("ResumeAwardsEntry", function () {
     it("renders (`.hide-on-print` if 4th or subsequent project)", function () {
         const rendered = shallow(<ResumeAwardsEntry awardsEntry={stubResumeAwardsEntry} index={4}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("hide-on-print");
     });
 });

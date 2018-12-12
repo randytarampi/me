@@ -30,7 +30,6 @@ describe("Work", function () {
                 highlights: List(stubWorkJs.highlights)
             });
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.company).to.eql(stubWorkJs.company);
             expect(work.position).to.eql(stubWorkJs.position);
@@ -46,7 +45,6 @@ describe("Work", function () {
         it("returns an empty Work", function () {
             const work = new Work();
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.startDate).to.eql(null);
             expect(work.endDate).to.eql(null);
@@ -62,7 +60,6 @@ describe("Work", function () {
                 endDate: DateTime.fromISO(stubWorkJs.endDate).toJSDate()
             });
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.company).to.eql(stubWorkJs.company);
             expect(work.position).to.eql(stubWorkJs.position);
@@ -78,7 +75,6 @@ describe("Work", function () {
         it("returns an empty Work", function () {
             const work = Work.fromJS();
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.startDate).to.eql(null);
             expect(work.endDate).to.eql(null);
@@ -92,7 +88,6 @@ describe("Work", function () {
                 ...stubWorkJs
             });
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.company).to.eql(stubWorkJs.company);
             expect(work.position).to.eql(stubWorkJs.position);
@@ -108,7 +103,6 @@ describe("Work", function () {
         it("returns an empty Work", function () {
             const work = Work.fromJSON();
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.startDate).to.eql(null);
             expect(work.endDate).to.eql(null);
@@ -122,7 +116,6 @@ describe("Work", function () {
                 ...stubWorkJs
             });
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.company).to.eql(stubWorkJs.company);
             expect(work.position).to.eql(stubWorkJs.position);
@@ -138,7 +131,6 @@ describe("Work", function () {
         it("returns an empty Work", function () {
             const work = Work.fromResume();
 
-            expect(work).to.be.ok;
             expect(work).to.be.instanceOf(Work);
             expect(work.startDate).to.eql(null);
             expect(work.endDate).to.eql(null);

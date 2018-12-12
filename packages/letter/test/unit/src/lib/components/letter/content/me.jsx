@@ -16,7 +16,6 @@ describe("LetterMe", function () {
     it("renders (default content)", function () {
         const rendered = shallow(<LetterMe contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-me__content");
 
         expect(rendered.find(".letter-me__content").length).to.eql(1);
@@ -33,7 +32,6 @@ describe("LetterMe", function () {
 
         const rendered = shallow(<LetterMe contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".letter-me__content");
         expect(rendered).to.contain(stubContentConfiguration.contentProps.aboutMe);
 

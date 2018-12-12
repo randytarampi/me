@@ -23,7 +23,6 @@ describe("Bears", function () {
     it("renders", function () {
         const rendered = shallow(stubStore)(<Bears/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.contain(
             <h2>
                 <span className="text">And the Bears?</span>

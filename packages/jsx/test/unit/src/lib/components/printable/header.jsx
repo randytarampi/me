@@ -34,7 +34,6 @@ describe("Header", function () {
         };
         const rendered = shallow(<Header {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
         expect(rendered).to.have.descendants(Container);
@@ -56,7 +55,6 @@ describe("Header", function () {
         };
         const rendered = shallow(<Header {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
         expect(rendered).to.have.descendants(Container);
@@ -79,7 +77,6 @@ describe("Header", function () {
         };
         const rendered = shallow(<Header {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
         expect(rendered).to.have.descendants(Container);
@@ -101,7 +98,6 @@ describe("Header", function () {
         };
         const rendered = shallow(<Header {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
         expect(rendered).to.have.descendants(Container);
@@ -123,7 +119,6 @@ describe("Header", function () {
         };
         const rendered = shallow(<Header {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.id("header");
         expect(rendered).to.have.className("printable-header");
         expect(rendered).to.have.descendants(Container);

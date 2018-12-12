@@ -48,7 +48,6 @@ describe("Footer", function () {
     it("renders", function () {
         const rendered = shallow(<Footer letter={stubLetter}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".hide-on-print");
         expect(rendered).to.have.descendants(".hide-on-screen");
     });

@@ -44,7 +44,6 @@ describe("renderPrintablesToPdf", function () {
             printableDestinationDirectory: stubPrintableDestinationDirectory
         })
             .then(pdfs => {
-                expect(pdfs).to.be.ok;
                 expect(pdfs).to.have.length(stubPrintableHtmlPairs.length);
 
                 expect(renderPrintablesHtmlModule.renderPrintablesHtml.calledOnce).to.be.ok;

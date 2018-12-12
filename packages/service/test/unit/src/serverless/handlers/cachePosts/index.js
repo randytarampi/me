@@ -71,7 +71,6 @@ describe("cachePosts", function () {
             "../../../lib/sources/cachePosts": {
                 "default": sinon.stub().callsFake((searchParams, postSources) => {
                     expect(searchParams).to.be.ok;
-                    expect(postSources).to.be.ok;
                     expect(postSources).to.eql(stubEvent.sources);
                     return Promise.resolve(stubPosts);
                 })
@@ -149,7 +148,6 @@ describe("cachePosts", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql(stubError.message);
                 done();
             } catch (expectationError) {

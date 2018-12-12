@@ -16,7 +16,6 @@ describe("ResumeProfiles", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 
@@ -30,7 +29,6 @@ describe("ResumeProfiles", function () {
     it("renders (`ExistingLinkComponent` with `username`)", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 
@@ -42,7 +40,6 @@ describe("ResumeProfiles", function () {
     it("renders (`ExistingLinkComponent` with only `url`)", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 
@@ -54,7 +51,6 @@ describe("ResumeProfiles", function () {
     it("renders (`ExistingLinkComponent` with insufficient information)", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 
@@ -64,7 +60,6 @@ describe("ResumeProfiles", function () {
     it("renders (other profile with `url`)", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 
@@ -77,7 +72,6 @@ describe("ResumeProfiles", function () {
     it("renders (other profile with only `username`)", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 
@@ -87,7 +81,6 @@ describe("ResumeProfiles", function () {
     it("renders (other profile with insufficient information)", function () {
         const rendered = shallow(<ResumeProfiles resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-profiles__profile");
         expect(rendered.find(".resume-profiles__profile")).to.have.length(stubResume.basics.profiles.length - 2);
 

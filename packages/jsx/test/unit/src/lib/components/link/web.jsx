@@ -12,7 +12,6 @@ describe("WebLink", function () {
         };
         const rendered = shallow(<WebLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <CampaignLink
                 className="link--web"
@@ -30,7 +29,6 @@ describe("WebLink", function () {
         };
         const rendered = shallow(<WebLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <CampaignLink
                 className="link--web link--no-branding"
@@ -47,7 +45,6 @@ describe("WebLink", function () {
         };
         const rendered = shallow(<WebLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <CampaignLink
                 className="link--web link--no-branding"

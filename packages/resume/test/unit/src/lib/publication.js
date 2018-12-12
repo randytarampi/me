@@ -22,7 +22,6 @@ describe("Publication", function () {
                 releaseDate: DateTime.fromISO(stubPublicationJs.releaseDate)
             });
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.name).to.eql(stubPublicationJs.name);
             expect(publication.publisher).to.eql(stubPublicationJs.publisher);
@@ -35,7 +34,6 @@ describe("Publication", function () {
         it("returns an empty Publication", function () {
             const publication = new Publication();
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.releaseDate).to.eql(null);
         });
@@ -48,7 +46,6 @@ describe("Publication", function () {
                 releaseDate: DateTime.fromISO(stubPublicationJs.releaseDate).toJSDate()
             });
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.name).to.eql(stubPublicationJs.name);
             expect(publication.publisher).to.eql(stubPublicationJs.publisher);
@@ -61,7 +58,6 @@ describe("Publication", function () {
         it("returns an empty Publication", function () {
             const publication = Publication.fromJS();
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.releaseDate).to.eql(null);
         });
@@ -73,7 +69,6 @@ describe("Publication", function () {
                 ...stubPublicationJs
             });
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.name).to.eql(stubPublicationJs.name);
             expect(publication.publisher).to.eql(stubPublicationJs.publisher);
@@ -86,7 +81,6 @@ describe("Publication", function () {
         it("returns an empty Publication", function () {
             const publication = Publication.fromJSON();
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.releaseDate).to.eql(null);
         });
@@ -98,7 +92,6 @@ describe("Publication", function () {
                 ...stubPublicationJs
             });
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.name).to.eql(stubPublicationJs.name);
             expect(publication.publisher).to.eql(stubPublicationJs.publisher);
@@ -111,7 +104,6 @@ describe("Publication", function () {
         it("returns an empty Publication", function () {
             const publication = Publication.fromResume();
 
-            expect(publication).to.be.ok;
             expect(publication).to.be.instanceOf(Publication);
             expect(publication.releaseDate).to.eql(null);
         });

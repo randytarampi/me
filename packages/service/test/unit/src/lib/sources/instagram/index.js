@@ -217,11 +217,9 @@ describe("InstagramSource", function () {
 
             return instagramSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.calledOnce(stubServiceClient.userSearch);
@@ -239,11 +237,9 @@ describe("InstagramSource", function () {
 
             return instagramSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.notCalled(stubServiceClient.userSearch);
@@ -258,7 +254,6 @@ describe("InstagramSource", function () {
 
             return instagramSource.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.userMedia);
@@ -276,11 +271,9 @@ describe("InstagramSource", function () {
 
             return instagramSource.allPostsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Photo);
                     });
                     sinon.assert.notCalled(stubServiceClient.userSearch);
@@ -296,7 +289,6 @@ describe("InstagramSource", function () {
 
             return instagramSource.postGetter(stubPost.id)
                 .then(post => {
-                    expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Photo);
                     sinon.assert.calledOnce(stubServiceClient.media);
                     sinon.assert.calledWith(stubServiceClient.media, stubPost.id);

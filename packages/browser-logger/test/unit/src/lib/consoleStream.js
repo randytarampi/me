@@ -22,49 +22,42 @@ describe("ConsoleStream", function () {
         it("handles FATAL (60)", function () {
             const name = ConsoleStream.colorFromLevel(60);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("brightRed");
         });
 
         it("handles ERROR (50)", function () {
             const name = ConsoleStream.colorFromLevel(50);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("red");
         });
 
         it("handles WARN (40)", function () {
             const name = ConsoleStream.colorFromLevel(40);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("magenta");
         });
 
         it("handles INFO (30)", function () {
             const name = ConsoleStream.colorFromLevel(30);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("cyan");
         });
 
         it("handles DEBUG (20)", function () {
             const name = ConsoleStream.colorFromLevel(20);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("brightBlack");
         });
 
         it("handles TRACE (10)", function () {
             const name = ConsoleStream.colorFromLevel(10);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("brightBlack");
         });
 
         it("returns the closest matching level name for a random logging level", function () {
             const name = ConsoleStream.colorFromLevel(101);
 
-            expect(name).to.be.ok;
             expect(name).to.eql("brightRed");
         });
     });
@@ -73,49 +66,42 @@ describe("ConsoleStream", function () {
         it("handles FATAL (60)", function () {
             const name = ConsoleStream.nameFromLevel(60);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.deadBear.toString());
         });
 
         it("handles ERROR (50)", function () {
             const name = ConsoleStream.nameFromLevel(50);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.disBear.toString());
         });
 
         it("handles WARN (40)", function () {
             const name = ConsoleStream.nameFromLevel(40);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.doubtBear.toString());
         });
 
         it("handles INFO (30)", function () {
             const name = ConsoleStream.nameFromLevel(30);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.bear.toString());
         });
 
         it("handles DEBUG (20)", function () {
             const name = ConsoleStream.nameFromLevel(20);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.shrugBear.toString());
         });
 
         it("handles TRACE (10)", function () {
             const name = ConsoleStream.nameFromLevel(10);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.lennyBear.toString());
         });
 
         it("returns the closest matching level name for a random logging level", function () {
             const name = ConsoleStream.nameFromLevel(101);
 
-            expect(name).to.be.ok;
             expect(name).to.eql(bears.deadBear.toString());
         });
     });
@@ -146,56 +132,48 @@ describe("ConsoleStream", function () {
         it("handles FATAL (60)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(60);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.error); // eslint-disable-line no-console
         });
 
         it("handles ERROR (50)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(50);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.error); // eslint-disable-line no-console
         });
 
         it("handles WARN (40)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(40);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.warn); // eslint-disable-line no-console
         });
 
         it("handles INFO (30)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(30);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.info); // eslint-disable-line no-console
         });
 
         it("handles DEBUG (20)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(20);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.debug); // eslint-disable-line no-console
         });
 
         it("handles TRACE (10)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(10);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.debug); // eslint-disable-line no-console
         });
 
         it("returns `console.log` if there is no other appropriate level", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(-10);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.log); // eslint-disable-line no-console
         });
 
         it("returns the closest matching logger for a random logging level", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(101);
 
-            expect(consoleLogger).to.be.ok;
             expect(consoleLogger).to.eql(console.error); // eslint-disable-line no-console
         });
     });

@@ -16,7 +16,6 @@ describe("ResumeInterests", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeInterests resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-interests__interest-entry");
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");
@@ -33,7 +32,6 @@ describe("ResumeInterests", function () {
     it("renders (`.hide-on-print` on the 4th and subsequent interests)", function () {
         const rendered = shallow(<ResumeInterests resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-interests__interest-entry");
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");
@@ -45,7 +43,6 @@ describe("ResumeInterests", function () {
     it("renders (`.show-on-legal` on the 5th and subsequent interest keyword)", function () {
         const rendered = shallow(<ResumeInterests resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-interests__interest-entry");
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");

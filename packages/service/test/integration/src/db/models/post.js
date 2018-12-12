@@ -75,7 +75,6 @@ describe("Post", function () {
     describe("createPost", function () {
         it("persists a post from a Post", async function () {
             const createdPost = await createPost(stubPost);
-            expect(createdPost).to.be.ok;
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
             expect(postFromDb).to.be.ok;
@@ -83,7 +82,6 @@ describe("Post", function () {
 
         it("persists a post from a Photo", async function () {
             const createdPhoto = await createPost(stubPhoto);
-            expect(createdPhoto).to.be.ok;
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
             const photoFromDb = await PostModel.get({id: createdPhoto.id, source: createdPhoto.source});
             expect(photoFromDb).to.be.ok;
@@ -91,10 +89,8 @@ describe("Post", function () {
 
         it("doesn't persist empty string tags", async function () {
             const createdPost = await createPost(stubPost);
-            expect(createdPost).to.be.ok;
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
-            expect(postFromDb).to.be.ok;
             expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).map(tag => tag.toLowerCase()).toArray());
             expect(postFromDb.tags).to.not.have.members([""]);
         });
@@ -104,7 +100,6 @@ describe("Post", function () {
         it("retrieves a Post (uid)", async function () {
             await createPosts(stubPosts);
             const retrievedPost = await getPost({_query: {uid: {eq: stubPost.uid}}});
-            expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost.type).to.eql(Post.type);
         });
@@ -112,7 +107,6 @@ describe("Post", function () {
         it("retrieves a Post (type)", async function () {
             await createPosts(stubPosts);
             const retrievedPost = await getPost({_query: {type: {eq: stubPost.type}}});
-            expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost.type).to.eql(Post.type);
         });
@@ -120,7 +114,6 @@ describe("Post", function () {
         it("retrieves a Photo (source)", async function () {
             await createPosts(stubPosts);
             const retrievedPhoto = await getPost({_query: {source: {eq: stubPhoto.source}}});
-            expect(retrievedPhoto).to.be.ok;
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto.type).to.eql(Photo.type);
         });
@@ -158,7 +151,6 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPost = await getPost({_filter: {tags: {CONTAINS: ["woof"]}}});
-            expect(retrievedPost).to.be.ok;
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost.type).to.eql(Post.type);
         });
@@ -167,14 +159,11 @@ describe("Post", function () {
     describe("createPosts", function () {
         it("persists multiple posts", async function () {//
             const createdPosts = await createPosts(stubPosts);
-            expect(createdPosts).to.be.ok;
             expect(createdPosts).to.be.an("array");
             expect(createdPosts).to.have.length(stubPosts.length);
             return await Promise.all(stubPosts.map(async createdPost => {
-                expect(createdPost).to.be.ok;
                 expect(createdPost.uid).to.be.ok;
                 const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
-                expect(postFromDb).to.be.ok;
                 expect(postFromDb.uid).to.eql(createdPost.uid);
             }));
         });
@@ -211,11 +200,9 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({_query: {type: {eq: stubPhoto.type}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.type).to.eql(Photo.type);
             }));
         });
@@ -250,11 +237,9 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.type).to.eql(Photo.type);
             }));
         });
@@ -262,11 +247,9 @@ describe("Post", function () {
         it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPosts({_query: {source: {eq: stubPhoto.source}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.type).to.eql(Photo.type);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
@@ -275,11 +258,9 @@ describe("Post", function () {
         it("retrieves posts (uid)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPosts({_query: {uid: {eq: stubPhoto.uid}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.type).to.eql(Photo.type);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
@@ -320,11 +301,9 @@ describe("Post", function () {
                     range: {source: {eq: stubPhoto.source}}
                 }
             });
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.type).to.eql(Photo.type);
                 expect(retrievedPost.uid).to.eql(stubPhoto.uid);
             }));
@@ -363,11 +342,9 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.tags).to.contain("woof");
             }));
         });
@@ -405,11 +382,9 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 1}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost).to.be.ok;
                 expect(retrievedPost.type).to.eql(Post.type);
             }));
         });
@@ -446,7 +421,6 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPostCount({_query: {type: {eq: stubPhoto.type}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(2);
         });
 
@@ -480,21 +454,18 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPostCount({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(2);
         });
 
         it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPostCount({_query: {source: {eq: stubPhoto.source}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(1);
         });
 
         it("retrieves posts (uid)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPostCount({_query: {uid: {eq: stubPhoto.uid}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(1);
         });
 
@@ -533,7 +504,6 @@ describe("Post", function () {
                     range: {source: {eq: stubPhoto.source}}
                 }
             });
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(1);
         });
 
@@ -570,7 +540,6 @@ describe("Post", function () {
             ]);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPostCount({_filter: {tags: {CONTAINS: ["woof"]}}});
-            expect(retrievedPosts).to.be.ok;
             expect(retrievedPosts).to.eql(2);
         });
     });

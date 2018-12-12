@@ -14,7 +14,6 @@ describe("Profile", function () {
             };
             const profile = new Profile(stubProfile);
 
-            expect(profile).to.be.ok;
             expect(profile).to.be.instanceOf(Profile);
             expect(profile.id).to.eql(stubProfile.id);
             expect(profile.network).to.eql(stubProfile.network);
@@ -36,7 +35,6 @@ describe("Profile", function () {
             };
             const profile = Profile.fromJS(stubProfile);
 
-            expect(profile).to.be.ok;
             expect(profile).to.be.instanceOf(Profile);
             expect(profile.network).to.eql(stubProfile.network);
             expect(profile.username).to.eql(stubProfile.username);
@@ -57,7 +55,6 @@ describe("Profile", function () {
             };
             const profile = Profile.fromJSON(stubProfile);
 
-            expect(profile).to.be.ok;
             expect(profile).to.be.instanceOf(Profile);
             expect(profile.network).to.eql(stubProfile.network);
             expect(profile.username).to.eql(stubProfile.username);
@@ -78,7 +75,6 @@ describe("Profile", function () {
             };
             const profile = Profile.fromJSON(stubProfile);
 
-            expect(profile).to.be.ok;
             expect(profile).to.be.instanceOf(Profile);
 
             const schemaJson = profile.toSchema();
@@ -90,7 +86,6 @@ describe("Profile", function () {
         it("returns some empty Schema.org JSON", function () {
             const profile = Profile.fromJSON();
 
-            expect(profile).to.be.ok;
             expect(profile).to.be.instanceOf(Profile);
 
             const schemaJson = profile.toSchema();

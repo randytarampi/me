@@ -13,7 +13,6 @@ describe("buildRssResponse", function () {
             };
             const response = postsReponseBuilder.buildRssV1ResponseBody(stubRssFeed);
 
-            expect(response).to.be.ok;
             expect(response).to.eql(stubRssXml);
             expect(stubRssFeed.xml.calledOnce).to.eql(true);
         });
@@ -29,7 +28,6 @@ describe("buildRssResponse", function () {
 
             const response = buildRssResponse(stubParsedHeaders)({rss: stubRssFeed});
 
-            expect(response).to.be.ok;
             expect(response.body).to.eql(stubRssXml);
             expect(stubRssFeed.xml.calledOnce).to.eql(true);
         });
@@ -45,7 +43,6 @@ describe("buildRssResponse", function () {
 
             const response = buildRssResponse(stubParsedHeaders)({rss: stubRssFeed});
 
-            expect(response).to.be.ok;
             expect(response.body).to.eql(stubRssXml);
             expect(stubRssFeed.xml.calledOnce).to.eql(true);
         });
@@ -63,7 +60,6 @@ describe("buildRssResponse", function () {
                 buildRssResponse(stubParsedHeaders)({rss: stubRssFeed});
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
-                expect(error).to.be.ok;
                 expect(error.message).to.match(/^`ME-API-VERSION` specifies unsupported version of `999`$/);
             }
         });

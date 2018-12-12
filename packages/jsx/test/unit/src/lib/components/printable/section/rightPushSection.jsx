@@ -15,7 +15,6 @@ describe("RightPushSection", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<RightPushSection {...stubProps}>{stubChildren}</RightPushSection>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.prop("className", "printable-section--push printable-section--push-right meow");
         expect(rendered).to.have.descendants(".printable-section__header");
         expect(rendered).to.not.have.descendants(".printable-section__header > .printable-section__label");

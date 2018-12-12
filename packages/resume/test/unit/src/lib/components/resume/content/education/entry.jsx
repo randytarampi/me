@@ -30,7 +30,6 @@ describe("ResumeEducationEntry", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.have.className("hide-on-print");
         expect(rendered).to.have.descendants(".resume-education-entry");
         expect(rendered).to.have.descendants(".resume-education-entry__basics");
@@ -56,7 +55,6 @@ describe("ResumeEducationEntry", function () {
 
         const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered.find(".resume-education-entry__basics > .right.hide-on-small-only > .resume-education-entry__date").html()).to.match(/ to Present/);
         expect(rendered.find(".resume-education-entry__basics > .hide-on-med-and-up > .resume-education-entry__date").html()).to.match(/ to Present/);
     });
@@ -64,7 +62,6 @@ describe("ResumeEducationEntry", function () {
     it("renders (`.hide-on-print` if 4th or subsequent project)", function () {
         const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={4}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("hide-on-print");
     });
 
@@ -72,7 +69,6 @@ describe("ResumeEducationEntry", function () {
         delete stubResumeEducationEntry.website;
         const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered.find(CampaignLink)).to.be.ok;
         expect(rendered.find(CampaignLink)).to.have.length(0);
@@ -85,7 +81,6 @@ describe("ResumeEducationEntry", function () {
         delete stubResumeEducationEntry.courses;
         const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered).to.not.have.descendants(".resume-education-entry__highlights");
         expect(rendered).to.not.have.descendants(".resume-education-entry__highlight");

@@ -206,7 +206,6 @@ describe("Post", () => {
         it("returns an empty Post", function () {
             const post = new Post();
 
-            expect(post).to.be.ok;
             expect(post).to.be.instanceOf(Post);
         });
     });
@@ -242,7 +241,6 @@ describe("Post", () => {
 
             const postFromJson = Post.fromJSON(postJson);
 
-            expect(postFromJson).to.be.ok;
             expect(postFromJson.id).to.eql(postJson.id);
             expect(postFromJson.dateCreated).to.be.instanceof(DateTime);
             expect(postFromJson.tags).to.be.instanceof(List);
@@ -277,7 +275,6 @@ describe("Post", () => {
 
             const postfromJS = Post.fromJS(postJS);
 
-            expect(postfromJS).to.be.ok;
             expect(postfromJS.id).to.eql(postJS.id);
             expect(postfromJS.dateCreated).to.be.instanceof(DateTime);
         });

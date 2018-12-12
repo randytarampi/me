@@ -23,7 +23,6 @@ describe("chatInitiated", function () {
 
             const actions = stubStore.getActions();
 
-            expect(actions).to.be.ok;
             expect(actions).to.have.length(1);
             expect(actions).to.eql([{type: CRISP_CHAT_INITIATED}]);
         });

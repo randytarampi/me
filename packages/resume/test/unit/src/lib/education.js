@@ -30,7 +30,6 @@ describe("Education", function () {
                 courses: List(stubEducationJs.courses)
             });
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.institution).to.eql(stubEducationJs.institution);
             expect(education.area).to.eql(stubEducationJs.area);
@@ -46,7 +45,6 @@ describe("Education", function () {
         it("returns an empty Education", function () {
             const education = new Education();
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.startDate).to.eql(null);
             expect(education.endDate).to.eql(null);
@@ -62,7 +60,6 @@ describe("Education", function () {
                 endDate: DateTime.fromISO(stubEducationJs.endDate).toJSDate()
             });
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.institution).to.eql(stubEducationJs.institution);
             expect(education.area).to.eql(stubEducationJs.area);
@@ -78,7 +75,6 @@ describe("Education", function () {
         it("returns an empty Education", function () {
             const education = Education.fromJS();
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.startDate).to.eql(null);
             expect(education.endDate).to.eql(null);
@@ -92,7 +88,6 @@ describe("Education", function () {
                 ...stubEducationJs
             });
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.institution).to.eql(stubEducationJs.institution);
             expect(education.area).to.eql(stubEducationJs.area);
@@ -108,7 +103,6 @@ describe("Education", function () {
         it("returns an empty Education", function () {
             const education = Education.fromJSON();
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.startDate).to.eql(null);
             expect(education.endDate).to.eql(null);
@@ -122,7 +116,6 @@ describe("Education", function () {
                 ...stubEducationJs
             });
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.institution).to.eql(stubEducationJs.institution);
             expect(education.area).to.eql(stubEducationJs.area);
@@ -138,7 +131,6 @@ describe("Education", function () {
         it("returns an empty Education", function () {
             const education = Education.fromResume();
 
-            expect(education).to.be.ok;
             expect(education).to.be.instanceOf(Education);
             expect(education.startDate).to.eql(null);
             expect(education.endDate).to.eql(null);

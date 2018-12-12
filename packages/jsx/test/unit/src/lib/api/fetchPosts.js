@@ -36,19 +36,15 @@ describe("fetchPosts", function () {
 
         const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/api/fetchPosts", {
             "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.match(/^\/fetch!/);
 
                 const parsedQuerystringParams = queryString.parse(fetchUrl.replace(stubFetchUrl, ""));
-                expect(parsedQuerystringParams).to.be.ok;
                 expect(parsedQuerystringParams).to.eql({
                     woof: stubSearchParams.woof.toString(),
                     meow: stubSearchParams.meow.toString(),
                     grr: stubSearchParams.grr.toString()
                 });
 
-                expect(options).to.be.ok;
-                expect(options.headers).to.be.ok;
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8",
@@ -61,7 +57,6 @@ describe("fetchPosts", function () {
 
         return proxyquiredFetchPosts.default(stubFetchUrl, stubSearchParams)
             .then(postsResponse => {
-                expect(postsResponse).to.be.ok;
                 expect(postsResponse).to.eql({
                     posts: stubPosts.map(post => getEntityForType(post.type).fromJS(post)),
                     total: stubPosts.length,
@@ -103,19 +98,15 @@ describe("fetchPosts", function () {
 
         const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/api/fetchPosts", {
             "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.match(/^\/fetch!/);
 
                 const parsedQuerystringParams = queryString.parse(fetchUrl.replace(stubFetchUrl, ""));
-                expect(parsedQuerystringParams).to.be.ok;
                 expect(parsedQuerystringParams).to.eql({
                     woof: stubSearchParams.woof.toString(),
                     meow: stubSearchParams.meow.toString(),
                     grr: stubSearchParams.grr.toString()
                 });
 
-                expect(options).to.be.ok;
-                expect(options.headers).to.be.ok;
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8",
@@ -128,7 +119,6 @@ describe("fetchPosts", function () {
 
         return proxyquiredFetchPosts.default(stubFetchUrl, stubSearchParams)
             .then(postsResponse => {
-                expect(postsResponse).to.be.ok;
                 expect(postsResponse).to.eql({
                     posts: stubPosts.map(post => Post.fromJS(post)),
                     total: stubPosts.length,

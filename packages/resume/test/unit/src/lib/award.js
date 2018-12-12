@@ -21,7 +21,6 @@ describe("Award", function () {
                 date: DateTime.fromISO(stubAwardJs.date)
             });
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.title).to.eql(stubAwardJs.title);
             expect(award.awarder).to.eql(stubAwardJs.awarder);
@@ -33,7 +32,6 @@ describe("Award", function () {
         it("returns an empty Award", function () {
             const award = new Award();
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.date).to.eql(null);
         });
@@ -46,7 +44,6 @@ describe("Award", function () {
                 date: DateTime.fromISO(stubAwardJs.date).toJSDate()
             });
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.title).to.eql(stubAwardJs.title);
             expect(award.awarder).to.eql(stubAwardJs.awarder);
@@ -58,7 +55,6 @@ describe("Award", function () {
         it("returns an empty Award", function () {
             const award = Award.fromJS();
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.date).to.eql(null);
         });
@@ -70,7 +66,6 @@ describe("Award", function () {
                 ...stubAwardJs
             });
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.title).to.eql(stubAwardJs.title);
             expect(award.awarder).to.eql(stubAwardJs.awarder);
@@ -82,7 +77,6 @@ describe("Award", function () {
         it("returns an empty Award", function () {
             const award = Award.fromJSON();
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.date).to.eql(null);
         });
@@ -94,7 +88,6 @@ describe("Award", function () {
                 ...stubAwardJs
             });
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.title).to.eql(stubAwardJs.title);
             expect(award.awarder).to.eql(stubAwardJs.awarder);
@@ -106,7 +99,6 @@ describe("Award", function () {
         it("returns an empty Award", function () {
             const award = Award.fromResume();
 
-            expect(award).to.be.ok;
             expect(award).to.be.instanceOf(Award);
             expect(award.date).to.eql(null);
         });

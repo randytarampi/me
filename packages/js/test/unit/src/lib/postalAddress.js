@@ -13,7 +13,6 @@ describe("PostalAddress", function () {
             };
             const location = new PostalAddress(stubLocation);
 
-            expect(location).to.be.ok;
             expect(location).to.be.instanceOf(PostalAddress);
             expect(location.address).to.eql(stubLocation.streetAddress);
             expect(location.postalCode).to.eql(stubLocation.postalCode);
@@ -34,7 +33,6 @@ describe("PostalAddress", function () {
             };
             const location = PostalAddress.fromJS(stubLocation);
 
-            expect(location).to.be.ok;
             expect(location).to.be.instanceOf(PostalAddress);
             expect(location.address).to.eql(stubLocation.streetAddress);
             expect(location.postalCode).to.eql(stubLocation.postalCode);
@@ -55,7 +53,6 @@ describe("PostalAddress", function () {
             };
             const location = PostalAddress.fromJSON(stubLocation);
 
-            expect(location).to.be.ok;
             expect(location).to.be.instanceOf(PostalAddress);
             expect(location.address).to.eql(stubLocation.streetAddress);
             expect(location.postalCode).to.eql(stubLocation.postalCode);
@@ -76,7 +73,6 @@ describe("PostalAddress", function () {
             };
             const location = PostalAddress.fromResume(stubLocation);
 
-            expect(location).to.be.ok;
             expect(location).to.be.instanceOf(PostalAddress);
             expect(location.address).to.eql(stubLocation.address);
             expect(location.postalCode).to.eql(stubLocation.postalCode);

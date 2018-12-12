@@ -16,7 +16,6 @@ describe("ResumeAbout", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeAbout resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(".resume-about__summary");
 
         const printableSection = rendered.find(PrintableSection);

@@ -14,11 +14,8 @@ describe("fetchLetter", function () {
 
         const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/api/fetchLetter", {
             "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.match(/\/fetch!/);
 
-                expect(options).to.be.ok;
-                expect(options.headers).to.be.ok;
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8"
@@ -30,7 +27,6 @@ describe("fetchLetter", function () {
 
         return proxyquiredFetchLetter.default(stubVariant)
             .then(letterResponse => {
-                expect(letterResponse).to.be.ok;
                 expect(letterResponse.toJSON()).to.eql(Letter.fromJSON({
                     ...testLetterJson,
                     id: stubVariant
@@ -49,11 +45,8 @@ describe("fetchLetter", function () {
 
         const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/api/fetchLetter", {
             "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.be.ok;
                 expect(fetchUrl).to.match(/\/fetch!/);
 
-                expect(options).to.be.ok;
-                expect(options.headers).to.be.ok;
                 expect(options.headers).to.eql({
                     "Accept": "application/json",
                     "Accept-Charset": "utf-8"

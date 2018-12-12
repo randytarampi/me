@@ -29,7 +29,6 @@ describe("ResumeWorkEntry", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeWorkEntry workEntry={stubResumeWorkEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.not.have.className("hide-on-print");
         expect(rendered).to.have.descendants(".resume-work-entry");
         expect(rendered).to.have.descendants(".resume-work-entry__basics");
@@ -57,7 +56,6 @@ describe("ResumeWorkEntry", function () {
 
         const rendered = shallow(<ResumeWorkEntry workEntry={stubResumeWorkEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered.find(".resume-work-entry__basics > .right.hide-on-small-only > .resume-work-entry__date").html()).to.match(/ to Present/);
         expect(rendered.find(".resume-work-entry__basics > .hide-on-med-and-up > .resume-work-entry__date").html()).to.match(/ to Present/);
     });
@@ -65,7 +63,6 @@ describe("ResumeWorkEntry", function () {
     it("renders (`.hide-on-print` if 4th or subsequent job)", function () {
         const rendered = shallow(<ResumeWorkEntry workEntry={stubResumeWorkEntry} index={4}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.className("hide-on-print");
     });
 
@@ -73,7 +70,6 @@ describe("ResumeWorkEntry", function () {
         delete stubResumeWorkEntry.website;
         const rendered = shallow(<ResumeWorkEntry workEntry={stubResumeWorkEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered.find(CampaignLink)).to.be.ok;
         expect(rendered.find(CampaignLink)).to.have.length(0);
@@ -87,7 +83,6 @@ describe("ResumeWorkEntry", function () {
         delete stubResumeWorkEntry.highlights;
         const rendered = shallow(<ResumeWorkEntry workEntry={stubResumeWorkEntry} index={0}/>);
 
-        expect(rendered).to.be.ok;
 
         expect(rendered).to.not.have.descendants(".resume-work-entry__highlights");
         expect(rendered).to.not.have.descendants(".resume-work-entry__highlight");

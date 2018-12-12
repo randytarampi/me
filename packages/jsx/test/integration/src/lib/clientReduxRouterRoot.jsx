@@ -45,10 +45,8 @@ describe("ClientReduxRouterRoot", function () {
 
     describe("constructor", function () {
         it("logs a greeting (generic)", function () {
-            const rendered = mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory}
-                                                                     routes={stubRoutes}/>);
+            mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory} routes={stubRoutes}/>);
 
-            expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(4);
             sinon.assert.calledWith(logger.info, sinon.match(/Hey! I see you looking over there./));
             expect(logger.warn.callCount).to.eql(1);
@@ -57,10 +55,8 @@ describe("ClientReduxRouterRoot", function () {
 
         it("logs a greeting (Firefox)", function () {
             global.navigator.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0";
-            const rendered = mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory}
-                                                                     routes={stubRoutes}/>);
+            mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory} routes={stubRoutes}/>);
 
-            expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(5);
             sinon.assert.calledWith(logger.info, sinon.match(/Hey! I see you looking over there./));
             sinon.assert.calledWith(logger.info, sinon.match(/https:\/\/addons\.mozilla\.org\/en-US\/firefox\/addon\/remotedev/m));
@@ -68,10 +64,8 @@ describe("ClientReduxRouterRoot", function () {
 
         it("logs a greeting (Chrome)", function () {
             global.navigator.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
-            const rendered = mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory}
-                                                                     routes={stubRoutes}/>);
+            mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory} routes={stubRoutes}/>);
 
-            expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(5);
             sinon.assert.calledWith(logger.info, sinon.match(/Hey! I see you looking over there./));
             sinon.assert.calledWith(logger.info, sinon.match(/https:\/\/chrome\.google\.com\/webstore\/detail\/redux-devtools/m));
@@ -79,10 +73,8 @@ describe("ClientReduxRouterRoot", function () {
 
         it("logs a greeting (IE)", function () {
             global.navigator.userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-            const rendered = mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory}
-                                                                     routes={stubRoutes}/>);
+            mount(stubStore)(<ClientReduxRouterRoot store={stubStore} history={stubHistory} routes={stubRoutes}/>);
 
-            expect(rendered).to.be.ok;
             expect(logger.info.callCount).to.eql(4);
             sinon.assert.calledWith(logger.info, sinon.match(/Hey! I see you looking over there./));
             expect(logger.warn.callCount).to.eql(1);
@@ -94,10 +86,13 @@ describe("ClientReduxRouterRoot", function () {
         const stubProps = {
             woof: "meow"
         };
-        const rendered = mount(stubStore)(<ClientReduxRouterRoot {...stubProps} store={stubStore} history={stubHistory}
-                                                                 routes={stubRoutes}/>);
+        const rendered = mount(stubStore)(<ClientReduxRouterRoot
+            {...stubProps}
+            store={stubStore}
+            history={stubHistory}
+            routes={stubRoutes}
+        />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.descendants(Provider);
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
         expect(rendered).to.have.descendants(ErrorWrapper);

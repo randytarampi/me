@@ -114,7 +114,6 @@ describe("Gallery", function () {
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--gallery");
                 expect(rendered).to.have.descendants(".post-metadata");
@@ -181,7 +180,6 @@ describe("Gallery", function () {
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--gallery");
                 expect(rendered).to.not.have.prop("style");
@@ -217,13 +215,10 @@ describe("Gallery", function () {
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--gallery");
 
                 const component = rendered.instance();
-                expect(component).to.be.ok;
-                expect(component.selected).to.be.ok;
                 expect(component.selected).to.eql(stubGallery.largestPhoto.getSizedPhotoForLoading());
             });
 
@@ -237,13 +232,10 @@ describe("Gallery", function () {
                 };
                 const rendered = shallow(<GalleryComponent {...stubProps}/>);
 
-                expect(rendered).to.be.ok;
                 expect(rendered).to.have.id(stubProps.post.uid);
                 expect(rendered).to.have.className("post--gallery");
 
                 const component = rendered.instance();
-                expect(component).to.be.ok;
-                expect(component.selected).to.be.ok;
                 expect(component.selected).to.eql(stubGallery.largestPhoto.sortedSizedPhotos.last());
             });
         });

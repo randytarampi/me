@@ -80,7 +80,6 @@ describe("searchPosts", function () {
 
         const postsResult = await proxyquiredSeachPosts.default(stubSearchParams);
 
-        expect(postsResult).to.be.ok;
         expect(postsResult).to.eql({
             posts: stubPosts,
             total: 2,

@@ -48,7 +48,6 @@ describe("buildPugLocalsBuilder", function () {
             printableComponent: stubPrintableComponent,
             printableStylesPath: stubPrintableStylesPath
         });
-        expect(pugLocalsBuilder).to.be.ok;
         expect(pugLocalsBuilder).to.be.instanceof(Function);
         expect(renderJsxModule.renderJsx.calledOnce).to.be.ok;
         sinon.assert.calledWith(renderJsxModule.renderJsx, stubPrintableComponent);
@@ -56,7 +55,6 @@ describe("buildPugLocalsBuilder", function () {
         sinon.assert.calledWith(renderCssModule.renderCss, stubPrintableStylesPath);
 
         const pugLocalsBuilderOutput = pugLocalsBuilder(stubRenderLocals);
-        expect(pugLocalsBuilderOutput).to.be.ok;
         expect(pugLocalsBuilderOutput).to.contain({
             assetUrl: "",
             content: stubRenderedJsx,

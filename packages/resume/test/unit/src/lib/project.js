@@ -37,7 +37,6 @@ describe("Project", function () {
                 roles: List(stubProjectJs.roles)
             });
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.name).to.eql(stubProjectJs.name);
             expect(project.type).to.eql(stubProjectJs.type);
@@ -55,7 +54,6 @@ describe("Project", function () {
         it("returns an empty Project", function () {
             const project = new Project();
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.startDate).to.eql(null);
             expect(project.endDate).to.eql(null);
@@ -73,7 +71,6 @@ describe("Project", function () {
                 endDate: DateTime.fromISO(stubProjectJs.endDate).toJSDate()
             });
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.name).to.eql(stubProjectJs.name);
             expect(project.type).to.eql(stubProjectJs.type);
@@ -91,7 +88,6 @@ describe("Project", function () {
         it("returns an empty Project", function () {
             const project = Project.fromJS();
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.startDate).to.eql(null);
             expect(project.endDate).to.eql(null);
@@ -107,7 +103,6 @@ describe("Project", function () {
                 ...stubProjectJs
             });
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.name).to.eql(stubProjectJs.name);
             expect(project.type).to.eql(stubProjectJs.type);
@@ -125,7 +120,6 @@ describe("Project", function () {
         it("returns an empty Project", function () {
             const project = Project.fromJSON();
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.startDate).to.eql(null);
             expect(project.endDate).to.eql(null);
@@ -141,7 +135,6 @@ describe("Project", function () {
                 ...stubProjectJs
             });
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.name).to.eql(stubProjectJs.name);
             expect(project.type).to.eql(stubProjectJs.type);
@@ -159,7 +152,6 @@ describe("Project", function () {
         it("returns an empty Project", function () {
             const project = Project.fromResume();
 
-            expect(project).to.be.ok;
             expect(project).to.be.instanceOf(Project);
             expect(project.startDate).to.eql(null);
             expect(project.endDate).to.eql(null);

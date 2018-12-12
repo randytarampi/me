@@ -18,7 +18,6 @@ describe("renderHtml", function () {
     it("works with the default resume.json", function () {
         const resumeHtml = renderHtml();
 
-        expect(resumeHtml).to.be.ok;
         expect(resumeHtml).to.be.a("string");
         expect(resumeHtml).to.have.string(resumeJson.basics.name);
     });
@@ -29,7 +28,6 @@ describe("renderHtml", function () {
         const resume = Resume.fromResume(stubResumeJson);
         const resumeHtml = renderHtml(resume);
 
-        expect(resumeHtml).to.be.ok;
         expect(resumeHtml).to.be.a("string");
         expect(resumeHtml).to.have.string(stubResumeJson.basics.name);
     });

@@ -9,7 +9,6 @@ describe("Footer", function () {
         const stubChildren = <span className="Woof">Woof woof woof</span>;
         const rendered = shallow(<Footer>{stubChildren}</Footer>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <footer id="footer" className="printable-footer">
                 <Container>

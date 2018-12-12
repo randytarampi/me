@@ -217,7 +217,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getCachedPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
             expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
@@ -260,7 +259,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getAllCachedPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
             expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
@@ -303,7 +301,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getServicePosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -329,7 +326,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getServicePosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.be.empty;
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -349,7 +345,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getAllServicePosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -375,7 +370,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getAllServicePosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.be.empty;
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -395,7 +389,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.notCalled).to.eql(true);
             expect(stubPostsGetter.notCalled).to.eql(true);
@@ -423,7 +416,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -450,7 +442,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getAllPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.notCalled).to.eql(true);
             expect(stubAllPostsGetter.notCalled).to.eql(true);
@@ -478,7 +469,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const posts = await cachedDataSource.getAllPosts(stubParams);
 
-            expect(posts).to.be.ok;
             expect(posts).to.eql(stubPosts);
             expect(stubBeforePostsGetter.calledOnce).to.eql(true);
             expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
@@ -513,7 +503,6 @@ describe("CachedDataSource", function () {
 
             return cachedDataSource.cachedPostGetter(stubPost.id)
                 .then(cachedPost => {
-                    expect(cachedPost).to.be.ok;
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
@@ -540,7 +529,6 @@ describe("CachedDataSource", function () {
 
             return cachedDataSource.cachedPostGetter(stubPost.id, stubSearchParams)
                 .then(cachedPost => {
-                    expect(cachedPost).to.be.ok;
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
                     expect(stubGetPost.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPost, {
@@ -560,7 +548,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getCachedPost(stubPost.id, stubParams);
 
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPost);
             expect(stubBeforeCachedPostGetter.calledOnce).to.eql(true);
             expect(stubBeforeCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
@@ -603,7 +590,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getServicePost(stubPost.id, stubParams);
 
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPost);
             expect(stubBeforePostGetter.calledOnce).to.eql(true);
             expect(stubBeforePostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
@@ -642,7 +628,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getPost(stubPost.id, stubParams);
 
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPost);
             expect(stubBeforePostGetter.notCalled).to.eql(true);
             expect(stubPostGetter.notCalled).to.eql(true);
@@ -670,7 +655,6 @@ describe("CachedDataSource", function () {
             const stubParams = SearchParams.fromJS();
             const post = await cachedDataSource.getPost(stubPost.id, stubParams);
 
-            expect(post).to.be.ok;
             expect(post).to.eql(stubPost);
             expect(stubBeforePostGetter.calledOnce).to.eql(true);
             expect(stubBeforePostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);

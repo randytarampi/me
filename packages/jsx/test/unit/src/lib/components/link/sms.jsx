@@ -13,7 +13,6 @@ describe("SmsLink", function () {
         };
         const rendered = shallow(<SmsLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--sms"
@@ -34,7 +33,6 @@ describe("SmsLink", function () {
         };
         const rendered = shallow(<SmsLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--sms link--no-branding"
@@ -54,7 +52,6 @@ describe("SmsLink", function () {
         };
         const rendered = shallow(<SmsLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--sms link--no-branding"
@@ -74,7 +71,6 @@ describe("SmsLink", function () {
         };
         const rendered = shallow(<SmsLink {...stubProps}/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.containMatchingElement(
             <Link
                 className="link--sms link--no-branding"

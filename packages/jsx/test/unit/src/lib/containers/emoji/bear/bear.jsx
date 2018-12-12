@@ -33,7 +33,6 @@ describe("ConnectedBear", function () {
 
         const rendered = shallow(stubStore)(<ConnectedBear {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -49,7 +48,6 @@ describe("ConnectedBear", function () {
 
         const rendered = shallow(stubStore)(<ConnectedBear {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -65,7 +63,6 @@ describe("ConnectedBear", function () {
 
         const rendered = shallow(stubStore)(<ConnectedBear {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 
@@ -91,7 +88,6 @@ describe("ConnectedBear", function () {
 
         const rendered = shallow(stubStore)(<ConnectedBear {...stubProps} />);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.have.props(stubProps);
         expect(rendered).to.have.prop("emoji");
 

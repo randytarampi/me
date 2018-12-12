@@ -17,8 +17,6 @@ describe("ResumeProjects", function () {
     it("renders", function () {
         const rendered = shallow(<ResumeProjects resume={stubResume}/>);
 
-        expect(rendered).to.be.ok;
-
         const printableSection = rendered.find(PrintableSection);
         expect(printableSection).to.have.length(1);
         expect(printableSection).to.have.prop("printableType", "resume");

@@ -19,7 +19,6 @@ describe("assemblePrintable", function () {
         const stubPrintableFilename = "test";
         const assembledPrintable = assemblePrintable(stubPrintableBuilder)(path.join(__dirname, `../../../resources/${stubPrintableFilename}`));
 
-        expect(assembledPrintable).to.be.ok;
         expect(assembledPrintable).to.eql({
             printableJson: {},
             printableFilename: stubPrintableFilename

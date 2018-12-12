@@ -64,7 +64,6 @@ describe("metrics", function () {
             metrics()(stubNext)(stubAction);
             throw new Error("Wtf? This should've thrown");
         } catch (error) {
-            expect(error).to.be.ok;
             expect(error.message).to.eql("woof");
             expect(stubNext.calledOnce).to.eql(true);
             expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);

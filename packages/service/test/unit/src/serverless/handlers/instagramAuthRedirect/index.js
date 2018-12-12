@@ -84,7 +84,6 @@ describe("instagramAuthRedirect", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql(stubError.message);
                 done();
             } catch (expectationError) {

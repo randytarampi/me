@@ -18,7 +18,6 @@ describe("LetterSection", function () {
             };
             const letterSection = new LetterSection(stubLetterSection);
 
-            expect(letterSection).to.be.ok;
             expect(letterSection).to.be.instanceOf(LetterSection);
             expect(letterSection.contentKey).to.eql(stubLetterSection.contentKey);
             expect(letterSection.sectionId).to.eql(stubLetterSection.sectionId);
@@ -47,7 +46,6 @@ describe("LetterSection", function () {
             };
             const letterSection = LetterSection.fromJS(stubLetterSection);
 
-            expect(letterSection).to.be.ok;
             expect(letterSection).to.be.instanceOf(LetterSection);
             expect(letterSection.contentKey).to.eql(stubLetterSection.contentKey);
             expect(letterSection.sectionId).to.eql(stubLetterSection.sectionId);
@@ -76,7 +74,6 @@ describe("LetterSection", function () {
             };
             const letterSection = LetterSection.fromJSON(stubLetterSection);
 
-            expect(letterSection).to.be.ok;
             expect(letterSection.contentKey).to.eql(stubLetterSection.contentKey);
             expect(letterSection.sectionId).to.eql(stubLetterSection.sectionId);
             expect(letterSection.sectionProps).to.eql(stubLetterSection.sectionProps);

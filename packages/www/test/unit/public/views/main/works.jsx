@@ -24,7 +24,6 @@ describe("Works", function () {
     it("renders", function () {
         const rendered = shallow(stubStore)(<Works/>);
 
-        expect(rendered).to.be.ok;
         expect(rendered).to.contain(
             <h2>
                 <span className="text">Still reading eh?</span>

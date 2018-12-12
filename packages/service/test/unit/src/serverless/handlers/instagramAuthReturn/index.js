@@ -96,7 +96,6 @@ describe("instagramAuthReturn", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql(stubError.message);
                 done();
             } catch (expectationError) {
@@ -143,7 +142,6 @@ describe("instagramAuthReturn", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql("Tried to handle Instagram authentication response, but no `code` was received");
                 expect(error.code).to.eql(codes.badRequest);
                 expect(error.statusCode).to.eql(codeToStatusCode[codes.badRequest]);

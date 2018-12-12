@@ -34,7 +34,6 @@ describe("assemblePrintables", function () {
 
         return assemblePrintables(stubPrintableBuilder)(stubDirectory)
             .then(letters => {
-                expect(letters).to.be.ok;
                 expect(letters).to.have.length(stubFiles.length);
                 expect(stubPrintableBuilder.callCount).to.eql(3);
                 stubFiles.map(stubFile => sinon.assert.calledWith(stubPrintableBuilder, path.join(stubDirectory, stubFile)));
@@ -56,7 +55,6 @@ describe("assemblePrintables", function () {
                 throw new Error("Wtf? This should've thrown");
             })
             .catch(error => {
-                expect(error).to.be.ok;
                 expect(error.message).to.eql("ʕ•ᴥ•ʔ");
             });
     });

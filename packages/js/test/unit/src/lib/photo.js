@@ -43,7 +43,6 @@ describe("Photo", () => {
         it("returns an empty Photo", function () {
             const photo = new Photo();
 
-            expect(photo).to.be.ok;
             expect(photo).to.be.instanceOf(Photo);
         });
     });
@@ -78,13 +77,11 @@ describe("Photo", () => {
 
             const photoFromJson = Photo.fromJSON(photoJson);
 
-            expect(photoFromJson).to.be.ok;
             expect(photoFromJson.id).to.eql(photoJson.id);
             expect(photoFromJson.datePublished).to.be.instanceof(DateTime);
             expect(photoFromJson.sizedPhotos).to.be.instanceof(List);
             expect(photoFromJson.sizedPhotos.size).to.eql(photoJson.sizedPhotos.length);
             photoFromJson.sizedPhotos.forEach(sizedPhoto => {
-                expect(sizedPhoto).to.be.ok;
                 expect(sizedPhoto).to.be.instanceof(SizedPhoto);
             });
         });
@@ -121,13 +118,11 @@ describe("Photo", () => {
 
             const photofromJS = Photo.fromJS(photoJson);
 
-            expect(photofromJS).to.be.ok;
             expect(photofromJS.id).to.eql(photoJson.id);
             expect(photofromJS.datePublished).to.be.instanceof(DateTime);
             expect(photofromJS.sizedPhotos).to.be.instanceof(List);
             expect(photofromJS.sizedPhotos.size).to.eql(photoJson.sizedPhotos.length);
             photofromJS.sizedPhotos.forEach(sizedPhoto => {
-                expect(sizedPhoto).to.be.ok;
                 expect(sizedPhoto).to.be.instanceof(SizedPhoto);
             });
         });

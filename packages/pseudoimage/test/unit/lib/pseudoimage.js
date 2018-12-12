@@ -33,7 +33,6 @@ describe("pseudoimage", function () {
                 })
                 .catch(error => {
                     lwip.open.restore();
-                    expect(error).to.be.ok;
                     expect(error.message).to.match(/^Meow meow meow$/);
                 });
         });
@@ -52,7 +51,6 @@ describe("pseudoimage", function () {
                     throw new Error("This should've exploded");
                 })
                 .catch(error => {
-                    expect(error).to.be.ok;
                     expect(error.code).to.match(/^ENOTDIR$/);
                 });
         });

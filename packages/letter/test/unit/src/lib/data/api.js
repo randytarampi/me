@@ -47,7 +47,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql({
                 isLoading: true
             });
@@ -73,7 +72,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql(
                 stubInitialState
                     .get(stubFetchUrl)
@@ -99,7 +97,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql({
                 isLoading: false
             });
@@ -125,7 +122,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql(
                 stubInitialState
                     .get(stubFetchUrl)
@@ -152,14 +148,12 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql({
                 error: stubPayload.error,
                 isLoading: false
             });
 
             const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
-            expect(errorStateForUrl).to.be.ok;
             expect(errorStateForUrl).to.eql(stubPayload.error);
         });
 
@@ -180,7 +174,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql(
                 stubInitialState
                     .get(stubFetchUrl)
@@ -190,7 +183,6 @@ describe("api", function () {
             );
 
             const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
-            expect(errorStateForUrl).to.be.ok;
             expect(errorStateForUrl).to.eql(stubPayload.error);
         });
     });
@@ -207,7 +199,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql({
                 isLoading: false
             });
@@ -233,7 +224,6 @@ describe("api", function () {
             expect(apiStateForUrl).to.be.ok;
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
-            expect(apiStateForUrlObject).to.be.ok;
             expect(apiStateForUrlObject).to.eql(
                 stubInitialState
                     .get(stubFetchUrl)

@@ -33,7 +33,6 @@ describe("error", function () {
         const otherAction = createAction("OTHER_ACTION");
         const updatedState = reducer(stubInitialState, otherAction(stubPayload));
         const errorState = getErrorState(updatedState);
-        expect(errorState).to.be.ok;
         expect(errorState.size).to.eql(0);
 
         const errorExists = hasError(errorState);

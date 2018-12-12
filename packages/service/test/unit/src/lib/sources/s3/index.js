@@ -201,10 +201,8 @@ describe("S3Source", function () {
 
             return s3Source.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Post);
                     });
                     sinon.assert.calledOnce(stubServiceClient.listObjectsV2);
@@ -221,11 +219,9 @@ describe("S3Source", function () {
 
             return s3Source.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.have.length(stubPosts.length + 1);
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Post);
                     });
                     sinon.assert.calledTwice(stubServiceClient.listObjectsV2);
@@ -247,7 +243,6 @@ describe("S3Source", function () {
 
             return s3Source.postsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.listObjectsV2);
@@ -266,11 +261,9 @@ describe("S3Source", function () {
 
             return s3Source.allPostsGetter(stubParams)
                 .then(posts => {
-                    expect(posts).to.be.ok;
                     expect(posts).to.have.length(stubPosts.length + 1);
                     expect(posts).to.be.instanceof(Array);
                     posts.map(post => {
-                        expect(post).to.be.ok;
                         expect(post).to.be.instanceof(Post);
                     });
                     sinon.assert.calledTwice(stubServiceClient.listObjectsV2);
@@ -293,7 +286,6 @@ describe("S3Source", function () {
 
             return s3Source.postGetter(stubPost.id, SearchParams.fromJS())
                 .then(post => {
-                    expect(post).to.be.ok;
                     expect(post).to.be.instanceof(Post);
                     sinon.assert.calledOnce(stubServiceClient.getObject);
                     sinon.assert.calledWith(stubServiceClient.getObject, {
