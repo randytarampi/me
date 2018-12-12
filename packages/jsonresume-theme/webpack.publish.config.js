@@ -4,6 +4,7 @@ const {webpackNodeExternalsWhitelist} = require("../../util");
 const nodeExternals = require("webpack-node-externals");
 
 module.exports = webpackBaseConfig({
+    babelEnv: "publish",
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "es5"),
     entry: {
