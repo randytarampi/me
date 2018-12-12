@@ -8,7 +8,7 @@ import {formatIndexForMaterializeTabs} from "../util";
 export const uiMiddleware = store => next => action => {
     switch (action.type) {
         case LOCATION_CHANGE: {
-            const swipeableTabs = $("#swipeable-nav-tabs");
+            const swipeableTabs = $(".nav-tabs__swipeable");
 
             if (swipeableTabs.tabs) {
                 const state = store.getState();
@@ -19,7 +19,7 @@ export const uiMiddleware = store => next => action => {
                 if (swipeableTabs.length) {
                     swipeableTabs.tabs("select_tab", `tab_${expectedTabIndex}`);
                 } else {
-                    setTimeout(() => $("#swipeable-nav-tabs").tabs("select_tab", `tab_${expectedTabIndex}`), 50);
+                    setTimeout(() => $(".nav-tabs__swipeable").tabs("select_tab", `tab_${expectedTabIndex}`), 50);
                 }
             }
             break;
