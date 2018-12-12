@@ -82,7 +82,6 @@ module.exports = ({
                     exclude: babelLoaderExclusions,
                     loader: "babel-loader",
                     options: {
-                        cacheDirectory: true,
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
                         envName: babelEnv
                     }
