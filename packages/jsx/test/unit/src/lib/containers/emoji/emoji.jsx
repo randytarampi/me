@@ -10,7 +10,7 @@ import * as instantiateEmojiAction from "../../../../../../src/lib/actions/emoji
 import * as onComponentClickAction from "../../../../../../src/lib/actions/emoji/onComponentClick";
 import Emoji from "../../../../../../src/lib/containers/emoji";
 import selectors from "../../../../../../src/lib/data/selectors";
-import {shallow} from "../../../../../util";
+import {shallow} from "../../../../../../src/test/util";
 
 describe("ConnectedEmoji", function () {
     let mockStore;

@@ -51,8 +51,8 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./index.js",
-  "main": "./index.js",
+  "module": "./build/index.js",
+  "main": "./build/index.js",
   "directories": {
     "lib": "./src/lib"
   }

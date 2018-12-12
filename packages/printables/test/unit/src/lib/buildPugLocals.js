@@ -1,7 +1,6 @@
 import * as viewsBuildPugLocalsModule from "@randy.tarampi/views/src/lib/buildPugLocals";
 import {expect} from "chai";
 import sinon from "sinon";
-import packageJson from "../../../../package";
 import {buildPugLocalsBuilder} from "../../../../src/lib/buildPugLocals";
 import * as renderCssModule from "../../../../src/lib/renderCss";
 import * as renderJsxModule from "../../../../src/lib/renderJsx";
@@ -20,7 +19,7 @@ describe("buildPugLocalsBuilder", function () {
         stubJsxRenderer = sinon.stub().returns(stubRenderedJsx);
         sinon.stub(renderJsxModule, "renderJsx").returns(stubJsxRenderer);
 
-        stubRenderedHelmet = "meow";
+        stubRenderedHelmet = null;
         sinon.stub(renderJsxModule, "getRenderedHelmet").returns(stubRenderedHelmet);
 
         stubRenderedCss = "grr";
@@ -58,11 +57,10 @@ describe("buildPugLocalsBuilder", function () {
 
         const pugLocalsBuilderOutput = pugLocalsBuilder(stubRenderLocals);
         expect(pugLocalsBuilderOutput).to.be.ok;
-        expect(pugLocalsBuilderOutput).to.eql({
-            packageJson,
+        expect(pugLocalsBuilderOutput).to.contain({
+            assetUrl: "",
             content: stubRenderedJsx,
             css: stubRenderedCss,
-            helmetContent: stubRenderedHelmet,
             environment: "printable",
             ...stubRenderLocals
         });

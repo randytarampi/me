@@ -11,7 +11,7 @@ import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
 import reducers from "../../../../src/lib/data/reducers";
 import configureOfflineStore from "../../../../src/lib/store/configureOfflineStore";
 import * as renderSwipeableRoutesModule from "../../../../src/lib/util/renderSwipeableRoutes";
-import {mount} from "../../../util";
+import {mount} from "../../../../src/test/util";
 
 describe("ClientSwipeableReduxRouterRoot", function () {
     const globalNavigator = global.navigator;

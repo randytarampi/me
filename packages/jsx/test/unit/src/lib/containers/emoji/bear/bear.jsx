@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 import sinon from "sinon";
 import {ConnectedBear} from "../../../../../../../src/lib";
 import * as onBearComponentClickAction from "../../../../../../../src/lib/actions/emoji/onBearComponentClick";
-import {shallow} from "../../../../../../util";
+import {shallow} from "../../../../../../../src/test/util";
 
 describe("ConnectedBear", function () {
     let mockStore;

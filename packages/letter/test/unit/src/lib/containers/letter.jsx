@@ -1,4 +1,4 @@
-import * as api from "@randy.tarampi/jsx/s../../src/lib/data/api";
+import * as api from "@randy.tarampi/jsx/src/lib/data/api";
 import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
 import {Map} from "immutable";

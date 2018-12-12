@@ -94,10 +94,10 @@ module.exports.testIntegration = ({relativePath, gulp}) => gulp.task("test.integ
 });
 module.exports.test = ({gulp}) => gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
 
-module.exports.webpack = ({relativePath, gulp}) => gulp.task("webpack", callback => {
+module.exports.webpack = ({relativePath, webpackConfigName = "./webpack.client.config", gulp, taskName = "webpack"}) => gulp.task(taskName, callback => {
     const path = require("path");
     const Webpack = require("webpack");
-    const webpackConfig = require(path.join(relativePath, "./webpack.client.config"));
+    const webpackConfig = require(path.join(relativePath, webpackConfigName));
 
     Webpack(webpackConfig, function (error, stats) {
         if (error) {

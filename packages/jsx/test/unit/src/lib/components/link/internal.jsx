@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 import sinon from "sinon";
 import Link from "../../../../../../src/lib/components/link";
 import InternalLink, * as internalLinks from "../../../../../../src/lib/components/link/internal";
-import {mount} from "../../../../../util";
+import {mount} from "../../../../../../src/test/util";
 
 describe("InternalLink", function () {
     let mockStore;

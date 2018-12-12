@@ -6,7 +6,7 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
-import {shallow} from "../../../../../../util";
+import {shallow} from "../../../../../../../src/test/util";
 
 describe("ConnectedHelloBear", function () {
     let mockStore;

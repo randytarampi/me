@@ -49,15 +49,16 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./index.js",
-  "main": "./index.js",
+  "module": "./build/index.server.js",
+  "main": "./build/index.server.js",
+  "browser": "./build/index.client.js",
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "files": [
     "build",
-    "npm-shrinkwrap.json",
-    "index.js"
+    "html.js",
+    "npm-shrinkwrap.json"
   ]
 }

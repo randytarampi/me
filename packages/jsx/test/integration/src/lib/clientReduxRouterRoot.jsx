@@ -10,7 +10,7 @@ import {ClientReduxRouterRoot} from "../../../../src/lib/clientReduxRouterRoot";
 import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
 import reducers from "../../../../src/lib/data/reducers";
 import configureOfflineStore from "../../../../src/lib/store/configureOfflineStore";
-import {mount} from "../../../util";
+import {mount} from "../../../../src/test/util";
 
 describe("ClientReduxRouterRoot", function () {
     const globalNavigator = global.navigator;

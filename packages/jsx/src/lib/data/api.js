@@ -57,7 +57,10 @@ export default apiReducer;
 
 // NOTE-RT: Global selectors
 export const getApiState = state => state;
-export const getApiStateForUrl = (state, url) => getApiState(state).get(url);
+export const getApiStateForUrl = (state, url) => {
+    const apiState = getApiState(state);
+    return apiState && apiState.get(url);
+};
 
 // NOTE-RT: Utility functions
 export const isUrlStateLoading = urlState => urlState && urlState.get("isLoading");

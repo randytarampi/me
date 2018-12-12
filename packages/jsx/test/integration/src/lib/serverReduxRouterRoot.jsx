@@ -9,7 +9,7 @@ import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
 import reducers from "../../../../src/lib/data/reducers";
 import {ServerReduxRouterRoot} from "../../../../src/lib/serverReduxRouterRoot";
 import configureStore from "../../../../src/lib/store/configureStore";
-import {mount} from "../../../util";
+import {mount} from "../../../../src/test/util";
 
 describe("ServerReduxRouterRoot", function () {
     let stubInitialState;

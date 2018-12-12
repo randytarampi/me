@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
 import selectors from "../../../../../src/lib/data/selectors";
-import {shallow} from "../../../../util";
+import {shallow} from "../../../../../src/test/util";
 
 describe("Error", function () {
     let mockStore;

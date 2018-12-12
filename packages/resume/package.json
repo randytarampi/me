@@ -103,8 +103,9 @@
   "engines": {
     "node": ">=8"
   },
-  "main": "./index.server.js",
-  "browser": "./index.client.js",
+  "main": "./build/index.server.js",
+  "module": "./build/index.server.js",
+  "browser": "./build/index.client.js",
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
@@ -112,11 +113,11 @@
   "files": [
     "build/!(resume*)",
     "build/resumes/index.js",
+    "build/index.client.js",
+    "build/index.server.js",
     "build/resumes/resume.json",
     "styles",
     "npm-shrinkwrap.json",
-    "dist/styles.css",
-    "index.client.js",
-    "index.server.js"
+    "dist/styles.css"
   ]
 }

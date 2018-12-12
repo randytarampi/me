@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {RenderedSwipeableRoutes, renderRoute} from "../../../../../src/lib/util/renderSwipeableRoutes";
 import routes from "../../../../build/routes";
-import {shallow} from "../../../../util";
+import {shallow} from "../../../../../src/test/util";
 
 describe("renderSwipeableRoutes", function () {
     let mockStore;
