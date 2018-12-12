@@ -121,5 +121,8 @@
     "esm",
     "test.js",
     "npm-shrinkwrap.json"
+  ],
+  "sideEffects": [
+    "./src/lib/index.client.js"
   ]
 }

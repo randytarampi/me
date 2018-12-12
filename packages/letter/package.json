@@ -111,5 +111,6 @@
     "npm-shrinkwrap.json",
     "dist/styles.css",
     "src/letters/letter.json"
-  ]
+  ],
+  "sideEffects": false
 }

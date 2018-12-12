@@ -64,5 +64,6 @@
     "esm",
     "html.js",
     "npm-shrinkwrap.json"
-  ]
+  ],
+  "sideEffects": false
 }

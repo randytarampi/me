@@ -57,5 +57,6 @@
   "main": "./es5/index.js",
   "directories": {
     "lib": "./src/lib"
-  }
+  },
+  "sideEffects": false
 }

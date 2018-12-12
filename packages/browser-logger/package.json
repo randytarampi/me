@@ -69,5 +69,6 @@
     "es5",
     "esm",
     "npm-shrinkwrap.json"
-  ]
+  ],
+  "sideEffects": false
 }

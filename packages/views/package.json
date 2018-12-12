@@ -55,5 +55,6 @@
     "templates",
     "dist",
     "npm-shrinkwrap.json"
-  ]
+  ],
+  "sideEffects": false
 }
