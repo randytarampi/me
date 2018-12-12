@@ -138,7 +138,7 @@ html(lang="en")
             script(nomodule src=assetUrl + "/vendor.js")
             script(nomodule src=assetUrl + "/" + bundleName + ".js")
             if !!esmBundleName
-                script(src=assetUrl + "/vendor.esm.js")
+                script(type="module" src=assetUrl + "/vendor.esm.js")
                 script(type="module" src=assetUrl + "/" + esmBundleName + ".js")
             if !!serviceWorkerInstallerBundleName
                 script(type="module" src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js")
