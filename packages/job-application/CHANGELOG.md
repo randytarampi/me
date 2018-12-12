@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.1](https://github.com/randytarampi/me/compare/v2.10.0...v2.10.1) (2018-12-12)
+
+
+### Bug Fixes
+
+* **jsx:** Fix `materialize-css` test setup. ([fbf64ed](https://github.com/randytarampi/me/commit/fbf64ed))
+
+
+
+
+
 # [2.10.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.10.0) (2018-12-12)
 
 
