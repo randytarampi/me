@@ -97,6 +97,7 @@
     "serverless-webpack": "^5.2.0",
     "sinon": "^7.1.0",
     "syncpack": "^3.0.0",
+    "terser-webpack-plugin": "^1.1.0",
     "uglifyjs-webpack-plugin": "^2.0.0",
     "vinyl-paths": "^2.1.0",
     "webpack": "^4.16.0",

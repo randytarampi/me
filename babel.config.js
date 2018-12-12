@@ -329,6 +329,9 @@ module.exports = (api) => {
 
         case "publish":
         case "client.esm": {
+            if (isDevelopment) {
+                plugins.push("react-hot-loader/babel");
+            }
             presets = [
                 [
                     "@babel/preset-env",
@@ -336,8 +339,8 @@ module.exports = (api) => {
                         targets: {
                             esmodules: true
                         },
-                        modules: false,
-                        useBuiltIns: "entry"
+                        useBuiltIns: "entry",
+                        modules: false
                     }
                 ],
                 [

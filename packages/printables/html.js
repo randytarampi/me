@@ -1,1 +1,1 @@
-module.exports = require("./build/lib/html");
+module.exports = require("./esm/lib/html");

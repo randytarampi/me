@@ -46,6 +46,8 @@ jspm_packages
 # Compiled resources
 dist
 build
+es5
+esm
 .webpack
 *.pdf_original
 

@@ -15,9 +15,11 @@
     "test": "NODE_ENV=test gulp -LLLL --color test",
     "build": "npm run build:gulp && npm run build:babel",
     "build:gulp": "gulp -LLLL --color build",
-    "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
+    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./build\" ]; then exit 74; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepublishOnly": "npm shrinkwrap",
     "start": "npm run dev",
     "dev": "npm run dev:client",
@@ -107,15 +109,16 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./build/index.server.js",
-  "main": "./build/index.server.js",
-  "browser": "./build/index.client.js",
+  "main": "./es5/index.client.js",
+  "module": "./esm/index.server.js",
+  "browser": "./esm/index.client.js",
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "files": [
-    "build",
+    "es5",
+    "esm",
     "test.js",
     "npm-shrinkwrap.json"
   ]

@@ -18,7 +18,14 @@ const plugins = [
     })
 ];
 
-module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverrides}) => {
+module.exports = ({
+                      sourceDirectoryPath,
+                      compliationDirectoryPath,
+                      plugins: otherPlugins = [],
+                      babelEnv = "client",
+                      babelLoaderExclusions = util.babelLoaderExclusions,
+                      ...configOverrides
+                  }) => {
     return {
         mode: resolveMode(),
         devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
@@ -34,16 +41,17 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, ...configOverr
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: util.babelLoaderExclusions,
+                    exclude: babelLoaderExclusions,
                     loader: "babel-loader",
                     options: {
+                        cacheDirectory: true,
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
-                        envName: "publish"
+                        envName: babelEnv
                     }
                 }
             ]
         },
-        plugins,
+        plugins: plugins.concat(otherPlugins),
         ...configOverrides
     };
 };

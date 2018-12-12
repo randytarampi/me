@@ -53,7 +53,16 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], publicPath = "/", babelEnv = "client", ...configOverrides}) => {
+module.exports = ({
+                      sourceDirectoryPath,
+                      compliationDirectoryPath,
+                      webpackServeMiddleware,
+                      plugins: otherPlugins = [],
+                      publicPath = "/",
+                      babelEnv = "client",
+                      babelLoaderExclusions = util.babelLoaderExclusions,
+                      ...configOverrides
+                  }) => {
     return {
         target: "web",
         mode: resolveMode(),
@@ -70,9 +79,10 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: util.babelLoaderExclusions,
+                    exclude: babelLoaderExclusions,
                     loader: "babel-loader",
                     options: {
+                        cacheDirectory: true,
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
                         envName: babelEnv
                     }
@@ -172,7 +182,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                         app.use(middleware);
                     });
                 }
-                
+
                 middleware.webpack();
                 middleware.content();
             },

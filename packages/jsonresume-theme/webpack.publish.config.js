@@ -5,7 +5,7 @@ const nodeExternals = require("webpack-node-externals");
 
 module.exports = webpackBaseConfig({
     sourceDirectoryPath: __dirname,
-    compliationDirectoryPath: path.join(__dirname, "build"),
+    compliationDirectoryPath: path.join(__dirname, "es5"),
     entry: {
         index: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "./src/index.js")]
     },

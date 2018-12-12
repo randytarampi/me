@@ -24,7 +24,9 @@
     "postinstall": "mkdir -p dist",
     "pretest": "gulp -LLLL --color lint",
     "build": "npm run build:babel",
-    "build:babel": "BABEL_ENV=publish babel src --out-dir build --root-mode upward --copy-files",
+    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
@@ -51,8 +53,8 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./build/index.js",
-  "main": "./build/index.js",
+  "module": "./esm/index.js",
+  "main": "./es5/index.js",
   "directories": {
     "lib": "./src/lib"
   }

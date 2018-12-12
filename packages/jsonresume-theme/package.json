@@ -44,12 +44,14 @@
     "pretest": "gulp -LLLL --color lint",
     "test": "NODE_ENV=test npm run resume",
     "start": "npm run resume",
-    "build": "npm run build:copy && npm run build:webpack",
+    "build": "npm run build:copy && npm run build:webpack && npm run build:babel",
     "build:copy": "mkdir -p dist && cp ./node_modules/@randy.tarampi/views/templates/index.pug ./dist/index.pug && cp ./node_modules/@randy.tarampi/views/templates/layout.pug ./dist/layout.pug && cp ./node_modules/@randy.tarampi/resume/dist/styles.css ./dist/styles.css && cp *.md dist/",
     "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config",
+    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel": "npm run build:babel:esm",
     "postinstall": "npm run resume:json",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./build\" ]; then exit 74; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepublishOnly": "npm shrinkwrap",
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\";",
@@ -71,6 +73,7 @@
     "config": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "latest",
     "gulp": "^4.0.0",
     "resume-cli": "^1.1.2",
     "webpack": "^4.16.0",
@@ -79,14 +82,15 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./build/index.js",
-  "main": "./build/index.js",
+  "module": "./esm/index.js",
+  "main": "./es5/index.js",
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "files": [
-    "build",
+    "es5",
+    "esm",
     "dist/*{pug,css}",
     "npm-shrinkwrap.json"
   ]

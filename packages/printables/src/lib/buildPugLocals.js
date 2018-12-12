@@ -1,5 +1,4 @@
 import * as viewsModule from "@randy.tarampi/views";
-import packageJson from "../../package";
 import {renderCss} from "./renderCss";
 import {getRenderedHelmet, renderJsx} from "./renderJsx";
 
@@ -12,7 +11,6 @@ export const buildPugLocalsBuilder = ({printableComponent, printableStylesPath})
         const helmetContent = getRenderedHelmet();
 
         return viewsModule.buildPugLocals({
-            packageJson,
             content,
             css,
             helmetContent,

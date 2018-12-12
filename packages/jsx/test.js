@@ -1,1 +1,1 @@
-module.exports = require("./build/test"); // eslint-disable-line import/no-unresolved
+module.exports = require("./esm/test"); // eslint-disable-line import/no-unresolved
