@@ -1,11 +1,11 @@
 /* global global */
 
-import "mock-local-storage";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import Enzyme from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import {JSDOM} from "jsdom";
+import "mock-local-storage";
 import packageJson from "../package.json";
 
 const jsdom = new JSDOM();
@@ -33,7 +33,6 @@ global.window.SENTRY_DSN = "https://meow@sentry.io/woof";
 global.window.LOGGER = {
     level: "trace",
     streams: {
-        console: true,
-        sentry: true,
+        console: true
     }
 };
