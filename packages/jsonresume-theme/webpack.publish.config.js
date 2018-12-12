@@ -7,7 +7,7 @@ module.exports = webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "es5"),
     entry: {
-        index: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "./src/index.js")]
+        index: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "./src/index.js")]
     },
     node: false,
     target: "node",

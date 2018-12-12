@@ -82,7 +82,6 @@
   "engines": {
     "node": ">=8"
   },
-  "module": "./esm/index.js",
   "main": "./es5/index.js",
   "directories": {
     "lib": "./src/lib",
