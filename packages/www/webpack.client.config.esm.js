@@ -21,7 +21,7 @@ const {
 } = util;
 
 module.exports = webpackBaseConfig({
-    babelLoaderExclusions: /\/node_modules\/(?:react|react-dom)$/,
+    babelLoaderExclusions: /\/node_modules\/(?:react|react-dom)\//,
     babelEnv: "client.esm",
 
     entry: {
