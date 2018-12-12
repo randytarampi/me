@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.10.0) (2018-12-12)
+
+
+### Bug Fixes
+
+* **views:** `esmBundleName` is paired up with a `vendor.esm` loaded as a module. ([0913e67](https://github.com/randytarampi/me/commit/0913e67))
+* **www:** Just roll with the old ES5 setup for now. ([223e579](https://github.com/randytarampi/me/commit/223e579))
+
+
+### Features
+
+* `build` produces ES modules, not ES5 compatible code. ([9ac0c2f](https://github.com/randytarampi/me/commit/9ac0c2f))
+* **www:** Build `esm` and `es5` assets. ([e72e925](https://github.com/randytarampi/me/commit/e72e925))
+* **www:** Build and serve ES Modules and old ES5 code. ([2a2c81c](https://github.com/randytarampi/me/commit/2a2c81c))
+* **www:** Start tree shaking. ([0ebf7f6](https://github.com/randytarampi/me/commit/0ebf7f6))
+
+
+
+
+
 # [2.9.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.9.0) (2018-12-12)
 
 

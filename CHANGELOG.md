@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.10.0) (2018-12-12)
+
+
+### Bug Fixes
+
+* **babel:** Just `require("[@babel](https://github.com/babel)/polyfill")` in `babel.register.js`. ([566afc6](https://github.com/randytarampi/me/commit/566afc6))
+* **js:** Check for `es5/` and `esm/` before publishing, not `build/`. ([391f42a](https://github.com/randytarampi/me/commit/391f42a))
+* **jsx:** Expect consumers of `[@randy](https://github.com/randy).tarampi/jsx` to bring their own `jquery` and `materialize-css`. ([f7b989c](https://github.com/randytarampi/me/commit/f7b989c))
+* **travis:** Need to be on a branch to `lerna version --no-git-tag-version`. ([f83ae62](https://github.com/randytarampi/me/commit/f83ae62))
+* **views:** `esmBundleName` is paired up with a `vendor.esm` loaded as a module. ([0913e67](https://github.com/randytarampi/me/commit/0913e67))
+* **webpack:** Don't cache `babel-loader` outputs. ([94bf0d5](https://github.com/randytarampi/me/commit/94bf0d5))
+* **www:** Define the ESM `babelLoaderExclusions` correctly. ([3525c07](https://github.com/randytarampi/me/commit/3525c07))
+* **www:** ESLint. ([ed8dbf5](https://github.com/randytarampi/me/commit/ed8dbf5))
+* **www:** Just roll with the old ES5 setup for now. ([223e579](https://github.com/randytarampi/me/commit/223e579))
+
+
+### Features
+
+* `build` produces ES modules, not ES5 compatible code. ([9ac0c2f](https://github.com/randytarampi/me/commit/9ac0c2f))
+* **www:** Build `esm` and `es5` assets. ([e72e925](https://github.com/randytarampi/me/commit/e72e925))
+* **www:** Build and serve ES Modules and old ES5 code. ([2a2c81c](https://github.com/randytarampi/me/commit/2a2c81c))
+* **www:** Start tree shaking. ([0ebf7f6](https://github.com/randytarampi/me/commit/0ebf7f6))
+
+
+### Reverts
+
+* chore(jsx): Prefer `#swipeable-nav-tabs` over `.nav-tabs__swipeable`. ([30836bb](https://github.com/randytarampi/me/commit/30836bb))
+
+
+
+
+
 # [2.9.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.9.0) (2018-12-12)
 
 

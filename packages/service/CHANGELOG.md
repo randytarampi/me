@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.10.0) (2018-12-12)
+
+
+### Features
+
+* `build` produces ES modules, not ES5 compatible code. ([9ac0c2f](https://github.com/randytarampi/me/commit/9ac0c2f))
+* **www:** Build `esm` and `es5` assets. ([e72e925](https://github.com/randytarampi/me/commit/e72e925))
+
+
+
+
+
 # [2.9.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.9.0) (2018-12-12)
 
 

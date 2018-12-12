@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.10.0) (2018-12-12)
+
+
+### Bug Fixes
+
+* **js:** Check for `es5/` and `esm/` before publishing, not `build/`. ([391f42a](https://github.com/randytarampi/me/commit/391f42a))
+
+
+### Features
+
+* `build` produces ES modules, not ES5 compatible code. ([9ac0c2f](https://github.com/randytarampi/me/commit/9ac0c2f))
+* **www:** Build `esm` and `es5` assets. ([e72e925](https://github.com/randytarampi/me/commit/e72e925))
+* **www:** Start tree shaking. ([0ebf7f6](https://github.com/randytarampi/me/commit/0ebf7f6))
+
+
+
+
+
 # [2.9.0](https://github.com/randytarampi/me/compare/v2.8.1...v2.9.0) (2018-12-12)
 
 
