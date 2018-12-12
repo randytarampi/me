@@ -25,7 +25,7 @@ module.exports = webpackBaseConfig({
     babelEnv: "client.esm",
 
     entry: {
-        [`${bundleName}.esm`]: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "src/public/views/index.jsx")],
+        [`${bundleName}.esm`]: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/views/index.jsx")],
         [`${swBundleInstallerName}.esm`]: path.join(__dirname, "src/public/sw/installer.js")
         // styles: path.join(__dirname, "./styles/style.scss")
     },

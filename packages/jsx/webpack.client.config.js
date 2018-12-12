@@ -5,6 +5,6 @@ module.exports = webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
     entry: {
-        jsx: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "./test/build/views/index.jsx")]
+        jsx: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "./test/build/views/index.jsx")]
     }
 });

@@ -16,7 +16,7 @@ const swBundleInstallerName = config.get("www.bundle.swInstaller");
 module.exports = webpackBaseConfig({
     babelEnv: "client.es5",
     entry: {
-        [bundleName]: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "src/public/views/index.jsx")],
+        [bundleName]: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/views/index.jsx")],
         [swBundleInstallerName]: path.join(__dirname, "src/public/sw/installer.js"),
         styles: path.join(__dirname, "./styles/style.scss")
     },
