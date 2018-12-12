@@ -1,32 +1,54 @@
+const util = require("../../util");
+
 const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const config = require("config");
-const webpackBaseConfig = require("../../webpack.client.config.base");
-const serve = require("koa-static");
-const mount = require("koa-mount");
+const webpackBaseConfig = require("./webpack.client.config.base");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const packageJson = require("./package");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const {DefinePlugin} = require("webpack");
 
 const publicPath = `${config.get("www.assetUrl")}/`;
-
 const bundleName = config.get("www.bundle.name");
 const swBundleName = config.get("www.bundle.sw");
 const swBundleInstallerName = config.get("www.bundle.swInstaller");
 
+const {
+    isDevelopment
+} = util;
+
 module.exports = webpackBaseConfig({
-    publicPath: publicPath,
-    sourceDirectoryPath: __dirname,
-    compliationDirectoryPath: path.join(__dirname, "dist"),
-    webpackServeMiddleware: [
-        mount("/api/resume", serve(path.join(__dirname, "../resume/src/resumes"))),
-        mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
-    ],
+    babelEnv: "client.esm",
     entry: {
-        [bundleName]: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "src/public/views/index.jsx")],
+        [`${bundleName}.esm`]: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "src/public/views/index.jsx")],
         [swBundleInstallerName]: path.join(__dirname, "src/public/sw/installer.js"),
         styles: path.join(__dirname, "./styles/style.scss")
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: util.webpackVendorInclusions,
+                    name: "vendor",
+                    filename: "vendor.esm.js",
+                    chunks: "all"
+                }
+            }
+        },
+        minimizer:
+            isDevelopment
+                ? []
+                : [
+                    new UglifyJsPlugin({
+                        cache: true,
+                        parallel: true,
+                        sourceMap: true
+                    }),
+                    new OptimizeCSSAssetsPlugin()
+                ]
     },
     plugins: [
         new WorkboxPlugin.GenerateSW({
@@ -70,5 +92,5 @@ module.exports = webpackBaseConfig({
         new DefinePlugin({
             __SW_BUNDLE_PATH__: JSON.stringify(path.join(publicPath, `${swBundleName}.js`))
         })
-    ]
+    ],
 });

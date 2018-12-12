@@ -53,8 +53,9 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], publicPath = "/", ...configOverrides}) => {
+module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMiddleware, plugins: otherPlugins = [], publicPath = "/", babelEnv = "client", ...configOverrides}) => {
     return {
+        target: "web",
         mode: resolveMode(),
         devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
         output: {
@@ -73,7 +74,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                     loader: "babel-loader",
                     options: {
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
-                        envName: "client"
+                        envName: babelEnv
                     }
                 },
                 {
@@ -196,10 +197,7 @@ module.exports = ({sourceDirectoryPath, compliationDirectoryPath, webpackServeMi
                         new UglifyJsPlugin({
                             cache: true,
                             parallel: true,
-                            sourceMap: true,
-                            uglifyOptions: {
-                                ie8: true
-                            }
+                            sourceMap: true
                         }),
                         new OptimizeCSSAssetsPlugin()
                     ]

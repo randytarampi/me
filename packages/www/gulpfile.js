@@ -22,7 +22,10 @@ baseGulpfile.testUnit(taskParameters);
 baseGulpfile.testIntegration(taskParameters);
 baseGulpfile.test(taskParameters);
 
-baseGulpfile.webpack(taskParameters);
+baseGulpfile.webpack({...taskParameters, taskName: "webpack.es5", webpackConfigName: "webpack.client.config.es5.js"});
+baseGulpfile.webpack({...taskParameters, taskName: "webpack.esm", webpackConfigName: "webpack.client.config.esm.js"});
+
+gulp.task("webpack", gulp.parallel(["webpack.es5", "webpack.esm"]));
 
 gulp.task("copy", () => {
     const sources = [
@@ -52,6 +55,7 @@ const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) =
         .pipe(pug({
             locals: buildPugLocals({
                 bundleName: config.get("www.bundle.name"),
+                esmBundleName: `${config.get("www.bundle.name")}.esm`,
                 serviceWorkerInstallerBundleName: config.get("www.bundle.swInstaller"),
                 packageJson,
                 pageUrl,
