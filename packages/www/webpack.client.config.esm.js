@@ -25,7 +25,9 @@ module.exports = webpackBaseConfig({
     babelEnv: "client.esm",
 
     entry: {
-        [`${bundleName}.esm`]: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "src/public/views/index.jsx")]
+        [`${bundleName}.esm`]: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "src/public/views/index.jsx")],
+        [`${swBundleInstallerName}.esm`]: path.join(__dirname, "src/public/sw/installer.js")
+        // styles: path.join(__dirname, "./styles/style.scss")
     },
     optimization: {
         splitChunks: {
@@ -49,5 +51,48 @@ module.exports = webpackBaseConfig({
                     }),
                     new OptimizeCSSAssetsPlugin()
                 ]
-    }
+    },
+    plugins: [
+        new WorkboxPlugin.GenerateSW({
+            swDest: `${swBundleName}.esm.js`,
+            skipWaiting: true,
+            clientsClaim: true,
+            offlineGoogleAnalytics: false,
+            maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
+            cacheId: packageJson.name,
+            navigateFallback: "/",
+            modifyUrlPrefix: {
+                "/": `/${config.get("www.assetUrl")}/`
+            },
+            globDirectory: "dist/",
+            globPatterns: [
+                "signature.svg"
+            ],
+            manifestTransforms: [
+                originalManifest => {
+                    const manifest = originalManifest.map(entry => {
+                        entry.url = `${config.get("www.assetUrl")}/${entry.url}`;
+                        return entry;
+                    });
+                    return {manifest};
+                }
+            ],
+            runtimeCaching: [
+                {
+                    urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
+                    handler: "staleWhileRevalidate",
+                    options: {
+                        cacheName: "external",
+                        expiration: {
+                            maxEntries: 100,
+                            purgeOnQuotaError: true
+                        }
+                    }
+                }
+            ]
+        }),
+        new DefinePlugin({
+            __SW_BUNDLE_PATH__: JSON.stringify(path.join(publicPath, `${swBundleName}.js`))
+        })
+    ]
 });
