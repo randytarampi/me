@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.5](https://github.com/randytarampi/me/compare/v2.10.4...v2.10.5) (2018-12-13)
+
+**Note:** Version bump only for package @randy.tarampi/views
+
+
+
+
+
 ## [2.10.4](https://github.com/randytarampi/me/compare/v2.10.3...v2.10.4) (2018-12-13)
 
 **Note:** Version bump only for package @randy.tarampi/views

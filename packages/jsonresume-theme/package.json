@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.10.4",
+  "version": "2.10.5",
   "description": "A JSON resume theme for www.randytarampi.ca",
   "homepage": "https://www.randytarampi.ca/resume",
   "bugs": {
@@ -68,8 +68,8 @@
     "preuninstall": "npm run clean"
   },
   "dependencies": {
-    "@randy.tarampi/resume": "^2.10.4",
-    "@randy.tarampi/views": "^2.10.4",
+    "@randy.tarampi/resume": "^2.10.5",
+    "@randy.tarampi/views": "^2.10.5",
     "config": "^3.0.0"
   },
   "devDependencies": {
