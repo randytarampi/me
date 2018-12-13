@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.6](https://github.com/randytarampi/me/compare/v2.10.5...v2.10.6) (2018-12-13)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Use `webpack-node-externals`, but exclude `webpackNodeExternalsWhitelist`. ([9e67f90](https://github.com/randytarampi/me/commit/9e67f90))
+
+
+
+
+
 ## [2.10.5](https://github.com/randytarampi/me/compare/v2.10.4...v2.10.5) (2018-12-13)
 
 
