@@ -1,7 +1,5 @@
 const path = require("path");
 const webpackBaseConfig = require("../../webpack.publish.config.base");
-const {webpackNodeExternalsWhitelist} = require("../../util");
-const nodeExternals = require("webpack-node-externals");
 
 module.exports = webpackBaseConfig({
     babelEnv: "client.es5",
@@ -11,11 +9,5 @@ module.exports = webpackBaseConfig({
         index: ["@babel/polyfill", "raf/polyfill", path.join(__dirname, "./src/index.js")]
     },
     node: false,
-    target: "node",
-    externals: [nodeExternals({
-        whitelist: [
-            /@randy\.tarampi\//,
-            webpackNodeExternalsWhitelist
-        ]
-    })]
+    target: "node"
 });
