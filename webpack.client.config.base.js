@@ -59,7 +59,7 @@ module.exports = ({
                       webpackServeMiddleware,
                       plugins: otherPlugins = [],
                       publicPath = "/",
-                      babelEnv = "client",
+                      babelEnv = "client.es5",
                       babelLoaderExclusions = util.babelLoaderExclusions,
                       ...configOverrides
                   }) => {

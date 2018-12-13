@@ -4,7 +4,7 @@ const {webpackNodeExternalsWhitelist} = require("../../util");
 const nodeExternals = require("webpack-node-externals");
 
 module.exports = webpackBaseConfig({
-    babelEnv: "publish",
+    babelEnv: "client.es5",
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "es5"),
     entry: {
@@ -14,7 +14,10 @@ module.exports = webpackBaseConfig({
     target: "node",
     externals: [nodeExternals({
         whitelist: [
+            "jquery",
+            "materialize-css",
+            /@randy\.tarampi\//,
             webpackNodeExternalsWhitelist
         ]
-    }), "pug"]
+    })]
 });

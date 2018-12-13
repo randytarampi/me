@@ -22,7 +22,7 @@ module.exports = ({
                       sourceDirectoryPath,
                       compliationDirectoryPath,
                       plugins: otherPlugins = [],
-                      babelEnv = "client",
+                      babelEnv = "client.es5",
                       babelLoaderExclusions = util.babelLoaderExclusions,
                       ...configOverrides
                   }) => {
