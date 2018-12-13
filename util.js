@@ -26,6 +26,7 @@ module.exports = {
     isBabelEnvDevelopment,
     resolveWebpackMode,
     webpackMode,
+    webpackNodeExternalsWhitelist: /(?:@randy\.tarampi\/(?:schema-dot-org-json-ld-components|schema-dot-org-types|react-dimensions|redux-offline-immutable-config))|query-string|strict-uri-encode|strip-ansi|ansi-regex|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet/,
     babelLoaderExclusions: /\/node_modules\/(?!(?:(?:@randy\.tarampi\/(?:schema-dot-org-json-ld-components|schema-dot-org-types|react-dimensions|redux-offline-immutable-config))|query-string|strict-uri-encode|strip-ansi|ansi-regex|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet)\/)/,
     babelRegisterInclusions: /\/(?:node_modules\/(?:(?:@randy\.tarampi\/(?:schema-dot-org-json-ld-components|schema-dot-org-types|react-dimensions|redux-offline-immutable-config))|query-string|strict-uri-encode|strip-ansi|ansi-regex|bunyan-sentry-stream|libphonenumber-js|react-router-sitemap|react-hot-loader|dom-helpers|redux-immutable|reduce-reducers|react-router|react-progressive-image|react-metrics|react-materialize|react-event-listener|react-helmet)|packages)\//,
     webpackVendorInclusions: /\/node_modules\//

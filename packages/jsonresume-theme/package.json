@@ -92,6 +92,5 @@
     "esm",
     "dist/*{pug,css}",
     "npm-shrinkwrap.json"
-  ],
-  "sideEffects": false
+  ]
 }
