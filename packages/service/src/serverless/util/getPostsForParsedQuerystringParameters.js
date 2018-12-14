@@ -29,20 +29,22 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
             const sortedPosts = uniquePosts.sort(sortPostsByDate);
             const paginatedPosts = sortedPosts.slice(0, queryParameters && queryParameters.perPage || 100);
             const relevantResults = results.filter(result => result.total > 0);
+            const firstResults = _.sortBy(relevantResults, result => result && result.first && result.first.date);
+            const lastResults = _.sortBy(relevantResults, result => result && result.last && result.last.date);
 
             return {
                 posts: paginatedPosts,
                 total: {
                     global: relevantResults.reduce((globalTotal, result) => globalTotal + result.total, 0),
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result.total)))
+                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.total)))
                 },
                 first: {
-                    global: _.sortBy(relevantResults, result => result && result.first && result.first.date)[0].first,
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result.first)))
+                    global: firstResults && firstResults[0] && firstResults[0].first,
+                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.first)))
                 },
                 last: {
-                    global: _.sortBy(relevantResults, result => result && result.last && result.last.date)[relevantResults.length - 1].last,
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result.last)))
+                    global: lastResults && lastResults[relevantResults.length - 1] && lastResults[relevantResults.length - 1].last,
+                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.last)))
                 }
             };
         });
