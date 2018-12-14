@@ -57,12 +57,10 @@ module.exports = ({
                       sourceDirectoryPath,
                       compliationDirectoryPath,
                       webpackServeMiddleware,
-                      rules: otherRules = [],
                       plugins: otherPlugins = [],
                       publicPath = "/",
                       babelEnv = "client.es5",
                       babelLoaderExclusions = util.babelLoaderExclusions,
-                      babelJsType = "javascript/auto",
                       ...configOverrides
                   }) => {
     return {
@@ -79,11 +77,9 @@ module.exports = ({
         },
         module: {
             rules: [
-                ...otherRules,
                 {
                     test: /\.jsx?$/,
                     exclude: babelLoaderExclusions,
-                    type: babelJsType,
                     loader: "babel-loader",
                     options: {
                         configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
