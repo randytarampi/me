@@ -5,12 +5,13 @@ import ResumeComponent from "../public/views/serverApp";
 import resumeJson from "../resumes/resume.json";
 import Resume from "./resume";
 
-export const renderHtml = ({passedPrintable, printableStylesPath, ...renderLocals} = {}) => {
+export const renderHtml = ({passedPrintable, printableStylesPath, printableTemplatePath, ...renderLocals} = {}) => {
     const printable = passedPrintable || Resume.fromResume(resumeJson);
 
     return genericRenderHtml({
         printableComponent: ResumeComponent,
         printableStylesPath: process.env.RESUME_STYLES_PATH || __RESUME_STYLES_PATH__ && path.join(__dirname, __RESUME_STYLES_PATH__) || printableStylesPath || path.join(__dirname, "../../dist/styles.css"),
+        printableTemplatePath,
         printable
     })({
         bundleName: "resume",

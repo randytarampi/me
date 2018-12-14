@@ -11,8 +11,8 @@ export const render = (resumeJson, pageSize) => {
         assetUrl: config && config.has("resume.assetUrl")
             ? config.get("resume.assetUrl")
             : "",
-        printableStylesPath: path.join(__dirname, "../node_modules/@randy.tarampi/resume/dist/styles.css"),
-        printableTemplatePath: path.join(__dirname, "../node_modules/@randy.tarampi/views/templates/index.pug"),
+        printableStylesPath: path.join(__dirname, "../dist/styles.css"),
+        printableTemplatePath: path.join(__dirname, "../dist/index.pug"),
         pugTitle: resume.basics.name,
         pugDescription: resume.basics.summary,
         meImageUrl: resume.basics.picture,
