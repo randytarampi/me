@@ -1,12 +1,11 @@
 import {expect} from "chai";
 import {LOCATION_CHANGE} from "connected-react-router";
+import proxyquire from "proxyquire";
 import sinon from "sinon";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../src/lib/actions/routing";
 import selectors from "../../../../../src/lib/data/selectors";
-import ui from "../../../../../src/lib/middleware/ui";
 
 describe("ui", function () {
-    const original$ = global.$;
     let stubTabs;
     let stubStore;
     let stubNext;
@@ -25,15 +24,12 @@ describe("ui", function () {
             tabs: stubTabs
         };
         stub$ = sinon.stub().returns(stub$Tabs);
-        global.$ = stub$;
 
         sinon.stub(selectors, "getIndexForRoute").returns("woof");
     });
 
     afterEach(function () {
         selectors.getIndexForRoute.restore();
-
-        global.$ = original$;
     });
 
     it("swipes tabs on `LOCATION_CHANGE` if we have tabs to swipe", function () {
@@ -41,6 +37,9 @@ describe("ui", function () {
             type: LOCATION_CHANGE,
             payload: "grr"
         };
+        const ui = proxyquire("../../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
 
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
@@ -56,6 +55,9 @@ describe("ui", function () {
             type: LOCATION_CHANGE,
             payload: "grr"
         };
+        const ui = proxyquire("../../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
 
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
@@ -71,6 +73,9 @@ describe("ui", function () {
             type: LOCATION_CHANGE,
             payload: "grr"
         };
+        const ui = proxyquire("../../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
 
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
@@ -79,7 +84,7 @@ describe("ui", function () {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 try {
-                    expect(stub$.calledOnce).to.eql(true);
+                    expect(stub$.calledTwice).to.eql(true);
                     expect(stubTabs.calledOnce).to.eql(true);
                     resolve();
                 } catch (e) {
@@ -98,6 +103,9 @@ describe("ui", function () {
             type: SWIPEABLE_CHANGE_INDEX,
             payload: "grr"
         };
+        const ui = proxyquire("../../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
 
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
@@ -113,6 +121,9 @@ describe("ui", function () {
             type: SWIPEABLE_TAB_CHANGE_INDEX,
             payload: "grr"
         };
+        const ui = proxyquire("../../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
 
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
@@ -124,6 +135,9 @@ describe("ui", function () {
             type: "woof",
             payload: "grr"
         };
+        const ui = proxyquire("../../../../../src/lib/middleware/ui", {
+            "jquery": stub$
+        }).default;
 
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
