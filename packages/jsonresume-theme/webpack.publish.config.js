@@ -16,5 +16,5 @@ module.exports = webpackBaseConfig({
             /@randy\.tarampi\//,
             webpackNodeExternalsWhitelist
         ]
-    })]
+    }), "pug"]
 });
