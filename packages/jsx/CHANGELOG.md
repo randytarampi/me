@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/randytarampi/me/compare/v2.10.6...v2.11.0) (2018-12-14)
+
+
+### Performance Improvements
+
+* **jsx:** Don't enable the `elementResize` sensor on `DimensionsWrappedPosts`. ([cf499a0](https://github.com/randytarampi/me/commit/cf499a0))
+
+
+### Reverts
+
+* fix(jsx): Better keep `.nav-tabs__swipeable` in sync with redux state. ([19c9b6a](https://github.com/randytarampi/me/commit/19c9b6a))
+
+
+
+
+
 ## [2.10.6](https://github.com/randytarampi/me/compare/v2.10.5...v2.10.6) (2018-12-13)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/randytarampi/me/compare/v2.10.6...v2.11.0) (2018-12-14)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Don't webpack in `pug`, as it used to be. ([d245972](https://github.com/randytarampi/me/commit/d245972))
+* **jsonresume-theme:** Whitelist all `[@randy](https://github.com/randy).tarampi/*` packages. ([7c08ad0](https://github.com/randytarampi/me/commit/7c08ad0))
+* **printable:** Pass along `printableTemplatePath`. ([71f2732](https://github.com/randytarampi/me/commit/71f2732))
+* **service:** Don't explode if there are no `postsForParsedQuerystringParameters`. ([f697386](https://github.com/randytarampi/me/commit/f697386))
+* **www:** Constrain the `.error` page height so we don't see a scrollbar. ([2486e85](https://github.com/randytarampi/me/commit/2486e85))
+
+
+### Features
+
+* **www:** Serve webpacked ESM code for clients that accept it. ([799c175](https://github.com/randytarampi/me/commit/799c175))
+
+
+### Performance Improvements
+
+* **jsx:** Don't enable the `elementResize` sensor on `DimensionsWrappedPosts`. ([cf499a0](https://github.com/randytarampi/me/commit/cf499a0))
+
+
+### Reverts
+
+* feat(www): Serve webpacked ESM code for clients that accept it. ([08ebf06](https://github.com/randytarampi/me/commit/08ebf06))
+* fix(jsx): Better keep `.nav-tabs__swipeable` in sync with redux state. ([19c9b6a](https://github.com/randytarampi/me/commit/19c9b6a))
+
+
+
+
+
 ## [2.10.6](https://github.com/randytarampi/me/compare/v2.10.5...v2.10.6) (2018-12-13)
 
 
