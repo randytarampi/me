@@ -135,10 +135,24 @@ html(lang="en")
                     iframe(src="https://www.googletagmanager.com/ns.html?id=" + gtmContainerId height="0" width="0" style="display:none;visibility:hidden")
         block content
         if environment !== "printable"
-            script(src=assetUrl + "/vendor.js")
-            script(src=assetUrl + "/" + bundleName + ".js")
-            if !!serviceWorkerInstallerBundleName
-                script(src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js")
-            else if !!serviceWorkerBundleName
-                script.
-                    if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}
+            if !!esmBundleName
+                script(nomodule src=assetUrl + "/vendor.js")
+                script(nomodule src=assetUrl + "/" + bundleName + ".js")
+                script(type="module" src=assetUrl + "/vendor.esm.js")
+                script(type="module" src=assetUrl + "/" + esmBundleName + ".js")
+                if !!serviceWorkerInstallerBundleName
+                    script(nomodule src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js")
+                    script(type="module" src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".esm.js")
+                else if !!serviceWorkerBundleName
+                    script(nomodule).
+                        if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}
+                    script(type="module").
+                        if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.esm.js");});}
+            else
+                script(src=assetUrl + "/vendor.js")
+                script(src=assetUrl + "/" + bundleName + ".js")
+                if !!serviceWorkerInstallerBundleName
+                    script(src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js")
+                else if !!serviceWorkerBundleName
+                    script.
+                        if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}
