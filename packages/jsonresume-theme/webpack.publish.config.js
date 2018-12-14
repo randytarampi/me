@@ -13,6 +13,7 @@ module.exports = webpackBaseConfig({
     target: "node",
     externals: [nodeExternals({
         whitelist: [
+            /@randy\.tarampi\//,
             webpackNodeExternalsWhitelist
         ]
     })]
