@@ -98,9 +98,7 @@ PostsComponent.defaultProps = {
     postsLimit: Infinity
 };
 
-export const DimensionsWrappedPosts = Dimensions({
-    elementResize: true
-})(PostsComponent);
+export const DimensionsWrappedPosts = Dimensions()(PostsComponent);
 
 export const DimensionsContainerWrappedPosts = props => <div className="dimensions-container--posts">
     <DimensionsWrappedPosts {...props}/>
