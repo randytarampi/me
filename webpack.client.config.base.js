@@ -147,7 +147,10 @@ module.exports = ({
                     const webSocket = require("ws");
 
                     const socket = new webSocket("ws://localhost:8090");
-                    const watcher = chokidar.watch(sourceDirectoryPath);
+                    const watcher = chokidar.watch(sourceDirectoryPath, {
+                        ignored: /\/node_modules\//,
+                        awaitWriteFinish: true
+                    });
 
                     watcher.on("change", () => {
                         const data = {
