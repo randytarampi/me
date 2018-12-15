@@ -2,6 +2,7 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const config = require("config");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const webpackBaseConfig = require("./webpack.client.config.base");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const packageJson = require("./package");
@@ -15,12 +16,18 @@ const swBundleInstallerName = config.get("www.bundle.swInstaller");
 
 module.exports = webpackBaseConfig({
     babelEnv: "client.es5",
+
     entry: {
         [bundleName]: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/views/index.jsx")],
-        [swBundleInstallerName]: path.join(__dirname, "src/public/sw/installer.js"),
+        [swBundleInstallerName]: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
     plugins: [
+        new BundleAnalyzerPlugin({
+            reportFilename: "report.es5.html",
+            analyzerMode: "static",
+            openAnalyzer: false
+        }),
         new WorkboxPlugin.GenerateSW({
             swDest: `${swBundleName}.js`,
             skipWaiting: true,

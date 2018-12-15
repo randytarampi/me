@@ -55,7 +55,7 @@ const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) =
         .pipe(pug({
             locals: buildPugLocals({
                 bundleName: config.get("www.bundle.name"),
-                esmBundleName: `${config.get("www.bundle.name")}.esm`,
+                // esmBundleName: `${config.get("www.bundle.name")}.esm`, // NOTE-RT: Not quite ready for primetime yet.
                 serviceWorkerInstallerBundleName: config.get("www.bundle.swInstaller"),
                 packageJson,
                 pageUrl,
