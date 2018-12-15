@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.2](https://github.com/randytarampi/me/compare/v2.11.1...v2.11.2) (2018-12-15)
+
+
+### Bug Fixes
+
+* **printables:** Back to using puppeteer^1.11.0. ([cb4dffb](https://github.com/randytarampi/me/commit/cb4dffb))
+* **printables:** Fix tests broken in cb4dffb2a3bd9bdc1640e71f259a768f3e6688e7. ([8c182a9](https://github.com/randytarampi/me/commit/8c182a9))
+
+
+
+
+
 ## [2.11.1](https://github.com/randytarampi/me/compare/v2.11.0...v2.11.1) (2018-12-15)
 
 
