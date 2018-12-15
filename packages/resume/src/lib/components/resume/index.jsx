@@ -1,7 +1,7 @@
 import {CampaignContext, LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
 import defaultResume from "../../../resumes/resume.json";
@@ -21,7 +21,7 @@ import ResumeVolunteer from "./content/volunteer";
 import ResumeWork from "./content/work";
 import ResumeFooter from "./footer";
 
-export class ResumeComponent extends Component {
+export class ResumeComponent extends PureComponent {
     componentDidMount() {
         if (this.props.variant) {
             this.props.fetchResume(this.props.variant);

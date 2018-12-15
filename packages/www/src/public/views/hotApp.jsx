@@ -27,12 +27,12 @@ import {
     Work
 } from "@randy.tarampi/resume";
 import {createBrowserHistory} from "history";
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {hot} from "react-hot-loader";
 import {reducers} from "../data/reducers";
 import routes from "../routes";
 
-export class App extends Component {
+export class App extends PureComponent {
     constructor() {
         super();
 
@@ -77,7 +77,7 @@ export class App extends Component {
                     }
                 },
                 [
-                    createImmutableBlacklistFilter("ui", ["routes"]) // FIXME-RT: Need to not rely on reducing `Component`s and `RegExp`s
+                    createImmutableBlacklistFilter("ui", ["routes"]) // FIXME-RT: Need to not rely on reducing `PureComponent`s and `RegExp`s
                 ]
             )
         );

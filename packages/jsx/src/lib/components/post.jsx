@@ -4,11 +4,11 @@ import {Record} from "immutable";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
-import React, {Component, Fragment} from "react";
+import React, {Fragment, PureComponent} from "react";
 import {Col, Row} from "react-materialize";
 import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link";
 
-export class PostComponent extends Component {
+export class PostComponent extends PureComponent {
     get width() {
         const postElement = document.getElementById(this.props.post.uid);
         return postElement ? postElement.clientWidth : this.props.containerHeight;

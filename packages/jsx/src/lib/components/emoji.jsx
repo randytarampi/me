@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import React, {Component, Fragment} from "react";
+import React, {Fragment, PureComponent} from "react";
 
-export class Emoji extends Component {
+export class Emoji extends PureComponent {
     constructor(props, context, updater) {
         super(props, context, updater);
 

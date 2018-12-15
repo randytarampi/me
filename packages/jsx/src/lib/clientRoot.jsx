@@ -1,10 +1,10 @@
 import {logger} from "@randy.tarampi/browser-logger";
 import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {metrics} from "react-metrics";
 import Sniffr from "sniffr";
 
-export class ClientRoot extends Component {
+export class ClientRoot extends PureComponent {
     constructor(props) {
         super(props);
 

@@ -1,5 +1,5 @@
 import {logger} from "@randy.tarampi/jsx";
-import React, {Component, Fragment} from "react";
+import React, {Fragment, PureComponent} from "react";
 import Helmet from "react-helmet";
 import {Container} from "react-materialize";
 import Bears from "./bears";
@@ -7,7 +7,7 @@ import Intro from "./intro";
 import New from "./new";
 import Works from "./works";
 
-export class Main extends Component {
+export class Main extends PureComponent {
     componentDidMount() {
         logger.info(`My blog is a lot more fun (content and code wise), so check that out:\n\t\t${window.location.origin}${__POSTS_APP_URL__}`);
     }

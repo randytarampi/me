@@ -4,14 +4,14 @@ import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-compone
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
 import {Set} from "immutable";
 import PropTypes from "prop-types";
-import React, {Component, Fragment} from "react";
+import React, {Fragment, PureComponent} from "react";
 import Infinite from "react-infinite";
 import LoadingSpinner from "../components/loadingSpinner";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
 import PostComponent from "./post";
 
-export class PostsComponent extends Component {
+export class PostsComponent extends PureComponent {
     componentDidMount() {
         if (this.props.shouldFetchPostsOnMount) {
             this.props.fetchPosts();

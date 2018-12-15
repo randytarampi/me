@@ -1,12 +1,12 @@
 import {DeadBear, DoubtBear, ShrugBear} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {Col, Row} from "react-materialize";
 import {ConnectedBear} from "../containers/emoji/bear";
 import {EmailLink, InternalLink} from "./link";
 
-export class Error extends Component {
+export class Error extends PureComponent {
     componentDidMount() {
         if (
             !this.props.errorCode
