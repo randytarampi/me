@@ -13,6 +13,7 @@ describe("renderPdf", function () {
     let stubPrintableDestinationDirectory;
     let stubExpectedPages;
     let stubActualPages;
+    let stubPdfFileSize;
     let stubPuppeteerPage;
     let stubPuppeteerBrowser;
     let stubExifToolRead;
@@ -22,6 +23,7 @@ describe("renderPdf", function () {
     beforeEach(function () {
         stubActualPages = 1;
         stubExpectedPages = stubActualPages;
+        stubPdfFileSize = "woof kB";
         stubPrintableDestinationDirectory = "/foo/bar";
         stubPrintableHtml = "woof";
         stubPrintable = { // NOTE-RT: Ideally this would be a class that implemented a printable interface, but don't do that or the fanciness we're doing with `@randy.tarampi/js/lib/emoji/bear` yet either.
@@ -39,7 +41,7 @@ describe("renderPdf", function () {
 
         stubPuppeteerPage = {
             emulateMedia: sinon.stub().returns(Promise.resolve()),
-            goto: sinon.stub().returns(Promise.resolve()),
+            setContent: sinon.stub().returns(Promise.resolve()),
             pdf: sinon.stub().returns(Promise.resolve())
         };
         stubPuppeteerBrowser = {
@@ -49,7 +51,8 @@ describe("renderPdf", function () {
         sinon.stub(puppeteer, "launch").returns(Promise.resolve(stubPuppeteerBrowser));
 
         stubExifToolRead = sinon.stub(exiftoolModule.ExifTool.prototype, "read").returns(Promise.resolve({
-            PageCount: stubActualPages
+            PageCount: stubActualPages,
+            FileSize: stubPdfFileSize
         }));
         stubExifToolWrite = sinon.stub(exiftoolModule.ExifTool.prototype, "write").returns(Promise.resolve());
         stubExifToolEnd = sinon.stub(exiftoolModule.ExifTool.prototype, "end").returns(Promise.resolve());
@@ -83,8 +86,8 @@ describe("renderPdf", function () {
                 expect(stubPuppeteerPage.emulateMedia.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerPage.emulateMedia, stubPrintable.pdfRenderOptions.mediaType);
 
-                expect(stubPuppeteerPage.goto.calledOnce).to.be.ok;
-                sinon.assert.calledWithExactly(stubPuppeteerPage.goto, `data:text/html,${stubPrintableHtml}`, {waitUntil: "networkidle0"});
+                expect(stubPuppeteerPage.setContent.calledOnce).to.be.ok;
+                sinon.assert.calledWithExactly(stubPuppeteerPage.setContent, stubPrintableHtml, {waitUntil: "networkidle0"});
 
                 expect(stubPuppeteerPage.pdf.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerPage.pdf, {
@@ -188,6 +191,35 @@ describe("renderPdf", function () {
             .then(() => {
                 expect(stubExifToolEnd.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubExifToolEnd);
+            });
+    });
+
+    it("verifies `pdfExpectations.pages`", function () {
+        stubPdfFileSize = "woof bytes";
+
+        stubExifToolRead = sinon.stub(exiftoolModule.ExifTool.prototype, "read").returns(Promise.resolve({
+            PageCount: stubActualPages,
+            FileSize: stubPdfFileSize
+        }));
+
+        return renderPdf({
+            printableHtml: stubPrintableHtml,
+            printable: stubPrintable,
+            printableDestinationDirectory: stubPrintableDestinationDirectory
+        })
+            .then(() => {
+                throw new Error("Wtf? This should've thrown");
+            })
+            .catch(error => {
+                expect(error.message).to.eql(`Expected PDF to have file size on order of kB, but it is ${stubPdfFileSize} instead`);
+
+                const stubPdfPath = path.join(stubPrintableDestinationDirectory, `${stubPrintable.filename}.pdf`);
+
+                expect(stubExifToolRead.calledOnce).to.be.ok;
+                sinon.assert.calledWithExactly(stubExifToolRead, stubPdfPath);
+
+                expect(stubExifToolWrite.notCalled).to.be.ok;
+                expect(stubExifToolEnd.notCalled).to.be.ok;
             });
     });
 });

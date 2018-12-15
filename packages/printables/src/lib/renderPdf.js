@@ -18,7 +18,7 @@ export const renderPdf = async ({printableHtml, printable, printableDestinationD
     const pdfPath = path.join(printableDestinationDirectory, `${printable.filename}.pdf`);
 
     await page.emulateMedia(printable.pdfRenderOptions && printable.pdfRenderOptions.mediaType || "print"); // NOTE-RT: Different from `printable-cli` default
-    await page.goto(`data:text/html,${printableHtml}`, {waitUntil: "networkidle0"});
+    await page.setContent(printableHtml, {waitUntil: "networkidle0"});
     await page.pdf({
         path: pdfPath,
         format: "Letter",
@@ -34,6 +34,8 @@ export const renderPdf = async ({printableHtml, printable, printableDestinationD
     if (pdfExpectations.pages) {
         assert.strictEqual(pdfMetadata.PageCount, pdfExpectations.pages, `Expected PDF to have ${pdfExpectations.pages} pages, but it has ${pdfMetadata.PageCount} instead`);
     }
+
+    assert.strictEqual(pdfMetadata.FileSize.split(" ")[1], "kB", `Expected PDF to have file size on order of kB, but it is ${pdfMetadata.FileSize} instead`);
 
     await exifTool
         .write(pdfPath, printable.pdfMetadata);
