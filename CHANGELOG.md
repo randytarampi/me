@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.1](https://github.com/randytarampi/me/compare/v2.11.0...v2.11.1) (2018-12-15)
+
+
+### Bug Fixes
+
+* **printables:** Roll back to puppeteer~1.10.0, since PDF generation failed silently with puppeteer^1.11.0. ([f7177cd](https://github.com/randytarampi/me/commit/f7177cd))
+
+
+
+
+
 # [2.11.0](https://github.com/randytarampi/me/compare/v2.10.6...v2.11.0) (2018-12-14)
 
 
