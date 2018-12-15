@@ -194,9 +194,10 @@ describe("renderPdf", function () {
             });
     });
 
-    it("verifies `pdfExpectations.pages`", function () {
+    it("verifies that the PDF has a reasonable file size", function () {
         stubPdfFileSize = "woof bytes";
 
+        exiftoolModule.ExifTool.prototype.read.restore && exiftoolModule.ExifTool.prototype.read.restore();
         stubExifToolRead = sinon.stub(exiftoolModule.ExifTool.prototype, "read").returns(Promise.resolve({
             PageCount: stubActualPages,
             FileSize: stubPdfFileSize
