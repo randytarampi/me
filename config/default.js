@@ -60,6 +60,11 @@ module.exports = {
     sentry: {
         dsn: ""
     },
+    gcp: {
+        api: {
+            key: ""
+        }
+    },
     resume: {
         bundle: {
             name: "resume",

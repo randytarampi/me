@@ -245,6 +245,13 @@ const configuredMinifyReplace = [
                     type: "stringLiteral",
                     value: require("./packages/letter/package").name
                 }
+            },
+            {
+                identifierName: "__GCP_API_KEY__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("gcp.api.key")
+                }
             }
         ]
     }
