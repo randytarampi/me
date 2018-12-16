@@ -75,7 +75,7 @@
   "devDependencies": {
     "@babel/cli": "latest",
     "gulp": "^4.0.0",
-    "resume-cli": "^1.1.2",
+    "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^3.0.0"
   },
