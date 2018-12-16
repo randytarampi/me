@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.4](https://github.com/randytarampi/me/compare/v2.11.3...v2.11.4) (2018-12-16)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Need to use https://github.com/randytarampi/resume-cli/tree/puppeteer-v1.11.0. ([758c5c9](https://github.com/randytarampi/me/commit/758c5c9))
+
+
+
+
+
 ## [2.11.3](https://github.com/randytarampi/me/compare/v2.11.2...v2.11.3) (2018-12-16)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi

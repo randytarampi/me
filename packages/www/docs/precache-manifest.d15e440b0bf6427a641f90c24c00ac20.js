@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/www.sw.installer.esm.js"
   },
   {
-    "revision": "7c4723ceadf69762ed27",
+    "revision": "804669ae8677fe687c68",
     "url": "/www.esm.js"
   },
   {
