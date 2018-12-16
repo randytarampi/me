@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5e382299035dfc018b6df63f2f4020a0.js"
+  "/precache-manifest.7175fb0e0c44978cc0139f36f040960a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
@@ -27,12 +27,7 @@ workbox.clientsClaim();
  * requests for URLs in the manifest.
  * See https://goo.gl/S9QRab
  */
-self.__precacheManifest = [
-  {
-    "url": "/signature.svg",
-    "revision": "41317dcbb1b860fcf88f240a0117f3d5"
-  }
-].concat(self.__precacheManifest || []);
+self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 

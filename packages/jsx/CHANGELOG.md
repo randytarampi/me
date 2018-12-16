@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.3](https://github.com/randytarampi/me/compare/v2.11.2...v2.11.3) (2018-12-16)
+
+
+### Bug Fixes
+
+* **jsx:** Rejig `Error` and `ErrorWrapper` so `PostsComponent`, `ResumeComponent` and `LetterComponent` can display _specific_ errors of their own. ([083bfc9](https://github.com/randytarampi/me/commit/083bfc9))
+
+
+### Performance Improvements
+
+* **jsx:** These `Component`s can actually be `PureComponent`s. ([4cd2fde](https://github.com/randytarampi/me/commit/4cd2fde))
+
+
+
+
+
 ## [2.11.2](https://github.com/randytarampi/me/compare/v2.11.1...v2.11.2) (2018-12-15)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
