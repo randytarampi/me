@@ -7,7 +7,7 @@ import {Provider} from "react-redux";
 import * as reactRouter from "react-router-config";
 import sinon from "sinon";
 import {ClientReduxRouterRoot} from "../../../../src/lib/clientReduxRouterRoot";
-import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
+import {ConnectedErrorWrapper} from "../../../../src/lib/containers/error";
 import reducers from "../../../../src/lib/data/reducers";
 import configureOfflineStore from "../../../../src/lib/store/configureOfflineStore";
 import {mount} from "../../../../src/test/util";
@@ -95,8 +95,8 @@ describe("ClientReduxRouterRoot", function () {
 
         expect(rendered).to.have.descendants(Provider);
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
-        expect(rendered).to.have.descendants(ErrorWrapper);
-        expect(rendered.find(ErrorWrapper)).to.have.props(stubProps);
+        expect(rendered).to.have.descendants(ConnectedErrorWrapper);
+        expect(rendered.find(ConnectedErrorWrapper)).to.have.props(stubProps);
         expect(rendered).to.have.descendants(ConnectedRouter);
         expect(rendered.find(ConnectedRouter)).to.have.prop("history", stubHistory);
 

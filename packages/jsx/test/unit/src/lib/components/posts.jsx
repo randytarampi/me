@@ -5,10 +5,16 @@ import {Set} from "immutable";
 import React from "react";
 import Infinite from "react-infinite";
 import sinon from "sinon";
+import {
+    ErrorENOCONTENTContentComponent,
+    ErrorESERVERContentComponent,
+    mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent
+} from "../../../../../src/lib/components/error";
 import LoadingSpinner from "../../../../../src/lib/components/loadingSpinner";
 import {PostComponent} from "../../../../../src/lib/components/post";
 import DimensionsContainerWrappedPosts, {
     DimensionsWrappedPosts,
+    mapPostsErrorCodeToErrorContentComponent,
     PostsComponent
 } from "../../../../../src/lib/components/posts";
 import computePostHeight from "../../../../../src/lib/util/computePostHeight";
@@ -226,6 +232,24 @@ describe("Posts", function () {
             );
 
             expect(stubProps.fetchPosts.notCalled).to.eql(true);
+        });
+    });
+
+    describe("mapPostsErrorCodeToErrorContentComponent", function () {
+        it("handles EFETCH", function () {
+            expect(mapPostsErrorCodeToErrorContentComponent("EFETCH")).to.eql(ErrorESERVERContentComponent);
+        });
+
+        it("handles ESERVER", function () {
+            expect(mapPostsErrorCodeToErrorContentComponent("ESERVER")).to.eql(ErrorESERVERContentComponent);
+        });
+
+        it("handles ENOPOSTS", function () {
+            expect(mapPostsErrorCodeToErrorContentComponent("ENOPOSTS")).to.eql(ErrorENOCONTENTContentComponent);
+        });
+
+        it("defers to defaultMapErrorCodeToErrorContent", function () {
+            expect(mapPostsErrorCodeToErrorContentComponent()).to.eql(defaultMapErrorCodeToErrorContent());
         });
     });
 });

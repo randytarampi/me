@@ -2,17 +2,17 @@ import PropTypes from "prop-types";
 import React from "react";
 import {renderRoutes} from "react-router-config";
 import {StaticRouter} from "react-router-dom";
-import ErrorWrapper from "./containers/errorWrapper";
+import {ConnectedErrorWrapper} from "./containers/error";
 import ReduxRoot from "./reduxRoot";
 
 export const ServerReduxRouterRoot = ({store, context, routes, ...props}) =>
     <ReduxRoot store={store} {...props}>
         <main>
-            <ErrorWrapper {...props}>
+            <ConnectedErrorWrapper {...props}>
                 <StaticRouter context={context}>
                     {renderRoutes(routes, props)}
                 </StaticRouter>
-            </ErrorWrapper>
+            </ConnectedErrorWrapper>
         </main>
     </ReduxRoot>;
 

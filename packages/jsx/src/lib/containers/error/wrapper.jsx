@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import ErrorWrapper from "../components/errorWrapper";
-import {connectError} from "./error";
+import {connectError} from ".";
+import {ErrorWrapperComponent} from "../../components/error";
 
-export const ConnectedErrorWrapper = connectError(ErrorWrapper);
+export const ConnectedErrorWrapper = connectError(ErrorWrapperComponent);
 
 ConnectedErrorWrapper.propTypes = {
     redirectionLocation: PropTypes.string.isRequired,

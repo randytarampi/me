@@ -1,9 +1,15 @@
-import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import {
+    ErrorENOACCESSContentComponent,
+    ErrorESERVERContentComponent,
+    LoadingSpinner,
+    mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent,
+    PrintableHeader
+} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import sinon from "sinon";
-import ResumeComponent from "../../../../../../src/lib/components/resume";
+import {mapResumeErrorCodeToErrorContentComponent, ResumeComponent} from "../../../../../../src/lib/components/resume";
 import ResumeAbout from "../../../../../../src/lib/components/resume/content/about";
 import ResumeAwards from "../../../../../../src/lib/components/resume/content/awards";
 import ResumeContact from "../../../../../../src/lib/components/resume/content/contact";
@@ -58,6 +64,24 @@ describe("ResumeComponent", function () {
             expect(rendered).to.have.className("resume");
             expect(rendered).to.have.descendants(".resume-content");
             expect(stubFetchResume.notCalled).to.be.ok;
+        });
+    });
+
+    describe("mapResumeErrorCodeToErrorContentComponent", function () {
+        it("handles EFETCH", function () {
+            expect(mapResumeErrorCodeToErrorContentComponent("EFETCH")).to.eql(ErrorESERVERContentComponent);
+        });
+
+        it("handles ESERVER", function () {
+            expect(mapResumeErrorCodeToErrorContentComponent("ESERVER")).to.eql(ErrorESERVERContentComponent);
+        });
+
+        it("handles ENORESUME", function () {
+            expect(mapResumeErrorCodeToErrorContentComponent("ENORESUME")).to.eql(ErrorENOACCESSContentComponent);
+        });
+
+        it("defers to defaultMapErrorCodeToErrorContent", function () {
+            expect(mapResumeErrorCodeToErrorContentComponent()).to.eql(defaultMapErrorCodeToErrorContent());
         });
     });
 

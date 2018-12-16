@@ -48,6 +48,7 @@ export const MainHandler = props => <Fragment>
     </Helmet>
     <Main {...props}/>
 </Fragment>;
+export const Error404Handler = props => <ConnectedError errorCode={404} {...props} />;
 
 const augmentWithParent = (parent = null) => ({routes, ...route}) => {
     if (parent) {
@@ -168,7 +169,7 @@ const routes = [
         path: "/words"
     },
     {
-        component: ConnectedError
+        component: Error404Handler
     }
 ].map(augmentWithParent());
 

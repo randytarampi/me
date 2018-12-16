@@ -1,9 +1,15 @@
-import {LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import {
+    ErrorENOACCESSContentComponent,
+    ErrorESERVERContentComponent,
+    LoadingSpinner,
+    mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent,
+    PrintableHeader
+} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import sinon from "sinon";
-import LetterComponent from "../../../../../../src/lib/components/letter";
+import {LetterComponent, mapLetterErrorCodeToErrorContentComponent} from "../../../../../../src/lib/components/letter";
 import LetterEntity from "../../../../../../src/lib/letter";
 
 describe("LetterComponent", function () {
@@ -54,7 +60,6 @@ describe("LetterComponent", function () {
         stubFetchLetter = sinon.stub();
     });
 
-
     describe("componentDidMount", function () {
         it("calls `fetchLetter` if `variant`", function () {
             const stubVariant = "woof";
@@ -83,6 +88,24 @@ describe("LetterComponent", function () {
             expect(rendered).to.have.className("letter");
             expect(rendered).to.have.descendants(".letter-content");
             expect(stubFetchLetter.notCalled).to.be.ok;
+        });
+    });
+
+    describe("mapLetterErrorCodeToErrorContentComponent", function () {
+        it("handles EFETCH", function () {
+            expect(mapLetterErrorCodeToErrorContentComponent("EFETCH")).to.eql(ErrorESERVERContentComponent);
+        });
+
+        it("handles ESERVER", function () {
+            expect(mapLetterErrorCodeToErrorContentComponent("ESERVER")).to.eql(ErrorESERVERContentComponent);
+        });
+
+        it("handles ENOLETTER", function () {
+            expect(mapLetterErrorCodeToErrorContentComponent("ENOLETTER")).to.eql(ErrorENOACCESSContentComponent);
+        });
+
+        it("defers to defaultMapErrorCodeToErrorContent", function () {
+            expect(mapLetterErrorCodeToErrorContentComponent()).to.eql(defaultMapErrorCodeToErrorContent());
         });
     });
 
@@ -149,7 +172,7 @@ describe("LetterComponent", function () {
             content: [
                 {
                     contentKey: "intro"
-                },
+                }
             ],
             renderOptions: {
                 format: "bar"
@@ -191,7 +214,7 @@ describe("LetterComponent", function () {
                     contentProps: {
                         meow: "grr"
                     }
-                },
+                }
             ],
             renderOptions: {
                 format: "bar"

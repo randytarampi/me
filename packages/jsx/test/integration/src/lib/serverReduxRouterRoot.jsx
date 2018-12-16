@@ -5,7 +5,7 @@ import React from "react";
 import {Provider} from "react-redux";
 import * as reactRouter from "react-router-config";
 import sinon from "sinon";
-import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
+import {ConnectedErrorWrapper} from "../../../../src/lib/containers/error";
 import reducers from "../../../../src/lib/data/reducers";
 import {ServerReduxRouterRoot} from "../../../../src/lib/serverReduxRouterRoot";
 import configureStore from "../../../../src/lib/store/configureStore";
@@ -51,8 +51,8 @@ describe("ServerReduxRouterRoot", function () {
 
         expect(rendered).to.have.descendants(Provider);
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
-        expect(rendered).to.have.descendants(ErrorWrapper);
-        expect(rendered.find(ErrorWrapper)).to.have.props(stubProps);
+        expect(rendered).to.have.descendants(ConnectedErrorWrapper);
+        expect(rendered.find(ConnectedErrorWrapper)).to.have.props(stubProps);
         expect(rendered).to.have.descendants(stubRoutes[0].component);
 
         expect(reactRouter.renderRoutes.calledOnce).to.eql(true);

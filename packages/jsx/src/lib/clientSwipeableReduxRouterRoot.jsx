@@ -1,12 +1,12 @@
+import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
 import {ClientRoot} from "./clientRoot";
-import ErrorWrapper from "./containers/errorWrapper";
+import {ConnectedErrorWrapper} from "./containers/error";
 import ConnectedSwipeableTabs from "./containers/swipeableTabs";
-import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 import {renderSwipeableRoutes} from "./util";
 
 export class ClientSwipeableReduxRouterRoot extends ClientRoot {
@@ -27,11 +27,11 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
                     </div>
                 </header>
                 <main>
-                    <ErrorWrapper {...props}>
+                    <ConnectedErrorWrapper {...props}>
                         <ConnectedRouter history={history}>
                             {renderSwipeableRoutes(routes, props)}
                         </ConnectedRouter>
-                    </ErrorWrapper>
+                    </ConnectedErrorWrapper>
                 </main>
             </Fragment>
         </Provider>;

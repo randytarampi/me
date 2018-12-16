@@ -3,7 +3,6 @@ export * from "./printable";
 
 export * from "./emoji";
 export * from "./error";
-export * from "./errorWrapper";
 export * from "./gallery";
 export * from "./loadingSpinner";
 export * from "./photo";

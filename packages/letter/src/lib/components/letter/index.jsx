@@ -1,10 +1,32 @@
-import {CampaignContext, LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import {
+    CampaignContext,
+    ConnectedErrorWrapper,
+    ErrorENOACCESSContentComponent,
+    ErrorESERVERContentComponent,
+    LoadingSpinner,
+    mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent,
+    PrintableHeader
+} from "@randy.tarampi/jsx";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
 import LetterFooter from "./footer";
+
+export const mapLetterErrorCodeToErrorContentComponent = errorCode => {
+    switch (errorCode) {
+        case "EFETCH":
+        case "ESERVER":
+            return ErrorESERVERContentComponent;
+
+        case "ENOLETTER":
+            return ErrorENOACCESSContentComponent;
+
+        default:
+            return defaultMapErrorCodeToErrorContent(errorCode);
+    }
+};
 
 export class LetterComponent extends PureComponent {
     componentDidMount() {
@@ -21,31 +43,36 @@ export class LetterComponent extends PureComponent {
                 isLoading || !letter
                     ? <LoadingSpinner/>
                     : <CampaignContext.Provider value={letter.renderOptions && letter.renderOptions.toJS()}>
-                        <Helmet>
-                            <title>{`${letter.basics.name} — Hire me`}</title>
-                            <link rel="canonical" href={__PUBLISHED_LETTER_URL__}/>
-                            <meta name="og:url" content={__PUBLISHED_LETTER_URL__}/>
-                        </Helmet>
-                        <SchemaJsonLdComponent markup={letter.toSchema()}/>
-                        <PrintableHeader {...props} printable={letter}/>
-                        <div className="letter-content">
-                            <Container>
-                                {
-                                    letter.content.map(contentConfiguration => {
-                                        const ContentComponent = contentConfiguration.component
-                                            ? contentConfiguration.component
-                                            : require(`./content/${contentConfiguration.contentKey}`).default;
-                                        return <ContentComponent
-                                            {...props}
-                                            letter={letter}
-                                            contentConfiguration={contentConfiguration}
-                                            key={contentConfiguration.sectionId || contentConfiguration.contentKey}
-                                        />;
-                                    })
-                                }
-                            </Container>
-                        </div>
-                        <LetterFooter {...props} letter={letter}/>
+                        <ConnectedErrorWrapper
+                            key="letter-error-wrapper"
+                            mapErrorCodeToErrorContentComponent={mapLetterErrorCodeToErrorContentComponent}
+                        >
+                            <Helmet>
+                                <title>{`${letter.basics.name} — Hire me`}</title>
+                                <link rel="canonical" href={__PUBLISHED_LETTER_URL__}/>
+                                <meta name="og:url" content={__PUBLISHED_LETTER_URL__}/>
+                            </Helmet>
+                            <SchemaJsonLdComponent markup={letter.toSchema()}/>
+                            <PrintableHeader {...props} printable={letter}/>
+                            <div className="letter-content">
+                                <Container>
+                                    {
+                                        letter.content.map(contentConfiguration => {
+                                            const ContentComponent = contentConfiguration.component
+                                                ? contentConfiguration.component
+                                                : require(`./content/${contentConfiguration.contentKey}`).default;
+                                            return <ContentComponent
+                                                {...props}
+                                                letter={letter}
+                                                contentConfiguration={contentConfiguration}
+                                                key={contentConfiguration.sectionId || contentConfiguration.contentKey}
+                                            />;
+                                        })
+                                    }
+                                </Container>
+                            </div>
+                            <LetterFooter {...props} letter={letter}/>
+                        </ConnectedErrorWrapper>
                     </CampaignContext.Provider>
             }
         </div>;

@@ -7,7 +7,7 @@ import React from "react";
 import {Provider} from "react-redux";
 import sinon from "sinon";
 import {ClientSwipeableReduxRouterRoot} from "../../../../src/lib/clientSwipeableReduxRouterRoot";
-import ErrorWrapper from "../../../../src/lib/containers/errorWrapper";
+import {ConnectedErrorWrapper} from "../../../../src/lib/containers/error";
 import reducers from "../../../../src/lib/data/reducers";
 import configureOfflineStore from "../../../../src/lib/store/configureOfflineStore";
 import * as renderSwipeableRoutesModule from "../../../../src/lib/util/renderSwipeableRoutes";
@@ -99,8 +99,8 @@ describe("ClientSwipeableReduxRouterRoot", function () {
 
         expect(rendered).to.have.descendants(Provider);
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
-        expect(rendered).to.have.descendants(ErrorWrapper);
-        expect(rendered.find(ErrorWrapper)).to.have.props(stubProps);
+        expect(rendered).to.have.descendants(ConnectedErrorWrapper);
+        expect(rendered.find(ConnectedErrorWrapper)).to.have.props(stubProps);
         expect(rendered).to.have.descendants(ConnectedRouter);
         expect(rendered.find(ConnectedRouter)).to.have.prop("history", stubHistory);
 

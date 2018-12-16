@@ -1,20 +1,20 @@
 import {push} from "connected-react-router";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import clearError from "../actions/clearError";
-import clearErrorTimeoutHandler from "../actions/clearErrorTimeoutHandler";
-import setErrorTimeout from "../actions/setErrorTimeoutHandler";
-import Error from "../components/error";
-import selectors from "../data/selectors";
+import clearError from "../../actions/clearError";
+import clearErrorTimeoutHandler from "../../actions/clearErrorTimeoutHandler";
+import setErrorTimeout from "../../actions/setErrorTimeoutHandler";
+import {ErrorComponent} from "../../components/error";
+import selectors from "../../data/selectors";
 
 export const connectError = connect(
-    state => {
+    (state, ownProps) => {
         return {
             location: selectors.getLocation(state),
-            hasError: selectors.hasError(state),
-            error: selectors.getError(state),
-            errorCode: selectors.getErrorCode(state),
-            errorMessage: selectors.getErrorMessage(state),
+            hasError: ownProps.hasError || selectors.hasError(state),
+            error: ownProps.error || selectors.getError(state),
+            errorCode: ownProps.errorCode || selectors.getErrorCode(state),
+            errorMessage: ownProps.errorMessage || selectors.getErrorMessage(state),
             errorTimeoutHandlerId: selectors.getErrorTimeoutHandlerId(state)
         };
     },
@@ -38,7 +38,7 @@ export const connectError = connect(
     }
 );
 
-export const ConnectedError = connectError(Error);
+export const ConnectedError = connectError(ErrorComponent);
 
 ConnectedError.propTypes = {
     redirectionLocation: PropTypes.string.isRequired,

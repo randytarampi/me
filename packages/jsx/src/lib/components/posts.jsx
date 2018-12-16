@@ -4,12 +4,32 @@ import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-compone
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
 import {Set} from "immutable";
 import PropTypes from "prop-types";
-import React, {Fragment, PureComponent} from "react";
+import React, {PureComponent} from "react";
 import Infinite from "react-infinite";
 import LoadingSpinner from "../components/loadingSpinner";
+import {ConnectedErrorWrapper} from "../containers";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
+import {
+    ErrorENOCONTENTContentComponent,
+    ErrorESERVERContentComponent,
+    mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent
+} from "./error";
 import PostComponent from "./post";
+
+export const mapPostsErrorCodeToErrorContentComponent = errorCode => {
+    switch (errorCode) {
+        case "EFETCH":
+        case "ESERVER":
+            return ErrorESERVERContentComponent;
+
+        case "ENOPOSTS":
+            return ErrorENOCONTENTContentComponent;
+
+        default:
+            return defaultMapErrorCodeToErrorContent(errorCode);
+    }
+};
 
 export class PostsComponent extends PureComponent {
     componentDidMount() {
@@ -44,7 +64,10 @@ export class PostsComponent extends PureComponent {
             })
             : [];
 
-        return <Fragment>
+        return <ConnectedErrorWrapper
+            key="posts-error-wrapper"
+            mapErrorCodeToErrorContentComponent={mapPostsErrorCodeToErrorContentComponent}
+        >
             <SchemaJsonLdComponent markup={itemList}/>
             <Infinite
                 useWindowAsScrollContainer={true}
@@ -79,7 +102,7 @@ export class PostsComponent extends PureComponent {
                         : <div/>
                 }
             </Infinite>
-        </Fragment>;
+        </ConnectedErrorWrapper>;
     }
 }
 

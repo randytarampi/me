@@ -1,4 +1,12 @@
-import {CampaignContext, LoadingSpinner, PrintableHeader} from "@randy.tarampi/jsx";
+import {
+    CampaignContext,
+    ConnectedErrorWrapper,
+    ErrorENOACCESSContentComponent,
+    ErrorESERVERContentComponent,
+    LoadingSpinner,
+    mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent,
+    PrintableHeader
+} from "@randy.tarampi/jsx";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
@@ -21,6 +29,20 @@ import ResumeVolunteer from "./content/volunteer";
 import ResumeWork from "./content/work";
 import ResumeFooter from "./footer";
 
+export const mapResumeErrorCodeToErrorContentComponent = errorCode => {
+    switch (errorCode) {
+        case "EFETCH":
+        case "ESERVER":
+            return ErrorESERVERContentComponent;
+
+        case "ENORESUME":
+            return ErrorENOACCESSContentComponent;
+
+        default:
+            return defaultMapErrorCodeToErrorContent(errorCode);
+    }
+};
+
 export class ResumeComponent extends PureComponent {
     componentDidMount() {
         if (this.props.variant) {
@@ -40,79 +62,84 @@ export class ResumeComponent extends PureComponent {
                 isLoading || !resume
                     ? <LoadingSpinner/>
                     : <CampaignContext.Provider value={resume.renderOptions && resume.renderOptions.toJS()}>
-                        <Helmet>
-                            <title>{`${resume.basics.name} — ${resume.basics.label}`}</title>
-                            <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
-                            <meta name="og:url" content={__PUBLISHED_RESUME_URL__}/>
-                        </Helmet>
-                        <SchemaJsonLdComponent markup={resume.toSchema()}/>
-                        <PrintableHeader printable={resume}/>
-                        <div className="resume-content">
-                            <Container>
-                                <ResumeContact {...contentProps} />
-                                {
-                                    resume.basics.summary
-                                        ? <ResumeAbout {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.basics.profiles && resume.basics.profiles.size
-                                        ? <ResumeProfiles {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.work && resume.work.size
-                                        ? <ResumeWork {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.projects && resume.projects.size
-                                        ? <ResumeProjects{...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.skills && resume.skills.size
-                                        ? <ResumeSkills{...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.education && resume.education.size
-                                        ? <ResumeEducation {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.awards && resume.awards.size
-                                        ? <ResumeAwards {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.volunteer && resume.volunteer.size
-                                        ? <ResumeVolunteer {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.publications && resume.publications.size
-                                        ? <ResumePublications {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.languages && resume.languages.size
-                                        ? <ResumeLanguages {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.interests && resume.interests.size
-                                        ? <ResumeInterests {...contentProps} />
-                                        : null
-                                }
-                                {
-                                    resume.references && resume.references.size
-                                        ? <ResumeReferences {...contentProps} />
-                                        : null
-                                }
-                            </Container>
-                        </div>
-                        <ResumeFooter {...contentProps} />
+                        <ConnectedErrorWrapper
+                            key="resume-error-wrapper"
+                            mapErrorCodeToErrorContentComponent={mapResumeErrorCodeToErrorContentComponent}
+                        >
+                            <Helmet>
+                                <title>{`${resume.basics.name} — ${resume.basics.label}`}</title>
+                                <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
+                                <meta name="og:url" content={__PUBLISHED_RESUME_URL__}/>
+                            </Helmet>
+                            <SchemaJsonLdComponent markup={resume.toSchema()}/>
+                            <PrintableHeader printable={resume}/>
+                            <div className="resume-content">
+                                <Container>
+                                    <ResumeContact {...contentProps} />
+                                    {
+                                        resume.basics.summary
+                                            ? <ResumeAbout {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.basics.profiles && resume.basics.profiles.size
+                                            ? <ResumeProfiles {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.work && resume.work.size
+                                            ? <ResumeWork {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.projects && resume.projects.size
+                                            ? <ResumeProjects{...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.skills && resume.skills.size
+                                            ? <ResumeSkills{...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.education && resume.education.size
+                                            ? <ResumeEducation {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.awards && resume.awards.size
+                                            ? <ResumeAwards {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.volunteer && resume.volunteer.size
+                                            ? <ResumeVolunteer {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.publications && resume.publications.size
+                                            ? <ResumePublications {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.languages && resume.languages.size
+                                            ? <ResumeLanguages {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.interests && resume.interests.size
+                                            ? <ResumeInterests {...contentProps} />
+                                            : null
+                                    }
+                                    {
+                                        resume.references && resume.references.size
+                                            ? <ResumeReferences {...contentProps} />
+                                            : null
+                                    }
+                                </Container>
+                            </div>
+                            <ResumeFooter {...contentProps} />
+                        </ConnectedErrorWrapper>
                     </CampaignContext.Provider>
             }
         </div>;

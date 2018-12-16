@@ -1,19 +1,19 @@
+import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React from "react";
 import {metrics} from "react-metrics";
 import {renderRoutes} from "react-router-config";
 import ClientReduxRoot from "./clientReduxRoot";
-import ErrorWrapper from "./containers/errorWrapper";
-import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
+import {ConnectedErrorWrapper} from "./containers/error";
 
 export const ClientReduxRouterRoot = ({store, routes, history, ...props}) => {
     return <ClientReduxRoot store={store} {...props}>
-        <ErrorWrapper {...props}>
+        <ConnectedErrorWrapper {...props}>
             <ConnectedRouter history={history}>
                 {renderRoutes(routes, props)}
             </ConnectedRouter>
-        </ErrorWrapper>
+        </ConnectedErrorWrapper>
     </ClientReduxRoot>;
 };
 
