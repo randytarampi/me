@@ -12,7 +12,7 @@ export const FETCHING_POSTS = "FETCHING_POSTS";
 
 export const FETCHING_POSTS_PER_PAGE = 4;
 
-export const fetchPostsCreator = (fetchUrl, type = "global", {params: {filter, filterValue} = {}} = {}) => (dispatch, getState) => {
+export const fetchPostsCreator = (fetchUrl, type = "global", {filter, filterValue, perPage = FETCHING_POSTS_PER_PAGE} = {}) => (dispatch, getState) => {
     const state = getState();
     const urlState = selectors.getApiStateForUrl(state, fetchUrl);
     const isLoading = isUrlStateLoading(urlState);
@@ -30,7 +30,7 @@ export const fetchPostsCreator = (fetchUrl, type = "global", {params: {filter, f
     const oldestPostAvailableDate = selectors.getPostsState(state).getIn(["oldest", type]);
 
     const searchParams = {
-        perPage: FETCHING_POSTS_PER_PAGE,
+        perPage,
         ...(
             oldestLoadedPostDate
                 ? {

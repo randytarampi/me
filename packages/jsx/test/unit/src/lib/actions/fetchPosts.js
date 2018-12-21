@@ -206,10 +206,8 @@ describe("fetchPosts", function () {
             stubStore = mockStore(stubInitialState);
 
             return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl, Post.type, {
-                    params: {
-                        filter: "tags",
-                        filterValue: "meow"
-                    }
+                    filter: "tags",
+                    filterValue: "meow"
                 }))
                 .then(() => {
                     const actions = stubStore.getActions();
