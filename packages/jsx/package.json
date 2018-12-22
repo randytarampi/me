@@ -62,7 +62,7 @@
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/schema-dot-org-types": "latest",
     "@redux-offline/redux-offline": "^2.4.0",
-    "connected-react-router": "^5.0.0",
+    "connected-react-router": "github:randytarampi/connected-react-router#me-release",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "is-html": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
