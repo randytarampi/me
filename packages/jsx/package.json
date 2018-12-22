@@ -63,7 +63,7 @@
     "@randy.tarampi/schema-dot-org-types": "latest",
     "@redux-offline/redux-offline": "^2.4.0",
     "connected-react-router": "^5.0.0",
-    "immutable": "4.0.0-rc.10",
+    "immutable": "github:randytarampi/immutable-js#me-release",
     "is-html": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.3.1",
@@ -91,7 +91,7 @@
   },
   "peerDependencies": {
     "history": "^4.7.2",
-    "immutable": "4.0.0-rc.10",
+    "immutable": "github:randytarampi/immutable-js#me-release",
     "jquery": "^3.3.1",
     "materialize-css": "0.100.2",
     "react": "^16.4.1",

@@ -52,7 +52,7 @@
     "dynamoose": "^1.0.0",
     "flickr-sdk": "^3.7.0",
     "form-data": "^2.3.2",
-    "immutable": "4.0.0-rc.10",
+    "immutable": "github:randytarampi/immutable-js#me-release",
     "instagram-api": "^1.0.3",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.12.0",
