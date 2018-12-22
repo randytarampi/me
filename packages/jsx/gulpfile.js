@@ -17,14 +17,12 @@ baseGulpfile.testUnit(taskParameters);
 baseGulpfile.testIntegration(taskParameters);
 baseGulpfile.test(taskParameters);
 
-baseGulpfile.webpack(taskParameters);
-
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["lint", "webpack"])
+    gulp.parallel(["lint"])
 ]));
 
-gulp.task("build:dev", gulp.parallel(["lint", "webpack"]));
+gulp.task("build:dev", gulp.parallel(["lint"]));
 
 gulp.task("dev",
     gulp.series([
