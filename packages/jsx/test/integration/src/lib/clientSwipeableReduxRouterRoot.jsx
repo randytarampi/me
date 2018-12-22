@@ -15,6 +15,9 @@ import {mount} from "../../../../src/test/util";
 
 describe("ClientSwipeableReduxRouterRoot", function () {
     const globalNavigator = global.navigator;
+    const stubComponent = () => <div className="testing">
+        Testing...
+    </div>;
     let stubInitialState;
     let stubStore;
     let stubHistory;
@@ -26,9 +29,7 @@ describe("ClientSwipeableReduxRouterRoot", function () {
         stubStore = configureOfflineStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
-                component: <div className="testing">
-                    Testing...
-                </div>,
+                component: stubComponent,
                 path: "/",
                 tab: <div>Test Tab</div>
             }

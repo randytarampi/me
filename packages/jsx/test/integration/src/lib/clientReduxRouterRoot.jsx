@@ -14,6 +14,9 @@ import {mount} from "../../../../src/test/util";
 
 describe("ClientReduxRouterRoot", function () {
     const globalNavigator = global.navigator;
+    const stubComponent = () => <div className="testing">
+        Testing...
+    </div>;
     let stubInitialState;
     let stubStore;
     let stubHistory;
@@ -24,9 +27,7 @@ describe("ClientReduxRouterRoot", function () {
         stubStore = configureOfflineStore(stubInitialState, stubHistory, reducers);
         stubRoutes = [
             {
-                component: <div className="testing">
-                    Testing...
-                </div>,
+                component: stubComponent,
                 path: "/"
             }
         ];
