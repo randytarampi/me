@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.5](https://github.com/randytarampi/me/compare/v2.11.4...v2.11.5) (2018-12-22)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tests. ([e3cc6f8](https://github.com/randytarampi/me/commit/e3cc6f8))
+
+
+
+
+
 ## [2.11.4](https://github.com/randytarampi/me/compare/v2.11.3...v2.11.4) (2018-12-16)
 
 
