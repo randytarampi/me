@@ -51,7 +51,7 @@ describe("logger", function () {
                     sentry: true
                 }
             };
-            const stubDom = new JSDOM();
+            const stubDom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
             global.window = stubDom.window;
             global.document = global.window.document;
             global.window.NAME = stubName;

@@ -32,7 +32,7 @@ describe("GtmClient", function () {
 
         it("should build a `GtmClient` instance, using `window.GTM_DATALAYER`", function () {
             const stubDataLayer = [{woof: "meow"}];
-            const stubDom = new JSDOM();
+            const stubDom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
             global.window = stubDom.window;
             global.document = global.window.document;
             global.window.GTM_DATALAYER = stubDataLayer;
@@ -57,7 +57,7 @@ describe("GtmClient", function () {
                 }
             };
             const stubDataLayer = [];
-            const stubDom = new JSDOM();
+            const stubDom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
             global.window = stubDom.window;
             global.document = global.window.document;
             global.window.GTM_DATALAYER = stubDataLayer;
@@ -87,7 +87,7 @@ describe("GtmClient", function () {
                 }
             };
             const stubDataLayer = [];
-            const stubDom = new JSDOM();
+            const stubDom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
             global.window = stubDom.window;
             global.document = global.window.document;
             global.window.GTM_DATALAYER = stubDataLayer;
@@ -120,7 +120,7 @@ describe("GtmClient", function () {
                 }
             };
             const stubDataLayer = [];
-            const stubDom = new JSDOM();
+            const stubDom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
             global.window = stubDom.window;
             global.document = global.window.document;
             global.window.GTM_DATALAYER = stubDataLayer;
@@ -144,7 +144,7 @@ describe("GtmClient", function () {
                 payload: "rawr"
             };
             const stubDataLayer = [];
-            const stubDom = new JSDOM();
+            const stubDom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
             global.window = stubDom.window;
             global.document = global.window.document;
             global.window.GTM_DATALAYER = stubDataLayer;

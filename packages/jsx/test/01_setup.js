@@ -8,7 +8,7 @@ import {JSDOM} from "jsdom";
 import "mock-local-storage";
 import packageJson from "../package.json";
 
-const jsdom = new JSDOM();
+const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global._jsdom = jsdom;
 global.window = jsdom.window;
 global.document = jsdom.window.document;

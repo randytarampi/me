@@ -7,7 +7,7 @@ import EnzymeAdapter from "enzyme-adapter-react-16";
 import {JSDOM} from "jsdom";
 import packageJson from "../package.json";
 
-const jsdom = new JSDOM();
+const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global.window = jsdom.window;
 global.document = jsdom.window.document;
 global.navigator = {

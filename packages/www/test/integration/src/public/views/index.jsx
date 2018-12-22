@@ -8,7 +8,7 @@ describe("index", function () {
     const locationGlobal = global.location;
 
     beforeEach(function () {
-        const jsdom = new JSDOM("<div id=\"react-root\"></div>");
+        const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
         global.window = jsdom.window;
         global.document = jsdom.window.document;
         global.navigator = {
