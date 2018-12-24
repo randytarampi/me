@@ -41,8 +41,8 @@ module.exports = webpackBaseConfig({
     ],
 
     entry: {
-        [bundleName]: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/polyfills.esm.js"), path.join(__dirname, "src/public/views/index.jsx")],
-        [swBundleInstallerName]: ["@babel/polyfill", "raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
+        [bundleName]: ["raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/polyfills.esm.js"), path.join(__dirname, "src/public/views/index.jsx")],
+        [swBundleInstallerName]: ["raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
     optimization: {
