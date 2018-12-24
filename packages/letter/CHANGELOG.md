@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.12.0](https://github.com/randytarampi/me/compare/v2.11.5...v2.12.0) (2018-12-24)
+
+
+### Bug Fixes
+
+* `html-webpack-plugin` needs to `excludeChunks` like `vendor` and `styles`. ([916d4ea](https://github.com/randytarampi/me/commit/916d4ea))
+* Let `[@babel](https://github.com/babel)/preset-env` figure out which polyfills to load. ([57c2f90](https://github.com/randytarampi/me/commit/57c2f90))
+
+
+
+
+
 ## [2.11.5](https://github.com/randytarampi/me/compare/v2.11.4...v2.11.5) (2018-12-22)
 
 **Note:** Version bump only for package @randy.tarampi/letter
