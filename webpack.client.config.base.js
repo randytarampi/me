@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const util = require("./util");
 
 const {
@@ -16,7 +17,8 @@ const {
 } = util;
 
 const plugins = [
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackHarddiskPlugin()
 ];
 
 if (!process.env.CI) {
@@ -81,6 +83,10 @@ module.exports = ({
             rules: [
                 ...otherRules,
                 {
+                    test: /\.pug$/,
+                    loader: "pug-loader"
+                },
+                {
                     test: /\.jsx?$/,
                     exclude: babelLoaderExclusions,
                     type: babelJsType,
@@ -126,7 +132,7 @@ module.exports = ({
                 }
             ]
         },
-        plugins: plugins.concat(otherPlugins),
+        plugins: otherPlugins.concat(plugins),
         serve: {
             clipboard: false,
             content: compliationDirectoryPath,

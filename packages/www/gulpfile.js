@@ -4,7 +4,6 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
-const config = require("config");
 const baseGulpfile = require("../../gulpfile.base");
 
 const taskParameters = {
@@ -44,44 +43,6 @@ gulp.task("copy", () => {
         .src(sources)
         .pipe(gulp.dest("./dist"));
 });
-
-const buildViewForPageUrl = (basename, pageUrl = config.get("www.publishUrl")) => () => {
-    const pug = require("gulp-pug");
-    const rename = require("gulp-rename");
-    const packageJson = require("./package.json");
-    const {buildPugLocals} = require("@randy.tarampi/views");
-
-    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
-        .pipe(pug({
-            locals: buildPugLocals({
-                bundleName: config.get("www.bundle.name"),
-                // esmBundleName: `${config.get("www.bundle.name")}.esm`, // NOTE-RT: Not quite ready for primetime yet.
-                serviceWorkerInstallerBundleName: config.get("www.bundle.swInstaller"),
-                packageJson,
-                pageUrl,
-                injectedScript: [
-                    `<script>window.$crisp=[];window.CRISP_WEBSITE_ID="${config.get("crisp.app.id")}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`
-                ].join("")
-            })
-        }))
-        .pipe(rename({basename}))
-        .pipe(gulp.dest("./dist"));
-};
-
-const viewsTasks = [
-    ["index"],
-    ["404"],
-    ["blog", `${config.get("www.publishUrl")}${config.get("www.postsUrl")}`],
-    ["photos", `${config.get("www.publishUrl")}${config.get("www.photosUrl")}`],
-    ["words", `${config.get("www.publishUrl")}${config.get("www.wordsUrl")}`],
-    ["resume", `${config.get("www.publishUrl")}${config.get("www.resumeUrl")}`],
-    ["letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`]
-];
-viewsTasks.forEach(([pageName, pageUrl]) =>
-    gulp.task(`views:${pageName}`, buildViewForPageUrl(pageName, pageUrl))
-);
-
-gulp.task("views", gulp.parallel(viewsTasks.map(([pageName]) => `views:${pageName}`)));
 
 gulp.task("docs:dist", () => {
     return gulp
@@ -132,11 +93,11 @@ gulp.task("sitemap", (done) => {
 
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "views", "webpack", "sitemap"]),
+    gulp.parallel(["copy", "webpack", "sitemap"]),
 ]));
 
 gulp.task("build:dev", gulp.series([
-    gulp.parallel(["lint", "copy", "views", "webpack", "sitemap"]),
+    gulp.parallel(["lint", "copy", "webpack", "sitemap"]),
 ]));
 
 gulp.task("dev",

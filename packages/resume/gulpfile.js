@@ -41,21 +41,6 @@ gulp.task("copy", () => {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task("views", () => {
-    const pug = require("gulp-pug");
-    const packageJson = require("./package.json");
-    const {buildPugLocals} = require("@randy.tarampi/views");
-
-    return gulp.src(["node_modules/@randy.tarampi/views/templates/index.pug"])
-        .pipe(pug({
-            locals: buildPugLocals({
-                bundleName: "resume",
-                packageJson
-            })
-        }))
-        .pipe(gulp.dest("./dist"));
-});
-
 const buildPrintablesParameters = () => {
     const path = require("path");
     const config = require("config");
@@ -130,11 +115,11 @@ gulp.task("docs", gulp.series([
 
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "webpack", "views"])
+    gulp.parallel(["copy", "webpack"])
 ]));
 
 gulp.task("build:dev", gulp.series([
-    gulp.parallel(["lint", "copy", "webpack", "views"])
+    gulp.parallel(["lint", "copy", "webpack"])
 ]));
 
 gulp.task("dev",

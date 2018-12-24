@@ -5,10 +5,42 @@ const config = require("config");
 const webpackBaseConfig = require("../../webpack.client.config.base");
 const serve = require("koa-static");
 const mount = require("koa-mount");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const publicPath = `${config.get("www.assetUrl")}/`;
 
-module.exports = overrides => webpackBaseConfig({
+const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) => {
+    const packageJson = require("./package.json");
+    const {buildPugLocals} = require("@randy.tarampi/views");
+
+    return new HtmlWebpackPlugin({
+        filename: `${pageName}.html`,
+        template: "node_modules/@randy.tarampi/views/templates/index.pug",
+        templateParameters: buildPugLocals({
+            bundleName: config.get("www.bundle.name"),
+            // esmBundleName: `${config.get("www.bundle.name")}.esm`, // NOTE-RT: Not quite ready for primetime yet.
+            serviceWorkerInstallerBundleName: config.get("www.bundle.swInstaller"),
+            packageJson,
+            pageUrl,
+            injectedScript: [
+                `<script>window.$crisp=[];window.CRISP_WEBSITE_ID="${config.get("crisp.app.id")}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`
+            ].join("")
+        }),
+        alwaysWriteToDisk: true
+    });
+};
+
+const views = [
+    ["index"],
+    ["404"],
+    ["blog", `${config.get("www.publishUrl")}${config.get("www.postsUrl")}`],
+    ["photos", `${config.get("www.publishUrl")}${config.get("www.photosUrl")}`],
+    ["words", `${config.get("www.publishUrl")}${config.get("www.wordsUrl")}`],
+    ["resume", `${config.get("www.publishUrl")}${config.get("www.resumeUrl")}`],
+    ["letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`]
+];
+
+module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
     publicPath: publicPath,
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
@@ -16,5 +48,6 @@ module.exports = overrides => webpackBaseConfig({
         mount("/api/resume", serve(path.join(__dirname, "../resume/src/resumes"))),
         mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
     ],
+    plugins: plugins.concat(views.map(([pageName, pageUrl]) => buildViewForPageUrl(pageName, pageUrl))),
     ...overrides
 });
