@@ -38,7 +38,12 @@ const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) =
                 `<script>window.$crisp=[];window.CRISP_WEBSITE_ID="${config.get("crisp.app.id")}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`
             ].join("")
         }),
-        alwaysWriteToDisk: true
+        alwaysWriteToDisk: true,
+        excludeChunks: [
+            "styles",
+            "vendor",
+            "www"
+        ]
     });
 };
 const views = [

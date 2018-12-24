@@ -41,7 +41,12 @@ module.exports = webpackBaseConfig({
                 bundleName: "letter",
                 packageJson
             }),
-            alwaysWriteToDisk: true
+            alwaysWriteToDisk: true,
+            excludeChunks: [
+                "styles",
+                "vendor",
+                "letter"
+            ]
         })
     ]
 });

@@ -41,7 +41,12 @@ module.exports = webpackBaseConfig({
                 bundleName: "resume",
                 packageJson
             }),
-            alwaysWriteToDisk: true
+            alwaysWriteToDisk: true,
+            excludeChunks: [
+                "styles",
+                "vendor",
+                "resume"
+            ]
         })
     ]
 });
