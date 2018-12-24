@@ -5,9 +5,21 @@ const config = require("config");
 const webpackBaseConfig = require("../../webpack.client.config.base");
 const serve = require("koa-static");
 const mount = require("koa-mount");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const publicPath = `${config.get("www.assetUrl")}/`;
+
+const sources = [
+    "*.md",
+    "node_modules/@randy.tarampi/assets/web/*",
+    `node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`,
+    "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
+    "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
+];
+if (process.env.NODE_ENV) {
+    sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
+}
 
 const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) => {
     const packageJson = require("./package.json");
@@ -29,7 +41,6 @@ const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) =
         alwaysWriteToDisk: true
     });
 };
-
 const views = [
     ["index"],
     ["404"],
@@ -48,6 +59,10 @@ module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
         mount("/api/resume", serve(path.join(__dirname, "../resume/src/resumes"))),
         mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
     ],
-    plugins: plugins.concat(views.map(([pageName, pageUrl]) => buildViewForPageUrl(pageName, pageUrl))),
+    plugins: plugins
+        .concat(new CopyWebpackPlugin(sources.map(source => {
+            return {from: source, flatten: true};
+        })))
+        .concat(views.map(([pageName, pageUrl]) => buildViewForPageUrl(pageName, pageUrl))),
     ...overrides
 });

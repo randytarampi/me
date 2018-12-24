@@ -17,10 +17,7 @@ const plugins = [
         "global.GENTLY": false
     }),
     new CopyWebpackPlugin([
-        {
-            from: ".serverless-secrets.json",
-            to: ".serverless-secrets.json"
-        }
+        ".serverless-secrets.json"
     ]),
     new BundleAnalyzerPlugin({
         analyzerMode: "static",

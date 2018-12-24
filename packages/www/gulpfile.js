@@ -26,24 +26,6 @@ baseGulpfile.webpack({...taskParameters, taskName: "webpack.esm", webpackConfigN
 
 gulp.task("webpack", gulp.parallel(["webpack.es5", "webpack.esm"]));
 
-gulp.task("copy", () => {
-    const sources = [
-        "*.md",
-        "node_modules/@randy.tarampi/assets/web/*",
-        `node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`,
-        "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
-        "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
-    ];
-
-    if (process.env.NODE_ENV) {
-        sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
-    }
-
-    return gulp
-        .src(sources)
-        .pipe(gulp.dest("./dist"));
-});
-
 gulp.task("docs:dist", () => {
     return gulp
         .src([
@@ -93,11 +75,11 @@ gulp.task("sitemap", (done) => {
 
 gulp.task("build", gulp.series([
     "clean",
-    gulp.parallel(["copy", "webpack", "sitemap"]),
+    gulp.parallel(["webpack", "sitemap"])
 ]));
 
 gulp.task("build:dev", gulp.series([
-    gulp.parallel(["lint", "copy", "webpack", "sitemap"]),
+    gulp.parallel(["lint", "webpack", "sitemap"])
 ]));
 
 gulp.task("dev",
