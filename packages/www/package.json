@@ -26,7 +26,7 @@
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
     "start": "npm run dev",
     "dev": "npm run dev:client",
-    "dev:client": "rm -rf dist/*.js dist/*.css && CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") webpack-serve ./webpack.client.config.esm.js --hotClient",
+    "dev:client": "rm -rf dist/*.js dist/*.css && CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") webpack-serve ./webpack.client.config.es5.js --hotClient",
     "build": "CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color build",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "docs": "gulp -LLLL --color docs",
