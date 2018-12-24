@@ -3,7 +3,6 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
 
 const config = require("config");
 const SentryPlugin = require("webpack-sentry-plugin");
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
@@ -20,15 +19,6 @@ const plugins = [
     new MiniCssExtractPlugin(),
     new HtmlWebpackHarddiskPlugin()
 ];
-
-if (!process.env.CI) {
-    plugins.push(
-        new BundleAnalyzerPlugin({
-            analyzerMode: "static",
-            openAnalyzer: false
-        })
-    );
-}
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(
