@@ -3,8 +3,8 @@
   "short_name": "ʕ•ᴥ•ʔﾉ゛",
   "scope": "/",
   "start_url": "/blog?utm_medium=pwa",
-  "background_color": "#ec7500",
-  "theme_color": "#ec7500",
+  "background_color": "#000",
+  "theme_color": "#000",
   "display": "fullscreen",
   "lang": "en-CA",
   "orientation": "natural",
@@ -55,7 +55,7 @@
       "type": "image/png"
     },
     {
-      "src": "/ʕつ•ᴥ•ʔつ-square-knockout-orange.png",
+      "src": "/ʕつ•ᴥ•ʔつ-square-knockout-black.png",
       "sizes": "1024x1024",
       "type": "image/png"
     }

@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/www.sw.installer.esm.js"
   },
   {
-    "revision": "460a7131063109f470e0",
+    "revision": "69b9c2761a2fd43b6bef",
     "url": "/www.esm.js"
   },
   {
@@ -12,11 +12,11 @@ self.__precacheManifest = [
     "url": "/vendor.esm.js"
   },
   {
-    "revision": "87d4de35756bea32db25",
+    "revision": "42cba2283b47ea82c79d",
     "url": "/styles.js"
   },
   {
-    "revision": "87d4de35756bea32db25",
+    "revision": "42cba2283b47ea82c79d",
     "url": "/styles.css"
   }
 ];
