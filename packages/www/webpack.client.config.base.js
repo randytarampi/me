@@ -12,13 +12,13 @@ const publicPath = `${config.get("www.assetUrl")}/`;
 
 const sources = [
     "*.md",
-    "node_modules/@randy.tarampi/assets/web/*",
-    `node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`,
     "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
     "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
 ];
 if (process.env.NODE_ENV) {
     sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
+} else {
+    sources.push("node_modules/@randy.tarampi/assets/web/*");
 }
 
 const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) => {
