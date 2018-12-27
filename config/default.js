@@ -61,6 +61,15 @@ module.exports = {
         dsn: ""
     },
     resume: {
+        bundle: {
+            name: "resume",
+            sw: defer(function () {
+                return `${this.resume.bundle.name}.sw`;
+            }),
+            swInstaller: defer(function () {
+                return `${this.resume.bundle.sw}.installer`;
+            })
+        },
         expectations: {
             pages: 1,
         },
@@ -70,6 +79,15 @@ module.exports = {
         serverPort: RESUME_SERVER_PORT
     },
     letter: {
+        bundle: {
+            name: "letter",
+            sw: defer(function () {
+                return `${this.letter.bundle.name}.sw`;
+            }),
+            swInstaller: defer(function () {
+                return `${this.letter.bundle.sw}.installer`;
+            })
+        },
         expectations: {
             pages: 1,
         },

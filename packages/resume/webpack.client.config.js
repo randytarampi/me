@@ -1,13 +1,13 @@
 const path = require("path");
-const webpackBaseConfig = require("../../webpack.client.config.base");
+process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
+const config = require("config");
 const serve = require("koa-static");
 const mount = require("koa-mount");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
-const packageJson = require("./package.json");
 const {buildPugLocals} = require("@randy.tarampi/views");
+const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const sources = [
     "*.md",
@@ -38,14 +38,16 @@ module.exports = webpackBaseConfig({
             filename: "index.html",
             template: "node_modules/@randy.tarampi/views/templates/index.pug",
             templateParameters: buildPugLocals({
-                bundleName: "resume",
-                packageJson
+                bundleName: config.get("resume.bundle.name")
             }),
             alwaysWriteToDisk: true,
             excludeChunks: [
                 "styles",
-                "vendor",
-                "resume"
+                config.get("resume.bundle.name"),
+                `${config.get("resume.bundle.swInstaller")}`,
+                "vendor.esm",
+                `${config.get("resume.bundle.name")}.esm`,
+                `${config.get("resume.bundle.swInstaller")}.esm`
             ]
         })
     ]

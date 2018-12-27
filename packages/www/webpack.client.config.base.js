@@ -2,11 +2,11 @@ const path = require("path");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const config = require("config");
-const webpackBaseConfig = require("../../webpack.client.config.base");
 const serve = require("koa-static");
 const mount = require("koa-mount");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const publicPath = `${config.get("www.assetUrl")}/`;
 
@@ -42,7 +42,11 @@ const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) =
         excludeChunks: [
             "styles",
             "vendor",
-            "www"
+            config.get("www.bundle.name"),
+            `${config.get("www.bundle.swInstaller")}`,
+            "vendor.esm",
+            `${config.get("www.bundle.name")}.esm`,
+            `${config.get("www.bundle.swInstaller")}.esm`
         ]
     });
 };
