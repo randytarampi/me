@@ -8,7 +8,7 @@
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.12.2",
+  "version": "2.12.3",
   "description": "A cover letter generator for www.randytarampi.ca",
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
@@ -53,13 +53,13 @@
     "preuninstall": "npm run clean"
   },
   "dependencies": {
-    "@randy.tarampi/assets": "^2.12.2",
-    "@randy.tarampi/css": "^2.12.2",
-    "@randy.tarampi/js": "^2.12.2",
-    "@randy.tarampi/jsx": "^2.12.2",
-    "@randy.tarampi/printables": "^2.12.2",
+    "@randy.tarampi/assets": "^2.12.3",
+    "@randy.tarampi/css": "^2.12.3",
+    "@randy.tarampi/js": "^2.12.3",
+    "@randy.tarampi/jsx": "^2.12.3",
+    "@randy.tarampi/printables": "^2.12.3",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
-    "@randy.tarampi/views": "^2.12.2",
+    "@randy.tarampi/views": "^2.12.3",
     "exiftool-vendored": "^7.1.0",
     "history": "^4.7.2",
     "immutable": "github:randytarampi/immutable-js#me-release",
