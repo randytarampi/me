@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.2](https://github.com/randytarampi/me/compare/v2.12.1...v2.12.2) (2018-12-27)
+
+
+### Bug Fixes
+
+* Don't include the ESM builds when we webpack the `pug` templates. ([59e7e34](https://github.com/randytarampi/me/commit/59e7e34))
+
+
+
+
+
 ## [2.12.1](https://github.com/randytarampi/me/compare/v2.12.0...v2.12.1) (2018-12-26)
 
 
