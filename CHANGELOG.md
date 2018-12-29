@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.4](https://github.com/randytarampi/me/compare/v2.12.3...v2.12.4) (2018-12-29)
+
+
+### Reverts
+
+* chore(package): update dependencies ([543972c](https://github.com/randytarampi/me/commit/543972c))
+* chore(package): update dependencies ([c43fb28](https://github.com/randytarampi/me/commit/c43fb28))
+* chore(package): update dependencies ([d64cdb4](https://github.com/randytarampi/me/commit/d64cdb4))
+* chore(package): update dependencies ([13514d7](https://github.com/randytarampi/me/commit/13514d7))
+* chore(package): update dependencies ([c841ab1](https://github.com/randytarampi/me/commit/c841ab1))
+* chore(package): update dependencies ([4e32e3a](https://github.com/randytarampi/me/commit/4e32e3a))
+* chore(package): update lockfile package-lock.json ([6db37e7](https://github.com/randytarampi/me/commit/6db37e7))
+
+
+
+
+
 ## [2.12.3](https://github.com/randytarampi/me/compare/v2.12.2...v2.12.3) (2018-12-27)
 
 **Note:** Version bump only for package me
