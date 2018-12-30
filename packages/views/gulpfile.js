@@ -38,4 +38,12 @@ gulp.task("build", gulp.series([
     "views"
 ]));
 
-gulp.task("default", gulp.series(["build"]));
+gulp.task("build:dev", gulp.series(["lint", "clean", "views"]));
+
+gulp.task("dev",
+    gulp.series([
+        "build:dev"
+    ])
+);
+
+gulp.task("default", gulp.series(["dev"]));
