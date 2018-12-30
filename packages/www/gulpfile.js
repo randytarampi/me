@@ -24,7 +24,7 @@ baseGulpfile.test(taskParameters);
 baseGulpfile.webpack({...taskParameters, taskName: "webpack.es5", webpackConfigName: "webpack.client.config.es5.js"});
 baseGulpfile.webpack({...taskParameters, taskName: "webpack.esm", webpackConfigName: "webpack.client.config.esm.js"});
 
-gulp.task("webpack", gulp.parallel(["webpack.es5", "webpack.esm"]));
+gulp.task("webpack", gulp.parallel(["webpack.es5"]));
 
 gulp.task("docs:dist", () => {
     return gulp
