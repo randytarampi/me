@@ -78,7 +78,7 @@ describe("Organization", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Organization", function () {
             const organization = Organization.fromJS(stubOrganizationJson);
 
@@ -99,7 +99,7 @@ describe("Organization", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Organization", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
@@ -120,7 +120,7 @@ describe("Organization", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Organization", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 

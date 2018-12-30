@@ -37,7 +37,7 @@ describe("Award", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns an Award", function () {
             const award = Award.fromJS({
                 ...stubAwardJs,
@@ -60,7 +60,7 @@ describe("Award", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns an Award", function () {
             const award = Award.fromJSON({
                 ...stubAwardJs
@@ -82,7 +82,7 @@ describe("Award", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns an Award", function () {
             const award = Award.fromResume({
                 ...stubAwardJs

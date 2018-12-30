@@ -2,7 +2,7 @@ import {expect} from "chai";
 import Emoji, {Character, defaultComponents} from "../../../../src/lib/emoji";
 
 describe("Emoji", () => {
-    describe(".fromJS", () => {
+    describe("fromJS", () => {
         it("should instantiate a. Emoji object from some plain JS Object", () => {
             const emojiJs = {
                 id: "•ᴥ•",
@@ -21,7 +21,7 @@ describe("Emoji", () => {
         });
     });
 
-    describe(".fromJSON", () => {
+    describe("fromJSON", () => {
         it("should instantiate an Emoji object from some plain JS Object", () => {
             const emojiJson = {
                 type: "woof",
@@ -40,7 +40,7 @@ describe("Emoji", () => {
         });
     });
 
-    describe(".toString", () => {
+    describe("toString", () => {
         it("should delegate to `Component.toString`", () => {
             const emojiJson = {
                 type: "woof",

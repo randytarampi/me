@@ -18,7 +18,7 @@ describe("ConsoleStream", function () {
         };
     });
 
-    describe(".colorFromLevel", function () {
+    describe("colorFromLevel", function () {
         it("handles FATAL (60)", function () {
             const name = ConsoleStream.colorFromLevel(60);
 
@@ -62,7 +62,7 @@ describe("ConsoleStream", function () {
         });
     });
 
-    describe(".nameFromLevel", function () {
+    describe("nameFromLevel", function () {
         it("handles FATAL (60)", function () {
             const name = ConsoleStream.nameFromLevel(60);
 
@@ -106,7 +106,7 @@ describe("ConsoleStream", function () {
         });
     });
 
-    describe(".consoleLoggerFromLevel", function () {
+    describe("consoleLoggerFromLevel", function () {
         const window = global.window;
         const console = window.console;
 

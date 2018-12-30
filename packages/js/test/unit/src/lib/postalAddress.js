@@ -22,7 +22,7 @@ describe("PostalAddress", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a PostalAddress", function () {
             const stubLocation = {
                 streetAddress: "woof",
@@ -42,7 +42,7 @@ describe("PostalAddress", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a PostalAddress", function () {
             const stubLocation = {
                 streetAddress: "woof",
@@ -62,7 +62,7 @@ describe("PostalAddress", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a PostalAddress", function () {
             const stubLocation = {
                 address: "woof",

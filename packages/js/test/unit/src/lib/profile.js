@@ -24,7 +24,7 @@ describe("Profile", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Profile", function () {
             const stubProfile = {
                 username: "ʕ•ᴥ•ʔ",
@@ -44,7 +44,7 @@ describe("Profile", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Profile", function () {
             const stubProfile = {
                 username: "ʕ•ᴥ•ʔ",

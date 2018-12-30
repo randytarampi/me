@@ -52,7 +52,7 @@ describe("Gallery", () => {
         });
     });
 
-    describe(".fromJSON", () => {
+    describe("fromJSON", () => {
         it("should instantiate a Gallery object from some plain JS Object", () => {
             const galleryJson = {
                 id: "woof",
@@ -97,7 +97,7 @@ describe("Gallery", () => {
         });
     });
 
-    describe(".fromJS", () => {
+    describe("fromJS", () => {
         it("should instantiate a Gallery object from some plain JS Object", () => {
             const galleryJson = {
                 id: "woof",

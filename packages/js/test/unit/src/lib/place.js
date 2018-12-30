@@ -78,7 +78,7 @@ describe("Place", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Place", function () {
             const place = Place.fromJS(stubPlaceJson);
 
@@ -99,7 +99,7 @@ describe("Place", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Place", function () {
             const place = Place.fromJSON(stubPlaceJson);
 
@@ -120,7 +120,7 @@ describe("Place", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Place", function () {
             const place = Place.fromResume(stubPlaceResumeJson);
 

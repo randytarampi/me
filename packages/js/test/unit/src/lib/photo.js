@@ -47,7 +47,7 @@ describe("Photo", () => {
         });
     });
 
-    describe(".fromJSON", () => {
+    describe("fromJSON", () => {
         it("should instantiate a Photo object from some plain JS Object", () => {
             const photoJson = {
                 id: "woof",
@@ -87,7 +87,7 @@ describe("Photo", () => {
         });
     });
 
-    describe(".fromJS", () => {
+    describe("fromJS", () => {
         it("should instantiate a Photo object from some plain JS Object", () => {
             const photoJson = {
                 id: "woof",

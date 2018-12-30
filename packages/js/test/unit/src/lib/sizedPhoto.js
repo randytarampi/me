@@ -2,7 +2,7 @@ import {expect} from "chai";
 import SizedPhoto from "../../../../src/lib/sizedPhoto";
 
 describe("SizedPhoto", () => {
-    describe(".fromJS", () => {
+    describe("fromJS", () => {
         it("should instantiate a SizedPhoto object from some plain JS Object", () => {
             const sizedPhotoJs = {
                 width: -1,
@@ -17,7 +17,7 @@ describe("SizedPhoto", () => {
         });
     });
 
-    describe(".size", () => {
+    describe("size", () => {
         it("gets the set `.size`", () => {
             const sizedPhotoJs = {
                 width: -1,

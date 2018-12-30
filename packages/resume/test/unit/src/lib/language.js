@@ -29,7 +29,7 @@ describe("Language", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Language", function () {
             const language = Language.fromJS({
                 ...stubLanguageJs
@@ -47,7 +47,7 @@ describe("Language", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Language", function () {
             const language = Language.fromJSON({
                 ...stubLanguageJs
@@ -65,7 +65,7 @@ describe("Language", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Language", function () {
             const language = Language.fromResume({
                 ...stubLanguageJs

@@ -38,7 +38,7 @@ describe("Interest", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns an Interest", function () {
             const interest = Interest.fromJS({
                 ...stubInterestJs
@@ -59,7 +59,7 @@ describe("Interest", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns an Interest", function () {
             const interest = Interest.fromJSON({
                 ...stubInterestJs
@@ -80,7 +80,7 @@ describe("Interest", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns an Interest", function () {
             const interest = Interest.fromResume({
                 ...stubInterestJs

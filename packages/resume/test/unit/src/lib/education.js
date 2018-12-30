@@ -52,7 +52,7 @@ describe("Education", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns an Education", function () {
             const education = Education.fromJS({
                 ...stubEducationJs,
@@ -82,7 +82,7 @@ describe("Education", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns an Education", function () {
             const education = Education.fromJSON({
                 ...stubEducationJs
@@ -110,7 +110,7 @@ describe("Education", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns an Education", function () {
             const education = Education.fromResume({
                 ...stubEducationJs

@@ -210,7 +210,7 @@ describe("Post", () => {
         });
     });
 
-    describe(".fromJSON", () => {
+    describe("fromJSON", () => {
         it("should instantiate a Post object from some plain JS Object", () => {
             const postJson = {
                 id: "woof",
@@ -248,7 +248,7 @@ describe("Post", () => {
         });
     });
 
-    describe(".fromJS", () => {
+    describe("fromJS", () => {
         it("should instantiate a Post object from some plain JS Object", () => {
             const postJS = {
                 id: "woof",

@@ -195,7 +195,7 @@ describe("InstagramSource", function () {
         });
     });
 
-    describe(".isEnabled", function () {
+    describe("isEnabled", function () {
         it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
             expect(instagramSource.isEnabled).to.eql(true);

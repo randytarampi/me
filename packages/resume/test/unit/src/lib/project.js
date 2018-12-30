@@ -63,7 +63,7 @@ describe("Project", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Project", function () {
             const project = Project.fromJS({
                 ...stubProjectJs,
@@ -97,7 +97,7 @@ describe("Project", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Project", function () {
             const project = Project.fromJSON({
                 ...stubProjectJs
@@ -129,7 +129,7 @@ describe("Project", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Project", function () {
             const project = Project.fromResume({
                 ...stubProjectJs

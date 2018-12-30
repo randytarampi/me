@@ -38,7 +38,7 @@ describe("Skill", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Skill", function () {
             const skill = Skill.fromJS({
                 ...stubSkillJs
@@ -59,7 +59,7 @@ describe("Skill", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Skill", function () {
             const skill = Skill.fromJSON({
                 ...stubSkillJs
@@ -80,7 +80,7 @@ describe("Skill", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Skill", function () {
             const skill = Skill.fromResume({
                 ...stubSkillJs

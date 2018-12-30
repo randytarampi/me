@@ -128,7 +128,7 @@ describe("Person", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Person", function () {
             const person = Person.fromJS(stubPersonJson);
 
@@ -151,7 +151,7 @@ describe("Person", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Person", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -174,7 +174,7 @@ describe("Person", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Person", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 

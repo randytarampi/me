@@ -181,7 +181,7 @@ describe("S3Source", function () {
         });
     });
 
-    describe(".isEnabled", function () {
+    describe("isEnabled", function () {
         it("`isEnabled` if `process.env.SERVICE_POSTS_S3_BUCKET_NAME` is defined", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             expect(s3Source.isEnabled).to.eql(true);

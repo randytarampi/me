@@ -196,7 +196,7 @@ describe("TumblrSource", function () {
         });
     });
 
-    describe(".isEnabled", function () {
+    describe("isEnabled", function () {
         it("`isEnabled` if `process.env.TUMBLR_API_KEY` and `process.env.TUMBLR_API_SECRET` are defined", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
             expect(tumblrSource.isEnabled).to.eql(true);

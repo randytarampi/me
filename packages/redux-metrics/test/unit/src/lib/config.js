@@ -13,7 +13,7 @@ describe("config", function () {
         util.buildEventDetails.restore();
     });
 
-    describe(".vendors", function () {
+    describe("vendors", function () {
         it("has the expected vendors", function () {
             expect(config.vendors).to.eql([
                 {api: gtmClient}
@@ -23,7 +23,7 @@ describe("config", function () {
         });
     });
 
-    describe(".pageDefaults", function () {
+    describe("pageDefaults", function () {
         it("calls `util.buildEventDetails` with the expected parameters", function () {
             const stubRouteState = {
                 pathname: "woof",

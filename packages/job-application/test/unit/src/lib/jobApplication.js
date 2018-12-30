@@ -130,7 +130,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
@@ -158,7 +158,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a JobApplication", function () {
             const jobApplication = JobApplication.fromJSON(stubJobApplicationJs);
 

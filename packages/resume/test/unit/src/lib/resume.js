@@ -88,7 +88,7 @@ describe("Resume", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Resume", function () {
             const resume = Resume.fromJS({
                 ...stubResumeJs
@@ -136,7 +136,7 @@ describe("Resume", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Resume", function () {
             const resume = Resume.fromJSON({
                 ...stubResumeJs
@@ -184,7 +184,7 @@ describe("Resume", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Resume", function () {
             const resume = Resume.fromResume({
                 ...stubResumeJs

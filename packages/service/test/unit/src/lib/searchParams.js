@@ -13,7 +13,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".perPage", function () {
+    describe("perPage", function () {
         it("should default to 100", function () {
             const searchParams = SearchParams.fromJS();
 
@@ -21,7 +21,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".page", function () {
+    describe("page", function () {
         it("should default to 1", function () {
             const searchParams = SearchParams.fromJS();
 
@@ -29,7 +29,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".Flickr", function () {
+    describe("Flickr", function () {
         it("should properly format properties for query", function () {
             const searchParams = SearchParams.fromJS();
 
@@ -41,7 +41,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".Unsplash", function () {
+    describe("Unsplash", function () {
         it("should properly format properties for query", function () {
             const searchParams = SearchParams.fromJS();
 
@@ -82,7 +82,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".Instagram", function () {
+    describe("Instagram", function () {
         it("should properly format properties for query", function () {
             const searchParams = SearchParams.fromJS();
 
@@ -93,7 +93,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".Tumblr", function () {
+    describe("Tumblr", function () {
         it("should properly format properties for word posts", function () {
             const searchParams = SearchParams.fromJS({type: Post.type});
 
@@ -119,7 +119,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".Dynamoose", function () {
+    describe("Dynamoose", function () {
         it("should properly format properties for uid", function () {
             const searchParams = SearchParams.fromJS({uid: "woof"});
 
@@ -460,7 +460,7 @@ describe("SearchParams", function () {
         });
     });
 
-    describe(".S3", function () {
+    describe("S3", function () {
         it("should properly format properties for query (list)", function () {
             const searchParams = SearchParams.fromJS();
 

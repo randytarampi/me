@@ -8,7 +8,7 @@ import Post from "../../../../src/lib/post";
 import * as util from "../../../../src/lib/util";
 
 describe("util", function () {
-    describe(".sortPhotosByWidth", function () {
+    describe("sortPhotosByWidth", function () {
         it("sorts photos by ascending `.width`", function () {
             const stubPhotos = [
                 Photo.fromJS({id: "grr", width: -2}),
@@ -30,7 +30,7 @@ describe("util", function () {
         });
     });
 
-    describe(".sortPostsByDate", function () {
+    describe("sortPostsByDate", function () {
         it("sorts posts by descending `#date`", function () {
             const stubPhotos = [
                 Photo.fromJS({id: "grr", dateCreated: new Date(1991, 10, 14)}),
@@ -54,7 +54,7 @@ describe("util", function () {
         });
     });
 
-    describe(".sortCharactersByPosition", function () {
+    describe("sortCharactersByPosition", function () {
         it("sorts posts by descending `#position`", function () {
             const stubCharacters = [
                 Character.fromJS({id: "grr", position: 2}),
@@ -76,7 +76,7 @@ describe("util", function () {
         });
     });
 
-    describe(".getEntityForType", function () {
+    describe("getEntityForType", function () {
         it("gets `Gallery`s", function () {
             const stubGallery = Gallery.fromJS({id: "grr", width: -2});
 
@@ -115,7 +115,7 @@ describe("util", function () {
         });
     });
 
-    describe(".castDatePropertyToDateTime", function () {
+    describe("castDatePropertyToDateTime", function () {
         it("returns null for falsy values", function () {
             const castedDate = util.castDatePropertyToDateTime(null);
 
@@ -155,7 +155,7 @@ describe("util", function () {
         });
     });
 
-    describe(".augmentUrlWithTrackingParams", function () {
+    describe("augmentUrlWithTrackingParams", function () {
         it("augments the passed href", function () {
             const stubHref = "/woof";
             const stubParameters = {
@@ -249,7 +249,7 @@ describe("util", function () {
         });
     });
 
-    describe(".convertLatLongToGeohash", function () {
+    describe("convertLatLongToGeohash", function () {
         it("returns a geohash", function () {
             const castedDate = util.convertLatLongToGeohash(49.2845, -123.1116);
 

@@ -52,7 +52,7 @@ describe("Work", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Work", function () {
             const work = Work.fromJS({
                 ...stubWorkJs,
@@ -82,7 +82,7 @@ describe("Work", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Work", function () {
             const work = Work.fromJSON({
                 ...stubWorkJs
@@ -110,7 +110,7 @@ describe("Work", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Work", function () {
             const work = Work.fromResume({
                 ...stubWorkJs

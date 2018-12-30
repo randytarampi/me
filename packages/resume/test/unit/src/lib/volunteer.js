@@ -52,7 +52,7 @@ describe("Volunteer", function () {
         });
     });
 
-    describe(".fromJS", function () {
+    describe("fromJS", function () {
         it("returns a Volunteer", function () {
             const volunteer = Volunteer.fromJS({
                 ...stubVolunteerJs,
@@ -82,7 +82,7 @@ describe("Volunteer", function () {
         });
     });
 
-    describe(".fromJSON", function () {
+    describe("fromJSON", function () {
         it("returns a Volunteer", function () {
             const volunteer = Volunteer.fromJSON({
                 ...stubVolunteerJs
@@ -110,7 +110,7 @@ describe("Volunteer", function () {
         });
     });
 
-    describe(".fromResume", function () {
+    describe("fromResume", function () {
         it("returns a Volunteer", function () {
             const volunteer = Volunteer.fromResume({
                 ...stubVolunteerJs
