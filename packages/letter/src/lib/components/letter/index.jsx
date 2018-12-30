@@ -82,6 +82,7 @@ export class LetterComponent extends PureComponent {
 LetterComponent.propTypes = {
     isLoading: PropTypes.bool,
     letter: PropTypes.object,
+    variant: PropTypes.string,
     fetchLetter: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired
 };
