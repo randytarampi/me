@@ -18,8 +18,7 @@ baseGulpfile.testIntegration(taskParameters);
 baseGulpfile.test(taskParameters);
 
 gulp.task("build", gulp.series([
-    "clean",
-    gulp.parallel(["lint"])
+    "clean"
 ]));
 
 gulp.task("build:dev", gulp.parallel(["lint"]));
