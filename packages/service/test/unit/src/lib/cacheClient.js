@@ -61,7 +61,7 @@ describe("CacheClient", function () {
         });
     });
 
-    describe("#setPosts", function () {
+    describe("setPosts", function () {
         it("delegates to dataClient.createPosts", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
@@ -95,7 +95,7 @@ describe("CacheClient", function () {
         });
     });
 
-    describe("#getPosts", function () {
+    describe("getPosts", function () {
         it("delegates to dataClient.getPosts", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
@@ -133,7 +133,7 @@ describe("CacheClient", function () {
         });
     });
 
-    describe("#getPostCount", function () {
+    describe("getPostCount", function () {
         it("delegates to dataClient.getPostCount", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
@@ -171,7 +171,7 @@ describe("CacheClient", function () {
         });
     });
 
-    describe("#setPost", function () {
+    describe("setPost", function () {
         it("delegates to dataClient.createPost", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
@@ -206,7 +206,7 @@ describe("CacheClient", function () {
         });
     });
 
-    describe("#getPost", function () {
+    describe("getPost", function () {
         it("delegates to dataClient.getPost", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);

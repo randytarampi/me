@@ -178,7 +178,7 @@ describe("ConsoleStream", function () {
         });
     });
 
-    describe("#write", function () {
+    describe("write", function () {
         const window = global.window;
         const console = window.console;
         let stubRecord;

@@ -147,7 +147,7 @@ describe("Gallery", () => {
         });
     });
 
-    describe("#toSchema", function () {
+    describe("toSchema", function () {
         it("returns expected Schema.org JSON", function () {
             const galleryJson = {
                 id: "woof",
@@ -245,7 +245,7 @@ describe("Gallery", () => {
         });
     });
 
-    describe("#toRss", function () {
+    describe("toRss", function () {
         it("returns expected `rss` item", function () {
             const galleryJson = {
                 id: "woof",

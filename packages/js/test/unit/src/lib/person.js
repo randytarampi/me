@@ -197,7 +197,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#toResume", function () {
+    describe("toResume", function () {
         it("returns expected Resume JSON", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
@@ -235,7 +235,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#toSchema", function () {
+    describe("toSchema", function () {
         it("returns expected Schema.org JSON", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -400,7 +400,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#name", function () {
+    describe("name", function () {
         it("returns a `${firstName} ${lastName}`", function () {
             delete stubPersonResumeJson.name;
             const person = Person.fromResume(stubPersonResumeJson);
@@ -436,7 +436,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#address", function () {
+    describe("address", function () {
         it("returns `location.address`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
@@ -453,7 +453,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#postOfficeBoxNumber", function () {
+    describe("postOfficeBoxNumber", function () {
         it("returns `location.postOfficeBoxNumber`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -470,7 +470,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#city", function () {
+    describe("city", function () {
         it("returns `location.city`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
@@ -487,7 +487,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#region", function () {
+    describe("region", function () {
         it("returns `location.region`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
@@ -504,7 +504,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#postalCode", function () {
+    describe("postalCode", function () {
         it("returns `location.postalCode`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
@@ -521,7 +521,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#countryCode", function () {
+    describe("countryCode", function () {
         it("returns `location.countryCode`", function () {
             const person = Person.fromResume(stubPersonResumeJson);
 
@@ -538,7 +538,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#telephone", function () {
+    describe("telephone", function () {
         it("returns Internationally formatted number for E.164 input", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -589,7 +589,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#phone", function () {
+    describe("phone", function () {
         it("returns `telephone`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -608,7 +608,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#faxNumber", function () {
+    describe("faxNumber", function () {
         it("returns Internationally formatted number for E.164 input", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -650,7 +650,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#fax", function () {
+    describe("fax", function () {
         it("returns `faxNumber`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -669,7 +669,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#label", function () {
+    describe("label", function () {
         it("returns `jobTitle`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -678,7 +678,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#picture", function () {
+    describe("picture", function () {
         it("returns `image`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -687,7 +687,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#website", function () {
+    describe("website", function () {
         it("returns `url`", function () {
             const person = Person.fromJSON(stubPersonJson);
 
@@ -696,7 +696,7 @@ describe("Person", function () {
         });
     });
 
-    describe("#summary", function () {
+    describe("summary", function () {
         it("returns `description`", function () {
             const person = Person.fromJSON(stubPersonJson);
 

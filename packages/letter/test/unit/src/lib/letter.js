@@ -140,7 +140,7 @@ describe("Letter", function () {
         });
     });
 
-    describe("#basics", function () {
+    describe("basics", function () {
         it("returns the `sender`", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
@@ -149,7 +149,7 @@ describe("Letter", function () {
         });
     });
 
-    describe("#pdfRenderOptions", function () {
+    describe("pdfRenderOptions", function () {
         it("returns `renderOptions` as JS Object", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
@@ -167,7 +167,7 @@ describe("Letter", function () {
         });
     });
 
-    describe("#pdfRenderExpectations", function () {
+    describe("pdfRenderExpectations", function () {
         it("returns `renderExpectations` as JS Object", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
@@ -185,7 +185,7 @@ describe("Letter", function () {
         });
     });
 
-    describe("#pageSize", function () {
+    describe("pageSize", function () {
         it("returns `renderOptions.format`", function () {
             const letter = Letter.fromJS(stubLetterJs);
 
@@ -203,7 +203,7 @@ describe("Letter", function () {
         });
     });
 
-    describe("#filename", function () {
+    describe("filename", function () {
         it("returns `filename`", function () {
             stubLetterJs.filename = "woof";
             const letter = Letter.fromJS(stubLetterJs);
@@ -220,7 +220,7 @@ describe("Letter", function () {
         });
     });
 
-    describe("#pdfMetadata", function () {
+    describe("pdfMetadata", function () {
         it("returns ExifTool parsable tags", function () {
             const letter = Letter.fromJS(stubLetterJs);
 

@@ -128,7 +128,7 @@ describe("Photo", () => {
         });
     });
 
-    describe("#toSchema", function () {
+    describe("toSchema", function () {
         it("returns expected Schema.org JSON", function () {
             const photoJson = {
                 id: "woof",
@@ -217,7 +217,7 @@ describe("Photo", () => {
         });
     });
 
-    describe("#toRss", function () {
+    describe("toRss", function () {
         it("returns expected `rss` item", function () {
             const photoJson = {
                 id: "woof",
@@ -284,7 +284,7 @@ describe("Photo", () => {
         });
     });
 
-    describe("#getSizedPhotoForDisplay", () => {
+    describe("getSizedPhotoForDisplay", () => {
         it("should return 0 objects if `.sizedPhotos` is empty", () => {
             const photoJson = {
                 id: "woof",
@@ -365,7 +365,7 @@ describe("Photo", () => {
         });
     });
 
-    describe("#getSizedPhotoForLoading", () => {
+    describe("getSizedPhotoForLoading", () => {
         it("should return a single member of `.sizedPhotos`, the smallest in size", () => {
             const smallSizedPhoto = SizedPhoto.fromJS({url: "woof://woof.woof/woof/woofto", width: 100, height: 133});
             const mediumSizedPhoto = SizedPhoto.fromJS({

@@ -181,7 +181,7 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("#postsGetter", function () {
+    describe("postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
@@ -244,7 +244,7 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("#allPostsGetter", function () {
+    describe("allPostsGetter", function () {
         it("finds all posts", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40});
@@ -268,7 +268,7 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("#postGetter", function () {
+    describe("postGetter", function () {
         it("requires implementation", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             expect(flickrSource).to.be.instanceOf(FlickrSource);
@@ -283,7 +283,7 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("#jsonToPost", function () {
+    describe("jsonToPost", function () {
         it("turns a flickr response into a `Photo`", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             expect(flickrSource).to.be.instanceOf(FlickrSource);

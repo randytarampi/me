@@ -223,7 +223,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe("#basics", function () {
+    describe("basics", function () {
         it("returns the `letter.sender`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
@@ -232,7 +232,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe("#sender", function () {
+    describe("sender", function () {
         it("returns the `letter.sender`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
@@ -241,7 +241,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe("#recipient", function () {
+    describe("recipient", function () {
         it("returns the `letter.recipient`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
@@ -250,7 +250,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe("#pdfRenderOptions", function () {
+    describe("pdfRenderOptions", function () {
         it("returns `renderOptions` as JS Object", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
@@ -311,7 +311,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe("#pdfRenderExpectations", function () {
+    describe("pdfRenderExpectations", function () {
         it("returns `renderExpectations` as JS Object", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
@@ -351,7 +351,7 @@ describe("JobApplication", function () {
         });
     });
 
-    describe("#pageSize", function () {
+    describe("pageSize", function () {
         it("returns `renderOptions.format`", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 

@@ -215,7 +215,7 @@ describe("TumblrSource", function () {
         });
     });
 
-    describe("#postsGetter", function () {
+    describe("postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, page: 2, type: Photo.type});
@@ -270,7 +270,7 @@ describe("TumblrSource", function () {
         });
     });
 
-    describe("#allPostsGetter", function () {
+    describe("allPostsGetter", function () {
         it("finds all posts", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 7});
@@ -287,7 +287,7 @@ describe("TumblrSource", function () {
         });
     });
 
-    describe("#postGetter", function () {
+    describe("postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
 

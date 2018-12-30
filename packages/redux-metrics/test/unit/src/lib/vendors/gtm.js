@@ -46,7 +46,7 @@ describe("GtmClient", function () {
         });
     });
 
-    describe("#track", function () {
+    describe("track", function () {
         it("pushes the correct value into the dataLayer", function () {
             const stubEventName = "woof";
             const stubEventDetails = {
@@ -76,7 +76,7 @@ describe("GtmClient", function () {
         });
     });
 
-    describe("#pageView", function () {
+    describe("pageView", function () {
         it("pushes the correct value into the dataLayer", function () {
             const stubEventName = "woof";
             const stubEventDetails = {
@@ -106,7 +106,7 @@ describe("GtmClient", function () {
         });
     });
 
-    describe("#trackReduxAction", function () {
+    describe("trackReduxAction", function () {
         it("pushes the correct value into the dataLayer", function () {
             const stubAction = {
                 type: "woof",

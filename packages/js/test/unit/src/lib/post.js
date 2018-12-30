@@ -280,7 +280,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#toSchema", function () {
+    describe("toSchema", function () {
         it("returns expected Schema.org JSON", function () {
             const postJS = {
                 id: "woof",
@@ -350,7 +350,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#toRss", function () {
+    describe("toRss", function () {
         it("returns expected `rss` item", function () {
             const postJS = {
                 id: "woof",
@@ -409,7 +409,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#uid", () => {
+    describe("uid", () => {
         it("should return a uid (composite key, based on source and the id in the source's context)", () => {
             const postJson = {
                 id: "woof",
@@ -437,7 +437,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#datePublished", function () {
+    describe("datePublished", function () {
         it("should set the value of `datePublished` to be the value of `dateCreated` if `datePublished` is falsy", function () {
             const postJs = {
                 id: "woof",
@@ -468,7 +468,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#date", function () {
+    describe("date", function () {
         it("should set the value of `date` to be the value of `dateCreated` if `datePublished` is falsy", function () {
             const postJs = {
                 id: "woof",
@@ -500,7 +500,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#toJS", function () {
+    describe("toJS", function () {
         it("should set the value of `datePublished` per `#datePublished`", function () {
             const postJs = {
                 id: "woof",
@@ -562,7 +562,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#toJSON", function () {
+    describe("toJSON", function () {
         it("should set the value of `datePublished` per `#datePublished`", function () {
             const postJson = {
                 id: "woof",
@@ -623,7 +623,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#lat", function () {
+    describe("lat", function () {
         it("returns a passed lat", () => {
             const postJs = {
                 id: "woof",
@@ -706,7 +706,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#long", function () {
+    describe("long", function () {
         it("returns a passed long", () => {
             const postJs = {
                 id: "woof",
@@ -789,7 +789,7 @@ describe("Post", () => {
         });
     });
 
-    describe("#geohash", function () {
+    describe("geohash", function () {
         it("returns a passed geohash", () => {
             const postJs = {
                 id: "woof",

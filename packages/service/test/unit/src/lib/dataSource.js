@@ -78,7 +78,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#isEnabled", () => {
+    describe("isEnabled", () => {
         it("should be enabled if it can find some `_API_KEY` and some `_API_SECRET`", () => {
             const dataSource = new DummyDataSource();
 
@@ -102,7 +102,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#postsGetter", function () {
+    describe("postsGetter", function () {
         it("requires implementation", async function () {
             const dataSource = new DataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DataSource);
@@ -126,7 +126,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#getPosts", function () {
+    describe("getPosts", function () {
         it("calls all hooks", async function () {
             const dataSource = new DummyDataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
@@ -144,7 +144,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#allPostsGetter", function () {
+    describe("allPostsGetter", function () {
         it("requires implementation", async function () {
             const dataSource = new DataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DataSource);
@@ -168,7 +168,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#getAllPosts", function () {
+    describe("getAllPosts", function () {
         it("calls all hooks", async function () {
             const dataSource = new DummyDataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
@@ -186,7 +186,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#postGetter", function () {
+    describe("postGetter", function () {
         it("requires implementation", function () {
             const dataSource = new DataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DataSource);
@@ -210,7 +210,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#getPost", function () {
+    describe("getPost", function () {
         it("calls all hooks", async function () {
             const dataSource = new DummyDataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
@@ -228,7 +228,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#jsonToPost", function () {
+    describe("jsonToPost", function () {
         it("requires implementation", function () {
             expect(() => DataSource.jsonToPost(stubPost.toJSON())).to.throw(/Please specify an actual Post transformation/);
         });
@@ -239,7 +239,7 @@ describe("DataSource", function () {
         });
     });
 
-    describe("#type", function () {
+    describe("type", function () {
         it("requires implementation", function () {
             expect(() => DataSource.type).to.throw(/Please specify an actual Post type/);
         });

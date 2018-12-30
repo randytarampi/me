@@ -2,7 +2,7 @@ const expect = require("chai").expect;
 const Pseudolocalizer = require("../../../lib/pseudolocalizer");
 
 describe("pseudolocalizer", () => {
-    describe("#pseudolocalize", () => {
+    describe("pseudolocalize", () => {
         it("should generate a bear by default", () => {
             const pseudolocalizer = new Pseudolocalizer();
             expect(pseudolocalizer.pseudolocalize("ᴥ")).to.equal("ʕつ•ᴥ•ʔつ");
@@ -57,7 +57,7 @@ describe("pseudolocalizer", () => {
         });
     });
 
-    describe("#pseudolocalizeObject", () => {
+    describe("pseudolocalizeObject", () => {
         it("should pseudolocalize string properties on an input object", () => {
             const pseudolocalizer = new Pseudolocalizer();
             const testObject = {

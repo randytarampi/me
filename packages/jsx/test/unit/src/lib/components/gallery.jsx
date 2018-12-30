@@ -198,7 +198,7 @@ describe("Gallery", function () {
             });
         });
 
-        describe("#selected", function () {
+        describe("selected", function () {
             const windowDpr = window.devicePixelRatio;
 
             afterEach(function () {

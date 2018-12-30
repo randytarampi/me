@@ -203,7 +203,7 @@ describe("Photo", function () {
             expect(rendered).to.containMatchingElement(<PostTagsComponent post={stubPhoto}/>);
         });
 
-        describe("#selected", function () {
+        describe("selected", function () {
             const windowDpr = window.devicePixelRatio;
 
             afterEach(function () {

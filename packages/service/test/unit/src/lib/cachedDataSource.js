@@ -128,7 +128,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#cachedPostsGetter", function () {
+    describe("cachedPostsGetter", function () {
         it("delegates to `this.cacheClient.getPosts`", function () {
             delete dummyClassBuilderArguments.stubCachedPostsGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
@@ -169,7 +169,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#allCachedPostsGetter", function () {
+    describe("allCachedPostsGetter", function () {
         it("delegates to `this.cacheClient.getPosts`", function () {
             delete dummyClassBuilderArguments.stubAllCachedPostsGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
@@ -209,7 +209,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getCachedPosts", function () {
+    describe("getCachedPosts", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -251,7 +251,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getAllCachedPosts", function () {
+    describe("getAllCachedPosts", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -293,7 +293,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getServicePosts", function () {
+    describe("getServicePosts", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -337,7 +337,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getAllServicePosts", function () {
+    describe("getAllServicePosts", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -381,7 +381,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getPosts", function () {
+    describe("getPosts", function () {
         it("calls only the cache hooks on a cache hit", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -434,7 +434,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getAllPosts", function () {
+    describe("getAllPosts", function () {
         it("calls only the cache hooks on a cache hit", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -487,7 +487,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#cachedPostGetter", function () {
+    describe("cachedPostGetter", function () {
         it("delegates to `this.cacheClient.getPost` (no params)", function () {
             delete dummyClassBuilderArguments.stubCachedPostGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
@@ -540,7 +540,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getCachedPost", function () {
+    describe("getCachedPost", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -582,7 +582,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getServicePost", function () {
+    describe("getServicePost", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
@@ -620,7 +620,7 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("#getPost", function () {
+    describe("getPost", function () {
         it("calls only the cache hooks on a cache hit", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);

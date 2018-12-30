@@ -194,7 +194,7 @@ describe("S3Source", function () {
         });
     });
 
-    describe("#postsGetter", function () {
+    describe("postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, page: 2});
@@ -254,7 +254,7 @@ describe("S3Source", function () {
         });
     });
 
-    describe("#allPostsGetter", function () {
+    describe("allPostsGetter", function () {
         it("finds all posts", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 720});
@@ -280,7 +280,7 @@ describe("S3Source", function () {
         });
     });
 
-    describe("#postGetter", function () {
+    describe("postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 

@@ -208,7 +208,7 @@ describe("InstagramSource", function () {
         });
     });
 
-    describe("#postsGetter", function () {
+    describe("postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
@@ -262,7 +262,7 @@ describe("InstagramSource", function () {
         });
     });
 
-    describe("#allPostsGetter", function () {
+    describe("allPostsGetter", function () {
         it("finds all posts", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
@@ -283,7 +283,7 @@ describe("InstagramSource", function () {
         });
     });
 
-    describe("#postGetter", function () {
+    describe("postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
 

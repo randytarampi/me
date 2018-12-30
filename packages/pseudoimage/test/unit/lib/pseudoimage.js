@@ -10,7 +10,7 @@ describe("pseudoimage", function () {
     const resourceDir = path.join(__dirname, "../../resources");
     const tmpDir = path.join(__dirname, "../../../tmp");
 
-    describe("#generatePseudoImage", function () {
+    describe("generatePseudoImage", function () {
         it("should call the imageTransformationFunction correctly", function () {
             const pseudoimage = new Pseudoimage(null, null, testImageTransformationFunction);
             const source = path.join(__dirname, "../../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
@@ -38,7 +38,7 @@ describe("pseudoimage", function () {
         });
     });
 
-    describe("#generatePseudoImages", function () {
+    describe("generatePseudoImages", function () {
         it("should call the imageTransformationFunction for each image", function () {
             const pseudoimage = new Pseudoimage(resourceDir, tmpDir, testImageTransformationFunction);
             return pseudoimage.generatePseudoImages();

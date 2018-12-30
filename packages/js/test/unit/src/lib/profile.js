@@ -64,7 +64,7 @@ describe("Profile", function () {
         });
     });
 
-    describe("#toSchema", function () {
+    describe("toSchema", function () {
         it("returns expected Schema.org JSON", function () {
             const stubProfile = {
                 username: "ʕ•ᴥ•ʔ",

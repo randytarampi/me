@@ -196,7 +196,7 @@ describe("UnsplashSource", function () {
         });
     });
 
-    describe("#postsGetter", function () {
+    describe("postsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, page: 2, orderBy: "woof"});
@@ -226,7 +226,7 @@ describe("UnsplashSource", function () {
         });
     });
 
-    describe("#allPostsGetter", function () {
+    describe("allPostsGetter", function () {
         it("finds all posts", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, orderBy: "latest"});
@@ -243,7 +243,7 @@ describe("UnsplashSource", function () {
         });
     });
 
-    describe("#postGetter", function () {
+    describe("postGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});

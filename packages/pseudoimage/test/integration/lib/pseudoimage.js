@@ -23,7 +23,7 @@ describe("pseudoimage", function () {
         } // eslint-disable-line no-empty
     });
 
-    describe("#generatePseudoImage", function () {
+    describe("generatePseudoImage", function () {
         it("should generate a pseudoimage", function () {
             const pseudoimage = new Pseudoimage();
             const source = path.join(__dirname, "../../resources/subdirectory/photo-1450684739805-ccc25cf4d388.jpeg");
@@ -67,7 +67,7 @@ describe("pseudoimage", function () {
         });
     });
 
-    describe("#generatePseudoImages", function () {
+    describe("generatePseudoImages", function () {
         it("should generate pseudoimages", function () {
             const pseudoimage = new Pseudoimage(resourceDir, tmpDir);
             return pseudoimage.generatePseudoImages();

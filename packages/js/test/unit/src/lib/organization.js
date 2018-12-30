@@ -141,7 +141,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#toResume", function () {
+    describe("toResume", function () {
         it("returns expected Resume JSON", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
@@ -175,7 +175,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#toSchema", function () {
+    describe("toSchema", function () {
         it("returns expected Schema.org JSON", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
@@ -243,7 +243,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#name", function () {
+    describe("name", function () {
         it("returns `name` instead of `additionalName`", function () {
             stubOrganizationResumeJson.name = "Meow Meow";
             stubOrganizationResumeJson.additionalName = "Meow Meow Meow";
@@ -271,7 +271,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#address", function () {
+    describe("address", function () {
         it("returns `location.address`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
@@ -288,7 +288,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#city", function () {
+    describe("city", function () {
         it("returns `location.city`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
@@ -305,7 +305,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#region", function () {
+    describe("region", function () {
         it("returns `location.region`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
@@ -322,7 +322,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#postalCode", function () {
+    describe("postalCode", function () {
         it("returns `location.postalCode`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
@@ -339,7 +339,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#countryCode", function () {
+    describe("countryCode", function () {
         it("returns `location.countryCode`", function () {
             const organization = Organization.fromResume(stubOrganizationResumeJson);
 
@@ -356,7 +356,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#phone", function () {
+    describe("phone", function () {
         it("returns `telephone`", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 
@@ -375,7 +375,7 @@ describe("Organization", function () {
         });
     });
 
-    describe("#fax", function () {
+    describe("fax", function () {
         it("returns `faxNumber`", function () {
             const organization = Organization.fromJSON(stubOrganizationJson);
 

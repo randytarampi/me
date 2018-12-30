@@ -232,7 +232,7 @@ describe("Resume", function () {
         });
     });
 
-    describe("#pdfRenderOptions", function () {
+    describe("pdfRenderOptions", function () {
         it("returns `renderOptions` as JS Object", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
@@ -250,7 +250,7 @@ describe("Resume", function () {
         });
     });
 
-    describe("#pdfrenderExpectations", function () {
+    describe("pdfrenderExpectations", function () {
         it("returns `renderExpectations` as JS Object", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
@@ -268,7 +268,7 @@ describe("Resume", function () {
         });
     });
 
-    describe("#pageSize", function () {
+    describe("pageSize", function () {
         it("returns `renderOptions.format`", function () {
             const resume = Resume.fromJS(stubResumeJs);
 
@@ -286,7 +286,7 @@ describe("Resume", function () {
         });
     });
 
-    describe("#filename", function () {
+    describe("filename", function () {
         it("returns `filename`", function () {
             stubResumeJs.filename = "woof";
             const resume = Resume.fromJS(stubResumeJs);
@@ -303,7 +303,7 @@ describe("Resume", function () {
         });
     });
 
-    describe("#pdfMetadata", function () {
+    describe("pdfMetadata", function () {
         it("returns ExifTool parsable tags", function () {
             const resume = Resume.fromJS(stubResumeJs);
 

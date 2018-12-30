@@ -297,7 +297,7 @@ describe("Post", function () {
         });
     });
 
-    describe("#width", function () {
+    describe("width", function () {
         it("returns the `containerWidth`", function () {
             const stubProps = {
                 post: stubPost,
@@ -314,7 +314,7 @@ describe("Post", function () {
         });
     });
 
-    describe("#height", function () {
+    describe("height", function () {
         it("returns the `containerHeight`", function () {
             const stubProps = {
                 post: stubPost,
@@ -331,7 +331,7 @@ describe("Post", function () {
         });
     });
 
-    describe("#containerWidth", function () {
+    describe("containerWidth", function () {
         it("returns the `containerWidth`", function () {
             const stubProps = {
                 post: stubPost,
@@ -348,7 +348,7 @@ describe("Post", function () {
         });
     });
 
-    describe("#containerHeight", function () {
+    describe("containerHeight", function () {
         it("returns the `containerHeight`", function () {
             const stubProps = {
                 post: stubPost,
@@ -365,7 +365,7 @@ describe("Post", function () {
         });
     });
 
-    describe("#scaledHeight", function () {
+    describe("scaledHeight", function () {
         it("returns the `height`", function () {
             const stubProps = {
                 post: stubPost,
@@ -383,7 +383,7 @@ describe("Post", function () {
         });
     });
 
-    describe("#title", function () {
+    describe("title", function () {
         it("returns `Undefined` if no `post.title`", function () {
             const stubProps = {
                 post: stubPost,
