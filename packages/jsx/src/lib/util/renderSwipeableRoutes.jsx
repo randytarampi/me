@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import {matchPath, Route, withRouter} from "react-router";
 import {matchRoutes} from "react-router-config";
@@ -69,6 +70,13 @@ export const RenderedSwipeableRoutes = ({location, routes, extraProps, swipeable
     }
 
     return null;
+};
+
+RenderedSwipeableRoutes.propTypes = {
+    location: PropTypes.object.isRequired,
+    routes: PropTypes.array.isRequired,
+    extraProps: PropTypes.object,
+    swipeableRoutesProps: PropTypes.object
 };
 
 export const RenderedSwipeableRoutesForLocation = withRouter(RenderedSwipeableRoutes);

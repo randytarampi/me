@@ -17,6 +17,10 @@ export const ErrorWrapperComponent = ({children, ...props}) => {
 
 ErrorWrapperComponent.propTypes = {
     hasError: PropTypes.bool,
+    errorCode: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     errorContentComponent: PropTypes.node,
     mapErrorCodeToErrorContentComponent: PropTypes.func.isRequired
 };

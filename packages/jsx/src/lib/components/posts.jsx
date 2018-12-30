@@ -112,6 +112,7 @@ PostsComponent.propTypes = {
     postsLimit: PropTypes.number,
     fetchPosts: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
+    shouldFetchPostsOnMount: PropTypes.bool.isRequired,
     posts: PropTypes.instanceOf(Set)
 };
 

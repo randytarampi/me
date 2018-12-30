@@ -43,6 +43,10 @@ ErrorComponent.propTypes = {
         PropTypes.string
     ]),
     mapErrorCodeToErrorContentComponent: PropTypes.func.isRequired,
+    errorContentComponent: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.string
+    ]),
     errorMessage: PropTypes.string,
     errorTimeoutHandlerId: PropTypes.number,
     location: PropTypes.object.isRequired,
