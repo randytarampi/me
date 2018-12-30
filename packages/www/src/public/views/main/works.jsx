@@ -15,9 +15,9 @@ const Works = () =>
                 href="https://github.com/randytarampi/me/tree/master/packages/www#readme" text="This page"/> you're currently looking at, <CampaignLink
                 href="https://github.com/randytarampi/me/tree/master/packages/service#readme" text="that blog"/> I was
                 shilling earlier, a <CampaignLink
-                href="https://github.com/randytarampi/pseudolocalize.woof"
+                href="https://github.com/randytarampi/pseudolocalize"
                 text="string pseudolocalization library"/> and an <CampaignLink
-                href="https://github.com/randytarampi/pseudolocalize.woof" text="image pseudolocalization library"/>.
+                href="https://github.com/randytarampi/pseudoimage" text="image pseudolocalization library"/>.
             </p>
             <p>
                 One of those people that's interested in my photography? You'll find my favourite works on <CampaignLink

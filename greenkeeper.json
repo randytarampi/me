@@ -12,8 +12,6 @@
         "packages/letter/package.json",
         "packages/service/package.json",
         "packages/printables/package.json",
-        "packages/pseudoimage/package.json",
-        "packages/pseudolocalize/package.json",
         "packages/resume/package.json",
         "packages/views/package.json",
         "packages/www/package.json"

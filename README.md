@@ -16,11 +16,6 @@ A monorepo for everything that goes into [www.randytarampi.ca](https://www.randy
 - [service](packages/service)
 - [www](packages/www)
 
-And also a couple semi-related modules I wrote a couple years back that I'm planning on using at some point to build out an internationalized resume template.
-
-- [pseudoimage](packages/pseudoimage)
-- [pseudolocalize](packages/pseudolocalize)
-
 # Dependencies
 ```
 brew install nvm
