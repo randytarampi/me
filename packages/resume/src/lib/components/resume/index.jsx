@@ -149,6 +149,7 @@ export class ResumeComponent extends PureComponent {
 ResumeComponent.propTypes = {
     isLoading: PropTypes.bool,
     resume: PropTypes.object,
+    variant: PropTypes.string,
     fetchResume: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired
 };
