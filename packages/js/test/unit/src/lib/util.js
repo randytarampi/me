@@ -249,11 +249,223 @@ describe("util", function () {
         });
     });
 
+    describe("getNumericalPrecision", function () {
+        it("works for 0", function () {
+            const number = 0;
+            const precisionForNumber = util.getNumericalPrecision(number);
+
+            expect(precisionForNumber).to.be.a("number");
+            expect(precisionForNumber).to.eql(0);
+        });
+
+        it("works for 1", function () {
+            const number = 1;
+            const precisionForNumber = util.getNumericalPrecision(number);
+
+            expect(precisionForNumber).to.be.a("number");
+            expect(precisionForNumber).to.eql(0);
+        });
+
+        it("works for Infinite values", function () {
+            const number = Infinity;
+            const precisionForNumber = util.getNumericalPrecision(number);
+
+            expect(precisionForNumber).to.be.a("number");
+            expect(precisionForNumber).to.eql(0);
+        });
+
+        it("works for decimal values", function () {
+            const number = 0.12345;
+            const precisionForNumber = util.getNumericalPrecision(number);
+
+            expect(precisionForNumber).to.be.a("number");
+            expect(precisionForNumber).to.eql(5);
+        });
+    });
+
+    describe("getHaversineDistance", function () {
+        it("returns the haversine distance (in metres)", function () {
+            const lat1 = 0;
+            const long1 = 0;
+            const lat2 = 0;
+            const long2 = 1;
+
+            const haversineDistance = util.getHaversineDistance(lat1, long1, lat2, long2);
+
+            expect(haversineDistance).to.be.a("number");
+            expect(haversineDistance).to.be.within(111000, 111200); // NOTE-RT: 1 degree of longitude is about 111.1km right?
+        });
+    });
+
+    describe("getGeohashPrecisionForRadius", function () {
+        util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION.map((cellWidth, index) => {
+            const cellWidthPrecision = util.getNumericalPrecision(cellWidth);
+            const cellWidthIncrement = Number(`${1}e${-cellWidthPrecision}`);
+
+            it(`computes geohash precision for radius for ${cellWidth} + ${cellWidthIncrement}`, function () {
+                const geohashPrecision = util.getGeohashPrecisionForRadius(cellWidth + cellWidthIncrement);
+
+                expect(geohashPrecision).to.be.a("number");
+                expect(geohashPrecision).to.eql(index + 1);
+            });
+        });
+
+        const minimumRadius = util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION.length - 1] - 0.0001;
+
+        it(`computes geohash precision for radius for ${minimumRadius}`, function () {
+            const geohashPrecision = util.getGeohashPrecisionForRadius(minimumRadius);
+
+            expect(geohashPrecision).to.be.a("number");
+            expect(geohashPrecision).to.eql(util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION.length + 1);
+        });
+    });
+
+    describe("getGeohashPrecisionForLatOrLong", function () {
+        util.GEOHASH_PRECISION_FOR_SIG_FIGS.map((precision, index) => {
+            const latOrLong = Number(`${1}e${-index}`);
+
+            it(`computes geohash precision for ${latOrLong}`, function () {
+                const geohashPrecision = util.getGeohashPrecisionForLatOrLong(latOrLong);
+
+                expect(geohashPrecision).to.be.a("number");
+                expect(geohashPrecision).to.eql(precision);
+            });
+        });
+
+        const latOrLong = Number(`${1}e${-util.GEOHASH_PRECISION_FOR_SIG_FIGS.length}`);
+
+        it(`computes geohash precision for ${latOrLong} (defaults to 19)`, function () {
+            const geohashPrecision = util.getGeohashPrecisionForLatOrLong(latOrLong);
+
+            expect(geohashPrecision).to.be.a("number");
+            expect(geohashPrecision).to.eql(19);
+        });
+    });
+
+    describe("getGeohashPrecisionForLatsOrLongs", function () {
+        const latsOrLongs = util.GEOHASH_PRECISION_FOR_SIG_FIGS.map((precision, index) => {
+            return Number(`${1}e${-index}`);
+        });
+
+        it(`computes geohash precision for ${latsOrLongs}`, function () {
+            const geohashPrecision = util.getGeohashPrecisionForLatsOrLongs(...latsOrLongs);
+
+            expect(geohashPrecision).to.be.a("number");
+            expect(geohashPrecision).to.eql(util.GEOHASH_PRECISION_FOR_SIG_FIGS[util.GEOHASH_PRECISION_FOR_SIG_FIGS.length - 1]);
+        });
+    });
+
+    describe("getGeohashesForRadiusAroundPoint", function () {
+        it("infers a precision if necessary", function () {
+            const radius = util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1;
+            const geohashesForRadiusAroundPoint = util.getGeohashesForRadiusAroundPoint(0, 0, radius);
+
+            expect(geohashesForRadiusAroundPoint).to.be.an("array");
+            expect(geohashesForRadiusAroundPoint).to.contain.members([
+                "s",
+                "k",
+                "e",
+                "7",
+                "u",
+                "h",
+                "g",
+                "5"
+            ]);
+        });
+
+        it("calculates geohashes for a given precision", function () {
+            const radius = util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1;
+            const geohashesForRadiusAroundPoint = util.getGeohashesForRadiusAroundPoint(0, 0, radius, 2);
+
+            expect(geohashesForRadiusAroundPoint).to.be.an("array");
+            expect(geohashesForRadiusAroundPoint).to.contain.members([
+                "ec", "s1", "s3",
+                "eb", "s0", "s2",
+                "7z", "kp", "kr"
+            ]);
+        });
+    });
+
+    describe("getGeohashesForRadiusAroundGeohash", function () {
+        it("infers a precision if necessary", function () {
+            const radius = util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1;
+            const geohashesForRadiusAroundGeohash = util.getGeohashesForRadiusAroundGeohash("s", radius);
+
+            expect(geohashesForRadiusAroundGeohash).to.be.an("array");
+            expect(geohashesForRadiusAroundGeohash).to.contain.members([
+                "s",
+                "t",
+                "e",
+                "u",
+                "k",
+                "v",
+                "m",
+                "g",
+                "7"
+            ]);
+        });
+
+        it("calculates geohashes for a given precision", function () {
+            const radius = util.MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[1];
+            const geohashesForRadiusAroundGeohash = util.getGeohashesForRadiusAroundGeohash("s", radius, 2);
+
+            expect(geohashesForRadiusAroundGeohash).to.be.an("array");
+            expect(geohashesForRadiusAroundGeohash).to.contain.members([
+                "ss",
+                "se",
+                "sk",
+                "s7",
+                "st",
+                "sd",
+                "sm",
+                "s6",
+                "sw",
+                "s9",
+                "sq",
+                "s3"
+            ]);
+        });
+    });
+
+    describe("getGeohashesForBoundingBox", function () {
+        it("infers a precision if necessary", function () {
+            const geohashesForBoundingBox = util.getGeohashesForBoundingBox(1, 1, -1, -1);
+
+            expect(geohashesForBoundingBox).to.be.an("array");
+            expect(geohashesForBoundingBox).to.contain.members([
+                "s00",
+                "kpb",
+                "ebp",
+                "7zz",
+                "s01",
+                "kpc",
+                "ebn",
+                "7zy",
+                "s02",
+                "kp8",
+                "ebr",
+                "7zx"
+            ]);
+        });
+
+        it("calculates geohashes for a given precision", function () {
+            const geohashesForBoundingBox = util.getGeohashesForBoundingBox(1, 1, -1, -1, 2);
+
+            expect(geohashesForBoundingBox).to.be.an("array");
+            expect(geohashesForBoundingBox).to.contain.members([
+                "s0",
+                "kp",
+                "eb",
+                "7z"
+            ]);
+        });
+    });
+
     describe("convertLatLongToGeohash", function () {
         it("returns a geohash", function () {
             const castedDate = util.convertLatLongToGeohash(49.2845, -123.1116);
 
-            expect(castedDate).to.eql("c2b2qebz5b9w");
+            expect(castedDate).to.eql("c2b2qebz5b9");
         });
 
         it("returns a geohash (with custom precision)", function () {

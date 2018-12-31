@@ -1,3 +1,4 @@
+import _ from "lodash";
 import * as PostModel from "../db/models/post";
 import logger from "./logger";
 
@@ -22,7 +23,11 @@ class CacheClient {
      */
     async getPosts(searchParams) {
         logger.trace(`getting posts (${JSON.stringify(searchParams)}) from cache`);
-        return this.dataClient.getPosts(searchParams[this.type])
+
+        const queries = _.flatten([searchParams[this.type]]);
+
+        return Promise.all(queries.map(this.dataClient.getPosts))
+            .then(_.flatten)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
@@ -35,7 +40,11 @@ class CacheClient {
      */
     async getPostCount(searchParams) {
         logger.trace(`getting count of posts (${JSON.stringify(searchParams)}) from cache`);
-        return this.dataClient.getPostCount(searchParams[this.type])
+
+        const queries = _.flatten([searchParams[this.type]]);
+
+        return Promise.all(queries.map(this.dataClient.getPostCount))
+            .then(_.sum)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors
@@ -61,7 +70,11 @@ class CacheClient {
      */
     async getPost(searchParams) {
         logger.trace(`getting post (${JSON.stringify(searchParams)}) from cache`);
-        return this.dataClient.getPost(searchParams[this.type])
+
+        const queries = _.flatten([searchParams[this.type]]);
+
+        return Promise.all(queries.map(this.dataClient.getPost))
+            .then(_.first)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
             }); // NOTE-RT: Just swallow caching errors

@@ -1,25 +1,18 @@
 import geohash from "latlon-geohash";
-
-/**
- * The default number of characters of precision for geohashes, about 37mm * 19mm per http://www.movable-type.co.uk/scripts/geohash.html.
- * @type {number}
- */
-export const GEOHASH_CHARACTER_PRECISION = 12;
-
-/**
- * The default character to add to geohashes to focus their searches
- * @type {number}
- */
-export const GEOHASH_ADDITIONAL_PRECISION_CHARACTER = "s";
+import {getGeohashPrecisionForLatsOrLongs} from "./getGeohashPrecisionForLatOrLong";
 
 /**
  * @function Convert a latitude and longitude to a geohash
- * @param lat {number}
- * @param long {number}
- * @param [precision = GEOHASH_CHARACTER_PRECISION] {string}
+ * @param lat {number} The latitude of the centre of the area
+ * @param long {number} The longitude of the centre of the area
+ * @param [precision] {number}
  * @returns {string}
  */
-export const convertLatLongToGeohash = (lat, long, precision = GEOHASH_CHARACTER_PRECISION) => {
+export const convertLatLongToGeohash = (lat, long, precision) => {
+    if (!Number.isFinite(precision)) {
+        precision = getGeohashPrecisionForLatsOrLongs(lat, long);
+    }
+
     return geohash.encode(lat, long, precision);
 };
 
