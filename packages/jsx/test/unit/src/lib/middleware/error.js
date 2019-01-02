@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {CLEAR_ERROR} from "../../../../../src/lib/actions/clearError";
+import {CLEAR_ERROR} from "../../../../../src/lib/actions/error/clearError";
 import selectors from "../../../../../src/lib/data/selectors";
 import error from "../../../../../src/lib/middleware/error";
 

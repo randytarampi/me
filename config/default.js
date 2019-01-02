@@ -124,6 +124,7 @@ module.exports = {
         codeUrl: "/code",
         photosUrl: "/photos",
         postsUrl: "/blog",
+        mapUrl: "/map",
         wordsUrl: "/words",
         resumeUrl: "/resume",
         letterUrl: "/letter",

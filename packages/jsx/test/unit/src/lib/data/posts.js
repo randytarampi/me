@@ -1,17 +1,25 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {fromJS, Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
 import {REHYDRATE} from "redux-persist/constants";
-import {fetchingPostsSuccess} from "../../../../../src/lib/actions/fetchPosts";
+import {fetchingPostsSuccess} from "../../../../../src/lib/actions/posts/fetchPosts";
 import reducer, {
+    getNewestAvailablePostDateForSearchTypeAndPostType,
+    getNewestFetchedPostDateForSearchTypeAndPostType,
     getNewestPost,
+    getNewestPostForBoundingBox,
+    getOldestAvailablePostDateForSearchTypeAndPostType,
+    getOldestFetchedPostDateForSearchTypeAndPostType,
     getOldestPost,
+    getOldestPostForBoundingBox,
     getPhotoPosts,
     getPhotoPostsSortedByDate,
     getPosts,
+    getPostsForBoundingBox,
     getPostsSortedByDate,
+    getPostsSortedByDateForBoundingBox,
     getWordPosts,
     getWordPostsSortedByDate
 } from "../../../../../src/lib/data/posts";
@@ -64,14 +72,18 @@ describe("posts", function () {
                 posts: Map({
                     posts: stubPosts,
                     oldest: Map({
-                        Post: stubPosts.first().dateCreated,
-                        Photo: stubPosts.last().dateCreated,
-                        global: stubPosts.first().dateCreated
+                        blog: {
+                            Post: stubPosts.first().dateCreated,
+                            Photo: stubPosts.last().dateCreated,
+                            global: stubPosts.first().dateCreated
+                        }
                     }),
                     newest: Map({
-                        Post: stubPosts.first().dateCreated,
-                        Photo: stubPosts.last().dateCreated,
-                        global: stubPosts.last().dateCreated
+                        blog: {
+                            Post: stubPosts.first().dateCreated,
+                            Photo: stubPosts.last().dateCreated,
+                            global: stubPosts.last().dateCreated
+                        }
                     })
                 })
             };
@@ -122,6 +134,7 @@ describe("posts", function () {
             ];
             const stubPayload = {
                 posts: stubPosts,
+                searchType: "blog",
                 searchParams: {}
             };
 
@@ -143,14 +156,28 @@ describe("posts", function () {
             ];
             const stubPayload = {
                 posts: stubPosts,
+                searchType: "blog",
                 searchParams: {}
             };
 
+            const stubExistingPost = Post.fromJSON({
+                id: "grr",
+                dateCreated: DateTime.utc().toISO()
+            });
             stubInitialState = Map({
-                posts: Set([Post.fromJSON({
-                    id: "grr",
-                    dateCreated: DateTime.utc().toISO()
-                })])
+                posts: Set([stubExistingPost]),
+                oldest: Map({
+                    blog: {
+                        Post: stubExistingPost.dateCreated,
+                        global: stubExistingPost.dateCreated
+                    }
+                }),
+                newest: Map({
+                    blog: {
+                        Post: stubExistingPost.dateCreated,
+                        global: stubExistingPost.dateCreated
+                    }
+                })
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
@@ -369,6 +396,170 @@ describe("posts", function () {
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const post = getNewestPost(updatedState);
             expect(post).to.eql(stubPosts[3]);
+        });
+    });
+
+    describe("getPostsForBoundingBox", function () {
+        it("filters for posts that fit in the bounding box", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubPayload = {
+                posts: stubPosts,
+                searchParams: {}
+            };
+
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
+            const posts = getPostsForBoundingBox(updatedState, 1, 1, 0, 0);
+            expect(posts.toArray()).to.have.members([stubPosts[0], stubPosts[1]]);
+        });
+    });
+
+    describe("getPostsSortedByDateForBoundingBox", function () {
+        it("filters for posts that fit in the bounding box", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubPayload = {
+                posts: stubPosts,
+                searchParams: {}
+            };
+
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
+            const posts = getPostsSortedByDateForBoundingBox(updatedState, 1, 1, 0, 0);
+            expect(posts.toArray()).to.eql([stubPosts[0], stubPosts[1]]);
+        });
+    });
+
+    describe("getOldestPostForBoundingBox", function () {
+        it("gets the oldest post that fits in the bounding box", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubPayload = {
+                posts: stubPosts,
+                searchParams: {}
+            };
+
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
+            const post = getOldestPostForBoundingBox(updatedState, 1, 1, 0, 0);
+            expect(post).to.eql(stubPosts[1]);
+        });
+    });
+
+    describe("getNewestPostForBoundingBox", function () {
+        it("gets the newest post that fits in the bounding box", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubPayload = {
+                posts: stubPosts,
+                searchParams: {}
+            };
+
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
+            const post = getNewestPostForBoundingBox(updatedState, 1, 1, 0, 0);
+            expect(post).to.eql(stubPosts[0]);
+        });
+    });
+
+    describe("getOldestAvailablePostDateForSearchTypeAndPostType", function () {
+        it("gets the oldest available post date", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubInitialState = fromJS({
+                posts: stubPosts,
+                oldest: {
+                    blog: {
+                        global: stubPosts[1].date.toISO()
+                    }
+                }
+            });
+
+            const dateString = getOldestAvailablePostDateForSearchTypeAndPostType(stubInitialState, "blog", "global");
+            expect(dateString).to.eql(stubPosts[1].date.toISO());
+        });
+    });
+
+    describe("getNewestAvailablePostDateForSearchTypeAndPostType", function () {
+        it("gets the newest available post date", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubInitialState = fromJS({
+                posts: stubPosts,
+                newest: {
+                    blog: {
+                        global: stubPosts[0].date.toISO()
+                    }
+                }
+            });
+
+            const dateString = getNewestAvailablePostDateForSearchTypeAndPostType(stubInitialState, "blog", "global");
+            expect(dateString).to.eql(stubPosts[0].date.toISO());
+        });
+    });
+
+    describe("getOldestFetchedPostDateForSearchTypeAndPostType", function () {
+        it("gets the oldest fetched post date", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubInitialState = fromJS({
+                posts: stubPosts,
+                oldestFetched: {
+                    map: {
+                        Photo: stubPosts[1].date.toISO()
+                    }
+                }
+            });
+
+            const dateString = getOldestFetchedPostDateForSearchTypeAndPostType(stubInitialState, "map", "Photo");
+            expect(dateString).to.eql(stubPosts[1].date.toISO());
+        });
+    });
+
+    describe("getNewestFetchedPostDateForSearchTypeAndPostType", function () {
+        it("gets the newest fetched post date", function () {
+            const stubPosts = [
+                Post.fromJSON({id: "woof", lat: 0, long: 0, dateCreated: new Date(2500, 0, 1).toISOString()}),
+                Photo.fromJSON({id: "meow", lat: 1, long: 1, dateCreated: new Date(1900, 0, 1).toISOString()}),
+                Post.fromJSON({id: "grr", lat: -1, long: -1, dateCreated: new Date().toISOString()}),
+                Photo.fromJSON({id: "rawr", dateCreated: new Date(3000, 0, 1).toISOString()})
+            ];
+            const stubInitialState = fromJS({
+                posts: stubPosts,
+                newestFetched: {
+                    blog: {
+                        Photo: stubPosts[3].date.toISO()
+                    }
+                }
+            });
+
+            const dateString = getNewestFetchedPostDateForSearchTypeAndPostType(stubInitialState, "blog", "Photo");
+            expect(dateString).to.eql(stubPosts[3].date.toISO());
         });
     });
 });

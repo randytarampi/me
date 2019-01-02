@@ -25,9 +25,9 @@ import defaultReduxOfflineConfig from "@redux-offline/redux-offline/lib/defaults
 import {connectRouter, routerMiddleware} from "connected-react-router/immutable";
 import Immutable, {Map} from "immutable";
 import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {combineReducers} from "redux-immutable";
-import thunk from "redux-thunk";
 import {
     errorMiddleware,
     metricsMiddleware,
@@ -76,7 +76,7 @@ export const reduxOfflineConfig = {
 export const createImmutableBlacklistFilter = createBlacklistFilter;
 
 export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) => {
-    const transforms = (overrides.persistOptions && overrides.persistOptions.transforms) || [];
+    const transforms = (overrides.persistOptions && overrides.persistOptions.transforms && [...overrides.persistOptions.transforms]) || [];
 
     transforms.push(errorStateBlacklistFilter);
     transforms.push.apply(transforms, otherTransforms);
@@ -87,7 +87,7 @@ export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) =>
         persistOptions: {
             ...reduxOfflineConfig.persistOptions,
             ...(overrides && overrides.persistOptions),
-            transforms: transforms.length ? transforms : reduxOfflineConfig.persistOptions.transforms
+            transforms
         }
     };
 };

@@ -474,4 +474,106 @@ describe("util", function () {
             expect(castedDate).to.eql("c2b2qebz");
         });
     });
+
+    describe("ensurePostsHaveUniqueLocation", function () {
+        it("does nothing for posts with unique locations", function () {
+            const stubPost = Post.fromJS({lat: 0.0, long: 0.0});
+            const stubPhoto = Photo.fromJS({lat: 0.1, long: 0.1});
+            const stubGallery = Gallery.fromJS({lat: 0.2, long: 0.2});
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
+
+            const postsWithUniqueLocations = util.ensurePostsHaveUniqueLocation(stubPosts);
+
+            expect(postsWithUniqueLocations).to.eql(stubPosts);
+        });
+
+        it("ensures posts have unique locations", function () {
+            const stubPost = Post.fromJS({lat: 0.0, long: 0.0});
+            const stubPhoto = Photo.fromJS({lat: 0.0, long: 0.0});
+            const stubGallery = Gallery.fromJS({lat: 0.0, long: 0.0});
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
+
+            const postsWithUniqueLocations = util.ensurePostsHaveUniqueLocation(stubPosts);
+
+            expect(postsWithUniqueLocations).to.have.length(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.lat)).size).to.eql(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.long)).size).to.eql(stubPosts.length);
+        });
+
+        it("ensures posts have unique locations", function () {
+            const stubPost = Post.fromJS({lat: 0.0, long: 0.0});
+            const stubPhoto = Photo.fromJS({lat: 0.0, long: 0.0});
+            const stubGallery = Gallery.fromJS({lat: 0.0, long: 0.0});
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
+
+            const postsWithUniqueLocations = util.ensurePostsHaveUniqueLocation(stubPosts);
+
+            expect(postsWithUniqueLocations).to.have.length(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.lat)).size).to.eql(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.long)).size).to.eql(stubPosts.length);
+        });
+
+        it("ensures posts have unique locations (with `offsetPrecision`)", function () {
+            const stubPost = Post.fromJS({lat: 0.0, long: 0.0});
+            const stubPhoto = Photo.fromJS({lat: 0.0, long: 0.0});
+            const stubGallery = Gallery.fromJS({lat: 0.0, long: 0.0});
+            const stubOffsetPrecision = 1;
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
+
+            const postsWithUniqueLocations = util.ensurePostsHaveUniqueLocation(stubPosts, stubOffsetPrecision);
+
+            expect(postsWithUniqueLocations).to.have.length(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.lat)).size).to.eql(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.long)).size).to.eql(stubPosts.length);
+            expect(Math.abs(postsWithUniqueLocations[1].lat)).to.be.gt(0);
+            expect(Math.abs(postsWithUniqueLocations[1].long)).to.be.gt(0);
+            expect(Math.abs(postsWithUniqueLocations[2].lat)).to.be.gt(0);
+            expect(Math.abs(postsWithUniqueLocations[2].long)).to.be.gt(0);
+        });
+
+        it("ensures posts have unique locations (with `minimumOffset`)", function () {
+            const stubPost = Post.fromJS({lat: 0.0, long: 0.0});
+            const stubPhoto = Photo.fromJS({lat: 0.0, long: 0.0});
+            const stubGallery = Gallery.fromJS({lat: 0.0, long: 0.0});
+            const stubOffsetPrecision = 0;
+            const stubMinimumOffset = 1;
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
+
+            const postsWithUniqueLocations = util.ensurePostsHaveUniqueLocation(stubPosts, stubOffsetPrecision, stubMinimumOffset);
+
+            expect(postsWithUniqueLocations).to.have.length(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.lat)).size).to.eql(stubPosts.length);
+            expect(new Set(postsWithUniqueLocations.map(post => post.long)).size).to.eql(stubPosts.length);
+            expect(Math.abs(postsWithUniqueLocations[1].lat)).to.be.gt(0);
+            expect(Math.abs(postsWithUniqueLocations[1].long)).to.be.gt(0);
+            expect(Math.abs(postsWithUniqueLocations[2].lat)).to.be.gt(0);
+            expect(Math.abs(postsWithUniqueLocations[2].long)).to.be.gt(0);
+        });
+    });
+
+    describe("filterPostsForBoundingBox", function () {
+        it("includes a Post in the bounding box", function () {
+            const stubPost = {lat: 0, long: 0};
+            const stubPosts = [stubPost];
+            const stubBoundingBox = {north: 1, east: 1, south: -1, west: -1};
+
+            expect(util.filterPostsForBoundingBox(stubPosts, stubBoundingBox.north, stubBoundingBox.east, stubBoundingBox.south, stubBoundingBox.west)).to.eql(stubPosts);
+        });
+
+        it("excludes a Post without a location", function () {
+            const stubPost = {lat: null, long: null};
+            const stubPosts = [stubPost];
+            const stubBoundingBox = {north: 1, east: 1, south: -1, west: -1};
+
+            expect(util.filterPostsForBoundingBox(stubPosts, stubBoundingBox.north, stubBoundingBox.east, stubBoundingBox.south, stubBoundingBox.west)).to.eql([]);
+        });
+
+        it("excludes a Post with a location outside the bounding box", function () {
+            const stubPost = {lat: 2, long: 2};
+            const stubPosts = [stubPost];
+            const stubBoundingBox = {north: 1, east: 1, south: -1, west: -1};
+
+            expect(util.filterPostsForBoundingBox(stubPosts, stubBoundingBox.north, stubBoundingBox.east, stubBoundingBox.south, stubBoundingBox.west)).to.eql([]);
+        });
+    });
 });

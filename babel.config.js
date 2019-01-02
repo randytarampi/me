@@ -107,6 +107,13 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__MAP_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("www.mapUrl")
+                }
+            },
+            {
                 identifierName: "__PHOTOS_APP_URL__",
                 replacement: {
                     type: "stringLiteral",

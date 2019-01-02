@@ -1,0 +1,17 @@
+.marker {
+    &-info-box, &-info-window {
+        background-size: cover;
+
+        img {
+            object-fit: cover;
+        }
+
+        &-post {
+            @extend .post;
+
+            .post-title {
+                font-size: 2rem;
+            }
+        }
+    }
+}

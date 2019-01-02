@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";
-import {clearError} from "../../../../../src/lib/actions/clearError";
-import {setError} from "../../../../../src/lib/actions/setError";
-import {setErrorTimeoutHandler} from "../../../../../src/lib/actions/setErrorTimeoutHandler";
+import {clearError} from "../../../../../src/lib/actions/error/clearError";
+import {setError} from "../../../../../src/lib/actions/error/setError";
+import {setErrorTimeoutHandler} from "../../../../../src/lib/actions/error/setErrorTimeoutHandler";
 import reducer, {
     getError,
     getErrorCode,

@@ -6,7 +6,7 @@ import {
     FETCHING_POSTS_FAILURE,
     FETCHING_POSTS_FAILURE_RECOVERY,
     FETCHING_POSTS_SUCCESS
-} from "../actions/fetchPosts";
+} from "../actions/posts/fetchPosts";
 
 export const apiReducer = (state = Map(), action) => {
     switch (action.type) {
@@ -65,7 +65,7 @@ export const getApiStateForUrl = (state, url) => {
 // NOTE-RT: Utility functions
 export const isUrlStateLoading = urlState => urlState && urlState.get("isLoading");
 export const getErrorForUrlState = urlState => urlState && urlState.get("error");
-const getApiStateForUrlFromGlobalState = (state, url) => getApiStateForUrl(state.get("api"), url);
+export const getApiStateForUrlFromGlobalState = (state, url) => getApiStateForUrl(state.get("api"), url);
 
 // NOTE-RT: Private selectors for individual containers
 export const createIsLoadingUrlSelector = () => createSelector(

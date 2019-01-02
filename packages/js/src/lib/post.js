@@ -68,7 +68,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     }
 
     get lat() {
-        if (this.get("lat")) {
+        if (Number.isFinite(this.get("lat"))) {
             return this.get("lat");
         }
 
@@ -80,7 +80,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     }
 
     get long() {
-        if (this.get("long")) {
+        if (Number.isFinite(this.get("long"))) {
             return this.get("long");
         }
 
@@ -96,7 +96,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             return this.get("geohash");
         }
 
-        if (this.get("lat") && this.get("long")) {
+        if (Number.isFinite(this.get("lat")) && Number.isFinite(this.get("long"))) {
             return convertLatLongToGeohash(this.get("lat"), this.get("long"));
         }
 

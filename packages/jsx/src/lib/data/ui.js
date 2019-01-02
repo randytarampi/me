@@ -2,7 +2,7 @@ import {LOCATION_CHANGE} from "connected-react-router";
 import {fromJS, List, Map} from "immutable";
 import {matchRoutes} from "react-router-config";
 import {createSelector} from "reselect";
-import {SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions";
+import {SET_CONTROL_STATE, SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions";
 
 const initialState = Map({
     routes: List(),
@@ -10,7 +10,8 @@ const initialState = Map({
         index: null,
         indexLatest: null,
         meta: null
-    })
+    }),
+    controls: Map()
 });
 
 export const uiReducer = (state = initialState, action) => {
@@ -30,6 +31,14 @@ export const uiReducer = (state = initialState, action) => {
         case SET_ROUTES:
             return state
                 .set("routes", List(action.payload));
+
+        case SET_CONTROL_STATE: {
+            const {id, ...updatedControlState} = action.payload;
+            const existingControlState = getControlStateForId(state, id) || Map();
+
+            return state
+                .setIn(["controls", id], existingControlState.mergeDeep(fromJS(updatedControlState)));
+        }
 
         default:
             return state;
@@ -76,3 +85,6 @@ export const getIndexForRoute = (state, pathname) => {
         ? bestRouteIndex
         : null;
 };
+
+export const getControlStateForId = (state, id) => state.getIn(["controls", id]);
+

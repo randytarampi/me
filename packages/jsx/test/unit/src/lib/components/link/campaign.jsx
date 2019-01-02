@@ -4,6 +4,7 @@ import queryString from "query-string";
 import React from "react";
 import config from "config";
 import CampaignLink from "../../../../../../src/lib/components/link/campaign";
+import InternalLink from "../../../../../../src/lib/components/link/internal";
 import Link from "../../../../../../src/lib/components/link/link";
 import CampaignContext from "../../../../../../src/lib/contexts/campaign";
 
@@ -148,6 +149,36 @@ describe("CampaignLink", function () {
 
         expect(rendered).to.containMatchingElement(
             <Link
+                className="link--campaign link--no-branding"
+                href={href}
+                text={stubProps.href}
+            />
+        );
+    });
+
+    xit("renders (InternalLink with CampaignContext)", function () {
+        const stubProps = {
+            href: "http://localhost:8080/woof?woof=meow",
+            useBranding: false
+        };
+        const stubContext = {
+            source: "woof",
+            medium: "meow",
+            name: "grr",
+            term: "rawr",
+            content: "content"
+        };
+        const rendered = mount(
+            <CampaignContext.Provider value={stubContext}>
+                <CampaignLink {...stubProps}/>
+            </CampaignContext.Provider>
+        );
+        const href = `http://localhost:8080/woof?${queryString.stringify({
+            ...queryString.parseUrl(stubProps.href).query
+        })}`;
+
+        expect(rendered).to.containMatchingElement(
+            <InternalLink
                 className="link--campaign link--no-branding"
                 href={href}
                 text={stubProps.href}

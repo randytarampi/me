@@ -1,9 +1,9 @@
 import {push} from "connected-react-router";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import clearError from "../../actions/clearError";
-import clearErrorTimeoutHandler from "../../actions/clearErrorTimeoutHandler";
-import setErrorTimeout from "../../actions/setErrorTimeoutHandler";
+import clearError from "../../actions/error/clearError";
+import clearErrorTimeoutHandler from "../../actions/error/clearErrorTimeoutHandler";
+import setErrorTimeout from "../../actions/error/setErrorTimeoutHandler";
 import {ErrorComponent} from "../../components/error";
 import selectors from "../../data/selectors";
 

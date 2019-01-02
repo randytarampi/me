@@ -5,12 +5,14 @@ import {createAction} from "redux-actions";
 import {setRoutes} from "../../../../../src/lib/actions/routing/setRoutes";
 import {swipeableChangeIndex} from "../../../../../src/lib/actions/routing/swipeableChangeIndex";
 import {swipeableTabChangeIndex} from "../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
+import {setControlState} from "../../../../../src/lib/actions/ui/setControlState";
 import reducer, {
     getIndexForRoute,
     getRouteForIndex,
     getRoutes,
     getSwipeable,
-    getSwipeableIndex
+    getSwipeableIndex,
+    getControlStateForId
 } from "../../../../../src/lib/data/ui";
 
 describe("ui", function () {
@@ -238,6 +240,35 @@ describe("ui", function () {
             expect(swipeableState.get("meta")).to.eql(fromJS(stubPayload.meta));
             const swipeableIndex = getSwipeableIndex(updatedState);
             expect(swipeableIndex).to.eql(stubPayload.index);
+        });
+    });
+
+    describe("SET_CONTROL_STATE", function () {
+        it("reduces the correct state (no prior state)", function () {
+            const stubPayload = {id: "woof", meow: "grr"};
+            const {id, ...stubControlStateUpdate} = stubPayload;
+
+            const updatedState = reducer(stubInitialState, setControlState(stubPayload));
+
+            const controlState = getControlStateForId(updatedState, id);
+            expect(controlState.toJS()).to.eql(stubControlStateUpdate);
+        });
+
+        it("reduces the correct state (has existing state)", function () {
+            const stubPayload = {id: "woof", meow: "grr"};
+            const {id, ...stubControlStateUpdate} = stubPayload;
+
+            stubInitialState = fromJS({
+                controls: {
+                    [id]: {
+                        meow: false
+                    }
+                }
+            });
+            const updatedState = reducer(stubInitialState, setControlState(stubPayload));
+
+            const controlState = getControlStateForId(updatedState, id);
+            expect(controlState.toJS()).to.eql(stubControlStateUpdate);
         });
     });
 });

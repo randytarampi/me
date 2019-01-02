@@ -5,18 +5,42 @@ import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Fragment, PureComponent} from "react";
+import {Marker} from "react-google-maps";
 import {Col, Row} from "react-materialize";
 import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link";
+import {MapComponent} from "./map";
 
 export class PostComponent extends PureComponent {
+    get postElement() {
+        return document.getElementById(this.props.post.uid);
+    }
+
     get width() {
-        const postElement = document.getElementById(this.props.post.uid);
+        const postElement = this.postElement;
         return postElement ? postElement.clientWidth : this.props.containerHeight;
     }
 
     get height() {
-        const postElement = document.getElementById(this.props.post.uid);
+        const postElement = this.postElement;
         return postElement ? postElement.clientHeight : this.props.containerWidth;
+    }
+
+    get metadataWidth() {
+        const postElement = this.postElement;
+        const metadataColumnElement = postElement && postElement.querySelector(".post-metadata");
+        return metadataColumnElement ? metadataColumnElement.clientWidth : this.width;
+    }
+
+    get metadataHeight() {
+        const postElement = this.postElement;
+        const metadataColumnElement = postElement && postElement.querySelector(".post-metadata");
+        return metadataColumnElement ? metadataColumnElement.clientHeight : this.height;
+    }
+
+    get contentHeight() {
+        const postElement = this.postElement;
+        const contentColumnElement = postElement && postElement.querySelector(".post-content");
+        return contentColumnElement ? contentColumnElement.clientHeight : this.height;
     }
 
     get containerHeight() {
@@ -191,7 +215,7 @@ PostDateCreatedComponent.propTypes = {
     label: PropTypes.string
 };
 
-export const PostTagsComponent = ({post}) => {
+export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tags/`}) => {
     return post.tags && post.tags.size
         ? <p className="post-tags hide-on-med-and-down">
             <strong className="post-tags__label">Tags:</strong>
@@ -199,7 +223,7 @@ export const PostTagsComponent = ({post}) => {
                 post.tags.map(
                     tag => <Fragment key={tag}><InternalLink
                         className="post-tags__tag"
-                        href={`${__POSTS_APP_URL__}/tags/${tag}`}
+                        href={`${tagLinkBase}/${tag}`}
                     >
                         {tag}
                     </InternalLink> </Fragment> // NOTE-RT: We need this ` ` between the `</InternalLink>` and the `</Fragment>` because Safari (Webkit?) seems to collapse `&#0032;` and not insert line breaks between each `<Fragment>` but doesn't with ` `
@@ -210,7 +234,34 @@ export const PostTagsComponent = ({post}) => {
 };
 
 PostTagsComponent.propTypes = {
+    tagLinkBase: PropTypes.string.isRequired,
     post: PropTypes.instanceOf(Record).isRequired
+};
+
+export const PostMapComponent = ({post, mapContainerHeight, children, ...props}) => {
+    return Number.isFinite(post.lat) && Number.isFinite(post.long)
+        ? <div className="post-map">
+            <MapComponent
+                mapContainerHeight={mapContainerHeight}
+                defaultZoom={17}
+                defaultCenter={{lat: post.lat, lng: post.long}}
+                {...props}
+            >
+                {
+                    children
+                        ? children
+                        : <Marker position={{lat: post.lat, lng: post.long}}/>
+                }
+            </MapComponent>
+        </div>
+        : null;
+};
+
+PostMapComponent.propTypes = {
+    post: PropTypes.instanceOf(Record).isRequired,
+    mapContainerHeight: PropTypes.number,
+    contentHeight: PropTypes.number,
+    metadataHeight: PropTypes.number
 };
 
 export default PostComponent;

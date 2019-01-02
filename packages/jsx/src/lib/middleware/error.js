@@ -1,4 +1,4 @@
-import {CLEAR_ERROR} from "../actions/clearError";
+import {CLEAR_ERROR} from "../actions/error/clearError";
 import selectors from "../data/selectors";
 
 export const errorMiddleware = store => next => action => {
