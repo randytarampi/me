@@ -55,10 +55,10 @@ describe("Error", function () {
         const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../../src/lib/containers/error/error", {
-            "../../actions/clearError": {
+            "../../actions/error/clearError": {
                 "default": clearErrorStub
             },
-            "../../actions/clearErrorTimeoutHandler": {
+            "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {
@@ -102,10 +102,10 @@ describe("Error", function () {
         const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../../src/lib/containers/error/error", {
-            "../../actions/clearError": {
+            "../../actions/error/clearError": {
                 "default": clearErrorStub
             },
-            "../../actions/clearErrorTimeoutHandler": {
+            "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {
@@ -148,10 +148,10 @@ describe("Error", function () {
         const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../../src/lib/containers/error/error", {
-            "../../actions/clearError": {
+            "../../actions/error/clearError": {
                 "default": clearErrorStub
             },
-            "../../actions/clearErrorTimeoutHandler": {
+            "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {
@@ -187,10 +187,10 @@ describe("Error", function () {
         const clearErrorTimeoutHandlerStub = sinon.stub().returns(() => Promise.resolve());
         const routerPushStub = sinon.stub().returns({type: "WOOF"});
         const proxyquiredError = proxyquire("../../../../../src/lib/containers/error/error", {
-            "../../actions/clearError": {
+            "../../actions/error/clearError": {
                 "default": clearErrorStub
             },
-            "../../actions/clearErrorTimeoutHandler": {
+            "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
             "connected-react-router": {

@@ -1,16 +1,46 @@
-import {castDatePropertyToDateTime, Gallery, Photo, Post, sortPostsByDate} from "@randy.tarampi/js";
-import {Map, Set} from "immutable";
+import {
+    castDatePropertyToDateTime,
+    filterPostsForBoundingBox,
+    Gallery,
+    Photo,
+    Post,
+    sortPostsByDate
+} from "@randy.tarampi/js";
+import {fromJS, Map, Set} from "immutable";
 import {REHYDRATE} from "redux-persist/constants";
 import {createSelector} from "reselect";
-import {FETCHING_POSTS_SUCCESS} from "../actions/fetchPosts";
+import {FETCHING_POSTS_SUCCESS} from "../actions/posts/fetchPosts";
 
-export const postsReducer = (state = Map({posts: Set(), oldest: Map(), newest: Map()}), action) => {
+const postSearchTypes = ["blog", "map"];
+const postSearchMetadata = ["oldest", "newest", "oldestFetched", "newestFetched"];
+
+const initialState = Map({
+    posts: Set(),
+    ...postSearchMetadata.reduce((metadata, metadatum) => {
+        metadata[metadatum] = fromJS(postSearchTypes.reduce((metadatum, searchType) => {
+            metadatum[searchType] = {};
+            return metadatum;
+        }, {}));
+        return metadata;
+    }, {})
+});
+
+export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case REHYDRATE: {
             if (action.payload.posts) {
-                return state
-                    .set("oldest", buildOldestOrNewestPostMeta(action.payload.posts.toJS(), "oldest"))
-                    .set("newest", buildOldestOrNewestPostMeta(action.payload.posts.toJS(), "newest"));
+                let updatedState = state;
+
+                postSearchTypes.forEach(searchType => {
+                    postSearchMetadata.forEach(searchMetadata => {
+                        if (updatedState.hasIn([searchMetadata, searchType])) {
+                            updatedState = state
+                                .setIn([searchMetadata, searchType], buildOldestOrNewestPostMeta(action.payload.posts.toJS(), searchMetadata));
+                        }
+                    });
+                });
+
+                return updatedState;
             }
 
             return state;
@@ -18,16 +48,21 @@ export const postsReducer = (state = Map({posts: Set(), oldest: Map(), newest: M
 
         case FETCHING_POSTS_SUCCESS: {
             if (action.payload.posts) {
-                const updatedState = state
+                let updatedState = state
                     .set("posts", state.get("posts").union(action.payload.posts));
 
                 if (action.payload.searchParams.tags) {
                     return updatedState;
                 }
 
-                return updatedState
-                    .set("oldest", buildOldestOrNewestPostMeta(action.payload, "oldest"))
-                    .set("newest", buildOldestOrNewestPostMeta(action.payload, "newest"));
+                postSearchMetadata.forEach(searchMetadata => {
+                    if (updatedState.hasIn([searchMetadata, action.payload.searchType])) {
+                        updatedState = updatedState
+                            .setIn([searchMetadata, action.payload.searchType], buildOldestOrNewestPostMeta(action.payload, searchMetadata));
+                    }
+                });
+
+                return updatedState;
             }
 
             return state;
@@ -47,12 +82,13 @@ const buildOldestOrNewestPostMeta = (payload, key) => payload[key]
 
 export default postsReducer;
 
-export const getPostsState = state => state;
 export const getPosts = state => state.get("posts");
 
 export const createFilteredPostsSelector = (...filterOrSelectors) => filterOrSelectors.length > 1
     ? createSelector(...filterOrSelectors)
     : createSelector(getPosts, ...filterOrSelectors);
+
+export const getPostsForBoundingBox = (state, north, east, south, west) => filterPostsForBoundingBox(getPosts(state), north, east, south, west);
 
 export const getPhotoPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Photo || post instanceof Gallery));
 export const getWordPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Post));
@@ -66,6 +102,10 @@ export const getWordPostsSortedByDate = createFilteredPostsSelector(
     getWordPosts,
     posts => posts.sort(sortPostsByDate)
 );
+export const getPostsSortedByDateForBoundingBox = createFilteredPostsSelector(
+    getPostsForBoundingBox,
+    posts => posts.sort(sortPostsByDate)
+);
 
 export const getOldestPost = createFilteredPostsSelector(
     getPostsSortedByDate,
@@ -75,3 +115,16 @@ export const getNewestPost = createFilteredPostsSelector(
     getPostsSortedByDate,
     sortedPosts => sortedPosts.first()
 );
+export const getOldestPostForBoundingBox = createFilteredPostsSelector(
+    getPostsSortedByDateForBoundingBox,
+    sortedPosts => sortedPosts.last()
+);
+export const getNewestPostForBoundingBox = createFilteredPostsSelector(
+    getPostsSortedByDateForBoundingBox,
+    sortedPosts => sortedPosts.first()
+);
+
+export const getOldestAvailablePostDateForSearchTypeAndPostType = (state, searchType, postType) => state.getIn(["oldest", searchType, postType]);
+export const getNewestAvailablePostDateForSearchTypeAndPostType = (state, searchType, postType) => state.getIn(["newest", searchType, postType]);
+export const getOldestFetchedPostDateForSearchTypeAndPostType = (state, searchType, postType) => state.getIn(["oldestFetched", searchType, postType]);
+export const getNewestFetchedPostDateForSearchTypeAndPostType = (state, searchType, postType) => state.getIn(["newestFetched", searchType, postType]);

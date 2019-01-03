@@ -2,9 +2,9 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import clearErrorTimeoutHandler, {CLEAR_ERROR_TIMEOUT_HANDLER} from "../../../../../src/lib/actions/clearErrorTimeoutHandler";
+import {setControlStateCreator, SET_CONTROL_STATE} from "../../../../../../src/lib/actions/ui";
 
-describe("clearErrorTimeoutHandler", function () {
+describe("setControlState", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
@@ -17,14 +17,24 @@ describe("clearErrorTimeoutHandler", function () {
         stubStore = mockStore(stubInitialState);
     });
 
-    describe("CLEAR_ERROR_TIMEOUT_HANDLER", function () {
+    describe("SET_CONTROL_STATE", function () {
         it("is dispatched with the expected payload", function () {
-            stubStore.dispatch(clearErrorTimeoutHandler());
+            const stubControlId = "woof";
+            const stubControlState = {
+                meow: "grr"
+            };
+            stubStore.dispatch(setControlStateCreator(stubControlId, stubControlState));
 
             const actions = stubStore.getActions();
 
             expect(actions).to.have.length(1);
-            expect(actions).to.eql([{type: CLEAR_ERROR_TIMEOUT_HANDLER}]);
+            expect(actions).to.eql([{
+                type: SET_CONTROL_STATE,
+                payload: {
+                    id: stubControlId,
+                    ...stubControlState
+                }
+            }]);
         });
     });
 });

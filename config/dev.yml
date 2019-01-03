@@ -21,6 +21,9 @@ crisp:
     id: 03689d2b-80ab-4f5d-90cb-a2de269ea9c3
 sentry:
   dsn: https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735
+gcp:
+  api:
+    key: AIzaSyDp9DoelWlkF7KYaUgw7HElwmMQFQMVu_Q
 posts:
   photosUrl: https://service.dev.randytarampi.ca/posts?type=Photo
   postsUrl: https://service.dev.randytarampi.ca/posts

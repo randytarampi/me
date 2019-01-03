@@ -1,5 +1,5 @@
 import {Photo, Post} from "@randy.tarampi/js";
-import {ConnectedPosts} from "@randy.tarampi/jsx";
+import {ConnectedPosts, ConnectedMappedPosts} from "@randy.tarampi/jsx";
 import {shallow} from "@randy.tarampi/jsx/test";
 import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
@@ -15,6 +15,9 @@ import {
     BlogWordsRouteHandler,
     LetterHandler,
     MainHandler,
+    MapPostsHandler,
+    MapPostsPhotoRouteHandler,
+    MapPostsWordsRouteHandler,
     PhotosRouteHandler,
     ResumeHandler,
     WordsRouteHandler
@@ -80,6 +83,40 @@ describe("routes", function () {
 
             expect(rendered).to.contain(
                 <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type}/>
+            );
+        });
+    });
+
+    describe("MapPostsHandler", function () {
+        it("renders", function () {
+            const rendered = shallow(stubStore)(<MapPostsHandler/>);
+
+            expect(rendered).to.contain(
+                <ConnectedMappedPosts
+                    fetchUrl={`${__POSTS_SERVICE_URL__}`}
+                    id="map-posts"
+                    mapContainerHeight="calc(100vh - 48px)"
+                />
+            );
+        });
+    });
+
+    describe("MapPostsPhotoRouteHandler", function () {
+        it("renders", function () {
+            const rendered = shallow(stubStore)(<MapPostsPhotoRouteHandler/>);
+
+            expect(rendered).to.contain(
+                <MapPostsHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type}/>
+            );
+        });
+    });
+
+    describe("MapPostsWordsRouteHandler", function () {
+        it("renders", function () {
+            const rendered = shallow(stubStore)(<MapPostsWordsRouteHandler/>);
+
+            expect(rendered).to.contain(
+                <MapPostsHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type}/>
             );
         });
     });

@@ -557,7 +557,7 @@ describe("Post", () => {
             expect(post.toJS()).to.contain({
                 datePublished: postJs.dateCreated,
                 type: post.type,
-                geohash: "c2b2qebz5b9w"
+                geohash: "c2b2qebz5b9"
             });
         });
     });
@@ -842,7 +842,7 @@ describe("Post", () => {
 
             const post = new Post(postJs);
 
-            expect(post.geohash).to.eql("c2b2qebz5b9w");
+            expect(post.geohash).to.eql("c2b2qebz5b9");
         });
 
         it("returns null if there's no long or geohash", () => {

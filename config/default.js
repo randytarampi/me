@@ -60,6 +60,11 @@ module.exports = {
     sentry: {
         dsn: ""
     },
+    gcp: {
+        api: {
+            key: ""
+        }
+    },
     resume: {
         bundle: {
             name: "resume",
@@ -119,6 +124,7 @@ module.exports = {
         codeUrl: "/code",
         photosUrl: "/photos",
         postsUrl: "/blog",
+        mapUrl: "/map",
         wordsUrl: "/words",
         resumeUrl: "/resume",
         letterUrl: "/letter",

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
-import {WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util";
+import {scalePixelValueForWindowDevicePixelRatio, WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -21,7 +21,7 @@ export class PhotoComponent extends PostComponent {
     }
 
     get scaledHeight() {
-        return computeScaledHeight({
+        return computeScaledHeightForPhotoComponent({
             containerWidth: this.props.containerWidth,
             photoHeight: this.selected.height,
             photoWidth: this.selected.width,
@@ -30,7 +30,7 @@ export class PhotoComponent extends PostComponent {
     }
 
     get targetWidth() {
-        return computeTargetWidth(this.props);
+        return computeTargetWidthForPhotoComponent(this.props);
     }
 
     render() {
@@ -116,7 +116,7 @@ PhotoComponent.propTypes = {
     isLoading: PropTypes.bool.isRequired
 };
 
-export const computeScaledHeight = ({containerWidth, photoHeight, photoWidth, postHtmlId}) => {
+export const computeScaledHeightForPhotoComponent = ({containerWidth, photoHeight, photoWidth, postHtmlId}) => {
     let scaledHeight = containerWidth * photoHeight / photoWidth;
 
     if (containerWidth >= WINDOW_LARGE_BREAKPOINT) {
@@ -134,14 +134,12 @@ export const computeScaledHeight = ({containerWidth, photoHeight, photoWidth, po
     return Math.round(scaledHeight);
 };
 
-export const computeTargetWidth = ({containerWidth}) => {
-    return window.devicePixelRatio ?
-        containerWidth * window.devicePixelRatio :
-        containerWidth;
+export const computeTargetWidthForPhotoComponent = ({containerWidth}) => {
+    return scalePixelValueForWindowDevicePixelRatio(containerWidth);
 };
 
 export const ProgressiveImageWrappedPhotoComponent = props => {
-    const targetWidth = computeTargetWidth(props);
+    const targetWidth = computeTargetWidthForPhotoComponent(props);
     const placeholder = props.post.getSizedPhotoForLoading(targetWidth);
     const selected = props.post.getSizedPhotoForDisplay(targetWidth);
 

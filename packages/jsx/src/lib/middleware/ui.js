@@ -1,6 +1,6 @@
 import {LOCATION_CHANGE} from "connected-react-router";
 import $ from "jquery";
-import clearError from "../actions/clearError";
+import clearError from "../actions/error/clearError";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";
 import selectors from "../data/selectors";
 import {formatIndexForMaterializeTabs} from "../util";

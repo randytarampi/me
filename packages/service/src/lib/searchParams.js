@@ -1,15 +1,17 @@
 import {
     castDatePropertyToDateTime,
     compositeKeySeparator,
-    GEOHASH_ADDITIONAL_PRECISION_CHARACTER,
-    GEOHASH_CHARACTER_PRECISION,
+    convertLatLongToGeohash,
+    getGeohashesForBoundingBox,
+    getGeohashesForRadiusAroundGeohash,
+    getGeohashesForRadiusAroundPoint,
+    getHaversineDistance,
+    Gallery,
     Photo,
     Post
 } from "@randy.tarampi/js";
 import {Record} from "immutable";
-import geohash from "latlon-geohash";
 import _ from "lodash";
-import padRight from "pad-right";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -23,6 +25,11 @@ const searchParamsRecordDefinition = {
     geohash: undefined,
     lat: undefined,
     long: undefined,
+    south: undefined,
+    west: undefined,
+    north: undefined,
+    east: undefined,
+    geoRadius: undefined,
     geohashPrecision: undefined, // NOTE-RT: A `6` would be about 7km^2, er the table in http://www.movable-type.co.uk/scripts/geohash.html
     _rawFilter: undefined,
 
@@ -54,14 +61,20 @@ const SearchParamsRecord = Record(searchParamsRecordDefinition);
  * @extends SearchParamsRecord
  */
 class SearchParams extends SearchParamsRecord {
-    constructor({beforeDate, width, height, page, perPage, ...properties} = {}) {
+    constructor({beforeDate, width, height, page, perPage, lat, long, north, east, south, west, ...properties} = {}) {
         super({
             ...properties,
             beforeDate: castDatePropertyToDateTime(beforeDate),
             width: width && Number(width),
             height: height && Number(height),
             perPage: perPage ? Number(perPage) : 100,
-            page: page ? Number(page) : 1
+            page: page ? Number(page) : 1,
+            lat: lat && Number(lat),
+            long: long && Number(long),
+            north: north && Number(north),
+            east: east && Number(east),
+            south: south && Number(south),
+            west: west && Number(west)
         });
     }
 
@@ -129,6 +142,7 @@ class SearchParams extends SearchParamsRecord {
                 baseRequest.type = "text";
                 break;
 
+            case Gallery.type:
             case Photo.type:
                 baseRequest.type = "photo";
                 break;
@@ -176,29 +190,23 @@ class SearchParams extends SearchParamsRecord {
         const filters = {
             ...this._rawFilter
         };
-        let comparator = this.orderComparator;
-        let geohashQuery = this.geohash;
-        let geohashQueryPrecision = this.geohashPrecision;
 
-        if (!geohashQuery && this.lat && this.long) {
-            geohashQuery = geohash.encode(this.lat, this.long, geohashQueryPrecision || GEOHASH_CHARACTER_PRECISION);
-        }
-
-        if (geohashQuery && geohashQueryPrecision) {
-            geohashQuery = padRight(geohashQuery, geohashQueryPrecision, GEOHASH_ADDITIONAL_PRECISION_CHARACTER).slice(0, geohashQueryPrecision);
-        }
-
-        switch (this.orderComparatorType) {
-            case "String":
-                break;
-
-            case "Number":
-            default:
-                comparator = Number(this.orderComparator);
-        }
-
-        if (this.perPage) {
+        if (Number.isFinite(this.perPage)) {
             options.limit = this.perPage;
+        } else {
+            options.all = true;
+        }
+
+        if (this.type) {
+            filters.type = this.type;
+        }
+
+        if (this.source) {
+            filters.source = this.source;
+        }
+
+        if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
+            filters[this.orderBy] = {[this.orderOperator]: this.orderComparator};
         }
 
         if (this.tags) { // FIXME-RT: Ideally this would do a filtered query on an index, but let's save that for when I blow this up and move the logic into db/models/post
@@ -207,18 +215,6 @@ class SearchParams extends SearchParamsRecord {
                     .split(",")
                     .map(string => string.toLowerCase())
             };
-
-            if (this.type) {
-                filters.type = this.type;
-            }
-
-            if (this.source) {
-                filters.source = this.source;
-            }
-
-            if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
-                filters[this.orderBy] = {[this.orderOperator]: comparator};
-            }
 
             return {
                 _options: options,
@@ -252,28 +248,65 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
-            if (geohashQuery) {
-                return {
-                    _query: {
-                        hash: {type: {eq: this.type}},
-                        range: {geohash: {begins_with: geohashQuery}}
-                    },
-                    _options: {
-                        ...options,
-                        indexName: "type-geohash-index"
-                    }
-                };
-            }
-
             if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
+                if (this.geohashQueries) {
+                    return this.geohashQueries.map(geohashQuery => {
+                        return {
+                            _filter: Object.assign({}, filters, {geohash: {begins_with: geohashQuery}}),
+                            _options: {
+                                ...options,
+                                indexName: "type-geohash-index"
+                            }
+                        };
+                    });
+                }
+
+                if (this.geohash) {
+                    return {
+                        _filter: Object.assign({}, filters, {geohash: {begins_with: this.geohash}}),
+                        _options: {
+                            ...options,
+                            indexName: "type-geohash-index"
+                        }
+                    };
+                }
+
                 return {
                     _query: {
                         hash: {type: {eq: this.type}},
-                        range: {[this.orderBy]: {[this.orderOperator]: comparator}}
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
                     },
                     _options: {
                         ...options,
                         indexName: `type-${this.orderBy}-index`
+                    }
+                };
+            }
+
+            if (this.geohashQueries) {
+                return this.geohashQueries.map(geohashQuery => {
+                    return {
+                        _query: {
+                            hash: {type: {eq: this.type}},
+                            range: {geohash: {begins_with: geohashQuery}}
+                        },
+                        _options: {
+                            ...options,
+                            indexName: "type-geohash-index"
+                        }
+                    };
+                });
+            }
+
+            if (this.geohash) {
+                return {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {geohash: {begins_with: this.geohash}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "type-geohash-index"
                     }
                 };
             }
@@ -297,28 +330,65 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
-            if (geohashQuery) {
-                return {
-                    _query: {
-                        hash: {source: {eq: this.source}},
-                        range: {geohash: {begins_with: geohashQuery}}
-                    },
-                    _options: {
-                        ...options,
-                        indexName: "source-geohash-index"
-                    }
-                };
-            }
-
             if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
+                if (this.geohashQueries) {
+                    return this.geohashQueries.map(geohashQuery => {
+                        return {
+                            _filter: Object.assign({}, filters, {geohash: {begins_with: geohashQuery}}),
+                            _options: {
+                                ...options,
+                                indexName: "source-geohash-index"
+                            }
+                        };
+                    });
+                }
+
+                if (this.geohash) {
+                    return {
+                        _filter: Object.assign({}, filters, {geohash: {begins_with: this.geohash}}),
+                        _options: {
+                            ...options,
+                            indexName: "source-geohash-index"
+                        }
+                    };
+                }
+
                 return {
                     _query: {
                         hash: {source: {eq: this.source}},
-                        range: {[this.orderBy]: {[this.orderOperator]: comparator}}
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
                     },
                     _options: {
                         ...options,
                         indexName: `source-${this.orderBy}-index`
+                    }
+                };
+            }
+
+            if (this.geohashQueries) {
+                return this.geohashQueries.map(geohashQuery => {
+                    return {
+                        _query: {
+                            hash: {source: {eq: this.source}},
+                            range: {geohash: {begins_with: geohashQuery}}
+                        },
+                        _options: {
+                            ...options,
+                            indexName: "source-geohash-index"
+                        }
+                    };
+                });
+            }
+
+            if (this.geohash) {
+                return {
+                    _query: {
+                        hash: {source: {eq: this.source}},
+                        range: {geohash: {begins_with: this.geohash}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "source-geohash-index"
                     }
                 };
             }
@@ -363,6 +433,77 @@ class SearchParams extends SearchParamsRecord {
             ...filterRequest,
             MaxKeys: Math.min(this.perPage, 1000)
         };
+    }
+
+    get geoRadius() {
+        if (this.get("geoRadius")) {
+            return this.get("geoRadius");
+        }
+
+        if ([this.north, this.east, this.south, this.west].every(Number.isFinite)) {
+            return getHaversineDistance(this.north, this.east, this.south, this.west) / 2;
+        }
+
+        return undefined;
+    }
+
+    get geohash() {
+        if (this.get("geohash")) {
+            return this.get("geohash");
+        }
+
+        if ([this.lat, this.long].every(Number.isFinite)) {
+            return convertLatLongToGeohash(this.lat, this.long, this.geohashPrecision);
+        }
+
+        return undefined;
+    }
+
+    get geohashPrecision() {
+        const geohashPrecision = this.get("geohashPrecision");
+
+        if (geohashPrecision) {
+            return geohashPrecision;
+        }
+
+        if (this.get("geohash")) {
+            return this.get("geohash").length;
+        }
+
+        return undefined;
+    }
+
+    get geohashQueries() {
+        const geoRadius = this.geoRadius;
+        const geohashQuery = this.geohash;
+        const geohashQueryPrecision = this.get("geohashPrecision");
+
+        if ([this.north, this.east, this.south, this.west].every(Number.isFinite)) {
+            return getGeohashesForBoundingBox(this.north, this.east, this.south, this.west, geohashQueryPrecision);
+        }
+
+        if (geoRadius) {
+            if ([this.lat, this.long].every(Number.isFinite)) {
+                return getGeohashesForRadiusAroundPoint(this.lat, this.long, geoRadius, geohashQueryPrecision);
+            } else if (geohashQuery) {
+                return getGeohashesForRadiusAroundGeohash(geohashQuery, geoRadius, geohashQueryPrecision);
+            }
+        }
+
+        return undefined;
+    }
+
+    get orderComparator() {
+        const orderComparator = this.get("orderComparator");
+
+        switch (this.orderComparatorType) {
+            case "String":
+                return orderComparator.toString();
+
+            case "Number":
+            default:
+                return Number(orderComparator);
+        }
     }
 
     static parsePropertiesFromJs(js) {

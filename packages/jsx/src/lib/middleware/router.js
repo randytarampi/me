@@ -1,5 +1,5 @@
 import {LOCATION_CHANGE} from "connected-react-router";
-import clearError from "../actions/clearError";
+import clearError from "../actions/error/clearError";
 
 export const routerMiddleware = store => next => action => {
     if (action.type === LOCATION_CHANGE) {

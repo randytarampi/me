@@ -1,0 +1,8 @@
+.map {
+    @extend .z-depth-1;
+
+    height: 100%;
+    width: 100%;
+
+    padding: $blockPaddingVertical 0;
+}

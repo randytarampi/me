@@ -1,37 +1,28 @@
 extends:
-- eslint:recommended
-- plugin:react/recommended
-- plugin:import/react
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:import/react
 rules:
   no-useless-escape: 1
   eqeqeq: 2
   react/no-find-dom-node: 0
   semi: 2
   react/prop-types:
-  - 2
-  - ignore:
-    - children
+    - 2
+    - ignore:
+        - children
   quotes:
-  - 2
-  - double
+    - 2
+    - double
   import/named: 2
   import/export: 2
   import/no-mutable-exports: 2
   import/first: 2
   import/no-duplicates: 2
-  import/no-unresolved:
-  - 2
-  - commonjs: true
+  import/no-unresolved: 2
   import/default: 2
   react/no-unescaped-entities: 0
-  no-global-assign:
-  - 2
-  - exceptions:
-    - __CAMPAIGN_SOURCE__
-    - __CAMPAIGN_MEDIUM__
-    - __CAMPAIGN_NAME__
-    - __CAMPAIGN_TERM__
-    - __CAMPAIGN_CONTENT__
+  no-global-assign: 2
 parser: babel-eslint
 parserOptions:
   ecmaVersion: 2018
@@ -57,6 +48,7 @@ globals:
   __CODE_APP_URL__: false
   __WORDS_APP_URL__: false
   __POSTS_APP_URL__: false
+  __MAP_APP_URL__: false
   __PHOTOS_APP_URL__: false
   __RESUME_APP_URL__: false
   __LETTER_APP_URL__: false
@@ -79,13 +71,14 @@ globals:
   __RESUME_PACKAGE_NAME__: false
   __LETTER_PACKAGE_NAME__: false
   __ME_PERSON_NAME__: false
+  __GCP_API_KEY__: false
 plugins:
-- react
-- import
+  - react
+  - import
 settings:
   import/resolver:
     node:
       extensions:
-      - .js
-      - .jsx
-      - .json
+        - .js
+        - .jsx
+        - .json

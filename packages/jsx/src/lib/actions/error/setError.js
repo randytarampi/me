@@ -1,5 +1,5 @@
-import {logger} from "@randy.tarampi/browser-logger";
 import {createAction} from "redux-actions";
+import {logger} from "../../../../../browser-logger/esm";
 
 export const SET_ERROR = "SET_ERROR";
 

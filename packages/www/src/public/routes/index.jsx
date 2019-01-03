@@ -1,5 +1,5 @@
 import {HelloBear, Photo, Post} from "@randy.tarampi/js";
-import {ConnectedError, ConnectedPosts} from "@randy.tarampi/jsx";
+import {ConnectedError, ConnectedMappedPosts, ConnectedPosts} from "@randy.tarampi/jsx";
 import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
 import React, {Fragment} from "react";
@@ -30,18 +30,44 @@ export const BlogPhotoRouteHandler = props => <Fragment>
     </Helmet>
     <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type} {...props} />
 </Fragment>;
+
+export const MapPostsHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Map</title>
+    </Helmet>
+    <ConnectedMappedPosts
+        fetchUrl={`${__POSTS_SERVICE_URL__}`} id="map-posts"
+        mapContainerHeight="calc(100vh - 48px)"
+        {...props}
+    />
+</Fragment>;
+export const MapPostsWordsRouteHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Word Map</title>
+    </Helmet>
+    <MapPostsHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type} {...props} />
+</Fragment>;
+export const MapPostsPhotoRouteHandler = props => <Fragment>
+    <Helmet>
+        <title>{__ME_PERSON_NAME__} — Photo Map</title>
+    </Helmet>
+    <MapPostsHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type} {...props} />
+</Fragment>;
+
 export const LetterHandler = props => <Fragment>
     <Helmet>
         <title>{__ME_PERSON_NAME__} — Hire me</title>
     </Helmet>
     <ConnectedLetter {...props}/>
 </Fragment>;
+
 export const ResumeHandler = props => <Fragment>
     <Helmet>
         <title>{__ME_PERSON_NAME__} — About me</title>
     </Helmet>
     <ConnectedResume {...props}/>
 </Fragment>;
+
 export const MainHandler = props => <Fragment>
     <Helmet>
         <title>{__ME_PERSON_NAME__} — {helloBear.toString()}</title>
@@ -117,6 +143,45 @@ const routes = [
             {
                 component: BlogRouteHandler,
                 path: "/blog/:filter(tags)/:filterValue"
+            }
+        ]
+    },
+    {
+        component: MapPostsHandler,
+        path: "/map",
+        tab: <Tab
+            key="/map"
+            title={
+                <Fragment>
+                    <i className="fas fa-map-marked-alt"></i>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Map</span>
+                </Fragment>
+            }
+        />,
+        routes: [
+            {
+                component: MapPostsHandler,
+                exact: true,
+                path: "/map/photos"
+            },
+            {
+                component: MapPostsHandler,
+                exact: true,
+                path: "/map/words"
+            },
+            {
+                component: MapPostsPhotoRouteHandler,
+                exact: true,
+                path: "/map/photos/:filter(tags)/:filterValue"
+            },
+            {
+                component: MapPostsWordsRouteHandler,
+                exact: true,
+                path: "/map/words/:filter(tags)/:filterValue"
+            },
+            {
+                component: MapPostsHandler,
+                path: "/map/:filter(tags)/:filterValue"
             }
         ]
     },

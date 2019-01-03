@@ -5,12 +5,16 @@ export class Emoji extends PureComponent {
     constructor(props, context, updater) {
         super(props, context, updater);
 
-        this.props.instantiateEmoji(props.emoji);
+        if (this.props.instantiateEmoji) {
+            this.props.instantiateEmoji(props.emoji);
+        }
     }
 
     componentWillUnmount() {
         if (!this.props.persistentEmoji) {
-            this.props.clearEmoji(this.props.emoji);
+            if (this.props.clearEmoji) {
+                this.props.clearEmoji(this.props.emoji);
+            }
         }
     }
 

@@ -107,6 +107,13 @@ const configuredMinifyReplace = [
                 }
             },
             {
+                identifierName: "__MAP_APP_URL__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("www.mapUrl")
+                }
+            },
+            {
                 identifierName: "__PHOTOS_APP_URL__",
                 replacement: {
                     type: "stringLiteral",
@@ -244,6 +251,13 @@ const configuredMinifyReplace = [
                 replacement: {
                     type: "stringLiteral",
                     value: require("./packages/letter/package").name
+                }
+            },
+            {
+                identifierName: "__GCP_API_KEY__",
+                replacement: {
+                    type: "stringLiteral",
+                    value: config.get("gcp.api.key")
                 }
             }
         ]

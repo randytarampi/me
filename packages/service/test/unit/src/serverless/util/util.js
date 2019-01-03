@@ -120,7 +120,7 @@ describe("util", function () {
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubPost, stubPhoto, stubGallery];
-            const stubQueryParameters = {};
+            const stubQueryParameters = undefined;
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {

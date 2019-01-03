@@ -1,7 +1,7 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {JSDOM} from "jsdom";
-import computePostHeight, {WINDOW_LARGE_PHOTO_SCALE} from "../../../../../src/lib/util/computePostHeight";
+import computePostHeight, {WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../../../../../src/lib/util/computePostHeight";
 
 describe("computePostHeight", function () {
     const globalWindow = global.window;
@@ -18,6 +18,21 @@ describe("computePostHeight", function () {
         const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
 
         expect(computedPostHeight).to.eql(500 * WINDOW_LARGE_PHOTO_SCALE); // NOTE-RT: 500 * 1000 / 1000 * WINDOW_LARGE_PHOTO_SCALE
+    });
+
+    it("computes the height for a `Post` (`Photo`) that has dimension attributes on a small or medium window", function () {
+        Object.defineProperty(window, "innerWidth", {
+            configurable: true,
+            writable: true,
+            value: WINDOW_LARGE_BREAKPOINT - 1
+        });
+
+        const stubContainerWidth = 500;
+        const stubPost = Photo.fromJS({source: "ʕ•ᴥ•ʔ", id: "woof", height: 1000, width: 1000});
+
+        const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
+
+        expect(computedPostHeight).to.eql(500); // NOTE-RT: 500 * 1000 / 1000
     });
 
     // NOTE-RT: I really don't know when we'd be falling into here. I think that might just be me requiring coffee though...

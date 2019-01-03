@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Map} from "immutable";
+import {fromJS, Map} from "immutable";
 import {createAction} from "redux-actions";
 import {
     FETCHING_POSTS_PER_PAGE,
@@ -7,8 +7,14 @@ import {
     fetchingPostsCancelled,
     fetchingPostsFailure,
     fetchingPostsSuccess
-} from "../../../../../src/lib/actions/fetchPosts";
-import reducer, {getApiStateForUrl, getErrorForUrlState} from "../../../../../src/lib/data/api";
+} from "../../../../../src/lib/actions/posts/fetchPosts";
+import reducer, {
+    createGetErrorForUrlSelector,
+    createIsLoadingUrlSelector,
+    getApiStateForUrl,
+    getApiStateForUrlFromGlobalState,
+    getErrorForUrlState
+} from "../../../../../src/lib/data/api";
 
 describe("api", function () {
     let stubInitialState;
@@ -254,6 +260,60 @@ describe("api", function () {
             const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
             expect(errorStateForUrl).to.not.be.ok;
             expect(errorStateForUrl).to.eql(undefined);
+        });
+    });
+
+    describe("getApiStateForUrlFromGlobalState", function () {
+        it("returns the API state for a URL", function () {
+            const stubUrl = "/woof";
+            const stubState = fromJS({
+                api: {
+                    [stubUrl]: {
+                        error: null,
+                        isLoading: false
+                    }
+                }
+            });
+
+            const apiUrlState = getApiStateForUrlFromGlobalState(stubState, stubUrl);
+
+            expect(apiUrlState.toJS()).to.eql(stubState.getIn(["api", stubUrl]).toJS());
+        });
+    });
+
+    describe("createIsLoadingUrlSelector", function () {
+        it("returns the loading state for a URL", function () {
+            const stubUrl = "/woof";
+            const stubState = fromJS({
+                api: {
+                    [stubUrl]: {
+                        error: null,
+                        isLoading: false
+                    }
+                }
+            });
+
+            const loadingUrlState = createIsLoadingUrlSelector()(stubState, stubUrl);
+
+            expect(loadingUrlState).to.eql(stubState.getIn(["api", stubUrl, "isLoading"]));
+        });
+    });
+
+    describe("createGetErrorForUrlSelector", function () {
+        it("returns the error state for a URL", function () {
+            const stubUrl = "/woof";
+            const stubState = fromJS({
+                api: {
+                    [stubUrl]: {
+                        error: null,
+                        isLoading: false
+                    }
+                }
+            });
+
+            const errorUrlState = createGetErrorForUrlSelector()(stubState, stubUrl);
+
+            expect(errorUrlState).to.eql(stubState.getIn(["api", stubUrl, "error"]));
         });
     });
 });
