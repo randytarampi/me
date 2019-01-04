@@ -21,7 +21,7 @@ export const setPostRawToNull = post => post.set("raw", null);
  * @param last {(object|undefined)} The latest (newest) [Post]{@link Post}s for some query
  * @returns {{posts: {Post[]}, total: {number}, oldest: {(object|undefined)}, newest: {(object|undefined)}}}
  */
-export const buildPostsV3ResponseBody = ({posts, total, first, last}) => {
+export const buildPostsV3ResponseBody = ({posts, total, first, last, firstFetched, lastFetched}) => {
     return {
         posts: posts.map(setPostRawToNull),
         total,
@@ -31,6 +31,14 @@ export const buildPostsV3ResponseBody = ({posts, total, first, last}) => {
         }, {}),
         newest: last && Object.keys(last).reduce((newest, newestKey) => {
             newest[newestKey] = last[newestKey] && last[newestKey].date && last[newestKey].date.toISO();
+            return newest;
+        }, {}),
+        oldestFetched: firstFetched && Object.keys(firstFetched).reduce((oldest, oldestKey) => {
+            oldest[oldestKey] = firstFetched[oldestKey] && firstFetched[oldestKey].date && firstFetched[oldestKey].date.toISO();
+            return oldest;
+        }, {}),
+        newestFetched: lastFetched && Object.keys(lastFetched).reduce((newest, newestKey) => {
+            newest[newestKey] = lastFetched[newestKey] && lastFetched[newestKey].date && lastFetched[newestKey].date.toISO();
             return newest;
         }, {})
     };
@@ -75,7 +83,7 @@ export default parsedHeaders =>
      * @param last {(Post|undefined)} The latest (newest) [Post]{@link Post} for some query
      * @returns {(object|RequestError)}
      */
-        ({posts, total, first, last}) => {
+        ({posts, total, first, last, ...metadata}) => {
         if (checkMeVersionHeader(parsedHeaders, 1)) {
             return responseBuilder(buildPostsV1ResponseBody(posts));
         }
@@ -90,7 +98,7 @@ export default parsedHeaders =>
         }
 
         if (checkMeVersionHeader(parsedHeaders, 3)) {
-            return responseBuilder(buildPostsV3ResponseBody({posts, total, first, last}));
+            return responseBuilder(buildPostsV3ResponseBody({posts, total, first, last, ...metadata}));
         }
 
         throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);

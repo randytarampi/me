@@ -45,6 +45,14 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
                 last: {
                     global: lastResults && lastResults[relevantResults.length - 1] && lastResults[relevantResults.length - 1].last,
                     ...(_.zipObject(postTypesToFetch, results.map(result => result && result.last)))
+                },
+                firstFetched: {
+                    global: firstResults && firstResults[0] && firstResults[0].firstFetched,
+                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.firstFetched)))
+                },
+                lastFetched: {
+                    global: lastResults && lastResults[relevantResults.length - 1] && lastResults[relevantResults.length - 1].lastFetched,
+                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.lastFetched)))
                 }
             };
         });

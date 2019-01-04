@@ -140,6 +140,18 @@ describe("util", function () {
                     [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
+                },
+                firstFetched: {
+                    global: stubPosts[0],
+                    [Gallery.type]: stubGallery,
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
+                },
+                lastFetched: {
+                    global: stubPosts[stubPosts.length - 1],
+                    [Gallery.type]: stubGallery,
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
                 }
             };
             const proxyquireStubs = {
@@ -163,7 +175,9 @@ describe("util", function () {
 
                         return Promise.resolve({
                             first: baseResult,
+                            firstFetched: baseResult,
                             last: baseResult,
+                            lastFetched: baseResult,
                             posts: baseResult
                                 ? [baseResult]
                                 : [],
@@ -202,6 +216,14 @@ describe("util", function () {
                 last: {
                     global: stubPost,
                     [Post.type]: stubPost
+                },
+                firstFetched: {
+                    global: stubPosts[0],
+                    [Post.type]: stubPost
+                },
+                lastFetched: {
+                    global: stubPosts[stubPosts.length - 1],
+                    [Post.type]: stubPost
                 }
             };
             const proxyquireStubs = {
@@ -221,7 +243,9 @@ describe("util", function () {
 
                         return Promise.resolve({
                             first: baseResult,
+                            firstFetched: baseResult,
                             last: baseResult,
+                            lastFetched: baseResult,
                             posts: [baseResult],
                             total: 1
                         });
@@ -259,6 +283,16 @@ describe("util", function () {
                     global: stubGallery,
                     [Gallery.type]: stubGallery,
                     [Photo.type]: stubPhoto
+                },
+                firstFetched: {
+                    global: stubPhoto,
+                    [Gallery.type]: stubGallery,
+                    [Photo.type]: stubPhoto
+                },
+                lastFetched: {
+                    global: stubGallery,
+                    [Gallery.type]: stubGallery,
+                    [Photo.type]: stubPhoto
                 }
             };
             const proxyquireStubs = {
@@ -278,7 +312,9 @@ describe("util", function () {
 
                         return Promise.resolve({
                             first: baseResult,
+                            firstFetched: baseResult,
                             last: baseResult,
+                            lastFetched: baseResult,
                             posts: [baseResult],
                             total: 1
                         });

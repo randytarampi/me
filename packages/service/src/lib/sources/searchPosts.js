@@ -1,3 +1,4 @@
+import {sortPostsByDate} from "@randy.tarampi/js";
 import {sources} from ".";
 import CacheClient from "../cacheClient";
 
@@ -37,11 +38,15 @@ const searchPosts = searchParams => {
             ).then(cachedValueToPost),
         ])
         .then(([posts, total, first, last]) => {
+            const postsSortedByDate = posts.sort(sortPostsByDate);
+
             return {
                 posts,
                 total,
                 first,
-                last
+                last,
+                firstFetched: postsSortedByDate[posts.length - 1],
+                lastFetched: postsSortedByDate[0]
             };
         });
 };

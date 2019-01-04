@@ -138,6 +138,16 @@ describe("buildPostsResponse", function () {
                     global: stubPhoto,
                     Post: stubPost,
                     Photo: stubPhoto
+                },
+                firstFetched: {
+                    global: stubPost,
+                    Post: stubPost,
+                    Photo: stubPhoto
+                },
+                lastFetched: {
+                    global: stubPhoto,
+                    Post: stubPost,
+                    Photo: stubPhoto
                 }
             };
             const stubParsedHeaders = {

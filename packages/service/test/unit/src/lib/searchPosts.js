@@ -26,13 +26,13 @@ describe("searchPosts", function () {
         const stubRawPhoto = {
             id: "meow",
             source: stubSource,
-            dateCreated: DateTime.utc().plus({seconds: 1}).toISO(),
+            dateCreated: DateTime.utc().plus({seconds: 10}).toISO(),
             type: "photo"
         };
 
         stubPost = Post.fromJSON({...stubRawPost, raw: stubRawPost});
         stubPhoto = Photo.fromJSON({...stubRawPhoto, raw: stubRawPhoto});
-        stubPosts = [stubPost, stubPhoto];
+        stubPosts = [stubPhoto, stubPost];
 
         stubCreatePosts = sinon.stub().callsFake(posts => Promise.resolve(posts));
         stubGetPosts = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
@@ -84,7 +84,9 @@ describe("searchPosts", function () {
             posts: stubPosts,
             total: 2,
             first: stubPost,
-            last: stubPhoto
+            firstFetched: stubPost,
+            last: stubPhoto,
+            lastFetched: stubPhoto
         });
     });
 });
