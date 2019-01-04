@@ -34,7 +34,7 @@ describe("New", function () {
                 fetchUrl={`${__POSTS_SERVICE_URL__}`}
                 infiniteLoadBeginEdgeOffset={undefined}
                 shouldFetchPostsOnMount={true}
-                postsLimit={3}
+                postsLimit={4}
             />
         );
         expect(rendered.find(RowBlock)).to.have.length(1);

@@ -13,7 +13,7 @@ const New = () =>
                 fetchUrl={`${__POSTS_SERVICE_URL__}`}
                 infiniteLoadBeginEdgeOffset={undefined}
                 shouldFetchPostsOnMount={true}
-                postsLimit={3}
+                postsLimit={4}
             />
         </Col>
     </RowBlock>;
