@@ -26,7 +26,7 @@ describe("buildRssResponse", function () {
             };
             const stubParsedHeaders = {};
 
-            const response = buildRssResponse(stubParsedHeaders)({rss: stubRssFeed});
+            const response = buildRssResponse({rss: stubRssFeed}, stubParsedHeaders);
 
             expect(response.body).to.eql(stubRssXml);
             expect(stubRssFeed.xml.calledOnce).to.eql(true);
@@ -41,7 +41,7 @@ describe("buildRssResponse", function () {
                 [versionHeader.headerName]: 1
             };
 
-            const response = buildRssResponse(stubParsedHeaders)({rss: stubRssFeed});
+            const response = buildRssResponse({rss: stubRssFeed}, stubParsedHeaders);
 
             expect(response.body).to.eql(stubRssXml);
             expect(stubRssFeed.xml.calledOnce).to.eql(true);
@@ -57,7 +57,7 @@ describe("buildRssResponse", function () {
             };
 
             try {
-                buildRssResponse(stubParsedHeaders)({rss: stubRssFeed});
+                buildRssResponse({rss: stubRssFeed}, stubParsedHeaders);
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
                 expect(error.message).to.match(/^`ME-API-VERSION` specifies unsupported version of `999`$/);

@@ -17,22 +17,17 @@ export const buildRssV1ResponseBody = rss => rss.xml();
 /**
  * Transform the output of [searchPosts]{@link searchPosts} into an RSS response object for some [ME-API-VERSION]{@link ME_API_VERSION_HEADER}
  * @function buildPostsResponse
+ * @param rss {RssFeed}
  * @param parsedHeaders
  * @returns {Function}
  */
-export default parsedHeaders =>
-    /**
-     * Transform the output of [searchPosts]{@link searchPosts} into a response object
-     * @param rss {RssFeed}
-     * @returns {(object|RequestError)}
-     */
-    ({rss}) => {
-        if (checkMeVersionHeader(parsedHeaders, 1)) {
-            return responseBuilder(buildRssV1ResponseBody(rss), 200, {
-                "Content-Disposition": "attachment",
-                "Content-Type": mime.types.rss
-            });
-        }
+export default ({rss}, parsedHeaders) => {
+    if (checkMeVersionHeader(parsedHeaders, 1)) {
+        return responseBuilder(buildRssV1ResponseBody(rss), 200, {
+            "Content-Disposition": "attachment",
+            "Content-Type": mime.types.rss
+        });
+    }
 
-        throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);
-    };
+    throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);
+};

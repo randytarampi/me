@@ -81,7 +81,7 @@ describe("getPostsRss", function () {
                 "default": sinon.stub().returns(stubQuerystringParameters)
             },
             "../../util/response/buildRssResponse": {
-                "default": sinon.stub().callsFake(headers => ({rss: rssResult}) => { // eslint-disable-line no-unused-vars
+                "default": sinon.stub().callsFake(({rss: rssResult}, headers) => {
                     try {
                         expect(headers).to.eql(stubHeaders);
                         expect(rssResult.docs).to.eql(expectedFeedResult.docs);

@@ -52,6 +52,6 @@ export default (event, context, callback) => {
 
             return feed;
         })
-        .then(rss => callback(null, buildRssResponse(parsedHeaders)({rss})))
+        .then(rss => callback(null, buildRssResponse({rss}, parsedHeaders)))
         .catch(errorHandler);
 };
