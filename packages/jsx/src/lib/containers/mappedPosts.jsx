@@ -52,7 +52,7 @@ export const connectMappedPosts = connect(
             currentTilt: tilt,
             currentZoom: zoom
         };
-        const postsFilters = [];
+        const postsFilters = [generateFilterFunctionForFilterName.location()];
 
         if (filter) {
             postsFilters.push(generateFilterFunctionForFilterName[filter](filterValue));
