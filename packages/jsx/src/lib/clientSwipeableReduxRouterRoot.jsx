@@ -11,7 +11,7 @@ import {renderSwipeableRoutes} from "./util";
 
 export class ClientSwipeableReduxRouterRoot extends ClientRoot {
     render() {
-        const {store, history, routes, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {store, history, routes, swipeableRoutesProps, ...props} = this.props; // eslint-disable-line no-unused-vars
 
         return <Provider store={store}>
             <Fragment>
@@ -29,7 +29,7 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
                 <main>
                     <ConnectedErrorWrapper {...props}>
                         <ConnectedRouter history={history}>
-                            {renderSwipeableRoutes(routes, props)}
+                            {renderSwipeableRoutes(routes, props, swipeableRoutesProps)}
                         </ConnectedRouter>
                     </ConnectedErrorWrapper>
                 </main>
@@ -41,6 +41,7 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
 ClientSwipeableReduxRouterRoot.propTypes = {
     store: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    swipeableRoutesProps: PropTypes.object,
     routes: PropTypes.array.isRequired
 };
 

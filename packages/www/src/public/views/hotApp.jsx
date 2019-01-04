@@ -98,6 +98,9 @@ export class App extends PureComponent {
             history={this.state.history}
             routes={routes}
             store={this.state.store}
+            swipeableRoutesProps={{
+                disabled: true
+            }}
         />;
     }
 }
