@@ -3,9 +3,28 @@ import _ from "lodash";
 import searchPosts from "../../lib/sources/searchPosts";
 import {postTypes} from "../../lib/util";
 import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams";
+import {
+    checkHeader as checkMeVersionHeader
+} from "./request/headers/version";
 
-export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}) => {
-    let postTypesToFetch = postTypes.filter(postType => type ? postType === type : true);
+export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
+    let postTypesToFetch = [];
+
+    if (
+        [1, 2, 3].some(expectedHeaderVersion => checkMeVersionHeader(headers, expectedHeaderVersion))
+    ) {
+        postTypesToFetch = postTypes.filter(postType => type
+            ? postType === type || type === "global"
+            : true
+        );
+    } else if (
+        [4].some(expectedHeaderVersion => checkMeVersionHeader(headers, expectedHeaderVersion))
+    ) {
+        postTypesToFetch = postTypes.filter(postType => type
+            ? postType === type || type === "global"
+            : false
+        );
+    }
 
     switch (type) {
         case Photo.type:
@@ -14,10 +33,11 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
             break;
     }
 
-    return Promise.all(
-        postTypesToFetch
-            .map(postType => searchPosts(parseQueryStringParametersIntoSearchParams({type: postType})(queryParameters)))
-        )
+    const queries = postTypesToFetch.length
+        ? postTypesToFetch.map(postType => parseQueryStringParametersIntoSearchParams({type: postType})(queryParameters))
+        : [parseQueryStringParametersIntoSearchParams()(queryParameters)];
+
+    return Promise.all(queries.map(searchPosts))
         .then(results => {
             const flattenedPosts = _.flatten(results.map(result => result.posts));
             const uniquePosts = Object.values(flattenedPosts.reduce((keyedPosts, post) => {

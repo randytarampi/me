@@ -28,7 +28,7 @@ export default (event, context, callback) => {
     }
 
     configureEnvironment()
-        .then(() => getPostsForParsedQuerystringParameters(parsedQuerystringParameters))
+        .then(() => getPostsForParsedQuerystringParameters(parsedQuerystringParameters, parsedHeaders))
         .then(({posts}) => {
             const campaign = {
                 source: process.env.CAMPAIGN_SOURCE,

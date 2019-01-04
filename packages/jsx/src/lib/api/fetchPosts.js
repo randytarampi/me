@@ -12,7 +12,7 @@ export const fetchPostsApi = (fetchUrl, searchParams) => {
         headers: {
             "Accept": "application/json",
             "Accept-Charset": "utf-8",
-            "ME-API-VERSION": 3
+            "ME-API-VERSION": 4
         }
     })
         .then(body => body.json())

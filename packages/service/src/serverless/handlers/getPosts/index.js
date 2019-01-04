@@ -26,7 +26,7 @@ export default (event, context, callback) => {
     }
 
     configureEnvironment()
-        .then(() => getPostsForParsedQuerystringParameters(parsedQuerystringParameters))
+        .then(() => getPostsForParsedQuerystringParameters(parsedQuerystringParameters, parsedHeaders))
         .then(postsResult => callback(null, buildPostsResponse(parsedHeaders)(postsResult)))
         .catch(errorHandler);
 };

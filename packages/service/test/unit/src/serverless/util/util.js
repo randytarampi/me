@@ -8,6 +8,7 @@ import SearchParams from "../../../../../src/lib/searchParams";
 import loadConfig from "../../../../../src/serverless/util/loadConfig";
 import loadServerlessSecrets from "../../../../../src/serverless/util/loadServerlessSecrets";
 import {parseQueryStringParametersIntoSearchParams} from "../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams";
+import {ME_API_VERSION_HEADER} from "../../../../../src/serverless/util/request/headers/version";
 
 describe("util", function () {
     describe("parseQueryStringParametersIntoSearchParams", function () {
@@ -120,7 +121,8 @@ describe("util", function () {
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubPost, stubPhoto, stubGallery];
-            const stubQueryParameters = undefined;
+            const stubQueryParameters = {type: "global"};
+            const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 4};
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {
@@ -191,7 +193,91 @@ describe("util", function () {
 
             const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
 
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
+                .then(postsResult => {
+                    expect(postsResult).to.eql(expectedPostsResult);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledThrice).to.eql(true);
+                });
+        });
+
+        it("delegates to `searchPosts` (ME_API_VERSION_HEADER <= 3)", function () {
+            const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
+            const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
+            const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
+            const stubPosts = [stubPost, stubPhoto, stubGallery];
+            const stubQueryParameters = undefined;
+            const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 3};
+            const expectedPostsResult = {
+                posts: stubPosts,
+                total: {
+                    global: stubPosts.length,
+                    [Gallery.type]: 1,
+                    [Post.type]: 1,
+                    [Photo.type]: 1
+                },
+                first: {
+                    global: stubPost,
+                    [Gallery.type]: stubGallery,
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
+                },
+                last: {
+                    global: stubGallery,
+                    [Gallery.type]: stubGallery,
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
+                },
+                firstFetched: {
+                    global: stubPosts[0],
+                    [Gallery.type]: stubGallery,
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
+                },
+                lastFetched: {
+                    global: stubPosts[stubPosts.length - 1],
+                    [Gallery.type]: stubGallery,
+                    [Post.type]: stubPost,
+                    [Photo.type]: stubPhoto
+                }
+            };
+            const proxyquireStubs = {
+                "../../lib/sources/searchPosts": {
+                    "default": sinon.stub().callsFake(searchParams => {
+                        let baseResult = null;
+
+                        switch (searchParams.type) {
+                            case Gallery.type:
+                                baseResult = stubGallery;
+                                break;
+
+                            case Photo.type:
+                                baseResult = stubPhoto;
+                                break;
+
+                            case Post.type:
+                                baseResult = stubPost;
+                                break;
+                        }
+
+                        return Promise.resolve({
+                            first: baseResult,
+                            firstFetched: baseResult,
+                            last: baseResult,
+                            lastFetched: baseResult,
+                            posts: baseResult
+                                ? [baseResult]
+                                : [],
+                            total: baseResult
+                                ? 1
+                                : 0
+                        });
+                    })
+                }
+            };
+
+            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
+
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
                 .then(postsResult => {
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledThrice).to.eql(true);
@@ -203,6 +289,7 @@ describe("util", function () {
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubPost];
             const stubQueryParameters = {type: Post.type};
+            const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 4};
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {
@@ -255,7 +342,7 @@ describe("util", function () {
 
             const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
 
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
                 .then(postsResult => {
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
@@ -267,6 +354,7 @@ describe("util", function () {
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubGallery, stubPhoto];
             const stubQueryParameters = {type: Gallery.type};
+            const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 4};
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {
@@ -324,7 +412,7 @@ describe("util", function () {
 
             const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
 
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters)
+            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
                 .then(postsResult => {
                     expect(postsResult).to.eql(expectedPostsResult);
                     expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledTwice).to.eql(true);

@@ -97,7 +97,7 @@ export default parsedHeaders =>
             }));
         }
 
-        if (checkMeVersionHeader(parsedHeaders, 3)) {
+        if ([3, 4].some(expectedHeaderValue => checkMeVersionHeader(parsedHeaders, expectedHeaderValue))) {
             return responseBuilder(buildPostsV3ResponseBody({posts, total, first, last, ...metadata}));
         }
 
