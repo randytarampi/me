@@ -65,7 +65,7 @@ describe("getPosts", function () {
                 "default": sinon.stub().returns(stubQuerystringParameters)
             },
             "../../util/response/buildPostsResponse": {
-                "default": sinon.stub().callsFake(headers => postsResult => {
+                "default": sinon.stub().callsFake((postsResult, headers) => {
                     try {
                         expect(headers).to.eql(stubHeaders);
                         expect(postsResult).to.eql(expectedPostsResult);

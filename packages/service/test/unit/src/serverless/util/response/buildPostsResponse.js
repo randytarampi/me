@@ -88,7 +88,7 @@ describe("buildPostsResponse", function () {
             };
             const stubParsedHeaders = {};
 
-            const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
+            const response = buildPostsResponse(stubSearchPostsResponse, stubParsedHeaders);
 
             expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
@@ -104,7 +104,7 @@ describe("buildPostsResponse", function () {
                 [versionHeader.headerName]: 1
             };
 
-            const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
+            const response = buildPostsResponse(stubSearchPostsResponse, stubParsedHeaders);
 
             expect(response.body).to.eql(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
@@ -120,7 +120,7 @@ describe("buildPostsResponse", function () {
                 [versionHeader.headerName]: 2
             };
 
-            const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
+            const response = buildPostsResponse(stubSearchPostsResponse, stubParsedHeaders);
 
             expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
@@ -154,7 +154,7 @@ describe("buildPostsResponse", function () {
                 [versionHeader.headerName]: 3
             };
 
-            const response = buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
+            const response = buildPostsResponse(stubSearchPostsResponse, stubParsedHeaders);
 
             expect(response.body).to.contain(JSON.stringify(stubSearchPostsResponse.posts.map(postsReponseBuilder.setPostRawToNull)));
         });
@@ -171,7 +171,7 @@ describe("buildPostsResponse", function () {
             };
 
             try {
-                buildPostsResponse(stubParsedHeaders)(stubSearchPostsResponse);
+                buildPostsResponse(stubSearchPostsResponse, stubParsedHeaders);
                 throw new Error("Wtf? This should've thrown");
             } catch (error) {
                 expect(error.message).to.match(/^`ME-API-VERSION` specifies unsupported version of `999`$/);
