@@ -490,7 +490,7 @@ describe("SearchParams", function () {
 
                 expect(searchParams.Dynamoose).to.eql({
                     _query: {
-                        type: {eq: "woof"}
+                        hash: {type: {eq: "woof"}}
                     },
                     _options: {limit: 100, descending: true, all: false}
                 });
@@ -517,11 +517,11 @@ describe("SearchParams", function () {
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
-                    _query: {
-                        hash: {type: {eq: "woof"}},
-                        range: {meow: {lt: 0}}
+                    _filter: {
+                        type: "woof",
+                        meow: {lt: 0}
                     },
-                    _options: {indexName: "type-meow-index", limit: 100, descending: true, all: false}
+                    _options: {limit: 100, descending: true, all: false}
                 });
             });
 
@@ -667,11 +667,11 @@ describe("SearchParams", function () {
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
-                    _query: {
-                        hash: {source: {eq: "woof"}},
-                        range: {meow: {gt: 5}}
+                    _filter: {
+                        source: "woof",
+                        meow: {gt: 5}
                     },
-                    _options: {indexName: "source-meow-index", limit: 100, descending: true, all: false}
+                    _options: {limit: 100, descending: true, all: false}
                 });
             });
 
@@ -686,12 +686,11 @@ describe("SearchParams", function () {
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
-                    _query: {
-                        hash: {source: {eq: "woof"}},
-                        range: {meow: {gt: "grr"}}
+                    _filter: {
+                        source: "woof",
+                        meow: {gt: "grr"}
                     },
                     _options: {
-                        indexName: "source-meow-index",
                         limit: 20,
                         descending: true,
                         all: false
