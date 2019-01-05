@@ -17,6 +17,12 @@ const overridableTagProperties = {
     title: tagValue => tagValue
 };
 
+export const POST_STATUS = {
+    visible: "VISIBLE",
+    hidden: "HIDDEN",
+    archived: "ARCHIVED"
+};
+
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
     id: null,
     type: null,

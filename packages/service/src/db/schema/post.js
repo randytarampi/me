@@ -1,11 +1,12 @@
-import {compositeKeySeparator, Gallery, Photo, Post} from "@randy.tarampi/js";
+import {compositeKeySeparator, Gallery, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
-const throughput = {read: 5, write: 5};
+const throughput = {read: 6, write: 6};
 
 const post = new Schema({
     uid: {
         type: String,
+        rangeKey: true,
         default: model => `${model.source}${compositeKeySeparator}${model.id}`,
         index: [
             {
@@ -17,7 +18,7 @@ const post = new Schema({
     },
     id: {
         type: String,
-        rangeKey: true
+        required: true
     },
     type: {
         type: String,
@@ -30,18 +31,12 @@ const post = new Schema({
         index: [
             {
                 global: false,
-                name: "source-type-index"
+                name: "status-type-index"
             },
             {
                 global: true,
                 name: "type-datePublished-index",
                 rangeKey: "datePublished",
-                throughput
-            },
-            {
-                global: true,
-                name: "type-dateCreated-index",
-                rangeKey: "dateCreated",
                 throughput
             },
             {
@@ -54,17 +49,21 @@ const post = new Schema({
     },
     source: {
         type: String,
-        hashKey: true,
-        required: true
+        required: true,
+        index: [
+            {
+                global: false,
+                name: "status-source-index"
+            }
+        ]
     },
     datePublished: {
         type: Date,
-        required: true,
         get: date => date && date.toISOString(),
         index: [
             {
                 global: false,
-                name: "source-datePublished-index"
+                name: "status-datePublished-index"
             }
         ]
     },
@@ -74,7 +73,7 @@ const post = new Schema({
         index: [
             {
                 global: false,
-                name: "source-dateCreated-index"
+                name: "status-dateCreated-index"
             }
         ]
     },
@@ -99,9 +98,15 @@ const post = new Schema({
         index: [
             {
                 global: false,
-                name: "source-geohash-index"
+                name: "status-geohash-index"
             }
         ]
+    },
+    status: {
+        type: String,
+        enum: Object.values(POST_STATUS),
+        default: POST_STATUS.visible,
+        hashKey: true
     }
 }, {
     throughput,

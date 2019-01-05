@@ -1,4 +1,4 @@
-import {Photo, Post, SizedPhoto} from "@randy.tarampi/js";
+import {Photo, Post, POST_STATUS, SizedPhoto} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import PostModel, {createPost, createPosts, getPost, getPostCount, getPosts} from "../../../../../src/db/models/post";
@@ -68,7 +68,7 @@ describe("Post", function () {
         ];
 
         return await PostModel.batchDelete(stubPosts.map(post => {
-            return {id: post.id, source: post.source};
+            return {uid: post.uid, status: POST_STATUS.visible};
         }));
     });
 
@@ -76,21 +76,21 @@ describe("Post", function () {
         it("persists a post from a Post", async function () {
             const createdPost = await createPost(stubPost);
             expect(createdPost.uid).to.eql(stubPost.uid);
-            const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
+            const postFromDb = await PostModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
             expect(postFromDb).to.be.ok;
         });
 
         it("persists a post from a Photo", async function () {
             const createdPhoto = await createPost(stubPhoto);
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
-            const photoFromDb = await PostModel.get({id: createdPhoto.id, source: createdPhoto.source});
+            const photoFromDb = await PostModel.get({uid: createdPhoto.uid, status: POST_STATUS.visible});
             expect(photoFromDb).to.be.ok;
         });
 
         it("doesn't persist empty string tags", async function () {
             const createdPost = await createPost(stubPost);
             expect(createdPost.uid).to.eql(stubPost.uid);
-            const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
+            const postFromDb = await PostModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
             expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).map(tag => tag.toLowerCase()).toArray());
             expect(postFromDb.tags).to.not.have.members([""]);
         });
@@ -113,46 +113,45 @@ describe("Post", function () {
 
         it("retrieves a Photo (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPhoto = await getPost({_query: {source: {eq: stubPhoto.source}}});
+            const retrievedPhoto = await getPost({_filter: {source: {eq: stubPhoto.source}}});
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto.type).to.eql(Photo.type);
         });
 
         it("retrieves a Post (tags)", async function () {
-            const moreThanOnePhoto = stubPosts.concat([
-                Photo.fromJSON({
-                    raw: {},
-                    id: "grr",
-                    source: "Grrdy",
-                    dateCreated: DateTime.utc().toISO(),
-                    datePublished: DateTime.utc().toISO(),
-                    width: -1,
-                    height: -2,
-                    sizedPhotos: [
-                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
-                    ],
-                    title: "Grr grr grr",
-                    body: [
-                        "ʕ•ᴥ•ʔ",
-                        "ʕ•ᴥ•ʔﾉ゛",
-                        "ʕ◠ᴥ◠ʔ"
-                    ],
-                    sourceUrl: "grr://grr.grr/grr",
-                    creator: {
-                        id: -1,
-                        username: "ʕ•ᴥ•ʔ",
-                        name: "ʕ•ᴥ•ʔ",
-                        url: "grr://grr.grr/grr/grr/grr"
-                    },
-                    tags: [
-                        "Woof"
-                    ]
-                })
-            ]);
+            const otherPhoto = Photo.fromJSON({
+                raw: {},
+                id: "grr",
+                source: "Grrdy",
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
+                width: -1,
+                height: -2,
+                sizedPhotos: [
+                    SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                ],
+                title: "Grr grr grr",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "grr://grr.grr/grr",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "grr://grr.grr/grr/grr/grr"
+                },
+                tags: [
+                    "Woof"
+                ]
+            });
+            const moreThanOnePhoto = stubPosts.concat(otherPhoto);
             await createPosts(moreThanOnePhoto);
             const retrievedPost = await getPost({_filter: {tags: {CONTAINS: ["woof"]}}});
-            expect(retrievedPost.uid).to.eql(stubPost.uid);
-            expect(retrievedPost.type).to.eql(Post.type);
+            expect(retrievedPost.uid).to.eql(otherPhoto.uid);
+            expect(retrievedPost.type).to.eql(otherPhoto.type);
         });
     });
 
@@ -163,7 +162,7 @@ describe("Post", function () {
             expect(createdPosts).to.have.length(stubPosts.length);
             return await Promise.all(stubPosts.map(async createdPost => {
                 expect(createdPost.uid).to.be.ok;
-                const postFromDb = await PostModel.get({id: createdPost.id, source: createdPost.source});
+                const postFromDb = await PostModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
                 expect(postFromDb.uid).to.eql(createdPost.uid);
             }));
         });
@@ -246,7 +245,7 @@ describe("Post", function () {
 
         it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({_query: {source: {eq: stubPhoto.source}}});
+            const retrievedPosts = await getPosts({_filter: {source: {eq: stubPhoto.source}}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -258,49 +257,6 @@ describe("Post", function () {
         it("retrieves posts (uid)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPosts({_query: {uid: {eq: stubPhoto.uid}}});
-            expect(retrievedPosts).to.be.an("array");
-            expect(retrievedPosts).to.have.length(1);
-            return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost.type).to.eql(Photo.type);
-                expect(retrievedPost.uid).to.eql(stubPhoto.uid);
-            }));
-        });
-
-        it("retrieves posts (type & source index)", async function () {
-            const moreThanOnePhoto = stubPosts.concat([
-                Photo.fromJSON({
-                    raw: {},
-                    id: "grr",
-                    source: "Grrdy",
-                    dateCreated: DateTime.utc().toISO(),
-                    datePublished: DateTime.utc().toISO(),
-                    width: -1,
-                    height: -2,
-                    sizedPhotos: [
-                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
-                    ],
-                    title: "Grr grr grr",
-                    body: [
-                        "ʕ•ᴥ•ʔ",
-                        "ʕ•ᴥ•ʔﾉ゛",
-                        "ʕ◠ᴥ◠ʔ"
-                    ],
-                    sourceUrl: "grr://grr.grr/grr",
-                    creator: {
-                        id: -1,
-                        username: "ʕ•ᴥ•ʔ",
-                        name: "ʕ•ᴥ•ʔ",
-                        url: "grr://grr.grr/grr/grr/grr"
-                    }
-                })
-            ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({
-                _query: {
-                    hash: {id: {eq: stubPhoto.id}},
-                    range: {source: {eq: stubPhoto.source}}
-                }
-            });
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -350,8 +306,7 @@ describe("Post", function () {
         });
 
         it("retrieves posts (scan with a limit)", async function () {
-            const moreThanOnePhoto = stubPosts.concat([
-                Photo.fromJSON({
+            const otherPhoto = Photo.fromJSON({
                     raw: {},
                     id: "grr",
                     source: "Grrdy",
@@ -378,14 +333,14 @@ describe("Post", function () {
                     tags: [
                         "woof"
                     ]
-                })
-            ]);
+            });
+            const moreThanOnePhoto = stubPosts.concat(otherPhoto);
             await createPosts(moreThanOnePhoto);
             const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 1}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
-                expect(retrievedPost.type).to.eql(Post.type);
+                expect(retrievedPost.type).to.eql(otherPhoto.type);
             }));
         });
     });
@@ -459,51 +414,13 @@ describe("Post", function () {
 
         it("retrieves posts (source)", async function () {
             await createPosts(stubPosts);
-            const retrievedPosts = await getPostCount({_query: {source: {eq: stubPhoto.source}}});
+            const retrievedPosts = await getPostCount({_filter: {source: {eq: stubPhoto.source}}});
             expect(retrievedPosts).to.eql(1);
         });
 
         it("retrieves posts (uid)", async function () {
             await createPosts(stubPosts);
             const retrievedPosts = await getPostCount({_query: {uid: {eq: stubPhoto.uid}}});
-            expect(retrievedPosts).to.eql(1);
-        });
-
-        it("retrieves posts (type & source index)", async function () {
-            const moreThanOnePhoto = stubPosts.concat([
-                Photo.fromJSON({
-                    raw: {},
-                    id: "grr",
-                    source: "Grrdy",
-                    dateCreated: DateTime.utc().toISO(),
-                    datePublished: DateTime.utc().toISO(),
-                    width: -1,
-                    height: -2,
-                    sizedPhotos: [
-                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
-                    ],
-                    title: "Grr grr grr",
-                    body: [
-                        "ʕ•ᴥ•ʔ",
-                        "ʕ•ᴥ•ʔﾉ゛",
-                        "ʕ◠ᴥ◠ʔ"
-                    ],
-                    sourceUrl: "grr://grr.grr/grr",
-                    creator: {
-                        id: -1,
-                        username: "ʕ•ᴥ•ʔ",
-                        name: "ʕ•ᴥ•ʔ",
-                        url: "grr://grr.grr/grr/grr/grr"
-                    }
-                })
-            ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPostCount({
-                _query: {
-                    hash: {id: {eq: stubPhoto.id}},
-                    range: {source: {eq: stubPhoto.source}}
-                }
-            });
             expect(retrievedPosts).to.eql(1);
         });
 

@@ -8,14 +8,15 @@ import {
     getHaversineDistance,
     Gallery,
     Photo,
-    Post
+    Post,
+    POST_STATUS
 } from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
- * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, _rawFilter: object, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string}}
+ * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, _rawFilter: object, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string, status: boolean}}
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
@@ -42,10 +43,12 @@ const searchParamsRecordDefinition = {
     orderComparatorType: undefined,
     all: false,
     beforeDate: null,
+    afterDate: null,
     beforeId: null,
     afterId: null,
     continuationToken: null,
     tags: null,
+    status: POST_STATUS.visible,
 
     // NOTE-RT: For individual posts
     width: undefined,
@@ -178,16 +181,19 @@ class SearchParams extends SearchParamsRecord {
         switch (this.orderBy) {
             case "descending":
                 options.descending = true;
+                options.indexName = "status-datePublished-index";
                 break;
 
             case "ascending":
                 options.descending = false;
+                options.indexName = "status-datePublished-index";
                 break;
 
             // NOTE-RT: Assume all other cases will have `orderComparator` defined, which takes care of any ambiguity here
         }
 
         const filters = {
+            status: this.status,
             ...this._rawFilter
         };
 
@@ -229,21 +235,20 @@ class SearchParams extends SearchParamsRecord {
             };
         }
 
-        if (this.type) {
-            const typeIndiciesRangeKeys = ["dateCreated", "datePublished", "geohash"];
+        if (this.source && this.id) {
+            return {
+                _query: {
+                    hash: {uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}}
+                },
+                _options: {
+                    ...options,
+                    indexName: "uid-index"
+                }
+            };
+        }
 
-            if (this.source) {
-                return {
-                    _query: {
-                        hash: {source: {eq: this.source}},
-                        range: {type: {eq: this.type}}
-                    },
-                    _options: {
-                        ...options,
-                        indexName: "source-type-index"
-                    }
-                };
-            }
+        if (this.type) {
+            const typeIndiciesRangeKeys = ["datePublished", "geohash"];
 
             if (typeIndiciesRangeKeys.includes(this.orderBy)) {
                 options.indexName = `type-${this.orderBy}-index`;
@@ -320,34 +325,28 @@ class SearchParams extends SearchParamsRecord {
                     };
                 }
 
-                if (filters.type && Object.keys(filters).length === 1) {
+                if (
+                    filters.type
+                    && (Object.keys(filters).length === 1 || Object.keys(filters).length === 2 && filters.status === POST_STATUS.visible)
+                ) {
                     return {
                         _query: {
                             hash: {type: {eq: this.type}}
                         },
-                        _options: options
+                        _options: {
+                            ...options,
+                            indexName: "type-datePublished-index"
+                        }
                     };
                 }
             }
         }
 
-        if (this.source) {
-            const sourceIndiciesRangeKeys = ["dateCreated", "datePublished", "geohash"];
+        if (this.status) {
+            const statusIndiciesRangeKeys = ["dateCreated", "datePublished", "geohash"];
 
-            if (this.id) {
-                return {
-                    _query: {
-                        hash: {uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}}
-                    },
-                    _options: {
-                        ...options,
-                        indexName: "uid-index"
-                    }
-                };
-            }
-
-            if (sourceIndiciesRangeKeys.includes(this.orderBy)) {
-                options.indexName = `source-${this.orderBy}-index`;
+            if (statusIndiciesRangeKeys.includes(this.orderBy)) {
+                options.indexName = `status-${this.orderBy}-index`;
             }
 
             if (
@@ -360,7 +359,7 @@ class SearchParams extends SearchParamsRecord {
                             _filter: Object.assign({}, filters, {geohash: {begins_with: geohashQuery}}),
                             _options: {
                                 ...options,
-                                indexName: "source-geohash-index"
+                                indexName: "status-geohash-index"
                             }
                         };
                     });
@@ -371,7 +370,7 @@ class SearchParams extends SearchParamsRecord {
                         _filter: Object.assign({}, filters, {geohash: {begins_with: this.geohash}}),
                         _options: {
                             ...options,
-                            indexName: "source-geohash-index"
+                            indexName: "status-geohash-index"
                         }
                     };
                 }
@@ -383,10 +382,10 @@ class SearchParams extends SearchParamsRecord {
                     };
                 }
 
-                if (sourceIndiciesRangeKeys.includes(this.orderBy)) {
+                if (statusIndiciesRangeKeys.includes(this.orderBy)) {
                     return {
                         _query: {
-                            hash: {source: {eq: this.source}},
+                            hash: {status: {eq: this.status}},
                             range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
                         },
                         _options: options
@@ -397,12 +396,12 @@ class SearchParams extends SearchParamsRecord {
                     return this.geohashQueries.map(geohashQuery => {
                         return {
                             _query: {
-                                hash: {source: {eq: this.source}},
+                                hash: {status: {eq: this.status}},
                                 range: {geohash: {begins_with: geohashQuery}}
                             },
                             _options: {
                                 ...options,
-                                indexName: "source-geohash-index"
+                                indexName: "status-geohash-index"
                             }
                         };
                     });
@@ -411,20 +410,20 @@ class SearchParams extends SearchParamsRecord {
                 if (this.geohash) {
                     return {
                         _query: {
-                            hash: {source: {eq: this.source}},
+                            hash: {status: {eq: this.status}},
                             range: {geohash: {begins_with: this.geohash}}
                         },
                         _options: {
                             ...options,
-                            indexName: "source-geohash-index"
+                            indexName: "status-geohash-index"
                         }
                     };
                 }
 
-                if (filters.source && Object.keys(filters).length === 1) {
+                if (filters.status && Object.keys(filters).length === 1) {
                     return {
                         _query: {
-                            hash: {source: {eq: this.source}}
+                            hash: {status: {eq: this.status}}
                         },
                         _options: options
                     };

@@ -72,7 +72,7 @@ export const connectMappedPosts = connect(
                 const searchParams = {
                     ...(match && match.params),
                     ...fetchPostsParams,
-                    perPage: 100,
+                    perPage: 64,
                     ...passedParams
                 };
                 return dispatch(fetchPostsForMapCreator(id, fetchUrl, type, searchParams));

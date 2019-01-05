@@ -73,8 +73,7 @@ describe("fetchPostsForBlog", function () {
                                 orderComparator: stubOldestLoadedPostDate.toISO(),
                                 orderComparatorType: "String",
                                 orderOperator: "lt",
-                                perPage: FETCHING_POSTS_PER_PAGE,
-                                type: "global"
+                                perPage: FETCHING_POSTS_PER_PAGE
                             },
                             oldestPostAvailableDate: stubOldestAvailablePostDate,
                             oldestLoadedPostDate: stubOldestLoadedPostDate
@@ -98,8 +97,7 @@ describe("fetchPostsForBlog", function () {
             expect(fetchUrl).to.eql(stubFetchUrl);
             expect(postType).to.eql("global");
             expect(searchParams).to.eql({
-                perPage: FETCHING_POSTS_PER_PAGE,
-                type: "global"
+                perPage: FETCHING_POSTS_PER_PAGE
             });
             expect(searchType).to.eql("blog");
 

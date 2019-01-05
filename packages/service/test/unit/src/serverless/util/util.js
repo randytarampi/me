@@ -116,76 +116,43 @@ describe("util", function () {
     });
 
     describe("getPostsForParsedQuerystringParameters", function () {
-        it("delegates to `searchPosts` (all types)", function () {
+        it("delegates to `searchPosts` (ME_API_VERSION_HEADER >= 4)", function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubPost, stubPhoto, stubGallery];
-            const stubQueryParameters = {type: "global"};
+            const stubQueryParameters = undefined;
             const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 4};
             const expectedPostsResult = {
                 posts: stubPosts,
                 total: {
-                    global: stubPosts.length,
-                    [Gallery.type]: 1,
-                    [Post.type]: 1,
-                    [Photo.type]: 1
+                    global: stubPosts.length
                 },
                 first: {
-                    global: stubPost,
-                    [Gallery.type]: stubGallery,
-                    [Post.type]: stubPost,
-                    [Photo.type]: stubPhoto
+                    global: stubPost
                 },
                 last: {
-                    global: stubGallery,
-                    [Gallery.type]: stubGallery,
-                    [Post.type]: stubPost,
-                    [Photo.type]: stubPhoto
+                    global: stubGallery
                 },
                 firstFetched: {
-                    global: stubPosts[0],
-                    [Gallery.type]: stubGallery,
-                    [Post.type]: stubPost,
-                    [Photo.type]: stubPhoto
+                    global: stubPosts[0]
                 },
                 lastFetched: {
-                    global: stubPosts[stubPosts.length - 1],
-                    [Gallery.type]: stubGallery,
-                    [Post.type]: stubPost,
-                    [Photo.type]: stubPhoto
+                    global: stubPosts[stubPosts.length - 1]
                 }
             };
             const proxyquireStubs = {
                 "../../lib/sources/searchPosts": {
-                    "default": sinon.stub().callsFake(searchParams => {
-                        let baseResult = null;
-
-                        switch (searchParams.type) {
-                            case Gallery.type:
-                                baseResult = stubGallery;
-                                break;
-
-                            case Photo.type:
-                                baseResult = stubPhoto;
-                                break;
-
-                            case Post.type:
-                                baseResult = stubPost;
-                                break;
-                        }
+                    "default": sinon.stub().callsFake(() => {
+                        const result = [stubPost, stubPhoto, stubGallery];
 
                         return Promise.resolve({
-                            first: baseResult,
-                            firstFetched: baseResult,
-                            last: baseResult,
-                            lastFetched: baseResult,
-                            posts: baseResult
-                                ? [baseResult]
-                                : [],
-                            total: baseResult
-                                ? 1
-                                : 0
+                            first: stubPost,
+                            firstFetched: stubPost,
+                            last: stubGallery,
+                            lastFetched: stubGallery,
+                            posts: result,
+                            total: result.length
                         });
                     })
                 }
@@ -196,7 +163,7 @@ describe("util", function () {
             return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
                 .then(postsResult => {
                     expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledThrice).to.eql(true);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
                 });
         });
 

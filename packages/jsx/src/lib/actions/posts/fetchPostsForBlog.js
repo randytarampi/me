@@ -13,7 +13,6 @@ export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter,
     const searchParams = {
         perPage,
         ...params,
-        type: postType,
         ...(
             oldestLoadedPostDate
                 ? {

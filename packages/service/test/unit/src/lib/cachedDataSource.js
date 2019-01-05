@@ -1,4 +1,4 @@
-import {Photo, Post} from "@randy.tarampi/js";
+import {Photo, Post, POST_STATUS} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import CachedDataSource from "../../../../src/lib/cachedDataSource";
@@ -153,15 +153,16 @@ describe("CachedDataSource", function () {
                     );
                     expect(stubGetPosts.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPosts, {
-                        _query: {
-                            hash: {source: {eq: stubType}},
-                            range: {type: {eq: Photo.type}}
+                        _filter: {
+                            status: POST_STATUS.visible,
+                            source: stubType,
+                            type: Photo.type
                         },
                         _options: {
                             limit: 100,
                             descending: true,
                             all: false,
-                            indexName: "source-type-index"
+                            indexName: "status-datePublished-index"
                         }
                     });
                     sinon.assert.calledTwice(stubJsonToPost);
@@ -194,15 +195,16 @@ describe("CachedDataSource", function () {
                     );
                     expect(stubGetPosts.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetPosts, {
-                        _query: {
-                            hash: {source: {eq: stubType}},
-                            range: {type: {eq: Photo.type}}
+                        _filter: {
+                            status: POST_STATUS.visible,
+                            source: stubType,
+                            type: Photo.type
                         },
                         _options: {
                             limit: 100,
                             descending: true,
                             all: true,
-                            indexName: "source-type-index"
+                            indexName: "status-datePublished-index"
                         }
                     });
                 });

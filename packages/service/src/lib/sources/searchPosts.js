@@ -13,7 +13,7 @@ const cachedValueToPost = cachedValue => cachedValue
  * @param searchParams {SearchParams}
  * @returns {Promise<{posts: Post[], total: Number, first: Post, last: Post} | never | {posts: null, total: null, first: null, last: null, error: any}>}
  */
-const searchPosts = searchParams => {
+export const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
 
     return Promise.all([

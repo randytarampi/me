@@ -14,14 +14,14 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
         [1, 2, 3].some(expectedHeaderVersion => checkMeVersionHeader(headers, expectedHeaderVersion))
     ) {
         postTypesToFetch = postTypes.filter(postType => type
-            ? postType === type || type === "global"
+            ? postType === type
             : true
         );
     } else if (
         [4].some(expectedHeaderVersion => checkMeVersionHeader(headers, expectedHeaderVersion))
     ) {
         postTypesToFetch = postTypes.filter(postType => type
-            ? postType === type || type === "global"
+            ? postType === type
             : false
         );
     }
@@ -33,11 +33,11 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
             break;
     }
 
-    const queries = postTypesToFetch.length
+    const postFetchSearchParams = postTypesToFetch.length
         ? postTypesToFetch.map(postType => parseQueryStringParametersIntoSearchParams({type: postType})(queryParameters))
         : [parseQueryStringParametersIntoSearchParams()(queryParameters)];
 
-    return Promise.all(queries.map(searchPosts))
+    return Promise.all(postFetchSearchParams.map(searchPosts))
         .then(results => {
             const flattenedPosts = _.flatten(results.map(result => result.posts));
             const uniquePosts = Object.values(flattenedPosts.reduce((keyedPosts, post) => {

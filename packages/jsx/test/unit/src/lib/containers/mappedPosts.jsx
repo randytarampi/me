@@ -286,7 +286,7 @@ describe("MappedPosts", function () {
                 // expect(fetchPostsStub.calledOnce).to.eql(true);
                 sinon.assert.calledWith(fetchPostsStub, stubProps.id, stubProps.fetchUrl, stubProps.type, {
                     ...stubProps.match.params,
-                    perPage: 100
+                    perPage: 64
                 });
             });
     });
