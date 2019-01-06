@@ -19,7 +19,8 @@ export const getGeohashesForRadiusAroundPoint = (lat, long, radius, precision) =
         longitude: long,
         radius,
         precision,
-        georaptorFlag: true
+        georaptorFlag: true,
+        approxHashCount: true
     });
 };
 

@@ -379,9 +379,14 @@ describe("util", function () {
 
             expect(geohashesForRadiusAroundPoint).to.be.an("array");
             expect(geohashesForRadiusAroundPoint).to.contain.members([
-                "ec", "s1", "s3",
-                "eb", "s0", "s2",
-                "7z", "kp", "kr"
+                "s",
+                "k",
+                "e",
+                "7",
+                "u0",
+                "hp",
+                "gb",
+                "5z"
             ]);
         });
     });
