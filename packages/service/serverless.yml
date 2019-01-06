@@ -40,11 +40,11 @@ provider:
   - Effect: Allow
     Action:
     - dynamodb:*
-    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.POSTS_DYNAMODB_TABLE}
+    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}
   - Effect: Allow
     Action:
     - dynamodb:*
-    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.POSTS_DYNAMODB_TABLE}/*
+    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}/*
   - Effect: Allow
     Action:
     - lambda:InvokeFunction
@@ -85,10 +85,12 @@ plugins:
 custom:
   contentCompression: 1024
   dynamodb:
+    PostsDynamoDbTable:
     start:
       port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
       inMemory: true
       # sharedDb: true
+      migrate: true
     migration:
       dir: src/serverless/dynamoDb/migrations
   webpack:
@@ -221,3 +223,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.SERVICE_POSTS_S3_BUCKET_NAME}
+    PostsDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties: ${file(src/serverless/dynamodb/post.js)}

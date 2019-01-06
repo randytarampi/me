@@ -2,7 +2,11 @@ import dynamoose from "dynamoose";
 import logger from "../../lib/logger";
 import PostSchema from "../schema/post";
 
-const Post = dynamoose.model(process.env.POSTS_DYNAMODB_TABLE, PostSchema);
+export const getModel = (modelName = process.env.SERVICE_POSTS_DYNAMODB_TABLE) => dynamoose.model(modelName, PostSchema, {
+    create: process.env.NODE_ENV === "test"
+});
+
+const Post = getModel();
 
 /**
  * Persist a [Post]{@link Post}
