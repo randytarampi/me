@@ -1,15 +1,6 @@
-import dynamoose from "dynamoose";
+import {setupLocal as setupDynamoDbLocal} from "../src/serverless/dynamodb/util";
 
-process.env.SERVICE_POSTS_DYNAMODB_TABLE = process.env.SERVICE_POSTS_DYNAMODB_TABLE || `${process.env.NODE_ENV}-posts`;
-
-if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
-    dynamoose.AWS.config.update({
-        accessKeyId: "woof",
-        secretAccessKey: "meow",
-        region: "local"
-    });
-    dynamoose.local();
-}
+setupDynamoDbLocal();
 
 process.env.AWS_XRAY_CONTEXT_MISSING = "LOG_ERROR";
 
