@@ -12,8 +12,8 @@
     "access": "public"
   },
   "scripts": {
-    "prepare": "sls dynamodb install",
-    "preuninstall:dynamodb": "sls dynamodb remove",
+    "prepare": "AWS_REGION=local sls dynamodb install",
+    "preuninstall:dynamodb": "AWS_REGION=local sls dynamodb remove",
     "pretest": "gulp -LLLL --color lint",
     "pretest:dynamodb-local": "npm run kill:dynamodb-local && npm run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\";",
     "test": "npm run pretest:dynamodb-local && npm run test:actual",
