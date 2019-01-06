@@ -2,7 +2,6 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
-import sinon from "sinon";
 import SearchParams from "../../../../src/lib/searchParams";
 import sources from "../../../../src/lib/sources";
 import DummyCacheClientGenerator from "../../../lib/dummyCacheClientGenerator";
@@ -76,8 +75,6 @@ describe("searchPosts", function () {
         });
 
         const stubSearchParams = new SearchParams();
-
-
         const postsResult = await proxyquiredSeachPosts.default(stubSearchParams);
 
         expect(postsResult).to.eql({
@@ -88,5 +85,45 @@ describe("searchPosts", function () {
             last: stubPhoto,
             lastFetched: stubPhoto
         });
+
+        expect(stubGetPostCount.calledOnce).to.eql(true);
+        expect(stubGetPosts.calledOnce).to.eql(true);
+        expect(stubGetPost.calledTwice).to.eql(true);
+    });
+
+    it("bails early if there are no posts to fetch", async function () {
+        stubGetPostCount = sinon.stub().returns(Promise.resolve(0));
+        DummyCacheClient = DummyCacheClientGenerator({
+            dummyDataClientStubs: {
+                stubGetPosts,
+                stubCreatePosts,
+                stubGetPostCount,
+
+                stubGetPost,
+                stubCreatePost
+            }
+        });
+
+        const proxyquiredSeachPosts = proxyquire("../../../../src/lib/sources/searchPosts", {
+            "../cacheClient": {
+                "default": DummyCacheClient
+            }
+        });
+
+        const stubSearchParams = new SearchParams();
+        const postsResult = await proxyquiredSeachPosts.default(stubSearchParams);
+
+        expect(postsResult).to.eql({
+            posts: [],
+            total: 0,
+            first: null,
+            firstFetched: null,
+            last: null,
+            lastFetched: null
+        });
+
+        expect(stubGetPostCount.calledOnce).to.eql(true);
+        expect(stubGetPosts.notCalled).to.eql(true);
+        expect(stubGetPost.notCalled).to.eql(true);
     });
 });
