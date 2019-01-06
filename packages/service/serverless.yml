@@ -94,9 +94,6 @@ custom:
   webpack:
     individually: true
     webpackConfig: ./webpack.serverless.config.js
-    includeModules:
-      forceExclude:
-      - aws-sdk
   serverlessSecrets:
     throwOnMissingSecret: true
     providerOptions:
