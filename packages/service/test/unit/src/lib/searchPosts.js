@@ -2,6 +2,7 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
+import sinon from "sinon";
 import SearchParams from "../../../../src/lib/searchParams";
 import sources from "../../../../src/lib/sources";
 import DummyCacheClientGenerator from "../../../lib/dummyCacheClientGenerator";
