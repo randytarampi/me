@@ -1,6 +1,6 @@
 require("../../../../../babel.register");
 
-module.exports = serverless => serverless.variables.tracker.promiseMap["self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE"].then(tableName => {
+module.exports.default = serverless => serverless.variables.tracker.promiseMap["self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE"].then(tableName => {
     const setupLocalDynamoDb = require("./util").setupLocal;
 
     setupLocalDynamoDb();

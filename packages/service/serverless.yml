@@ -85,7 +85,7 @@ plugins:
 
 custom:
   capacities:
-    - table: ${file(src/serverless/dynamodb/post.js).TableName}
+    - table: ${file(src/serverless/dynamodb/post.js):default.TableName}
       indexes:
         - type-datePublished-index
         - type-geohash-index
@@ -244,4 +244,4 @@ resources:
     PostsDynamoDbTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
-      Properties: ${file(src/serverless/dynamodb/post.js)}
+      Properties: ${file(src/serverless/dynamodb/post.js):default}
