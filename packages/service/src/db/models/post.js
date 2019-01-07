@@ -3,7 +3,7 @@ import logger from "../../lib/logger";
 import PostSchema from "../schema/post";
 
 export const getModel = (modelName = process.env.SERVICE_POSTS_DYNAMODB_TABLE) => dynamoose.model(modelName, PostSchema, {
-    create: process.env.NODE_ENV === "test"
+    create: false
 });
 
 const Post = getModel();

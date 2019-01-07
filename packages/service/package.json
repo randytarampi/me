@@ -26,7 +26,7 @@
     "preuninstall": "npm run preuninstall:dynamodb && npm run clean",
     "prestart": "npm run kill",
     "start": "npm run dev",
-    "start:dynamodb-local": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
+    "start:dynamodb-local": "sls dynamodb start & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
     "dev": "npm run dev:serverless",
     "dev:serverless": "sls offline start --stage local",
     "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",

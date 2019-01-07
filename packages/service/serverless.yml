@@ -77,34 +77,17 @@ plugins:
 - serverless-secrets
 - serverless-webpack
 - serverless-dynamodb-local
-- serverless-dynamodb-autoscaling
 - serverless-plugin-warmup
 - serverless-offline
 - serverless-domain-manager
 - serverless-plugin-tracing
 
 custom:
-  capacities:
-    - table: PostsDynamoDbTable
-      indexes:
-        - type-datePublished-index
-        - type-geohash-index
-        - uid-index
-      read:
-        maximum: 60
-        minimum: 6
-        usage: 0.8
-      write:
-        maximum: 60
-        minimum: 6
-        usage: 0.8
   contentCompression: 1024
   dynamodb:
-    PostsDynamoDbTable:
     start:
       port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
       inMemory: true
-      # sharedDb: true
       migrate: true
     migration:
       dir: src/serverless/dynamoDb/migrations

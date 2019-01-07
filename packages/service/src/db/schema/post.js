@@ -1,8 +1,6 @@
 import {compositeKeySeparator, Gallery, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
-const throughput = {read: 6, write: 6};
-
 const post = new Schema({
     uid: {
         type: String,
@@ -11,8 +9,7 @@ const post = new Schema({
         index: [
             {
                 global: true,
-                name: "uid-index",
-                throughput
+                name: "uid-index"
             }
         ]
     },
@@ -36,14 +33,12 @@ const post = new Schema({
             {
                 global: true,
                 name: "type-datePublished-index",
-                rangeKey: "datePublished",
-                throughput
+                rangeKey: "datePublished"
             },
             {
                 global: true,
                 name: "type-geohash-index",
-                rangeKey: "geohash",
-                throughput
+                rangeKey: "geohash"
             }
         ]
     },
@@ -109,7 +104,7 @@ const post = new Schema({
         hashKey: true
     }
 }, {
-    throughput,
+    throughput: "ON_DEMAND",
     useNativeBooleans: true,
     useDocumentTypes: true,
     timestamps: true,
