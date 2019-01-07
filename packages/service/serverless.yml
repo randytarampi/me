@@ -12,7 +12,7 @@ provider:
   baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
   domainName: ${file(env.yml):${self:provider.stage}.domainName}
   memorySize: 256
-  timeout: 10
+  timeout: 60
 
   tracing: true
 
@@ -135,7 +135,7 @@ custom:
 functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.functions}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
   cachePosts:
     handler: src/serverless/handlers/cachePosts/initialized.default
-    timeout: 60
+    timeout: 90
     events: ${file(env.yml):${self:provider.stage}.functions.cachePosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
