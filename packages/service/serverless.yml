@@ -85,7 +85,7 @@ plugins:
 
 custom:
   capacities:
-    - table: ${file(src/serverless/dynamodb/post.js):default.TableName}
+    - table: PostsDynamoDbTable
       indexes:
         - type-datePublished-index
         - type-geohash-index
