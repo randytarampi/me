@@ -351,6 +351,7 @@ describe("SearchParams", function () {
             const searchParams = SearchParams.fromJS({uid: "woof"});
 
             expect(searchParams.Dynamoose).to.eql({
+                _filter: {status: POST_STATUS.visible},
                 _query: {
                     hash: {uid: {eq: "woof"}}
                 },
@@ -366,6 +367,7 @@ describe("SearchParams", function () {
                     _query: {
                         hash: {uid: {eq: "woof"}}
                     },
+                    _filter: {status: POST_STATUS.visible},
                     _options: {limit: searchParams.perPage, descending: true, all: false, indexName: "uid-index"}
                 });
             });
@@ -377,6 +379,7 @@ describe("SearchParams", function () {
                     _query: {
                         hash: {uid: {eq: "woof"}}
                     },
+                    _filter: {status: POST_STATUS.visible},
                     _options: {descending: true, all: true, indexName: "uid-index"}
                 });
             });
@@ -390,6 +393,7 @@ describe("SearchParams", function () {
                     _query: {
                         hash: {uid: {eq: "woof"}}
                     },
+                    _filter: {status: POST_STATUS.visible},
                     _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                 });
             });
@@ -401,6 +405,7 @@ describe("SearchParams", function () {
                     _query: {
                         hash: {uid: {eq: "woof"}}
                     },
+                    _filter: {status: POST_STATUS.visible},
                     _options: {limit: 100, descending: false, all: false, indexName: "uid-index"}
                 });
             });
@@ -418,6 +423,11 @@ describe("SearchParams", function () {
                     _query: {
                         hash: {status: {eq: POST_STATUS.visible}},
                         range: {[searchParams.orderBy]: {[searchParams.orderOperator]: searchParams.orderComparator}}
+                    },
+                    _filter: {
+                        status: POST_STATUS.visible,
+                        [searchParams.orderBy]: {[searchParams.orderOperator]: searchParams.orderComparator},
+                        source: searchParams.source
                     },
                     _options: {
                         indexName: `status-${searchParams.orderBy}-index`,
@@ -440,6 +450,9 @@ describe("SearchParams", function () {
                         tags: {contains: ["woof"]},
                         status: POST_STATUS.visible
                     },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}}
+                    },
                     _options: {limit: 100, descending: true, all: false, indexName: "status-datePublished-index"}
                 });
             });
@@ -456,7 +469,10 @@ describe("SearchParams", function () {
                         type: Post.type,
                         status: POST_STATUS.visible
                     },
-                    _options: {limit: 100, descending: true, all: false, indexName: "status-datePublished-index"}
+                    _query: {
+                        hash: {type: {eq: Post.type}}
+                    },
+                    _options: {limit: 100, descending: true, all: false, indexName: "type-datePublished-index"}
                 });
             });
 
@@ -471,6 +487,9 @@ describe("SearchParams", function () {
                         tags: {contains: ["woof"]},
                         source: "tumblr",
                         status: POST_STATUS.visible
+                    },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}}
                     },
                     _options: {limit: 100, descending: true, all: false, indexName: "status-datePublished-index"}
                 });
@@ -490,6 +509,9 @@ describe("SearchParams", function () {
                         [searchParams.orderBy]: {[searchParams.orderOperator]: Number(searchParams.orderComparator)},
                         status: POST_STATUS.visible
                     },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}}
+                    },
                     _options: {limit: 100, descending: true, all: false}
                 });
             });
@@ -500,6 +522,10 @@ describe("SearchParams", function () {
                 const searchParams = SearchParams.fromJS({type: "woof"});
 
                 expect(searchParams.Dynamoose).to.eql({
+                    _filter: {
+                        status: POST_STATUS.visible,
+                        type: searchParams.type
+                    },
                     _query: {
                         hash: {type: {eq: "woof"}}
                     },
@@ -516,7 +542,10 @@ describe("SearchParams", function () {
                         type: "woof",
                         status: POST_STATUS.visible
                     },
-                    _options: {limit: 100, descending: true, all: false, indexName: "status-datePublished-index"}
+                    _query: {
+                        hash: {type: {eq: "woof"}}
+                    },
+                    _options: {limit: 100, descending: true, all: false, indexName: "type-datePublished-index"}
                 });
             });
 
@@ -534,7 +563,10 @@ describe("SearchParams", function () {
                         meow: {lt: 0},
                         status: POST_STATUS.visible
                     },
-                    _options: {limit: 100, descending: true, all: false}
+                    _query: {
+                        hash: {type: {eq: "woof"}}
+                    },
+                    _options: {limit: 100, descending: true, all: false, indexName: "type-datePublished-index"}
                 });
             });
 
@@ -545,6 +577,10 @@ describe("SearchParams", function () {
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
+                    _filter: {
+                        status: POST_STATUS.visible,
+                        type: searchParams.type
+                    },
                     _query: {
                         hash: {type: {eq: Post.type}},
                         range: {geohash: {begins_with: "woof"}}
@@ -578,6 +614,10 @@ describe("SearchParams", function () {
                         "5"
                     ].map(geohashQuery => {
                         return {
+                            _filter: {
+                                status: POST_STATUS.visible,
+                                type: searchParams.type
+                            },
                             _query: {
                                 hash: {type: {eq: Post.type}},
                                 range: {geohash: {begins_with: geohashQuery}}
@@ -601,11 +641,14 @@ describe("SearchParams", function () {
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
                         type: Post.type,
-                        geohash: {begins_with: searchParams.geohash},
                         [searchParams.orderBy]: {
                             [searchParams.orderOperator]: searchParams.orderComparator
                         },
                         status: POST_STATUS.visible
+                    },
+                    _query: {
+                        hash: {type: {eq: "Post"}},
+                        range: {geohash: {begins_with: "woof"}}
                     },
                     _options: {limit: 100, descending: true, all: false, indexName: "type-geohash-index"}
                 });
@@ -637,11 +680,14 @@ describe("SearchParams", function () {
                         return {
                             _filter: {
                                 type: Post.type,
-                                geohash: {begins_with: geohashQuery},
                                 [searchParams.orderBy]: {
                                     [searchParams.orderOperator]: searchParams.orderComparator
                                 },
                                 status: POST_STATUS.visible
+                            },
+                            _query: {
+                                hash: {type: {eq: "Post"}},
+                                range: {geohash: {begins_with: geohashQuery}}
                             },
                             _options: {limit: 100, descending: true, all: false, indexName: "type-geohash-index"}
                         };
@@ -659,6 +705,9 @@ describe("SearchParams", function () {
                         source: "meow",
                         status: POST_STATUS.visible
                     },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}}
+                    },
                     _options: {limit: 100, descending: true, all: false, indexName: "status-datePublished-index"}
                 });
             });
@@ -667,6 +716,7 @@ describe("SearchParams", function () {
                 const searchParams = SearchParams.fromJS({source: "meow", id: "woof"});
 
                 expect(searchParams.Dynamoose).to.eql({
+                    _filter: {status: POST_STATUS.visible, source: searchParams.source},
                     _query: {
                         hash: {uid: {eq: `meow${compositeKeySeparator}woof`}}
                     },
@@ -688,6 +738,9 @@ describe("SearchParams", function () {
                         meow: {gt: 5},
                         status: POST_STATUS.visible
                     },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}}
+                    },
                     _options: {limit: 100, descending: true, all: false}
                 });
             });
@@ -708,6 +761,9 @@ describe("SearchParams", function () {
                         meow: {gt: "grr"},
                         status: POST_STATUS.visible
                     },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}}
+                    },
                     _options: {
                         limit: 20,
                         descending: true,
@@ -723,6 +779,7 @@ describe("SearchParams", function () {
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
+                    _filter: {status: POST_STATUS.visible, source: searchParams.source},
                     _query: {
                         hash: {status: {eq: POST_STATUS.visible}},
                         range: {geohash: {begins_with: "woof"}}
@@ -747,6 +804,7 @@ describe("SearchParams", function () {
                 const dynamooseSearchQueries = searchParams.Dynamoose;
 
                 expect(dynamooseSearchQueries).to.eql({
+                    _filter: {status: POST_STATUS.visible, source: searchParams.source},
                     _query: {
                         hash: {status: {eq: POST_STATUS.visible}},
                         range: {geohash: {begins_with: expectedGeohash.slice(0, searchParams.geohashPrecision)}}
@@ -780,6 +838,7 @@ describe("SearchParams", function () {
                         "5"
                     ].map(geohashQuery => {
                         return {
+                            _filter: {status: POST_STATUS.visible, source: searchParams.source},
                             _query: {
                                 hash: {status: {eq: POST_STATUS.visible}},
                                 range: {geohash: {begins_with: geohashQuery}}
@@ -803,6 +862,7 @@ describe("SearchParams", function () {
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
+                    _filter: {status: POST_STATUS.visible, source: searchParams.source},
                     _query: {
                         hash: {status: {eq: POST_STATUS.visible}},
                         range: {geohash: {begins_with: "c2b2qebz5b9"}}
@@ -829,11 +889,14 @@ describe("SearchParams", function () {
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
                         source: "tumblr",
-                        geohash: {begins_with: searchParams.geohash},
                         [searchParams.orderBy]: {
                             [searchParams.orderOperator]: searchParams.orderComparator
                         },
                         status: POST_STATUS.visible
+                    },
+                    _query: {
+                        hash: {status: {eq: POST_STATUS.visible}},
+                        range: {geohash: {begins_with: searchParams.geohash}}
                     },
                     _options: {
                         indexName: "status-geohash-index",
@@ -870,11 +933,14 @@ describe("SearchParams", function () {
                         return {
                             _filter: {
                                 source: "tumblr",
-                                geohash: {begins_with: geohashQuery},
                                 [searchParams.orderBy]: {
                                     [searchParams.orderOperator]: searchParams.orderComparator
                                 },
                                 status: POST_STATUS.visible
+                            },
+                            _query: {
+                                hash: {status: {eq: POST_STATUS.visible}},
+                                range: {geohash: {begins_with: geohashQuery}}
                             },
                             _options: {
                                 indexName: "status-geohash-index",

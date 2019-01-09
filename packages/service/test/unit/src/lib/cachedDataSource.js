@@ -152,7 +152,7 @@ describe("CachedDataSource", function () {
                         stubPosts.map(stubPost => stubPost.remove("raw").toJS())
                     );
                     expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, {
+                    sinon.assert.calledWith(stubGetPosts, sinon.match({
                         _filter: {
                             status: POST_STATUS.visible,
                             source: stubType,
@@ -162,9 +162,9 @@ describe("CachedDataSource", function () {
                             limit: 100,
                             descending: true,
                             all: false,
-                            indexName: "status-datePublished-index"
+                            indexName: "type-datePublished-index"
                         }
-                    });
+                    }));
                     sinon.assert.calledTwice(stubJsonToPost);
                 });
         });
@@ -194,7 +194,7 @@ describe("CachedDataSource", function () {
                         stubPosts.map(stubPost => stubPost.remove("raw").toJS())
                     );
                     expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, {
+                    sinon.assert.calledWith(stubGetPosts, sinon.match({
                         _filter: {
                             status: POST_STATUS.visible,
                             source: stubType,
@@ -204,9 +204,9 @@ describe("CachedDataSource", function () {
                             limit: 100,
                             descending: true,
                             all: true,
-                            indexName: "status-datePublished-index"
+                            indexName: "type-datePublished-index"
                         }
-                    });
+                    }));
                 });
         });
     });
@@ -507,10 +507,10 @@ describe("CachedDataSource", function () {
                 .then(cachedPost => {
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
                     expect(stubGetPost.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPost, {
+                    sinon.assert.calledWith(stubGetPost, sinon.match({
                         _query: {hash: {uid: {eq: stubPost.uid}}},
                         _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
-                    });
+                    }));
                     sinon.assert.calledOnce(stubJsonToPost);
                 });
         });
@@ -533,10 +533,10 @@ describe("CachedDataSource", function () {
                 .then(cachedPost => {
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
                     expect(stubGetPost.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPost, {
+                    sinon.assert.calledWith(stubGetPost, sinon.match({
                         _query: {hash: {uid: {eq: stubPost.uid}}},
                         _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
-                    });
+                    }));
                     sinon.assert.calledOnce(stubJsonToPost);
                 });
         });

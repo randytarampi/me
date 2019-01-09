@@ -231,7 +231,8 @@ class SearchParams extends SearchParamsRecord {
                 _options: {
                     ...options,
                     indexName: "uid-index"
-                }
+                },
+                _filter: filters
             };
         }
 
@@ -243,7 +244,8 @@ class SearchParams extends SearchParamsRecord {
                 _options: {
                     ...options,
                     indexName: "uid-index"
-                }
+                },
+                _filter: filters
             };
         }
 
@@ -254,92 +256,56 @@ class SearchParams extends SearchParamsRecord {
                 options.indexName = `type-${this.orderBy}-index`;
             }
 
-            if (
-                this.tags
-                || (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator))
-            ) {
-                if (this.geohashQueries) {
-                    return this.geohashQueries.map(geohashQuery => {
-                        return {
-                            _filter: Object.assign({}, filters, {geohash: {begins_with: geohashQuery}}),
-                            _options: {
-                                ...options,
-                                indexName: "type-geohash-index"
-                            }
-                        };
-                    });
-                }
-
-                if (this.geohash) {
-                    return {
-                        _filter: Object.assign({}, filters, {geohash: {begins_with: this.geohash}}),
-                        _options: {
-                            ...options,
-                            indexName: "type-geohash-index"
-                        }
-                    };
-                }
-
-                if (this.tags) {
-                    return {
-                        _filter: filters,
-                        _options: options
-                    };
-                }
-
-                if (typeIndiciesRangeKeys.includes(this.orderBy)) {
+            if (this.geohashQueries) {
+                return this.geohashQueries.map(geohashQuery => {
                     return {
                         _query: {
                             hash: {type: {eq: this.type}},
-                            range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
-                        },
-                        _options: options
-                    };
-                }
-            } else {
-                if (this.geohashQueries) {
-                    return this.geohashQueries.map(geohashQuery => {
-                        return {
-                            _query: {
-                                hash: {type: {eq: this.type}},
-                                range: {geohash: {begins_with: geohashQuery}}
-                            },
-                            _options: {
-                                ...options,
-                                indexName: "type-geohash-index"
-                            }
-                        };
-                    });
-                }
-
-                if (this.geohash) {
-                    return {
-                        _query: {
-                            hash: {type: {eq: this.type}},
-                            range: {geohash: {begins_with: this.geohash}}
+                            range: {geohash: {begins_with: geohashQuery}}
                         },
                         _options: {
                             ...options,
                             indexName: "type-geohash-index"
-                        }
-                    };
-                }
-
-                if (
-                    filters.type
-                    && (Object.keys(filters).length === 1 || Object.keys(filters).length === 2 && filters.status === POST_STATUS.visible)
-                ) {
-                    return {
-                        _query: {
-                            hash: {type: {eq: this.type}}
                         },
-                        _options: {
-                            ...options,
-                            indexName: "type-datePublished-index"
-                        }
+                        _filter: filters
                     };
-                }
+                });
             }
+
+            if (this.geohash) {
+                return {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {geohash: {begins_with: this.geohash}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "type-geohash-index"
+                    },
+                    _filter: filters
+                };
+            }
+
+            if (typeIndiciesRangeKeys.includes(this.orderBy)) {
+                return {
+                    _query: {
+                        hash: {type: {eq: this.type}},
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
+                    },
+                    _options: options
+                };
+            }
+
+            return {
+                _query: {
+                    hash: {type: {eq: this.type}}
+                },
+                _options: {
+                    ...options,
+                    indexName: "type-datePublished-index"
+                },
+                _filter: filters
+            };
         }
 
         if (this.status) {
@@ -349,86 +315,54 @@ class SearchParams extends SearchParamsRecord {
                 options.indexName = `status-${this.orderBy}-index`;
             }
 
-            if (
-                this.tags
-                || (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator))
-            ) {
-                if (this.geohashQueries) {
-                    return this.geohashQueries.map(geohashQuery => {
-                        return {
-                            _filter: Object.assign({}, filters, {geohash: {begins_with: geohashQuery}}),
-                            _options: {
-                                ...options,
-                                indexName: "status-geohash-index"
-                            }
-                        };
-                    });
-                }
-
-                if (this.geohash) {
-                    return {
-                        _filter: Object.assign({}, filters, {geohash: {begins_with: this.geohash}}),
-                        _options: {
-                            ...options,
-                            indexName: "status-geohash-index"
-                        }
-                    };
-                }
-
-                if (this.tags) {
-                    return {
-                        _filter: filters,
-                        _options: options
-                    };
-                }
-
-                if (statusIndiciesRangeKeys.includes(this.orderBy)) {
+            if (this.geohashQueries) {
+                return this.geohashQueries.map(geohashQuery => {
                     return {
                         _query: {
                             hash: {status: {eq: this.status}},
-                            range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
-                        },
-                        _options: options
-                    };
-                }
-            } else {
-                if (this.geohashQueries) {
-                    return this.geohashQueries.map(geohashQuery => {
-                        return {
-                            _query: {
-                                hash: {status: {eq: this.status}},
-                                range: {geohash: {begins_with: geohashQuery}}
-                            },
-                            _options: {
-                                ...options,
-                                indexName: "status-geohash-index"
-                            }
-                        };
-                    });
-                }
-
-                if (this.geohash) {
-                    return {
-                        _query: {
-                            hash: {status: {eq: this.status}},
-                            range: {geohash: {begins_with: this.geohash}}
+                            range: {geohash: {begins_with: geohashQuery}}
                         },
                         _options: {
                             ...options,
                             indexName: "status-geohash-index"
-                        }
-                    };
-                }
-
-                if (filters.status && Object.keys(filters).length === 1) {
-                    return {
-                        _query: {
-                            hash: {status: {eq: this.status}}
                         },
-                        _options: options
+                        _filter: filters
                     };
-                }
+                });
             }
+
+            if (this.geohash) {
+                return {
+                    _query: {
+                        hash: {status: {eq: this.status}},
+                        range: {geohash: {begins_with: this.geohash}}
+                    },
+                    _options: {
+                        ...options,
+                        indexName: "status-geohash-index"
+                    },
+                    _filter: filters
+                };
+            }
+
+            if (statusIndiciesRangeKeys.includes(this.orderBy)) {
+                return {
+                    _query: {
+                        hash: {status: {eq: this.status}},
+                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
+                    },
+                    _options: options,
+                    _filter: filters
+                };
+            }
+
+            return {
+                _query: {
+                    hash: {status: {eq: this.status}}
+                },
+                _options: options,
+                _filter: filters
+            };
         }
 
         return { // NOTE-RT: Just scan the entire table until we know enough of what we'd want to scan (instead of query) for
