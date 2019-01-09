@@ -6,7 +6,7 @@ provider:
   name: aws
   runtime: nodejs8.10
 
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
   resourceStageBuilder: ${file(env.yml):${self:provider.stage}.resourceStageBuilder}
   baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}

@@ -1,13 +1,13 @@
 const dynamoose = require("dynamoose");
 
 const setupLocal = () => {
-    process.env.SERVICE_POSTS_DYNAMODB_TABLE = process.env.SERVICE_POSTS_DYNAMODB_TABLE || `${process.env.NODE_ENV}-posts`;
+    process.env.SERVICE_POSTS_DYNAMODB_TABLE = process.env.SERVICE_POSTS_DYNAMODB_TABLE || "local-posts";
 
-    if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
+    if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test" || !process.env.NODE_ENV) {
         dynamoose.AWS.config.update({
-            accessKeyId: "woof",
-            secretAccessKey: "meow",
-            region: "local"
+            accessKeyId: "MOCK_ACCESS_KEY_ID",
+            secretAccessKey: "MOCK_SECRET_ACCESS_KEY",
+            region: "localhost"
         });
         dynamoose.local();
     }
