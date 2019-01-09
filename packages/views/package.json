@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@randy.tarampi/js": "^2.12.4",
-    "config": "^3.0.0"
+    "config": "^3.0.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",

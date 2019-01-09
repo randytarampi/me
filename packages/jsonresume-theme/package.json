@@ -70,14 +70,14 @@
   "dependencies": {
     "@randy.tarampi/resume": "^2.12.4",
     "@randy.tarampi/views": "^2.12.4",
-    "config": "^3.0.0"
+    "config": "^3.0.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",
     "gulp": "^4.0.0",
     "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
-    "webpack": "^4.16.0",
-    "webpack-bundle-analyzer": "^3.0.0"
+    "webpack": "^4.28.3",
+    "webpack-bundle-analyzer": "^3.0.3"
   },
   "engines": {
     "node": ">=8"
