@@ -2,11 +2,11 @@ import {
     castDatePropertyToDateTime,
     compositeKeySeparator,
     convertLatLongToGeohash,
+    Gallery,
     getGeohashesForBoundingBox,
     getGeohashesForRadiusAroundGeohash,
     getGeohashesForRadiusAroundPoint,
     getHaversineDistance,
-    Gallery,
     Photo,
     Post,
     POST_STATUS
@@ -16,7 +16,7 @@ import _ from "lodash";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
- * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, _rawFilter: object, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string, status: boolean}}
+ * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string, status: boolean}}
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
@@ -32,7 +32,6 @@ const searchParamsRecordDefinition = {
     east: undefined,
     geoRadius: undefined,
     geohashPrecision: undefined, // NOTE-RT: A `6` would be about 7km^2, er the table in http://www.movable-type.co.uk/scripts/geohash.html
-    _rawFilter: undefined,
 
     // NOTE-RT: For lists
     perPage: 100,
@@ -193,8 +192,7 @@ class SearchParams extends SearchParamsRecord {
         }
 
         const filters = {
-            status: this.status,
-            ...this._rawFilter
+            status: this.status
         };
 
         if (Number.isFinite(this.perPage)) {
