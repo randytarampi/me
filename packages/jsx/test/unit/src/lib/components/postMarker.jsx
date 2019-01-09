@@ -70,15 +70,18 @@ describe("PostMarker", function () {
 
     describe("PostMarkerComponent", function () {
         let stubOnVisibilityToggle;
+        let stubSetMapCenter;
 
         beforeEach(function () {
             stubOnVisibilityToggle = sinon.stub();
+            stubSetMapCenter = sinon.stub();
         });
 
         it("renders (!isVisible)", function () {
             const rendered = shallow(stubStore)(<PostMarkerComponent
                 post={stubPost}
                 isVisible={false}
+                setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
             />);
 
@@ -95,6 +98,7 @@ describe("PostMarker", function () {
             const rendered = shallow(stubStore)(<PostMarkerComponent
                 post={stubPost}
                 isVisible={true}
+                setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
             />);
 
@@ -117,6 +121,7 @@ describe("PostMarker", function () {
             const rendered = shallow(stubStore)(<PostMarkerComponent
                 post={stubPost}
                 isVisible={true}
+                setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
             />);
 
@@ -144,6 +149,7 @@ describe("PostMarker", function () {
             const rendered = shallow(stubStore)(<PostMarkerComponent
                 post={stubPost}
                 isVisible={true}
+                setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
             />);
 
@@ -266,8 +272,8 @@ describe("PostMarker", function () {
                 enableEventPropagation: true,
                 boxClass: `marker-info-box marker-info-box__${stubPost.type} ${component.postInfoBoxElementId}`,
                 pixelOffset: {
-                    width: 10,
-                    height: 10
+                    width: -384,
+                    height: -288
                 }
             });
             expect(rendered).to.containMatchingElement(
@@ -304,9 +310,11 @@ describe("PostMarker", function () {
 
     describe("PhotoMarkerInfoBoxComponent", function () {
         let stubOnVisibilityToggle;
+        let stubSetMapCenter;
 
         beforeEach(function () {
             stubOnVisibilityToggle = sinon.stub();
+            stubSetMapCenter = sinon.stub();
         });
 
         describe("selected", function () {
@@ -322,6 +330,7 @@ describe("PostMarker", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost}
                     isVisible={true}
+                    setMapCenter={stubSetMapCenter}
                     onVisibilityToggle={stubOnVisibilityToggle}
                 />);
 
@@ -335,6 +344,7 @@ describe("PostMarker", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost}
                     isVisible={true}
+                    setMapCenter={stubSetMapCenter}
                     onVisibilityToggle={stubOnVisibilityToggle}
                 />);
 
@@ -348,6 +358,7 @@ describe("PostMarker", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost}
                     isVisible={true}
+                    setMapCenter={stubSetMapCenter}
                     onVisibilityToggle={stubOnVisibilityToggle}
                 />);
 
@@ -361,6 +372,7 @@ describe("PostMarker", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost}
                     isVisible={true}
+                    setMapCenter={stubSetMapCenter}
                     onVisibilityToggle={stubOnVisibilityToggle}
                 />);
 
@@ -374,6 +386,7 @@ describe("PostMarker", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost.set("title", null)}
                     isVisible={true}
+                    setMapCenter={stubSetMapCenter}
                     onVisibilityToggle={stubOnVisibilityToggle}
                 />);
 
@@ -385,6 +398,7 @@ describe("PostMarker", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost}
                     isVisible={true}
+                    setMapCenter={stubSetMapCenter}
                     onVisibilityToggle={stubOnVisibilityToggle}
                 />);
 
@@ -397,6 +411,7 @@ describe("PostMarker", function () {
             const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                 post={stubPost}
                 isVisible={true}
+                setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
             />);
 
@@ -409,8 +424,8 @@ describe("PostMarker", function () {
                 enableEventPropagation: true,
                 boxClass: `marker-info-box marker-info-box__${stubPost.type} ${component.postInfoBoxElementId}`,
                 pixelOffset: {
-                    width: 10,
-                    height: 10
+                    width: -144,
+                    height: -288
                 },
                 boxStyle: {
                     backgroundImage: `url(${component.selected.url})`

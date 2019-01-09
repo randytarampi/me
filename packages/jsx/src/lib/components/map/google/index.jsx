@@ -57,12 +57,12 @@ const googleMapCallbacks = [
 ];
 
 export class GoogleMapComponent extends PureComponent {
-    constructor(props) {
+    constructor({googleMapRef, ...props}) {
         const propsKeys = Object.keys(props);
 
         super(props);
 
-        this.googleMapRef = React.createRef();
+        this.googleMapRef = googleMapRef || React.createRef();
         this.getGoogleMap = this.getGoogleMap.bind(this);
         this.passedGoogleMapCallbackProps = propsKeys.reduce((passedGoogleMapCallbackProps, propKey) => {
             if (googleMapCallbacks.includes(propKey)) {
@@ -139,6 +139,10 @@ GoogleMapComponent.defaultProps = {
 
 GoogleMapComponent.propTypes = {
     id: PropTypes.string.isRequired,
+    googleMapRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({current: PropTypes.object})
+    ]),
     className: PropTypes.string,
     mapContainerHeight: PropTypes.string,
     mapContainerHeightPx: PropTypes.number,

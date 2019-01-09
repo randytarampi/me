@@ -78,9 +78,9 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
                 enableEventPropagation: true,
                 boxClass: `marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`,
                 pixelOffset: {
-                    width: 10,
-                    height: 10
-                }
+                    width: -1 * this.width / 2,
+                    height: -1 * this.height / 2
+                },
             }}
             defaultVisible={false}
             visible={isVisible}
@@ -132,8 +132,8 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
                 enableEventPropagation: true,
                 boxClass: `marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`,
                 pixelOffset: {
-                    width: 10,
-                    height: 10
+                    width: -1 * this.scaledWidth / 2,
+                    height: -1 * this.scaledHeight / 2
                 },
                 boxStyle: {
                     backgroundImage: `url(${this.selected.url})`
@@ -189,7 +189,7 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
 
 export const buildPostMarkerId = post => `marker--${post.uid}`;
 
-export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, ...props}) => <Marker
+export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, ...props}) => <Marker
     className={`marker marker__${post.type} ${buildPostMarkerId(post)}`}
     id={buildPostMarkerId(post)}
     icon={{
@@ -204,7 +204,13 @@ export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, ...pro
         lat: post.lat,
         lng: post.long
     }}
-    onClick={() => onVisibilityToggle(!isVisible)}
+    onClick={() => {
+        setMapCenter({
+            lat: post.lat,
+            lng: post.long
+        });
+        onVisibilityToggle(!isVisible);
+    }}
 >
     {renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, ...props})}
 </Marker>;
@@ -216,7 +222,8 @@ PostMarkerComponent.defaultProps = {
 PostMarkerComponent.propTypes = {
     post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
-    onVisibilityToggle: PropTypes.func.isRequired
+    onVisibilityToggle: PropTypes.func.isRequired,
+    setMapCenter: PropTypes.func.isRequired
 };
 
 export default PostMarkerComponent;

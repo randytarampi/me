@@ -5,6 +5,7 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
+import * as setGoogleMapCenterAction from "../../../../../src/lib/actions/map/google/setMapCenter";
 import * as setControlStateAction from "../../../../../src/lib/actions/ui/setControlState";
 import {buildPostMarkerId} from "../../../../../src/lib/components";
 import {ConnectedPostMarker} from "../../../../../src/lib/containers/postMarker";
@@ -29,11 +30,13 @@ describe("ConnectedPostMarker", function () {
 
         sinon.stub(selectors, "getControlStateForId").returns(stubControlState);
         sinon.stub(setControlStateAction, "setControlStateCreator").returns({type: "MEOW"});
+        sinon.stub(setGoogleMapCenterAction, "setGoogleMapCenterCreator").returns({type: "MEOW"});
     });
 
     afterEach(function () {
         selectors.getControlStateForId.restore();
         setControlStateAction.setControlStateCreator.restore();
+        setGoogleMapCenterAction.setGoogleMapCenterCreator.restore();
     });
 
     it("passes `isVisible` (no existing state)", function () {
@@ -78,5 +81,17 @@ describe("ConnectedPostMarker", function () {
         sinon.assert.calledWith(setControlStateAction.setControlStateCreator, buildPostMarkerId(stubPost), {
             visible: !!stubShouldBeVisible
         });
+    });
+
+    it("dispatches `setMapCenter` properly", function () {
+        const stubGetGoogleMap = sinon.stub();
+        const stubProps = {post: stubPost, mapId: "woof", getGoogleMap: stubGetGoogleMap};
+        const rendered = shallow(stubStore)(<ConnectedPostMarker {...stubProps} />);
+
+        expect(rendered).to.have.prop("onVisibilityToggle");
+
+        const stubNewCenter = "meow";
+        rendered.prop("setMapCenter")(stubNewCenter);
+        sinon.assert.calledWith(setGoogleMapCenterAction.setGoogleMapCenterCreator, stubProps.getGoogleMap, stubProps.mapId, stubNewCenter);
     });
 });
