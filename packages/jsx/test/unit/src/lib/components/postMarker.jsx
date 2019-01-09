@@ -367,8 +367,8 @@ describe("PostMarker", function () {
             });
         });
 
-        describe("scaledHeight", function () {
-            it("returns the `height`", function () {
+        describe("scaledWidth", function () {
+            it("returns the `width`", function () {
                 const rendered = shallow(stubStore)(<PhotoMarkerInfoBoxComponent
                     post={stubPost}
                     isVisible={true}
@@ -377,7 +377,7 @@ describe("PostMarker", function () {
                 />);
 
                 const component = rendered.instance();
-                expect(component.scaledHeight).to.eql(component.height);
+                expect(component.scaledWidth).to.eql(component.width);
             });
         });
 
