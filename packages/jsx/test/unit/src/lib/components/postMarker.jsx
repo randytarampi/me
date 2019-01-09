@@ -377,7 +377,7 @@ describe("PostMarker", function () {
                 />);
 
                 const component = rendered.instance();
-                expect(component.scaledWidth).to.eql(component.width);
+                expect(component.scaledWidth).to.eql(Math.ceil(Math.ceil(window.innerHeight * 3 / 4) * component.selected.width / component.selected.height));
             });
         });
 
