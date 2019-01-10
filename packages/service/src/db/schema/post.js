@@ -9,7 +9,11 @@ const post = new Schema({
         index: [
             {
                 global: true,
-                name: "uid-index"
+                name: "uid-index",
+                throughput: {
+                    read: 5,
+                    write: 6
+                }
             }
         ]
     },
@@ -33,12 +37,20 @@ const post = new Schema({
             {
                 global: true,
                 name: "type-datePublished-index",
-                rangeKey: "datePublished"
+                rangeKey: "datePublished",
+                throughput: {
+                    read: 6,
+                    write: 6
+                }
             },
             {
                 global: true,
                 name: "type-geohash-index",
-                rangeKey: "geohash"
+                rangeKey: "geohash",
+                throughput: {
+                    read: 6,
+                    write: 6
+                }
             }
         ]
     },
@@ -104,7 +116,10 @@ const post = new Schema({
         hashKey: true
     }
 }, {
-    throughput: "ON_DEMAND",
+    throughput: {
+        read: 8,
+        write: 7
+    },
     useNativeBooleans: true,
     useDocumentTypes: true,
     timestamps: true,

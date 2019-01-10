@@ -92,6 +92,7 @@
     "serverless": "^1.35.1",
     "serverless-api-compression": "^1.0.1",
     "serverless-domain-manager": "^2.6.10",
+    "serverless-dynamodb-autoscaling": "^0.6.2",
     "serverless-dynamodb-local": "github:randytarampi/serverless-dynamodb-local#me-release",
     "serverless-offline": "^3.32.1",
     "serverless-plugin-tracing": "^2.0.0",
