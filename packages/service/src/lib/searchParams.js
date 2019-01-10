@@ -284,7 +284,7 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
-            if (typeIndiciesRangeKeys.includes(this.orderBy)) {
+            if (typeIndiciesRangeKeys.includes(this.orderBy) && [this.orderOperator, this.orderComparator].every(argument => typeof argument !== "undefined")) {
                 return {
                     _query: {
                         hash: {type: {eq: this.type}},
@@ -343,7 +343,7 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
-            if (statusIndiciesRangeKeys.includes(this.orderBy)) {
+            if (statusIndiciesRangeKeys.includes(this.orderBy) && [this.orderOperator, this.orderComparator].every(argument => typeof argument !== "undefined")) {
                 return {
                     _query: {
                         hash: {status: {eq: this.status}},
@@ -365,7 +365,7 @@ class SearchParams extends SearchParamsRecord {
 
         return { // NOTE-RT: Just scan the entire table until we know enough of what we'd want to scan (instead of query) for
             _filter: filters,
-            _options: options,
+            _options: options
         };
     }
 
