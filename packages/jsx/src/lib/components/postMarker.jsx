@@ -25,10 +25,17 @@ export const PostMarkerInfoBoxContentComponent = ({post, title, style}) => <Row 
     <Col className="marker-info-box-post-metadata hide-on-med-and-down" s={6}>
         <PostTagsComponent tagLinkBase={`${__MAP_APP_URL__}/tags`} post={post}/>
     </Col>
-    <Col className="marker-info-box-post-content" s={12}>
-        <PostBodyAsStringComponent post={post}/>
-        <PostBodyAsArrayComponent post={post}/>
-    </Col>
+    {
+        [Photo, Gallery].includes(post.type)
+            ? <Col className="marker-info-box-post-content hide-on-med-and-down" s={12}>
+                <PostBodyAsStringComponent post={post}/>
+                <PostBodyAsArrayComponent post={post}/>
+            </Col>
+            : <Col className="marker-info-box-post-content" s={12}>
+                <PostBodyAsStringComponent post={post}/>
+                <PostBodyAsArrayComponent post={post}/>
+            </Col>
+    }
 </Row>;
 
 PostMarkerInfoBoxContentComponent.propTypes = {
