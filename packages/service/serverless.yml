@@ -94,6 +94,10 @@ custom:
         maximum: 24
         minimum: 6
         usage: 0.8
+      write:
+        maximum: 8
+        minimum: 6
+        usage: 0.8
   contentCompression: 1024
   dynamodb:
     start:

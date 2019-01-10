@@ -11,7 +11,7 @@ const post = new Schema({
                 global: true,
                 name: "uid-index",
                 throughput: {
-                    read: 5,
+                    read: 6,
                     write: 6
                 }
             }
@@ -117,7 +117,7 @@ const post = new Schema({
     }
 }, {
     throughput: {
-        read: 8,
+        read: 12,
         write: 7
     },
     useNativeBooleans: true,
