@@ -4,6 +4,7 @@ import React, {PureComponent} from "react";
 import {Marker} from "react-google-maps";
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
 import {Col, Row} from "react-materialize";
+import ProgressiveImage from "react-progressive-image";
 import {getSvgPathForPost, scalePixelValueForWindowDevicePixelRatio} from "../util";
 import {
     PostBodyAsArrayComponent,
@@ -14,34 +15,43 @@ import {
     PostTitleComponent
 } from "./post";
 
-export const PostMarkerInfoBoxContentComponent = ({post, title, style}) => <Row className="marker-info-box-post" style={style}>
-    <Col className="marker-info-box-post-metadata" s={12}>
-        <PostTitleComponent post={post} title={title}/>
-    </Col>
-    <Col className="marker-info-box-post-metadata hide-on-med-and-down" s={6}>
-        <PostDatePublishedComponent post={post}/>
-        <PostDateCreatedComponent post={post} label="Taken:"/>
-    </Col>
-    <Col className="marker-info-box-post-metadata hide-on-med-and-down" s={6}>
-        <PostTagsComponent tagLinkBase={`${__MAP_APP_URL__}/tags`} post={post}/>
-    </Col>
-    {
-        [Photo, Gallery].includes(post.type)
-            ? <Col className="marker-info-box-post-content hide-on-med-and-down" s={12}>
-                <PostBodyAsStringComponent post={post}/>
-                <PostBodyAsArrayComponent post={post}/>
-            </Col>
-            : <Col className="marker-info-box-post-content" s={12}>
-                <PostBodyAsStringComponent post={post}/>
-                <PostBodyAsArrayComponent post={post}/>
-            </Col>
+export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading}) => {
+    const rowClassName = ["marker-info-box-post"];
+
+    if (isLoading) {
+        rowClassName.push("marker-info-box-post--loading");
     }
-</Row>;
+
+    return <Row className={rowClassName.join(" ")} style={style}>
+        <Col className="marker-info-box-post-metadata" s={12}>
+            <PostTitleComponent post={post} title={title}/>
+        </Col>
+        <Col className="marker-info-box-post-metadata hide-on-med-and-down" s={6}>
+            <PostDatePublishedComponent post={post}/>
+            <PostDateCreatedComponent post={post} label="Taken:"/>
+        </Col>
+        <Col className="marker-info-box-post-metadata hide-on-med-and-down" s={6}>
+            <PostTagsComponent tagLinkBase={`${__MAP_APP_URL__}/tags`} post={post}/>
+        </Col>
+        {
+            [Photo, Gallery].includes(post.type)
+                ? <Col className="marker-info-box-post-content hide-on-med-and-down" s={12}>
+                    <PostBodyAsStringComponent post={post}/>
+                    <PostBodyAsArrayComponent post={post}/>
+                </Col>
+                : <Col className="marker-info-box-post-content" s={12}>
+                    <PostBodyAsStringComponent post={post}/>
+                    <PostBodyAsArrayComponent post={post}/>
+                </Col>
+        }
+    </Row>;
+};
 
 PostMarkerInfoBoxContentComponent.propTypes = {
     post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
     title: PropTypes.string.isRequired,
-    style: PropTypes.object
+    style: PropTypes.object,
+    isLoading: PropTypes.bool
 };
 
 export class PostMarkerInfoBoxComponent extends PureComponent {
@@ -80,7 +90,7 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
 
         return <InfoBox
             onCloseClick={onVisibilityToggle}
-            defaultOptions={{
+            options={{
                 infoBoxClearance: 20,
                 enableEventPropagation: true,
                 boxClass: `marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`,
@@ -88,6 +98,9 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
                     width: -1 * this.width / 2,
                     height: -1 * this.height / 2
                 },
+                boxStyle: {
+                    backgroundColor: "white"
+                }
             }}
             defaultVisible={false}
             visible={isVisible}
@@ -131,34 +144,46 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
 
     render() {
         const {onVisibilityToggle, isVisible, post} = this.props;
+        const placeholder = post.getSizedPhotoForLoading(this.targetWidth);
+        const selected = post.getSizedPhotoForDisplay(this.targetWidth);
 
-        return <InfoBox
-            onCloseClick={onVisibilityToggle}
-            defaultOptions={{
-                infoBoxClearance: 20,
-                enableEventPropagation: true,
-                boxClass: `marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`,
-                pixelOffset: {
-                    width: -1 * this.scaledWidth / 2,
-                    height: -1 * this.scaledHeight / 2
-                },
-                boxStyle: {
-                    backgroundImage: `url(${this.selected.url})`
-                },
-                maxWidth: this.scaledWidth
-            }}
-            defaultVisible={false}
-            visible={isVisible}
-        >
-            <PostMarkerInfoBoxContentComponent
-                post={post}
-                title={this.title}
-                style={{
-                    height: this.scaledHeight,
-                    width: this.scaledWidth
-                }}
-            />
-        </InfoBox>;
+        return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
+            {
+                (source, isLoading) => <InfoBox
+                    onCloseClick={onVisibilityToggle}
+                    options={{
+                        infoBoxClearance: 20,
+                        enableEventPropagation: true,
+                        boxClass: ["marker-info-box", `marker-info-box__${post.type}`, this.postInfoBoxElementId].join(" "),
+                        pixelOffset: {
+                            width: -1 * this.scaledWidth / 2,
+                            height: -1 * this.scaledHeight / 2
+                        },
+                        boxStyle: {
+                            backgroundImage: isLoading
+                                ? `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${source})`
+                                : `url(${source})`,
+                            backgroundColor: isLoading
+                                ? "white"
+                                : null
+                        },
+                        maxWidth: this.scaledWidth
+                    }}
+                    defaultVisible={false}
+                    visible={isVisible}
+                >
+                    <PostMarkerInfoBoxContentComponent
+                        isLoading={isLoading}
+                        post={post}
+                        title={this.title}
+                        style={{
+                            height: this.scaledHeight,
+                            width: this.scaledWidth
+                        }}
+                    />
+                </InfoBox>
+            }
+        </ProgressiveImage>;
     }
 }
 

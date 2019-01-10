@@ -12,6 +12,10 @@
             .post-title {
                 font-size: 2rem;
             }
+
+            &--loading {
+                @extend .post--loading;
+            }
         }
     }
 }
