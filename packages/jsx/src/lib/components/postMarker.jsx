@@ -34,7 +34,7 @@ export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading
             <PostTagsComponent tagLinkBase={`${__MAP_APP_URL__}/tags`} post={post}/>
         </Col>
         {
-            [Photo, Gallery].includes(post.type)
+            [Photo, Gallery].map(postConstructor => postConstructor.type).includes(post.type)
                 ? <Col className="marker-info-box-post-content hide-on-med-and-down" s={12}>
                     <PostBodyAsStringComponent post={post}/>
                     <PostBodyAsArrayComponent post={post}/>
