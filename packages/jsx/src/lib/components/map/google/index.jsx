@@ -30,7 +30,8 @@ ComposedGoogleMap.defaultProps = {
         zoomControl: true,
         zoomControlOptions: {
             position: 6 // NOTE-RT: google.maps.ControlPosition.BOTTOM_LEFT
-        }
+        },
+        gestureHandling: "greedy"
     }
 };
 
