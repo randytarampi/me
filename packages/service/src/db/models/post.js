@@ -81,17 +81,6 @@ export const getPost = async ({_options, _filter, _query}) => {
     return postModelInstance;
 };
 
-const getPostsForUids = async uids => await Post.scan({uid: {in: uids}}).limit(1000).exec().then(instanceContainer => {
-    if (instanceContainer.length === uids.length) {
-        return instanceContainer;
-    }
-
-    const foundUids = instanceContainer.map(instance => instance.uid);
-
-    return getPostsForUids(uids.filter(uid => !foundUids.includes(uid)))
-        .then(remainingInstanceContainer => instanceContainer.concat(remainingInstanceContainer));
-});
-
 /**
  * Persist an array of [Posts]{@link Post}
  * @param posts {Post[]}
@@ -100,7 +89,7 @@ const getPostsForUids = async uids => await Post.scan({uid: {in: uids}}).limit(1
 export const createPosts = async posts => {
     logger.trace(`persisting posts (${JSON.stringify(posts.map(post => post.uid))})`);
     await Post.batchPut(posts.map(post => post.toJS()), {overwrite: true});
-    const postModelInstances = await getPostsForUids(posts.map(post => post.uid)); // NOTE-RT: Ugh. This is gross af. According to the docs, `batchPut`should return some Dynamoose model instances, but if you look at their tests and source they just return a statement of success and what wasn't processed
+    const postModelInstances = await Post.scan({uid: {in: posts.map(post => post.uid)}}).limit(1000).all().exec(); // NOTE-RT: Ugh. This is gross af. According to the docs, `batchPut`should return some Dynamoose model instances, but if you look at their tests and source they just return a statement of success and what wasn't processed
     logger.trace(`persisted posts (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
     return postModelInstances;
 };
