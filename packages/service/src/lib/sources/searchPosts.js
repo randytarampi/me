@@ -16,47 +16,46 @@ const cachedValueToPost = cachedValue => cachedValue
 export const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
 
-    return cacheClient.getPostCount(searchParams
-        .delete("orderOperator")
-        .delete("orderComparator")
-        .delete("orderComparatorType")
-        )
-        .then(total => {
+    return Promise.all([
+            cacheClient.getPostCount(searchParams
+                .delete("orderOperator")
+                .delete("orderComparator")
+                .delete("orderComparatorType")
+            ),
+            cacheClient.getPosts(searchParams)
+                .then(cachedPosts => cachedPosts.map(cachedValueToPost))
+        ])
+        .then(([total, posts]) => {
             if (total) {
+                const postsSortedByDate = posts.sort(sortPostsByDate);
+
                 return Promise.all([
-                        cacheClient.getPosts(searchParams)
-                            .then(cachedPosts => cachedPosts.map(cachedValueToPost)),
+                        postsSortedByDate,
                         total,
-                        cacheClient.getPost(searchParams
-                            .delete("orderOperator")
-                            .delete("orderComparator")
-                            .delete("orderComparatorType")
-                            .set("orderBy", "ascending")
-                        ).then(cachedValueToPost),
-                        cacheClient.getPost(searchParams
-                            .delete("orderOperator")
-                            .delete("orderComparator")
-                            .delete("orderComparatorType")
-                            .set("orderBy", "descending")
-                        ).then(cachedValueToPost)
+                        (total <= posts.length)
+                            ? postsSortedByDate[posts.length - 1]
+                            : cacheClient.getPost(searchParams.delete("orderOperator").delete("orderComparator").delete("orderComparatorType").set("orderBy", "ascending"))
+                            .then(cachedValueToPost),
+                        (total <= posts.length)
+                            ? postsSortedByDate[0]
+                            : cacheClient.getPost(searchParams.delete("orderOperator").delete("orderComparator").delete("orderComparatorType").set("orderBy", "descending"))
+                            .then(cachedValueToPost)
                     ])
                     .then(([posts, total, first, last]) => {
-                        const postsSortedByDate = posts.sort(sortPostsByDate);
-
                         return {
                             posts,
                             total,
                             first,
                             last,
-                            firstFetched: postsSortedByDate[posts.length - 1],
-                            lastFetched: postsSortedByDate[0]
+                            firstFetched: posts[posts.length - 1],
+                            lastFetched: posts[0]
                         };
                     });
             }
 
             return {
-                posts: [],
-                total: 0,
+                posts: posts,
+                total: total,
                 first: null,
                 last: null,
                 firstFetched: null,

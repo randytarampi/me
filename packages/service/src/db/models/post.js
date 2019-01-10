@@ -56,23 +56,27 @@ export const createPost = async post => {
  */
 export const getPost = async ({_options, _filter, _query}) => {
     logger.trace(`retrieving post (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) with ${JSON.stringify(_options)}`);
-    const postModelInstance = _query
-        ? await buildQueryWithFilter({_options, _filter, _query}, Post.queryOne).exec()
-        : await Post.scan(_filter, _options).limit(1000).exec()
-            .then(instanceContainer => {
-                if (instanceContainer[0]) {
-                    return instanceContainer[0];
-                }
-
-                return getPost({
-                    _options: {
-                        ..._options,
-                        ExclusiveStartKey: instanceContainer.lastKey
-                    },
-                    _filter,
-                    _query
-                });
+    const recusivelyGetPost = postModelInstances => {
+        if (postModelInstances[0]) {
+            return postModelInstances[0];
+        } else if (postModelInstances.lastKey) {
+            return getPost({
+                _options: {
+                    ..._options,
+                    ExclusiveStartKey: postModelInstances.lastKey
+                },
+                _filter,
+                _query
             });
+        } else {
+            return undefined;
+        }
+    };
+    const postModelInstance = _query
+        ? await buildQueryWithFilter({_options, _filter, _query}, Post.query).limit(1000).exec()
+            .then(recusivelyGetPost)
+        : await Post.scan(_filter, _options).limit(1000).exec()
+            .then(recusivelyGetPost);
     logger.trace(`retrieved post (${postModelInstance && postModelInstance.uid})`);
     return postModelInstance;
 };
