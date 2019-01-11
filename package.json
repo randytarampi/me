@@ -91,7 +91,7 @@
     "sass-loader": "^7.1.0",
     "serverless": "^1.35.1",
     "serverless-api-compression": "^1.0.1",
-    "serverless-domain-manager": "^2.6.10",
+    "serverless-domain-manager": "^2.6.11",
     "serverless-dynamodb-local": "github:randytarampi/serverless-dynamodb-local#me-release",
     "serverless-offline": "^3.32.2",
     "serverless-plugin-tracing": "^2.0.0",
