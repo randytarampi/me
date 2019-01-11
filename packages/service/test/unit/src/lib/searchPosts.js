@@ -162,7 +162,7 @@ describe("searchPosts", function () {
         });
 
         expect(stubGetPostCount.calledOnce).to.eql(true);
-        expect(stubGetPosts.calledOnce).to.eql(true);
+        expect(stubGetPosts.notCalled).to.eql(true);
         expect(stubGetPost.notCalled).to.eql(true);
     });
 });
