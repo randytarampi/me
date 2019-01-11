@@ -10,7 +10,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "~2.12.4",
-    "aws-sdk": "~2.384.0",
+    "aws-sdk": "~2.387.0",
     "aws-xray-sdk": "~2.1.0",
     "bunyan": "beta",
     "bunyan-format": "~0.2.1",
