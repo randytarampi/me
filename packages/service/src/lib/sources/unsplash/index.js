@@ -51,7 +51,9 @@ class UnsplashSource extends CachedDataSource {
                 name: json.user.name,
                 url: json.user.links.html,
                 image: json.user.profile_image.large
-            }
+            },
+            lat: json.location &&  json.location.position && json.location.position.latitude ? Number(json.location.position.latitude) : null,
+            long: json.location && json.location.position && json.location.position.longitude ? Number(json.location.position.longitude) : null
         });
     }
 
@@ -60,11 +62,11 @@ class UnsplashSource extends CachedDataSource {
 
         return unsplashRequest
             .then(toJson)
-            .then(response => Promise.all(response.map(photo => UnsplashSource.jsonToPost(photo)))); // NOTE-RT: Need `that` because `toJson` uses an old school `function`
+            .then(response => Promise.all(response.map(photo => this.postGetter(photo.id, searchParams))));
     }
 
     postGetter(photoId, searchParams) {
-        return this.client.photos.getPost(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
+        return this.client.photos.getPhoto(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
             .then(toJson)
             .then(json => json && UnsplashSource.jsonToPost(json));
     }

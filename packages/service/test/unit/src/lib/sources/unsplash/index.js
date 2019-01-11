@@ -27,9 +27,9 @@ describe("UnsplashSource", function () {
     let stubJsonToPost;
     let DummyCacheClient;
     let stubCreatePosts;
-    let stubGetPosts;
+    let stubGetPhotos;
     let stubCreatePost;
-    let stubGetPost;
+    let stubGetPhoto;
     let stubCacheClient;
     let builtDummyClasses;
     let dummyClassBuilderArguments;
@@ -70,14 +70,14 @@ describe("UnsplashSource", function () {
                 raw: "woof://woof.woof/?size=raw",
                 full: "woof://woof.woof/?size=full",
                 regular: "woof://woof.woof/?size=regular",
-                small: "woof://woof.woof/?size=small",
+                small: "woof://woof.woof/?size=small"
             },
             user: unsplashUser
         };
         unsplashPhotos = stubPosts.map(stubPost => Object.assign({}, unsplashPhoto, {id: stubPost.id}));
         stubServiceClient = {
             photos: {
-                getPost: sinon.stub().callsFake((id, width, height, crop) => {
+                getPhoto: sinon.stub().callsFake((id, width, height, crop) => {
                     const post = unsplashPhotos.find(unsplashBlogPost => unsplashBlogPost.id === id);
 
                     if (post) {
@@ -137,10 +137,10 @@ describe("UnsplashSource", function () {
         stubJsonToPost = sinon.stub().callsFake(Photo.fromJSON);
 
         stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
-        stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubGetPhotos = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
 
         stubCreatePost = sinon.stub().callsFake(post => timedPromise(post));
-        stubGetPost = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
+        stubGetPhoto = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
 
         dummyClassBuilderArguments = {
             stubBeforePostsGetter,
@@ -161,10 +161,10 @@ describe("UnsplashSource", function () {
 
             stubJsonToPost,
 
-            stubGetPosts,
+            stubGetPhotos,
             stubCreatePosts,
 
-            stubGetPost,
+            stubGetPhoto,
             stubCreatePost
         };
         builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
@@ -209,6 +209,7 @@ describe("UnsplashSource", function () {
                     });
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
                     sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, stubParams.page, stubParams.perPage, "latest");
+                    stubPosts.forEach(stubPost => sinon.assert.calledWith(stubServiceClient.photos.getPhoto, stubPost.id, stubParams.Unsplash.width, stubParams.Unsplash.height, stubParams.Unsplash.crop));
                 });
         });
 
@@ -222,6 +223,7 @@ describe("UnsplashSource", function () {
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.users.photos);
                     sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, "latest");
+                    sinon.assert.notCalled(stubServiceClient.photos.getPhoto);
                 });
         });
     });
@@ -251,8 +253,8 @@ describe("UnsplashSource", function () {
             return unsplashSource.postGetter(stubPost.id, stubParams)
                 .then(post => {
                     expect(post).to.be.instanceof(Photo);
-                    sinon.assert.calledOnce(stubServiceClient.photos.getPost);
-                    sinon.assert.calledWith(stubServiceClient.photos.getPost, stubPost.id, stubParams.width, stubParams.height, stubParams.crop);
+                    sinon.assert.calledOnce(stubServiceClient.photos.getPhoto);
+                    sinon.assert.calledWith(stubServiceClient.photos.getPhoto, stubPost.id, stubParams.width, stubParams.height, stubParams.crop);
                 });
         });
 
@@ -263,8 +265,8 @@ describe("UnsplashSource", function () {
             return unsplashSource.postGetter("foo", stubParams)
                 .then(post => {
                     expect(post).to.not.be.ok;
-                    sinon.assert.calledOnce(stubServiceClient.photos.getPost);
-                    sinon.assert.calledWith(stubServiceClient.photos.getPost, "foo", stubParams.width, stubParams.height, stubParams.crop);
+                    sinon.assert.calledOnce(stubServiceClient.photos.getPhoto);
+                    sinon.assert.calledWith(stubServiceClient.photos.getPhoto, "foo", stubParams.width, stubParams.height, stubParams.crop);
                 });
         });
     });
