@@ -1,32 +1,12 @@
 {
   "name": "@randy.tarampi/css",
+  "description": "Some common styles for www.randytarampi.ca",
+  "version": "2.12.4",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca"
   },
-  "version": "2.12.4",
-  "description": "Some common styles for www.randytarampi.ca",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "pretest": "gulp -LLLL --color lint",
-    "build": "gulp -LLLL --color build",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
-    "prepublishOnly": "npm shrinkwrap",
-    "clean": "gulp -LLLL --color clean",
-    "preuninstall": "npm run clean"
-  },
-  "bugs": {
-    "url": "https://github.com/randytarampi/me/issues",
-    "email": "bugs@randytarampi.ca"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
-  "license": "MIT",
+  "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
     "materialize-css": "^0.100.2"
@@ -41,5 +21,19 @@
   "files": [
     "npm-shrinkwrap.json",
     "styles"
-  ]
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "randytarampi/me.git",
+  "scripts": {
+    "build": "gulp -LLLL --color build",
+    "clean": "gulp -LLLL --color clean",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepublishOnly": "npm shrinkwrap",
+    "pretest": "gulp -LLLL --color lint",
+    "preuninstall": "npm run clean"
+  }
 }

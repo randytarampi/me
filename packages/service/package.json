@@ -1,50 +1,13 @@
 {
   "name": "@randy.tarampi/service",
+  "description": "The backend for www.randytarampi.ca",
+  "version": "2.12.4",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.12.4",
-  "description": "The backend for www.randytarampi.ca",
-  "private": true,
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "prepare": "sls dynamodb install",
-    "preuninstall:dynamodb": "sls dynamodb remove",
-    "pretest": "gulp -LLLL --color lint",
-    "pretest:dynamodb-local": "npm run kill:dynamodb-local && npm run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\";",
-    "test": "npm run pretest:dynamodb-local && npm run test:actual",
-    "test:actual": "NODE_ENV=test gulp -LLLL --color test",
-    "kill": "npm run kill:dynamodb-local",
-    "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.service.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.service.dynamo.pid`; rm /tmp/ca.randytarampi.me.service.dynamo.pid; fi;",
-    "posttest": "npm run kill",
-    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
-    "clean": "gulp -LLLL --color clean",
-    "preuninstall": "npm run preuninstall:dynamodb && npm run clean",
-    "prestart": "npm run kill",
-    "poststart": "npm run kill",
-    "start": "npm run dev",
-    "start:dynamodb-local:start": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
-    "start:dynamodb-local:migrate": "sls dynamodb migrate --stage local",
-    "start:dynamodb-local": "npm run start:dynamodb-local:start && npm run start:dynamodb-local:migrate",
-    "dev": "npm run dev:serverless",
-    "dev:serverless": "sls offline start",
-    "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
-    "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
-    "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1"
-  },
-  "bugs": {
-    "url": "https://github.com/randytarampi/me/issues",
-    "email": "bugs@randytarampi.ca"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
-  "license": "MIT",
+  "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^2.12.4",
     "aws-sdk": "^2.384.0",
@@ -77,11 +40,42 @@
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0"
   },
-  "engines": {
-    "node": ">=8"
-  },
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "license": "MIT",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "randytarampi/me.git",
+  "scripts": {
+    "clean": "gulp -LLLL --color clean",
+    "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
+    "deploy": "if [ -z \"$NODE_ENV\" ]; then NODE_ENV=dev npm run deploy; else npm run deploy:$NODE_ENV; fi; ",
+    "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
+    "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1",
+    "dev": "npm run dev:serverless",
+    "dev:serverless": "sls offline start",
+    "kill": "npm run kill:dynamodb-local",
+    "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.service.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.service.dynamo.pid`; rm /tmp/ca.randytarampi.me.service.dynamo.pid; fi;",
+    "poststart": "npm run kill",
+    "posttest": "npm run kill",
+    "prepare": "sls dynamodb install",
+    "prestart": "npm run kill",
+    "pretest": "gulp -LLLL --color lint",
+    "pretest:dynamodb-local": "npm run kill:dynamodb-local && npm run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\";",
+    "preuninstall": "npm run preuninstall:dynamodb && npm run clean",
+    "preuninstall:dynamodb": "sls dynamodb remove",
+    "start": "npm run dev",
+    "start:dynamodb-local": "npm run start:dynamodb-local:start && npm run start:dynamodb-local:migrate",
+    "start:dynamodb-local:migrate": "sls dynamodb migrate --stage local",
+    "start:dynamodb-local:start": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
+    "test": "npm run pretest:dynamodb-local && npm run test:actual",
+    "test:actual": "NODE_ENV=test gulp -LLLL --color test"
   }
 }

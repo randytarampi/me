@@ -1,53 +1,13 @@
 {
   "name": "@randy.tarampi/js",
+  "description": "Some common JS entities for www.randytarampi.ca",
+  "version": "2.12.4",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.12.4",
-  "description": "Some common JS entities for www.randytarampi.ca",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "pretest": "gulp -LLLL --color lint",
-    "test": "NODE_ENV=test gulp -LLLL --color test",
-    "build": "npm run build:babel",
-    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
-    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepublishOnly": "npm shrinkwrap",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
-    "clean": "gulp -LLLL --color clean",
-    "preuninstall": "npm run clean"
-  },
-  "bugs": {
-    "url": "https://github.com/randytarampi/me/issues",
-    "email": "bugs@randytarampi.ca"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
-  "license": "MIT",
-  "keywords": [
-    "bear",
-    "woof",
-    "纬",
-    "横糸",
-    "씨",
-    "subtegmine",
-    "гав",
-    "υφάδι",
-    "نسيج",
-    "پود",
-    "বুনন",
-    "ʕ•ᴥ•ʔ",
-    "emoji"
-  ],
+  "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/schema-dot-org-types": "latest",
     "georaptor": "github:randytarampi/georaptor#me-release",
@@ -66,19 +26,53 @@
     "mocha": "^5.2.0",
     "nyc": "^13.1.0"
   },
-  "engines": {
-    "node": ">=8"
-  },
-  "module": "./esm/index.js",
-  "main": "./es5/index.js",
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
+  },
+  "engines": {
+    "node": ">=8"
   },
   "files": [
     "es5",
     "esm",
     "npm-shrinkwrap.json"
   ],
+  "keywords": [
+    "bear",
+    "emoji",
+    "subtegmine",
+    "woof",
+    "ʕ•ᴥ•ʔ",
+    "υφάδι",
+    "гав",
+    "نسيج",
+    "پود",
+    "বুনন",
+    "横糸",
+    "纬",
+    "씨"
+  ],
+  "license": "MIT",
+  "main": "./es5/index.js",
+  "module": "./esm/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "randytarampi/me.git",
+  "scripts": {
+    "build": "npm run build:babel",
+    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
+    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "clean": "gulp -LLLL --color clean",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepublishOnly": "npm shrinkwrap",
+    "pretest": "gulp -LLLL --color lint",
+    "preuninstall": "npm run clean",
+    "test": "NODE_ENV=test gulp -LLLL --color test"
+  },
   "sideEffects": false
 }

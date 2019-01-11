@@ -1,58 +1,14 @@
 {
   "name": "@randy.tarampi/jsx",
+  "description": "Some common JSX components for www.randytarampi.ca",
+  "version": "2.12.4",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.12.4",
-  "description": "Some common JSX components for www.randytarampi.ca",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "pretest": "gulp -LLLL --color lint",
-    "test": "NODE_ENV=test gulp -LLLL --color test",
-    "build": "npm run build:gulp && npm run build:babel",
-    "build:gulp": "gulp -LLLL --color build",
-    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
-    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepublishOnly": "npm shrinkwrap",
-    "start": "npm run dev",
-    "dev": "npm run dev:client",
-    "predev:client": "rm -rf dist/*.js dist/*.css",
-    "dev:client": "npm run predev:client && webpack-serve ./webpack.client.config.js --hotClient",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
-    "clean": "gulp -LLLL --color clean",
-    "preuninstall": "npm run clean"
-  },
-  "bugs": {
-    "url": "https://github.com/randytarampi/me/issues",
-    "email": "bugs@randytarampi.ca"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
-  "license": "MIT",
-  "keywords": [
-    "bear",
-    "woof",
-    "纬",
-    "横糸",
-    "씨",
-    "subtegmine",
-    "гав",
-    "υφάδι",
-    "نسيج",
-    "پود",
-    "বুনন",
-    "ʕ•ᴥ•ʔ",
-    "emoji"
-  ],
+  "browser": "./esm/index.client.js",
+  "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
     "@fortawesome/fontawesome-free": "^5.6.3",
@@ -93,6 +49,46 @@
     "reselect": "^4.0.0",
     "sniffr": "^1.2.0"
   },
+  "devDependencies": {
+    "@babel/cli": "latest",
+    "gulp": "^4.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "webpack": "^4.28.3",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-serve": "^2.0.3"
+  },
+  "directories": {
+    "lib": "./src/lib",
+    "test": "./test"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "files": [
+    "es5",
+    "esm",
+    "npm-shrinkwrap.json",
+    "test.js"
+  ],
+  "keywords": [
+    "bear",
+    "emoji",
+    "subtegmine",
+    "woof",
+    "ʕ•ᴥ•ʔ",
+    "υφάδι",
+    "гав",
+    "نسيج",
+    "پود",
+    "বুনন",
+    "横糸",
+    "纬",
+    "씨"
+  ],
+  "license": "MIT",
+  "main": "./es5/index.client.js",
+  "module": "./esm/index.server.js",
   "peerDependencies": {
     "history": "^4.7.2",
     "immutable": "github:randytarampi/immutable-js#me-release",
@@ -104,30 +100,28 @@
     "react-redux": "^5.1.1",
     "redux": "^4.0.1"
   },
-  "devDependencies": {
-    "@babel/cli": "latest",
-    "gulp": "^4.0.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "webpack": "^4.28.3",
-    "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-serve": "^2.0.3"
+  "publishConfig": {
+    "access": "public"
   },
-  "engines": {
-    "node": ">=8"
+  "repository": "randytarampi/me.git",
+  "scripts": {
+    "build": "npm run build:gulp && npm run build:babel",
+    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
+    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:gulp": "gulp -LLLL --color build",
+    "clean": "gulp -LLLL --color clean",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
+    "dev": "npm run dev:client",
+    "dev:client": "npm run predev:client && webpack-serve ./webpack.client.config.js --hotClient",
+    "predev:client": "rm -rf dist/*.js dist/*.css",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepublishOnly": "npm shrinkwrap",
+    "pretest": "gulp -LLLL --color lint",
+    "preuninstall": "npm run clean",
+    "start": "npm run dev",
+    "test": "NODE_ENV=test gulp -LLLL --color test"
   },
-  "main": "./es5/index.client.js",
-  "module": "./esm/index.server.js",
-  "browser": "./esm/index.client.js",
-  "directories": {
-    "lib": "./src/lib",
-    "test": "./test"
-  },
-  "files": [
-    "es5",
-    "esm",
-    "test.js",
-    "npm-shrinkwrap.json"
-  ],
   "sideEffects": false
 }

@@ -1,43 +1,13 @@
 {
   "name": "@randy.tarampi/job-application",
-  "private": true,
-  "publishConfig": {
-    "access": "public"
-  },
+  "description": "A utility to generate coherent job application (resume + cover letter) packages.",
+  "version": "2.12.4",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
     "url": "https://www.randytarampi.ca"
   },
-  "version": "2.12.4",
-  "homepage": "https://www.randytarampi.ca",
-  "bugs": {
-    "url": "https://github.com/randytarampi/me/issues",
-    "email": "bugs@randytarampi.ca"
-  },
-  "description": "A utility to generate coherent job application (resume + cover letter) packages.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
-  "scripts": {
-    "postinstall": "mkdir -p dist",
-    "pretest": "gulp -LLLL --color lint",
-    "build": "npm run build:babel",
-    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
-    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
-    "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
-    "job-applications": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
-    "job-application": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-application",
-    "test": "NODE_ENV=test gulp -LLLL --color test",
-    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
-    "clean": "gulp -LLLL --color clean",
-    "preuninstall": "npm run clean"
-  },
-  "license": "MIT",
+  "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/jsx": "^2.12.4",
     "@randy.tarampi/letter": "^2.12.4",
@@ -50,13 +20,37 @@
     "mocha": "^5.2.0",
     "nyc": "^13.1.0"
   },
+  "directories": {
+    "lib": "./src/lib"
+  },
   "engines": {
     "node": ">=8"
   },
-  "module": "./esm/index.js",
+  "homepage": "https://www.randytarampi.ca",
+  "license": "MIT",
   "main": "./es5/index.js",
-  "directories": {
-    "lib": "./src/lib"
+  "module": "./esm/index.js",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "randytarampi/me.git",
+  "scripts": {
+    "build": "npm run build:babel",
+    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
+    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "clean": "gulp -LLLL --color clean",
+    "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
+    "job-application": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-application",
+    "job-applications": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
+    "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
+    "postinstall": "mkdir -p dist",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "pretest": "gulp -LLLL --color lint",
+    "preuninstall": "npm run clean",
+    "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
+    "test": "NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false
 }
