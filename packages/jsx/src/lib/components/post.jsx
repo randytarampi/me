@@ -54,7 +54,7 @@ export class PostComponent extends PureComponent {
     }
 
     get scaledHeight() {
-        return Math.ceil(this.containerWidth * this.height / this.width);
+        return Math.round(this.containerWidth * this.height / this.width);
     }
 
     get title() {

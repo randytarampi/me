@@ -67,14 +67,14 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
         const postElement = this.postInfoBoxElement;
         return postElement
             ? postElement.clientWidth
-            : Math.ceil(window.innerWidth * 3 / 4);
+            : Math.round(window.innerWidth * 3 / 4);
     }
 
     get height() {
         const postElement = this.postInfoBoxElement;
         return postElement
             ? postElement.clientHeight
-            : Math.ceil(window.innerHeight * 3 / 4);
+            : Math.round(window.innerHeight * 3 / 4);
     }
 
     get scaledHeight() {
@@ -109,7 +109,7 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
                 post={post}
                 title={this.title}
                 style={{
-                    maxWidth: Math.ceil(window.innerWidth * 3 / 4)
+                    maxWidth: Math.round(window.innerWidth * 3 / 4)
                 }}
             />
         </InfoBox>;
@@ -129,17 +129,17 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
 
     get scaledHeight() {
         return Math.min(
-            Math.ceil(this.width * this.selected.height / this.selected.width),
-            Math.ceil(window.innerHeight * 3 / 4)
+            Math.round(this.width * this.selected.height / this.selected.width),
+            Math.round(window.innerHeight * 3 / 4)
         );
     }
 
     get scaledWidth() {
-        return Math.ceil(this.scaledHeight * this.selected.width / this.selected.height);
+        return Math.round(this.scaledHeight * this.selected.width / this.selected.height);
     }
 
     get targetWidth() {
-        return Math.ceil(scalePixelValueForWindowDevicePixelRatio(this.width));
+        return Math.round(scalePixelValueForWindowDevicePixelRatio(this.width));
     }
 
     render() {

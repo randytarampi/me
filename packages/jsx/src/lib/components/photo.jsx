@@ -134,7 +134,7 @@ export const computeScaledHeightForPhotoComponent = ({containerWidth, photoHeigh
         }
     }
 
-    return Math.ceil(scaledHeight);
+    return Math.round(scaledHeight);
 };
 
 export const computeTargetWidthForPhotoComponent = ({containerWidth}) => {

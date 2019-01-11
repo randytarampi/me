@@ -202,7 +202,7 @@ describe("PostMarker", function () {
                 />);
 
                 const component = rendered.instance();
-                expect(component.width).to.eql(Math.ceil(window.innerWidth * 3 / 4));
+                expect(component.width).to.eql(Math.round(window.innerWidth * 3 / 4));
             });
         });
 
@@ -215,7 +215,7 @@ describe("PostMarker", function () {
                 />);
 
                 const component = rendered.instance();
-                expect(component.height).to.eql(Math.ceil(window.innerHeight * 3 / 4));
+                expect(component.height).to.eql(Math.round(window.innerHeight * 3 / 4));
             });
         });
 
@@ -284,7 +284,7 @@ describe("PostMarker", function () {
                     post={stubPost}
                     title={component.title}
                     style={{
-                        maxWidth: Math.ceil(window.innerWidth * 3 / 4)
+                        maxWidth: Math.round(window.innerWidth * 3 / 4)
                     }}
                 />
             );
@@ -417,7 +417,7 @@ describe("PostMarker", function () {
                 />);
 
                 const component = rendered.instance();
-                expect(component.scaledHeight).to.eql(Math.ceil(window.innerHeight * 3 / 4));
+                expect(component.scaledHeight).to.eql(Math.round(window.innerHeight * 3 / 4));
             });
         });
 
@@ -431,7 +431,7 @@ describe("PostMarker", function () {
                 />);
 
                 const component = rendered.instance();
-                expect(component.scaledWidth).to.eql(Math.ceil(Math.ceil(window.innerHeight * 3 / 4) * component.selected.width / component.selected.height));
+                expect(component.scaledWidth).to.eql(Math.round(Math.round(window.innerHeight * 3 / 4) * component.selected.width / component.selected.height));
             });
         });
 
