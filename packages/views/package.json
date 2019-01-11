@@ -9,12 +9,12 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "^2.12.4",
-    "config": "^3.0.1"
+    "@randy.tarampi/js": "~2.12.4",
+    "config": "~3.0.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",
-    "gulp": "^4.0.0"
+    "gulp": "~4.0.0"
   },
   "directories": {
     "lib": "./src/lib"

@@ -8,12 +8,12 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
-    "materialize-css": "^0.100.2"
+    "@fortawesome/fontawesome-free": "~5.6.3",
+    "materialize-css": "~0.100.2"
   },
   "devDependencies": {
     "@babel/cli": "latest",
-    "gulp": "^4.0.0"
+    "gulp": "~4.0.0"
   },
   "engines": {
     "node": ">=8"

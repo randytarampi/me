@@ -9,16 +9,16 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/jsx": "^2.12.4",
-    "@randy.tarampi/letter": "^2.12.4",
-    "@randy.tarampi/printables": "^2.12.4",
-    "@randy.tarampi/resume": "^2.12.4"
+    "@randy.tarampi/jsx": "~2.12.4",
+    "@randy.tarampi/letter": "~2.12.4",
+    "@randy.tarampi/printables": "~2.12.4",
+    "@randy.tarampi/resume": "~2.12.4"
   },
   "devDependencies": {
     "@babel/cli": "latest",
-    "gulp": "^4.0.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0"
+    "gulp": "~4.0.0",
+    "mocha": "~5.2.0",
+    "nyc": "~13.1.0"
   },
   "directories": {
     "lib": "./src/lib"
