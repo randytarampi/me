@@ -6,7 +6,7 @@ import sinon from "sinon";
 import {
     HANDLE_GOOGLE_MAP_TILT_CHANGED,
     onGoogleMapTiltChangedCreator,
-    UPDATE_GOOGLE_MAP
+    UPDATE_MAP
 } from "../../../../../../../src/lib/actions/map";
 
 describe("onGoogleMapTiltChanged", function () {
@@ -45,7 +45,7 @@ describe("onGoogleMapTiltChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     tilt: stubGoogleMapTilt
@@ -90,7 +90,7 @@ describe("onGoogleMapTiltChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     tilt: stubGoogleMapTilt

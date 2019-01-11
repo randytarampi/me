@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {updateGoogleMap} from "./updateMap";
+import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_ZOOM_CHANGED = "HANDLE_GOOGLE_MAP_ZOOM_CHANGED";
 
@@ -14,7 +14,7 @@ export const onGoogleMapZoomChangedCreator = (getGoogleMap, id) => dispatch => {
         };
 
         dispatch(onGoogleMapZoomChanged(payload));
-        dispatch(updateGoogleMap(payload));
+        dispatch(updateMap(payload));
 
         return Promise.resolve(payload);
     }

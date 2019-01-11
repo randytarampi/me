@@ -26,14 +26,23 @@ InternalLinkInternal.defaultProps = {
 
 export const InternalLink = connect(
     null,
-    (dispatch, ownProps) => {
+    (dispatch, {onClick, href}) => {
         return {
             onClick: event => {
                 event.preventDefault();
-                dispatch(push(ownProps.href));
+                dispatch(push(href));
+
+                if (onClick) {
+                    onClick(event);
+                }
             }
         };
     }
 )(InternalLinkInternal);
+
+InternalLink.propTypes = {
+    href: PropTypes.string.isRequired,
+    onClick: PropTypes.func
+};
 
 export default InternalLink;

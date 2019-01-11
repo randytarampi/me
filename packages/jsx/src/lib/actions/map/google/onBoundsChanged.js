@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {updateGoogleMap} from "./updateMap";
+import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_BOUNDS_CHANGED = "HANDLE_GOOGLE_MAP_BOUNDS_CHANGED";
 
@@ -20,7 +20,7 @@ export const onGoogleMapBoundsChangedCreator = (getGoogleMap, id) => dispatch =>
         };
 
         dispatch(onGoogleMapBoundsChanged(payload));
-        dispatch(updateGoogleMap(payload));
+        dispatch(updateMap(payload));
 
         return Promise.resolve(payload);
     }

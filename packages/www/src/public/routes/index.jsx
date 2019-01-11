@@ -36,7 +36,7 @@ export const MapPostsHandler = props => <Fragment>
         <title>{__ME_PERSON_NAME__} — Map</title>
     </Helmet>
     <ConnectedMappedPosts
-        fetchUrl={`${__POSTS_SERVICE_URL__}`} id="map-posts"
+        fetchUrl={`${__POSTS_SERVICE_URL__}`}
         mapContainerHeight="calc(100vh - 48px)"
         {...props}
     />

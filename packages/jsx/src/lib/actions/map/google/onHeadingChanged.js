@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {updateGoogleMap} from "./updateMap";
+import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_HEADING_CHANGED = "HANDLE_GOOGLE_MAP_HEADING_CHANGED";
 
@@ -14,7 +14,7 @@ export const onGoogleMapHeadingChangedCreator = (getGoogleMap, id) => dispatch =
         };
 
         dispatch(onGoogleMapHeadingChanged(payload));
-        dispatch(updateGoogleMap(payload));
+        dispatch(updateMap(payload));
 
         return Promise.resolve(payload);
     }

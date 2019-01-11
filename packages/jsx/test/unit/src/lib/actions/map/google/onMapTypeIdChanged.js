@@ -6,7 +6,7 @@ import sinon from "sinon";
 import {
     HANDLE_GOOGLE_MAP_TYPE_CHANGED,
     onGoogleMapMapTypeIdChangedCreator,
-    UPDATE_GOOGLE_MAP
+    UPDATE_MAP
 } from "../../../../../../../src/lib/actions/map";
 
 describe("onGoogleMapMapTypeIdChanged", function () {
@@ -45,7 +45,7 @@ describe("onGoogleMapMapTypeIdChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     type: stubGoogleMapMapTypeId
@@ -90,7 +90,7 @@ describe("onGoogleMapMapTypeIdChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     type: stubGoogleMapMapTypeId

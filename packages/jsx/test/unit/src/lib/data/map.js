@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {fromJS, Map} from "immutable";
 import {createAction} from "redux-actions";
-import {clearMap, instantiateGoogleMap, updateGoogleMap} from "../../../../../src/lib/actions/map";
+import {clearMap, instantiateGoogleMap, updateMap} from "../../../../../src/lib/actions/map";
 import reducer, {getMap, hasMap} from "../../../../../src/lib/data/maps";
 
 describe("map", function () {
@@ -34,7 +34,7 @@ describe("map", function () {
         });
     });
 
-    describe("UPDATE_GOOGLE_MAP", function () {
+    describe("UPDATE_MAP", function () {
         it("reduces the correct state", function () {
             const stubMapId = "woof";
             const stubMapInstantiation = {id: stubMapId, vendor: "google"};
@@ -49,7 +49,7 @@ describe("map", function () {
                 id: stubMapId,
                 meow: "grr"
             };
-            const updatedState = reducer(instantiatedState, updateGoogleMap(stubMapUpdate));
+            const updatedState = reducer(instantiatedState, updateMap(stubMapUpdate));
             expect(getMap(updatedState, stubMapUpdate.id).toJS()).to.eql({
                 id: stubMapId,
                 vendor: "google",

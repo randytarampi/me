@@ -93,6 +93,7 @@ ConnectedMappedPosts.propTypes = {
 };
 
 ConnectedMappedPosts.defaultProps = {
+    id: "map-posts",
     fetchUrl: "/posts"
 };
 

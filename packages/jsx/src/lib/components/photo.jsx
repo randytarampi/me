@@ -11,6 +11,7 @@ import {
     PostComponent,
     PostDateCreatedComponent,
     PostDatePublishedComponent,
+    PostLocationComponent,
     PostTagsComponent,
     PostTitleComponent
 } from "./post";
@@ -66,6 +67,7 @@ export class PhotoComponent extends PostComponent {
                             <PostBodyAsArrayComponent post={post}/>
                             <PostDatePublishedComponent post={post}/>
                             <PostDateCreatedComponent post={post} label="Taken:"/>
+                            <PostLocationComponent post={post}/>
                             <PostTagsComponent post={post}/>
                         </Col>
                         <Col
@@ -100,6 +102,7 @@ export class PhotoComponent extends PostComponent {
                             <PostTitleComponent post={post} title={this.title}/>
                             <PostDatePublishedComponent post={post}/>
                             <PostDateCreatedComponent post={post} label="Taken:"/>
+                            <PostLocationComponent post={post}/>
                             <PostBodyAsStringComponent post={post}/>
                             <PostBodyAsArrayComponent post={post}/>
                         </Col>

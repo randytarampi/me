@@ -10,7 +10,7 @@ import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
     PostDateCreatedComponent,
-    PostDatePublishedComponent,
+    PostDatePublishedComponent, PostLocationComponent,
     PostTagsComponent,
     PostTitleComponent
 } from "./post";
@@ -85,6 +85,7 @@ export class GalleryComponent extends PhotoComponent {
                                                             <PostTitleComponent post={post} title={title}/>
                                                             <PostDatePublishedComponent post={post}/>
                                                             <PostDateCreatedComponent post={post} label="Taken:"/>
+                                                            <PostLocationComponent post={post}/>
                                                             <PostBodyAsStringComponent post={post}/>
                                                             <PostBodyAsArrayComponent post={post}/>
                                                         </div>
@@ -129,6 +130,7 @@ export class GalleryComponent extends PhotoComponent {
                     <PostBodyAsArrayComponent post={post}/>
                     <PostDatePublishedComponent post={post}/>
                     <PostDateCreatedComponent post={post} label="Taken:"/>
+                    <PostLocationComponent post={post}/>
                     <PostTagsComponent post={post}/>
                 </Col>
                 <Col

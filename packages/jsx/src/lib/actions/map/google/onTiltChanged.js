@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {updateGoogleMap} from "./updateMap";
+import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_TILT_CHANGED = "HANDLE_GOOGLE_MAP_TILT_CHANGED";
 
@@ -14,7 +14,7 @@ export const onGoogleMapTiltChangedCreator = (getGoogleMap, id) => dispatch => {
         };
 
         dispatch(onGoogleMapTiltChanged(payload));
-        dispatch(updateGoogleMap(payload));
+        dispatch(updateMap(payload));
 
         return Promise.resolve(payload);
     }

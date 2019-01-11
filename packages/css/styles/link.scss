@@ -138,4 +138,13 @@
             content: "";
         }
     }
+
+    &--map-pin,
+    &--map-post {
+        &:before, &::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\0f276\000A0";
+        }
+    }
 }

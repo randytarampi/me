@@ -2,9 +2,9 @@ import {expect} from "chai";
 import {fromJS} from "immutable";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {UPDATE_GOOGLE_MAP, updateGoogleMapCreator} from "../../../../../../../src/lib/actions/map";
+import {UPDATE_MAP, updateMapCreator} from "../../../../../../../src/lib/actions/map";
 
-describe("updateGoogleMap", function () {
+describe("updateMap", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
@@ -35,7 +35,7 @@ describe("updateGoogleMap", function () {
         }));
         stubStore = mockStore(stubInitialState);
 
-        stubStore.dispatch(updateGoogleMapCreator({
+        stubStore.dispatch(updateMapCreator({
             id: stubMapId,
             ...stubMapUpdate
         }));
@@ -44,7 +44,7 @@ describe("updateGoogleMap", function () {
 
         expect(actions).to.have.length(1);
         expect(actions).to.eql([{
-            type: UPDATE_GOOGLE_MAP,
+            type: UPDATE_MAP,
             payload: {
                 id: stubMapId,
                 ...stubMapUpdate

@@ -18,7 +18,16 @@ export const instantiateGoogleMapCreator = (getGoogleMap, id) => (dispatch, getS
         const googleMapStateObject = googleMapState.toJS();
 
         if (googleMap) {
-            googleMap.panToBounds(googleMapStateObject.bounds);
+            if (googleMapStateObject.center) {
+                googleMap.panTo(googleMapStateObject.center);
+
+                if (googleMapStateObject.zoom) {
+                    googleMap.setZoom(googleMapStateObject.zoom);
+                }
+
+            } else if (googleMapStateObject.bounds) {
+                googleMap.panToBounds(googleMapStateObject.bounds);
+            }
         }
     }
 

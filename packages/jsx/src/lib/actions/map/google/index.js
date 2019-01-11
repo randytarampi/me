@@ -6,4 +6,3 @@ export * from "./onMapTypeIdChanged";
 export * from "./onTiltChanged";
 export * from "./onZoomChanged";
 export * from "./setMapCenter";
-export * from "./updateMap";

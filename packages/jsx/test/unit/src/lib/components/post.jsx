@@ -3,19 +3,27 @@ import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
 import {Marker} from "react-google-maps";
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import {InternalLink, MapComponent} from "../../../../../src/lib/components";
 import Post, {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
     PostDateCreatedComponent,
     PostDatePublishedComponent,
+    PostLocationComponent,
     PostMapComponent,
     PostTagsComponent,
     PostTitleComponent
 } from "../../../../../src/lib/components/post";
-import {MapComponent} from "../../../../../src/lib/components";
+import {mount} from "../../../../../src/test";
 
 describe("Post", function () {
     let stubPost;
+    let mockStore;
+    let stubMiddleware;
+    let stubInitialState;
+    let stubStore;
 
     beforeEach(function () {
         stubPost = PostEntity.fromJSON({
@@ -23,6 +31,10 @@ describe("Post", function () {
             source: "ᶘ ◕ᴥ◕ᶅ",
             dateCreated: new Date(2500, 0, 1).toISOString()
         });
+        stubMiddleware = [thunk];
+        mockStore = configureStore(stubMiddleware);
+        stubInitialState = undefined;
+        stubStore = mockStore(stubInitialState);
     });
 
     describe("PostBodyAsArrayComponent", function () {
@@ -227,6 +239,53 @@ describe("Post", function () {
             const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
 
             expect(rendered).to.not.have.className("post-date");
+        });
+    });
+
+    describe("PostLocationComponent", function () {
+        it("renders (has map)", function () {
+            stubPost = PostEntity.fromJSON({
+                id: "woof",
+                source: "ᶘ ◕ᴥ◕ᶅ",
+                datePublished: new Date(2500, 0, 1).toISOString(),
+                sourceUrl: "woof.woof/woof",
+                tags: [
+                    "woof",
+                    "meow",
+                    "grr"
+                ],
+                lat: 0,
+                long: 0
+            });
+
+            const stubProps = {
+                post: stubPost
+            };
+            const rendered = mount(stubStore)(<PostLocationComponent {...stubProps} />);
+
+            expect(rendered).to.have.className("post-location");
+            expect(rendered).to.have.descendants(InternalLink);
+        });
+
+        it("returns (no location)", function () {
+            stubPost = PostEntity.fromJSON({
+                id: "woof",
+                source: "ᶘ ◕ᴥ◕ᶅ",
+                datePublished: new Date(2500, 0, 1).toISOString(),
+                sourceUrl: "woof.woof/woof",
+                tags: [
+                    "woof",
+                    "meow",
+                    "grr"
+                ]
+            });
+
+            const stubProps = {
+                post: stubPost
+            };
+            const rendered = mount(stubStore)(<PostLocationComponent {...stubProps} />);
+
+            expect(rendered).to.not.have.descendants("post-location");
         });
     });
 

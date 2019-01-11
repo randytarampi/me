@@ -1,12 +1,14 @@
-import {Post as PostEntity} from "@randy.tarampi/js";
+import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
-import {Record} from "immutable";
+import DmsCoordinates from "dms-conversion";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Fragment, PureComponent} from "react";
 import {Marker} from "react-google-maps";
 import {Col, Row} from "react-materialize";
+import {connect} from "react-redux";
+import {updateMapCreator} from "../actions";
 import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link";
 import {MapComponent} from "./map";
 
@@ -75,6 +77,7 @@ export class PostComponent extends PureComponent {
                 <PostTitleComponent post={post} title={this.title}/>
                 <PostDatePublishedComponent post={post}/>
                 <PostDateCreatedComponent post={post}/>
+                <PostLocationComponent post={post}/>
                 <PostTagsComponent post={post}/>
             </Col>
             <Col
@@ -90,7 +93,7 @@ export class PostComponent extends PureComponent {
 }
 
 PostComponent.propTypes = {
-    post: PropTypes.instanceOf(PostEntity).isRequired,
+    post: PropTypes.instanceOf(Post).isRequired,
     containerWidth: PropTypes.number,
     containerHeight: PropTypes.number
 };
@@ -106,7 +109,7 @@ export const PostTitleComponent = ({post, title}) =>
     </h1>;
 
 PostTitleComponent.propTypes = {
-    post: PropTypes.instanceOf(Record).isRequired,
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
     title: PropTypes.string.isRequired
 };
 
@@ -127,7 +130,7 @@ export const PostBodyAsStringComponent = ({post}) => {
 };
 
 PostBodyAsStringComponent.propTypes = {
-    post: PropTypes.instanceOf(Record).isRequired
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostBodyAsArrayComponent = ({post}) => {
@@ -154,7 +157,7 @@ export const PostBodyAsArrayComponent = ({post}) => {
 };
 
 PostBodyAsArrayComponent.propTypes = {
-    post: PropTypes.instanceOf(Record).isRequired
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostDatePublishedComponent = ({post}) => {
@@ -196,7 +199,7 @@ export const PostDatePublishedComponent = ({post}) => {
 };
 
 PostDatePublishedComponent.propTypes = {
-    post: PropTypes.instanceOf(Record).isRequired
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostDateCreatedComponent = ({post, label = "Drafted:"}) => {
@@ -211,7 +214,7 @@ export const PostDateCreatedComponent = ({post, label = "Drafted:"}) => {
 };
 
 PostDateCreatedComponent.propTypes = {
-    post: PropTypes.instanceOf(Record).isRequired,
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
     label: PropTypes.string
 };
 
@@ -234,8 +237,8 @@ export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tag
 };
 
 PostTagsComponent.propTypes = {
-    tagLinkBase: PropTypes.string.isRequired,
-    post: PropTypes.instanceOf(Record).isRequired
+    tagLinkBase: PropTypes.string,
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostMapComponent = ({post, mapContainerHeight, children, ...props}) => {
@@ -258,10 +261,59 @@ export const PostMapComponent = ({post, mapContainerHeight, children, ...props})
 };
 
 PostMapComponent.propTypes = {
-    post: PropTypes.instanceOf(Record).isRequired,
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
     mapContainerHeight: PropTypes.number,
     contentHeight: PropTypes.number,
     metadataHeight: PropTypes.number
+};
+
+const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
+    if (Number.isFinite(post.lat) && Number.isFinite(post.long)) {
+        const postCoordinates = new DmsCoordinates(post.lat, post.long);
+
+        return <p className="post-location hide-on-med-and-down">
+            <InternalLink
+                className="link--branded post-location__link"
+                href="/map"
+                onClick={setMapPostsCenter}
+                serviceName={postCoordinates.toString()}
+                serviceType="map-post"
+            />
+        </p>;
+    }
+
+    return null;
+};
+
+PostLocationComponentInternal.propTypes = {
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    setMapPostsCenter: PropTypes.func.isRequired
+};
+
+export const PostLocationComponent = connect(
+    null,
+    (dispatch, {post, mapId}) => {
+        return {
+            setMapPostsCenter: () => dispatch(updateMapCreator({
+                id: mapId,
+                center: {
+                    lat: post.lat,
+                    lng: post.long
+                },
+                bounds: null,
+                zoom: 18
+            }))
+        };
+    }
+)(PostLocationComponentInternal);
+
+PostLocationComponent.propTypes = {
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    mapId: PropTypes.string.isRequired
+};
+
+PostLocationComponent.defaultProps = {
+    mapId: "map-posts"
 };
 
 export default PostComponent;

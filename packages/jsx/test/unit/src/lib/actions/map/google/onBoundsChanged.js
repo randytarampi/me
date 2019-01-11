@@ -6,7 +6,7 @@ import sinon from "sinon";
 import {
     HANDLE_GOOGLE_MAP_BOUNDS_CHANGED,
     onGoogleMapBoundsChangedCreator,
-    UPDATE_GOOGLE_MAP
+    UPDATE_MAP
 } from "../../../../../../../src/lib/actions/map";
 
 describe("onGoogleMapBoundsChanged", function () {
@@ -57,7 +57,7 @@ describe("onGoogleMapBoundsChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     bounds: stubBounds,
@@ -117,7 +117,7 @@ describe("onGoogleMapBoundsChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     bounds: stubBounds,

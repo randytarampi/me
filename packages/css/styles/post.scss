@@ -17,6 +17,7 @@
     &-date,
     &-body,
     &-source,
+    &-location,
     &-tags {
         &__html {
             @extend .post-html;
@@ -32,6 +33,7 @@
         }
     }
 
+    &-location,
     &-source,
     &-date,
     &-tags {

@@ -6,7 +6,7 @@ import sinon from "sinon";
 import {
     HANDLE_GOOGLE_MAP_HEADING_CHANGED,
     onGoogleMapHeadingChangedCreator,
-    UPDATE_GOOGLE_MAP
+    UPDATE_MAP
 } from "../../../../../../../src/lib/actions/map";
 
 describe("onGoogleMapHeadingChanged", function () {
@@ -45,7 +45,7 @@ describe("onGoogleMapHeadingChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     heading: stubGoogleMapHeading
@@ -90,7 +90,7 @@ describe("onGoogleMapHeadingChanged", function () {
                 }
             },
             {
-                type: UPDATE_GOOGLE_MAP,
+                type: UPDATE_MAP,
                 payload: {
                     id: stubMapId,
                     heading: stubGoogleMapHeading
