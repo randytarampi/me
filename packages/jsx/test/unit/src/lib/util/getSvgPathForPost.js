@@ -58,4 +58,14 @@ describe("getSvgPathForPost", function () {
 
         expect(svgPath).to.eql(commentSvgPath);
     });
+
+    it("throws when it encounters an unknown type", function () {
+        try {
+            const stubPost = Post.fromJS({type: "woof", id: "meow"});
+            getSvgPathForPost(stubPost);
+            throw new Error("Wtf? This should've thrown");
+        } catch (error) {
+            expect(error.message).to.match(/Can't `getSvgPathForPost` for woof `meow`/);
+        }
+    });
 });

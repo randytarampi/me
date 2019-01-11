@@ -292,14 +292,65 @@ describe("PostMarker", function () {
     });
 
     describe("PostMarkerInfoBoxContentComponent", function () {
-        it("renders", function () {
+        it("renders (Photo)", function () {
             const stubStyle = {};
 
-            const rendered = shallow(stubStore)(<PostMarkerInfoBoxContentComponent post={stubPost}
-                                                                                   title={stubPost.title}
-                                                                                   style={stubStyle}/>);
+            const rendered = shallow(stubStore)(<PostMarkerInfoBoxContentComponent
+                post={stubPost}
+                title={stubPost.title}
+                style={stubStyle}
+            />);
 
             expect(rendered).to.have.className("marker-info-box-post");
+            expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPost} title={stubPost.title}/>);
+            expect(rendered).to.containMatchingElement(<PostDatePublishedComponent post={stubPost}/>);
+            expect(rendered).to.containMatchingElement(<PostDateCreatedComponent post={stubPost} label="Taken:"/>);
+            expect(rendered).to.containMatchingElement(
+                <PostTagsComponent post={stubPost} tagLinkBase={`${__MAP_APP_URL__}/tags`}/>
+            );
+            expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubPost}/>);
+            expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubPost}/>);
+            expect(rendered).to.have.descendants(".marker-info-box-post-content.hide-on-med-and-down");
+        });
+
+        it("renders (Post)", function () {
+            stubPost = Post.fromJSON({
+                ...stubPost.toJSON(),
+                type: undefined
+            });
+
+            const stubStyle = {};
+
+            const rendered = shallow(stubStore)(<PostMarkerInfoBoxContentComponent
+                post={stubPost}
+                title={stubPost.title}
+                style={stubStyle}
+            />);
+
+            expect(rendered).to.have.className("marker-info-box-post");
+            expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPost} title={stubPost.title}/>);
+            expect(rendered).to.containMatchingElement(<PostDatePublishedComponent post={stubPost}/>);
+            expect(rendered).to.containMatchingElement(<PostDateCreatedComponent post={stubPost} label="Taken:"/>);
+            expect(rendered).to.containMatchingElement(
+                <PostTagsComponent post={stubPost} tagLinkBase={`${__MAP_APP_URL__}/tags`}/>
+            );
+            expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubPost}/>);
+            expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubPost}/>);
+            expect(rendered).to.have.descendants(".marker-info-box-post-content");
+            expect(rendered).to.not.have.descendants(".marker-info-box-post-content.hide-on-med-and-down");
+        });
+
+        it("renders (is loading)", function () {
+            const stubStyle = {};
+
+            const rendered = shallow(stubStore)(<PostMarkerInfoBoxContentComponent
+                isLoading={true}
+                post={stubPost}
+                title={stubPost.title}
+                style={stubStyle}
+            />);
+
+            expect(rendered).to.have.className("marker-info-box-post marker-info-box-post--loading");
             expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPost} title={stubPost.title}/>);
             expect(rendered).to.containMatchingElement(<PostDatePublishedComponent post={stubPost}/>);
             expect(rendered).to.containMatchingElement(<PostDateCreatedComponent post={stubPost} label="Taken:"/>);
@@ -432,7 +483,7 @@ describe("PostMarker", function () {
                 },
                 boxStyle: {
                     backgroundImage: `url(${component.selected.url})`,
-                    backgroundColor: null,
+                    backgroundColor: null
                 },
                 maxWidth: component.scaledWidth
             });

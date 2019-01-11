@@ -4,9 +4,9 @@ import {createBrowserHistory} from "history";
 import {fromJS, Set} from "immutable";
 import React from "react";
 import sinon from "sinon";
-import {ConnectedMap, ConnectedPostMarker} from "../../../../../src/lib/containers";
 import {GoogleMapMarkerClustererComponent} from "../../../../../src/lib/components";
 import {MappedPostsComponent} from "../../../../../src/lib/components/mappedPosts";
+import {ConnectedMap, ConnectedPostMarker} from "../../../../../src/lib/containers";
 import reducers from "../../../../../src/lib/data/reducers";
 import {configureStore} from "../../../../../src/lib/store";
 import {shallow} from "../../../../../src/test";
@@ -57,44 +57,66 @@ describe("MappedPosts", function () {
             stubFetchPosts = sinon.stub();
         });
 
-        it("renders (shouldFetchPostsOnMount)", function () {
-            const stubHtmlId = "woof";
-            shallow(stubStore)(<MappedPostsComponent
-                posts={stubPosts}
-                id={stubHtmlId}
-                shouldFetchPostsOnMount={true}
-                fetchPosts={stubFetchPosts}
-            />);
+        describe("componentDidMount", function () {
+            it("renders (shouldFetchPostsOnMount)", function () {
+                const stubHtmlId = "woof";
+                shallow(stubStore)(<MappedPostsComponent
+                    posts={stubPosts}
+                    id={stubHtmlId}
+                    shouldFetchPostsOnMount={true}
+                    fetchPosts={stubFetchPosts}
+                />);
 
-            expect(stubFetchPosts.calledOnce).to.eql(true);
+                expect(stubFetchPosts.calledOnce).to.eql(true);
+            });
+
+            it("renders (!shouldFetchPostsOnMount)", function () {
+                const stubHtmlId = "woof";
+                shallow(stubStore)(<MappedPostsComponent
+                    posts={stubPosts}
+                    id={stubHtmlId}
+                    shouldFetchPostsOnMount={false}
+                    fetchPosts={stubFetchPosts}
+                />);
+
+                expect(stubFetchPosts.notCalled).to.eql(true);
+            });
         });
 
-        it("renders (!shouldFetchPostsOnMount)", function () {
-            const stubHtmlId = "woof";
-            shallow(stubStore)(<MappedPostsComponent
-                posts={stubPosts}
-                id={stubHtmlId}
-                shouldFetchPostsOnMount={false}
-                fetchPosts={stubFetchPosts}
-            />);
+        describe("getGoogleMap", function () {
+            it("returns googleMapRef", function () {
+                const stubHtmlId = "woof";
+                const rendered = shallow(stubStore)(<MappedPostsComponent
+                    posts={stubPosts}
+                    id={stubHtmlId}
+                    shouldFetchPostsOnMount={true}
+                    fetchPosts={stubFetchPosts}
+                />);
+                const component = rendered.instance();
 
-            expect(stubFetchPosts.notCalled).to.eql(true);
+                expect(rendered).to.have.descendants(ConnectedMap);
+                expect(rendered).to.have.descendants(GoogleMapMarkerClustererComponent);
+                expect(component.getGoogleMap()).to.eql(component.googleMapRef.current);
+                expect(component.getGoogleMap()).to.eql(component.googleMap);
+            });
         });
 
-        it("renders", function () {
-            const stubHtmlId = "woof";
-            const rendered = shallow(stubStore)(<MappedPostsComponent
-                posts={stubPosts}
-                id={stubHtmlId}
-                fetchPosts={stubFetchPosts}
-            />);
+        describe("render", function () {
+            it("renders", function () {
+                const stubHtmlId = "woof";
+                const rendered = shallow(stubStore)(<MappedPostsComponent
+                    posts={stubPosts}
+                    id={stubHtmlId}
+                    fetchPosts={stubFetchPosts}
+                />);
 
-            expect(rendered).to.have.id(stubHtmlId);
-            expect(rendered).to.have.prop("onIdle", stubFetchPosts);
-            expect(rendered).to.have.descendants(ConnectedMap);
-            expect(rendered).to.have.descendants(GoogleMapMarkerClustererComponent);
-            expect(rendered).to.containMatchingElement(<ConnectedPostMarker post={stubPost} key={stubPost.uid}/>);
-            expect(stubFetchPosts.calledOnce).to.eql(true);
+                expect(rendered).to.have.id(stubHtmlId);
+                expect(rendered).to.have.prop("onIdle", stubFetchPosts);
+                expect(rendered).to.have.descendants(ConnectedMap);
+                expect(rendered).to.have.descendants(GoogleMapMarkerClustererComponent);
+                expect(rendered).to.containMatchingElement(<ConnectedPostMarker post={stubPost} key={stubPost.uid}/>);
+                expect(stubFetchPosts.calledOnce).to.eql(true);
+            });
         });
     });
 });
