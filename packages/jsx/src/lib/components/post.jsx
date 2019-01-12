@@ -268,15 +268,21 @@ PostMapComponent.propTypes = {
 };
 
 const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
-    if (Number.isFinite(post.lat) && Number.isFinite(post.long)) {
+    if (post.locationCreated) {
         const postCoordinates = new DmsCoordinates(post.lat, post.long);
+        const postLocationName = post.locationCreated.name;
+        const postAddress = post.locationCreated.address;
 
         return <p className="post-location hide-on-med-and-down">
             <InternalLink
                 className="link--branded post-location__link"
                 href="/map"
                 onClick={setMapPostsCenter}
-                serviceName={postCoordinates.toString()}
+                serviceName={
+                    postLocationName
+                    || postAddress
+                    || postCoordinates.toString()
+                }
                 serviceType="map-post"
             />
         </p>;
