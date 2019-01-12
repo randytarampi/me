@@ -4,7 +4,7 @@ import Flickr from "flickr-sdk";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import SearchParams from "../../../../../../src/lib/searchParams";
-import FlickrSource from "../../../../../../src/lib/sources/flickr";
+import FlickrSource, {FLICKR_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/flickr";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
@@ -262,7 +262,7 @@ describe("FlickrSource", function () {
                     sinon.assert.calledTwice(stubServiceClient.people.getPublicPhotos);
                     sinon.assert.calledWith(stubServiceClient.people.getPublicPhotos, sinon.match({
                         user_id: process.env.FLICKR_USER_ID,
-                        per_page: stubParams.perPage
+                        per_page: FLICKR_API_MAX_POSTS_PER_PAGE
                     }));
                 });
         });

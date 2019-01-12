@@ -4,6 +4,8 @@ import _ from "lodash";
 import {DateTime} from "luxon";
 import CachedDataSource from "../../cachedDataSource";
 
+export const FLICKR_API_MAX_POSTS_PER_PAGE = 500;
+
 class FlickrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || new Flickr(process.env.FLICKR_API_KEY), cacheClient);
@@ -14,6 +16,7 @@ class FlickrSource extends CachedDataSource {
     }
 
     async allPostsGetter(searchParams) {
+        searchParams = searchParams.set("perPage", FLICKR_API_MAX_POSTS_PER_PAGE);
         let posts = await this.postsGetter(searchParams);
 
         if (posts.length) {
