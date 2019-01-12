@@ -148,8 +148,7 @@ module.exports = ({
 
                     const socket = new webSocket("ws://localhost:8090");
                     const watcher = chokidar.watch(sourceDirectoryPath, {
-                        ignored: /\/node_modules\//,
-                        awaitWriteFinish: true
+                        ignored: /\/\.dynamodb|\.idea|\.nyc_output|\.serverless|\.webpack|coverage|dist|docs|es5|esm|node_modules\//
                     });
 
                     watcher.on("change", () => {
