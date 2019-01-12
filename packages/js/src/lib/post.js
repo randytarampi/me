@@ -1,13 +1,8 @@
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
-import geohash from "latlon-geohash";
+import Place from "./place";
 import Profile from "./profile";
-import {
-    augmentUrlWithTrackingParams,
-    castDatePropertyToDateTime,
-    compositeKeySeparator,
-    convertLatLongToGeohash
-} from "./util";
+import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util";
 
 const overridableTagProperties = {
     dateCreated: tagValue => castDatePropertyToDateTime(Number(tagValue)),
@@ -35,21 +30,42 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     creator: null,
     raw: null,
     tags: List(),
-    geohash: null,
-    lat: null,
-    long: null,
+    locationCreated: null,
     ...otherProperties
 }) {
-    constructor({dateCreated, datePublished, ...properties} = {}) {
-        if (properties.tags) {
+    constructor({dateCreated, datePublished, tags, locationCreated, geohash, lat, long, ...properties} = {}) {
+        if (!locationCreated && (geohash || Number.isFinite(lat) && Number.isFinite(long))) {
+            locationCreated = Place.fromJS({geo: {latitude: lat, longitude: long, geohash}});
+        }
+
+        if (tags) {
             Object.keys(overridableTagProperties).forEach(overridableTagProperty => {
                 const overridingTagSentinel = `❕${overridableTagProperty}❔`;
-                const overridingTag = properties.tags.find(tag => tag.startsWith(overridingTagSentinel));
+                const overridingTag = tags.find(tag => tag.startsWith(overridingTagSentinel));
 
                 if (overridingTag) {
                     const overridingTagValue = overridingTag.replace(overridingTagSentinel, "");
 
-                    properties[overridableTagProperty] = overridableTagProperties[overridableTagProperty](overridingTagValue);
+                    switch (overridableTagProperty) {
+                        case "lat":
+                            locationCreated = locationCreated || Place.fromJS({geo: {}});
+                            locationCreated = locationCreated.setIn(["geo", "latitude"], overridableTagProperties[overridableTagProperty](overridingTagValue));
+                            break;
+
+                        case "long":
+                            locationCreated = locationCreated || Place.fromJS({geo: {}});
+                            locationCreated = locationCreated.setIn(["geo", "longitude"], overridableTagProperties[overridableTagProperty](overridingTagValue));
+                            break;
+
+                        case "geohash":
+                            locationCreated = locationCreated || Place.fromJS({geo: {}});
+                            locationCreated = locationCreated.setIn(["geo", overridableTagProperty], overridableTagProperties[overridableTagProperty](overridingTagValue));
+                            break;
+
+                        default:
+                            properties[overridableTagProperty] = overridableTagProperties[overridableTagProperty](overridingTagValue);
+                            break;
+                    }
                 }
             });
         }
@@ -57,6 +73,8 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         super({
             dateCreated: castDatePropertyToDateTime(dateCreated),
             datePublished: castDatePropertyToDateTime(datePublished),
+            tags,
+            locationCreated,
             ...properties
         });
     }
@@ -74,39 +92,15 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     }
 
     get lat() {
-        if (Number.isFinite(this.get("lat"))) {
-            return this.get("lat");
-        }
-
-        if (this.get("geohash")) {
-            return geohash.decode(this.get("geohash")).lat;
-        }
-
-        return null;
+        return this.locationCreated && this.locationCreated.lat;
     }
 
     get long() {
-        if (Number.isFinite(this.get("long"))) {
-            return this.get("long");
-        }
-
-        if (this.get("geohash")) {
-            return geohash.decode(this.get("geohash")).lon;
-        }
-
-        return null;
+        return this.locationCreated && this.locationCreated.long;
     }
 
     get geohash() {
-        if (this.get("geohash")) {
-            return this.get("geohash");
-        }
-
-        if (Number.isFinite(this.get("lat")) && Number.isFinite(this.get("long"))) {
-            return convertLatLongToGeohash(this.get("lat"), this.get("long"));
-        }
-
-        return null;
+        return this.locationCreated && this.locationCreated.geohash;
     }
 
     get datePublished() {
@@ -125,11 +119,18 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         return this.constructor.type;
     }
 
-    static parsePropertiesFromJs(js) {
+    static parsePropertiesFromJs({tags, creator, geohash, lat, long, locationCreated, ...js}) {
+        const locationJs = locationCreated
+            ? locationCreated
+            : (geohash || Number.isFinite(lat) && Number.isFinite(long))
+                ? {geo: {latitude: lat, longitude: long, geohash}}
+                : null;
+
         return {
             ...js,
-            creator: js.creator ? Profile.fromJS(js.creator) : null,
-            tags: js.tags ? List(js.tags) : null
+            locationCreated: locationJs ? Place.fromJS(locationJs) : null,
+            creator: creator ? Profile.fromJS(creator) : null,
+            tags: tags ? List(tags) : null
         };
     }
 
@@ -137,11 +138,18 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         return new this(this.parsePropertiesFromJs(js));
     }
 
-    static parsePropertiesFromJson(json) {
+    static parsePropertiesFromJson({tags, creator, geohash, lat, long, locationCreated, ...json}) {
+        const locationJson = locationCreated
+            ? locationCreated
+            : (geohash || Number.isFinite(lat) && Number.isFinite(long))
+                ? {geo: {latitude: lat, longitude: long, geohash}}
+                : null;
+
         return {
             ...json,
-            creator: json.creator ? Profile.fromJSON(json.creator) : null,
-            tags: json.tags ? List(json.tags) : null
+            locationCreated: locationJson ? Place.fromJSON(locationJson) : null,
+            creator: creator ? Profile.fromJSON(creator) : null,
+            tags: tags ? List(tags) : null
         };
     }
 
@@ -189,6 +197,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             dateCreated: this.dateCreated ? this.dateCreated.toISO() : null,
             datePublished: this.datePublished ? this.datePublished.toISO() : null,
             dateModified: this.datePublished ? this.datePublished.toISO() : null,
+            locationCreated: this.locationCreated ? this.locationCreated.toSchema() : null,
             mainEntityOfPage: this.sourceUrl
         });
     }

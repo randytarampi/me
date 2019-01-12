@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import {Map} from "immutable";
 import {formatNumber} from "libphonenumber-js";
 import Place from "../../../../src/lib/place";
 import PostalAddress from "../../../../src/lib/postalAddress";
@@ -50,6 +51,9 @@ describe("Place", function () {
                 addressLocality: stubPlaceResumeJson.location.city,
                 addressCountry: stubPlaceResumeJson.location.countryCode,
                 addressRegion: stubPlaceResumeJson.location.region
+            },
+            geo: {
+                geohash: "s"
             }
         };
     });
@@ -58,6 +62,7 @@ describe("Place", function () {
         it("returns a Place", function () {
             const place = new Place({
                 ...stubPlaceJson,
+                geo: Map(stubPlaceJson),
                 address: PostalAddress.fromJS(stubPlaceJson.address)
             });
 
@@ -90,6 +95,7 @@ describe("Place", function () {
             expect(place.website).to.eql(stubPlaceJson.url);
             expect(place.picture).to.eql(stubPlaceJson.image);
             expect(place.name).to.eql(stubPlaceJson.additionalName);
+            expect(place.geo.toJS()).to.eql(stubPlaceJson.geo);
         });
 
         it("returns an empty Place", function () {
@@ -111,6 +117,7 @@ describe("Place", function () {
             expect(place.website).to.eql(stubPlaceJson.url);
             expect(place.picture).to.eql(stubPlaceJson.image);
             expect(place.name).to.eql(stubPlaceJson.additionalName);
+            expect(place.geo.toJS()).to.eql(stubPlaceJson.geo);
         });
 
         it("returns an empty Place", function () {
@@ -212,7 +219,8 @@ describe("Place", function () {
                     "woof://woof.woof/woof"
                 ],
                 telephone: "+16692216251",
-                url: "woof.woof/woof"
+                url: "woof.woof/woof",
+                geo: stubPlaceJson.geo
             });
         });
 
@@ -229,6 +237,7 @@ describe("Place", function () {
                 description: null,
                 email: null,
                 faxNumber: null,
+                geo: null,
                 image: null,
                 knowsAbout: null,
                 knowsLanguage: null,
@@ -389,6 +398,99 @@ describe("Place", function () {
             expect(place).to.be.instanceOf(Place);
             expect(place.faxNumber).to.eql(null);
             expect(place.fax).to.eql(place.faxNumber);
+        });
+    });
+
+    describe("lat", function () {
+        it("returns `latitude`", function () {
+            const place = Place.fromJSON({
+                geo: {
+                    latitude: 0
+                }
+            });
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.lat).to.eql(0);
+            expect(place.lat).to.eql(place.latitude);
+        });
+
+        it("returns `null` if no `latitude`", function () {
+            stubPlaceJson.geo = {};
+            const place = Place.fromJSON(stubPlaceJson);
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.lat).to.eql(null);
+            expect(place.lat).to.eql(place.latitude);
+        });
+
+        it("returns `null` if no `geo`", function () {
+            delete stubPlaceJson.geo;
+            const place = Place.fromJSON(stubPlaceJson);
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.lat).to.eql(null);
+            expect(place.lat).to.eql(place.latitude);
+        });
+    });
+
+    describe("long", function () {
+        it("returns `longitude`", function () {
+            const place = Place.fromJSON({
+                geo: {
+                    longitude: 0
+                }
+            });
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.long).to.eql(0);
+            expect(place.long).to.eql(place.longitude);
+        });
+
+        it("returns `null` if no `longitude`", function () {
+            stubPlaceJson.geo = {};
+            const place = Place.fromJSON(stubPlaceJson);
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.long).to.eql(null);
+            expect(place.long).to.eql(place.longitude);
+        });
+
+        it("returns `null` if no `geo`", function () {
+            delete stubPlaceJson.geo;
+            const place = Place.fromJSON(stubPlaceJson);
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.long).to.eql(null);
+            expect(place.long).to.eql(place.longitude);
+        });
+    });
+
+    describe("geohash", function () {
+        it("returns `geohash`", function () {
+            const place = Place.fromJSON({
+                geo: {
+                    geohash: "s"
+                }
+            });
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.geohash).to.eql("s");
+        });
+
+        it("returns `null` if no `geohash`", function () {
+            stubPlaceJson.geo = {};
+            const place = Place.fromJSON(stubPlaceJson);
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.geohash).to.eql(null);
+        });
+
+        it("returns `null` if no `geo`", function () {
+            delete stubPlaceJson.geo;
+            const place = Place.fromJSON(stubPlaceJson);
+
+            expect(place).to.be.instanceOf(Place);
+            expect(place.geohash).to.eql(null);
         });
     });
 });

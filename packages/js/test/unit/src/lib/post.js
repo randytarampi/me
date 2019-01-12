@@ -110,7 +110,7 @@ describe("Post", () => {
             expect(post.long).to.eql(postJs.long);
         });
 
-        it("overrides lat", function () {
+        it("overrides long", function () {
             const postJs = {
                 id: "woof",
                 source: "Woofdy",
@@ -211,7 +211,7 @@ describe("Post", () => {
     });
 
     describe("fromJSON", () => {
-        it("should instantiate a Post object from some plain JS Object", () => {
+        it("should instantiate a Post object from some plain JS Object (geohash)", () => {
             const postJson = {
                 id: "woof",
                 type: "Woof",
@@ -246,10 +246,54 @@ describe("Post", () => {
             expect(postFromJson.tags).to.be.instanceof(List);
             expect(postFromJson.tags.toJS()).to.eql(postJson.tags);
         });
+
+        it("should instantiate a Post object from some plain JS Object (locationCreated)", () => {
+            const postJson = {
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                },
+                tags: [
+                    "woof",
+                    "meow",
+                    "grr"
+                ],
+                locationCreated: {
+                    geohash: "c2b2qebz5b9w"
+                }
+            };
+
+            const postFromJson = Post.fromJSON(postJson);
+
+            expect(postFromJson.id).to.eql(postJson.id);
+            expect(postFromJson.dateCreated).to.be.instanceof(DateTime);
+            expect(postFromJson.tags).to.be.instanceof(List);
+            expect(postFromJson.tags.toJS()).to.eql(postJson.tags);
+        });
+
+        it("returns an empty Post", function () {
+            const post = Post.fromJSON();
+
+            expect(post).to.be.instanceOf(Post);
+        });
     });
 
     describe("fromJS", () => {
-        it("should instantiate a Post object from some plain JS Object", () => {
+        it("should instantiate a Post object from some plain JS Object (lat & long)", () => {
             const postJS = {
                 id: "woof",
                 type: "Woof",
@@ -278,6 +322,44 @@ describe("Post", () => {
             expect(postfromJS.id).to.eql(postJS.id);
             expect(postfromJS.dateCreated).to.be.instanceof(DateTime);
         });
+
+        it("should instantiate a Post object from some plain JS Object (locationCreated)", () => {
+            const postJS = {
+                id: "woof",
+                type: "Woof",
+                source: "Woofdy",
+                dateCreated: DateTime.utc(),
+                datePublished: DateTime.utc(),
+                title: "Woof woof woof",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "woof://woof.woof/woof",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                },
+                locationCreated: {
+                    lat: 49.2845,
+                    long: -123.1116
+                }
+            };
+
+            const postfromJS = Post.fromJS(postJS);
+
+            expect(postfromJS.id).to.eql(postJS.id);
+            expect(postfromJS.dateCreated).to.be.instanceof(DateTime);
+        });
+
+        it("returns an empty Post", function () {
+            const post = Post.fromJS();
+
+            expect(post).to.be.instanceOf(Post);
+        });
     });
 
     describe("toSchema", function () {
@@ -300,7 +382,14 @@ describe("Post", () => {
                     username: "ʕ•ᴥ•ʔ",
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
-                }
+                },
+                tags: [
+                    "woof",
+                    "woof",
+                    "woof"
+                ],
+                lat: 49.2845,
+                long: -123.1116
             };
 
             const postfromJS = Post.fromJS(postJS);
@@ -310,6 +399,7 @@ describe("Post", () => {
 
             expect(schemaJson).to.eql({
                 ...js,
+                locationCreated: postfromJS.locationCreated.toSchema(),
                 creator: postfromJS.creator.toSchema(),
                 author: postfromJS.creator.toSchema(),
                 publisher: postfromJS.creator.toSchema(),

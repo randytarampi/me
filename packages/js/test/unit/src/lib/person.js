@@ -289,7 +289,8 @@ describe("Person", function () {
                     name: "Simpson residence",
                     sameAs: null,
                     telephone: null,
-                    url: null
+                    url: null,
+                    geo: null
                 },
                 brand: {
                     additionalName: null,

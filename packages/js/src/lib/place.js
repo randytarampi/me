@@ -1,7 +1,9 @@
 import {Place as SchemaPlace} from "@randy.tarampi/schema-dot-org-types";
-import {List, Record} from "immutable";
+import {List, Map, Record} from "immutable";
+import geohash from "latlon-geohash";
 import {formatNumber} from "libphonenumber-js";
 import PostalAddress from "./postalAddress";
+import {convertLatLongToGeohash} from "./util";
 
 export class Place extends Record({
     additionalName: null,
@@ -16,7 +18,8 @@ export class Place extends Record({
     address: null,
     sameAs: List(),
     knowsLanguage: List(),
-    knowsAbout: List()
+    knowsAbout: List(),
+    geo: null
 }) {
     get name() {
         if (this.get("name")) {
@@ -82,9 +85,60 @@ export class Place extends Record({
         return this.location && this.location.countryCode;
     }
 
+    get latitude() {
+        if (this.geo) {
+            if (Number.isFinite(this.geo.get("latitude"))) {
+                return this.geo.get("latitude");
+            }
+
+            if (this.geo.get("geohash")) {
+                return geohash.decode(this.geo.get("geohash")).lat;
+            }
+        }
+
+        return null;
+    }
+
+    get longitude() {
+        if (this.geo) {
+            if (Number.isFinite(this.geo.get("longitude"))) {
+                return this.geo.get("longitude");
+            }
+
+            if (this.geo.get("geohash")) {
+                return geohash.decode(this.geo.get("geohash")).lon;
+            }
+        }
+
+        return null;
+    }
+
+    get lat() {
+        return this.latitude;
+    }
+
+    get long() {
+        return this.longitude;
+    }
+
+    get geohash() {
+        if (this.geo) {
+            if (this.geo.get("geohash")) {
+                return this.geo.get("geohash");
+            }
+
+            if (Number.isFinite(this.geo.get("latitude")) && Number.isFinite(this.geo.get("longitude"))) {
+                return convertLatLongToGeohash(this.geo.get("latitude"), this.geo.get("longitude"));
+            }
+        }
+
+        return null;
+    }
+
     static fromJS(js = {}) {
         return new Place({
             ...js,
+            geo: js.geo ? Map(js.geo) : null,
             knowsLanguage: js.knowsLanguage ? List(js.knowsLanguage) : null,
             knowsAbout: js.knowsAbout ? List(js.knowsAbout) : null,
             sameAs: js.sameAs ? List(js.sameAs) : null,
@@ -95,6 +149,7 @@ export class Place extends Record({
     static fromJSON(json = {}) {
         return new Place({
             ...json,
+            geo: json.geo ? Map(json.geo) : null,
             knowsLanguage: json.knowsLanguage ? List(json.knowsLanguage) : null,
             knowsAbout: json.knowsAbout ? List(json.knowsAbout) : null,
             sameAs: json.sameAs ? List(json.sameAs) : null,
@@ -129,6 +184,7 @@ export class Place extends Record({
     toSchema() {
         return new SchemaPlace({
             ...this.toJS(),
+            geo: this.geo ? this.geo.toJS() : null,
             address: this.location ? this.location.toSchema() : null,
             sameAs: this.sameAs ? this.sameAs.toJS() : null,
             knowsLanguage: this.knowsLanguage ? this.knowsLanguage.toJS() : null,

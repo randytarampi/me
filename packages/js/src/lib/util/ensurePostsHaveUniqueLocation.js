@@ -1,3 +1,4 @@
+import {Place} from "../place";
 import {getNumericalPrecision} from "./getNumericalPrecision";
 
 /**
@@ -19,8 +20,9 @@ export const ensurePostsHaveUniqueLocation = (posts, offsetPrecision = 0, minimu
             const offsetLat = post.lat + randomOffset;
             const offsetLong = post.long + randomOffset;
             const offsetPost = post
-                .set("lat", offsetLat)
-                .set("long", offsetLong);
+                .set("locationCreated", post.get("locationCreated") || Place({geo: {}}))
+                .setIn(["locationCreated", "geo", "latitude"], offsetLat)
+                .setIn(["locationCreated", "geo", "longitude"], offsetLong);
 
             locationHash[offsetPost.geohash] = true;
 
