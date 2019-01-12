@@ -1,5 +1,6 @@
 .marker {
     &-info-box, &-info-window {
+        @extend .z-depth-1;
         background-size: cover;
 
         img {
