@@ -7,10 +7,10 @@ import CachedDataSource from "../../cachedDataSource";
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || tumblr.createClient({
-                consumer_key: process.env.TUMBLR_API_KEY,
-                consumer_secret: process.env.TUMBLR_API_SECRET,
-                returnPromises: true
-            }),
+            consumer_key: process.env.TUMBLR_API_KEY,
+            consumer_secret: process.env.TUMBLR_API_SECRET,
+            returnPromises: true
+        }),
             cacheClient
         );
     }
@@ -130,7 +130,16 @@ class TumblrSource extends CachedDataSource {
 
     async postsGetter(searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
-            .then(response => _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson))));
+            .then(response =>
+                _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson)))
+                    .filter(post => {
+                        if (searchParams.hasOrderingConditions) {
+                            return searchParams.computeOrderingComparisonForEntity(post);
+                        }
+
+                        return true;
+                    })
+            );
     }
 
     async postGetter(id, searchParams) {

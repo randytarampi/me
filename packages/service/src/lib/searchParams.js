@@ -13,6 +13,7 @@ import {
 } from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
+import {DateTime} from "luxon";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -209,7 +210,7 @@ class SearchParams extends SearchParamsRecord {
             filters.source = this.source;
         }
 
-        if (this.orderBy && this.orderOperator && !_.isUndefined(this.orderComparator)) {
+        if (this.hasOrderingConditions) {
             filters[this.orderBy] = {[this.orderOperator]: this.orderComparator};
         }
 
@@ -284,7 +285,7 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
-            if (typeIndiciesRangeKeys.includes(this.orderBy) && [this.orderOperator, this.orderComparator].every(argument => typeof argument !== "undefined")) {
+            if (typeIndiciesRangeKeys.includes(this.orderBy) && this.hasOrderingConditions) {
                 return {
                     _query: {
                         hash: {type: {eq: this.type}},
@@ -343,7 +344,7 @@ class SearchParams extends SearchParamsRecord {
                 };
             }
 
-            if (statusIndiciesRangeKeys.includes(this.orderBy) && [this.orderOperator, this.orderComparator].every(argument => typeof argument !== "undefined")) {
+            if (statusIndiciesRangeKeys.includes(this.orderBy) && this.hasOrderingConditions) {
                 return {
                     _query: {
                         hash: {status: {eq: this.status}},
@@ -456,16 +457,21 @@ class SearchParams extends SearchParamsRecord {
     }
 
     get orderComparator() {
-        const orderComparator = this.get("orderComparator");
+        return castOrderComparator(this.get("orderComparator"), this.orderComparatorType);
+    }
 
-        switch (this.orderComparatorType) {
-            case "String":
-                return orderComparator.toString();
+    get hasOrderingConditions() {
+        return this.orderBy
+            && !_.isUndefined(this.orderOperator)
+            && !_.isUndefined(this.orderComparator);
+    }
 
-            case "Number":
-            default:
-                return Number(orderComparator);
-        }
+    computeOrderingComparison(leftSideComparator) {
+        return computeOrderingComparison(this.orderOperator, leftSideComparator, this.orderComparator);
+    }
+
+    computeOrderingComparisonForEntity(leftSideComparatorEntity) {
+        return computeOrderingComparison(this.orderOperator, leftSideComparatorEntity[this.orderBy], this.orderComparator);
     }
 
     static parsePropertiesFromJs(js) {
@@ -492,5 +498,38 @@ class SearchParams extends SearchParamsRecord {
         return new SearchParams(SearchParams.parsePropertiesFromJson(json));
     }
 }
+
+const castOrderComparator = (orderComparator, orderComparatorType) => {
+    switch (orderComparatorType) {
+        case "String":
+            return orderComparator && orderComparator.toString();
+
+        case "DateTime":
+            return orderComparator && DateTime.fromISO(orderComparator);
+
+        case "Number":
+        default:
+            return !Number.isNaN(orderComparator) && Number(orderComparator);
+    }
+};
+
+const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideComparator) => {
+    switch (orderOperator) {
+        case "lt":
+            return leftSideComparator < rightSideComparator;
+
+        case "lte":
+            return leftSideComparator <= rightSideComparator;
+
+        case "eq":
+            return leftSideComparator === rightSideComparator;
+
+        case "gte":
+            return leftSideComparator >= rightSideComparator;
+
+        case "gt":
+            return leftSideComparator > rightSideComparator;
+    }
+};
 
 export default SearchParams;

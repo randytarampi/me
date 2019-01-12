@@ -82,9 +82,16 @@ class FlickrSource extends CachedDataSource {
                     }, searchParams.Flickr))
                     .then(response => response.body.photos.photo);
             })
-            .then(photos => {
-                return photos.map(FlickrSource.jsonToPost);
-            });
+            .then(photos => photos
+                .filter(post => {
+                    if (searchParams.hasOrderingConditions) {
+                        return searchParams.computeOrderingComparisonForEntity(post);
+                    }
+
+                    return true;
+                })
+                .map(FlickrSource.jsonToPost)
+            );
     }
 }
 

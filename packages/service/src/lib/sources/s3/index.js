@@ -17,8 +17,16 @@ class S3Source extends CachedDataSource {
             .promise()
             .then(async ({Contents, IsTruncated, NextContinuationToken}) => {
                 let posts = await Promise.all(Contents.map(object => {
-                    return this.getPost(object.Key, searchParams);
-                }));
+                        return this.getPost(object.Key, searchParams);
+                    }))
+                    .then(posts => posts.filter(post => {
+                            if (searchParams.hasOrderingConditions) {
+                                return searchParams.computeOrderingComparisonForEntity(post);
+                            }
+
+                            return true;
+                        })
+                    );
 
                 if (IsTruncated) {
                     posts = posts.concat(await this.allPostsGetter(
