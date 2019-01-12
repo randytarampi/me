@@ -1,5 +1,5 @@
 import {Photo, Post} from "@randy.tarampi/js";
-import {ConnectedPosts, ConnectedMappedPosts} from "@randy.tarampi/jsx";
+import {ConnectedError, ConnectedMappedPosts, ConnectedPosts} from "@randy.tarampi/jsx";
 import {shallow} from "@randy.tarampi/jsx/test";
 import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
@@ -13,6 +13,7 @@ import {
     BlogPhotoRouteHandler,
     BlogRouteHandler,
     BlogWordsRouteHandler,
+    Error404Handler,
     LetterHandler,
     MainHandler,
     MapPostsHandler,
@@ -150,6 +151,17 @@ describe("routes", function () {
 
             expect(rendered).to.contain(
                 <Main {...stubProps}/>
+            );
+        });
+    });
+
+    describe("Error404Handler", function () {
+        it("renders", function () {
+            const stubProps = {woof: "meow"};
+            const rendered = shallow(stubStore)(<Error404Handler {...stubProps}/>);
+
+            expect(rendered).to.contain(
+                <ConnectedError errorCode={404} {...stubProps}/>
             );
         });
     });
