@@ -36,7 +36,7 @@ provider:
     Action:
     - SNS:Publish
     Resource:
-      Ref: LambdaDeadLetterQueue
+      Ref: ServiceLambdaDeadLetterQueue
   - Effect: Allow
     Action:
     - dynamodb:*
@@ -121,40 +121,40 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     timeout: 90
     events: ${file(env.yml):${self:provider.stage}.functions.cachePosts.events}
     onError:
-      Ref: LambdaDeadLetterQueue
+      Ref: ServiceLambdaDeadLetterQueue
   getPosts:
     warmup: true
     handler: src/serverless/handlers/getPosts/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
-      Ref: LambdaDeadLetterQueue
+      Ref: ServiceLambdaDeadLetterQueue
   getPostsRss:
     warmup: true
     handler: src/serverless/handlers/getPostsRss/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
     onError:
-      Ref: LambdaDeadLetterQueue
+      Ref: ServiceLambdaDeadLetterQueue
     environment:
       CAMPAIGN_MEDIUM: rss
   instagramAuthRedirect:
     handler: src/serverless/handlers/instagramAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}
     onError:
-      Ref: LambdaDeadLetterQueue
+      Ref: ServiceLambdaDeadLetterQueue
   instagramAuthReturn:
     handler: src/serverless/handlers/instagramAuthReturn/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthReturn.events}
     onError:
-      Ref: LambdaDeadLetterQueue
+      Ref: ServiceLambdaDeadLetterQueue
 
 resources:
   Resources:
-    LambdaDeadLetterQueue:
+    ServiceLambdaDeadLetterQueue:
       Type: AWS::SNS::Topic
       Properties:
         DisplayName: ${self:provider.resourceStageBuilder}-${self:service}-lambda-dlq
         TopicName: ${self:provider.resourceStageBuilder}-${self:service}-lambda-dlq
-    LambdaErrorsAlarm:
+    ServiceLambdaErrorsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
@@ -168,7 +168,7 @@ resources:
         Statistic: Sum
         Threshold: 1
         Unit: Count
-    LambdaDurationAlarm:
+    ServiceLambdaDurationAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
@@ -182,12 +182,12 @@ resources:
         Period: 60
         Statistic: Maximum
         Unit: Milliseconds
-    ApiGateway4xxAlarm:
+    ServiceApiGateway4xxAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
         - ${self:custom.alarmTopic}
-        AlarmDescription: 4xx Errors
+        AlarmDescription: ${self:provider.stage}-${self:service} 4xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
         - Value: ${self:provider.stage}-${self:service}
@@ -201,12 +201,12 @@ resources:
         Statistic: Sum
         Threshold: 1
         Unit: Count
-    ApiGateway5xxAlarm:
+    ServiceApiGateway5xxAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
         - ${self:custom.alarmTopic}
-        AlarmDescription: 5xx Errors
+        AlarmDescription: ${self:provider.stage}-${self:service} 5xx Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
         - Value: ${self:provider.stage}-${self:service}
@@ -220,12 +220,12 @@ resources:
         Statistic: Sum
         Threshold: 1
         Unit: Count
-    DynamoDbConsumedReadCapacityUnitsAlarm:
+    ServicePostsDynamoDbConsumedReadCapacityUnitsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
         - ${self:custom.alarmTopic}
-        AlarmDescription: DynamoDB RCU Consumption
+        AlarmDescription: ${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE} RCU Consumption
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
           - Value: ${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}
@@ -236,12 +236,12 @@ resources:
         Period: 60
         Statistic: Sum
         Threshold: 6000
-    DynamoDbConsumedWriteCapacityUnitsAlarm:
+    ServicePostsDynamoDbConsumedWriteCapacityUnitsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
         - ${self:custom.alarmTopic}
-        AlarmDescription: DynamoDB WCU Consumption
+        AlarmDescription: ${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE} WCU Consumption
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
           - Value: ${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}
@@ -252,12 +252,12 @@ resources:
         Period: 60
         Statistic: Sum
         Threshold: 6000
-    DynamoDbSystemErrorsAlarm:
+    ServicePostsDynamoDbSystemErrorsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
         - ${self:custom.alarmTopic}
-        AlarmDescription: DynamoDB System Errors
+        AlarmDescription: ${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE} System Errors
         ComparisonOperator: GreaterThanOrEqualToThreshold
         Dimensions:
           - Value: ${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}
@@ -269,11 +269,11 @@ resources:
         Statistic: Sum
         Threshold: 1
         Unit: Count
-    S3BucketPosts:
+    ServicePostsS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.SERVICE_POSTS_S3_BUCKET_NAME}
-    PostsDynamoDbTable:
+    ServicePostsDynamoDbTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties: ${file(src/serverless/dynamodb/post.js):default}
