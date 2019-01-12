@@ -60,6 +60,18 @@ class InstagramSource extends CachedDataSource {
                 image: photoJson.user.profile_picture
             },
             tags: photoJson.tags,
+            locationCreated: photoJson.location
+                ? {
+                    geo: {
+                        latitude: photoJson.location.latitude,
+                        longitude: photoJson.location.longitude
+                    },
+                    address: {
+                        streetAddress: photoJson.location.street_address
+                    },
+                    name: photoJson.location.name
+                }
+                : null,
             lat: photoJson.location.latitude,
             long: photoJson.location.longitude
         });

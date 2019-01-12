@@ -52,8 +52,22 @@ class UnsplashSource extends CachedDataSource {
                 url: json.user.links.html,
                 image: json.user.profile_image.large
             },
-            lat: json.location &&  json.location.position && json.location.position.latitude ? Number(json.location.position.latitude) : null,
-            long: json.location && json.location.position && json.location.position.longitude ? Number(json.location.position.longitude) : null
+            locationCreated: json.location
+                ? {
+                    geo: json.location.position
+                        ? {
+                            latitude: json.location.position.latitude,
+                            longitude: json.location.position.longitude
+                        }
+                        : null,
+                    address: {
+                        streetAddress: json.location.name,
+                        addressLocality: json.location.city,
+                        addressCountry: json.location.country
+                    },
+                    name: json.location.title
+                }
+                : null
         });
     }
 
