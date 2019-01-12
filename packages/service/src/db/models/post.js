@@ -8,7 +8,15 @@ export const getModel = (modelName = process.env.SERVICE_POSTS_DYNAMODB_TABLE) =
 
 const Post = getModel();
 
-const buildQueryWithFilter = ({_options, _filter, _query}, queryMethod) => {
+/**
+ * Build a sensibly filtered Dynamoose Query.
+ * @param _query {Object} A Dynamoose parseable query object
+ * @param _filter {Object} A Dynamoose parseable filter object
+ * @param _options {Object} Dynamoose specific query options, like `indexName`
+ * @param queryMethod {function} A Dynamoose `Model.query` or similar method
+ * @returns {Query}
+ */
+export const buildPostQueryWithFilter = ({_options, _filter, _query}, queryMethod) => {
     let query = queryMethod(_query, _options);
 
     if (_filter) {
@@ -57,7 +65,7 @@ export const createPost = async post => {
 export const getPost = async ({_options, _filter, _query}) => {
     logger.trace(`retrieving post (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) with ${JSON.stringify(_options)}`);
     const postModelInstance = _query
-        ? await buildQueryWithFilter({_options, _filter, _query}, Post.queryOne).exec()
+        ? await buildPostQueryWithFilter({_options, _filter, _query}, Post.queryOne).exec()
         : await Post.scan(_filter, _options).limit(1000).all().exec()
             .then(instanceContainer => instanceContainer[0]);
     logger.trace(`retrieved post (${postModelInstance && postModelInstance.uid})`);
@@ -87,7 +95,7 @@ export const getPosts = async ({_options, _filter, _query}) => {
     logger.trace(`retrieving posts (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
     const {limit: originalLimit} = _options || {};
     let postModelInstances = _query
-        ? await buildQueryWithFilter({_options, _filter, _query}, Post.query).exec()
+        ? await buildPostQueryWithFilter({_options, _filter, _query}, Post.query).exec()
         : await Post.scan(_filter, _options).limit(1000).all().exec()
             .then(allPosts => originalLimit ? allPosts.slice(0, originalLimit) : allPosts);
     logger.trace(`retrieved posts (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
@@ -104,7 +112,7 @@ export const getPosts = async ({_options, _filter, _query}) => {
 export const getPostCount = async ({_options, _filter, _query}) => {
     logger.trace(`counting posts (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
     let postModelInstanceCount = _query
-        ? await buildQueryWithFilter({_options, _filter, _query}, Post.query).limit(1000).all().count().exec()
+        ? await buildPostQueryWithFilter({_options, _filter, _query}, Post.query).limit(1000).all().count().exec()
         : await Post.scan(_filter, _options).limit(1000).all().count().exec()
             .then(countContainer => countContainer[0]);
     logger.trace(`counted (${postModelInstanceCount}) posts`);

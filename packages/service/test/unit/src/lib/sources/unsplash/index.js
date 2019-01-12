@@ -72,9 +72,28 @@ describe("UnsplashSource", function () {
                 regular: "woof://woof.woof/?size=regular",
                 small: "woof://woof.woof/?size=small"
             },
+            description: "A man drinking a coffee.",
+            exif: {
+                make: "Canon",
+                model: "Canon EOS 40D",
+                exposure_time: "0.011111111111111112",
+                aperture: "4.970854",
+                focal_length: "37",
+                iso: 100
+            },
+            location: {
+                city: "Montreal",
+                country: "Canada",
+                position: {
+                    latitude: 45.4732984,
+                    longitude: -73.6384879
+                }
+            },
             user: unsplashUser
         };
         unsplashPhotos = stubPosts.map(stubPost => Object.assign({}, unsplashPhoto, {id: stubPost.id}));
+        delete unsplashPhotos[0].location;
+        delete unsplashPhotos[1].exif;
         stubServiceClient = {
             photos: {
                 getPhoto: sinon.stub().callsFake((id, width, height, crop) => {
