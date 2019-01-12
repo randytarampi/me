@@ -109,14 +109,14 @@ class InstagramSource extends CachedDataSource {
                 mediaJson.data
                     .filter(datum => datum.type === "image")
                     .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.jsonToPost(post)))
-                    .filter(post => {
-                        if (searchParams.hasOrderingConditions) {
-                            return searchParams.computeOrderingComparisonForEntity(post);
-                        }
+            ))
+            .then(photos => photos.filter(post => {
+                if (searchParams.hasOrderingConditions) {
+                    return searchParams.computeOrderingComparisonForEntity(post);
+                }
 
-                        return true;
-                    })
-            ));
+                return true;
+            }));
     }
 
     postGetter(photoId) {

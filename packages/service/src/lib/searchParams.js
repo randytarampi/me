@@ -13,11 +13,11 @@ import {
 } from "@randy.tarampi/js";
 import {Record} from "immutable";
 import _ from "lodash";
-import {DateTime} from "luxon";
+import {DateTime, Duration} from "luxon";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
- * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string, status: boolean}}
+ * @type {{type: string, perPage: number, page: number, orderBy: string, orderOperator: string, orderComparator: string, orderComparatorType: string, relativeOrderComparatorAdjustmentOperator: string, relativeOrderComparatorAdjustment: string, relativeOrderComparatorAdjustmentType: string, width: number, height: number, crop: undefined, id: string, uid: string, source: string, all: boolean, beforeDate: DateTime, beforeId: string, afterId: string, continuationToken: string, tags: string, status: boolean}}
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
@@ -41,6 +41,11 @@ const searchParamsRecordDefinition = {
     orderOperator: undefined,
     orderComparator: undefined,
     orderComparatorType: undefined,
+    relativeOrderComparatorAdjustmentOperator: undefined,
+    relativeOrderComparatorAdjustment: undefined,
+    relativeOrderComparatorAdjustmentType: undefined,
+    relativeOrderComparatorBasis: undefined,
+    relativeOrderComparatorBasisType: undefined,
     all: false,
     beforeDate: null,
     afterDate: null,
@@ -192,6 +197,12 @@ class SearchParams extends SearchParamsRecord {
             // NOTE-RT: Assume all other cases will have `orderComparator` defined, which takes care of any ambiguity here
         }
 
+        let castOrderComparator = this.orderComparator;
+
+        if (this.orderComparator instanceof DateTime) {
+            castOrderComparator = castOrderComparator.toJSDate();
+        }
+
         const filters = {
             status: this.status
         };
@@ -211,7 +222,7 @@ class SearchParams extends SearchParamsRecord {
         }
 
         if (this.hasOrderingConditions) {
-            filters[this.orderBy] = {[this.orderOperator]: this.orderComparator};
+            filters[this.orderBy] = {[this.orderOperator]: castOrderComparator};
         }
 
         if (this.tags) { // FIXME-RT: Ideally this would do a filtered query on an index, but let's save that for when I blow this up and move the logic into db/models/post
@@ -289,7 +300,7 @@ class SearchParams extends SearchParamsRecord {
                 return {
                     _query: {
                         hash: {type: {eq: this.type}},
-                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
+                        range: {[this.orderBy]: {[this.orderOperator]: castOrderComparator}}
                     },
                     _options: options
                 };
@@ -348,7 +359,7 @@ class SearchParams extends SearchParamsRecord {
                 return {
                     _query: {
                         hash: {status: {eq: this.status}},
-                        range: {[this.orderBy]: {[this.orderOperator]: this.orderComparator}}
+                        range: {[this.orderBy]: {[this.orderOperator]: castOrderComparator}}
                     },
                     _options: options,
                     _filter: filters
@@ -457,13 +468,31 @@ class SearchParams extends SearchParamsRecord {
     }
 
     get orderComparator() {
+        if (this.hasRelativeOrderComparator) {
+            return computeOrderComparatorFromRelativeOrderComparatorAdjustment(this.relativeOrderComparatorAdjustmentOperator, this.relativeOrderComparatorBasis, this.relativeOrderComparatorAdjustment);
+        }
+
         return castOrderComparator(this.get("orderComparator"), this.orderComparatorType);
+    }
+
+    get relativeOrderComparatorBasis() {
+        return castOrderComparator(this.get("relativeOrderComparatorBasis"), this.relativeOrderComparatorBasisType);
+    }
+
+    get relativeOrderComparatorAdjustment() {
+        return castOrderComparator(this.get("relativeOrderComparatorAdjustment"), this.relativeOrderComparatorAdjustmentType);
     }
 
     get hasOrderingConditions() {
         return this.orderBy
             && !_.isUndefined(this.orderOperator)
             && !_.isUndefined(this.orderComparator);
+    }
+
+    get hasRelativeOrderComparator() {
+        return !_.isUndefined(this.relativeOrderComparatorAdjustmentOperator)
+            && !_.isUndefined(this.relativeOrderComparatorAdjustment)
+            && !_.isUndefined(this.relativeOrderComparatorBasis);
     }
 
     computeOrderingComparison(leftSideComparator) {
@@ -504,8 +533,18 @@ const castOrderComparator = (orderComparator, orderComparatorType) => {
         case "String":
             return orderComparator && orderComparator.toString();
 
-        case "DateTime":
-            return orderComparator && DateTime.fromISO(orderComparator);
+        case "DateTime": {
+            switch (orderComparator) {
+                case "now":
+                    return DateTime.local();
+
+                default:
+                    return orderComparator && DateTime.fromISO(orderComparator);
+            }
+        }
+
+        case "Duration":
+            return orderComparator && Duration.fromISO(orderComparator);
 
         case "Number":
         default:
@@ -529,6 +568,16 @@ const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideC
 
         case "gt":
             return leftSideComparator > rightSideComparator;
+    }
+};
+
+const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (relativeOrderComparatorAdjustmentOperator, relativeOrderComparatorBasis, relativeOrderComparatorAdjustment) => {
+    switch (relativeOrderComparatorAdjustmentOperator) {
+        case "DateTime.minus":
+            return relativeOrderComparatorBasis.minus(relativeOrderComparatorAdjustment);
+
+        case "DateTime.plus":
+            return relativeOrderComparatorBasis.plus(relativeOrderComparatorAdjustment);
     }
 };
 

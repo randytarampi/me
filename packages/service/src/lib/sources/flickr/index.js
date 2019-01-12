@@ -83,6 +83,7 @@ class FlickrSource extends CachedDataSource {
                     .then(response => response.body.photos.photo);
             })
             .then(photos => photos
+                .map(FlickrSource.jsonToPost)
                 .filter(post => {
                     if (searchParams.hasOrderingConditions) {
                         return searchParams.computeOrderingComparisonForEntity(post);
@@ -90,7 +91,6 @@ class FlickrSource extends CachedDataSource {
 
                     return true;
                 })
-                .map(FlickrSource.jsonToPost)
             );
     }
 }
