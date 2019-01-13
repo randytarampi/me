@@ -29,7 +29,7 @@ export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter,
                 ? {
                     orderBy: "datePublished",
                     orderOperator: "lt",
-                    orderComparator: oldestLoadedPostDateString,
+                    orderComparator: oldestLoadedPostDate.toISO(),
                     orderComparatorType: "String"
                 }
                 : null

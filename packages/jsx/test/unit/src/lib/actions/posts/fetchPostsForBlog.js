@@ -163,7 +163,7 @@ describe("fetchPostsForBlog", function () {
             Post.fromJSON({datePublished: stubOldestLoadedPostDate.toISO(), tags: ["meow"]}),
             Post.fromJSON({datePublished: stubOldestLoadedPostDate.minus({days: 1}).toISO()})
         ]));
-        stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate.toISO());
+        stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate.minus({days: 1}).toISO());
         stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(stubOldestAvailablePostDate.toISO());
 
         stubStore = mockStore(stubInitialState);
