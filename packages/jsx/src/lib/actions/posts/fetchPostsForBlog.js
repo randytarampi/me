@@ -1,14 +1,22 @@
 import {DateTime} from "luxon";
-import selectors from "../../data/selectors";
+import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../../data/selectors";
+import {generateFilterFunctionForFilterName} from "../../util/posts";
 import {FETCHING_POSTS_PER_PAGE, fetchingPostsCancelled, fetchPostsCreator} from "./fetchPosts";
+
+const selectOldestFilteredPostDate = (postType, filter, filterValue, state) => {
+    const postsFilters = [generateFilterFunctionForFilterName[filter](filterValue)];
+    const postsSelector = createComplexPostsSelector(postsFilters, [getBasePostsSelectorForType(postType)]);
+    const posts = postsSelector(state);
+
+    return posts && posts.last() && posts.last().date;
+};
 
 export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter, filterValue, perPage = FETCHING_POSTS_PER_PAGE, ...params} = {}) => (dispatch, getState) => {
     const state = getState();
     const searchType = "blog";
-    const loadedPosts = selectors.getPostsSortedByDate(state);
     const oldestLoadedPostDateString = selectors.getOldestFetchedPostDateForSearchTypeAndPostType(state, searchType, postType);
-    const oldestLoadedPostDate = filter
-        ? loadedPosts && loadedPosts.last() && loadedPosts.last().date
+    const oldestLoadedPostDate = filter && filterValue
+        ? selectOldestFilteredPostDate(postType, filter, filterValue, state)
         : oldestLoadedPostDateString && DateTime.fromISO(oldestLoadedPostDateString);
     const oldestPostAvailableDateString = selectors.getOldestAvailablePostDateForSearchTypeAndPostType(state, searchType, postType);
     const oldestPostAvailableDate = oldestPostAvailableDateString && DateTime.fromISO(oldestPostAvailableDateString);

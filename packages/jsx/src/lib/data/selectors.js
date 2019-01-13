@@ -1,8 +1,10 @@
+import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import {getApiStateForUrl} from "./api";
 import {getEmoji, hasEmoji} from "./emoji";
 import {getError, getErrorCode, getErrorMessage, getErrorTimeoutHandlerId, hasError} from "./error";
 import {getMap, hasMap} from "./maps";
 import {
+    createFilteredPostsSelector,
     getNewestAvailablePostDateForSearchTypeAndPostType,
     getNewestFetchedPostDateForSearchTypeAndPostType,
     getNewestPost,
@@ -61,5 +63,24 @@ export const selectors = {
     getMap: (state, mapId) => getMap(state.get("maps"), mapId),
     hasMap: (state, mapId) => hasMap(state.get("maps"), mapId)
 };
+
+export const getBasePostsSelectorForType = type => {
+    switch (type) {
+        case Photo.type:
+        case Gallery.type:
+            return selectors.getPhotoPostsSortedByDate;
+
+        case Post.type:
+            return selectors.getWordPostsSortedByDate;
+
+        default:
+            return selectors.getPostsSortedByDate;
+    }
+};
+
+export const createComplexPostsSelector = (filters, postsSelectors) => createFilteredPostsSelector(
+    ...postsSelectors,
+    selected => filters.reduce((filtered, filter) => filter(filtered), selected)
+);
 
 export default selectors;

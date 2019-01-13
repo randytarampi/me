@@ -5,12 +5,8 @@ import {connect} from "react-redux";
 import {fetchPostsForMapCreator} from "../actions";
 import {MappedPostsComponent} from "../components/mappedPosts";
 import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data";
-import selectors from "../data/selectors";
-import {
-    createPostsSelector,
-    generateFilterFunctionForFilterName,
-    generateTransformFunctionForTransformName
-} from "./posts";
+import {createComplexPostsSelector, selectors} from "../data/selectors";
+import {generateFilterFunctionForFilterName, generateTransformFunctionForTransformName} from "../util";
 
 const getBasePostsSelectorForType = type => {
     switch (type) {
@@ -61,7 +57,7 @@ export const connectMappedPosts = connect(
             postsFilters.push(generateFilterFunctionForFilterName.boundingBox(bounds.north, bounds.east, bounds.south, bounds.west));
         }
         postsFilters.push(generateTransformFunctionForTransformName.location(undefined, 0.0004));
-        const postsSelector = createPostsSelector(postsFilters, [getBasePostsSelectorForType(type)]);
+        const postsSelector = createComplexPostsSelector(postsFilters, [getBasePostsSelectorForType(type)]);
         props.posts = postsSelector(state);
 
         return props;

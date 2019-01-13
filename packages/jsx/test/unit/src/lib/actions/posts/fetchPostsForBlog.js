@@ -1,16 +1,13 @@
+import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {List, Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
-import {Post} from "@randy.tarampi/js";
 import thunk from "redux-thunk";
 import sinon from "sinon";
+import {FETCHING_POSTS_CANCELLED, FETCHING_POSTS_PER_PAGE} from "../../../../../../src/lib/actions/posts/fetchPosts";
 import selectors from "../../../../../../src/lib/data/selectors";
-import {
-    FETCHING_POSTS_CANCELLED,
-    FETCHING_POSTS_PER_PAGE,
-} from "../../../../../../src/lib/actions/posts/fetchPosts";
 
 describe("fetchPostsForBlog", function () {
     let mockStore;
@@ -129,7 +126,7 @@ describe("fetchPostsForBlog", function () {
     it("delegates to `fetchPostsCreator` with the correct searchParams (subsequent fetch)", function () {
         const stubFetchUrl = "/woof";
         const stubSearchParams = {
-            type: Post.type,
+            type: "global",
             perPage: 100,
             filter: "tags",
             filterValue: "meow"
@@ -162,7 +159,10 @@ describe("fetchPostsForBlog", function () {
             }
         });
 
-        stubGetPostsSortedByDate.returns(List([Post.fromJSON({datePublished: stubOldestLoadedPostDate.toISO()})]));
+        stubGetPostsSortedByDate.returns(List([
+            Post.fromJSON({datePublished: stubOldestLoadedPostDate.toISO(), tags: ["meow"]}),
+            Post.fromJSON({datePublished: stubOldestLoadedPostDate.minus({days: 1}).toISO()})
+        ]));
         stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate.toISO());
         stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(stubOldestAvailablePostDate.toISO());
 
