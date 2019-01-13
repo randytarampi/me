@@ -59,8 +59,7 @@ export const connectPosts = connect(
 
         if (filter) {
             postsFilters.push(generateFilterFunctionForFilterName[filter](filterValue));
-        }
-        if (oldestLoadedPostDate) {
+        } else if (oldestLoadedPostDate) {
             postsFilters.push(generateFilterFunctionForFilterName.earlierThan(oldestLoadedPostDate));
         }
         const postsSelector = createPostsSelector(postsFilters, [getBasePostsSelectorForType(type)]);

@@ -5,8 +5,11 @@ import {FETCHING_POSTS_PER_PAGE, fetchingPostsCancelled, fetchPostsCreator} from
 export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter, filterValue, perPage = FETCHING_POSTS_PER_PAGE, ...params} = {}) => (dispatch, getState) => {
     const state = getState();
     const searchType = "blog";
+    const loadedPosts = selectors.getPostsSortedByDate(state);
     const oldestLoadedPostDateString = selectors.getOldestFetchedPostDateForSearchTypeAndPostType(state, searchType, postType);
-    const oldestLoadedPostDate = oldestLoadedPostDateString && DateTime.fromISO(oldestLoadedPostDateString);
+    const oldestLoadedPostDate = filter
+        ? loadedPosts && loadedPosts.last() && loadedPosts.last().date
+        : oldestLoadedPostDateString && DateTime.fromISO(oldestLoadedPostDateString);
     const oldestPostAvailableDateString = selectors.getOldestAvailablePostDateForSearchTypeAndPostType(state, searchType, postType);
     const oldestPostAvailableDate = oldestPostAvailableDateString && DateTime.fromISO(oldestPostAvailableDateString);
 

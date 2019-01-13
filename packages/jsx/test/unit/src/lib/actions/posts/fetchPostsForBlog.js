@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {List, Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
@@ -17,6 +17,7 @@ describe("fetchPostsForBlog", function () {
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
+    let stubGetPostsSortedByDate;
     let stubGetOldestFetchedPostDateForSearchTypeAndPostType;
     let stubGetOldestAvailablePostDateForSearchTypeAndPostType;
 
@@ -30,11 +31,13 @@ describe("fetchPostsForBlog", function () {
             })
         });
         stubStore = mockStore(stubInitialState);
+        stubGetPostsSortedByDate = sinon.stub(selectors, "getPostsSortedByDate");
         stubGetOldestFetchedPostDateForSearchTypeAndPostType = sinon.stub(selectors, "getOldestFetchedPostDateForSearchTypeAndPostType");
         stubGetOldestAvailablePostDateForSearchTypeAndPostType = sinon.stub(selectors, "getOldestAvailablePostDateForSearchTypeAndPostType");
     });
 
     afterEach(function () {
+        stubGetPostsSortedByDate.restore && stubGetPostsSortedByDate.restore();
         stubGetOldestFetchedPostDateForSearchTypeAndPostType.restore && stubGetOldestFetchedPostDateForSearchTypeAndPostType.restore();
         stubGetOldestAvailablePostDateForSearchTypeAndPostType.restore && stubGetOldestAvailablePostDateForSearchTypeAndPostType.restore();
     });
@@ -159,6 +162,7 @@ describe("fetchPostsForBlog", function () {
             }
         });
 
+        stubGetPostsSortedByDate.returns(List([Post.fromJSON({datePublished: stubOldestLoadedPostDate.toISO()})]));
         stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate.toISO());
         stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(stubOldestAvailablePostDate.toISO());
 

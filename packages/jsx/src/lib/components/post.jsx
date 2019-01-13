@@ -218,7 +218,7 @@ PostDateCreatedComponent.propTypes = {
     label: PropTypes.string
 };
 
-export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tags/`}) => {
+export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tags`}) => {
     return post.tags && post.tags.size
         ? <p className="post-tags hide-on-med-and-down">
             <strong className="post-tags__label">Tags:</strong>
