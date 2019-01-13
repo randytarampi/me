@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {buildPostQueryWithFilter} from "../../../../../src/db/models/post";
+import {buildQueryWithFilter} from "../../../../../src/db/models/post";
 
 describe("Post", function () {
-    describe("buildPostQueryWithFilter", function () {
+    describe("buildQueryWithFilter", function () {
         it("handles a simple query", function () {
             const stubQueryMethod = sinon.stub();
             const stubQueryMethodAnd = sinon.stub().returns(stubQueryMethod);
@@ -21,7 +21,7 @@ describe("Post", function () {
                 _options: stubOptions
             };
 
-            const query = buildPostQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
+            const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
             sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
@@ -49,7 +49,7 @@ describe("Post", function () {
                 _filter: stubFilter
             };
 
-            const query = buildPostQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
+            const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
             sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
@@ -77,7 +77,7 @@ describe("Post", function () {
                 _filter: stubFilter
             };
 
-            const query = buildPostQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
+            const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
             sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
@@ -105,7 +105,7 @@ describe("Post", function () {
                 _filter: stubFilter
             };
 
-            const query = buildPostQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
+            const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
             sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
@@ -137,7 +137,7 @@ describe("Post", function () {
             const stubQueryMethodFilterOperator = sinon.stub().returns(stubQueryMethod);
             stubQueryMethod[stubFilterOperator] = stubQueryMethodFilterOperator;
 
-            const query = buildPostQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
+            const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
             sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
@@ -170,7 +170,7 @@ describe("Post", function () {
             const stubQueryMethodFilterOperator = sinon.stub().returns(stubQueryMethod);
             stubQueryMethod[stubFilterOperator] = stubQueryMethodFilterOperator;
 
-            const query = buildPostQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
+            const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
             sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);

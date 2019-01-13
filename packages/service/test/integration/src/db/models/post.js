@@ -67,9 +67,12 @@ describe("Post", function () {
             stubPhoto
         ];
 
-        return await PostModel.batchDelete(stubPosts.map(post => {
-            return {uid: post.uid, status: POST_STATUS.visible};
-        }));
+        return await PostModel.query("status").eq(POST_STATUS.visible).exec()
+            .then(posts => {
+                return PostModel.batchDelete(posts.map(post => {
+                    return {uid: post.uid, status: POST_STATUS.visible};
+                }));
+            });
     });
 
     describe("createPost", function () {
@@ -305,7 +308,7 @@ describe("Post", function () {
             }));
         });
 
-        it("retrieves posts (scan with a limit)", async function () {
+        it("retrieves posts (scan with a limit < total)", async function () {
             const otherPhoto = Photo.fromJSON({
                     raw: {},
                     id: "grr",
@@ -342,6 +345,118 @@ describe("Post", function () {
             return await Promise.all(retrievedPosts.map(retrievedPost => {
                 expect(retrievedPost.type).to.eql(otherPhoto.type);
             }));
+        });
+
+        it("retrieves posts (scan with a limit > total)", async function () {
+            const otherPhoto = Photo.fromJSON({
+                    raw: {},
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        url: "grr://grr.grr/grr/grr/grr"
+                    },
+                    tags: [
+                        "woof"
+                    ]
+            });
+            const moreThanOnePhoto = stubPosts.concat(otherPhoto);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 10}});
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(2);
+        });
+
+        it("retrieves posts (scan recursively)", async function () {
+            const otherPhoto = Photo.fromJSON({
+                    raw: {},
+                    id: "grr",
+                    source: "Grrdy",
+                    dateCreated: DateTime.utc().toISO(),
+                    datePublished: DateTime.utc().toISO(),
+                    width: -1,
+                    height: -2,
+                    sizedPhotos: [
+                        SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                    ],
+                    title: "Grr grr grr",
+                    body: [
+                        "ʕ•ᴥ•ʔ",
+                        "ʕ•ᴥ•ʔﾉ゛",
+                        "ʕ◠ᴥ◠ʔ"
+                    ],
+                    sourceUrl: "grr://grr.grr/grr",
+                    creator: {
+                        id: -1,
+                        username: "ʕ•ᴥ•ʔ",
+                        name: "ʕ•ᴥ•ʔ",
+                        url: "grr://grr.grr/grr/grr/grr"
+                    },
+                    tags: [
+                        "woof"
+                    ]
+            });
+            const moreThanOnePhoto = stubPosts
+                .concat(otherPhoto.set("tags", null).set("id", "foo"))
+                .concat(otherPhoto.set("tags", null).set("id", "bar"))
+                .concat(otherPhoto.set("tags", null).set("id", "baz"))
+                .concat(otherPhoto);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 2}});
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(2);
+        });
+
+        it("retrieves posts (scan entire table)", async function () {
+            const otherPhoto = Photo.fromJSON({
+                raw: {},
+                id: "grr",
+                source: "Grrdy",
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
+                width: -1,
+                height: -2,
+                sizedPhotos: [
+                    SizedPhoto.fromJSON({url: "grr://grr.grr/grr/grrto", width: 640, height: 480})
+                ],
+                title: "Grr grr grr",
+                body: [
+                    "ʕ•ᴥ•ʔ",
+                    "ʕ•ᴥ•ʔﾉ゛",
+                    "ʕ◠ᴥ◠ʔ"
+                ],
+                sourceUrl: "grr://grr.grr/grr",
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "grr://grr.grr/grr/grr/grr"
+                },
+                tags: [
+                    "woof"
+                ]
+            });
+            const moreThanOnePhoto = stubPosts.concat(otherPhoto);
+            await createPosts(moreThanOnePhoto);
+            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["rawr"]}}, _options: {limit: 10}});
+            expect(retrievedPosts).to.be.an("array");
+            expect(retrievedPosts).to.have.length(0);
         });
     });
 

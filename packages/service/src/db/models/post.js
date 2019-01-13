@@ -9,14 +9,14 @@ export const getModel = (modelName = process.env.SERVICE_POSTS_DYNAMODB_TABLE) =
 const Post = getModel();
 
 /**
- * Build a sensibly filtered Dynamoose Query.
+ * Build a sensibly filtered Dynamoose Query
  * @param _query {Object} A Dynamoose parseable query object
  * @param _filter {Object} A Dynamoose parseable filter object
  * @param _options {Object} Dynamoose specific query options, like `indexName`
  * @param queryMethod {function} A Dynamoose `Model.query` or similar method
  * @returns {Query}
  */
-export const buildPostQueryWithFilter = ({_options, _filter, _query}, queryMethod) => {
+export const buildQueryWithFilter = ({_options, _filter, _query}, queryMethod) => {
     let query = queryMethod(_query, _options);
 
     if (_filter) {
@@ -44,6 +44,55 @@ export const buildPostQueryWithFilter = ({_options, _filter, _query}, queryMetho
 };
 
 /**
+ * Recursively call a model's getter function to ensure that we return *at least* _options.limit
+ * @param _query {Object} A Dynamoose parseable query object
+ * @param _filter {Object} A Dynamoose parseable filter object
+ * @param _options {Object} Dynamoose specific query options, like `indexName`
+ * @param modelGetter {function} One of the model methods defined in this file, like `getPosts`
+ * @returns {Function}
+ */
+export const recursivelyGet = ({_options, _filter, _query}, modelGetter) => async justFetched => {
+    const {limit: originalLimit = 1, _numberPreviouslyFetched = 0, _nextLimit = originalLimit} = _options || {};
+    const totalFetched = justFetched.length + _numberPreviouslyFetched;
+
+    if (totalFetched >= originalLimit) {
+        return justFetched;
+    }
+
+    if (totalFetched > 0 && justFetched.lastKey) {
+        const subsequentlyFetchedPosts = await modelGetter({
+            _options: {
+                ..._options,
+                ExclusiveStartKey: justFetched.lastKey,
+                _numberPreviouslyFetched: totalFetched,
+                _nextLimit: _nextLimit * 10
+            },
+            _filter,
+            _query
+        });
+
+        return justFetched.concat(subsequentlyFetchedPosts);
+    }
+
+    if (justFetched.lastKey) {
+        const subsequentlyFetchedPosts = await modelGetter({
+            _options: {
+                ..._options,
+                all: true,
+                ExclusiveStartKey: justFetched.lastKey,
+                _numberPreviouslyFetched: totalFetched
+            },
+            _filter,
+            _query
+        });
+
+        return justFetched.concat(subsequentlyFetchedPosts);
+    }
+
+    return justFetched;
+};
+
+/**
  * Persist a [Post]{@link Post}
  * @param post {Post}
  * @returns {Promise<Post>}
@@ -63,9 +112,9 @@ export const createPost = async post => {
  * @returns {Promise<Post>}
  */
 export const getPost = async ({_options, _filter, _query}) => {
-    logger.trace(`retrieving post (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) with ${JSON.stringify(_options)}`);
+    logger.trace(`retrieving post (_query: ${JSON.stringify(_query)}, _filter: ${JSON.stringify(_filter)}) with ${JSON.stringify(_options)}`);
     const postModelInstance = _query
-        ? await buildPostQueryWithFilter({_options, _filter, _query}, Post.queryOne).exec()
+        ? await buildQueryWithFilter({_options, _filter, _query}, Post.queryOne).exec()
         : await Post.scan(_filter, _options).limit(1000).all().exec()
             .then(instanceContainer => instanceContainer[0]);
     logger.trace(`retrieved post (${postModelInstance && postModelInstance.uid})`);
@@ -92,11 +141,14 @@ export const createPosts = async posts => {
  * @returns {Promise<Post[]>}
  */
 export const getPosts = async ({_options, _filter, _query}) => {
-    logger.trace(`retrieving posts (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
+    logger.trace(`retrieving posts (_query: ${JSON.stringify(_query)}, _filter: ${JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
     const {limit: originalLimit} = _options || {};
     let postModelInstances = _query
-        ? await buildPostQueryWithFilter({_options, _filter, _query}, Post.query).exec()
-        : await Post.scan(_filter, _options).limit(1000).all().exec()
+        ? await buildQueryWithFilter({_options, _filter, _query}, Post.query).exec()
+            .then(recursivelyGet({_options, _filter, _query}, getPosts))
+            .then(allPosts => originalLimit ? allPosts.slice(0, originalLimit) : allPosts)
+        : await Post.scan(_filter, _options).exec()
+            .then(recursivelyGet({_options, _filter, _query}, getPosts))
             .then(allPosts => originalLimit ? allPosts.slice(0, originalLimit) : allPosts);
     logger.trace(`retrieved posts (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
     return postModelInstances;
@@ -110,9 +162,9 @@ export const getPosts = async ({_options, _filter, _query}) => {
  * @returns {Promise<Post[]>}
  */
 export const getPostCount = async ({_options, _filter, _query}) => {
-    logger.trace(`counting posts (${_query ? JSON.stringify(_query) : JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
+    logger.trace(`counting posts (_query: ${JSON.stringify(_query)}, _filter: ${JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
     let postModelInstanceCount = _query
-        ? await buildPostQueryWithFilter({_options, _filter, _query}, Post.query).limit(1000).all().count().exec()
+        ? await buildQueryWithFilter({_options, _filter, _query}, Post.query).limit(1000).all().count().exec()
         : await Post.scan(_filter, _options).limit(1000).all().count().exec()
             .then(countContainer => countContainer[0]);
     logger.trace(`counted (${postModelInstanceCount}) posts`);
