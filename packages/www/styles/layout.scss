@@ -25,7 +25,7 @@ html, body {
 .nav-header__tabs + main {
     .error,
     .loading-spinner {
-        max-height: calc(100vh - 48px);
+        max-height: calc(100vh - #{$tabs-height});
     }
 }
 

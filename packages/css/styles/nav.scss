@@ -1,6 +1,6 @@
 .nav {
     &-header__tabs {
-        min-height: 48px;
+        min-height: $tabs-height;
     }
 
     &-container {
