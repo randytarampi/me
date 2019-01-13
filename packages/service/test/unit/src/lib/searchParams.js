@@ -583,20 +583,22 @@ describe("SearchParams", function () {
 
             it("should properly format properties for type & orderBy", function () {
                 const searchParams = SearchParams.fromJS({
-                    orderBy: "meow",
+                    orderBy: "datePublished",
                     orderOperator: "lt",
-                    orderComparator: 0,
+                    orderComparator: DateTime.local().toISO(),
+                    orderComparatorType: "DateTime",
                     type: "woof"
                 });
 
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
                         type: "woof",
-                        meow: {lt: 0},
+                        datePublished: {lt: searchParams.orderComparator.toJSDate()},
                         status: POST_STATUS.visible
                     },
                     _query: {
-                        hash: {type: {eq: "woof"}}
+                        hash: {type: {eq: "woof"}},
+                        range: {datePublished: {lt: searchParams.orderComparator.toJSDate()}}
                     },
                     _options: {limit: 100, descending: true, all: false, indexName: "type-datePublished-index"}
                 });
@@ -983,6 +985,17 @@ describe("SearchParams", function () {
                         };
                     })
                 );
+            });
+        });
+
+        xit("should properly format properties for neither status nor type", function () {
+            const searchParams = SearchParams.fromJS({source: "meow"}).delete("status");
+
+            expect(searchParams.Dynamoose).to.eql({
+                _filter: {
+                    source: "meow"
+                },
+                _options: {limit: 100, descending: true, all: false}
             });
         });
     });

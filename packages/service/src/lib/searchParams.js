@@ -186,15 +186,17 @@ class SearchParams extends SearchParamsRecord {
         switch (this.orderBy) {
             case "descending":
                 options.descending = true;
-                options.indexName = "status-datePublished-index";
+                if (this.status) {
+                    options.indexName = "status-datePublished-index";
+                }
                 break;
 
             case "ascending":
                 options.descending = false;
-                options.indexName = "status-datePublished-index";
+                if (this.status) {
+                    options.indexName = "status-datePublished-index";
+                }
                 break;
-
-            // NOTE-RT: Assume all other cases will have `orderComparator` defined, which takes care of any ambiguity here
         }
 
         let castOrderComparator = this.orderComparator;
@@ -302,7 +304,8 @@ class SearchParams extends SearchParamsRecord {
                         hash: {type: {eq: this.type}},
                         range: {[this.orderBy]: {[this.orderOperator]: castOrderComparator}}
                     },
-                    _options: options
+                    _options: options,
+                    _filter: filters
                 };
             }
 
