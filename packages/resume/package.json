@@ -42,7 +42,7 @@
     "gulp": "~4.0.0",
     "mocha": "~5.2.0",
     "nyc": "~13.1.0",
-    "webpack": "~4.28.3",
+    "webpack": "~4.28.4",
     "webpack-bundle-analyzer": "~3.0.3",
     "webpack-serve": "~2.0.3"
   },
