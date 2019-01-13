@@ -78,15 +78,15 @@ class UnsplashSource extends CachedDataSource {
             .then(toJson)
             .then(response => Promise.all(
                 response
-                    .map(photo => this.postGetter(photo.id, searchParams))
-            ))
-            .then(photos => photos.filter(post => {
-                if (searchParams.hasOrderingConditions) {
-                    return searchParams.computeOrderingComparisonForEntity(post);
-                }
+                    .filter(post => {
+                        if (searchParams.hasOrderingConditions) {
+                            return searchParams.computeOrderingComparisonForEntity(UnsplashSource.jsonToPost(post));
+                        }
 
-                return true;
-            }));
+                        return true;
+                    })
+                    .map(photo => this.postGetter(photo.id, searchParams))
+            ));
     }
 
     postGetter(photoId, searchParams) {

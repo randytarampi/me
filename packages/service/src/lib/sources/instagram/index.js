@@ -108,15 +108,15 @@ class InstagramSource extends CachedDataSource {
             .then(mediaJson => Promise.all(
                 mediaJson.data
                     .filter(datum => datum.type === "image")
-                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.jsonToPost(post)))
-            ))
-            .then(photos => photos.filter(post => {
-                if (searchParams.hasOrderingConditions) {
-                    return searchParams.computeOrderingComparisonForEntity(post);
-                }
+                    .filter(postJson => {
+                        if (searchParams.hasOrderingConditions) {
+                            return searchParams.computeOrderingComparisonForEntity(this.constructor.jsonToPost(postJson));
+                        }
 
-                return true;
-            }));
+                        return true;
+                    })
+                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.jsonToPost(post)))
+            ));
     }
 
     postGetter(photoId) {
