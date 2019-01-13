@@ -68,7 +68,7 @@ describe("Post", function () {
             stubQueryMethod.eq = stubQueryMethodEq;
             stubQueryMethod.returns(stubQueryMethod);
 
-            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"lte": 0}}};
+            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"le": 0}}};
             const stubOptions = {"grr": true};
             const stubFilter = Object.assign({}, stubQuery.hash, stubQuery.range);
             const stubQueryOptionsFilter = {
@@ -96,7 +96,7 @@ describe("Post", function () {
             stubQueryMethod.eq = stubQueryMethodEq;
             stubQueryMethod.returns(stubQueryMethod);
 
-            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"lte": 0}}};
+            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"le": 0}}};
             const stubOptions = {"grr": true};
             const stubFilter = {"argh": 1};
             const stubQueryOptionsFilter = {
@@ -124,7 +124,7 @@ describe("Post", function () {
             stubQueryMethod.eq = stubQueryMethodEq;
             stubQueryMethod.returns(stubQueryMethod);
 
-            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"lte": 0}}};
+            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"le": 0}}};
             const stubOptions = {"grr": true};
             const stubFilter = {"argh": {ugh: "blah"}};
             const stubQueryOptionsFilter = {
@@ -157,7 +157,7 @@ describe("Post", function () {
             stubQueryMethod.eq = stubQueryMethodEq;
             stubQueryMethod.returns(stubQueryMethod);
 
-            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"lte": 0}}};
+            const stubQuery = {hash: {"woof": "meow"}, range: {"rawr": {"le": 0}}};
             const stubOptions = {"grr": true};
             const stubFilter = {"argh": {ugh: "blah"}, "foo": 1};
             const stubQueryOptionsFilter = {

@@ -557,13 +557,13 @@ const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideC
         case "lt":
             return leftSideComparator < rightSideComparator;
 
-        case "lte":
+        case "le":
             return leftSideComparator <= rightSideComparator;
 
         case "eq":
             return leftSideComparator === rightSideComparator;
 
-        case "gte":
+        case "ge":
             return leftSideComparator >= rightSideComparator;
 
         case "gt":
