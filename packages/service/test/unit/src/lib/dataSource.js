@@ -102,6 +102,18 @@ describe("DataSource", function () {
         });
     });
 
+    describe("beforePostsGetter", function () {
+        it("returns promised `searchParams`", function () {
+            const stubSearchParams = {woof: true};
+            const dataSource = new DataSource();
+
+            return dataSource.beforePostsGetter(stubSearchParams)
+                .then(searchParams => {
+                    expect(searchParams).to.eql(stubSearchParams);
+                });
+        });
+    });
+
     describe("postsGetter", function () {
         it("requires implementation", async function () {
             const dataSource = new DataSource(stubServiceClient);
@@ -123,6 +135,19 @@ describe("DataSource", function () {
             const postsRecieved = await dataSource.postsGetter(dataSource, {});
             expect(postsRecieved).to.eql(stubPosts);
             expect(stubPostsGetter.calledOnce).to.eql(true);
+        });
+    });
+
+    describe("afterPostsGetter", function () {
+        it("returns promised `posts`", function () {
+            const stubSearchParams = {woof: true};
+            const stubPosts = [{meow: false}];
+            const dataSource = new DataSource();
+
+            return dataSource.afterPostsGetter(stubPosts, stubSearchParams)
+                .then(posts => {
+                    expect(posts).to.eql(stubPosts);
+                });
         });
     });
 
@@ -186,6 +211,19 @@ describe("DataSource", function () {
         });
     });
 
+    describe("beforePostGetter", function () {
+        it("returns promised `searchParams`", function () {
+            const stubSearchParams = {woof: true};
+            const stubPostId = "meow";
+            const dataSource = new DataSource();
+
+            return dataSource.beforePostGetter(stubPostId, stubSearchParams)
+                .then(searchParams => {
+                    expect(searchParams).to.eql(stubSearchParams);
+                });
+        });
+    });
+
     describe("postGetter", function () {
         it("requires implementation", function () {
             const dataSource = new DataSource(stubServiceClient);
@@ -207,6 +245,19 @@ describe("DataSource", function () {
             const postRecieved = await dataSource.postGetter(stubPost.id, {});
             expect(postRecieved).to.eql(stubPost);
             expect(stubPostGetter.calledOnce).to.eql(true);
+        });
+    });
+
+    describe("afterPostGetter", function () {
+        it("returns promised `posts`", function () {
+            const stubSearchParams = {woof: true};
+            const stubPost = {meow: false};
+            const dataSource = new DataSource();
+
+            return dataSource.afterPostGetter(stubPost, stubSearchParams)
+                .then(post => {
+                    expect(post).to.eql(stubPost);
+                });
         });
     });
 

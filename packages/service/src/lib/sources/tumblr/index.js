@@ -3,6 +3,7 @@ import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
 import CachedDataSource from "../../cachedDataSource";
+import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -132,13 +133,7 @@ class TumblrSource extends CachedDataSource {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
             .then(response =>
                 _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson)))
-                    .filter(post => {
-                        if (searchParams.hasOrderingConditions) {
-                            return searchParams.computeOrderingComparisonForEntity(post);
-                        }
-
-                        return true;
-                    })
+                    .filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
             );
     }
 

@@ -94,6 +94,7 @@ describe("UnsplashSource", function () {
         unsplashPhotos = stubPosts.map(stubPost => Object.assign({}, unsplashPhoto, {id: stubPost.id}));
         delete unsplashPhotos[0].location;
         delete unsplashPhotos[1].exif;
+        delete unsplashPhotos[2].location.position;
         stubServiceClient = {
             photos: {
                 getPhoto: sinon.stub().callsFake((id, width, height, crop) => {

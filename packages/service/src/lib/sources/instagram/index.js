@@ -4,6 +4,7 @@ import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import CachedDataSource from "../../cachedDataSource";
+import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 class InstagramSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -71,9 +72,7 @@ class InstagramSource extends CachedDataSource {
                     },
                     name: photoJson.location.name
                 }
-                : null,
-            lat: photoJson.location.latitude,
-            long: photoJson.location.longitude
+                : null
         });
     }
 
@@ -108,13 +107,7 @@ class InstagramSource extends CachedDataSource {
             .then(mediaJson => Promise.all(
                 mediaJson.data
                     .filter(datum => datum.type === "image")
-                    .filter(postJson => {
-                        if (searchParams.hasOrderingConditions) {
-                            return searchParams.computeOrderingComparisonForEntity(this.constructor.jsonToPost(postJson));
-                        }
-
-                        return true;
-                    })
+                    .filter(postJson => filterPostForOrderingConditionsInSearchParams(this.constructor.jsonToPost(postJson), searchParams))
                     .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.jsonToPost(post)))
             ));
     }

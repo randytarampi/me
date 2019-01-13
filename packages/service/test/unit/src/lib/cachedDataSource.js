@@ -128,6 +128,18 @@ describe("CachedDataSource", function () {
         });
     });
 
+    describe("beforeCachedPostsGetter", function () {
+        it("returns promised `searchParams`", function () {
+            const stubSearchParams = {woof: true};
+            const dataSource = new CachedDataSource();
+
+            return dataSource.beforeCachedPostsGetter(stubSearchParams)
+                .then(searchParams => {
+                    expect(searchParams).to.eql(stubSearchParams);
+                });
+        });
+    });
+
     describe("cachedPostsGetter", function () {
         it("delegates to `this.cacheClient.getPosts`", function () {
             delete dummyClassBuilderArguments.stubCachedPostsGetter;
@@ -166,6 +178,19 @@ describe("CachedDataSource", function () {
                         }
                     }));
                     sinon.assert.calledTwice(stubJsonToPost);
+                });
+        });
+    });
+
+    describe("afterCachedPostsGetter", function () {
+        it("returns promised `posts`", function () {
+            const stubSearchParams = {woof: true};
+            const stubPosts = [{meow: false}];
+            const dataSource = new CachedDataSource();
+
+            return dataSource.afterCachedPostsGetter(stubPosts, stubSearchParams)
+                .then(posts => {
+                    expect(posts).to.eql(stubPosts);
                 });
         });
     });

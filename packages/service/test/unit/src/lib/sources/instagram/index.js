@@ -65,9 +65,14 @@ describe("InstagramSource", function () {
                 latitude: 49.2845,
                 longitude: -123.1116,
                 name: "SFU Vancouver"
+            },
+            caption: {
+                text: "Woof!"
             }
         };
         instagramPhotos = stubPosts.map(stubPost => Object.assign({}, instagramPhoto, {id: stubPost.id}));
+        delete instagramPhotos[0].location;
+        delete instagramPhotos[1].caption;
         stubServiceClient = {
             media: sinon.stub().callsFake(postId => {
                 return Promise.resolve({

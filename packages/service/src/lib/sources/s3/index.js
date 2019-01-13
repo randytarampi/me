@@ -2,6 +2,7 @@ import {Post} from "@randy.tarampi/js";
 import jsyaml from "js-yaml";
 import CachedDataSource from "../../cachedDataSource";
 import {XRayedAwsSdk} from "../../util";
+import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -19,13 +20,7 @@ class S3Source extends CachedDataSource {
                 let posts = await Promise.all(Contents.map(object => {
                         return this.getPost(object.Key, searchParams);
                     }))
-                    .then(posts => posts.filter(post => {
-                            if (searchParams.hasOrderingConditions) {
-                                return searchParams.computeOrderingComparisonForEntity(post);
-                            }
-
-                            return true;
-                        })
+                    .then(posts => posts.filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
                     );
 
                 if (IsTruncated) {

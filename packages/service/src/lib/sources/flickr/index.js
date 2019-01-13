@@ -3,6 +3,7 @@ import Flickr from "flickr-sdk";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import CachedDataSource from "../../cachedDataSource";
+import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 export const FLICKR_API_MAX_POSTS_PER_PAGE = 500;
 
@@ -84,13 +85,7 @@ class FlickrSource extends CachedDataSource {
             })
             .then(photos => photos
                 .map(FlickrSource.jsonToPost)
-                .filter(post => {
-                    if (searchParams.hasOrderingConditions) {
-                        return searchParams.computeOrderingComparisonForEntity(post);
-                    }
-
-                    return true;
-                })
+                .filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
             );
     }
 }

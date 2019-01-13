@@ -2,6 +2,7 @@ import {Photo} from "@randy.tarampi/js";
 import "isomorphic-fetch";
 import Unsplash, {toJson} from "unsplash-js";
 import CachedDataSource from "../../cachedDataSource";
+import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -78,13 +79,7 @@ class UnsplashSource extends CachedDataSource {
             .then(toJson)
             .then(response => Promise.all(
                 response
-                    .filter(post => {
-                        if (searchParams.hasOrderingConditions) {
-                            return searchParams.computeOrderingComparisonForEntity(UnsplashSource.jsonToPost(post));
-                        }
-
-                        return true;
-                    })
+                    .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.jsonToPost(post), searchParams))
                     .map(photo => this.postGetter(photo.id, searchParams))
             ));
     }

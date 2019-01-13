@@ -500,7 +500,7 @@ class SearchParams extends SearchParamsRecord {
     }
 
     computeOrderingComparisonForEntity(leftSideComparatorEntity) {
-        return computeOrderingComparison(this.orderOperator, leftSideComparatorEntity[this.orderBy], this.orderComparator);
+        return this.computeOrderingComparison(leftSideComparatorEntity[this.orderBy]);
     }
 
     static parsePropertiesFromJs(js) {
@@ -528,7 +528,13 @@ class SearchParams extends SearchParamsRecord {
     }
 }
 
-const castOrderComparator = (orderComparator, orderComparatorType) => {
+/**
+ * Cast an `orderComparator` to the proper JS object as specified by `orderComparatorType`
+ * @param orderComparator {*}
+ * @param orderComparatorType {string} Defines the intended JS object for `orderComparator`
+ * @returns {*}
+ */
+export const castOrderComparator = (orderComparator, orderComparatorType) => {
     switch (orderComparatorType) {
         case "String":
             return orderComparator && orderComparator.toString();
@@ -552,7 +558,14 @@ const castOrderComparator = (orderComparator, orderComparatorType) => {
     }
 };
 
-const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideComparator) => {
+/**
+ * Compute the comparison of two comparators for a given `orderOperator`
+ * @param orderOperator {string} Defines the comparison operation for the comparators
+ * @param leftSideComparator {*}
+ * @param rightSideComparator {*}
+ * @returns {boolean}
+ */
+export const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideComparator) => {
     switch (orderOperator) {
         case "lt":
             return leftSideComparator < rightSideComparator;
@@ -571,7 +584,14 @@ const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideC
     }
 };
 
-const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (relativeOrderComparatorAdjustmentOperator, relativeOrderComparatorBasis, relativeOrderComparatorAdjustment) => {
+/**
+ * Compute an `orderComparator` from a `relativeOrderComparatorBasis` and `relativeOrderComparatorAdjustmentOperator`
+ * @param relativeOrderComparatorAdjustmentOperator {string} Defines the operation to apply to the `relativeOrderComparatorAdjustment`
+ * @param relativeOrderComparatorBasis {*}
+ * @param relativeOrderComparatorAdjustment {*}
+ * @returns {*}
+ */
+export const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (relativeOrderComparatorAdjustmentOperator, relativeOrderComparatorBasis, relativeOrderComparatorAdjustment) => {
     switch (relativeOrderComparatorAdjustmentOperator) {
         case "DateTime.minus":
             return relativeOrderComparatorBasis.minus(relativeOrderComparatorAdjustment);

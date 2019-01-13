@@ -7,9 +7,27 @@ import {
     POST_STATUS
 } from "@randy.tarampi/js";
 import {expect} from "chai";
-import SearchParams from "../../../../src/lib/searchParams";
+import {DateTime, Duration} from "luxon";
+import sinon from "sinon";
+import SearchParams, {
+    castOrderComparator,
+    computeOrderComparatorFromRelativeOrderComparatorAdjustment,
+    computeOrderingComparison
+} from "../../../../src/lib/searchParams";
 
 describe("SearchParams", function () {
+    let clock;
+    let now;
+
+    beforeEach(function () {
+        now = new Date();
+        clock = sinon.useFakeTimers(new Date());
+    });
+
+    afterEach(function () {
+        clock.restore();
+    });
+
     describe("constructor", function () {
         it("should build a `SearchParams` instance", function () {
             const searchParams = SearchParams.fromJS();
@@ -36,6 +54,20 @@ describe("SearchParams", function () {
     });
 
     describe("orderComparator", function () {
+        it("defers to `this.hasRelativeOrderComparator` if it's defined", function () {
+            const searchParams = SearchParams.fromJS({
+                orderComparator: 1,
+                orderComparatorType: "String",
+                relativeOrderComparatorAdjustment: "P1Y",
+                relativeOrderComparatorAdjustmentOperator: "DateTime.minus",
+                relativeOrderComparatorAdjustmentType: "Duration",
+                relativeOrderComparatorBasis: "now",
+                relativeOrderComparatorBasisType: "DateTime"
+            });
+
+            expect(searchParams.orderComparator).to.eql(DateTime.fromISO(now.toISOString()).minus(Duration.fromISO(searchParams.relativeOrderComparatorAdjustment)));
+        });
+
         it("works for `this.orderComparatorType === String`", function () {
             const searchParams = SearchParams.fromJS({
                 orderComparator: 1,
@@ -982,6 +1014,156 @@ describe("SearchParams", function () {
                 MaxKeys: 100,
                 StartAfter: "woof"
             });
+        });
+    });
+
+    describe("computeOrderingComparison", function () {
+        it("works", function () {
+            const searchParams = SearchParams.fromJS({
+                orderComparator: 1,
+                orderComparatorType: "Number",
+                orderOperator: "lt"
+            });
+            const stubLeftSideComparator = 1;
+
+            expect(searchParams.computeOrderingComparison(stubLeftSideComparator)).to.eql(stubLeftSideComparator < searchParams.orderComparator);
+        });
+    });
+
+    describe("computeOrderingComparisonForEntity", function () {
+        it("works", function () {
+            const searchParams = SearchParams.fromJS({
+                orderBy: "woof",
+                orderComparator: 1,
+                orderComparatorType: "Number",
+                orderOperator: "lt"
+            });
+            const stubLeftSideComparator = 1;
+
+            expect(searchParams.computeOrderingComparisonForEntity({[searchParams.orderBy]: stubLeftSideComparator})).to.eql(stubLeftSideComparator < searchParams.orderComparator);
+        });
+    });
+
+    describe("castOrderComparator", function () {
+        it("works for `String`", function () {
+            const stubOrderComparator = 1;
+            const stubOrderComparatorType = "String";
+
+            const castedOrderComparator = castOrderComparator(stubOrderComparator, stubOrderComparatorType);
+
+            expect(castedOrderComparator).to.eql(Number(stubOrderComparator).toString());
+        });
+
+        it("works for `DateTime` (normal)", function () {
+            const stubOrderComparator = DateTime.local().toISO();
+            const stubOrderComparatorType = "DateTime";
+
+            const castedOrderComparator = castOrderComparator(stubOrderComparator, stubOrderComparatorType);
+
+            expect(castedOrderComparator).to.eql(DateTime.fromISO(stubOrderComparator));
+        });
+
+        it("works for `DateTime` (now)", function () {
+            const stubOrderComparator = "now";
+            const stubOrderComparatorType = "DateTime";
+
+            const castedOrderComparator = castOrderComparator(stubOrderComparator, stubOrderComparatorType);
+
+            expect(castedOrderComparator).to.eql(DateTime.fromISO(now.toISOString()));
+        });
+
+        it("works for `Duration`", function () {
+            const stubOrderComparator = "P1Y";
+            const stubOrderComparatorType = "Duration";
+
+            const castedOrderComparator = castOrderComparator(stubOrderComparator, stubOrderComparatorType);
+
+            expect(castedOrderComparator).to.eql(Duration.fromISO(stubOrderComparator));
+        });
+
+        it("works for `Number`", function () {
+            const stubOrderComparator = "1";
+            const stubOrderComparatorType = "Number";
+
+            const castedOrderComparator = castOrderComparator(stubOrderComparator, stubOrderComparatorType);
+
+            expect(castedOrderComparator).to.eql(Number(stubOrderComparator));
+        });
+
+        it("assumes `Number` by default", function () {
+            const stubOrderComparator = "1";
+            const stubOrderComparatorType = null;
+
+            const castedOrderComparator = castOrderComparator(stubOrderComparator, stubOrderComparatorType);
+
+            expect(castedOrderComparator).to.eql(Number(stubOrderComparator));
+        });
+    });
+
+    describe("computeOrderingComparison", function () {
+        const testRange = [1, 2];
+
+        testRange.forEach(left => {
+            testRange.forEach(right => {
+
+                it(`handles ${left} \`lt\` ${right}`, function () {
+                    const stubOrderOperator = "lt";
+                    const stubLeftComparator = 1;
+                    const stubRightComparator = 1;
+
+                    expect(computeOrderingComparison(stubOrderOperator, stubLeftComparator, stubRightComparator)).to.eql(stubLeftComparator < stubRightComparator);
+                });
+
+                it(`handles ${left} \`le\` ${right}`, function () {
+                    const stubOrderOperator = "le";
+                    const stubLeftComparator = 1;
+                    const stubRightComparator = 1;
+
+                    expect(computeOrderingComparison(stubOrderOperator, stubLeftComparator, stubRightComparator)).to.eql(stubLeftComparator <= stubRightComparator);
+                });
+
+                it(`handles ${left} \`eq\` ${right}`, function () {
+                    const stubOrderOperator = "eq";
+                    const stubLeftComparator = 1;
+                    const stubRightComparator = 1;
+
+                    expect(computeOrderingComparison(stubOrderOperator, stubLeftComparator, stubRightComparator)).to.eql(stubLeftComparator === stubRightComparator);
+                });
+
+                it(`handles ${left} \`ge\` ${right}`, function () {
+                    const stubOrderOperator = "ge";
+                    const stubLeftComparator = 1;
+                    const stubRightComparator = 1;
+
+                    expect(computeOrderingComparison(stubOrderOperator, stubLeftComparator, stubRightComparator)).to.eql(stubLeftComparator >= stubRightComparator);
+                });
+
+                it(`handles ${left} \`gt\` ${right}`, function () {
+                    const stubOrderOperator = "gt";
+                    const stubLeftComparator = 1;
+                    const stubRightComparator = 1;
+
+                    expect(computeOrderingComparison(stubOrderOperator, stubLeftComparator, stubRightComparator)).to.eql(stubLeftComparator > stubRightComparator);
+                });
+            });
+        });
+    });
+
+    describe("computeOrderComparatorFromRelativeOrderComparatorAdjustment", function () {
+        it("handles `DateTime.minus`", function () {
+            const stubRelativeOrderComparatorAdjustmentOperator = "DateTime.minus";
+            const stubRelativeOrderComparatorBasis = DateTime.local();
+            const relativeOrderComparatorAdjustment = Duration.fromISO("P1Y");
+
+            expect(computeOrderComparatorFromRelativeOrderComparatorAdjustment(stubRelativeOrderComparatorAdjustmentOperator, stubRelativeOrderComparatorBasis, relativeOrderComparatorAdjustment)).to.eql(stubRelativeOrderComparatorBasis.minus(relativeOrderComparatorAdjustment));
+        });
+
+        it("handles `DateTime.plus`", function () {
+            const stubRelativeOrderComparatorAdjustmentOperator = "DateTime.plus";
+            const stubRelativeOrderComparatorBasis = DateTime.local();
+            const relativeOrderComparatorAdjustment = Duration.fromISO("P1Y");
+
+            expect(computeOrderComparatorFromRelativeOrderComparatorAdjustment(stubRelativeOrderComparatorAdjustmentOperator, stubRelativeOrderComparatorBasis, relativeOrderComparatorAdjustment)).to.eql(stubRelativeOrderComparatorBasis.plus(relativeOrderComparatorAdjustment));
         });
     });
 });
