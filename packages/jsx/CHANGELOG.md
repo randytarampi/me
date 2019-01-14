@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.13.0 (2019-01-14)
+
+
+### Bug Fixes
+
+* **jsx:** `fetchPostsForBlog` for `tags` properly. ([0d6e3b6](https://github.com/randytarampi/me/commit/0d6e3b6))
+* **jsx:** `fetchPostsForBlog` requests tagged posts from the date of the oldest tagged post, not the oldest post. ([65019e9](https://github.com/randytarampi/me/commit/65019e9))
+* **jsx:** Actually `hide-on-med-and-down` the `PostBody` for `Photo`s. ([358cd62](https://github.com/randytarampi/me/commit/358cd62))
+* **jsx:** Add forgotten line from 65019e98390d17ca7ebb65ce914d630c262e1363. ([9acb71b](https://github.com/randytarampi/me/commit/9acb71b))
+* **jsx:** Don't rely on `Set` to uniquely `union` `Post`s based on hashcode. ([3aa2311](https://github.com/randytarampi/me/commit/3aa2311))
+* **jsx:** Try `greedy` `gestureHandling` in `ComposedGoogleMap`. ([b62d426](https://github.com/randytarampi/me/commit/b62d426))
+
+
+### Features
+
+* **jsx:** `PostLocationComponent` displays location name, address or DMS coordinates. ([0c9f30d](https://github.com/randytarampi/me/commit/0c9f30d))
+* **jsx:** Give `Post`s a `PostLocationComponent`. ([91adc10](https://github.com/randytarampi/me/commit/91adc10))
+
+
+
+
+
 ## [2.12.4](https://github.com/randytarampi/me/compare/v2.12.3...v2.12.4) (2018-12-29)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

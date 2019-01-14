@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.13.0 (2019-01-14)
+
+
+### Bug Fixes
+
+* **css:** `.marker-info-box` and `.marker-info-window` have elevation. ([f7b554c](https://github.com/randytarampi/me/commit/f7b554c))
+* **js:** `ensurePostsHaveUniqueLocation` infers positional equality by looking at the first 8 characters of a geohash. ([fcc15c4](https://github.com/randytarampi/me/commit/fcc15c4))
+* **jsx:** `fetchPostsForBlog` for `tags` properly. ([0d6e3b6](https://github.com/randytarampi/me/commit/0d6e3b6))
+* **jsx:** `fetchPostsForBlog` requests tagged posts from the date of the oldest tagged post, not the oldest post. ([65019e9](https://github.com/randytarampi/me/commit/65019e9))
+* **jsx:** Actually `hide-on-med-and-down` the `PostBody` for `Photo`s. ([358cd62](https://github.com/randytarampi/me/commit/358cd62))
+* **jsx:** Add forgotten line from 65019e98390d17ca7ebb65ce914d630c262e1363. ([9acb71b](https://github.com/randytarampi/me/commit/9acb71b))
+* **jsx:** Don't rely on `Set` to uniquely `union` `Post`s based on hashcode. ([3aa2311](https://github.com/randytarampi/me/commit/3aa2311))
+* **jsx:** Try `greedy` `gestureHandling` in `ComposedGoogleMap`. ([b62d426](https://github.com/randytarampi/me/commit/b62d426))
+* **package:** Refresh `package-lock.json`. Again. ([0b37016](https://github.com/randytarampi/me/commit/0b37016))
+* **package:** update aws-sdk to version 2.387.0 ([8e493ff](https://github.com/randytarampi/me/commit/8e493ff))
+* **package:** update exiftool-vendored to version 7.6.0 ([34187fa](https://github.com/randytarampi/me/commit/34187fa))
+* **package:** update exiftool-vendored to version 7.6.0 ([698e7d7](https://github.com/randytarampi/me/commit/698e7d7))
+* **package:** update exiftool-vendored to version 7.6.0 ([00bb05c](https://github.com/randytarampi/me/commit/00bb05c))
+* **service:** `getPosts` recursively calls itself if there's a `lastKey` and still not the desired number of posts `perPage`. ([5a81be1](https://github.com/randytarampi/me/commit/5a81be1))
+* **service:** `searchPosts` should only `getPosts` if there is a `total`. ([bcc62f9](https://github.com/randytarampi/me/commit/bcc62f9))
+* **service:** Also include `_filters` for queries on `type` indexes. ([48fadfe](https://github.com/randytarampi/me/commit/48fadfe))
+* **service:** Don't expire posts since we're doing [#177](https://github.com/randytarampi/me/issues/177) now. ([0397afb](https://github.com/randytarampi/me/commit/0397afb))
+* **service:** Fix `SearchParams.Dynamoose` for queries with `type` and `source`. ([9e06a6d](https://github.com/randytarampi/me/commit/9e06a6d))
+* **service:** Just deserialize `Post`s twice to simplify the logic around not making unnecessary individual API requests for `Post`s we're not gonna persist anyways. ([ccd3ad8](https://github.com/randytarampi/me/commit/ccd3ad8)), closes [#177](https://github.com/randytarampi/me/issues/177)
+* **service:** Just don't retrieve `Post`s on `createPosts`. ([140cd3e](https://github.com/randytarampi/me/commit/140cd3e))
+* **service:** These are actually `le` and `ge`, per the Dynamoose query builder functions. ([eba1798](https://github.com/randytarampi/me/commit/eba1798))
+
+
+### Features
+
+* **js:** `Post`s have `Place`s since they have `name`s. ([836b903](https://github.com/randytarampi/me/commit/836b903))
+* **jsx:** `PostLocationComponent` displays location name, address or DMS coordinates. ([0c9f30d](https://github.com/randytarampi/me/commit/0c9f30d))
+* **jsx:** Give `Post`s a `PostLocationComponent`. ([91adc10](https://github.com/randytarampi/me/commit/91adc10))
+* **service:** Grab location data for Unsplash photos. ([45d7389](https://github.com/randytarampi/me/commit/45d7389)), closes [#212](https://github.com/randytarampi/me/issues/212) [randytarampi/me.photos#6](https://github.com/randytarampi/me.photos/issues/6) [randytarampi/me.photos#7](https://github.com/randytarampi/me.photos/issues/7)
+* **service:** Pull place names for Instagram and Unsplash posts. ([62eb249](https://github.com/randytarampi/me/commit/62eb249))
+
+
+### Performance Improvements
+
+* **service:** `FlickrSource.allPostsGetter` grabs 500 `Post`s at a time. ([900841d](https://github.com/randytarampi/me/commit/900841d))
+* **service:** Roll back e532c3f279d90b0eb9e02608181a400bccabb818 and 37eae87b86f40cb54f8b5331ed1570d9093e9008. ([8c4fd7a](https://github.com/randytarampi/me/commit/8c4fd7a))
+
+
+### Reverts
+
+* chore(service): Give serverless resources better names. ([764d785](https://github.com/randytarampi/me/commit/764d785))
+* perf(service): `Post.createPosts` shouldn't `Post.scan().all()`. ([34eac86](https://github.com/randytarampi/me/commit/34eac86))
+* perf(service): Prefer `ON_DEMAND` Dynamo DB billing over provisioned auto-scaling. ([bbc4d0a](https://github.com/randytarampi/me/commit/bbc4d0a))
+* revert: perf(service): Prefer `ON_DEMAND` Dynamo DB billing over provisioned auto-scaling. ([6d9b881](https://github.com/randytarampi/me/commit/6d9b881))
+
+
+
+
+
 ## [2.12.4](https://github.com/randytarampi/me/compare/v2.12.3...v2.12.4) (2018-12-29)
 
 

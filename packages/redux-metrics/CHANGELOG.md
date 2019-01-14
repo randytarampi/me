@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.13.0 (2019-01-14)
+
+**Note:** Version bump only for package @randy.tarampi/redux-metrics
+
+
+
+
+
 ## [2.12.4](https://github.com/randytarampi/me/compare/v2.12.3...v2.12.4) (2018-12-29)
 
 **Note:** Version bump only for package @randy.tarampi/redux-metrics
