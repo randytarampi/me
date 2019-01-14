@@ -1,4 +1,5 @@
 import {Place as SchemaPlace} from "@randy.tarampi/schema-dot-org-types";
+import DmsCoordinates from "dms-conversion";
 import {List, Map, Record} from "immutable";
 import geohash from "latlon-geohash";
 import {formatNumber} from "libphonenumber-js";
@@ -130,6 +131,14 @@ export class Place extends Record({
             if (Number.isFinite(this.geo.get("latitude")) && Number.isFinite(this.geo.get("longitude"))) {
                 return convertLatLongToGeohash(this.geo.get("latitude"), this.geo.get("longitude"));
             }
+        }
+
+        return null;
+    }
+
+    get coordinates() {
+        if (Number.isFinite(this.lat) && Number.isFinite(this.long)) {
+            return new DmsCoordinates(this.lat, this.long);
         }
 
         return null;

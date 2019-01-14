@@ -1,6 +1,5 @@
 import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
-import DmsCoordinates from "dms-conversion";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
@@ -269,7 +268,7 @@ PostMapComponent.propTypes = {
 
 const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
     if (post.locationCreated) {
-        const postCoordinates = new DmsCoordinates(post.lat, post.long);
+        const postCoordinates = post.locationCreated.coordinates && post.locationCreated.coordinates.toString();
         const postLocationName = post.locationCreated.name;
         const postAddress = post.locationCreated.address;
 
@@ -281,7 +280,7 @@ const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
                 serviceName={
                     postLocationName
                     || postAddress
-                    || postCoordinates.toString()
+                    || postCoordinates
                 }
                 serviceType="map-post"
             />

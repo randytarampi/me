@@ -10,6 +10,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/schema-dot-org-types": "latest",
+    "dms-conversion": "~3.1.1",
     "georaptor": "github:randytarampi/georaptor#me-release",
     "haversine": "~1.1.0",
     "immutable": "github:randytarampi/immutable-js#me-release",

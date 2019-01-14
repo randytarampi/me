@@ -21,7 +21,6 @@
     "@randy.tarampi/schema-dot-org-types": "latest",
     "@redux-offline/redux-offline": "~2.5.1",
     "connected-react-router": "github:randytarampi/connected-react-router#me-release",
-    "dms-conversion": "~3.1.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "is-html": "~1.1.0",
     "isomorphic-fetch": "~2.2.1",
