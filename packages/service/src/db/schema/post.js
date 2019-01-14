@@ -107,8 +107,7 @@ const post = new Schema({
     throughput: "ON_DEMAND",
     useNativeBooleans: true,
     useDocumentTypes: true,
-    timestamps: true,
-    expires: 24 * 60 * 60
+    timestamps: true
 });
 
 export default post;
