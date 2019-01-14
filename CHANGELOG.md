@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.4](https://github.com/randytarampi/me/compare/v2.13.3...v2.13.4) (2019-01-14)
+
+
+### chore
+
+* **package:** Bump a major version. Actually this time? ([eb72b16](https://github.com/randytarampi/me/commit/eb72b16)), closes [#177](https://github.com/randytarampi/me/issues/177)
+
+
+### BREAKING CHANGES
+
+* **package:** There are many...
+  - ad0f16f - Remove all support for `_rawFilter`.
+
+
+
+
+
 ## [2.13.3](https://github.com/randytarampi/me/compare/v2.13.2...v2.13.3) (2019-01-14)
 
 
