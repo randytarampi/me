@@ -6,7 +6,7 @@ import {
     Post,
     sortPostsByDate
 } from "@randy.tarampi/js";
-import {fromJS, Map, Set} from "immutable";
+import {fromJS, Map} from "immutable";
 import {REHYDRATE} from "redux-persist/constants";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/posts/fetchPosts";
@@ -15,7 +15,7 @@ const postSearchTypes = ["blog", "map"];
 const postSearchMetadata = ["oldest", "newest", "oldestFetched", "newestFetched"];
 
 const initialState = Map({
-    posts: Set(),
+    posts: Map(),
     ...postSearchMetadata.reduce((metadata, metadatum) => {
         metadata[metadatum] = fromJS(postSearchTypes.reduce((metadatum, searchType) => {
             metadatum[searchType] = {};
@@ -30,6 +30,11 @@ export const postsReducer = (state = initialState, action) => {
         case REHYDRATE: {
             if (action.payload.posts) {
                 let updatedState = state;
+                const loadedPosts = state.get("posts");
+
+                if (loadedPosts instanceof Set) {
+                    updatedState = updatedState.set("posts", loadedPosts.reduce((mappedPosts, post) => mappedPosts.set(post.uid, post), Map()));
+                }
 
                 postSearchTypes.forEach(searchType => {
                     postSearchMetadata.forEach(searchMetadata => {
@@ -48,8 +53,11 @@ export const postsReducer = (state = initialState, action) => {
 
         case FETCHING_POSTS_SUCCESS: {
             if (action.payload.posts) {
-                let updatedState = state
-                    .set("posts", state.get("posts").union(action.payload.posts));
+                let updatedState = state;
+
+                action.payload.posts.forEach(post => {
+                    updatedState = updatedState.setIn(["posts", post.uid], post);
+                });
 
                 if (action.payload.searchParams.tags) {
                     return updatedState;
@@ -82,7 +90,7 @@ const buildOldestOrNewestPostMeta = (payload, key) => payload[key]
 
 export default postsReducer;
 
-export const getPosts = state => state.get("posts");
+export const getPosts = state => state.get("posts").toList();
 
 export const createFilteredPostsSelector = (...filterOrSelectors) => filterOrSelectors.length > 1
     ? createSelector(...filterOrSelectors)

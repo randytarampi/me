@@ -1,6 +1,6 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {fromJS, Map, Set} from "immutable";
+import {fromJS, Map} from "immutable";
 import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
 import {REHYDRATE} from "redux-persist/constants";
@@ -29,7 +29,7 @@ describe("posts", function () {
 
     beforeEach(function () {
         stubInitialState = Map({
-            posts: Set(),
+            posts: Map(),
             oldest: Map(),
             newest: Map()
         });
@@ -58,7 +58,7 @@ describe("posts", function () {
 
     describe("REHYDRATE", function () {
         it("reduces the correct state (has existing posts)", function () {
-            const stubPosts = Set([
+            const stubPosts = Map([
                 Post.fromJSON({
                     id: "woof",
                     dateCreated: DateTime.utc().toISO()
@@ -67,7 +67,10 @@ describe("posts", function () {
                     id: "meow",
                     dateCreated: DateTime.utc().toISO()
                 })
-            ]);
+            ].reduce((mappedPosts, post) => {
+                mappedPosts[post.uid] = post;
+                return mappedPosts;
+            }, {}));
             const stubPayload = {
                 posts: Map({
                     posts: stubPosts,
@@ -93,11 +96,11 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toSet().union(stubPosts.toList()).toArray());
         });
 
         it("reduces the correct state (has no existing posts)", function () {
-            const stubPosts = Set([]);
+            const stubPosts = Map();
             const stubPayload = {
                 posts: Map({
                     posts: stubPosts,
@@ -108,7 +111,7 @@ describe("posts", function () {
 
             const updatedState = reducer(stubInitialState, createAction(REHYDRATE)(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toSet().union(stubPosts).toArray());
         });
 
         it("reduces the correct state (has no posts)", function () {
@@ -165,7 +168,12 @@ describe("posts", function () {
                 dateCreated: DateTime.utc().toISO()
             });
             stubInitialState = Map({
-                posts: Set([stubExistingPost]),
+                posts: Map([
+                    stubExistingPost
+                ].reduce((mappedPosts, post) => {
+                    mappedPosts[post.uid] = post;
+                    return mappedPosts;
+                }, {})),
                 oldest: Map({
                     blog: {
                         Post: stubExistingPost.dateCreated,
@@ -181,7 +189,7 @@ describe("posts", function () {
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toSet().union(stubPosts).toArray());
         });
 
         it("reduces the correct state (has tags)", function () {
@@ -203,30 +211,36 @@ describe("posts", function () {
             };
 
             stubInitialState = Map({
-                posts: Set([Post.fromJSON({
+                posts: Map([Post.fromJSON({
                     id: "grr",
                     dateCreated: DateTime.utc().toISO()
-                })])
+                })].reduce((mappedPosts, post) => {
+                    mappedPosts[post.uid] = post;
+                    return mappedPosts;
+                }, {}))
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts.toArray()).to.eql(stubInitialState.get("posts").union(stubPosts).toArray());
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toSet().union(stubPosts).toArray());
         });
 
         it("reduces the correct state (does nothing if no posts at all)", function () {
             const stubPayload = {};
 
             stubInitialState = Map({
-                posts: Set([
+                posts: Map([
                     Post.fromJSON({
                         id: "grr",
                         dateCreated: DateTime.utc().toISO()
                     })
-                ])
+                ].reduce((mappedPosts, post) => {
+                    mappedPosts[post.uid] = post;
+                    return mappedPosts;
+                }, {}))
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toArray());
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toList().toArray());
         });
 
         it("reduces the correct state (does nothing if no posts to add)", function () {
@@ -236,16 +250,19 @@ describe("posts", function () {
             };
 
             stubInitialState = Map({
-                posts: Set([
+                posts: Map([
                     Post.fromJSON({
                         id: "grr",
                         dateCreated: DateTime.utc().toISO()
                     })
-                ])
+                ].reduce((mappedPosts, post) => {
+                    mappedPosts[post.uid] = post;
+                    return mappedPosts;
+                }, {}))
             });
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess(stubPayload));
             const posts = getPosts(updatedState);
-            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toArray());
+            expect(posts.toArray()).to.eql(stubInitialState.get("posts").toList().toArray());
         });
     });
 
