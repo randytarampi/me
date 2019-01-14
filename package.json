@@ -93,7 +93,7 @@
     "serverless-api-compression": "~1.0.1",
     "serverless-domain-manager": "~2.6.11",
     "serverless-dynamodb-local": "github:randytarampi/serverless-dynamodb-local#me-release",
-    "serverless-offline": "~3.32.2",
+    "serverless-offline": "~3.33.0",
     "serverless-plugin-tracing": "~2.0.0",
     "serverless-plugin-warmup": "~4.2.0-rc.1",
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
