@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/randytarampi/me/compare/v2.13.4...v3.0.0) (2019-01-14)
+
+
+### chore
+
+* **package:** Bump a major version. One last time. ([e1bad58](https://github.com/randytarampi/me/commit/e1bad58)), closes [#177](https://github.com/randytarampi/me/issues/177)
+
+
+### BREAKING CHANGES
+
+* **package:** There are many...
+  - ad0f16f - Remove all support for `_rawFilter`.
+
+
+
+
+
 ## [2.13.4](https://github.com/randytarampi/me/compare/v2.13.3...v2.13.4) (2019-01-14)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi
