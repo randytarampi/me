@@ -1,4 +1,6 @@
 # EditorConfig is awesome: http://EditorConfig.org
+root = true
+
 [*]
 end_of_line = lf
 insert_final_newline = true
@@ -23,3 +25,10 @@ indent_size = 2
 
 [*.nycrc]
 indent_size = 2
+
+[**/{node_modules, dist, build, es5, esm, docs, coverage, .nyc_output, .serverless, .webpack, .dynamodb, .idea}/**]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_style = unset
+indent_size = unset
