@@ -16,51 +16,37 @@ const cachedValueToPost = cachedValue => cachedValue
 export const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
 
-    return cacheClient.getPostCount(
-        searchParams
-            .delete("orderOperator")
-            .delete("orderComparator")
-            .delete("orderComparatorType")
-        )
-        .then(total => {
-            if (total) {
-                return cacheClient.getPosts(searchParams)
-                    .then(cachedPosts => cachedPosts.map(cachedValueToPost))
-                    .then(posts => {
-                        const postsSortedByDate = posts.sort(sortPostsByDate);
-
-                        return Promise.all([
-                                postsSortedByDate,
-                                total,
-                                (total <= posts.length)
-                                    ? postsSortedByDate[posts.length - 1]
-                                    : cacheClient.getPost(searchParams.delete("orderOperator").delete("orderComparator").delete("orderComparatorType").set("orderBy", "ascending"))
-                                    .then(cachedValueToPost),
-                                (total <= posts.length)
-                                    ? postsSortedByDate[0]
-                                    : cacheClient.getPost(searchParams.delete("orderOperator").delete("orderComparator").delete("orderComparatorType").set("orderBy", "descending"))
-                                    .then(cachedValueToPost)
-                            ])
-                            .then(([posts, total, first, last]) => {
-                                return {
-                                    posts,
-                                    total,
-                                    first,
-                                    last,
-                                    firstFetched: posts[posts.length - 1],
-                                    lastFetched: posts[0]
-                                };
-                            });
-                    });
-            }
+    return Promise.all([
+            cacheClient.getPosts(searchParams)
+                .then(cachedPosts => cachedPosts.map(cachedValueToPost)),
+            cacheClient.getPostCount(searchParams
+                .delete("orderOperator")
+                .delete("orderComparator")
+                .delete("orderComparatorType")
+            ),
+            cacheClient.getPost(searchParams
+                .delete("orderOperator")
+                .delete("orderComparator")
+                .delete("orderComparatorType")
+                .set("orderBy", "ascending")
+            ).then(cachedValueToPost),
+            cacheClient.getPost(searchParams
+                .delete("orderOperator")
+                .delete("orderComparator")
+                .delete("orderComparatorType")
+                .set("orderBy", "descending")
+            ).then(cachedValueToPost)
+        ])
+        .then(([posts, total, first, last]) => {
+            const postsSortedByDate = posts.sort(sortPostsByDate);
 
             return {
-                posts: [],
-                total: total,
-                first: null,
-                last: null,
-                firstFetched: null,
-                lastFetched: null
+                posts,
+                total,
+                first,
+                last,
+                firstFetched: postsSortedByDate[posts.length - 1],
+                lastFetched: postsSortedByDate[0]
             };
         });
 };
