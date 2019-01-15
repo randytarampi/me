@@ -96,7 +96,7 @@ jobs:
         - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
         - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
           git status;
-          npx lerna version --no-git-tag-version --no-push --conventional-commits --yes &&
+          npx lerna version --no-git-tag-version --no-push --conventional-commits --yes --exact &&
           npm ci &&
           npm run letter --prefix packages/letter &&
           npm run resume --prefix packages/resume &&
