@@ -32,7 +32,7 @@
     "initialPrBadge": "docs(greenkeeper): Add Greenkeeper badge and enable Greenkeeper",
     "initialPrBadgeOnly": "docs(greenkeeper): Add Greenkeeper badge",
     "initialSubgroupPR": "chore(greenkeeper): Update dependencies for ${group}",
-    "basicPR": "chore(greenkeeper): ${dependency}@${version}",
-    "groupPR": "chore(greenkeeper): ${dependency}@${version}"
+    "basicPR": "chore(greenkeeper): Update ${dependency}",
+    "groupPR": "chore(greenkeeper): Update ${dependency}"
   }
 }
