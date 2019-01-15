@@ -9,7 +9,7 @@ import returnErrorResponse from "../../util/response/returnErrorResponse";
 export default (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
-    const {sources: postSources, ...eventParameters} = event.queryStringParameters || event;
+    const {sources: postSources, ...eventParameters} = event.queryStringParameters || event.postsSearchParameters || event;
 
     configureEnvironment()
         .then(() => {

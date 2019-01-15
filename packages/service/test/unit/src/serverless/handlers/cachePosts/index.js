@@ -63,7 +63,7 @@ describe("cachePosts", function () {
     it("delegates to `cachePosts` (scheduled event)", function (done) {
         this.timeout(5000);
 
-        const stubEvent = {sources: ["foo"]};
+        const stubEvent = {postsSearchParameters: {sources: ["foo"]}};
         const stubContext = {};
         const stubPosts = ["woof"];
         const stubResponse = ["meow"];
@@ -71,7 +71,7 @@ describe("cachePosts", function () {
             "../../../lib/sources/cachePosts": {
                 "default": sinon.stub().callsFake((searchParams, postSources) => {
                     expect(searchParams).to.be.ok;
-                    expect(postSources).to.eql(stubEvent.sources);
+                    expect(postSources).to.eql(stubEvent.postsSearchParameters.sources);
                     return Promise.resolve(stubPosts);
                 })
             },
