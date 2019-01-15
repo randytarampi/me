@@ -2,7 +2,6 @@ import {
     buildReduxOfflineConfig,
     ClientSwipeableReduxRouterRoot,
     configureOfflineStore,
-    createImmutableBlacklistFilter,
     initializeCrispCreator,
     LoadingSpinner,
     logger,
@@ -75,10 +74,7 @@ export class App extends PureComponent {
                             Work
                         ])
                     }
-                },
-                [
-                    createImmutableBlacklistFilter("ui", ["routes"]) // FIXME-RT: Need to not rely on reducing `PureComponent`s and `RegExp`s
-                ]
+                }
             )
         );
 
