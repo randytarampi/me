@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/randytarampi/me/compare/v3.0.0...v3.0.1) (2019-01-16)
+
+
+### Bug Fixes
+
+* **www:** Store and rehydrate `ui.routes` state. ([f5600af](https://github.com/randytarampi/me/commit/f5600af))
+
+
+
+
+
 # [3.0.0](https://github.com/randytarampi/me/compare/v2.13.4...v3.0.0) (2019-01-14)
 
 

@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/randytarampi/me/compare/v3.0.0...v3.0.1) (2019-01-16)
+
+
+### Bug Fixes
+
+* **package:** update dynamoose to version 1.4.0 ([e02df1b](https://github.com/randytarampi/me/commit/e02df1b))
+* **service:** Namespace the `postsSearchParameters` on the `cachePosts` cron event. ([2995a92](https://github.com/randytarampi/me/commit/2995a92))
+* **www:** Store and rehydrate `ui.routes` state. ([f5600af](https://github.com/randytarampi/me/commit/f5600af))
+
+
+### Performance Improvements
+
+* **service:** Just pay for the RCUs and parallelize all our `Post` fetches. ([ea9904a](https://github.com/randytarampi/me/commit/ea9904a))
+
+
+### Reverts
+
+* chore(greenkeeper): Redux f66e4df27fc273b578b7bdd546afdb3e79e23794. ([4decfe2](https://github.com/randytarampi/me/commit/4decfe2)), closes [#234](https://github.com/randytarampi/me/issues/234)
+
+
+
+
+
 # [3.0.0](https://github.com/randytarampi/me/compare/v2.13.4...v3.0.0) (2019-01-14)
 
 
