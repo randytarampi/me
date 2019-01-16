@@ -80,7 +80,7 @@ jobs:
       env:
         - NODE_ENV=prd
         - RELEASE=true
-        - secure: fxDlDneqLuYHdAUDcNjafzM4ZSoC8r0cLtTRxxZs2mizqMlntq/VYNGz3EJdUYEVXcQHRNpdL18n2tvDCT/F2Jzgl1pzY+5gCpeRgf9iu9T1UMXiaCfwXBEWsIwSS5BYIbFq6ETAoPYlZky0vQO8kN4BCMbpp7o9oRbGu5OstW9pvBfBTbHMi3939poy6APe57qmuBuq55Z7/PS17v/IOO44ba+RyGUPFTFOGeJKub11VtwcgUgIZ2+3qDDZQ8EdJCILG22fvDya/TKgTefOVVDVZ6P3mJdNryllRfcxsWPp4l0w2Ql/27nQrqH54FuA2tZc/tVjy/eMWAxo+SDs5eN9oL5q95sda6bIbYLQj1q2IR/M23s/Xz8yNLh6uyKbNFeXARvX+Qtbkmy97cMLJnzVViobQC5c3DcH0zJoSatpcvv/WFRBzQXjTu6FLQCd97XVwyRJ2MDcjru2rSpfyl2E6RwKl3U/8pTRxbrGJKwMynAiibr+fiMfrBYT1q5maCpC5cL4m4KVDBuFkdheBDhcrqAoBqnFxytBmCMZNyNhFlAcvzqdKywWdRfKZl/RzjWECytMJFJ5ioYq3k7m0Vj7PzjuRZqzNtP29li0ufTBQ7TvOiv89wSaJJaimXzllrT39ugLP7P5FcvhEqpwVjJaHNv7OHQ+9zConPnJEIA=
+        - secure: OdYWXWY8Ienb9lqPDNzGm1fuq2Yew7ubT44iCSuUSi4BvYIffvSEzrMsi1/ao+09joWPZWRzqqrSiUNjr3oSPQOXKDlYNczLaKty7oTjOKVEC/oH3kRdE1fj+eWXVisKHOLyBT5h52eCIwPosq2zAxLB1ANt+bvmzvCQBatZgox0stJ8KNTXsPWCqRGl5EbBM1xBCFLoo3nZ9+kbzhcqsyzUAvPXwea+5ySndYYqebqoYH1mzG84l2hXPwZm1/kvr7ujhUxAsre4RlhxiuWGmTVztOpXjhN1yFbp52bU2jlrscnh77HDTJZgvqhfVFA6HOT5Vi7Uy/VRU6TJaTDVrCafmbiU3AeZNq44WkDBtoiNEsLQVJr2xzr0pIw/MueVZt87/DcspYqjAMNvyhsL4esHs5HiS+/0zwc9IVbLq92WIX3vIIKMCQe7/q8gq4WKrusHgNQABy3j7JKttp4Oq31HkiFbg59tTf3LIbPzDCyws7IXyWDp9EUuDqPAfmJHg+Rwd1SGu5/okqmCYqCeGNMosyBNORr1V5Yogemi+N8cqaGnLfPkaOMtuRdRfhLaD+3biEVV8SkeMTEqz5B7zjDzvz3ONJ91OyOdwmpUNlv9k0fKq0iwzTsSV/gZ7XvETwXAAorGai0kDPzHB2FAEPIx5XyMcloDj5e1EGZ+aew=
       install:
         - git checkout $TRAVIS_BRANCH
         - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || true`
