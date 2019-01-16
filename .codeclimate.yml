@@ -12,7 +12,7 @@ checks:
       threshold: 25
 plugins:
   editorconfig:
-    enabled: true
+    enabled: false
   eslint:
     enabled: true
     channel: eslint-5
