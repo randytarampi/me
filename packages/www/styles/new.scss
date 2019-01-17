@@ -16,5 +16,9 @@
                 display: unset !important
             }
         }
+
+        &--words {
+            @extend .z-depth-0;
+        }
     }
 }
