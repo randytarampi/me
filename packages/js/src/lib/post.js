@@ -4,6 +4,8 @@ import Place from "./place";
 import Profile from "./profile";
 import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util";
 
+export const POST_OVERRIDING_TAG_SENTINEL_REGEX = /❕([\w.]+)❔/;
+
 const overridableTagProperties = {
     dateCreated: tagValue => castDatePropertyToDateTime(Number(tagValue)),
     lat: tagValue => Number(tagValue),

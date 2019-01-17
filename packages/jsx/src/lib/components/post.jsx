@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
+import {Gallery, Photo, Post, POST_OVERRIDING_TAG_SENTINEL_REGEX} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
@@ -222,7 +222,9 @@ export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tag
         ? <p className="post-tags hide-on-med-and-down">
             <strong className="post-tags__label">Tags:</strong>
             {
-                post.tags.map(
+                post.tags
+                    .filter(tag => !tag.match(POST_OVERRIDING_TAG_SENTINEL_REGEX))
+                    .map(
                     tag => <Fragment key={tag}><InternalLink
                         className="post-tags__tag"
                         href={`${tagLinkBase}/${tag}`}
