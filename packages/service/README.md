@@ -44,7 +44,7 @@ dev: &devConfig
     FLICKR_USER_NAME:
     UNSPLASH_USER_NAME:
     INSTAGRAM_USER_NAME:
-    INSTAGRAM_AUTH_REDIRECT_URI:
+    INSTAGRAM_AUTH_CALLBACK_URI:
     INSTAGRAM_USER_ID:
     TUMBLR_USER_NAME:
   environmentSecrets: &environmentSecrets

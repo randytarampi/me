@@ -3,7 +3,7 @@ import proxyquire from "proxyquire";
 import sinon from "sinon";
 import {codes, codeToStatusCode} from "../../../../../../src/serverless/util/request/requestError";
 
-describe("instagramAuthReturn", function () {
+describe("instagramAuthCallback", function () {
     it("delegates to `getAuthTokenForCode`", function (done) {
         this.timeout(5000);
 
@@ -56,9 +56,9 @@ describe("instagramAuthReturn", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthReturn = proxyquire("../../../../../../src/serverless/handlers/instagramAuthReturn", proxyquireStubs);
+        const proxyquiredinstagramAuthCallback = proxyquire("../../../../../../src/serverless/handlers/instagramAuthCallback", proxyquireStubs);
 
-        proxyquiredinstagramAuthReturn.default(stubEvent, stubContext, stubCallback);
+        proxyquiredinstagramAuthCallback.default(stubEvent, stubContext, stubCallback);
     });
 
     it("`returnErrorResponse` on error", function (done) {
@@ -102,9 +102,9 @@ describe("instagramAuthReturn", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthReturn = proxyquire("../../../../../../src/serverless/handlers/instagramAuthReturn", proxyquireStubs);
+        const proxyquiredinstagramAuthCallback = proxyquire("../../../../../../src/serverless/handlers/instagramAuthCallback", proxyquireStubs);
 
-        proxyquiredinstagramAuthReturn.default(stubEvent, stubContext, stubCallback);
+        proxyquiredinstagramAuthCallback.default(stubEvent, stubContext, stubCallback);
     });
 
     it("throws if no `code` provided", function (done) {
@@ -150,8 +150,8 @@ describe("instagramAuthReturn", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthReturn = proxyquire("../../../../../../src/serverless/handlers/instagramAuthReturn", proxyquireStubs);
+        const proxyquiredinstagramAuthCallback = proxyquire("../../../../../../src/serverless/handlers/instagramAuthCallback", proxyquireStubs);
 
-        proxyquiredinstagramAuthReturn.default(stubEvent, stubContext, stubCallback);
+        proxyquiredinstagramAuthCallback.default(stubEvent, stubContext, stubCallback);
     });
 });

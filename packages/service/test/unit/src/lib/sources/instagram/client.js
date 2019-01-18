@@ -5,7 +5,7 @@ describe("client", function () {
     beforeEach(function () {
         process.env.INSTAGRAM_API_KEY = "INSTAGRAM_API_KEY";
         process.env.INSTAGRAM_API_SECRET = "INSTAGRAM_API_SECRET";
-        process.env.INSTAGRAM_AUTH_REDIRECT_URI = "INSTAGRAM_AUTH_REDIRECT_URI";
+        process.env.INSTAGRAM_AUTH_CALLBACK_URI = "INSTAGRAM_AUTH_CALLBACK_URI";
     });
 
     it("delegates to `fetch` with the correct parameters", function () {
@@ -26,7 +26,7 @@ describe("client", function () {
                 const body = JSON.stringify(options.body);
                 expect(body).to.contain(`"${stubCode}"`);
                 expect(body).to.contain("\"authorization_code\"");
-                expect(body).to.contain("\"INSTAGRAM_AUTH_REDIRECT_URI\"");
+                expect(body).to.contain("\"INSTAGRAM_AUTH_CALLBACK_URI\"");
                 expect(body).to.contain("\"INSTAGRAM_API_KEY\"");
                 expect(body).to.contain("\"INSTAGRAM_API_SECRET\"");
 

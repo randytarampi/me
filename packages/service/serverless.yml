@@ -141,9 +141,9 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}
     onError:
       Ref: LambdaDeadLetterQueue
-  instagramAuthReturn:
-    handler: src/serverless/handlers/instagramAuthReturn/initialized.default
-    events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthReturn.events}
+  instagramAuthCallback:
+    handler: src/serverless/handlers/instagramAuthCallback/initialized.default
+    events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthCallback.events}
     onError:
       Ref: LambdaDeadLetterQueue
 
