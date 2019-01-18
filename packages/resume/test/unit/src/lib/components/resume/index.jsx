@@ -97,21 +97,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".resume-content");
         expect(rendered).to.not.contain(<LoadingSpinner/>);
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeAbout`)", function () {
@@ -126,21 +135,31 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeAbout resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeProfiles`)", function () {
@@ -155,21 +174,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeProfiles resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeWork`)", function () {
@@ -184,21 +212,31 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeWork resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeProjects`)", function () {
@@ -213,21 +251,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeProjects resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeSkills`)", function () {
@@ -242,21 +289,31 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeSkills resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeEducation`)", function () {
@@ -271,21 +328,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeEducation resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeAwards`)", function () {
@@ -300,21 +366,31 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeAwards resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeVolunteer`)", function () {
@@ -329,21 +405,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeVolunteer resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumePublications`)", function () {
@@ -358,21 +443,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumePublications resume={stubResume}
+                                                            publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeLanguages`)", function () {
@@ -387,21 +481,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeLanguages resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeInterests`)", function () {
@@ -416,21 +519,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeInterests resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeReferences resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (no `ResumeReferences`)", function () {
@@ -445,21 +557,30 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("resume");
         expect(rendered).to.have.descendants(".resume-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.contain(<PrintableHeader resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                     printable={stubResume}/>);
+        expect(rendered).to.contain(<ResumeContact resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAbout resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProfiles resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeWork resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeProjects resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeSkills resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeEducation resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeAwards resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeVolunteer resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumePublications resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeLanguages resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeInterests resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeReferences resume={stubResume}
+                                                          publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.contain(<ResumeFooter resume={stubResume} publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 
     it("renders (`isLoading`)", function () {
@@ -474,20 +595,36 @@ describe("ResumeComponent", function () {
         expect(rendered).to.have.className("resume");
         expect(rendered).to.not.have.descendants(".resume-content");
         expect(rendered).to.contain(<LoadingSpinner/>);
-        expect(rendered).to.not.contain(<PrintableHeader printable={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeContact resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeAbout resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeProfiles resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeWork resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeProjects resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeSkills resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeEducation resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeAwards resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeVolunteer resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumePublications resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeLanguages resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeInterests resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeReferences resume={stubResume}/>);
-        expect(rendered).to.not.contain(<ResumeFooter resume={stubResume}/>);
+        expect(rendered).to.not.contain(<PrintableHeader resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}
+                                                         printable={stubResume}/>);
+        expect(rendered).to.not.contain(<ResumeContact resume={stubResume}
+                                                       publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeAbout resume={stubResume}
+                                                     publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeProfiles resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeWork resume={stubResume}
+                                                    publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeProjects resume={stubResume}
+                                                        publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeSkills resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeEducation resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeAwards resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeVolunteer resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumePublications resume={stubResume}
+                                                            publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeLanguages resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeInterests resume={stubResume}
+                                                         publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeReferences resume={stubResume}
+                                                          publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
+        expect(rendered).to.not.contain(<ResumeFooter resume={stubResume}
+                                                      publishedResumeUrl={__PUBLISHED_RESUME_URL__}/>);
     });
 });

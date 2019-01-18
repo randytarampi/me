@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
 
-export const LetterFooter = () => {
-    const onlineUrl = `${__PUBLISHED_LETTER_URL__}`;
+export const LetterFooter = ({publishedLetterUrl}) => {
     return <PrintableFooter>
         <Row className="row valign-wrapper center-align hide-on-screen">
             <Col s={12}>
                 <em>Check out (a generic copy of) this letter online at <CampaignLink
-                    href={onlineUrl}>{onlineUrl}</CampaignLink></em>
+                    href={publishedLetterUrl}>{publishedLetterUrl}</CampaignLink></em>
             </Col>
         </Row>
         <Row className="row valign-wrapper center-align hide-on-print">
@@ -25,7 +24,12 @@ export const LetterFooter = () => {
 };
 
 LetterFooter.propTypes = {
-    letter: PropTypes.object.isRequired
+    letter: PropTypes.object.isRequired,
+    publishedLetterUrl: PropTypes.string.isRequired
+};
+
+LetterFooter.defaultProps = {
+    publishedLetterUrl: __PUBLISHED_LETTER_URL__
 };
 
 export default LetterFooter;

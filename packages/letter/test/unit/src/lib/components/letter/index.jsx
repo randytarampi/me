@@ -122,7 +122,8 @@ describe("LetterComponent", function () {
         expect(rendered).to.have.descendants("title");
         expect(rendered).to.have.descendants(".letter-content");
         expect(rendered).to.not.contain(<LoadingSpinner/>);
-        expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
+        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
+                                                     printable={stubLetter}/>);
     });
 
     it("renders (custom content component)", function () {
@@ -151,13 +152,15 @@ describe("LetterComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
         expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
+        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
+                                                     printable={stubLetter}/>);
         stubLetter.content.map(contentConfiguration => {
             const ContentComponent = contentConfiguration.component
                 ? contentConfiguration.component
                 : require(`../../../../../../src/lib/components/letter/content/${contentConfiguration.contentKey}`).default;
             expect(rendered).to.have.contain(<ContentComponent
                 letter={stubLetter}
+                publishedLetterUrl={__PUBLISHED_LETTER_URL__}
                 contentConfiguration={contentConfiguration}
             />);
         });
@@ -189,13 +192,15 @@ describe("LetterComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
         expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
+        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
+                                                     printable={stubLetter}/>);
         stubLetter.content.map(contentConfiguration => {
             const ContentComponent = contentConfiguration.component
                 ? contentConfiguration.component
                 : require(`../../../../../../src/lib/components/letter/content/${contentConfiguration.contentKey}`).default;
             expect(rendered).to.have.contain(<ContentComponent
                 letter={stubLetter}
+                publishedLetterUrl={__PUBLISHED_LETTER_URL__}
                 contentConfiguration={contentConfiguration}
             />);
         });
@@ -231,13 +236,15 @@ describe("LetterComponent", function () {
         expect(rendered).to.have.className("printable");
         expect(rendered).to.have.className("letter");
         expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.contain(<PrintableHeader printable={stubLetter}/>);
+        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
+                                                     printable={stubLetter}/>);
         stubLetter.content.map(contentConfiguration => {
             const ContentComponent = contentConfiguration.component
                 ? contentConfiguration.component
                 : require(`../../../../../../src/lib/components/letter/content/${contentConfiguration.contentKey}`).default;
             expect(rendered).to.have.contain(<ContentComponent
                 letter={stubLetter}
+                publishedLetterUrl={__PUBLISHED_LETTER_URL__}
                 contentConfiguration={contentConfiguration}
             />);
         });

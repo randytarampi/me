@@ -51,9 +51,10 @@ export class ResumeComponent extends PureComponent {
     }
 
     render() {
-        const {isLoading, fetchResume, match, variant, resume, ...props} = this.props; // eslint-disable-line no-unused-vars
-        let contentProps = {
+        const {isLoading, fetchResume, match, variant, resume, publishedResumeUrl, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const contentProps = {
             ...props,
+            publishedResumeUrl,
             resume
         };
 
@@ -68,11 +69,11 @@ export class ResumeComponent extends PureComponent {
                         >
                             <Helmet>
                                 <title>{`${resume.basics.name} — ${resume.basics.label}`}</title>
-                                <link rel="canonical" href={__PUBLISHED_RESUME_URL__}/>
-                                <meta name="og:url" content={__PUBLISHED_RESUME_URL__}/>
+                                <link rel="canonical" href={publishedResumeUrl}/>
+                                <meta name="og:url" content={publishedResumeUrl}/>
                             </Helmet>
                             <SchemaJsonLdComponent markup={resume.toSchema()}/>
-                            <PrintableHeader printable={resume}/>
+                            <PrintableHeader {...contentProps} printable={resume}/>
                             <div className="resume-content">
                                 <Container>
                                     <ResumeContact {...contentProps} />
@@ -151,11 +152,13 @@ ResumeComponent.propTypes = {
     resume: PropTypes.object,
     variant: PropTypes.string,
     fetchResume: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    publishedResumeUrl: PropTypes.string.isRequired
 };
 
 ResumeComponent.defaultProps = {
-    resume: Resume.fromResume(defaultResume)
+    resume: Resume.fromResume(defaultResume),
+    publishedResumeUrl: __PUBLISHED_RESUME_URL__
 };
 
 export default ResumeComponent;

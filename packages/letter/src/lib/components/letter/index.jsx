@@ -36,7 +36,12 @@ export class LetterComponent extends PureComponent {
     }
 
     render() {
-        const {letter, isLoading, fetchLetter, match, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {letter, isLoading, publishedLetterUrl, fetchLetter, match, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const contentProps = {
+            ...props,
+            publishedLetterUrl,
+            letter
+        };
 
         return <div className="printable letter">
             {
@@ -49,11 +54,11 @@ export class LetterComponent extends PureComponent {
                         >
                             <Helmet>
                                 <title>{`${letter.basics.name} — Hire me`}</title>
-                                <link rel="canonical" href={__PUBLISHED_LETTER_URL__}/>
-                                <meta name="og:url" content={__PUBLISHED_LETTER_URL__}/>
+                                <link rel="canonical" href={publishedLetterUrl}/>
+                                <meta name="og:url" content={publishedLetterUrl}/>
                             </Helmet>
                             <SchemaJsonLdComponent markup={letter.toSchema()}/>
-                            <PrintableHeader {...props} printable={letter}/>
+                            <PrintableHeader {...contentProps} printable={letter}/>
                             <div className="letter-content">
                                 <Container>
                                     {
@@ -62,8 +67,7 @@ export class LetterComponent extends PureComponent {
                                                 ? contentConfiguration.component
                                                 : require(`./content/${contentConfiguration.contentKey}`).default;
                                             return <ContentComponent
-                                                {...props}
-                                                letter={letter}
+                                                {...contentProps}
                                                 contentConfiguration={contentConfiguration}
                                                 key={contentConfiguration.sectionId || contentConfiguration.contentKey}
                                             />;
@@ -71,7 +75,7 @@ export class LetterComponent extends PureComponent {
                                     }
                                 </Container>
                             </div>
-                            <LetterFooter {...props} letter={letter}/>
+                            <LetterFooter {...contentProps}/>
                         </ConnectedErrorWrapper>
                     </CampaignContext.Provider>
             }
@@ -84,11 +88,13 @@ LetterComponent.propTypes = {
     letter: PropTypes.object,
     variant: PropTypes.string,
     fetchLetter: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    publishedLetterUrl: PropTypes.string.isRequired
 };
 
 LetterComponent.defaultProps = {
-    isLoading: false
+    isLoading: false,
+    publishedLetterUrl: __PUBLISHED_LETTER_URL__
 };
 
 export default LetterComponent;

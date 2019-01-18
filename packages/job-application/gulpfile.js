@@ -35,7 +35,8 @@ const buildPrintableResumeRendererParameters = ({printableDestinationDirectory} 
             bundleName: "jobApplications",
             pageUrl: config.get("resume.publishUrl"),
             packageJson,
-            assetUrl: config.get("letter.assetUrl")
+            assetUrl: config.get("letter.assetUrl"),
+            publishedResumeUrl: config.get("resume.publishUrl")
         },
         printableDestinationDirectory
     };
@@ -56,7 +57,8 @@ const buildPrintableLetterRendererParameters = ({printableDestinationDirectory} 
             bundleName: "jobApplications",
             pageUrl: config.get("letter.publishUrl"),
             packageJson,
-            assetUrl: config.get("letter.assetUrl")
+            assetUrl: config.get("letter.assetUrl"),
+            publishedLetterUrl: config.get("letter.publishUrl")
         },
         printableDestinationDirectory
     };
