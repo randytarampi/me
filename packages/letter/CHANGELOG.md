@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/randytarampi/me/compare/v3.1.0...v3.1.1) (2019-01-18)
+
+
+### Bug Fixes
+
+* **letter:** Also inject the `assetUrl` here. ([c153897](https://github.com/randytarampi/me/commit/c153897)), closes [#244](https://github.com/randytarampi/me/issues/244)
+
+
+
+
+
 # [3.1.0](https://github.com/randytarampi/me/compare/v3.0.2...v3.1.0) (2019-01-18)
 
 
