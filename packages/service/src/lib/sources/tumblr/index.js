@@ -70,7 +70,7 @@ class TumblrSource extends CachedDataSource {
             },
             tags: postJson.tags,
             photos: postJson.photos
-                .map(specificPhoto => TumblrSource._jsonToPhoto(postJson, specificPhoto))
+                .map(specificPhoto => TumblrSource._jsonToPhoto(postJson, specificPhoto).toJS())
         });
     }
 
