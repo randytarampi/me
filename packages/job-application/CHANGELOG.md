@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/randytarampi/me/compare/v3.0.2...v3.1.0) (2019-01-18)
+
+
+### Bug Fixes
+
+* **job-applications:** Inject `publishedResumeUrl` and `publishedLetterUrl` as props instead of hardcoding them during the build. ([e398b2c](https://github.com/randytarampi/me/commit/e398b2c)), closes [#244](https://github.com/randytarampi/me/issues/244)
+
+
+
+
+
 ## [3.0.2](https://github.com/randytarampi/me/compare/v3.0.1...v3.0.2) (2019-01-17)
 
 **Note:** Version bump only for package @randy.tarampi/job-application

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/randytarampi/me/compare/v3.0.2...v3.1.0) (2019-01-18)
+
+
+### Bug Fixes
+
+* **service:** `TumblrSource._jsonToGallery` needs to cast its `Photo`s back to plain JS instead of passing `Gallery.fromJS` some `Record`s. ([fde9b30](https://github.com/randytarampi/me/commit/fde9b30))
+
+
+
+
+
 ## [3.0.2](https://github.com/randytarampi/me/compare/v3.0.1...v3.0.2) (2019-01-17)
 
 **Note:** Version bump only for package @randy.tarampi/service

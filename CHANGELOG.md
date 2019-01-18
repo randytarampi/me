@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/randytarampi/me/compare/v3.0.2...v3.1.0) (2019-01-18)
+
+
+### Bug Fixes
+
+* **job-applications:** Inject `publishedResumeUrl` and `publishedLetterUrl` as props instead of hardcoding them during the build. ([e398b2c](https://github.com/randytarampi/me/commit/e398b2c)), closes [#244](https://github.com/randytarampi/me/issues/244)
+* **js:** `Gallery` should conform to the same interface as `Photo`. ([1384ccf](https://github.com/randytarampi/me/commit/1384ccf)), closes [#240](https://github.com/randytarampi/me/issues/240)
+* **service:** `TumblrSource._jsonToGallery` needs to cast its `Photo`s back to plain JS instead of passing `Gallery.fromJS` some `Record`s. ([fde9b30](https://github.com/randytarampi/me/commit/fde9b30))
+
+
+### Features
+
+* **jsx:** Hide the `Post` override tags on the map and blog. ([0d92492](https://github.com/randytarampi/me/commit/0d92492)), closes [#241](https://github.com/randytarampi/me/issues/241)
+
+
+### Reverts
+
+* chore(greenkeeper): Update dependencies. ([43bb3b2](https://github.com/randytarampi/me/commit/43bb3b2))
+* chore(greenkeeper): Update dependencies. ([f53a83e](https://github.com/randytarampi/me/commit/f53a83e))
+* chore(greenkeeper): Update dependencies. ([eb62033](https://github.com/randytarampi/me/commit/eb62033))
+* chore(greenkeeper): Update dependencies. ([cf926d0](https://github.com/randytarampi/me/commit/cf926d0))
+* chore(greenkeeper): Update dependencies. ([05eb72a](https://github.com/randytarampi/me/commit/05eb72a))
+* chore(greenkeeper): Update dependencies. ([9881610](https://github.com/randytarampi/me/commit/9881610))
+
+
+
+
+
 ## [3.0.2](https://github.com/randytarampi/me/compare/v3.0.1...v3.0.2) (2019-01-17)
 
 
