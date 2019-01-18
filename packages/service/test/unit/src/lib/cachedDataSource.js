@@ -12,27 +12,27 @@ describe("CachedDataSource", function () {
     let stubPhoto;
     let stubPost;
     let stubPosts;
-    let stubBeforePostsGetter;
-    let stubPostsGetter;
-    let stubAfterPostsGetter;
-    let stubAllPostsGetter;
-    let stubBeforePostGetter;
-    let stubPostGetter;
-    let stubAfterPostGetter;
-    let stubBeforeCachedPostsGetter;
-    let stubCachedPostsGetter;
-    let stubAfterCachedPostsGetter;
-    let stubAllCachedPostsGetter;
-    let stubBeforeCachedPostGetter;
-    let stubCachedPostGetter;
-    let stubAfterCachedPostGetter;
-    let stubJsonToPost;
+    let stubBeforeRecordsGetter;
+    let stubRecordsGetter;
+    let stubAfterRecordsGetter;
+    let stubAllRecordsGetter;
+    let stubBeforeRecordGetter;
+    let stubRecordGetter;
+    let stubAfterRecordGetter;
+    let stubBeforeCachedRecordsGetter;
+    let stubCachedRecordsGetter;
+    let stubAfterCachedRecordsGetter;
+    let stubAllCachedRecordsGetter;
+    let stubBeforeCachedRecordGetter;
+    let stubCachedRecordGetter;
+    let stubAfterCachedRecordGetter;
+    let stubInstanceToRecord;
     let DummyCachedDataSource;
     let DummyCacheClient;
-    let stubCreatePosts;
-    let stubGetPosts;
-    let stubCreatePost;
-    let stubGetPost;
+    let stubCreateRecords;
+    let stubGetRecords;
+    let stubCreateRecord;
+    let stubGetRecord;
     let DummyDataClient;
     let stubDataClient; // eslint-disable-line no-unused-vars
     let stubCacheClient;
@@ -50,64 +50,64 @@ describe("CachedDataSource", function () {
         stubPhoto = Photo.fromJSON({...stubRawPhoto, raw: stubRawPhoto});
         stubPosts = [stubPost, stubPhoto];
 
-        stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
-        stubPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
-        stubAfterPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+        stubBeforeRecordsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubRecordsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAfterRecordsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
 
-        stubAllPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAllRecordsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
 
-        stubBeforePostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
-        stubPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
-        stubAfterPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+        stubBeforeRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterRecordGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
 
-        stubBeforeCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(params));
-        stubCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
-        stubAfterCachedPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+        stubBeforeCachedRecordsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubCachedRecordsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAfterCachedRecordsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
 
-        stubAllCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAllCachedRecordsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
 
-        stubBeforeCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
-        stubCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
-        stubAfterCachedPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+        stubBeforeCachedRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubCachedRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterCachedRecordGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
 
-        stubJsonToPost = sinon.stub().callsFake(postJson => postJson.id === stubPost.id ? Post.fromJSON(postJson) : Photo.fromJSON(postJson));
+        stubInstanceToRecord = sinon.stub().callsFake(postJson => postJson.id === stubPost.id ? Post.fromJSON(postJson) : Photo.fromJSON(postJson));
 
-        stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
-        stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubCreateRecords = sinon.stub().callsFake(posts => timedPromise(posts));
+        stubGetRecords = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
 
-        stubCreatePost = sinon.stub().callsFake(post => timedPromise(post));
-        stubGetPost = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
+        stubCreateRecord = sinon.stub().callsFake(post => timedPromise(post));
+        stubGetRecord = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
 
         dummyClassBuilderArguments = {
             stubType,
 
-            stubBeforePostsGetter,
-            stubPostsGetter,
-            stubAfterPostsGetter,
+            stubBeforeRecordsGetter,
+            stubRecordsGetter,
+            stubAfterRecordsGetter,
 
-            stubAllPostsGetter,
+            stubAllRecordsGetter,
 
-            stubBeforePostGetter,
-            stubPostGetter,
-            stubAfterPostGetter,
+            stubBeforeRecordGetter,
+            stubRecordGetter,
+            stubAfterRecordGetter,
 
-            stubBeforeCachedPostsGetter,
-            stubCachedPostsGetter,
-            stubAfterCachedPostsGetter,
+            stubBeforeCachedRecordsGetter,
+            stubCachedRecordsGetter,
+            stubAfterCachedRecordsGetter,
 
-            stubAllCachedPostsGetter,
+            stubAllCachedRecordsGetter,
 
-            stubBeforeCachedPostGetter,
-            stubCachedPostGetter,
-            stubAfterCachedPostGetter,
+            stubBeforeCachedRecordGetter,
+            stubCachedRecordGetter,
+            stubAfterCachedRecordGetter,
 
-            stubJsonToPost,
+            stubInstanceToRecord,
 
-            stubGetPosts,
-            stubCreatePosts,
+            stubGetRecords,
+            stubCreateRecords,
 
-            stubGetPost,
-            stubCreatePost
+            stubGetRecord,
+            stubCreateRecord
         };
         builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
@@ -128,21 +128,21 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("beforeCachedPostsGetter", function () {
+    describe("beforeCachedRecordsGetter", function () {
         it("returns promised `searchParams`", function () {
             const stubSearchParams = {woof: true};
             const dataSource = new CachedDataSource();
 
-            return dataSource.beforeCachedPostsGetter(stubSearchParams)
+            return dataSource.beforeCachedRecordsGetter(stubSearchParams)
                 .then(searchParams => {
                     expect(searchParams).to.eql(stubSearchParams);
                 });
         });
     });
 
-    describe("cachedPostsGetter", function () {
-        it("delegates to `this.cacheClient.getPosts`", function () {
-            delete dummyClassBuilderArguments.stubCachedPostsGetter;
+    describe("cachedRecordsGetter", function () {
+        it("delegates to `this.cacheClient.getRecords`", function () {
+            delete dummyClassBuilderArguments.stubCachedRecordsGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
@@ -155,7 +155,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             const stubSearchParams = SearchParams.fromJS({type: Photo.type, source: stubType});
 
-            return cachedDataSource.cachedPostsGetter(stubSearchParams)
+            return cachedDataSource.cachedRecordsGetter(stubSearchParams)
                 .then(cachedPosts => {
                     expect(cachedPosts).to.be.ok;
                     expect(
@@ -163,8 +163,8 @@ describe("CachedDataSource", function () {
                     ).to.eql(
                         stubPosts.map(stubPost => stubPost.remove("raw").toJS())
                     );
-                    expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, sinon.match({
+                    expect(stubGetRecords.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetRecords, sinon.match({
                         _filter: {
                             status: POST_STATUS.visible,
                             source: stubType,
@@ -177,27 +177,27 @@ describe("CachedDataSource", function () {
                             indexName: "type-datePublished-index"
                         }
                     }));
-                    sinon.assert.calledTwice(stubJsonToPost);
+                    sinon.assert.calledTwice(stubInstanceToRecord);
                 });
         });
     });
 
-    describe("afterCachedPostsGetter", function () {
+    describe("afterCachedRecordsGetter", function () {
         it("returns promised `posts`", function () {
             const stubSearchParams = {woof: true};
             const stubPosts = [{meow: false}];
             const dataSource = new CachedDataSource();
 
-            return dataSource.afterCachedPostsGetter(stubPosts, stubSearchParams)
+            return dataSource.afterCachedRecordsGetter(stubPosts, stubSearchParams)
                 .then(posts => {
                     expect(posts).to.eql(stubPosts);
                 });
         });
     });
 
-    describe("allCachedPostsGetter", function () {
-        it("delegates to `this.cacheClient.getPosts`", function () {
-            delete dummyClassBuilderArguments.stubAllCachedPostsGetter;
+    describe("allCachedRecordsGetter", function () {
+        it("delegates to `this.cacheClient.getRecords`", function () {
+            delete dummyClassBuilderArguments.stubAllCachedRecordsGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
@@ -210,7 +210,7 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             const stubSearchParams = SearchParams.fromJS({type: Photo.type, source: stubType});
 
-            return cachedDataSource.allCachedPostsGetter(stubSearchParams)
+            return cachedDataSource.allCachedRecordsGetter(stubSearchParams)
                 .then(cachedPosts => {
                     expect(cachedPosts).to.be.ok;
                     expect(
@@ -218,8 +218,8 @@ describe("CachedDataSource", function () {
                     ).to.eql(
                         stubPosts.map(stubPost => stubPost.remove("raw").toJS())
                     );
-                    expect(stubGetPosts.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPosts, sinon.match({
+                    expect(stubGetRecords.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetRecords, sinon.match({
                         _filter: {
                             status: POST_STATUS.visible,
                             source: stubType,
@@ -236,27 +236,27 @@ describe("CachedDataSource", function () {
         });
     });
 
-    describe("getCachedPosts", function () {
+    describe("getCachedRecords", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getCachedPosts(stubParams);
+            const posts = await cachedDataSource.getCachedRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
         });
 
         it("handles a cache miss", async function () {
             const cachedPosts = [];
-            stubCachedPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedPostsGetter});
+            stubCachedRecordsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedRecordsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -265,40 +265,40 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getCachedPosts(stubParams);
+            const posts = await cachedDataSource.getCachedRecords(stubParams);
 
             expect(posts).to.not.be.ok;
             expect(posts).to.eql(null);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
         });
     });
 
-    describe("getAllCachedPosts", function () {
+    describe("getAllCachedRecords", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getAllCachedPosts(stubParams);
+            const posts = await cachedDataSource.getAllCachedRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
         });
 
         it("handles a cache miss", async function () {
             const cachedPosts = [];
-            stubAllCachedPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubAllCachedPostsGetter});
+            stubAllCachedRecordsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubAllCachedRecordsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -307,42 +307,42 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getAllCachedPosts(stubParams);
+            const posts = await cachedDataSource.getAllCachedRecords(stubParams);
 
             expect(posts).to.not.be.ok;
             expect(posts).to.eql(null);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
         });
     });
 
-    describe("getServicePosts", function () {
+    describe("getServiceRecords", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getServicePosts(stubParams);
+            const posts = await cachedDataSource.getServiceRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubPostsGetter.calledOnce).to.eql(true);
-            expect(stubPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
-            expect(stubCreatePosts.calledOnce).to.eql(true);
-            expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubRecordsGetter.calledOnce).to.eql(true);
+            expect(stubRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
 
         it("handles not finding any posts", async function () {
             const cachedPosts = [];
-            stubPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubPostsGetter});
+            stubRecordsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubRecordsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles not finding any posts");
@@ -351,42 +351,42 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getServicePosts(stubParams);
+            const posts = await cachedDataSource.getServiceRecords(stubParams);
 
             expect(posts).to.be.empty;
-            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubPostsGetter.calledOnce).to.eql(true);
-            expect(stubPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostsGetter.calledWith([], stubParams)).to.eql(true);
-            expect(stubCreatePosts.notCalled).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubRecordsGetter.calledOnce).to.eql(true);
+            expect(stubRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordsGetter.calledWith([], stubParams)).to.eql(true);
+            expect(stubCreateRecords.notCalled).to.eql(true);
         });
     });
 
-    describe("getAllServicePosts", function () {
+    describe("getAllServiceRecords", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getAllServicePosts(stubParams);
+            const posts = await cachedDataSource.getAllServiceRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
-            expect(stubCreatePosts.calledOnce).to.eql(true);
-            expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
 
         it("handles not finding any posts", async function () {
             const cachedPosts = [];
-            stubAllPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubAllPostsGetter});
+            stubAllRecordsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubAllRecordsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles not finding any posts");
@@ -395,44 +395,44 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getAllServicePosts(stubParams);
+            const posts = await cachedDataSource.getAllServiceRecords(stubParams);
 
             expect(posts).to.be.empty;
-            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostsGetter.calledWith([], stubParams)).to.eql(true);
-            expect(stubCreatePosts.notCalled).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordsGetter.calledWith([], stubParams)).to.eql(true);
+            expect(stubCreateRecords.notCalled).to.eql(true);
         });
     });
 
-    describe("getPosts", function () {
+    describe("getRecords", function () {
         it("calls only the cache hooks on a cache hit", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getPosts(stubParams);
+            const posts = await cachedDataSource.getRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforePostsGetter.notCalled).to.eql(true);
-            expect(stubPostsGetter.notCalled).to.eql(true);
-            expect(stubAfterPostsGetter.notCalled).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
-            expect(stubCreatePosts.notCalled).to.eql(true);
+            expect(stubBeforeRecordsGetter.notCalled).to.eql(true);
+            expect(stubRecordsGetter.notCalled).to.eql(true);
+            expect(stubAfterRecordsGetter.notCalled).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubCreateRecords.notCalled).to.eql(true);
         });
 
         it("calls all hooks on a cache miss", async function () {
             const cachedPosts = [];
-            stubCachedPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedPostsGetter});
+            stubCachedRecordsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedRecordsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -441,51 +441,51 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getPosts(stubParams);
+            const posts = await cachedDataSource.getRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubPostsGetter.calledOnce).to.eql(true);
-            expect(stubPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
-            expect(stubCreatePosts.calledOnce).to.eql(true);
-            expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubRecordsGetter.calledOnce).to.eql(true);
+            expect(stubRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
     });
 
-    describe("getAllPosts", function () {
+    describe("getAllRecords", function () {
         it("calls only the cache hooks on a cache hit", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getAllPosts(stubParams);
+            const posts = await cachedDataSource.getAllRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforePostsGetter.notCalled).to.eql(true);
-            expect(stubAllPostsGetter.notCalled).to.eql(true);
-            expect(stubAfterPostsGetter.notCalled).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
-            expect(stubCreatePosts.notCalled).to.eql(true);
+            expect(stubBeforeRecordsGetter.notCalled).to.eql(true);
+            expect(stubAllRecordsGetter.notCalled).to.eql(true);
+            expect(stubAfterRecordsGetter.notCalled).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubCreateRecords.notCalled).to.eql(true);
         });
 
         it("calls all hooks on a cache miss", async function () {
             const cachedPosts = [];
-            stubAllCachedPostsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubAllCachedPostsGetter});
+            stubAllCachedRecordsGetter = sinon.stub().callsFake(() => timedPromise(cachedPosts));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubAllCachedRecordsGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -494,29 +494,29 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const posts = await cachedDataSource.getAllPosts(stubParams);
+            const posts = await cachedDataSource.getAllRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
-            expect(stubBeforePostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAllCachedPostsGetter.calledWith(stubParams)).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
-            expect(stubCreatePosts.calledOnce).to.eql(true);
-            expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordsGetter.calledWith(stubPosts, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAllCachedRecordsGetter.calledWith(stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordsGetter.calledWith(cachedPosts, stubParams)).to.eql(true);
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
     });
 
-    describe("cachedPostGetter", function () {
-        it("delegates to `this.cacheClient.getPost` (no params)", function () {
-            delete dummyClassBuilderArguments.stubCachedPostGetter;
+    describe("cachedRecordGetter", function () {
+        it("delegates to `this.cacheClient.getRecord` (no params)", function () {
+            delete dummyClassBuilderArguments.stubCachedRecordGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
@@ -528,20 +528,20 @@ describe("CachedDataSource", function () {
 
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
 
-            return cachedDataSource.cachedPostGetter(stubPost.id)
+            return cachedDataSource.cachedRecordGetter(stubPost.id)
                 .then(cachedPost => {
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
-                    expect(stubGetPost.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPost, sinon.match({
+                    expect(stubGetRecord.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetRecord, sinon.match({
                         _query: {hash: {uid: {eq: stubPost.uid}}},
                         _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                     }));
-                    sinon.assert.calledOnce(stubJsonToPost);
+                    sinon.assert.calledOnce(stubInstanceToRecord);
                 });
         });
 
-        it("delegates to `this.cacheClient.getPost` (with params)", function () {
-            delete dummyClassBuilderArguments.stubCachedPostGetter;
+        it("delegates to `this.cacheClient.getRecord` (with params)", function () {
+            delete dummyClassBuilderArguments.stubCachedRecordGetter;
             builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
@@ -554,40 +554,40 @@ describe("CachedDataSource", function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             const stubSearchParams = SearchParams.fromJS();
 
-            return cachedDataSource.cachedPostGetter(stubPost.id, stubSearchParams)
+            return cachedDataSource.cachedRecordGetter(stubPost.id, stubSearchParams)
                 .then(cachedPost => {
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
-                    expect(stubGetPost.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubGetPost, sinon.match({
+                    expect(stubGetRecord.calledOnce).to.eql(true);
+                    sinon.assert.calledWith(stubGetRecord, sinon.match({
                         _query: {hash: {uid: {eq: stubPost.uid}}},
                         _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                     }));
-                    sinon.assert.calledOnce(stubJsonToPost);
+                    sinon.assert.calledOnce(stubInstanceToRecord);
                 });
         });
     });
 
-    describe("getCachedPost", function () {
+    describe("getCachedRecord", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const post = await cachedDataSource.getCachedPost(stubPost.id, stubParams);
+            const post = await cachedDataSource.getCachedRecord(stubPost.id, stubParams);
 
             expect(post).to.eql(stubPost);
-            expect(stubBeforeCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledWith(stubPost, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledWith(stubPost, stubParams)).to.eql(true);
         });
 
         it("handles a cache miss", async function () {
             const cachedPost = null;
-            stubCachedPostGetter = sinon.stub().callsFake(() => timedPromise(cachedPost));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedPostGetter});
+            stubCachedRecordGetter = sinon.stub().callsFake(() => timedPromise(cachedPost));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedRecordGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -596,36 +596,36 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const post = await cachedDataSource.getCachedPost(stubPost.id, stubParams);
+            const post = await cachedDataSource.getCachedRecord(stubPost.id, stubParams);
 
             expect(post).to.not.be.ok;
             expect(post).to.eql(null);
-            expect(stubBeforeCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledWith(cachedPost, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledWith(cachedPost, stubParams)).to.eql(true);
         });
     });
 
-    describe("getServicePost", function () {
+    describe("getServiceRecord", function () {
         it("calls all hooks", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const post = await cachedDataSource.getServicePost(stubPost.id, stubParams);
+            const post = await cachedDataSource.getServiceRecord(stubPost.id, stubParams);
 
             expect(post).to.eql(stubPost);
-            expect(stubBeforePostGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubPostGetter.calledOnce).to.eql(true);
-            expect(stubPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubAfterPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostGetter.calledWith(stubPost, stubParams)).to.eql(true);
-            expect(stubCreatePost.calledOnce).to.eql(true);
-            expect(stubCreatePost.calledWith(stubPost)).to.eql(true);
+            expect(stubBeforeRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubRecordGetter.calledOnce).to.eql(true);
+            expect(stubRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubAfterRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordGetter.calledWith(stubPost, stubParams)).to.eql(true);
+            expect(stubCreateRecord.calledOnce).to.eql(true);
+            expect(stubCreateRecord.calledWith(stubPost)).to.eql(true);
         });
 
         it("handles not finding a post at all", async function () {
@@ -634,44 +634,44 @@ describe("CachedDataSource", function () {
 
             const stubParams = SearchParams.fromJS();
             const stubMissPostId = "ಠ_ಠ";
-            const post = await cachedDataSource.getServicePost(stubMissPostId, stubParams);
+            const post = await cachedDataSource.getServiceRecord(stubMissPostId, stubParams);
 
             expect(post).to.not.be.ok;
-            expect(stubBeforePostGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
-            expect(stubPostGetter.calledOnce).to.eql(true);
-            expect(stubPostGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
-            expect(stubAfterPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostGetter.calledWith(null, stubParams)).to.eql(true);
-            expect(stubCreatePost.notCalled).to.eql(true);
+            expect(stubBeforeRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
+            expect(stubRecordGetter.calledOnce).to.eql(true);
+            expect(stubRecordGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
+            expect(stubAfterRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordGetter.calledWith(null, stubParams)).to.eql(true);
+            expect(stubCreateRecord.notCalled).to.eql(true);
         });
     });
 
-    describe("getPost", function () {
+    describe("getRecord", function () {
         it("calls only the cache hooks on a cache hit", async function () {
             const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const post = await cachedDataSource.getPost(stubPost.id, stubParams);
+            const post = await cachedDataSource.getRecord(stubPost.id, stubParams);
 
             expect(post).to.eql(stubPost);
-            expect(stubBeforePostGetter.notCalled).to.eql(true);
-            expect(stubPostGetter.notCalled).to.eql(true);
-            expect(stubAfterPostGetter.notCalled).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledWith(stubPost, stubParams)).to.eql(true);
-            expect(stubCreatePost.notCalled).to.eql(true);
+            expect(stubBeforeRecordGetter.notCalled).to.eql(true);
+            expect(stubRecordGetter.notCalled).to.eql(true);
+            expect(stubAfterRecordGetter.notCalled).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledWith(stubPost, stubParams)).to.eql(true);
+            expect(stubCreateRecord.notCalled).to.eql(true);
         });
 
         it("calls all hooks on a cache miss", async function () {
             const cachedPost = null;
-            stubCachedPostGetter = sinon.stub().callsFake(() => timedPromise(cachedPost));
-            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedPostGetter});
+            stubCachedRecordGetter = sinon.stub().callsFake(() => timedPromise(cachedPost));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCachedRecordGetter});
             DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
             DummyCacheClient = builtDummyClasses.DummyCacheClient;
             stubCacheClient = new DummyCacheClient("handles a cache miss");
@@ -680,23 +680,23 @@ describe("CachedDataSource", function () {
             expect(cachedDataSource).to.be.instanceOf(DummyCachedDataSource);
 
             const stubParams = SearchParams.fromJS();
-            const post = await cachedDataSource.getPost(stubPost.id, stubParams);
+            const post = await cachedDataSource.getRecord(stubPost.id, stubParams);
 
             expect(post).to.eql(stubPost);
-            expect(stubBeforePostGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubPostGetter.calledOnce).to.eql(true);
-            expect(stubPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubAfterPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostGetter.calledWith(stubPost, stubParams)).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledWith(cachedPost, stubParams)).to.eql(true);
-            expect(stubCreatePost.calledOnce).to.eql(true);
-            expect(stubCreatePost.calledWith(stubPost)).to.eql(true);
+            expect(stubBeforeRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubRecordGetter.calledOnce).to.eql(true);
+            expect(stubRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubAfterRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordGetter.calledWith(stubPost, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordGetter.calledWith(stubPost.id, stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledWith(cachedPost, stubParams)).to.eql(true);
+            expect(stubCreateRecord.calledOnce).to.eql(true);
+            expect(stubCreateRecord.calledWith(stubPost)).to.eql(true);
         });
 
         it("handles not finding a post at all", async function () {
@@ -705,22 +705,22 @@ describe("CachedDataSource", function () {
 
             const stubParams = SearchParams.fromJS();
             const stubMissPostId = "ಠ_ಠ";
-            const post = await cachedDataSource.getPost(stubMissPostId, stubParams);
+            const post = await cachedDataSource.getRecord(stubMissPostId, stubParams);
 
             expect(post).to.not.be.ok;
-            expect(stubBeforePostGetter.calledOnce).to.eql(true);
-            expect(stubBeforePostGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
-            expect(stubPostGetter.calledOnce).to.eql(true);
-            expect(stubPostGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
-            expect(stubAfterPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterPostGetter.calledWith(null, stubParams)).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubBeforeCachedPostGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
-            expect(stubCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubCachedPostGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledOnce).to.eql(true);
-            expect(stubAfterCachedPostGetter.calledWith(null, stubParams)).to.eql(true);
-            expect(stubCreatePost.notCalled).to.eql(true);
+            expect(stubBeforeRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeRecordGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
+            expect(stubRecordGetter.calledOnce).to.eql(true);
+            expect(stubRecordGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
+            expect(stubAfterRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterRecordGetter.calledWith(null, stubParams)).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubBeforeCachedRecordGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
+            expect(stubCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubCachedRecordGetter.calledWith(stubMissPostId, stubParams)).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledOnce).to.eql(true);
+            expect(stubAfterCachedRecordGetter.calledWith(null, stubParams)).to.eql(true);
+            expect(stubCreateRecord.notCalled).to.eql(true);
         });
     });
 });

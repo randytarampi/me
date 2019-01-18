@@ -3,27 +3,27 @@ import CachedDataSource from "../../src/lib/cachedDataSource";
 export const DummyCachedDataSourceGenerator = ({
                                                    stubType,
 
-                                                   stubBeforePostsGetter,
-                                                   stubPostsGetter,
-                                                   stubAfterPostsGetter,
+                                                   stubBeforeRecordsGetter,
+                                                   stubRecordsGetter,
+                                                   stubAfterRecordsGetter,
 
-                                                   stubAllPostsGetter,
+                                                   stubAllRecordsGetter,
 
-                                                   stubBeforePostGetter,
-                                                   stubPostGetter,
-                                                   stubAfterPostGetter,
+                                                   stubBeforeRecordGetter,
+                                                   stubRecordGetter,
+                                                   stubAfterRecordGetter,
 
-                                                   stubBeforeCachedPostsGetter,
-                                                   stubCachedPostsGetter,
-                                                   stubAfterCachedPostsGetter,
+                                                   stubBeforeCachedRecordsGetter,
+                                                   stubCachedRecordsGetter,
+                                                   stubAfterCachedRecordsGetter,
 
-                                                   stubAllCachedPostsGetter,
+                                                   stubAllCachedRecordsGetter,
 
-                                                   stubBeforeCachedPostGetter,
-                                                   stubCachedPostGetter,
-                                                   stubAfterCachedPostGetter,
+                                                   stubBeforeCachedRecordGetter,
+                                                   stubCachedRecordGetter,
+                                                   stubAfterCachedRecordGetter,
 
-                                                   stubJsonToPost
+                                                   stubInstanceToRecord
                                                }) => {
 
     return class DummyCachedDataSource extends CachedDataSource {
@@ -31,64 +31,64 @@ export const DummyCachedDataSourceGenerator = ({
             return stubType ? stubType : super.type;
         }
 
-        static jsonToPost(postJson) {
-            return stubJsonToPost ? stubJsonToPost(postJson) : super.jsonToPost(postJson);
+        static instanceToRecord(postJson) {
+            return stubInstanceToRecord ? stubInstanceToRecord(postJson) : super.instanceToRecord(postJson);
         }
 
-        async beforePostsGetter(params) {
-            return stubBeforePostsGetter ? stubBeforePostsGetter(params) : super.beforePostsGetter(params);
+        async beforeRecordsGetter(params) {
+            return stubBeforeRecordsGetter ? stubBeforeRecordsGetter(params) : super.beforeRecordsGetter(params);
         }
 
-        async postsGetter(params) {
-            return stubPostsGetter ? stubPostsGetter(params) : super.postsGetter(params);
+        async recordsGetter(params) {
+            return stubRecordsGetter ? stubRecordsGetter(params) : super.recordsGetter(params);
         }
 
-        async afterPostsGetter(posts, params) {
-            return stubAfterPostsGetter ? stubAfterPostsGetter(posts, params) : super.afterPostsGetter(posts, params);
+        async afterRecordsGetter(posts, params) {
+            return stubAfterRecordsGetter ? stubAfterRecordsGetter(posts, params) : super.afterRecordsGetter(posts, params);
         }
 
-        async allPostsGetter(posts, params) {
-            return stubAllPostsGetter ? stubAllPostsGetter(posts, params) : super.allPostsGetter(posts, params);
+        async allRecordsGetter(posts, params) {
+            return stubAllRecordsGetter ? stubAllRecordsGetter(posts, params) : super.allRecordsGetter(posts, params);
         }
 
-        async beforePostGetter(postId, params) {
-            return stubBeforePostGetter ? stubBeforePostGetter(postId, params) : super.beforePostGetter(postId, params);
+        async beforeRecordGetter(postId, params) {
+            return stubBeforeRecordGetter ? stubBeforeRecordGetter(postId, params) : super.beforeRecordGetter(postId, params);
         }
 
-        async postGetter(postId, params) {
-            return stubPostGetter ? stubPostGetter(postId, params) : super.postGetter(postId, params);
+        async recordGetter(postId, params) {
+            return stubRecordGetter ? stubRecordGetter(postId, params) : super.recordGetter(postId, params);
         }
 
-        async afterPostGetter(post, params) {
-            return stubAfterPostGetter ? stubAfterPostGetter(post, params) : super.afterPostGetter(post, params);
+        async afterRecordGetter(post, params) {
+            return stubAfterRecordGetter ? stubAfterRecordGetter(post, params) : super.afterRecordGetter(post, params);
         }
 
-        async beforeCachedPostsGetter(params) {
-            return stubBeforeCachedPostsGetter ? stubBeforeCachedPostsGetter(params) : super.beforeCachedPostsGetter(params);
+        async beforeCachedRecordsGetter(params) {
+            return stubBeforeCachedRecordsGetter ? stubBeforeCachedRecordsGetter(params) : super.beforeCachedRecordsGetter(params);
         }
 
-        async cachedPostsGetter(params) {
-            return stubCachedPostsGetter ? stubCachedPostsGetter(params) : super.cachedPostsGetter(params);
+        async cachedRecordsGetter(params) {
+            return stubCachedRecordsGetter ? stubCachedRecordsGetter(params) : super.cachedRecordsGetter(params);
         }
 
-        async afterCachedPostsGetter(posts, params) {
-            return stubAfterCachedPostsGetter ? stubAfterCachedPostsGetter(posts, params) : super.afterCachedPostsGetter(posts, params);
+        async afterCachedRecordsGetter(posts, params) {
+            return stubAfterCachedRecordsGetter ? stubAfterCachedRecordsGetter(posts, params) : super.afterCachedRecordsGetter(posts, params);
         }
 
-        async allCachedPostsGetter(params) {
-            return stubAllCachedPostsGetter ? stubAllCachedPostsGetter(params) : super.allCachedPostsGetter(params);
+        async allCachedRecordsGetter(params) {
+            return stubAllCachedRecordsGetter ? stubAllCachedRecordsGetter(params) : super.allCachedRecordsGetter(params);
         }
 
-        async beforeCachedPostGetter(postId, params) {
-            return stubBeforeCachedPostGetter ? stubBeforeCachedPostGetter(postId, params) : super.beforeCachedPostGetter(postId, params);
+        async beforeCachedRecordGetter(postId, params) {
+            return stubBeforeCachedRecordGetter ? stubBeforeCachedRecordGetter(postId, params) : super.beforeCachedRecordGetter(postId, params);
         }
 
-        async cachedPostGetter(postId, params) {
-            return stubCachedPostGetter ? stubCachedPostGetter(postId, params) : super.cachedPostGetter(postId, params);
+        async cachedRecordGetter(postId, params) {
+            return stubCachedRecordGetter ? stubCachedRecordGetter(postId, params) : super.cachedRecordGetter(postId, params);
         }
 
-        async afterCachedPostGetter(post, params) {
-            return stubAfterCachedPostGetter ? stubAfterCachedPostGetter(post, params) : super.afterCachedPostGetter(post, params);
+        async afterCachedRecordGetter(post, params) {
+            return stubAfterCachedRecordGetter ? stubAfterCachedRecordGetter(post, params) : super.afterCachedRecordGetter(post, params);
         }
     };
 };

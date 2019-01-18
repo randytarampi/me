@@ -16,22 +16,7 @@ class FlickrSource extends CachedDataSource {
         return "flickr";
     }
 
-    async allPostsGetter(searchParams) {
-        searchParams = searchParams.set("perPage", FLICKR_API_MAX_POSTS_PER_PAGE);
-        let posts = await this.postsGetter(searchParams);
-
-        if (posts.length) {
-            posts = posts.concat(await this.allPostsGetter(
-                searchParams
-                    .set("all", true)
-                    .set("page", searchParams.page + 1)
-            ));
-        }
-
-        return posts;
-    }
-
-    static jsonToPost(json) {
+    static instanceToRecord(json) {
         return Photo.fromJS({
             raw: json,
             id: json.id,
@@ -64,7 +49,22 @@ class FlickrSource extends CachedDataSource {
         });
     }
 
-    postsGetter(searchParams) {
+    async allRecordsGetter(searchParams) {
+        searchParams = searchParams.set("perPage", FLICKR_API_MAX_POSTS_PER_PAGE);
+        let posts = await this.recordsGetter(searchParams);
+
+        if (posts.length) {
+            posts = posts.concat(await this.allRecordsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("page", searchParams.page + 1)
+            ));
+        }
+
+        return posts;
+    }
+
+    recordsGetter(searchParams) {
         const client = this.client;
         const userId = process.env.FLICKR_USER_ID;
         let flickrRequest = Promise.resolve(userId);
@@ -84,7 +84,7 @@ class FlickrSource extends CachedDataSource {
                     .then(response => response.body.photos.photo);
             })
             .then(photos => photos
-                .map(FlickrSource.jsonToPost)
+                .map(FlickrSource.instanceToRecord)
                 .filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
             );
     }

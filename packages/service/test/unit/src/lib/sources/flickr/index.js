@@ -12,24 +12,24 @@ describe("FlickrSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
-    let stubBeforePostsGetter;
-    let stubPostsGetter;
-    let stubAfterPostsGetter;
-    let stubBeforePostGetter;
-    let stubPostGetter;
-    let stubAfterPostGetter;
-    let stubBeforeCachedPostsGetter;
-    let stubCachedPostsGetter;
-    let stubAfterCachedPostsGetter;
-    let stubBeforeCachedPostGetter;
-    let stubCachedPostGetter;
-    let stubAfterCachedPostGetter;
-    let stubJsonToPost;
+    let stubBeforeRecordsGetter;
+    let stubRecordsGetter;
+    let stubAfterRecordsGetter;
+    let stubBeforeRecordGetter;
+    let stubRecordGetter;
+    let stubAfterRecordGetter;
+    let stubBeforeCachedRecordsGetter;
+    let stubCachedRecordsGetter;
+    let stubAfterCachedRecordsGetter;
+    let stubBeforeCachedRecordGetter;
+    let stubCachedRecordGetter;
+    let stubAfterCachedRecordGetter;
+    let stubInstanceToRecord;
     let DummyCacheClient;
-    let stubCreatePosts;
-    let stubGetPosts;
-    let stubCreatePost;
-    let stubGetPost;
+    let stubCreateRecords;
+    let stubGetRecords;
+    let stubCreateRecord;
+    let stubGetRecord;
     let stubCacheClient;
     let builtDummyClasses;
     let dummyClassBuilderArguments;
@@ -103,54 +103,54 @@ describe("FlickrSource", function () {
             }
         };
 
-        stubBeforePostsGetter = sinon.stub().callsFake(params => timedPromise(params));
-        stubPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
-        stubAfterPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+        stubBeforeRecordsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubRecordsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAfterRecordsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
 
-        stubBeforePostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
-        stubPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
-        stubAfterPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+        stubBeforeRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterRecordGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
 
-        stubBeforeCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(params));
-        stubCachedPostsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
-        stubAfterCachedPostsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
+        stubBeforeCachedRecordsGetter = sinon.stub().callsFake(params => timedPromise(params));
+        stubCachedRecordsGetter = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubAfterCachedRecordsGetter = sinon.stub().callsFake((posts, params) => timedPromise(posts)); // eslint-disable-line no-unused-vars
 
-        stubBeforeCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
-        stubCachedPostGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
-        stubAfterCachedPostGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
+        stubBeforeCachedRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(params));
+        stubCachedRecordGetter = sinon.stub().callsFake((postId, params) => timedPromise(stubPosts.find(post => post.id === postId) || null)); // eslint-disable-line no-unused-vars
+        stubAfterCachedRecordGetter = sinon.stub().callsFake((post, params) => timedPromise(post)); // eslint-disable-line no-unused-vars
 
-        stubJsonToPost = sinon.stub().callsFake(Photo.fromJSON);
+        stubInstanceToRecord = sinon.stub().callsFake(Photo.fromJSON);
 
-        stubCreatePosts = sinon.stub().callsFake(posts => timedPromise(posts));
-        stubGetPosts = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
+        stubCreateRecords = sinon.stub().callsFake(posts => timedPromise(posts));
+        stubGetRecords = sinon.stub().callsFake(params => timedPromise(stubPosts)); // eslint-disable-line no-unused-vars
 
-        stubCreatePost = sinon.stub().callsFake(post => timedPromise(post));
-        stubGetPost = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
+        stubCreateRecord = sinon.stub().callsFake(post => timedPromise(post));
+        stubGetRecord = sinon.stub().callsFake(params => timedPromise(stubPost)); // eslint-disable-line no-unused-vars
 
         dummyClassBuilderArguments = {
-            stubBeforePostsGetter,
-            stubPostsGetter,
-            stubAfterPostsGetter,
+            stubBeforeRecordsGetter,
+            stubRecordsGetter,
+            stubAfterRecordsGetter,
 
-            stubBeforePostGetter,
-            stubPostGetter,
-            stubAfterPostGetter,
+            stubBeforeRecordGetter,
+            stubRecordGetter,
+            stubAfterRecordGetter,
 
-            stubBeforeCachedPostsGetter,
-            stubCachedPostsGetter,
-            stubAfterCachedPostsGetter,
+            stubBeforeCachedRecordsGetter,
+            stubCachedRecordsGetter,
+            stubAfterCachedRecordsGetter,
 
-            stubBeforeCachedPostGetter,
-            stubCachedPostGetter,
-            stubAfterCachedPostGetter,
+            stubBeforeCachedRecordGetter,
+            stubCachedRecordGetter,
+            stubAfterCachedRecordGetter,
 
-            stubJsonToPost,
+            stubInstanceToRecord,
 
-            stubGetPosts,
-            stubCreatePosts,
+            stubGetRecords,
+            stubCreateRecords,
 
-            stubGetPost,
-            stubCreatePost
+            stubGetRecord,
+            stubCreateRecord
         };
         builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
 
@@ -181,14 +181,14 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("postsGetter", function () {
+    describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.FLICKR_USER_ID;
 
-            return flickrSource.postsGetter(stubParams)
+            return flickrSource.recordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
@@ -211,7 +211,7 @@ describe("FlickrSource", function () {
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 
-            return flickrSource.postsGetter(stubParams)
+            return flickrSource.recordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
@@ -231,7 +231,7 @@ describe("FlickrSource", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 420});
 
-            return flickrSource.postsGetter(stubParams)
+            return flickrSource.recordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
@@ -244,14 +244,14 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("allPostsGetter", function () {
+    describe("allRecordsGetter", function () {
         it("finds all posts", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             const stubParams = SearchParams.fromJS({perPage: 40});
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 
-            return flickrSource.allPostsGetter(stubParams)
+            return flickrSource.allRecordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
@@ -268,27 +268,27 @@ describe("FlickrSource", function () {
         });
     });
 
-    describe("postGetter", function () {
+    describe("recordGetter", function () {
         it("requires implementation", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             expect(flickrSource).to.be.instanceOf(FlickrSource);
 
-            return flickrSource.postGetter(stubPost.id, {})
+            return flickrSource.recordGetter(stubPost.id, {})
                 .then(() => {
                     throw new Error("Wtf? This should've thrown");
                 })
                 .catch(error => {
-                    expect(error.message).to.match(/Please specify an actual postGetter implementation/);
+                    expect(error.message).to.match(/Please specify an actual recordGetter implementation/);
                 });
         });
     });
 
-    describe("jsonToPost", function () {
+    describe("instanceToRecord", function () {
         it("turns a flickr response into a `Photo`", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             expect(flickrSource).to.be.instanceOf(FlickrSource);
 
-            const photoFromFlickr = FlickrSource.jsonToPost(flickrPhoto);
+            const photoFromFlickr = FlickrSource.instanceToRecord(flickrPhoto);
 
             expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);
             expect(photoFromFlickr.datePublished).to.be.instanceof(DateTime);
@@ -321,7 +321,7 @@ describe("FlickrSource", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
             expect(flickrSource).to.be.instanceOf(FlickrSource);
 
-            const photoFromFlickr = FlickrSource.jsonToPost(flickrPhoto);
+            const photoFromFlickr = FlickrSource.instanceToRecord(flickrPhoto);
 
             expect(photoFromFlickr.id).to.eql(photoFromFlickr.id);
             expect(photoFromFlickr.datePublished).to.be.instanceof(DateTime);

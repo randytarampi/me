@@ -3,7 +3,7 @@ import sinon from "sinon";
 import * as sources from "../../../../../src/lib/sources";
 import {cachePosts} from "../../../../../src/lib/sources/cachePosts";
 
-describe("cachePosts", function () {
+describe("cacheRecords", function () {
     let stubSearchParams;
     let stubSource;
     let stubSources;
@@ -13,7 +13,7 @@ describe("cachePosts", function () {
         stubPosts = ["meow"];
         stubSearchParams = {type: "woof"};
         stubSource = {
-            getAllServicePosts: sinon.stub().callsFake(searchParams => {
+            getAllServiceRecords: sinon.stub().callsFake(searchParams => {
                 expect(searchParams).to.eql(stubSearchParams);
                 return Promise.resolve(stubPosts);
             })
@@ -32,13 +32,13 @@ describe("cachePosts", function () {
                 expect(posts).to.eql([
                     stubPosts
                 ]);
-                expect(stubSource.getAllServicePosts.calledOnce).to.eql(true);
+                expect(stubSource.getAllServiceRecords.calledOnce).to.eql(true);
                 expect(sources.initializeSources.calledOnce).to.eql(true);
             });
     });
 
-    it("swallows `getAllServicePosts` errors", function () {
-        stubSource.getAllServicePosts = sinon.stub().callsFake(searchParams => {
+    it("swallows `getAllServiceRecords` errors", function () {
+        stubSource.getAllServiceRecords = sinon.stub().callsFake(searchParams => {
             expect(searchParams).to.eql(stubSearchParams);
             return Promise.reject(new Error("meow"));
         });
@@ -48,7 +48,7 @@ describe("cachePosts", function () {
                 expect(posts).to.eql([
                     []
                 ]);
-                expect(stubSource.getAllServicePosts.calledOnce).to.eql(true);
+                expect(stubSource.getAllServiceRecords.calledOnce).to.eql(true);
                 expect(sources.initializeSources.calledOnce).to.eql(true);
             });
     });

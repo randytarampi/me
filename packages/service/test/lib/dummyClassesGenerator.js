@@ -6,89 +6,89 @@ import DummyDataSourceGenerator from "./dummyDataSourceGenerator";
 export const dummyClassesGenerator = ({
                                           stubType,
 
-                                          stubBeforePostsGetter,
-                                          stubPostsGetter,
-                                          stubAfterPostsGetter,
+                                          stubBeforeRecordsGetter,
+                                          stubRecordsGetter,
+                                          stubAfterRecordsGetter,
 
-                                          stubAllPostsGetter,
+                                          stubAllRecordsGetter,
 
-                                          stubBeforePostGetter,
-                                          stubPostGetter,
-                                          stubAfterPostGetter,
+                                          stubBeforeRecordGetter,
+                                          stubRecordGetter,
+                                          stubAfterRecordGetter,
 
-                                          stubBeforeCachedPostsGetter,
-                                          stubCachedPostsGetter,
-                                          stubAfterCachedPostsGetter,
+                                          stubBeforeCachedRecordsGetter,
+                                          stubCachedRecordsGetter,
+                                          stubAfterCachedRecordsGetter,
 
-                                          stubAllCachedPostsGetter,
+                                          stubAllCachedRecordsGetter,
 
-                                          stubBeforeCachedPostGetter,
-                                          stubCachedPostGetter,
-                                          stubAfterCachedPostGetter,
+                                          stubBeforeCachedRecordGetter,
+                                          stubCachedRecordGetter,
+                                          stubAfterCachedRecordGetter,
 
-                                          stubJsonToPost,
+                                          stubInstanceToRecord,
 
-                                          stubGetPosts,
-                                          stubCreatePosts,
+                                          stubGetRecords,
+                                          stubCreateRecords,
 
-                                          stubGetPost,
-                                          stubCreatePost
+                                          stubGetRecord,
+                                          stubCreateRecord
                                       }) => {
     return {
         DummyDataSource: DummyDataSourceGenerator({
             stubType,
 
-            stubBeforePostsGetter,
-            stubPostsGetter,
-            stubAfterPostsGetter,
+            stubBeforeRecordsGetter,
+            stubRecordsGetter,
+            stubAfterRecordsGetter,
 
-            stubAllPostsGetter,
+            stubAllRecordsGetter,
 
-            stubBeforePostGetter,
-            stubPostGetter,
-            stubAfterPostGetter,
+            stubBeforeRecordGetter,
+            stubRecordGetter,
+            stubAfterRecordGetter,
 
-            stubJsonToPost
+            stubInstanceToRecord
         }),
         DummyCachedDataSource: DummyCachedDataSourceGenerator({
             stubType,
 
-            stubBeforePostsGetter,
-            stubPostsGetter,
-            stubAfterPostsGetter,
+            stubBeforeRecordsGetter,
+            stubRecordsGetter,
+            stubAfterRecordsGetter,
 
-            stubAllPostsGetter,
+            stubAllRecordsGetter,
 
-            stubBeforePostGetter,
-            stubPostGetter,
-            stubAfterPostGetter,
+            stubBeforeRecordGetter,
+            stubRecordGetter,
+            stubAfterRecordGetter,
 
-            stubBeforeCachedPostsGetter,
-            stubCachedPostsGetter,
-            stubAfterCachedPostsGetter,
+            stubBeforeCachedRecordsGetter,
+            stubCachedRecordsGetter,
+            stubAfterCachedRecordsGetter,
 
-            stubAllCachedPostsGetter,
+            stubAllCachedRecordsGetter,
 
-            stubBeforeCachedPostGetter,
-            stubCachedPostGetter,
-            stubAfterCachedPostGetter,
+            stubBeforeCachedRecordGetter,
+            stubCachedRecordGetter,
+            stubAfterCachedRecordGetter,
 
-            stubJsonToPost
+            stubInstanceToRecord
         }),
         DummyDataClient: DummyDataClientGenerator({
-            stubGetPosts,
-            stubCreatePosts,
+            stubGetRecords,
+            stubCreateRecords,
 
-            stubGetPost,
-            stubCreatePost
+            stubGetRecord,
+            stubCreateRecord
         }),
         DummyCacheClient: DummyCacheClientGenerator({
             dummyDataClientStubs: {
-                stubGetPosts,
-                stubCreatePosts,
+                stubGetRecords,
+                stubCreateRecords,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             }
         })
     };

@@ -20,21 +20,7 @@ class TumblrSource extends CachedDataSource {
         return "tumblr";
     }
 
-    async allPostsGetter(searchParams) {
-        let posts = await this.postsGetter(searchParams);
-
-        if (posts.length) {
-            posts = posts.concat(await this.allPostsGetter(
-                searchParams
-                    .set("all", true)
-                    .set("beforeDate", posts[posts.length - 1].datePublished)
-            ));
-        }
-
-        return posts;
-    }
-
-    static jsonToPost(postJson) {
+    static instanceToRecord(postJson) {
         switch (postJson.type) {
             case "photo": {
                 if (postJson.photos.length > 1) {
@@ -45,8 +31,32 @@ class TumblrSource extends CachedDataSource {
             }
 
             default:
-                return TumblrSource._jsonToPost(postJson);
+                return TumblrSource._instanceToRecord(postJson);
         }
+    }
+
+    static _instanceToRecord(postJson) {
+        const dateString = postJson.date;
+        const dateStringWithoutTimezone = dateString.slice(0, -4);
+        const timezone = dateString.slice(-3);
+        const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
+
+        return Post.fromJS({
+            raw: postJson,
+            id: postJson.id,
+            source: TumblrSource.type,
+            datePublished: date,
+            title: postJson.title,
+            body: postJson.body,
+            sourceUrl: postJson.post_url,
+            creator: {
+                id: postJson.blog.name,
+                username: postJson.blog.name,
+                name: postJson.blog.title,
+                url: postJson.blog.url
+            },
+            tags: postJson.tags
+        });
     }
 
     static _jsonToGallery(postJson) {
@@ -105,41 +115,31 @@ class TumblrSource extends CachedDataSource {
         });
     }
 
-    static _jsonToPost(postJson) {
-        const dateString = postJson.date;
-        const dateStringWithoutTimezone = dateString.slice(0, -4);
-        const timezone = dateString.slice(-3);
-        const date = DateTime.fromSQL(dateStringWithoutTimezone, {zone: timezone});
+    async allRecordsGetter(searchParams) {
+        let posts = await this.recordsGetter(searchParams);
 
-        return Post.fromJS({
-            raw: postJson,
-            id: postJson.id,
-            source: TumblrSource.type,
-            datePublished: date,
-            title: postJson.title,
-            body: postJson.body,
-            sourceUrl: postJson.post_url,
-            creator: {
-                id: postJson.blog.name,
-                username: postJson.blog.name,
-                name: postJson.blog.title,
-                url: postJson.blog.url
-            },
-            tags: postJson.tags
-        });
+        if (posts.length) {
+            posts = posts.concat(await this.allRecordsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("beforeDate", posts[posts.length - 1].datePublished)
+            ));
+        }
+
+        return posts;
     }
 
-    async postsGetter(searchParams) {
+    async recordsGetter(searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.Tumblr)
             .then(response =>
-                _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson)))
+                _.flatten(response.posts.map(postJson => TumblrSource.instanceToRecord(postJson)))
                     .filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
             );
     }
 
-    async postGetter(id, searchParams) {
+    async recordGetter(id, searchParams) {
         return this.client.blogPosts(process.env.TUMBLR_USER_NAME, searchParams.set("id", id).Tumblr)
-            .then(response => _.flatten(response.posts.map(postJson => TumblrSource.jsonToPost(postJson)))[0]);
+            .then(response => _.flatten(response.posts.map(postJson => TumblrSource.instanceToRecord(postJson)))[0]);
     }
 }
 

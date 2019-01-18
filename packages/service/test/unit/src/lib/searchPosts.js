@@ -12,11 +12,11 @@ describe("searchPosts", function () {
     let stubPost;
     let stubPhoto;
     let stubPosts;
-    let stubCreatePosts;
-    let stubGetPosts;
-    let stubGetPostCount;
-    let stubCreatePost;
-    let stubGetPost;
+    let stubCreateRecords;
+    let stubGetRecords;
+    let stubGetRecordCount;
+    let stubCreateRecord;
+    let stubGetRecord;
     let DummyCacheClient;
 
     beforeEach(function () {
@@ -34,25 +34,25 @@ describe("searchPosts", function () {
         stubPhoto = Photo.fromJSON({...stubRawPhoto, raw: stubRawPhoto});
         stubPosts = [stubPhoto, stubPost];
 
-        stubCreatePosts = sinon.stub().callsFake(posts => Promise.resolve(posts));
-        stubGetPosts = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
-        stubGetPostCount = sinon.stub().callsFake(params => Promise.resolve(stubPosts.length)); // eslint-disable-line no-unused-vars
+        stubCreateRecords = sinon.stub().callsFake(posts => Promise.resolve(posts));
+        stubGetRecords = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
+        stubGetRecordCount = sinon.stub().callsFake(params => Promise.resolve(stubPosts.length)); // eslint-disable-line no-unused-vars
 
-        stubCreatePost = sinon.stub().callsFake(post => Promise.resolve(post));
-        stubGetPost = sinon.stub().callsFake(params => Promise.resolve(params._options.descending ? stubPhoto : stubPost)); // eslint-disable-line no-unused-vars
+        stubCreateRecord = sinon.stub().callsFake(post => Promise.resolve(post));
+        stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params._options.descending ? stubPhoto : stubPost)); // eslint-disable-line no-unused-vars
 
         DummyCacheClient = DummyCacheClientGenerator({
             dummyDataClientStubs: {
-                stubGetPosts,
-                stubCreatePosts,
-                stubGetPostCount,
+                stubGetRecords,
+                stubCreateRecords,
+                stubGetRecordCount,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             }
         });
 
-        sinon.stub(sources[stubSource], "jsonToPost")
+        sinon.stub(sources[stubSource], "instanceToRecord")
             .callsFake(json => {
                 if (json.type === "photo") {
                     return stubPhoto;
@@ -65,7 +65,7 @@ describe("searchPosts", function () {
     });
 
     afterEach(function () {
-        sources[stubSource].jsonToPost.restore();
+        sources[stubSource].instanceToRecord.restore();
     });
 
     it("delegates to `CacheClient` functions", async function () {
@@ -87,8 +87,8 @@ describe("searchPosts", function () {
             lastFetched: stubPhoto
         });
 
-        expect(stubGetPostCount.calledOnce).to.eql(true);
-        expect(stubGetPosts.calledOnce).to.eql(true);
-        expect(stubGetPost.calledTwice).to.eql(true);
+        expect(stubGetRecordCount.calledOnce).to.eql(true);
+        expect(stubGetRecords.calledOnce).to.eql(true);
+        expect(stubGetRecord.calledTwice).to.eql(true);
     });
 });

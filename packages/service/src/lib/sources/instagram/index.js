@@ -19,22 +19,7 @@ class InstagramSource extends CachedDataSource {
         return !!process.env[`${InstagramSource.type.toUpperCase()}_ACCESS_TOKEN`];
     }
 
-    async allPostsGetter(searchParams) {
-        let posts = await this.postsGetter(searchParams);
-
-        if (posts.length) {
-            const lastPost = posts[posts.length - 1];
-            posts = posts.concat(await this.allPostsGetter(
-                searchParams
-                    .set("all", true)
-                    .set("beforeId", lastPost.id)
-            ));
-        }
-
-        return posts;
-    }
-
-    static jsonToPost(photoJson) {
+    static instanceToRecord(photoJson) {
         const sizedPhotos = Object.keys(photoJson.images).map(key => {
             const image = photoJson.images[key];
             return SizedPhoto.fromJSON({...image, size: key});
@@ -76,6 +61,21 @@ class InstagramSource extends CachedDataSource {
         });
     }
 
+    async allRecordsGetter(searchParams) {
+        let posts = await this.recordsGetter(searchParams);
+
+        if (posts.length) {
+            const lastPost = posts[posts.length - 1];
+            posts = posts.concat(await this.allRecordsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("beforeId", lastPost.id)
+            ));
+        }
+
+        return posts;
+    }
+
     _highResolutionPhotoGetter(photoJson) {
         return fetch(`${photoJson.link}?__a=1`)
             .then(body => body.json())
@@ -90,7 +90,7 @@ class InstagramSource extends CachedDataSource {
             });
     }
 
-    postsGetter(searchParams) {
+    recordsGetter(searchParams) {
         const userId = process.env.INSTAGRAM_USER_ID;
         let instagramRequest = Promise.resolve(userId);
 
@@ -107,14 +107,14 @@ class InstagramSource extends CachedDataSource {
             .then(mediaJson => Promise.all(
                 mediaJson.data
                     .filter(datum => datum.type === "image")
-                    .filter(postJson => filterPostForOrderingConditionsInSearchParams(this.constructor.jsonToPost(postJson), searchParams))
-                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.jsonToPost(post)))
+                    .filter(postJson => filterPostForOrderingConditionsInSearchParams(this.constructor.instanceToRecord(postJson), searchParams))
+                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.instanceToRecord(post)))
             ));
     }
 
-    postGetter(photoId) {
+    recordGetter(photoId) {
         return this.client.media(photoId)
-            .then(postJson => postJson && postJson.data && this._highResolutionPhotoGetter(postJson.data).then(post => this.constructor.jsonToPost(post)));
+            .then(postJson => postJson && postJson.data && this._highResolutionPhotoGetter(postJson.data).then(post => this.constructor.instanceToRecord(post)));
     }
 }
 

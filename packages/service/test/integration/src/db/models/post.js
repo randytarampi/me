@@ -1,7 +1,13 @@
 import {Photo, Post, POST_STATUS, SizedPhoto} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import PostModel, {createPost, createPosts, getPost, getPostCount, getPosts} from "../../../../../src/db/models/post";
+import PostModel, {
+    createRecord,
+    createRecords,
+    getRecord,
+    getRecordCount,
+    getRecords
+} from "../../../../../src/db/models/post";
 
 describe("Post", function () {
     this.timeout(60000);
@@ -75,23 +81,23 @@ describe("Post", function () {
             });
     });
 
-    describe("createPost", function () {
+    describe("createRecord", function () {
         it("persists a post from a Post", async function () {
-            const createdPost = await createPost(stubPost);
+            const createdPost = await createRecord(stubPost);
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
             expect(postFromDb).to.be.ok;
         });
 
         it("persists a post from a Photo", async function () {
-            const createdPhoto = await createPost(stubPhoto);
+            const createdPhoto = await createRecord(stubPhoto);
             expect(createdPhoto.uid).to.eql(stubPhoto.uid);
             const photoFromDb = await PostModel.get({uid: createdPhoto.uid, status: POST_STATUS.visible});
             expect(photoFromDb).to.be.ok;
         });
 
         it("doesn't persist empty string tags", async function () {
-            const createdPost = await createPost(stubPost);
+            const createdPost = await createRecord(stubPost);
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
             expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).map(tag => tag.toLowerCase()).toArray());
@@ -99,24 +105,24 @@ describe("Post", function () {
         });
     });
 
-    describe("getPost", function () {
+    describe("getRecord", function () {
         it("retrieves a Post (uid)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPost = await getPost({_query: {uid: {eq: stubPost.uid}}});
+            await createRecords(stubPosts);
+            const retrievedPost = await getRecord({_query: {uid: {eq: stubPost.uid}}});
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost.type).to.eql(Post.type);
         });
 
         it("retrieves a Post (type)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPost = await getPost({_query: {type: {eq: stubPost.type}}});
+            await createRecords(stubPosts);
+            const retrievedPost = await getRecord({_query: {type: {eq: stubPost.type}}});
             expect(retrievedPost.uid).to.eql(stubPost.uid);
             expect(retrievedPost.type).to.eql(Post.type);
         });
 
         it("retrieves a Photo (source)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPhoto = await getPost({_filter: {source: {eq: stubPhoto.source}}});
+            await createRecords(stubPosts);
+            const retrievedPhoto = await getRecord({_filter: {source: {eq: stubPhoto.source}}});
             expect(retrievedPhoto.uid).to.eql(stubPhoto.uid);
             expect(retrievedPhoto.type).to.eql(Photo.type);
         });
@@ -151,16 +157,16 @@ describe("Post", function () {
                 ]
             });
             const moreThanOnePhoto = stubPosts.concat(otherPhoto);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPost = await getPost({_filter: {tags: {CONTAINS: ["woof"]}}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPost = await getRecord({_filter: {tags: {CONTAINS: ["woof"]}}});
             expect(retrievedPost.uid).to.eql(otherPhoto.uid);
             expect(retrievedPost.type).to.eql(otherPhoto.type);
         });
     });
 
-    describe("createPosts", function () {
+    describe("createRecords", function () {
         it("persists multiple posts", async function () {//
-            const createdPosts = await createPosts(stubPosts);
+            const createdPosts = await createRecords(stubPosts);
             expect(createdPosts).to.be.an("array");
             expect(createdPosts).to.have.length(stubPosts.length);
             return await Promise.all(stubPosts.map(async createdPost => {
@@ -171,7 +177,7 @@ describe("Post", function () {
         });
     });
 
-    describe("getPosts", function () {
+    describe("getRecords", function () {
         it("retrieves posts (type)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
@@ -200,8 +206,8 @@ describe("Post", function () {
                     }
                 })
             ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_query: {type: {eq: stubPhoto.type}}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_query: {type: {eq: stubPhoto.type}}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -237,8 +243,8 @@ describe("Post", function () {
                     }
                 })
             ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -247,8 +253,8 @@ describe("Post", function () {
         });
 
         it("retrieves posts (source)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({_filter: {source: {eq: stubPhoto.source}}});
+            await createRecords(stubPosts);
+            const retrievedPosts = await getRecords({_filter: {source: {eq: stubPhoto.source}}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -258,8 +264,8 @@ describe("Post", function () {
         });
 
         it("retrieves posts (uid)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPosts = await getPosts({_query: {uid: {eq: stubPhoto.uid}}});
+            await createRecords(stubPosts);
+            const retrievedPosts = await getRecords({_query: {uid: {eq: stubPhoto.uid}}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -299,8 +305,8 @@ describe("Post", function () {
                     ]
                 })
             ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_filter: {tags: {CONTAINS: ["woof"]}}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -338,8 +344,8 @@ describe("Post", function () {
                     ]
             });
             const moreThanOnePhoto = stubPosts.concat(otherPhoto);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 1}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 1}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(1);
             return await Promise.all(retrievedPosts.map(retrievedPost => {
@@ -377,8 +383,8 @@ describe("Post", function () {
                     ]
             });
             const moreThanOnePhoto = stubPosts.concat(otherPhoto);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 10}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 10}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
         });
@@ -417,8 +423,8 @@ describe("Post", function () {
                 .concat(otherPhoto.set("tags", null).set("id", "bar"))
                 .concat(otherPhoto.set("tags", null).set("id", "baz"))
                 .concat(otherPhoto);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 2}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_filter: {tags: {CONTAINS: ["woof"]}}, _options: {limit: 2}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(2);
         });
@@ -453,14 +459,14 @@ describe("Post", function () {
                 ]
             });
             const moreThanOnePhoto = stubPosts.concat(otherPhoto);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPosts({_filter: {tags: {CONTAINS: ["rawr"]}}, _options: {limit: 10}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecords({_filter: {tags: {CONTAINS: ["rawr"]}}, _options: {limit: 10}});
             expect(retrievedPosts).to.be.an("array");
             expect(retrievedPosts).to.have.length(0);
         });
     });
 
-    describe("getPostCount", function () {
+    describe("getRecordCount", function () {
         it("retrieves posts (type)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({
@@ -489,8 +495,8 @@ describe("Post", function () {
                     }
                 })
             ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPostCount({_query: {type: {eq: stubPhoto.type}}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecordCount({_query: {type: {eq: stubPhoto.type}}});
             expect(retrievedPosts).to.eql(2);
         });
 
@@ -522,20 +528,20 @@ describe("Post", function () {
                     }
                 })
             ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPostCount({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecordCount({_query: {type: {eq: stubPhoto.type}}, _options: {limit: 1}});
             expect(retrievedPosts).to.eql(2);
         });
 
         it("retrieves posts (source)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPosts = await getPostCount({_filter: {source: {eq: stubPhoto.source}}});
+            await createRecords(stubPosts);
+            const retrievedPosts = await getRecordCount({_filter: {source: {eq: stubPhoto.source}}});
             expect(retrievedPosts).to.eql(1);
         });
 
         it("retrieves posts (uid)", async function () {
-            await createPosts(stubPosts);
-            const retrievedPosts = await getPostCount({_query: {uid: {eq: stubPhoto.uid}}});
+            await createRecords(stubPosts);
+            const retrievedPosts = await getRecordCount({_query: {uid: {eq: stubPhoto.uid}}});
             expect(retrievedPosts).to.eql(1);
         });
 
@@ -570,8 +576,8 @@ describe("Post", function () {
                     ]
                 })
             ]);
-            await createPosts(moreThanOnePhoto);
-            const retrievedPosts = await getPostCount({_filter: {tags: {CONTAINS: ["woof"]}}});
+            await createRecords(moreThanOnePhoto);
+            const retrievedPosts = await getRecordCount({_filter: {tags: {CONTAINS: ["woof"]}}});
             expect(retrievedPosts).to.eql(2);
         });
     });

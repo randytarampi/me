@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {buildQueryWithFilter} from "../../../../../src/db/models/post";
+import {buildQueryWithFilter} from "../../../../src/db/util";
 
-describe("Post", function () {
+describe("util", function () {
     describe("buildQueryWithFilter", function () {
         it("handles a simple query", function () {
             const stubQueryMethod = sinon.stub();
