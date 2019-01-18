@@ -31,6 +31,17 @@ export class Gallery extends PostClassGenerator({
         return this.largestPhoto.largestImage;
     }
 
+    getSizedPhotoForDisplay(width) {
+        const widthAppropriatePhotos = this.smallestPhoto.sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width && sizedPhoto.size !== "raw");
+
+        return widthAppropriatePhotos.first() || this.smallestPhoto.sortedSizedPhotos.last();
+    }
+
+
+    getSizedPhotoForLoading() {
+        return this.smallestImage;
+    }
+
     static parsePropertiesFromJs(js) {
         return {
             ...Post.parsePropertiesFromJs(js),
