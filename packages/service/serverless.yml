@@ -87,7 +87,8 @@ custom:
   dynamodb:
     start:
       port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
-      inMemory: true
+      inMemory: false
+      dbPath: ./
       migrate: true
     migration:
       dir: src/serverless/dynamoDb/migrations
