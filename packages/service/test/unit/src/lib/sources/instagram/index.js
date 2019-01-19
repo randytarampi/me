@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
 import sinon from "sinon";
-import SearchParams from "../../../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import InstagramSource from "../../../../../../src/lib/sources/instagram";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
@@ -216,7 +216,7 @@ describe("InstagramSource", function () {
     describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
+            const stubParams = PostSearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.INSTAGRAM_USER_ID;
 
@@ -236,7 +236,7 @@ describe("InstagramSource", function () {
 
         it("doesn't query for a `userId` if it already has `process.env.INSTAGRAM_USER_ID`", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
+            const stubParams = PostSearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
             process.env.INSTAGRAM_USER_ID = instagramUser.id;
 
@@ -255,7 +255,7 @@ describe("InstagramSource", function () {
 
         it("finds no posts", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 42});
+            const stubParams = PostSearchParams.fromJS({perPage: 42});
 
             return instagramSource.recordsGetter(stubParams)
                 .then(posts => {
@@ -270,7 +270,7 @@ describe("InstagramSource", function () {
     describe("allRecordsGetter", function () {
         it("finds all posts", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
+            const stubParams = PostSearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
             process.env.INSTAGRAM_USER_ID = instagramUser.id;
 

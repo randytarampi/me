@@ -2,7 +2,7 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import CacheClient from "../../../../src/lib/cacheClient";
-import SearchParams from "../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../src/lib/postSearchParams";
 import DummyDataClientGenerator from "../../../lib/dummyDataClientGenerator";
 
 describe("CacheClient", function () {
@@ -100,7 +100,7 @@ describe("CacheClient", function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
             const retrievedPosts = await cacheClient.getRecords(stubParams);
             expect(retrievedPosts).to.be.ok;
@@ -124,7 +124,7 @@ describe("CacheClient", function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
             const retrievedPosts = await cacheClient.getRecords(stubParams);
             expect(retrievedPosts).to.not.be.ok;
@@ -138,7 +138,7 @@ describe("CacheClient", function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
             const retrievedPosts = await cacheClient.getRecordCount(stubParams);
             expect(retrievedPosts).to.eql(stubPosts.length);
@@ -162,7 +162,7 @@ describe("CacheClient", function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
             const retrievedPosts = await cacheClient.getRecordCount(stubParams);
             expect(retrievedPosts).to.not.be.ok;
@@ -211,7 +211,7 @@ describe("CacheClient", function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
             const retrievedPost = await cacheClient.getRecord(stubParams);
             expect(retrievedPost).to.be.instanceOf(Post);
             expect(retrievedPost).to.eql(stubPost);
@@ -235,7 +235,7 @@ describe("CacheClient", function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
             const retrievedPost = await cacheClient.getRecord(stubParams);
             expect(retrievedPost).to.not.be.ok;
             expect(stubGetRecord.calledOnce).to.eql(true);

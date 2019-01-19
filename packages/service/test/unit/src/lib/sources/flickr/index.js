@@ -3,7 +3,7 @@ import {expect} from "chai";
 import Flickr from "flickr-sdk";
 import {DateTime} from "luxon";
 import sinon from "sinon";
-import SearchParams from "../../../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import FlickrSource, {FLICKR_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/flickr";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
@@ -184,7 +184,7 @@ describe("FlickrSource", function () {
     describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
+            const stubParams = PostSearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             delete process.env.FLICKR_USER_ID;
 
@@ -207,7 +207,7 @@ describe("FlickrSource", function () {
 
         it("doesn't query for a `userId` if it already has `process.env.FLICKR_USER_ID`", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 40});
+            const stubParams = PostSearchParams.fromJS({perPage: 40});
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 
@@ -229,7 +229,7 @@ describe("FlickrSource", function () {
 
         it("finds no posts", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 420});
+            const stubParams = PostSearchParams.fromJS({perPage: 420});
 
             return flickrSource.recordsGetter(stubParams)
                 .then(posts => {
@@ -247,7 +247,7 @@ describe("FlickrSource", function () {
     describe("allRecordsGetter", function () {
         it("finds all posts", function () {
             const flickrSource = new FlickrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 40});
+            const stubParams = PostSearchParams.fromJS({perPage: 40});
 
             process.env.FLICKR_USER_ID = flickrUser.id;
 

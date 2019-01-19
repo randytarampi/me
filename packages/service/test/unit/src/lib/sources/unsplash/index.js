@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import Unsplash from "unsplash-js";
-import SearchParams from "../../../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import UnsplashSource from "../../../../../../src/lib/sources/unsplash";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
@@ -219,7 +219,7 @@ describe("UnsplashSource", function () {
     describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, orderBy: "woof"});
+            const stubParams = PostSearchParams.fromJS({perPage: 30, page: 2, orderBy: "woof"});
 
             return unsplashSource.recordsGetter(stubParams)
                 .then(posts => {
@@ -235,7 +235,7 @@ describe("UnsplashSource", function () {
 
         it("finds no posts", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 420});
+            const stubParams = PostSearchParams.fromJS({perPage: 420});
 
             return unsplashSource.recordsGetter(stubParams)
                 .then(posts => {
@@ -251,7 +251,7 @@ describe("UnsplashSource", function () {
     describe("allRecordsGetter", function () {
         it("finds all posts", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, orderBy: "latest"});
+            const stubParams = PostSearchParams.fromJS({perPage: 30, orderBy: "latest"});
 
             return unsplashSource.allRecordsGetter(stubParams)
                 .then(posts => {
@@ -268,7 +268,7 @@ describe("UnsplashSource", function () {
     describe("recordGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
+            const stubParams = PostSearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
 
             return unsplashSource.recordGetter(stubPost.id, stubParams)
                 .then(post => {
@@ -280,7 +280,7 @@ describe("UnsplashSource", function () {
 
         it("finds no post", function () {
             const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
+            const stubParams = PostSearchParams.fromJS({width: 500, height: 500, crop: "0,0,400,400"});
 
             return unsplashSource.recordGetter("foo", stubParams)
                 .then(post => {

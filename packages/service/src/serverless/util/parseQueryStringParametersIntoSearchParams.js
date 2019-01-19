@@ -1,7 +1,7 @@
-import SearchParams from "../../lib/searchParams";
+import PostSearchParams from "../../lib/postSearchParams";
 
 export const parseQueryStringParametersIntoSearchParams = baseParameters => queryStringParameters => {
-    return SearchParams.fromJSON({
+    return PostSearchParams.fromJSON({
         ...baseParameters,
         ...queryStringParameters
     });

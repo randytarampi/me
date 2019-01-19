@@ -2,7 +2,7 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import DataSource from "../../../../src/lib/dataSource";
-import SearchParams from "../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../src/lib/postSearchParams";
 import DummyDataSourceGenerator from "../../../lib/dummyDataSourceGenerator";
 
 describe("DataSource", function () {
@@ -156,7 +156,7 @@ describe("DataSource", function () {
             const dataSource = new DummyDataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
             const posts = await dataSource.getRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
@@ -198,7 +198,7 @@ describe("DataSource", function () {
             const dataSource = new DummyDataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
             const posts = await dataSource.getAllRecords(stubParams);
 
             expect(posts).to.eql(stubPosts);
@@ -266,7 +266,7 @@ describe("DataSource", function () {
             const dataSource = new DummyDataSource(stubServiceClient);
             expect(dataSource).to.be.instanceOf(DummyDataSource);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
             const post = await dataSource.getRecord(stubPost.id, stubParams);
 
             expect(post).to.eql(stubPost);

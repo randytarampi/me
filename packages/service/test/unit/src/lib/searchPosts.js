@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
-import SearchParams from "../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../src/lib/postSearchParams";
 import sources from "../../../../src/lib/sources";
 import DummyCacheClientGenerator from "../../../lib/dummyCacheClientGenerator";
 
@@ -75,7 +75,7 @@ describe("searchPosts", function () {
             }
         });
 
-        const stubSearchParams = new SearchParams();
+        const stubSearchParams = new PostSearchParams();
         const postsResult = await proxyquiredSeachPosts.default(stubSearchParams);
 
         expect(postsResult).to.eql({

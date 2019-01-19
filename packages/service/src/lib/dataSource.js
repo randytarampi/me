@@ -41,7 +41,7 @@ class DataSource {
 
     /**
      * A hook to do some processing of searchParams before we query the client for records
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {object} The maybe decorated searchParams to be used by [recordsGetter]{@link recordsGetter}
      */
     async beforeRecordsGetter(searchParams) {
@@ -51,7 +51,7 @@ class DataSource {
     /**
      * The method that actually uses the [client]{@link DataSource.client} to query for raw data for transformation into [Records]{@link Record}
      * @abstract
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async recordsGetter(searchParams) {
@@ -61,7 +61,7 @@ class DataSource {
     /**
      * A hook to do some processing of [Records]{@link Record} after they're returned by the client
      * @param records {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record[]} The maybe decorated [Records]{@link Record} from the wrapped client
      */
     async afterRecordsGetter(records, searchParams) { // eslint-disable-line no-unused-vars
@@ -70,7 +70,7 @@ class DataSource {
 
     /**
      * A generic method that returns some [Records]{@link Record}
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getRecords(searchParams) {
@@ -84,7 +84,7 @@ class DataSource {
     /**
      * The method that actually uses the [client]{@link DataSource.client} to query for raw data for transformation into [Records]{@link Record}
      * @abstract
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async allRecordsGetter(searchParams) {
@@ -93,7 +93,7 @@ class DataSource {
 
     /**
      * A generic method that returns all available [Records]{@link Record}
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getAllRecords(searchParams) {
@@ -107,7 +107,7 @@ class DataSource {
     /**
      * A hook to do some processing of searchParams before we query the client for a record
      * @param recordId {string} A single record to retrieve from the [client]{@link DataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {object} The maybe decorated searchParams to be used by [recordGetter]{@link recordGetter}
      */
     async beforeRecordGetter(recordId, searchParams) {
@@ -118,7 +118,7 @@ class DataSource {
      * The method that actually uses the [client]{@link DataSource.client} to query for raw data for transformation into a [Record]{@link Record}
      * @abstract
      * @param recordId {string} A single record to retrieve from the [client]{@link DataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async recordGetter(recordId, searchParams) {
@@ -128,7 +128,7 @@ class DataSource {
     /**
      * A hook to do some processing of [Record]{@link Record} after they're returned by the client
      * @param record {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record} The maybe decorated [Record]{@link Record} from the wrapped client
      */
     async afterRecordGetter(record, searchParams) { // eslint-disable-line no-unused-vars
@@ -138,7 +138,7 @@ class DataSource {
     /**
      * A generic method that returns some [Record]{@link Record}
      * @param recordId {string} A single record to retrieve from the [client]{@link DataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link DataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link DataSource.client} specific query parameters
      * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
     async getRecord(recordId, searchParams) {

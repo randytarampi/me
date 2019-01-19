@@ -3,7 +3,7 @@ import {DateTime} from "luxon";
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
 import logger from "./logger";
-import SearchParams from "./searchParams";
+import PostSearchParams from "./postSearchParams";
 
 /**
  * A generic data source that fetches [Record(s)]{@link Record} from some service or some cache, whichever returns first
@@ -22,7 +22,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for records
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {object} The maybe decorated searchParams to be used by [recordsGetter]{@link recordsGetter}
      */
     async beforeCachedRecordsGetter(searchParams) {
@@ -31,7 +31,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Records]{@link Record}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async cachedRecordsGetter(searchParams) {
@@ -42,7 +42,7 @@ class CachedDataSource extends DataSource {
     /**
      * A hook to do some processing of [Records]{@link Record} after they're returned by the client
      * @param records {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} The maybe decorated [Records]{@link Record} from the wrapped client
      */
     async afterCachedRecordsGetter(records, searchParams) { // eslint-disable-line no-unused-vars
@@ -64,7 +64,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns some [Records]{@link Record} from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getCachedRecords(searchParams) {
@@ -87,7 +87,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Records]{@link Record}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
     async allCachedRecordsGetter(searchParams) {
@@ -97,7 +97,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns all available [Records]{@link Record} from the cache
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the cache
      */
     async getAllCachedRecords(searchParams) { // eslint-disable-line no-unused-vars
@@ -120,7 +120,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns some [Records]{@link Record} probably pulled from the [service]{@link CachedDataSource.client}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getServiceRecords(searchParams) {
@@ -138,7 +138,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns all available [Records]{@link Record} from the service
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getAllServiceRecords(searchParams) { // eslint-disable-line no-unused-vars
@@ -156,7 +156,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns some [Records]{@link Record}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getRecords(searchParams) {
@@ -171,7 +171,7 @@ class CachedDataSource extends DataSource {
 
     /**
      * A generic method that returns all available [Records]{@link Record}, either from the cache or the service
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async getAllRecords(searchParams) {
@@ -187,7 +187,7 @@ class CachedDataSource extends DataSource {
     /**
      * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for a record
      * @param recordId {string} A single record to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {object} The maybe decorated searchParams to be used by [recordGetter]{@link recordGetter}
      */
     async beforeCachedRecordGetter(recordId, searchParams) {
@@ -197,13 +197,13 @@ class CachedDataSource extends DataSource {
     /**
      * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a record
      * @param recordId {string} A single record to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
     async cachedRecordGetter(recordId, searchParams) {
         let cacheParams = searchParams
             ? searchParams.set("id", recordId).set("source", this.constructor.type)
-            : SearchParams.fromJS({uid: `${this.constructor.type}${compositeKeySeparator}${recordId}`});
+            : PostSearchParams.fromJS({uid: `${this.constructor.type}${compositeKeySeparator}${recordId}`});
 
         return this.cacheClient.getRecord(cacheParams)
             .then(cachedRecord => cachedRecord && this.constructor.instanceToRecord(cachedRecord.raw));
@@ -212,7 +212,7 @@ class CachedDataSource extends DataSource {
     /**
      * A hook to do some processing of a [Record]{@link Record} after it's returned by the client
      * @param record {string} A single record retrieved from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record} The maybe decorated [Record]{@link Record} from the wrapped client
      */
     async afterCachedRecordGetter(record, searchParams) { // eslint-disable-line no-unused-vars
@@ -236,7 +236,7 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Record]{@link Record} retrieved from the [cache]{@link CachedDataSource.cacheClient}
      * @param recordId {string} A single record to retrieve from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
     async getCachedRecord(recordId, searchParams) {
@@ -259,7 +259,7 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Record]{@link Record} probably retrieved from the [service]{@link CachedDataSource.client}
      * @param recordId {string} A single record to retrieve from the [service]{@link CachedDataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
     async getServiceRecord(recordId, searchParams) {
@@ -278,7 +278,7 @@ class CachedDataSource extends DataSource {
     /**
      * A generic method that returns some [Record]{@link Record}
      * @param recordId {string} A single record to retrieve from the [cache]{@link CachedDataSource.cacheClient} or [service]{@link CachedDataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
+     * @param searchParams {PostSearchParams} [Client]{@link CachedDataSource.client} specific query parameters
      * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
     async getRecord(recordId, searchParams) {

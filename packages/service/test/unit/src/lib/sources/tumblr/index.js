@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import tumblr from "tumblr.js";
-import SearchParams from "../../../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import TumblrSource from "../../../../../../src/lib/sources/tumblr";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
@@ -218,7 +218,7 @@ describe("TumblrSource", function () {
     describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, page: 2, type: Photo.type});
+            const stubParams = PostSearchParams.fromJS({perPage: 30, page: 2, type: Photo.type});
 
             return tumblrSource.recordsGetter(stubParams)
                 .then(posts => {
@@ -253,7 +253,7 @@ describe("TumblrSource", function () {
 
         it("finds no posts", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 17, type: Photo.type});
+            const stubParams = PostSearchParams.fromJS({perPage: 17, type: Photo.type});
 
             return tumblrSource.recordsGetter(stubParams)
                 .then(posts => {
@@ -273,7 +273,7 @@ describe("TumblrSource", function () {
     describe("allRecordsGetter", function () {
         it("finds all posts", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 7});
+            const stubParams = PostSearchParams.fromJS({perPage: 7});
 
             return tumblrSource.allRecordsGetter(stubParams)
                 .then(posts => {
@@ -291,7 +291,7 @@ describe("TumblrSource", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
 
-            return tumblrSource.recordGetter(stubPost.id, SearchParams.fromJS())
+            return tumblrSource.recordGetter(stubPost.id, PostSearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.ok;
 
@@ -320,7 +320,7 @@ describe("TumblrSource", function () {
         it("finds no post", function () {
             const tumblrSource = new TumblrSource(stubServiceClient, stubCacheClient);
 
-            return tumblrSource.recordGetter("foo", SearchParams.fromJS())
+            return tumblrSource.recordGetter("foo", PostSearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.blogPosts);

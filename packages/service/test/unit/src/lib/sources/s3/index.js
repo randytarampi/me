@@ -2,7 +2,7 @@ import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
-import SearchParams from "../../../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import S3Source from "../../../../../../src/lib/sources/s3";
 import {XRayedAwsSdk} from "../../../../../../src/lib/util";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
@@ -197,7 +197,7 @@ describe("S3Source", function () {
     describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 30, page: 2});
+            const stubParams = PostSearchParams.fromJS({perPage: 30, page: 2});
 
             return s3Source.recordsGetter(stubParams)
                 .then(posts => {
@@ -215,7 +215,7 @@ describe("S3Source", function () {
 
         it("finds all posts", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 720});
+            const stubParams = PostSearchParams.fromJS({perPage: 720});
 
             return s3Source.recordsGetter(stubParams)
                 .then(posts => {
@@ -239,7 +239,7 @@ describe("S3Source", function () {
 
         it("finds no posts", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 420});
+            const stubParams = PostSearchParams.fromJS({perPage: 420});
 
             return s3Source.recordsGetter(stubParams)
                 .then(posts => {
@@ -257,7 +257,7 @@ describe("S3Source", function () {
     describe("allRecordsGetter", function () {
         it("finds all posts", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
-            const stubParams = SearchParams.fromJS({perPage: 720});
+            const stubParams = PostSearchParams.fromJS({perPage: 720});
 
             return s3Source.allRecordsGetter(stubParams)
                 .then(posts => {
@@ -284,7 +284,7 @@ describe("S3Source", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 
-            return s3Source.recordGetter(stubPost.id, SearchParams.fromJS())
+            return s3Source.recordGetter(stubPost.id, PostSearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.instanceof(Post);
                     sinon.assert.calledOnce(stubServiceClient.getObject);
@@ -298,7 +298,7 @@ describe("S3Source", function () {
         it("finds no post", function () {
             const s3Source = new S3Source(stubServiceClient, stubCacheClient);
 
-            return s3Source.recordGetter("foo", SearchParams.fromJS())
+            return s3Source.recordGetter("foo", PostSearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.getObject);

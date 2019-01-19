@@ -9,13 +9,13 @@ import {
 import {expect} from "chai";
 import {DateTime, Duration} from "luxon";
 import sinon from "sinon";
-import SearchParams, {
+import PostSearchParams, {
     castOrderComparator,
     computeOrderComparatorFromRelativeOrderComparatorAdjustment,
     computeOrderingComparison
-} from "../../../../src/lib/searchParams";
+} from "../../../../src/lib/postSearchParams";
 
-describe("SearchParams", function () {
+describe("PostSearchParams", function () {
     let clock;
     let now;
 
@@ -29,8 +29,8 @@ describe("SearchParams", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `SearchParams` instance", function () {
-            const searchParams = SearchParams.fromJS();
+        it("should build a `PostSearchParams` instance", function () {
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.page).to.eql(1);
             expect(searchParams.perPage).to.eql(100);
@@ -39,7 +39,7 @@ describe("SearchParams", function () {
 
     describe("perPage", function () {
         it("should default to 100", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.perPage).to.eql(100);
         });
@@ -47,7 +47,7 @@ describe("SearchParams", function () {
 
     describe("page", function () {
         it("should default to 1", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.page).to.eql(1);
         });
@@ -55,7 +55,7 @@ describe("SearchParams", function () {
 
     describe("orderComparator", function () {
         it("defers to `this.hasRelativeOrderComparator` if it's defined", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 orderComparator: 1,
                 orderComparatorType: "String",
                 relativeOrderComparatorAdjustment: "P1Y",
@@ -69,7 +69,7 @@ describe("SearchParams", function () {
         });
 
         it("works for `this.orderComparatorType === String`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 orderComparator: 1,
                 orderComparatorType: "String"
             });
@@ -78,7 +78,7 @@ describe("SearchParams", function () {
         });
 
         it("works for `this.orderComparatorType === Number`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 orderComparator: 1,
                 orderComparatorType: "Number"
             });
@@ -87,7 +87,7 @@ describe("SearchParams", function () {
         });
 
         it("defaults to `this.orderComparatorType === Number`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 orderComparator: 1
             });
 
@@ -97,7 +97,7 @@ describe("SearchParams", function () {
 
     describe("geoRadius", function () {
         it("returns `this.get(\"geoRadius\")`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 geoRadius: 1
             });
 
@@ -105,7 +105,7 @@ describe("SearchParams", function () {
         });
 
         it("returns half the haversine distance between the points of a bounding box", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 north: 0,
                 east: 1,
                 south: 0,
@@ -116,7 +116,7 @@ describe("SearchParams", function () {
         });
 
         it("is undefined otherwise", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.geoRadius).to.eql(undefined);
         });
@@ -124,7 +124,7 @@ describe("SearchParams", function () {
 
     describe("geohash", function () {
         it("returns `this.get(\"geohash\")`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 geohash: "woof"
             });
 
@@ -132,7 +132,7 @@ describe("SearchParams", function () {
         });
 
         it("infers from `this.lat` and `this.long`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 lat: 49.2845,
                 long: -123.1116
             });
@@ -141,7 +141,7 @@ describe("SearchParams", function () {
         });
 
         it("is undefined if no `geohash` or `geohashPrecision`", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.geohash).to.eql(undefined);
         });
@@ -149,7 +149,7 @@ describe("SearchParams", function () {
 
     describe("geohashPrecision", function () {
         it("returns `this.get(\"geohashPrecision\")`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 geohashPrecision: 1
             });
 
@@ -157,7 +157,7 @@ describe("SearchParams", function () {
         });
 
         it("defers to `this.get(\"geohash\").length`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 geohash: "woof"
             });
 
@@ -165,7 +165,7 @@ describe("SearchParams", function () {
         });
 
         it("is undefined if no `geohash` or `geohashPrecision`", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.geohashPrecision).to.eql(undefined);
         });
@@ -173,7 +173,7 @@ describe("SearchParams", function () {
 
     describe("geohashQueries", function () {
         it("defers to getGeohashesForBoundingBox if we have `north`, `east`, `south` and `west`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 north: 1,
                 east: 1,
                 south: -1,
@@ -198,7 +198,7 @@ describe("SearchParams", function () {
         });
 
         it("defers to getGeohashesForRadiusAroundPoint if we have `geoRadius`, `lat` and `long`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 geoRadius: MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1,
                 lat: 0,
                 long: 0
@@ -218,7 +218,7 @@ describe("SearchParams", function () {
         });
 
         it("defers to getGeohashesForRadiusAroundGeohash if we have `geoRadius` and `geohash`", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 geoRadius: MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1,
                 geohash: "s"
             });
@@ -238,7 +238,7 @@ describe("SearchParams", function () {
         });
 
         it("returns undefined otherwise", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.geohashQueries).to.eql(undefined);
         });
@@ -246,7 +246,7 @@ describe("SearchParams", function () {
 
     describe("Flickr", function () {
         it("should properly format properties for query", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.Flickr).to.eql({
                 page: searchParams.page,
@@ -258,7 +258,7 @@ describe("SearchParams", function () {
 
     describe("Unsplash", function () {
         it("should properly format properties for query", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.Unsplash).to.eql({
                 page: searchParams.page,
@@ -271,7 +271,7 @@ describe("SearchParams", function () {
         });
 
         it("supports `orderBy: \"descending\"`", function () {
-            const searchParams = SearchParams.fromJS({orderBy: "descending"});
+            const searchParams = PostSearchParams.fromJS({orderBy: "descending"});
 
             expect(searchParams.Unsplash).to.eql({
                 page: searchParams.page,
@@ -284,7 +284,7 @@ describe("SearchParams", function () {
         });
 
         it("supports `orderBy: \"ascending\"`", function () {
-            const searchParams = SearchParams.fromJS({orderBy: "ascending"});
+            const searchParams = PostSearchParams.fromJS({orderBy: "ascending"});
 
             expect(searchParams.Unsplash).to.eql({
                 page: searchParams.page,
@@ -299,7 +299,7 @@ describe("SearchParams", function () {
 
     describe("Instagram", function () {
         it("should properly format properties for query", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.Instagram).to.eql({
                 page: searchParams.page,
@@ -308,7 +308,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for query containing `beforeId`", function () {
-            const searchParams = SearchParams.fromJS({beforeId: "woof"});
+            const searchParams = PostSearchParams.fromJS({beforeId: "woof"});
 
             expect(searchParams.Instagram).to.eql({
                 page: searchParams.page,
@@ -318,7 +318,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for query containing `afterId`", function () {
-            const searchParams = SearchParams.fromJS({afterId: "woof"});
+            const searchParams = PostSearchParams.fromJS({afterId: "woof"});
 
             expect(searchParams.Instagram).to.eql({
                 page: searchParams.page,
@@ -330,7 +330,7 @@ describe("SearchParams", function () {
 
     describe("Tumblr", function () {
         it("should properly format properties for word posts", function () {
-            const searchParams = SearchParams.fromJS({type: Post.type});
+            const searchParams = PostSearchParams.fromJS({type: Post.type});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -342,7 +342,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for photo posts", function () {
-            const searchParams = SearchParams.fromJS({type: Photo.type});
+            const searchParams = PostSearchParams.fromJS({type: Photo.type});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -354,7 +354,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for gallery posts", function () {
-            const searchParams = SearchParams.fromJS({type: Gallery.type});
+            const searchParams = PostSearchParams.fromJS({type: Gallery.type});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -366,7 +366,7 @@ describe("SearchParams", function () {
         });
 
         it("takes a good guess at the `type` for unknown post types", function () {
-            const searchParams = SearchParams.fromJS({type: "WOOF"});
+            const searchParams = PostSearchParams.fromJS({type: "WOOF"});
 
             expect(searchParams.Tumblr).to.eql({
                 id: this.id,
@@ -380,7 +380,7 @@ describe("SearchParams", function () {
 
     describe("Dynamoose", function () {
         it("should properly format properties for uid", function () {
-            const searchParams = SearchParams.fromJS({uid: "woof"});
+            const searchParams = PostSearchParams.fromJS({uid: "woof"});
 
             expect(searchParams.Dynamoose).to.eql({
                 _filter: {status: POST_STATUS.visible},
@@ -393,7 +393,7 @@ describe("SearchParams", function () {
 
         describe("perPage", function () {
             it("sets `limit` if `perPage` is finite", function () {
-                const searchParams = SearchParams.fromJS({uid: "woof", perPage: 101});
+                const searchParams = PostSearchParams.fromJS({uid: "woof", perPage: 101});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _query: {
@@ -405,7 +405,7 @@ describe("SearchParams", function () {
             });
 
             it("sets `all` if `perPage` isn't finite", function () {
-                const searchParams = SearchParams.fromJS({uid: "woof", perPage: Infinity});
+                const searchParams = PostSearchParams.fromJS({uid: "woof", perPage: Infinity});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _query: {
@@ -419,7 +419,7 @@ describe("SearchParams", function () {
 
         describe("orderBy", function () {
             it("supports `orderBy: \"descending\"`", function () {
-                const searchParams = SearchParams.fromJS({uid: "woof", orderBy: "descending"});
+                const searchParams = PostSearchParams.fromJS({uid: "woof", orderBy: "descending"});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _query: {
@@ -431,7 +431,7 @@ describe("SearchParams", function () {
             });
 
             it("supports `orderBy: \"ascending\"`", function () {
-                const searchParams = SearchParams.fromJS({uid: "woof", orderBy: "ascending"});
+                const searchParams = PostSearchParams.fromJS({uid: "woof", orderBy: "ascending"});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _query: {
@@ -443,7 +443,7 @@ describe("SearchParams", function () {
             });
 
             it("supports `orderBy: \"geohash\"`", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     orderBy: "geohash",
                     orderOperator: "begins_with",
@@ -473,7 +473,7 @@ describe("SearchParams", function () {
 
         describe("tags", function () {
             it("should properly format properties for tags", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     tags: "woof"
                 });
 
@@ -490,7 +490,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for tags & type", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     tags: "woof,Meow",
                     type: Post.type
                 });
@@ -509,7 +509,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for tags & source", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     tags: "woof",
                     source: "tumblr"
                 });
@@ -528,7 +528,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for tags & orderBy", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     tags: "woof",
                     orderBy: "meow",
                     orderOperator: "gt",
@@ -551,7 +551,7 @@ describe("SearchParams", function () {
 
         describe("type", function () {
             it("should properly format properties for type", function () {
-                const searchParams = SearchParams.fromJS({type: "woof"});
+                const searchParams = PostSearchParams.fromJS({type: "woof"});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
@@ -566,7 +566,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & source", function () {
-                const searchParams = SearchParams.fromJS({source: "meow", type: "woof"});
+                const searchParams = PostSearchParams.fromJS({source: "meow", type: "woof"});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
@@ -582,7 +582,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & orderBy", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     orderBy: "datePublished",
                     orderOperator: "lt",
                     orderComparator: DateTime.local().toISO(),
@@ -605,7 +605,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & geohash", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     type: Post.type,
                     geohash: "woof"
                 });
@@ -629,7 +629,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & geohashQueries", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     type: Post.type,
                     geoRadius: MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1,
                     lat: 0,
@@ -663,7 +663,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & orderBy with orderComparatorType and geohash", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     type: Post.type,
                     orderBy: "meow",
                     orderOperator: "gt",
@@ -689,7 +689,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & orderBy with orderComparatorType and geohashQueries", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     type: Post.type,
                     orderBy: "meow",
                     orderOperator: "gt",
@@ -732,7 +732,7 @@ describe("SearchParams", function () {
 
         describe("source", function () {
             it("should properly format properties for source", function () {
-                const searchParams = SearchParams.fromJS({source: "meow"});
+                const searchParams = PostSearchParams.fromJS({source: "meow"});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
@@ -747,7 +747,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for source & id", function () {
-                const searchParams = SearchParams.fromJS({source: "meow", id: "woof"});
+                const searchParams = PostSearchParams.fromJS({source: "meow", id: "woof"});
 
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {status: POST_STATUS.visible, source: searchParams.source},
@@ -759,7 +759,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for source & orderBy", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     orderBy: "meow",
                     orderOperator: "gt",
                     orderComparator: "5",
@@ -780,7 +780,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for source & orderBy with orderComparatorType", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     orderBy: "meow",
                     orderOperator: "gt",
                     orderComparator: "grr",
@@ -807,7 +807,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for source & geohash", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     geohash: "woof"
                 });
@@ -829,7 +829,7 @@ describe("SearchParams", function () {
 
             it("should properly format properties for a source & geohash with a given precision (reduced)", function () {
                 const expectedGeohash = "c2b2qebz5b9";
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     lat: 49.2845,
                     long: -123.1116,
@@ -853,7 +853,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for source & geohashQueries", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     geoRadius: MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION[0] + 1,
                     lat: 0,
@@ -889,7 +889,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for source & lat/long", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     lat: 49.2845,
                     long: -123.1116
@@ -911,7 +911,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & orderBy with orderComparatorType and geohash", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     orderBy: "meow",
                     orderOperator: "gt",
@@ -942,7 +942,7 @@ describe("SearchParams", function () {
             });
 
             it("should properly format properties for type & orderBy with orderComparatorType and geohashQueries", function () {
-                const searchParams = SearchParams.fromJS({
+                const searchParams = PostSearchParams.fromJS({
                     source: "tumblr",
                     orderBy: "meow",
                     orderOperator: "gt",
@@ -989,7 +989,7 @@ describe("SearchParams", function () {
         });
 
         xit("should properly format properties for neither status nor type", function () {
-            const searchParams = SearchParams.fromJS({source: "meow"}).delete("status");
+            const searchParams = PostSearchParams.fromJS({source: "meow"}).delete("status");
 
             expect(searchParams.Dynamoose).to.eql({
                 _filter: {
@@ -1002,7 +1002,7 @@ describe("SearchParams", function () {
 
     describe("S3", function () {
         it("should properly format properties for query (list)", function () {
-            const searchParams = SearchParams.fromJS();
+            const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.S3).to.eql({
                 Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
@@ -1011,7 +1011,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for query (object)", function () {
-            const searchParams = SearchParams.fromJS({id: "woof"});
+            const searchParams = PostSearchParams.fromJS({id: "woof"});
 
             expect(searchParams.S3).to.eql({
                 Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
@@ -1020,7 +1020,7 @@ describe("SearchParams", function () {
         });
 
         it("should properly format properties for query containing `beforeId`", function () {
-            const searchParams = SearchParams.fromJS({beforeId: "woof"});
+            const searchParams = PostSearchParams.fromJS({beforeId: "woof"});
 
             expect(searchParams.S3).to.eql({
                 Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
@@ -1032,7 +1032,7 @@ describe("SearchParams", function () {
 
     describe("computeOrderingComparison", function () {
         it("works", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 orderComparator: 1,
                 orderComparatorType: "Number",
                 orderOperator: "lt"
@@ -1045,7 +1045,7 @@ describe("SearchParams", function () {
 
     describe("computeOrderingComparisonForEntity", function () {
         it("works", function () {
-            const searchParams = SearchParams.fromJS({
+            const searchParams = PostSearchParams.fromJS({
                 orderBy: "woof",
                 orderComparator: 1,
                 orderComparatorType: "Number",

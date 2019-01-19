@@ -18,7 +18,7 @@ class CacheClient {
 
     /**
      * Retrieve some [Records]{@link Record} from the cache that correspond to the terms in the passed searchParams
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Record[]>}
      */
     async getRecords(searchParams) {
@@ -35,7 +35,7 @@ class CacheClient {
 
     /**
      * Retrieve a count of [Records]{@link Record} from the cache that correspond to the terms in the passed searchParams
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Number>}
      */
     async getRecordCount(searchParams) {
@@ -65,7 +65,7 @@ class CacheClient {
 
     /**
      * Retrieve a [Record]{@link Record} from the cache that corresponds to the terms in the passed searchParams
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Record>}
      */
     async getRecord(searchParams) {
