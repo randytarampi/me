@@ -1,5 +1,6 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
+import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
 
 describe("client", function () {
     beforeEach(function () {
@@ -34,7 +35,12 @@ describe("client", function () {
             }
         });
 
-        return proxyquiredInstagramClient.getAuthTokenForCode(stubCode)
+        return proxyquiredInstagramClient.getAuthToken(new AuthInfoSearchParams({
+                clientId: process.env.INSTAGRAM_API_KEY,
+                clientSecret: process.env.INSTAGRAM_API_SECRET,
+                redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
+                code: stubCode
+            }))
             .then(postsResponse => {
                 expect(postsResponse).to.eql(stubResponseJson);
             });

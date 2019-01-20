@@ -4,7 +4,8 @@ import {DateTime} from "luxon";
 import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
-import InstagramSource from "../../../../../../src/lib/sources/instagram";
+import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
+import {InstagramSource} from "../../../../../../src/lib/sources/instagram/source";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
@@ -40,15 +41,13 @@ describe("InstagramSource", function () {
 
     beforeEach(function () {
         process.env.INSTAGRAM_ACCESS_TOKEN = "INSTAGRAM_ACCESS_TOKEN";
-        process.env.INSTAGRAM_USER_ID = "INSTAGRAM_USER_ID";
-        process.env.INSTAGRAM_USER_NAME = "INSTAGRAM_USER_NAME";
 
         stubPost = Photo.fromJSON({id: "woof"});
         stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"})];
 
         instagramUser = {
-            id: process.env.INSTAGRAM_USER_ID,
-            username: process.env.INSTAGRAM_USER_NAME,
+            id: "woof",
+            username: "woofwoof",
             full_name: "Woof Woof",
         };
         instagramPhoto = {
@@ -79,19 +78,14 @@ describe("InstagramSource", function () {
                     data: instagramPhotos.find(instagramBlogPost => instagramBlogPost.id === postId)
                 });
             }),
-            userSearch: sinon.stub().callsFake(username => { // eslint-disable-line no-unused-vars
-                return Promise.resolve({
-                    data: [instagramUser]
-                });
-            }),
-            userMedia: sinon.stub().callsFake((username, params) => { // eslint-disable-line no-unused-vars
+            userSelfMedia: sinon.stub().callsFake(params => { // eslint-disable-line no-unused-vars
                 let posts = instagramPhotos.concat({id: "foo", type: "foo"});
 
                 if (params.count === 42) { // NOTE-RT: 42 is a sentinel value for an empty array
                     posts = [];
                 }
 
-                if (stubServiceClient.userMedia.callCount > 1) {
+                if (stubServiceClient.userSelfMedia.callCount > 1) {
                     posts = [];
                 }
 
@@ -200,6 +194,12 @@ describe("InstagramSource", function () {
         });
     });
 
+    describe("AuthInfoClient", function () {
+        it("returns `InstagramAuthInfo`", function () {
+            expect(InstagramSource.AuthInfoClient).to.eql(InstagramAuthInfo);
+        });
+    });
+
     describe("isEnabled", function () {
         it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
@@ -218,8 +218,6 @@ describe("InstagramSource", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
-            delete process.env.INSTAGRAM_USER_ID;
-
             return instagramSource.recordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
@@ -227,29 +225,8 @@ describe("InstagramSource", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Photo);
                     });
-                    sinon.assert.calledOnce(stubServiceClient.userSearch);
-                    sinon.assert.calledWith(stubServiceClient.userSearch, process.env.INSTAGRAM_USER_NAME);
-                    sinon.assert.calledOnce(stubServiceClient.userMedia);
-                    sinon.assert.calledWith(stubServiceClient.userMedia, instagramUser.id, sinon.match({count: stubParams.perPage}));
-                });
-        });
-
-        it("doesn't query for a `userId` if it already has `process.env.INSTAGRAM_USER_ID`", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
-            const stubParams = PostSearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
-
-            process.env.INSTAGRAM_USER_ID = instagramUser.id;
-
-            return instagramSource.recordsGetter(stubParams)
-                .then(posts => {
-                    expect(posts).to.be.instanceof(Array);
-                    expect(posts).to.have.length(3);
-                    posts.map(post => {
-                        expect(post).to.be.instanceof(Photo);
-                    });
-                    sinon.assert.notCalled(stubServiceClient.userSearch);
-                    sinon.assert.calledOnce(stubServiceClient.userMedia);
-                    sinon.assert.calledWith(stubServiceClient.userMedia, process.env.INSTAGRAM_USER_ID, sinon.match({count: stubParams.perPage}));
+                    sinon.assert.calledOnce(stubServiceClient.userSelfMedia);
+                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
                 });
         });
 
@@ -261,8 +238,8 @@ describe("InstagramSource", function () {
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
-                    sinon.assert.calledOnce(stubServiceClient.userMedia);
-                    sinon.assert.calledWith(stubServiceClient.userMedia, process.env.INSTAGRAM_USER_ID, sinon.match({count: stubParams.perPage}));
+                    sinon.assert.calledOnce(stubServiceClient.userSelfMedia);
+                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
                 });
         });
     });
@@ -272,8 +249,6 @@ describe("InstagramSource", function () {
             const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
-            process.env.INSTAGRAM_USER_ID = instagramUser.id;
-
             return instagramSource.allRecordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
@@ -281,9 +256,8 @@ describe("InstagramSource", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Photo);
                     });
-                    sinon.assert.notCalled(stubServiceClient.userSearch);
-                    sinon.assert.calledTwice(stubServiceClient.userMedia);
-                    sinon.assert.calledWith(stubServiceClient.userMedia, process.env.INSTAGRAM_USER_ID, sinon.match({count: stubParams.perPage}));
+                    sinon.assert.calledTwice(stubServiceClient.userSelfMedia);
+                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
                 });
         });
     });

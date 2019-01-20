@@ -1,23 +1,33 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
+import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
 import {codes, codeToStatusCode} from "../../../../../../src/serverless/util/request/requestError";
 
 describe("instagramAuthCallback", function () {
-    it("delegates to `getAuthTokenForCode`", function (done) {
+    it("delegates to `InstagramAuthInfo.getRecord`", function (done) {
         this.timeout(5000);
 
         const stubCode = "grr";
         const stubEvent = {queryStringParameters: {code: stubCode}};
         const stubContext = {};
-        const stubToken = "woof";
+        const stubToken = {access_token: "woof", user: {id: "meow"}};
         const stubResponse = ["meow"];
         const proxyquireStubs = {
-            "../../../lib/sources/instagram/client": {
-                "getAuthTokenForCode": sinon.stub().callsFake(code => {
-                    expect(code).to.eql(stubCode);
-                    return Promise.resolve(stubToken);
-                }),
+            "../../../lib/sources/instagram/authInfo": {
+                "InstagramAuthInfo": class StubInstagramAuthInfo {
+                    getRecord(code, searchParams) {
+                        expect(code).to.eql(stubCode);
+                        expect(searchParams.code).to.eql(stubCode);
+                        expect(searchParams).to.eql(new AuthInfoSearchParams({
+                            clientId: process.env.INSTAGRAM_API_KEY,
+                            clientSecret: process.env.INSTAGRAM_API_SECRET,
+                            redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
+                            code: stubCode
+                        }));
+                        return Promise.resolve(stubToken);
+                    }
+                }
             },
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve()),
@@ -47,7 +57,6 @@ describe("instagramAuthCallback", function () {
             try {
                 expect(error).to.not.be.ok;
                 expect(postResponse).to.eql(stubResponse);
-                expect(proxyquireStubs["../../../lib/sources/instagram/client"].getAuthTokenForCode.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
@@ -65,14 +74,23 @@ describe("instagramAuthCallback", function () {
         const stubCode = "grr";
         const stubEvent = {queryStringParameters: {code: stubCode}};
         const stubContext = {};
-        const stubToken = "woof";
+        const stubToken = {access_token: "woof", user: {id: "meow"}};
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../lib/sources/instagram/client": {
-                "getAuthTokenForCode": sinon.stub().callsFake(code => {
-                    expect(code).to.eql(stubCode);
-                    return Promise.resolve(stubToken);
-                }),
+            "../../../lib/sources/instagram/authInfo": {
+                "InstagramAuthInfo": class StubInstagramAuthInfo {
+                    getRecord(code, searchParams) {
+                        expect(code).to.eql(stubCode);
+                        expect(searchParams.code).to.eql(stubCode);
+                        expect(searchParams).to.eql(new AuthInfoSearchParams({
+                            clientId: process.env.INSTAGRAM_API_KEY,
+                            clientSecret: process.env.INSTAGRAM_API_SECRET,
+                            redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
+                            code: stubCode
+                        }));
+                        return Promise.resolve(stubToken);
+                    }
+                }
             },
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve()),
@@ -111,14 +129,23 @@ describe("instagramAuthCallback", function () {
         const stubCode = undefined;
         const stubEvent = {queryStringParameters: {}};
         const stubContext = {};
-        const stubToken = "woof";
+        const stubToken = {access_token: "woof", user: {id: "meow"}};
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../lib/sources/instagram/client": {
-                "getAuthTokenForCode": sinon.stub().callsFake(code => {
-                    expect(code).to.eql(stubCode);
-                    return Promise.resolve(stubToken);
-                }),
+            "../../../lib/sources/instagram/authInfo": {
+                "InstagramAuthInfo": class StubInstagramAuthInfo {
+                    getRecord(code, searchParams) {
+                        expect(code).to.eql(stubCode);
+                        expect(searchParams.code).to.eql(stubCode);
+                        expect(searchParams).to.eql(new AuthInfoSearchParams({
+                            clientId: process.env.INSTAGRAM_API_KEY,
+                            clientSecret: process.env.INSTAGRAM_API_SECRET,
+                            redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
+                            code: stubCode
+                        }));
+                        return Promise.resolve(stubToken);
+                    }
+                }
             },
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve()),

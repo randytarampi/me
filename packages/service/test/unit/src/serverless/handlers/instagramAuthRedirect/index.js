@@ -3,7 +3,7 @@ import proxyquire from "proxyquire";
 import sinon from "sinon";
 
 describe("instagramAuthRedirect", function () {
-    it("delegates to `getAuthTokenForCode`", function (done) {
+    it("redirects to the correct page", function (done) {
         this.timeout(5000);
 
         const stubCode = "grr";
