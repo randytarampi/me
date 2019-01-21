@@ -7,7 +7,7 @@ module.exports.default = serverless => serverless.variables.tracker.promiseMap["
 
     const getPostModel = require("../../db/models/post").getModel;
 
-    const model = getPostModel(tableName);
+    const postModel = getPostModel(tableName);
 
-    return model.getTableReq();
+    return postModel.dynamooseModel.getTableReq();
 });

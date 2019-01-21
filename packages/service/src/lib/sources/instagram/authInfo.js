@@ -1,4 +1,4 @@
-import * as AuthInfoModel from "../../../db/models/authInfo";
+import AuthInfoModel from "../../../db/models/authInfo";
 import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo";
 import CacheClient from "../../cacheClient";
 import CachedDataSource from "../../cachedDataSource";

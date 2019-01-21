@@ -1,5 +1,5 @@
 import _ from "lodash";
-import * as PostModel from "../db/models/post";
+import PostModel from "../db/models/post";
 import logger from "./logger";
 
 /**

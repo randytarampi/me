@@ -1,11 +1,5 @@
 import {expect} from "chai";
-import AuthInfoModel, {
-    createRecord,
-    createRecords,
-    getRecord,
-    getRecordCount,
-    getRecords
-} from "../../../../../src/db/models/authInfo";
+import AuthInfoModel from "../../../../../src/db/models/authInfo";
 import {AuthInfo} from "../../../../../src/lib/authInfo";
 
 describe("AuthInfo", function () {
@@ -25,9 +19,9 @@ describe("AuthInfo", function () {
             stubAuthInfo.set("id", "meow")
         ];
 
-        return await AuthInfoModel.query("source").eq(stubAuthInfo.source).exec()
+        return await AuthInfoModel.dynamooseModel.query("source").eq(stubAuthInfo.source).exec()
             .then(authInfos => {
-                return AuthInfoModel.batchDelete(authInfos.map(authInfo => {
+                return AuthInfoModel.dynamooseModel.batchDelete(authInfos.map(authInfo => {
                     return {id: authInfo.id, source: authInfo.source};
                 }));
             });
@@ -35,17 +29,20 @@ describe("AuthInfo", function () {
 
     describe("createRecord", function () {
         it("persists an AuthInfo", async function () {
-            const createdAuthInfo = await createRecord(stubAuthInfo);
+            const createdAuthInfo = await AuthInfoModel.createRecord(stubAuthInfo);
             expect(createdAuthInfo.uid).to.eql(stubAuthInfo.uid);
-            const authInfoFromDb = await AuthInfoModel.get({id: stubAuthInfo.id, source: stubAuthInfo.source});
+            const authInfoFromDb = await AuthInfoModel.dynamooseModel.get({
+                id: stubAuthInfo.id,
+                source: stubAuthInfo.source
+            });
             expect(authInfoFromDb).to.be.ok;
         });
     });
 
     describe("getRecord", function () {
         it("retrieves an AuthInfo", async function () {
-            await createRecords(stubAuthInfos);
-            const retrievedAuthInfo = await getRecord({
+            await AuthInfoModel.createRecords(stubAuthInfos);
+            const retrievedAuthInfo = await AuthInfoModel.getRecord({
                 _query: {
                     hash: {source: {eq: stubAuthInfo.source}},
                     range: {id: {eq: stubAuthInfo.id}}
@@ -58,12 +55,12 @@ describe("AuthInfo", function () {
 
     describe("createRecords", function () {
         it("persists multiple AuthInfos", async function () {//
-            const createdAuthInfos = await createRecords(stubAuthInfos);
+            const createdAuthInfos = await AuthInfoModel.createRecords(stubAuthInfos);
             expect(createdAuthInfos).to.be.an("array");
             expect(createdAuthInfos).to.have.length(stubAuthInfos.length);
             return await Promise.all(stubAuthInfos.map(async createdAuthInfo => {
                 expect(createdAuthInfo.uid).to.be.ok;
-                const authInfoFromDb = await AuthInfoModel.get({
+                const authInfoFromDb = await AuthInfoModel.dynamooseModel.get({
                     id: createdAuthInfo.id,
                     source: createdAuthInfo.source
                 });
@@ -74,8 +71,8 @@ describe("AuthInfo", function () {
 
     describe("getRecords", function () {
         it("retrieves authInfos (source)", async function () {
-            await createRecords(stubAuthInfos);
-            const retrievedAuthInfos = await getRecords({_query: {source: {eq: stubAuthInfo.source}}});
+            await AuthInfoModel.createRecords(stubAuthInfos);
+            const retrievedAuthInfos = await AuthInfoModel.getRecords({_query: {source: {eq: stubAuthInfo.source}}});
             expect(retrievedAuthInfos).to.be.an("array");
             expect(retrievedAuthInfos).to.have.length(stubAuthInfos.length);
             return await Promise.all(retrievedAuthInfos.map(retrievedAuthInfo => {
@@ -84,8 +81,8 @@ describe("AuthInfo", function () {
         });
 
         it("retrieves authInfos (uid)", async function () {
-            await createRecords(stubAuthInfos);
-            const retrievedAuthInfos = await getRecords({_filter: {uid: {eq: stubAuthInfo.uid}}});
+            await AuthInfoModel.createRecords(stubAuthInfos);
+            const retrievedAuthInfos = await AuthInfoModel.getRecords({_filter: {uid: {eq: stubAuthInfo.uid}}});
             expect(retrievedAuthInfos).to.be.an("array");
             expect(retrievedAuthInfos).to.have.length(1);
             return await Promise.all(retrievedAuthInfos.map(retrievedAuthInfo => {
@@ -96,14 +93,14 @@ describe("AuthInfo", function () {
 
     describe("getRecordCount", function () {
         it("retrieves authInfos (source)", async function () {
-            await createRecords(stubAuthInfos);
-            const retrievedAuthInfosCount = await getRecordCount({_query: {source: {eq: stubAuthInfo.source}}});
+            await AuthInfoModel.createRecords(stubAuthInfos);
+            const retrievedAuthInfosCount = await AuthInfoModel.getRecordCount({_query: {source: {eq: stubAuthInfo.source}}});
             expect(retrievedAuthInfosCount).to.eql(stubAuthInfos.length);
         });
 
         it("retrieves authInfos (uid)", async function () {
-            await createRecords(stubAuthInfos);
-            const retrievedAuthInfosCount = await getRecordCount({_filter: {uid: {eq: stubAuthInfo.uid}}});
+            await AuthInfoModel.createRecords(stubAuthInfos);
+            const retrievedAuthInfosCount = await AuthInfoModel.getRecordCount({_filter: {uid: {eq: stubAuthInfo.uid}}});
             expect(retrievedAuthInfosCount).to.eql(1);
         });
     });

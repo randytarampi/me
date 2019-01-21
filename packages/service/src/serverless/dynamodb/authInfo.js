@@ -8,8 +8,8 @@ module.exports.default = serverless => {
 
         const getAuthInfoModel = require("../../db/models/authInfo").getModel;
 
-        const model = getAuthInfoModel(tableName);
+        const authInfoModel = getAuthInfoModel(tableName);
 
-        return model.getTableReq();
+        return authInfoModel.dynamooseModel.getTableReq();
     });
 };

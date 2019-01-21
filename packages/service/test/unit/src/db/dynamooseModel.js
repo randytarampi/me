@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {buildQueryWithFilter} from "../../../../src/db/util";
+import {buildQueryWithFilter} from "../../../../src/db/dynamooseModel";
 
 describe("util", function () {
     describe("buildQueryWithFilter", function () {
