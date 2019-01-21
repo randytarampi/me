@@ -2,13 +2,15 @@ import AuthInfoModel from "../../../db/models/authInfo";
 import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo";
 import CacheClient from "../../cacheClient";
 import CachedDataSource from "../../cachedDataSource";
-import * as InstagramOAuthClient from "./client";
+import {OAuthClient} from "../oAuthClient";
 import {type} from "./util";
+
+export const INSTAGRAM_TOKEN_URL = "https://api.instagram.com/oauth/access_token";
 
 export class InstagramAuthInfo extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(
-            dataClient || InstagramOAuthClient,
+            dataClient || new OAuthClient(INSTAGRAM_TOKEN_URL),
             cacheClient || new CacheClient(undefined, AuthInfoModel)
         );
     }

@@ -3,8 +3,8 @@ import sinon from "sinon";
 import {AuthInfo} from "../../../../../../src/lib/authInfo";
 import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams";
 import CacheClient from "../../../../../../src/lib/cacheClient";
-import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
-import * as InstagramAuthClient from "../../../../../../src/lib/sources/instagram/client";
+import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
+import {OAuthClient} from "../../../../../../src/lib/sources/oAuthClient";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
@@ -119,7 +119,8 @@ describe("InstagramAuthInfo", function () {
             const instagramSource = new InstagramAuthInfo();
 
             expect(InstagramAuthInfo.type).to.eql("instagram");
-            expect(instagramSource.client).to.eql(InstagramAuthClient);
+            expect(instagramSource.client).to.be.instanceOf(OAuthClient);
+            expect(instagramSource.client.tokenUrl).to.eql(INSTAGRAM_TOKEN_URL);
             expect(instagramSource.cacheClient).to.not.eql(stubCacheClient);
             expect(instagramSource.cacheClient).to.be.instanceOf(CacheClient);
             expect(instagramSource.initializing).to.be.instanceOf(Promise);
