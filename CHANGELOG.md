@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/randytarampi/me/compare/v3.1.1...v3.2.0) (2019-01-21)
+
+
+### Bug Fixes
+
+* **service:** Bind `DynamooseModel` functions to `this` in the constructor. ([dcf54cb](https://github.com/randytarampi/me/commit/dcf54cb))
+
+
+### Features
+
+* **service:** `InstagramSource` supports `Gallery` posts. ([1ff693b](https://github.com/randytarampi/me/commit/1ff693b))
+* **service:** Add support for multiple Instagram accounts. ([f0e0272](https://github.com/randytarampi/me/commit/f0e0272)), closes [randytarampi/me.photos#9](https://github.com/randytarampi/me.photos/issues/9) [#225](https://github.com/randytarampi/me/issues/225)
+
+
+### Reverts
+
+* chore(greenkeeper): Update dependencies. ([37d3907](https://github.com/randytarampi/me/commit/37d3907))
+* chore(greenkeeper): Update dependencies. ([4abdf2e](https://github.com/randytarampi/me/commit/4abdf2e))
+* chore(greenkeeper): Update dependencies. ([8c37883](https://github.com/randytarampi/me/commit/8c37883))
+* chore(greenkeeper): Update dependencies. ([26cfe48](https://github.com/randytarampi/me/commit/26cfe48))
+* chore(greenkeeper): Update dependencies. ([a34cf6e](https://github.com/randytarampi/me/commit/a34cf6e))
+* chore(greenkeeper): Update dependencies. ([64c7279](https://github.com/randytarampi/me/commit/64c7279))
+* chore(package): update lockfile package-lock.json ([07fe922](https://github.com/randytarampi/me/commit/07fe922))
+
+
+
+
+
 ## [3.1.1](https://github.com/randytarampi/me/compare/v3.1.0...v3.1.1) (2019-01-18)
 
 

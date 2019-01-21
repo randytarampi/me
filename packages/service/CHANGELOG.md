@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/randytarampi/me/compare/v3.1.1...v3.2.0) (2019-01-21)
+
+
+### Bug Fixes
+
+* **service:** Bind `DynamooseModel` functions to `this` in the constructor. ([dcf54cb](https://github.com/randytarampi/me/commit/dcf54cb))
+
+
+### Features
+
+* **service:** `InstagramSource` supports `Gallery` posts. ([1ff693b](https://github.com/randytarampi/me/commit/1ff693b))
+* **service:** Add support for multiple Instagram accounts. ([f0e0272](https://github.com/randytarampi/me/commit/f0e0272)), closes [randytarampi/me.photos#9](https://github.com/randytarampi/me.photos/issues/9) [#225](https://github.com/randytarampi/me/issues/225)
+
+
+
+
+
 ## [3.1.1](https://github.com/randytarampi/me/compare/v3.1.0...v3.1.1) (2019-01-18)
 
 **Note:** Version bump only for package @randy.tarampi/service
