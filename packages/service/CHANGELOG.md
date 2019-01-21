@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/randytarampi/me/compare/v3.2.0...v3.2.1) (2019-01-21)
+
+
+### Bug Fixes
+
+* **service:** `InstagramAuthInfo` needs a `recordsGetter` implementation. ([fb55e76](https://github.com/randytarampi/me/commit/fb55e76))
+* **service:** Give the lambda role permissions on `SERVICE_AUTH_INFO_DYNAMODB_TABLE`. ([0d86cc4](https://github.com/randytarampi/me/commit/0d86cc4))
+
+
+
+
+
 # [3.2.0](https://github.com/randytarampi/me/compare/v3.1.1...v3.2.0) (2019-01-21)
 
 
