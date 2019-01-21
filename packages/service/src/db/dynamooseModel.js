@@ -9,6 +9,12 @@ export class DynamooseModel {
         this.dynamooseModel = dynamoose.model(modelName, schema, {
             create: false
         });
+
+        this.createRecord = this.createRecord.bind(this);
+        this.getRecord = this.getRecord.bind(this);
+        this.createRecords = this.createRecords.bind(this);
+        this.getRecords = this.getRecords.bind(this);
+        this.getRecordCount = this.getRecordCount.bind(this);
     }
 
     /**
@@ -64,10 +70,10 @@ export class DynamooseModel {
         const {limit: originalLimit} = _options || {};
         let postModelInstances = _query
             ? await buildQueryWithFilter({_options, _filter, _query}, this.dynamooseModel.query).exec()
-                .then(recursivelyGet({_options, _filter, _query}, this.getRecords.bind(this)))
+                .then(recursivelyGet({_options, _filter, _query}, this.getRecords))
                 .then(allPosts => originalLimit ? allPosts.slice(0, originalLimit) : allPosts)
             : await this.dynamooseModel.scan(_filter, _options).exec()
-                .then(recursivelyGet({_options, _filter, _query}, this.getRecords.bind(this)))
+                .then(recursivelyGet({_options, _filter, _query}, this.getRecords))
                 .then(allPosts => originalLimit ? allPosts.slice(0, originalLimit) : allPosts);
         logger.trace(`retrieved records (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
         return postModelInstances;
