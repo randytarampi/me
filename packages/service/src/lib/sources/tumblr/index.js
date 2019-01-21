@@ -31,11 +31,11 @@ class TumblrSource extends CachedDataSource {
             }
 
             default:
-                return TumblrSource._instanceToRecord(postJson);
+                return TumblrSource._jsonToPost(postJson);
         }
     }
 
-    static _instanceToRecord(postJson) {
+    static _jsonToPost(postJson) {
         const dateString = postJson.date;
         const dateStringWithoutTimezone = dateString.slice(0, -4);
         const timezone = dateString.slice(-3);

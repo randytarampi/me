@@ -1,4 +1,4 @@
-import {Photo} from "@randy.tarampi/js";
+import {Gallery, Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
@@ -48,7 +48,7 @@ describe("InstagramSource", function () {
         instagramUser = {
             id: "woof",
             username: "woofwoof",
-            full_name: "Woof Woof",
+            full_name: "Woof Woof"
         };
         instagramPhoto = {
             id: stubPost.id,
@@ -72,6 +72,7 @@ describe("InstagramSource", function () {
         instagramPhotos = stubPosts.map(stubPost => Object.assign({}, instagramPhoto, {id: stubPost.id}));
         delete instagramPhotos[0].location;
         delete instagramPhotos[1].caption;
+        instagramPhotos[2].type = "carousel";
         stubServiceClient = {
             media: sinon.stub().callsFake(postId => {
                 return Promise.resolve({
@@ -157,10 +158,57 @@ describe("InstagramSource", function () {
                     graphql: {
                         shortcode_media: {
                             display_url: "woof://woof.woof/woof",
+                            display_resources: [
+                                {
+                                    src: "woof://woof.woof/woof",
+                                    config_width: 640,
+                                    config_height: 640
+                                },
+                                {
+                                    src: "woof://woof.woof/woof",
+                                    config_width: 750,
+                                    config_height: 750
+                                },
+                                {
+                                    src: "woof://woof.woof/woof",
+                                    config_width: 1080,
+                                    config_height: 1080
+                                }
+                            ],
                             dimensions: {
                                 width: 1080,
                                 height: 1080
                             },
+                            edge_sidecar_to_children: {
+                                edges: [
+                                    {
+                                        node: {
+                                            display_url: "woof://woof.woof/woof",
+                                            display_resources: [
+                                                {
+                                                    src: "woof://woof.woof/woof",
+                                                    config_width: 640,
+                                                    config_height: 640
+                                                },
+                                                {
+                                                    src: "woof://woof.woof/woof",
+                                                    config_width: 750,
+                                                    config_height: 750
+                                                },
+                                                {
+                                                    src: "woof://woof.woof/woof",
+                                                    config_width: 1080,
+                                                    config_height: 1080
+                                                }
+                                            ],
+                                            dimensions: {
+                                                width: 1080,
+                                                height: 1080
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
                         }
                     }
                 };
@@ -221,9 +269,17 @@ describe("InstagramSource", function () {
             return instagramSource.recordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
-                    expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.instanceof(Photo);
+                        switch (post.type) {
+                            case Gallery.type:
+                                expect(post).to.be.instanceof(Gallery);
+                                break;
+
+                            case Photo.type:
+                            default:
+                                expect(post).to.be.instanceof(Photo);
+                                break;
+                        }
                     });
                     sinon.assert.calledOnce(stubServiceClient.userSelfMedia);
                     sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
@@ -254,7 +310,16 @@ describe("InstagramSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.have.length(3);
                     posts.map(post => {
-                        expect(post).to.be.instanceof(Photo);
+                        switch (post.type) {
+                            case Gallery.type:
+                                expect(post).to.be.instanceof(Gallery);
+                                break;
+
+                            case Photo.type:
+                            default:
+                                expect(post).to.be.instanceof(Photo);
+                                break;
+                        }
                     });
                     sinon.assert.calledTwice(stubServiceClient.userSelfMedia);
                     sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));

@@ -1,4 +1,4 @@
-import {Photo, SizedPhoto} from "@randy.tarampi/js";
+import {Gallery, Photo, SizedPhoto} from "@randy.tarampi/js";
 import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
@@ -29,45 +29,158 @@ export class InstagramSource extends CachedDataSource {
         return !!(this.authInfo && this.authInfo.token);
     }
 
-    static instanceToRecord(photoJson) {
-        const sizedPhotos = Object.keys(photoJson.images).map(key => {
-            const image = photoJson.images[key];
+    static instanceToRecord(postJson) {
+        const {_ig: igJson} = postJson;
+
+        if (igJson) {
+            switch (igJson.type) {
+                case "carousel":
+                    return InstagramSource._jsonToGallery(postJson);
+
+                case "image":
+                    return InstagramSource._jsonToPhoto(postJson);
+            }
+        }
+
+        if (!postJson.images) {
+            return null;
+        }
+
+        return InstagramSource._oldJsonToPhoto(postJson);
+    }
+
+    static _oldJsonToPhoto(postJson) {
+        const sizedPhotos = Object.keys(postJson.images).map(key => {
+            const image = postJson.images[key];
             return SizedPhoto.fromJSON({...image, size: key});
         });
 
         const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
 
         return Photo.fromJS({
-            raw: photoJson,
-            id: photoJson.id,
+            raw: postJson,
+            id: postJson.id,
             source: InstagramSource.type,
-            datePublished: DateTime.fromMillis(parseInt(photoJson.created_time, 10) * 1000),
+            datePublished: DateTime.fromMillis(parseInt(postJson.created_time, 10) * 1000),
             width: biggestOfficialPhoto.width,
             height: biggestOfficialPhoto.height,
             sizedPhotos,
-            sourceUrl: photoJson.link,
-            title: photoJson.location && photoJson.location.name,
-            body: photoJson.caption && photoJson.caption.text,
+            sourceUrl: postJson.link,
+            title: postJson.location && postJson.location.name,
+            body: postJson.caption && postJson.caption.text,
             creator: {
-                id: photoJson.user.id,
-                username: photoJson.user.username,
-                name: photoJson.user.full_name,
-                url: `https://www.instagram.com/${photoJson.user.username}`,
-                image: photoJson.user.profile_picture
+                id: postJson.user.id,
+                username: postJson.user.username,
+                name: postJson.user.full_name,
+                url: `https://www.instagram.com/${postJson.user.username}`,
+                image: postJson.user.profile_picture
             },
-            tags: photoJson.tags,
-            locationCreated: photoJson.location
+            tags: postJson.tags,
+            locationCreated: postJson.location
                 ? {
                     geo: {
-                        latitude: photoJson.location.latitude,
-                        longitude: photoJson.location.longitude
+                        latitude: postJson.location.latitude,
+                        longitude: postJson.location.longitude
                     },
                     address: {
-                        streetAddress: photoJson.location.street_address
+                        streetAddress: postJson.location.street_address
                     },
-                    name: photoJson.location.name
+                    name: postJson.location.name
                 }
                 : null
+        });
+    }
+
+    static _jsonToPhoto(postJson) {
+        const {_ig: igJson, _graph: graphJson} = postJson;
+        const graphJsonImages = graphJson.graphql.shortcode_media.display_resources;
+        const sizedPhotos = Object.keys(graphJsonImages).map(key => {
+            const {config_width: width, config_height: height, src: url, ...image} = graphJsonImages[key];
+            return SizedPhoto.fromJSON({
+                width,
+                height,
+                url,
+                ...image,
+                size: width
+            });
+        });
+
+        const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
+
+        return Photo.fromJS({
+            raw: postJson,
+            id: igJson.id,
+            source: InstagramSource.type,
+            datePublished: DateTime.fromMillis(parseInt(igJson.created_time, 10) * 1000),
+            width: biggestOfficialPhoto.width,
+            height: biggestOfficialPhoto.height,
+            sizedPhotos,
+            sourceUrl: igJson.link,
+            title: igJson.location && igJson.location.name,
+            body: igJson.caption && igJson.caption.text,
+            creator: {
+                id: igJson.user.id,
+                username: igJson.user.username,
+                name: igJson.user.full_name,
+                url: `https://www.instagram.com/${igJson.user.username}`,
+                image: igJson.user.profile_picture
+            },
+            tags: igJson.tags,
+            locationCreated: igJson.location
+                ? {
+                    geo: {
+                        latitude: igJson.location.latitude,
+                        longitude: igJson.location.longitude
+                    },
+                    address: {
+                        streetAddress: igJson.location.street_address
+                    },
+                    name: igJson.location.name
+                }
+                : null
+        });
+    }
+
+    static _jsonToGallery(postJson) {
+        const {_ig: igJson, _graph: graphJson} = postJson;
+
+        return Gallery.fromJS({
+            raw: postJson,
+            id: igJson.id,
+            source: InstagramSource.type,
+            datePublished: DateTime.fromMillis(parseInt(igJson.created_time, 10) * 1000),
+            sourceUrl: igJson.link,
+            title: igJson.location && igJson.location.name,
+            body: igJson.caption && igJson.caption.text,
+            creator: {
+                id: igJson.user.id,
+                username: igJson.user.username,
+                name: igJson.user.full_name,
+                url: `https://www.instagram.com/${igJson.user.username}`,
+                image: igJson.user.profile_picture
+            },
+            tags: igJson.tags,
+            locationCreated: igJson.location
+                ? {
+                    geo: {
+                        latitude: igJson.location.latitude,
+                        longitude: igJson.location.longitude
+                    },
+                    address: {
+                        streetAddress: igJson.location.street_address
+                    },
+                    name: igJson.location.name
+                }
+                : null,
+            photos: graphJson.graphql.shortcode_media.edge_sidecar_to_children.edges
+                .map(edgeJson => InstagramSource._jsonToPhoto({
+                    _ig: igJson,
+                    _graph: {
+                        graphql: {
+                            shortcode_media: edgeJson.node
+                        }
+                    }
+                }))
         });
     }
 
@@ -86,17 +199,14 @@ export class InstagramSource extends CachedDataSource {
         return posts;
     }
 
-    _highResolutionPhotoGetter(photoJson) {
-        return fetch(`${photoJson.link}?__a=1`)
+    _highResolutionPhotoGetter(igJson) {
+        return fetch(`${igJson.link}?__a=1`)
             .then(body => body.json())
-            .then(graphPhotoJson => {
-                const graphPhotoUrl = graphPhotoJson.graphql.shortcode_media.display_url;
-                const graphPhotoDimensions = graphPhotoJson.graphql.shortcode_media.dimensions;
-                photoJson.images.maxRes = {
-                    ...graphPhotoDimensions,
-                    url: graphPhotoUrl
+            .then(graphJson => {
+                return {
+                    _ig: igJson,
+                    _graph: graphJson
                 };
-                return photoJson;
             });
     }
 
@@ -104,10 +214,10 @@ export class InstagramSource extends CachedDataSource {
         return this.client.userSelfMedia(searchParams.Instagram)
             .then(mediaJson => Promise.all(
                 mediaJson.data
-                    .filter(datum => datum.type === "image")
                     .filter(postJson => filterPostForOrderingConditionsInSearchParams(this.constructor.instanceToRecord(postJson), searchParams))
-                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(post => this.constructor.instanceToRecord(post)))
-            ));
+                    .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(igAndGraphJson => this.constructor.instanceToRecord(igAndGraphJson)))
+            ))
+            .then(_.filter);
     }
 
     recordGetter(photoId) {
