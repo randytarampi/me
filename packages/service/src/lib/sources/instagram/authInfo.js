@@ -30,6 +30,10 @@ export class InstagramAuthInfo extends CachedDataSource {
         });
     }
 
+    recordsGetter() {
+        return Promise.resolve([]);
+    }
+
     recordGetter(id, searchParams) {
         if (!searchParams || !searchParams.code) {
             return Promise.resolve(null); // NOTE-RT: Need a `code` to request a token per the OAuth2 spec
