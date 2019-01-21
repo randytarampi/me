@@ -3,16 +3,16 @@ import {DateTime} from "luxon";
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
 import logger from "./logger";
-import SearchParams from "./searchParams";
+import PostSearchParams from "./postSearchParams";
 
 /**
- * A generic data source that fetches [Post(s)]{@link Post} from some service or some cache, whichever returns first
+ * A generic data source that fetches [Record(s)]{@link Record} from some service or some cache, whichever returns first
  * @abstract
  */
 class CachedDataSource extends DataSource {
     /**
-     * Build a data source that fetches [Post(s)]{@link Post} from some service using some client
-     * @param client {object} A client that wraps some service that serves content to be transformed into [Posts]{@link Post}
+     * Build a data source that fetches [Record(s)]{@link Record} from some service using some client
+     * @param client {object} A client that wraps some service that serves content to be transformed into [Records]{@link Record}
      * @param cacheClient {object} A client to the cache
      */
     constructor(client, cacheClient = new CacheClient()) {
@@ -21,274 +21,274 @@ class CachedDataSource extends DataSource {
     }
 
     /**
-     * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for posts
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {object} The maybe decorated searchParams to be used by [postsGetter]{@link postsGetter}
+     * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for records
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {object} The maybe decorated searchParams to be used by [recordsGetter]{@link recordsGetter}
      */
-    async beforeCachedPostsGetter(searchParams) {
+    async beforeCachedRecordsGetter(searchParams) {
         return Promise.resolve(searchParams);
     }
 
     /**
-     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Posts]{@link Post}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Records]{@link Record}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
-    async cachedPostsGetter(searchParams) {
-        return this.cacheClient.getPosts(searchParams.set("source", this.constructor.type))
-            .then(cachedPosts => cachedPosts.map(cachedPost => this.constructor.jsonToPost(cachedPost.raw)));
+    async cachedRecordsGetter(searchParams) {
+        return this.cacheClient.getRecords(searchParams.set("source", this.constructor.type))
+            .then(cachedRecords => cachedRecords.map(cachedRecord => this.constructor.instanceToRecord(cachedRecord.raw)));
     }
 
     /**
-     * A hook to do some processing of [Posts]{@link Post} after they're returned by the client
-     * @param posts {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} The maybe decorated [Posts]{@link Post} from the wrapped client
+     * A hook to do some processing of [Records]{@link Record} after they're returned by the client
+     * @param records {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} The maybe decorated [Records]{@link Record} from the wrapped client
      */
-    async afterCachedPostsGetter(posts, searchParams) { // eslint-disable-line no-unused-vars
-        return Promise.resolve(posts);
+    async afterCachedRecordsGetter(records, searchParams) { // eslint-disable-line no-unused-vars
+        return Promise.resolve(records);
     }
 
     /**
-     * Set some [Posts]{@link Post} in the cache to be later pulled by [CachedDataSource.cachedPostsGetter]{@link CachedDataSource.cachedPostsGetter}
-     * @param posts {Post[]}
-     * @returns {Promise<Post[]>}
+     * Set some [Records]{@link Record} in the cache to be later pulled by [CachedDataSource.cachedRecordsGetter]{@link CachedDataSource.cachedRecordsGetter}
+     * @param records {Record[]}
+     * @returns {Promise<Record[]>}
      */
-    async cachePosts(posts) {
-        if (!posts || !posts.length) {
+    async cacheRecords(records) {
+        if (!records || !records.length) {
             return Promise.resolve([]);
         }
-        return await this.cacheClient.setPosts(posts)
+        return await this.cacheClient.setRecords(records)
             .then(cached => cached);
     }
 
     /**
-     * A generic method that returns some [Posts]{@link Post} from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     * A generic method that returns some [Records]{@link Record} from the [cache]{@link CachedDataSource.cacheClient}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async getCachedPosts(searchParams) {
-        return this.beforeCachedPostsGetter(searchParams)
-            .then(decoratedCachedPostsGetterParams => {
-                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
-                return this.cachedPostsGetter(decoratedCachedPostsGetterParams)
-                    .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
-                    .then(posts => {
-                        if (!posts || !posts.length) {
-                            logger.trace(`retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
+    async getCachedRecords(searchParams) {
+        return this.beforeCachedRecordsGetter(searchParams)
+            .then(decoratedCachedRecordsGetterParams => {
+                logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
+                return this.cachedRecordsGetter(decoratedCachedRecordsGetterParams)
+                    .then(records => this.afterCachedRecordsGetter(records, decoratedCachedRecordsGetterParams))
+                    .then(records => {
+                        if (!records || !records.length) {
+                            logger.trace(`retrieve records (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
 
-                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
-                        return posts;
+                        logger.trace(`retrieved records (${JSON.stringify(records.map(record => record.id))}) from cache at ${DateTime.utc()}`);
+                        return records;
                     });
             });
     }
 
     /**
-     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Posts]{@link Post}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for [Records]{@link Record}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the [cacheClient]{@link CachedDataSource.cache}
      */
-    async allCachedPostsGetter(searchParams) {
-        return this.cacheClient.getPosts(searchParams.set("source", this.constructor.type).set("all", true))
-            .then(cachedPosts => cachedPosts.map(cachedPost => this.constructor.jsonToPost(cachedPost.raw)));
+    async allCachedRecordsGetter(searchParams) {
+        return this.cacheClient.getRecords(searchParams.set("source", this.constructor.type).set("all", true))
+            .then(cachedRecords => cachedRecords.map(cachedRecord => this.constructor.instanceToRecord(cachedRecord.raw)));
     }
 
     /**
-     * A generic method that returns all available [Posts]{@link Post} from the cache
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the cache
+     * A generic method that returns all available [Records]{@link Record} from the cache
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the cache
      */
-    async getAllCachedPosts(searchParams) { // eslint-disable-line no-unused-vars
-        return this.beforeCachedPostsGetter(searchParams)
-            .then(decoratedCachedPostsGetterParams => {
-                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
-                return this.allCachedPostsGetter(decoratedCachedPostsGetterParams)
-                    .then(posts => this.afterCachedPostsGetter(posts, decoratedCachedPostsGetterParams))
-                    .then(posts => {
-                        if (!posts || !posts.length) {
-                            logger.trace(`retrieve posts (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
+    async getAllCachedRecords(searchParams) { // eslint-disable-line no-unused-vars
+        return this.beforeCachedRecordsGetter(searchParams)
+            .then(decoratedCachedRecordsGetterParams => {
+                logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
+                return this.allCachedRecordsGetter(decoratedCachedRecordsGetterParams)
+                    .then(records => this.afterCachedRecordsGetter(records, decoratedCachedRecordsGetterParams))
+                    .then(records => {
+                        if (!records || !records.length) {
+                            logger.trace(`retrieve records (${JSON.stringify(searchParams)}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
 
-                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from cache at ${DateTime.utc()}`);
-                        return posts;
+                        logger.trace(`retrieved records (${JSON.stringify(records.map(record => record.id))}) from cache at ${DateTime.utc()}`);
+                        return records;
                     });
             });
     }
 
     /**
-     * A generic method that returns some [Posts]{@link Post} probably pulled from the [service]{@link CachedDataSource.client}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     * A generic method that returns some [Records]{@link Record} probably pulled from the [service]{@link CachedDataSource.client}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async getServicePosts(searchParams) {
-        return this.beforePostsGetter(searchParams)
-            .then(decoratedPostsGetterParams => {
-                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
-                return this.postsGetter(decoratedPostsGetterParams)
-                    .then(posts => {
-                        this.cachePosts(posts);
-                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
-                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
+    async getServiceRecords(searchParams) {
+        return this.beforeRecordsGetter(searchParams)
+            .then(decoratedRecordsGetterParams => {
+                logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
+                return this.recordsGetter(decoratedRecordsGetterParams)
+                    .then(records => {
+                        this.cacheRecords(records);
+                        logger.trace(`retrieved records (${JSON.stringify(records.map(record => record.id))}) from service at ${DateTime.utc()}`);
+                        return this.afterRecordsGetter(records, decoratedRecordsGetterParams);
                     });
             });
     }
 
     /**
-     * A generic method that returns all available [Posts]{@link Post} from the service
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     * A generic method that returns all available [Records]{@link Record} from the service
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async getAllServicePosts(searchParams) { // eslint-disable-line no-unused-vars
-        return this.beforePostsGetter(searchParams)
-            .then(decoratedPostsGetterParams => {
-                logger.trace(`retrieving post (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
-                return this.allPostsGetter(decoratedPostsGetterParams)
-                    .then(posts => {
-                        this.cachePosts(posts);
-                        logger.trace(`retrieved posts (${JSON.stringify(posts.map(post => post.id))}) from service at ${DateTime.utc()}`);
-                        return this.afterPostsGetter(posts, decoratedPostsGetterParams);
+    async getAllServiceRecords(searchParams) { // eslint-disable-line no-unused-vars
+        return this.beforeRecordsGetter(searchParams)
+            .then(decoratedRecordsGetterParams => {
+                logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
+                return this.allRecordsGetter(decoratedRecordsGetterParams)
+                    .then(records => {
+                        this.cacheRecords(records);
+                        logger.trace(`retrieved records (${JSON.stringify(records.map(record => record.id))}) from service at ${DateTime.utc()}`);
+                        return this.afterRecordsGetter(records, decoratedRecordsGetterParams);
                     });
             });
     }
 
     /**
-     * A generic method that returns some [Posts]{@link Post}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     * A generic method that returns some [Records]{@link Record}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async getPosts(searchParams) {
-        let posts = await this.getCachedPosts(searchParams);
+    async getRecords(searchParams) {
+        let records = await this.getCachedRecords(searchParams);
 
-        if (!posts || !posts.length) {
-            posts = await this.getServicePosts(searchParams);
+        if (!records || !records.length) {
+            records = await this.getServiceRecords(searchParams);
         }
 
-        return posts;
+        return records;
     }
 
     /**
-     * A generic method that returns all available [Posts]{@link Post}, either from the cache or the service
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post[]} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     * A generic method that returns all available [Records]{@link Record}, either from the cache or the service
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async getAllPosts(searchParams) {
-        let posts = await this.getAllCachedPosts(searchParams);
+    async getAllRecords(searchParams) {
+        let records = await this.getAllCachedRecords(searchParams);
 
-        if (!posts || !posts.length) {
-            posts = await this.getAllServicePosts(searchParams);
+        if (!records || !records.length) {
+            records = await this.getAllServiceRecords(searchParams);
         }
 
-        return posts;
+        return records;
     }
 
     /**
-     * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for a post
-     * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {object} The maybe decorated searchParams to be used by [postGetter]{@link postGetter}
+     * A hook to do some processing of searchParams before we query the [cache]{@link CachedDataSource.cache} for a record
+     * @param recordId {string} A single record to retrieve from the [client]{@link CachedDataSource.cacheClient}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {object} The maybe decorated searchParams to be used by [recordGetter]{@link recordGetter}
      */
-    async beforeCachedPostGetter(postId, searchParams) {
+    async beforeCachedRecordGetter(recordId, searchParams) {
         return Promise.resolve(searchParams);
     }
 
     /**
-     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a post
-     * @param postId {string} A single post to retrieve from the [client]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post} [Post]{@link Post} entities transformed from data retrieved from the wrapped client
+     * The method that actually uses the [cache]{@link CachedDataSource.cache} to query for a record
+     * @param recordId {string} A single record to retrieve from the [client]{@link CachedDataSource.cacheClient}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async cachedPostGetter(postId, searchParams) {
+    async cachedRecordGetter(recordId, searchParams) {
         let cacheParams = searchParams
-            ? searchParams.set("id", postId).set("source", this.constructor.type)
-            : SearchParams.fromJS({uid: `${this.constructor.type}${compositeKeySeparator}${postId}`});
+            ? searchParams.set("id", recordId).set("source", this.constructor.type)
+            : PostSearchParams.fromJS({uid: `${this.constructor.type}${compositeKeySeparator}${recordId}`});
 
-        return this.cacheClient.getPost(cacheParams)
-            .then(cachedPost => cachedPost && this.constructor.jsonToPost(cachedPost.raw));
+        return this.cacheClient.getRecord(cacheParams)
+            .then(cachedRecord => cachedRecord && this.constructor.instanceToRecord(cachedRecord.raw));
     }
 
     /**
-     * A hook to do some processing of a [Post]{@link Post} after it's returned by the client
-     * @param post {string} A single post retrieved from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Post} The maybe decorated [Post]{@link Post} from the wrapped client
+     * A hook to do some processing of a [Record]{@link Record} after it's returned by the client
+     * @param record {string} A single record retrieved from the [cache]{@link CachedDataSource.cacheClient}
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Record} The maybe decorated [Record]{@link Record} from the wrapped client
      */
-    async afterCachedPostGetter(post, searchParams) { // eslint-disable-line no-unused-vars
-        return Promise.resolve(post);
+    async afterCachedRecordGetter(record, searchParams) { // eslint-disable-line no-unused-vars
+        return Promise.resolve(record);
     }
 
     /**
-     * Set a [Post]{@link Post} in the cache to be later pulled by [CachedDataSource.cachedPostGetter]{@link CachedDataSource.cachedPostGetter}
-     * @param post {Post}
-     * @returns {Promise<Post>}
+     * Set a [Record]{@link Record} in the cache to be later pulled by [CachedDataSource.cachedRecordGetter]{@link CachedDataSource.cachedRecordGetter}
+     * @param record {Record}
+     * @returns {Promise<Record>}
      */
-    async cachePost(post) {
-        if (!post) {
+    async cacheRecord(record) {
+        if (!record) {
             return Promise.resolve(null);
         }
 
-        return await this.cacheClient.setPost(post)
+        return await this.cacheClient.setRecord(record)
             .then(cached => cached);
     }
 
     /**
-     * A generic method that returns some [Post]{@link Post} retrieved from the [cache]{@link CachedDataSource.cacheClient}
-     * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient}
-     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
-     * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
+     * A generic method that returns some [Record]{@link Record} retrieved from the [cache]{@link CachedDataSource.cacheClient}
+     * @param recordId {string} A single record to retrieve from the [cache]{@link CachedDataSource.cacheClient}
+     * @param searchParams {PostSearchParams} [Client]{@link CachedDataSource.client} specific query parameters
+     * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
-    async getCachedPost(postId, searchParams) {
-        return this.beforeCachedPostGetter(postId, searchParams)
-            .then(decoratedCachedPostGetterParams => {
-                logger.trace(`retrieving post (${postId}) from cache at ${DateTime.utc()}`);
-                return this.cachedPostGetter(postId, decoratedCachedPostGetterParams)
-                    .then(post => this.afterCachedPostGetter(post, decoratedCachedPostGetterParams))
-                    .then(post => {
-                        if (!post) {
-                            logger.trace(`retrieve post (${postId}) cache miss at ${DateTime.utc()}`);
+    async getCachedRecord(recordId, searchParams) {
+        return this.beforeCachedRecordGetter(recordId, searchParams)
+            .then(decoratedCachedRecordGetterParams => {
+                logger.trace(`retrieving record (${recordId}) from cache at ${DateTime.utc()}`);
+                return this.cachedRecordGetter(recordId, decoratedCachedRecordGetterParams)
+                    .then(record => this.afterCachedRecordGetter(record, decoratedCachedRecordGetterParams))
+                    .then(record => {
+                        if (!record) {
+                            logger.trace(`retrieve record (${recordId}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
-                        logger.trace(`retrieved post (${post && post.uid}) from cache at ${DateTime.utc()}`);
-                        return post;
+                        logger.trace(`retrieved record (${record && record.uid}) from cache at ${DateTime.utc()}`);
+                        return record;
                     });
             });
     }
 
     /**
-     * A generic method that returns some [Post]{@link Post} probably retrieved from the [service]{@link CachedDataSource.client}
-     * @param postId {string} A single post to retrieve from the [service]{@link CachedDataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
-     * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
+     * A generic method that returns some [Record]{@link Record} probably retrieved from the [service]{@link CachedDataSource.client}
+     * @param recordId {string} A single record to retrieve from the [service]{@link CachedDataSource.client}
+     * @param searchParams {PostSearchParams} [Client]{@link CachedDataSource.client} specific query parameters
+     * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
-    async getServicePost(postId, searchParams) {
-        return this.beforePostGetter(postId, searchParams)
-            .then(decoratedPostGetterParams => {
-                logger.trace(`retrieving post (${postId}) from service at ${DateTime.utc()}`);
-                return this.postGetter(postId, decoratedPostGetterParams)
-                    .then(post => {
-                        this.cachePost(post);
-                        logger.trace(`retrieved post from service ${post && post.uid} at ${DateTime.utc()}`);
-                        return this.afterPostGetter(post, decoratedPostGetterParams);
+    async getServiceRecord(recordId, searchParams) {
+        return this.beforeRecordGetter(recordId, searchParams)
+            .then(decoratedRecordGetterParams => {
+                logger.trace(`retrieving record (${recordId}) from service at ${DateTime.utc()}`);
+                return this.recordGetter(recordId, decoratedRecordGetterParams)
+                    .then(record => {
+                        this.cacheRecord(record);
+                        logger.trace(`retrieved record from service ${record && record.uid} at ${DateTime.utc()}`);
+                        return this.afterRecordGetter(record, decoratedRecordGetterParams);
                     });
             });
     }
 
     /**
-     * A generic method that returns some [Post]{@link Post}
-     * @param postId {string} A single post to retrieve from the [cache]{@link CachedDataSource.cacheClient} or [service]{@link CachedDataSource.client}
-     * @param searchParams {SearchParams} [Client]{@link CachedDataSource.client} specific query parameters
-     * @returns {Post} A single [Post]{@link Post} transformed from data retrieved from the wrapped client
+     * A generic method that returns some [Record]{@link Record}
+     * @param recordId {string} A single record to retrieve from the [cache]{@link CachedDataSource.cacheClient} or [service]{@link CachedDataSource.client}
+     * @param searchParams {PostSearchParams} [Client]{@link CachedDataSource.client} specific query parameters
+     * @returns {Record} A single [Record]{@link Record} transformed from data retrieved from the wrapped client
      */
-    async getPost(postId, searchParams) {
-        let post = await this.getCachedPost(postId, searchParams);
+    async getRecord(recordId, searchParams) {
+        let record = await this.getCachedRecord(recordId, searchParams);
 
-        if (!post) {
-            post = await this.getServicePost(postId, searchParams);
+        if (!record) {
+            record = await this.getServiceRecord(recordId, searchParams);
         }
 
-        return post;
+        return record;
     }
 }
 

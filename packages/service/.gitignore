@@ -54,3 +54,4 @@ posts/
 
 # Serverless
 .serverless
+*.db

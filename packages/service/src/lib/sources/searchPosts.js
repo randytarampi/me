@@ -4,33 +4,33 @@ import CacheClient from "../cacheClient";
 
 const cachedValueToPost = cachedValue => cachedValue
     && sources[cachedValue.source]
-    && sources[cachedValue.source].jsonToPost
-    && sources[cachedValue.source].jsonToPost(cachedValue.raw);
+    && sources[cachedValue.source].instanceToRecord
+    && sources[cachedValue.source].instanceToRecord(cachedValue.raw);
 
 /**
  * Search the [Post]{@link Post} cache for some given search parameters and return the found posts and some metadata
  * @function searchPosts
- * @param searchParams {SearchParams}
+ * @param searchParams {PostSearchParams}
  * @returns {Promise<{posts: Post[], total: Number, first: Post, last: Post} | never | {posts: null, total: null, first: null, last: null, error: any}>}
  */
 export const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
 
     return Promise.all([
-            cacheClient.getPosts(searchParams)
+            cacheClient.getRecords(searchParams)
                 .then(cachedPosts => cachedPosts.map(cachedValueToPost)),
-            cacheClient.getPostCount(searchParams
+            cacheClient.getRecordCount(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
                 .delete("orderComparatorType")
             ),
-            cacheClient.getPost(searchParams
+            cacheClient.getRecord(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
                 .delete("orderComparatorType")
                 .set("orderBy", "ascending")
             ).then(cachedValueToPost),
-            cacheClient.getPost(searchParams
+            cacheClient.getRecord(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
                 .delete("orderComparatorType")

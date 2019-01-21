@@ -1,9 +1,9 @@
 import _ from "lodash";
-import * as PostModel from "../db/models/post";
+import PostModel from "../db/models/post";
 import logger from "./logger";
 
 /**
- * A generic class that gets and sets [Posts]{@link Post} in some data store
+ * A generic class that gets and sets [Records]{@link Record} in some data store
  */
 class CacheClient {
     /**
@@ -17,16 +17,16 @@ class CacheClient {
     }
 
     /**
-     * Retrieve some [Posts]{@link Post} from the cache that correspond to the terms in the passed searchParams
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Promise<Post[]>}
+     * Retrieve some [Records]{@link Record} from the cache that correspond to the terms in the passed searchParams
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Promise<Record[]>}
      */
-    async getPosts(searchParams) {
-        logger.trace(`getting posts (${JSON.stringify(searchParams)}) from cache`);
+    async getRecords(searchParams) {
+        logger.trace(`getting records (${JSON.stringify(searchParams)}) from cache`);
 
         const queries = _.flatten([searchParams[this.type]]);
 
-        return Promise.all(queries.map(this.dataClient.getPosts))
+        return Promise.all(queries.map(this.dataClient.getRecords))
             .then(_.flatten)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
@@ -34,16 +34,16 @@ class CacheClient {
     }
 
     /**
-     * Retrieve a count of [Posts]{@link Post} from the cache that correspond to the terms in the passed searchParams
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
+     * Retrieve a count of [Records]{@link Record} from the cache that correspond to the terms in the passed searchParams
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Number>}
      */
-    async getPostCount(searchParams) {
-        logger.trace(`getting count of posts (${JSON.stringify(searchParams)}) from cache`);
+    async getRecordCount(searchParams) {
+        logger.trace(`getting count of records (${JSON.stringify(searchParams)}) from cache`);
 
         const queries = _.flatten([searchParams[this.type]]);
 
-        return Promise.all(queries.map(this.dataClient.getPostCount))
+        return Promise.all(queries.map(this.dataClient.getRecordCount))
             .then(_.sum)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
@@ -51,29 +51,29 @@ class CacheClient {
     }
 
     /**
-     * Set some [Posts]{@link Post} in the cache
-     * @param posts {Post[]}
-     * @returns {Promise<Post[]>}
+     * Set some [Records]{@link Record} in the cache
+     * @param records {Record[]}
+     * @returns {Promise<Record[]>}
      */
-    async setPosts(posts) {
-        logger.trace(`setting posts (${JSON.stringify(posts.map(post => post.uid))}}) in cache`);
-        return this.dataClient.createPosts(posts)
+    async setRecords(records) {
+        logger.trace(`setting records (${JSON.stringify(records.map(record => record.uid))}}) in cache`);
+        return this.dataClient.createRecords(records)
             .catch(error => {
-                logger.error(error, `error for (${JSON.stringify(posts.map(post => post.uid))})`);
+                logger.error(error, `error for (${JSON.stringify(records.map(record => record.uid))})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 
     /**
-     * Retrieve a [Post]{@link Post} from the cache that corresponds to the terms in the passed searchParams
-     * @param searchParams {SearchParams} A combination of attributes that we're looking for
-     * @returns {Promise<Post>}
+     * Retrieve a [Record]{@link Record} from the cache that corresponds to the terms in the passed searchParams
+     * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
+     * @returns {Promise<Record>}
      */
-    async getPost(searchParams) {
-        logger.trace(`getting post (${JSON.stringify(searchParams)}) from cache`);
+    async getRecord(searchParams) {
+        logger.trace(`getting record (${JSON.stringify(searchParams)}) from cache`);
 
         const queries = _.flatten([searchParams[this.type]]);
 
-        return Promise.all(queries.map(this.dataClient.getPost))
+        return Promise.all(queries.map(this.dataClient.getRecord))
             .then(_.first)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
@@ -81,15 +81,15 @@ class CacheClient {
     }
 
     /**
-     * Set a [Post]{@link Post} in the cache
-     * @param post {Post}
-     * @returns {Promise<Post>}
+     * Set a [Record]{@link Record} in the cache
+     * @param record {Record}
+     * @returns {Promise<Record>}
      */
-    async setPost(post) {
-        logger.trace(`setting post (${post.uid}) in cache`);
-        return this.dataClient.createPost(post)
+    async setRecord(record) {
+        logger.trace(`setting record (${record.uid}) in cache`);
+        return this.dataClient.createRecord(record)
             .catch(error => {
-                logger.error(error, `error for (${post.uid})`);
+                logger.error(error, `error for (${record.uid})`);
             }); // NOTE-RT: Just swallow caching errors
     }
 }

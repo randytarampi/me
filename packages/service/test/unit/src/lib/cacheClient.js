@@ -2,7 +2,7 @@ import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import CacheClient from "../../../../src/lib/cacheClient";
-import SearchParams from "../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../src/lib/postSearchParams";
 import DummyDataClientGenerator from "../../../lib/dummyDataClientGenerator";
 
 describe("CacheClient", function () {
@@ -10,11 +10,11 @@ describe("CacheClient", function () {
     let stubPost;
     let stubPhoto;
     let stubPosts;
-    let stubCreatePosts;
-    let stubGetPosts;
-    let stubGetPostCount;
-    let stubCreatePost;
-    let stubGetPost;
+    let stubCreateRecords;
+    let stubGetRecords;
+    let stubGetRecordCount;
+    let stubCreateRecord;
+    let stubGetRecord;
     let DummyDataClient;
     let stubDataClient;
 
@@ -25,20 +25,20 @@ describe("CacheClient", function () {
         stubPhoto = Photo.fromJSON({id: "meow"});
         stubPosts = [stubPost, stubPhoto];
 
-        stubCreatePosts = sinon.stub().callsFake(posts => Promise.resolve(posts));
-        stubGetPosts = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
-        stubGetPostCount = sinon.stub().callsFake(params => Promise.resolve(stubPosts.length)); // eslint-disable-line no-unused-vars
+        stubCreateRecords = sinon.stub().callsFake(posts => Promise.resolve(posts));
+        stubGetRecords = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
+        stubGetRecordCount = sinon.stub().callsFake(params => Promise.resolve(stubPosts.length)); // eslint-disable-line no-unused-vars
 
-        stubCreatePost = sinon.stub().callsFake(post => Promise.resolve(post));
-        stubGetPost = sinon.stub().callsFake(params => Promise.resolve(stubPost)); // eslint-disable-line no-unused-vars
+        stubCreateRecord = sinon.stub().callsFake(post => Promise.resolve(post));
+        stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(stubPost)); // eslint-disable-line no-unused-vars
 
         DummyDataClient = DummyDataClientGenerator({
-            stubGetPosts,
-            stubGetPostCount,
-            stubCreatePosts,
+            stubGetRecords,
+            stubGetRecordCount,
+            stubCreateRecords,
 
-            stubGetPost,
-            stubCreatePost
+            stubGetRecord,
+            stubCreateRecord
         });
         stubDataClient = new DummyDataClient();
     });
@@ -61,185 +61,185 @@ describe("CacheClient", function () {
         });
     });
 
-    describe("setPosts", function () {
-        it("delegates to dataClient.createPosts", async function () {
+    describe("setRecords", function () {
+        it("delegates to dataClient.createRecords", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const createdPosts = await cacheClient.setPosts(stubPosts);
+            const createdPosts = await cacheClient.setRecords(stubPosts);
             expect(createdPosts).to.be.ok;
-            expect(stubCreatePosts.calledOnce).to.eql(true);
-            expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
 
         it("swallows errors", async function () {
-            stubCreatePosts = sinon.stub().callsFake(() => Promise.reject(new Error("💥")));
+            stubCreateRecords = sinon.stub().callsFake(() => Promise.reject(new Error("💥")));
 
             DummyDataClient = DummyDataClientGenerator({
-                stubGetPosts,
-                stubGetPostCount,
-                stubCreatePosts,
+                stubGetRecords,
+                stubGetRecordCount,
+                stubCreateRecords,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             });
             stubDataClient = new DummyDataClient();
 
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const createdPosts = await cacheClient.setPosts(stubPosts);
+            const createdPosts = await cacheClient.setRecords(stubPosts);
             expect(createdPosts).to.not.be.ok;
-            expect(stubCreatePosts.calledOnce).to.eql(true);
-            expect(stubCreatePosts.calledWith(stubPosts)).to.eql(true);
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
     });
 
-    describe("getPosts", function () {
-        it("delegates to dataClient.getPosts", async function () {
+    describe("getRecords", function () {
+        it("delegates to dataClient.getRecords", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
-            const retrievedPosts = await cacheClient.getPosts(stubParams);
+            const retrievedPosts = await cacheClient.getRecords(stubParams);
             expect(retrievedPosts).to.be.ok;
-            expect(stubGetPosts.calledOnce).to.eql(true);
-            sinon.assert.calledWith(stubGetPosts, stubParams[cacheClient.type]);
+            expect(stubGetRecords.calledOnce).to.eql(true);
+            sinon.assert.calledWith(stubGetRecords, stubParams[cacheClient.type]);
         });
 
         it("swallows errors", async function () {
-            stubGetPosts = sinon.stub().returns(Promise.reject(new Error("💥")));
+            stubGetRecords = sinon.stub().returns(Promise.reject(new Error("💥")));
 
             DummyDataClient = DummyDataClientGenerator({
-                stubGetPosts,
-                stubGetPostCount,
-                stubCreatePosts,
+                stubGetRecords,
+                stubGetRecordCount,
+                stubCreateRecords,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             });
             stubDataClient = new DummyDataClient();
 
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
-            const retrievedPosts = await cacheClient.getPosts(stubParams);
+            const retrievedPosts = await cacheClient.getRecords(stubParams);
             expect(retrievedPosts).to.not.be.ok;
-            expect(stubGetPosts.calledOnce).to.eql(true);
-            sinon.assert.calledWith(stubGetPosts, stubParams[cacheClient.type]);
+            expect(stubGetRecords.calledOnce).to.eql(true);
+            sinon.assert.calledWith(stubGetRecords, stubParams[cacheClient.type]);
         });
     });
 
-    describe("getPostCount", function () {
-        it("delegates to dataClient.getPostCount", async function () {
+    describe("getRecordCount", function () {
+        it("delegates to dataClient.getRecordCount", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
-            const retrievedPosts = await cacheClient.getPostCount(stubParams);
+            const retrievedPosts = await cacheClient.getRecordCount(stubParams);
             expect(retrievedPosts).to.eql(stubPosts.length);
-            expect(stubGetPostCount.calledOnce).to.eql(true);
-            sinon.assert.calledWith(stubGetPostCount, stubParams[cacheClient.type]);
+            expect(stubGetRecordCount.calledOnce).to.eql(true);
+            sinon.assert.calledWith(stubGetRecordCount, stubParams[cacheClient.type]);
         });
 
         it("swallows errors", async function () {
-            stubGetPostCount = sinon.stub().returns(Promise.reject(new Error("💥")));
+            stubGetRecordCount = sinon.stub().returns(Promise.reject(new Error("💥")));
 
             DummyDataClient = DummyDataClientGenerator({
-                stubGetPosts,
-                stubGetPostCount,
-                stubCreatePosts,
+                stubGetRecords,
+                stubGetRecordCount,
+                stubCreateRecords,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             });
             stubDataClient = new DummyDataClient();
 
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
+            const stubParams = PostSearchParams.fromJS();
 
-            const retrievedPosts = await cacheClient.getPostCount(stubParams);
+            const retrievedPosts = await cacheClient.getRecordCount(stubParams);
             expect(retrievedPosts).to.not.be.ok;
-            expect(stubGetPostCount.calledOnce).to.eql(true);
-            sinon.assert.calledWith(stubGetPostCount, stubParams[cacheClient.type]);
+            expect(stubGetRecordCount.calledOnce).to.eql(true);
+            sinon.assert.calledWith(stubGetRecordCount, stubParams[cacheClient.type]);
         });
     });
 
-    describe("setPost", function () {
-        it("delegates to dataClient.createPost", async function () {
+    describe("setRecord", function () {
+        it("delegates to dataClient.createRecord", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const createdPost = await cacheClient.setPost(stubPost);
+            const createdPost = await cacheClient.setRecord(stubPost);
             expect(createdPost).to.be.instanceOf(Post);
             expect(createdPost).to.eql(stubPost);
-            expect(stubCreatePost.calledOnce).to.eql(true);
-            expect(stubCreatePost.calledWith(stubPost)).to.eql(true);
+            expect(stubCreateRecord.calledOnce).to.eql(true);
+            expect(stubCreateRecord.calledWith(stubPost)).to.eql(true);
         });
 
         it("swallows errors", async function () {
-            stubCreatePost = sinon.stub().callsFake(post => Promise.reject(new Error("💥"))); // eslint-disable-line no-unused-vars
+            stubCreateRecord = sinon.stub().callsFake(post => Promise.reject(new Error("💥"))); // eslint-disable-line no-unused-vars
 
             DummyDataClient = DummyDataClientGenerator({
-                stubGetPosts,
-                stubGetPostCount,
-                stubCreatePosts,
+                stubGetRecords,
+                stubGetRecordCount,
+                stubCreateRecords,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             });
             stubDataClient = new DummyDataClient();
 
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const createdPost = await cacheClient.setPost(stubPost);
+            const createdPost = await cacheClient.setRecord(stubPost);
             expect(createdPost).to.not.be.ok;
-            expect(stubCreatePost.calledOnce).to.eql(true);
-            expect(stubCreatePost.calledWith(stubPost)).to.eql(true);
+            expect(stubCreateRecord.calledOnce).to.eql(true);
+            expect(stubCreateRecord.calledWith(stubPost)).to.eql(true);
         });
     });
 
-    describe("getPost", function () {
-        it("delegates to dataClient.getPost", async function () {
+    describe("getRecord", function () {
+        it("delegates to dataClient.getRecord", async function () {
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
-            const retrievedPost = await cacheClient.getPost(stubParams);
+            const stubParams = PostSearchParams.fromJS();
+            const retrievedPost = await cacheClient.getRecord(stubParams);
             expect(retrievedPost).to.be.instanceOf(Post);
             expect(retrievedPost).to.eql(stubPost);
-            expect(stubGetPost.calledOnce).to.eql(true);
-            sinon.assert.calledWith(stubGetPost, stubParams[cacheClient.type]);
+            expect(stubGetRecord.calledOnce).to.eql(true);
+            sinon.assert.calledWith(stubGetRecord, stubParams[cacheClient.type]);
         });
 
         it("swallows errors", async function () {
-            stubGetPost = sinon.stub().returns(Promise.reject(new Error("💥")));
+            stubGetRecord = sinon.stub().returns(Promise.reject(new Error("💥")));
 
             DummyDataClient = DummyDataClientGenerator({
-                stubGetPosts,
-                stubGetPostCount,
-                stubCreatePosts,
+                stubGetRecords,
+                stubGetRecordCount,
+                stubCreateRecords,
 
-                stubGetPost,
-                stubCreatePost
+                stubGetRecord,
+                stubCreateRecord
             });
             stubDataClient = new DummyDataClient();
 
             const cacheClient = new CacheClient(undefined, stubDataClient);
             expect(cacheClient).to.be.instanceOf(CacheClient);
 
-            const stubParams = SearchParams.fromJS();
-            const retrievedPost = await cacheClient.getPost(stubParams);
+            const stubParams = PostSearchParams.fromJS();
+            const retrievedPost = await cacheClient.getRecord(stubParams);
             expect(retrievedPost).to.not.be.ok;
-            expect(stubGetPost.calledOnce).to.eql(true);
-            sinon.assert.calledWith(stubGetPost, stubParams[cacheClient.type]);
+            expect(stubGetRecord.calledOnce).to.eql(true);
+            sinon.assert.calledWith(stubGetRecord, stubParams[cacheClient.type]);
         });
     });
 });

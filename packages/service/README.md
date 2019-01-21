@@ -43,9 +43,7 @@ dev: &devConfig
   environment: &environment
     FLICKR_USER_NAME:
     UNSPLASH_USER_NAME:
-    INSTAGRAM_USER_NAME:
-    INSTAGRAM_AUTH_REDIRECT_URI:
-    INSTAGRAM_USER_ID:
+    INSTAGRAM_AUTH_CALLBACK_URI:
     TUMBLR_USER_NAME:
   environmentSecrets: &environmentSecrets
     FLICKR_API_KEY: flickr-api-key

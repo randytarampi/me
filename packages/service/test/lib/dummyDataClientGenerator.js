@@ -1,34 +1,34 @@
 export const DummyDataClientGenerator = ({
-                                             stubGetPosts,
-                                             stubGetPostCount,
-                                             stubCreatePosts,
+                                             stubGetRecords,
+                                             stubGetRecordCount,
+                                             stubCreateRecords,
 
-                                             stubGetPost,
-                                             stubCreatePost
+                                             stubGetRecord,
+                                             stubCreateRecord
                                          }) => {
     return class DummyDataClient {
         constructor(type) {
             this.type = type;
         }
 
-        async getPosts(params) {
-            return stubGetPosts(params);
+        async getRecords(params) {
+            return stubGetRecords(params);
         }
 
-        async getPostCount(params) {
-            return stubGetPostCount(params);
+        async getRecordCount(params) {
+            return stubGetRecordCount(params);
         }
 
-        async createPosts(posts) {
-            return stubCreatePosts(posts);
+        async createRecords(posts) {
+            return stubCreateRecords(posts);
         }
 
-        async getPost(params) {
-            return stubGetPost(params);
+        async getRecord(params) {
+            return stubGetRecord(params);
         }
 
-        async createPost(post) {
-            return stubCreatePost(post);
+        async createRecord(post) {
+            return stubCreateRecord(post);
         }
     };
 };

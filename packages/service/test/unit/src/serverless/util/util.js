@@ -4,7 +4,7 @@ import config from "config";
 import proxyquire from "proxyquire";
 import serverlessSecretsClient from "serverless-secrets/client";
 import sinon from "sinon";
-import SearchParams from "../../../../../src/lib/searchParams";
+import PostSearchParams from "../../../../../src/lib/postSearchParams";
 import loadConfig from "../../../../../src/serverless/util/loadConfig";
 import loadServerlessSecrets from "../../../../../src/serverless/util/loadServerlessSecrets";
 import {parseQueryStringParametersIntoSearchParams} from "../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams";
@@ -12,7 +12,7 @@ import {ME_API_VERSION_HEADER} from "../../../../../src/serverless/util/request/
 
 describe("util", function () {
     describe("parseQueryStringParametersIntoSearchParams", function () {
-        it("returns the expected SearchParams", function () {
+        it("returns the expected PostSearchParams", function () {
             const baseParameters = {
                 type: "woof"
             };
@@ -22,7 +22,7 @@ describe("util", function () {
             };
             const searchParams = parseQueryStringParametersIntoSearchParams(baseParameters)(queryStringParameters);
 
-            expect(searchParams).to.be.instanceOf(SearchParams);
+            expect(searchParams).to.be.instanceOf(PostSearchParams);
             expect(searchParams.type).to.eql("woof");
             expect(searchParams.source).to.eql("meow");
             expect(searchParams.perPage).to.eql(4);

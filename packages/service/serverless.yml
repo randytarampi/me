@@ -87,7 +87,8 @@ custom:
   dynamodb:
     start:
       port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
-      inMemory: true
+      inMemory: false
+      dbPath: ./
       migrate: true
     migration:
       dir: src/serverless/dynamoDb/migrations
@@ -141,9 +142,9 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}
     onError:
       Ref: LambdaDeadLetterQueue
-  instagramAuthReturn:
-    handler: src/serverless/handlers/instagramAuthReturn/initialized.default
-    events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthReturn.events}
+  instagramAuthCallback:
+    handler: src/serverless/handlers/instagramAuthCallback/initialized.default
+    events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthCallback.events}
     onError:
       Ref: LambdaDeadLetterQueue
 
@@ -220,7 +221,7 @@ resources:
         Statistic: Sum
         Threshold: 1
         Unit: Count
-    DynamoDbConsumedReadCapacityUnitsAlarm:
+    PostsDynamoDbConsumedReadCapacityUnitsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
@@ -236,7 +237,7 @@ resources:
         Period: 60
         Statistic: Sum
         Threshold: 6000
-    DynamoDbConsumedWriteCapacityUnitsAlarm:
+    PostsDynamoDbConsumedWriteCapacityUnitsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
@@ -252,7 +253,7 @@ resources:
         Period: 60
         Statistic: Sum
         Threshold: 6000
-    DynamoDbSystemErrorsAlarm:
+    PostsDynamoDbSystemErrorsAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmActions:
@@ -269,6 +270,55 @@ resources:
         Statistic: Sum
         Threshold: 1
         Unit: Count
+    AuthInfoDynamoDbConsumedReadCapacityUnitsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: DynamoDB RCU Consumption
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        Dimensions:
+          - Value: ${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}
+            Name: TableName
+        EvaluationPeriods: 1
+        Namespace: AWS/DynamoDB
+        MetricName: ConsumedReadCapacityUnits
+        Period: 60
+        Statistic: Sum
+        Threshold: 5
+    AuthInfoDynamoDbConsumedWriteCapacityUnitsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: DynamoDB WCU Consumption
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        Dimensions:
+          - Value: ${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}
+            Name: TableName
+        EvaluationPeriods: 1
+        Namespace: AWS/DynamoDB
+        MetricName: ConsumedWriteCapacityUnits
+        Period: 60
+        Statistic: Sum
+        Threshold: 5
+    AuthInfoDynamoDbSystemErrorsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmActions:
+          - ${self:custom.alarmTopic}
+        AlarmDescription: DynamoDB System Errors
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        Dimensions:
+          - Value: ${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}
+            Name: TableName
+        EvaluationPeriods: 1
+        Namespace: AWS/DynamoDB
+        MetricName: SystemErrors
+        Period: 60
+        Statistic: Sum
+        Threshold: 1
+        Unit: Count
     S3BucketPosts:
       Type: AWS::S3::Bucket
       Properties:
@@ -277,3 +327,7 @@ resources:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties: ${file(src/serverless/dynamodb/post.js):default}
+    AuthInfoDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties: ${file(src/serverless/dynamodb/authInfo.js):default}

@@ -62,13 +62,13 @@ const searchParamsRecordDefinition = {
     id: undefined,
     uid: undefined
 };
-const SearchParamsRecord = Record(searchParamsRecordDefinition);
+const PostSearchParamsRecord = Record(searchParamsRecordDefinition);
 
 /**
  * Turn some generic search parameters into a query parameters for [Posts]{@link Post} for some services
- * @extends SearchParamsRecord
+ * @extends PostSearchParamsRecord
  */
-class SearchParams extends SearchParamsRecord {
+class PostSearchParams extends PostSearchParamsRecord {
     constructor({beforeDate, width, height, page, perPage, lat, long, north, east, south, west, ...properties} = {}) {
         super({
             ...properties,
@@ -515,7 +515,7 @@ class SearchParams extends SearchParamsRecord {
     }
 
     static fromJS(js) {
-        return new SearchParams(SearchParams.parsePropertiesFromJs(js));
+        return new PostSearchParams(PostSearchParams.parsePropertiesFromJs(js));
     }
 
     static parsePropertiesFromJson(json) {
@@ -527,7 +527,7 @@ class SearchParams extends SearchParamsRecord {
     }
 
     static fromJSON(json) {
-        return new SearchParams(SearchParams.parsePropertiesFromJson(json));
+        return new PostSearchParams(PostSearchParams.parsePropertiesFromJson(json));
     }
 }
 
@@ -604,4 +604,4 @@ export const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (rela
     }
 };
 
-export default SearchParams;
+export default PostSearchParams;

@@ -17,21 +17,7 @@ class UnsplashSource extends CachedDataSource {
         return "unsplash";
     }
 
-    async allPostsGetter(searchParams) {
-        let posts = await this.postsGetter(searchParams);
-
-        if (posts.length) {
-            posts = posts.concat(await this.allPostsGetter(
-                searchParams
-                    .set("all", true)
-                    .set("page", searchParams.page + 1)
-            ));
-        }
-
-        return posts;
-    }
-
-    static jsonToPost(json) {
+    static instanceToRecord(json) {
         return Photo.fromJSON({
             raw: json,
             id: json.id,
@@ -72,22 +58,36 @@ class UnsplashSource extends CachedDataSource {
         });
     }
 
-    postsGetter(searchParams) {
+    async allRecordsGetter(searchParams) {
+        let posts = await this.recordsGetter(searchParams);
+
+        if (posts.length) {
+            posts = posts.concat(await this.allRecordsGetter(
+                searchParams
+                    .set("all", true)
+                    .set("page", searchParams.page + 1)
+            ));
+        }
+
+        return posts;
+    }
+
+    recordsGetter(searchParams) {
         const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.Unsplash.page, searchParams.Unsplash.per_page, searchParams.Unsplash.order_by);
 
         return unsplashRequest
             .then(toJson)
             .then(response => Promise.all(
                 response
-                    .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.jsonToPost(post), searchParams))
-                    .map(photo => this.postGetter(photo.id, searchParams))
+                    .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.instanceToRecord(post), searchParams))
+                    .map(photo => this.recordGetter(photo.id, searchParams))
             ));
     }
 
-    postGetter(photoId, searchParams) {
+    recordGetter(photoId, searchParams) {
         return this.client.photos.getPhoto(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
             .then(toJson)
-            .then(json => json && UnsplashSource.jsonToPost(json));
+            .then(json => json && UnsplashSource.instanceToRecord(json));
     }
 }
 

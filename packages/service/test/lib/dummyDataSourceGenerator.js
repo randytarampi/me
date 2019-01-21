@@ -3,17 +3,17 @@ import DataSource from "../../src/lib/dataSource";
 export const DummyDataSourceGenerator = ({
                                              stubType,
 
-                                             stubBeforePostsGetter,
-                                             stubPostsGetter,
-                                             stubAfterPostsGetter,
+                                             stubBeforeRecordsGetter,
+                                             stubRecordsGetter,
+                                             stubAfterRecordsGetter,
 
-                                             stubAllPostsGetter,
+                                             stubAllRecordsGetter,
 
-                                             stubBeforePostGetter,
-                                             stubPostGetter,
-                                             stubAfterPostGetter,
+                                             stubBeforeRecordGetter,
+                                             stubRecordGetter,
+                                             stubAfterRecordGetter,
 
-                                             stubJsonToPost
+                                             stubInstanceToRecord
                                          }) => {
 
     return class DummyDataSource extends DataSource {
@@ -21,36 +21,36 @@ export const DummyDataSourceGenerator = ({
             return stubType ? stubType : super.type;
         }
 
-        static jsonToPost(postJson) {
-            return stubJsonToPost ? stubJsonToPost(postJson) : super.jsonToPost(postJson);
+        static instanceToRecord(postJson) {
+            return stubInstanceToRecord ? stubInstanceToRecord(postJson) : super.instanceToRecord(postJson);
         }
 
-        async beforePostsGetter(params) {
-            return stubBeforePostsGetter ? stubBeforePostsGetter(params) : super.beforePostsGetter(params);
+        async beforeRecordsGetter(params) {
+            return stubBeforeRecordsGetter ? stubBeforeRecordsGetter(params) : super.beforeRecordsGetter(params);
         }
 
-        async postsGetter(params) {
-            return stubPostsGetter ? stubPostsGetter(params) : super.postsGetter(params);
+        async recordsGetter(params) {
+            return stubRecordsGetter ? stubRecordsGetter(params) : super.recordsGetter(params);
         }
 
-        async afterPostsGetter(posts, params) {
-            return stubAfterPostsGetter ? stubAfterPostsGetter(posts, params) : super.afterPostsGetter(posts, params);
+        async afterRecordsGetter(posts, params) {
+            return stubAfterRecordsGetter ? stubAfterRecordsGetter(posts, params) : super.afterRecordsGetter(posts, params);
         }
 
-        async allPostsGetter(posts, params) {
-            return stubAllPostsGetter ? stubAllPostsGetter(posts, params) : super.allPostsGetter(posts, params);
+        async allRecordsGetter(posts, params) {
+            return stubAllRecordsGetter ? stubAllRecordsGetter(posts, params) : super.allRecordsGetter(posts, params);
         }
 
-        async beforePostGetter(postId, params) {
-            return stubBeforePostGetter ? stubBeforePostGetter(postId, params) : super.beforePostGetter(postId, params);
+        async beforeRecordGetter(postId, params) {
+            return stubBeforeRecordGetter ? stubBeforeRecordGetter(postId, params) : super.beforeRecordGetter(postId, params);
         }
 
-        async postGetter(postId, params) {
-            return stubPostGetter ? stubPostGetter(postId, params) : super.postGetter(postId, params);
+        async recordGetter(postId, params) {
+            return stubRecordGetter ? stubRecordGetter(postId, params) : super.recordGetter(postId, params);
         }
 
-        async afterPostGetter(post, params) {
-            return stubAfterPostGetter ? stubAfterPostGetter(post, params) : super.afterPostGetter(post, params);
+        async afterRecordGetter(post, params) {
+            return stubAfterRecordGetter ? stubAfterRecordGetter(post, params) : super.afterRecordGetter(post, params);
         }
     };
 };

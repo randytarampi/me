@@ -3,7 +3,7 @@ import proxyquire from "proxyquire";
 import sinon from "sinon";
 
 describe("instagramAuthRedirect", function () {
-    it("delegates to `getAuthTokenForCode`", function (done) {
+    it("redirects to the correct page", function (done) {
         this.timeout(5000);
 
         const stubCode = "grr";
@@ -20,7 +20,7 @@ describe("instagramAuthRedirect", function () {
                         expect(body).to.eql(null);
                         expect(status).to.eql(302);
                         expect(headers).to.eql({
-                            Location: `https://api.instagram.com/oauth/authorize/?client_id=${process.env.INSTAGRAM_API_KEY}&redirect_uri=${encodeURIComponent(process.env.INSTAGRAM_AUTH_REDIRECT_URI)}&response_type=code&scope=basic+public_content`
+                            Location: `https://api.instagram.com/oauth/authorize/?client_id=${process.env.INSTAGRAM_API_KEY}&redirect_uri=${encodeURIComponent(process.env.INSTAGRAM_AUTH_CALLBACK_URI)}&response_type=code&scope=basic+public_content`
                         });
                         return stubResponse;
                     } catch (error) {
