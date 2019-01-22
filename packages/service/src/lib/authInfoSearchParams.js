@@ -6,12 +6,19 @@ import {Record} from "immutable";
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
+    // NOTE-RT: For OAuth services
+    clientId: undefined,
+    redirectUri: undefined,
+    requestToken: undefined,
+    requestTokenSecret: undefined,
+    requestTokenVerifier: undefined,
+    accessToken: undefined,
+    accessTokenSecret: undefined,
+
     // NOTE-RT: For OAuth2 services
     code: undefined,
-    clientId: undefined,
     clientSecret: undefined,
     grantType: "authorization_code",
-    redirectUri: undefined,
     state: undefined,
 
     // NOTE-RT: For dynamoose
@@ -32,6 +39,19 @@ const AuthInfoSearchParamsRecord = Record(searchParamsRecordDefinition);
  * @extends AuthInfoSearchParamsRecord
  */
 export class AuthInfoSearchParams extends AuthInfoSearchParamsRecord {
+    get OAuth() {
+        return {
+            access_token_key: this.accessToken,
+            access_token_secret: this.accessTokenSecret,
+            oauth_token: this.requestToken,
+            oauth_token_secret: this.requestTokenSecret,
+            oauth_verifier: this.requestTokenVerifier,
+            oauth_consumer_key: this.clientId,
+            oauth_consumer_secret: this.clientSecret,
+            oauth_callback: this.redirectUri
+        };
+    }
+
     get OAuth2() {
         return {
             code: this.code,

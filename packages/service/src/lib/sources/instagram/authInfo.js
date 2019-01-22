@@ -24,7 +24,7 @@ export class InstagramAuthInfo extends CachedDataSource {
 
         return new AuthInfo({
             ...restOfTokenJson,
-            type: AUTH_INFO_TYPE.oauth,
+            type: AUTH_INFO_TYPE.oAuth2,
             token: access_token,
             source: InstagramAuthInfo.type,
             id: user.id,

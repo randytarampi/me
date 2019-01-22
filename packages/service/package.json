@@ -25,10 +25,12 @@
     "lodash": "~4.17.11",
     "luxon": "~1.10.0",
     "mime-types": "~2.1.21",
+    "oauth": "~0.9.15",
     "pad-right": "~0.2.2",
     "raven": "~2.6.4",
     "rss": "~1.2.2",
     "tumblr.js": "~2.0.0",
+    "twitter": "^1.7.1",
     "unsplash-js": "~4.8.0"
   },
   "devDependencies": {

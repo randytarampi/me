@@ -5,10 +5,10 @@ export const AUTH_INFO_TYPE = {
     oAuth: "OAUTH_TOKEN",
     oAuth2: "OAUTH2_TOKEN"
 };
-AUTH_INFO_TYPE.oauth = AUTH_INFO_TYPE.oAuth2;
 
 export class AuthInfo extends Record({
     token: null,
+    tokenSecret: null,
     id: null,
     source: null,
     type: AUTH_INFO_TYPE.oAuth2,

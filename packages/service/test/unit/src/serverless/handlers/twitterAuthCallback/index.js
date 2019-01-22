@@ -4,33 +4,42 @@ import sinon from "sinon";
 import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
 import {codes, codeToStatusCode} from "../../../../../../src/serverless/util/request/requestError";
 
-describe("instagramAuthCallback", function () {
+describe("twitterAuthCallback", function () {
     this.timeout(5000);
 
-    it("delegates to `InstagramAuthInfo.getRecord`", function (done) {
-        const stubCode = "grr";
-        const stubEvent = {queryStringParameters: {code: stubCode}};
+    it("delegates to `TwitterAuthInfo.getRecord`", function (done) {
+        const stubOAuthToken = "grr";
+        const stubOAuthTokenSecret = "rawr";
+        const stubOAuthTokenVerifier = "argh";
+        const stubEvent = {
+            queryStringParameters: {
+                oauth_token: stubOAuthToken,
+                oauth_token_secret: stubOAuthTokenSecret,
+                oauth_verifier: stubOAuthTokenVerifier
+            }
+        };
         const stubContext = {};
-        const stubToken = {access_token: "woof", user: {id: "meow"}};
+        const stubToken = {access_token: "woof", user_id: "meow"};
         const stubResponse = ["meow"];
         const proxyquireStubs = {
-            "../../../lib/sources/instagram/authInfo": {
-                "InstagramAuthInfo": class StubInstagramAuthInfo {
-                    getRecord(code, searchParams) {
-                        expect(code).to.eql(stubCode);
-                        expect(searchParams.code).to.eql(stubCode);
+            "../../../lib/sources/twitter/authInfo": {
+                "TwitterAuthInfo": class StubTwitterAuthInfo {
+                    getRecord(token, searchParams) {
+                        expect(token).to.eql(stubOAuthToken);
                         expect(searchParams).to.eql(new AuthInfoSearchParams({
-                            clientId: process.env.INSTAGRAM_API_KEY,
-                            clientSecret: process.env.INSTAGRAM_API_SECRET,
-                            redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
-                            code: stubCode
+                            clientId: process.env.TWITTER_API_KEY,
+                            clientSecret: process.env.TWITTER_API_SECRET,
+                            redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI,
+                            requestToken: stubOAuthToken,
+                            requestTokenSecret: stubOAuthTokenSecret,
+                            requestTokenVerifier: stubOAuthTokenVerifier
                         }));
                         return Promise.resolve(stubToken);
                     }
                 }
             },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/response/responseBuilder": {
                 "default": sinon.stub().callsFake(token => {
@@ -65,35 +74,44 @@ describe("instagramAuthCallback", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthCallback = proxyquire("../../../../../../src/serverless/handlers/instagramAuthCallback", proxyquireStubs);
+        const proxyquiredtwitterAuthCallback = proxyquire("../../../../../../src/serverless/handlers/twitterAuthCallback", proxyquireStubs);
 
-        proxyquiredinstagramAuthCallback.default(stubEvent, stubContext, stubCallback);
+        proxyquiredtwitterAuthCallback.default(stubEvent, stubContext, stubCallback);
     });
 
     it("`returnErrorResponse` on error", function (done) {
-        const stubCode = "grr";
-        const stubEvent = {queryStringParameters: {code: stubCode}};
+        const stubOAuthToken = "grr";
+        const stubOAuthTokenSecret = "rawr";
+        const stubOAuthTokenVerifier = "argh";
+        const stubEvent = {
+            queryStringParameters: {
+                oauth_token: stubOAuthToken,
+                oauth_token_secret: stubOAuthTokenSecret,
+                oauth_verifier: stubOAuthTokenVerifier
+            }
+        };
         const stubContext = {};
-        const stubToken = {access_token: "woof", user: {id: "meow"}};
+        const stubToken = {access_token: "woof", user_id: "meow"};
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../lib/sources/instagram/authInfo": {
-                "InstagramAuthInfo": class StubInstagramAuthInfo {
-                    getRecord(code, searchParams) {
-                        expect(code).to.eql(stubCode);
-                        expect(searchParams.code).to.eql(stubCode);
+            "../../../lib/sources/twitter/authInfo": {
+                "TwitterAuthInfo": class StubTwitterAuthInfo {
+                    getRecord(token, searchParams) {
+                        expect(token).to.eql(stubOAuthToken);
                         expect(searchParams).to.eql(new AuthInfoSearchParams({
-                            clientId: process.env.INSTAGRAM_API_KEY,
-                            clientSecret: process.env.INSTAGRAM_API_SECRET,
-                            redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
-                            code: stubCode
+                            clientId: process.env.TWITTER_API_KEY,
+                            clientSecret: process.env.TWITTER_API_SECRET,
+                            redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI,
+                            requestToken: stubOAuthToken,
+                            requestTokenSecret: stubOAuthTokenSecret,
+                            requestTokenVerifier: stubOAuthTokenVerifier
                         }));
                         return Promise.resolve(stubToken);
                     }
                 }
             },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/response/responseBuilder": {
                 "default": sinon.stub().throws(stubError)
@@ -120,35 +138,44 @@ describe("instagramAuthCallback", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthCallback = proxyquire("../../../../../../src/serverless/handlers/instagramAuthCallback", proxyquireStubs);
+        const proxyquiredtwitterAuthCallback = proxyquire("../../../../../../src/serverless/handlers/twitterAuthCallback", proxyquireStubs);
 
-        proxyquiredinstagramAuthCallback.default(stubEvent, stubContext, stubCallback);
+        proxyquiredtwitterAuthCallback.default(stubEvent, stubContext, stubCallback);
     });
 
     it("throws if no `code` provided", function (done) {
-        const stubCode = undefined;
-        const stubEvent = {queryStringParameters: {}};
+        const stubOAuthToken = "grr";
+        const stubOAuthTokenSecret = "rawr";
+        const stubOAuthTokenVerifier = null;
+        const stubEvent = {
+            queryStringParameters: {
+                oauth_token: stubOAuthToken,
+                oauth_token_secret: stubOAuthTokenSecret,
+                oauth_verifier: stubOAuthTokenVerifier
+            }
+        };
         const stubContext = {};
-        const stubToken = {access_token: "woof", user: {id: "meow"}};
+        const stubToken = {access_token: "woof", user_id: "meow"};
         const stubError = new Error("woof");
         const proxyquireStubs = {
-            "../../../lib/sources/instagram/authInfo": {
-                "InstagramAuthInfo": class StubInstagramAuthInfo {
-                    getRecord(code, searchParams) {
-                        expect(code).to.eql(stubCode);
-                        expect(searchParams.code).to.eql(stubCode);
+            "../../../lib/sources/twitter/authInfo": {
+                "TwitterAuthInfo": class StubTwitterAuthInfo {
+                    getRecord(token, searchParams) {
+                        expect(token).to.eql(stubOAuthToken);
                         expect(searchParams).to.eql(new AuthInfoSearchParams({
-                            clientId: process.env.INSTAGRAM_API_KEY,
-                            clientSecret: process.env.INSTAGRAM_API_SECRET,
-                            redirectUri: process.env.INSTAGRAM_AUTH_CALLBACK_URI,
-                            code: stubCode
+                            clientId: process.env.TWITTER_API_KEY,
+                            clientSecret: process.env.TWITTER_API_SECRET,
+                            redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI,
+                            requestToken: stubOAuthToken,
+                            requestTokenSecret: stubOAuthTokenSecret,
+                            requestTokenVerifier: stubOAuthTokenVerifier
                         }));
                         return Promise.resolve(stubToken);
                     }
                 }
             },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/response/responseBuilder": {
                 "default": sinon.stub().throws(stubError)
@@ -169,7 +196,7 @@ describe("instagramAuthCallback", function () {
         };
         const stubErrorCallback = error => {
             try {
-                expect(error.message).to.eql("Tried to handle Instagram authentication response, but no `code` was received");
+                expect(error.message).to.eql("Tried to handle Twitter authentication response, but no `oauth_verifier` was received");
                 expect(error.code).to.eql(codes.badRequest);
                 expect(error.statusCode).to.eql(codeToStatusCode[codes.badRequest]);
                 done();
@@ -177,8 +204,8 @@ describe("instagramAuthCallback", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthCallback = proxyquire("../../../../../../src/serverless/handlers/instagramAuthCallback", proxyquireStubs);
+        const proxyquiredtwitterAuthCallback = proxyquire("../../../../../../src/serverless/handlers/twitterAuthCallback", proxyquireStubs);
 
-        proxyquiredinstagramAuthCallback.default(stubEvent, stubContext, stubCallback);
+        proxyquiredtwitterAuthCallback.default(stubEvent, stubContext, stubCallback);
     });
 });

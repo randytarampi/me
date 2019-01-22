@@ -1,18 +1,37 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
+import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
 
-describe("instagramAuthRedirect", function () {
+describe("twitterAuthRedirect", function () {
     this.timeout(5000);
 
     it("redirects to the correct page", function (done) {
-        const stubCode = "grr";
-        const stubEvent = {queryStringParameters: {code: stubCode}};
+        const stubOAuthToken = "grr";
+        const stubRequestTokenResponse = {token: stubOAuthToken};
+        const stubEvent = {};
         const stubContext = {};
         const stubResponse = ["meow"];
+        const stubGetRequestToken = sinon.stub().callsFake(searchParams => {
+            expect(searchParams).to.eql(new AuthInfoSearchParams({
+                clientId: process.env.TWITTER_API_KEY,
+                clientSecret: process.env.TWITTER_API_SECRET,
+                redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI
+            }));
+            return Promise.resolve(stubRequestTokenResponse);
+        });
         const proxyquireStubs = {
+            "../../../lib/sources/twitter/authInfo": {
+                "TwitterAuthInfo": class StubTwitterAuthInfo {
+                    constructor() {
+                        this.client = {
+                            getRequestToken: stubGetRequestToken
+                        };
+                    }
+                }
+            },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/response/responseBuilder": {
                 "default": sinon.stub().callsFake((body, status, headers) => {
@@ -20,7 +39,7 @@ describe("instagramAuthRedirect", function () {
                         expect(body).to.eql(null);
                         expect(status).to.eql(302);
                         expect(headers).to.eql({
-                            Location: `https://api.instagram.com/oauth/authorize/?client_id=${process.env.INSTAGRAM_API_KEY}&redirect_uri=${encodeURIComponent(process.env.INSTAGRAM_AUTH_CALLBACK_URI)}&response_type=code&scope=basic+public_content`
+                            Location: `https://api.twitter.com/oauth/authorize?oauth_token=${stubOAuthToken}`
                         });
                         return stubResponse;
                     } catch (error) {
@@ -51,19 +70,37 @@ describe("instagramAuthRedirect", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthRedirect = proxyquire("../../../../../../src/serverless/handlers/instagramAuthRedirect", proxyquireStubs);
+        const proxyquiredtwitterAuthRedirect = proxyquire("../../../../../../src/serverless/handlers/twitterAuthRedirect", proxyquireStubs);
 
-        proxyquiredinstagramAuthRedirect.default(stubEvent, stubContext, stubCallback);
+        proxyquiredtwitterAuthRedirect.default(stubEvent, stubContext, stubCallback);
     });
 
     it("`returnErrorResponse` on error", function (done) {
-        const stubCode = "grr";
-        const stubEvent = {queryStringParameters: {code: stubCode}};
+        const stubOAuthToken = "grr";
+        const stubRequestTokenResponse = {token: stubOAuthToken};
+        const stubEvent = {};
         const stubContext = {};
         const stubError = new Error("woof");
+        const stubGetRequestToken = sinon.stub().callsFake(searchParams => {
+            expect(searchParams).to.eql(new AuthInfoSearchParams({
+                clientId: process.env.TWITTER_API_KEY,
+                clientSecret: process.env.TWITTER_API_SECRET,
+                redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI
+            }));
+            return Promise.resolve(stubRequestTokenResponse);
+        });
         const proxyquireStubs = {
+            "../../../lib/sources/twitter/authInfo": {
+                "TwitterAuthInfo": class StubTwitterAuthInfo {
+                    constructor() {
+                        this.client = {
+                            getRequestToken: stubGetRequestToken
+                        };
+                    }
+                }
+            },
             "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve()),
+                "default": sinon.stub().returns(Promise.resolve())
             },
             "../../util/response/responseBuilder": {
                 "default": sinon.stub().throws(stubError)
@@ -90,8 +127,8 @@ describe("instagramAuthRedirect", function () {
                 done(expectationError);
             }
         };
-        const proxyquiredinstagramAuthRedirect = proxyquire("../../../../../../src/serverless/handlers/instagramAuthRedirect", proxyquireStubs);
+        const proxyquiredtwitterAuthRedirect = proxyquire("../../../../../../src/serverless/handlers/twitterAuthRedirect", proxyquireStubs);
 
-        proxyquiredinstagramAuthRedirect.default(stubEvent, stubContext, stubCallback);
+        proxyquiredtwitterAuthRedirect.default(stubEvent, stubContext, stubCallback);
     });
 });
