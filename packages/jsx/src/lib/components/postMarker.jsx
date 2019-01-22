@@ -219,6 +219,12 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
     }
 };
 
+renderPostMarkerInfoBoxComponentForPost.propTypes = {
+    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    onVisibilityToggle: PropTypes.func.isRequired
+};
+
 export const buildPostMarkerId = post => `marker--${post.uid}`;
 
 export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, ...props}) => <Marker
