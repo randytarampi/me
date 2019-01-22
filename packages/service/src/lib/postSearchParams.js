@@ -11,6 +11,7 @@ import {
     Post,
     POST_STATUS
 } from "@randy.tarampi/js";
+import {Big} from "big.js";
 import {Record} from "immutable";
 import _ from "lodash";
 import {DateTime, Duration} from "luxon";
@@ -47,12 +48,12 @@ const searchParamsRecordDefinition = {
     relativeOrderComparatorBasis: undefined,
     relativeOrderComparatorBasisType: undefined,
     all: false,
-    beforeDate: null,
-    afterDate: null,
-    beforeId: null,
-    afterId: null,
-    continuationToken: null,
-    tags: null,
+    beforeDate: undefined,
+    afterDate: undefined,
+    beforeId: undefined,
+    afterId: undefined,
+    continuationToken: undefined,
+    tags: undefined,
     status: POST_STATUS.visible,
 
     // NOTE-RT: For individual posts
@@ -409,6 +410,15 @@ class PostSearchParams extends PostSearchParamsRecord {
             ...baseRequest,
             ...filterRequest,
             MaxKeys: Math.min(this.perPage, 1000)
+        };
+    }
+
+    get Twitter() {
+        return {
+            id: this.id,
+            count: this.perPage,
+            max_id: this.beforeId && new Big(this.beforeId).minus(1).toString(),
+            since_id: this.afterId
         };
     }
 

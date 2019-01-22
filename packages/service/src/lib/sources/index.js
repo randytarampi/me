@@ -4,9 +4,10 @@ import Flickr from "./flickr";
 import Instagram from "./instagram";
 import S3 from "./s3";
 import Tumblr from "./tumblr";
+import Twitter from "./twitter";
 import Unsplash from "./unsplash";
 
-export const sources = [Flickr, Instagram, S3, Tumblr, Unsplash].reduce(
+export const sources = [Flickr, Instagram, S3, Tumblr, Twitter, Unsplash].reduce(
     (sources, source) => {
         sources[source.type] = source;
         return sources;

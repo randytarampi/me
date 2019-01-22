@@ -12,6 +12,7 @@
     "@randy.tarampi/js": "3.2.1",
     "aws-sdk": "~2.391.0",
     "aws-xray-sdk": "~2.1.0",
+    "big.js": "~5.2.2",
     "bunyan": "beta",
     "bunyan-format": "~0.2.1",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",

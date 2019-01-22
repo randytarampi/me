@@ -28,9 +28,9 @@ const searchParamsRecordDefinition = {
     type: undefined,
     orderBy: "descending",
     all: false,
-    beforeId: null,
-    afterId: null,
-    continuationToken: null
+    beforeId: undefined,
+    afterId: undefined,
+    continuationToken: undefined
 };
 const AuthInfoSearchParamsRecord = Record(searchParamsRecordDefinition);
 
