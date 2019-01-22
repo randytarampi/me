@@ -1,14 +1,14 @@
 import FormData from "form-data";
 import fetch from "isomorphic-fetch";
 
-export class OAuthClient {
+export class OAuth2Client {
     constructor(tokenUrl) {
         this.tokenUrl = tokenUrl;
     }
 
-    async getAuthToken(searchParams) {
+    async getAccessToken(searchParams) {
         const formData = new FormData();
-        const oAuthParams = searchParams.OAuth;
+        const oAuthParams = searchParams.OAuth2;
 
         Object.keys(oAuthParams).forEach(key => {
             if (typeof oAuthParams[key] !== "undefined") {
@@ -24,4 +24,4 @@ export class OAuthClient {
     }
 }
 
-export default OAuthClient;
+export default OAuth2Client;

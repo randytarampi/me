@@ -6,7 +6,7 @@ import {Record} from "immutable";
  * @property orderBy {String} One of `ascending` or `descending`.
  */
 const searchParamsRecordDefinition = {
-    // NOTE-RT: For OAuth services
+    // NOTE-RT: For OAuth2 services
     code: undefined,
     clientId: undefined,
     clientSecret: undefined,
@@ -32,7 +32,7 @@ const AuthInfoSearchParamsRecord = Record(searchParamsRecordDefinition);
  * @extends AuthInfoSearchParamsRecord
  */
 export class AuthInfoSearchParams extends AuthInfoSearchParamsRecord {
-    get OAuth() {
+    get OAuth2() {
         return {
             code: this.code,
             client_id: this.clientId,

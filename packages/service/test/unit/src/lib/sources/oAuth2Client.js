@@ -2,7 +2,7 @@ import {expect} from "chai";
 import proxyquire from "proxyquire";
 import {AuthInfoSearchParams} from "../../../../../src/lib/authInfoSearchParams";
 
-describe("OAuthClient", function () {
+describe("OAuth2Client", function () {
     let stubApiKey;
     let stubApiSecret;
     let stubCallbackUri;
@@ -24,7 +24,7 @@ describe("OAuthClient", function () {
             }
         };
 
-        const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
+        const ProxyquiredOAuth2Client = proxyquire("../../../../../src/lib/sources/oAuth2Client", {
             "isomorphic-fetch": (fetchUrl, options) => {
                 expect(fetchUrl).to.eql(stubFetchUrl);
 
@@ -40,9 +40,9 @@ describe("OAuthClient", function () {
                 return Promise.resolve(stubResponse);
             }
         }).default;
-        const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubFetchUrl);
+        const proxyquiredOAuth2Client = new ProxyquiredOAuth2Client(stubFetchUrl);
 
-        return proxyquiredOAuthClient.getAuthToken(new AuthInfoSearchParams({
+        return proxyquiredOAuth2Client.getAccessToken(new AuthInfoSearchParams({
                 clientId: stubApiKey,
                 clientSecret: stubApiSecret,
                 redirectUri: stubCallbackUri,

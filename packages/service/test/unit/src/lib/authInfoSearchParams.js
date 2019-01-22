@@ -67,7 +67,7 @@ describe("AuthInfoSearchParams", function () {
         });
     });
 
-    describe("OAuth", function () {
+    describe("OAuth2", function () {
         it("should properly format properties", function () {
             const searchParams = new AuthInfoSearchParams({
                 code: "woof",
@@ -78,7 +78,7 @@ describe("AuthInfoSearchParams", function () {
                 state: "yip"
             });
 
-            expect(searchParams.OAuth).to.eql({
+            expect(searchParams.OAuth2).to.eql({
                 code: searchParams.code,
                 client_id: searchParams.clientId,
                 client_secret: searchParams.clientSecret,

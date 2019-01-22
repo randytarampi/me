@@ -4,7 +4,7 @@ import {AuthInfo} from "../../../../../../src/lib/authInfo";
 import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams";
 import CacheClient from "../../../../../../src/lib/cacheClient";
 import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
-import {OAuthClient} from "../../../../../../src/lib/sources/oAuthClient";
+import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
@@ -55,7 +55,7 @@ describe("InstagramAuthInfo", function () {
             stubAuthInfo.setIn(["id"], "MEOW")
         ];
         stubServiceClient = {
-            getAuthToken: sinon.stub().callsFake(() => Promise.resolve(instagramAccessTokenResponse))
+            getAccessToken: sinon.stub().callsFake(() => Promise.resolve(instagramAccessTokenResponse))
         };
 
         stubBeforeRecordsGetter = sinon.stub().callsFake(params => timedPromise(params));
@@ -119,7 +119,7 @@ describe("InstagramAuthInfo", function () {
             const instagramSource = new InstagramAuthInfo();
 
             expect(InstagramAuthInfo.type).to.eql("instagram");
-            expect(instagramSource.client).to.be.instanceOf(OAuthClient);
+            expect(instagramSource.client).to.be.instanceOf(OAuth2Client);
             expect(instagramSource.client.tokenUrl).to.eql(INSTAGRAM_TOKEN_URL);
             expect(instagramSource.cacheClient).to.not.eql(stubCacheClient);
             expect(instagramSource.cacheClient).to.be.instanceOf(CacheClient);
@@ -148,8 +148,8 @@ describe("InstagramAuthInfo", function () {
             return instagramSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
                 .then(authInfo => {
                     expect(authInfo).to.be.instanceof(AuthInfo);
-                    sinon.assert.calledOnce(stubServiceClient.getAuthToken);
-                    sinon.assert.calledWith(stubServiceClient.getAuthToken, stubAuthInfoSearchParams);
+                    sinon.assert.calledOnce(stubServiceClient.getAccessToken);
+                    sinon.assert.calledWith(stubServiceClient.getAccessToken, stubAuthInfoSearchParams);
                 });
         });
 
@@ -160,13 +160,13 @@ describe("InstagramAuthInfo", function () {
             return instagramSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
                 .then(authInfo => {
                     expect(authInfo).to.not.be.ok;
-                    sinon.assert.notCalled(stubServiceClient.getAuthToken);
+                    sinon.assert.notCalled(stubServiceClient.getAccessToken);
                 });
         });
 
         it("finds no authInfo", function () {
             stubServiceClient = {
-                getAuthToken: sinon.stub().callsFake(() => Promise.resolve(null))
+                getAccessToken: sinon.stub().callsFake(() => Promise.resolve(null))
             };
 
             const stubAuthInfoSearchParams = new AuthInfoSearchParams({
@@ -177,8 +177,8 @@ describe("InstagramAuthInfo", function () {
             return instagramSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
                 .then(authInfo => {
                     expect(authInfo).to.not.be.ok;
-                    sinon.assert.calledOnce(stubServiceClient.getAuthToken);
-                    sinon.assert.calledWith(stubServiceClient.getAuthToken, stubAuthInfoSearchParams);
+                    sinon.assert.calledOnce(stubServiceClient.getAccessToken);
+                    sinon.assert.calledWith(stubServiceClient.getAccessToken, stubAuthInfoSearchParams);
                 });
         });
     });
