@@ -1,4 +1,4 @@
-import {Post} from "@randy.tarampi/js";
+import {Post, POST_STATUS} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import {AuthInfo} from "../../authInfo";
@@ -171,7 +171,10 @@ export class TwitterSource extends CachedDataSource {
             body: tweetJsonToBody(tweetJson),
             creator: tweetJsonToCreator(tweetJson),
             tags: tweetJsonToTags(tweetJson),
-            locationCreated: tweetJsonToLocationCreated(tweetJson)
+            locationCreated: tweetJsonToLocationCreated(tweetJson),
+            status: tweetJson.in_reply_to_screen_name
+                ? POST_STATUS.hidden
+                : POST_STATUS.visible
         });
     }
 
