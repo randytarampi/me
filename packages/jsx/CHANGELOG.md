@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/randytarampi/me/compare/v3.2.1...v3.3.0) (2019-01-23)
+
+
+### Bug Fixes
+
+* **jsx:** ESLint. ([26c4bb4](https://github.com/randytarampi/me/commit/26c4bb4))
+
+
+### Features
+
+* **service:** First pass at adding Twitter. ([3f0e2ee](https://github.com/randytarampi/me/commit/3f0e2ee)), closes [#79](https://github.com/randytarampi/me/issues/79)
+
+
+
+
+
 ## [3.2.1](https://github.com/randytarampi/me/compare/v3.2.0...v3.2.1) (2019-01-21)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

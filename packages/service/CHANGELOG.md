@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/randytarampi/me/compare/v3.2.1...v3.3.0) (2019-01-23)
+
+
+### Features
+
+* **service:** Add support for Twitter. ([#253](https://github.com/randytarampi/me/issues/253)) ([49d888a](https://github.com/randytarampi/me/commit/49d888a))
+* **service:** Add Twitter `cachePosts` cron job. ([573f8d7](https://github.com/randytarampi/me/commit/573f8d7))
+* **service:** Add Twitter accounts per [#250](https://github.com/randytarampi/me/issues/250). ([a2c4248](https://github.com/randytarampi/me/commit/a2c4248))
+* **service:** All tweets are just `Post`s. ([32f6f2d](https://github.com/randytarampi/me/commit/32f6f2d)), closes [#79](https://github.com/randytarampi/me/issues/79)
+* **service:** First pass at adding Twitter. ([3f0e2ee](https://github.com/randytarampi/me/commit/3f0e2ee)), closes [#79](https://github.com/randytarampi/me/issues/79)
+* **service:** Polish off coverage for 3d51c2a993ceb4bfdb51cbbd1fb95f04e478b5a9...f92f2f197daa0f32377cf0331ca82ecaf0ac49db. ([3a69a7e](https://github.com/randytarampi/me/commit/3a69a7e))
+* **service:** Tweets `in_reply_to_screen_name` aren't worthy of visibility. ([f92f2f1](https://github.com/randytarampi/me/commit/f92f2f1))
+
+
+
+
+
 ## [3.2.1](https://github.com/randytarampi/me/compare/v3.2.0...v3.2.1) (2019-01-21)
 
 
