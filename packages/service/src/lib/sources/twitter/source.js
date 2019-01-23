@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post, SizedPhoto} from "@randy.tarampi/js";
+import {Post} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import {AuthInfo} from "../../authInfo";
@@ -159,32 +159,6 @@ export class TwitterSource extends CachedDataSource {
     }
 
     static instanceToRecord(tweetJson) {
-        const {extended_entities, entities} = tweetJson;
-
-        if (extended_entities && extended_entities.media) {
-            if (extended_entities.media.length > 1) {
-                return TwitterSource._jsonToGallery(tweetJson);
-            }
-
-            switch (extended_entities.media[0].type) {
-                case "photo":
-                case "animated_gif":
-                    return TwitterSource._jsonToPhoto(tweetJson);
-            }
-        }
-
-        if (entities && entities.media) {
-            switch (entities.media[0].type) {
-                case "photo":
-                case "animated_gif":
-                    return TwitterSource._jsonToPhoto(tweetJson);
-            }
-        }
-
-        return TwitterSource._jsonToPost(tweetJson);
-    }
-
-    static _jsonToPost(tweetJson) {
         const {id_str: id, created_at} = tweetJson;
 
         return Post.fromJS({
@@ -198,64 +172,6 @@ export class TwitterSource extends CachedDataSource {
             creator: tweetJsonToCreator(tweetJson),
             tags: tweetJsonToTags(tweetJson),
             locationCreated: tweetJsonToLocationCreated(tweetJson)
-        });
-    }
-
-    static _jsonToPhoto(tweetJson) {
-        const {id_str: id, created_at, entities: {media}} = tweetJson;
-        const {sizes, media_url_https} = media[0];
-        const sizedPhotos = Object.keys(sizes).map(key => {
-            const {w: width, h: height, ...image} = sizes[key];
-            return SizedPhoto.fromJSON({
-                width,
-                height,
-                url: `${media_url_https}`, // NOTE-RT: Per https://stackoverflow.com/a/39118748/1786400
-                ...image,
-                size: width
-            });
-        });
-        const biggestOfficialPhoto = _.last(_.sortBy(sizedPhotos, ["width"]));
-
-        return Photo.fromJS({
-            raw: tweetJson,
-            id,
-            source: TwitterSource.type,
-            sourceUrl: tweetJsonToTweetLink(tweetJson),
-            dateCreated: dateStringToDateTime(created_at),
-            width: biggestOfficialPhoto.width,
-            height: biggestOfficialPhoto.height,
-            title: tweetJsonToTitle(tweetJson),
-            body: tweetJsonToBody(tweetJson),
-            creator: tweetJsonToCreator(tweetJson),
-            tags: tweetJsonToTags(tweetJson),
-            locationCreated: tweetJsonToLocationCreated(tweetJson),
-            sizedPhotos
-        });
-    }
-
-    static _jsonToGallery(tweetJson) {
-        const {id_str: id, created_at, extended_entities: {media}} = tweetJson;
-
-        return Gallery.fromJS({
-            raw: tweetJson,
-            id,
-            source: TwitterSource.type,
-            sourceUrl: tweetJsonToTweetLink(tweetJson),
-            dateCreated: dateStringToDateTime(created_at),
-            title: tweetJsonToTitle(tweetJson),
-            body: tweetJsonToBody(tweetJson),
-            creator: tweetJsonToCreator(tweetJson),
-            tags: tweetJsonToTags(tweetJson),
-            locationCreated: tweetJsonToLocationCreated(tweetJson),
-
-            photos: media
-                .map(mediaJson => TwitterSource._jsonToPhoto({
-                    ...tweetJson,
-                    entities: {
-                        ...tweetJson.entities,
-                        media: [mediaJson]
-                    }
-                }))
         });
     }
 
