@@ -110,7 +110,7 @@ const tweetJsonToLocationCreated = ({coordinates, place}) => {
             url: place.url,
             geo,
             address: {
-                country: place.country,
+                addressCountry: place.country,
                 countryCode: place.country_code
             }
         };
