@@ -67,7 +67,7 @@ describe("AuthInfoSearchParams", function () {
         });
     });
 
-    describe("OAuth", function () {
+    describe("OAuth2", function () {
         it("should properly format properties", function () {
             const searchParams = new AuthInfoSearchParams({
                 code: "woof",
@@ -78,13 +78,39 @@ describe("AuthInfoSearchParams", function () {
                 state: "yip"
             });
 
-            expect(searchParams.OAuth).to.eql({
+            expect(searchParams.OAuth2).to.eql({
                 code: searchParams.code,
                 client_id: searchParams.clientId,
                 client_secret: searchParams.clientSecret,
                 grant_type: searchParams.grantType,
                 redirect_uri: searchParams.redirectUri,
                 state: searchParams.state
+            });
+        });
+    });
+
+    describe("OAuth2", function () {
+        it("should properly format properties", function () {
+            const searchParams = new AuthInfoSearchParams({
+                accessToken: "woof",
+                accessTokenSecret: "meow",
+                requestToken: "grr",
+                requestTokenSecret: "rawr",
+                requestTokenVerifier: "argh",
+                clientId: "ugh",
+                clientSecret: "hm",
+                redirectUri: "arf"
+            });
+
+            expect(searchParams.OAuth).to.eql({
+                access_token_key: searchParams.accessToken,
+                access_token_secret: searchParams.accessTokenSecret,
+                oauth_token: searchParams.requestToken,
+                oauth_token_secret: searchParams.requestTokenSecret,
+                oauth_verifier: searchParams.requestTokenVerifier,
+                oauth_consumer_key: searchParams.clientId,
+                oauth_consumer_secret: searchParams.clientSecret,
+                oauth_callback: searchParams.redirectUri
             });
         });
     });

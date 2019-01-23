@@ -3,12 +3,16 @@ import sinon from "sinon";
 import {AuthInfo} from "../../../../../../src/lib/authInfo";
 import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams";
 import CacheClient from "../../../../../../src/lib/cacheClient";
-import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
-import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
+import {OAuthClient} from "../../../../../../src/lib/sources/oAuthClient";
+import {
+    TWITTER_ACCESS_TOKEN_URL,
+    TWITTER_REQUEST_TOKEN_URL,
+    TwitterAuthInfo
+} from "../../../../../../src/lib/sources/twitter/authInfo";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
-describe("InstagramAuthInfo", function () {
+describe("TwitterAuthInfo", function () {
     let stubServiceClient;
     let stubAuthInfo;
     let stubAuthInfos;
@@ -34,28 +38,23 @@ describe("InstagramAuthInfo", function () {
     let builtDummyClasses;
     let dummyClassBuilderArguments;
 
-    let instagramUser;
-    let instagramAccessToken;
-    let instagramAccessTokenResponse;
+    let twitterAccessToken;
+    let twitterAccessTokenResponse;
 
     beforeEach(function () {
-        instagramUser = {
+        twitterAccessToken = "woof";
+        twitterAccessTokenResponse = {
+            access_token: twitterAccessToken,
             id: "woof",
-            username: "woofwoof",
-            full_name: "Woof Woof"
+            screen_name: "woofwoof"
         };
-        instagramAccessToken = "woof";
-        instagramAccessTokenResponse = {
-            access_token: instagramAccessToken,
-            user: instagramUser
-        };
-        stubAuthInfo = InstagramAuthInfo.instanceToRecord(instagramAccessTokenResponse);
+        stubAuthInfo = TwitterAuthInfo.instanceToRecord(twitterAccessTokenResponse);
         stubAuthInfos = [
             stubAuthInfo,
             stubAuthInfo.setIn(["id"], "MEOW")
         ];
         stubServiceClient = {
-            getAccessToken: sinon.stub().callsFake(() => Promise.resolve(instagramAccessTokenResponse))
+            getAccessToken: sinon.stub().callsFake(() => Promise.resolve(twitterAccessTokenResponse))
         };
 
         stubBeforeRecordsGetter = sinon.stub().callsFake(params => timedPromise(params));
@@ -115,37 +114,54 @@ describe("InstagramAuthInfo", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `InstagramAuthInfo` instance (including the default `instagram` client)", function () {
-            const instagramSource = new InstagramAuthInfo();
+        it("should build a `TwitterAuthInfo` instance (including the default `twitter` client)", function () {
+            const twitterSource = new TwitterAuthInfo();
 
-            expect(InstagramAuthInfo.type).to.eql("instagram");
-            expect(instagramSource.client).to.be.instanceOf(OAuth2Client);
-            expect(instagramSource.client.tokenUrl).to.eql(INSTAGRAM_TOKEN_URL);
-            expect(instagramSource.cacheClient).to.not.eql(stubCacheClient);
-            expect(instagramSource.cacheClient).to.be.instanceOf(CacheClient);
-            expect(instagramSource.initializing).to.be.instanceOf(Promise);
-            expect(instagramSource).to.be.instanceOf(InstagramAuthInfo);
+            expect(TwitterAuthInfo.type).to.eql("twitter");
+            expect(twitterSource.client).to.be.instanceOf(OAuthClient);
+            expect(twitterSource.client.tokenUrl).to.eql(TWITTER_ACCESS_TOKEN_URL);
+            expect(twitterSource.client.requestUrl).to.eql(TWITTER_REQUEST_TOKEN_URL);
+            expect(twitterSource.cacheClient).to.not.eql(stubCacheClient);
+            expect(twitterSource.cacheClient).to.be.instanceOf(CacheClient);
+            expect(twitterSource.initializing).to.be.instanceOf(Promise);
+            expect(twitterSource).to.be.instanceOf(TwitterAuthInfo);
         });
 
-        it("should build a `InstagramAuthInfo` instance (with stubbed client)", function () {
-            const instagramSource = new InstagramAuthInfo(stubServiceClient, stubCacheClient);
+        it("should build a `TwitterAuthInfo` instance (with stubbed client)", function () {
+            const twitterSource = new TwitterAuthInfo(stubServiceClient, stubCacheClient);
 
-            expect(InstagramAuthInfo.type).to.eql("instagram");
-            expect(instagramSource.client).to.eql(stubServiceClient);
-            expect(instagramSource.cacheClient).to.eql(stubCacheClient);
-            expect(instagramSource.initializing).to.be.instanceOf(Promise);
-            expect(instagramSource).to.be.instanceOf(InstagramAuthInfo);
+            expect(TwitterAuthInfo.type).to.eql("twitter");
+            expect(twitterSource.client).to.eql(stubServiceClient);
+            expect(twitterSource.cacheClient).to.eql(stubCacheClient);
+            expect(twitterSource.initializing).to.be.instanceOf(Promise);
+            expect(twitterSource).to.be.instanceOf(TwitterAuthInfo);
+        });
+    });
+
+    describe("recordsGetter", function () {
+        it("returns an empty array", function () {
+
+            const stubAuthInfoSearchParams = new AuthInfoSearchParams({
+                requestTokenVerifier: "foo"
+            });
+            const twitterSource = new TwitterAuthInfo(stubServiceClient, stubCacheClient);
+
+            return twitterSource.recordsGetter(stubAuthInfoSearchParams)
+                .then(authInfos => {
+                    expect(authInfos).to.be.eql([]);
+                    sinon.assert.notCalled(stubServiceClient.getAccessToken);
+                });
         });
     });
 
     describe("recordGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
             const stubAuthInfoSearchParams = new AuthInfoSearchParams({
-                code: "foo"
+                requestTokenVerifier: "foo"
             });
-            const instagramSource = new InstagramAuthInfo(stubServiceClient, stubCacheClient);
+            const twitterSource = new TwitterAuthInfo(stubServiceClient, stubCacheClient);
 
-            return instagramSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
+            return twitterSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
                 .then(authInfo => {
                     expect(authInfo).to.be.instanceof(AuthInfo);
                     sinon.assert.calledOnce(stubServiceClient.getAccessToken);
@@ -153,11 +169,11 @@ describe("InstagramAuthInfo", function () {
                 });
         });
 
-        it("returns `null` if no `code`", function () {
+        it("returns `null` if no `requestTokenVerifier`", function () {
             const stubAuthInfoSearchParams = new AuthInfoSearchParams();
-            const instagramSource = new InstagramAuthInfo(stubServiceClient, stubCacheClient);
+            const twitterSource = new TwitterAuthInfo(stubServiceClient, stubCacheClient);
 
-            return instagramSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
+            return twitterSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
                 .then(authInfo => {
                     expect(authInfo).to.not.be.ok;
                     sinon.assert.notCalled(stubServiceClient.getAccessToken);
@@ -170,11 +186,11 @@ describe("InstagramAuthInfo", function () {
             };
 
             const stubAuthInfoSearchParams = new AuthInfoSearchParams({
-                code: "foo"
+                requestTokenVerifier: "foo"
             });
-            const instagramSource = new InstagramAuthInfo(stubServiceClient, stubCacheClient);
+            const twitterSource = new TwitterAuthInfo(stubServiceClient, stubCacheClient);
 
-            return instagramSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
+            return twitterSource.recordGetter(stubAuthInfoSearchParams.id, stubAuthInfoSearchParams)
                 .then(authInfo => {
                     expect(authInfo).to.not.be.ok;
                     sinon.assert.calledOnce(stubServiceClient.getAccessToken);

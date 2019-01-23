@@ -217,7 +217,7 @@ export class InstagramSource extends CachedDataSource {
                     .filter(postJson => filterPostForOrderingConditionsInSearchParams(this.constructor.instanceToRecord(postJson), searchParams))
                     .map(postJson => postJson && this._highResolutionPhotoGetter(postJson).then(igAndGraphJson => this.constructor.instanceToRecord(igAndGraphJson)))
             ))
-            .then(_.filter);
+            .then(_.compact);
     }
 
     recordGetter(photoId) {

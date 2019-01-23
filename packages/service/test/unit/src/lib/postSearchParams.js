@@ -378,6 +378,42 @@ describe("PostSearchParams", function () {
         });
     });
 
+    describe("Twitter", function () {
+        it("should properly format properties for query (list)", function () {
+            const searchParams = PostSearchParams.fromJS();
+
+            expect(searchParams.Twitter).to.eql({
+                count: searchParams.perPage
+            });
+        });
+
+        it("should properly format properties for query (id)", function () {
+            const searchParams = PostSearchParams.fromJS({id: "woof"});
+
+            expect(searchParams.Twitter).to.eql({
+                id: searchParams.id
+            });
+        });
+
+        it("should properly format properties for query containing `beforeId`", function () {
+            const searchParams = PostSearchParams.fromJS({beforeId: "123"});
+
+            expect(searchParams.Twitter).to.eql({
+                count: searchParams.perPage,
+                max_id: "122"
+            });
+        });
+
+        it("should properly format properties for query containing `afterId`", function () {
+            const searchParams = PostSearchParams.fromJS({afterId: "123"});
+
+            expect(searchParams.Twitter).to.eql({
+                count: searchParams.perPage,
+                since_id: "123"
+            });
+        });
+    });
+
     describe("Dynamoose", function () {
         it("should properly format properties for uid", function () {
             const searchParams = PostSearchParams.fromJS({uid: "woof"});

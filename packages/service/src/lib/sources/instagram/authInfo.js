@@ -2,13 +2,15 @@ import AuthInfoModel from "../../../db/models/authInfo";
 import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo";
 import CacheClient from "../../cacheClient";
 import CachedDataSource from "../../cachedDataSource";
-import * as InstagramOAuthClient from "./client";
+import {OAuth2Client} from "../oAuth2Client";
 import {type} from "./util";
+
+export const INSTAGRAM_TOKEN_URL = "https://api.instagram.com/oauth/access_token";
 
 export class InstagramAuthInfo extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(
-            dataClient || InstagramOAuthClient,
+            dataClient || new OAuth2Client(INSTAGRAM_TOKEN_URL),
             cacheClient || new CacheClient(undefined, AuthInfoModel)
         );
     }
@@ -22,7 +24,7 @@ export class InstagramAuthInfo extends CachedDataSource {
 
         return new AuthInfo({
             ...restOfTokenJson,
-            type: AUTH_INFO_TYPE.oauth,
+            type: AUTH_INFO_TYPE.oAuth2,
             token: access_token,
             source: InstagramAuthInfo.type,
             id: user.id,
@@ -39,7 +41,7 @@ export class InstagramAuthInfo extends CachedDataSource {
             return Promise.resolve(null); // NOTE-RT: Need a `code` to request a token per the OAuth2 spec
         }
 
-        return this.client.getAuthToken(searchParams)
+        return this.client.getAccessToken(searchParams)
             .then(tokenJson => tokenJson && this.constructor.instanceToRecord(tokenJson));
     }
 }

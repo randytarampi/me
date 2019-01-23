@@ -100,7 +100,6 @@ const post = new Schema({
     status: {
         type: String,
         enum: Object.values(POST_STATUS),
-        default: POST_STATUS.visible,
         hashKey: true
     }
 }, {

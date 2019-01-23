@@ -2,14 +2,16 @@ import {compositeKeySeparator} from "@randy.tarampi/js";
 import {Record} from "immutable";
 
 export const AUTH_INFO_TYPE = {
-    oauth: "OAUTH_TOKEN"
+    oAuth: "OAUTH_TOKEN",
+    oAuth2: "OAUTH2_TOKEN"
 };
 
 export class AuthInfo extends Record({
     token: null,
+    tokenSecret: null,
     id: null,
     source: null,
-    type: AUTH_INFO_TYPE.oauth,
+    type: AUTH_INFO_TYPE.oAuth2,
     raw: null
 }) {
     get uid() {
