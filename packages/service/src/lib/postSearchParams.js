@@ -414,12 +414,27 @@ class PostSearchParams extends PostSearchParamsRecord {
     }
 
     get Twitter() {
-        return {
-            id: this.id,
-            count: this.perPage,
-            max_id: this.beforeId && new Big(this.beforeId).minus(1).toString(),
-            since_id: this.afterId
-        };
+        if (this.id) {
+            return {
+                id: this.id
+            };
+        }
+
+        const twitterQuery = {};
+
+        if (this.perPage) {
+            twitterQuery.count = this.perPage;
+        }
+
+        if (this.beforeId) {
+            twitterQuery.max_id = this.beforeId && new Big(this.beforeId).minus(1).toString();
+        }
+
+        if (this.afterId) {
+            twitterQuery.since_id = this.afterId;
+        }
+
+        return twitterQuery;
     }
 
     get geoRadius() {

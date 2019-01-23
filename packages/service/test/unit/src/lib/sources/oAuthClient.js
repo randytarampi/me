@@ -37,7 +37,7 @@ describe("OAuthClient", function () {
         }
     }
 
-    class StubOAuthOAuthWithErrors {
+    class StubOAuthOAuthWithCallbackErrors {
         constructor(requestUrl, tokenUrl, apiKey, apiSecret, oAuthVersion, redirectUri, signingScheme) {
             expect(requestUrl).to.eql(stubRequestUrl);
             expect(tokenUrl).to.eql(stubTokenUrl);
@@ -57,6 +57,26 @@ describe("OAuthClient", function () {
             expect(requestTokenSecret).to.eql(stubRequestTokenSecret);
             expect(requestTokenVerifier).to.eql(stubRequestTokenVerifier);
             callback(new Error("getOAuthAccessToken"), stubAccessToken, stubAccessTokenSecret, {});
+        }
+    }
+
+    class StubOAuthOAuthWithErrors {
+        constructor(requestUrl, tokenUrl, apiKey, apiSecret, oAuthVersion, redirectUri, signingScheme) {
+            expect(requestUrl).to.eql(stubRequestUrl);
+            expect(tokenUrl).to.eql(stubTokenUrl);
+            expect(apiKey).to.eql(stubApiKey);
+            expect(apiSecret).to.eql(stubApiSecret);
+            expect(oAuthVersion).to.eql("1.0a");
+            expect(redirectUri).to.eql(stubRedirectUri);
+            expect(signingScheme).to.eql("HMAC-SHA1");
+        }
+
+        getOAuthRequestToken() {
+            throw new Error("getOAuthRequestToken");
+        }
+
+        getOAuthAccessToken() {
+            throw new Error("getOAuthAccessToken");
         }
     }
 
@@ -93,7 +113,28 @@ describe("OAuthClient", function () {
                 });
         });
 
-        it("handles errors", function () {
+        it("handles errors (callback)", function () {
+            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
+                "oauth": {
+                    OAuth: StubOAuthOAuthWithCallbackErrors
+                }
+            }).default;
+            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+
+            return proxyquiredOAuthClient.getRequestToken(new AuthInfoSearchParams({
+                    clientId: stubApiKey,
+                    clientSecret: stubApiSecret,
+                    redirectUri: stubRedirectUri
+                }))
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
+                .catch(error => {
+                    expect(error.message).to.eql("getOAuthRequestToken");
+                });
+        });
+
+        it("handles errors (OAuth)", function () {
             const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
                 "oauth": {
                     OAuth: StubOAuthOAuthWithErrors
@@ -138,7 +179,31 @@ describe("OAuthClient", function () {
                 });
         });
 
-        it("handles errors", function () {
+        it("handles errors (callback)", function () {
+            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
+                "oauth": {
+                    OAuth: StubOAuthOAuthWithCallbackErrors
+                }
+            }).default;
+            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+
+            return proxyquiredOAuthClient.getAccessToken(new AuthInfoSearchParams({
+                    clientId: stubApiKey,
+                    clientSecret: stubApiSecret,
+                    redirectUri: stubRedirectUri,
+                    requestToken: stubRequestToken,
+                    requestTokenSecret: stubRequestTokenSecret,
+                    requestTokenVerifier: stubRequestTokenVerifier
+                }))
+                .then(() => {
+                    throw new Error("Wtf? This should've thrown");
+                })
+                .catch(error => {
+                    expect(error.message).to.eql("getOAuthAccessToken");
+                });
+        });
+
+        it("handles errors (OAuth)", function () {
             const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
                 "oauth": {
                     OAuth: StubOAuthOAuthWithErrors

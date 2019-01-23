@@ -205,7 +205,7 @@ export class TwitterSource extends CachedDataSource {
         })
             .then(tweetsJson => tweetsJson
                 .filter(tweetJson => filterPostForOrderingConditionsInSearchParams(this.constructor.instanceToRecord(tweetJson), searchParams))
-                .map(this.constructor.instanceToRecord)
+                .map(tweetJson => tweetJson && this.constructor.instanceToRecord(tweetJson))
             )
             .then(_.compact);
     }
@@ -220,7 +220,7 @@ export class TwitterSource extends CachedDataSource {
                 return resolve(tweetJson);
             });
         })
-            .then(this.constructor.instanceToRecord);
+            .then(tweetJson => tweetJson && this.constructor.instanceToRecord(tweetJson));
     }
 }
 
