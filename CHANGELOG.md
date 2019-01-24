@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/randytarampi/me/compare/v3.3.0...v3.3.1) (2019-01-24)
+
+
+### Bug Fixes
+
+* **jsx:** `PostTitleComponent`'s `CampaignLink` prefers `text` over `children`. ([ab21e41](https://github.com/randytarampi/me/commit/ab21e41))
+* **letter:** `Letter`s can override the `LetterFooter` content. ([7b9679c](https://github.com/randytarampi/me/commit/7b9679c))
+* **service:** This is actually `addressCountry`. ([7f62705](https://github.com/randytarampi/me/commit/7f62705))
+
+
+
+
+
 # [3.3.0](https://github.com/randytarampi/me/compare/v3.2.1...v3.3.0) (2019-01-23)
 
 
