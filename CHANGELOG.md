@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.2](https://github.com/randytarampi/me/compare/v3.3.1...v3.3.2) (2019-01-24)
+
+
+### Bug Fixes
+
+* **www:** Generate a `map.html` file so we don't give crawlers 404s. ([61c70b4](https://github.com/randytarampi/me/commit/61c70b4))
+
+
+
+
+
 ## [3.3.1](https://github.com/randytarampi/me/compare/v3.3.0...v3.3.1) (2019-01-24)
 
 
