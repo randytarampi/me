@@ -58,7 +58,8 @@ const views = [
     ["photos", `${config.get("www.publishUrl")}${config.get("www.photosUrl")}`],
     ["words", `${config.get("www.publishUrl")}${config.get("www.wordsUrl")}`],
     ["resume", `${config.get("www.publishUrl")}${config.get("www.resumeUrl")}`],
-    ["letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`]
+    ["letter", `${config.get("www.publishUrl")}${config.get("www.letterUrl")}`],
+    ["map", `${config.get("www.publishUrl")}${config.get("www.mapUrl")}`]
 ];
 
 module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
