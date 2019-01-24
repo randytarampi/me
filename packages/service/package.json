@@ -11,7 +11,7 @@
   "dependencies": {
     "@randy.tarampi/js": "3.3.0",
     "aws-sdk": "~2.393.0",
-    "aws-xray-sdk": "~2.1.0",
+    "aws-xray-sdk": "~2.2.0",
     "big.js": "~5.2.2",
     "bunyan": "beta",
     "bunyan-format": "~0.2.1",
