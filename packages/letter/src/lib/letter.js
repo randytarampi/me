@@ -8,6 +8,7 @@ export class Letter extends Record({
     id: null,
     filename: null,
     content: List(),
+    footer: new LetterSection(),
     renderOptions: Map(),
     renderExpectations: Map()
 }) {
@@ -63,6 +64,7 @@ export class Letter extends Record({
             sender: js.sender ? Person.fromJS(js.sender) : null,
             recipient: js.recipient ? Person.fromJS(js.recipient) : null,
             content: js.content ? List(js.content.map(LetterSection.fromJS)) : null,
+            footer: LetterSection.fromJSON(js.footer),
             renderOptions: js.renderOptions ? Map(js.renderOptions) : null,
             renderExpectations: js.renderExpectations ? Map(js.renderExpectations) : null
         });
@@ -74,6 +76,7 @@ export class Letter extends Record({
             sender: json.sender ? Person.fromJSON(json.sender) : null,
             recipient: json.recipient ? Person.fromJSON(json.recipient) : null,
             content: json.content ? List(json.content.map(LetterSection.fromJSON)) : null,
+            footer: LetterSection.fromJSON(json.footer),
             renderOptions: json.renderOptions ? Map(json.renderOptions) : null,
             renderExpectations: json.renderExpectations ? Map(json.renderExpectations) : null
         });

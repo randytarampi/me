@@ -15,7 +15,7 @@ export class LetterSection extends Record({
         return this.get("contentProps").toJS();
     }
 
-    static fromJS(js) {
+    static fromJS(js = {}) {
         return new LetterSection({
             ...js,
             sectionProps: js.sectionProps ? Map(js.sectionProps) : Map(),
@@ -23,7 +23,7 @@ export class LetterSection extends Record({
         });
     }
 
-    static fromJSON(json) {
+    static fromJSON(json = {}) {
         return new LetterSection({
             ...json,
             sectionProps: json.sectionProps ? Map(json.sectionProps) : Map(),

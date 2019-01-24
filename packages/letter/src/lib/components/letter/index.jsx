@@ -75,7 +75,11 @@ export class LetterComponent extends PureComponent {
                                     }
                                 </Container>
                             </div>
-                            <LetterFooter {...contentProps}/>
+                            {
+                                letter.footer.component
+                                    ? <letter.footer.component contentConfiguration={letter.footer} {...contentProps}/>
+                                    : <LetterFooter contentConfiguration={letter.footer} {...contentProps}/>
+                            }
                         </ConnectedErrorWrapper>
                     </CampaignContext.Provider>
             }
