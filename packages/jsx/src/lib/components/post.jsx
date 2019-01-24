@@ -101,8 +101,7 @@ export const PostTitleComponent = ({post, title}) =>
     <h1 className="post-title">
         {
             post.sourceUrl ?
-                <CampaignLink className="post-title__link"
-                              href={post.sourceUrl}>{title}</CampaignLink> :
+                <CampaignLink className="post-title__link" href={post.sourceUrl} text={title}/> :
                 <span className="post-title__text">{title}</span>
         }
     </h1>;
