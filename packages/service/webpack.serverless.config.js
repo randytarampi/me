@@ -68,8 +68,7 @@ module.exports = {
     },
     externals: [nodeExternals({
         whitelist: [
-            "serverless-secrets/client",
-            /@randy\.tarampi\/\w+/
+            "serverless-secrets/client"
         ]
     }), "aws-sdk"],
     module: {
