@@ -11,12 +11,17 @@ const {
 } = util;
 
 const plugins = [
-    new MiniCssExtractPlugin(),
-    new BundleAnalyzerPlugin({
-        analyzerMode: "static",
-        openAnalyzer: false
-    })
+    new MiniCssExtractPlugin()
 ];
+
+if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
+    plugins.push(
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false
+        })
+    );
+}
 
 module.exports = ({
                       sourceDirectoryPath,

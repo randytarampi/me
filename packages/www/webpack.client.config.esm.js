@@ -21,6 +21,18 @@ const {
     isDevelopment
 } = util;
 
+const plugins = [];
+
+if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
+    plugins.push(
+        new BundleAnalyzerPlugin({
+            reportFilename: "report.esm.html",
+            analyzerMode: "static",
+            openAnalyzer: false
+        })
+    );
+}
+
 module.exports = webpackBaseConfig({
     babelEnv: "client.esm",
     // babelJsType: "javascript/esm",
@@ -68,12 +80,7 @@ module.exports = webpackBaseConfig({
                     new OptimizeCSSAssetsPlugin()
                 ]
     },
-    plugins: [
-        new BundleAnalyzerPlugin({
-            reportFilename: "report.esm.html",
-            analyzerMode: "static",
-            openAnalyzer: false
-        }),
+    plugins: plugins.concat([
         new WorkboxPlugin.GenerateSW({
             swDest: `${swBundleName}.js`,
             skipWaiting: true,
@@ -115,5 +122,5 @@ module.exports = webpackBaseConfig({
         new DefinePlugin({
             __SW_BUNDLE_PATH__: JSON.stringify(path.join(publicPath, `${swBundleName}.js`))
         })
-    ]
+    ])
 });

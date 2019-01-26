@@ -18,12 +18,17 @@ const plugins = [
     }),
     new CopyWebpackPlugin([
         ".serverless-secrets.json"
-    ]),
-    new BundleAnalyzerPlugin({
-        analyzerMode: "static",
-        openAnalyzer: false
-    })
+    ])
 ];
+
+if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
+    plugins.push(
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false
+        })
+    );
+}
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(
