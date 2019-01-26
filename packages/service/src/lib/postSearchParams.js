@@ -169,7 +169,7 @@ class PostSearchParams extends PostSearchParamsRecord {
         };
 
         if (this.beforeDate) {
-            filterRequest.before = this.beforeDate.valueOf() / 1000 - 1;
+            filterRequest.before = Math.round(this.beforeDate.toSeconds()) - 1;
         }
 
         return {
@@ -435,6 +435,49 @@ class PostSearchParams extends PostSearchParamsRecord {
         }
 
         return twitterQuery;
+    }
+
+    get Facebook() {
+        const facebookQuery = {
+            fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type"
+        };
+
+        if (this.perPage) {
+            facebookQuery.count = this.perPage;
+        }
+
+        if (this.hasOrderingConditions) {
+            switch (this.orderBy) {
+                case "datePublished": {
+                    switch (this.orderOperator) {
+                        case "lt":
+                            facebookQuery.until = Math.round(this.orderComparator.toSeconds()) - 1;
+                            break;
+
+                        case "lte":
+                            facebookQuery.until = Math.round(this.orderComparator.toSeconds());
+                            break;
+
+                        case "gt":
+                        case "gte":
+                            facebookQuery.since = Math.round(this.orderComparator.toSeconds());
+                            break;
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        if (this.beforeDate) {
+            facebookQuery.until = Math.round(this.beforeDate.toSeconds()) - 1;
+        }
+
+        if (this.afterDate) {
+            facebookQuery.since = Math.round(this.afterDate.toSeconds());
+        }
+
+        return facebookQuery;
     }
 
     get geoRadius() {

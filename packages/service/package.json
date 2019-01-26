@@ -28,6 +28,7 @@
     "mime-types": "~2.1.21",
     "oauth": "~0.9.15",
     "pad-right": "~0.2.2",
+    "query-string": "~6.2.0",
     "raven": "~2.6.4",
     "rss": "~1.2.2",
     "tumblr.js": "~2.0.0",

@@ -163,7 +163,8 @@ export const PostDatePublishedComponent = ({post}) => {
 
     if (post.creator) {
         const PostSourceLinkComponent = getBrandedLinkForNetwork(post.source);
-        const sourceAttribution = `${post.creator.username} on ${post.source}`;
+        const sourceName = post.creator.username || post.creator.name;
+        const sourceAttribution = `${sourceName} on ${post.source}`;
 
         if (PostSourceLinkComponent) {
             postSourceLink = <PostSourceLinkComponent
@@ -172,7 +173,7 @@ export const PostDatePublishedComponent = ({post}) => {
                 username={post.creator.username}
                 text={sourceAttribution}
             >
-                {post.creator.username} on <span className="post-source__source-name">{post.source}</span>
+                {sourceName} on <span className="post-source__source-name">{post.source}</span>
             </PostSourceLinkComponent>;
         } else {
             postSourceLink = <CampaignLink

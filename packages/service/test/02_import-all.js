@@ -1,4 +1,6 @@
 import "../src/serverless/handlers/cachePosts/initialized";
+import "../src/serverless/handlers/facebookAuthCallback/initialized";
+import "../src/serverless/handlers/facebookAuthRedirect/initialized";
 import "../src/serverless/handlers/getPosts/initialized";
 import "../src/serverless/handlers/getPostsRss/initialized";
 import "../src/serverless/handlers/instagramAuthCallback/initialized";

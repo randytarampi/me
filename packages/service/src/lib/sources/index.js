@@ -1,5 +1,6 @@
 import _ from "lodash";
 import AuthInfoSearchParams from "../authInfoSearchParams";
+import Facebook from "./facebook";
 import Flickr from "./flickr";
 import Instagram from "./instagram";
 import S3 from "./s3";
@@ -7,7 +8,7 @@ import Tumblr from "./tumblr";
 import Twitter from "./twitter";
 import Unsplash from "./unsplash";
 
-export const sources = [Flickr, Instagram, S3, Tumblr, Twitter, Unsplash].reduce(
+export const sources = [Facebook, Flickr, Instagram, S3, Tumblr, Twitter, Unsplash].reduce(
     (sources, source) => {
         sources[source.type] = source;
         return sources;
