@@ -19,7 +19,9 @@ const tweetJsonToTags = ({entities: {hashtags, symbols}}) => {
         ? symbols.map(symbol => symbol.text)
         : [];
 
-    return hashtagTags.concat(symbolsTags);
+    const uniqueTags = new Set(hashtagTags.concat(symbolsTags));
+
+    return [...uniqueTags];
 };
 
 const tweetJsonToCreator = ({user: {id_str: id, name, screen_name: username, profile_image_url_https: image}}) => {

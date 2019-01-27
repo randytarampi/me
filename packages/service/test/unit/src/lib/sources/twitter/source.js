@@ -59,6 +59,13 @@ describe("TwitterSource", function () {
                             59,
                             67
                         ]
+                    },
+                    {
+                        "text": "twtr",
+                        "indices": [
+                            29,
+                            34
+                        ]
                     }
                 ],
                 "urls": [
@@ -621,6 +628,13 @@ describe("TwitterSource", function () {
             delete process.env.TWITTER_API_BEARER_TOKEN;
             const twitterSource = new TwitterSource(stubServiceClient, stubCacheClient);
             expect(twitterSource.isEnabled).to.eql(false);
+        });
+    });
+
+    describe("instanceToRecord", function () {
+        it("deduplicates `tags`", function () {
+            const tweetPost = TwitterSource.instanceToRecord(twitterTweet);
+            expect(tweetPost.tags.filter(tag => tag === "twtr").size).to.eql(1);
         });
     });
 
