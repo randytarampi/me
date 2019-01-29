@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/randytarampi/me/compare/v3.3.2...v3.3.3) (2019-01-29)
+
+
+### Bug Fixes
+
+* **service:** Twitter `Post.tags` should be unique. ([cd46bf8](https://github.com/randytarampi/me/commit/cd46bf8))
+* **service:** Use a single Font Awesome version per [#257](https://github.com/randytarampi/me/issues/257). ([5d1f190](https://github.com/randytarampi/me/commit/5d1f190))
+
+
+### Reverts
+
+* chore(webpack): Just let webpack figure out what to package here. ([d4396c0](https://github.com/randytarampi/me/commit/d4396c0))
+
+
+
+
+
 ## [3.3.2](https://github.com/randytarampi/me/compare/v3.3.1...v3.3.2) (2019-01-24)
 
 

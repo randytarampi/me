@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/randytarampi/me/compare/v3.3.2...v3.3.3) (2019-01-29)
+
+
+### Bug Fixes
+
+* **service:** Use a single Font Awesome version per [#257](https://github.com/randytarampi/me/issues/257). ([5d1f190](https://github.com/randytarampi/me/commit/5d1f190))
+
+
+
+
+
 ## [3.3.2](https://github.com/randytarampi/me/compare/v3.3.1...v3.3.2) (2019-01-24)
 
 **Note:** Version bump only for package @randy.tarampi/views
