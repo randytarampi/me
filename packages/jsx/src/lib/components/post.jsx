@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post, POST_OVERRIDING_TAG_SENTINEL_REGEX} from "@randy.tarampi/js";
+import {Post, POST_ENTITIES, POST_OVERRIDING_TAG_SENTINEL_REGEX} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
@@ -107,7 +107,7 @@ export const PostTitleComponent = ({post, title}) =>
     </h1>;
 
 PostTitleComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     title: PropTypes.string.isRequired
 };
 
@@ -128,7 +128,7 @@ export const PostBodyAsStringComponent = ({post}) => {
 };
 
 PostBodyAsStringComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostBodyAsArrayComponent = ({post}) => {
@@ -155,7 +155,7 @@ export const PostBodyAsArrayComponent = ({post}) => {
 };
 
 PostBodyAsArrayComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostDatePublishedComponent = ({post, label}) => {
@@ -199,7 +199,7 @@ export const PostDatePublishedComponent = ({post, label}) => {
 
 PostDatePublishedComponent.propTypes = {
     label: PropTypes.string.isRequired,
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
 PostDatePublishedComponent.defaultProps = {
@@ -218,7 +218,7 @@ export const PostDateCreatedComponent = ({post, label}) => {
 };
 
 PostDateCreatedComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     label: PropTypes.string.isRequired
 };
 
@@ -234,13 +234,13 @@ export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tag
                 post.tags
                     .filter(tag => !tag.match(POST_OVERRIDING_TAG_SENTINEL_REGEX))
                     .map(
-                    tag => <Fragment key={tag}><InternalLink
-                        className="post-tags__tag"
-                        href={`${tagLinkBase}/${tag}`}
-                    >
-                        {tag}
-                    </InternalLink> </Fragment> // NOTE-RT: We need this ` ` between the `</InternalLink>` and the `</Fragment>` because Safari (Webkit?) seems to collapse `&#0032;` and not insert line breaks between each `<Fragment>` but doesn't with ` `
-                )
+                        tag => <Fragment key={tag}><InternalLink
+                            className="post-tags__tag"
+                            href={`${tagLinkBase}/${tag}`}
+                        >
+                            {tag}
+                        </InternalLink> </Fragment> // NOTE-RT: We need this ` ` between the `</InternalLink>` and the `</Fragment>` because Safari (Webkit?) seems to collapse `&#0032;` and not insert line breaks between each `<Fragment>` but doesn't with ` `
+                    )
             }
         </p>
         : null;
@@ -248,7 +248,7 @@ export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tag
 
 PostTagsComponent.propTypes = {
     tagLinkBase: PropTypes.string,
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostMapComponent = ({post, mapContainerHeight, children, ...props}) => {
@@ -271,7 +271,7 @@ export const PostMapComponent = ({post, mapContainerHeight, children, ...props})
 };
 
 PostMapComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     mapContainerHeight: PropTypes.number,
     contentHeight: PropTypes.number,
     metadataHeight: PropTypes.number
@@ -302,7 +302,7 @@ const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
 };
 
 PostLocationComponentInternal.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     setMapPostsCenter: PropTypes.func.isRequired
 };
 
@@ -324,7 +324,7 @@ export const PostLocationComponent = connect(
 )(PostLocationComponentInternal);
 
 PostLocationComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     mapId: PropTypes.string.isRequired
 };
 

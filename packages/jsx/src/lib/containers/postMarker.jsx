@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
+import {POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {setControlStateCreator, setGoogleMapCenterCreator} from "../actions";
@@ -32,7 +32,7 @@ export const ConnectedPostMarker = connectPostMarker(PostMarkerComponent);
 
 ConnectedPostMarker.propTypes = {
     getGoogleMap: PropTypes.func.isRequired,
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     mapId: PropTypes.string.isRequired
 };
 
