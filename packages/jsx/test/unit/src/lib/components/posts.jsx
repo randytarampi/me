@@ -69,7 +69,7 @@ describe("Posts", function () {
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
                     preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                     preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
-                    elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
+                    elementHeight={stubPosts.toArray().map(post => computePostHeight(stubProps.containerWidth)(post))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
                     loadingSpinnerDelegate={<LoadingSpinner/>}
@@ -106,7 +106,7 @@ describe("Posts", function () {
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
                     preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                     preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
-                    elementHeight={stubPosts.toArray().slice(0, stubProps.postsLimit).map(computePostHeight(stubProps.containerWidth))}
+                    elementHeight={stubPosts.toArray().slice(0, stubProps.postsLimit).map(post => computePostHeight(stubProps.containerWidth)(post))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
                     loadingSpinnerDelegate={<LoadingSpinner/>}
@@ -144,7 +144,7 @@ describe("Posts", function () {
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
                     preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                     preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
-                    elementHeight={stubPosts.toArray().slice(0, stubProps.postsLimit).map(computePostHeight(stubProps.containerWidth))}
+                    elementHeight={stubPosts.toArray().slice(0, stubProps.postsLimit).map(post => computePostHeight(stubProps.containerWidth)(post))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
                     loadingSpinnerDelegate={<LoadingSpinner/>}
@@ -187,7 +187,7 @@ describe("Posts", function () {
                     infiniteLoadBeginEdgeOffset={window.innerHeight}
                     preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                     preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
-                    elementHeight={stubPosts.toArray().map(computePostHeight(stubProps.containerWidth))}
+                    elementHeight={stubPosts.toArray().map(post => computePostHeight(stubProps.containerWidth)(post))}
                     onInfiniteLoad={stubProps.fetchPosts}
                     isInfiniteLoading={stubProps.isLoading}
                     loadingSpinnerDelegate={<LoadingSpinner/>}

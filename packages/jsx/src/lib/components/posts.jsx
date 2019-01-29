@@ -32,10 +32,50 @@ export const mapPostsErrorCodeToErrorContentComponent = errorCode => {
 };
 
 export class PostsComponent extends PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+        this.state.elementHeight = this.calculateElementHeight(this.state, props);
+    }
+
     componentDidMount() {
         if (this.props.shouldFetchPostsOnMount) {
             this.props.fetchPosts();
         }
+    }
+
+    calculateElementHeight({elementHeight: elementHeightState}, props) {
+        const {posts, postsLimit, containerWidth} = props;
+
+        let postsArray = posts && posts.toArray();
+
+        if (Number.isFinite(postsLimit)) {
+            postsArray = postsArray.slice(0, postsLimit);
+        }
+
+        return postsArray
+            ? postsArray.map((post, index) => {
+                const cachedPostHeight = elementHeightState && elementHeightState[index];
+
+                return computePostHeight(containerWidth)(post, cachedPostHeight);
+            })
+            : [window.innerHeight];
+    }
+
+    componentDidUpdate(previousProps) {
+        this.setState((state, props) => {
+            if (
+                previousProps.containerWidth !== props.containerWidth
+                || previousProps.posts !== props.posts
+            ) {
+                return {
+                    elementHeight: this.calculateElementHeight(state, props)
+                };
+            }
+
+            return state;
+        });
     }
 
     render() {
@@ -47,9 +87,6 @@ export class PostsComponent extends PureComponent {
             postsArray = postsArray.slice(0, postsLimit);
         }
 
-        const elementHeight = postsArray
-            ? postsArray.map(computePostHeight(containerWidth))
-            : [window.innerHeight];
         const itemList = postsArray
             ? new SchemaItemList({
                 numberOfItems: postsArray.length,
@@ -71,7 +108,11 @@ export class PostsComponent extends PureComponent {
             <SchemaJsonLdComponent markup={itemList}/>
             <Infinite
                 useWindowAsScrollContainer={true}
-                elementHeight={elementHeight}
+                elementHeight={
+                    postsArray && postsArray.length === this.state.elementHeight.length
+                        ? this.state.elementHeight
+                        : this.calculateElementHeight(this.state, this.props)
+                }
                 infiniteLoadBeginEdgeOffset={window.innerHeight}
                 preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                 preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
