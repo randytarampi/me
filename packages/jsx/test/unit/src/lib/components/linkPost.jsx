@@ -2,7 +2,6 @@ import {LinkPost} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import {Marker} from "react-google-maps";
 import {
     LinkPostBodyAsArrayComponent,
     LinkPostBodyAsStringComponent,
