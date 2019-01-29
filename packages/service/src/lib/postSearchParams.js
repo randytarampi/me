@@ -439,7 +439,7 @@ class PostSearchParams extends PostSearchParamsRecord {
 
     get Facebook() {
         const facebookQuery = {
-            fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type"
+            fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type"
         };
 
         if (this.perPage) {

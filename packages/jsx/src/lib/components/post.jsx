@@ -158,7 +158,7 @@ PostBodyAsArrayComponent.propTypes = {
     post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
 };
 
-export const PostDatePublishedComponent = ({post}) => {
+export const PostDatePublishedComponent = ({post, label}) => {
     let postSourceLink = null;
 
     if (post.creator) {
@@ -187,7 +187,7 @@ export const PostDatePublishedComponent = ({post}) => {
     return post.datePublished
         ? <p className="post-date">
             <strong
-                className="post-date__label post-date__label--published">Posted:</strong>
+                className="post-date__label post-date__label--published">{label}</strong>
             <span
                 className="post-date__date post-date__date--published">{post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
             {
@@ -198,10 +198,15 @@ export const PostDatePublishedComponent = ({post}) => {
 };
 
 PostDatePublishedComponent.propTypes = {
+    label: PropTypes.string.isRequired,
     post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
 };
 
-export const PostDateCreatedComponent = ({post, label = "Drafted:"}) => {
+PostDatePublishedComponent.defaultProps = {
+    label: "Posted:"
+};
+
+export const PostDateCreatedComponent = ({post, label}) => {
     return post.dateCreated && post.dateCreated.valueOf() !== post.datePublished.valueOf()
         ? <p className="post-date">
             <strong className="post-date__label post-date__label--created">{label}</strong>
@@ -214,7 +219,11 @@ export const PostDateCreatedComponent = ({post, label = "Drafted:"}) => {
 
 PostDateCreatedComponent.propTypes = {
     post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
-    label: PropTypes.string
+    label: PropTypes.string.isRequired
+};
+
+PostDateCreatedComponent.defaultProps = {
+    label: "Drafted:"
 };
 
 export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tags`}) => {

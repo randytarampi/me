@@ -1,21 +1,22 @@
-import Gallery from "../gallery";
-import Photo from "../photo";
-import Post from "../post";
+import {Gallery} from "../gallery";
+import {LinkPost} from "../linkPost";
+import {Photo} from "../photo";
+import {Post} from "../post";
+
+export const POST_ENTITIES = [Gallery, LinkPost, Photo, Post];
+export const POST_ENTITIES_MAP = POST_ENTITIES.reduce((entitiesMap, entity) => {
+    entitiesMap[entity.type] = entity;
+    return entitiesMap;
+}, {});
 
 export const getEntityForType = type => {
-    switch (type) {
-        case Gallery.type:
-            return Gallery;
+    const entity = POST_ENTITIES_MAP[type];
 
-        case Photo.type:
-            return Photo;
-
-        case Post.type:
-            return Post;
-
-        default:
-            throw new Error(`Can't \`getEntityForType\` for \`${type}\``);
+    if (!entity) {
+        throw new Error(`Can't \`getEntityForType\` for \`${type}\``);
     }
+
+    return entity;
 };
 
 export default getEntityForType;

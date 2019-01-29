@@ -419,7 +419,7 @@ describe("PostSearchParams", function () {
             const searchParams = PostSearchParams.fromJS();
 
             expect(searchParams.Facebook).to.eql({
-                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type",
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
                 count: searchParams.perPage
             });
         });
@@ -428,7 +428,7 @@ describe("PostSearchParams", function () {
             const searchParams = PostSearchParams.fromJS({beforeDate: DateTime.utc()});
 
             expect(searchParams.Facebook).to.eql({
-                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type",
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
                 count: searchParams.perPage,
                 until: Math.round(searchParams.beforeDate.toSeconds()) - 1
             });
@@ -438,7 +438,7 @@ describe("PostSearchParams", function () {
             const searchParams = PostSearchParams.fromJS({afterDate: DateTime.utc()});
 
             expect(searchParams.Facebook).to.eql({
-                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type",
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
                 count: searchParams.perPage,
                 since: Math.round(searchParams.afterDate.toSeconds())
             });
@@ -453,7 +453,7 @@ describe("PostSearchParams", function () {
             });
 
             expect(searchParams.Facebook).to.eql({
-                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type",
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
                 count: searchParams.perPage,
                 since: Math.round(searchParams.orderComparator.toSeconds())
             });
@@ -468,7 +468,7 @@ describe("PostSearchParams", function () {
             });
 
             expect(searchParams.Facebook).to.eql({
-                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type",
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
                 count: searchParams.perPage,
                 until: Math.round(searchParams.orderComparator.toSeconds()) - 1
             });
@@ -483,7 +483,7 @@ describe("PostSearchParams", function () {
             });
 
             expect(searchParams.Facebook).to.eql({
-                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,properties,source,type",
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
                 count: searchParams.perPage,
                 until: Math.round(searchParams.orderComparator.toSeconds())
             });
