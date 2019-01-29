@@ -61,7 +61,7 @@ LinkPostComponent.propTypes = {
 
 export const LinkPostTitleComponent = ({post}) =>
     <h3 className="post-link-title">
-        <CampaignLink className="post-title__link" href={post.linkSourceUrl} text={post.linkTitle}/>
+        <CampaignLink className="post-link-title__link" href={post.linkSourceUrl} text={post.linkTitle}/>
     </h3>;
 
 LinkPostTitleComponent.propTypes = {
