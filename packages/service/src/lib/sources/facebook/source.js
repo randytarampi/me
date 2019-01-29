@@ -48,7 +48,7 @@ const fbPostJsonToPostJson = postJson => {
             url: `https://facebook.com/profile.php?id=${postJson.from.id}`
         },
         locationCreated: fbPostJsonToLocationCreated(postJson),
-        status: !postJson.privacy || postJson.privacy.value === "EVERYONE" || postJson.type === "link" // FIXME-RT: Ugh. Need to go back in my FB history and make all those `link` posts public
+        status: !postJson.privacy || postJson.privacy.value === "EVERYONE"
             ? POST_STATUS.visible
             : POST_STATUS.hidden
     };
