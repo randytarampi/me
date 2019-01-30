@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/randytarampi/me/compare/v3.3.3...v3.4.0) (2019-01-30)
+
+
+### Bug Fixes
+
+* **jsx:** Just cache uncalculable `Post` height in `PostsComponent`. ([1db4893](https://github.com/randytarampi/me/commit/1db4893))
+* **jsx:** Prefer `POST_ENTITIES` over `[Post, Photo, Gallery]`. ([b244e53](https://github.com/randytarampi/me/commit/b244e53))
+
+
+### Features
+
+* **service:** Polish off Facebook `Post`s per randytarampi/me.photos[#9](https://github.com/randytarampi/me/issues/9). ([e474a08](https://github.com/randytarampi/me/commit/e474a08))
+* **service:** Pull Facebook posts per [#250](https://github.com/randytarampi/me/issues/250) and randytarampi/me.photos[#9](https://github.com/randytarampi/me/issues/9). ([d3c26d7](https://github.com/randytarampi/me/commit/d3c26d7))
+
+
+
+
+
 ## [3.3.3](https://github.com/randytarampi/me/compare/v3.3.2...v3.3.3) (2019-01-29)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
