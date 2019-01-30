@@ -1,4 +1,4 @@
-import {Link} from "@randy.tarampi/js";
+import {LinkPost} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import isHtml from "is-html";
 import PropTypes from "prop-types";
@@ -56,7 +56,7 @@ export class LinkPostComponent extends PostComponent {
 }
 
 LinkPostComponent.propTypes = {
-    post: PropTypes.oneOfType([Link].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType([LinkPost].map(PropTypes.instanceOf)).isRequired
 };
 
 export const LinkPostTitleComponent = ({post}) =>
@@ -65,7 +65,7 @@ export const LinkPostTitleComponent = ({post}) =>
     </h3>;
 
 LinkPostTitleComponent.propTypes = {
-    post: PropTypes.oneOfType([Link].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType([LinkPost].map(PropTypes.instanceOf)).isRequired
 };
 
 export const LinkPostBodyAsStringComponent = ({post}) => {
@@ -85,7 +85,7 @@ export const LinkPostBodyAsStringComponent = ({post}) => {
 };
 
 LinkPostBodyAsStringComponent.propTypes = {
-    post: PropTypes.oneOfType([Link].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType([LinkPost].map(PropTypes.instanceOf)).isRequired
 };
 
 export const LinkPostBodyAsArrayComponent = ({post}) => {
@@ -112,7 +112,7 @@ export const LinkPostBodyAsArrayComponent = ({post}) => {
 };
 
 LinkPostBodyAsArrayComponent.propTypes = {
-    post: PropTypes.oneOfType([Link].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType([LinkPost].map(PropTypes.instanceOf)).isRequired
 };
 
 export default LinkPostComponent;
