@@ -1,6 +1,7 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
+import {Gallery, LinkPost, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import GalleryComponent from "../../../../../src/lib/components/gallery";
+import LinkPostComponent from "../../../../../src/lib/components/linkPost";
 import PhotoComponent from "../../../../../src/lib/components/photo";
 import PostComponent from "../../../../../src/lib/components/post";
 import getComponentForType from "../../../../../src/lib/util/getComponentForType";
@@ -12,6 +13,14 @@ describe("getComponentForType", function () {
         const GalleryConstructor = getComponentForType(stubGallery.type);
 
         expect(GalleryConstructor).to.eql(GalleryComponent);
+    });
+
+    it("gets `LinkPost`s", function () {
+        const stubLinkPost = LinkPost.fromJS({id: "grr", width: -2});
+
+        const LinkPostConstructor = getComponentForType(stubLinkPost.type);
+
+        expect(LinkPostConstructor).to.eql(LinkPostComponent);
     });
 
     it("gets `Photo`s", function () {

@@ -233,6 +233,88 @@ describe("Posts", function () {
 
             expect(stubProps.fetchPosts.notCalled).to.eql(true);
         });
+
+        it("renders an update (no real change)", function () {
+            const stubProps = {
+                posts: stubPosts,
+                containerHeight: 123,
+                containerWidth: 123,
+                isLoading: false,
+                fetchPosts: sinon.stub()
+            };
+            const rendered = shallow(<PostsComponent {...stubProps}/>);
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const verifyRendered = props => expect(rendered).to.containMatchingElement(
+                <Infinite
+                    {...expectedProps}
+                    useWindowAsScrollContainer={true}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
+                    elementHeight={props.posts.toArray().map(post => computePostHeight(props.containerWidth)(post))}
+                    onInfiniteLoad={props.fetchPosts}
+                    isInfiniteLoading={props.isLoading}
+                    loadingSpinnerDelegate={<LoadingSpinner/>}
+                >
+                    {
+                        props.posts.toArray().map(post => {
+                            const Constructor = getComponentForType(post.type);
+                            return <Constructor key={post.uid} post={post} containerHeight={stubProps.containerHeight}
+                                                containerWidth={stubProps.containerWidth}/>;
+                        })
+                    }
+                </Infinite>
+            );
+
+            verifyRendered(stubProps);
+            expect(stubProps.fetchPosts.notCalled).to.eql(true);
+
+            stubProps.posts = stubPosts.toSet();
+            rendered.setProps({posts: stubProps.posts});
+            expect(stubProps.fetchPosts.notCalled).to.eql(true);
+            verifyRendered(stubProps);
+        });
+
+        it("renders an update (re-calculates `elementHeight`)", function () {
+            const stubProps = {
+                posts: stubPosts,
+                containerHeight: 123,
+                containerWidth: 123,
+                isLoading: false,
+                fetchPosts: sinon.stub()
+            };
+            const rendered = shallow(<PostsComponent {...stubProps}/>);
+            const {containerWidth, containerHeight, posts, isLoading, fetchPosts, ...expectedProps} = stubProps; // eslint-disable-line no-unused-vars
+            const verifyRendered = props => expect(rendered).to.containMatchingElement(
+                <Infinite
+                    {...expectedProps}
+                    useWindowAsScrollContainer={true}
+                    infiniteLoadBeginEdgeOffset={window.innerHeight}
+                    preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
+                    preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
+                    elementHeight={props.posts.toArray().map(post => computePostHeight(props.containerWidth)(post))}
+                    onInfiniteLoad={props.fetchPosts}
+                    isInfiniteLoading={props.isLoading}
+                    loadingSpinnerDelegate={<LoadingSpinner/>}
+                >
+                    {
+                        props.posts.toArray().map(post => {
+                            const Constructor = getComponentForType(post.type);
+                            return <Constructor key={post.uid} post={post} containerHeight={stubProps.containerHeight}
+                                                containerWidth={stubProps.containerWidth}/>;
+                        })
+                    }
+                </Infinite>
+            );
+
+            verifyRendered(stubProps);
+            expect(stubProps.fetchPosts.notCalled).to.eql(true);
+
+            stubProps.containerWidth = 456;
+            rendered.setProps({containerWidth: stubProps.containerWidth});
+            expect(stubProps.fetchPosts.notCalled).to.eql(true);
+            verifyRendered(stubProps);
+        });
     });
 
     describe("mapPostsErrorCodeToErrorContentComponent", function () {
