@@ -414,6 +414,82 @@ describe("PostSearchParams", function () {
         });
     });
 
+    describe("Facebook", function () {
+        it("should properly format properties for query (list)", function () {
+            const searchParams = PostSearchParams.fromJS();
+
+            expect(searchParams.Facebook).to.eql({
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
+                count: searchParams.perPage
+            });
+        });
+
+        it("should properly format properties for query containing `beforeDate`", function () {
+            const searchParams = PostSearchParams.fromJS({beforeDate: DateTime.utc()});
+
+            expect(searchParams.Facebook).to.eql({
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
+                count: searchParams.perPage,
+                until: Math.round(searchParams.beforeDate.toSeconds()) - 1
+            });
+        });
+
+        it("should properly format properties for query containing `afterDate`", function () {
+            const searchParams = PostSearchParams.fromJS({afterDate: DateTime.utc()});
+
+            expect(searchParams.Facebook).to.eql({
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
+                count: searchParams.perPage,
+                since: Math.round(searchParams.afterDate.toSeconds())
+            });
+        });
+
+        it("should properly format properties for query that `hasOrderingConditions` (gt)", function () {
+            const searchParams = PostSearchParams.fromJS({
+                orderBy: "datePublished",
+                orderOperator: "gt",
+                orderComparator: DateTime.utc().toISO(),
+                orderComparatorType: "DateTime"
+            });
+
+            expect(searchParams.Facebook).to.eql({
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
+                count: searchParams.perPage,
+                since: Math.round(searchParams.orderComparator.toSeconds())
+            });
+        });
+
+        it("should properly format properties for query that `hasOrderingConditions` (lt)", function () {
+            const searchParams = PostSearchParams.fromJS({
+                orderBy: "datePublished",
+                orderOperator: "lt",
+                orderComparator: DateTime.utc().toISO(),
+                orderComparatorType: "DateTime"
+            });
+
+            expect(searchParams.Facebook).to.eql({
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
+                count: searchParams.perPage,
+                until: Math.round(searchParams.orderComparator.toSeconds()) - 1
+            });
+        });
+
+        it("should properly format properties for query that `hasOrderingConditions` (lte)", function () {
+            const searchParams = PostSearchParams.fromJS({
+                orderBy: "datePublished",
+                orderOperator: "lte",
+                orderComparator: DateTime.utc().toISO(),
+                orderComparatorType: "DateTime"
+            });
+
+            expect(searchParams.Facebook).to.eql({
+                fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
+                count: searchParams.perPage,
+                until: Math.round(searchParams.orderComparator.toSeconds())
+            });
+        });
+    });
+
     describe("Dynamoose", function () {
         it("should properly format properties for uid", function () {
             const searchParams = PostSearchParams.fromJS({uid: "woof"});

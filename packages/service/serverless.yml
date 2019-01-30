@@ -70,6 +70,9 @@ provider:
     FLICKR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_SECRET}
     UNSPLASH_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_KEY}
     UNSPLASH_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_SECRET}
+    FACEBOOK_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_API_KEY}
+    FACEBOOK_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_API_SECRET}
+    FACEBOOK_ACCESS_TOKEN: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_ACCESS_TOKEN}
     INSTAGRAM_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.INSTAGRAM_API_KEY}
     INSTAGRAM_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.INSTAGRAM_API_SECRET}
     INSTAGRAM_ACCESS_TOKEN: ${file(env.yml):${self:provider.stage}.environmentSecrets.INSTAGRAM_ACCESS_TOKEN}
@@ -147,6 +150,16 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
       Ref: LambdaDeadLetterQueue
     environment:
       CAMPAIGN_MEDIUM: rss
+  facebookAuthRedirect:
+    handler: src/serverless/handlers/facebookAuthRedirect/initialized.default
+    events: ${file(env.yml):${self:provider.stage}.functions.facebookAuthRedirect.events}
+    onError:
+      Ref: LambdaDeadLetterQueue
+  facebookAuthCallback:
+    handler: src/serverless/handlers/facebookAuthCallback/initialized.default
+    events: ${file(env.yml):${self:provider.stage}.functions.facebookAuthCallback.events}
+    onError:
+      Ref: LambdaDeadLetterQueue
   instagramAuthRedirect:
     handler: src/serverless/handlers/instagramAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.instagramAuthRedirect.events}

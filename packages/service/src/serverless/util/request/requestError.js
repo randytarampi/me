@@ -6,7 +6,14 @@ export const codeToStatusCode = {
     [codes.badRequest]: 400
 };
 
-class RequestError extends Error {
+export const statusCodeToCode = Object.keys(codeToStatusCode).reduce((statusCodeToCode, code) => {
+    statusCodeToCode[codeToStatusCode[code]] = code;
+    return statusCodeToCode;
+}, {});
+
+export const supportedStatusCodes = Object.values(codeToStatusCode);
+
+export class RequestError extends Error {
     constructor(message, code, statusCode) {
         super(message);
         this.code = code;

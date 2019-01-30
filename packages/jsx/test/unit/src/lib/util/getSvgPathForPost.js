@@ -3,6 +3,7 @@ import {expect} from "chai";
 import {
     cameraSvgPath,
     commentSvgPath,
+    facebookSvgPath,
     flickrSvgPath,
     getSvgPathForPost,
     instagramSvgPath,
@@ -11,6 +12,13 @@ import {
 } from "../../../../../src/lib/util/getSvgPathForPost";
 
 describe("getSvgPathForPost", function () {
+    it("works for `facebook`", function () {
+        const stubPost = Photo.fromJS({source: "facebook"});
+        const svgPath = getSvgPathForPost(stubPost);
+
+        expect(svgPath).to.eql(facebookSvgPath);
+    });
+
     it("works for `flickr`", function () {
         const stubPost = Photo.fromJS({source: "flickr"});
         const svgPath = getSvgPathForPost(stubPost);

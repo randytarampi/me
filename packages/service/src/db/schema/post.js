@@ -1,4 +1,4 @@
-import {compositeKeySeparator, Gallery, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
+import {compositeKeySeparator, POST_ENTITIES_MAP, POST_STATUS} from "@randy.tarampi/js";
 import {Schema} from "dynamoose";
 
 const post = new Schema({
@@ -20,11 +20,7 @@ const post = new Schema({
     type: {
         type: String,
         required: true,
-        enum: [
-            Gallery.type,
-            Photo.type,
-            Post.type
-        ],
+        enum: Object.keys(POST_ENTITIES_MAP),
         index: [
             {
                 global: false,

@@ -1,5 +1,8 @@
 import {Gallery, Photo, Post} from "@randy.tarampi/js";
 
+// import FacebookSvg from "@fortawesome/fontawesome-free/svgs/brands/facebook.svg";
+export const facebookSvgPath = "M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z";
+
 // import FlickrSvg from "@fortawesome/fontawesome-free/svgs/brands/flickr.svg";
 export const flickrSvgPath = "M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM144.5 319c-35.1 0-63.5-28.4-63.5-63.5s28.4-63.5 63.5-63.5 63.5 28.4 63.5 63.5-28.4 63.5-63.5 63.5zm159 0c-35.1 0-63.5-28.4-63.5-63.5s28.4-63.5 63.5-63.5 63.5 28.4 63.5 63.5-28.4 63.5-63.5 63.5z";
 
@@ -20,6 +23,9 @@ export const commentSvgPath = "M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 6
 
 export const getSvgPathForPost = post => {
     switch (post.source) {
+        case "facebook":
+            return facebookSvgPath;
+
         case "flickr":
             return flickrSvgPath;
 

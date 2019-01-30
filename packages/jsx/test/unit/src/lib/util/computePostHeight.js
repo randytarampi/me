@@ -1,7 +1,10 @@
 import {Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {JSDOM} from "jsdom";
-import computePostHeight, {WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../../../../../src/lib/util/computePostHeight";
+import computePostHeight, {
+    WINDOW_LARGE_BREAKPOINT,
+    WINDOW_LARGE_PHOTO_SCALE
+} from "../../../../../src/lib/util/computePostHeight";
 
 describe("computePostHeight", function () {
     const globalWindow = global.window;
@@ -17,7 +20,7 @@ describe("computePostHeight", function () {
 
         const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
 
-        expect(computedPostHeight).to.eql(500 * WINDOW_LARGE_PHOTO_SCALE); // NOTE-RT: 500 * 1000 / 1000 * WINDOW_LARGE_PHOTO_SCALE
+        expect(computedPostHeight).to.eql(Math.round(500 * WINDOW_LARGE_PHOTO_SCALE)); // NOTE-RT: 500 * 1000 / 1000 * WINDOW_LARGE_PHOTO_SCALE
     });
 
     it("computes the height for a `Post` (`Photo`) that has dimension attributes on a small or medium window", function () {
@@ -64,5 +67,18 @@ describe("computePostHeight", function () {
         const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost);
 
         expect(computedPostHeight).to.eql(global.window.innerHeight);
+    });
+
+    it("falls back to the passed cached height for a `Post` (`Photo`) that doesn't have dimension attributes in the DOM or entity", function () {
+        const stubContainerWidth = 500;
+        const stubCachedHeight = 12345;
+        const stubPost = Photo.fromJS({source: "ʕ•ᴥ•ʔ", id: "woof", height: 1000, width: null});
+        const stubDom = new JSDOM("<!doctype html><html><body><div id=\"foo\">Hello World</div></body></html>");
+        global.window = stubDom.window;
+        global.document = global.window.document;
+
+        const computedPostHeight = computePostHeight(stubContainerWidth)(stubPost, stubCachedHeight);
+
+        expect(computedPostHeight).to.eql(stubCachedHeight);
     });
 });

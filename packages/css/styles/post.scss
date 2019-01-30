@@ -13,9 +13,11 @@
     margin-bottom: 0;
 
     &-title,
+    &-link-title,
     &-description,
     &-date,
     &-body,
+    &-link-body,
     &-source,
     &-location,
     &-tags {
@@ -115,6 +117,7 @@
         }
     }
 
+    &--link,
     &--words {
         .post-body {
             &__text {
@@ -124,6 +127,17 @@
                 background-color: unset;
                 color: unset;
             }
+        }
+    }
+
+    &--link {
+        .post-link-title {
+            margin: 0;
+        }
+
+        .post-link-body,
+        .post-link-body p {
+            margin-top: 0;
         }
     }
 

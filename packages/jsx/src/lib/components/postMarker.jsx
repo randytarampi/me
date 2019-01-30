@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
+import {Gallery, Photo, Post, POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Marker} from "react-google-maps";
@@ -48,7 +48,7 @@ export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading
 };
 
 PostMarkerInfoBoxContentComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     title: PropTypes.string.isRequired,
     style: PropTypes.object,
     isLoading: PropTypes.bool
@@ -117,7 +117,7 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
 }
 
 PostMarkerInfoBoxComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired
 };
@@ -188,7 +188,7 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
 }
 
 PhotoMarkerInfoBoxComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired
 };
@@ -220,7 +220,7 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
 };
 
 renderPostMarkerInfoBoxComponentForPost.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired
 };
@@ -258,7 +258,7 @@ PostMarkerComponent.defaultProps = {
 };
 
 PostMarkerComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired,
     setMapCenter: PropTypes.func.isRequired

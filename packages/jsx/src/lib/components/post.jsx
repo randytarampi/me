@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post, POST_OVERRIDING_TAG_SENTINEL_REGEX} from "@randy.tarampi/js";
+import {Post, POST_ENTITIES, POST_OVERRIDING_TAG_SENTINEL_REGEX} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import isHtml from "is-html";
 import {DateTime} from "luxon";
@@ -107,7 +107,7 @@ export const PostTitleComponent = ({post, title}) =>
     </h1>;
 
 PostTitleComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     title: PropTypes.string.isRequired
 };
 
@@ -128,7 +128,7 @@ export const PostBodyAsStringComponent = ({post}) => {
 };
 
 PostBodyAsStringComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostBodyAsArrayComponent = ({post}) => {
@@ -155,15 +155,16 @@ export const PostBodyAsArrayComponent = ({post}) => {
 };
 
 PostBodyAsArrayComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
-export const PostDatePublishedComponent = ({post}) => {
+export const PostDatePublishedComponent = ({post, label}) => {
     let postSourceLink = null;
 
     if (post.creator) {
         const PostSourceLinkComponent = getBrandedLinkForNetwork(post.source);
-        const sourceAttribution = `${post.creator.username} on ${post.source}`;
+        const sourceName = post.creator.username || post.creator.name;
+        const sourceAttribution = `${sourceName} on ${post.source}`;
 
         if (PostSourceLinkComponent) {
             postSourceLink = <PostSourceLinkComponent
@@ -172,7 +173,7 @@ export const PostDatePublishedComponent = ({post}) => {
                 username={post.creator.username}
                 text={sourceAttribution}
             >
-                {post.creator.username} on <span className="post-source__source-name">{post.source}</span>
+                {sourceName} on <span className="post-source__source-name">{post.source}</span>
             </PostSourceLinkComponent>;
         } else {
             postSourceLink = <CampaignLink
@@ -186,7 +187,7 @@ export const PostDatePublishedComponent = ({post}) => {
     return post.datePublished
         ? <p className="post-date">
             <strong
-                className="post-date__label post-date__label--published">Posted:</strong>
+                className="post-date__label post-date__label--published">{label}</strong>
             <span
                 className="post-date__date post-date__date--published">{post.datePublished.toLocaleString(DateTime.DATE_MED)}</span>
             {
@@ -197,10 +198,15 @@ export const PostDatePublishedComponent = ({post}) => {
 };
 
 PostDatePublishedComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    label: PropTypes.string.isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
-export const PostDateCreatedComponent = ({post, label = "Drafted:"}) => {
+PostDatePublishedComponent.defaultProps = {
+    label: "Posted:"
+};
+
+export const PostDateCreatedComponent = ({post, label}) => {
     return post.dateCreated && post.dateCreated.valueOf() !== post.datePublished.valueOf()
         ? <p className="post-date">
             <strong className="post-date__label post-date__label--created">{label}</strong>
@@ -212,8 +218,12 @@ export const PostDateCreatedComponent = ({post, label = "Drafted:"}) => {
 };
 
 PostDateCreatedComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
-    label: PropTypes.string
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
+    label: PropTypes.string.isRequired
+};
+
+PostDateCreatedComponent.defaultProps = {
+    label: "Drafted:"
 };
 
 export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tags`}) => {
@@ -224,13 +234,13 @@ export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tag
                 post.tags
                     .filter(tag => !tag.match(POST_OVERRIDING_TAG_SENTINEL_REGEX))
                     .map(
-                    tag => <Fragment key={tag}><InternalLink
-                        className="post-tags__tag"
-                        href={`${tagLinkBase}/${tag}`}
-                    >
-                        {tag}
-                    </InternalLink> </Fragment> // NOTE-RT: We need this ` ` between the `</InternalLink>` and the `</Fragment>` because Safari (Webkit?) seems to collapse `&#0032;` and not insert line breaks between each `<Fragment>` but doesn't with ` `
-                )
+                        tag => <Fragment key={tag}><InternalLink
+                            className="post-tags__tag"
+                            href={`${tagLinkBase}/${tag}`}
+                        >
+                            {tag}
+                        </InternalLink> </Fragment> // NOTE-RT: We need this ` ` between the `</InternalLink>` and the `</Fragment>` because Safari (Webkit?) seems to collapse `&#0032;` and not insert line breaks between each `<Fragment>` but doesn't with ` `
+                    )
             }
         </p>
         : null;
@@ -238,7 +248,7 @@ export const PostTagsComponent = ({post, tagLinkBase = `${__POSTS_APP_URL__}/tag
 
 PostTagsComponent.propTypes = {
     tagLinkBase: PropTypes.string,
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired
 };
 
 export const PostMapComponent = ({post, mapContainerHeight, children, ...props}) => {
@@ -261,7 +271,7 @@ export const PostMapComponent = ({post, mapContainerHeight, children, ...props})
 };
 
 PostMapComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     mapContainerHeight: PropTypes.number,
     contentHeight: PropTypes.number,
     metadataHeight: PropTypes.number
@@ -292,7 +302,7 @@ const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
 };
 
 PostLocationComponentInternal.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     setMapPostsCenter: PropTypes.func.isRequired
 };
 
@@ -314,7 +324,7 @@ export const PostLocationComponent = connect(
 )(PostLocationComponentInternal);
 
 PostLocationComponent.propTypes = {
-    post: PropTypes.oneOfType([Post, Photo, Gallery].map(PropTypes.instanceOf)).isRequired,
+    post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     mapId: PropTypes.string.isRequired
 };
 
