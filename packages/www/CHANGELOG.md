@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1](https://github.com/randytarampi/me/compare/v3.4.0...v3.4.1) (2019-01-30)
+
+**Note:** Version bump only for package @randy.tarampi/www
+
+
+
+
+
 # [3.4.0](https://github.com/randytarampi/me/compare/v3.3.3...v3.4.0) (2019-01-30)
 
 
