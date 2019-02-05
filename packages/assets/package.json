@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/assets",
   "description": "Some common assets for www.randytarampi.ca",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -18,6 +18,5 @@
     "access": "public"
   },
   "repository": "randytarampi/me.git",
-  "scripts": {
-  }
+  "scripts": {}
 }

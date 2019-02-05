@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/randytarampi/me/compare/v3.4.1...v3.4.2) (2019-02-05)
+
+
+### Bug Fixes
+
+* **package:** Don't bother to `npm shrinkwrap`. ([9c64f6e](https://github.com/randytarampi/me/commit/9c64f6e))
+* **package:** Fix mangled `package.json`s from 9c64f6e6c3ebc0cf830b57a2b5c3e237bc7e7921. ([7241912](https://github.com/randytarampi/me/commit/7241912))
+
+
+
+
+
 ## [3.4.1](https://github.com/randytarampi/me/compare/v3.4.0...v3.4.1) (2019-01-30)
 
 **Note:** Version bump only for package @randy.tarampi/js

@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/service",
   "description": "The backend for www.randytarampi.ca",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -9,7 +9,7 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "3.4.1",
+    "@randy.tarampi/js": "3.4.2",
     "aws-sdk": "~2.396.0",
     "aws-xray-sdk": "~2.2.0",
     "big.js": "~5.2.2",
