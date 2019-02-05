@@ -72,7 +72,6 @@
     "postinstall": "npm run resume:json",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
-    ,
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "npm run clean",
     "resume": "npm run resume:json && npm run resume:pdf && npm run resume:html",
