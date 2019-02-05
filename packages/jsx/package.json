@@ -31,7 +31,7 @@
     "prop-types": "~15.6.2",
     "query-string": "~6.2.0",
     "react-google-maps": "~9.4.5",
-    "react-hot-loader": "~4.6.3",
+    "react-hot-loader": "~4.6.5",
     "react-infinite": "~0.13.0",
     "react-metrics": "~2.4.1",
     "react-progressive-image": "~0.6.0",
