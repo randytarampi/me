@@ -19,6 +19,5 @@
   },
   "repository": "randytarampi/me.git",
   "scripts": {
-    "prepublishOnly": "npm shrinkwrap"
   }
 }
