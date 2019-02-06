@@ -89,7 +89,7 @@
     "reselect": "~4.0.0",
     "resolve-url-loader": "~3.0.0",
     "sass-loader": "~7.1.0",
-    "serverless": "~1.36.0",
+    "serverless": "~1.37.0",
     "serverless-api-compression": "~1.0.1",
     "serverless-domain-manager": "~2.6.11",
     "serverless-dynamodb-local": "github:randytarampi/serverless-dynamodb-local#me-release",
