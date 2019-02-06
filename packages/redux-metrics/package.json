@@ -9,14 +9,14 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "~1.10.0",
+    "luxon": "~1.11.0",
     "react-metrics": "~2.4.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",
     "gulp": "~4.0.0",
     "mocha": "~5.2.0",
-    "nyc": "~13.1.0"
+    "nyc": "~13.2.0"
   },
   "directories": {
     "lib": "./src/lib",
