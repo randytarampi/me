@@ -15,7 +15,7 @@
     "pug": "~2.0.3",
     "puppeteer": "~1.12.2",
     "react": "~16.8.1",
-    "react-dom": "~16.8.0",
+    "react-dom": "~16.8.1",
     "react-helmet": "~5.2.0"
   },
   "devDependencies": {
