@@ -28,7 +28,7 @@
     "pug": "~2.0.3",
     "query-string": "~6.2.0",
     "react": "~16.8.1",
-    "react-dom": "~16.8.0",
+    "react-dom": "~16.8.1",
     "react-helmet": "~5.2.0",
     "react-hot-loader": "~4.6.5",
     "react-materialize": "~2.6.0",
