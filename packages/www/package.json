@@ -31,7 +31,7 @@
     "react-redux": "~5.1.1",
     "redux": "~4.0.1",
     "redux-immutable": "~4.0.0",
-    "register-service-worker": "~1.5.2"
+    "register-service-worker": "~1.6.0"
   },
   "devDependencies": {
     "@babel/cli": "latest",
