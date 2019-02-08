@@ -8,7 +8,7 @@ import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/aut
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
-describe("proxyquiredInstagramSource", function () {
+describe("InstagramSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
