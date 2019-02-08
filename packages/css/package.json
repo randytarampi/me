@@ -12,7 +12,7 @@
     "materialize-css": "~0.100.2"
   },
   "devDependencies": {
-    "@babel/cli": "latest",
+    "@babel/cli": "~7.2.3",
     "gulp": "~4.0.0"
   },
   "engines": {

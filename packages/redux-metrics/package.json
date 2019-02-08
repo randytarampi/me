@@ -13,7 +13,7 @@
     "react-metrics": "~2.4.1"
   },
   "devDependencies": {
-    "@babel/cli": "latest",
+    "@babel/cli": "~7.2.3",
     "gulp": "~4.0.0",
     "mocha": "~5.2.0",
     "nyc": "~13.2.0"

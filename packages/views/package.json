@@ -13,7 +13,7 @@
     "config": "~3.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "latest",
+    "@babel/cli": "~7.2.3",
     "gulp": "~4.0.0"
   },
   "directories": {
