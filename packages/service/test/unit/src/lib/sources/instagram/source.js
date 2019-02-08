@@ -1,15 +1,14 @@
 import {Gallery, Photo} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import fetch from "node-fetch"; // eslint-disable-line import/no-extraneous-dependencies
+import proxyquire from "proxyquire";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
-import {InstagramSource} from "../../../../../../src/lib/sources/instagram/source";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 import {timedPromise} from "../../../../../lib/util";
 
-describe("InstagramSource", function () {
+describe("proxyquiredInstagramSource", function () {
     let stubServiceClient;
     let stubPost;
     let stubPosts;
@@ -38,6 +37,8 @@ describe("InstagramSource", function () {
     let instagramUser;
     let instagramPhoto;
     let instagramPhotos;
+    let instagramGraphEdgeResponse;
+    let proxyquiredInstagramSource;
 
     beforeEach(function () {
         process.env.INSTAGRAM_ACCESS_TOKEN = "INSTAGRAM_ACCESS_TOKEN";
@@ -151,119 +152,115 @@ describe("InstagramSource", function () {
 
         stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
 
-        // FIXME-RT: Ugh. Gross af, but I really don't want to proxyquire right now. https://stackoverflow.com/questions/43960646/testing-mocking-node-fetch-dependency-that-it-is-used-in-a-class-method
-        sinon.stub(fetch, "Promise").returns(Promise.resolve({
-            json: () => {
-                return {
-                    graphql: {
-                        shortcode_media: {
-                            display_url: "woof://woof.woof/woof",
-                            display_resources: [
-                                {
-                                    src: "woof://woof.woof/woof",
-                                    config_width: 640,
-                                    config_height: 640
-                                },
-                                {
-                                    src: "woof://woof.woof/woof",
-                                    config_width: 750,
-                                    config_height: 750
-                                },
-                                {
-                                    src: "woof://woof.woof/woof",
-                                    config_width: 1080,
-                                    config_height: 1080
-                                }
-                            ],
-                            dimensions: {
-                                width: 1080,
-                                height: 1080
-                            },
-                            edge_sidecar_to_children: {
-                                edges: [
-                                    {
-                                        node: {
-                                            display_url: "woof://woof.woof/woof",
-                                            display_resources: [
-                                                {
-                                                    src: "woof://woof.woof/woof",
-                                                    config_width: 640,
-                                                    config_height: 640
-                                                },
-                                                {
-                                                    src: "woof://woof.woof/woof",
-                                                    config_width: 750,
-                                                    config_height: 750
-                                                },
-                                                {
-                                                    src: "woof://woof.woof/woof",
-                                                    config_width: 1080,
-                                                    config_height: 1080
-                                                }
-                                            ],
-                                            dimensions: {
-                                                width: 1080,
-                                                height: 1080
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
+        instagramGraphEdgeResponse = {
+            graphql: {
+                shortcode_media: {
+                    display_url: "woof://woof.woof/woof",
+                    display_resources: [
+                        {
+                            src: "woof://woof.woof/woof",
+                            config_width: 640,
+                            config_height: 640
+                        },
+                        {
+                            src: "woof://woof.woof/woof",
+                            config_width: 750,
+                            config_height: 750
+                        },
+                        {
+                            src: "woof://woof.woof/woof",
+                            config_width: 1080,
+                            config_height: 1080
                         }
+                    ],
+                    dimensions: {
+                        width: 1080,
+                        height: 1080
+                    },
+                    edge_sidecar_to_children: {
+                        edges: [
+                            {
+                                node: {
+                                    display_url: "woof://woof.woof/woof",
+                                    display_resources: [
+                                        {
+                                            src: "woof://woof.woof/woof",
+                                            config_width: 640,
+                                            config_height: 640
+                                        },
+                                        {
+                                            src: "woof://woof.woof/woof",
+                                            config_width: 750,
+                                            config_height: 750
+                                        },
+                                        {
+                                            src: "woof://woof.woof/woof",
+                                            config_width: 1080,
+                                            config_height: 1080
+                                        }
+                                    ],
+                                    dimensions: {
+                                        width: 1080,
+                                        height: 1080
+                                    }
+                                }
+                            }
+                        ]
                     }
-                };
+                }
             }
-        }));
-    });
-
-    afterEach(function () {
-        fetch.Promise.restore();
+        };
+        proxyquiredInstagramSource = proxyquire("../../../../../../src/lib/sources/instagram/source", {
+            "isomorphic-fetch": () => Promise.resolve({
+                json: () => Promise.resolve(instagramGraphEdgeResponse)
+            })
+        }).InstagramSource;
     });
 
     describe("constructor", function () {
-        it("should build a `InstagramSource` instance (including the default `instagram` client)", function () {
-            const instagramSource = new InstagramSource(null, stubCacheClient);
+        it("should build a `proxyquiredInstagramSource` instance (including the default `instagram` client)", function () {
+            const instagramSource = new proxyquiredInstagramSource(null, stubCacheClient);
 
-            expect(InstagramSource.type).to.eql("instagram");
+            expect(proxyquiredInstagramSource.type).to.eql("instagram");
             // expect(instagramSource.client).to.be.instanceof(Instagram); // NOTE-RT: It's not so much a class as it is just an exported anonymous function
             expect(instagramSource.cacheClient).to.eql(stubCacheClient);
             expect(instagramSource.initializing).to.be.instanceOf(Promise);
-            expect(instagramSource).to.be.instanceOf(InstagramSource);
+            expect(instagramSource).to.be.instanceOf(proxyquiredInstagramSource);
         });
 
-        it("should build a `InstagramSource` instance (with stubbed client)", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+        it("should build a `proxyquiredInstagramSource` instance (with stubbed client)", function () {
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
 
-            expect(InstagramSource.type).to.eql("instagram");
+            expect(proxyquiredInstagramSource.type).to.eql("instagram");
             expect(instagramSource.client).to.eql(stubServiceClient);
             expect(instagramSource.cacheClient).to.eql(stubCacheClient);
             expect(instagramSource.initializing).to.be.instanceOf(Promise);
-            expect(instagramSource).to.be.instanceOf(InstagramSource);
+            expect(instagramSource).to.be.instanceOf(proxyquiredInstagramSource);
         });
     });
 
     describe("AuthInfoClient", function () {
         it("returns `InstagramAuthInfo`", function () {
-            expect(InstagramSource.AuthInfoClient).to.eql(InstagramAuthInfo);
+            expect(proxyquiredInstagramSource.AuthInfoClient).to.eql(InstagramAuthInfo);
         });
     });
 
     describe("isEnabled", function () {
         it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             expect(instagramSource.isEnabled).to.eql(true);
         });
 
         it("`!isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is not defined", function () {
             delete process.env.INSTAGRAM_ACCESS_TOKEN;
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             expect(instagramSource.isEnabled).to.eql(false);
         });
     });
 
     describe("recordsGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
             return instagramSource.recordsGetter(stubParams)
@@ -287,7 +284,7 @@ describe("InstagramSource", function () {
         });
 
         it("finds no posts", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 42});
 
             return instagramSource.recordsGetter(stubParams)
@@ -302,7 +299,7 @@ describe("InstagramSource", function () {
 
     describe("allRecordsGetter", function () {
         it("finds all posts", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
             return instagramSource.allRecordsGetter(stubParams)
@@ -329,7 +326,7 @@ describe("InstagramSource", function () {
 
     describe("recordGetter", function () {
         it("passes `serviceClient` the expected parameters", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
 
             return instagramSource.recordGetter(stubPost.id)
                 .then(post => {
@@ -340,7 +337,7 @@ describe("InstagramSource", function () {
         });
 
         it("finds no post", function () {
-            const instagramSource = new InstagramSource(stubServiceClient, stubCacheClient);
+            const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
 
             return instagramSource.recordGetter("foo")
                 .then(post => {
