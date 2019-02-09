@@ -15,10 +15,10 @@ export const ensurePostsHaveUniqueLocation = (posts, offsetPrecision = 0, minimu
         const truncatedPostGeohash = post.geohash && post.geohash.slice(0, 8); // NOTE-RT: Assume everything with similar geohash prefixes with lengths > 8 (4.5m * 4.5m) are in the same place.
 
         if (locationHash[truncatedPostGeohash]) {
-            const randomOffset = Math.abs(Math.max(
+            const randomOffset = (Math.random() > 0.5 ? 1 : -1) * Math.max(
                 Math.random() * Number(`1e${offsetPrecision || -getNumericalPrecision(post.lat)}`),
                 Math.random() * 10 * minimumOffset
-            ));
+            );
             const offsetLat = post.lat + randomOffset;
             const offsetLong = post.long + randomOffset;
             const offsetPost = post
