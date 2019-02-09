@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.7](https://github.com/randytarampi/me/compare/v3.4.6...v3.4.7) (2019-02-09)
+
+
+### Bug Fixes
+
+* **travis:** Explicitly set `target_commitish` to the tagged commit. ([921ee92](https://github.com/randytarampi/me/commit/921ee92))
+
+
+
+
+
 ## [3.4.6](https://github.com/randytarampi/me/compare/v3.4.5...v3.4.6) (2019-02-08)
 
 **Note:** Version bump only for package me

@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/www.sw.installer.js"
   },
   {
-    "revision": "a6f065cec49ea23d77fe",
+    "revision": "5401403a679ef1d4ecac",
     "url": "/www.js"
   },
   {
