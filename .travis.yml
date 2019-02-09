@@ -135,6 +135,7 @@ jobs:
           skip_cleanup: true
           on:
             condition: "-n $HAS_PUBLISHABLE_CHANGES"
+          target_commitish: "echo $(git rev-parse HEAD)"
     - stage: Deploy (dev)
       name: www
       node_js: '8.10'
