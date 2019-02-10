@@ -122,7 +122,7 @@ jobs:
         - export TRAVIS_TAG=${TRAVIS_TAG:=v$REPO_VERSION}
         - export TRAVIS_TAG_COMMIT=${TRAVIS_TAG_COMMIT:=$(git rev-parse HEAD)}
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
-      v$REPO_VERSION."; git tag $TRAVIS_TAG; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency ${CPUS_COUNT}; fi;'
+      v$REPO_VERSION."; export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD); git tag $TRAVIS_TAG; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency ${CPUS_COUNT}; fi;'
         - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
         - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/ $TRAVIS_BUILD_DIR
       deploy:
