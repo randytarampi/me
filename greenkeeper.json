@@ -4,6 +4,7 @@
       "packages": [
         "package.json",
         "packages/assets/package.json",
+        "packages/browser-logger/package.json",
         "packages/css/package.json",
         "packages/job-application/package.json",
         "packages/js/package.json",
