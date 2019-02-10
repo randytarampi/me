@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.9](https://github.com/randytarampi/me/compare/v3.4.8...v3.4.9) (2019-02-10)
+
+
+### Bug Fixes
+
+* **travis:** Set `TRAVIS_TAG_COMMIT` correctly. ([453d134](https://github.com/randytarampi/me/commit/453d134))
+
+
+
+
+
 ## [3.4.8](https://github.com/randytarampi/me/compare/v3.4.7...v3.4.8) (2019-02-09)
 
 
