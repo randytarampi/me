@@ -2,15 +2,16 @@ import bunyan from "bunyan";
 import bunyanFormat from "bunyan-format";
 import bunyanSentryStream from "bunyan-sentry-stream";
 import raven from "raven";
-import packageJson from "../../../package.json";
 
-const configureRaven = () => Promise.resolve()
+const getLoggerNameForPackageAndLambda = packageJson => `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`;
+
+const configureRaven = packageJson => Promise.resolve()
     .then(() => {
         if (process.env.SENTRY_DSN) {
             raven.config(
                 process.env.SENTRY_DSN,
                 {
-                    logger: packageJson.name,
+                    logger: getLoggerNameForPackageAndLambda(packageJson),
                     autoBreadcrumbs: true,
                     captureUnhandledRejections: true,
                     maxBreadcrumbs: 100,
@@ -36,7 +37,7 @@ const configureRaven = () => Promise.resolve()
         }
     });
 
-export const configureLogger = () => configureRaven();
+export const configureLogger = packageJson => configureRaven(packageJson);
 
 const bunyanStreams = [];
 
@@ -66,11 +67,13 @@ if (process.env.LOGGER_ENABLED === "true") {
     }
 }
 
-export default bunyan.createLogger({
-    name: packageJson.name,
+export const createLogger = packageJson => bunyan.createLogger({
+    name: getLoggerNameForPackageAndLambda(packageJson),
     streams: bunyanStreams,
     src: process.env.LOGGER_SRC_ENABLED === "true",
     version: packageJson.version,
     environment: process.env.SERVERLESS_STAGE,
     serializers: bunyan.stdSerializers
 });
+
+export default createLogger;
