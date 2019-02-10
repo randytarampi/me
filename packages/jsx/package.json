@@ -28,7 +28,7 @@
     "lodash": "~4.17.11",
     "luxon": "~1.11.0",
     "materialize-css": "~0.100.2",
-    "prop-types": "~15.6.2",
+    "prop-types": "~15.7.0",
     "query-string": "~6.2.0",
     "react-google-maps": "~9.4.5",
     "react-hot-loader": "~4.6.5",
