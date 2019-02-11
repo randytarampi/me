@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/randytarampi/me/compare/v3.4.9...v3.5.0) (2019-02-11)
+
+
+### Bug Fixes
+
+* **greenkeeper:** We need to also watch `browser-logger` dependencies. ([d01c6a9](https://github.com/randytarampi/me/commit/d01c6a9))
+* **travis:** Set `TRAVIS_RELEASE_BODY` as it used to be in 453d134c49e9651db0e2d56588244d678850a4bc. ([684ace9](https://github.com/randytarampi/me/commit/684ace9))
+
+
+### Features
+
+* **lambda-logger:** Split `[@randy](https://github.com/randy).tarampi/lambda-logger` out of `[@randy](https://github.com/randy).tarampi/service`. ([0019c6a](https://github.com/randytarampi/me/commit/0019c6a))
+
+
+
+
+
 ## [3.4.9](https://github.com/randytarampi/me/compare/v3.4.8...v3.4.9) (2019-02-10)
 
 
