@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.2](https://github.com/randytarampi/me/compare/v3.5.0...v3.5.2) (2019-02-11)
+
+
+### Reverts
+
+* chore(package): update dependencies ([b6f666a](https://github.com/randytarampi/me/commit/b6f666a))
+
+
+
+
+
 ## [3.5.1](https://github.com/randytarampi/me/compare/v3.5.0...v3.5.1) (2019-02-11)
 
 
