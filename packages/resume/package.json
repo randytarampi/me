@@ -24,7 +24,7 @@
     "isomorphic-fetch": "~2.2.1",
     "luxon": "~1.11.0",
     "materialize-css": "~0.100.2",
-    "prop-types": "~15.6.2",
+    "prop-types": "~15.7.1",
     "pug": "~2.0.3",
     "query-string": "~6.2.0",
     "react": "~16.8.1",
