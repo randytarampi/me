@@ -10,6 +10,7 @@
         "packages/js/package.json",
         "packages/jsonresume-theme/package.json",
         "packages/jsx/package.json",
+        "packages/lambda-logger/package.json",
         "packages/letter/package.json",
         "packages/service/package.json",
         "packages/printables/package.json",
