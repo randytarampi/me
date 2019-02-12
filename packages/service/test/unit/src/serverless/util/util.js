@@ -52,7 +52,7 @@ describe("util", function () {
                 "./loadServerlessSecrets": {
                     "default": sinon.stub().returns(Promise.resolve())
                 },
-                "../../lib/logger": {
+                "../logger": {
                     "configureLogger": sinon.stub().returns(Promise.resolve())
                 }
             };
@@ -61,7 +61,7 @@ describe("util", function () {
             return proxyquiredConfigureEnvironment.default()
                 .then(() => {
                     expect(proxyquireStubs["./loadServerlessSecrets"].default.calledOnce).to.eql(true);
-                    expect(proxyquireStubs["../../lib/logger"].configureLogger.calledOnce).to.eql(true);
+                    expect(proxyquireStubs["../logger"].configureLogger.calledOnce).to.eql(true);
                 });
         });
     });
