@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/randytarampi/me/compare/v3.6.0...v3.7.0) (2019-02-12)
+
+
+### Bug Fixes
+
+* **service:** Fix forgotten bad stub. ([561286f](https://github.com/randytarampi/me/commit/561286f))
+
+
+### Features
+
+* **serverless:** Split off `responseBuilder` and `returnErrorResponse`. ([fef3423](https://github.com/randytarampi/me/commit/fef3423))
+
+
+
+
+
 # [3.6.0](https://github.com/randytarampi/me/compare/v3.5.0...v3.6.0) (2019-02-12)
 
 
