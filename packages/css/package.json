@@ -9,7 +9,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@fortawesome/fontawesome-free": "~5.7.0",
-    "materialize-css": "~0.100.2"
+    "materialize-css": "~1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "~7.2.3",
