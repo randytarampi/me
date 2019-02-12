@@ -284,13 +284,37 @@ describe("util", function () {
     });
 
     describe("getHaversineDistance", function () {
-        it("returns the haversine distance (in metres)", function () {
+        it("returns the haversine distance", function () {
             const lat1 = 0;
             const long1 = 0;
             const lat2 = 0;
             const long2 = 1;
 
             const haversineDistance = util.getHaversineDistance(lat1, long1, lat2, long2);
+
+            expect(haversineDistance).to.be.a("number");
+            expect(haversineDistance).to.be.within(111000, 111200); // NOTE-RT: 1 degree of longitude is about 111.1km right?
+        });
+
+        it("returns the haversine distance (in km)", function () {
+            const lat1 = 0;
+            const long1 = 0;
+            const lat2 = 0;
+            const long2 = 1;
+
+            const haversineDistance = util.getHaversineDistance(lat1, long1, lat2, long2, "km");
+
+            expect(haversineDistance).to.be.a("number");
+            expect(haversineDistance).to.be.within(111, 111.2); // NOTE-RT: 1 degree of longitude is about 111.1km right?
+        });
+
+        it("returns the haversine distance (in metres)", function () {
+            const lat1 = 0;
+            const long1 = 0;
+            const lat2 = 0;
+            const long2 = 1;
+
+            const haversineDistance = util.getHaversineDistance(lat1, long1, lat2, long2, "meter");
 
             expect(haversineDistance).to.be.a("number");
             expect(haversineDistance).to.be.within(111000, 111200); // NOTE-RT: 1 degree of longitude is about 111.1km right?
