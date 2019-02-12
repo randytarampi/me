@@ -1,6 +1,6 @@
 import _ from "lodash";
 import PostModel from "../db/models/post";
-import logger from "./logger";
+import logger from "../serverless/logger";
 
 /**
  * A generic class that gets and sets [Records]{@link Record} in some data store

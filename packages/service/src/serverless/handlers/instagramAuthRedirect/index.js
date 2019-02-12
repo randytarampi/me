@@ -1,5 +1,5 @@
 import {responseBuilder} from "@randy.tarampi/serverless";
-import logger from "../../../lib/logger";
+import logger from "../../logger";
 import configureEnvironment from "../../util/configureEnvironment";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 

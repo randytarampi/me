@@ -1,8 +1,8 @@
 import {Gallery, LinkPost, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
 import _ from "lodash";
+import logger from "../../../serverless/logger";
 import {AuthInfo} from "../../authInfo";
 import CachedDataSource from "../../cachedDataSource";
-import logger from "../../logger";
 import {filterPostForOrderingConditionsInSearchParams} from "../util";
 import {FacebookAuthInfo} from "./authInfo";
 import {FacebookApiClient} from "./client";

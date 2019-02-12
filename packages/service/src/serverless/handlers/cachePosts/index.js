@@ -1,6 +1,6 @@
 import {responseBuilder} from "@randy.tarampi/serverless";
-import logger from "../../../lib/logger";
 import cachePosts from "../../../lib/sources/cachePosts";
+import logger from "../../logger";
 import configureEnvironment from "../../util/configureEnvironment";
 import parseQueryStringParametersIntoSearchParams from "../../util/parseQueryStringParametersIntoSearchParams";
 import parseQuerystringParameters from "../../util/request/parseQuerystringParameters";

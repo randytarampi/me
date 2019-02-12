@@ -1,6 +1,6 @@
 import Aws from "aws-sdk";
 import http from "http";
-import logger from "../logger";
+import logger from "../../serverless/logger";
 
 Aws.Config.logger = logger;
 

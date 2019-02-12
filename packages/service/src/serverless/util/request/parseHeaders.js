@@ -1,4 +1,4 @@
-import logger from "../../../lib/logger";
+import logger from "../../logger";
 import * as version from "./headers/version";
 
 export default headers => {

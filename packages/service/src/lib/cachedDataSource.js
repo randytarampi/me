@@ -1,8 +1,8 @@
 import {compositeKeySeparator} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
+import logger from "../serverless/logger";
 import CacheClient from "./cacheClient";
 import DataSource from "./dataSource";
-import logger from "./logger";
 import PostSearchParams from "./postSearchParams";
 
 /**

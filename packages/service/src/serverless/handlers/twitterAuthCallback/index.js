@@ -1,8 +1,8 @@
 import {RequestError} from "@randy.tarampi/js";
 import {responseBuilder} from "@randy.tarampi/serverless";
 import {AuthInfoSearchParams} from "../../../lib/authInfoSearchParams";
-import logger from "../../../lib/logger";
 import {TwitterAuthInfo} from "../../../lib/sources/twitter/authInfo";
+import logger from "../../logger";
 import configureEnvironment from "../../util/configureEnvironment";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 

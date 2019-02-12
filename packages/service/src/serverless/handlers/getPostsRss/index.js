@@ -1,6 +1,6 @@
 import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
-import logger from "../../../lib/logger";
 import RssFeed from "../../../lib/rssFeed";
+import logger from "../../logger";
 import callbackOnWarmup from "../../util/callbackOnWarmup";
 import configureEnvironment from "../../util/configureEnvironment";
 import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters";

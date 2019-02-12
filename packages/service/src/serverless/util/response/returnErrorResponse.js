@@ -1,5 +1,5 @@
 import {returnErrorResponseForLogger} from "@randy.tarampi/serverless";
-import logger from "../../../lib/logger";
+import logger from "../../logger";
 
 /**
  * @function returnErrorResponse

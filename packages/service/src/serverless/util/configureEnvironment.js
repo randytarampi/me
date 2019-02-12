@@ -1,6 +1,6 @@
 import dynamoose from "dynamoose";
-import logger, {configureLogger} from "../../lib/logger";
 import {XRayedAwsSdk} from "../../lib/util";
+import logger, {configureLogger} from "../logger";
 import loadServerlessSecrets from "./loadServerlessSecrets";
 
 dynamoose.AWS = XRayedAwsSdk;

@@ -1,5 +1,5 @@
 import dynamoose from "dynamoose";
-import logger from "../lib/logger";
+import logger from "../serverless/logger";
 
 /**
  * Model an Immutable [Record]{@link Record} with a [Record.uid]{@link Record.uid} with Dynamoose

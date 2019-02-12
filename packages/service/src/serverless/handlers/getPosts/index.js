@@ -1,4 +1,4 @@
-import logger from "../../../lib/logger";
+import logger from "../../logger";
 import callbackOnWarmup from "../../util/callbackOnWarmup";
 import configureEnvironment from "../../util/configureEnvironment";
 import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters";
