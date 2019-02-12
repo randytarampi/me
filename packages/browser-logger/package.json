@@ -11,7 +11,7 @@
   "dependencies": {
     "@randy.tarampi/js": "3.5.2",
     "browser-bunyan": "~1.5.0",
-    "bunyan": "beta",
+    "bunyan": "~2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "raven-js": "~3.27.0"
   },
