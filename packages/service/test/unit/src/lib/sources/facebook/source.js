@@ -1,4 +1,4 @@
-import {Gallery, LinkPost, Photo, Post} from "@randy.tarampi/js";
+import {Gallery, LinkPost, Photo, Post, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
@@ -6,7 +6,6 @@ import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import {FacebookAuthInfo} from "../../../../../../src/lib/sources/facebook/authInfo";
 import {FacebookSource} from "../../../../../../src/lib/sources/facebook/source";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("FacebookSource", function () {
     let stubServiceClient;

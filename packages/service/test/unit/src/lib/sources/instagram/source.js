@@ -1,4 +1,4 @@
-import {Gallery, Photo} from "@randy.tarampi/js";
+import {Gallery, Photo, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
@@ -6,7 +6,6 @@ import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("InstagramSource", function () {
     let stubServiceClient;

@@ -11,14 +11,18 @@ const defaultHeaders = {
 
 /**
  * Build an AWS API Gateway HTTP response
- * @param body
- * @param statusCode
- * @param headers
- * @param isBase64Encoded
+ * @param body {*}
+ * @param statusCode {number}
+ * @param passedHeaders {Object}
+ * @param isBase64Encoded {boolean}
  * @returns {{body: (undefined|string), isBase64Encoded: boolean, headers: object, statusCode: number}}
  */
-export const responseBuilder = (body = undefined, statusCode = 200, headers = defaultHeaders, isBase64Encoded = false) => {
+export const responseBuilder = (body = undefined, statusCode = 200, passedHeaders = defaultHeaders, isBase64Encoded = false) => {
     let properBody = body;
+    const headers = {
+        ...defaultHeaders,
+        ...passedHeaders
+    };
 
     if (headers) {
         if (jsonMimeTypes.includes(headers["Content-Type"])) {
@@ -29,10 +33,7 @@ export const responseBuilder = (body = undefined, statusCode = 200, headers = de
     return {
         body: properBody,
         isBase64Encoded,
-        headers: {
-            ...defaultHeaders,
-            ...headers
-        },
+        headers,
         statusCode
     };
 };

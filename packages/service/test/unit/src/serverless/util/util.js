@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
+import {Gallery, LinkPost, Photo, Post, POST_TYPES} from "@randy.tarampi/js";
 import {expect} from "chai";
 import config from "config";
 import proxyquire from "proxyquire";
@@ -178,30 +178,35 @@ describe("util", function () {
                 posts: stubPosts,
                 total: {
                     global: stubPosts.length,
+                    [LinkPost.type]: 0,
                     [Gallery.type]: 1,
                     [Post.type]: 1,
                     [Photo.type]: 1
                 },
                 first: {
                     global: stubPost,
+                    [LinkPost.type]: null,
                     [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
                 },
                 last: {
                     global: stubGallery,
+                    [LinkPost.type]: null,
                     [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
                 },
                 firstFetched: {
                     global: stubPosts[0],
+                    [LinkPost.type]: null,
                     [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
                 },
                 lastFetched: {
                     global: stubPosts[stubPosts.length - 1],
+                    [LinkPost.type]: null,
                     [Gallery.type]: stubGallery,
                     [Post.type]: stubPost,
                     [Photo.type]: stubPhoto
@@ -247,7 +252,7 @@ describe("util", function () {
             return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
                 .then(postsResult => {
                     expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledThrice).to.eql(true);
+                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.callCount).to.eql(POST_TYPES.length);
                 });
         });
 

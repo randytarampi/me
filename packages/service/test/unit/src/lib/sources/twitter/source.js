@@ -1,4 +1,4 @@
-import {Post} from "@randy.tarampi/js";
+import {Post, timedPromise} from "@randy.tarampi/js";
 import {Big} from "big.js";
 import {expect} from "chai";
 import sinon from "sinon";
@@ -7,7 +7,6 @@ import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import {TwitterAuthInfo} from "../../../../../../src/lib/sources/twitter/authInfo";
 import {TwitterSource} from "../../../../../../src/lib/sources/twitter/source";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("TwitterSource", function () {
     let stubServiceClient;

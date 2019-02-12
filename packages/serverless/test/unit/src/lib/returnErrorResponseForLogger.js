@@ -1,9 +1,11 @@
 import {RequestError} from "@randy.tarampi/js";
 import {expect} from "chai";
-import returnErrorResponse from "../../../../../../src/serverless/util/response/returnErrorResponse";
+import {returnErrorResponseForLogger} from "../../../../src/lib/returnErrorResponseForLogger";
 
-describe("returnErrorResponse", function () {
+describe("returnErrorResponseForLogger", function () {
     it("handles `RequestError`s", function () {
+        const returnErrorResponse = returnErrorResponseForLogger();
+
         const stubEvent = {};
         const stubContext = {};
         const stubCallback = (error, response) => {
@@ -19,6 +21,8 @@ describe("returnErrorResponse", function () {
     });
 
     it("handles other errors", function () {
+        const returnErrorResponse = returnErrorResponseForLogger();
+
         const stubEvent = {};
         const stubContext = {};
         const stubCallback = (error, response) => {

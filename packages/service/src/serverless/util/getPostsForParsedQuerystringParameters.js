@@ -1,11 +1,8 @@
-import {Gallery, Photo, sortPostsByDate} from "@randy.tarampi/js";
+import {Gallery, Photo, POST_TYPES, sortPostsByDate} from "@randy.tarampi/js";
 import _ from "lodash";
 import searchPosts from "../../lib/sources/searchPosts";
-import {postTypes} from "../../lib/util";
 import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams";
-import {
-    checkHeader as checkMeVersionHeader
-} from "./request/headers/version";
+import {checkHeader as checkMeVersionHeader} from "./request/headers/version";
 
 export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
     let postTypesToFetch = [];
@@ -13,14 +10,14 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
     if (
         [1, 2, 3].some(expectedHeaderVersion => checkMeVersionHeader(headers, expectedHeaderVersion))
     ) {
-        postTypesToFetch = postTypes.filter(postType => type
+        postTypesToFetch = POST_TYPES.filter(postType => type
             ? postType === type
             : true
         );
     } else if (
         [4].some(expectedHeaderVersion => checkMeVersionHeader(headers, expectedHeaderVersion))
     ) {
-        postTypesToFetch = postTypes.filter(postType => type
+        postTypesToFetch = POST_TYPES.filter(postType => type
             ? postType === type
             : false
         );

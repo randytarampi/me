@@ -1,10 +1,9 @@
-import {Photo, Post, POST_STATUS} from "@randy.tarampi/js";
+import {Photo, Post, POST_STATUS, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import CachedDataSource from "../../../../src/lib/cachedDataSource";
 import PostSearchParams from "../../../../src/lib/postSearchParams";
 import dummyClassesGenerator from "../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../lib/util";
 
 describe("CachedDataSource", function () {
     let stubType;

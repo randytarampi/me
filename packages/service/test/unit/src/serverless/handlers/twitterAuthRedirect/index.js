@@ -33,8 +33,8 @@ describe("twitterAuthRedirect", function () {
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve())
             },
-            "../../util/response/responseBuilder": {
-                "default": sinon.stub().callsFake((body, status, headers) => {
+            "@randy.tarampi/serverless": {
+                "responseBuilder": sinon.stub().callsFake((body, status, headers) => {
                     try {
                         expect(body).to.eql(null);
                         expect(status).to.eql(302);
@@ -63,7 +63,7 @@ describe("twitterAuthRedirect", function () {
                 expect(error).to.not.be.ok;
                 expect(postResponse).to.eql(stubResponse);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["@randy.tarampi/serverless"].responseBuilder.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
             } catch (expectationError) {
@@ -102,8 +102,8 @@ describe("twitterAuthRedirect", function () {
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve())
             },
-            "../../util/response/responseBuilder": {
-                "default": sinon.stub().throws(stubError)
+            "@randy.tarampi/serverless": {
+                "responseBuilder": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
                 "default": sinon.stub().callsFake((event, context, callback) => {

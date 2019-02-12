@@ -21,8 +21,8 @@ describe("cachePosts", function () {
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve()),
             },
-            "../../util/response/responseBuilder": {
-                "default": sinon.stub().callsFake(posts => {
+            "@randy.tarampi/serverless": {
+                "responseBuilder": sinon.stub().callsFake(posts => {
                     try {
                         expect(posts).to.eql(stubPosts);
                         return stubResponse;
@@ -48,7 +48,7 @@ describe("cachePosts", function () {
                 expect(postResponse).to.eql(stubResponse);
                 expect(proxyquireStubs["../../../lib/sources/cachePosts"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["@randy.tarampi/serverless"].responseBuilder.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
             } catch (expectationError) {
@@ -78,8 +78,8 @@ describe("cachePosts", function () {
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve())
             },
-            "../../util/response/responseBuilder": {
-                "default": sinon.stub().callsFake(posts => {
+            "@randy.tarampi/serverless": {
+                "responseBuilder": sinon.stub().callsFake(posts => {
                     try {
                         expect(posts).to.eql(stubPosts);
                         return stubResponse;
@@ -105,7 +105,7 @@ describe("cachePosts", function () {
                 expect(postResponse).to.eql(stubResponse);
                 expect(proxyquireStubs["../../../lib/sources/cachePosts"].default.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../util/response/responseBuilder"].default.calledOnce).to.eql(true);
+                expect(proxyquireStubs["@randy.tarampi/serverless"].responseBuilder.calledOnce).to.eql(true);
                 expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
                 done();
             } catch (expectationError) {
@@ -129,8 +129,8 @@ describe("cachePosts", function () {
             "../../util/configureEnvironment": {
                 "default": sinon.stub().returns(Promise.resolve()),
             },
-            "../../util/response/responseBuilder": {
-                "default": sinon.stub().throws(stubError)
+            "@randy.tarampi/serverless": {
+                "responseBuilder": sinon.stub().throws(stubError)
             },
             "../../util/response/returnErrorResponse": {
                 "default": sinon.stub().callsFake((event, context, callback) => {

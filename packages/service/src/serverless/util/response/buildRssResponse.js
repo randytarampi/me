@@ -1,11 +1,11 @@
 import {RequestError} from "@randy.tarampi/js";
+import {responseBuilder} from "@randy.tarampi/serverless";
 import mime from "mime-types";
 import {
     checkHeader as checkMeVersionHeader,
     getHeaderValue as getMeVersionHeaderValue,
     headerName as meVersionHeaderName
 } from "../request/headers/version";
-import responseBuilder from "./responseBuilder";
 
 /**
  * Build a version 1 GET [rss]{@link RssFeed} response – just an RSS XML string.

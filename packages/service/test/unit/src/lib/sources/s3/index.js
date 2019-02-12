@@ -1,4 +1,4 @@
-import {Post} from "@randy.tarampi/js";
+import {Post, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
@@ -6,7 +6,6 @@ import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import S3Source from "../../../../../../src/lib/sources/s3";
 import {XRayedAwsSdk} from "../../../../../../src/lib/util";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("S3Source", function () {
     let stubServiceClient;

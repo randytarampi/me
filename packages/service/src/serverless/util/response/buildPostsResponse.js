@@ -1,10 +1,10 @@
 import {RequestError} from "@randy.tarampi/js";
+import {responseBuilder} from "@randy.tarampi/serverless";
 import {
     checkHeader as checkMeVersionHeader,
     getHeaderValue as getMeVersionHeaderValue,
     headerName as meVersionHeaderName
 } from "../request/headers/version";
-import responseBuilder from "./responseBuilder";
 
 /**
  * Set `Post.raw` to `null` before we send it down.

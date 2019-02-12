@@ -1,4 +1,4 @@
-import {Photo} from "@randy.tarampi/js";
+import {Photo, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
@@ -6,7 +6,6 @@ import Unsplash from "unsplash-js";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import UnsplashSource from "../../../../../../src/lib/sources/unsplash";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("UnsplashSource", function () {
     let stubServiceClient;

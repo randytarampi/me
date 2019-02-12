@@ -1,3 +1,4 @@
+import {timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import {AuthInfo} from "../../../../../../src/lib/authInfo";
@@ -6,7 +7,6 @@ import CacheClient from "../../../../../../src/lib/cacheClient";
 import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
 import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("InstagramAuthInfo", function () {
     let stubServiceClient;

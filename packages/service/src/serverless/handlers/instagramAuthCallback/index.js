@@ -1,9 +1,9 @@
 import {RequestError} from "@randy.tarampi/js";
+import {responseBuilder} from "@randy.tarampi/serverless";
 import {AuthInfoSearchParams} from "../../../lib/authInfoSearchParams";
 import logger from "../../../lib/logger";
 import {InstagramAuthInfo} from "../../../lib/sources/instagram/authInfo";
 import configureEnvironment from "../../util/configureEnvironment";
-import responseBuilder from "../../util/response/responseBuilder";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 
 export default (event, context, callback) => {

@@ -1,4 +1,4 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
+import {Gallery, Photo, Post, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
@@ -6,7 +6,6 @@ import tumblr from "tumblr.js";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import TumblrSource from "../../../../../../src/lib/sources/tumblr";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("TumblrSource", function () {
     let stubServiceClient;

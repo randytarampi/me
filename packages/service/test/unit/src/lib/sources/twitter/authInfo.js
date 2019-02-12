@@ -1,3 +1,4 @@
+import {timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import {AuthInfo} from "../../../../../../src/lib/authInfo";
@@ -10,7 +11,6 @@ import {
     TwitterAuthInfo
 } from "../../../../../../src/lib/sources/twitter/authInfo";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("TwitterAuthInfo", function () {
     let stubServiceClient;

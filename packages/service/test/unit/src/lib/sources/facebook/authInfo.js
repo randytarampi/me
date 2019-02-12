@@ -1,3 +1,4 @@
+import {timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import sinon from "sinon";
 import {AuthInfo} from "../../../../../../src/lib/authInfo";
@@ -7,7 +8,6 @@ import {FACEBOOK_TOKEN_URL, FacebookAuthInfo} from "../../../../../../src/lib/so
 import * as facebookUtil from "../../../../../../src/lib/sources/facebook/util";
 import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("FacebookAuthInfo", function () {
     let stubServiceClient;

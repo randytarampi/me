@@ -1,4 +1,4 @@
-import {Photo} from "@randy.tarampi/js";
+import {Photo, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import Flickr from "flickr-sdk";
 import {DateTime} from "luxon";
@@ -6,7 +6,6 @@ import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import FlickrSource, {FLICKR_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/flickr";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import {timedPromise} from "../../../../../lib/util";
 
 describe("FlickrSource", function () {
     let stubServiceClient;

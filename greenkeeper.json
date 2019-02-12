@@ -12,6 +12,7 @@
         "packages/jsx/package.json",
         "packages/lambda-logger/package.json",
         "packages/letter/package.json",
+        "packages/serverless/package.json",
         "packages/service/package.json",
         "packages/printables/package.json",
         "packages/resume/package.json",
