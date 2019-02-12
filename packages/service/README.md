@@ -36,7 +36,6 @@ You'll also need to define some variables in a [`env.yml`](https://github.com/ra
 ```yml
 dev: &devConfig
   profile: serverless-dev
-  resourceStageBuilder: dev
   domainName: <where you want your service to be served from>
   acmArn: <an ACM ARN so serverless can setup for HTTPS>
   kmsKeyArn: <a KMS ARN so serverless-secrets can pull API keys and other `environmentSecrets` out of the SSM store>
