@@ -1,10 +1,10 @@
+import {RequestError} from "@randy.tarampi/js";
 import mime from "mime-types";
 import {
     checkHeader as checkMeVersionHeader,
     getHeaderValue as getMeVersionHeaderValue,
     headerName as meVersionHeaderName
 } from "../request/headers/version";
-import RequestError, {codes} from "../request/requestError";
 import responseBuilder from "./responseBuilder";
 
 /**
@@ -29,5 +29,5 @@ export default ({rss}, parsedHeaders) => {
         });
     }
 
-    throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);
+    throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, RequestError.codes.badRequest);
 };

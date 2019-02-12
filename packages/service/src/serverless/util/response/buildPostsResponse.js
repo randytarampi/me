@@ -1,9 +1,9 @@
+import {RequestError} from "@randy.tarampi/js";
 import {
     checkHeader as checkMeVersionHeader,
     getHeaderValue as getMeVersionHeaderValue,
     headerName as meVersionHeaderName
 } from "../request/headers/version";
-import RequestError, {codes} from "../request/requestError";
 import responseBuilder from "./responseBuilder";
 
 /**
@@ -98,5 +98,5 @@ export default ({posts, total, first, last, ...metadata}, parsedHeaders) => {
         return responseBuilder(buildPostsV3ResponseBody({posts, total, first, last, ...metadata}));
     }
 
-    throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, codes.badRequest);
+    throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, RequestError.codes.badRequest);
 };

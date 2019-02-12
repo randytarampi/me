@@ -1,6 +1,10 @@
+import {
+    httpStatusCodeToRequestErrorCode,
+    RequestError,
+    supportedHttpStatusCodesForRequestError
+} from "@randy.tarampi/js";
 import fetch from "isomorphic-fetch";
 import queryString from "query-string";
-import {RequestError, statusCodeToCode, supportedStatusCodes} from "../../../serverless/util/request/requestError";
 
 export const type = "facebook";
 
@@ -23,9 +27,9 @@ export const fetchFacebookEdge = (edge, accessToken, queryParameters, options) =
     .then(response => {
         const body = response.json();
 
-        if (supportedStatusCodes.includes(response.status)) {
+        if (supportedHttpStatusCodesForRequestError.includes(response.status)) {
             return body.then(body => {
-                throw new RequestError(body.error.message, response.status, statusCodeToCode[response.status]);
+                throw new RequestError(body.error.message, response.status, httpStatusCodeToRequestErrorCode[response.status]);
             });
         }
 

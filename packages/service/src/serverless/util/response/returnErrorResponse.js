@@ -1,5 +1,5 @@
+import {RequestError} from "@randy.tarampi/js";
 import logger from "../../../lib/logger";
-import RequestError from "../request/requestError";
 import responseBuilder from "./responseBuilder";
 
 /**

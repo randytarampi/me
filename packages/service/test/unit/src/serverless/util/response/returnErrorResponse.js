@@ -1,5 +1,5 @@
+import {RequestError} from "@randy.tarampi/js";
 import {expect} from "chai";
-import RequestError, {codes} from "../../../../../../src/serverless/util/request/requestError";
 import returnErrorResponse from "../../../../../../src/serverless/util/response/returnErrorResponse";
 
 describe("returnErrorResponse", function () {
@@ -13,7 +13,7 @@ describe("returnErrorResponse", function () {
             expect(response.body).to.contain(stubError.code);
             expect(response.statusCode).to.eql(stubError.statusCode);
         };
-        const stubError = new RequestError("woof", codes.badRequest);
+        const stubError = new RequestError("woof", RequestError.codes.badRequest);
 
         returnErrorResponse(stubEvent, stubContext, stubCallback)(stubError);
     });

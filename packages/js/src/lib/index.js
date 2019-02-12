@@ -11,3 +11,5 @@ export * from "./person";
 export * from "./photo";
 export * from "./post";
 export * from "./sizedPhoto";
+
+export * from "./requestError";

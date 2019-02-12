@@ -1,8 +1,8 @@
+import {RequestError, requestErrorCodeToHttpStatusCode} from "@randy.tarampi/js";
 import {expect} from "chai";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
 import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
-import {codes, codeToStatusCode} from "../../../../../../src/serverless/util/request/requestError";
 
 describe("facebookAuthCallback", function () {
     this.timeout(5000);
@@ -170,8 +170,8 @@ describe("facebookAuthCallback", function () {
         const stubErrorCallback = error => {
             try {
                 expect(error.message).to.eql("Tried to handle Facebook authentication response, but no `code` was received");
-                expect(error.code).to.eql(codes.badRequest);
-                expect(error.statusCode).to.eql(codeToStatusCode[codes.badRequest]);
+                expect(error.code).to.eql(RequestError.codes.badRequest);
+                expect(error.statusCode).to.eql(requestErrorCodeToHttpStatusCode[RequestError.codes.badRequest]);
                 done();
             } catch (expectationError) {
                 done(expectationError);

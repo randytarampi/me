@@ -1,4 +1,4 @@
-import RequestError, {codes} from "../requestError";
+import {RequestError} from "@randy.tarampi/js";
 
 /**
  * Define the header name for specifying the desired ME API version
@@ -20,11 +20,11 @@ export const validateHeader = headers => {
     }
 
     if (!Number.isFinite(headerValue)) {
-        throw new RequestError(`Expected \`${headerName}\` to be a number but got \`${headerValue}\` instead`, codes.badRequest);
+        throw new RequestError(`Expected \`${headerName}\` to be a number but got \`${headerValue}\` instead`, RequestError.codes.badRequest);
     } else if (headerValue > 0) {
         return true;
     } else {
-        throw new RequestError(`\`${headerName}\` is invalid`, codes.badRequest);
+        throw new RequestError(`\`${headerName}\` is invalid`, RequestError.codes.badRequest);
     }
 };
 

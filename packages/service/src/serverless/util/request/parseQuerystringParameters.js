@@ -1,5 +1,5 @@
+import {RequestError} from "@randy.tarampi/js";
 import logger from "../../../lib/logger";
-import RequestError, {codes} from "./requestError";
 
 export default (querystringParameters = {}) => {
     if (!querystringParameters) {
@@ -17,7 +17,7 @@ export default (querystringParameters = {}) => {
             parsedQuerystringParameters[property] = Number(querystringParameters[property]);
 
             if (Number.isNaN(parsedQuerystringParameters[property])) {
-                const error = new RequestError(`Expected \`${property}\` to be a number but got \`${querystringParameters[property]}\` instead`, codes.badRequest);
+                const error = new RequestError(`Expected \`${property}\` to be a number but got \`${querystringParameters[property]}\` instead`, RequestError.codes.badRequest);
                 logger.warn(error, error.message);
                 throw error;
             }

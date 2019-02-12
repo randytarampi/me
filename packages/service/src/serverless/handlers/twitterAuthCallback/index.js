@@ -1,8 +1,8 @@
+import {RequestError} from "@randy.tarampi/js";
 import {AuthInfoSearchParams} from "../../../lib/authInfoSearchParams";
 import logger from "../../../lib/logger";
 import {TwitterAuthInfo} from "../../../lib/sources/twitter/authInfo";
 import configureEnvironment from "../../util/configureEnvironment";
-import RequestError, {codes} from "../../util/request/requestError";
 import responseBuilder from "../../util/response/responseBuilder";
 import returnErrorResponse from "../../util/response/returnErrorResponse";
 
@@ -26,7 +26,7 @@ export default (event, context, callback) => {
                         callback(null, responseBuilder(authTokenResponse));
                     });
             } else {
-                return errorHandler(new RequestError("Tried to handle Twitter authentication response, but no `oauth_verifier` was received", codes.badRequest));
+                return errorHandler(new RequestError("Tried to handle Twitter authentication response, but no `oauth_verifier` was received", RequestError.codes.badRequest));
             }
         })
         .catch(errorHandler);
