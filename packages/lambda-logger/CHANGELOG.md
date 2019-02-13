@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/randytarampi/me/compare/v3.7.0...v3.7.1) (2019-02-13)
+
+**Note:** Version bump only for package @randy.tarampi/lambda-logger
+
+
+
+
+
 # [3.7.0](https://github.com/randytarampi/me/compare/v3.6.0...v3.7.0) (2019-02-12)
 
 **Note:** Version bump only for package @randy.tarampi/lambda-logger
