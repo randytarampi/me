@@ -12,7 +12,7 @@
     "@randy.tarampi/js": "3.7.1",
     "@randy.tarampi/lambda-logger": "3.7.1",
     "@randy.tarampi/serverless": "3.7.1",
-    "aws-sdk": "~2.401.0",
+    "aws-sdk": "~2.403.0",
     "aws-xray-sdk": "~2.2.0",
     "big.js": "~5.2.2",
     "dynamoose": "~1.6.1",
