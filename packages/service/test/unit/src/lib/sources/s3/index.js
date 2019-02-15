@@ -4,7 +4,7 @@ import {DateTime} from "luxon";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import S3Source from "../../../../../../src/lib/sources/s3";
-import {XRayedAwsSdk} from "../../../../../../src/lib/util";
+import {Aws} from "../../../../../../src/serverless/aws";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 
 describe("S3Source", function () {
@@ -163,7 +163,7 @@ describe("S3Source", function () {
             const s3Source = new S3Source(null, stubCacheClient);
 
             expect(S3Source.type).to.eql("s3");
-            expect(s3Source.client).to.be.instanceof(XRayedAwsSdk.S3);
+            expect(s3Source.client).to.be.instanceof(Aws.S3);
             expect(s3Source.cacheClient).to.eql(stubCacheClient);
             expect(s3Source.initializing).to.be.instanceOf(Promise);
             expect(s3Source).to.be.instanceOf(S3Source);

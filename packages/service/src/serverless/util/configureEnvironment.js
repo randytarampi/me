@@ -1,9 +1,9 @@
 import dynamoose from "dynamoose";
-import {XRayedAwsSdk} from "../../lib/util";
+import {Aws} from "../aws";
 import logger, {configureLogger} from "../logger";
 import loadServerlessSecrets from "./loadServerlessSecrets";
 
-dynamoose.AWS = XRayedAwsSdk;
+dynamoose.AWS = Aws;
 
 if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
     dynamoose.local();

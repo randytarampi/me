@@ -1,12 +1,12 @@
 import {Post} from "@randy.tarampi/js";
 import jsyaml from "js-yaml";
+import {Aws} from "../../../serverless/aws";
 import CachedDataSource from "../../cachedDataSource";
-import {XRayedAwsSdk} from "../../util";
 import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super(dataClient || new XRayedAwsSdk.S3(), cacheClient);
+        super(dataClient || new Aws.S3(), cacheClient);
     }
 
     get isEnabled() {
