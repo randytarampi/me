@@ -121,7 +121,7 @@ jobs:
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         - export TRAVIS_TAG=${TRAVIS_TAG:=v$REPO_VERSION}
         - export TRAVIS_TAG_COMMIT=${TRAVIS_TAG_COMMIT:=$(git rev-parse HEAD)}
-        - export TRAVIS_RELEASE_BODY=$(git log -1 --pretty=%B)
+        - export TRAVIS_RELEASE_BODY="$(git log -1 --pretty=%B)"
         - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
       v$REPO_VERSION."; export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD); git tag $TRAVIS_TAG; git push ci-push master; IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency ${CPUS_COUNT}; fi;'
         - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
