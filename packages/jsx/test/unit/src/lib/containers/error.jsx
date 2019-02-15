@@ -61,7 +61,7 @@ describe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router": {
+            "connected-react-router/immutable": {
                 "push": routerPushStub
             }
         });
@@ -108,7 +108,7 @@ describe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router": {
+            "connected-react-router/immutable": {
                 "push": routerPushStub
             }
         });
@@ -154,7 +154,7 @@ describe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router": {
+            "connected-react-router/immutable": {
                 "push": routerPushStub
             }
         });
@@ -193,7 +193,7 @@ describe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router": {
+            "connected-react-router/immutable": {
                 "push": routerPushStub
             }
         });
