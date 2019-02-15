@@ -9,7 +9,7 @@ export const ErrorENOTFOUNDContentComponent = props => <ConnectedBear emoji={Dou
         <span className="text">What are you looking for?</span>
     </h2>
     <p className="error__message">
-        I don't know who told you to come to <code>{`${window.location.origin}${props.location.get("pathname")}`}</code>,
+        I don't know who told you to come to <code>{`${window.location.origin}${props.location.pathname}`}</code>,
         but there's nothing here. You'll be redirected to the <InternalLink target="_self"
                                                                             href={`${props.redirectionLocation}`}>home
         page</InternalLink> in {props.redirectionTimeout} seconds.
