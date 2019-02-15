@@ -1,4 +1,4 @@
-import {LOCATION_CHANGE} from "connected-react-router";
+import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import {fromJS, List, Map} from "immutable";
 import {matchRoutes} from "react-router-config";
 import {createSelector} from "reselect";

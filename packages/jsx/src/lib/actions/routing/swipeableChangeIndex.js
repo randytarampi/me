@@ -1,4 +1,4 @@
-import {push} from "connected-react-router";
+import {push} from "connected-react-router/immutable";
 import {createAction} from "redux-actions";
 import selectors from "../../data/selectors";
 

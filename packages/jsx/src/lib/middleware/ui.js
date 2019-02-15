@@ -1,4 +1,4 @@
-import {LOCATION_CHANGE} from "connected-react-router";
+import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import $ from "jquery";
 import clearError from "../actions/error/clearError";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";

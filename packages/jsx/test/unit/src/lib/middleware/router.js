@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {LOCATION_CHANGE} from "connected-react-router";
+import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import sinon from "sinon";
 import router from "../../../../../src/lib/middleware/router";
 

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {LOCATION_CHANGE} from "connected-react-router";
+import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import {fromJS, List, Map} from "immutable";
 import {createAction} from "redux-actions";
 import {setRoutes} from "../../../../../src/lib/actions/routing/setRoutes";
@@ -7,12 +7,12 @@ import {swipeableChangeIndex} from "../../../../../src/lib/actions/routing/swipe
 import {swipeableTabChangeIndex} from "../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
 import {setControlState} from "../../../../../src/lib/actions/ui/setControlState";
 import reducer, {
+    getControlStateForId,
     getIndexForRoute,
     getRouteForIndex,
     getRoutes,
     getSwipeable,
-    getSwipeableIndex,
-    getControlStateForId
+    getSwipeableIndex
 } from "../../../../../src/lib/data/ui";
 
 describe("ui", function () {

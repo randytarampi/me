@@ -1,4 +1,4 @@
-import {push} from "connected-react-router";
+import {push} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";

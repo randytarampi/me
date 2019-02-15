@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import * as connectedReactRouter from "connected-react-router";
+import * as connectedReactRouter from "connected-react-router/immutable";
 import {Map} from "immutable/dist/immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
