@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/randytarampi/me/compare/v3.7.1...v3.8.0) (2019-02-17)
+
+
+### Features
+
+* **job-application:** Everything I hacked together for the [NRC](https://www.webcruiter.no/WcMain/AdvertViewPublic.aspx?oppdragsnr=3992176160&standalone=1&link_source_id=2000&hide_back_button=1&culture_id=EN&showexpired=true) post. ([493d2f3](https://github.com/randytarampi/me/commit/493d2f3))
+
+
+
+
+
 ## [3.7.2](https://github.com/randytarampi/me/compare/v3.7.1...v3.7.2) (2019-02-15)
 
 **Note:** Version bump only for package @randy.tarampi/letter
