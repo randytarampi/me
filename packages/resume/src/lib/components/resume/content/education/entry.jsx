@@ -3,10 +3,11 @@ import {CampaignLink} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
+import {ResumeCustomPrintableSectionContent} from "../../../../resumeCustomContent";
 
 const monthYearFormat = {month: "long", year: "numeric"};
 
-export const ResumeEducationEntry = ({educationEntry, index}) => {
+export const ResumeEducationEntry = ({educationEntry, index, customContentForType}) => {
     const startDate = castDatePropertyToDateTime(educationEntry.startDate);
     const endDate = educationEntry.endDate && castDatePropertyToDateTime(educationEntry.endDate) || null;
     const dateString = `${startDate.toLocaleString(monthYearFormat)} to ${endDate ? endDate.toLocaleString(monthYearFormat) : "Present"}`;
@@ -60,7 +61,7 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
                                 {
                                     educationEntry.courses.map((highlight, index) => {
                                         return <li
-                                            className={`resume-education-entry__highlight${index > 3 ? " hide-on-print" : ""}`}
+                                            className={`resume-education-entry__highlight${index > (customContentForType && customContentForType.meta && customContentForType.meta.get("maxPrintHighlights") || 3) ? " hide-on-print" : ""}`}
                                             key={index}>
                                             {highlight}
                                         </li>;
@@ -77,7 +78,8 @@ export const ResumeEducationEntry = ({educationEntry, index}) => {
 
 ResumeEducationEntry.propTypes = {
     index: PropTypes.number.isRequired,
-    educationEntry: PropTypes.object.isRequired
+    educationEntry: PropTypes.object.isRequired,
+    customContentForType: PropTypes.instanceOf(ResumeCustomPrintableSectionContent)
 };
 
 export default ResumeEducationEntry;

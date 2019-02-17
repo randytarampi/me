@@ -26,7 +26,7 @@ ResumeProjects.propTypes = {
     resume: PropTypes.object.isRequired,
     type: PropTypes.string,
     label: PropTypes.string,
-    customContent: PropTypes.object.isRequired
+    customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
 };
 
 ResumeProjects.defaultProps = {

@@ -15,7 +15,8 @@ export const ResumeEducation = ({resume, customContent, type, label}) => {
     >
         {
             resume.education.map((educationEntry, index) => {
-                return <ResumeEducationEntry educationEntry={educationEntry} key={index} index={index}/>;
+                return <ResumeEducationEntry educationEntry={educationEntry} key={index} index={index}
+                                             customContentForType={customContent[type]}/>;
             })
         }
     </PrintableSection>;
@@ -25,7 +26,7 @@ ResumeEducation.propTypes = {
     resume: PropTypes.object.isRequired,
     label: PropTypes.string,
     type: PropTypes.string,
-    customContent: PropTypes.object.isRequired
+    customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
 };
 
 ResumeEducation.defaultProps = {

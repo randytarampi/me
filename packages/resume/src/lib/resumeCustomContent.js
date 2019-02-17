@@ -1,16 +1,30 @@
-import {Record} from "immutable";
+import {Map, Record} from "immutable";
 
 export class ResumeCustomPrintableSectionContent extends Record({
     label: null,
     labelNode: null,
     description: null,
-    descriptionNode: null
+    descriptionNode: null,
+    meta: Map()
 }) {
+    static fromJS({meta, ...js} = {}) {
+        return new ResumeCustomPrintableSectionContent({
+            ...js,
+            meta: Map(meta)
+        });
+    }
 }
 
 export class ResumeCustomPrintableFooterContent extends Record({
-    body: null
+    body: null,
+    meta: Map()
 }) {
+    static fromJS({meta, ...js} = {}) {
+        return new ResumeCustomPrintableFooterContent({
+            ...js,
+            meta: Map(meta)
+        });
+    }
 }
 
 export class ResumeCustomContent extends Record({

@@ -6,9 +6,11 @@ export const LetterSalutation = ({letter, contentConfiguration}) => {
     const greeting = contentConfiguration.contentProps.greeting || "Hello";
     const punctuation = contentConfiguration.contentProps.punctuation || ",";
     const name = contentConfiguration.contentProps.name || letter.recipient && letter.recipient.firstName;
-    const salutation = name
-        ? `${greeting} ${name}${punctuation}`
-        : "To whom it may concern,";
+    const salutation = contentConfiguration.contentProps.salutation
+        ? contentConfiguration.contentProps.salutation
+        : name
+            ? `${greeting} ${name}${punctuation}`
+            : "To whom it may concern,";
 
     return <RightPushSection
         {...contentConfiguration.contentProps}
@@ -21,7 +23,7 @@ export const LetterSalutation = ({letter, contentConfiguration}) => {
 
 LetterSalutation.propTypes = {
     letter: PropTypes.object.isRequired,
-    contentConfiguration: PropTypes.object.isRequired,
+    contentConfiguration: PropTypes.object.isRequired
 };
 
 export default LetterSalutation;

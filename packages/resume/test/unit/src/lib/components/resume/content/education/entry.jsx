@@ -1,8 +1,10 @@
 import {CampaignLink} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {shallow} from "enzyme";
+import {Map} from "immutable";
 import React from "react";
 import ResumeEducationEntry from "../../../../../../../../src/lib/components/resume/content/education/entry";
+import {ResumeCustomPrintableSectionContent} from "../../../../../../../../src/lib/resumeCustomContent";
 
 describe("ResumeEducationEntry", function () {
     let stubResumeEducationEntry;
@@ -48,6 +50,19 @@ describe("ResumeEducationEntry", function () {
         expect(rendered).to.have.descendants(".resume-education-entry__highlight");
         expect(rendered.find(".resume-education-entry__highlight")).to.have.length(stubResumeEducationEntry.courses.length);
         expect(rendered.find(".resume-education-entry__highlight.hide-on-print")).to.have.length(stubResumeEducationEntry.courses.length - 4);
+    });
+
+    it("renders (obeys `customContentForType`)", function () {
+        const stubCustomContentForType = new ResumeCustomPrintableSectionContent({
+            meta: Map({
+                maxPrintHighlights: 4
+            })
+        });
+        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}
+                                                       customContentForType={stubCustomContentForType}/>);
+
+        expect(rendered.find(".resume-education-entry__highlight")).to.have.length(stubResumeEducationEntry.courses.length);
+        expect(rendered.find(".resume-education-entry__highlight.hide-on-print")).to.have.length(stubResumeEducationEntry.courses.length - (stubCustomContentForType.meta.get("maxPrintHighlights") + 1));
     });
 
     it("renders (no end date)", function () {

@@ -25,7 +25,7 @@ export const ResumeFooter = ({customContent}) => {
 
 ResumeFooter.propTypes = {
     resume: PropTypes.object.isRequired,
-    customContent: PropTypes.object.isRequired
+    customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
 };
 
 ResumeFooter.defaultProps = {
