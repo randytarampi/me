@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/randytarampi/me/compare/v3.7.1...v3.9.0) (2019-02-17)
+
+
+### Bug Fixes
+
+* **jsx:** ESLint. ([84cbac2](https://github.com/randytarampi/me/commit/84cbac2))
+* **jsx:** Fix bad stubs forgotten in e0330136a7aa32ee919b43df7793537bad49e34f. ([82e092d](https://github.com/randytarampi/me/commit/82e092d))
+* **jsx:** Just use `getLocation` from `connected-react-router`. ([e033013](https://github.com/randytarampi/me/commit/e033013))
+
+
+### Features
+
+* **package:** Add `repository.directory` field to `package.json` per https://github.com/lerna/lerna/commit/aec5023. ([9cf9a50](https://github.com/randytarampi/me/commit/9cf9a50))
+
+
+
+
+
 # [3.8.0](https://github.com/randytarampi/me/compare/v3.7.1...v3.8.0) (2019-02-17)
 
 
