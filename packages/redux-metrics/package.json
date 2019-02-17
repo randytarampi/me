@@ -16,7 +16,7 @@
     "@babel/cli": "~7.2.3",
     "gulp": "~4.0.0",
     "mocha": "~5.2.0",
-    "nyc": "~13.2.0"
+    "nyc": "~13.3.0"
   },
   "directories": {
     "lib": "./src/lib",
@@ -42,7 +42,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/redux-metrics",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {
     "build": "npm run build:babel",
     "build:babel": "npm run build:babel:esm && npm run build:babel:es5",

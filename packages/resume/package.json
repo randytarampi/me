@@ -95,7 +95,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/resume",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {
     "build": "npm run build:gulp && npm run build:babel",
     "build:babel": "npm run build:babel:esm && npm run build:babel:es5",

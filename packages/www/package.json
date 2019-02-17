@@ -52,7 +52,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/www",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {
     "build": "CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",

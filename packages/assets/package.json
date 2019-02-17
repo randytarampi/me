@@ -17,6 +17,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/assets",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {}
 }

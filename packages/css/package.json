@@ -26,7 +26,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/css",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {
     "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",

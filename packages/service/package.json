@@ -52,7 +52,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/service",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {
     "clean": "gulp -LLLL --color clean",
     "cover": "rm -rf coverage/ .nyc_output/; npm run pretest:dynamodb-local && NODE_ENV=test nyc gulp -LLLL --color test && npm run kill:dynamodb-local",
