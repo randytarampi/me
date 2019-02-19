@@ -15,6 +15,7 @@
         "packages/serverless/package.json",
         "packages/service/package.json",
         "packages/printables/package.json",
+        "packages/redux-metrics/package.json",
         "packages/resume/package.json",
         "packages/views/package.json",
         "packages/www/package.json"
