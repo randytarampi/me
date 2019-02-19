@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.1](https://github.com/randytarampi/me/compare/v3.9.0...v3.9.1) (2019-02-19)
+
+
+### Reverts
+
+* chore(service): Consolidate these two `iamRoleStatements`. ([ce2741f](https://github.com/randytarampi/me/commit/ce2741f))
+
+
+
+
+
 # [3.9.0](https://github.com/randytarampi/me/compare/v3.7.1...v3.9.0) (2019-02-17)
 
 
