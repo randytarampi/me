@@ -29,7 +29,7 @@
     "rss": "~1.2.2",
     "tumblr.js": "~2.0.0",
     "twitter": "^1.7.1",
-    "unsplash-js": "~4.8.0"
+    "unsplash-js": "~5.0.0"
   },
   "devDependencies": {
     "@babel/cli": "~7.2.3",
