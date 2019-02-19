@@ -11,14 +11,14 @@
   "dependencies": {
     "@randy.tarampi/resume": "3.9.1",
     "@randy.tarampi/views": "3.9.1",
-    "config": "~3.0.1"
+    "config": "3.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "gulp": "~4.0.0",
+    "@babel/cli": "7.2.3",
+    "gulp": "4.0.0",
     "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
-    "webpack": "~4.29.0",
-    "webpack-bundle-analyzer": "~3.0.3"
+    "webpack": "4.29.0",
+    "webpack-bundle-analyzer": "3.0.3"
   },
   "directories": {
     "lib": "./src/lib",

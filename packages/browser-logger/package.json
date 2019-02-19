@@ -10,16 +10,16 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "3.9.1",
-    "browser-bunyan": "~1.5.0",
-    "bunyan": "~2.0.2",
+    "browser-bunyan": "1.5.0",
+    "bunyan": "2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven-js": "~3.27.0"
+    "raven-js": "3.27.0"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "gulp": "~4.0.0",
-    "mocha": "~6.0.0",
-    "nyc": "~13.3.0"
+    "@babel/cli": "7.2.3",
+    "gulp": "4.0.0",
+    "mocha": "6.0.0",
+    "nyc": "13.3.0"
   },
   "directories": {
     "lib": "./src/lib",

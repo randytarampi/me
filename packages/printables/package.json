@@ -11,18 +11,18 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "3.9.1",
-    "exiftool-vendored": "~8.0.0",
-    "pug": "~2.0.3",
-    "puppeteer": "~1.12.2",
-    "react": "~16.8.1",
-    "react-dom": "~16.8.1",
-    "react-helmet": "~5.2.0"
+    "exiftool-vendored": "8.0.0",
+    "pug": "2.0.3",
+    "puppeteer": "1.12.2",
+    "react": "16.8.1",
+    "react-dom": "16.8.1",
+    "react-helmet": "5.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "gulp": "~4.0.0",
-    "mocha": "~6.0.0",
-    "nyc": "~13.3.0"
+    "@babel/cli": "7.2.3",
+    "gulp": "4.0.0",
+    "mocha": "6.0.0",
+    "nyc": "13.3.0"
   },
   "directories": {
     "lib": "./src/lib",

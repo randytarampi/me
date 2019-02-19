@@ -9,16 +9,16 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "bunyan": "~2.0.2",
-    "bunyan-format": "~0.2.1",
+    "bunyan": "2.0.2",
+    "bunyan-format": "0.2.1",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven": "~2.6.4"
+    "raven": "2.6.4"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "gulp": "~4.0.0",
-    "mocha": "~6.0.0",
-    "nyc": "~13.3.0"
+    "@babel/cli": "7.2.3",
+    "gulp": "4.0.0",
+    "mocha": "6.0.0",
+    "nyc": "13.3.0"
   },
   "directories": {
     "lib": "./src/lib",

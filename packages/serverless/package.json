@@ -10,15 +10,15 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "3.9.1",
-    "aws-sdk": "~2.406.0",
-    "aws-xray-sdk": "~2.2.0",
-    "mime-types": "~2.1.21"
+    "aws-sdk": "2.406.0",
+    "aws-xray-sdk": "2.2.0",
+    "mime-types": "2.1.21"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "gulp": "~4.0.0",
-    "mocha": "~6.0.0",
-    "nyc": "~13.3.0"
+    "@babel/cli": "7.2.3",
+    "gulp": "4.0.0",
+    "mocha": "6.0.0",
+    "nyc": "13.3.0"
   },
   "directories": {
     "lib": "./src/lib",
