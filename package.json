@@ -28,7 +28,7 @@
     "commander": "2.19.0",
     "config": "3.0.1",
     "connect-history-api-fallback": "1.6.0",
-    "copy-webpack-plugin": "4.6.0",
+    "copy-webpack-plugin": "5.0.0",
     "coveralls": "3.0.2",
     "css-loader": "2.1.0",
     "del": "3.0.0",
