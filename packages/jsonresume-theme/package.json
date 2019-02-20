@@ -17,8 +17,8 @@
     "@babel/cli": "7.2.3",
     "gulp": "4.0.0",
     "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
-    "webpack": "4.29.0",
-    "webpack-bundle-analyzer": "3.0.3"
+    "webpack": "4.29.5",
+    "webpack-bundle-analyzer": "3.0.4"
   },
   "directories": {
     "lib": "./src/lib",
