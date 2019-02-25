@@ -34,7 +34,7 @@
   "devDependencies": {
     "@babel/cli": "7.2.3",
     "gulp": "4.0.0",
-    "mocha": "6.0.0",
+    "mocha": "6.0.2",
     "nyc": "13.3.0",
     "serverless": "1.37.1",
     "webpack": "4.29.5",
