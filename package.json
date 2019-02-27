@@ -111,7 +111,7 @@
     "webpack-node-externals": "1.7.2",
     "webpack-sentry-plugin": "1.16.0",
     "webpack-serve": "2.0.3",
-    "workbox-webpack-plugin": "3.6.3",
+    "workbox-webpack-plugin": "4.0.0",
     "ws": "6.1.4",
     "yargs": "13.2.1"
   },
