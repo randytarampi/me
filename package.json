@@ -99,7 +99,7 @@
     "serverless-plugin-warmup": "4.3.3-rc.1",
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "serverless-webpack": "5.2.0",
-    "sinon": "7.2.4",
+    "sinon": "7.2.5",
     "svg-path-loader": "0.0.4",
     "syncpack": "4.3.1",
     "terser-webpack-plugin": "1.2.2",
