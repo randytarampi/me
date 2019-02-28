@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/www.sw.installer.js"
   },
   {
-    "revision": "d45b08845dcefe849c63",
+    "revision": "a998c3f0457443d942fd",
     "url": "/www.js"
   },
   {
