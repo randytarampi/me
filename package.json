@@ -30,7 +30,7 @@
     "connect-history-api-fallback": "1.6.0",
     "copy-webpack-plugin": "5.0.0",
     "coveralls": "3.0.3",
-    "css-loader": "2.1.0",
+    "css-loader": "2.1.1",
     "del": "3.0.0",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.10.0",
