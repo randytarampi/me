@@ -113,7 +113,7 @@
     "webpack-serve": "2.0.3",
     "workbox-webpack-plugin": "4.1.0",
     "ws": "6.1.4",
-    "yargs": "13.2.1"
+    "yargs": "13.2.2"
   },
   "bugs": {
     "url": "https://github.com/randytarampi/me/issues",
