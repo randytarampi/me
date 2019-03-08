@@ -9,7 +9,7 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "1.11.3",
+    "luxon": "1.11.4",
     "react-metrics": "2.4.1"
   },
   "devDependencies": {
