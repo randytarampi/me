@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/service",
   "description": "The backend for www.randytarampi.ca",
-  "version": "3.9.4",
+  "version": "3.9.5",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -9,9 +9,9 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "3.9.4",
-    "@randy.tarampi/lambda-logger": "3.9.4",
-    "@randy.tarampi/serverless": "3.9.4",
+    "@randy.tarampi/js": "3.9.5",
+    "@randy.tarampi/lambda-logger": "3.9.5",
+    "@randy.tarampi/serverless": "3.9.5",
     "big.js": "5.2.2",
     "dynamoose": "1.6.5",
     "flickr-sdk": "3.8.0",
