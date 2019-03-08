@@ -15,11 +15,11 @@
     "haversine": "1.1.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "latlon-geohash": "1.1.0",
-    "libphonenumber-js": "1.7.9",
+    "libphonenumber-js": "1.7.10",
     "lodash": "4.17.11",
-    "luxon": "1.11.3",
+    "luxon": "1.11.4",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
-    "query-string": "6.2.0"
+    "query-string": "6.3.0"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",
