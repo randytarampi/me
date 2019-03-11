@@ -16,10 +16,5 @@
                 display: unset !important
             }
         }
-
-        &--link,
-        &--words {
-            @extend .z-depth-0;
-        }
     }
 }

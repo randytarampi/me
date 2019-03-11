@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.6](https://github.com/randytarampi/me/compare/v3.9.5...v3.9.6) (2019-03-10)
+
+
+### Bug Fixes
+
+* **css:** Remove elevation on `.post--link` and `.post--words`. ([478b905](https://github.com/randytarampi/me/commit/478b905))
+
+
+### Performance Improvements
+
+* **jsx:** Set `FETCHING_MAPPED_POSTS_PER_PAGE` to 16. ([6e2b0f5](https://github.com/randytarampi/me/commit/6e2b0f5))
+
+
+
+
+
+## [3.9.5](https://github.com/randytarampi/me/compare/v3.9.4...v3.9.5) (2019-03-08)
+
+**Note:** Version bump only for package me
+
+
+
+
+
 ## [3.9.4](https://github.com/randytarampi/me/compare/v3.9.3...v3.9.4) (2019-02-28)
 
 **Note:** Version bump only for package me

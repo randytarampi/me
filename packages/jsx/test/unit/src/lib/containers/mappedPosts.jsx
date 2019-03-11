@@ -6,7 +6,7 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
-import {MAPPED_POSTS_FETCH_DEBOUNCE_DELAY} from "../../../../../src/lib/containers";
+import {FETCHING_MAPPED_POSTS_PER_PAGE, MAPPED_POSTS_FETCH_DEBOUNCE_DELAY} from "../../../../../src/lib/containers";
 import * as api from "../../../../../src/lib/data/api";
 import selectors from "../../../../../src/lib/data/selectors";
 import {shallow} from "../../../../../src/test/util";
@@ -32,7 +32,13 @@ describe("MappedPosts", function () {
         stubStore = mockStore(stubInitialState);
 
         stubPhotos = List([
-            Photo.fromJSON({id: "meow", lat: 0.1, long: -0.1, dateCreated: new Date(1900, 0, 1).toISOString(), tags: ["meow"]}),
+            Photo.fromJSON({
+                id: "meow",
+                lat: 0.1,
+                long: -0.1,
+                dateCreated: new Date(1900, 0, 1).toISOString(),
+                tags: ["meow"]
+            }),
             Photo.fromJSON({id: "rawr", lat: -0.1, long: 0.1, dateCreated: new Date(3000, 0, 1).toISOString()})
         ]);
         stubWords = List([
@@ -45,7 +51,7 @@ describe("MappedPosts", function () {
                 north: 1,
                 east: 1,
                 south: -1,
-                west: -1,
+                west: -1
             })
         });
 
@@ -286,7 +292,7 @@ describe("MappedPosts", function () {
                 // expect(fetchPostsStub.calledOnce).to.eql(true);
                 sinon.assert.calledWith(fetchPostsStub, stubProps.id, stubProps.fetchUrl, stubProps.type, {
                     ...stubProps.match.params,
-                    perPage: 64
+                    perPage: FETCHING_MAPPED_POSTS_PER_PAGE
                 });
             });
     });

@@ -119,6 +119,8 @@
 
     &--link,
     &--words {
+        @extend .z-depth-0;
+
         .post-body {
             &__text {
                 @extend .z-depth-0;
