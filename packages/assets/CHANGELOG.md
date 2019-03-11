@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.7](https://github.com/randytarampi/me/compare/v3.9.6...v3.9.7) (2019-03-11)
+
+**Note:** Version bump only for package @randy.tarampi/assets
+
+
+
+
+
 ## [3.9.6](https://github.com/randytarampi/me/compare/v3.9.5...v3.9.6) (2019-03-10)
 
 **Note:** Version bump only for package @randy.tarampi/assets
