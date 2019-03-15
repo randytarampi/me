@@ -36,7 +36,7 @@
     "gulp": "4.0.0",
     "mocha": "6.0.2",
     "nyc": "13.3.0",
-    "serverless": "1.38.0",
+    "serverless": "1.39.0",
     "webpack": "4.29.6",
     "webpack-cli": "3.2.3"
   },
