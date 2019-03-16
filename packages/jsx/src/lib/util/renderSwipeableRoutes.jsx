@@ -53,7 +53,11 @@ export const RenderedSwipeableRoutes = ({location, routes, extraProps, swipeable
 
         routes.forEach(route => {
             if (match === null) {
-                match = matchPath(location.pathname, route);
+                if (route.path) {
+                    match = matchPath(location.pathname, route);
+                } else {
+                    matchedUnswipeableRoutes.push(route);
+                }
 
                 if (match !== null && !swipeableRoutes.includes(route)) {
                     matchedUnswipeableRoutes.push(route);
