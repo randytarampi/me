@@ -136,13 +136,11 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     onError:
       Ref: LambdaDeadLetterQueue
   getPosts:
-    warmup: true
     handler: src/serverless/handlers/getPosts/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
   getPostsRss:
-    warmup: true
     handler: src/serverless/handlers/getPostsRss/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
     onError:
