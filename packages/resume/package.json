@@ -19,7 +19,7 @@
     "@randy.tarampi/views": "3.9.7",
     "config": "3.0.1",
     "exiftool-vendored": "8.6.0",
-    "history": "4.7.2",
+    "history": "4.9.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "isomorphic-fetch": "2.2.1",
     "luxon": "1.11.4",
