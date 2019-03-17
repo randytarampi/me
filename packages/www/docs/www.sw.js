@@ -11,10 +11,10 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.1.0/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.1.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.217850b577798a5ab6e81ae044b9e82f.js"
+  "/precache-manifest.463939ab3fb188e8efaf3c9422e97d98.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});

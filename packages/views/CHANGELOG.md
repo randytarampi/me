@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.8](https://github.com/randytarampi/me/compare/v3.9.7...v3.9.8) (2019-03-17)
+
+**Note:** Version bump only for package @randy.tarampi/views
+
+
+
+
+
 ## [3.9.7](https://github.com/randytarampi/me/compare/v3.9.6...v3.9.7) (2019-03-11)
 
 **Note:** Version bump only for package @randy.tarampi/views

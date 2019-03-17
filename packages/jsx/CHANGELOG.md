@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.8](https://github.com/randytarampi/me/compare/v3.9.7...v3.9.8) (2019-03-17)
+
+
+### Bug Fixes
+
+* **jsx:** Fix for the upgrade to react-router-config@4.4.0 in [#384](https://github.com/randytarampi/me/issues/384) ([be78846](https://github.com/randytarampi/me/commit/be78846))
+
+
+### Reverts
+
+* perf(jsx): Set `FETCHING_MAPPED_POSTS_PER_PAGE` to 16. ([aaec473](https://github.com/randytarampi/me/commit/aaec473))
+
+
+
+
+
 ## [3.9.7](https://github.com/randytarampi/me/compare/v3.9.6...v3.9.7) (2019-03-11)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
