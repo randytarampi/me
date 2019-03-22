@@ -14,7 +14,7 @@
     "exiftool-vendored": "8.6.0",
     "pug": "2.0.3",
     "puppeteer": "1.13.0",
-    "react": "16.8.4",
+    "react": "16.8.5",
     "react-dom": "16.8.4",
     "react-helmet": "5.2.0"
   },
