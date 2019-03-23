@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/browser-logger",
   "description": "A client-side-logger for www.randytarampi.ca",
-  "version": "3.9.10",
+  "version": "3.10.0",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -9,7 +9,7 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "3.9.10",
+    "@randy.tarampi/js": "3.10.0",
     "browser-bunyan": "1.5.0",
     "bunyan": "2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
