@@ -1,0 +1,9 @@
+--------------------------a1a1e9e776c3734b
+Content-Disposition: form-data; name="file"; filename="berlin.json"
+Content-Type: application/octet-stream
+
+{
+  "lat": 52.502931,
+  "lng": 13.408249
+}
+--------------------------a1a1e9e776c3734b--

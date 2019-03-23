@@ -1,0 +1,26 @@
+--------------------------81905c4e69b81594
+Content-Disposition: form-data; name="file"; filename="berlin.json"
+Content-Type: application/octet-stream
+
+{
+"lat": 52.502931,
+"lng": 13.408249
+}
+--------------------------81905c4e69b81594
+Content-Disposition: form-data; name="file"; filename="munich.json"
+Content-Type: application/octet-stream
+
+{
+"lat": 48.137154,
+"lng": 11.576124
+}
+--------------------------81905c4e69b81594
+Content-Disposition: form-data; name="file"; filename="vancouver.json"
+Content-Type: application/octet-stream
+
+{
+"lat": 49.2498462,
+"lng": -123.123176
+}
+
+--------------------------81905c4e69b81594--

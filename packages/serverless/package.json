@@ -12,6 +12,7 @@
     "@randy.tarampi/js": "3.9.10",
     "aws-sdk": "2.423.0",
     "aws-xray-sdk": "2.2.0",
+    "busboy": "0.3.0",
     "mime-types": "2.1.22"
   },
   "devDependencies": {
