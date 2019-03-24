@@ -95,7 +95,7 @@
     "materialize-css": "0.100.2",
     "react": "16.8.4",
     "react-dom": "16.8.4",
-    "react-materialize": "2.6.0",
+    "react-materialize": "3.0.0",
     "react-redux": "5.1.1",
     "redux": "4.0.1"
   },
