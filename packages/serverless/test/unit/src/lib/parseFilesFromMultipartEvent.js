@@ -1,3 +1,4 @@
+import {Buffer} from "buffer";
 import {expect} from "chai";
 import fs from "fs";
 import path from "path";
@@ -29,7 +30,7 @@ describe("parseFilesFromMultipartEvent", function () {
     it("parses a file (string)", function () {
         return parseFilesFromMultipartEvent(stubEvent)
             .then(parsedFileAndMetadata => {
-                expect(parsedFileAndMetadata.file["berlin.json"].data).to.be.a("string");
+                expect(parsedFileAndMetadata.file["berlin.json"].data).to.be.instanceOf(Buffer);
                 expect(parsedFileAndMetadata.file["berlin.json"].encoding).to.eql("7bit");
                 expect(parsedFileAndMetadata.file["berlin.json"].contentType).to.eql("application/octet-stream");
             });
@@ -41,7 +42,7 @@ describe("parseFilesFromMultipartEvent", function () {
 
         return parseFilesFromMultipartEvent(stubEvent)
             .then(parsedFileAndMetadata => {
-                expect(parsedFileAndMetadata.file["ʕつ•ᴥ•ʔつ-square-knockout-orange.png"].data).to.be.a("string");
+                expect(parsedFileAndMetadata.file["ʕつ•ᴥ•ʔつ-square-knockout-orange.png"].data).to.be.instanceOf(Buffer);
                 expect(parsedFileAndMetadata.file["ʕつ•ᴥ•ʔつ-square-knockout-orange.png"].encoding).to.eql("7bit");
                 expect(parsedFileAndMetadata.file["ʕつ•ᴥ•ʔつ-square-knockout-orange.png"].contentType).to.eql("application/octet-stream");
             });
@@ -54,7 +55,7 @@ describe("parseFilesFromMultipartEvent", function () {
         return parseFilesFromMultipartEvent(stubEvent)
             .then(parsedFileAndMetadata => {
                 ["berlin.json", "munich.json", "vancouver.json"].forEach(locationFile => {
-                    expect(parsedFileAndMetadata.file[locationFile].data).to.be.a("string");
+                    expect(parsedFileAndMetadata.file[locationFile].data).to.be.instanceOf(Buffer);
                     expect(parsedFileAndMetadata.file[locationFile].encoding).to.eql("7bit");
                     expect(parsedFileAndMetadata.file[locationFile].contentType).to.eql("application/octet-stream");
                 });
@@ -80,7 +81,7 @@ describe("parseFilesFromMultipartEvent", function () {
 
         return parseFilesFromMultipartEvent(stubEvent)
             .then(parsedFileAndMetadata => {
-                expect(parsedFileAndMetadata.file["berlin.json"].data).to.be.a("string");
+                expect(parsedFileAndMetadata.file["berlin.json"].data).to.be.instanceOf(Buffer);
                 expect(parsedFileAndMetadata.file["berlin.json"].encoding).to.eql("7bit");
                 expect(parsedFileAndMetadata.file["berlin.json"].contentType).to.eql("application/octet-stream");
             });
@@ -92,7 +93,7 @@ describe("parseFilesFromMultipartEvent", function () {
 
         return parseFilesFromMultipartEvent(stubEvent)
             .then(parsedFileAndMetadata => {
-                expect(parsedFileAndMetadata.file["berlin.json"].data).to.be.a("string");
+                expect(parsedFileAndMetadata.file["berlin.json"].data).to.be.instanceOf(Buffer);
                 expect(parsedFileAndMetadata.file["berlin.json"].encoding).to.eql("7bit");
                 expect(parsedFileAndMetadata.file["berlin.json"].contentType).to.eql("application/octet-stream");
             });
