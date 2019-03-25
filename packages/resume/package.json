@@ -22,7 +22,7 @@
     "history": "4.9.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "isomorphic-fetch": "2.2.1",
-    "luxon": "1.11.4",
+    "luxon": "1.12.0",
     "materialize-css": "0.100.2",
     "prop-types": "15.7.2",
     "pug": "2.0.3",
