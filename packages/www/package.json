@@ -24,7 +24,7 @@
     "materialize-css": "0.100.2",
     "prop-types": "15.7.2",
     "react": "16.8.6",
-    "react-dom": "16.8.5",
+    "react-dom": "16.8.6",
     "react-helmet": "5.2.0",
     "react-hot-loader": "4.8.0",
     "react-materialize": "2.6.0",
