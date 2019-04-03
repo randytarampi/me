@@ -87,7 +87,7 @@
     "redux-mock-store": "1.5.3",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0",
-    "resolve-url-loader": "3.0.1",
+    "resolve-url-loader": "3.1.0",
     "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
     "sass-loader": "7.1.0",
     "serverless": "1.39.1",
