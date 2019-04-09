@@ -80,7 +80,7 @@
     "react-dom": "16.8.5",
     "react-hot-loader": "4.8.0",
     "react-materialize": "2.6.0",
-    "react-redux": "5.1.1",
+    "react-redux": "7.0.0",
     "react-router": "5.0.0",
     "react-router-sitemap": "github:randytarampi/react-router-sitemap#me-release",
     "redux": "4.0.1",
