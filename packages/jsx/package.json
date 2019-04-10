@@ -91,7 +91,7 @@
   "peerDependencies": {
     "history": "4.9.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
-    "jquery": "3.3.1",
+    "jquery": "3.4.0",
     "materialize-css": "0.100.2",
     "react": "16.8.5",
     "react-dom": "16.8.5",
