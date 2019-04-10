@@ -24,7 +24,7 @@
     "immutable": "github:randytarampi/immutable-js#me-release",
     "is-html": "1.1.0",
     "isomorphic-fetch": "2.2.1",
-    "jquery": "3.3.1",
+    "jquery": "3.4.0",
     "lodash": "4.17.11",
     "luxon": "1.12.0",
     "materialize-css": "0.100.2",
