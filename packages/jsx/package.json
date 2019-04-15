@@ -93,8 +93,8 @@
     "immutable": "github:randytarampi/immutable-js#me-release",
     "jquery": "3.4.0",
     "materialize-css": "0.100.2",
-    "react": "16.8.5",
-    "react-dom": "16.8.5",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "react-materialize": "2.6.0",
     "react-redux": "7.0.2",
     "redux": "4.0.1"
