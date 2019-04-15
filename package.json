@@ -66,7 +66,7 @@
     "lerna": "3.13.1",
     "lodash": "4.17.11",
     "materialize-css": "0.100.2",
-    "mini-css-extract-plugin": "0.5.0",
+    "mini-css-extract-plugin": "0.6.0",
     "mocha": "6.0.2",
     "mock-local-storage": "1.1.8",
     "nyc": "13.3.0",
