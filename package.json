@@ -63,7 +63,7 @@
     "koa-connect": "2.0.1",
     "koa-mount": "4.0.0",
     "koa-static": "5.0.0",
-    "lerna": "3.13.1",
+    "lerna": "3.13.2",
     "lodash": "4.17.11",
     "materialize-css": "0.100.2",
     "mini-css-extract-plugin": "0.6.0",
