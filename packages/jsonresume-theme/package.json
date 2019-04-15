@@ -11,7 +11,7 @@
   "dependencies": {
     "@randy.tarampi/resume": "3.10.1",
     "@randy.tarampi/views": "3.10.1",
-    "config": "3.0.1"
+    "config": "3.1.0"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",
