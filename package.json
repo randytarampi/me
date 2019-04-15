@@ -106,7 +106,7 @@
     "uglifyjs-webpack-plugin": "2.1.2",
     "vinyl-paths": "2.1.0",
     "webpack": "4.30.0",
-    "webpack-bundle-analyzer": "3.1.0",
+    "webpack-bundle-analyzer": "3.3.2",
     "webpack-cli": "3.3.0",
     "webpack-node-externals": "1.7.2",
     "webpack-sentry-plugin": "2.0.0",
