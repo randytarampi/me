@@ -46,7 +46,7 @@ export const connectGoogleMap = connect(
         };
     },
     null,
-    {forwardRef: true}
+    {withRef: true}
 );
 
 export const ConnectedGoogleMap = connectGoogleMap(GoogleMapComponent);
