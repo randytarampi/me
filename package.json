@@ -90,7 +90,7 @@
     "resolve-url-loader": "3.1.0",
     "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
     "sass-loader": "7.1.0",
-    "serverless": "1.39.1",
+    "serverless": "1.40.0",
     "serverless-api-compression": "1.0.1",
     "serverless-domain-manager": "3.2.1",
     "serverless-dynamodb-local": "github:randytarampi/serverless-dynamodb-local#me-release",
