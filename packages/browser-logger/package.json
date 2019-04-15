@@ -10,7 +10,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "3.10.1",
-    "browser-bunyan": "1.5.0",
+    "browser-bunyan": "1.5.2",
     "bunyan": "2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "raven-js": "3.27.0"
