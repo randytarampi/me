@@ -15,12 +15,6 @@ global.navigator = {
 };
 global.location = jsdom.window.location;
 
-global.$ = global.jQuery = require("jquery");
-global.Hammer = require("materialize-css/js/hammer.min");
-global.Velocity = require("materialize-css/js/velocity.min");
-global.Materialize = global.Materialize || {}; // NOTE-RT: Gross – gotta do this up here to sidestep all the weirdness of mocking how we're requiring `materialize-css` in `@randy.tarampi/jsx`.
-require("materialize-css");
-
 Enzyme.configure({adapter: new EnzymeAdapter()});
 chai.use(chaiEnzyme());
 

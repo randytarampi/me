@@ -24,10 +24,9 @@
     "immutable": "github:randytarampi/immutable-js#me-release",
     "is-html": "1.1.0",
     "isomorphic-fetch": "2.2.1",
-    "jquery": "3.4.0",
     "lodash": "4.17.11",
     "luxon": "1.12.1",
-    "materialize-css": "0.100.2",
+    "materialize-css": "1.0.0",
     "prop-types": "15.7.2",
     "query-string": "6.4.2",
     "react-google-maps": "9.4.5",
@@ -52,7 +51,7 @@
     "@babel/cli": "7.4.3",
     "gulp": "4.0.0",
     "mocha": "6.1.4",
-    "nyc": "14.0.0"
+    "nyc": "14.0.0",
     "webpack": "4.30.0",
     "webpack-bundle-analyzer": "3.3.2",
     "webpack-serve": "2.0.3"
@@ -91,11 +90,10 @@
   "peerDependencies": {
     "history": "4.9.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
-    "jquery": "3.4.0",
-    "materialize-css": "0.100.2",
+    "materialize-css": "1.0.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-materialize": "3.1.0",
+    "react-materialize": "3.1.1",
     "react-redux": "5.1.1",
     "redux": "4.0.1"
   },

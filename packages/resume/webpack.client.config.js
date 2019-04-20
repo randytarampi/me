@@ -28,7 +28,7 @@ module.exports = webpackBaseConfig({
         mount("/api/resume", serve("./src/resumes"))
     ],
     entry: {
-        resume: ["raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],
+        resume: ["raf/polyfill", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
     plugins: [

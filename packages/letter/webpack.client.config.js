@@ -28,7 +28,7 @@ module.exports = webpackBaseConfig({
         mount("/api/letter", serve("./src/letters"))
     ],
     entry: {
-        letter: ["raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],
+        letter: ["raf/polyfill", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
     plugins: [
