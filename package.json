@@ -110,7 +110,7 @@
     "webpack-cli": "3.3.0",
     "webpack-node-externals": "1.7.2",
     "webpack-sentry-plugin": "2.0.0",
-    "webpack-serve": "3.1.0",
+    "webpack-serve": "2.0.3",
     "workbox-webpack-plugin": "4.3.0",
     "ws": "6.2.1",
     "yargs": "13.2.2"
