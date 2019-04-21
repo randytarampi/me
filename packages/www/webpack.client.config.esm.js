@@ -36,25 +36,11 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
 module.exports = webpackBaseConfig({
     babelEnv: "client.esm",
     // babelJsType: "javascript/esm",
-    rules: [
-        {
-            test: require.resolve("jquery"),
-            use: [
-                {
-                    loader: "expose-loader",
-                    options: "jQuery"
-                },
-                {
-                    loader: "expose-loader",
-                    options: "$"
-                }
-            ]
-        }
-    ],
+    rules: [],
 
     entry: {
-        [bundleName]: ["raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/polyfills.esm.js"), path.join(__dirname, "src/public/views/index.jsx")],
-        [swBundleInstallerName]: ["raf/polyfill", "jquery", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
+        [bundleName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/polyfills.esm.js"), path.join(__dirname, "src/public/views/index.jsx")],
+        [swBundleInstallerName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
     optimization: {

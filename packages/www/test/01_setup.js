@@ -1,11 +1,11 @@
 /* global global */
 
-import "mock-local-storage";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import Enzyme from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import {JSDOM} from "jsdom";
+import "mock-local-storage";
 import packageJson from "../package.json";
 
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
@@ -15,12 +15,6 @@ global.navigator = {
     userAgent: "node.js"
 };
 global.location = jsdom.window.location;
-
-global.$ = global.jQuery = require("jquery");
-global.Hammer = require("materialize-css/js/hammer.min");
-global.Velocity = require("materialize-css/js/velocity.min");
-global.Materialize = global.Materialize || {}; // NOTE-RT: Gross – gotta do this up here to sidestep all the weirdness of mocking how we're requiring `materialize-css` in `@randy.tarampi/jsx`.
-require("materialize-css");
 
 Enzyme.configure({adapter: new EnzymeAdapter()});
 chai.use(chaiEnzyme());

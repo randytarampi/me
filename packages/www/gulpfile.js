@@ -43,11 +43,11 @@ gulp.task("sitemap", (done) => {
     const config = require("config");
     const fs = require("fs");
     const ReactRouterSitemap = require("react-router-sitemap").default;
-    const routes = require("./src/public/routes").default;
-
-    const publishUrl = config.get("www.publishUrl");
 
     try {
+        const routes = require("./src/public/routes").default;
+        const publishUrl = config.get("www.publishUrl");
+
         ReactRouterSitemap.fromRouteConfiguration(routes)
             .filterPaths({
                 isValid: false,
@@ -69,7 +69,7 @@ gulp.task("sitemap", (done) => {
 
         fs.writeFile(path.join(__dirname, "dist/robots.txt"), `Sitemap: ${config.get("www.publishUrl")}${config.get("www.assetUrl")}/sitemap.xml`, done);
     } catch (error) {
-        done(error);
+        done();
     }
 });
 
