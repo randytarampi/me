@@ -31,7 +31,7 @@ const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) =
         template: "node_modules/@randy.tarampi/views/templates/index.pug",
         templateParameters: buildPugLocals({
             bundleName: config.get("www.bundle.name"),
-            // esmBundleName: `${config.get("www.bundle.name")}.esm`, // NOTE-RT: Not quite ready for primetime yet.
+            esmBundleName: `${config.get("www.bundle.name")}.esm`,
             serviceWorkerInstallerBundleName: config.get("www.bundle.swInstaller"),
             packageJson,
             pageUrl,

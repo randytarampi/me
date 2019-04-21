@@ -35,11 +35,11 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
 
 module.exports = webpackBaseConfig({
     babelEnv: "client.esm",
-    babelJsType: "javascript/esm",
+    // babelJsType: "javascript/esm",
     rules: [],
 
     entry: {
-        [bundleName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/polyfills.esm.js"), path.join(__dirname, "src/public/views/index.jsx")],
+        [bundleName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/views/index.jsx")],
         [swBundleInstallerName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
