@@ -35,7 +35,7 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
 
 module.exports = webpackBaseConfig({
     babelEnv: "client.esm",
-    // babelJsType: "javascript/esm",
+    babelJsType: "javascript/esm",
     rules: [],
 
     entry: {

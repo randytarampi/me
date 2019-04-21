@@ -6,7 +6,7 @@ const SentryPlugin = require("webpack-sentry-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const util = require("./util");
 
@@ -205,7 +205,7 @@ module.exports = ({
                 isDevelopment
                     ? []
                     : [
-                        new UglifyJsPlugin({
+                        new TerserPlugin({
                             cache: true,
                             parallel: true,
                             sourceMap: true
