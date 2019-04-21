@@ -39,7 +39,7 @@
     "expose-loader": "0.7.5",
     "express": "4.16.4",
     "file-loader": "3.0.1",
-    "gulp": "4.0.0",
+    "gulp": "4.0.1",
     "gulp-autoprefixer": "6.1.0",
     "gulp-clean-css": "4.0.0",
     "gulp-concat": "2.6.1",
