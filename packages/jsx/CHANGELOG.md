@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/randytarampi/me/compare/v3.11.0...v4.0.0) (2019-04-21)
+
+
+### Bug Fixes
+
+* **jsx:** Blindly try and fix misselected tabs on load. ([7ba0774](https://github.com/randytarampi/me/commit/7ba0774))
+* **jsx:** Don't assume that we'll always have `M` in scope here. ([dc13602](https://github.com/randytarampi/me/commit/dc13602))
+* **jsx:** Don't assume that we'll always have `M` in scope here. Redux. ([f5441da](https://github.com/randytarampi/me/commit/f5441da))
+
+
+### Reverts
+
+* release(travis): Release v3.11.0. ([aed4978](https://github.com/randytarampi/me/commit/aed4978))
+* revert: release(travis): Release v3.11.0. ([436fdea](https://github.com/randytarampi/me/commit/436fdea))
+
+
+### BREAKING CHANGES
+
+* See the notes in [feat(greenkeeper): react-materialize@3.1.1.](https://github.com/randytarampi/me/commit/3f0924d57d46fa7b28447b72a6bdfe95e8ec8e78).
+
+This reverts commit aed497856530622a451b0a8c645a62ae656451cf.
+
+
+
+
+
 # [3.11.0](https://github.com/randytarampi/me/compare/v3.10.1...v3.11.0) (2019-04-21)
 
 

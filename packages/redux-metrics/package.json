@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/redux-metrics",
   "description": "A client-side-logger for www.randytarampi.ca",
-  "version": "3.11.0",
+  "version": "4.0.0",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
