@@ -272,7 +272,8 @@ module.exports = (api) => {
                 targets: {
                     node: "current"
                 },
-                useBuiltIns: "entry"
+                useBuiltIns: "entry",
+                corejs: 3
             }
         ],
         [
@@ -305,7 +306,8 @@ module.exports = (api) => {
                         targets: {
                             node: "current"
                         },
-                        useBuiltIns: "entry"
+                        useBuiltIns: "entry",
+                        corejs: 3
                     }
                 ],
                 [
@@ -328,7 +330,8 @@ module.exports = (api) => {
                     "@babel/preset-env",
                     {
                         forceAllTransforms: true,
-                        useBuiltIns: "entry"
+                        useBuiltIns: "entry",
+                        corejs: 3
                     }
                 ],
                 [
@@ -354,7 +357,8 @@ module.exports = (api) => {
                             esmodules: true
                         },
                         useBuiltIns: "entry",
-                        modules: false
+                        modules: false,
+                        corejs: 3
                     }
                 ],
                 [
