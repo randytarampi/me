@@ -3,23 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.11.0](https://github.com/randytarampi/me/compare/v3.10.1...v3.11.0) (2019-04-21)
-
-
-### Bug Fixes
-
-* **package:** Fix for react-materialize@3.1.1 (and materialize-css@1.0.0) ([318ea96](https://github.com/randytarampi/me/commit/318ea96))
-
-
-### Reverts
-
-* chore(greenkeeper): react-redux@7.0.2. ([abef986](https://github.com/randytarampi/me/commit/abef986))
-* chore(greenkeeper): webpack-serve@3.1.0. ([d39e251](https://github.com/randytarampi/me/commit/d39e251)), closes [#451](https://github.com/randytarampi/me/issues/451)
-
-
-
-
-
 ## [3.10.1](https://github.com/randytarampi/me/compare/v3.10.0...v3.10.1) (2019-03-25)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

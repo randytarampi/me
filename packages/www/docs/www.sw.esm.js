@@ -11,17 +11,16 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.0/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.49cc411dd9e3b62d55e4f4d19f69a9c5.js"
+  "/precache-manifest.a54193fa5ef05d790ca231c97cd6043b.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@randy.tarampi/www"});
 
-workbox.core.skipWaiting();
-
-workbox.core.clientsClaim();
+workbox.skipWaiting();
+workbox.clientsClaim();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -29,8 +28,9 @@ workbox.core.clientsClaim();
  * See https://goo.gl/S9QRab
  */
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
+workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/"));
+workbox.routing.registerNavigationRoute("/");
 
-workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/, new workbox.strategies.StaleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({ maxEntries: 100, purgeOnQuotaError: true })] }), 'GET');
+workbox.routing.registerRoute(/.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/, workbox.strategies.staleWhileRevalidate({ "cacheName":"external", plugins: [new workbox.expiration.Plugin({"maxEntries":100,"purgeOnQuotaError":true})] }), 'GET');
