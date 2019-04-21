@@ -1,12 +1,12 @@
-/* global M */
-
 import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import clearError from "../actions/error/clearError";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";
+import selectors from "../data/selectors";
+import {formatIndexForMaterializeTabs} from "../util";
 
 const getSwipeableTabs = () => {
     const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
-    const swipeableTabs = swipeableTabsElement && window.M && M.Tabs.getInstance(swipeableTabsElement);
+    const swipeableTabs = swipeableTabsElement && window.M && window.M.Tabs.getInstance(swipeableTabsElement);
 
     return swipeableTabs;
 };
@@ -21,7 +21,14 @@ export const uiMiddleware = store => next => action => {
             } else {
                 setTimeout(() => {
                     const swipeableTabs = getSwipeableTabs();
-                    swipeableTabs && swipeableTabs.updateTabIndicator();
+
+                    if (swipeableTabs) {
+                        const state = store.getState();
+                        const location = action.payload.location || action.payload;
+                        const index = selectors.getIndexForRoute(state, location.pathname);
+                        const expectedTabIndex = formatIndexForMaterializeTabs(index);
+                        swipeableTabs.select(`tab_${expectedTabIndex}`);
+                    }
                 }, 50);
             }
 
