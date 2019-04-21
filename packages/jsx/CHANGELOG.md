@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/randytarampi/me/compare/v4.0.0...v4.0.1) (2019-04-21)
+
+
+### Bug Fixes
+
+* **jsx:** Actually fix misselected tabs on load. ([6484453](https://github.com/randytarampi/me/commit/6484453))
+
+
+
+
+
 # [4.0.0](https://github.com/randytarampi/me/compare/v3.11.0...v4.0.0) (2019-04-21)
 
 
