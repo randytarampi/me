@@ -6,7 +6,7 @@ import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/rou
 
 const getSwipeableTabs = () => {
     const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
-    const swipeableTabs = swipeableTabsElement && M && M.Tabs.getInstance(swipeableTabsElement);
+    const swipeableTabs = swipeableTabsElement && window.M && M.Tabs.getInstance(swipeableTabsElement);
 
     return swipeableTabs;
 };
