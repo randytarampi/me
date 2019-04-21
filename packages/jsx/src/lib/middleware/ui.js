@@ -4,15 +4,27 @@ import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import clearError from "../actions/error/clearError";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";
 
+const getSwipeableTabs = () => {
+    const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
+    const swipeableTabs = swipeableTabsElement && M.Tabs.getInstance(swipeableTabsElement);
+
+    return swipeableTabs;
+};
+
 export const uiMiddleware = store => next => action => {
     switch (action.type) {
         case LOCATION_CHANGE: {
-            const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
-            const swipeableTabs = swipeableTabsElement && M.Tabs.getInstance(swipeableTabsElement);
+            const swipeableTabs = getSwipeableTabs();
 
             if (swipeableTabs) {
-                setTimeout(() => swipeableTabs.updateTabIndicator(), 50);
+                swipeableTabs.updateTabIndicator();
+            } else {
+                setTimeout(() => {
+                    const swipeableTabs = getSwipeableTabs();
+                    swipeableTabs && swipeableTabs.updateTabIndicator();
+                }, 50);
             }
+
             break;
         }
 
