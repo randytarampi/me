@@ -8,15 +8,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/styles.js"
   },
   {
-    "revision": "6a331bb6e82ecbe92610",
-    "url": "/vendor.esm.js"
+    "revision": "2f6ce53ca1e8a8670dcf",
+    "url": "/vendor.js"
   },
   {
-    "revision": "7b861a5acba2da378ad9",
-    "url": "/www.esm.js"
+    "revision": "e097ea7a4cc7ba2b3bca",
+    "url": "/www.js"
   },
   {
-    "revision": "22ab1554aee39465716e",
-    "url": "/www.sw.installer.esm.js"
+    "revision": "e627a1a5c354533f39f5",
+    "url": "/www.sw.installer.js"
   }
 ]);

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/randytarampi/me/compare/v4.0.1...v4.0.2) (2019-04-22)
+
+
+### Bug Fixes
+
+* **jsx:** Tab selection updates on keyboard press. ([5a51a35](https://github.com/randytarampi/me/commit/5a51a35))
+
+
+
+
+
 ## [4.0.1](https://github.com/randytarampi/me/compare/v4.0.0...v4.0.1) (2019-04-21)
 
 
