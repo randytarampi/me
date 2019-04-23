@@ -41,7 +41,7 @@
     "file-loader": "3.0.1",
     "gulp": "4.0.1",
     "gulp-autoprefixer": "6.1.0",
-    "gulp-clean-css": "4.0.0",
+    "gulp-clean-css": "4.1.0",
     "gulp-concat": "2.6.1",
     "gulp-eslint": "5.0.0",
     "gulp-if": "2.0.2",
