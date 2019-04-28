@@ -94,7 +94,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-materialize": "3.2.0",
-    "react-redux": "5.1.1",
+    "react-redux": "7.0.3",
     "redux": "4.0.1"
   },
   "publishConfig": {
