@@ -98,7 +98,7 @@
     "serverless-plugin-tracing": "2.0.0",
     "serverless-plugin-warmup": "4.5.3-rc.1",
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
-    "serverless-webpack": "5.2.0",
+    "serverless-webpack": "5.3.0",
     "sinon": "7.3.2",
     "svg-path-loader": "0.0.4",
     "syncpack": "4.3.1",
