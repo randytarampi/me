@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.6](https://github.com/randytarampi/me/compare/v4.0.5...v4.0.6) (2019-05-01)
+
+
+### Bug Fixes
+
+* **jsx:** Don't bother `babel`izing `materialize`, etc. ([804f9a2](https://github.com/randytarampi/me/commit/804f9a2))
+
+
+
+
+
 ## [4.0.5](https://github.com/randytarampi/me/compare/v4.0.4...v4.0.5) (2019-05-01)
 
 
