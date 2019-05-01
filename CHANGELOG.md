@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/randytarampi/me/compare/v4.0.4...v4.0.5) (2019-05-01)
+
+
+### Bug Fixes
+
+* **jsx:** `babel`ize `react-materialize` to try and extend compatibility. ([03df519](https://github.com/randytarampi/me/commit/03df519))
+
+
+
+
+
 ## [4.0.4](https://github.com/randytarampi/me/compare/v4.0.3...v4.0.4) (2019-04-28)
 
 **Note:** Version bump only for package me
