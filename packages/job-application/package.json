@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/job-application",
   "description": "A utility to generate coherent job application (resume + cover letter) packages.",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -9,10 +9,10 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/jsx": "4.0.6",
-    "@randy.tarampi/letter": "4.0.6",
-    "@randy.tarampi/printables": "4.0.6",
-    "@randy.tarampi/resume": "4.0.6"
+    "@randy.tarampi/jsx": "4.0.7",
+    "@randy.tarampi/letter": "4.0.7",
+    "@randy.tarampi/printables": "4.0.7",
+    "@randy.tarampi/resume": "4.0.7"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",

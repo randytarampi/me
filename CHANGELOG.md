@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.7](https://github.com/randytarampi/me/compare/v4.0.6...v4.0.7) (2019-05-01)
+
+
+### Bug Fixes
+
+* **www:** `Materialize.toast` -> `M.toast`. ([5c0b521](https://github.com/randytarampi/me/commit/5c0b521))
+
+
+
+
+
 ## [4.0.6](https://github.com/randytarampi/me/compare/v4.0.5...v4.0.6) (2019-05-01)
 
 

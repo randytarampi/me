@@ -12,11 +12,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vendor.js"
   },
   {
-    "revision": "ba06794fc7b24d040d18",
+    "revision": "8c2b4c172446cd67bad8",
     "url": "/www.js"
   },
   {
-    "revision": "39f4c8fea129a87519c2",
+    "revision": "b6c2fdc7afcecab68362",
     "url": "/www.sw.installer.js"
   }
 ]);
