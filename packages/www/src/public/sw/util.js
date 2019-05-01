@@ -1,4 +1,4 @@
-/* global Materialize */
+/* global M */
 
 import {logger} from "@randy.tarampi/browser-logger";
 
@@ -21,7 +21,8 @@ export const onUpdateFound = () => {
 export const onUpdated = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has been updated`);
 
-    Materialize.toast(`
+    M.toast({
+        html: `
         <p>
             <span class="hide-on-small-and-down">
                 I just pushed
@@ -57,8 +58,9 @@ export const onUpdated = () => {
             data-metrics-label="Reload and update"
         >
             Reload and update
-        </button>
-    `, undefined, "toast__sw-updated");
+        </button>`,
+        classes: "toast__sw-updated"
+    });
 };
 
 export const onOffline = () => {
