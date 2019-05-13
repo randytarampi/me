@@ -17,7 +17,7 @@
     "latlon-geohash": "1.1.0",
     "libphonenumber-js": "1.7.16",
     "lodash": "4.17.11",
-    "luxon": "1.13.0",
+    "luxon": "1.13.2",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
     "query-string": "6.5.0"
   },
