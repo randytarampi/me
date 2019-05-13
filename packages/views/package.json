@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
-    "gulp": "4.0.1"
+    "gulp": "4.0.2"
   },
   "directories": {
     "lib": "./src/lib"

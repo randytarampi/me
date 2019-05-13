@@ -9,12 +9,12 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "1.13.0",
+    "luxon": "1.13.2",
     "react-metrics": "2.4.1"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
-    "gulp": "4.0.1",
+    "gulp": "4.0.2",
     "mocha": "6.1.4",
     "nyc": "14.1.0"
   },
