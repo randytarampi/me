@@ -17,15 +17,15 @@
     "latlon-geohash": "1.1.0",
     "libphonenumber-js": "1.7.16",
     "lodash": "4.17.11",
-    "luxon": "1.13.0",
+    "luxon": "1.13.2",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
     "query-string": "6.5.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
-    "gulp": "4.0.1",
+    "gulp": "4.0.2",
     "mocha": "6.1.4",
-    "nyc": "14.1.0"
+    "nyc": "14.1.1"
   },
   "directories": {
     "lib": "./src/lib",
