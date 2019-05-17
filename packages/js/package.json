@@ -15,7 +15,7 @@
     "haversine": "1.1.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "latlon-geohash": "1.1.0",
-    "libphonenumber-js": "1.7.16",
+    "libphonenumber-js": "1.7.17",
     "lodash": "4.17.11",
     "luxon": "1.13.2",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
