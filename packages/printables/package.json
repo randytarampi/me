@@ -11,7 +11,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "4.0.10",
-    "exiftool-vendored": "8.9.0",
+    "exiftool-vendored": "8.10.0",
     "pug": "2.0.3",
     "puppeteer": "1.16.0",
     "react": "16.8.6",
