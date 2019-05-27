@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.13](https://github.com/randytarampi/me/compare/v4.0.12...v4.0.13) (2019-05-27)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
 ## [4.0.12](https://github.com/randytarampi/me/compare/v4.0.11...v4.0.12) (2019-05-20)
 
 **Note:** Version bump only for package @randy.tarampi/resume
