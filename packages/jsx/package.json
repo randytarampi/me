@@ -11,7 +11,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "1.0.0",
-    "@fortawesome/fontawesome-free": "5.8.2",
+    "@fortawesome/fontawesome-free": "5.9.0",
     "@randy.tarampi/browser-logger": "4.0.14",
     "@randy.tarampi/js": "4.0.14",
     "@randy.tarampi/react-dimensions": "latest",
