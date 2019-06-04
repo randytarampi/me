@@ -13,7 +13,7 @@
     "browser-bunyan": "1.5.2",
     "bunyan": "2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven-js": "3.27.1"
+    "raven-js": "3.27.2"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
