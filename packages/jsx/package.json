@@ -28,7 +28,7 @@
     "luxon": "1.15.0",
     "materialize-css": "1.0.0",
     "prop-types": "15.7.2",
-    "query-string": "6.5.0",
+    "query-string": "6.6.0",
     "react-google-maps": "9.4.5",
     "react-hot-loader": "4.8.8",
     "react-infinite": "0.13.0",
