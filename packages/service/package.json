@@ -38,7 +38,7 @@
     "nyc": "14.1.1",
     "serverless": "1.44.1",
     "webpack": "4.32.2",
-    "webpack-cli": "3.3.2"
+    "webpack-cli": "3.3.3"
   },
   "directories": {
     "lib": "./src/lib",
