@@ -18,7 +18,7 @@
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "4.0.14",
     "config": "3.1.0",
-    "exiftool-vendored": "8.11.0",
+    "exiftool-vendored": "8.12.0",
     "history": "4.9.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "isomorphic-fetch": "2.2.1",
