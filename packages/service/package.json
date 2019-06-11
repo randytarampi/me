@@ -13,7 +13,7 @@
     "@randy.tarampi/lambda-logger": "4.0.14",
     "@randy.tarampi/serverless": "4.0.14",
     "big.js": "5.2.2",
-    "dynamoose": "1.7.3",
+    "dynamoose": "1.8.0",
     "flickr-sdk": "3.9.0",
     "form-data": "2.3.3",
     "immutable": "github:randytarampi/immutable-js#me-release",
