@@ -15,7 +15,7 @@
     "big.js": "5.2.2",
     "dynamoose": "1.7.3",
     "flickr-sdk": "3.9.0",
-    "form-data": "2.3.3",
+    "form-data": "2.4.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "instagram-api": "1.0.3",
     "isomorphic-fetch": "2.2.1",
