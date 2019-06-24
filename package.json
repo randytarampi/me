@@ -93,7 +93,7 @@
     "semver-compare": "1.0.0",
     "serverless": "1.44.1",
     "serverless-api-compression": "1.0.1",
-    "serverless-domain-manager": "3.2.2",
+    "serverless-domain-manager": "3.2.3",
     "serverless-dynamodb-local": "github:randytarampi/serverless-dynamodb-local#me-release",
     "serverless-offline": "4.10.6",
     "serverless-plugin-tracing": "2.0.0",
