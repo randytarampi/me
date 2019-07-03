@@ -19,7 +19,8 @@
     "lodash": "4.17.11",
     "luxon": "1.15.0",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
-    "query-string": "6.5.0"
+    "query-string": "6.5.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -76,7 +77,10 @@
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "npm run clean",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
