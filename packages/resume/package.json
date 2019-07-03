@@ -35,7 +35,8 @@
     "react-redux": "5.1.1",
     "redux": "4.0.1",
     "redux-actions": "2.6.5",
-    "redux-immutable": "4.0.0"
+    "redux-immutable": "4.0.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -123,7 +124,10 @@
     "resume:pdf": " NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp resume:pdf",
     "start": "npm run dev",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.resume.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.resume.server.pid`) from /tmp/ca.randytarampi.me.resume.server.pid\";",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
