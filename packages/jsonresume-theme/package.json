@@ -11,7 +11,8 @@
   "dependencies": {
     "@randy.tarampi/resume": "4.0.14",
     "@randy.tarampi/views": "4.0.14",
-    "config": "3.1.0"
+    "config": "3.1.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -88,6 +89,9 @@
     "resume:publish": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume publish --force --theme $(node -p \"require(\\\"./package.json\\\").name.replace(\\\"jsonresume-theme-\\\", \\\"\\\")\")",
     "start": "npm run resume",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\";",
-    "test": "NODE_ENV=test npm run resume"
-  }
+    "test": "NODE_ENV=test npm run resume",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
