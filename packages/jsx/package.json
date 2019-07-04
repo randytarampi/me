@@ -45,7 +45,8 @@
     "redux-raven-middleware": "1.2.0",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0",
-    "sniffr": "1.2.0"
+    "sniffr": "1.2.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -121,7 +122,10 @@
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "npm run clean",
     "start": "npm run dev",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
