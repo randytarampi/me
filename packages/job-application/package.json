@@ -12,7 +12,8 @@
     "@randy.tarampi/jsx": "4.0.14",
     "@randy.tarampi/letter": "4.0.14",
     "@randy.tarampi/printables": "4.0.14",
-    "@randy.tarampi/resume": "4.0.14"
+    "@randy.tarampi/resume": "4.0.14",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -54,7 +55,10 @@
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "npm run clean",
     "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
