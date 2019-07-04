@@ -29,7 +29,8 @@
     "rss": "1.2.2",
     "tumblr.js": "2.0.0",
     "twitter": "1.7.1",
-    "unsplash-js": "5.0.0"
+    "unsplash-js": "5.0.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -80,6 +81,9 @@
     "start:dynamodb-local:migrate": "sls dynamodb migrate --stage local",
     "start:dynamodb-local:start": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
     "test": "npm run pretest:dynamodb-local && npm run test:actual",
-    "test:actual": "NODE_ENV=test gulp -LLLL --color test"
-  }
+    "test:actual": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
