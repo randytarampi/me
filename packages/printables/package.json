@@ -16,7 +16,8 @@
     "puppeteer": "1.17.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-helmet": "5.2.1"
+    "react-helmet": "5.2.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -60,7 +61,10 @@
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "npm run clean",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
