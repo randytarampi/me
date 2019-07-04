@@ -10,7 +10,8 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "4.0.14",
-    "config": "3.1.0"
+    "config": "3.1.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -51,7 +52,10 @@
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "npm run clean"
+    "preuninstall": "npm run clean",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
