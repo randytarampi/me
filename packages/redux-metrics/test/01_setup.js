@@ -1,5 +1,3 @@
-/* global global */
-
 import {JSDOM} from "jsdom";
 import packageJson from "../package.json";
 

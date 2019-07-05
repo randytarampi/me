@@ -13,7 +13,7 @@ export default (querystringParameters = {}) => {
     const parsedQuerystringParameters = {};
 
     numberProperties.forEach(property => {
-        if (querystringParameters.hasOwnProperty(property)) {
+        if (Object.prototype.hasOwnProperty.call(querystringParameters, property)) {
             parsedQuerystringParameters[property] = Number(querystringParameters[property]);
 
             if (Number.isNaN(parsedQuerystringParameters[property])) {

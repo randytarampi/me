@@ -1,5 +1,3 @@
-/* global window */
-
 import {createLogger as browserBunyanCreateLogger, stdSerializers} from "browser-bunyan";
 import {SentryStream} from "bunyan-sentry-stream";
 import raven from "raven-js";
