@@ -20,3 +20,25 @@ patch:
         patched: '2019-07-04T04:08:24.790Z'
     - '@randy.tarampi/redux-offline-immutable-config > @randy.tarampi/redux-persist-immutable > redux-persist > lodash':
         patched: '2019-07-04T04:08:24.790Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-05T18:52:31.754Z'
