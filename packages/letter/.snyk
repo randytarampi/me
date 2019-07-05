@@ -1,0 +1,30 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - '@randy.tarampi/jsx > @redux-offline/redux-offline > redux-persist > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/jsx > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/jsx > react-google-maps > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/jsx > react-hot-loader > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - react-hot-loader > lodash:
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/jsx > react-infinite > enzyme-adapter-react-16 > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/redux-offline-immutable-config > @randy.tarampi/redux-persist-immutable > redux-persist > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/printables > pug > pug-code-gen > constantinople > babel-types > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/printables > pug > pug-filters > constantinople > babel-types > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
+    - '@randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
+        patched: '2019-07-03T22:30:28.779Z'
