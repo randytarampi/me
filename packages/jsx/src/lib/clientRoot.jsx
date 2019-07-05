@@ -11,7 +11,7 @@ export class ClientRoot extends PureComponent {
         logger.info("Hey! I see you looking over there.");
         logger.info("Looking for this?\n\t\thttps://www.randytarampi.ca/resume");
         logger.info("Or was it this?\n\t\thttps://github.com/randytarampi/me/#readme");
-        logger.info("Or maybe even this?\n\t\thttps://waffle.io/randytarampi/randytarampi.github.io");
+        logger.info("Or maybe even this?\n\t\thttps://github.com/users/randytarampi/projects/4");
 
         const sniffr = new Sniffr();
         sniffr.sniff();
