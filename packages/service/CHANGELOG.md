@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* **service:** Apply Synk patch for SNYK-JS-LODASH-450202. ([85b85dd](https://github.com/randytarampi/me/commit/85b85dd))
+* packages/service/.snyk & packages/service/package.json to reduce vulnerabilities ([926765a](https://github.com/randytarampi/me/commit/926765a))
+* packages/service/.snyk & packages/service/package.json to reduce vulnerabilities ([4aa7b2e](https://github.com/randytarampi/me/commit/4aa7b2e))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package @randy.tarampi/service

@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* packages/job-application/.snyk & packages/job-application/package.json to reduce vulnerabilities ([e41bab9](https://github.com/randytarampi/me/commit/e41bab9))
+* packages/job-application/.snyk & packages/job-application/package.json to reduce vulnerabilities ([ada4398](https://github.com/randytarampi/me/commit/ada4398))
+* packages/js/.snyk & packages/js/package.json to reduce vulnerabilities ([9c7ad01](https://github.com/randytarampi/me/commit/9c7ad01))
+* packages/js/.snyk & packages/js/package.json to reduce vulnerabilities ([06433e6](https://github.com/randytarampi/me/commit/06433e6))
+* packages/jsonresume-theme/.snyk & packages/jsonresume-theme/package.json to reduce vulnerabilities ([aa1b213](https://github.com/randytarampi/me/commit/aa1b213))
+* packages/jsonresume-theme/.snyk & packages/jsonresume-theme/package.json to reduce vulnerabilities ([50216aa](https://github.com/randytarampi/me/commit/50216aa))
+* packages/jsx/.snyk & packages/jsx/package.json to reduce vulnerabilities ([069349f](https://github.com/randytarampi/me/commit/069349f))
+* packages/jsx/.snyk & packages/jsx/package.json to reduce vulnerabilities ([ceb47d0](https://github.com/randytarampi/me/commit/ceb47d0))
+* packages/letter/.snyk & packages/letter/package.json to reduce vulnerabilities ([8d49eac](https://github.com/randytarampi/me/commit/8d49eac))
+* packages/letter/.snyk & packages/letter/package.json to reduce vulnerabilities ([5414038](https://github.com/randytarampi/me/commit/5414038))
+* packages/printables/.snyk & packages/printables/package.json to reduce vulnerabilities ([e983c17](https://github.com/randytarampi/me/commit/e983c17))
+* packages/printables/.snyk & packages/printables/package.json to reduce vulnerabilities ([3465237](https://github.com/randytarampi/me/commit/3465237))
+* packages/resume/.snyk & packages/resume/package.json to reduce vulnerabilities ([b407994](https://github.com/randytarampi/me/commit/b407994))
+* packages/resume/.snyk & packages/resume/package.json to reduce vulnerabilities ([ce43f98](https://github.com/randytarampi/me/commit/ce43f98))
+* packages/service/.snyk & packages/service/package.json to reduce vulnerabilities ([926765a](https://github.com/randytarampi/me/commit/926765a))
+* packages/service/.snyk & packages/service/package.json to reduce vulnerabilities ([4aa7b2e](https://github.com/randytarampi/me/commit/4aa7b2e))
+* packages/views/.snyk & packages/views/package.json to reduce vulnerabilities ([deb00b3](https://github.com/randytarampi/me/commit/deb00b3))
+* packages/views/.snyk & packages/views/package.json to reduce vulnerabilities ([09e1001](https://github.com/randytarampi/me/commit/09e1001))
+* packages/www/.snyk & packages/www/package.json to reduce vulnerabilities ([9f27ecf](https://github.com/randytarampi/me/commit/9f27ecf))
+* packages/www/.snyk & packages/www/package.json to reduce vulnerabilities ([3a623f0](https://github.com/randytarampi/me/commit/3a623f0))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package me
