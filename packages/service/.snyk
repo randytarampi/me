@@ -14,3 +14,25 @@ patch:
         patched: '2019-07-04T01:52:54.939Z'
     - '@randy.tarampi/serverless > aws-xray-sdk > aws-xray-sdk-core > lodash':
         patched: '2019-07-04T01:52:54.939Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-05T18:51:35.548Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-05T18:51:35.548Z'

@@ -30,7 +30,7 @@
     "tumblr.js": "2.0.0",
     "twitter": "1.7.1",
     "unsplash-js": "5.0.0",
-    "snyk": "^1.189.0"
+    "snyk": "^1.192.2"
   },
   "devDependencies": {
     "@babel/cli": "7.5.0",
