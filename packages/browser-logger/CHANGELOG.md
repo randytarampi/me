@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+**Note:** Version bump only for package @randy.tarampi/browser-logger
+
+
+
+
+
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+**Note:** Version bump only for package @randy.tarampi/browser-logger
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package @randy.tarampi/browser-logger

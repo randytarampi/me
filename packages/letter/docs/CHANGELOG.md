@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+
+### Bug Fixes
+
+* packages/letter/.snyk & packages/letter/package.json to reduce vulnerabilities ([89b49bc](https://github.com/randytarampi/me/commit/89b49bc))
+
+
+
+
+
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* **letter:** Apply Synk patch for SNYK-JS-LODASH-450202. ([b9eea4b](https://github.com/randytarampi/me/commit/b9eea4b))
+* packages/letter/.snyk & packages/letter/package.json to reduce vulnerabilities ([8d49eac](https://github.com/randytarampi/me/commit/8d49eac))
+* packages/letter/.snyk & packages/letter/package.json to reduce vulnerabilities ([5414038](https://github.com/randytarampi/me/commit/5414038))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package @randy.tarampi/letter

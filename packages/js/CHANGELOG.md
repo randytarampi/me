@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+**Note:** Version bump only for package @randy.tarampi/js
+
+
+
+
+
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* **js:** Apply Synk patch for SNYK-JS-LODASH-450202. ([9b45b60](https://github.com/randytarampi/me/commit/9b45b60))
+* packages/js/.snyk & packages/js/package.json to reduce vulnerabilities ([06433e6](https://github.com/randytarampi/me/commit/06433e6))
+* packages/js/.snyk & packages/js/package.json to reduce vulnerabilities ([9c7ad01](https://github.com/randytarampi/me/commit/9c7ad01))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package @randy.tarampi/js

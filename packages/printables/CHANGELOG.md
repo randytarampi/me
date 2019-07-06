@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+
+### Bug Fixes
+
+* packages/printables/.snyk & packages/printables/package.json to reduce vulnerabilities ([de6ec52](https://github.com/randytarampi/me/commit/de6ec52))
+
+
+
+
+
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* **printables:** Apply Synk patch for SNYK-JS-LODASH-450202. ([ecb2713](https://github.com/randytarampi/me/commit/ecb2713))
+* packages/printables/.snyk & packages/printables/package.json to reduce vulnerabilities ([e983c17](https://github.com/randytarampi/me/commit/e983c17))
+* packages/printables/.snyk & packages/printables/package.json to reduce vulnerabilities ([3465237](https://github.com/randytarampi/me/commit/3465237))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package @randy.tarampi/printables

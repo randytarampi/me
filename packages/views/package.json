@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/views",
   "description": "Some common Pug templates for www.randytarampi.ca",
-  "version": "4.0.14",
+  "version": "4.0.16",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -9,9 +9,9 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "4.0.14",
+    "@randy.tarampi/js": "4.0.16",
     "config": "3.1.0",
-    "snyk": "^1.192.2"
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "@babel/cli": "7.5.0",

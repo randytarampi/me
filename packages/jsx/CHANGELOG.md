@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+
+### Bug Fixes
+
+* packages/jsx/.snyk & packages/jsx/package.json to reduce vulnerabilities ([6f863fe](https://github.com/randytarampi/me/commit/6f863fe))
+
+
+
+
+
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* **jsx:** Apply Synk patch for SNYK-JS-LODASH-450202. ([a995907](https://github.com/randytarampi/me/commit/a995907))
+* packages/jsx/.snyk & packages/jsx/package.json to reduce vulnerabilities ([ceb47d0](https://github.com/randytarampi/me/commit/ceb47d0))
+* packages/jsx/.snyk & packages/jsx/package.json to reduce vulnerabilities ([069349f](https://github.com/randytarampi/me/commit/069349f))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

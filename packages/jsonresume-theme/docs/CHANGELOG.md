@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+
+### Bug Fixes
+
+* packages/jsonresume-theme/.snyk & packages/jsonresume-theme/package.json to reduce vulnerabilities ([533e210](https://github.com/randytarampi/me/commit/533e210))
+
+
+
+
+
+## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Apply Synk patch for SNYK-JS-LODASH-450202. ([18be1d0](https://github.com/randytarampi/me/commit/18be1d0))
+* packages/jsonresume-theme/.snyk & packages/jsonresume-theme/package.json to reduce vulnerabilities ([50216aa](https://github.com/randytarampi/me/commit/50216aa))
+* packages/jsonresume-theme/.snyk & packages/jsonresume-theme/package.json to reduce vulnerabilities ([aa1b213](https://github.com/randytarampi/me/commit/aa1b213))
+
+
+
+
+
 ## [4.0.14](https://github.com/randytarampi/me/compare/v4.0.13...v4.0.14) (2019-06-01)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi

@@ -34,3 +34,49 @@ patch:
         patched: '2019-07-05T18:52:00.554Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-05T18:52:00.554Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > inquirer > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > @snyk/dep-graph > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > inquirer > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-nodejs-lockfile-parser > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-config > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-mvn-plugin > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-mvn-plugin > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-nodejs-lockfile-parser > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-config > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-nuget-plugin > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-nuget-plugin > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > @snyk/dep-graph > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-nodejs-lockfile-parser > graphlib > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > @snyk/dep-graph > graphlib > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > snyk > snyk-go-plugin > graphlib > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-go-plugin > graphlib > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-nodejs-lockfile-parser > graphlib > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > @snyk/dep-graph > graphlib > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2019-07-06T03:38:27.380Z'
