@@ -17,7 +17,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-helmet": "5.2.1",
-    "snyk": "^1.192.2"
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "@babel/cli": "7.5.0",
