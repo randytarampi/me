@@ -12,7 +12,7 @@
     "@randy.tarampi/resume": "4.0.15",
     "@randy.tarampi/views": "4.0.15",
     "config": "3.1.0",
-    "snyk": "^1.192.2"
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "@babel/cli": "7.5.0",
