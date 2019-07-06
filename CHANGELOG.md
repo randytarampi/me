@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
+
+
+### Bug Fixes
+
+* packages/jsonresume-theme/.snyk & packages/jsonresume-theme/package.json to reduce vulnerabilities ([533e210](https://github.com/randytarampi/me/commit/533e210))
+* packages/jsx/.snyk & packages/jsx/package.json to reduce vulnerabilities ([6f863fe](https://github.com/randytarampi/me/commit/6f863fe))
+* packages/letter/.snyk & packages/letter/package.json to reduce vulnerabilities ([89b49bc](https://github.com/randytarampi/me/commit/89b49bc))
+* packages/printables/.snyk & packages/printables/package.json to reduce vulnerabilities ([de6ec52](https://github.com/randytarampi/me/commit/de6ec52))
+* packages/resume/.snyk & packages/resume/package.json to reduce vulnerabilities ([5df5658](https://github.com/randytarampi/me/commit/5df5658))
+* packages/service/.snyk & packages/service/package.json to reduce vulnerabilities ([2a3f93b](https://github.com/randytarampi/me/commit/2a3f93b))
+* packages/views/.snyk & packages/views/package.json to reduce vulnerabilities ([d3f738f](https://github.com/randytarampi/me/commit/d3f738f))
+* packages/www/.snyk & packages/www/package.json to reduce vulnerabilities ([f2ba964](https://github.com/randytarampi/me/commit/f2ba964))
+
+
+
+
+
 ## [4.0.15](https://github.com/randytarampi/me/compare/v4.0.14...v4.0.15) (2019-07-05)
 
 
