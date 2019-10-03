@@ -144,3 +144,6 @@ patch:
         patched: '2019-07-05T23:40:45.163Z'
     - '@randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
         patched: '2019-07-05T23:40:45.163Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - '@randy.tarampi/printables > puppeteer > https-proxy-agent':
+        patched: '2019-10-03T23:43:16.673Z'
