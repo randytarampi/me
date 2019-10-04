@@ -64,3 +64,8 @@ patch:
         patched: '2019-07-05T18:53:37.214Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-05T18:53:37.214Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - '@randy.tarampi/printables > puppeteer > https-proxy-agent':
+        patched: '2019-10-04T07:08:28.982Z'
+    - '@randy.tarampi/resume > @randy.tarampi/printables > puppeteer > https-proxy-agent':
+        patched: '2019-10-04T07:08:28.982Z'
