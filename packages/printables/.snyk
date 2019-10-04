@@ -80,3 +80,6 @@ patch:
         patched: '2019-07-06T03:38:27.380Z'
     - '@randy.tarampi/views > @randy.tarampi/js > lodash':
         patched: '2019-07-06T03:38:27.380Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - puppeteer > https-proxy-agent:
+        patched: '2019-10-04T03:39:09.592Z'
