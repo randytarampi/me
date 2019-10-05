@@ -64,3 +64,24 @@ patch:
         patched: '2019-07-05T18:53:37.214Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-05T18:53:37.214Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T07:08:28.427Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/jsx > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/letter > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/jsx > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/resume > @randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/letter > @randy.tarampi/printables > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/resume > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
+    - '@randy.tarampi/resume > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:08:28.427Z'
