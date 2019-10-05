@@ -80,3 +80,16 @@ patch:
         patched: '2019-07-06T03:38:27.380Z'
     - '@randy.tarampi/views > @randy.tarampi/js > lodash':
         patched: '2019-07-06T03:38:27.380Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T03:38:32.294Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T03:38:32.294Z'
+    - '@randy.tarampi/views > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T03:38:32.294Z'
+    - '@randy.tarampi/views > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T03:38:32.294Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T03:38:32.294Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T03:38:32.294Z'
