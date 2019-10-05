@@ -52,3 +52,12 @@ patch:
         patched: '2019-07-06T07:02:55.657Z'
     - '@randy.tarampi/js > lodash':
         patched: '2019-07-06T07:02:55.657Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T07:34:40.905Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T07:34:40.905Z'
+    - '@randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:34:40.905Z'
+    - '@randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T07:34:40.905Z'
