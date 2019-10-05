@@ -86,3 +86,16 @@ patch:
         patched: '2019-07-06T01:53:10.544Z'
     - '@randy.tarampi/serverless > aws-xray-sdk > aws-xray-sdk-core > lodash':
         patched: '2019-07-06T01:53:10.544Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T01:57:56.110Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T01:57:56.110Z'
+    - '@randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T01:57:56.110Z'
+    - '@randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T01:57:56.110Z'
+    - '@randy.tarampi/serverless > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T01:57:56.110Z'
+    - '@randy.tarampi/serverless > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T01:57:56.110Z'
