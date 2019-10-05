@@ -194,3 +194,24 @@ patch:
         patched: '2019-07-06T04:22:49.126Z'
     - '@randy.tarampi/resume > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
         patched: '2019-07-06T04:22:49.126Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/jsx > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/resume > @randy.tarampi/printables > @randy.tarampi/views > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > snyk > proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
+    - '@randy.tarampi/letter > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent':
+        patched: '2019-10-05T04:22:39.879Z'
