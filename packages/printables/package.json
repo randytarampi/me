@@ -10,20 +10,20 @@
   "browser": "./esm/index.client.js",
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/views": "4.0.16",
-    "exiftool-vendored": "8.11.0",
-    "pug": "2.0.3",
-    "puppeteer": "1.17.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-helmet": "5.2.1",
-    "snyk": "^1.192.3"
+    "@randy.tarampi/views": "~4.0.16",
+    "exiftool-vendored": "~9.4.0",
+    "pug": "~2.0.4",
+    "puppeteer": "~2.0.0",
+    "react": "~16.12.0",
+    "react-dom": "~16.12.0",
+    "react-helmet": "~5.2.1",
+    "snyk": "~1.260.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.0",
-    "gulp": "4.0.2",
-    "mocha": "6.1.4",
-    "nyc": "14.1.1"
+    "@babel/cli": "~7.7.5",
+    "gulp": "~4.0.2",
+    "mocha": "~6.2.2",
+    "nyc": "~14.1.1"
   },
   "directories": {
     "lib": "./src/lib",

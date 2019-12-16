@@ -9,17 +9,17 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/resume": "4.0.16",
-    "@randy.tarampi/views": "4.0.16",
-    "config": "3.1.0",
-    "snyk": "^1.192.3"
+    "@randy.tarampi/resume": "~4.0.16",
+    "@randy.tarampi/views": "~4.0.16",
+    "config": "~3.2.4",
+    "snyk": "~1.260.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.0",
-    "gulp": "4.0.2",
+    "@babel/cli": "~7.7.5",
+    "gulp": "~4.0.2",
     "resume-cli": "github:randytarampi/resume-cli#puppeteer-v1.11.0",
-    "webpack": "4.32.2",
-    "webpack-bundle-analyzer": "3.3.2"
+    "webpack": "~4.41.2",
+    "webpack-bundle-analyzer": "~3.6.0"
   },
   "directories": {
     "lib": "./src/lib",
