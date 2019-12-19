@@ -9,17 +9,10 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/jsx": "~4.0.16",
-    "@randy.tarampi/letter": "~4.0.16",
-    "@randy.tarampi/printables": "~4.0.16",
-    "@randy.tarampi/resume": "~4.0.16",
-    "snyk": "~1.260.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "~7.7.5",
-    "gulp": "~4.0.2",
-    "mocha": "~6.2.2",
-    "nyc": "~14.1.1"
+    "@randy.tarampi/jsx": "^4.0.16",
+    "@randy.tarampi/letter": "^4.0.16",
+    "@randy.tarampi/printables": "^4.0.16",
+    "@randy.tarampi/resume": "^4.0.16"
   },
   "directories": {
     "lib": "./src/lib"
@@ -52,12 +45,12 @@
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
     "postinstall": "mkdir -p dist",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepublish": "npm run snyk-protect",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "npm run clean",
-    "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
-    "test": "NODE_ENV=test gulp -LLLL --color test",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
+    "test": "NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,
   "snyk": true

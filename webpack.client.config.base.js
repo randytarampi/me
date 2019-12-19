@@ -102,12 +102,14 @@ module.exports = ({
                         {
                             loader: "sass-loader",
                             options: {
-                                includePaths: [
-                                    path.join(sourceDirectoryPath, "node_modules"),
-                                    path.join(sourceDirectoryPath, "../css/node_modules"),
-                                    path.join(sourceDirectoryPath, "../../node_modules")
-                                ],
-                                data: `$asset-url: "${config.get("www.assetUrl")}";\n`
+                                sassOptions: {
+                                    includePaths: [
+                                        path.join(sourceDirectoryPath, "node_modules"),
+                                        path.join(sourceDirectoryPath, "../css/node_modules"),
+                                        path.join(sourceDirectoryPath, "../../node_modules")
+                                    ]
+                                },
+                                prependData: `$asset-url: "${config.get("www.assetUrl")}";\n`
                             }
                         }
                     ]

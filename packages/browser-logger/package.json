@@ -9,17 +9,11 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "~4.0.16",
-    "browser-bunyan": "~1.5.3",
-    "bunyan": "~2.0.2",
+    "@randy.tarampi/js": "^4.0.16",
+    "browser-bunyan": "^1.5.3",
+    "bunyan": "^2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven-js": "~3.27.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "~7.7.5",
-    "gulp": "~4.0.2",
-    "mocha": "~6.2.2",
-    "nyc": "~14.1.1"
+    "raven-js": "^3.27.2"
   },
   "directories": {
     "lib": "./src/lib",
@@ -46,11 +40,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": {
-    "directory": "me/packages/browser-logger",
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
+  "repository": "randytarampi/me.git",
   "scripts": {
     "build": "npm run build:babel",
     "build:babel": "npm run build:babel:esm && npm run build:babel:es5",

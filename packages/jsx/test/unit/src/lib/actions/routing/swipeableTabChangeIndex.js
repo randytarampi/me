@@ -76,7 +76,7 @@ describe("swipeableTabChangeIndex", function () {
                 {
                     type: SWIPEABLE_TAB_CHANGE_INDEX,
                     payload: {
-                        index: Number(stubPayload)
+                        index: 5
                     }
                 }
             ]);

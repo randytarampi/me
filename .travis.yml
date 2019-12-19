@@ -3,8 +3,8 @@ dist: trusty
 matrix:
   fast_finish: true
   allow_failures:
-    - node_js: '10'
-    - node_js: '11'
+    - node_js: node
+    - node_js: lts/*
 env:
   global:
     - CPUS_COUNT=4
@@ -15,7 +15,7 @@ env:
     - SENTRY_LOG_LEVEL=debug
     - secure: ZTBYFZ10aI9BZPy5svRBilIqEbx88fLxUVgblqhlWStF8jhnWslOULzjXFbz2dpTboEYDxlFwfo9+K0hYUJmL7iDtpnKX9pbA5SXQxok2W9zoGGrNDedcXIQxyCWMKKmpcco5B6PFS+uScuYSQzUu9FEwkcEXoxr1hUom2THEXm3FxRHMP5iCr9HwNb0ZmHq622G5jEtCImWErHauLYyuay9A9geFysHuUE5qNITsQP5IjNH2vEqs3KAGZxLAUbV7OKwafEh2mPDqYV/96uOf4uGtQA5EV2yfoemkLN1OgffGGLoPqdL5kDzkcrPacbVvQSc8pL5T4irsNOngs3PsiEtz21qdkA0o9pwsbmC4HWRxq/4A86ECH1mWoLXp6aF6LmUpxclnQIj46986Dm+DSfg9wmUHP4WJsfrQOfJ4ZIgtAG0hS5nKSHY9qep9bkLNgP4K6ZCVosUG3QgA5nImyP++90H8eM6hzNCpXCBX71S1QmW6iQqPT1B34S2fJzPQYU3mFX05itP7V9ikKsFXy9YDjmzc8f1E09/WH1bJcW/4kcHUxyki6PZy4hWM7252H7iI1wcseOExzmS9awkZUKyGqVrVQ9D7/KZxmh9zHfRHXRZj1FSDtLBaPSlAS8Do0EDToFpUsFEdHUyvgf3QWg6jwweS9zXlXTmKxBPxz8=
     - secure: oxfqOoaXj7BuY0mNwqJdvj/3HPShjhKpS5iCAhd02IvrJHXsYVzOf1JEj6fO94VntDNKpep/2fzl+pfIBgsyGCB8JsGVTyszitbJVSZio7kJFgNj9XZr6WajFU2jfSmqV7H7Z1pGcEESTbPdGdLAwL7PJnik8OEWKleP6WDC5IPDN7yVycn6h72vMoX8VDqZPnP0ZuaiW1VaGrHCcg5Fg9Id5TRzHsmz5yE0DYOPL5QO8NI3JAk5Sq+nqCvb0/Ac0pSTJgqfKXDryIws17y18VubKuLAQMhfHXC9k5C2HSR/TWUqvzv6X0+tnxhJmvcmk6O2zF5YhLInJSrRjTOWnHAgYfBOC+8+Zoz7kl/YYKAFnn7LGT5e3L11KFO6Esip84MPJWU95swiQcu014Kf906WYN2kKlW5J5njOwrGqY3pXh9VrZp+7tUH1611F7/HBmXqe874pByDUdUBcnVEnCUdtvAYlJLVeIvmemQDn3oiXcHXrC+454BbDUL5CDlUGIhwibxbxj+Z9wPdHuflXf0ecegFopAjDBSQhJpQ1CxP3BiDSPKiI5J1UmA5HGnxuTF5/EEbDSvWC3VCm0MzN9SlmU74bAaCLDWIU4HKESmzfmX7z12gGpDgpALyjXq+zGTeGSkpMBa1NBWHzqWxn8WsKKMUgqM8FGMDzRNpl90=
-cache: npm
+cache: yarn
 before_install:
   - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
   - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
@@ -23,6 +23,8 @@ before_install:
   - uname -a
   - lscpu
   - npm install -g npm
+install:
+  - yarn bootstrap
 stages:
   - name: Test
     if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
@@ -36,27 +38,27 @@ stages:
 jobs:
   include:
     - stage: Test
-      node_js: '8.10'
+      node_js: '12'
       env: &1
         - NODE_ENV=test
       before_script: &2
-        - npm run pretest
+        - yarn run pretest
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
         - "./cc-test-reporter before-build"
       script: &3
-        - npm run cover:actual
+        - yarn run cover:actual
       after_script: &4
-        - npm run cover:collect
-        - npm run coveralls
+        - yarn run cover:collect
+        - yarn run coveralls
         - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
       after_failure: &5
-        - npm run kill --prefix packages/service
+        - yarn run kill --scope @randy.tarampi/service
       after_success: &6
-        - npm run coveralls
+        - yarn run coveralls
     - stage: Test
-      node_js: '10'
+      node_js: node
       env: *1
       before_script: *2
       script: *3
@@ -64,7 +66,7 @@ jobs:
       after_failure: *5
       after_success: *6
     - stage: Test
-      node_js: '11'
+      node_js: lts/*
       env: *1
       before_script: *2
       script: *3
@@ -73,7 +75,7 @@ jobs:
       after_success: *6
     - stage: Release
       name: GitHub
-      node_js: '8.10'
+      node_js: '12'
       env:
         - NODE_ENV=prd
         - RELEASE=true
@@ -94,14 +96,14 @@ jobs:
         - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
           git status;
           npx lerna version --no-git-tag-version --no-push --conventional-commits --yes --exact &&
-          npm ci &&
-          npm run letter --prefix packages/letter &&
-          npm run resume --prefix packages/resume &&
-          npm run resume --prefix packages/jsonresume-theme &&
-          npm run docs --prefix packages/letter &&
-          npm run docs --prefix packages/resume &&
-          npm run docs --prefix packages/jsonresume-theme &&
-          npm run docs --prefix packages/www;
+          yarn bootstrap &&
+          npx lerna run letter --scope @randy.tarampi/letter &&
+          npx lerna run resume --scope @randy.tarampi/resume &&
+          npx lerna run resume --scope jsonresume-theme-randytarampi &&
+          npx lerna run docs --scope @randy.tarampi/letter &&
+          npx lerna run docs --scope @randy.tarampi/resume &&
+          npx lerna run docs --scope jsonresume-theme-randytarampi &&
+          npx lerna run docs --scope @randy.tarampi/www;
           fi;
       before_script: skip
       script: skip
@@ -137,7 +139,7 @@ jobs:
           target_commitish: "$TRAVIS_TAG_COMMIT"
     - stage: Deploy (dev)
       name: www
-      node_js: '8.10'
+      node_js: '12'
       env:
         - BABEL_ENV=production
         - NODE_ENV=dev
@@ -147,8 +149,8 @@ jobs:
       install:
         - git checkout $TRAVIS_BRANCH
         - npx lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-        - npm ci
-        - npm run docs --prefix packages/www
+        - yarn bootstrap
+        - npx lerna run docs --scope @randy.tarampi/www
       before_script: skip
       script: skip
       after_script: skip
@@ -171,7 +173,7 @@ jobs:
             branch: master
     - stage: Deploy (dev)
       name: posts
-      node_js: '8.10'
+      node_js: '12'
       env:
         - BABEL_ENV=production
         - NODE_ENV=dev
@@ -182,26 +184,26 @@ jobs:
       install:
         - git checkout $TRAVIS_BRANCH
         - npx lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-        - npm ci
+        - yarn bootstrap
       before_script: skip
       script: skip
       after_script: skip
       deploy:
         - provider: script
-          script: npm run deploy --prefix packages/service
+          script: npx lerna run deploy --scope @randy.tarampi/service
           skip_cleanup: true
           on:
             master: true
     - stage: Deploy (prd)
       name: www
-      node_js: '8.10'
+      node_js: '12'
       env:
         - NODE_ENV=prd
         - DEPLOY=true
         - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
       install:
-        - npm ci
-        - npm run docs --prefix packages/www
+        - yarn bootstrap
+        - npx lerna run docs --scope @randy.tarampi/www
       before_script: skip
       script: skip
       after_script: skip
@@ -219,7 +221,7 @@ jobs:
             tags: true
     - stage: Deploy (prd)
       name: resume
-      node_js: '8.10'
+      node_js: '12'
       env:
         - NODE_ENV=prd
         - DEPLOY=true
@@ -241,7 +243,7 @@ jobs:
             tags: true
     - stage: Deploy (prd)
       name: posts
-      node_js: '8.10'
+      node_js: '12'
       env:
         - NODE_ENV=prd
         - DEPLOY=true
@@ -253,7 +255,7 @@ jobs:
       after_script: skip
       deploy:
         - provider: script
-          script: npm run deploy --prefix packages/service
+          script: npx lerna run deploy --scope @randy.tarampi/service
           skip_cleanup: true
           on:
             tags: true

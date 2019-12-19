@@ -5,7 +5,9 @@ import selectors from "../../data/selectors";
 export const SWIPEABLE_TAB_CHANGE_INDEX = "SWIPEABLE_TAB_CHANGE_INDEX";
 
 export const swipeableTabChangeIndexCreator = tabIndex => (dispatch, getState) => {
-    const index = Number(tabIndex);
+    const passedTabIndex = Number(tabIndex);
+    // NOTE-RT: We need the un`scoped` value here, per https://github.com/react-materialize/react-materialize/commit/f5d1e0d5b97ae4435d6a709b9fc030458fe30b9e#diff-f8f6138478fd4cda2a0f875f28829252R50.
+    const index = passedTabIndex % (10 ** Math.floor(Math.log10(passedTabIndex)));
     dispatch(swipeableTabChangeIndex({index}));
 
     const state = getState();
