@@ -30,9 +30,9 @@
   "scripts": {
     "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "npm run clean"
+    "preuninstall": "yarn run clean"
   }
 }
