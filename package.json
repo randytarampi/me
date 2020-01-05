@@ -88,6 +88,7 @@
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "serverless-webpack": "^5.3.1",
     "sinon": "^8.0.2",
+    "snyk": "^1.274.0",
     "svg-path-loader": "^0.0.4",
     "syncpack": "^4.5.4",
     "terser-webpack-plugin": "^2.3.1",
