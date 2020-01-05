@@ -75,7 +75,7 @@
     "pug-loader": "^2.4.0",
     "redux-mock-store": "^1.5.4",
     "resolve-url-loader": "^3.1.1",
-    "resume-cli": "^1.2.7",
+    "resume-cli": "randytarampi/resume-cli#me-release",
     "sass-loader": "^8.0.0",
     "semver-compare": "^1.0.0",
     "serverless": "^1.60.5",
