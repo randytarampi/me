@@ -8,19 +8,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/styles.js"
   },
   {
-    "revision": "29bc55e336b42a863989",
-    "url": "/vendor.esm.js"
+    "revision": "ea2037694bd07284017b",
+    "url": "/vendor.js"
   },
   {
     "revision": "cc79c2d0054eedd6ce31649b2b7c3458",
-    "url": "/vendor.esm.js.LICENSE"
+    "url": "/vendor.js.LICENSE"
   },
   {
-    "revision": "d42c28d22fd2264b51bd",
-    "url": "/www.esm.js"
+    "revision": "51e17fdff61e09609151",
+    "url": "/www.js"
   },
   {
-    "revision": "80f16bdaffe3c3819a48",
-    "url": "/www.sw.installer.esm.js"
+    "revision": "fff63e8043387b20dea0",
+    "url": "/www.sw.installer.js"
   }
 ]);
