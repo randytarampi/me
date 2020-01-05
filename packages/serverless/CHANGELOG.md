@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/randytarampi/me/compare/v4.0.16...v5.0.0) (2020-01-05)
+
+
+### chore
+
+* **package:** Blindly update packages for 2019 & node@12. ([272a783](https://github.com/randytarampi/me/commit/272a78368574fad8c9ef377c64ee7239243158c7))
+
+
+### BREAKING CHANGES
+
+* **package:** Move from supporting node@8 which is EOL to node@12, the newest LTS.
+
+Also change to use `yarn` instead of `npm`.
+
+
+
+
+
 ## [4.0.16](https://github.com/randytarampi/me/compare/v4.0.15...v4.0.16) (2019-07-06)
 
 **Note:** Version bump only for package @randy.tarampi/serverless
