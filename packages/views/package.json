@@ -16,7 +16,7 @@
     "lib": "./src/lib"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "files": [
     "dist",

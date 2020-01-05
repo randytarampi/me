@@ -19,7 +19,7 @@
     "test": "./test"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "files": [
     "es5",
