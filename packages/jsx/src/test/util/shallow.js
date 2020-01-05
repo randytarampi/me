@@ -1,15 +1,6 @@
 import {shallow as enzymeShallow} from "enzyme";
+import {enzymeRendererForRenderFunction} from "./mount";
 
-export const shallow = store => (component, options = {}) => {
-    const augmentedOptions = {
-        ...options,
-        context: {
-            store,
-            ...options.context
-        }
-    };
-
-    return enzymeShallow(component, augmentedOptions);
-};
+export const shallow = enzymeRendererForRenderFunction(enzymeShallow);
 
 export default shallow;
