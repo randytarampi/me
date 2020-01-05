@@ -72,29 +72,12 @@ module.exports = webpackBaseConfig({
             skipWaiting: true,
             clientsClaim: true,
             offlineGoogleAnalytics: false,
-            maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
             cacheId: packageJson.name,
             navigateFallback: "/",
-            modifyUrlPrefix: {
-                "/": `/${config.get("www.assetUrl")}/`
-            },
-            globDirectory: "dist/",
-            globPatterns: [
-                "signature.svg"
-            ],
-            manifestTransforms: [
-                originalManifest => {
-                    const manifest = originalManifest.map(entry => {
-                        entry.url = `${config.get("www.assetUrl")}/${entry.url}`;
-                        return entry;
-                    });
-                    return {manifest};
-                }
-            ],
             runtimeCaching: [
                 {
                     urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
-                    handler: "staleWhileRevalidate",
+                    handler: "StaleWhileRevalidate",
                     options: {
                         cacheName: "external",
                         expiration: {

@@ -1,7 +1,4 @@
 {
-  "extension": [
-    ".jsx"
-  ],
   "exclude": [
     "**/node_modules/**",
     "**/dist/**",
@@ -24,7 +21,7 @@
     "lcov"
   ],
   "require": [
-    "../../babel.register.js"
+    "./babel.register.js"
   ],
   "cache": true,
   "all": true,

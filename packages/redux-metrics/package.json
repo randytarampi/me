@@ -9,14 +9,8 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "1.15.0",
-    "react-metrics": "2.4.1"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.5.0",
-    "gulp": "4.0.2",
-    "mocha": "6.1.4",
-    "nyc": "14.1.1"
+    "luxon": "^1.21.3",
+    "react-metrics": "^2.4.1"
   },
   "directories": {
     "lib": "./src/lib",
@@ -42,11 +36,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": {
-    "directory": "me/packages/redux-metrics",
-    "type": "git",
-    "url": "https://github.com/randytarampi/me.git"
-  },
+  "repository": "randytarampi/me.git",
   "scripts": {
     "build": "npm run build:babel",
     "build:babel": "npm run build:babel:esm && npm run build:babel:es5",

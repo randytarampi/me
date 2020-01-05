@@ -9,23 +9,16 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/jsx": "4.0.16",
-    "@randy.tarampi/letter": "4.0.16",
-    "@randy.tarampi/printables": "4.0.16",
-    "@randy.tarampi/resume": "4.0.16",
-    "snyk": "^1.192.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.5.0",
-    "gulp": "4.0.2",
-    "mocha": "6.1.4",
-    "nyc": "14.1.1"
+    "@randy.tarampi/jsx": "^4.0.16",
+    "@randy.tarampi/letter": "^4.0.16",
+    "@randy.tarampi/printables": "^4.0.16",
+    "@randy.tarampi/resume": "^4.0.16"
   },
   "directories": {
     "lib": "./src/lib"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "homepage": "https://www.randytarampi.ca",
   "license": "MIT",
@@ -41,8 +34,8 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "scripts": {
-    "build": "npm run build:babel",
-    "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
+    "build": "yarn run build:babel",
+    "build:babel": "yarn run build:babel:esm && yarn run build:babel:es5",
     "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
     "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
     "clean": "gulp -LLLL --color clean",
@@ -51,13 +44,13 @@
     "job-applications": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
     "postinstall": "mkdir -p dist",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
+    "prepublish": "yarn run snyk-protect",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "npm run clean",
-    "start:server": "npm run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
-    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "preuninstall": "yarn run clean",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
+    "test": "NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,
   "snyk": true

@@ -8,15 +8,11 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.8.2",
-    "materialize-css": "1.0.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.5.0",
-    "gulp": "4.0.2"
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "materialize-css": "^1.0.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "files": [
     "npm-shrinkwrap.json",
@@ -34,9 +30,9 @@
   "scripts": {
     "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd npm run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then npm run build; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
+    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "npm run clean"
+    "preuninstall": "yarn run clean"
   }
 }

@@ -129,6 +129,10 @@ describe("ConsoleStream", function () {
             global.window = window;
         });
 
+        // FIXME-RT: Either `sinon` or `mocha` needs a bit of extra time for the stubs to be configured somehow, so add an empty test here to buy some time...
+        it("needs to set", function () {
+        });
+
         it("handles FATAL (60)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(60);
 

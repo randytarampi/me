@@ -4,13 +4,13 @@ frameworkVersion: ">=1.0.0 <2.0.0"
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
 
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
   baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
   domainName: ${file(env.yml):${self:provider.stage}.domainName}
-  memorySize: 256
+  memorySize: 128
   timeout: 60
 
   tracing: true
