@@ -1,7 +1,4 @@
 {
-  "extension": [
-    ".jsx"
-  ],
   "exclude": [
     "node_modules/**",
     "dist/**",
