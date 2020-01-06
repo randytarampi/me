@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/randytarampi/me/compare/v6.0.0...v6.0.1) (2020-01-06)
+
+
+### Reverts
+
+* chore(greenkeeper): Update dependencies. ([f0f5233](https://github.com/randytarampi/me/commit/f0f523346d5e1752b4bf1e83697f741aec23d101))
+* chore(greenkeeper): Update dependencies. ([64d085f](https://github.com/randytarampi/me/commit/64d085f057ed9fb594042b718aeda46f8ad77722))
+* chore(package): update lockfile yarn.lock ([cfbf92a](https://github.com/randytarampi/me/commit/cfbf92a3446683f645496edef3d2a3b653186f85))
+
+
+
+
+
 # [6.0.0](https://github.com/randytarampi/me/compare/v4.0.16...v6.0.0) (2020-01-05)
 
 
