@@ -14,7 +14,7 @@
     "georaptor": "github:randytarampi/georaptor#me-release",
     "haversine": "^1.1.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
-    "latlon-geohash": "^2.0.0",
+    "latlon-geohash": "^1.1.0",
     "libphonenumber-js": "^1.7.29",
     "lodash": "^4.17.15",
     "luxon": "^1.21.3",
