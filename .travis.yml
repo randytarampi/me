@@ -1,5 +1,5 @@
 language: node_js
-dist: trusty
+dist: xenial
 matrix:
   fast_finish: true
   allow_failures:
