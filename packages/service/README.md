@@ -1,8 +1,8 @@
 ```plaintext
 ███╗   ███╗███████╗   ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗
 ████╗ ████║██╔════╝   ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝
-██╔████╔██║█████╗     ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗  
-██║╚██╔╝██║██╔══╝     ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝  
+██╔████╔██║█████╗     ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗
+██║╚██╔╝██║██╔══╝     ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝
 ██║ ╚═╝ ██║███████╗██╗███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗
 ╚═╝     ╚═╝╚══════╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝
 ```
@@ -20,16 +20,11 @@ Scan some post sources for posts, then display them on a single page.
 
 # Dependencies
 
-```
-brew install nvm
-nvm install 8
-```
+See the [`me` dependencies](../../README.md#Dependencies).
 
 # Installation
 
-```
-npm install
-```
+See the [`me` installation instructions](../../README.md#Installation).
 
 You'll also need to define some variables in a [`env.yml`](https://github.com/randytarampi/me.posts/blob/master/env.yml) file.
 
@@ -76,18 +71,21 @@ cp ../../config/template.secrets.yml ../../config/.secrets.<AWS_REGION>.yml # Cr
 # Usage
 
 ```
-npm start
+# From the `me` monorepo root
+npx lerna run start --scope=@randy.tarampi/service
 open http://localhost:3006/cache/posts
 ```
 
 # Testing
 
 ```
-npm test
+# From the `me` monorepo root
+npx lerna run test --scope=@randy.tarampi/service
 ```
 
 # Deployment
 
 ```
-npm run deploy
+# From the `me` monorepo root
+npx lerna run deploy --scope=@randy.tarampi/service
 ```

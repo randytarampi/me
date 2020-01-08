@@ -1,5 +1,5 @@
 ```
-  _ __ ___   ___   ___ ___ ___ 
+  _ __ ___   ___   ___ ___ ___
  | '_ ` _ \ / _ \ / __/ __/ __|
  | | | | | |  __/| (__\__ \__ \
  |_| |_| |_|\___(_)___|___/___/
@@ -13,19 +13,15 @@ Some common styles for [www](../www), [letter](../letter) and [resume](../resume
 
 # Dependencies
 
-```
-brew install nvm
-nvm install 8
-```
+See the [`me` dependencies](../../README.md#Dependencies).
 
 # Installation
 
-```
-npm install
-```
+See the [`me` installation instructions](../../README.md#Installation).
 
 # Testing
 
 ```
-npm test
+# From the `me` monorepo root
+npx lerna run test --scope=@randy.tarampi/css
 ```
