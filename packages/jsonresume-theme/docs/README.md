@@ -1,18 +1,18 @@
 ```plaintext
-                                                                                                                   /$$     /$$                                        
-                                                                                                                  | $$    | $$                                        
-       /$$  /$$$$$$$  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$$ /$$   /$$ /$$$$$$/$$$$   /$$$$$$          /$$$$$$  | $$$$$$$   /$$$$$$  /$$$$$$/$$$$   /$$$$$$ 
+                                                                                                                   /$$     /$$
+                                                                                                                  | $$    | $$
+       /$$  /$$$$$$$  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$$ /$$   /$$ /$$$$$$/$$$$   /$$$$$$          /$$$$$$  | $$$$$$$   /$$$$$$  /$$$$$$/$$$$   /$$$$$$
       |__/ /$$_____/ /$$__  $$| $$__  $$ /$$__  $$ /$$__  $$ /$$_____/| $$  | $$| $$_  $$_  $$ /$$__  $$ /$$$$$$|_  $$_/  | $$__  $$ /$$__  $$| $$_  $$_  $$ /$$__  $$
        /$$|  $$$$$$ | $$  \ $$| $$  \ $$| $$  \__/| $$$$$$$$|  $$$$$$ | $$  | $$| $$ \ $$ \ $$| $$$$$$$$|______/  | $$    | $$  \ $$| $$$$$$$$| $$ \ $$ \ $$| $$$$$$$$
       | $$ \____  $$| $$  | $$| $$  | $$| $$      | $$_____/ \____  $$| $$  | $$| $$ | $$ | $$| $$_____/          | $$ /$$| $$  | $$| $$_____/| $$ | $$ | $$| $$_____/
       | $$ /$$$$$$$/|  $$$$$$/| $$  | $$| $$      |  $$$$$$$ /$$$$$$$/|  $$$$$$/| $$ | $$ | $$|  $$$$$$$          |  $$$$/| $$  | $$|  $$$$$$$| $$ | $$ | $$|  $$$$$$$
       | $$|_______/  \______/ |__/  |__/|__/       \_______/|_______/  \______/ |__/ |__/ |__/ \_______/           \___/  |__/  |__/ \_______/|__/ |__/ |__/ \_______/
- /$$  | $$                                                                                                                                                            
-|  $$$$$$/                                                                                                                                                            
- \______/                                                                                                                                                             
+ /$$  | $$
+|  $$$$$$/
+ \______/
 ```
 
-[![npm versions](https://img.shields.io/npm/v/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm downloads](https://img.shields.io/npm/dt/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm license](https://img.shields.io/npm/l/jsonresume-theme-randytarampi.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![Waffle.io board](https://badge.waffle.io/randytarampi/randytarampi.github.io.svg?columns=all&style=flat-square)](https://waffle.io/randytarampi/randytarampi.github.io) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me/tree/master/packages/jsonresume-theme?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
+[![npm versions](https://img.shields.io/npm/v/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm downloads](https://img.shields.io/npm/dt/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jsonresume-theme-randytarampi.svg?style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![npm license](https://img.shields.io/npm/l/jsonresume-theme-randytarampi.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/jsonresume-theme-randytarampi) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me/tree/master/packages/jsonresume-theme?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
 
 [![Install jsonresume-theme-randytarampi](https://nodeico.herokuapp.com/jsonresume-theme-randytarampi.svg)](https://www.npmjs.com/package/jsonresume-theme-randytarampi)
 
@@ -22,33 +22,32 @@ It's really just another generic [JSON resume theme](http://themes.jsonresume.or
 
 # Dependencies
 
-```
-brew install nvm
-nvm install 8
-```
+See the [`me` dependencies](../../README.md#Dependencies).
 
 # Installation
 
-```
-npm install
-```
+See the [`me` installation instructions](../../README.md#Installation).
 
 # Usage
 
 ```
-npm start
+# From the `me` monorepo root
+npx lerna run start --scope=@randy.tarampi/jsonresume-theme-randytarampi
 ```
 
 # Testing
 
 ```
-npm test
+# From the `me` monorepo root
+npx lerna run test --scope=@randy.tarampi/jsonresume-theme-randytarampi
 ```
 
 # Generation
 
 ```
-npm run resume
+# From the `me` monorepo root
+npx lerna run build --scope=@randy.tarampi/jsonresume-theme-randytarampi
+npx lerna run resume --scope=@randy.tarampi/jsonresume-theme-randytarampi
 ```
 
 # Publishing

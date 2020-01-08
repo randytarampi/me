@@ -1,12 +1,12 @@
 ```plaintext
-                             /$$             /$$     /$$                        
-                            | $$            | $$    | $$                        
- /$$$$$$/$$$$   /$$$$$$     | $$  /$$$$$$  /$$$$$$ /$$$$$$    /$$$$$$   /$$$$$$ 
+                             /$$             /$$     /$$
+                            | $$            | $$    | $$
+ /$$$$$$/$$$$   /$$$$$$     | $$  /$$$$$$  /$$$$$$ /$$$$$$    /$$$$$$   /$$$$$$
 | $$_  $$_  $$ /$$__  $$    | $$ /$$__  $$|_  $$_/|_  $$_/   /$$__  $$ /$$__  $$
 | $$ \ $$ \ $$| $$$$$$$$    | $$| $$$$$$$$  | $$    | $$    | $$$$$$$$| $$  \__/
-| $$ | $$ | $$| $$_____/    | $$| $$_____/  | $$ /$$| $$ /$$| $$_____/| $$      
-| $$ | $$ | $$|  $$$$$$$ /$$| $$|  $$$$$$$  |  $$$$/|  $$$$/|  $$$$$$$| $$      
-|__/ |__/ |__/ \_______/|__/|__/ \_______/   \___/   \___/   \_______/|__/      
+| $$ | $$ | $$| $$_____/    | $$| $$_____/  | $$ /$$| $$ /$$| $$_____/| $$
+| $$ | $$ | $$|  $$$$$$$ /$$| $$|  $$$$$$$  |  $$$$/|  $$$$/|  $$$$$$$| $$
+|__/ |__/ |__/ \_______/|__/|__/ \_______/   \___/   \___/   \_______/|__/
 ```
 
 [![npm versions](https://img.shields.io/npm/v/@randy.tarampi/letter.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/letter) [![npm downloads](https://img.shields.io/npm/dt/@randy.tarampi/letter.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/letter) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@randy.tarampi/letter.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/letter) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@randy.tarampi/letter.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/letter) [![npm license](https://img.shields.io/npm/l/@randy.tarampi/letter.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/letter) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me/tree/master/packages/letter?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
@@ -23,32 +23,30 @@ The spiritual companion to my [resume](../resume). Just generate some cover lett
 
 # Dependencies
 
-```
-brew install nvm
-nvm install 8
-```
+See the [`me` dependencies](../../README.md#Dependencies).
 
 # Installation
 
-```
-npm install
-```
+See the [`me` installation instructions](../../README.md#Installation).
 
 # Usage
 
 ```
-npm start
+# From the `me` monorepo root
+npx lerna run start --scope=@randy.tarampi/letter
 ```
 
 # Testing
 
 ```
-npm test
+# From the `me` monorepo root
+npx lerna run test --scope=@randy.tarampi/letter
 ```
 
 # Generation
 
 ```
-npm run build
-npm run letter
+# From the `me` monorepo root
+npx lerna run build --scope=@randy.tarampi/letter
+npx lerna run letter --scope=@randy.tarampi/letter
 ```

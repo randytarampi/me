@@ -1,9 +1,9 @@
 ```plaintext
-$$$$$$\$$$$\   $$$$$$\       $$$$$$\   $$$$$$\   $$$$$$$\ $$\   $$\ $$$$$$\$$$$\   $$$$$$\  
-$$  _$$  _$$\ $$  __$$\     $$  __$$\ $$  __$$\ $$  _____|$$ |  $$ |$$  _$$  _$$\ $$  __$$\ 
+$$$$$$\$$$$\   $$$$$$\       $$$$$$\   $$$$$$\   $$$$$$$\ $$\   $$\ $$$$$$\$$$$\   $$$$$$\
+$$  _$$  _$$\ $$  __$$\     $$  __$$\ $$  __$$\ $$  _____|$$ |  $$ |$$  _$$  _$$\ $$  __$$\
 $$ / $$ / $$ |$$$$$$$$ |    $$ |  \__|$$$$$$$$ |\$$$$$$\  $$ |  $$ |$$ / $$ / $$ |$$$$$$$$ |
 $$ | $$ | $$ |$$   ____|    $$ |      $$   ____| \____$$\ $$ |  $$ |$$ | $$ | $$ |$$   ____|
-$$ | $$ | $$ |\$$$$$$$\ $$\ $$ |      \$$$$$$$\ $$$$$$$  |\$$$$$$  |$$ | $$ | $$ |\$$$$$$$\ 
+$$ | $$ | $$ |\$$$$$$$\ $$\ $$ |      \$$$$$$$\ $$$$$$$  |\$$$$$$  |$$ | $$ | $$ |\$$$$$$$\
 \__| \__| \__| \_______|\__|\__|       \_______|\_______/  \______/ \__| \__| \__| \_______|
 ```
 
@@ -21,32 +21,30 @@ The backing markup and styles for [`jsonresume-theme-randytarampi`](../jsonresum
 
 # Dependencies
 
-```
-brew install nvm
-nvm install 8
-```
+See the [`me` dependencies](../../README.md#Dependencies).
 
 # Installation
 
-```
-npm install
-```
+See the [`me` installation instructions](../../README.md#Installation).
 
 # Usage
 
 ```
-npm start
+# From the `me` monorepo root
+npx lerna run start --scope=@randy.tarampi/resume
 ```
 
 # Testing
 
 ```
-npm test
+# From the `me` monorepo root
+npx lerna run test --scope=@randy.tarampi/resume
 ```
 
 # Generation
 
 ```
-npm run build
-npm run resume
+# From the `me` monorepo root
+npx lerna run build --scope=@randy.tarampi/resume
+npx lerna run resume --scope=@randy.tarampi/resume
 ```

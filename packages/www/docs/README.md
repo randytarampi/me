@@ -1,17 +1,17 @@
 ```
-          ____                                                      
-        ,'  , `.                                                    
-     ,-+-,.' _ |                  .---.         .---.         .---. 
-  ,-+-. ;   , ||                 /. ./|        /. ./|        /. ./| 
- ,--.'|'   |  || ,---.        .-'-. ' |     .-'-. ' |     .-'-. ' | 
-|   |  ,', |  |,/     \      /___/ \: |    /___/ \: |    /___/ \: | 
-|   | /  | |--'/    /  |  .-'.. '   ' . .-'.. '   ' . .-'.. '   ' . 
-|   : |  | ,  .    ' / | /___/ \:     '/___/ \:     '/___/ \:     ' 
-|   : |  |/   '   ;   /| .   \  ' .\   .   \  ' .\   .   \  ' .\    
-|   | |`-'    '   |  / |__\   \   ' \ | \   \   ' \ | \   \   ' \ | 
-|   ;/        |   :    /  .\   \  |--"   \   \  |--"   \   \  |--"  
-'---'          \   \  /\  ; \   \ |       \   \ |       \   \ |     
-                `----'  `--" '---"         '---"         '---"      
+          ____
+        ,'  , `.
+     ,-+-,.' _ |                  .---.         .---.         .---.
+  ,-+-. ;   , ||                 /. ./|        /. ./|        /. ./|
+ ,--.'|'   |  || ,---.        .-'-. ' |     .-'-. ' |     .-'-. ' |
+|   |  ,', |  |,/     \      /___/ \: |    /___/ \: |    /___/ \: |
+|   | /  | |--'/    /  |  .-'.. '   ' . .-'.. '   ' . .-'.. '   ' .
+|   : |  | ,  .    ' / | /___/ \:     '/___/ \:     '/___/ \:     '
+|   : |  |/   '   ;   /| .   \  ' .\   .   \  ' .\   .   \  ' .\
+|   | |`-'    '   |  / |__\   \   ' \ | \   \   ' \ | \   \   ' \ |
+|   ;/        |   :    /  .\   \  |--"   \   \  |--"   \   \  |--"
+'---'          \   \  /\  ; \   \ |       \   \ |       \   \ |
+                `----'  `--" '---"         '---"         '---"
 ```
 
 The front-end to [`me`](../../), available in both [production](https://www.randytarampi.ca) and [development](http://dev.randytarampi.ca) environments.
@@ -20,28 +20,30 @@ The front-end to [`me`](../../), available in both [production](https://www.rand
 
 # Dependencies
 
-```
-brew install nvm
-nvm install 8
-```
+See the [`me` dependencies](https://github.com/randytarampi/me/tree/master/README.md#Dependencies).
 
 # Installation
 
-```
-npm install
-```
+See the [`me` installation instructions](https://github.com/randytarampi/me/tree/master/README.md#Installation).
 
 # Usage
 
 ```
-npm start
-open http://localhost:8080
+# From the `me` monorepo root
+npx lerna run start --scope=@randy.tarampi/views
+
+# Or use the convenience `start:www` from the `me` monorepo root
+yarn run start:www
+
+# Or use the convenience `start:web` from the `me` monorepo root, which will run `me.www` and `me.service` in parallel
+yarn run start:web
 ```
 
 # Testing
 
 ```
-npm test
+# From the `me` monorepo root
+npx lerna run test --scope=@randy.tarampi/www
 ```
 
 # Deployment
