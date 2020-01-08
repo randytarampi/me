@@ -3,8 +3,18 @@ dist: xenial
 matrix:
   fast_finish: true
   allow_failures:
+    - node_js: 6
+    - node_js: 8
+    - node_js: 10
     - node_js: node
     - node_js: lts/*
+node_js:
+  - 6
+  - 8
+  - 10
+  - 12
+  - lts/*
+  - node
 env:
   global:
     - CPUS_COUNT=4
