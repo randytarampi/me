@@ -104,7 +104,7 @@
     "yargs": "^15.1.0"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=8",
     "yarn": ">=1"
   },
   "greenkeeper": {

@@ -61,22 +61,6 @@ jobs:
       after_success: &6
         - yarn run coveralls
     - stage: Test
-      node_js: 6
-      env: *1
-      before_install:
-        - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
-        - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
-        - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
-        - uname -a
-        - lscpu
-        - npm install -g yarn
-        - npm install -g npx
-      before_script: *2
-      script: *3
-      after_script: *4
-      after_failure: *5
-      after_success: *6
-    - stage: Test
       node_js: 8
       env: *1
       before_script: *2
