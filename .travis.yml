@@ -63,7 +63,9 @@ jobs:
     - stage: Test
       node_js: 6
       env: *1
-      before_script: *2
+      before_script:
+        - npm install -g npx
+        <<: *2
       script: *3
       after_script: *4
       after_failure: *5

@@ -103,6 +103,10 @@
     "ws": "^7.2.1",
     "yargs": "^15.1.0"
   },
+  "engines": {
+    "node": ">=12",
+    "yarn": ">=1"
+  },
   "greenkeeper": {
     "commitMessages": {
       "initialBadge": "docs(greenkeeper): Add Greenkeeper badge.",

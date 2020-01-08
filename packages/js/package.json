@@ -25,9 +25,6 @@
     "lib": "./src/lib",
     "test": "./test"
   },
-  "engines": {
-    "node": ">=12"
-  },
   "files": [
     "es5",
     "esm",
