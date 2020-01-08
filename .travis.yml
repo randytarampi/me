@@ -63,9 +63,15 @@ jobs:
     - stage: Test
       node_js: 6
       env: *1
-      before_script:
+      before_install:
+        - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
+        - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
+        - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
+        - uname -a
+        - lscpu
+        - npm install -g yarn
         - npm install -g npx
-        <<: *2
+      before_script: *2
       script: *3
       after_script: *4
       after_failure: *5
