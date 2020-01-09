@@ -58,10 +58,11 @@ const googleMapCallbacks = [
 ];
 
 export class GoogleMapComponent extends PureComponent {
-    constructor({googleMapRef, ...props}) {
+    constructor(passedProps) {
+        const {googleMapRef, ...props} = passedProps;
         const propsKeys = Object.keys(props);
 
-        super(props);
+        super(passedProps);
 
         this.googleMapRef = googleMapRef || React.createRef();
         this.getGoogleMap = this.getGoogleMap.bind(this);
