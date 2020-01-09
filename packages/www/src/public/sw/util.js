@@ -1,6 +1,7 @@
 /* global M */
 
 import {logger} from "@randy.tarampi/browser-logger";
+import {unregister} from "register-service-worker";
 
 export const onReady = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} is ready`);
@@ -21,6 +22,11 @@ export const onUpdateFound = () => {
 export const onUpdated = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has been updated`);
 
+    window.unregisterServiceWorkerAndReload = () => {
+        unregister();
+        location.reload();
+    };
+
     M.toast({
         html: `
         <p>
@@ -30,31 +36,31 @@ export const onUpdated = () => {
                     target="__blank"
                     rel="noopener noreferrer"
                     href="https://github.com/randytarampi/me/releases/latest"
-                    data-metrics-event-name="anchor" 
-                    data-metrics-type="href" 
-                    data-metrics-name="an update" 
+                    data-metrics-event-name="anchor"
+                    data-metrics-type="href"
+                    data-metrics-name="an update"
                     data-metrics-label="an update"
                 >
                     an update
                 </a> and you're behind.
             </span>
-            <a 
-                href="javascript:void(0)" 
-                data-metrics-event-name="anchor" 
-                data-metrics-type="onClick" 
-                data-metrics-name="Reload now" 
+            <a
+                href="javascript:void(0)"
+                data-metrics-event-name="anchor"
+                data-metrics-type="onClick"
+                data-metrics-name="Reload now"
                 data-metrics-label="Reload now"
-                onclick="location.reload();"
+                onclick="unregisterServiceWorkerAndReload();"
             >
                 Reload now
             </a> to stay current!
         </p>
-        <button 
-            class="hide-on-small-and-down btn-flat toast-action" 
-            onclick="location.reload();"
-            data-metrics-event-name="button" 
-            data-metrics-type="onClick" 
-            data-metrics-name="Reload and update" 
+        <button
+            class="hide-on-small-and-down btn-flat toast-action"
+            onclick="unregisterServiceWorkerAndReload();"
+            data-metrics-event-name="button"
+            data-metrics-type="onClick"
+            data-metrics-name="Reload and update"
             data-metrics-label="Reload and update"
         >
             Reload and update
