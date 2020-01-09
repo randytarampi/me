@@ -2,7 +2,7 @@ import {logger} from "@randy.tarampi/browser-logger";
 import Dimensions from "@randy.tarampi/react-dimensions";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
-import {Set} from "immutable";
+import {List} from "immutable";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import Infinite from "react-infinite";
@@ -154,7 +154,7 @@ PostsComponent.propTypes = {
     fetchPosts: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
     shouldFetchPostsOnMount: PropTypes.bool.isRequired,
-    posts: PropTypes.instanceOf(Set)
+    posts: PropTypes.instanceOf(List)
 };
 
 PostsComponent.defaultProps = {
