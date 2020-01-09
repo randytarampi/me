@@ -3,7 +3,7 @@ const profiles = require("../profiles");
 
 module.exports = {
     email: "jobs@randytarampi.ca",
-    telephone: "+16043747128",
+    telephone: "+4917656927128",
     image: "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
     logo: defer(function () {
         return this.me.resume.basics.image;
@@ -17,11 +17,11 @@ module.exports = {
         countryCode: defer(function () {
             return this.me.resume.basics.address.addressCountry;
         }),
-        addressCountry: "CA",
-        addressLocality: "Vancouver",
-        addressRegion: "BC",
-        postalCode: "V5R 3P7",
-        streetAddress: "4663 Todd Street"
+        addressCountry: "DE",
+        addressLocality: "Berlin",
+        addressRegion: "",
+        postalCode: "10785",
+        streetAddress: "Körnerstraße 24"
     },
     sameAs: ["https://www.randytarampi.ca/resume"].concat(Object.values(profiles).map(profile => profile.url).filter(value => !!value)),
     knowsLanguage: [

@@ -1,5 +1,6 @@
 const basics = require("./basics");
 
+const smunch = require("./work/smunch");
 const fetchAuto = require("./work/fetchAuto");
 const yardi = require("./work/yardi");
 const pulseEnergy = require("./work/pulseEnergy");
@@ -19,6 +20,7 @@ const sfuEducation = require("./education/sfu");
 module.exports = {
     basics,
     work: [
+        smunch,
         fetchAuto,
         yardi,
         pulseEnergy,
