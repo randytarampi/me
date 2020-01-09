@@ -5,6 +5,7 @@ import {Marker} from "react-google-maps";
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
+import {Provider, ReactReduxContext} from "react-redux";
 import {getSvgPathForPost, scalePixelValueForWindowDevicePixelRatio} from "../util";
 import {
     PostBodyAsArrayComponent,
@@ -86,7 +87,7 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
     }
 
     render() {
-        const {onVisibilityToggle, isVisible, post} = this.props;
+        const {onVisibilityToggle, isVisible, post, store} = this.props;
 
         return <InfoBox
             onCloseClick={onVisibilityToggle}
@@ -105,13 +106,15 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
             defaultVisible={false}
             visible={isVisible}
         >
-            <PostMarkerInfoBoxContentComponent
-                post={post}
-                title={this.title}
-                style={{
-                    maxWidth: Math.round(window.innerWidth * 3 / 4)
-                }}
-            />
+            <Provider store={store}>
+                <PostMarkerInfoBoxContentComponent
+                    post={post}
+                    title={this.title}
+                    style={{
+                        maxWidth: Math.round(window.innerWidth * 3 / 4)
+                    }}
+                />
+            </Provider>
         </InfoBox>;
     }
 }
@@ -143,7 +146,7 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
     }
 
     render() {
-        const {onVisibilityToggle, isVisible, post} = this.props;
+        const {onVisibilityToggle, isVisible, post, store} = this.props;
         const placeholder = post.getSizedPhotoForLoading(this.targetWidth);
         const selected = post.getSizedPhotoForDisplay(this.targetWidth);
 
@@ -172,15 +175,17 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
                     defaultVisible={false}
                     visible={isVisible}
                 >
-                    <PostMarkerInfoBoxContentComponent
-                        isLoading={isLoading}
-                        post={post}
-                        title={this.title}
-                        style={{
-                            height: this.scaledHeight,
-                            width: this.scaledWidth
-                        }}
-                    />
+                    <Provider store={store}>
+                        <PostMarkerInfoBoxContentComponent
+                            isLoading={isLoading}
+                            post={post}
+                            title={this.title}
+                            style={{
+                                height: this.scaledHeight,
+                                width: this.scaledWidth
+                            }}
+                        />
+                    </Provider>
                 </InfoBox>
             }
         </ProgressiveImage>;
@@ -227,31 +232,37 @@ renderPostMarkerInfoBoxComponentForPost.propTypes = {
 
 export const buildPostMarkerId = post => `marker--${post.uid}`;
 
-export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, ...props}) => <Marker
-    className={`marker marker__${post.type} ${buildPostMarkerId(post)}`}
-    id={buildPostMarkerId(post)}
-    icon={{
-        path: getSvgPathForPost(post),
-        fillColor: "#ec7500",
-        fillOpacity: 1,
-        scale: 0.05,
-        strokeWeight: 1
-    }}
-    title={post.title}
-    defaultPosition={{
-        lat: post.lat,
-        lng: post.long
-    }}
-    onClick={() => {
-        setMapCenter({
-            lat: post.lat,
-            lng: post.long
-        });
-        onVisibilityToggle(!isVisible);
-    }}
->
-    {renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, ...props})}
-</Marker>;
+export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, ...props}) => <ReactReduxContext.Consumer>
+    {
+        ({store}) => (
+            <Marker
+                className={`marker marker__${post.type} ${buildPostMarkerId(post)}`}
+                id={buildPostMarkerId(post)}
+                icon={{
+                    path: getSvgPathForPost(post),
+                    fillColor: "#ec7500",
+                    fillOpacity: 1,
+                    scale: 0.05,
+                    strokeWeight: 1
+                }}
+                title={post.title}
+                defaultPosition={{
+                    lat: post.lat,
+                    lng: post.long
+                }}
+                onClick={() => {
+                    setMapCenter({
+                        lat: post.lat,
+                        lng: post.long
+                    });
+                    onVisibilityToggle(!isVisible);
+                }}
+            >
+                {renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, store, ...props})}
+            </Marker>
+        )
+    }
+</ReactReduxContext.Consumer>;
 
 PostMarkerComponent.defaultProps = {
     isVisible: false

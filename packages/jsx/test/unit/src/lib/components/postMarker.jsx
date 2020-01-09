@@ -100,7 +100,7 @@ describe("PostMarker", function () {
                 isVisible={true}
                 setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
-            />);
+            />).dive();
 
             expect(rendered).to.have.className(`marker marker__${stubPost.type} ${buildPostMarkerId(stubPost)}`);
             expect(rendered).to.have.id(buildPostMarkerId(stubPost));
@@ -123,7 +123,7 @@ describe("PostMarker", function () {
                 isVisible={true}
                 setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
-            />);
+            />).dive();
 
             expect(rendered).to.have.className(`marker marker__${stubPost.type} ${buildPostMarkerId(stubPost)}`);
             expect(rendered).to.have.id(buildPostMarkerId(stubPost));
@@ -151,7 +151,7 @@ describe("PostMarker", function () {
                 isVisible={true}
                 setMapCenter={stubSetMapCenter}
                 onVisibilityToggle={stubOnVisibilityToggle}
-            />);
+            />).dive();
 
             expect(rendered).to.have.className(`marker marker__${stubPost.type} ${buildPostMarkerId(stubPost)}`);
             expect(rendered).to.have.id(buildPostMarkerId(stubPost));
