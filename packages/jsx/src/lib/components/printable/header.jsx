@@ -45,8 +45,18 @@ export const PrintableHeader = ({printable}) => {
                                     {
                                         printable.basics.location && printable.basics.location.city
                                             ? <Col m={6} s={12} className="printable-header__location">
-                                                <span><i
-                                                    className="fas fa-map-marker-alt"/>&nbsp;{printable.basics.location.address}, {printable.basics.location.city} {printable.basics.location.region}, {printable.basics.location.countryCode}</span>
+                                                <span>
+                                                    <i className="fas fa-map-marker-alt"/>
+                                                    &nbsp;
+                                                    {
+                                                        [
+                                                            printable.basics.location.address,
+                                                            `${printable.basics.location.city} ${printable.basics.location.region}`.trim(),
+                                                            printable.basics.location.countryCode
+                                                        ]
+                                                            .join(",")
+                                                    }
+                                                </span>
                                             </Col>
                                             : null
                                     }
