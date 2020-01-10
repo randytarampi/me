@@ -3,7 +3,7 @@ import {CampaignLink} from "../campaign";
 
 export const TravisShield = () => <CampaignLink
     className="shield"
-    href="https://travis-ci.org/randytarampi/me"
+    href="https://travis-ci.com/randytarampi/me"
     aria-label="Travis build"
     name="Travis">
     <img
