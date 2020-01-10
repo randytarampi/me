@@ -122,7 +122,8 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
 PostMarkerInfoBoxComponent.propTypes = {
     post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
-    onVisibilityToggle: PropTypes.func.isRequired
+    onVisibilityToggle: PropTypes.func.isRequired,
+    store: PropTypes.object.isRequired
 };
 
 export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
