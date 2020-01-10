@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/randytarampi/me/compare/v6.0.2...v6.0.3) (2020-01-10)
+
+
+### Bug Fixes
+
+* Don't serve our test web app out of `dev.randytarampi.ca`, but out of `www.dev.randytarampi.ca`. ([53df730](https://github.com/randytarampi/me/commit/53df730c21fd4eeac4671525ee733a885fddfacb))
+* **service:** Specifically use a cert for `service.dev.randytarampi.ca`. ([ae75750](https://github.com/randytarampi/me/commit/ae7575026af0970c3b938b19b9ce9da72d098f18))
+* `serverless-domain-manager` uses the `*.randytarampi.ca` certificate in all environments. ([18ffb10](https://github.com/randytarampi/me/commit/18ffb108fa52dd8b2db8613210c7a465e37a9b83))
+
+
+
+
+
 ## [6.0.2](https://github.com/randytarampi/me/compare/v6.0.1...v6.0.2) (2020-01-08)
 
 **Note:** Version bump only for package @randy.tarampi/service

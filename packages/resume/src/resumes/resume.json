@@ -7,16 +7,16 @@
     "lastName": "Tarampi",
     "label": "Going places | building software",
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
-    "phone": "+1 604 374 7128",
+    "phone": "+49 176 56927128",
     "email": "jobs@randytarampi.ca",
     "website": "https://www.randytarampi.ca/blog",
     "summary": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
     "location": {
-      "address": "4663 Todd Street",
-      "postalCode": "V5R 3P7",
-      "region": "BC",
-      "city": "Vancouver",
-      "countryCode": "CA"
+      "address": "Körnerstraße 24",
+      "postalCode": "10785",
+      "region": "",
+      "city": "Berlin",
+      "countryCode": "DE"
     },
     "profiles": [
       {
@@ -52,6 +52,20 @@
     ]
   },
   "work": [
+    {
+      "company": "Smunch",
+      "position": "Senior Software Developer",
+      "startDate": "2019-03-11T00:00:00.000-00:00",
+      "endDate": null,
+      "summary": "I wanted a taste of adventure after living and working in Vancouver for so long and opted to join the one Berlin startup trying to spice up lunches in the workplace",
+      "website": "https://www.smunch.co/en",
+      "highlights": [
+        "Lead the rebuild of our core frontend application, increasing mobile engagement from 2% to 34%",
+        "Re-architected our backend onto AWS Lambda and cutting our API response times by more than 50%",
+        "Building a technical culture driven by continuous improvement and tight, meaningful feedback cycles",
+        "Inspiring and facilitating a design and decisioning culture centred on understanding user behaviour, from broad aggregates to watching every mouse click"
+      ]
+    },
     {
       "company": "Fetch Auto",
       "position": "Senior Software Developer",

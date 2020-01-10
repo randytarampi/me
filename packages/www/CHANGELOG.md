@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/randytarampi/me/compare/v6.0.2...v6.0.3) (2020-01-10)
+
+
+### Bug Fixes
+
+* Don't serve our test web app out of `dev.randytarampi.ca`, but out of `www.dev.randytarampi.ca`. ([53df730](https://github.com/randytarampi/me/commit/53df730c21fd4eeac4671525ee733a885fddfacb))
+* **www:** We should really `unregisterServiceWorkerAndReload` on SW updates. ([54c7e42](https://github.com/randytarampi/me/commit/54c7e42991e23f5e689086a615a3d11a45b8fda3))
+
+
+
+
+
 ## [6.0.2](https://github.com/randytarampi/me/compare/v6.0.1...v6.0.2) (2020-01-08)
 
 **Note:** Version bump only for package @randy.tarampi/www

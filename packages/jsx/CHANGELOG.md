@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/randytarampi/me/compare/v6.0.2...v6.0.3) (2020-01-10)
+
+
+### Bug Fixes
+
+* **jsx:** `PostMarker`s need to pass their `InfoBox`es' children a `react-redux` `Provider` with the correct `store`. ([ac071fa](https://github.com/randytarampi/me/commit/ac071fa1fb93803556a809ccb18235057402f9c2))
+* **jsx:** `PrintableHeader` addresses shouldn't necessarily need a `Location.region`. ([99cb3d5](https://github.com/randytarampi/me/commit/99cb3d535dbe68b477ca4026e9946780c902fddc))
+* **jsx:** Suppress `GoogleMapComponent` constructor error. ([8447792](https://github.com/randytarampi/me/commit/84477920d6563a53cf9daf9011c47139aaf0ef22))
+* **jsx:** Suppress `PostsComponent` `propTypes` error. ([053db42](https://github.com/randytarampi/me/commit/053db428c3f85736a27fd6360793ed4f0ca8dbdf))
+* **jsx:** This now lives on `travis-ci.com`. ([e3e6c22](https://github.com/randytarampi/me/commit/e3e6c22a594faac754fe6f9b516570f0a522d01d))
+
+
+
+
+
 ## [6.0.2](https://github.com/randytarampi/me/compare/v6.0.1...v6.0.2) (2020-01-08)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
