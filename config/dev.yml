@@ -32,13 +32,13 @@ posts:
   resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/src/resumes
   letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/src/letters
 www:
-  publishUrl: https://dev.randytarampi.ca
+  publishUrl: https://www.dev.randytarampi.ca
   assetUrl: &wwwAssetUrl ""
 resume:
-  publishUrl: https://dev.randytarampi.ca/resume
+  publishUrl: https://www.dev.randytarampi.ca/resume
   assetUrl: *wwwAssetUrl
 letter:
-  publishUrl: https://dev.randytarampi.ca/letter
+  publishUrl: https://www.dev.randytarampi.ca/letter
   assetUrl: *wwwAssetUrl
 logger:
   streams:
