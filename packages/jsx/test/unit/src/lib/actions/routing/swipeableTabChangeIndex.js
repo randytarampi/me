@@ -1,31 +1,39 @@
 import {expect} from "chai";
-import * as connectedReactRouter from "connected-react-router/immutable";
 import {Map} from "immutable";
+import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
-import swipeableTabChangeIndex, {SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
+import {SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
 import selectors from "../../../../../../src/lib/data/selectors";
 
 // FIXME-RT: Unignore these tests when I figure out how to stub out `connectedReactRouter.push` properly
-xdescribe("swipeableTabChangeIndex", function () {
+describe("swipeableTabChangeIndex", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
+    let stubPush;
+    let swipeableTabChangeIndex;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map({});
         stubStore = mockStore(stubInitialState);
-
-        sinon.stub(connectedReactRouter, "push").callsFake(payload => {
+        stubPush = sinon.stub().callsFake(payload => {
             return {
                 payload,
                 type: "woof"
             };
         });
+
+        swipeableTabChangeIndex = proxyquire("../../../../../../src/lib/actions/routing/swipeableTabChangeIndex", {
+            "connected-react-router/immutable": {
+                push: stubPush
+            }
+        }).default;
+
         sinon.stub(selectors, "getRouteForIndex").callsFake((state, index) => {
             return {
                 path: `/meow/:${index}`
@@ -34,7 +42,6 @@ xdescribe("swipeableTabChangeIndex", function () {
     });
 
     afterEach(function () {
-        connectedReactRouter.push.restore();
         selectors.getRouteForIndex.restore();
     });
 
@@ -54,12 +61,13 @@ xdescribe("swipeableTabChangeIndex", function () {
                     }
                 },
                 {
-                    type: "woof", payload: {
+                    type: "woof",
+                    payload: {
                         pathname: "/meow/"
                     }
                 }
             ]);
-            expect(connectedReactRouter.push.calledOnce).to.eql(true);
+            expect(stubPush.calledOnce).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
 
@@ -81,7 +89,7 @@ xdescribe("swipeableTabChangeIndex", function () {
                     }
                 }
             ]);
-            expect(connectedReactRouter.push.notCalled).to.eql(true);
+            expect(stubPush.notCalled).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
     });

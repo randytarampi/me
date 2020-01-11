@@ -1,31 +1,38 @@
 import {expect} from "chai";
-import * as connectedReactRouter from "connected-react-router/immutable";
 import {Map} from "immutable";
+import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
-import swipeableChangeIndex, {SWIPEABLE_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableChangeIndex";
+import {SWIPEABLE_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableChangeIndex";
 import selectors from "../../../../../../src/lib/data/selectors";
 
-// FIXME-RT: Unignore these tests when I figure out how to stub out `connectedReactRouter.push` properly
-xdescribe("swipeableChangeIndex", function () {
+describe("swipeableChangeIndex", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
+    let stubPush;
+    let swipeableChangeIndex;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map({});
         stubStore = mockStore(stubInitialState);
-
-        sinon.stub(connectedReactRouter, "push").callsFake(payload => {
+        stubPush = sinon.stub().callsFake(payload => {
             return {
                 payload,
                 type: "woof"
             };
         });
+
+        swipeableChangeIndex = proxyquire("../../../../../../src/lib/actions/routing/swipeableChangeIndex", {
+            "connected-react-router/immutable": {
+                push: stubPush
+            }
+        }).default;
+
         sinon.stub(selectors, "getRouteForIndex").callsFake((state, index) => {
             return {
                 path: `/meow/:${index}`
@@ -34,7 +41,6 @@ xdescribe("swipeableChangeIndex", function () {
     });
 
     afterEach(function () {
-        connectedReactRouter.push.restore();
         selectors.getRouteForIndex.restore();
     });
 
@@ -61,7 +67,7 @@ xdescribe("swipeableChangeIndex", function () {
                     }
                 }
             ]);
-            expect(connectedReactRouter.push.calledOnce).to.eql(true);
+            expect(stubPush.calledOnce).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
 
@@ -85,7 +91,7 @@ xdescribe("swipeableChangeIndex", function () {
                     }
                 }
             ]);
-            expect(connectedReactRouter.push.notCalled).to.eql(true);
+            expect(stubPush.notCalled).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
     });
