@@ -11,7 +11,7 @@ provider:
   baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
   domainName: ${file(env.yml):${self:provider.stage}.domainName}
   memorySize: 256
-  timeout: 60
+  timeout: 30
 
   tracing: true
 
