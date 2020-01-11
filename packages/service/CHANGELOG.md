@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/randytarampi/me/compare/v6.0.3...v6.0.4) (2020-01-11)
+
+
+### Performance Improvements
+
+* **service:** Give our Lambdas 256MB of memory. ([4203b92](https://github.com/randytarampi/me/commit/4203b920df48562dc96df0600fe5e4c1647bc2cd))
+* **service:** Warmup our Lambdas again. ([8e1ccc7](https://github.com/randytarampi/me/commit/8e1ccc79a27cd3a14d03e2be94a932af4cc98eb7))
+
+
+
+
+
 ## [6.0.3](https://github.com/randytarampi/me/compare/v6.0.2...v6.0.3) (2020-01-10)
 
 
