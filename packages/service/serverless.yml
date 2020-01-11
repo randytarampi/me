@@ -140,6 +140,8 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
+    warmup:
+      enabled: true
   getPostsRss:
     handler: src/serverless/handlers/getPostsRss/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
@@ -147,6 +149,8 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
       Ref: LambdaDeadLetterQueue
     environment:
       CAMPAIGN_MEDIUM: rss
+    warmup:
+      enabled: true
   facebookAuthRedirect:
     handler: src/serverless/handlers/facebookAuthRedirect/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.facebookAuthRedirect.events}
