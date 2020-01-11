@@ -2,7 +2,6 @@ import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import clearError from "../actions/error/clearError";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";
 import selectors from "../data/selectors";
-import {formatIndexForMaterializeTabs} from "../util";
 
 const getSwipeableTabs = () => {
     const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
@@ -16,8 +15,16 @@ const getSwipeableTabsExpectedTabIndex = (state, action) => {
     return selectors.getIndexForRoute(state, location.pathname);
 };
 
-const getSwipeableTabsExpectedTabId = (store, action) => {
-    return `tab_${formatIndexForMaterializeTabs(getSwipeableTabsExpectedTabIndex(store, action))}`;
+const getSwipeableTabsExpectedTabId = (swipeableTabs, store, action) => {
+    return swipeableTabs.$tabLinks[getSwipeableTabsExpectedTabIndex(store, action)].hash.slice(1);
+};
+
+const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
+    const state = store.getState();
+
+    if (swipeableTabs.index !== getSwipeableTabsExpectedTabIndex(state, action)) {
+        swipeableTabs.select(getSwipeableTabsExpectedTabId(swipeableTabs, state, action));
+    }
 };
 
 export const uiMiddleware = store => next => action => {
@@ -26,23 +33,15 @@ export const uiMiddleware = store => next => action => {
             const swipeableTabs = getSwipeableTabs();
 
             if (swipeableTabs) {
-                const state = store.getState();
-
-                if (swipeableTabs.index !== getSwipeableTabsExpectedTabIndex(state, action)) {
-                    swipeableTabs.select(getSwipeableTabsExpectedTabId(state, action));
-                }
+                setSwipeableTabsIndex(swipeableTabs, store, action);
             } else {
                 setTimeout(() => {
                     const swipeableTabs = getSwipeableTabs();
 
                     if (swipeableTabs) {
-                        const state = store.getState();
-
-                        if (swipeableTabs.index !== getSwipeableTabsExpectedTabIndex(state, action)) {
-                            swipeableTabs.select(getSwipeableTabsExpectedTabId(state, action));
-                        }
+                        setSwipeableTabsIndex(swipeableTabs, store, action);
                     }
-                }, 50);
+                }, 60);
             }
 
             break;
