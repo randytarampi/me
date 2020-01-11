@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.5](https://github.com/randytarampi/me/compare/v6.0.4...v6.0.5) (2020-01-11)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tab highlighting during tab switching. ([9fca940](https://github.com/randytarampi/me/commit/9fca940506507c3fcf42774ed6c307b415516453))
+* **jsx:** Fix tab highlighting on initial load. ([4f5414e](https://github.com/randytarampi/me/commit/4f5414ec9bcc739a63176fd0ff627027d900c279))
+
+
+
+
+
 ## [6.0.4](https://github.com/randytarampi/me/compare/v6.0.3...v6.0.4) (2020-01-11)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
