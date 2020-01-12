@@ -12,7 +12,7 @@ export const ResumeSkillsEntry = ({skillsEntry, index}) => {
                 ? <ul className="resume-skills-entry__keywords">
                     {
                         skillsEntry.keywords.map((keyword, index) => {
-                            return <li className={`resume-skills-entry__keyword${index > 5 ? " hide-on-print" : ""}`} key={index}>
+                            return <li className={`resume-skills-entry__keyword${index > 6 ? " hide-on-print" : ""}`} key={index}>
                                 {keyword}
                             </li>;
                         })

@@ -2,23 +2,24 @@ const fetchAuto = require("../../organizations/fetchAuto");
 
 module.exports = {
     entity: fetchAuto,
-    name: "S3 Lambda Clamscan",
+    name: "Slamscan",
     description: "A set of AWS Lambdas that scans files uploaded to an S3 bucket for viruses and other threats",
     highlights: [
-        "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised",
+        "My first production deployed Lambda 🎉",
+        "What was a quick and dirty learning exercise back in Summer '17 is now a project I rewrite every year, just to see what's changed in the Node and AWS ecosystems",
     ],
     keywords: [
-        "ES6",
-        "react",
-        "sass",
-        "Print styles",
-        "Puppeteer"
+        "node.js",
+        "serverless",
+        "Docker",
+        "AWS Lambda",
+        "S3",
+        "ClamAV",
     ],
-    startDate: "2018-08-01",
+    startDate: "2017-07-01",
     roles: [
-        "👨‍💻",
-        "📝"
+        "👨‍💻"
     ],
-    type: "Application",
-    url: "https://www.randytarampi.ca/letter"
+    type: "Web service",
+    url: "https://github.com/randytarampi/slamscan"
 };

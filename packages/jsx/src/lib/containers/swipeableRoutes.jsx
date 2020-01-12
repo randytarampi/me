@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import SwipeableViews from "react-swipeable-views";
+import {bindKeyboard} from "react-swipeable-views-utils";
 import {compose} from "redux";
 import {swipeableChangeIndexCreator} from "../actions";
 import selectors from "../data/selectors";
@@ -31,7 +32,8 @@ export const mapDispatchToProps = {
 
 export const ConnectedSwipeableRoutes = compose(
     withRouter,
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(mapStateToProps, mapDispatchToProps),
+    bindKeyboard,
 )(SwipeableViews);
 
 export default ConnectedSwipeableRoutes;

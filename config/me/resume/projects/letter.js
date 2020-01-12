@@ -8,7 +8,7 @@ module.exports = {
         "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised"
     ],
     keywords: [
-        "ES6",
+        "ESNext",
         "react",
         "sass",
         "Print styles",

@@ -13,7 +13,10 @@ const windermereCommunityPrograms = require("./volunteer/windermereCommunityProg
 
 const blog = require("./projects/blog");
 const letter = require("./projects/letter");
+const pseudoimage = require("./projects/pseudoimage");
+const pseudolocalize = require("./projects/pseudolocalize");
 const resume = require("./projects/resume");
+const slamscan = require("./projects/slamscan");
 
 const sfuEducation = require("./education/sfu");
 
@@ -33,9 +36,12 @@ module.exports = {
         windermereCommunityPrograms
     ],
     projects: [
-        resume,
         letter,
-        blog
+        resume,
+        slamscan,
+        blog,
+        pseudoimage,
+        pseudolocalize,
     ],
     education: [
         sfuEducation
@@ -47,7 +53,8 @@ module.exports = {
             name: "Front end",
             level: "Master",
             keywords: [
-                "ES6",
+                "ESNext",
+                "TypeScript",
                 "react",
                 "redux",
                 "i18n",
@@ -64,6 +71,7 @@ module.exports = {
             level: "Master",
             keywords: [
                 "node.js",
+                "Kotlin",
                 "Data architecture",
                 "Serverless computing",
                 "Performance tuning",
@@ -80,6 +88,7 @@ module.exports = {
             name: "Operations",
             level: "Intermediate",
             keywords: [
+                "Docker",
                 "AWS",
                 "CloudFormation",
                 "Chef",

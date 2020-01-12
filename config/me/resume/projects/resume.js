@@ -9,7 +9,7 @@ module.exports = {
         "Builds off and adheres to the JSON Resume standard"
     ],
     keywords: [
-        "ES6",
+        "ESNext",
         "react",
         "sass",
         "jsonresume",

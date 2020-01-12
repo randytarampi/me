@@ -18,7 +18,8 @@ describe("ResumeSkillsEntry", function () {
                 "Yelling at a screen",
                 "Getting yelled at by clients",
                 "Complaining about clients around the water cooler",
-                "Complaining about sales around the water cooler"
+                "Complaining about sales around the water cooler",
+                "Complaining about C-levels around the water cooler"
             ]
         });
     });
@@ -33,17 +34,17 @@ describe("ResumeSkillsEntry", function () {
         expect(rendered).to.have.descendants(".resume-skills-entry__keywords");
         expect(rendered).to.have.descendants(".resume-skills-entry__keyword");
         expect(rendered.find(".resume-skills-entry__keyword")).to.have.length(stubResumeSkillsEntry.keywords.size);
-        expect(rendered.find(".resume-skills-entry__keyword.hide-on-print")).to.have.length(stubResumeSkillsEntry.keywords.size - 6);
+        expect(rendered.find(".resume-skills-entry__keyword.hide-on-print")).to.have.length(stubResumeSkillsEntry.keywords.size - 7);
     });
 
-    it("renders (`.hide-on-print` if 4th or subsequent skill)", function () {
+    it("renders (`.hide-on-print` if 4th or subsequ2020ent skill)", function () {
         const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 
         expect(rendered).to.have.className("resume-skills-entry");
         expect(rendered).to.have.className("hide-on-print");
     });
 
-    it("renders (`.hide-on-print` if 7th or subsequent keyword)", function () {
+    it("renders (`.hide-on-print` if 8th or subsequent keyword)", function () {
         const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 
         expect(rendered).to.have.descendants(".resume-skills-entry__keyword.hide-on-print");

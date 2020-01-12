@@ -12,7 +12,7 @@ module.exports = {
         return `${this.me.resume.basics.givenName} ${this.me.resume.basics.familyName}`;
     }),
     url: "https://www.randytarampi.ca/blog",
-    description: "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
+    description: "If you think I'm being a little silly here it's because I take my actual work pretty seriously. If you're the type to hammer out whiteboard problems with a beer in hand or refine project requirements splayed out on the couch playing with dogs, get in touch – I'm sure we'll get along just fine",
     address: {
         countryCode: defer(function () {
             return this.me.resume.basics.address.addressCountry;

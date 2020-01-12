@@ -10,20 +10,24 @@ import {
 const defaultContent = new ResumeCustomContent({
     education: new ResumeCustomPrintableSectionContent({
         descriptionNode: <Fragment>
-            <p><span className="text">I went to school on top of a mountain for 5 years</span></p>
-            <p><span className="text">I remember some things better than others, like the snow days. For everything else there's <CampaignLink
-                href="https://www.goodreads.com/book/show/29437996-copying-and-pasting-from-stack-overflow"
-                text="StackOverflow"/></span>
+            <p>
+                <span className="text">I went to school on top of a mountain for 5 years</span>
+            </p>
+            <p>
+                <span className="text">I remember some things better than others, like the snow days. For everything else there's <CampaignLink href="https://www.goodreads.com/book/show/29437996-copying-and-pasting-from-stack-overflow" text="StackOverflow"/></span>
             </p>
         </Fragment>
     }),
     projects: new ResumeCustomPrintableSectionContent({
         descriptionNode: <Fragment>
-            <p><span className="text">Vanity seems to be in vogue and I'm not usually one for ideas, so these are all about me</span>
+            <p>
+                <span className="text">Vanity seems to be in vogue and I'm not usually one for ideas, so these are all about me</span>
             </p>
-            <p><span className="text">Frankly, I'd much rather be outside exploring rather than on my computer in my downtime</span>
+            <p>
+                <span className="text">Frankly, I'd much rather be outside exploring rather than on my computer in my downtime</span>
             </p>
-            <p><span className="text">Tried to keep myself disciplined here, but I'm a lot better when I have people actually holding me to account</span>
+            <p>
+                <span className="text">Tried to keep myself disciplined here, but I'm a lot better when I have people actually holding me to account</span>
             </p>
             <Shields>
                 <ResumeNpmVersionShield/>
@@ -32,25 +36,37 @@ const defaultContent = new ResumeCustomContent({
     }),
     skills: new ResumeCustomPrintableSectionContent({
         descriptionNode: <Fragment>
-            <p><span className="text">I'm more or less a full stack JavaScript developer</span></p>
-            <p><span className="text">Ask me about my soft skills — those are more fun</span></p>
+            <p>
+                <span className="text">I tend to build things with JavaScript, but Kotlin and Java are cool too</span>
+            </p>
+            <p>
+                <span className="text">Ask me about my soft skills though — those are more fun</span>
+            </p>
         </Fragment>
     }),
     volunteer: new ResumeCustomPrintableSectionContent({
         descriptionNode: <Fragment>
-            <p><span className="text">I never really <em>want</em> to volunteer, but when it happens it seems that I really enjoy it</span>
+            <p>
+                <span className="text">I never really <em>want</em> to volunteer, but when it happens it seems that I really enjoy it</span>
             </p>
-            <p><span className="text">People have always seen me as shy and reserved but it actually turns out that I've got a knack for leadership and mentorship</span>
+            <p>
+                <span className="text">People have always seen me as shy and reserved but it actually turns out that I've got a knack for leadership and mentorship</span>
             </p>
         </Fragment>
     }),
     work: new ResumeCustomPrintableSectionContent({
         descriptionNode: <Fragment>
-            <p><span className="text">I met the CTO at Fetch Auto 5 years ago as an intern at Pulse Energy and have been pretty inseparable until now</span>
+            <p>
+                <span className="text">Let's get one thing clear here, <em><strong>I didn't move my life 8000 kilometres to work long hours chasing big bucks</strong> — it's more efficient to do that back home</em></span>
             </p>
-            <p><span className="text">It's time to strike it out on my own though — he got me to come back and work with him not once, but twice and I'm looking for a place where I can settle down and build similarly close working relationships</span>
+            <p>
+                <span className="text">I'm here looking for something more meaningful, whether it be in the content of the work, or those I work alongside, but hopefully both</span>
             </p>
-            <p><span className="text">Ask me about how I ended up learning Italian on the job, my cadres of co-op students, or when I almost <CampaignLink
+            <p>
+                <span className="text">I mean, I met the CTO at Fetch Auto in 2013 as an intern at Pulse Energy and over the years he got me to come back and work with him not once, but twice and I'm looking for a place where I can settle down and build similarly close working relationships</span>
+            </p>
+            <p>
+                <span className="text">Ask me about how I ended up learning Italian on the job, my cadres of co-op students, or when I almost <CampaignLink
                 href="http://www.quickmeme.com/p/3vv8p3"
                 text="brought down a busy test environment"/> as an intern</span>
             </p>

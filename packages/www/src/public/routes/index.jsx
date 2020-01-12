@@ -14,26 +14,26 @@ export const PhotosRouteHandler = props => <Redirect {...props} to="/blog/photos
 export const WordsRouteHandler = props => <Redirect {...props} to="/blog/words"/>;
 export const BlogRouteHandler = props => <Fragment>
     <Helmet>
-        <title>{__ME_PERSON_NAME__} — Blog</title>
+        <title>{__ME_PERSON_NAME__} — Follow me</title>
     </Helmet>
     <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />
 </Fragment>;
 export const BlogWordsRouteHandler = props => <Fragment>
     <Helmet>
-        <title>{__ME_PERSON_NAME__} — Words</title>
+        <title>{__ME_PERSON_NAME__} — Read me</title>
     </Helmet>
     <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type} {...props} />
 </Fragment>;
 export const BlogPhotoRouteHandler = props => <Fragment>
     <Helmet>
-        <title>{__ME_PERSON_NAME__} — Photos</title>
+        <title>{__ME_PERSON_NAME__} — See (through) me</title>
     </Helmet>
     <BlogRouteHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type} {...props} />
 </Fragment>;
 
 export const MapPostsHandler = props => <Fragment>
     <Helmet>
-        <title>{__ME_PERSON_NAME__} — Map</title>
+        <title>{__ME_PERSON_NAME__} — Stalk me</title>
     </Helmet>
     <ConnectedMappedPosts
         fetchUrl={`${__POSTS_SERVICE_URL__}`}
@@ -43,13 +43,13 @@ export const MapPostsHandler = props => <Fragment>
 </Fragment>;
 export const MapPostsWordsRouteHandler = props => <Fragment>
     <Helmet>
-        <title>{__ME_PERSON_NAME__} — Word Map</title>
+        <title>{__ME_PERSON_NAME__} — Stalk & read me</title>
     </Helmet>
     <MapPostsHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Post.type} {...props} />
 </Fragment>;
 export const MapPostsPhotoRouteHandler = props => <Fragment>
     <Helmet>
-        <title>{__ME_PERSON_NAME__} — Photo Map</title>
+        <title>{__ME_PERSON_NAME__} — Stalk & see (through) me</title>
     </Helmet>
     <MapPostsHandler fetchUrl={`${__POSTS_SERVICE_URL__}`} type={Photo.type} {...props} />
 </Fragment>;
@@ -115,7 +115,7 @@ const routes = [
             title={
                 <Fragment>
                     <i className="fas fa-comment-alt"></i>
-                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Blog</span>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Follow me</span>
                 </Fragment>
             }
         />,
@@ -154,7 +154,7 @@ const routes = [
             title={
                 <Fragment>
                     <i className="fas fa-map-marked-alt"></i>
-                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Map</span>
+                    <span className="hide-on-med-and-down">&nbsp;|&nbsp;Stalk me</span>
                 </Fragment>
             }
         />,

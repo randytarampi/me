@@ -9,5 +9,8 @@ module.exports = {
     Twitter: {username: "randytarampi", url: "https://twitter.com/randytarampi"},
     Unsplash: {username: "randytarampi", url: "https://unsplash.com/@randytarampi"},
     Tumblr: {username: "randytarampi", url: "https://tumblr.randytarampi.ca"},
-    "500px": {username: "randytarampi", url: "https://500px.com/randytarampi"}
+    "500px": {username: "randytarampi", url: "https://500px.com/randytarampi"},
+    YouTube: {username: "randytarampi", url: "https://youtube.com/randytarampi"},
+    GitLab: {username: "randytarampi", url: "https://gitlab.com/randytarampi"},
+    BitBucket: {username: "randytarampi", url: "https://bitbucket.org/randytarampi/"},
 };
