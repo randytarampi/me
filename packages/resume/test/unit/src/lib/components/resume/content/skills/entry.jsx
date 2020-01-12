@@ -37,7 +37,7 @@ describe("ResumeSkillsEntry", function () {
         expect(rendered.find(".resume-skills-entry__keyword.hide-on-print")).to.have.length(stubResumeSkillsEntry.keywords.size - 7);
     });
 
-    it("renders (`.hide-on-print` if 4th or subsequ2020ent skill)", function () {
+    it("renders (`.hide-on-print` if 4th or subsequent skill)", function () {
         const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 
         expect(rendered).to.have.className("resume-skills-entry");
