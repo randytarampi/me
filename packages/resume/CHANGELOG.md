@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/randytarampi/me/compare/v6.0.5...v6.1.0) (2020-01-12)
+
+
+### Features
+
+* Retool my content for 2020. ([e54cd3c](https://github.com/randytarampi/me/commit/e54cd3c326a9824f51748ba23e0f680a561925a3))
+
+
+
+
+
 ## [6.0.5](https://github.com/randytarampi/me/compare/v6.0.4...v6.0.5) (2020-01-11)
 
 **Note:** Version bump only for package @randy.tarampi/resume

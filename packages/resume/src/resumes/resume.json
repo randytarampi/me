@@ -5,12 +5,12 @@
     "name": "Randy Tarampi",
     "firstName": "Randy",
     "lastName": "Tarampi",
-    "label": "Going places | building software",
+    "label": "Will deliver software for food (or plane tickets)",
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
     "phone": "+49 176 56927128",
     "email": "jobs@randytarampi.ca",
     "website": "https://www.randytarampi.ca/blog",
-    "summary": "Just another code monkey looking to broaden his skillset and horizons, preferably outside of North America. Prefers fitness balls over fancy chairs and better known in person than on paper or screen",
+    "summary": "If you think I'm being a little silly here it's because I take my actual work pretty seriously. If you're the type to hammer out whiteboard problems with a beer in hand or refine project requirements splayed out on the couch playing with dogs, get in touch – I'm sure we'll get along just fine",
     "location": {
       "address": "Körnerstraße 24",
       "postalCode": "10785",
@@ -57,11 +57,11 @@
       "position": "Senior Software Developer",
       "startDate": "2019-03-11T00:00:00.000-00:00",
       "endDate": null,
-      "summary": "I wanted a taste of adventure after living and working in Vancouver for so long and opted to join the one Berlin startup trying to spice up lunches in the workplace",
+      "summary": "I wanted a taste of adventure after living and working in Vancouver for so long and opted to join the one Berlin startup trying to spice up lunch in the workplace",
       "website": "https://www.smunch.co/en",
       "highlights": [
         "Lead the rebuild of our core frontend application, increasing mobile engagement from 2% to 34%",
-        "Re-architected our backend onto AWS Lambda and cutting our API response times by more than 50%",
+        "Re-architected our backend onto AWS Lambda, cutting our API response times by more than 50%",
         "Building a technical culture driven by continuous improvement and tight, meaningful feedback cycles",
         "Inspiring and facilitating a design and decisioning culture centred on understanding user behaviour, from broad aggregates to watching every mouse click"
       ]
@@ -101,7 +101,7 @@
       "position": "Software Developer",
       "startDate": "2013-01-07T00:00:00.000-00:00",
       "endDate": "2013-08-30T00:00:00.000-00:00",
-      "summary": "I cut my chops at a mid-size start-up that gave utilities like British Gas, PG&E and BC Hydro an understanding of their​ commercial and industrial customers while serving up actionable energy intelligence for small, medium and large businesses alike",
+      "summary": "I cut my chops at a mid-size startup that gave utilities like British Gas, PG&E and BC Hydro an understanding of their​ commercial and industrial customers while serving up actionable energy intelligence for small, medium and large businesses alike",
       "website": "https://pulseenergy.com",
       "highlights": [
         "Built out a service oriented node.js platform atop a legacy Java monolith",
@@ -175,6 +175,28 @@
   ],
   "projects": [
     {
+      "name": "That cover letter",
+      "description": "That cover letter that you've read – and if you haven't you should!",
+      "startDate": "2018-08-01T00:00:00.000-00:00",
+      "endDate": null,
+      "type": "Application",
+      "url": "https://www.randytarampi.ca/letter",
+      "highlights": [
+        "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised"
+      ],
+      "keywords": [
+        "ESNext",
+        "react",
+        "sass",
+        "Print styles",
+        "Puppeteer"
+      ],
+      "roles": [
+        "👨‍💻",
+        "📝"
+      ]
+    },
+    {
       "name": "This resume",
       "description": "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
       "startDate": "2018-08-01T00:00:00.000-00:00",
@@ -186,7 +208,7 @@
         "Builds off and adheres to the JSON Resume standard"
       ],
       "keywords": [
-        "ES6",
+        "ESNext",
         "react",
         "sass",
         "jsonresume",
@@ -199,25 +221,26 @@
       ]
     },
     {
-      "name": "That cover letter",
-      "description": "That cover letter that you've read – and if you haven't you should!",
-      "startDate": "2018-08-01T00:00:00.000-00:00",
+      "name": "Slamscan",
+      "description": "A set of AWS Lambdas that scans files uploaded to an S3 bucket for viruses and other threats",
+      "startDate": "2017-07-01T00:00:00.000-00:00",
       "endDate": null,
-      "type": "Application",
-      "url": "https://www.randytarampi.ca/letter",
+      "type": "Web service",
+      "url": "https://github.com/randytarampi/slamscan",
       "highlights": [
-        "Open up Chrome and try to print it out – follow the instructions at the bottom of the page and you might be surprised"
+        "My first production deployed Lambda 🎉",
+        "What was a quick and dirty learning exercise back in Summer '17 is now a project I rewrite every year, just to see what's changed in the Node and AWS ecosystems"
       ],
       "keywords": [
-        "ES6",
-        "react",
-        "sass",
-        "Print styles",
-        "Puppeteer"
+        "node.js",
+        "serverless",
+        "Docker",
+        "AWS Lambda",
+        "S3",
+        "ClamAV"
       ],
       "roles": [
-        "👨‍💻",
-        "📝"
+        "👨‍💻"
       ]
     },
     {
@@ -229,11 +252,11 @@
       "url": "https://www.randytarampi.ca/blog",
       "highlights": [
         "My choice of technologies here was largely driven by my want to minimize operating costs – almost eveything happens on continuning AWS free tier services",
-        "The 2 USD/month I pay for key management services dominates the total bill, which is usually less than 3 USD"
+        "The 3 USD/month I pay for key management services dominates the total bill, which is usually less than 9 USD"
       ],
       "keywords": [
         "node.js",
-        "ES6",
+        "ESNext",
         "react",
         "redux",
         "User tracking",
@@ -251,6 +274,52 @@
         "👨‍💻",
         "📸",
         "📝"
+      ]
+    },
+    {
+      "name": "A pseudolocalizer, for images",
+      "description": "A CLI utility that takes your image assets and spits out a pseudolocalized version",
+      "startDate": "2016-09-16T00:00:00.000-00:00",
+      "endDate": null,
+      "type": "Application",
+      "url": "https://github.com/randytarampi/pseudoimage",
+      "highlights": [
+        "Like with my text `Pseudolocalizer`, I wanted to leave a legacy at Yardi and replace a key part of our i18n testing infrastructure",
+        "The original goal here was to replace our existing tooling that generated pseudolocalized image assets based on a small set of static images which was slow and repetitive. This dynamic solution generated fake images based directly off their real counterparts with a time savings of 30%",
+        "Switching out our image transformation library to `sharp` would yield massive gains, but I mostly keep this current implementation just to goad myself into actually trying to improve `lwip`"
+      ],
+      "keywords": [
+        "node.js",
+        "i18n",
+        "l10n",
+        "p7e",
+        "image processing"
+      ],
+      "roles": [
+        "👨‍💻"
+      ]
+    },
+    {
+      "name": "A pseudolocalizer, for text",
+      "description": "A CLI utility that takes your translation files and spits out a pseudolocalized version",
+      "startDate": "2016-09-16T00:00:00.000-00:00",
+      "endDate": null,
+      "type": "Application",
+      "url": "https://github.com/randytarampi/pseudolocalize",
+      "highlights": [
+        "My first post-Pulse Energy project, just to keep my skills sharp",
+        "The original idea was to sneak in a legacy at Yardi and leave in a frequently installed dev dependencies across their Node applications, but I didn't get started on this until I left",
+        "I mostly keep this around now just to see when it'll actually need a rewrite and gauge the growth of Node as a platform"
+      ],
+      "keywords": [
+        "node.js",
+        "i18n",
+        "l10n",
+        "p7e",
+        "translations"
+      ],
+      "roles": [
+        "👨‍💻"
       ]
     }
   ],
@@ -283,7 +352,8 @@
       "name": "Front end",
       "level": "Master",
       "keywords": [
-        "ES6",
+        "ESNext",
+        "TypeScript",
         "react",
         "redux",
         "i18n",
@@ -300,6 +370,7 @@
       "level": "Master",
       "keywords": [
         "node.js",
+        "Kotlin",
         "Data architecture",
         "Serverless computing",
         "Performance tuning",
@@ -316,6 +387,7 @@
       "name": "Operations",
       "level": "Intermediate",
       "keywords": [
+        "Docker",
         "AWS",
         "CloudFormation",
         "Chef",
