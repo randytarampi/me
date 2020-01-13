@@ -61,20 +61,20 @@ jobs:
     env: &1
     - NODE_ENV=test
     before_script: &2
-    - yarn run pretest
-    - yarn run pretest:collect
-    - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:pretest; fi;
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
       > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - "./cc-test-reporter before-build"
     script: &3
+    - yarn run pretest
     - yarn run cover:actual
     after_script: &4
+    - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+    - yarn run pretest:collect
+    - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:pretest; fi;
     - yarn run cover:collect
     - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:test; fi;
     - yarn run coveralls
-    - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
     after_failure: &5
     - yarn run kill --scope @randy.tarampi/service
     after_success: &6
