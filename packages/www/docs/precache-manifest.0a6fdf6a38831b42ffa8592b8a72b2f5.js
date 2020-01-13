@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5cfaa91cc379cfcdcb7f",
+    "revision": "20abee5beb6f2897b1f7",
     "url": "/styles.css"
   },
   {
-    "revision": "5cfaa91cc379cfcdcb7f",
+    "revision": "20abee5beb6f2897b1f7",
     "url": "/styles.js"
   },
   {
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vendor.esm.js.LICENSE"
   },
   {
-    "revision": "eea6f1577e2c28986620",
+    "revision": "7059f0428fbd6c72380a",
     "url": "/www.esm.js"
   },
   {

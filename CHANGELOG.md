@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.2](https://github.com/randytarampi/me/compare/v6.1.1...v6.1.2) (2020-01-13)
+
+
+### Bug Fixes
+
+* **www:** There's no real reason to have this exception for `.post--gallery .post-metadata.hide-on-med-and-up`. ([10822ec](https://github.com/randytarampi/me/commit/10822ecb47334bf062f78a60b0fa31d29b465060))
+
+
+
+
+
 ## [6.1.1](https://github.com/randytarampi/me/compare/v6.1.0...v6.1.1) (2020-01-13)
 
 **Note:** Version bump only for package me
