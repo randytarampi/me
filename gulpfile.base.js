@@ -15,24 +15,46 @@ module.exports.clean = ({relativePath, gulp}) => gulp.task("clean", () => {
 
 const isFixed = file => file.eslint && file.eslint.fixed;
 module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
+    const fs = require("fs");
     const path = require("path");
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
+    const resultsFile = process.env.PULL_REQUEST && fs.createWriteStream(path.join(relativePath, "eslint-results.xml"));
 
-    return gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
+    const stream = gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
         .pipe(eslint({fix: true, ignorePath: path.join(relativePath, "../../.eslintignore")}))
-        .pipe(eslint.format())
+        .pipe(
+            resultsFile
+                ? eslint.format("junit", resultsFile)
+                : eslint.format()
+        )
         .pipe(gulpIf(isFixed, gulp.dest(relativePath)))
         .pipe(eslint.failAfterError());
+
+    stream.on("finish", () => resultsFile.end());
+
+    return stream;
 });
 module.exports.sassLint = ({relativePath, gulp}) => gulp.task("sassLint", () => {
+    const fs = require("fs");
     const path = require("path");
     const sassLint = require("gulp-sass-lint");
+    const resultsFile = process.env.PULL_REQUEST && fs.createWriteStream(path.join(relativePath, "sassLint-results.xml"));
 
-    return gulp.src([path.join(relativePath, "sass/**/*.s+(a|c)ss")])
-        .pipe(sassLint())
-        .pipe(sassLint.format())
+    const stream = gulp.src([path.join(relativePath, "sass/**/*.s+(a|c)ss")])
+        .pipe(sassLint({
+            options: {
+                formatter: resultsFile
+                    ? "junit"
+                    : undefined
+            }
+        }))
+        .pipe(sassLint.format(resultsFile))
         .pipe(sassLint.failOnError());
+
+    stream.on("finish", () => resultsFile.end());
+
+    return stream;
 });
 module.exports.pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
     const path = require("path");
@@ -76,21 +98,35 @@ module.exports.styles = ({relativePath, gulp}) => gulp.task("styles", gulp.serie
         .pipe(gulp.dest(path.join(relativePath, "dist")));
 });
 
-module.exports.testUnit = ({relativePath, gulp}) => gulp.task("test.unit", () => {
+module.exports.testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.${testType}`, () => {
     const path = require("path");
     const mocha = require("gulp-mocha");
     const mochaConfig = require(path.join(relativePath, "./mocha.config"));
 
-    return gulp.src([path.join(relativePath, "test/unit/**/*.{js,jsx}")], {read: false, allowEmpty: true})
+    if (
+        mochaConfig.reporter === "mocha-junit-reporter"
+        && mochaConfig.reporterOptions
+        && mochaConfig.reporterOptions.properties
+    ) {
+        process.env.PROPERTIES = process.env.PROPERTIES
+            || Object.keys(mochaConfig.reporterOptions.properties)
+                .filter(key => !!mochaConfig.reporterOptions.properties[key])
+                .map(key => `${key}:${mochaConfig.reporterOptions.properties[key]}`)
+                .join(",");
+    }
+
+    return gulp.src([path.join(relativePath, `test/${testType}/**/*.{js,jsx}`)], {read: false, allowEmpty: true})
         .pipe(mocha(mochaConfig));
 });
-module.exports.testIntegration = ({relativePath, gulp}) => gulp.task("test.integration", () => {
-    const path = require("path");
-    const mocha = require("gulp-mocha");
-    const mochaConfig = require(path.join(relativePath, "./mocha.config"));
-
-    return gulp.src([path.join(relativePath, "test/integration/**/*.{js,jsx}")], {read: false, allowEmpty: true})
-        .pipe(mocha(mochaConfig));
+module.exports.testUnit = ({relativePath, gulp}) => module.exports.testMocha({
+    relativePath,
+    gulp,
+    testType: "unit"
+});
+module.exports.testIntegration = ({relativePath, gulp}) => module.exports.testMocha({
+    relativePath,
+    gulp,
+    testType: "integration"
 });
 module.exports.test = ({gulp}) => gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
 
