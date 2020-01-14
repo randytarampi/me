@@ -10,5 +10,11 @@
 
     .post {
         margin-bottom: 20px;
+
+        &--gallery {
+            .post-metadata.hide-on-med-and-up {
+                display: unset !important
+            }
+        }
     }
 }
