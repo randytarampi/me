@@ -7,7 +7,7 @@ import {filterPostForOrderingConditionsInSearchParams} from "../util";
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || new Unsplash({
-                applicationId: process.env.UNSPLASH_API_KEY,
+                accessKey: process.env.UNSPLASH_API_KEY,
                 secret: process.env.UNSPLASH_API_SECRET
             }),
             cacheClient);
