@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/randytarampi/me/compare/v6.1.2...v6.1.3) (2020-01-14)
+
+
+### Bug Fixes
+
+* **service:** Fix `unsplash-js` client instantiation. ([1a5ae77](https://github.com/randytarampi/me/commit/1a5ae77451facd213623424467c8ff7feabc37da))
+
+
+
+
+
 ## [6.1.2](https://github.com/randytarampi/me/compare/v6.1.1...v6.1.2) (2020-01-13)
 
 **Note:** Version bump only for package @randy.tarampi/service

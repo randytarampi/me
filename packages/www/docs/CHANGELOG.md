@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/randytarampi/me/compare/v6.1.2...v6.1.3) (2020-01-14)
+
+
+### Bug Fixes
+
+* **www:** `Gallery` posts featured on the home page need to show their `.post-metadata`. ([be9b06a](https://github.com/randytarampi/me/commit/be9b06a861ee38d1154f67ee3b1d23fb47fe4957))
+
+
+### Reverts
+
+* fix(www): There's no real reason to have this exception for `.post--gallery .post-metadata.hide-on-med-and-up`." ([c90f541](https://github.com/randytarampi/me/commit/c90f5416de18d5ea60aa31df476687e1b7d5a5d4))
+
+
+
+
+
 ## [6.1.2](https://github.com/randytarampi/me/compare/v6.1.1...v6.1.2) (2020-01-13)
 
 
