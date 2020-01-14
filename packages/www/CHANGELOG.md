@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.4](https://github.com/randytarampi/me/compare/v6.1.3...v6.1.4) (2020-01-14)
+
+
+### Bug Fixes
+
+* **www:** `Gallery` posts featured on the home page need to show their `.post-metadata`. Redux. ([5afa291](https://github.com/randytarampi/me/commit/5afa291b2795a4d80e7742e4117475f93858c029))
+
+
+
+
+
 ## [6.1.3](https://github.com/randytarampi/me/compare/v6.1.2...v6.1.3) (2020-01-14)
 
 
