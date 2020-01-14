@@ -12,8 +12,10 @@
         margin-bottom: 20px;
 
         &--gallery {
-            .post-metadata.hide-on-med-and-up {
-                display: unset !important
+            .post-metadata.hide-on-large-only {
+                @media #{large-and-up} {
+                    display: unset !important
+                }
             }
         }
     }
