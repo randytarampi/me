@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.5](https://github.com/randytarampi/me/compare/v6.1.4...v6.1.5) (2020-01-16)
+
+
+### Bug Fixes
+
+* **service:** Instagram no longer supports authenticating with the `public_content` scope. ([9161742](https://github.com/randytarampi/me/commit/916174202731c61153ca4cc040e380a0dc97f993))
+
+
+
+
+
 ## [6.1.4](https://github.com/randytarampi/me/compare/v6.1.3...v6.1.4) (2020-01-14)
 
 

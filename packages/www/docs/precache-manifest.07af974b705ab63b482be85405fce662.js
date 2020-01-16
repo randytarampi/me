@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vendor.js.LICENSE"
   },
   {
-    "revision": "d34e2733d7c8f0765b59",
+    "revision": "8ff00f60fc138cac8033",
     "url": "/www.js"
   },
   {
