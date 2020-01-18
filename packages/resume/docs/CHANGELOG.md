@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.6](https://github.com/randytarampi/me/compare/v6.1.5...v6.1.6) (2020-01-18)
+
+
+### Bug Fixes
+
+* **resume:** Actually include my latest resume in the package. ([c5071c5](https://github.com/randytarampi/me/commit/c5071c5819f8d495dde607905624d18e77a1490e))
+* **resume:** Always use my latest loaded resume (for each variant). ([fffbc26](https://github.com/randytarampi/me/commit/fffbc26caf357af8bccbb47108051eb215c711cd))
+* **resume:** Fix overflowing page rendering on A4. ([ebf6d9a](https://github.com/randytarampi/me/commit/ebf6d9a889e88db93d597e20b8de3cf650d5cf8a))
+
+
+
+
+
 ## [6.1.5](https://github.com/randytarampi/me/compare/v6.1.4...v6.1.5) (2020-01-16)
 
 **Note:** Version bump only for package @randy.tarampi/resume

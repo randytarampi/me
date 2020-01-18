@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.6](https://github.com/randytarampi/me/compare/v6.1.5...v6.1.6) (2020-01-18)
+
+
+### Bug Fixes
+
+* **letter:** Always use my latest loaded cover letter (for each variant). ([4f2985c](https://github.com/randytarampi/me/commit/4f2985c8ef017b3bcdcd6063d7a33eb0711f3c12))
+
+
+
+
+
 ## [6.1.5](https://github.com/randytarampi/me/compare/v6.1.4...v6.1.5) (2020-01-16)
 
 **Note:** Version bump only for package @randy.tarampi/letter
