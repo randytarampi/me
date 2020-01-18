@@ -40,7 +40,7 @@ const defaultContent = new ResumeCustomContent({
                 <span className="text">I tend to build things with JavaScript, but Kotlin and Java are cool too</span>
             </p>
             <p>
-                <span className="text">Ask me about my soft skills though — those are more fun</span>
+                <span className="text">Ask me about my soft skills — those are more fun</span>
             </p>
         </Fragment>
     }),
