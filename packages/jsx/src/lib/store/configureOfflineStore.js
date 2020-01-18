@@ -1,4 +1,4 @@
-import {createBlacklistFilter} from "@actra-development-oss/redux-persist-transform-filter-immutable";
+import {createBlacklistFilter, createFilter, createWhitelistFilter} from "@actra-development-oss/redux-persist-transform-filter-immutable";
 import {logger} from "@randy.tarampi/browser-logger";
 import {
     Bear,
@@ -74,6 +74,8 @@ export const reduxOfflineConfig = {
 };
 
 export const createImmutableBlacklistFilter = createBlacklistFilter;
+export const createImmutableFilter = createFilter;
+export const createImmutableWhitelistFilter = createWhitelistFilter;
 
 export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) => {
     const transforms = (overrides.persistOptions && overrides.persistOptions.transforms && [...overrides.persistOptions.transforms]) || [];

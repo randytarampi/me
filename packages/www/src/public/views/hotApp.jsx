@@ -2,6 +2,7 @@ import {
     buildReduxOfflineConfig,
     ClientSwipeableReduxRouterRoot,
     configureOfflineStore,
+    createImmutableFilter,
     initializeCrispCreator,
     LoadingSpinner,
     logger,
@@ -26,6 +27,7 @@ import {
     Work
 } from "@randy.tarampi/resume";
 import {createBrowserHistory} from "history";
+import {Map} from "immutable";
 import React, {PureComponent} from "react";
 import {hot} from "react-hot-loader";
 import {reducers} from "../data/reducers";
@@ -73,8 +75,22 @@ export class App extends PureComponent {
                             Volunteer,
                             Work
                         ])
-                    }
-                }
+                    },
+                },
+                [
+                    createImmutableFilter("resume", null, [
+                        {
+                            path: "resumes",
+                            filterFunction: resumes => resumes instanceof Map
+                        }
+                    ]),
+                    createImmutableFilter("letter", null, [
+                        {
+                            path: "letters",
+                            filterFunction: letters => letters instanceof Map
+                        }
+                    ])
+                ]
             )
         );
 
