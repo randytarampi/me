@@ -1,6 +1,6 @@
 import {SET_ERROR} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {Map} from "immutable";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -26,7 +26,7 @@ describe("fetchResume", function () {
         stubInitialState = Map({
             api: Map(),
             resume: Map({
-                resumes: Set([])
+                resumes: Map()
             })
         });
         stubStore = mockStore(stubInitialState);
@@ -49,7 +49,7 @@ describe("fetchResume", function () {
                         isLoading: true
                     })
                 }),
-                resume: Map({resumes: Set([])})
+                resume: Map({resumes: Map()})
             });
             stubStore = mockStore(stubInitialState);
 
@@ -130,9 +130,7 @@ describe("fetchResume", function () {
                     })
                 }),
                 resume: Map({
-                    resumes: Set([
-                        Map({variant: "resume", resume: testResumeJson})
-                    ])
+                    resumes: Map({resume: testResumeJson})
                 })
             });
             stubStore = mockStore(stubInitialState);
@@ -272,9 +270,7 @@ describe("fetchResume", function () {
                     })
                 }),
                 resume: Map({
-                    resumes: Set([
-                        Map({variant: stubVariant, resume: testResumeJson})
-                    ])
+                    resumes: Map({[stubVariant]: testResumeJson})
                 })
             });
             stubStore = mockStore(stubInitialState);

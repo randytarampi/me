@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {Map} from "immutable";
 import {createAction} from "redux-actions";
 import {fetchingResumeSuccess} from "../../../../../src/lib/actions/fetchResume";
 import reducer, {getResume, getResumes} from "../../../../../src/lib/data/resume";
@@ -9,7 +9,7 @@ describe("resume", function () {
 
     beforeEach(function () {
         stubInitialState = Map({
-            resumes: new Set([])
+            resumes: Map()
         });
     });
 
@@ -46,11 +46,11 @@ describe("resume", function () {
             const stubLoadedResume = {rawr: "roar"};
 
             stubInitialState = Map({
-                resumes: new Set([Map({variant: "grr", resume: stubLoadedResume})])
+                resumes: Map({grr: stubLoadedResume})
             });
             const updatedState = reducer(stubInitialState, fetchingResumeSuccess(stubPayload));
             const resumes = getResumes(updatedState);
-            expect(resumes.toArray()).to.eql([
+            expect(resumes.toList().toArray()).to.eql([
                 stubLoadedResume,
                 stubResume
             ]);
@@ -61,7 +61,7 @@ describe("resume", function () {
             const stubLoadedResume = {rawr: "roar"};
 
             stubInitialState = Map({
-                resumes: new Set([Map({variant: "grr", resume: stubLoadedResume})])
+                resumes: Map({grr: stubLoadedResume})
             });
             const updatedState = reducer(stubInitialState, fetchingResumeSuccess(stubPayload));
             const resume = getResume(updatedState);
