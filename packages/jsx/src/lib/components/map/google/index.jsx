@@ -16,8 +16,8 @@ ComposedGoogleMap.defaultProps = {
     googleMapURL: MAP_API_URL,
     defaultZoom: 10,
     defaultCenter: {
-        lat: 49.242250,
-        lng: -123.046250
+        lat: 52.5018708,
+        lng: 13.3655289
     },
     // defaultMapTypeId: "terrain", // NOTE-RT: google.maps.MapTypeId.TERRAIN
     defaultOptions: {
