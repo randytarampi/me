@@ -1,6 +1,6 @@
 import {SET_ERROR} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {Map} from "immutable";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -26,7 +26,7 @@ describe("fetchLetter", function () {
         stubInitialState = Map({
             api: Map(),
             letter: Map({
-                letters: Set([])
+                letters: Map()
             })
         });
         stubStore = mockStore(stubInitialState);
@@ -49,7 +49,7 @@ describe("fetchLetter", function () {
                         isLoading: true
                     })
                 }),
-                letter: Map({letters: Set([])})
+                letter: Map({letter: Map()})
             });
             stubStore = mockStore(stubInitialState);
 
@@ -130,9 +130,7 @@ describe("fetchLetter", function () {
                     })
                 }),
                 letter: Map({
-                    letters: Set([
-                        Map({variant: "letter", letter: testLetterJson})
-                    ])
+                    letters: Map({letter: testLetterJson})
                 })
             });
             stubStore = mockStore(stubInitialState);
@@ -272,9 +270,7 @@ describe("fetchLetter", function () {
                     })
                 }),
                 letter: Map({
-                    letters: Set([
-                        Map({variant: stubVariant, letter: testLetterJson})
-                    ])
+                    letters: Map({[stubVariant]: testLetterJson})
                 })
             });
             stubStore = mockStore(stubInitialState);

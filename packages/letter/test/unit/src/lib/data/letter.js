@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Map, Set} from "immutable";
+import {Map} from "immutable";
 import {createAction} from "redux-actions";
 import {fetchingLetterSuccess} from "../../../../../src/lib/actions/fetchLetter";
 import reducer, {getLetter, getLetters} from "../../../../../src/lib/data/letter";
@@ -9,7 +9,7 @@ describe("letter", function () {
 
     beforeEach(function () {
         stubInitialState = Map({
-            letters: new Set([])
+            letters: Map()
         });
     });
 
@@ -46,11 +46,11 @@ describe("letter", function () {
             const stubLoadedLetter = {rawr: "roar"};
 
             stubInitialState = Map({
-                letters: new Set([Map({variant: "grr", letter: stubLoadedLetter})])
+                letters: Map({grr: stubLoadedLetter})
             });
             const updatedState = reducer(stubInitialState, fetchingLetterSuccess(stubPayload));
             const letters = getLetters(updatedState);
-            expect(letters.toArray()).to.eql([
+            expect(letters.toList().toArray()).to.eql([
                 stubLoadedLetter,
                 stubLetter
             ]);
@@ -61,7 +61,7 @@ describe("letter", function () {
             const stubLoadedLetter = {rawr: "roar"};
 
             stubInitialState = Map({
-                letters: new Set([Map({variant: "grr", letter: stubLoadedLetter})])
+                letters: Map({grr: stubLoadedLetter})
             });
             const updatedState = reducer(stubInitialState, fetchingLetterSuccess(stubPayload));
             const letter = getLetter(updatedState);
