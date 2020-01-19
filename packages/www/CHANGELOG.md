@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.7](https://github.com/randytarampi/me/compare/v6.1.6...v6.1.7) (2020-01-19)
+
+
+### Bug Fixes
+
+* **www:** Inject some sensible `noscript` content. ([6a6f68f](https://github.com/randytarampi/me/commit/6a6f68f6e97e52195e3695488e1e5fa848b5e769))
+
+
+
+
+
 ## [6.1.6](https://github.com/randytarampi/me/compare/v6.1.5...v6.1.6) (2020-01-18)
 
 

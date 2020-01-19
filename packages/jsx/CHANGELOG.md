@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.7](https://github.com/randytarampi/me/compare/v6.1.6...v6.1.7) (2020-01-19)
+
+
+### Bug Fixes
+
+* **jsx:** `generateGoogleMapMarkerClustererUrl` should be a base64 data URI. ([6b6252f](https://github.com/randytarampi/me/commit/6b6252f8f2eec99a33d691dda3e44f801f28ecab))
+* **jsx:** More sensible `postCoordinates` stringification. ([b7953a7](https://github.com/randytarampi/me/commit/b7953a76237a1bdc2c640f66a6e96e6e28a5ddc9))
+
+
+### Performance Improvements
+
+* **jsx:** Double `FETCHING_POSTS_PER_PAGE` and half `MAPPED_POSTS_FETCHING_POSTS_PER_PAGE`. ([4246e09](https://github.com/randytarampi/me/commit/4246e0946959a23e48c1484c28f2db6ebda553f8))
+
+
+
+
+
 ## [6.1.6](https://github.com/randytarampi/me/compare/v6.1.5...v6.1.6) (2020-01-18)
 
 
