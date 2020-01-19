@@ -23,6 +23,7 @@ const getBasePostsSelectorForType = type => {
 };
 
 export const MAPPED_POSTS_FETCH_DEBOUNCE_DELAY = 500;
+export const MAPPED_POSTS_FETCHING_POSTS_PER_PAGE = 32;
 
 export const connectMappedPosts = connect(
     (state, ownProps) => {
@@ -68,7 +69,7 @@ export const connectMappedPosts = connect(
                 const searchParams = {
                     ...(match && match.params),
                     ...fetchPostsParams,
-                    perPage: 64,
+                    perPage: MAPPED_POSTS_FETCHING_POSTS_PER_PAGE,
                     ...passedParams
                 };
                 return dispatch(fetchPostsForMapCreator(id, fetchUrl, type, searchParams));
