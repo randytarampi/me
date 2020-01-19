@@ -279,7 +279,17 @@ PostMapComponent.propTypes = {
 
 const PostLocationComponentInternal = ({post, setMapPostsCenter}) => {
     if (post.locationCreated) {
-        const postCoordinates = post.locationCreated.coordinates && post.locationCreated.coordinates.toString();
+        const postCoordinates = post.locationCreated.coordinates
+            ? [
+                post.locationCreated.coordinates.latitude,
+                post.locationCreated.coordinates.longitude
+            ]
+                .map(dmsCoordinate => {
+                    const dmsArray = dmsCoordinate.dmsArray;
+                    return `${dmsArray[0]}°${dmsArray[1]}′${Number(dmsArray[2]).toFixed(3)}″ ${dmsArray[3]}`;
+                })
+                .join(", ")
+            : null;
         const postLocationName = post.locationCreated.name;
         const postAddress = post.locationCreated.address;
 
