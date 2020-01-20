@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.8](https://github.com/randytarampi/me/compare/v6.1.7...v6.1.8) (2020-01-20)
+
+
+### Bug Fixes
+
+* **www:** Force reload the page when the user says they want to `unregisterServiceWorkerAndReload`. ([b9bfcec](https://github.com/randytarampi/me/commit/b9bfcec1780b939075f6ee2917977391c1c7a54f))
+
+
+
+
+
 ## [6.1.7](https://github.com/randytarampi/me/compare/v6.1.6...v6.1.7) (2020-01-19)
 
 
