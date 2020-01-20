@@ -24,7 +24,7 @@ export const onUpdated = () => {
 
     window.unregisterServiceWorkerAndReload = () => {
         unregister();
-        location.reload();
+        location.reload(true);
     };
 
     M.toast({
