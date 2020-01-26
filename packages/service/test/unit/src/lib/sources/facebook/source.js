@@ -41,7 +41,7 @@ describe("FacebookSource", function () {
         process.env.FACEBOOK_ACCESS_TOKEN = "FACEBOOK_ACCESS_TOKEN";
 
         stubPost = Gallery.fromJSON({id: "woof"});
-        stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"}), LinkPost.fromJSON({id: "grr"})];
+        stubPosts = [stubPost, Photo.fromJSON({id: "meow"}), Photo.fromJSON({id: "grr"}), LinkPost.fromJSON({id: "grr"}), LinkPost.fromJSON({id: "rawr"})];
 
         facebookUser = {
             id: "woof",
@@ -273,6 +273,9 @@ describe("FacebookSource", function () {
         facebookPhotos[3].type = "link";
         facebookPhotos[3].privacy.value = "ALL_FRIENDS";
 
+        facebookPhotos[4].type = "link";
+        delete facebookPhotos[4].attachments;
+
         stubServiceClient = {
             get: sinon.stub().callsFake((edge, params) => {
                 switch (edge) {
@@ -451,7 +454,7 @@ describe("FacebookSource", function () {
             return facebookSource.allRecordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
-                    expect(posts).to.have.length(stubPosts.length);
+                    expect(posts).to.have.length(stubPosts.length - 1);
                     posts.map(post => {
                         switch (post.type) {
                             case Gallery.type:
@@ -511,7 +514,7 @@ describe("FacebookSource", function () {
             return facebookSource.allRecordsGetter(stubParams)
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
-                    expect(posts).to.have.length(stubPosts.length);
+                    expect(posts).to.have.length(stubPosts.length - 1);
                     posts.map(post => {
                         switch (post.type) {
                             case Gallery.type:

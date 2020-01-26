@@ -75,6 +75,11 @@ export class FacebookSource extends CachedDataSource {
     }
 
     static instanceToRecord(postJson) {
+        if (!postJson.attachments) {
+            logger.warn(`instanceToRecord bailing early for ${JSON.stringify(postJson)}, because it has \`!postJson.attachments\``);
+            return null;
+        }
+
         switch (postJson.type) {
             case "link":
                 return FacebookSource._jsonToLinkPost(postJson);
