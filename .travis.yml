@@ -1,13 +1,6 @@
 language: node_js
+os: linux
 dist: bionic
-matrix:
-  fast_finish: true
-  allow_failures:
-  - node_js: 6
-  - node_js: 8
-  - node_js: 10
-  - node_js: node
-  - node_js: lts/*
 env:
   global:
   - CPUS_COUNT=4
@@ -54,7 +47,14 @@ stages:
     AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/)
 - name: Deploy (prd)
   if: tag IS present
-jobs:
+matrix:
+  fast_finish: true
+  allow_failures:
+    - node_js: 6
+    - node_js: 8
+    - node_js: 10
+    - node_js: node
+    - node_js: lts/*
   include:
   - stage: Test
     node_js: 12
