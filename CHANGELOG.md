@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.9](https://github.com/randytarampi/me/compare/v6.1.8...v6.1.9) (2020-01-26)
+
+
+### Bug Fixes
+
+* **service:** `FacebookSource.instanceToRecord` shouldn't explode if `!postJson.attachments`. ([c36cb96](https://github.com/randytarampi/me/commit/c36cb96f95dcab27a97cb4f3c0d0ea0a164f0ef7))
+
+
+
+
+
 ## [6.1.8](https://github.com/randytarampi/me/compare/v6.1.7...v6.1.8) (2020-01-20)
 
 
