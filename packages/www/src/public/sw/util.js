@@ -1,7 +1,6 @@
 /* global M */
 
 import {logger} from "@randy.tarampi/browser-logger";
-import {unregister} from "register-service-worker";
 
 export const onReady = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} is ready`);
@@ -22,8 +21,7 @@ export const onUpdateFound = () => {
 export const onUpdated = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has been updated`);
 
-    window.unregisterServiceWorkerAndReload = () => {
-        unregister();
+    window.reloadWithNewServiceWorker = () => {
         location.reload(true);
     };
 
@@ -50,14 +48,14 @@ export const onUpdated = () => {
                 data-metrics-type="onClick"
                 data-metrics-name="Reload now"
                 data-metrics-label="Reload now"
-                onclick="unregisterServiceWorkerAndReload();"
+                onclick="reloadWithNewServiceWorker();"
             >
                 Reload now
             </a> to stay current!
         </p>
         <button
             class="hide-on-small-and-down btn-flat toast-action"
-            onclick="unregisterServiceWorkerAndReload();"
+            onclick="reloadWithNewServiceWorker();"
             data-metrics-event-name="button"
             data-metrics-type="onClick"
             data-metrics-name="Reload and update"
