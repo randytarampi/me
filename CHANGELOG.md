@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.10](https://github.com/randytarampi/me/compare/v6.1.9...v6.1.10) (2020-02-02)
+
+
+### Bug Fixes
+
+* **www:** Don't unregister the old SW on forced updates. ([190e880](https://github.com/randytarampi/me/commit/190e880d51a5c484161ca1ba305adf6467c7c9da))
+
+
+
+
+
 ## [6.1.9](https://github.com/randytarampi/me/compare/v6.1.8...v6.1.9) (2020-01-26)
 
 
