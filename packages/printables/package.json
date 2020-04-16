@@ -13,7 +13,7 @@
     "@randy.tarampi/views": "6.1.13",
     "exiftool-vendored": "^9.4.0",
     "pug": "^2.0.4",
-    "puppeteer": "^2.0.0",
+    "puppeteer": "^3.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1"
