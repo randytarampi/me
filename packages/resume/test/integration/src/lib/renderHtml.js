@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Helmet from "react-helmet";
+import {Helmet} from "react-helmet";
 import renderHtml from "../../../../src/lib/renderHtml";
 import Resume from "../../../../src/lib/resume";
 import resumeJson from "../../../../src/resumes/resume.json";

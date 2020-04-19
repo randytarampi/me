@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import path from "path";
-import Helmet from "react-helmet";
+import {Helmet} from "react-helmet";
 import buildLetter from "../../../../src/lib/buildLetter";
 import renderHtml from "../../../../src/lib/renderHtml";
 

@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import React from "react";
-import Helmet from "react-helmet";
+import {Helmet} from "react-helmet";
 import sinon from "sinon";
 import {getRenderedHelmet, renderJsx} from "../../../../src/lib/renderJsx";
 
