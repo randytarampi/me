@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14](https://github.com/randytarampi/me/compare/v6.1.13...v6.1.14) (2020-04-21)
+
+
+### Bug Fixes
+
+* **css:** Fix `.text`'s `box-shadow` on puppeteer PDFs. ([44b53f4](https://github.com/randytarampi/me/commit/44b53f47ba3fa104c88193f1ac346d52389c8af0))
+
+
+### Reverts
+
+* Revert "chore(package): Run a `yarn upgrade`." ([fa16746](https://github.com/randytarampi/me/commit/fa16746487de6438b1f1a2d815f56e8dcea9a974))
+
+
+
+
+
 ## [6.1.13](https://github.com/randytarampi/me/compare/v6.1.12...v6.1.13) (2020-02-16)
 
 **Note:** Version bump only for package me
