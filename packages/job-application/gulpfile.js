@@ -113,6 +113,8 @@ gulp.task("job-application:pdf", async () => {
 
 gulp.task("job-applications", async () => {
     const fs = require("fs");
+    const os = require("os");
+    const Promise = require("bluebird");
     const server = require("./server");
 
     return new Promise((resolve, reject) => {
@@ -121,10 +123,12 @@ gulp.task("job-applications", async () => {
                 return reject(error);
             }
             resolve(
-                Promise.all(
-                    files
-                        .filter(file => path.extname(file) === ".jsx")
-                        .map(file => renderJobApplication(file))
+                Promise.map(
+                    files.filter(file => path.extname(file) === ".jsx"),
+                    file => renderJobApplication(file),
+                    {
+                        concurrency: os.cpus().length
+                    }
                 )
             );
         });
