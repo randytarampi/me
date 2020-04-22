@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.15](https://github.com/randytarampi/me/compare/v6.1.14...v6.1.15) (2020-04-22)
+
+**Note:** Version bump only for package @randy.tarampi/job-application
+
+
+
+
+
 ## [6.1.14](https://github.com/randytarampi/me/compare/v6.1.13...v6.1.14) (2020-04-21)
 
 **Note:** Version bump only for package @randy.tarampi/job-application

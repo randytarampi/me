@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/jsx",
   "description": "Some common JSX components for www.randytarampi.ca",
-  "version": "6.1.14",
+  "version": "6.1.15",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -12,10 +12,11 @@
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
     "@fortawesome/fontawesome-free": "^5.12.0",
-    "@randy.tarampi/browser-logger": "6.1.14",
-    "@randy.tarampi/js": "6.1.14",
+    "@randy.tarampi/browser-logger": "6.1.15",
+    "@randy.tarampi/js": "6.1.15",
     "@randy.tarampi/react-dimensions": "latest",
-    "@randy.tarampi/redux-metrics": "6.1.14",
+    "@randy.tarampi/react-materialize": "^3.5.7",
+    "@randy.tarampi/redux-metrics": "6.1.15",
     "@randy.tarampi/redux-offline-immutable-config": "latest",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/schema-dot-org-types": "latest",
@@ -36,7 +37,6 @@
     "react-google-maps": "^9.4.5",
     "react-hot-loader": "^4.12.18",
     "react-infinite": "^0.13.0",
-    "@randy.tarampi/react-materialize": "^3.5.7",
     "react-metrics": "^2.4.1",
     "react-progressive-image": "^0.6.0",
     "react-redux": "^7.1.3",

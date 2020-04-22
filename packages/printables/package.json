@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/printables",
   "description": "A wrapper around some common printable tasks for jsonresume-theme-randytarampi and @randy.tarampi/letter",
-  "version": "6.1.14",
+  "version": "6.1.15",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -10,7 +10,7 @@
   "browser": "./esm/index.client.js",
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/views": "6.1.14",
+    "@randy.tarampi/views": "6.1.15",
     "exiftool-vendored": "^11.1.0",
     "pug": "^2.0.4",
     "puppeteer": "^3.0.0",
