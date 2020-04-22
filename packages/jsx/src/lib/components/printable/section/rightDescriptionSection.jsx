@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Row} from "react-materialize";
+import {Col, Row} from "@randy.tarampi/react-materialize";
 import SectionWrapper from "./sectionWrapper";
 
 export const RightDescriptionSection = ({printableType, type, label, labelNode, description, descriptionNode, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {

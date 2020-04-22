@@ -3,7 +3,7 @@ import {CampaignLink} from "@randy.tarampi/jsx";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Row} from "react-materialize";
+import {Col, Row} from "@randy.tarampi/react-materialize";
 
 export const ResumePublicationsEntry = ({publicationsEntry, index}) => {
     const date = castDatePropertyToDateTime(publicationsEntry.releaseDate);

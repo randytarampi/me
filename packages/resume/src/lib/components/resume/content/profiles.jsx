@@ -1,7 +1,7 @@
 import {CampaignLink, getBrandedLinkForNetwork, PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Row} from "react-materialize";
+import {Col, Row} from "@randy.tarampi/react-materialize";
 import {ResumeCustomContent} from "../../../resumeCustomContent";
 
 const getLinkComponentForProfile = profile => {

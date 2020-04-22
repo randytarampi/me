@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import {Container} from "react-materialize";
+import {Container} from "@randy.tarampi/react-materialize";
 import Footer from "../../../../../../src/lib/components/printable/footer";
 
 describe("Footer", function () {

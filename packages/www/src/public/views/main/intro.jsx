@@ -11,7 +11,7 @@ import {
     SmsLink
 } from "@randy.tarampi/jsx";
 import React, {Fragment} from "react";
-import {Col} from "react-materialize";
+import {Col} from "@randy.tarampi/react-materialize";
 
 export const IntroText = () =>
     <Fragment>

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Container, Row} from "react-materialize";
+import {Col, Container, Row} from "@randy.tarampi/react-materialize";
 import {CampaignLink, EmailLink, TelLink} from "../link/index";
 
 export const PrintableHeader = ({printable}) => {

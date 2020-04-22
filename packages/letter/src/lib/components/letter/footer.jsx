@@ -1,7 +1,7 @@
 import {CampaignLink, PrintableFooter} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {Col, Row} from "react-materialize";
+import {Col, Row} from "@randy.tarampi/react-materialize";
 
 export const LetterFooter = ({contentConfiguration, publishedLetterUrl}) => {
     return <PrintableFooter>

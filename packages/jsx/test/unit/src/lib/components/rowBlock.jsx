@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import {Row} from "react-materialize";
+import {Row} from "@randy.tarampi/react-materialize";
 import RowBlock from "../../../../../src/lib/components/rowBlock";
 
 describe("RowBlock", function () {

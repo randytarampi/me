@@ -36,7 +36,7 @@
     "react-google-maps": "^9.4.5",
     "react-hot-loader": "^4.12.18",
     "react-infinite": "^0.13.0",
-    "react-materialize": "^3.5.7",
+    "@randy.tarampi/react-materialize": "^3.5.7",
     "react-metrics": "^2.4.1",
     "react-progressive-image": "^0.6.0",
     "react-redux": "^7.1.3",

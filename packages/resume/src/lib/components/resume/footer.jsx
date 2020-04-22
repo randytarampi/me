@@ -1,7 +1,7 @@
 import {PrintableFooter} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {Col, Row} from "react-materialize";
+import {Col, Row} from "@randy.tarampi/react-materialize";
 import {ResumeCustomContent} from "../../resumeCustomContent";
 
 export const ResumeFooter = ({customContent}) => {

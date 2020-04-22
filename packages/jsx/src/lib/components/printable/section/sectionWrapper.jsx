@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Row} from "react-materialize";
+import {Row} from "@randy.tarampi/react-materialize";
 
 export const SectionWrapper = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
     const classNames = [

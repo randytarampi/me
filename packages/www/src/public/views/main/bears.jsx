@@ -1,6 +1,6 @@
 import {CampaignLink, ConnectedBear, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
-import {Col} from "react-materialize";
+import {Col} from "@randy.tarampi/react-materialize";
 
 const Bears = () =>
     <RowBlock name="bears">

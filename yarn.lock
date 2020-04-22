@@ -2193,6 +2193,13 @@
     element-resize-event "^3.0.3"
     lodash.debounce "^4.0.6"
 
+"@randy.tarampi/react-materialize@^3.5.7":
+  version "3.8.6"
+  resolved "https://registry.yarnpkg.com/@randy.tarampi/react-materialize/-/react-materialize-3.8.6.tgz#0ef900c9088445455098ffa4130f2afd56f5aa8b"
+  integrity sha512-WhP0e+pik2L7h2qb4jKizMApn+D7MXq3bD4pippEXL4fZTTV2QvPkDDCzPkV/xV6ZPzia1sjiqJtvAHDFI9zEQ==
+  dependencies:
+    classnames "^2.2.6"
+
 "@randy.tarampi/redux-offline-immutable-config@latest":
   version "1.0.1-1"
   resolved "https://registry.yarnpkg.com/@randy.tarampi/redux-offline-immutable-config/-/redux-offline-immutable-config-1.0.1-1.tgz#5472843a11abd197d9f0f927e6ed793559b6cdc1"
@@ -4026,9 +4033,9 @@ aws-sdk@2.395.0:
     xml2js "0.4.19"
 
 aws-sdk@^2.304.0, aws-sdk@^2.490.0, aws-sdk@^2.658.0, aws-sdk@^2.660.0, aws-sdk@^2.7.0:
-  version "2.660.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.660.0.tgz#1be2f814ffdb1aadf859b252601974073a39a4b2"
-  integrity sha512-6FR91Jg1x9TuFglsdBHkRuE4X7sPRwqeTB2GwLk9XPX1giicdMvJrWbcw5rUnMKjXs9LVlkwaK5VI9AJ0d8dpw==
+  version "2.661.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.661.0.tgz#e877dbc0d07b74e93e2383eb4cd0407592b1e46e"
+  integrity sha512-dfGtbRQQUmcpj6WGVhj7q2PADCvDhLf+/aRGPXcMrm0cnHavkmHPVaSvrw2lJJJ5N9MsBKoUyacrVcIQkfNsgw==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -15686,13 +15693,6 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-
-react-materialize@^3.5.7:
-  version "3.8.5"
-  resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-3.8.5.tgz#7ca59b69a9fa94272ff6ce009dbe7198777378b2"
-  integrity sha512-EX6S9/Q/fK2yINYxwF/O1Hn/mdCGFXJnxq/fjbXoDCSkvVg4sr4gwdW1518HYJR7P1nFsDZsjf753+l3yV0t5A==
-  dependencies:
-    classnames "^2.2.6"
 
 react-metrics@^2.4.1:
   version "2.4.1"

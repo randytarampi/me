@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {shallow} from "enzyme";
 import React from "react";
-import {Container} from "react-materialize";
+import {Container} from "@randy.tarampi/react-materialize";
 import Header from "../../../../../../src/lib/components/printable/header";
 
 describe("Header", function () {

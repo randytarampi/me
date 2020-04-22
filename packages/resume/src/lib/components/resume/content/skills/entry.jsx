@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Col} from "react-materialize";
+import {Col} from "@randy.tarampi/react-materialize";
 
 export const ResumeSkillsEntry = ({skillsEntry, index}) => {
     return <Col m={4} s={6} className={`resume-skills-entry${index > 2 ? " hide-on-print" : ""}`}>

@@ -1,7 +1,7 @@
 import {logger} from "@randy.tarampi/jsx";
 import React, {Fragment, PureComponent} from "react";
 import {Helmet} from "react-helmet";
-import {Container} from "react-materialize";
+import {Container} from "@randy.tarampi/react-materialize";
 import Bears from "./bears";
 import Intro from "./intro";
 import New from "./new";
