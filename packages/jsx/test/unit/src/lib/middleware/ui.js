@@ -6,7 +6,7 @@ import selectors from "../../../../../src/lib/data/selectors";
 import ui from "../../../../../src/lib/middleware/ui";
 
 describe("ui", function () {
-    const originalM = window.M;
+    const originalM = typeof window.M !== "undefined" && window.M;
     const originalDocumentBodyInnerHtml = window.document.body.innerHTML;
     let stubGetInstance;
     let stubSelect;

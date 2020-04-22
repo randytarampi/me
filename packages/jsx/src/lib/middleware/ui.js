@@ -6,7 +6,7 @@ import selectors from "../data/selectors";
 const getSwipeableTabs = () => {
     const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
 
-    return swipeableTabsElement && window.M && window.M.Tabs.getInstance(swipeableTabsElement);
+    return swipeableTabsElement && typeof window.M !== "undefined" && window.M && window.M.Tabs.getInstance(swipeableTabsElement);
 };
 
 const getSwipeableTabsExpectedTabIndex = (state, action) => {

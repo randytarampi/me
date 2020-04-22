@@ -25,7 +25,7 @@ export const onUpdated = () => {
         location.reload(true);
     };
 
-    M.toast({
+    typeof M !== "undefined" && M.toast({
         html: `
         <p>
             <span class="hide-on-small-and-down">
