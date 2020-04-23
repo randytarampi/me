@@ -47,7 +47,9 @@ describe("swipeableTabChangeIndex", function () {
 
     describe("SWIPEABLE_TAB_CHANGE_INDEX", function () {
         it("is dispatched with the expected payload (actual route)", function () {
-            const stubPayload = "05";
+            const stubIndex = "5";
+            const stubId = `0${stubIndex}`;
+            const stubPayload = { currentTarget: { getAttribute: (argument) => argument === "href" && `tab_${stubId}` } };
             stubStore.dispatch(swipeableTabChangeIndex(stubPayload));
 
             const actions = stubStore.getActions();
@@ -57,7 +59,7 @@ describe("swipeableTabChangeIndex", function () {
                 {
                     type: SWIPEABLE_TAB_CHANGE_INDEX,
                     payload: {
-                        index: Number(stubPayload)
+                        index: Number(stubIndex)
                     }
                 },
                 {
@@ -75,7 +77,7 @@ describe("swipeableTabChangeIndex", function () {
             selectors.getRouteForIndex.restore();
             sinon.stub(selectors, "getRouteForIndex").callsFake(() => null);
 
-            const stubPayload = "15";
+            const stubPayload = { currentTarget: { getAttribute: (argument) => argument === "href" && "15" } };
             stubStore.dispatch(swipeableTabChangeIndex(stubPayload));
 
             const actions = stubStore.getActions();
