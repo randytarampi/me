@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.16](https://github.com/randytarampi/me/compare/v6.1.15...v6.1.16) (2020-04-23)
+
+
+### Bug Fixes
+
+* **jsx:** Fix tests for 2ed01722a28725625e65b96bbdc6df5477e4f97d. ([17a88e2](https://github.com/randytarampi/me/commit/17a88e23cb4c03c6af6b47d0381529c355e5ac87))
+* **www:** Fix a `Tabs` regression from `react-materialize@3.7.0`. ([2ed0172](https://github.com/randytarampi/me/commit/2ed01722a28725625e65b96bbdc6df5477e4f97d)), closes [/github.com/react-materialize/react-materialize/pull/1079/files#diff-f8f6138478fd4cda2a0f875f28829252R38](https://github.com//github.com/react-materialize/react-materialize/pull/1079/files/issues/diff-f8f6138478fd4cda2a0f875f28829252R38)
+
+
+### Reverts
+
+* chore(package): Use a patched version of `react-materialize` 'cause of https://github.com/react-materialize/react-materialize/issues/880 and https://github.com/react-materialize/react-materialize/issues/1085 and https://github.com/react-materialize/react-materialize/pull/1106." ([ae492af](https://github.com/randytarampi/me/commit/ae492af795f90d4d7b546a4c9dea2cbd8c3f7b9f))
+
+
+
+
+
 ## [6.1.15](https://github.com/randytarampi/me/compare/v6.1.14...v6.1.15) (2020-04-22)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

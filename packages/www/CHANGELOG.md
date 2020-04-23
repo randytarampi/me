@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.16](https://github.com/randytarampi/me/compare/v6.1.15...v6.1.16) (2020-04-23)
+
+
+### Reverts
+
+* chore(package): Use a patched version of `react-materialize` 'cause of https://github.com/react-materialize/react-materialize/issues/880 and https://github.com/react-materialize/react-materialize/issues/1085 and https://github.com/react-materialize/react-materialize/pull/1106." ([ae492af](https://github.com/randytarampi/me/commit/ae492af795f90d4d7b546a4c9dea2cbd8c3f7b9f))
+
+
+
+
+
 ## [6.1.15](https://github.com/randytarampi/me/compare/v6.1.14...v6.1.15) (2020-04-22)
 
 **Note:** Version bump only for package @randy.tarampi/www
