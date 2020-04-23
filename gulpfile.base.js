@@ -31,7 +31,7 @@ module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
         .pipe(gulpIf(isFixed, gulp.dest(relativePath)))
         .pipe(eslint.failAfterError());
 
-    stream.on("finish", () => resultsFile.end());
+    stream.on("finish", () => resultsFile && resultsFile.end());
 
     return stream;
 });
@@ -49,10 +49,14 @@ module.exports.sassLint = ({relativePath, gulp}) => gulp.task("sassLint", () => 
                     : undefined
             }
         }))
-        .pipe(sassLint.format(resultsFile))
+        .pipe(
+            resultsFile
+                ? sassLint.format("junit", resultsFile)
+                : sassLint.format()
+        )
         .pipe(sassLint.failOnError());
 
-    stream.on("finish", () => resultsFile.end());
+    stream.on("finish", () => resultsFile && resultsFile.end());
 
     return stream;
 });
