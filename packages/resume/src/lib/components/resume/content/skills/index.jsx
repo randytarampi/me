@@ -1,7 +1,7 @@
 import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import {Row} from "@randy.tarampi/react-materialize";
+import {Row} from "react-materialize";
 import {ResumeCustomContent} from "../../../../resumeCustomContent";
 import ResumeSkillsEntry from "./entry";
 

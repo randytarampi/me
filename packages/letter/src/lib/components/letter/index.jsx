@@ -11,7 +11,7 @@ import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-compone
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Helmet} from "react-helmet";
-import {Container} from "@randy.tarampi/react-materialize";
+import {Container} from "react-materialize";
 import LetterFooter from "./footer";
 
 export const mapLetterErrorCodeToErrorContentComponent = errorCode => {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Container} from "@randy.tarampi/react-materialize";
+import {Container} from "react-materialize";
 
 export const PrintableFooter = ({children}) => {
     return <footer id="footer" className="printable-footer">

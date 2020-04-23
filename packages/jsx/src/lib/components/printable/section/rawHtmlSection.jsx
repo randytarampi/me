@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Col} from "@randy.tarampi/react-materialize";
+import {Col} from "react-materialize";
 import SectionWrapper from "./sectionWrapper";
 
 export const RawHtmlLetterSection = ({printableType, type, rawHtml, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className}) => {

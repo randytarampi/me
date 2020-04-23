@@ -1,5 +1,5 @@
 import React from "react";
-import {Tabs} from "@randy.tarampi/react-materialize";
+import {Tabs} from "react-materialize";
 import {connect} from "react-redux";
 import {swipeableTabChangeIndexCreator} from "../actions";
 

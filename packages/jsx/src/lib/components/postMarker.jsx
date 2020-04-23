@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Marker} from "react-google-maps";
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
-import {Col, Row} from "@randy.tarampi/react-materialize";
+import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {Provider, ReactReduxContext} from "react-redux";
 import {getSvgPathForPost, scalePixelValueForWindowDevicePixelRatio} from "../util";

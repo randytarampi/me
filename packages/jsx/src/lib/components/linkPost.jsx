@@ -3,7 +3,7 @@ import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-compone
 import isHtml from "is-html";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {Col, Row} from "@randy.tarampi/react-materialize";
+import {Col, Row} from "react-materialize";
 import {CampaignLink} from "./link";
 import {
     PostBodyAsArrayComponent,

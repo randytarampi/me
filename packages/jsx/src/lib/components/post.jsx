@@ -5,7 +5,7 @@ import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Fragment, PureComponent} from "react";
 import {Marker} from "react-google-maps";
-import {Col, Row} from "@randy.tarampi/react-materialize";
+import {Col, Row} from "react-materialize";
 import {connect} from "react-redux";
 import {updateMapCreator} from "../actions";
 import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link";

@@ -1,7 +1,7 @@
 import {logger} from "@randy.tarampi/browser-logger";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
-import {Col, Row} from "@randy.tarampi/react-materialize";
+import {Col, Row} from "react-materialize";
 import {mapErrorCodeToErrorContentComponent} from "./content";
 
 export class ErrorComponent extends PureComponent {

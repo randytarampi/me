@@ -4,7 +4,7 @@ import {ConnectedLetter} from "@randy.tarampi/letter";
 import {ConnectedResume} from "@randy.tarampi/resume";
 import React, {Fragment} from "react";
 import {Helmet} from "react-helmet";
-import {Tab} from "@randy.tarampi/react-materialize";
+import {Tab} from "react-materialize";
 import {Redirect} from "react-router";
 import Main from "../views/main";
 

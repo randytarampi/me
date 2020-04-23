@@ -1,6 +1,6 @@
 import {CampaignLink, ConnectedPosts, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
-import {Col} from "@randy.tarampi/react-materialize";
+import {Col} from "react-materialize";
 
 const New = () =>
     <RowBlock name="new">

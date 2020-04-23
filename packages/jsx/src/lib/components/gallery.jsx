@@ -2,7 +2,7 @@ import {Gallery as GalleryEntity} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {Carousel, Col, Row} from "@randy.tarampi/react-materialize";
+import {Carousel, Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {WINDOW_LARGE_BREAKPOINT} from "../util";
 import {PhotoComponent} from "./photo";

@@ -2,7 +2,7 @@ import {castDatePropertyToDateTime} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React from "react";
-import {Col, Row} from "@randy.tarampi/react-materialize";
+import {Col, Row} from "react-materialize";
 
 export const ResumeAwardsEntry = ({awardsEntry, index}) => {
     const date = castDatePropertyToDateTime(awardsEntry.date);

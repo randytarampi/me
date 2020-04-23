@@ -2,7 +2,7 @@ import {Photo as PhotoEntity} from "@randy.tarampi/js";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {Col, Row} from "@randy.tarampi/react-materialize";
+import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {scalePixelValueForWindowDevicePixelRatio, WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util";
 import {
