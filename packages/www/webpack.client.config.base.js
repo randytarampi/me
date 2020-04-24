@@ -13,8 +13,8 @@ const publicPath = `${config.get("www.assetUrl")}/`;
 
 const sources = [
     "*.md",
-    "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
-    "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
+    "node_modules/materialize-css/dist/fonts/roboto/*",
+    "node_modules/@fortawesome/fontawesome-free/webfonts/*"
 ];
 if (process.env.NODE_ENV && fs.existsSync(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}`)) {
     sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
@@ -76,9 +76,13 @@ module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
         mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
     ],
     plugins: plugins
-        .concat(new CopyWebpackPlugin(sources.map(source => {
-            return {from: source, flatten: true};
-        })))
+        .concat(new CopyWebpackPlugin(sources.map(source => ({
+            from: source,
+            flatten: true,
+            context: source.match(/^node_modules/)
+                ? "../../"
+                : undefined
+        }))))
         .concat(views.map(([pageName, pageUrl]) => buildViewForPageUrl(pageName, pageUrl))),
     ...overrides
 });

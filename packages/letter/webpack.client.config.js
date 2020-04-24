@@ -12,8 +12,8 @@ const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const sources = [
     "*.md",
-    "node_modules/@randy.tarampi/css/node_modules/materialize-css/dist/fonts/roboto/**",
-    "node_modules/@randy.tarampi/css/node_modules/@fortawesome/fontawesome-free/webfonts/**"
+    "node_modules/materialize-css/dist/fonts/roboto/*",
+    "node_modules/@fortawesome/fontawesome-free/webfonts/*"
 ];
 if (process.env.NODE_ENV && fs.existsSync(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}`)) {
     sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
@@ -32,9 +32,13 @@ module.exports = webpackBaseConfig({
         styles: path.join(__dirname, "./styles/style.scss")
     },
     plugins: [
-        new CopyWebpackPlugin(sources.map(source => {
-            return {from: source, flatten: true};
-        })),
+        new CopyWebpackPlugin(sources.map(source => ({
+            from: source,
+            flatten: true,
+            context: source.match(/^node_modules/)
+                ? "../../"
+                : undefined
+        }))),
         new HtmlWebpackPlugin({
             filename: "index.html",
             template: "node_modules/@randy.tarampi/views/templates/index.pug",

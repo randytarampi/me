@@ -16,8 +16,8 @@ gulp.task("lint", gulp.series(["sassLint"]));
 gulp.task("copy", () => {
     return gulp
         .src([
-            "node_modules/materialize-css/dist/fonts/roboto/**",
-            "node_modules/@fortawesome/fontawesome-free/webfonts/**"
+            "node_modules/materialize-css/dist/fonts/roboto/*",
+            "node_modules/@fortawesome/fontawesome-free/webfonts/*"
         ])
         .pipe(gulp.dest("./dist"));
 });
