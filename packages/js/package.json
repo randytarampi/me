@@ -14,12 +14,16 @@
     "georaptor": "github:randytarampi/georaptor#me-release",
     "haversine": "^1.1.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
-    "latlon-geohash": "^1.1.0",
-    "libphonenumber-js": "^1.7.29",
+    "latlon-geohash": "^2.0.0",
+    "libphonenumber-js": "^1.7.50",
     "lodash": "^4.17.15",
-    "luxon": "^1.21.3",
+    "luxon": "^1.23.0",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
-    "query-string": "^6.9.0"
+    "query-string": "^6.12.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2"
   },
   "directories": {
     "lib": "./src/lib",

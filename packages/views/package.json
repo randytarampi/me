@@ -12,6 +12,10 @@
     "@randy.tarampi/js": "6.1.16",
     "config": "^3.3.1"
   },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-pug": "^4.0.1"
+  },
   "directories": {
     "lib": "./src/lib"
   },

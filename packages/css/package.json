@@ -8,8 +8,11 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.0",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "materialize-css": "^1.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
   },
   "files": [
     "npm-shrinkwrap.json",

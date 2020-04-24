@@ -9,9 +9,16 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "@randy.tarampi/resume": "6.1.16",
     "@randy.tarampi/views": "6.1.16",
-    "config": "^3.3.1"
+    "config": "^3.3.1",
+    "resume-cli": "randytarampi/resume-cli#me-release"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "directories": {
     "lib": "./src/lib",

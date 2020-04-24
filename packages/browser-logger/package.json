@@ -15,6 +15,12 @@
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "raven-js": "^3.27.2"
   },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "jsdom": "^16.2.2",
+    "sinon": "^9.0.2"
+  },
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
@@ -37,7 +43,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "randytarampi/me.git",
+  "repository": {
+    "directory": "me/packages/browser-logger",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
   "scripts": {
     "build": "yarn run build:babel",
     "build:babel": "yarn run build:babel:esm && yarn run build:babel:es5",

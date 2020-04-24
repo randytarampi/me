@@ -11,12 +11,22 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "6.1.16",
-    "exiftool-vendored": "^11.1.0",
+    "exiftool-vendored": "^11.2.0",
     "pug": "^2.0.4",
-    "puppeteer": "^3.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "puppeteer": "^3.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "cheerio": "^1.0.0-rc.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "gulp": "^4.0.2",
+    "jsdom": "^16.2.2",
+    "sinon": "^9.0.2"
   },
   "directories": {
     "lib": "./src/lib",
