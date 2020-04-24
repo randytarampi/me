@@ -11,7 +11,7 @@
   "dependencies": {
     "@randy.tarampi/resume": "6.1.16",
     "@randy.tarampi/views": "6.1.16",
-    "config": "^3.2.4"
+    "config": "^3.3.1"
   },
   "directories": {
     "lib": "./src/lib",

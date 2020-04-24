@@ -10,7 +10,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "6.1.16",
-    "config": "^3.2.4"
+    "config": "^3.3.1"
   },
   "directories": {
     "lib": "./src/lib"
