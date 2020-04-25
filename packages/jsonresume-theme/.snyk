@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -174,3 +174,6 @@ patch:
         patched: '2019-07-06T07:03:01.911Z'
     - '@randy.tarampi/resume > @randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
         patched: '2019-07-06T07:03:01.911Z'
+  'npm:uglify-js:20151024':
+    - resume-cli > jsonresume-theme-flat > handlebars > uglify-js:
+        patched: '2020-04-25T16:30:59.677Z'
