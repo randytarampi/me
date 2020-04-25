@@ -2,13 +2,28 @@ import {expect} from "chai";
 import sinon from "sinon";
 import AuthInfo from "../../../../../src/lib/authInfo";
 import sources, {initializeSources} from "../../../../../src/lib/sources";
-import {InstagramSource} from "../../../../../src/lib/sources/instagram/source";
+import {FacebookSource} from "../../../../../src/lib/sources/facebook";
+import {InstagramSource} from "../../../../../src/lib/sources/instagram";
+import {TwitterSource} from "../../../../../src/lib/sources/twitter";
 
 describe("sources", function () {
     describe("initializeSources", function () {
+        let stubFacebookAuthInfoClientGetter;
         let stubInstagramAuthInfoClientGetter;
+        let stubTwitterAuthInfoClientGetter;
 
         beforeEach(function () {
+            class StubFacebookAuthInfoClient {
+                getRecords(searchParams) {
+                    try {
+                        expect(searchParams.source).to.eql(sources.facebook.type);
+
+                        return Promise.resolve([]);
+                    } catch (error) {
+                        return Promise.reject(error);
+                    }
+                }
+            }
             class StubInstagramAuthInfoClient {
                 getRecords(searchParams) {
                     try {
@@ -20,12 +35,27 @@ describe("sources", function () {
                     }
                 }
             }
+            class StubTwitterAuthInfoClient {
+                getRecords(searchParams) {
+                    try {
+                        expect(searchParams.source).to.eql(sources.twitter.type);
 
+                        return Promise.resolve([]);
+                    } catch (error) {
+                        return Promise.reject(error);
+                    }
+                }
+            }
+
+            stubFacebookAuthInfoClientGetter = sinon.stub(FacebookSource, "AuthInfoClient").get(() => StubFacebookAuthInfoClient);
             stubInstagramAuthInfoClientGetter = sinon.stub(InstagramSource, "AuthInfoClient").get(() => StubInstagramAuthInfoClient);
+            stubTwitterAuthInfoClientGetter = sinon.stub(TwitterSource, "AuthInfoClient").get(() => StubTwitterAuthInfoClient);
         });
 
         afterEach(function () {
+            stubFacebookAuthInfoClientGetter.restore();
             stubInstagramAuthInfoClientGetter.restore();
+            stubTwitterAuthInfoClientGetter.restore();
         });
 
         it("returns initialized sources", function () {

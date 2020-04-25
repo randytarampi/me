@@ -97,6 +97,9 @@ plugins:
 custom:
   contentCompression: 1024
   dynamodb:
+    stages:
+      - test
+      - local
     start:
       port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
       inMemory: false
