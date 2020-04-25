@@ -2849,7 +2849,7 @@ __metadata:
     gulp: ^4.0.2
     haversine: ^1.1.1
     immutable: "github:randytarampi/immutable-js#me-release"
-    latlon-geohash: ^2.0.0
+    latlon-geohash: ^1.1.0
     libphonenumber-js: ^1.7.50
     lodash: ^4.17.15
     luxon: ^1.23.0
@@ -15369,10 +15369,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"latlon-geohash@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "latlon-geohash@npm:2.0.0"
-  checksum: 2/354d92509bb99c17fe16b6b1241b32741a52eddcaf01192737aeff4e04633c0da75cb472ce348f6729379ab0d0ab1246d3e81daf9dd596daeb4399d5431a6bf7
+"latlon-geohash@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "latlon-geohash@npm:1.1.0"
+  checksum: 2/d1af75af7229efb8cf9fd71239e4e889785dea75fa8e734c0be5c53ec680582bdc891555cf26c0c18609f08fabc2a92173f726b43aa8ef0a8b81e53d962e1d7b
   languageName: node
   linkType: hard
 
