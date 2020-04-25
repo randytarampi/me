@@ -13,25 +13,10 @@ env:
   - secure: oxfqOoaXj7BuY0mNwqJdvj/3HPShjhKpS5iCAhd02IvrJHXsYVzOf1JEj6fO94VntDNKpep/2fzl+pfIBgsyGCB8JsGVTyszitbJVSZio7kJFgNj9XZr6WajFU2jfSmqV7H7Z1pGcEESTbPdGdLAwL7PJnik8OEWKleP6WDC5IPDN7yVycn6h72vMoX8VDqZPnP0ZuaiW1VaGrHCcg5Fg9Id5TRzHsmz5yE0DYOPL5QO8NI3JAk5Sq+nqCvb0/Ac0pSTJgqfKXDryIws17y18VubKuLAQMhfHXC9k5C2HSR/TWUqvzv6X0+tnxhJmvcmk6O2zF5YhLInJSrRjTOWnHAgYfBOC+8+Zoz7kl/YYKAFnn7LGT5e3L11KFO6Esip84MPJWU95swiQcu014Kf906WYN2kKlW5J5njOwrGqY3pXh9VrZp+7tUH1611F7/HBmXqe874pByDUdUBcnVEnCUdtvAYlJLVeIvmemQDn3oiXcHXrC+454BbDUL5CDlUGIhwibxbxj+Z9wPdHuflXf0ecegFopAjDBSQhJpQ1CxP3BiDSPKiI5J1UmA5HGnxuTF5/EEbDSvWC3VCm0MzN9SlmU74bAaCLDWIU4HKESmzfmX7z12gGpDgpALyjXq+zGTeGSkpMBa1NBWHzqWxn8WsKKMUgqM8FGMDzRNpl90=
   - secure: MGzDAahxhT/3CCiUvJ8dIf4BNL92nQHygim2rtZz7PlpdOrvK3yop08NgeKj5F7tIArVxyBDW8xjqZXO65dX3OJYkfFXjNYsP+z36KcxsWmjLAo6icvHF2UN2gE70iTQHqlv+PAcuND7Kb71auHSAgw8F5c4LO6jKPeLnM4keDb0CiCtoLzmfRzhAdjBgxKjkOKTE5BxuxSGLC0IQObCjx1Rk10TOK3km+unOBLxr2AubR2/mPAqRIOpHjgx/0ZeMLK5jbHgqZC5EZj9yXB+aloVx6IcCR7TPMnTj0ogZ0jKOEX6hZdIxqhT0Eb5M4N3TnTb3WIyzA48S5/Qg/ikKOtCexJrW4tXBaPNy7plBR6H495IAyhN9rAt9LGDjns+5a0Xphr61RLWd3NN5JTc//xjPiBJTYaZxCy/RNaTI0MSuLuopbUCn2TlZIbT8KYte9mQG02UAJ4rWvvoPOiPIrmUU/9QsTfKt9iomdhVeLyHa0sUj0fR85nleIjVPMvsog4V1icUcbMIXhnqZ0eTDPaQ6rvtceC9VMUTd8IzkU16ZkZ5fwfxWLraZoxflyrkR5KrQ6HzNlB8nY8ekwtmtyvvqxq8OYe6m/TuswOFC95wnxhWZDwKbquOObujAwTTEtswNpbHkZ4vQ09EGVSNx5hKU/SUV2dBBoSTQ+NQRLE=
 cache:
-  yarn: false
+  yarn: true
   npm: false
   directories: [
-    "node_modules",
-    "packages/browser-logger/node_modules",
-    "packages/css/node_modules",
-    "packages/job-application/node_modules",
-    "packages/js/node_modules",
-    "packages/jsonresume-theme/node_modules",
-    "packages/jsx/node_modules",
-    "packages/lambda-logger/node_modules",
-    "packages/letter/node_modules",
-    "packages/printables/node_modules",
-    "packages/redux-metrics/node_modules",
-    "packages/resume/node_modules",
-    "packages/serverless/node_modules",
-    "packages/service/node_modules",
-    "packages/views/node_modules",
-    "packages/www/node_modules"
+    ".yarn/cache",
   ]
 before_install:
 - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
@@ -53,10 +38,10 @@ before_install:
 - export JOB_WEB_URL=${JOB_WEB_URL:=$TRAVIS_JOB_WEB_URL}
 - uname -a
 - lscpu
-- npm install -g yarn@1
+- npm install -g yarn
 - yarn config set script-shell $(which bash)
 install:
-- yarn bootstrap
+- yarn install --immutable
 stages:
 - name: Test
   if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
@@ -153,7 +138,7 @@ matrix:
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
     - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then git
       status; npx lerna version --no-git-tag-version --no-push --conventional-commits
-      --yes --exact && yarn bootstrap && npx lerna run letter --scope @randy.tarampi/letter
+      --yes --exact && yarn install --immutable && npx lerna run letter --scope @randy.tarampi/letter
       && npx lerna run resume --scope @randy.tarampi/resume && npx lerna run resume
       --scope jsonresume-theme-randytarampi && npx lerna run docs --scope @randy.tarampi/letter
       && npx lerna run docs --scope @randy.tarampi/resume && npx lerna run docs --scope
@@ -210,7 +195,7 @@ matrix:
     install:
     - git checkout $TRAVIS_BRANCH
     - npx lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-    - yarn bootstrap
+    - yarn install --immutable
     - npx lerna run docs --scope @randy.tarampi/www
     before_script: skip
     script: skip
@@ -246,7 +231,7 @@ matrix:
     install:
     - git checkout $TRAVIS_BRANCH
     - npx lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-    - yarn bootstrap
+    - yarn install --immutable
     before_script: skip
     script: skip
     after_script: skip
@@ -264,7 +249,7 @@ matrix:
     - DEPLOY=true
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
     install:
-    - yarn bootstrap
+    - yarn install --immutable
     - npx lerna run docs --scope @randy.tarampi/www
     before_script: skip
     script: skip
