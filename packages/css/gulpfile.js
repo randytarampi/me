@@ -14,10 +14,11 @@ baseGulpfile.sassLint(taskParameters);
 gulp.task("lint", gulp.series(["sassLint"]));
 
 gulp.task("copy", () => {
+    const path = require("path");
     return gulp
         .src([
-            "node_modules/materialize-css/dist/fonts/roboto/*",
-            "node_modules/@fortawesome/fontawesome-free/webfonts/*"
+            path.resolve(require.resolve("materialize-css"), "../../fonts/roboto/*"),
+            path.resolve(require.resolve("@fortawesome/fontawesome-free"), "../../webfonts/*")
         ])
         .pipe(gulp.dest("./dist"));
 });

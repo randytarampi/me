@@ -7,7 +7,7 @@ export const renderHtml = ({printableComponent, printableStylesPath, printableTe
 
     return renderLocals => {
         const pugLocals = printablePugLocalsBuilder(renderLocals);
-        return pug.renderFile(process.env.PRINTABLE_TEMPLATE_PATH || __PRINTABLE_TEMPLATE_PATH__ && path.join(__dirname, __PRINTABLE_TEMPLATE_PATH__) || printableTemplatePath || path.join(__dirname, "../../node_modules/@randy.tarampi/views/templates/index.pug"), pugLocals);
+        return pug.renderFile(process.env.PRINTABLE_TEMPLATE_PATH || __PRINTABLE_TEMPLATE_PATH__ && path.join(__dirname, __PRINTABLE_TEMPLATE_PATH__) || printableTemplatePath || path.resolve(require.resolve("@randy.tarampi/views"), "../../web/templates/index.pug"), pugLocals);
     };
 };
 

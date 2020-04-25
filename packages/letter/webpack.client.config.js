@@ -12,13 +12,17 @@ const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const sources = [
     "*.md",
-    "node_modules/materialize-css/dist/fonts/roboto/*",
-    "node_modules/@fortawesome/fontawesome-free/webfonts/*"
+    path.resolve(require.resolve("materialize-css"), "../../fonts/roboto/*"),
+    path.resolve(require.resolve("@fortawesome/fontawesome-free"), "../../webfonts/*")
 ];
-if (process.env.NODE_ENV && fs.existsSync(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}`)) {
-    sources.push(`node_modules/@randy.tarampi/assets/web/${process.env.NODE_ENV}/*`);
+if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web", process.env.NODE_ENV, "*"))) {
+    const environmentAssetsPath = path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web", process.env.NODE_ENV, "*");
+
+    if (fs.existsSync(environmentAssetsPath)) {
+        sources.push(environmentAssetsPath);
+    }
 } else {
-    sources.push("node_modules/@randy.tarampi/assets/web/*");
+    sources.push(path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web/*"));
 }
 
 module.exports = webpackBaseConfig({
@@ -41,7 +45,7 @@ module.exports = webpackBaseConfig({
         }))),
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: "node_modules/@randy.tarampi/views/templates/index.pug",
+            template: path.resolve(require.resolve("@randy.tarampi/views"), "../../web/templates/index.pug"),
             templateParameters: buildPugLocals({
                 bundleName: config.get("letter.bundle.name")
             }),

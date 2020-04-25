@@ -55,6 +55,6 @@ describe("renderHtml", function () {
         expect(stubPugLocalsBuilder.calledOnce).to.be.ok;
         sinon.assert.calledWith(stubPugLocalsBuilder, stubRenderLocals);
         expect(pug.renderFile.calledOnce).to.be.ok;
-        sinon.assert.calledWith(pug.renderFile, path.join(__dirname, "../../../../node_modules/@randy.tarampi/views/templates/index.pug"), {woof: "meow"});
+        sinon.assert.calledWith(pug.renderFile, path.resolve(require.resolve("@randy.tarampi/views"), "../../web/templates/index.pug"), {woof: "meow"});
     });
 });

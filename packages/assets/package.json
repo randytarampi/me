@@ -14,6 +14,7 @@
   ],
   "homepage": "https://www.randytarampi.ca",
   "license": "CC-BY-NC-3.0",
+  "main": "package.json",
   "publishConfig": {
     "access": "public"
   },
