@@ -32,7 +32,7 @@ const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) =
 
     return new HtmlWebpackPlugin({
         filename: `${pageName}.html`,
-        template: path.resolve(require.resolve("@randy.tarampi/views"), "../../web/templates/index.pug"),
+        template: path.resolve(require.resolve("@randy.tarampi/views"), "../../templates/index.pug"),
         templateParameters: buildPugLocals({
             bundleName: config.get("www.bundle.name"),
             esmBundleName: `${config.get("www.bundle.name")}.esm`,
