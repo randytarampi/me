@@ -165,7 +165,7 @@ matrix:
         git commit -am "release(travis): Release v$REPO_VERSION";
         git tag -a $TRAVIS_TAG -m "release(travis): Release v$REPO_VERSION.";
         export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD);
-        git push ci-push master;
+        git push ci-push master --follow-tags;
         IS_PUBLISHING=true npx lerna publish from-git --yes --concurrency ${CPUS_COUNT};
       fi;'
     - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
