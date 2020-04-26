@@ -1,37 +1,53 @@
 import {expect} from "chai";
-import * as connectedReactRouter from "connected-react-router/immutable";
 import {Map} from "immutable/dist/immutable";
+import proxyquire from "proxyquire";
 import React from "react";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import sinon from "sinon";
 import Link from "../../../../../../src/lib/components/link";
-import InternalLink, * as internalLinks from "../../../../../../src/lib/components/link/internal";
 import {mount} from "../../../../../../src/test/util";
 
-// FIXME-RT: Unignore these tests when I figure out how to stub out `connectedReactRouter.push` properly
-xdescribe("InternalLink", function () {
+describe("InternalLink", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
+    let routerPushStub;
+    let proxyquiredInternalLinkModule;
+    let InternalLink;
+    let internalLinks;
+
+    const setInternalLinkModule = () => {
+        routerPushStub = sinon.stub().callsFake(payload => {
+            return {
+                payload,
+                type: "woof"
+            };
+        });
+
+        proxyquiredInternalLinkModule = proxyquire("../../../../../../src/lib/components/link/internal", {
+            "connected-react-router/immutable": {
+                "push": routerPushStub
+            }
+        });
+        InternalLink = proxyquiredInternalLinkModule.default;
+        internalLinks = Object.keys(proxyquiredInternalLinkModule).reduce((actualInternalLinks, internalLinkKey) => {
+            if (!["default", "InternalLink"].includes(internalLinkKey)) {
+                actualInternalLinks[internalLinkKey] = proxyquiredInternalLinkModule[internalLinkKey];
+            }
+
+            return actualInternalLinks;
+        }, {});
+    };
+
+    setInternalLinkModule();
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map();
         stubStore = mockStore(stubInitialState);
-
-        sinon.stub(connectedReactRouter, "push").callsFake(payload => {
-            return {
-                payload,
-                type: "woof"
-            };
-        });
-    });
-
-    afterEach(function () {
-        connectedReactRouter.push.restore();
     });
 
     it("renders", function () {
@@ -71,7 +87,8 @@ xdescribe("InternalLink", function () {
             });
         });
 
-    it("dispatches `onClick` properly", function () {
+    // FIXME-RT: Unignore this test when I figure out how to stub out `routerPushStub` properly
+    xit("dispatches `onClick` properly", function () {
         const stubProps = {
             href: "woof",
             serviceName: "meow",
@@ -88,9 +105,9 @@ xdescribe("InternalLink", function () {
             />
         );
 
-        expect(connectedReactRouter.push.notCalled).to.eql(true);
+        expect(routerPushStub.notCalled).to.eql(true);
         rendered.simulate("click");
-        expect(connectedReactRouter.push.calledOnce).to.eql(true);
-        sinon.assert.calledWith(connectedReactRouter.push, stubProps.href);
+        expect(routerPushStub.calledOnce).to.eql(true);
+        sinon.assert.calledWith(routerPushStub, stubProps.href);
     });
 });
