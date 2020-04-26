@@ -14,7 +14,7 @@ env:
   - secure: MGzDAahxhT/3CCiUvJ8dIf4BNL92nQHygim2rtZz7PlpdOrvK3yop08NgeKj5F7tIArVxyBDW8xjqZXO65dX3OJYkfFXjNYsP+z36KcxsWmjLAo6icvHF2UN2gE70iTQHqlv+PAcuND7Kb71auHSAgw8F5c4LO6jKPeLnM4keDb0CiCtoLzmfRzhAdjBgxKjkOKTE5BxuxSGLC0IQObCjx1Rk10TOK3km+unOBLxr2AubR2/mPAqRIOpHjgx/0ZeMLK5jbHgqZC5EZj9yXB+aloVx6IcCR7TPMnTj0ogZ0jKOEX6hZdIxqhT0Eb5M4N3TnTb3WIyzA48S5/Qg/ikKOtCexJrW4tXBaPNy7plBR6H495IAyhN9rAt9LGDjns+5a0Xphr61RLWd3NN5JTc//xjPiBJTYaZxCy/RNaTI0MSuLuopbUCn2TlZIbT8KYte9mQG02UAJ4rWvvoPOiPIrmUU/9QsTfKt9iomdhVeLyHa0sUj0fR85nleIjVPMvsog4V1icUcbMIXhnqZ0eTDPaQ6rvtceC9VMUTd8IzkU16ZkZ5fwfxWLraZoxflyrkR5KrQ6HzNlB8nY8ekwtmtyvvqxq8OYe6m/TuswOFC95wnxhWZDwKbquOObujAwTTEtswNpbHkZ4vQ09EGVSNx5hKU/SUV2dBBoSTQ+NQRLE=
 cache:
   yarn: true
-  npm: true
+  npm: false
   directories: [
     ".yarn/cache",
     "node_modules",
