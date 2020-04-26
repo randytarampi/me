@@ -12,7 +12,7 @@ module.exports = {
         return `${this.me.resume.basics.givenName} ${this.me.resume.basics.familyName}`;
     }),
     url: "https://www.randytarampi.ca/blog",
-    description: "If you think I'm being a little silly here it's because I take my actual work pretty seriously. If you're the type to hammer out whiteboard problems with a beer in hand or refine project requirements splayed out on the couch playing with dogs, get in touch – I'm sure we'll get along just fine",
+    description: "I moved out here to broaden my skillset and horizons and now I'm doubling down and looking for my next big thing – right in the middle of a pandemic. I'm all about fitness balls instead of fancy chairs and chatting over cold beers than video calls",
     address: {
         countryCode: defer(function () {
             return this.me.resume.basics.address.addressCountry;
