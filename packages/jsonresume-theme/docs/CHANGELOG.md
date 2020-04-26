@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.17](https://github.com/randytarampi/me/compare/v6.1.16...v6.1.17) (2020-04-26)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Prefer `npx resume` instead of `yarn resume`. ([5e576fa](https://github.com/randytarampi/me/commit/5e576fa9bc055f60d5c692f52e98a72204d8c7c9))
+* **jsonresume-theme:** Use `require.resolve` to copy assets on `build`. ([4480f0c](https://github.com/randytarampi/me/commit/4480f0c1e93583091434656af7cc882ebf6ca898))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([b61ec4b](https://github.com/randytarampi/me/commit/b61ec4b0aafc1a6e9263b0e00f0e47bb5e69830e))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([e2e5b2d](https://github.com/randytarampi/me/commit/e2e5b2dd1b00b59cb3d06a9291a1cdf6a61ae5f2))
+
+
+
+
+
 ## [6.1.16](https://github.com/randytarampi/me/compare/v6.1.15...v6.1.16) (2020-04-23)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi

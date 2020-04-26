@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.17](https://github.com/randytarampi/me/compare/v6.1.16...v6.1.17) (2020-04-26)
+
+
+### Bug Fixes
+
+* **jsx:** Get `CopyWebpackPlugin` to copy fonts over correctly. ([3030f14](https://github.com/randytarampi/me/commit/3030f14ff5f4ec837d22c7356aa2e1aa6d934933))
+
+
+
+
+
 ## [6.1.16](https://github.com/randytarampi/me/compare/v6.1.15...v6.1.16) (2020-04-23)
 
 **Note:** Version bump only for package @randy.tarampi/css

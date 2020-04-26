@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.17](https://github.com/randytarampi/me/compare/v6.1.16...v6.1.17) (2020-04-26)
+
+
+### Bug Fixes
+
+* **service:** Fix local test setup. ([afde585](https://github.com/randytarampi/me/commit/afde5853c8da11933b516bf647f093e97d2adde7))
+
+
+
+
+
 ## [6.1.16](https://github.com/randytarampi/me/compare/v6.1.15...v6.1.16) (2020-04-23)
 
 **Note:** Version bump only for package @randy.tarampi/service

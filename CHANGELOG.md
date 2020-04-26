@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.17](https://github.com/randytarampi/me/compare/v6.1.16...v6.1.17) (2020-04-26)
+
+
+### Bug Fixes
+
+* **jsonresume-theme:** Prefer `npx resume` instead of `yarn resume`. ([5e576fa](https://github.com/randytarampi/me/commit/5e576fa9bc055f60d5c692f52e98a72204d8c7c9))
+* **jsonresume-theme:** Use `require.resolve` to copy assets on `build`. ([4480f0c](https://github.com/randytarampi/me/commit/4480f0c1e93583091434656af7cc882ebf6ca898))
+* **jsx:** Get `CopyWebpackPlugin` to copy fonts over correctly. ([3030f14](https://github.com/randytarampi/me/commit/3030f14ff5f4ec837d22c7356aa2e1aa6d934933))
+* **package:** Fix bad references to `[@randy](https://github.com/randy).tarampi/views/templates/index.pug`. ([1461cf0](https://github.com/randytarampi/me/commit/1461cf04211d86a35d8034fc8b9e05b5469832f9))
+* **package:** Roll back to `yarn@1`. ([1802482](https://github.com/randytarampi/me/commit/180248236b62f2c12e8287ed399c692262e3f1ae))
+* **package:** Roll back to `yarn@1`. ([2620d88](https://github.com/randytarampi/me/commit/2620d884194e3d2dfceab20ca9e676a548297caf))
+* **service:** Fix local test setup. ([afde585](https://github.com/randytarampi/me/commit/afde5853c8da11933b516bf647f093e97d2adde7))
+* **travis:** We need to `git commit` before we `git tag -a`. ([d9f65df](https://github.com/randytarampi/me/commit/d9f65df93d6e3034caec81fd6c2dbd6df7bb883d))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([b61ec4b](https://github.com/randytarampi/me/commit/b61ec4b0aafc1a6e9263b0e00f0e47bb5e69830e))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([e2e5b2d](https://github.com/randytarampi/me/commit/e2e5b2dd1b00b59cb3d06a9291a1cdf6a61ae5f2))
+* **package:** Use latlon-geohash@1.1.0. ([cad0054](https://github.com/randytarampi/me/commit/cad00543fc60698e3d65ae05af0b913d84f51714))
+* **travis:** `git tag -a $TRAVIS_TAG`. ([ac559eb](https://github.com/randytarampi/me/commit/ac559eb998152863df396fe2ce3dff6e3684adab)), closes [/github.com/lerna/lerna/issues/1230#issuecomment-387816594](https://github.com//github.com/lerna/lerna/issues/1230/issues/issuecomment-387816594)
+
+
+
+
+
 ## [6.1.16](https://github.com/randytarampi/me/compare/v6.1.15...v6.1.16) (2020-04-23)
 
 
