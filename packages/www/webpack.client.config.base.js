@@ -23,7 +23,7 @@ if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.t
         sources.push(environmentAssetsPath);
     }
 } else {
-    sources.push(path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web/*"));
+    sources.push(path.resolve(require.resolve("@randy.tarampi/assets"), "../../assets/web/*"));
 }
 
 const buildViewForPageUrl = (pageName, pageUrl = config.get("www.publishUrl")) => {
