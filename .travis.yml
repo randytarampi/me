@@ -124,7 +124,7 @@ matrix:
     install:
     - git checkout $TRAVIS_BRANCH
     - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp`
-    - IS_FORCED_RELEASE=`[[ $TRAVIS_COMMIT_MESSAGE =~ (^release\(force\):) ]] && echo true`
+    - if [ -n "$(echo $TRAVIS_COMMIT_MESSAGE | grep '^release(force):')" ]; then IS_FORCED_RELEASE=1; else IS_FORCED_RELEASE=0; fi;
     - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
     - JSONRESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
