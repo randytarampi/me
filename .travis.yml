@@ -180,7 +180,7 @@ matrix:
     - export TRAVIS_TAG=${TRAVIS_TAG:=v$REPO_VERSION}
     - export TRAVIS_TAG_COMMIT=${TRAVIS_TAG_COMMIT:=$(git rev-parse HEAD)}
     - 'if [[ -n $(git status -s) ]]; then
-        git commit -am "release: Prepare release v$REPO_VERSION.";
+        git commit -am "release(travis): Release v$REPO_VERSION";
         git tag -a $TRAVIS_TAG -m "release(travis): Release v$REPO_VERSION.";
         export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD);
         git push ci-push master;
