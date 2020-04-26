@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.21](https://github.com/randytarampi/me/compare/v6.1.20...v6.1.21) (2020-04-26)
+
+**Note:** Version bump only for package @randy.tarampi/resume
+
+
+
+
+
 ## [6.1.20](https://github.com/randytarampi/me/compare/v6.1.19...v6.1.20) (2020-04-26)
 
 **Note:** Version bump only for package @randy.tarampi/resume
