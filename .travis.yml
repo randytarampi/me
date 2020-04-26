@@ -93,35 +93,27 @@ matrix:
     - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:pretest; fi;
     - yarn run cover:collect
     - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:test; fi;
+    - "CODECLIMATE_API_HOST=https://codebeat.co/webhooks/code_coverage CODECLIMATE_REPO_TOKEN=98216c3b-5de5-4a1f-b991-beb9bf2162a ./cc-test-reporter < coverage/lcov/lcov.info"
     - yarn run coveralls
-    after_failure: &5
     - yarn run kill --scope @randy.tarampi/service
-    after_success: &6
-    - yarn run coveralls
   - stage: Test
     node_js: 10
     env: *1
     before_script: *2
     script: *3
     after_script: *4
-    after_failure: *5
-    after_success: *6
   - stage: Test
     node_js: node
     env: *1
     before_script: *2
     script: *3
     after_script: *4
-    after_failure: *5
-    after_success: *6
   - stage: Test
     node_js: lts/*
     env: *1
     before_script: *2
     script: *3
     after_script: *4
-    after_failure: *5
-    after_success: *6
   - stage: Release
     name: GitHub
     node_js: '12'
