@@ -133,19 +133,19 @@ matrix:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-    - 'if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
+    - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
         git status;
-        npx lerna version --no-git-tag-version --no-push --conventional-commits --yes --exact \
-          && yarn install --frozen-lockfile --ignore-engines \
-          && npx lerna run letter --scope @randy.tarampi/letter \
-          && npx lerna run resume --scope @randy.tarampi/resume \
-          && npx lerna run resume --scope jsonresume-theme-randytarampi \
-          && npx lerna run docs \
-            --scope @randy.tarampi/letter \
-            --scope @randy.tarampi/resume \
-            --scope jsonresume-theme-randytarampi \
+        npx lerna version --no-git-tag-version --no-push --conventional-commits --yes --exact
+          && yarn install --frozen-lockfile --ignore-engines
+          && npx lerna run letter --scope @randy.tarampi/letter
+          && npx lerna run resume --scope @randy.tarampi/resume
+          && npx lerna run resume --scope jsonresume-theme-randytarampi
+          && npx lerna run docs
+            --scope @randy.tarampi/letter
+            --scope @randy.tarampi/resume
+            --scope jsonresume-theme-randytarampi
             --scope @randy.tarampi/www;
-      fi;'
+      fi;
     before_script: skip
     script: skip
     after_script: skip
