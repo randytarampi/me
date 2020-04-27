@@ -5,9 +5,10 @@
 @import "spinner";
 @import "nav";
 
-html, body {
+html {
     height: 100%;
     width: 100%;
+    background: black;
     font-variant-ligatures: normal;
     font-feature-settings: normal;
     text-rendering: optimizeLegibility;
@@ -24,6 +25,10 @@ html, body {
             margin: 0;
         }
     }
+}
+
+body {
+    background: white;
 }
 
 .hide-on-screen {
