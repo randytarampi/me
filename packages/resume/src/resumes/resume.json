@@ -55,7 +55,7 @@
     {
       "company": "Smunch",
       "position": "Senior Software Developer",
-      "startDate": "2019-03-11T00:00:00.000+01:00",
+      "startDate": "2019-03-11T00:00:00.000-00:00",
       "endDate": null,
       "summary": "I wanted a taste of adventure after living and working in Vancouver for so long and opted to join the one Berlin startup trying to spice up lunch in the workplace",
       "website": "https://www.smunch.co/en",
@@ -69,8 +69,8 @@
     {
       "company": "Fetch Auto",
       "position": "Senior Software Developer",
-      "startDate": "2017-02-14T00:00:00.000+01:00",
-      "endDate": "2018-06-01T00:00:00.000+02:00",
+      "startDate": "2017-02-14T00:00:00.000-00:00",
+      "endDate": "2018-06-01T00:00:00.000-00:00",
       "summary": "Got called back to Vancouver while travelling abroad by my former team lead at Yardi to help build out the first end-to-end solution for Canadians to buy, sell and finance private sale vehicles",
       "website": "https://www.fetchauto.ca",
       "highlights": [
@@ -84,8 +84,8 @@
     {
       "company": "Yardi Energy | EnerNOC | Pulse Energy",
       "position": "Software Engineer",
-      "startDate": "2014-06-02T00:00:00.000+02:00",
-      "endDate": "2016-09-16T00:00:00.000+02:00",
+      "startDate": "2014-06-02T00:00:00.000-00:00",
+      "endDate": "2016-09-16T00:00:00.000-00:00",
       "summary": "Returned to Pulse Energy as a new grad in Summer 2014 looking to further grow my skillset – by year's end we were acquired by EnerNOC and then in Summer 2016 sold off to Yardi",
       "website": "https://pulseenergy.com",
       "highlights": [
@@ -99,8 +99,8 @@
     {
       "company": "Pulse Energy",
       "position": "Software Developer",
-      "startDate": "2013-01-07T00:00:00.000+01:00",
-      "endDate": "2013-08-30T00:00:00.000+02:00",
+      "startDate": "2013-01-07T00:00:00.000-00:00",
+      "endDate": "2013-08-30T00:00:00.000-00:00",
       "summary": "I cut my chops at a mid-size startup that gave utilities like British Gas, PG&E and BC Hydro an understanding of their​ commercial and industrial customers while serving up actionable energy intelligence for small, medium and large businesses alike",
       "website": "https://pulseenergy.com",
       "highlights": [
@@ -113,8 +113,8 @@
     {
       "company": "Metro Vancouver",
       "position": "Project Research Assistant",
-      "startDate": "2012-05-01T00:00:00.000+02:00",
-      "endDate": "2012-09-01T00:00:00.000+02:00",
+      "startDate": "2012-05-01T00:00:00.000-00:00",
+      "endDate": "2012-09-01T00:00:00.000-00:00",
       "summary": "I was curious about how bureaucracy dealt with data and I was equal parts surprised and horrified",
       "website": null,
       "highlights": [
@@ -127,8 +127,8 @@
     {
       "company": "SAP",
       "position": "Software Developer in Test",
-      "startDate": "2011-09-01T00:00:00.000+02:00",
-      "endDate": "2011-12-31T00:00:00.000+01:00",
+      "startDate": "2011-09-01T00:00:00.000-00:00",
+      "endDate": "2011-12-31T00:00:00.000-00:00",
       "summary": "My first \"real\" job in the tech sector, where I gained an appreciation for process and automation assessing the daily build quality for Crystal Reports",
       "website": null,
       "highlights": [
@@ -138,8 +138,8 @@
     {
       "company": "Simon Fraser University",
       "position": "IT Technician",
-      "startDate": "2011-05-01T00:00:00.000+02:00",
-      "endDate": "2014-04-30T00:00:00.000+02:00",
+      "startDate": "2011-05-01T00:00:00.000-00:00",
+      "endDate": "2014-04-30T00:00:00.000-00:00",
       "summary": "My first \"real\" job, pretty much exactly as it sounds – sat at a desk waiting for problems to arise",
       "website": "https://www.sfu.ca",
       "highlights": [
@@ -152,8 +152,8 @@
     {
       "organization": "Simon Fraser University",
       "position": "Orientation leader",
-      "startDate": "2011-09-01T00:00:00.000+02:00",
-      "endDate": "2011-12-31T00:00:00.000+01:00",
+      "startDate": "2011-09-01T00:00:00.000-00:00",
+      "endDate": "2011-12-31T00:00:00.000-00:00",
       "summary": "What started off as me making good on a bet to get involved and volunteer in the wider university community ended up being a pretty fun time where I ended up meeting a bunch of cool people",
       "website": null,
       "highlights": [
@@ -164,8 +164,8 @@
     {
       "organization": "Windermere Community Programs",
       "position": "Program Volunteer",
-      "startDate": "2006-09-01T00:00:00.000+02:00",
-      "endDate": "2009-06-30T00:00:00.000+02:00",
+      "startDate": "2006-09-01T00:00:00.000-00:00",
+      "endDate": "2009-06-30T00:00:00.000-00:00",
       "summary": "The Education Ministry of BC mandated that high school students complete some number of civil service hours before graduating – I ended up starting off begrudgingly and ended up loving it so much that I did it for much longer than required",
       "website": null,
       "highlights": [
@@ -177,7 +177,7 @@
     {
       "name": "That cover letter",
       "description": "That cover letter that you've read – and if you haven't you should!",
-      "startDate": "2018-08-01T00:00:00.000+02:00",
+      "startDate": "2018-08-01T00:00:00.000-00:00",
       "endDate": null,
       "type": "Application",
       "url": "https://www.randytarampi.ca/letter",
@@ -199,7 +199,7 @@
     {
       "name": "This resume",
       "description": "This page that you're reading – if I needed to tell you that, we might not be the best of matches",
-      "startDate": "2018-08-01T00:00:00.000+02:00",
+      "startDate": "2018-08-01T00:00:00.000-00:00",
       "endDate": null,
       "type": "Application",
       "url": "https://www.randytarampi.ca/resume",
@@ -223,7 +223,7 @@
     {
       "name": "Slamscan",
       "description": "A set of AWS Lambdas that scans files uploaded to an S3 bucket for viruses and other threats",
-      "startDate": "2017-07-01T00:00:00.000+02:00",
+      "startDate": "2017-07-01T00:00:00.000-00:00",
       "endDate": null,
       "type": "Web service",
       "url": "https://github.com/randytarampi/slamscan",
@@ -246,7 +246,7 @@
     {
       "name": "My blog",
       "description": "A small project I kicked off shortly after leaving Yardi and then subsequently dropped as I went off travelling around the Mediterranean",
-      "startDate": "2016-10-06T00:00:00.000+02:00",
+      "startDate": "2016-10-06T00:00:00.000-00:00",
       "endDate": null,
       "type": "Application",
       "url": "https://www.randytarampi.ca/blog",
@@ -279,7 +279,7 @@
     {
       "name": "A pseudolocalizer, for images",
       "description": "A CLI utility that takes your image assets and spits out a pseudolocalized version",
-      "startDate": "2016-09-16T00:00:00.000+02:00",
+      "startDate": "2016-09-16T00:00:00.000-00:00",
       "endDate": null,
       "type": "Application",
       "url": "https://github.com/randytarampi/pseudoimage",
@@ -302,7 +302,7 @@
     {
       "name": "A pseudolocalizer, for text",
       "description": "A CLI utility that takes your translation files and spits out a pseudolocalized version",
-      "startDate": "2016-09-16T00:00:00.000+02:00",
+      "startDate": "2016-09-16T00:00:00.000-00:00",
       "endDate": null,
       "type": "Application",
       "url": "https://github.com/randytarampi/pseudolocalize",
@@ -329,8 +329,8 @@
       "area": "Computing Science & Political Science",
       "studyType": "Bachelor's degree",
       "gpa": "3.33",
-      "startDate": "2009-09-03T00:00:00.000+02:00",
-      "endDate": "2014-06-02T00:00:00.000+02:00",
+      "startDate": "2009-09-03T00:00:00.000-00:00",
+      "endDate": "2014-06-02T00:00:00.000-00:00",
       "summary": null,
       "website": null,
       "courses": [

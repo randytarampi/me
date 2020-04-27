@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/randytarampi/me/compare/v6.1.21...v6.2.0) (2020-04-27)
+
+
+### Features
+
+* Update my content for 2020. ([879fb50](https://github.com/randytarampi/me/commit/879fb50764943e614c66d02901cc1b876ba0cf7b))
+
+
+
+
+
 ## [6.1.21](https://github.com/randytarampi/me/compare/v6.1.20...v6.1.21) (2020-04-26)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi
