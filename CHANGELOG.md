@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* **css:** `unset` the `background` on `html` nodes for `print` media. ([31af5d5](https://github.com/randytarampi/me/commit/31af5d58ad65bda8b49835b1d106774cac1ad307))
+* **css:** Disable `box-shadow`s on `.text` on `print` media. ([8e2c542](https://github.com/randytarampi/me/commit/8e2c5421ee22d8a49bc5621763a69e1f0b4bc3c2))
+
+
+
+
+
 # [6.2.0](https://github.com/randytarampi/me/compare/v6.1.21...v6.2.0) (2020-04-27)
 
 
