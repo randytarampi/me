@@ -40,7 +40,7 @@ describe("renderPdf", function () {
         };
 
         stubPuppeteerPage = {
-            emulateMedia: sinon.stub().returns(Promise.resolve()),
+            emulateMediaType: sinon.stub().returns(Promise.resolve()),
             setContent: sinon.stub().returns(Promise.resolve()),
             pdf: sinon.stub().returns(Promise.resolve())
         };
@@ -83,8 +83,8 @@ describe("renderPdf", function () {
                 expect(stubPuppeteerBrowser.newPage.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerBrowser.newPage);
 
-                expect(stubPuppeteerPage.emulateMedia.calledOnce).to.be.ok;
-                sinon.assert.calledWithExactly(stubPuppeteerPage.emulateMedia, stubPrintable.pdfRenderOptions.mediaType);
+                expect(stubPuppeteerPage.emulateMediaType.calledOnce).to.be.ok;
+                sinon.assert.calledWithExactly(stubPuppeteerPage.emulateMediaType, stubPrintable.pdfRenderOptions.mediaType);
 
                 expect(stubPuppeteerPage.setContent.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerPage.setContent, stubPrintableHtml, {waitUntil: "networkidle0"});
@@ -128,8 +128,8 @@ describe("renderPdf", function () {
                 expect(puppeteer.launch.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(puppeteer.launch, {args: ["--no-sandbox"]});
 
-                expect(stubPuppeteerPage.emulateMedia.calledOnce).to.be.ok;
-                sinon.assert.calledWithExactly(stubPuppeteerPage.emulateMedia, "print");
+                expect(stubPuppeteerPage.emulateMediaType.calledOnce).to.be.ok;
+                sinon.assert.calledWithExactly(stubPuppeteerPage.emulateMediaType, "print");
 
                 expect(stubPuppeteerBrowser.close.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerBrowser.close);
