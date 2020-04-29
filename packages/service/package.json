@@ -42,7 +42,7 @@
     "serverless-api-compression": "^1.0.1",
     "serverless-domain-manager": "^3.3.2",
     "serverless-dynamodb-local": "^0.2.39",
-    "serverless-offline": "^5.12.1",
+    "serverless-offline": "^6.0.0",
     "serverless-plugin-tracing": "^2.0.0",
     "serverless-plugin-warmup": "^4.9.0",
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
