@@ -123,7 +123,7 @@ matrix:
     - secure: OdYWXWY8Ienb9lqPDNzGm1fuq2Yew7ubT44iCSuUSi4BvYIffvSEzrMsi1/ao+09joWPZWRzqqrSiUNjr3oSPQOXKDlYNczLaKty7oTjOKVEC/oH3kRdE1fj+eWXVisKHOLyBT5h52eCIwPosq2zAxLB1ANt+bvmzvCQBatZgox0stJ8KNTXsPWCqRGl5EbBM1xBCFLoo3nZ9+kbzhcqsyzUAvPXwea+5ySndYYqebqoYH1mzG84l2hXPwZm1/kvr7ujhUxAsre4RlhxiuWGmTVztOpXjhN1yFbp52bU2jlrscnh77HDTJZgvqhfVFA6HOT5Vi7Uy/VRU6TJaTDVrCafmbiU3AeZNq44WkDBtoiNEsLQVJr2xzr0pIw/MueVZt87/DcspYqjAMNvyhsL4esHs5HiS+/0zwc9IVbLq92WIX3vIIKMCQe7/q8gq4WKrusHgNQABy3j7JKttp4Oq31HkiFbg59tTf3LIbPzDCyws7IXyWDp9EUuDqPAfmJHg+Rwd1SGu5/okqmCYqCeGNMosyBNORr1V5Yogemi+N8cqaGnLfPkaOMtuRdRfhLaD+3biEVV8SkeMTEqz5B7zjDzvz3ONJ91OyOdwmpUNlv9k0fKq0iwzTsSV/gZ7XvETwXAAorGai0kDPzHB2FAEPIx5XyMcloDj5e1EGZ+aew=
     install:
     - git checkout $TRAVIS_BRANCH
-    - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp`
+    - HAS_PUBLISHABLE_CHANGES=`npx lerna changed -alp || false`
     - if [ -n "$(echo $TRAVIS_COMMIT_MESSAGE | grep '^release(force):')" ]; then IS_FORCED_RELEASE=1; else IS_FORCED_RELEASE=0; fi;
     - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
