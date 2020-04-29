@@ -17,7 +17,7 @@ export const renderPdf = async ({printableHtml, printable, printableDestinationD
     const page = await browser.newPage();
     const pdfPath = path.join(printableDestinationDirectory, `${printable.filename}.pdf`);
 
-    await page.emulateMedia(printable.pdfRenderOptions && printable.pdfRenderOptions.mediaType || "print"); // NOTE-RT: Different from `printable-cli` default
+    await page.emulateMediaType(printable.pdfRenderOptions && printable.pdfRenderOptions.mediaType || "print"); // NOTE-RT: Different from `resume-cli` default
     await page.setContent(printableHtml, {waitUntil: "networkidle0"});
     await page.pdf({
         path: pdfPath,
