@@ -19,7 +19,6 @@ html {
         max-width: $medium-screen;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        filter: opacity(1);
 
         @page {
             size: portrait;
