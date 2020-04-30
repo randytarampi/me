@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -86,3 +86,68 @@ patch:
         patched: '2019-07-06T01:53:10.544Z'
     - '@randy.tarampi/serverless > aws-xray-sdk > aws-xray-sdk-core > lodash':
         patched: '2019-07-06T01:53:10.544Z'
+  SNYK-JS-LODASH-567746:
+    - lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - '@randy.tarampi/js > lodash':
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-dynamodb-local > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-webpack > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - tumblr.js > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - webpack-bundle-analyzer > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - '@randy.tarampi/serverless > @randy.tarampi/js > lodash':
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/enterprise-plugin > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > archiver > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > inquirer > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-webpack > archiver > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/components > graphlib > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > json-refs > graphlib > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/components > prettyoutput > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - webpack-sentry-plugin > request-promise > request-promise-core > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > archiver > async > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-webpack > archiver > async > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/enterprise-plugin > @serverless/event-mocks > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > archiver > archiver-utils > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-webpack > archiver > archiver-utils > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > archiver > zip-stream > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-webpack > archiver > zip-stream > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > tabtab > inquirer > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/cli > @serverless/template > graphlib > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/components > @serverless/inquirer > inquirer > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-webpack > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless-dynamodb-local > dynamodb-localhost > mocha > yargs-unparser > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > winston > async > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/enterprise-plugin > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
+    - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > @tencent-sdk/capi > request-promise-native > request-promise-core > lodash:
+        patched: '2020-04-30T22:42:56.476Z'
