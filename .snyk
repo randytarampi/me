@@ -1,0 +1,188 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/register > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-lodash > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - eslint > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - html-webpack-plugin > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - webpack-bundle-analyzer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/plugin-transform-block-scoping > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-eslint > @babel/traverse > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-lodash > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - eslint > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - eslint > table > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-eslint > eslint > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass > node-sass > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - optimize-css-assets-webpack-plugin > last-call-webpack-plugin > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > graphlib > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > @snyk/ruby-semver > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-config > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-lodash > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-eslint > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-eslint > eslint > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-eslint > eslint > table > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-mocha > mocha > yargs-unparser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass-lint > sass-lint > globule > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass > node-sass > sass-graph > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass-lint > sass-lint > eslint > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - webpack-sentry-plugin > request-promise > request-promise-core > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-eslint > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-block-scoping > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - pug > pug-code-gen > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - pug > pug-filters > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass > node-sass > gaze > globule > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass-lint > sass-lint > eslint > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-sass-lint > sass-lint > eslint > table > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/prompt > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > graphlib > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > rollup-plugin-babel > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-pug-linter > pug-lint > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-pug > pug > pug-code-gen > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-pug > pug > pug-filters > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/version > @lerna/prompt > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-changelog-writer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-commits-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/version > @lerna/conventional-commits > conventional-recommended-bump > conventional-commits-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - gulp-pug > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/npm-publish > @lerna/otplease > @lerna/prompt > inquirer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-changelog-writer > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-commits-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-recommended-bump > conventional-commits-parser > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T22:23:06.860Z'
