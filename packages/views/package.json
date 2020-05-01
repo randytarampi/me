@@ -10,7 +10,8 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "6.1.21",
-    "config": "^3.3.1"
+    "config": "^3.3.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
@@ -46,7 +47,7 @@
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
+    "prepare": "npm run snyk-protect && if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "prepublish": "yarn run snyk-protect",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
