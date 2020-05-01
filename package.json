@@ -69,7 +69,6 @@
     "sass-loader": "^8.0.2",
     "semver-compare": "^1.0.0",
     "sinon": "^9.0.2",
-    "snyk": "^1.311.0",
     "svg-path-loader": "^0.0.4",
     "syncpack": "^5.0.1",
     "terser-webpack-plugin": "^2.3.5",
@@ -102,7 +101,7 @@
     "coveralls": "cat coverage/lcov.info | coveralls",
     "install": "./bin/install.sh",
     "kill": "lerna run kill",
-    "prepare": "./bin/prepare.sh",
+    "prepare": "yarn run snyk-protect && ./bin/prepare.sh",
     "pretest": "yarn run pretest:actual; yarn run pretest:collect",
     "pretest:actual": "NODE_ENV=test lerna run pretest --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "pretest:actual:collect": "junit-merge $(ls packages/*/{eslint,sassLint}-results.xml) --out ./pretest-results.xml",
@@ -114,9 +113,14 @@
     "test": "yarn run test:actual; yarn run test:collect",
     "test:actual": "NODE_ENV=test lerna run test --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "test:actual:collect": "junit-merge $(ls packages/*/test-results.xml) --out ./test-results.xml",
-    "test:collect": "yarn run test:actual:collect"
+    "test:collect": "yarn run test:actual:collect",
+    "snyk-protect": "snyk protect"
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "snyk": true,
+  "dependencies": {
+    "snyk": "^1.316.1"
+  }
 }
