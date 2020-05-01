@@ -13,7 +13,8 @@
     "browser-bunyan": "^1.5.3",
     "bunyan": "^2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven-js": "^3.27.2"
+    "raven-js": "^3.27.2",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -56,11 +57,13 @@
     "clean": "gulp -LLLL --color clean",
     "cover": "rm -rf coverage/ .nyc_output/; NODE_ENV=test nyc gulp -LLLL --color test",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
+    "prepare": "npm run snyk-protect && if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
     "start": "yarn run dev",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "NODE_ENV=test gulp -LLLL --color test",
+    "snyk-protect": "snyk protect"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "snyk": true
 }
