@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/resume/package.json & packages/resume/.snyk to reduce vulnerabilities ([e5f61da](https://github.com/randytarampi/me/commit/e5f61dae0c1e77b12f3fee0d03bca1481b3ad01b))
+* packages/resume/package.json & packages/resume/.snyk to reduce vulnerabilities ([bead9ac](https://github.com/randytarampi/me/commit/bead9ac56848101437eb518388f379397736252f))
+
+
+
+
+
 ## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
 
 **Note:** Version bump only for package @randy.tarampi/resume

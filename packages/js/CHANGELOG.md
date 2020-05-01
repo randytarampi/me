@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/js/package.json & packages/js/.snyk to reduce vulnerabilities ([2270cd1](https://github.com/randytarampi/me/commit/2270cd1979eaa358776b9e0006f05f879a5be2a0))
+* packages/js/package.json & packages/js/.snyk to reduce vulnerabilities ([855495b](https://github.com/randytarampi/me/commit/855495b10f8415e34aa0b31c9e50ef3588451464))
+
+
+
+
+
 ## [6.1.21](https://github.com/randytarampi/me/compare/v6.1.20...v6.1.21) (2020-04-26)
 
 **Note:** Version bump only for package @randy.tarampi/js

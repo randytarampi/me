@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/printables/package.json & packages/printables/.snyk to reduce vulnerabilities ([2bb7fcd](https://github.com/randytarampi/me/commit/2bb7fcdbb2c4748c110083ff28077f22275abca6))
+* packages/printables/package.json & packages/printables/.snyk to reduce vulnerabilities ([3f93f49](https://github.com/randytarampi/me/commit/3f93f494a9a09fdf4637a44a0671e5c1f6e42b1b))
+
+
+
+
+
 ## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
 
 **Note:** Version bump only for package @randy.tarampi/printables

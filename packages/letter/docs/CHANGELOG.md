@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/letter/package.json & packages/letter/.snyk to reduce vulnerabilities ([6d31a16](https://github.com/randytarampi/me/commit/6d31a1696266aa4f4bc9d7924fa4ae405be7c58f))
+* packages/letter/package.json & packages/letter/.snyk to reduce vulnerabilities ([fe5778b](https://github.com/randytarampi/me/commit/fe5778b55e35af1b4102bd60793e39e3912161a7))
+
+
+
+
+
 ## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
 
 **Note:** Version bump only for package @randy.tarampi/letter

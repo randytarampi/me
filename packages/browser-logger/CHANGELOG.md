@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/browser-logger/package.json & packages/browser-logger/.snyk to reduce vulnerabilities ([321da4c](https://github.com/randytarampi/me/commit/321da4c74dcd99ed4e0360fc89943fbc0df09ab5))
+* packages/browser-logger/package.json & packages/browser-logger/.snyk to reduce vulnerabilities ([f0f3910](https://github.com/randytarampi/me/commit/f0f3910e8a39d2927e2f070380af51286f285294))
+
+
+
+
+
 ## [6.1.21](https://github.com/randytarampi/me/compare/v6.1.20...v6.1.21) (2020-04-26)
 
 **Note:** Version bump only for package @randy.tarampi/browser-logger

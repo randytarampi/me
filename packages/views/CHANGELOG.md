@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/views/package.json & packages/views/.snyk to reduce vulnerabilities ([25f1519](https://github.com/randytarampi/me/commit/25f15192db9e99033426cdf54b85a77d76929e15))
+* packages/views/package.json & packages/views/.snyk to reduce vulnerabilities ([b1565eb](https://github.com/randytarampi/me/commit/b1565eb5a7bd7de34b865cc823b43ac1ce78a3a1))
+
+
+
+
+
 ## [6.1.21](https://github.com/randytarampi/me/compare/v6.1.20...v6.1.21) (2020-04-26)
 
 **Note:** Version bump only for package @randy.tarampi/views

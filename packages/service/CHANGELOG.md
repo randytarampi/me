@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/service/package.json & packages/service/.snyk to reduce vulnerabilities ([1e1f3f4](https://github.com/randytarampi/me/commit/1e1f3f48b3fe3c49a95927e6e529fb969c67f057))
+* packages/service/package.json & packages/service/.snyk to reduce vulnerabilities ([7c4183f](https://github.com/randytarampi/me/commit/7c4183f5fa393df4f49df2ce7b8ef2d63e1a541f))
+
+
+
+
+
 ## [6.1.21](https://github.com/randytarampi/me/compare/v6.1.20...v6.1.21) (2020-04-26)
 
 **Note:** Version bump only for package @randy.tarampi/service

@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* **package:** Run a `snyk protect`. ([6a0dbe6](https://github.com/randytarampi/me/commit/6a0dbe6789a1a2983969e61a25dc15a5afa4c792))
+* .snyk & package.json to reduce vulnerabilities ([04acc72](https://github.com/randytarampi/me/commit/04acc72fbd9c5296d245abc8552c67c4afa1f509))
+* .snyk & package.json to reduce vulnerabilities ([8753005](https://github.com/randytarampi/me/commit/8753005f95e10536763a66a924580dbe59619bf1))
+* packages/browser-logger/package.json & packages/browser-logger/.snyk to reduce vulnerabilities ([321da4c](https://github.com/randytarampi/me/commit/321da4c74dcd99ed4e0360fc89943fbc0df09ab5))
+* packages/browser-logger/package.json & packages/browser-logger/.snyk to reduce vulnerabilities ([f0f3910](https://github.com/randytarampi/me/commit/f0f3910e8a39d2927e2f070380af51286f285294))
+* packages/job-application/package.json & packages/job-application/.snyk to reduce vulnerabilities ([d678951](https://github.com/randytarampi/me/commit/d6789510310946bb5923f243fa96eefc91515905))
+* packages/job-application/package.json & packages/job-application/.snyk to reduce vulnerabilities ([2681f9d](https://github.com/randytarampi/me/commit/2681f9df2d919e99104fcd998868dff32e5c4530))
+* packages/js/package.json & packages/js/.snyk to reduce vulnerabilities ([2270cd1](https://github.com/randytarampi/me/commit/2270cd1979eaa358776b9e0006f05f879a5be2a0))
+* packages/js/package.json & packages/js/.snyk to reduce vulnerabilities ([855495b](https://github.com/randytarampi/me/commit/855495b10f8415e34aa0b31c9e50ef3588451464))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([fc13c92](https://github.com/randytarampi/me/commit/fc13c927a236fec4c5611e8122ceeea3cf5ec88f))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([03e8911](https://github.com/randytarampi/me/commit/03e89118598231be1f5c12f8759014603ec246e9))
+* packages/jsx/package.json & packages/jsx/.snyk to reduce vulnerabilities ([360428e](https://github.com/randytarampi/me/commit/360428e8cff66d34cd5ff8a7189a7d209cd7ac5c))
+* packages/jsx/package.json & packages/jsx/.snyk to reduce vulnerabilities ([d71a6f0](https://github.com/randytarampi/me/commit/d71a6f079fd67157811f367ed113bb4cd37692bd))
+* packages/letter/package.json & packages/letter/.snyk to reduce vulnerabilities ([6d31a16](https://github.com/randytarampi/me/commit/6d31a1696266aa4f4bc9d7924fa4ae405be7c58f))
+* packages/letter/package.json & packages/letter/.snyk to reduce vulnerabilities ([fe5778b](https://github.com/randytarampi/me/commit/fe5778b55e35af1b4102bd60793e39e3912161a7))
+* packages/printables/package.json & packages/printables/.snyk to reduce vulnerabilities ([2bb7fcd](https://github.com/randytarampi/me/commit/2bb7fcdbb2c4748c110083ff28077f22275abca6))
+* packages/printables/package.json & packages/printables/.snyk to reduce vulnerabilities ([3f93f49](https://github.com/randytarampi/me/commit/3f93f494a9a09fdf4637a44a0671e5c1f6e42b1b))
+* packages/redux-metrics/package.json & packages/redux-metrics/.snyk to reduce vulnerabilities ([6b16f83](https://github.com/randytarampi/me/commit/6b16f83d34744a5446d98a31c816458e6e2622ed))
+* packages/redux-metrics/package.json & packages/redux-metrics/.snyk to reduce vulnerabilities ([31b0abb](https://github.com/randytarampi/me/commit/31b0abba794f41038dfc0080008af6bae46d0106))
+* packages/resume/package.json & packages/resume/.snyk to reduce vulnerabilities ([e5f61da](https://github.com/randytarampi/me/commit/e5f61dae0c1e77b12f3fee0d03bca1481b3ad01b))
+* packages/resume/package.json & packages/resume/.snyk to reduce vulnerabilities ([bead9ac](https://github.com/randytarampi/me/commit/bead9ac56848101437eb518388f379397736252f))
+* packages/serverless/package.json & packages/serverless/.snyk to reduce vulnerabilities ([dc9f9c8](https://github.com/randytarampi/me/commit/dc9f9c84c287feb90cc61c66ed3b2940dca93a3b))
+* packages/serverless/package.json & packages/serverless/.snyk to reduce vulnerabilities ([42f3a1b](https://github.com/randytarampi/me/commit/42f3a1bf5164563cc3c8571e751cdd6dc019403f))
+* packages/service/package.json & packages/service/.snyk to reduce vulnerabilities ([1e1f3f4](https://github.com/randytarampi/me/commit/1e1f3f48b3fe3c49a95927e6e529fb969c67f057))
+* packages/service/package.json & packages/service/.snyk to reduce vulnerabilities ([7c4183f](https://github.com/randytarampi/me/commit/7c4183f5fa393df4f49df2ce7b8ef2d63e1a541f))
+* packages/views/package.json & packages/views/.snyk to reduce vulnerabilities ([25f1519](https://github.com/randytarampi/me/commit/25f15192db9e99033426cdf54b85a77d76929e15))
+* packages/views/package.json & packages/views/.snyk to reduce vulnerabilities ([b1565eb](https://github.com/randytarampi/me/commit/b1565eb5a7bd7de34b865cc823b43ac1ce78a3a1))
+* packages/www/package.json & packages/www/.snyk to reduce vulnerabilities ([0e344fc](https://github.com/randytarampi/me/commit/0e344fc5df034288194f92b61e691c06dfbaef4c))
+* packages/www/package.json & packages/www/.snyk to reduce vulnerabilities ([edd2a75](https://github.com/randytarampi/me/commit/edd2a758190fede58d93e1fd3974132bc76000cd))
+
+
+
+
+
 ## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
 
 

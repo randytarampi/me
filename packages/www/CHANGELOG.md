@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/www/package.json & packages/www/.snyk to reduce vulnerabilities ([0e344fc](https://github.com/randytarampi/me/commit/0e344fc5df034288194f92b61e691c06dfbaef4c))
+* packages/www/package.json & packages/www/.snyk to reduce vulnerabilities ([edd2a75](https://github.com/randytarampi/me/commit/edd2a758190fede58d93e1fd3974132bc76000cd))
+
+
+
+
+
 ## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
 
 **Note:** Version bump only for package @randy.tarampi/www

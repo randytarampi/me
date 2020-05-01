@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/job-application/package.json & packages/job-application/.snyk to reduce vulnerabilities ([d678951](https://github.com/randytarampi/me/commit/d6789510310946bb5923f243fa96eefc91515905))
+* packages/job-application/package.json & packages/job-application/.snyk to reduce vulnerabilities ([2681f9d](https://github.com/randytarampi/me/commit/2681f9df2d919e99104fcd998868dff32e5c4530))
+
+
+
+
+
 ## [6.2.1](https://github.com/randytarampi/me/compare/v6.2.0...v6.2.1) (2020-04-29)
 
 **Note:** Version bump only for package @randy.tarampi/job-application

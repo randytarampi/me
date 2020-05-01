@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/jsx/package.json & packages/jsx/.snyk to reduce vulnerabilities ([360428e](https://github.com/randytarampi/me/commit/360428e8cff66d34cd5ff8a7189a7d209cd7ac5c))
+* packages/jsx/package.json & packages/jsx/.snyk to reduce vulnerabilities ([d71a6f0](https://github.com/randytarampi/me/commit/d71a6f079fd67157811f367ed113bb4cd37692bd))
+
+
+
+
+
 # [6.2.0](https://github.com/randytarampi/me/compare/v6.1.21...v6.2.0) (2020-04-27)
 
 **Note:** Version bump only for package @randy.tarampi/jsx
