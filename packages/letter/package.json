@@ -37,7 +37,8 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-immutable": "^4.0.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -115,7 +116,7 @@
     "letter": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color letter",
     "predev:client": "rm -rf dist/*.js dist/*.css",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
+    "prepare": "npm run snyk-protect && if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "prepublish": "yarn run snyk-protect",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
