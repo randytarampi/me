@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -144,3 +144,38 @@ patch:
         patched: '2019-07-05T23:40:45.163Z'
     - '@randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
         patched: '2019-07-05T23:40:45.163Z'
+  SNYK-JS-LODASH-567746:
+    - '@randy.tarampi/jsx > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - cheerio > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - html-webpack-plugin > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/jsx > react-google-maps > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - enzyme > cheerio > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/jsx > @redux-offline/redux-offline > redux-persist > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/jsx > react-infinite > enzyme-adapter-react-16 > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/redux-offline-immutable-config > @randy.tarampi/redux-persist-immutable > redux-persist > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - pug > pug-code-gen > constantinople > babel-types > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - pug > pug-filters > constantinople > babel-types > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/printables > pug > pug-code-gen > constantinople > babel-types > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/printables > pug > pug-filters > constantinople > babel-types > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
+    - '@randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
+        patched: '2020-05-01T04:05:19.423Z'
