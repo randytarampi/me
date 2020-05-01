@@ -204,3 +204,5 @@ patch:
         patched: '2020-05-01T00:12:58.565Z'
     - '@randy.tarampi/resume > @randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
         patched: '2020-05-01T00:12:58.565Z'
+    - '@randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-01T19:10:34.282Z'
