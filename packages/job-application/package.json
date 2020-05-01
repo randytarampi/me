@@ -18,7 +18,8 @@
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-materialize": "^3.8.10"
+    "react-materialize": "^3.8.10",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "bluebird": "^3.7.2",
@@ -63,7 +64,7 @@
     "job-applications": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
     "postinstall": "mkdir -p dist",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
+    "prepare": "npm run snyk-protect && if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "prepublish": "yarn run snyk-protect",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
