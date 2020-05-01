@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/randytarampi/me/compare/v6.2.2...v6.2.3) (2020-05-01)
+
+
+### Bug Fixes
+
+* **www:** Workbox's `navigateFallback` refers to a file path, not an application route. ([99eca9b](https://github.com/randytarampi/me/commit/99eca9b8fbe52eae3bddbd7e584f876e7cd8fc3e))
+
+
+
+
+
 ## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
 
 

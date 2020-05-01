@@ -33,20 +33,20 @@ See the [`me` installation instructions](../../README.md#Installation).
 
 ```
 # From the `me` monorepo root
-npx lerna run start --scope=@randy.tarampi/letter
+yarn lerna run start --scope=@randy.tarampi/letter
 ```
 
 # Testing
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/letter
+yarn lerna run test --scope=@randy.tarampi/letter
 ```
 
 # Generation
 
 ```
 # From the `me` monorepo root
-npx lerna run build --scope=@randy.tarampi/letter
-npx lerna run letter --scope=@randy.tarampi/letter
+yarn lerna run build --scope=@randy.tarampi/letter
+yarn lerna run letter --scope=@randy.tarampi/letter
 ```

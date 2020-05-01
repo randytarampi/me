@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/randytarampi/me/compare/v6.2.2...v6.2.3) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([f499ab3](https://github.com/randytarampi/me/commit/f499ab3a22f89ea52ab1991ecefba9079e1a6e42))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([04381fb](https://github.com/randytarampi/me/commit/04381fb66a1ca3b8c126f4e30392a6bf904d6ced))
+
+
+
+
+
 ## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
 
 

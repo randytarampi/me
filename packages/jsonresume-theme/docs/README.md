@@ -32,22 +32,22 @@ See the [`me` installation instructions](../../README.md#Installation).
 
 ```
 # From the `me` monorepo root
-npx lerna run start --scope=@randy.tarampi/jsonresume-theme-randytarampi
+yarn lerna run start --scope=@randy.tarampi/jsonresume-theme-randytarampi
 ```
 
 # Testing
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/jsonresume-theme-randytarampi
+yarn lerna run test --scope=@randy.tarampi/jsonresume-theme-randytarampi
 ```
 
 # Generation
 
 ```
 # From the `me` monorepo root
-npx lerna run build --scope=@randy.tarampi/jsonresume-theme-randytarampi
-npx lerna run resume --scope=@randy.tarampi/jsonresume-theme-randytarampi
+yarn lerna run build --scope=@randy.tarampi/jsonresume-theme-randytarampi
+yarn lerna run resume --scope=@randy.tarampi/jsonresume-theme-randytarampi
 ```
 
 # Publishing

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/randytarampi/me/compare/v6.2.2...v6.2.3) (2020-05-01)
+
+
+### Bug Fixes
+
+* packages/job-application/package.json & packages/job-application/.snyk to reduce vulnerabilities ([608e00e](https://github.com/randytarampi/me/commit/608e00eda957abdb72b9332c14cfba00ac6b106e))
+* packages/job-application/package.json & packages/job-application/.snyk to reduce vulnerabilities ([14b8b7f](https://github.com/randytarampi/me/commit/14b8b7f49333b674437ab89f22533c2c9a6df110))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([f499ab3](https://github.com/randytarampi/me/commit/f499ab3a22f89ea52ab1991ecefba9079e1a6e42))
+* packages/jsonresume-theme/package.json & packages/jsonresume-theme/.snyk to reduce vulnerabilities ([04381fb](https://github.com/randytarampi/me/commit/04381fb66a1ca3b8c126f4e30392a6bf904d6ced))
+* **www:** Workbox's `navigateFallback` refers to a file path, not an application route. ([99eca9b](https://github.com/randytarampi/me/commit/99eca9b8fbe52eae3bddbd7e584f876e7cd8fc3e))
+
+
+### Reverts
+
+* chore(lerna): Use `independent` versioning. ([a02d70b](https://github.com/randytarampi/me/commit/a02d70b91d9f7d3f90560ea01fb1811a5e5949e9))
+
+
+
+
+
 ## [6.2.2](https://github.com/randytarampi/me/compare/v6.2.1...v6.2.2) (2020-05-01)
 
 
