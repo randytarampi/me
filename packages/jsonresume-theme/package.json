@@ -14,7 +14,7 @@
     "@randy.tarampi/views": "^6.2.2",
     "config": "^3.3.1",
     "resume-cli": "randytarampi/resume-cli#me-release",
-    "snyk": "^1.316.1"
+    "snyk": "^1.316.2"
   },
   "devDependencies": {
     "express": "^4.17.1",
