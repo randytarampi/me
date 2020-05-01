@@ -30,5 +30,5 @@ You'll want to hook up some [metrics middleware](https://github.com/randytarampi
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/redux-metrics
+yarn lerna run test --scope=@randy.tarampi/redux-metrics
 ```

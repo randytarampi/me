@@ -30,7 +30,7 @@ See the [`me` installation instructions](https://github.com/randytarampi/me/tree
 
 ```
 # From the `me` monorepo root
-npx lerna run start --scope=@randy.tarampi/views
+yarn lerna run start --scope=@randy.tarampi/views
 
 # Or use the convenience `start:www` from the `me` monorepo root
 yarn run start:www
@@ -43,7 +43,7 @@ yarn run start:web
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/www
+yarn lerna run test --scope=@randy.tarampi/www
 ```
 
 # Deployment

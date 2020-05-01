@@ -25,5 +25,5 @@ See the [`me` installation instructions](../../README.md#Installation).
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/jsx
+yarn lerna run test --scope=@randy.tarampi/jsx
 ```

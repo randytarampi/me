@@ -27,5 +27,5 @@ See the [`me` installation instructions](../../README.md#Installation).
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/lambda-logger
+yarn lerna run test --scope=@randy.tarampi/lambda-logger
 ```

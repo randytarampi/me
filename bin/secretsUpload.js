@@ -14,7 +14,7 @@ const CONFIG_ROOT = path.join(REPO_ROOT, "config");
 
 const uploadSecretForRegion = region => (secretTextOrObject, secretName) => new Promise((resolve, reject) => {
     const slsArguments = [
-        "npx sls secrets set",
+        "yarn sls secrets set",
     ];
 
     if (typeof secretTextOrObject === "string") {

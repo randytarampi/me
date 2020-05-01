@@ -34,25 +34,25 @@ See the [`me` installation instructions](../../README.md#Installation).
 
 ```
 # From the `me` monorepo root
-npx lerna run start --scope=@randy.tarampi/job-application
+yarn lerna run start --scope=@randy.tarampi/job-application
 ```
 
 # Testing
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/job-application
+yarn lerna run test --scope=@randy.tarampi/job-application
 ```
 
 # Generation
 
 ```
 # From the `me` monorepo root
-npx lerna run build --scope=@randy.tarampi/job-application
+yarn lerna run build --scope=@randy.tarampi/job-application
 
 # Generate a package specific to `some-awesome-company`
-npx lerna run job-applications --scope=@randy.tarampi/job-application
+yarn lerna run job-applications --scope=@randy.tarampi/job-application
 
 # Generate a package specific to `some-awesome-company`
-npx lerna run job-application --scope=@randy.tarampi/job-application -- --name some-awesome-company
+yarn lerna run job-application --scope=@randy.tarampi/job-application -- --name some-awesome-company
 ```

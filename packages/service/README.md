@@ -72,7 +72,7 @@ cp ../../config/template.secrets.yml ../../config/.secrets.<AWS_REGION>.yml # Cr
 
 ```
 # From the `me` monorepo root
-npx lerna run start --scope=@randy.tarampi/service
+yarn lerna run start --scope=@randy.tarampi/service
 open http://localhost:3006/cache/posts
 ```
 
@@ -80,12 +80,12 @@ open http://localhost:3006/cache/posts
 
 ```
 # From the `me` monorepo root
-npx lerna run test --scope=@randy.tarampi/service
+yarn lerna run test --scope=@randy.tarampi/service
 ```
 
 # Deployment
 
 ```
 # From the `me` monorepo root
-npx lerna run deploy --scope=@randy.tarampi/service
+yarn lerna run deploy --scope=@randy.tarampi/service
 ```
