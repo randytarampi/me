@@ -90,6 +90,7 @@
   "private": true,
   "repository": "randytarampi/me.git",
   "scripts": {
+    "bootstrap": "yarn lerna bootstrap",
     "check-run-reporter:actual": "curl \"https://api.check-run-reporter.com/api/v1/submissions\" --user $CHECK_RUN_REPORTER_TOKEN -X POST",
     "check-run-reporter:pretest": "yarn run check-run-reporter:actual -- -F report=@\"./pretest-results.xml\" -F label=\"pretest\" -F sha=\"$COMMIT_SHA\" -F root=\"$(pwd)\"",
     "check-run-reporter:test": "yarn run check-run-reporter:actual -- -F report=@\"./test-results.xml\" -F label=\"test\" -F sha=\"$COMMIT_SHA\" -F root=\"$(pwd)\"",

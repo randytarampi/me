@@ -10,6 +10,7 @@
   },
   "npmClient": "yarn",
   "npmClientArgs": [
+    "--frozen-lockfile",
     "--ignore-engines"
   ],
   "useWorkspaces": true
