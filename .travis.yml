@@ -54,10 +54,9 @@ before_install:
 - export JOB_WEB_URL=${JOB_WEB_URL:=$TRAVIS_JOB_WEB_URL}
 - uname -a
 - lscpu
-- npm install -g yarn
 - yarn config set script-shell $(which bash)
 install:
-- yarn run bootstrap
+- yarn install --ignore-engines --frozen-lockfile
 stages:
 - name: Test
   if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
@@ -136,7 +135,7 @@ matrix:
     - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
         git status;
         yarn lerna version --no-git-tag-version --no-push --conventional-commits --create-release github --yes
-          && yarn run bootstrap
+          && yarn install --ignore-engines --frozen-lockfile
           && yarn lerna run letter --scope @randy.tarampi/letter
           && yarn lerna run resume --scope @randy.tarampi/resume
           && yarn lerna run resume --scope jsonresume-theme-randytarampi
@@ -200,7 +199,7 @@ matrix:
     install:
     - git checkout $TRAVIS_BRANCH
     - yarn lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-    - yarn run bootstrap
+    - yarn install --ignore-engines --frozen-lockfile
     - yarn lerna run docs --scope @randy.tarampi/www
     before_script: skip
     script: skip
@@ -236,7 +235,7 @@ matrix:
     install:
     - git checkout $TRAVIS_BRANCH
     - yarn lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-    - yarn run bootstrap
+    - yarn install --ignore-engines --frozen-lockfile
     before_script: skip
     script: skip
     after_script: skip
@@ -254,7 +253,7 @@ matrix:
     - DEPLOY=true
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
     install:
-    - yarn run bootstrap
+    - yarn install --ignore-engines --frozen-lockfile
     - yarn lerna run docs --scope @randy.tarampi/www
     before_script: skip
     script: skip
