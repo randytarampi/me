@@ -134,7 +134,7 @@ matrix:
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
     - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
         git status;
-        yarn lerna version --no-git-tag-version --no-push --conventional-commits --create-release github --yes
+        yarn lerna version --no-git-tag-version --no-push --conventional-commits --yes
           && yarn install --ignore-engines --frozen-lockfile
           && yarn lerna run letter --scope @randy.tarampi/letter
           && yarn lerna run resume --scope @randy.tarampi/resume
@@ -169,7 +169,7 @@ matrix:
         git tag -a $TRAVIS_TAG -m "release(travis): Release v$REPO_VERSION.";
         export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD);
         git push ci-push master --follow-tags;
-        IS_PUBLISHING=true yarn lerna publish from-git --yes --concurrency ${CPUS_COUNT};
+        IS_PUBLISHING=true yarn lerna publish from-git --conventional-commits --create-release github --yes --concurrency ${CPUS_COUNT};
       fi;'
     - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
     - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/
