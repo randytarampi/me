@@ -72,3 +72,6 @@ pretest-results.xml
 eslint-results.xml
 sassLint-results.xml
 test-results.xml
+
+# Written resources
+packages/service/posts
