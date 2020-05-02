@@ -186,3 +186,7 @@ patch:
         patched: '2020-04-30T22:23:06.860Z'
     - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
+    - npm-check-updates > lodash:
+        patched: '2020-05-02T22:16:04.106Z'
+    - npm-check-updates > node-alias > lodash:
+        patched: '2020-05-02T22:16:04.106Z'
