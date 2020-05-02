@@ -10,12 +10,12 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^6.2.3",
-    "config": "^3.3.1",
-    "snyk": "^1.316.1"
+    "config": "^3.3.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-pug": "^4.0.1"
+    "gulp-pug": "^4.0.1",
+    "snyk": "^1.316.2"
   },
   "directories": {
     "lib": "./src/lib"

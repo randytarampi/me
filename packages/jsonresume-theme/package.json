@@ -13,12 +13,12 @@
     "@randy.tarampi/resume": "^6.2.3",
     "@randy.tarampi/views": "^6.2.3",
     "config": "^3.3.1",
-    "resume-cli": "randytarampi/resume-cli#me-release",
-    "snyk": "^1.316.2"
+    "resume-cli": "randytarampi/resume-cli#me-release"
   },
   "devDependencies": {
     "express": "^4.17.1",
     "gulp": "^4.0.2",
+    "snyk": "^1.316.2",
     "webpack-node-externals": "^1.7.2"
   },
   "directories": {

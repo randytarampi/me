@@ -22,6 +22,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-minify-replace": "^0.5.0",
     "chokidar": "^3.3.1",
+    "codeclimate-test-reporter": "^0.5.1",
     "commander": "^5.0.0",
     "config": "^3.3.1",
     "connect-history-api-fallback": "^1.6.0",
@@ -60,6 +61,7 @@
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.9.0",
     "nyc": "^15.0.1",
+    "npm-check-updates": "^4.1.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
@@ -69,6 +71,7 @@
     "sass-loader": "^8.0.2",
     "semver-compare": "^1.0.0",
     "sinon": "^9.0.2",
+    "snyk": "^1.316.2",
     "svg-path-loader": "^0.0.4",
     "syncpack": "^5.0.1",
     "terser-webpack-plugin": "^2.3.5",
@@ -120,8 +123,5 @@
   "workspaces": [
     "packages/*"
   ],
-  "snyk": true,
-  "dependencies": {
-    "snyk": "^1.316.1"
-  }
+  "snyk": true
 }
