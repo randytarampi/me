@@ -5,3 +5,10 @@
         margin-top: 16px;
     }
 }
+
+.block--intro-responsive-bear {
+    @media #{$medium-and-down} {
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+}
