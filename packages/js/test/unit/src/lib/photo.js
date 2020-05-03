@@ -170,11 +170,11 @@ describe("Photo", () => {
                 dateModified: photofromJS.datePublished.toISO(),
                 datePublished: photofromJS.datePublished.toISO(),
                 accessMode: "visual",
-                articleBody: photofromJS.body,
+                articleBody: photofromJS.bodyText,
                 articleSection: photofromJS.type,
                 headline: photofromJS.title,
                 name: photofromJS.title,
-                text: photofromJS.body,
+                text: photofromJS.bodyText,
                 mainEntityOfPage: photofromJS.sourceUrl,
                 image: photofromJS.largestImage.url
             };
@@ -252,7 +252,7 @@ describe("Photo", () => {
 
             expect(rssJson).to.eql({
                 title: photofromJS.title,
-                description: photofromJS.body,
+                description: photofromJS.bodyText,
                 url: augmentUrlWithTrackingParams(photofromJS.sourceUrl),
                 guid: photofromJS.uid,
                 date: photofromJS.date.toJSDate(),

@@ -198,11 +198,11 @@ describe("Gallery", () => {
                 dateModified: galleryFromJs.datePublished.toISO(),
                 datePublished: galleryFromJs.datePublished.toISO(),
                 accessMode: "visual",
-                articleBody: galleryFromJs.body,
+                articleBody: galleryFromJs.bodyText,
                 articleSection: galleryFromJs.type,
                 headline: galleryFromJs.title,
                 name: galleryFromJs.title,
-                text: galleryFromJs.body,
+                text: galleryFromJs.bodyText,
                 mainEntityOfPage: galleryFromJs.sourceUrl,
                 image: galleryFromJs.largestImage.url
             };
@@ -289,7 +289,7 @@ describe("Gallery", () => {
 
             expect(rssJson).to.eql({
                 title: galleryFromJs.title,
-                description: galleryFromJs.body,
+                description: galleryFromJs.bodyText,
                 url: augmentUrlWithTrackingParams(galleryFromJs.sourceUrl),
                 guid: galleryFromJs.uid,
                 date: galleryFromJs.date.toJSDate(),

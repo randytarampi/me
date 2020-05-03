@@ -407,13 +407,13 @@ describe("Post", () => {
                 dateModified: postfromJS.datePublished.toISO(),
                 datePublished: postfromJS.datePublished.toISO(),
                 accessMode: "textual",
-                articleBody: postfromJS.body,
+                articleBody: postfromJS.bodyText,
                 articleSection: postfromJS.type,
                 headline: postfromJS.title,
                 name: postfromJS.title,
                 sharedContent: postfromJS.sourceUrl,
                 mainEntityOfPage: postfromJS.sourceUrl,
-                text: postfromJS.body
+                text: postfromJS.bodyText
             });
         });
 
@@ -471,7 +471,7 @@ describe("Post", () => {
 
             expect(rssJson).to.eql({
                 title: postfromJS.title,
-                description: postfromJS.body,
+                description: postfromJS.bodyText,
                 url: augmentUrlWithTrackingParams(postfromJS.sourceUrl),
                 guid: postfromJS.uid,
                 date: postfromJS.date.toJSDate(),

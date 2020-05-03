@@ -122,6 +122,14 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
         return this.constructor.type;
     }
 
+    get bodyText() {
+        if (this.body instanceof Array) {
+            return this.body.join("\n");
+        }
+
+        return this.body;
+    }
+
     static parsePropertiesFromJs({tags, creator, geohash, lat, long, locationCreated, ...js}) {
         const locationJs = locationCreated
             ? locationCreated
@@ -192,8 +200,8 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
             author: this.creator && this.creator.toSchema(),
             publisher: this.creator && this.creator.toSchema(),
             sharedContent: this.sourceUrl,
-            articleBody: this.body,
-            text: this.body,
+            articleBody: this.bodyText,
+            text: this.bodyText,
             headline: this.title,
             name: this.title,
             articleSection: this.type,
@@ -208,7 +216,7 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     toRss({campaign} = {}) {
         return {
             title: this.title,
-            description: this.body,
+            description: this.bodyText,
             url: this.sourceUrl ? augmentUrlWithTrackingParams(this.sourceUrl, campaign) : null,
             guid: this.uid,
             date: this.date ? this.date.toJSDate() : null,
