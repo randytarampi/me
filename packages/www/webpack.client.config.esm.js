@@ -69,11 +69,9 @@ module.exports = webpackBaseConfig({
     plugins: plugins.concat([
         new WorkboxPlugin.GenerateSW({
             swDest: `${swBundleName}.js`,
-            skipWaiting: true,
-            clientsClaim: true,
             offlineGoogleAnalytics: false,
             cacheId: packageJson.name,
-            navigateFallback: "/",
+            navigateFallback: "/index.html",
             runtimeCaching: [
                 {
                     urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,

@@ -41,8 +41,6 @@ module.exports = webpackBaseConfig({
     plugins: plugins.concat([
         new WorkboxPlugin.GenerateSW({
             swDest: `${swBundleName}.js`,
-            skipWaiting: true,
-            clientsClaim: true,
             offlineGoogleAnalytics: false,
             cacheId: packageJson.name,
             navigateFallback: "/index.html",
