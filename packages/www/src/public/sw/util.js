@@ -21,10 +21,6 @@ export const onUpdateFound = () => {
 export const onUpdated = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} has been updated`);
 
-    window.reloadWithNewServiceWorker = () => {
-        location.reload(true);
-    };
-
     typeof M !== "undefined" && M.toast({
         html: `
         <p>
@@ -48,14 +44,14 @@ export const onUpdated = () => {
                 data-metrics-type="onClick"
                 data-metrics-name="Reload now"
                 data-metrics-label="Reload now"
-                onclick="reloadWithNewServiceWorker();"
+                onclick="window.location.reload();"
             >
                 Reload now
             </a> to stay current!
         </p>
         <button
             class="hide-on-small-and-down btn-flat toast-action"
-            onclick="reloadWithNewServiceWorker();"
+            onclick="window.location.reload();"
             data-metrics-event-name="button"
             data-metrics-type="onClick"
             data-metrics-name="Reload and update"
@@ -69,6 +65,35 @@ export const onUpdated = () => {
 
 export const onOffline = () => {
     logger.debug(`Service worker from ${__SW_BUNDLE_PATH__} reports that we're offline`);
+
+    typeof M !== "undefined" && M.toast({
+        html: `
+        <p>
+            <span class="hide-on-small-and-down">
+                Hey, I just noticed that you're browsing offline – that ain't great. You might want to check that and <a
+                    onclick="window.location.reload();"
+                    data-metrics-event-name="anchor"
+                    data-metrics-type="href"
+                    data-metrics-name="reload"
+                    data-metrics-label="reload"
+                >
+                    reload
+                </a> the page.
+            </span>
+        </p>
+        <button
+            class="hide-on-small-and-down btn-flat toast-action"
+            onclick="window.location.reload();"
+            data-metrics-event-name="button"
+            data-metrics-type="onClick"
+            data-metrics-name="Reload now"
+            data-metrics-label="Reload now"
+        >
+            Reload now
+        </button>
+        `,
+        classes: "toast__sw-offline"
+    });
 };
 
 export const onError = error => {
