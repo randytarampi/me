@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.5](https://github.com/randytarampi/me/compare/v6.2.4...v6.2.5) (2020-05-03)
+
+
+### Bug Fixes
+
+* **www:** Configure `WorkboxPlugin` consistently across our ESM and ES5 Webpack configurations ([dd71ec9](https://github.com/randytarampi/me/commit/dd71ec9796930cc399aa5e872268119b6cadedec))
+* **www:** Configure `WorkboxPlugin` consistently across our ESM and ES5 Webpack configurations. Properly. ([39e3c05](https://github.com/randytarampi/me/commit/39e3c0500db00c4147b7191f3219bba2710ff841))
+* **www:** Configure `WorkboxPlugin` consistently across our ESM and ES5 Webpack configurations. Properly. ([7bb81b2](https://github.com/randytarampi/me/commit/7bb81b2da030f4b3dc5e3aba8c7b39d412fe6656))
+* **www:** Resolve https://github.com/randytarampi/me/issues/171 and `Toast` the user when they're offline. ([785ea7b](https://github.com/randytarampi/me/commit/785ea7b58c565ef6bb0540a09362347eed554a8f))
+
+
+
+
+
 ## [6.2.4](https://github.com/randytarampi/me/compare/v6.2.3...v6.2.4) (2020-05-02)
 
 **Note:** Version bump only for package me
