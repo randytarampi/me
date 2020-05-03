@@ -87,11 +87,11 @@ matrix:
     - yarn run pretest
     - yarn run cover:actual
     after_script: &4
-    - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
     - yarn run pretest:collect
     - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:pretest; fi;
     - yarn run cover:collect
     - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:test; fi;
+    - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
     - "CODECLIMATE_API_HOST=https://codebeat.co/webhooks/code_coverage CODECLIMATE_REPO_TOKEN=98216c3b-5de5-4a1f-b991-beb9bf2162a yarn codeclimate-test-reporter < coverage/lcov.info"
     - yarn run coveralls
     - yarn run kill --scope @randy.tarampi/service
