@@ -45,7 +45,6 @@ module.exports = webpackBaseConfig({
             clientsClaim: true,
             offlineGoogleAnalytics: false,
             cacheId: packageJson.name,
-            navigateFallback: "/index.html",
             runtimeCaching: [
                 {
                     urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
