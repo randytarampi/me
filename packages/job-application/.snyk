@@ -141,3 +141,5 @@ patch:
         patched: '2020-05-01T19:11:03.168Z'
     - '@randy.tarampi/jsx > react-infinite > enzyme-adapter-react-16 > lodash':
         patched: '2020-05-01T19:11:03.168Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-04T22:38:55.778Z'
