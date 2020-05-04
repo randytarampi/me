@@ -19,6 +19,7 @@ html(lang="en")
             meta(name="og:description", content=pugDescription)
 
         if !!meImageUrl
+            link(rel="preload", href=meImageUrl, as="image")
             meta(name="image", content=meImageUrl)
             meta(itemprop="image", content=meImageUrl)
             meta(name="twitter:image:src", content=meImageUrl)
@@ -42,12 +43,24 @@ html(lang="en")
             link(rel="alternate", type="application/rss+xml", title=pugTitle, href=feedUrl)
 
         if environment === "printable"
-            link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.8.2/css/all.css", integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay", crossorigin="anonymous")
+            link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.13.0/css/all.css", integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V", crossorigin="anonymous")
             style(type="text/css")
                 | !{css}
         else
             if typeof assetUrl === "string"
+                if !!esmBundleName
+                    link(rel="preload", href=assetUrl + "/vendor.js", as="script")
+                    link(rel="preload", href=assetUrl + "/" + bundleName + ".js", as="script")
+                    link(rel="preload", href=assetUrl + "/vendor.esm.js", as="script")
+                    link(rel="preload", href=assetUrl + "/" + esmBundleName + ".js", as="script")
+                else
+                    link(rel="preload", href=assetUrl + "/vendor.js", as="script")
+                    link(rel="preload", href=assetUrl + "/" + bundleName + ".js", as="script")
                 if stylesheetName
+                    link(rel="preload", href=assetUrl + "/fa-regular-400.woff2", as="font")
+                    link(rel="preload", href=assetUrl + "/fa-solid-900.woff2", as="font")
+                    link(rel="preload", href=assetUrl + "/fa-brands-400.woff2", as="font")
+                    link(rel="preload", href=assetUrl + "/" + stylesheetName, as="style")
                     link(rel="stylesheet", href=assetUrl + "/" + stylesheetName)
 
         if typeof assetUrl === "string"
@@ -136,12 +149,12 @@ html(lang="en")
         block content
         if environment !== "printable"
             if !!esmBundleName
-                script(nomodule src=assetUrl + "/vendor.js")
-                script(nomodule src=assetUrl + "/" + bundleName + ".js")
+                script(nomodule src=assetUrl + "/vendor.js" defer)
+                script(nomodule src=assetUrl + "/" + bundleName + ".js" defer async)
                 script(type="module" src=assetUrl + "/vendor.esm.js")
-                script(type="module" src=assetUrl + "/" + esmBundleName + ".js")
+                script(type="module" src=assetUrl + "/" + esmBundleName + ".js" async)
                 if !!serviceWorkerInstallerBundleName
-                    script(nomodule src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js")
+                    script(nomodule src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js" defer async)
                     script(type="module" src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".esm.js")
                 else if !!serviceWorkerBundleName
                     script(nomodule).
@@ -149,10 +162,10 @@ html(lang="en")
                     script(type="module").
                         if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.esm.js");});}
             else
-                script(src=assetUrl + "/vendor.js")
-                script(src=assetUrl + "/" + bundleName + ".js")
+                script(src=assetUrl + "/vendor.js" defer)
+                script(src=assetUrl + "/" + bundleName + ".js" defer async)
                 if !!serviceWorkerInstallerBundleName
-                    script(src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js")
+                    script(src=assetUrl + "/" + serviceWorkerInstallerBundleName + ".js" defer async)
                 else if !!serviceWorkerBundleName
                     script.
                         if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("!{assetUrl}/!{serviceWorkerBundleName}.js");});}

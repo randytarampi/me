@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.7](https://github.com/randytarampi/me/compare/v6.2.6...v6.2.7) (2020-05-04)
+
+
+### Bug Fixes
+
+* **views:** Use fontawesome@5.13.0 for generated `printable` HTML ([5ce2068](https://github.com/randytarampi/me/commit/5ce2068e720ef572830091e01dfc2f004ed506d2))
+
+
+### Performance Improvements
+
+* **views:** `preload` a bunch of `script`s, `font`s and `style`s. ([ffeff40](https://github.com/randytarampi/me/commit/ffeff400d025b30f811092b13868bbdba1d1574c))
+
+
+
+
+
 ## [6.2.6](https://github.com/randytarampi/me/compare/v6.2.5...v6.2.6) (2020-05-03)
 
 **Note:** Version bump only for package @randy.tarampi/views

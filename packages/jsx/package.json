@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/jsx",
   "description": "Some common JSX components for www.randytarampi.ca",
-  "version": "6.2.6",
+  "version": "6.2.7",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -12,8 +12,8 @@
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@randy.tarampi/browser-logger": "^6.2.6",
-    "@randy.tarampi/js": "^6.2.6",
+    "@randy.tarampi/browser-logger": "^6.2.7",
+    "@randy.tarampi/js": "^6.2.7",
     "@randy.tarampi/react-dimensions": "latest",
     "@randy.tarampi/redux-metrics": "^6.2.4",
     "@randy.tarampi/redux-offline-immutable-config": "latest",

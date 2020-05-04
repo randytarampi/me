@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/service",
   "description": "The backend for www.randytarampi.ca",
-  "version": "6.2.6",
+  "version": "6.2.7",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -9,9 +9,9 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "^6.2.6",
+    "@randy.tarampi/js": "^6.2.7",
     "@randy.tarampi/lambda-logger": "^6.2.3",
-    "@randy.tarampi/serverless": "^6.2.6",
+    "@randy.tarampi/serverless": "^6.2.7",
     "aws-sdk": "^2.663.0",
     "big.js": "^5.2.2",
     "config": "^3.3.1",
