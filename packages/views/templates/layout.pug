@@ -57,9 +57,9 @@ html(lang="en")
                     link(rel="preload", href=assetUrl + "/vendor.js", as="script")
                     link(rel="preload", href=assetUrl + "/" + bundleName + ".js", as="script")
                 if stylesheetName
-                    link(rel="preload", href=assetUrl + "/fa-regular-400.woff2", as="font")
-                    link(rel="preload", href=assetUrl + "/fa-solid-900.woff2", as="font")
-                    link(rel="preload", href=assetUrl + "/fa-brands-400.woff2", as="font")
+                    link(rel="preload", href=assetUrl + "/fa-regular-400.woff2", as="font", type="font/woff2", crossorigin)
+                    link(rel="preload", href=assetUrl + "/fa-solid-900.woff2", as="font", type="font/woff2", crossorigin)
+                    link(rel="preload", href=assetUrl + "/fa-brands-400.woff2", as="font", type="font/woff2", crossorigin)
                     link(rel="preload", href=assetUrl + "/" + stylesheetName, as="style")
                     link(rel="stylesheet", href=assetUrl + "/" + stylesheetName)
 
