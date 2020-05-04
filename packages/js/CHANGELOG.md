@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.6](https://github.com/randytarampi/me/compare/v6.2.5...v6.2.6) (2020-05-03)
+
+
+### Bug Fixes
+
+* **js:** `Post.toRSS()` needs to coerce the `body` to a `string` from an `Array`. ([08108cc](https://github.com/randytarampi/me/commit/08108cca24d52329109cce8dc770652ebe847c7f))
+
+
+
+
+
 ## [6.2.4](https://github.com/randytarampi/me/compare/v6.2.3...v6.2.4) (2020-05-02)
 
 **Note:** Version bump only for package @randy.tarampi/js

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.6](https://github.com/randytarampi/me/compare/v6.2.5...v6.2.6) (2020-05-03)
+
+
+### Bug Fixes
+
+* **js:** `Post.toRSS()` needs to coerce the `body` to a `string` from an `Array`. ([08108cc](https://github.com/randytarampi/me/commit/08108cca24d52329109cce8dc770652ebe847c7f))
+* **www:** Fix `.bear` alignment on mobile displays. ([9b698c1](https://github.com/randytarampi/me/commit/9b698c17ff6fd2d21a9410184e6cd2bb408ab6dc))
+
+
+
+
+
 ## [6.2.5](https://github.com/randytarampi/me/compare/v6.2.4...v6.2.5) (2020-05-03)
 
 
