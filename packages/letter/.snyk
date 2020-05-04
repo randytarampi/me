@@ -167,3 +167,7 @@ patch:
         patched: '2020-05-01T09:00:14.965Z'
     - '@randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
         patched: '2020-05-01T09:00:14.965Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-04T22:39:52.793Z'
+    - '@randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-04T22:39:52.793Z'
