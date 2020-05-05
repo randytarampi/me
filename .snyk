@@ -1,337 +1,173 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
+version: v1.13.5
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-567746:
     - lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      archiver > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/register > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      cheerio > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-lodash > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - eslint > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-dynamodb-local > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-secrets > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - html-webpack-plugin > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-webpack > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - webpack-bundle-analyzer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/redux-persist-immutable > redux-persist > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/preset-env > @babel/plugin-transform-block-scoping > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/components > graphlib > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-eslint > @babel/traverse > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      json-refs > graphlib > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-lodash > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/cli > prettyoutput > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - eslint > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/components > prettyoutput > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - eslint > table > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      archiver > async > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-eslint > eslint > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/enterprise-plugin > @serverless/event-mocks > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass > node-sass > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/enterprise-plugin > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      archiver > archiver-utils > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - optimize-css-assets-webpack-plugin > last-call-webpack-plugin > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      archiver > zip-stream > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > graphlib > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > archiver > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > @snyk/ruby-semver > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      enzyme > cheerio > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-config > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > inquirer > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-mvn-plugin > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-webpack > archiver > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-nuget-plugin > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-lodash > @babel/helper-module-imports > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/views > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-eslint > @babel/traverse > @babel/generator > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/views > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/letter > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - nyc > istanbul-lib-instrument > @babel/core > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - workbox-webpack-plugin > workbox-build > @babel/core > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/resume > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-eslint > eslint > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/resume > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-eslint > eslint > table > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      jsonresume-theme-randytarampi > @randy.tarampi/resume > @randy.tarampi/js > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-mocha > mocha > yargs-unparser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass-lint > sass-lint > globule > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/cli > @serverless/template > graphlib > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass > node-sass > sass-graph > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/components > graphlib > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass-lint > sass-lint > eslint > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > json-refs > graphlib > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > @snyk/dep-graph > graphlib > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/cli > prettyoutput > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-go-plugin > graphlib > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/components > prettyoutput > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/components > @serverless/inquirer > inquirer > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      jsdom > request-promise-native > request-promise-core > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > archiver > async > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-webpack > archiver > async > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - webpack-sentry-plugin > request-promise > request-promise-core > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/enterprise-plugin > @serverless/event-mocks > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      archiver > zip-stream > archiver-utils > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-eslint > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > archiver > archiver-utils > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-webpack > archiver > archiver-utils > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > archiver > zip-stream > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-block-scoping > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-webpack > archiver > zip-stream > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - pug > pug-code-gen > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      dynamodb-localhost > mocha > yargs-unparser > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - pug > pug-filters > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > tabtab > inquirer > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass > node-sass > gaze > globule > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass-lint > sass-lint > eslint > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-sass-lint > sass-lint > eslint > table > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/prompt > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > graphlib > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      jsonresume-theme-randytarampi > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/views > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > react-google-maps > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - workbox-webpack-plugin > workbox-build > rollup-plugin-babel > @babel/helper-module-imports > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/cli > @serverless/template > graphlib > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/components > @serverless/inquirer > inquirer > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > archiver > zip-stream > archiver-utils > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-pug-linter > pug-lint > pug-attrs > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-webpack > archiver > zip-stream > archiver-utils > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-pug > pug > pug-code-gen > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless-dynamodb-local > dynamodb-localhost > mocha > yargs-unparser > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-pug > pug > pug-filters > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/version > @lerna/prompt > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-changelog-writer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/job-application > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-commits-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/version > @lerna/conventional-commits > conventional-recommended-bump > conventional-commits-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      jsonresume-theme-randytarampi > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > @redux-offline/redux-offline > redux-persist > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > react-infinite > enzyme-adapter-react-16 > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/components > @serverless/platform-client-china > @serverless/utils-china > winston > async > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/enterprise-plugin > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - gulp-pug > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/components > @serverless/platform-client-china > @serverless/utils-china > @tencent-sdk/capi > request-promise-native > request-promise-core > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/npm-publish > @lerna/otplease > @lerna/prompt > inquirer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > winston > async > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-changelog-writer > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/enterprise-plugin > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-changelog-core > conventional-commits-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > pug > pug-code-gen > constantinople > babel-types > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - lerna > @lerna/publish > @lerna/version > @lerna/conventional-commits > conventional-recommended-bump > conventional-commits-parser > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > pug > pug-filters > constantinople > babel-types > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
         patched: '2020-04-30T22:23:06.860Z'
-      serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > @tencent-sdk/capi > request-promise-native > request-promise-core > lodash:
-        patched: '2020-05-05T05:19:06.103Z'
     - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
         patched: '2020-04-30T22:23:06.860Z'
-      '@serverless/enterprise-plugin > lodash':
-        patched: '2020-05-05T05:19:06.103Z'
     - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
         patched: '2020-04-30T22:23:06.860Z'
     - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
@@ -350,19 +186,1327 @@ patch:
         patched: '2020-04-30T22:23:06.860Z'
     - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2020-04-30T22:23:06.860Z'
+    - archiver > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - cheerio > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-dynamodb-local > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-secrets > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-webpack > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/redux-persist-immutable > redux-persist > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/components > graphlib > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - json-refs > graphlib > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/cli > prettyoutput > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/components > prettyoutput > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - archiver > async > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/enterprise-plugin > @serverless/event-mocks > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/enterprise-plugin > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - archiver > archiver-utils > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - archiver > zip-stream > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > archiver > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - enzyme > cheerio > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > inquirer > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-webpack > archiver > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/letter > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/resume > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/resume > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - jsonresume-theme-randytarampi > @randy.tarampi/resume > @randy.tarampi/js > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/cli > @serverless/template > graphlib > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/components > graphlib > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > json-refs > graphlib > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/cli > prettyoutput > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/components > prettyoutput > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/components > @serverless/inquirer > inquirer > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > archiver > async > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-webpack > archiver > async > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/enterprise-plugin > @serverless/event-mocks > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - archiver > zip-stream > archiver-utils > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > archiver > archiver-utils > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-webpack > archiver > archiver-utils > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > archiver > zip-stream > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-webpack > archiver > zip-stream > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - dynamodb-localhost > mocha > yargs-unparser > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > tabtab > inquirer > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - jsonresume-theme-randytarampi > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/js > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > react-google-maps > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/cli > @serverless/template > graphlib > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/components > @serverless/inquirer > inquirer > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-webpack > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless-dynamodb-local > dynamodb-localhost > mocha > yargs-unparser > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/job-application > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - jsonresume-theme-randytarampi > @randy.tarampi/resume > @randy.tarampi/jsx > @randy.tarampi/browser-logger > @randy.tarampi/js > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > @randy.tarampi/views > @randy.tarampi/js > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > @redux-offline/redux-offline > redux-persist > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/jsx > react-infinite > enzyme-adapter-react-16 > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/components > @serverless/platform-client-china > @serverless/utils-china > winston > async > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/enterprise-plugin > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/components > @serverless/platform-client-china > @serverless/utils-china > @tencent-sdk/capi > request-promise-native > request-promise-core > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > winston > async > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/enterprise-plugin > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > pug > pug-code-gen > constantinople > babel-types > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > pug > pug-filters > constantinople > babel-types > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > @tencent-sdk/capi > request-promise-native > request-promise-core > lodash:
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@randy.tarampi/www > @randy.tarampi/letter > @randy.tarampi/printables > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@serverless/enterprise-plugin > lodash':
+        patched: '2020-05-05T05:19:06.103Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-named-capturing-groups-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx > @babel/helper-builder-react-jsx > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx > @babel/helper-builder-react-jsx-experimental > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx-development > @babel/helper-builder-react-jsx-experimental > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/preset-modules > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-sticky-regex > @babel/helper-regex > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - lerna > @lerna/publish > @lerna/otplease > @lerna/prompt > inquirer > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-parameters > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-function-name > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-template-literals > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-hoist-variables > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-named-capturing-groups-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - lerna > @lerna/publish > @lerna/npm-dist-tag > @lerna/otplease > @lerna/prompt > inquirer > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-function-name > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-object-rest-spread > @babel/plugin-transform-parameters > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-function-name > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-named-capturing-groups-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/cli > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - npm-check-updates > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-eslint > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - npm-check-updates > node-alias > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-eslint > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-sticky-regex > @babel/helper-regex > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-eslint > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-object-rest-spread > @babel/plugin-transform-parameters > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-parameters > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-function-name > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-simple-access > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-template-literals > @babel/helper-annotate-as-pure > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-hoist-variables > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx > @babel/helper-builder-react-jsx > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx > @babel/helper-builder-react-jsx-experimental > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx-development > @babel/helper-builder-react-jsx-experimental > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/generator > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-named-capturing-groups-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - lerna > @lerna/clean > @lerna/prompt > inquirer > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - lerna > @lerna/import > @lerna/prompt > inquirer > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - lerna > @lerna/version > @lerna/prompt > inquirer > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/preset-env > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx > @babel/helper-builder-react-jsx-experimental > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-react > @babel/plugin-transform-react-jsx-development > @babel/helper-builder-react-jsx-experimental > @babel/helper-module-imports > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-function-name > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-object-rest-spread > @babel/plugin-transform-parameters > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-function-name > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-simple-access > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/template > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-object-super > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-amd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-systemjs > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - '@babel/preset-env > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash':
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
+    - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/types > lodash:
+        patched: '2020-05-05T19:01:16.867Z'
   'npm:debug:20170905':
     - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug:
-        patched: '2020-05-05T05:19:06.103Z'
+        patched: '2020-05-05T19:01:16.867Z'
     - '@serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug':
-        patched: '2020-05-05T05:19:06.103Z'
+        patched: '2020-05-05T19:01:16.867Z'
   'npm:ms:20170412':
     - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug > ms:
-        patched: '2020-05-05T05:19:06.103Z'
+        patched: '2020-05-05T19:01:16.867Z'
     - '@serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug > ms':
-        patched: '2020-05-05T05:19:06.103Z'
+        patched: '2020-05-05T19:01:16.867Z'
   'npm:uglify-js:20150824':
     - jsonresume-theme-flat > handlebars > uglify-js:
-        patched: '2020-05-05T05:19:06.103Z'
+        patched: '2020-05-05T19:01:16.867Z'
     - jsonresume-theme-flat > handlebars > uglify-js:
         patched: '2020-05-05T05:19:06.103Z'
     - jsonresume-theme-flat > handlebars > uglify-js:
@@ -379,6 +1523,10 @@ patch:
         patched: '2020-05-05T05:19:06.103Z'
     - handlebars > uglify-js:
         patched: '2020-05-05T05:19:06.103Z'
+    - resume-cli > jsonresume-theme-flat > handlebars > uglify-js:
+        patched: '2020-05-05T19:01:16.867Z'
+    - handlebars > uglify-js:
+        patched: '2020-05-05T19:01:16.867Z'
   'npm:uglify-js:20151024':
     - jsonresume-theme-flat > handlebars > uglify-js:
         patched: '2020-05-05T05:19:06.103Z'

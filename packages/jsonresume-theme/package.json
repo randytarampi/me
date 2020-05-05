@@ -18,7 +18,7 @@
   "devDependencies": {
     "express": "^4.17.1",
     "gulp": "^4.0.2",
-    "snyk": "^1.316.2",
+    "snyk": "^1.319.0",
     "webpack-node-externals": "^1.7.2"
   },
   "directories": {
