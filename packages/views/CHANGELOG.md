@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.9](https://github.com/randytarampi/me/compare/v6.2.8...v6.2.9) (2020-05-05)
+
+
+### Performance Improvements
+
+* **views:** Only `preload` the most modern set of JS. ([93deb4a](https://github.com/randytarampi/me/commit/93deb4a5b8d9d240799e8888eef82f83aa25964a))
+
+
+
+
+
 ## [6.2.8](https://github.com/randytarampi/me/compare/v6.2.7...v6.2.8) (2020-05-04)
 
 
