@@ -245,6 +245,9 @@ matrix:
       skip_cleanup: true
       on:
         master: true
+        node: 12
+        os: linux
+        condition: "$TRAVIS_OS_NAME = linux"
   - stage: Deploy (prd)
     name: www
     node_js: '12'
