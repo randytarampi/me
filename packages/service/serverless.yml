@@ -6,6 +6,9 @@ provider:
   name: aws
   runtime: nodejs12.x
 
+  apiGateway:
+    minimumCompressionSize: 1024
+
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
   baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
@@ -85,7 +88,6 @@ package:
   individually: true
 
 plugins:
-- serverless-api-compression
 - serverless-secrets
 - serverless-webpack
 - serverless-dynamodb-local
@@ -95,7 +97,6 @@ plugins:
 - serverless-plugin-tracing
 
 custom:
-  contentCompression: 1024
   dynamodb:
     stages:
       - test
