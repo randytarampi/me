@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.10](https://github.com/randytarampi/me/compare/v6.2.9...v6.2.10) (2020-05-05)
+
+
+### Bug Fixes
+
+* Apply some Snyk patches. ([206ede9](https://github.com/randytarampi/me/commit/206ede927a84a2ed376d13adf294476538450223))
+
+
+
+
+
 ## [6.2.7](https://github.com/randytarampi/me/compare/v6.2.6...v6.2.7) (2020-05-04)
 
 **Note:** Version bump only for package @randy.tarampi/css
