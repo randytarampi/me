@@ -16,8 +16,7 @@ describe("responseBuilder", function () {
         expect(response.headers).to.eql({
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
-            "Content-Type": mime.types.json,
-            "Content-Encoding": "utf-8"
+            "Content-Type": mime.types.json
         });
         expect(response.isBase64Encoded).to.eql(stubIsBase64Encoded);
     });
@@ -34,8 +33,7 @@ describe("responseBuilder", function () {
         expect(response.headers).to.eql({
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
-            "Content-Type": false,
-            "Content-Encoding": "utf-8"
+            "Content-Type": false
         });
     });
 
@@ -48,8 +46,7 @@ describe("responseBuilder", function () {
         expect(response.headers).to.eql({
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
-            "Content-Type": mime.types.json,
-            "Content-Encoding": "utf-8"
+            "Content-Type": mime.types.json
         });
         expect(response.isBase64Encoded).to.eql(false);
     });

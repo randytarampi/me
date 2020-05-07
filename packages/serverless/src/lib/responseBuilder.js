@@ -5,8 +5,7 @@ const jsonMimeTypes = [mime.types.json];
 const defaultHeaders = {
     "Access-Control-Allow-Origin": "*", // NOTE-RT: Ideally this is injected in from the environment, but `*` suffices at this hour
     "Access-Control-Allow-Credentials": true,
-    "Content-Type": mime.types.json,
-    "Content-Encoding": "utf-8"
+    "Content-Type": mime.types.json
 };
 
 /**
