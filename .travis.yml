@@ -97,7 +97,7 @@ matrix:
     - yarn run coveralls
     - curl -s https://report.ci/upload.py | python - --include='*test-results.xml' --framework=junit
     - bash <(curl -s https://codecov.io/bash)
-    - bash <(curl -Ls https://coverage.codacy.com/get.sh) -r coverage/lcov.info
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
     - yarn run kill --scope @randy.tarampi/service
   - stage: Test
     node_js: 10
