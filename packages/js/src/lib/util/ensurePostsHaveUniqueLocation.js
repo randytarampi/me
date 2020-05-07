@@ -22,7 +22,7 @@ export const ensurePostsHaveUniqueLocation = (posts, offsetPrecision = 0, minimu
             const offsetLat = post.lat + randomOffset;
             const offsetLong = post.long + randomOffset;
             const offsetPost = post
-                .set("locationCreated", post.get("locationCreated") || Place({geo: {}}))
+                .set("locationCreated", post.get("locationCreated") || new Place({geo: {}}))
                 .setIn(["locationCreated", "geo", "latitude"], offsetLat)
                 .setIn(["locationCreated", "geo", "longitude"], offsetLong);
 

@@ -91,13 +91,11 @@ export class PostsComponent extends PureComponent {
             ? new SchemaItemList({
                 numberOfItems: postsArray.length,
                 itemListOrder: "Descending",
-                itemListElement: postsArray
-                    ? postsArray.map((post, index) => new SchemaListItem({
-                        item: post.toSchema(),
-                        position: index + 1,
-                        url: `${window.location.origin}${window.location.pathname}#${post.uid}`
-                    }))
-                    : []
+                itemListElement: postsArray.map((post, index) => new SchemaListItem({
+                    item: post.toSchema(),
+                    position: index + 1,
+                    url: `${window.location.origin}${window.location.pathname}#${post.uid}`
+                }))
             })
             : [];
 

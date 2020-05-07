@@ -250,7 +250,7 @@ class CachedDataSource extends DataSource {
                             logger.trace(`retrieve record (${recordId}) cache miss at ${DateTime.utc()}`);
                             return null;
                         }
-                        logger.trace(`retrieved record (${record && record.uid}) from cache at ${DateTime.utc()}`);
+                        logger.trace(`retrieved record (${record.uid}) from cache at ${DateTime.utc()}`);
                         return record;
                     });
             });
