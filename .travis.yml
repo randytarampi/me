@@ -12,33 +12,35 @@ env:
   - secure: ZTBYFZ10aI9BZPy5svRBilIqEbx88fLxUVgblqhlWStF8jhnWslOULzjXFbz2dpTboEYDxlFwfo9+K0hYUJmL7iDtpnKX9pbA5SXQxok2W9zoGGrNDedcXIQxyCWMKKmpcco5B6PFS+uScuYSQzUu9FEwkcEXoxr1hUom2THEXm3FxRHMP5iCr9HwNb0ZmHq622G5jEtCImWErHauLYyuay9A9geFysHuUE5qNITsQP5IjNH2vEqs3KAGZxLAUbV7OKwafEh2mPDqYV/96uOf4uGtQA5EV2yfoemkLN1OgffGGLoPqdL5kDzkcrPacbVvQSc8pL5T4irsNOngs3PsiEtz21qdkA0o9pwsbmC4HWRxq/4A86ECH1mWoLXp6aF6LmUpxclnQIj46986Dm+DSfg9wmUHP4WJsfrQOfJ4ZIgtAG0hS5nKSHY9qep9bkLNgP4K6ZCVosUG3QgA5nImyP++90H8eM6hzNCpXCBX71S1QmW6iQqPT1B34S2fJzPQYU3mFX05itP7V9ikKsFXy9YDjmzc8f1E09/WH1bJcW/4kcHUxyki6PZy4hWM7252H7iI1wcseOExzmS9awkZUKyGqVrVQ9D7/KZxmh9zHfRHXRZj1FSDtLBaPSlAS8Do0EDToFpUsFEdHUyvgf3QWg6jwweS9zXlXTmKxBPxz8=
   - secure: oxfqOoaXj7BuY0mNwqJdvj/3HPShjhKpS5iCAhd02IvrJHXsYVzOf1JEj6fO94VntDNKpep/2fzl+pfIBgsyGCB8JsGVTyszitbJVSZio7kJFgNj9XZr6WajFU2jfSmqV7H7Z1pGcEESTbPdGdLAwL7PJnik8OEWKleP6WDC5IPDN7yVycn6h72vMoX8VDqZPnP0ZuaiW1VaGrHCcg5Fg9Id5TRzHsmz5yE0DYOPL5QO8NI3JAk5Sq+nqCvb0/Ac0pSTJgqfKXDryIws17y18VubKuLAQMhfHXC9k5C2HSR/TWUqvzv6X0+tnxhJmvcmk6O2zF5YhLInJSrRjTOWnHAgYfBOC+8+Zoz7kl/YYKAFnn7LGT5e3L11KFO6Esip84MPJWU95swiQcu014Kf906WYN2kKlW5J5njOwrGqY3pXh9VrZp+7tUH1611F7/HBmXqe874pByDUdUBcnVEnCUdtvAYlJLVeIvmemQDn3oiXcHXrC+454BbDUL5CDlUGIhwibxbxj+Z9wPdHuflXf0ecegFopAjDBSQhJpQ1CxP3BiDSPKiI5J1UmA5HGnxuTF5/EEbDSvWC3VCm0MzN9SlmU74bAaCLDWIU4HKESmzfmX7z12gGpDgpALyjXq+zGTeGSkpMBa1NBWHzqWxn8WsKKMUgqM8FGMDzRNpl90=
   - secure: MGzDAahxhT/3CCiUvJ8dIf4BNL92nQHygim2rtZz7PlpdOrvK3yop08NgeKj5F7tIArVxyBDW8xjqZXO65dX3OJYkfFXjNYsP+z36KcxsWmjLAo6icvHF2UN2gE70iTQHqlv+PAcuND7Kb71auHSAgw8F5c4LO6jKPeLnM4keDb0CiCtoLzmfRzhAdjBgxKjkOKTE5BxuxSGLC0IQObCjx1Rk10TOK3km+unOBLxr2AubR2/mPAqRIOpHjgx/0ZeMLK5jbHgqZC5EZj9yXB+aloVx6IcCR7TPMnTj0ogZ0jKOEX6hZdIxqhT0Eb5M4N3TnTb3WIyzA48S5/Qg/ikKOtCexJrW4tXBaPNy7plBR6H495IAyhN9rAt9LGDjns+5a0Xphr61RLWd3NN5JTc//xjPiBJTYaZxCy/RNaTI0MSuLuopbUCn2TlZIbT8KYte9mQG02UAJ4rWvvoPOiPIrmUU/9QsTfKt9iomdhVeLyHa0sUj0fR85nleIjVPMvsog4V1icUcbMIXhnqZ0eTDPaQ6rvtceC9VMUTd8IzkU16ZkZ5fwfxWLraZoxflyrkR5KrQ6HzNlB8nY8ekwtmtyvvqxq8OYe6m/TuswOFC95wnxhWZDwKbquOObujAwTTEtswNpbHkZ4vQ09EGVSNx5hKU/SUV2dBBoSTQ+NQRLE=
+  - secure: jiRIplDwEue0+etKQiAc2o932H2JmIPsJ/peBNJTyFd2uNfbcnuivlo0p//19Inzr9hYsg2inllIDeEevx5iZm3J8uMUFs8YsRZTPcfkTxy2cZrzzb1ZhG4/ItyBxq0EKMdnVaNV5JiyjzOtlKEoHFZzBCjgxNNy9BGIH1iAxymvO+UqfTHtVFspigghsVX286OStdNpTycVzSw86tLt68uUCU2mzdG2pYswbSUwk4McunMLnqFuO2aRswxvWnUu3DHnKZFbeZHpHeDjRA3KQHJczCdHh4nVi4ElZ4JtRSqy3Q25FKxR4A53UcdidZd/fznHIxTidPFjWEH9wZESCT8eA3HTbqZeXlFTbE+X8k3Hay0wIbRsM15Z8ZY8p7Wf0j8t+yGSMVl5hPDGTXCOEyp+uRNIUY3pbeS2agtnIAx6IdphWupmPho4TQT/OzyweqGzPGmuXm95IBEm3eqz4JBOTZfVcxzcBMLcJDyASzwO1isloHrmhUmHej8QgvmW9zz3Z+lRp1RgKxaUkuwjjWkm6egYJ19x1519zEPpWQqrF3s/ivj5grlrdAa7r+bwsJQ3ZcgnOqAfcWq1pUNVyRroVX++Q2eIh1aXb4QRf/JHHPReuMKz4/ObhQygdZkFvWblk0eGJjIBGMqJrw2U8M4j2Txdz3KEi/+5eAWFQJs=
 cache:
   yarn: true
   npm: false
-  directories: [
-    ".yarn/cache",
-    "node_modules",
-    "packages/browser-logger/node_modules",
-    "packages/css/node_modules",
-    "packages/job-application/node_modules",
-    "packages/js/node_modules",
-    "packages/jsonresume-theme/node_modules",
-    "packages/jsx/node_modules",
-    "packages/lambda-logger/node_modules",
-    "packages/letter/node_modules",
-    "packages/printables/node_modules",
-    "packages/redux-metrics/node_modules",
-    "packages/resume/node_modules",
-    "packages/serverless/node_modules",
-    "packages/service/node_modules",
-    "packages/views/node_modules",
-    "packages/www/node_modules"
-  ]
+  directories:
+  - ".yarn/cache"
+  - node_modules
+  - packages/browser-logger/node_modules
+  - packages/css/node_modules
+  - packages/job-application/node_modules
+  - packages/js/node_modules
+  - packages/jsonresume-theme/node_modules
+  - packages/jsx/node_modules
+  - packages/lambda-logger/node_modules
+  - packages/letter/node_modules
+  - packages/printables/node_modules
+  - packages/redux-metrics/node_modules
+  - packages/resume/node_modules
+  - packages/serverless/node_modules
+  - packages/service/node_modules
+  - packages/views/node_modules
+  - packages/www/node_modules
 before_install:
 - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
 - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
 - export PRINTABLE_PUPPETEER_NO_SANDBOX=${CI:=true}
-- if [[ $TRAVIS_PULL_REQUEST != "false" ]]; then export PULL_REQUEST=${PULL_REQUEST:=$TRAVIS_PULL_REQUEST}; export COMMIT_SHA=${COMMIT_SHA:=$TRAVIS_PULL_REQUEST_SHA}; export BRANCH=${BRANCH:=$TRAVIS_PULL_REQUEST_BRANCH}; export REPO_SLUG=${REPO_SLUG:=$TRAVIS_PULL_REQUEST_SLUG}; fi;
+- if [[ $TRAVIS_PULL_REQUEST != "false" ]]; then export PULL_REQUEST=${PULL_REQUEST:=$TRAVIS_PULL_REQUEST};
+  export COMMIT_SHA=${COMMIT_SHA:=$TRAVIS_PULL_REQUEST_SHA}; export BRANCH=${BRANCH:=$TRAVIS_PULL_REQUEST_BRANCH};
+  export REPO_SLUG=${REPO_SLUG:=$TRAVIS_PULL_REQUEST_SLUG}; fi;
 - export COMMIT_SHA=${COMMIT_SHA:=$TRAVIS_COMMIT}
 - export CPU_ARCH=${CPU_ARCH:=$TRAVIS_CPU_ARCH}
 - export OS_NAME=${OS_NAME:=$TRAVIS_OS_NAME}
@@ -70,9 +72,9 @@ stages:
 matrix:
   fast_finish: true
   allow_failures:
-    - node_js: 10
-    - node_js: node
-    - node_js: lts/*
+  - node_js: 10
+  - node_js: node
+  - node_js: lts/*
   include:
   - stage: Test
     node_js: 12
@@ -92,8 +94,12 @@ matrix:
     - yarn run cover:collect
     - if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:test; fi;
     - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
-    - "CODECLIMATE_API_HOST=https://codebeat.co/webhooks/code_coverage CODECLIMATE_REPO_TOKEN=98216c3b-5de5-4a1f-b991-beb9bf2162a yarn codeclimate-test-reporter < coverage/lcov.info"
+    - CODECLIMATE_API_HOST=https://codebeat.co/webhooks/code_coverage CODECLIMATE_REPO_TOKEN=98216c3b-5de5-4a1f-b991-beb9bf2162a
+      yarn codeclimate-test-reporter < coverage/lcov.info
     - yarn run coveralls
+    - python < $(curl -s https://report.ci/report.py)
+    - bash <(curl -s https://codecov.io/bash)
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh)
     - yarn run kill --scope @randy.tarampi/service
   - stage: Test
     node_js: 10
@@ -123,7 +129,8 @@ matrix:
     install:
     - git checkout $TRAVIS_BRANCH
     - HAS_PUBLISHABLE_CHANGES=`yarn lerna changed -alp || false`
-    - if [ -n "$(echo $TRAVIS_COMMIT_MESSAGE | grep '^release(force):')" ]; then IS_FORCED_RELEASE=1; else IS_FORCED_RELEASE=0; fi;
+    - if [ -n "$(echo $TRAVIS_COMMIT_MESSAGE | grep '^release(force):')" ]; then IS_FORCED_RELEASE=1;
+      else IS_FORCED_RELEASE=0; fi;
     - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
     - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
     - JSONRESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
@@ -132,19 +139,13 @@ matrix:
     - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
     - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
     - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-    - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then
-        git status;
-        yarn lerna version --no-git-tag-version --no-push --conventional-commits --yes
-          && yarn install --ignore-engines --frozen-lockfile
-          && yarn lerna run letter --scope @randy.tarampi/letter
-          && yarn lerna run resume --scope @randy.tarampi/resume
-          && yarn lerna run resume --scope jsonresume-theme-randytarampi
-          && yarn lerna run docs
-            --scope @randy.tarampi/letter
-            --scope @randy.tarampi/resume
-            --scope jsonresume-theme-randytarampi
-            --scope @randy.tarampi/www;
-      fi;
+    - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then git
+      status; yarn lerna version --no-git-tag-version --no-push --conventional-commits
+      --yes && yarn install --ignore-engines --frozen-lockfile && yarn lerna run letter
+      --scope @randy.tarampi/letter && yarn lerna run resume --scope @randy.tarampi/resume
+      && yarn lerna run resume --scope jsonresume-theme-randytarampi && yarn lerna
+      run docs --scope @randy.tarampi/letter --scope @randy.tarampi/resume --scope
+      jsonresume-theme-randytarampi --scope @randy.tarampi/www; fi;
     before_script: skip
     script: skip
     after_script: skip
@@ -164,13 +165,11 @@ matrix:
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
     - export TRAVIS_TAG=${TRAVIS_TAG:=v$REPO_VERSION}
     - export TRAVIS_TAG_COMMIT=${TRAVIS_TAG_COMMIT:=$(git rev-parse HEAD)}
-    - 'if [[ -n $(git status -s) ]]; then
-        git commit -am "release(travis): Release v$REPO_VERSION";
-        git tag -a $TRAVIS_TAG -m "release(travis): Release v$REPO_VERSION.";
-        export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD);
-        git push ci-push master --follow-tags;
-        IS_PUBLISHING=true yarn lerna publish from-git --conventional-commits --create-release github --yes --concurrency ${CPUS_COUNT};
-      fi;'
+    - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
+      v$REPO_VERSION"; git tag -a $TRAVIS_TAG -m "release(travis): Release v$REPO_VERSION.";
+      export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD); git push ci-push master --follow-tags;
+      IS_PUBLISHING=true yarn lerna publish from-git --conventional-commits --create-release
+      github --yes --concurrency ${CPUS_COUNT}; fi;'
     - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
     - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/
       $TRAVIS_BUILD_DIR

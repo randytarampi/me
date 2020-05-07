@@ -5,7 +5,7 @@ module.exports = {
     checkLeaks: true,
     require: ["../../babel.register.js", "./test/01_setup", "./test/02_import-all"],
     exit: true,
-    reporter: process.env.PULL_REQUEST ? "mocha-junit-reporter" : "spec",
+    reporter: process.env.CI ? "mocha-junit-reporter" : "spec",
     reporterOptions: {
         testsuitesTitle: true,
         testCaseSwitchClassnameAndName: true,
