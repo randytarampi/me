@@ -8,7 +8,7 @@ export const TravisShield = () => <CampaignLink
     name="Travis">
     <img
         className="shield__image"
-        src="https://img.shields.io/travis/randytarampi/me.svg?style=flat-square"
+        src="https://img.shields.io/travis/com/randytarampi/me.svg?style=flat-square"
     />
 </CampaignLink>;
 
