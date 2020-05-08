@@ -43,8 +43,8 @@
   "scripts": {
     "build": "yarn run build:gulp && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm && yarn run build:babel:es5",
-    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel:es5": "cross-env-shell BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then cross-env-shell NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",

@@ -18,6 +18,7 @@
     "cross-env": "^7.0.2",
     "gulp": "^4.0.2",
     "jsdom": "^16.2.2",
+    "mocha-junit-reporter": "^1.23.3",
     "sinon": "^9.0.2"
   },
   "directories": {
@@ -52,8 +53,8 @@
   "scripts": {
     "build": "npm run build:babel",
     "build:babel": "npm run build:babel:esm && npm run build:babel:es5",
-    "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel:es5": "cross-env-shell BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
+    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
     "clean": "gulp -LLLL --color clean",
     "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
     "dev": "npm run dev:client",

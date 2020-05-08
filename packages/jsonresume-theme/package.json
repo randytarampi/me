@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "snyk": "^1.319.0",
+    "mocha-junit-reporter": "^1.23.3",
     "webpack-node-externals": "^1.7.2"
   },
   "directories": {
@@ -69,7 +70,7 @@
   "scripts": {
     "build": "yarn run build:copy && yarn run build:webpack && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
     "build:copy": "mkdir -p dist && yarn build:copy:index.pug && yarn build:copy:layout.pug && yarn build:copy:styles.css && cp *.md dist/",
     "build:copy:index.pug": "cp $(node -p 'require(\"path\").resolve(require.resolve(\"@randy.tarampi/views\"), \"../../templates/index.pug\")') ./dist/index.pug",
     "build:copy:layout.pug": "cp $(node -p 'require(\"path\").resolve(require.resolve(\"@randy.tarampi/views\"), \"../../templates/layout.pug\")') ./dist/layout.pug",
