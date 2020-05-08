@@ -93,7 +93,7 @@
     "preuninstall:dynamodb": "sls dynamodb remove",
     "snyk-protect": "snyk protect",
     "start": "yarn run dev",
-    "start:dynamodb-local": "yarn run start:dynamodb-local:start && yarn run start:dynamodb-local:migrate",
+    "start:dynamodb-local": "yarn sls dynamodb install && yarn run start:dynamodb-local:start && yarn run start:dynamodb-local:migrate",
     "start:dynamodb-local:migrate": "sls dynamodb migrate --stage local",
     "start:dynamodb-local:start": "java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid",
     "test": "yarn run pretest:dynamodb-local && yarn run test:actual",
