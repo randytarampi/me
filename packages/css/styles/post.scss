@@ -12,6 +12,12 @@
     @extend .z-depth-1;
     margin-bottom: 0;
 
+    .carousel.carousel-slider {
+        .carousel-item {
+            min-height: unset; // NOTE-RT: Override the value out of `materialize-css`
+        }
+    }
+
     &-title,
     &-link-title,
     &-description,
