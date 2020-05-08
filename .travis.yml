@@ -58,6 +58,8 @@ before_install:
 install:
 - yarn install --ignore-engines --frozen-lockfile
 stages:
+- name: Install (dev)
+  if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Test
   if: tag IS blank AND NOT commit_message ~= /(?:^release\(travis\):)/
 - name: Deploy (dev)
@@ -65,6 +67,8 @@ stages:
 - name: Release
   if: commit_message ~= /(?:^release\(force\):)/ OR (tag IS blank AND type = push
     AND branch = master AND NOT commit_message ~= /(?:^release\(travis\):)/)
+- name: Install (prd)
+  if: tag IS present
 - name: Deploy (prd)
   if: tag IS present
 matrix:
@@ -74,10 +78,57 @@ matrix:
   - node_js: node
   - node_js: lts/*
   include:
+  - stage: Install (dev)
+    node_js: 12
+    workspaces:
+      create:
+        name: linux-node@12
+    env:
+      - NODE_ENV=dev
+    before_install:
+      - git checkout $TRAVIS_BRANCH
+      - yarn lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
+    before_script: skip
+    script: skip
+    after_script: skip
+  - stage: Install (dev)
+    node_js: 10
+    workspaces:
+      create:
+        name: linux-node@10
+    env:
+      - NODE_ENV=dev
+    before_script: skip
+    script: skip
+    after_script: skip
+  - stage: Install (dev)
+    node_js: node
+    workspaces:
+      create:
+        name: linux-node
+    env:
+      - NODE_ENV=dev
+    before_script: skip
+    script: skip
+    after_script: skip
+  - stage: Install (dev)
+    node_js: lts/*
+    workspaces:
+      create:
+        name: linux-node@lts/*
+    env:
+      - NODE_ENV=dev
+    before_script: skip
+    script: skip
+    after_script: skip
+
   - stage: Test
     node_js: 12
+    workspaces:
+      use: linux-node@12
     env: &1
     - NODE_ENV=test
+    install: skip
     before_script: &2
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
       > ./cc-test-reporter
@@ -101,63 +152,56 @@ matrix:
     - yarn run kill --scope @randy.tarampi/service
   - stage: Test
     node_js: 10
+    workspaces:
+      use: linux-node@10
     env: *1
+    install: skip
     before_script: *2
     script: *3
     after_script: *4
   - stage: Test
     node_js: node
+    workspaces:
+      use: linux-node
     env: *1
+    install: skip
     before_script: *2
     script: *3
     after_script: *4
   - stage: Test
     node_js: lts/*
+    workspaces:
+      use: linux-node@lts/*
     env: *1
+    install: skip
     before_script: *2
     script: *3
     after_script: *4
+
   - stage: Release
     name: GitHub
-    node_js: '12'
+    node_js: 12
+    workspaces:
+      use: linux-node@12
     env:
     - NODE_ENV=prd
-    - RELEASE=true
     - secure: OdYWXWY8Ienb9lqPDNzGm1fuq2Yew7ubT44iCSuUSi4BvYIffvSEzrMsi1/ao+09joWPZWRzqqrSiUNjr3oSPQOXKDlYNczLaKty7oTjOKVEC/oH3kRdE1fj+eWXVisKHOLyBT5h52eCIwPosq2zAxLB1ANt+bvmzvCQBatZgox0stJ8KNTXsPWCqRGl5EbBM1xBCFLoo3nZ9+kbzhcqsyzUAvPXwea+5ySndYYqebqoYH1mzG84l2hXPwZm1/kvr7ujhUxAsre4RlhxiuWGmTVztOpXjhN1yFbp52bU2jlrscnh77HDTJZgvqhfVFA6HOT5Vi7Uy/VRU6TJaTDVrCafmbiU3AeZNq44WkDBtoiNEsLQVJr2xzr0pIw/MueVZt87/DcspYqjAMNvyhsL4esHs5HiS+/0zwc9IVbLq92WIX3vIIKMCQe7/q8gq4WKrusHgNQABy3j7JKttp4Oq31HkiFbg59tTf3LIbPzDCyws7IXyWDp9EUuDqPAfmJHg+Rwd1SGu5/okqmCYqCeGNMosyBNORr1V5Yogemi+N8cqaGnLfPkaOMtuRdRfhLaD+3biEVV8SkeMTEqz5B7zjDzvz3ONJ91OyOdwmpUNlv9k0fKq0iwzTsSV/gZ7XvETwXAAorGai0kDPzHB2FAEPIx5XyMcloDj5e1EGZ+aew=
     install:
     - git checkout $TRAVIS_BRANCH
     - HAS_PUBLISHABLE_CHANGES=`yarn lerna changed -alp || false`
     - if [ -n "$(echo $TRAVIS_COMMIT_MESSAGE | grep '^release(force):')" ]; then IS_FORCED_RELEASE=1;
       else IS_FORCED_RELEASE=0; fi;
-    - LETTER_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/letter
-    - RESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/resume
-    - JSONRESUME_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/jsonresume-theme
-    - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
-    - git config --local user.name "$TRAVIS_AUTHOR_NAME"
-    - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
-    - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
-    - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-    - if [[ -n "$HAS_PUBLISHABLE_CHANGES" || -n "$IS_FORCED_RELEASE" ]]; then git
-      status; yarn lerna version --no-git-tag-version --no-push --conventional-commits
-      --yes && yarn install --ignore-engines --frozen-lockfile && yarn lerna run letter
-      --scope @randy.tarampi/letter && yarn lerna run resume --scope @randy.tarampi/resume
-      && yarn lerna run resume --scope jsonresume-theme-randytarampi && yarn lerna
-      run docs --scope @randy.tarampi/letter --scope @randy.tarampi/resume --scope
-      jsonresume-theme-randytarampi --scope @randy.tarampi/www; fi;
     before_script: skip
     script: skip
     after_script: skip
     before_deploy:
+    - git checkout $TRAVIS_BRANCH
+    - git config --local user.name "$TRAVIS_AUTHOR_NAME"
+    - export COMMIT_AUTHOR=`git --no-pager show -s --format='%ae' \`git rev-parse\``
+    - git config --local user.email "$TRAVIS_AUTHOR_EMAIL"
+    - git remote add ci-push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+    - yarn lerna version --no-git-tag-version --no-push --conventional-commits;
     - REPO_VERSION=$(node -p 'require("./lerna.json").version')
-    - if [ -d "$LETTER_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $LETTER_PACKAGE_DIR/docs;
-      fi;
-    - if [ -d "$RESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $RESUME_PACKAGE_DIR/docs;
-      fi;
-    - if [ -d "$JSONRESUME_PACKAGE_DIR/docs" ]; then git add --verbose --force --all
-      $JSONRESUME_PACKAGE_DIR/docs $JSONRESUME_PACKAGE_DIR/resume.json; fi;
-    - git rm --ignore-unmatch --force $WWW_PACKAGE_DIR/docs/precache-manifest.*.js;
-    - if [ -d "$WWW_PACKAGE_DIR/docs" ]; then git add --verbose --force --all $WWW_PACKAGE_DIR/docs;
-      fi;
     - git add packages/*/CHANGELOG.md
     - git rm --ignore-unmatch --force **/*.pdf_original
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
@@ -166,8 +210,11 @@ matrix:
     - 'if [[ -n $(git status -s) ]]; then git commit -am "release(travis): Release
       v$REPO_VERSION"; git tag -a $TRAVIS_TAG -m "release(travis): Release v$REPO_VERSION.";
       export TRAVIS_TAG_COMMIT=$(git rev-parse HEAD); git push ci-push master --follow-tags;
-      IS_PUBLISHING=true yarn lerna publish from-git --conventional-commits --create-release
-      github --yes --concurrency ${CPUS_COUNT}; fi;'
+      yarn lerna publish from-git --conventional-commits --create-release github --yes
+      --concurrency ${CPUS_COUNT}; yarn lerna run letter --scope @randy.tarampi/letter &&
+      yarn lerna run resume --scope @randy.tarampi/resume && yarn lerna run resume --scope
+      jsonresume-theme-randytarampi && yarn lerna run docs --scope @randy.tarampi/letter --scope
+      @randy.tarampi/resume --scope jsonresume-theme-randytarampi --scope @randy.tarampi/www; fi;'
     - mkdir -p $TRAVIS_BUILD_DIR/../dpl_cd_upload
     - tar -zcf $TRAVIS_BUILD_DIR/../dpl_cd_upload/me.tar.gz -C $TRAVIS_BUILD_DIR/
       $TRAVIS_BUILD_DIR
@@ -182,11 +229,14 @@ matrix:
       - "$TRAVIS_BUILD_DIR/packages/letter/docs/letter.*.pdf"
       skip_cleanup: true
       on:
-        condition: "-n $HAS_PUBLISHABLE_CHANGES"
+        condition: "-n $HAS_PUBLISHABLE_CHANGES || -n $IS_FORCED_RELEASE"
       target_commitish: "$TRAVIS_TAG_COMMIT"
+
   - stage: Deploy (dev)
     name: www
-    node_js: '12'
+    node_js: 12
+    workspaces:
+      use: linux-node@12
     env:
     - BABEL_ENV=production
     - NODE_ENV=dev
@@ -194,9 +244,6 @@ matrix:
     - WWW_PACKAGE_DIR=$TRAVIS_BUILD_DIR/packages/www
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
     install:
-    - git checkout $TRAVIS_BRANCH
-    - yarn lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-    - yarn install --ignore-engines --frozen-lockfile
     - yarn lerna run docs --scope @randy.tarampi/www
     before_script: skip
     script: skip
@@ -221,7 +268,9 @@ matrix:
         branch: master
   - stage: Deploy (dev)
     name: posts
-    node_js: '12'
+    node_js: 12
+    workspaces:
+      use: linux-node@12
     env:
     - BABEL_ENV=production
     - NODE_ENV=dev
@@ -229,10 +278,7 @@ matrix:
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
     - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
     - secure: HG5SiuIvZNcqaAGjaPwyQFVxW5uUfGbrN3fwqDEyh3oLW1pcnofNCNGLotWoFTexSXkPGcJeswEPfo5koRej84h1CqmNOPJNmwomjR/lLVf1/CSRY5eo4rf8no9wwEOhzsSX+r4yCyOKoBQ8iaxkcwo/fvPIEwAo1NPLcDYusm7bvAsCrO5NDpZ0KkhYqrD823UqSKLtpVAj8ZVZih3ySI+QL/cPN1LlaOwbREbSHmKvDj7p63k0F/znQ9y+jip/dRgAYreTVLOHKKQmdTLDbl0Lf6yn1m8NvC94Cl2Klt4791i/AUqrC1JV7eEE9f9n7jI3l5M469C5DWVFC9Nc9S1d2tcUAbQS441hZMsp0Hh7iLb601GSQZwI/KbNtM1hYJa/ONSrfJcWjU6MQudUHuOIZo1AoiDjlenznouRiIssJ+f3KKxK8t9UEzlTVsHSoBMvQ9lVabae7iTltM6zVD/BlirUhWFpSInSQsHOIMV1fkDep/0lfXX8rufb5pHm41A8yz3bkwLSPQILEwY9O21ngkffSKlu1sUFqvSdE6SwH5nvXEDaF44QvO9OAn3T6BRz+mHvtGCe9xwq9ixsdpEHzGcC6xHD+coJwFshByWkaMP6+RRobGwpHaxn59DGoTPWY5bhaL2EOiAQBK8d4iQg/rPM++Mcd7jDHZKnXzc=
-    install:
-    - git checkout $TRAVIS_BRANCH
-    - yarn lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
-    - yarn install --ignore-engines --frozen-lockfile
+    install: skip
     before_script: skip
     script: skip
     after_script: skip
@@ -245,16 +291,29 @@ matrix:
         node: 12
         os: linux
         condition: "$TRAVIS_OS_NAME = linux"
+
+  - stage: Install (prd)
+    node_js: 12
+    workspaces:
+      create:
+        name: linux-node@12
+    env:
+      - NODE_ENV=prd
+      - DEPLOY=true
+    before_script: skip
+    script: skip
+    after_script: skip
+
   - stage: Deploy (prd)
     name: www
-    node_js: '12'
+    node_js: 12
+    workspaces:
+      use: linux-node@12
     env:
     - NODE_ENV=prd
     - DEPLOY=true
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
-    install:
-    - yarn install --ignore-engines --frozen-lockfile
-    - yarn lerna run docs --scope @randy.tarampi/www
+    install: yarn lerna run docs --scope @randy.tarampi/www;
     before_script: skip
     script: skip
     after_script: skip
@@ -272,11 +331,13 @@ matrix:
         tags: true
   - stage: Deploy (prd)
     name: resume
-    node_js: '12'
+    node_js: 12
+    workspaces:
+      use: linux-node@12
     env:
     - NODE_ENV=prd
     - DEPLOY=true
-    install: skip
+    install: yarn lerna run docs --scope jsonresume-theme-randytarampi;
     before_script: skip
     script: skip
     after_script: skip
@@ -294,13 +355,16 @@ matrix:
         tags: true
   - stage: Deploy (prd)
     name: posts
-    node_js: '12'
+    node_js: 12
+    workspaces:
+      use: linux-node@12
     env:
     - NODE_ENV=prd
     - DEPLOY=true
     - secure: BqXseN/Q6y0i7wX9eqO+3qmfNybZcOJXB1FHDa4vEfM58HvXGAzDsxc5cLn+Cv4DlZ5jBQDgPQxKz5uVPuTZI1m+Ev39S2aR9be3EGISfyShYB1SM8Mzq4vic6/gdarR7rtRMVtdU/CeZPQCXVde9NxR4oNjvDP7GwHGDsm4fjgOW7c2am70JFl26z5O2lqiw/NPQnEo45vGuIlhZaGxayn9Dy0EVHdNMYQ+2JsBXvEC0CTgAbNS8ODL223YSe3UOiN/cKOEtBOe5Sd25pu2JXHrMDWSiJnTIJRwg7VAUqNvEb+9QEGzEzKJKxSfNo7z1QnQ3JMLd8T7HJQ+TaXUr5uiOqNLHybDLumcSSghNHZQVY6+m2wFs0AwZvWHi/nPs1ld7WvlDzPVwfs8FQA3g5w07aMaVrd1O+xo0/5ZXVUkocxksLtSuXTRutwHQMbEMrbmp0uzXRH3FZvbzrmvhtbP3Kz1dO+aFC7IKaWezj5PRkdNtWPkqS+gT0IXrJnJ8gAEsRXToxEruJGwBdKkhQqQwoz7hjf8VChUOMfnOfW64/Os6yK9Grr/UyAdkf9jUL45gb8I1C16ddz6getXtrcQV/YFGkBckNnMO6SAsPci84ESlX69tlXnpLwAjf5MOpwmY/MJfX7Cd1AibzcX1rXHufPVuOdV4iSsyS+ioWY=
     - AWS_ACCESS_KEY_ID=AKIAIEKKCTFCDTGKKHMA
     - secure: HG5SiuIvZNcqaAGjaPwyQFVxW5uUfGbrN3fwqDEyh3oLW1pcnofNCNGLotWoFTexSXkPGcJeswEPfo5koRej84h1CqmNOPJNmwomjR/lLVf1/CSRY5eo4rf8no9wwEOhzsSX+r4yCyOKoBQ8iaxkcwo/fvPIEwAo1NPLcDYusm7bvAsCrO5NDpZ0KkhYqrD823UqSKLtpVAj8ZVZih3ySI+QL/cPN1LlaOwbREbSHmKvDj7p63k0F/znQ9y+jip/dRgAYreTVLOHKKQmdTLDbl0Lf6yn1m8NvC94Cl2Klt4791i/AUqrC1JV7eEE9f9n7jI3l5M469C5DWVFC9Nc9S1d2tcUAbQS441hZMsp0Hh7iLb601GSQZwI/KbNtM1hYJa/ONSrfJcWjU6MQudUHuOIZo1AoiDjlenznouRiIssJ+f3KKxK8t9UEzlTVsHSoBMvQ9lVabae7iTltM6zVD/BlirUhWFpSInSQsHOIMV1fkDep/0lfXX8rufb5pHm41A8yz3bkwLSPQILEwY9O21ngkffSKlu1sUFqvSdE6SwH5nvXEDaF44QvO9OAn3T6BRz+mHvtGCe9xwq9ixsdpEHzGcC6xHD+coJwFshByWkaMP6+RRobGwpHaxn59DGoTPWY5bhaL2EOiAQBK8d4iQg/rPM++Mcd7jDHZKnXzc=
+    install: skip
     before_script: skip
     script: skip
     after_script: skip

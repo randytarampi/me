@@ -31,8 +31,8 @@
   "scripts": {
     "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then cross-env-shell NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
-    "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
+    "prepack": "if [ ! -d \"./dist\" ]; then exit 74; fi;",
+    "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean"
   }
