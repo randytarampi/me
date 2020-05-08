@@ -19,7 +19,7 @@ module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
     const path = require("path");
     const eslint = require("gulp-eslint");
     const gulpIf = require("gulp-if");
-    const resultsFile = process.env.PULL_REQUEST && fs.createWriteStream(path.join(relativePath, "eslint-results.xml"));
+    const resultsFile = process.env.CI && fs.createWriteStream(path.join(relativePath, "eslint-results.xml"));
 
     const stream = gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
         .pipe(eslint({fix: true, ignorePath: path.join(relativePath, "../../.eslintignore")}))
@@ -39,7 +39,7 @@ module.exports.sassLint = ({relativePath, gulp}) => gulp.task("sassLint", () => 
     const fs = require("fs");
     const path = require("path");
     const sassLint = require("gulp-sass-lint");
-    const resultsFile = process.env.PULL_REQUEST && fs.createWriteStream(path.join(relativePath, "sassLint-results.xml"));
+    const resultsFile = process.env.CI && fs.createWriteStream(path.join(relativePath, "sassLint-results.xml"));
 
     const stream = gulp.src([path.join(relativePath, "sass/**/*.s+(a|c)ss")])
         .pipe(sassLint({
