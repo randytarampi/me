@@ -83,6 +83,42 @@ matrix:
     workspaces:
       create:
         name: linux-node__12
+        paths: &workspacePaths
+        - packages/browser-logger/es5
+        - packages/browser-logger/esm
+        - packages/css/dist
+        - packages/job-application/dist
+        - packages/job-application/es5
+        - packages/job-application/esm
+        - packages/js/es5
+        - packages/js/esm
+        - packages/jsonresume-theme/dist
+        - packages/jsonresume-theme/docs
+        - packages/jsonresume-theme/es5
+        - packages/jsonresume-theme/esm
+        - packages/jsx/es5
+        - packages/jsx/esm
+        - packages/lambda-logger/es5
+        - packages/lambda-logger/esm
+        - packages/letter/dist
+        - packages/letter/docs
+        - packages/letter/es5
+        - packages/letter/esm
+        - packages/printables/es5
+        - packages/printables/esm
+        - packages/redux-metrics/es5
+        - packages/redux-metrics/esm
+        - packages/resume/dist
+        - packages/resume/docs
+        - packages/resume/es5
+        - packages/resume/esm
+        - packages/serverless/es5
+        - packages/serverless/esm
+        - packages/views/dist
+        - packages/views/es5
+        - packages/views/esm
+        - packages/views/dist
+        - packages/views/docs
     env:
       - NODE_ENV=dev
     install:
@@ -97,6 +133,7 @@ matrix:
     workspaces:
       create:
         name: linux-node__10
+        paths: *workspacePaths
     env:
       - NODE_ENV=dev
     before_script: skip
@@ -107,6 +144,7 @@ matrix:
     workspaces:
       create:
         name: linux-node
+        paths: *workspacePaths
     env:
       - NODE_ENV=dev
     before_script: skip
@@ -117,6 +155,7 @@ matrix:
     workspaces:
       create:
         name: linux-node__lts
+        paths: *workspacePaths
     env:
       - NODE_ENV=dev
     before_script: skip
@@ -298,6 +337,7 @@ matrix:
     workspaces:
       create:
         name: linux-node__12
+        paths: *workspacePaths
     env:
       - NODE_ENV=prd
       - DEPLOY=true
