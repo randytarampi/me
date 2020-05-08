@@ -16,6 +16,7 @@
     "resume-cli": "randytarampi/resume-cli#me-release"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "snyk": "^1.319.0",
@@ -78,23 +79,23 @@
     "docs": "cp -r dist/* docs",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.jsonresume-theme.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`; rm /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; fi;",
     "postinstall": "yarn run resume:json",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then cross-env-shell NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "npm run snyk-protect && if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "prepublish": "yarn run snyk-protect",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
     "resume": "yarn run resume:json && yarn run resume:pdf && yarn run resume:html",
-    "resume:a4": "RESUME_PDF_SIZE=A4 NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=a4,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.a4.pdf --force -f pdf --theme randytarampi && (cp dist/resume.a4.pdf dist/a4.pdf 2>/dev/null || :)",
-    "resume:html": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.html --force -f html --theme randytarampi && (cp dist/resume.index dist/index.html 2>/dev/null || :)",
+    "resume:a4": "RESUME_PDF_SIZE=A4 cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=a4,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.a4.pdf --force -f pdf --theme randytarampi && (cp dist/resume.a4.pdf dist/a4.pdf 2>/dev/null || :)",
+    "resume:html": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.html --force -f html --theme randytarampi && (cp dist/resume.index dist/index.html 2>/dev/null || :)",
     "resume:json": "cp -n $(node -p 'require(\"path\").resolve(require.resolve(\"@randy.tarampi/resume\"), \"../../src/resumes/resume.json\")') ./resume.json || true; mkdir -p dist; cp resume.json dist/resume.json",
-    "resume:legal": "RESUME_PDF_SIZE=Legal NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=legal,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.legal.pdf --force -f pdf --theme randytarampi && (cp dist/resume.legal.pdf dist/legal.pdf 2>/dev/null || :)",
-    "resume:letter": "RESUME_PDF_SIZE=Letter NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=letter,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.letter.pdf --force -f pdf --theme randytarampi && (cp dist/resume.letter.pdf dist/letter.pdf 2>/dev/null || :)",
+    "resume:legal": "RESUME_PDF_SIZE=Legal cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=legal,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.legal.pdf --force -f pdf --theme randytarampi && (cp dist/resume.legal.pdf dist/legal.pdf 2>/dev/null || :)",
+    "resume:letter": "RESUME_PDF_SIZE=Letter cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=letter,$(node -p \"require(\\\"./package.json\\\").version\") npx resume export dist/resume.letter.pdf --force -f pdf --theme randytarampi && (cp dist/resume.letter.pdf dist/letter.pdf 2>/dev/null || :)",
     "resume:pdf": "yarn run start:server; yarn run resume:letter & yarn run resume:a4 & yarn run resume:legal; yarn run kill:server",
-    "resume:publish": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume publish --force --theme $(node -p \"require(\\\"./package.json\\\").name.replace(\\\"jsonresume-theme-\\\", \\\"\\\")\")",
+    "resume:publish": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") npx resume publish --force --theme $(node -p \"require(\\\"./package.json\\\").name.replace(\\\"jsonresume-theme-\\\", \\\"\\\")\")",
     "snyk-protect": "snyk protect",
     "start": "yarn run resume",
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\";",
-    "test": "NODE_ENV=test yarn run resume"
+    "test": "cross-env-shell NODE_ENV=test yarn run resume"
   },
   "snyk": true
 }

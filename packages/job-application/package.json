@@ -27,6 +27,7 @@
     "chai-enzyme": "^1.0.0-beta.1",
     "cheerio": "^1.0.0-rc.3",
     "config": "^3.3.1",
+    "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "express": "^4.17.1",
@@ -60,9 +61,9 @@
     "build:babel:es5": "BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files",
     "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files",
     "clean": "gulp -LLLL --color clean",
-    "cover": "NODE_ENV=test nyc gulp -LLLL --color test",
-    "job-application": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-application",
-    "job-applications": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
+    "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
+    "job-application": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-application",
+    "job-applications": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
     "postinstall": "mkdir -p dist",
     "prepare": "npm run snyk-protect && if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
@@ -71,7 +72,7 @@
     "preuninstall": "yarn run clean",
     "snyk-protect": "snyk protect",
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
-    "test": "NODE_ENV=test gulp -LLLL --color test"
+    "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,
   "snyk": true

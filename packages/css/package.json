@@ -12,6 +12,7 @@
     "materialize-css": "^1.0.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "gulp": "^4.0.2"
   },
   "files": [
@@ -30,7 +31,7 @@
   "scripts": {
     "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ]; then cross-env-shell NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;",
     "prepare": "if [ -z \"$IS_PUBLISHING\" ]; then yarn run build; fi;",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean"
