@@ -85,9 +85,10 @@ matrix:
         name: linux-node@12
     env:
       - NODE_ENV=dev
-    before_install:
+    install:
       - git checkout $TRAVIS_BRANCH
-      - yarn lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
+      - npx lerna version --no-git-tag-version --no-push --yes prerelease --preid=$TRAVIS_COMMIT
+      - yarn install --ignore-engines --frozen-lockfile
     before_script: skip
     script: skip
     after_script: skip
