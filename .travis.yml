@@ -82,7 +82,7 @@ matrix:
     node_js: 12
     workspaces:
       create:
-        name: linux-node@12
+        name: linux-node__12
     env:
       - NODE_ENV=dev
     install:
@@ -96,7 +96,7 @@ matrix:
     node_js: 10
     workspaces:
       create:
-        name: linux-node@10
+        name: linux-node__10
     env:
       - NODE_ENV=dev
     before_script: skip
@@ -116,7 +116,7 @@ matrix:
     node_js: lts/*
     workspaces:
       create:
-        name: linux-node@lts/*
+        name: linux-node__lts
     env:
       - NODE_ENV=dev
     before_script: skip
@@ -126,7 +126,7 @@ matrix:
   - stage: Test
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env: &1
     - NODE_ENV=test
     install: skip
@@ -154,7 +154,7 @@ matrix:
   - stage: Test
     node_js: 10
     workspaces:
-      use: linux-node@10
+      use: linux-node__10
     env: *1
     install: skip
     before_script: *2
@@ -172,7 +172,7 @@ matrix:
   - stage: Test
     node_js: lts/*
     workspaces:
-      use: linux-node@lts/*
+      use: linux-node__lts
     env: *1
     install: skip
     before_script: *2
@@ -183,7 +183,7 @@ matrix:
     name: GitHub
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env:
     - NODE_ENV=prd
     - secure: OdYWXWY8Ienb9lqPDNzGm1fuq2Yew7ubT44iCSuUSi4BvYIffvSEzrMsi1/ao+09joWPZWRzqqrSiUNjr3oSPQOXKDlYNczLaKty7oTjOKVEC/oH3kRdE1fj+eWXVisKHOLyBT5h52eCIwPosq2zAxLB1ANt+bvmzvCQBatZgox0stJ8KNTXsPWCqRGl5EbBM1xBCFLoo3nZ9+kbzhcqsyzUAvPXwea+5ySndYYqebqoYH1mzG84l2hXPwZm1/kvr7ujhUxAsre4RlhxiuWGmTVztOpXjhN1yFbp52bU2jlrscnh77HDTJZgvqhfVFA6HOT5Vi7Uy/VRU6TJaTDVrCafmbiU3AeZNq44WkDBtoiNEsLQVJr2xzr0pIw/MueVZt87/DcspYqjAMNvyhsL4esHs5HiS+/0zwc9IVbLq92WIX3vIIKMCQe7/q8gq4WKrusHgNQABy3j7JKttp4Oq31HkiFbg59tTf3LIbPzDCyws7IXyWDp9EUuDqPAfmJHg+Rwd1SGu5/okqmCYqCeGNMosyBNORr1V5Yogemi+N8cqaGnLfPkaOMtuRdRfhLaD+3biEVV8SkeMTEqz5B7zjDzvz3ONJ91OyOdwmpUNlv9k0fKq0iwzTsSV/gZ7XvETwXAAorGai0kDPzHB2FAEPIx5XyMcloDj5e1EGZ+aew=
@@ -237,7 +237,7 @@ matrix:
     name: www
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env:
     - BABEL_ENV=production
     - NODE_ENV=dev
@@ -271,7 +271,7 @@ matrix:
     name: posts
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env:
     - BABEL_ENV=production
     - NODE_ENV=dev
@@ -297,7 +297,7 @@ matrix:
     node_js: 12
     workspaces:
       create:
-        name: linux-node@12
+        name: linux-node__12
     env:
       - NODE_ENV=prd
       - DEPLOY=true
@@ -309,7 +309,7 @@ matrix:
     name: www
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env:
     - NODE_ENV=prd
     - DEPLOY=true
@@ -334,7 +334,7 @@ matrix:
     name: resume
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env:
     - NODE_ENV=prd
     - DEPLOY=true
@@ -358,7 +358,7 @@ matrix:
     name: posts
     node_js: 12
     workspaces:
-      use: linux-node@12
+      use: linux-node__12
     env:
     - NODE_ENV=prd
     - DEPLOY=true
