@@ -13,27 +13,7 @@ env:
   - secure: oxfqOoaXj7BuY0mNwqJdvj/3HPShjhKpS5iCAhd02IvrJHXsYVzOf1JEj6fO94VntDNKpep/2fzl+pfIBgsyGCB8JsGVTyszitbJVSZio7kJFgNj9XZr6WajFU2jfSmqV7H7Z1pGcEESTbPdGdLAwL7PJnik8OEWKleP6WDC5IPDN7yVycn6h72vMoX8VDqZPnP0ZuaiW1VaGrHCcg5Fg9Id5TRzHsmz5yE0DYOPL5QO8NI3JAk5Sq+nqCvb0/Ac0pSTJgqfKXDryIws17y18VubKuLAQMhfHXC9k5C2HSR/TWUqvzv6X0+tnxhJmvcmk6O2zF5YhLInJSrRjTOWnHAgYfBOC+8+Zoz7kl/YYKAFnn7LGT5e3L11KFO6Esip84MPJWU95swiQcu014Kf906WYN2kKlW5J5njOwrGqY3pXh9VrZp+7tUH1611F7/HBmXqe874pByDUdUBcnVEnCUdtvAYlJLVeIvmemQDn3oiXcHXrC+454BbDUL5CDlUGIhwibxbxj+Z9wPdHuflXf0ecegFopAjDBSQhJpQ1CxP3BiDSPKiI5J1UmA5HGnxuTF5/EEbDSvWC3VCm0MzN9SlmU74bAaCLDWIU4HKESmzfmX7z12gGpDgpALyjXq+zGTeGSkpMBa1NBWHzqWxn8WsKKMUgqM8FGMDzRNpl90=
   - secure: MGzDAahxhT/3CCiUvJ8dIf4BNL92nQHygim2rtZz7PlpdOrvK3yop08NgeKj5F7tIArVxyBDW8xjqZXO65dX3OJYkfFXjNYsP+z36KcxsWmjLAo6icvHF2UN2gE70iTQHqlv+PAcuND7Kb71auHSAgw8F5c4LO6jKPeLnM4keDb0CiCtoLzmfRzhAdjBgxKjkOKTE5BxuxSGLC0IQObCjx1Rk10TOK3km+unOBLxr2AubR2/mPAqRIOpHjgx/0ZeMLK5jbHgqZC5EZj9yXB+aloVx6IcCR7TPMnTj0ogZ0jKOEX6hZdIxqhT0Eb5M4N3TnTb3WIyzA48S5/Qg/ikKOtCexJrW4tXBaPNy7plBR6H495IAyhN9rAt9LGDjns+5a0Xphr61RLWd3NN5JTc//xjPiBJTYaZxCy/RNaTI0MSuLuopbUCn2TlZIbT8KYte9mQG02UAJ4rWvvoPOiPIrmUU/9QsTfKt9iomdhVeLyHa0sUj0fR85nleIjVPMvsog4V1icUcbMIXhnqZ0eTDPaQ6rvtceC9VMUTd8IzkU16ZkZ5fwfxWLraZoxflyrkR5KrQ6HzNlB8nY8ekwtmtyvvqxq8OYe6m/TuswOFC95wnxhWZDwKbquOObujAwTTEtswNpbHkZ4vQ09EGVSNx5hKU/SUV2dBBoSTQ+NQRLE=
   - secure: jiRIplDwEue0+etKQiAc2o932H2JmIPsJ/peBNJTyFd2uNfbcnuivlo0p//19Inzr9hYsg2inllIDeEevx5iZm3J8uMUFs8YsRZTPcfkTxy2cZrzzb1ZhG4/ItyBxq0EKMdnVaNV5JiyjzOtlKEoHFZzBCjgxNNy9BGIH1iAxymvO+UqfTHtVFspigghsVX286OStdNpTycVzSw86tLt68uUCU2mzdG2pYswbSUwk4McunMLnqFuO2aRswxvWnUu3DHnKZFbeZHpHeDjRA3KQHJczCdHh4nVi4ElZ4JtRSqy3Q25FKxR4A53UcdidZd/fznHIxTidPFjWEH9wZESCT8eA3HTbqZeXlFTbE+X8k3Hay0wIbRsM15Z8ZY8p7Wf0j8t+yGSMVl5hPDGTXCOEyp+uRNIUY3pbeS2agtnIAx6IdphWupmPho4TQT/OzyweqGzPGmuXm95IBEm3eqz4JBOTZfVcxzcBMLcJDyASzwO1isloHrmhUmHej8QgvmW9zz3Z+lRp1RgKxaUkuwjjWkm6egYJ19x1519zEPpWQqrF3s/ivj5grlrdAa7r+bwsJQ3ZcgnOqAfcWq1pUNVyRroVX++Q2eIh1aXb4QRf/JHHPReuMKz4/ObhQygdZkFvWblk0eGJjIBGMqJrw2U8M4j2Txdz3KEi/+5eAWFQJs=
-cache:
-  yarn: true
-  npm: false
-  directories:
-  - ".yarn/cache"
-  - node_modules
-  - packages/browser-logger/node_modules
-  - packages/css/node_modules
-  - packages/job-application/node_modules
-  - packages/js/node_modules
-  - packages/jsonresume-theme/node_modules
-  - packages/jsx/node_modules
-  - packages/lambda-logger/node_modules
-  - packages/letter/node_modules
-  - packages/printables/node_modules
-  - packages/redux-metrics/node_modules
-  - packages/resume/node_modules
-  - packages/serverless/node_modules
-  - packages/service/node_modules
-  - packages/views/node_modules
-  - packages/www/node_modules
+cache: false
 before_install:
 - export TRAVIS_REPO_OWNER=${TRAVIS_REPO_SLUG%/*}
 - export TRAVIS_REPO_NAME=${TRAVIS_REPO_SLUG#*/}
@@ -80,10 +60,48 @@ matrix:
   include:
   - stage: Install (dev)
     node_js: 12
+    cache: &installCache
+      yarn: true
+      npm: false
+      directories:
+        - ".yarn/cache"
+        - node_modules
+        - packages/browser-logger/node_modules
+        - packages/css/node_modules
+        - packages/job-application/node_modules
+        - packages/js/node_modules
+        - packages/jsonresume-theme/node_modules
+        - packages/jsx/node_modules
+        - packages/lambda-logger/node_modules
+        - packages/letter/node_modules
+        - packages/printables/node_modules
+        - packages/redux-metrics/node_modules
+        - packages/resume/node_modules
+        - packages/serverless/node_modules
+        - packages/service/node_modules
+        - packages/views/node_modules
+        - packages/www/node_modules
     workspaces:
       create:
         name: linux-node__12
         paths: &workspacePaths
+        - ".yarn/cache"
+        - node_modules
+        - packages/browser-logger/node_modules
+        - packages/css/node_modules
+        - packages/job-application/node_modules
+        - packages/js/node_modules
+        - packages/jsonresume-theme/node_modules
+        - packages/jsx/node_modules
+        - packages/lambda-logger/node_modules
+        - packages/letter/node_modules
+        - packages/printables/node_modules
+        - packages/redux-metrics/node_modules
+        - packages/resume/node_modules
+        - packages/serverless/node_modules
+        - packages/service/node_modules
+        - packages/views/node_modules
+        - packages/www/node_modules
         - packages/browser-logger/es5
         - packages/browser-logger/esm
         - packages/css/dist
@@ -130,6 +148,7 @@ matrix:
     after_script: skip
   - stage: Install (dev)
     node_js: 10
+    cache: *installCache
     workspaces:
       create:
         name: linux-node__10
@@ -141,6 +160,7 @@ matrix:
     after_script: skip
   - stage: Install (dev)
     node_js: node
+    cache: *installCache
     workspaces:
       create:
         name: linux-node
@@ -152,6 +172,7 @@ matrix:
     after_script: skip
   - stage: Install (dev)
     node_js: lts/*
+    cache: *installCache
     workspaces:
       create:
         name: linux-node__lts
@@ -334,6 +355,7 @@ matrix:
 
   - stage: Install (prd)
     node_js: 12
+    cache: *installCache
     workspaces:
       create:
         name: linux-node__12
