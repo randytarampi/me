@@ -31,7 +31,8 @@
     "rss": "^1.2.2",
     "tumblr.js": "^2.0.2",
     "twitter": "^1.7.1",
-    "unsplash-js": "^6.0.0"
+    "unsplash-js": "^6.0.0",
+    "snyk": "^1.321.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -49,7 +50,6 @@
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "serverless-webpack": "^5.3.1",
     "sinon": "^9.0.2",
-    "snyk": "^1.319.0",
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-node-externals": "^1.7.2",
@@ -84,7 +84,7 @@
     "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.service.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.service.dynamo.pid`; rm /tmp/ca.randytarampi.me.service.dynamo.pid; fi;",
     "poststart": "yarn run kill",
     "posttest": "yarn run kill",
-    "prepare": "yarn run snyk-protect && sls dynamodb install",
+    "prepare": "npm run snyk-protect && yarn run snyk-protect && sls dynamodb install",
     "prepublish": "yarn run snyk-protect",
     "prestart": "yarn run kill",
     "pretest": "gulp -LLLL --color lint",
