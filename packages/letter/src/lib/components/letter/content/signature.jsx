@@ -8,9 +8,12 @@ export const LetterSignature = ({letter, assetUrl, contentConfiguration}) => {
         type={contentConfiguration.contentKey}
         printableType="letter"
     >
-        <p className="letter-signature__content">
-            Hope to hear from you soon,
-        </p>
+        {
+            contentConfiguration.contentProps.valediction
+                ? contentConfiguration.contentProps.valediction
+                : <p className="letter-signature__content">Hope to hear from you soon,</p>
+        }
+
         <img className="signature letter-signature__signature" alt={letter.basics.name}
              src={`${assetUrl}/signature.svg`}/>
     </RightDescriptionSection>;
