@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
+
+
+### Performance Improvements
+
+* **serverless:** Don't explicitly set a `Content-Encoding` on responses. ([15ec08a](https://github.com/randytarampi/me/commit/15ec08af3ded1b091613cce42aab38e55aaf69de))
+
+
+
+
+
 ## [6.2.11](https://github.com/randytarampi/me/compare/v6.2.10...v6.2.11) (2020-05-07)
 
 **Note:** Version bump only for package @randy.tarampi/serverless

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
+
+
+### Bug Fixes
+
+* **jsx:** The `TravisShield` needs to point to the travis.com repo. ([ed2f9b1](https://github.com/randytarampi/me/commit/ed2f9b1fd094213ebb080bcdec50b37482633a00))
+
+
+### Features
+
+* **jsx:** Adjust the `PrintableHeader` block for domestic German address formatting. ([5eaa66a](https://github.com/randytarampi/me/commit/5eaa66a6a84f04df4e66abec95513fabf0fc5972))
+
+
+
+
+
 ## [6.2.11](https://github.com/randytarampi/me/compare/v6.2.10...v6.2.11) (2020-05-07)
 
 **Note:** Version bump only for package @randy.tarampi/jsx

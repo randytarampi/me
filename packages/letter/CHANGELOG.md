@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
+
+
+### Features
+
+* **letter:** Adjust the `PrintableRecipient` block for domestic German address formatting. ([1a2827e](https://github.com/randytarampi/me/commit/1a2827ee4fb773d4a354b32c1adda3acc5fc51b8))
+* **letter:** The `signature` block allows us to override the `valediction`. ([05a5727](https://github.com/randytarampi/me/commit/05a57277b7011da7c476590e416d02e4b534a8b7))
+
+
+
+
+
 ## [6.2.11](https://github.com/randytarampi/me/compare/v6.2.10...v6.2.11) (2020-05-07)
 
 **Note:** Version bump only for package @randy.tarampi/letter

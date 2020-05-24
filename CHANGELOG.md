@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
+
+
+### Bug Fixes
+
+* **css:** `.post .carousel-item`s shouldn't have a `min-height`. ([387dde2](https://github.com/randytarampi/me/commit/387dde21d720b0c066f22a4e95fc7156f7e1008e))
+* **jsx:** The `TravisShield` needs to point to the travis.com repo. ([ed2f9b1](https://github.com/randytarampi/me/commit/ed2f9b1fd094213ebb080bcdec50b37482633a00))
+
+
+### Features
+
+* **jsx:** Adjust the `PrintableHeader` block for domestic German address formatting. ([5eaa66a](https://github.com/randytarampi/me/commit/5eaa66a6a84f04df4e66abec95513fabf0fc5972))
+* **letter:** Adjust the `PrintableRecipient` block for domestic German address formatting. ([1a2827e](https://github.com/randytarampi/me/commit/1a2827ee4fb773d4a354b32c1adda3acc5fc51b8))
+* **letter:** The `signature` block allows us to override the `valediction`. ([05a5727](https://github.com/randytarampi/me/commit/05a57277b7011da7c476590e416d02e4b534a8b7))
+
+
+### Performance Improvements
+
+* **serverless:** Don't explicitly set a `Content-Encoding` on responses. ([15ec08a](https://github.com/randytarampi/me/commit/15ec08af3ded1b091613cce42aab38e55aaf69de))
+
+
+
+
+
 ## [6.2.11](https://github.com/randytarampi/me/compare/v6.2.10...v6.2.11) (2020-05-07)
 
 **Note:** Version bump only for package me
