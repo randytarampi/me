@@ -52,10 +52,10 @@ export const PrintableHeader = ({printable}) => {
                                                         [
                                                             printable.basics.location.address,
                                                             `${printable.basics.location.city} ${printable.basics.location.region}`.trim(),
-                                                            `${printable.basics.location.countryCode} ${printable.basics.location.postalCode}`.trim()
+                                                            printable.basics.location.postalCode
                                                         ]
                                                             .filter(component => !!component)
-                                                            .join(", ")
+                                                            .join(" ")
                                                     }
                                                 </span>
                                             </Col>
