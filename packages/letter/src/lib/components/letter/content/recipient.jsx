@@ -37,9 +37,11 @@ export const PrintableRecipient = ({letter, contentConfiguration}) => {
                     <p className="printable-recipient__street-address">{letter.recipient.address}</p>
                     {letter.recipient.postOfficeBoxNumber ?
                         <p className="printable-recipient__post-office-box-number">{letter.recipient.postOfficeBoxNumber}</p> : null}
-                    <p className="printable-recipient__city-region">{[letter.recipient.city, letter.recipient.region].filter(lineItem => !!lineItem).join(", ")}</p>
-                    {letter.recipient.postalCode ?
-                        <p className="printable-recipient__postal-code">{letter.recipient.postalCode}</p> : null}
+                    <p className="printable-recipient__city-region">
+                        {[letter.recipient.city, letter.recipient.region].filter(lineItem => !!lineItem).join(", ")}
+                        {letter.recipient.postalCode ?
+                            <span className="printable-recipient__postal-code"> {letter.recipient.postalCode}</span> : null}
+                    </p>
                 </Fragment>
                 : null
         }
