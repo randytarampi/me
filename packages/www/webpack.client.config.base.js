@@ -80,13 +80,15 @@ module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
         mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
     ],
     plugins: plugins
-        .concat(new CopyWebpackPlugin(sources.map(source => ({
-            from: source,
-            flatten: true,
-            context: source.match(/^node_modules/)
-                ? "../../"
-                : undefined
-        }))))
+        .concat(new CopyWebpackPlugin({
+            patterns: sources.map(source => ({
+                from: source,
+                flatten: true,
+                context: source.match(/^node_modules/)
+                    ? "../../"
+                    : undefined
+            }))
+        }))
         .concat(views.map(([pageName, pageUrl]) => buildViewForPageUrl(pageName, pageUrl))),
     ...overrides
 });

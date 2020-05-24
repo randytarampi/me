@@ -9,9 +9,9 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "^1.23.0",
+    "luxon": "^1.24.1",
     "react-metrics": "^2.4.1",
-    "snyk": "^1.319.0"
+    "snyk": "^1.327.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

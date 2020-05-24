@@ -36,13 +36,15 @@ module.exports = webpackBaseConfig({
         styles: path.join(__dirname, "./styles/style.scss")
     },
     plugins: [
-        new CopyWebpackPlugin(sources.map(source => ({
-            from: source,
-            flatten: true,
-            context: source.match(/^node_modules/)
-                ? "../../"
-                : undefined
-        }))),
+        new CopyWebpackPlugin({
+            patterns: sources.map(source => ({
+                from: source,
+                flatten: true,
+                context: source.match(/^node_modules/)
+                    ? "../../"
+                    : undefined
+            }))
+        }),
         new HtmlWebpackPlugin({
             filename: "index.html",
             template: path.resolve(require.resolve("@randy.tarampi/views"), "../../templates/index.pug"),

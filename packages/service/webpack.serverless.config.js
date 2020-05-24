@@ -16,9 +16,11 @@ const plugins = [
     new webpack.DefinePlugin({
         "global.GENTLY": false
     }),
-    new CopyWebpackPlugin([
-        ".serverless-secrets.json"
-    ])
+    new CopyWebpackPlugin({
+        patterns: [
+            ".serverless-secrets.json"
+        ]
+    })
 ];
 
 if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
