@@ -29,7 +29,7 @@
     "pad-right": "^0.2.2",
     "query-string": "^6.12.1",
     "rss": "^1.2.2",
-    "snyk": "^1.327.0",
+    "snyk": "^1.334.0",
     "tumblr.js": "^2.0.2",
     "twitter": "^1.7.1",
     "unsplash-js": "^6.0.0"
@@ -84,7 +84,7 @@
     "kill:dynamodb-local": "if [ -f /tmp/ca.randytarampi.me.service.dynamo.pid ]; then echo \"Killing dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.service.dynamo.pid`; rm /tmp/ca.randytarampi.me.service.dynamo.pid; fi;",
     "poststart": "yarn run kill",
     "posttest": "yarn run kill",
-    "prepare": "yarn run snyk-protect && sls dynamodb install",
+    "prepare": "npm run snyk-protect && yarn run snyk-protect && sls dynamodb install",
     "prepublish": "yarn run snyk-protect",
     "prestart": "yarn run kill",
     "pretest": "gulp -LLLL --color lint",
