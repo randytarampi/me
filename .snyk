@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.19.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -1494,6 +1494,10 @@ patch:
         patched: '2020-05-05T19:01:16.867Z'
     - workbox-webpack-plugin > workbox-build > @babel/core > @babel/helpers > @babel/types > lodash:
         patched: '2020-05-05T19:01:16.867Z'
+    - pug > pug-code-gen > with > @babel/types > lodash:
+        patched: '2020-08-02T19:21:49.168Z'
+    - pug > pug-code-gen > with > babel-walk > @babel/types > lodash:
+        patched: '2020-08-02T19:21:49.168Z'
   'npm:debug:20170905':
     - serverless > @serverless/components > @serverless/platform-client-china > @serverless/utils-china > socket.io-stream > debug:
         patched: '2020-05-05T19:01:16.867Z'
