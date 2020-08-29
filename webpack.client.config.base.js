@@ -109,7 +109,7 @@ module.exports = ({
                                         path.join(sourceDirectoryPath, "../../node_modules")
                                     ]
                                 },
-                                prependData: `$asset-url: "${config.get("www.assetUrl")}";\n`
+                                additionalData: `$asset-url: "${config.get("www.assetUrl")}";\n`
                             }
                         }
                     ]
