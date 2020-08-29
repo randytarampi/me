@@ -13,7 +13,7 @@ module.exports = webpackBaseConfig({
     node: false,
     target: "node",
     externals: [nodeExternals({
-        whitelist: [
+        allowlist: [
             /@randy\.tarampi\//,
             webpackNodeExternalsWhitelist
         ]

@@ -69,7 +69,7 @@ module.exports = {
         hints: false
     },
     externals: [nodeExternals({
-        whitelist: [
+        allowlist: [
             "serverless-secrets/client",
             /@randy\.tarampi\/\w+/
         ]
