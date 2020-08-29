@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/randytarampi/me/compare/v6.3.0...v6.3.1) (2020-08-29)
+
+
+### Bug Fixes
+
+* Don't include fonts from `materialize-css` 'cause there are no more fonts to include. ([15e6603](https://github.com/randytarampi/me/commit/15e6603063d527ecdfa708bea885dabcdfc23cb0))
+* **package:** Bump packages for security updates (2020-08-29) ([ed0ea39](https://github.com/randytarampi/me/commit/ed0ea390730cd15ac879f2b1aba6f0acb3d03742)), closes [/github.com/randytarampi/slamscan/pull/131#issuecomment-669014514](https://github.com//github.com/randytarampi/slamscan/pull/131/issues/issuecomment-669014514) [/github.com/randytarampi/lwip/pull/47#issuecomment-669576137](https://github.com//github.com/randytarampi/lwip/pull/47/issues/issuecomment-669576137) [/github.com/randytarampi/lwip/pull/46#issuecomment-669587798](https://github.com//github.com/randytarampi/lwip/pull/46/issues/issuecomment-669587798) [/github.com/randytarampi/pseudolocalize/pull/43#issuecomment-669639431](https://github.com//github.com/randytarampi/pseudolocalize/pull/43/issues/issuecomment-669639431) [/github.com/randytarampi/pseudolocalize/pull/44#issuecomment-669640745](https://github.com//github.com/randytarampi/pseudolocalize/pull/44/issues/issuecomment-669640745) [/github.com/randytarampi/pseudoimage/pull/60#issuecomment-669730376](https://github.com//github.com/randytarampi/pseudoimage/pull/60/issues/issuecomment-669730376) [/github.com/randytarampi/slamscan/pull/132#issuecomment-669738806](https://github.com//github.com/randytarampi/slamscan/pull/132/issues/issuecomment-669738806) [/github.com/randytarampi/slamscan/pull/134#issuecomment-669738983](https://github.com//github.com/randytarampi/slamscan/pull/134/issues/issuecomment-669738983) [/github.com/randytarampi/slamscan/pull/133#issuecomment-669739016](https://github.com//github.com/randytarampi/slamscan/pull/133/issues/issuecomment-669739016) [/github.com/randytarampi/pseudoimage/pull/61#issuecomment-669743569](https://github.com//github.com/randytarampi/pseudoimage/pull/61/issues/issuecomment-669743569) [/github.com/randytarampi/slamscan/pull/135#issuecomment-671014646](https://github.com//github.com/randytarampi/slamscan/pull/135/issues/issuecomment-671014646) [/github.com/randytarampi/pseudolocalize/pull/45#issuecomment-673205158](https://github.com//github.com/randytarampi/pseudolocalize/pull/45/issues/issuecomment-673205158) [/github.com/randytarampi/pseudoimage/pull/62#issuecomment-673288919](https://github.com//github.com/randytarampi/pseudoimage/pull/62/issues/issuecomment-673288919) [/github.com/randytarampi/lwip/pull/48#issuecomment-674452146](https://github.com//github.com/randytarampi/lwip/pull/48/issues/issuecomment-674452146) [/github.com/randytarampi/me/pull/748#issuecomment-674633206](https://github.com//github.com/randytarampi/me/pull/748/issues/issuecomment-674633206)
+
+
+
+
+
 # [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
 
 

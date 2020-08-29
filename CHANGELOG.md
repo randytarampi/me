@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/randytarampi/me/compare/v6.3.0...v6.3.1) (2020-08-29)
+
+
+### Bug Fixes
+
+* `webpack-node-externals` expects an `allowlist`, not a `whitelist`. ([d475acf](https://github.com/randytarampi/me/commit/d475acf580b94557d491f83b2852287bf2c29743))
+* **css:** Just rely on webpack to provide an `$asset-url` at build time. ([efcb4cc](https://github.com/randytarampi/me/commit/efcb4ccc21024196e635806147a3fb47d92bf025))
+* **package:** Bump packages for security updates (2020-08-29) ([ed0ea39](https://github.com/randytarampi/me/commit/ed0ea390730cd15ac879f2b1aba6f0acb3d03742)), closes [/github.com/randytarampi/slamscan/pull/131#issuecomment-669014514](https://github.com//github.com/randytarampi/slamscan/pull/131/issues/issuecomment-669014514) [/github.com/randytarampi/lwip/pull/47#issuecomment-669576137](https://github.com//github.com/randytarampi/lwip/pull/47/issues/issuecomment-669576137) [/github.com/randytarampi/lwip/pull/46#issuecomment-669587798](https://github.com//github.com/randytarampi/lwip/pull/46/issues/issuecomment-669587798) [/github.com/randytarampi/pseudolocalize/pull/43#issuecomment-669639431](https://github.com//github.com/randytarampi/pseudolocalize/pull/43/issues/issuecomment-669639431) [/github.com/randytarampi/pseudolocalize/pull/44#issuecomment-669640745](https://github.com//github.com/randytarampi/pseudolocalize/pull/44/issues/issuecomment-669640745) [/github.com/randytarampi/pseudoimage/pull/60#issuecomment-669730376](https://github.com//github.com/randytarampi/pseudoimage/pull/60/issues/issuecomment-669730376) [/github.com/randytarampi/slamscan/pull/132#issuecomment-669738806](https://github.com//github.com/randytarampi/slamscan/pull/132/issues/issuecomment-669738806) [/github.com/randytarampi/slamscan/pull/134#issuecomment-669738983](https://github.com//github.com/randytarampi/slamscan/pull/134/issues/issuecomment-669738983) [/github.com/randytarampi/slamscan/pull/133#issuecomment-669739016](https://github.com//github.com/randytarampi/slamscan/pull/133/issues/issuecomment-669739016) [/github.com/randytarampi/pseudoimage/pull/61#issuecomment-669743569](https://github.com//github.com/randytarampi/pseudoimage/pull/61/issues/issuecomment-669743569) [/github.com/randytarampi/slamscan/pull/135#issuecomment-671014646](https://github.com//github.com/randytarampi/slamscan/pull/135/issues/issuecomment-671014646) [/github.com/randytarampi/pseudolocalize/pull/45#issuecomment-673205158](https://github.com//github.com/randytarampi/pseudolocalize/pull/45/issues/issuecomment-673205158) [/github.com/randytarampi/pseudoimage/pull/62#issuecomment-673288919](https://github.com//github.com/randytarampi/pseudoimage/pull/62/issues/issuecomment-673288919) [/github.com/randytarampi/lwip/pull/48#issuecomment-674452146](https://github.com//github.com/randytarampi/lwip/pull/48/issues/issuecomment-674452146) [/github.com/randytarampi/me/pull/748#issuecomment-674633206](https://github.com//github.com/randytarampi/me/pull/748/issues/issuecomment-674633206)
+* **package:** Use latlon-geohash^1.1.0 since [@2](https://github.com/2) uses ESM and I don't want to compile those to ES5. ([c387d59](https://github.com/randytarampi/me/commit/c387d59d5ef31338a3ce5cd9fca7679f9e45e727))
+* **views:** Fall back assets use the correct font-awesome version. ([dc27aba](https://github.com/randytarampi/me/commit/dc27aba8470f5ad4d6ccb74d151b99efaae71225))
+* `sass-loader^9` expects to see `additionalData`, not `prependData`. ([77c46d4](https://github.com/randytarampi/me/commit/77c46d42203b4ca79ba88835b40d617885d7789a))
+* Don't include fonts from `materialize-css` 'cause there are no more fonts to include. ([15e6603](https://github.com/randytarampi/me/commit/15e6603063d527ecdfa708bea885dabcdfc23cb0))
+* package.json & .snyk to reduce vulnerabilities ([5d73cde](https://github.com/randytarampi/me/commit/5d73cde1f1b09cc1376170d025ac79244ea5fef7))
+
+
+
+
+
 # [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
 
 

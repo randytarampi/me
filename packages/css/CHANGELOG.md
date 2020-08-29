@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/randytarampi/me/compare/v6.3.0...v6.3.1) (2020-08-29)
+
+
+### Bug Fixes
+
+* **css:** Just rely on webpack to provide an `$asset-url` at build time. ([efcb4cc](https://github.com/randytarampi/me/commit/efcb4ccc21024196e635806147a3fb47d92bf025))
+* Don't include fonts from `materialize-css` 'cause there are no more fonts to include. ([15e6603](https://github.com/randytarampi/me/commit/15e6603063d527ecdfa708bea885dabcdfc23cb0))
+
+
+
+
+
 # [6.3.0](https://github.com/randytarampi/me/compare/v6.2.11...v6.3.0) (2020-05-24)
 
 
