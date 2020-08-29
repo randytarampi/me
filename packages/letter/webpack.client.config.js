@@ -12,7 +12,6 @@ const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const sources = [
     "*.md",
-    path.resolve(require.resolve("materialize-css"), "../../fonts/roboto/*"),
     path.resolve(require.resolve("@fortawesome/fontawesome-free"), "../../webfonts/*")
 ];
 if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web", process.env.NODE_ENV, "*"))) {

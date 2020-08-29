@@ -17,7 +17,6 @@ gulp.task("copy", () => {
     const path = require("path");
     return gulp
         .src([
-            path.resolve(require.resolve("materialize-css"), "../../fonts/roboto/*"),
             path.resolve(require.resolve("@fortawesome/fontawesome-free"), "../../webfonts/*")
         ])
         .pipe(gulp.dest("./dist"));
