@@ -10,10 +10,6 @@ $blockLineHeight: 1.5;
 $link-color: #ec7500;
 $primary-color: $link-color;
 
-$asset-url: "" !default;
-$roboto-font-path: "#{$asset-url}/";
-$fa-font-path: $asset-url;
-
 @import "materialize-css/sass/components/variables";
 
 $tabs-bg-color: $blockColour;
