@@ -102,6 +102,7 @@ module.exports = ({
                         {
                             loader: "sass-loader",
                             options: {
+                                sourceMap: true,
                                 sassOptions: {
                                     includePaths: [
                                         path.join(sourceDirectoryPath, "node_modules"),
