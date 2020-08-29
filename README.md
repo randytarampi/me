@@ -7,8 +7,16 @@ _  / / / / /  __/_/_ __|
 
 ```
 
-[![Is www.randytarampi.ca up?](https://img.shields.io/website-up-down-green-red/https/www.randytarampi.ca.svg?label=www.randytarampi.ca&style=flat-square)](https://www.randytarampi.ca) [![30 day uptime](https://img.shields.io/uptimerobot/ratio/m780949566-9b1b7cc0bdd3be425a9e6ac8.svg?style=flat-square)](https://uptime.randytarampi.ca) [![Build status](https://img.shields.io/travis/com/randytarampi/me.svg?style=flat-square)](https://travis-ci.com/randytarampi/me) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frandytarampi%2Fme.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frandytarampi%2Fme?ref=badge_shield)
- [![Coverage status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master) [![Maintainability status](https://img.shields.io/codeclimate/maintainability-percentage/randytarampi/me.svg?style=flat-square)](https://codeclimate.com/github/randytarampi/me/maintainability)  [![Maintained with Lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lernajs.io/) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/randytarampi/me.svg?style=flat-square) ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/randytarampi/me.svg?style=flat-square) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
+[![Is www.randytarampi.ca up?](https://img.shields.io/website-up-down-green-red/https/www.randytarampi.ca.svg?label=www.randytarampi.ca&style=flat-square)](https://www.randytarampi.ca)
+[![30 day uptime](https://img.shields.io/uptimerobot/ratio/m780949566-9b1b7cc0bdd3be425a9e6ac8.svg?style=flat-square)](https://uptime.randytarampi.ca)
+[![Build status](https://img.shields.io/travis/com/randytarampi/me.svg?style=flat-square)](https://travis-ci.com/randytarampi/me)
+[![Coverage status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master)
+[![Maintainability status](https://img.shields.io/codeclimate/maintainability-percentage/randytarampi/me.svg?style=flat-square)](https://codeclimate.com/github/randytarampi/me/maintainability)
+[![Maintained with Lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lernajs.io/)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/randytarampi/me.svg?style=flat-square)
+![GitHub repo size in bytes](https://img.shields.io/github/repo-size/randytarampi/me.svg?style=flat-square)
+[![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frandytarampi%2Fme.svg)](https://app.fossa.com/projects/git%2Bgithub.com%2Frandytarampi%2Fme?ref=badge_shield)
 
 A monorepo for everything that goes into [www.randytarampi.ca](https://www.randytarampi.ca).
 
