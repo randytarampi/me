@@ -400,7 +400,9 @@ matrix:
     env:
     - NODE_ENV=prd
     - DEPLOY=true
-    install: yarn lerna run docs --scope jsonresume-theme-randytarampi;
+    install:
+    - yarn lerna run resume --scope jsonresume-theme-randytarampi;
+    - yarn lerna run docs --scope jsonresume-theme-randytarampi;
     before_script: skip
     script: skip
     after_script: skip
