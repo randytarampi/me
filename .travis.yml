@@ -135,8 +135,8 @@ matrix:
         - packages/views/dist
         - packages/views/es5
         - packages/views/esm
-        - packages/views/dist
-        - packages/views/docs
+        - packages/www/dist
+        - packages/www/docs
     env:
       - NODE_ENV=dev
     install:
