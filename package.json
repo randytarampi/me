@@ -48,7 +48,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^2.6.5",
-    "history": "^5.0.0",
+    "history": "^4.10.1",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.3.0",
     "js-yaml": "^3.14.0",

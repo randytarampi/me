@@ -21,7 +21,7 @@
     "@randy.tarampi/views": "^6.3.1",
     "@types/react": "^16.9.48",
     "exiftool-vendored": "^12.1.0",
-    "history": "^5.0.0",
+    "history": "^4.10.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "isomorphic-fetch": "^2.2.1",
     "luxon": "^1.25.0",

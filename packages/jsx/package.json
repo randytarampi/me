@@ -25,7 +25,7 @@
     "@types/react": "^16.9.48",
     "classnames": "^2.2.6",
     "connected-react-router": "github:randytarampi/connected-react-router#me-release",
-    "history": "^5.0.0",
+    "history": "^4.10.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "is-html": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",

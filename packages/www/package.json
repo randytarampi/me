@@ -21,7 +21,7 @@
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "^6.3.1",
     "@types/react": "^16.9.48",
-    "history": "^5.0.0",
+    "history": "^4.10.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "lodash": "^4.17.20",
     "materialize-css": "^1.0.0",
