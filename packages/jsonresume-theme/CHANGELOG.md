@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.3](https://github.com/randytarampi/me/compare/v6.3.2...v6.3.3) (2020-08-31)
+
+
+### Bug Fixes
+
+* **resume:** Make it clear that I'm off the market. ([33b180a](https://github.com/randytarampi/me/commit/33b180aa61f74085fad6177575f4be644dad97df))
+
+
+
+
+
 ## [6.3.2](https://github.com/randytarampi/me/compare/v6.3.1...v6.3.2) (2020-08-30)
 
 **Note:** Version bump only for package jsonresume-theme-randytarampi

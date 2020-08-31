@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/resume",
   "description": "A JSON resume theme and resume generator for www.randytarampi.ca",
-  "version": "6.3.2",
+  "version": "6.3.3",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
