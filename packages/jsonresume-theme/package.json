@@ -1,7 +1,7 @@
 {
   "name": "jsonresume-theme-randytarampi",
   "description": "A JSON resume theme for www.randytarampi.ca",
-  "version": "6.3.3",
+  "version": "6.3.4",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",
@@ -10,8 +10,8 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
-    "@randy.tarampi/resume": "^6.3.3",
-    "@randy.tarampi/views": "^6.3.1",
+    "@randy.tarampi/resume": "^6.3.4",
+    "@randy.tarampi/views": "^6.3.4",
     "config": "^3.3.1",
     "resume-cli": "randytarampi/resume-cli#me-release",
     "snyk": "^1.399.1"
