@@ -84,9 +84,6 @@ provider:
     TWITTER_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TWITTER_API_SECRET}
     SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
 
-package:
-  individually: true
-
 plugins:
 - serverless-secrets
 - serverless-webpack
