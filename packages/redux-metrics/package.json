@@ -11,7 +11,7 @@
   "dependencies": {
     "luxon": "^1.25.0",
     "react-metrics": "^2.4.1",
-    "snyk": "^1.386.0"
+    "snyk": "^1.399.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

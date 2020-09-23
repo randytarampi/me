@@ -15,12 +15,12 @@
     "haversine": "^1.1.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "latlon-geohash": "^1.1.0",
-    "libphonenumber-js": "^1.7.57",
+    "libphonenumber-js": "^1.8.1",
     "lodash": "^4.17.20",
     "luxon": "^1.25.0",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
-    "query-string": "^6.13.1",
-    "snyk": "^1.386.0"
+    "query-string": "^6.13.2",
+    "snyk": "^1.399.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
