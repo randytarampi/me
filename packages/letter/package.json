@@ -23,7 +23,7 @@
     "exiftool-vendored": "^12.1.0",
     "history": "^4.10.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "luxon": "^1.25.0",
     "materialize-css": "^1.0.0",
     "prop-types": "^15.7.2",
