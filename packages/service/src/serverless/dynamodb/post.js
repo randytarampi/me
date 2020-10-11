@@ -9,5 +9,5 @@ module.exports.default = serverless => serverless.variables.tracker.promiseMap["
 
     const postModel = getPostModel(tableName);
 
-    return postModel.dynamooseModel.getTableReq();
+    return postModel.dynamooseModel.table.create.request();
 });

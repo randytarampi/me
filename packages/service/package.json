@@ -15,7 +15,7 @@
     "aws-sdk": "^2.797.0",
     "big.js": "^6.0.2",
     "config": "^3.3.2",
-    "dynamoose": "^1.11.1",
+    "dynamoose": "^2.4.1",
     "flickr-sdk": "^3.9.0",
     "form-data": "^3.0.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
