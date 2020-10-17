@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.5](https://github.com/randytarampi/me/compare/v6.3.4...v6.3.5) (2020-10-17)
+
+
+### Bug Fixes
+
+* **service:** Prefer isomorphic-fetch^2.2.1. ([d8f1f70](https://github.com/randytarampi/me/commit/d8f1f70b7c2b01734a6459d4caffba53bc1eed19)), closes [/github.com/lquixada/cross-fetch/issues/15#issuecomment-388143640](https://github.com//github.com/lquixada/cross-fetch/issues/15/issues/issuecomment-388143640)
+
+
+
+
+
 ## [6.3.4](https://github.com/randytarampi/me/compare/v6.3.3...v6.3.4) (2020-09-23)
 
 
