@@ -1,5 +1,4 @@
 import {Gallery, Photo, SizedPhoto} from "@randy.tarampi/js";
-import Instagram from "instagram-api";
 import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import {DateTime} from "luxon";
@@ -7,6 +6,7 @@ import {AuthInfo} from "../../authInfo";
 import CachedDataSource from "../../cachedDataSource";
 import {filterPostForOrderingConditionsInSearchParams} from "../util";
 import {InstagramAuthInfo} from "./authInfo";
+import Instagram from "./service";
 import {type} from "./util";
 
 export class InstagramSource extends CachedDataSource {
@@ -33,11 +33,11 @@ export class InstagramSource extends CachedDataSource {
         const {_ig: igJson} = postJson;
 
         if (igJson) {
-            switch (igJson.type) {
-                case "carousel":
+            switch (igJson.media_type) {
+                case "CAROUSEL_ALBUM":
                     return InstagramSource._jsonToGallery(postJson);
 
-                case "image":
+                case "IMAGE":
                     return InstagramSource._jsonToPhoto(postJson);
             }
         }
@@ -192,7 +192,7 @@ export class InstagramSource extends CachedDataSource {
             posts = posts.concat(await this.allRecordsGetter(
                 searchParams
                     .set("all", true)
-                    .set("beforeId", lastPost.id)
+                    .set("afterId", lastPost.id)
             ));
         }
 
@@ -200,7 +200,7 @@ export class InstagramSource extends CachedDataSource {
     }
 
     _highResolutionPhotoGetter(igJson) {
-        return fetch(`${igJson.link}?__a=1`)
+        return fetch(`${igJson.permalink}?__a=1`)
             .then(body => body.json())
             .then(graphJson => {
                 return {

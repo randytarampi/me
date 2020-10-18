@@ -301,29 +301,25 @@ describe("PostSearchParams", function () {
         it("should properly format properties for query", function () {
             const searchParams = PostSearchParams.fromJS();
 
-            expect(searchParams.Instagram).to.eql({
-                page: searchParams.page,
-                count: searchParams.perPage
+            expect(searchParams.Instagram).to.include({
+                limit: searchParams.perPage
             });
         });
 
         it("should properly format properties for query containing `beforeId`", function () {
             const searchParams = PostSearchParams.fromJS({beforeId: "woof"});
 
-            expect(searchParams.Instagram).to.eql({
-                page: searchParams.page,
-                count: searchParams.perPage,
-                max_id: "woof"
+            expect(searchParams.Instagram).to.include({
+                limit: searchParams.perPage,
             });
         });
 
         it("should properly format properties for query containing `afterId`", function () {
             const searchParams = PostSearchParams.fromJS({afterId: "woof"});
 
-            expect(searchParams.Instagram).to.eql({
-                page: searchParams.page,
-                count: searchParams.perPage,
-                min_id: "woof"
+            expect(searchParams.Instagram).to.include({
+                limit: searchParams.perPage,
+                after: "woof"
             });
         });
     });
