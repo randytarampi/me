@@ -8,7 +8,7 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "materialize-css": "^1.0.0"
   },
   "devDependencies": {
