@@ -67,5 +67,5 @@
     "snyk-protect": "snyk protect"
   },
   "sideEffects": false,
-  "snyk": true
+  "snyk": false
 }

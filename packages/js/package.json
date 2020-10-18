@@ -78,5 +78,5 @@
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,
-  "snyk": true
+  "snyk": false
 }

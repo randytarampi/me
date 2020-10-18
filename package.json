@@ -124,5 +124,5 @@
   "workspaces": [
     "packages/*"
   ],
-  "snyk": true
+  "snyk": false
 }

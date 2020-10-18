@@ -99,5 +99,5 @@
     "test": "yarn run pretest:dynamodb-local && yarn run test:actual",
     "test:actual": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "snyk": true
+  "snyk": false
 }

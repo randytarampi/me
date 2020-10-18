@@ -97,5 +97,5 @@
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\";",
     "test": "cross-env-shell NODE_ENV=test yarn run resume"
   },
-  "snyk": true
+  "snyk": false
 }
