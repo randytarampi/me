@@ -16,7 +16,9 @@ provider:
   memorySize: 256
   timeout: 30
 
-  tracing: true
+  tracing:
+    apiGateway: true
+    lambda: true
 
   apiKeys:
   - ${self:provider.stage}-${self:service}-user
