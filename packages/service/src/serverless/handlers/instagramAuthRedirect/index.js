@@ -9,7 +9,7 @@ export default (event, context, callback) => {
     configureEnvironment()
         .then(() => {
             callback(null, responseBuilder(null, 302, {
-                Location: `https://api.instagram.com/oauth/authorize/?client_id=${process.env.INSTAGRAM_API_KEY}&redirect_uri=${encodeURIComponent(process.env.INSTAGRAM_AUTH_CALLBACK_URI)}&response_type=code&scope=basic`
+                Location: `https://api.instagram.com/oauth/authorize/?client_id=${process.env.INSTAGRAM_API_KEY}&redirect_uri=${encodeURIComponent(process.env.INSTAGRAM_AUTH_CALLBACK_URI)}&response_type=code&scope=user_profile,user_media`
             }));
         })
         .catch(returnErrorResponse(event, context, callback));

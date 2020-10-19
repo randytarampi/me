@@ -120,18 +120,25 @@ class PostSearchParams extends PostSearchParamsRecord {
 
     get Instagram() {
         const baseRequest = {
-            page: this.page,
-            count: this.perPage
+            after: (this.page - 1) * this.perPage,
+            limit: this.perPage,
+            fields: [
+                "caption",
+                "children",
+                "id",
+                "media_type",
+                "media_url",
+                "permalink",
+                "thumbnail_url",
+                "timestamp",
+                "username",
+            ]
         };
 
         const filterRequest = {};
 
-        if (this.beforeId) {
-            filterRequest.max_id = this.beforeId;
-        }
-
         if (this.afterId) {
-            filterRequest.min_id = this.afterId;
+            filterRequest.after = this.afterId;
         }
 
         return {

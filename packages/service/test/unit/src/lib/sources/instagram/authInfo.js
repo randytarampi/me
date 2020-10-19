@@ -4,7 +4,7 @@ import sinon from "sinon";
 import {AuthInfo} from "../../../../../../src/lib/authInfo";
 import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams";
 import CacheClient from "../../../../../../src/lib/cacheClient";
-import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
+import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram";
 import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 

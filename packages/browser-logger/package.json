@@ -10,11 +10,11 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^6.3.4",
-    "browser-bunyan": "^1.5.3",
+    "browser-bunyan": "^1.6.3",
     "bunyan": "^2.0.2",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
     "raven-js": "^3.27.2",
-    "snyk": "^1.399.1"
+    "snyk": "^1.415.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -22,7 +22,7 @@
     "gulp": "^4.0.2",
     "jsdom": "^16.4.0",
     "mocha-junit-reporter": "^2.0.0",
-    "sinon": "^9.0.3"
+    "sinon": "^9.2.0"
   },
   "directories": {
     "lib": "./src/lib",
@@ -67,5 +67,5 @@
     "snyk-protect": "snyk protect"
   },
   "sideEffects": false,
-  "snyk": true
+  "snyk": false
 }

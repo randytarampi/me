@@ -9,8 +9,8 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@babel/polyfill": "^7.11.5",
-    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@babel/polyfill": "^7.12.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@randy.tarampi/assets": "^6.2.2",
     "@randy.tarampi/browser-logger": "^6.3.4",
     "@randy.tarampi/css": "^6.3.1",
@@ -20,14 +20,14 @@
     "@randy.tarampi/resume": "^6.3.4",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "^6.3.4",
-    "@types/react": "^16.9.49",
+    "@types/react": "^16.9.53",
     "history": "^4.10.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "lodash": "^4.17.20",
     "materialize-css": "^1.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
     "react-hot-loader": "^4.13.0",
     "react-materialize": "^3.9.3",
@@ -38,17 +38,17 @@
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.399.1"
+    "snyk": "^1.415.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-enzyme": "^1.0.0-beta.1",
     "cheerio": "^1.0.0-rc.3",
-    "config": "^3.3.1",
-    "copy-webpack-plugin": "^6.1.1",
+    "config": "^3.3.2",
+    "copy-webpack-plugin": "^6.2.1",
     "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.4",
+    "enzyme-adapter-react-16": "^1.15.5",
     "gulp": "^4.0.2",
     "html-webpack-plugin": "^4.5.0",
     "jsdom": "^16.4.0",
@@ -58,7 +58,7 @@
     "mock-local-storage": "^1.1.15",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "redux-mock-store": "^1.5.4",
-    "sinon": "^9.0.3",
+    "sinon": "^9.2.0",
     "terser-webpack-plugin": "^4.2.2",
     "webpack": "^4.44.2",
     "webpack-bundle-analyzer": "^3.9.0",
@@ -94,5 +94,5 @@
     "start": "yarn run dev",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "snyk": true
+  "snyk": false
 }

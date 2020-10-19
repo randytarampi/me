@@ -3,9 +3,10 @@ import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo";
 import CacheClient from "../../cacheClient";
 import CachedDataSource from "../../cachedDataSource";
 import {OAuth2Client} from "../oAuth2Client";
+import {baseUrl} from "./service";
 import {type} from "./util";
 
-export const INSTAGRAM_TOKEN_URL = "https://api.instagram.com/oauth/access_token";
+export const INSTAGRAM_TOKEN_URL = `${baseUrl}/oauth/authorize`;
 
 export class InstagramAuthInfo extends CachedDataSource {
     constructor(dataClient, cacheClient) {

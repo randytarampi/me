@@ -4,7 +4,7 @@ import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
-import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/authInfo";
+import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 
 describe("InstagramSource", function () {
@@ -52,7 +52,7 @@ describe("InstagramSource", function () {
         };
         instagramPhoto = {
             id: stubPost.id,
-            type: "image",
+            media_type: "IMAGE",
             created_time: DateTime.utc().toISO(),
             user: instagramUser,
             images: {
@@ -72,7 +72,7 @@ describe("InstagramSource", function () {
         instagramPhotos = stubPosts.map(stubPost => Object.assign({}, instagramPhoto, {id: stubPost.id}));
         delete instagramPhotos[0].location;
         delete instagramPhotos[1].caption;
-        instagramPhotos[2].type = "carousel";
+        instagramPhotos[2].media_type = "CAROUSEL_ALBUM";
         stubServiceClient = {
             media: sinon.stub().callsFake(postId => {
                 return Promise.resolve({
@@ -82,7 +82,7 @@ describe("InstagramSource", function () {
             userSelfMedia: sinon.stub().callsFake(params => { // eslint-disable-line no-unused-vars
                 let posts = instagramPhotos.concat({id: "foo", type: "foo"});
 
-                if (params.count === 42) { // NOTE-RT: 42 is a sentinel value for an empty array
+                if (params.limit === 42) { // NOTE-RT: 42 is a sentinel value for an empty array
                     posts = [];
                 }
 
@@ -278,7 +278,7 @@ describe("InstagramSource", function () {
                         }
                     });
                     sinon.assert.calledOnce(stubServiceClient.userSelfMedia);
-                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
+                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({limit: stubParams.perPage}));
                 });
         });
 
@@ -291,7 +291,7 @@ describe("InstagramSource", function () {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
                     sinon.assert.calledOnce(stubServiceClient.userSelfMedia);
-                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
+                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({limit: stubParams.perPage}));
                 });
         });
     });
@@ -318,7 +318,7 @@ describe("InstagramSource", function () {
                         }
                     });
                     sinon.assert.calledTwice(stubServiceClient.userSelfMedia);
-                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({count: stubParams.perPage}));
+                    sinon.assert.calledWith(stubServiceClient.userSelfMedia, sinon.match({limit: stubParams.perPage}));
                 });
         });
     });

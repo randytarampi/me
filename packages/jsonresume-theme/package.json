@@ -9,12 +9,12 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@babel/polyfill": "^7.11.5",
+    "@babel/polyfill": "^7.12.1",
     "@randy.tarampi/resume": "^6.3.4",
     "@randy.tarampi/views": "^6.3.4",
-    "config": "^3.3.1",
+    "config": "^3.3.2",
     "resume-cli": "randytarampi/resume-cli#me-release",
-    "snyk": "^1.399.1"
+    "snyk": "^1.415.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
@@ -97,5 +97,5 @@
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\";",
     "test": "cross-env-shell NODE_ENV=test yarn run resume"
   },
-  "snyk": true
+  "snyk": false
 }

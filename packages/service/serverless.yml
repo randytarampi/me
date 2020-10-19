@@ -16,7 +16,9 @@ provider:
   memorySize: 256
   timeout: 30
 
-  tracing: true
+  tracing:
+    apiGateway: true
+    lambda: true
 
   apiKeys:
   - ${self:provider.stage}-${self:service}-user
@@ -120,7 +122,8 @@ custom:
       prd: "alias/serverless-prd"
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
-    port: ${file(src/serverless/util/loadConfig.js):default.posts.serverPort}
+    httpPort: ${file(src/serverless/util/loadConfig.js):default.posts.serverPort}
+    noPrependStageInUrl: true
   customDomain:
     domainName: ${file(env.yml):${self:provider.stage}.domainName}
     certificateName: ${file(env.yml):${self:provider.stage}.acmName}
