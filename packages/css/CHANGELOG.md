@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/randytarampi/me/compare/v6.3.5...v7.0.0) (2020-10-19)
+
+**Note:** Version bump only for package @randy.tarampi/css
+
+
+
+
+
 ## [6.3.1](https://github.com/randytarampi/me/compare/v6.3.0...v6.3.1) (2020-08-29)
 
 

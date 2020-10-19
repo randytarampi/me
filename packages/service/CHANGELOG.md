@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/randytarampi/me/compare/v6.3.5...v7.0.0) (2020-10-19)
+
+
+### Bug Fixes
+
+* **service:** Fix settings for serverless-offline^6 ([c358458](https://github.com/randytarampi/me/commit/c358458f7a96aa1537c78667054f8eff635a22ab))
+* **service:** Migrate to the Instagram Graph API. ([fadd5ad](https://github.com/randytarampi/me/commit/fadd5ade60c82d52909f71fa77cde2fcb91ac4b3))
+
+
+### BREAKING CHANGES
+
+* **service:** I mean, technically, since we've had to create new API keys with a new service, read at https://developers.facebook.com/docs/instagram-basic-display-api. But it was broken since IG turned off the old API at the end of June so 🤷‍♂️
+
+Just blindly switch to https://www.npmjs.com/package/instagram-graph-sdk, which I'll probably pitch in on to actually add the individual media call (instead of nakedly using `fetch` to do it myself).
+
+We'll test this in `dev` in the morning 'cause the redirect doesn't work with non `https` callback URIs...
+
+
+
+
+
 ## [6.3.5](https://github.com/randytarampi/me/compare/v6.3.4...v6.3.5) (2020-10-17)
 
 
