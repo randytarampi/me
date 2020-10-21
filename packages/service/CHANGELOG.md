@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/randytarampi/me/compare/v7.0.0...v7.0.1) (2020-10-21)
+
+
+### Bug Fixes
+
+* **service:** The instagram OAuth2 endpoint only returns `user_id` not a `user`. ([b0283f5](https://github.com/randytarampi/me/commit/b0283f56c5651c4779543779a6be196c07d97c7b))
+
+
+
+
+
 # [7.0.0](https://github.com/randytarampi/me/compare/v6.3.5...v7.0.0) (2020-10-19)
 
 
