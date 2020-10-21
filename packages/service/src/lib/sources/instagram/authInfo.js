@@ -21,14 +21,14 @@ export class InstagramAuthInfo extends CachedDataSource {
     }
 
     static instanceToRecord(tokenJson) {
-        const {access_token, user, ...restOfTokenJson} = tokenJson;
+        const {access_token, user_id, ...restOfTokenJson} = tokenJson;
 
         return new AuthInfo({
             ...restOfTokenJson,
             type: AUTH_INFO_TYPE.oAuth2,
             token: access_token,
             source: InstagramAuthInfo.type,
-            id: user.id,
+            id: user_id,
             raw: tokenJson
         });
     }
