@@ -50,7 +50,7 @@
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "serverless-webpack": "^5.3.5",
     "sinon": "^9.2.0",
-    "webpack": "^4.44.2",
+    "webpack": "^5.1.1",
     "webpack-bundle-analyzer": "^3.9.0",
     "webpack-node-externals": "^2.5.2",
     "webpack-sentry-plugin": "^2.0.3"
