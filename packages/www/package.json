@@ -60,7 +60,7 @@
     "redux-mock-store": "^1.5.4",
     "sinon": "^9.2.0",
     "terser-webpack-plugin": "^4.2.2",
-    "webpack": "^4.44.2",
+    "webpack": "^5.1.1",
     "webpack-bundle-analyzer": "^3.9.0",
     "workbox-webpack-plugin": "^5.1.4"
   },
