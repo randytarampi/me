@@ -54,7 +54,6 @@ stages:
 matrix:
   fast_finish: true
   allow_failures:
-  - node_js: 10
   - node_js: node
   - node_js: lts/*
   include:
@@ -159,6 +158,18 @@ matrix:
     script: skip
     after_script: skip
   - stage: Install (dev)
+    node_js: 14
+    cache: *installCache
+    workspaces:
+      create:
+        name: linux-node__14
+        paths: *workspacePaths
+    env:
+      - NODE_ENV=dev
+    before_script: skip
+    script: skip
+    after_script: skip
+  - stage: Install (dev)
     node_js: node
     cache: *installCache
     workspaces:
@@ -215,6 +226,15 @@ matrix:
     node_js: 10
     workspaces:
       use: linux-node__10
+    env: *1
+    install: skip
+    before_script: *2
+    script: *3
+    after_script: *4
+  - stage: Test
+    node_js: 14
+    workspaces:
+      use: linux-node__14
     env: *1
     install: skip
     before_script: *2
