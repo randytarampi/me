@@ -3,8 +3,7 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const fs = require("fs");
 const config = require("config");
-const serve = require("koa-static");
-const mount = require("koa-mount");
+const express = require("express");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const {buildPugLocals} = require("@randy.tarampi/views");
@@ -27,8 +26,8 @@ if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.t
 module.exports = webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
-    webpackServeMiddleware: [
-        mount("/api/resume", serve("./src/resumes"))
+    webpackDevServerMiddleware: [
+        (app) => app.use("/api/resume", express.static("./src/resumes")),
     ],
     entry: {
         resume: ["raf/polyfill", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],

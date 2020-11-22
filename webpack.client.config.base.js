@@ -48,7 +48,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
 module.exports = ({
                       sourceDirectoryPath,
                       compliationDirectoryPath,
-                      webpackServeMiddleware,
+                      webpackDevServerMiddleware,
                       rules: otherRules = [],
                       plugins: otherPlugins = [],
                       publicPath = "/",
@@ -94,8 +94,10 @@ module.exports = ({
                         {
                             loader: "postcss-loader",
                             options: {
-                                ident: "postcss",
-                                plugins: () => [PostCssPresetEnv()]
+                                postcssOptions: {
+                                    ident: "postcss",
+                                    plugins: [PostCssPresetEnv()]
+                                }
                             }
                         },
                         "resolve-url-loader",
@@ -126,72 +128,20 @@ module.exports = ({
             ]
         },
         plugins: otherPlugins.concat(plugins),
-        serve: {
-            clipboard: false,
-            content: compliationDirectoryPath,
-            host: "localhost",
+        devServer: {
+            before: (app, server, compiler) => {
+                if (webpackDevServerMiddleware) {
+                    webpackDevServerMiddleware.forEach(middleware => middleware(app, server, compiler));
+                }
+            },
+            bonjour: true,
+            clientLogLevel: "trace",
+            compress: true,
+            contentBase: compliationDirectoryPath,
+            overlay: true,
             port: 8080,
-            hotClient: {
-                host: "localhost",
-                port: 8090,
-                allEntries: true,
-                logLevel: "trace",
-                logTime: true
-            },
-            devMiddleware: {
-                publicPath,
-                logLevel: "trace",
-                logTime: true
-            },
-            on: {
-                listening: ({server}) => {
-                    const chokidar = require("chokidar");
-                    const stringify = require("json-stringify-safe");
-                    const webSocket = require("ws");
-
-                    const socket = new webSocket("ws://localhost:8090");
-                    const watcher = chokidar.watch(sourceDirectoryPath, {
-                        ignored: /\/\.dynamodb|\.idea|\.nyc_output|\.serverless|\.webpack|coverage|dist|docs|es5|esm|node_modules\//
-                    });
-
-                    watcher.on("change", () => {
-                        const data = {
-                            type: "broadcast",
-                            data: {
-                                type: "window-reload",
-                                data: {}
-                            }
-                        };
-
-                        socket.send(stringify(data));
-                    });
-
-                    server.on("close", () => {
-                        watcher.close();
-                    });
-                }
-            },
-            add: (app, middleware) => {
-                const history = require("connect-history-api-fallback");
-                const compress = require("koa-compress");
-                const convert = require("koa-connect");
-
-                app.use(compress());
-                app.use(convert(history({
-                    verbose: true
-                })));
-
-                if (webpackServeMiddleware) {
-                    webpackServeMiddleware.forEach(middleware => {
-                        app.use(middleware);
-                    });
-                }
-
-                middleware.webpack();
-                middleware.content();
-            },
-            logLevel: "trace",
-            logTime: true
+            publicPath,
+            stats: "normal"
         },
         optimization: {
             splitChunks: {
