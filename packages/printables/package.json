@@ -11,13 +11,13 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "^7.0.0",
-    "exiftool-vendored": "^12.2.0",
+    "exiftool-vendored": "^12.3.1",
     "pug": "^3.0.0",
-    "puppeteer": "^5.3.1",
+    "puppeteer": "^5.5.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
-    "snyk": "^1.415.0"
+    "snyk": "^1.430.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -29,14 +29,14 @@
     "gulp": "^4.0.2",
     "jsdom": "^16.4.0",
     "mocha-junit-reporter": "^2.0.0",
-    "sinon": "^9.2.0"
+    "sinon": "^9.2.1"
   },
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "es5",

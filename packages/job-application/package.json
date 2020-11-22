@@ -19,7 +19,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-materialize": "^3.9.3",
-    "snyk": "^1.415.0"
+    "snyk": "^1.430.0"
   },
   "devDependencies": {
     "bluebird": "^3.7.2",
@@ -34,13 +34,13 @@
     "gulp": "^4.0.2",
     "jsdom": "^16.4.0",
     "mocha-junit-reporter": "^2.0.0",
-    "yargs": "^16.1.0"
+    "yargs": "^16.1.1"
   },
   "directories": {
     "lib": "./src/lib"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "homepage": "https://www.randytarampi.ca",
   "license": "MIT",

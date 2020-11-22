@@ -19,33 +19,33 @@
     "@randy.tarampi/printables": "^7.0.0",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "^7.0.0",
-    "@types/react": "^16.9.53",
-    "exiftool-vendored": "^12.2.0",
+    "@types/react": "^16.9.55",
+    "exiftool-vendored": "^12.3.1",
     "history": "^4.10.1",
     "immutable": "github:randytarampi/immutable-js#me-release",
     "isomorphic-fetch": "^3.0.0",
     "luxon": "^1.25.0",
     "materialize-css": "^1.0.0",
     "prop-types": "^15.7.2",
-    "query-string": "^6.13.6",
+    "query-string": "^6.13.7",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
     "react-hot-loader": "^4.13.0",
     "react-materialize": "^3.9.3",
-    "react-redux": "^7.2.1",
+    "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-immutable": "^4.0.0",
     "reselect": "^4.0.0",
-    "snyk": "^1.415.0"
+    "snyk": "^1.430.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-enzyme": "^1.0.0-beta.1",
     "cheerio": "^1.0.0-rc.3",
     "config": "^3.3.2",
-    "copy-webpack-plugin": "^6.2.1",
+    "copy-webpack-plugin": "^6.3.2",
     "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
@@ -53,21 +53,19 @@
     "gulp": "^4.0.2",
     "html-webpack-plugin": "^4.5.0",
     "jsdom": "^16.4.0",
-    "koa-mount": "^4.0.0",
-    "koa-static": "^5.0.0",
     "mocha-junit-reporter": "^2.0.0",
     "proxyquire": "^2.1.3",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
-    "sinon": "^9.2.0",
-    "webpack": "^4.44.2"
+    "sinon": "^9.2.1",
+    "webpack": "^5.6.0"
   },
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "dist/styles.css",
@@ -112,7 +110,7 @@
     "clean": "gulp -LLLL --color clean",
     "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
     "dev": "yarn run dev:client",
-    "dev:client": "yarn run predev:client && webpack-serve ./webpack.client.config.js --hotClient",
+    "dev:client": "yarn run predev:client && webpack serve --config ./webpack.client.config.js --hot",
     "docs": "gulp -LLLL --color docs",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.letter.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.server.pid`; rm /tmp/ca.randytarampi.me.letter.server.pid; fi;",
     "letter": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color letter",
