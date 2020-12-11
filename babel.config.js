@@ -330,8 +330,9 @@ module.exports = (api) => {
                     "@babel/preset-env",
                     {
                         forceAllTransforms: true,
+                        bugfixes: true,
                         useBuiltIns: "entry",
-                        corejs: 3
+                        corejs: {version: 3, proposals: true}
                     }
                 ],
                 [
@@ -356,9 +357,9 @@ module.exports = (api) => {
                         targets: {
                             esmodules: true
                         },
+                        bugfixes: true,
                         useBuiltIns: "entry",
-                        modules: false,
-                        corejs: 3
+                        corejs: {version: 3, proposals: true}
                     }
                 ],
                 [
