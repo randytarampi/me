@@ -73,7 +73,8 @@ const post = new Schema({
         required: true
     },
     tags: {
-        type: [String],
+        type: Set,
+        schema: [String],
         lowercase: true,
         set: tags => tags && tags
             .filter(tag => !!tag)
@@ -100,8 +101,6 @@ const post = new Schema({
     }
 }, {
     throughput: "ON_DEMAND",
-    useNativeBooleans: true,
-    useDocumentTypes: true,
     timestamps: true
 });
 

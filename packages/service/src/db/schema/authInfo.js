@@ -27,8 +27,6 @@ const authInfo = new Schema({
         required: true
     }
 }, {
-    useNativeBooleans: true,
-    useDocumentTypes: true,
     timestamps: true
 });
 
