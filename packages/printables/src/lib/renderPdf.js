@@ -35,7 +35,7 @@ export const renderPdf = async ({printableHtml, printable, printableDestinationD
         assert.strictEqual(pdfMetadata.PageCount, pdfExpectations.pages, `Expected PDF to have ${pdfExpectations.pages} pages, but it has ${pdfMetadata.PageCount} instead`);
     }
 
-    assert.strictEqual(pdfMetadata.FileSize.split(" ")[1], "kB", `Expected PDF to have file size on order of kB, but it is ${pdfMetadata.FileSize} instead`);
+    assert.strictEqual(pdfMetadata.FileSize.split(" ")[1], "KiB", `Expected PDF to have file size on order of kB, but it is ${pdfMetadata.FileSize} instead`);
 
     await exifTool
         .write(pdfPath, printable.pdfMetadata);

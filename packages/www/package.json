@@ -30,23 +30,23 @@
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
     "react-hot-loader": "^4.13.0",
-    "react-materialize": "^3.9.3",
+    "react-materialize": "^3.9.4",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-sitemap": "^1.2.0",
     "redux": "^4.0.5",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "register-service-worker": "^1.7.1",
-    "snyk": "^1.430.0"
+    "register-service-worker": "^1.7.2",
+    "snyk": "^1.436.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-enzyme": "^1.0.0-beta.1",
     "cheerio": "^1.0.0-rc.3",
-    "config": "^3.3.2",
-    "copy-webpack-plugin": "^6.3.2",
-    "cross-env": "^7.0.2",
+    "config": "^3.3.3",
+    "copy-webpack-plugin": "^7.0.0",
+    "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "express": "^4.17.1",
@@ -59,9 +59,9 @@
     "redux-mock-store": "^1.5.4",
     "sinon": "^9.2.1",
     "terser-webpack-plugin": "^5.0.3",
-    "webpack": "^5.6.0",
-    "webpack-bundle-analyzer": "^4.1.0",
-    "workbox-webpack-plugin": "^5.1.4"
+    "webpack": "^5.10.0",
+    "webpack-bundle-analyzer": "^4.2.0",
+    "workbox-webpack-plugin": "^6.0.2"
   },
   "directories": {
     "lib": "./src/lib",

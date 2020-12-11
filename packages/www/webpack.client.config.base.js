@@ -81,7 +81,7 @@ module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
         .concat(new CopyWebpackPlugin({
             patterns: sources.map(source => ({
                 from: source,
-                flatten: true,
+                to: "[name].[ext]",
                 context: source.match(/^node_modules/)
                     ? "../../"
                     : undefined
