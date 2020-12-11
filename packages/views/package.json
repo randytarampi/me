@@ -10,11 +10,11 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^7.0.0",
-    "config": "^3.3.2",
-    "snyk": "^1.415.0"
+    "config": "^3.3.3",
+    "snyk": "^1.436.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "gulp": "^4.0.2",
     "gulp-pug": "^4.0.1"
   },

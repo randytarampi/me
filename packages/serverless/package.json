@@ -10,25 +10,25 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^7.0.0",
-    "aws-sdk": "^2.773.0",
+    "aws-sdk": "^2.808.0",
     "aws-xray-sdk": "^3.2.0",
     "busboy": "^0.3.1",
     "mime-types": "^2.1.27",
-    "snyk": "^1.415.0"
+    "snyk": "^1.436.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "gulp": "^4.0.2",
     "mocha-junit-reporter": "^2.0.0",
-    "sinon": "^9.2.0"
+    "sinon": "^9.2.1"
   },
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "es5",

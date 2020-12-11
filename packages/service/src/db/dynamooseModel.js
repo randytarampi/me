@@ -88,7 +88,7 @@ export class DynamooseModel {
      */
     async getRecordCount({_options, _filter, _query}) {
         logger.trace(`counting records (_query: ${JSON.stringify(_query)}, _filter: ${JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
-        let postModelInstanceCount = _query
+        const {count: postModelInstanceCount} = _query
             ? await buildQueryWithFilter({
                 _options,
                 _filter,

@@ -10,6 +10,6 @@ module.exports.default = serverless => {
 
         const authInfoModel = getAuthInfoModel(tableName);
 
-        return authInfoModel.dynamooseModel.getTableReq();
+        return authInfoModel.dynamooseModel.table.create.request();
     });
 };

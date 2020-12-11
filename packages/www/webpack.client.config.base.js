@@ -3,8 +3,7 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const fs = require("fs");
 const config = require("config");
-const serve = require("koa-static");
-const mount = require("koa-mount");
+const express = require("express");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpackBaseConfig = require("../../webpack.client.config.base");
@@ -74,15 +73,15 @@ module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
     publicPath: publicPath,
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
-    webpackServeMiddleware: [
-        mount("/api/resume", serve(path.join(__dirname, "../resume/src/resumes"))),
-        mount("/api/letter", serve(path.join(__dirname, "../letter/src/letters")))
+    webpackDevServerMiddleware: [
+        (app) => app.use("/api/resume", express.static("./src/resumes")),
+        (app) => app.use("/api/letter", express.static("./src/letters")),
     ],
     plugins: plugins
         .concat(new CopyWebpackPlugin({
             patterns: sources.map(source => ({
                 from: source,
-                flatten: true,
+                to: "[name].[ext]",
                 context: source.match(/^node_modules/)
                     ? "../../"
                     : undefined

@@ -12,12 +12,12 @@
     "@babel/polyfill": "^7.12.1",
     "@randy.tarampi/resume": "^7.0.0",
     "@randy.tarampi/views": "^7.0.0",
-    "config": "^3.3.2",
-    "resume-cli": "randytarampi/resume-cli#me-release",
-    "snyk": "^1.415.0"
+    "config": "^3.3.3",
+    "resume-cli": "^3.0.0",
+    "snyk": "^1.436.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "mocha-junit-reporter": "^2.0.0",
@@ -28,7 +28,7 @@
     "test": "./test"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "dist/*{pug,css}",
@@ -75,7 +75,7 @@
     "build:copy:index.pug": "cp $(node -p 'require(\"path\").resolve(require.resolve(\"@randy.tarampi/views\"), \"../../templates/index.pug\")') ./dist/index.pug",
     "build:copy:layout.pug": "cp $(node -p 'require(\"path\").resolve(require.resolve(\"@randy.tarampi/views\"), \"../../templates/layout.pug\")') ./dist/layout.pug",
     "build:copy:styles.css": "cp $(node -p 'require(\"path\").resolve(require.resolve(\"@randy.tarampi/resume\"), \"../../dist/styles.css\")') ./dist/styles.css",
-    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config",
+    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config.js",
     "clean": "gulp -LLLL --color clean",
     "docs": "cp -r dist/* docs",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.jsonresume-theme.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid`; rm /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; fi;",
