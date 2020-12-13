@@ -246,7 +246,7 @@ class PostSearchParams extends PostSearchParamsRecord {
         if (this.uid) {
             return {
                 _query: {
-                    hash: {uid: {eq: this.uid}}
+                    uid: {eq: this.uid}
                 },
                 _options: {
                     ...options,
@@ -259,7 +259,7 @@ class PostSearchParams extends PostSearchParamsRecord {
         if (this.source && this.id) {
             return {
                 _query: {
-                    hash: {uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}}
+                    uid: {eq: `${this.source}${compositeKeySeparator}${this.id}`}
                 },
                 _options: {
                     ...options,
@@ -280,8 +280,8 @@ class PostSearchParams extends PostSearchParamsRecord {
                 return this.geohashQueries.map(geohashQuery => {
                     return {
                         _query: {
-                            hash: {type: {eq: this.type}},
-                            range: {geohash: {begins_with: geohashQuery}}
+                            type: {eq: this.type},
+                            geohash: {begins_with: geohashQuery}
                         },
                         _options: {
                             ...options,
@@ -295,8 +295,8 @@ class PostSearchParams extends PostSearchParamsRecord {
             if (this.geohash) {
                 return {
                     _query: {
-                        hash: {type: {eq: this.type}},
-                        range: {geohash: {begins_with: this.geohash}}
+                        type: {eq: this.type},
+                        geohash: {begins_with: this.geohash}
                     },
                     _options: {
                         ...options,
@@ -309,8 +309,8 @@ class PostSearchParams extends PostSearchParamsRecord {
             if (typeIndiciesRangeKeys.includes(this.orderBy) && this.hasOrderingConditions) {
                 return {
                     _query: {
-                        hash: {type: {eq: this.type}},
-                        range: {[this.orderBy]: {[this.orderOperator]: castOrderComparator}}
+                        type: {eq: this.type},
+                        [this.orderBy]: {[this.orderOperator]: castOrderComparator}
                     },
                     _options: options,
                     _filter: filters
@@ -319,7 +319,7 @@ class PostSearchParams extends PostSearchParamsRecord {
 
             return {
                 _query: {
-                    hash: {type: {eq: this.type}}
+                    type: {eq: this.type}
                 },
                 _options: {
                     ...options,
@@ -340,8 +340,8 @@ class PostSearchParams extends PostSearchParamsRecord {
                 return this.geohashQueries.map(geohashQuery => {
                     return {
                         _query: {
-                            hash: {status: {eq: this.status}},
-                            range: {geohash: {begins_with: geohashQuery}}
+                            status: {eq: this.status},
+                            geohash: {begins_with: geohashQuery}
                         },
                         _options: {
                             ...options,
@@ -355,8 +355,8 @@ class PostSearchParams extends PostSearchParamsRecord {
             if (this.geohash) {
                 return {
                     _query: {
-                        hash: {status: {eq: this.status}},
-                        range: {geohash: {begins_with: this.geohash}}
+                        status: {eq: this.status},
+                        geohash: {begins_with: this.geohash}
                     },
                     _options: {
                         ...options,
@@ -369,8 +369,8 @@ class PostSearchParams extends PostSearchParamsRecord {
             if (statusIndiciesRangeKeys.includes(this.orderBy) && this.hasOrderingConditions) {
                 return {
                     _query: {
-                        hash: {status: {eq: this.status}},
-                        range: {[this.orderBy]: {[this.orderOperator]: castOrderComparator}}
+                        status: {eq: this.status},
+                        [this.orderBy]: {[this.orderOperator]: castOrderComparator}
                     },
                     _options: options,
                     _filter: filters
@@ -379,7 +379,7 @@ class PostSearchParams extends PostSearchParamsRecord {
 
             return {
                 _query: {
-                    hash: {status: {eq: this.status}}
+                    status: {eq: this.status}
                 },
                 _options: options,
                 _filter: filters

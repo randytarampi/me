@@ -532,7 +532,7 @@ describe("CachedDataSource", function () {
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
                     expect(stubGetRecord.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetRecord, sinon.match({
-                        _query: {hash: {uid: {eq: stubPost.uid}}},
+                        _query: {uid: {eq: stubPost.uid}},
                         _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                     }));
                     sinon.assert.calledOnce(stubInstanceToRecord);
@@ -558,7 +558,7 @@ describe("CachedDataSource", function () {
                     expect(cachedPost.toJS()).to.eql(stubPost.remove("raw").toJS());
                     expect(stubGetRecord.calledOnce).to.eql(true);
                     sinon.assert.calledWith(stubGetRecord, sinon.match({
-                        _query: {hash: {uid: {eq: stubPost.uid}}},
+                        _query: {uid: {eq: stubPost.uid}},
                         _options: {limit: 100, descending: true, all: false, indexName: "uid-index"}
                     }));
                     sinon.assert.calledOnce(stubInstanceToRecord);

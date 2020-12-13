@@ -23,7 +23,7 @@ describe("renderPdf", function () {
     beforeEach(function () {
         stubActualPages = 1;
         stubExpectedPages = stubActualPages;
-        stubPdfFileSize = "woof kB";
+        stubPdfFileSize = "woof KiB";
         stubPrintableDestinationDirectory = "/foo/bar";
         stubPrintableHtml = "woof";
         stubPrintable = { // NOTE-RT: Ideally this would be a class that implemented a printable interface, but don't do that or the fanciness we're doing with `@randy.tarampi/js/lib/emoji/bear` yet either.

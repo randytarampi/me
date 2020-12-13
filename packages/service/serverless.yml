@@ -105,8 +105,6 @@ custom:
       inMemory: false
       dbPath: ./
       migrate: true
-    migration:
-      dir: src/serverless/dynamoDb/migrations
   webpack:
     individually: false
     webpackConfig: ./webpack.serverless.config.js
@@ -361,3 +359,11 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.SERVICE_POSTS_S3_BUCKET_NAME}
+    PostsDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties: ${file(src/serverless/dynamodb/post.js):default}
+    AuthInfoDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties: ${file(src/serverless/dynamodb/authInfo.js):default}

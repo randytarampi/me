@@ -22,7 +22,7 @@
     "gulp": "^4.0.2",
     "jsdom": "^16.4.0",
     "mocha-junit-reporter": "^2.0.0",
-    "sinon": "^9.2.1"
+    "sinon": "^9.2.2"
   },
   "directories": {
     "lib": "./src/lib",

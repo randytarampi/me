@@ -39,7 +39,7 @@ export class DynamooseModel {
     async getRecord({_options, _filter, _query}) {
         logger.trace(`retrieving record (_query: ${JSON.stringify(_query)}, _filter: ${JSON.stringify(_filter)}) with ${JSON.stringify(_options)}`);
         const postModelInstance = _query
-            ? await buildQueryWithFilter({_options, _filter, _query}, this.dynamooseModel.queryOne).exec()
+            ? await buildQueryWithFilter({_options, _filter, _query}, this.dynamooseModel.query).limit(1).exec()
             : await this.dynamooseModel.scan(_filter, _options).limit(1000).all().exec()
                 .then(instanceContainer => instanceContainer[0]);
         logger.trace(`retrieved record (${postModelInstance && postModelInstance.uid})`);
