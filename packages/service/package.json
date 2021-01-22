@@ -19,7 +19,7 @@
     "flickr-sdk": "^3.10.0",
     "form-data": "^3.0.0",
     "immutable": "github:randytarampi/immutable-js#me-release",
-    "instagram-graph-sdk": "^0.2.1",
+    "instagram-graph-sdk": "^0.3.1",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.14.1",
     "lodash": "^4.17.20",
