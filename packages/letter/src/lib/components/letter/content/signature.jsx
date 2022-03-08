@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export const LetterSignature = ({letter, assetUrl, contentConfiguration}) => {
-    return <RightDescriptionSection
+    const SectionComponent = contentConfiguration.contentProps.sectionComponent || RightDescriptionSection;
+
+    return <SectionComponent
         {...contentConfiguration.sectionProps}
         type={contentConfiguration.contentKey}
         printableType="letter"
@@ -16,7 +18,7 @@ export const LetterSignature = ({letter, assetUrl, contentConfiguration}) => {
 
         <img className="signature letter-signature__signature" alt={letter.basics.name}
              src={`${assetUrl}/signature.svg`}/>
-    </RightDescriptionSection>;
+    </SectionComponent>;
 };
 
 LetterSignature.propTypes = {
