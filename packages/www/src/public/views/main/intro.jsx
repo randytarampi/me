@@ -19,7 +19,7 @@ export const IntroText = () =>
             <span className="text">Hey!</span>
         </h2>
         <p>
-            I'm <em>not really</em> looking for work right now, but you probably think otherwise 'cause let's be real,
+            I'm looking more for a mortgage than a job right now, but you probably think otherwise 'cause let's be real,
             you probably clicked through to here from my <ResumeAppLink>resume</ResumeAppLink> or my <LinkedInLink useBranding={false} text="LinkedIn"/>.
         </p>
         <p>

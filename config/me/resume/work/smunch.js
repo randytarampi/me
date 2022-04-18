@@ -6,6 +6,7 @@ module.exports = {
     website: smunch.url,
     position: "Senior Software Developer",
     startDate: "2019-03-11",
+    endDate: "2020-06-19",
     summary: "I wanted a taste of adventure after living and working in Vancouver for so long and opted to join the one Berlin startup trying to spice up lunch in the workplace",
     highlights: [
         "Lead the rebuild of our core frontend application, increasing mobile engagement from 2% to 34%",

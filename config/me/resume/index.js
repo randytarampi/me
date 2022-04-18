@@ -1,5 +1,6 @@
 const basics = require("./basics");
 
+const deed = require("./work/deed");
 const smunch = require("./work/smunch");
 const fetchAuto = require("./work/fetchAuto");
 const yardi = require("./work/yardi");
@@ -23,6 +24,7 @@ const sfuEducation = require("./education/sfu");
 module.exports = {
     basics,
     work: [
+        deed,
         smunch,
         fetchAuto,
         yardi,

@@ -5,12 +5,12 @@
     "name": "Randy Tarampi",
     "firstName": "Randy",
     "lastName": "Tarampi",
-    "label": "Bumblin' about in Berlin",
+    "label": "Lookin' for a home, not a job",
     "picture": "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
     "phone": "+49 176 56927128",
     "email": "jobs@randytarampi.ca",
     "website": "https://www.randytarampi.ca/blog",
-    "summary": "I moved out here to broaden my skillset and horizons and now I'm doubling down and looking for my next big thing – right in the middle of a pandemic. I'm all about fitness balls instead of fancy chairs and chatting over cold beers than video calls",
+    "summary": "I moved out here to broaden my skillset and horizons and now I'm doubling down and looking for my next big thing – a 50m² place with a decent amount of natural light and quiet neighbours 🤣",
     "location": {
       "address": "Körnerstraße 24",
       "postalCode": "10785",
@@ -53,10 +53,23 @@
   },
   "work": [
     {
+      "company": "Deed",
+      "position": "Senior Software Developer",
+      "startDate": "2020-06-22T00:00:00.000+02:00",
+      "endDate": null,
+      "summary": "At the height of a pandemic, I decided to take my talents to a place that helps people help others – easing the lockdown loneliness, connecting time and talent to those that need it, and focusing funds and attention to those helping victims of war",
+      "website": "https://joindeed.com",
+      "highlights": [
+        "Growing a team and a product from a seed round through a series A",
+        "Transitioning our APIs from REST to GraphQL",
+        "Fostering a technical culture that leverages the cloud as much as possible, to allow folks to build things of real business value"
+      ]
+    },
+    {
       "company": "Smunch",
       "position": "Senior Software Developer",
       "startDate": "2019-03-11T00:00:00.000+01:00",
-      "endDate": null,
+      "endDate": "2020-06-19T00:00:00.000+02:00",
       "summary": "I wanted a taste of adventure after living and working in Vancouver for so long and opted to join the one Berlin startup trying to spice up lunch in the workplace",
       "website": "https://www.smunch.co/en",
       "highlights": [

@@ -11,7 +11,7 @@ module.exports = {
         return `${this.me.resume.basics.givenName} ${this.me.resume.basics.familyName}`;
     }),
     honorificPrefix: "Mr.",
-    jobTitle: "Bumblin' about in Berlin",
+    jobTitle: "Lookin' for a home, not a job",
     gender: "Male",
     nationality: "Canadian",
     height: "175cm",
