@@ -94,9 +94,9 @@ jobs:
 
       - name: Setup for tests
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          "./cc-test-reporter before-build"
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $PWD/cc-test-reporter
+          chmod +x $PWD/cc-test-reporter
+          $PWD/cc-test-reporter before-build
       - name: Actually run `yarn pretest`
         env:
           NODE_ENV: test
