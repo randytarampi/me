@@ -128,7 +128,7 @@ jobs:
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope=*/${{ steps.variables.outputs.application_name }}
       - name: Adjust `docs` for `dev`
-        if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
+        if: ${{ steps.variables.outputs.deployment_environment == 'dev' && steps.variables.outputs.application_name == 'www' }}
         run: |
           git config --local user.email "$GITHUB_ACTIONS_AUTHOR_EMAIL"
           git config --local user.name "$GITHUB_ACTIONS_AUTHOR_NAME"
@@ -149,7 +149,7 @@ jobs:
           token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Actually deploy (www/prd)
-        if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'www'
+        if: ${{ steps.variables.outputs.deployment_environment == 'prd' && steps.variables.outputs.application_name == 'www' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
@@ -160,7 +160,7 @@ jobs:
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
         timeout-minutes: 10
       - name: Actually deploy (jsonresume-theme/prd)
-        if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'jsonresume-theme'
+        if: ${{ steps.variables.outputs.deployment_environment == 'prd' && steps.variables.outputs.application_name == 'jsonresume-theme' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
