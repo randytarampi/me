@@ -9,17 +9,17 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "^1.25.0",
+    "luxon": "^1.28.0",
     "react-metrics": "^2.4.1",
-    "snyk": "^1.436.0"
+    "snyk": "^1.912.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "cross-env": "^7.0.3",
     "gulp": "^4.0.2",
-    "jsdom": "^16.4.0",
-    "mocha-junit-reporter": "^2.0.0",
-    "sinon": "^9.2.2"
+    "jsdom": "^16.7.0",
+    "mocha-junit-reporter": "^2.0.2",
+    "sinon": "^9.2.4"
   },
   "directories": {
     "lib": "./src/lib",

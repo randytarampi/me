@@ -12,15 +12,15 @@
     "@babel/polyfill": "^7.12.1",
     "@randy.tarampi/resume": "^7.0.0",
     "@randy.tarampi/views": "^7.0.0",
-    "config": "^3.3.3",
-    "resume-cli": "^3.0.0",
-    "snyk": "^1.436.0"
+    "config": "^3.3.7",
+    "resume-cli": "^3.0.7",
+    "snyk": "^1.912.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "gulp": "^4.0.2",
-    "mocha-junit-reporter": "^2.0.0",
+    "mocha-junit-reporter": "^2.0.2",
     "webpack-node-externals": "^2.5.2"
   },
   "directories": {
