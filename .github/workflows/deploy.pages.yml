@@ -135,6 +135,8 @@ jobs:
         if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
+          git-config-email: github@randytarampi.ca
+          git-config-name: github-pages-deploy-action (www/dev)
           single-commit: true
           force: true
           branch: master
@@ -146,6 +148,8 @@ jobs:
         if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'www'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
+          git-config-email: github@randytarampi.ca
+          git-config-name: github-pages-deploy-action (www/prd)
           single-commit: true
           force: true
           branch: gh-pages
@@ -155,6 +159,8 @@ jobs:
         if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'jsonresume-theme'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
+          git-config-email: github@randytarampi.ca
+          git-config-name: github-pages-deploy-action (jsonresult-theme/prd)
           single-commit: true
           force: true
           branch: master
