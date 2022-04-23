@@ -127,6 +127,7 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $PWD/cc-test-reporter
           chmod +x $PWD/cc-test-reporter
           $PWD/cc-test-reporter before-build
+        shell: bash
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v2.0.1
       - name: Actually run `yarn test`
@@ -149,6 +150,7 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
           $PWD/cc-test-reporter after-build --exit-code $(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;) || true
+        shell: bash
       - name: Report results to Check Run Reporter (pretest)
         if: always()
         uses: check-run-reporter/action@v2.11.1
@@ -177,12 +179,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Report coverage to CodeClimate
         if: always()
-        uses: check-run-reporter/action@v2.11.1
+        uses: paambaati/codeclimate-action@v3.0.0
         with:
           coverageLocations: coverage/lcov.info:lcov
       - name: Report coverage to CodeCov
         if: always()
-        uses: check-run-reporter/action@v2.11.1
+        uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: coverage
@@ -198,3 +200,4 @@ jobs:
           REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
         run: |
           python <(curl https://report.ci/upload.py) || true
+        shell: bash
