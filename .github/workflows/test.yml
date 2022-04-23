@@ -5,7 +5,7 @@ on:
     inputs:
       deployment_environment:
         description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
-        required: true
+        required: false
         default: dev
         type: string
 

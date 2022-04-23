@@ -5,11 +5,12 @@ on:
     inputs:
       application_name:
         description: 'The application to deploy'
-        required: true
+        required: false
+        default: www
         type: string
       deployment_environment:
         description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
-        required: true
+        required: false
         default: dev
         type: string
     secrets:
