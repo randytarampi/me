@@ -38,8 +38,8 @@ jobs:
       - name: Set variables
         id: variables
         run: |
-        echo "::set-output name=application_name::${{ github.event.inputs.application_name || inputs.application_name }}"
-        echo "::set-output name=deployment_environment::${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}"
+          echo "::set-output name=application_name::${{ github.event.inputs.application_name || inputs.application_name }}"
+          echo "::set-output name=deployment_environment::${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}"
 
       - name: Run `git checkout`
         uses: actions/checkout@v3

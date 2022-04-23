@@ -58,8 +58,8 @@ jobs:
       - name: Set variables
         id: variables
         run: |
-        echo "::set-output name=application_name::${{ github.event.inputs.application_name || inputs.application_name }}"
-        echo "::set-output name=deployment_environment::${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}"
+          echo "::set-output name=application_name::${{ github.event.inputs.application_name || inputs.application_name }}"
+          echo "::set-output name=deployment_environment::${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}"
 
       - name: Run `git checkout`
         uses: actions/checkout@v3
@@ -114,8 +114,7 @@ jobs:
         run: |
           echo "www.dev.randytarampi.ca" > packages/${{ steps.variables.outputs.application_name }}/docs/CNAME;
           if [ -d "packages/${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all packages/${{ steps.variables.outputs.application_name }}/docs; fi;
-          if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare
-      to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ env.GITHUB_REPOSITORY_OWNER }}.github.io.git"; fi;'
+          if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ env.GITHUB_REPOSITORY_OWNER }}.github.io.git"; fi;'
       - name: Actually deploy (www/dev)
         if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
