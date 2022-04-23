@@ -107,7 +107,7 @@
     "prepare": "yarn run snyk-protect && ./bin/prepare.sh",
     "pretest": "yarn run pretest:actual; yarn run pretest:collect",
     "pretest:actual": "cross-env-shell NODE_ENV=test lerna run pretest --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
-    "pretest:actual:collect": "junit-merge $(ls packages/*/{eslint,sassLint}-results.xml) --out ./pretest-results.xml",
+    "pretest:actual:collect": "junit-merge $(ls packages/*/{eslint,sassLint}-results.xml) --out ./pretest-results.xml || true",
     "pretest:collect": "yarn run pretest:actual:collect",
     "pretest:service:dynamodb-local": "bin/pretest:service:dynamodb-local.sh",
     "start:service": "lerna run start --stream --scope=@randy.tarampi/service",
