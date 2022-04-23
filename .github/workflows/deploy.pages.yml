@@ -1,0 +1,163 @@
+name: deploy (www)
+
+on:
+  workflow_call:
+    inputs:
+      application_name:
+        description: 'The application to deploy'
+        required: true
+        type: string
+      deployment_environment:
+        description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+        required: true
+        default: dev
+        type: string
+    secrets:
+      GH_PAGES_DEPLOYMENT_TOKEN:
+        required: true
+
+  workflow_dispatch:
+    application_name:
+      description: 'The application to deploy'
+      required: true
+      default: www
+      type: choice
+      options:
+        - www
+        - jsonresume-theme
+    deployment_environment:
+      description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+      required: true
+      default: dev
+      type: choice
+      options:
+        - dev
+        - prd
+    secrets:
+      GH_PAGES_DEPLOYMENT_TOKEN:
+        required: true
+
+jobs:
+  deploy:
+    name: Run `yarn deploy`
+    env:
+      BABEL_ENV: production
+      DEPLOY: true
+      NODE_ENV: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
+      PRINTABLE_PUPPETEER_NO_SANDBOX: true
+      CPU_ARCH: ${{ env.RUNNER_ARCH }}
+      OS_NAME: ${{ env.RUNNER_OS }}
+      BRANCH: ${{ env.GITHUB_REF_NAME }}
+      COMMIT_SHA: ${{ env.GITHUB_SHA }}
+      BUILD_NUMBER: ${{ env.GITHUB_RUN_ID }}
+      JOB_NUMBER: ${{ env.GITHUB_RUN_ATTEMPT }}
+    runs-on:
+      - ubuntu-latest
+    concurrency: deploy-${{ github.ref }}
+    steps:
+      - name: Set variables
+        id: variables
+        run: |
+        echo "::set-output name=application_name::${{ github.event.inputs.application_name || inputs.application_name }}"
+        echo "::set-output name=deployment_environment::${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}"
+
+      - name: Run `git checkout`
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup node@16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Install dependencies on build runner
+        uses: ryankurte/action-apt@v0.3.0
+        with:
+          packages: "language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei"
+
+      # NOTE-RT: Rerun `install` to make sure we've got our dependencies
+      - name: Install `yarn`
+        run: |
+          npm install -g yarn@1
+          yarn config set script-shell $(which bash)
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
+      - name: Restore `node_modules` cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ steps.get-date.outputs.date }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-
+            ${{ runner.os }}-yarn-
+      - name: Actually run `yarn install --frozen-lockfile`
+        run: yarn install --frozen-lockfile
+
+      - name: Setup for deployment
+        uses: chrnorm/deployment-action@releases/v1
+        id: deployment
+        with:
+          token: ${{ github.token }}
+          environment: ${{ steps.variables.outputs.deployment_environment }}
+          description: '`${{ steps.variables.outputs.application_name }}` @ ${{ github.event.push.compare }}'
+      - name: Build `docs`
+        run: |
+          yarn lerna run resume --scope jsonresume-theme-randytarampi;
+          yarn lerna run docs --scope=*/${{ steps.variables.outputs.application_name }}
+      - name: Adjust `docs` for `dev`
+        if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
+        run: |
+          echo "www.dev.randytarampi.ca" > packages/${{ steps.variables.outputs.application_name }}/docs/CNAME;
+          if [ -d "packages/${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all packages/${{ steps.variables.outputs.application_name }}/docs; fi;
+          if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare
+      to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ env.GITHUB_REPOSITORY_OWNER }}.github.io.git"; fi;'
+      - name: Actually deploy (www/dev)
+        if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          single-commit: true
+          force: true
+          branch: master
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
+          repository-name: ${{ env.GITHUB_REPOSITORY_OWNER }}/${{ env.GITHUB_REPOSITORY_OWNER }}.github.io
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+        timeout-minutes: 10
+      - name: Actually deploy (www/prd)
+        if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'www'
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          single-commit: true
+          force: true
+          branch: gh-pages
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
+        timeout-minutes: 10
+      - name: Actually deploy (jsonresume-theme/prd)
+        if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'jsonresume-theme'
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          single-commit: true
+          force: true
+          branch: master
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
+          repository-name: ${{ env.GITHUB_REPOSITORY_OWNER }}/me.resume
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+        timeout-minutes: 10
+      - name: Handle deployment (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ github.token }}
+          state: success
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Handle deployment (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ github.token }}
+          state: failure
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}

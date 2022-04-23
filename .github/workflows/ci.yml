@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - '**'
+      - '!.github/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/install.yml'
+      - '.github/workflows/pretest.yml'
+      - '.github/workflows/test.yml'
+      - '.github/workflows/deploy.pages.yml'
+
+jobs:
+  install:
+    uses: ./.github/workflows/install.yml
+
+  pretest:
+    needs:
+      - install
+    uses: ./.github/workflows/pretest.yml
+
+  test:
+    needs:
+      - install
+    uses: ./.github/workflows/test.yml
+
+  deploy__www--dev:
+    needs:
+      - install
+    uses: ./.github/workflows/deploy.pages.yml
+    with:
+      application_name: www
+      deployment_environment: dev
+    secrets:
+      GH_PAGES_DEPLOYMENT_TOKEN: ${{secrets.GH_PAGES_DEPLOYMENT_TOKEN}}

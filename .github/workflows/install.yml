@@ -1,0 +1,79 @@
+name: install
+
+on:
+  workflow_call:
+    inputs:
+      deployment_environment:
+        description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+        required: true
+        default: dev
+        type: string
+
+  workflow_dispatch:
+    deployment_environment:
+      description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+      required: true
+      default: dev
+      type: choice
+      options:
+        - dev
+        - prd
+
+jobs:
+  install:
+    name: Run `yarn install`
+    env:
+      DEPLOY: false
+      NODE_ENV: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
+      PRINTABLE_PUPPETEER_NO_SANDBOX: true
+      CPU_ARCH: ${{ env.RUNNER_ARCH }}
+      OS_NAME: ${{ env.RUNNER_OS }}
+      BRANCH: ${{ env.GITHUB_REF_NAME }}
+      COMMIT_SHA: ${{ env.GITHUB_SHA }}
+      BUILD_NUMBER: ${{ env.GITHUB_RUN_ID }}
+      JOB_NUMBER: ${{ env.GITHUB_RUN_ATTEMPT }}
+    runs-on:
+      - ubuntu-latest
+    concurrency: install-${{ github.ref }}
+    steps:
+      - name: Set variables
+        id: variables
+        run: |
+        echo "::set-output name=application_name::${{ github.event.inputs.application_name || inputs.application_name }}"
+        echo "::set-output name=deployment_environment::${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}"
+
+      - name: Run `git checkout`
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup node@16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Install dependencies on build runner
+        uses: ryankurte/action-apt@v0.3.0
+        with:
+          packages: "language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei"
+
+      - name: Install `yarn`
+        run: |
+          npm install -g yarn@1
+          yarn config set script-shell $(which bash)
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
+      - name: Restore `node_modules` cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ steps.get-date.outputs.date }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-
+            ${{ runner.os }}-yarn-
+      - name: Actually run `yarn install --frozen-lockfile`
+        run: yarn install --frozen-lockfile
