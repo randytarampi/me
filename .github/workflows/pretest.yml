@@ -13,6 +13,8 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
+      REPORT_CI_TOKEN:
+        required: true
 
   workflow_dispatch:
     deployment_environment:
@@ -27,6 +29,8 @@ on:
       AWS_ACCESS_KEY_ID:
         required: true
       AWS_SECRET_ACCESS_KEY:
+        required: true
+      REPORT_CI_TOKEN:
         required: true
 
 jobs:
@@ -92,11 +96,6 @@ jobs:
       - name: Actually run `yarn install --frozen-lockfile`
         run: yarn install --frozen-lockfile
 
-      - name: Setup for tests
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $PWD/cc-test-reporter
-          chmod +x $PWD/cc-test-reporter
-          $PWD/cc-test-reporter before-build
       - name: Actually run `yarn pretest`
         env:
           NODE_ENV: test
@@ -107,8 +106,7 @@ jobs:
         if: always()
         env:
           NODE_ENV: test
-          CODECLIMATE_API_HOST: https://codebeat.co/webhooks/code_coverage
-          CODECLIMATE_REPO_TOKEN: 98216c3b-5de5-4a1f-b991-beb9bf2162a
+          REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
         run: |
           yarn run pretest:collect
-          yarn codeclimate-test-reporter < coverage/lcov.info
+          python < $(curl https://report.ci/upload.py)
