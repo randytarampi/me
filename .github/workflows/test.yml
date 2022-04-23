@@ -13,6 +13,8 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
+      COVERALLS_REPO_TOKEN:
+        required: true
 
   workflow_dispatch:
     deployment_environment:
@@ -27,6 +29,8 @@ on:
       AWS_ACCESS_KEY_ID:
         required: true
       AWS_SECRET_ACCESS_KEY:
+        required: true
+      COVERALLS_REPO_TOKEN:
         required: true
 
 jobs:
@@ -111,6 +115,12 @@ jobs:
           NODE_ENV: test
           CODECLIMATE_API_HOST: https://codebeat.co/webhooks/code_coverage
           CODECLIMATE_REPO_TOKEN: 98216c3b-5de5-4a1f-b991-beb9bf2162a
+          COVERALLS_GIT_BRANCH: ${{ env.BRANCH }}
+          COVERALLS_GIT_COMMIT: ${{ env.COMMIT_SHA }}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          COVERALLS_SERVICE_JOB_ID: ${{ env.BUILD_NUMBER }}
+          COVERALLS_SERVICE_JOB_NUMBER: ${{ env.JOB_NUMBER }}
+          COVERALLS_SERVICE_NAME: github
         run: |
           yarn run cover:collect
           yarn run kill --scope @randy.tarampi/service
