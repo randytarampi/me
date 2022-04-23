@@ -144,6 +144,7 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           CHECK_RUN_REPORTER_TOKEN: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          CODECLIMATE_REPO_TOKEN: ${{ secrets.CC_TEST_REPORTER_ID }}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           COVERALLS_GIT_BRANCH: ${{ env.BRANCH }}
           COVERALLS_GIT_COMMIT: ${{ env.COMMIT_SHA }}
@@ -162,5 +163,5 @@ jobs:
           bash <(curl -s https://codecov.io/bash) || true
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info || true
           yarn codeclimate-test-reporter < coverage/lcov.info || true
-          $PWD/cc-test-reporter after-build --exit-code ${{ steps.test-actual.outputs.exit_code }} || true
+          $PWD/cc-test-reporter after-build --exit-code $(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;)) || true
           yarn run coveralls || true
