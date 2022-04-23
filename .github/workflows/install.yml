@@ -50,10 +50,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
-      - name: Install dependencies on build runner
-        uses: ryankurte/action-apt@v0.3.0
-        with:
-          packages: "language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei"
+      - name: Setup dependencies on build runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei
 
       - name: Install `yarn`
         run: |
