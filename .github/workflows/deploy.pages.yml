@@ -54,7 +54,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: us-east-1
-      DEPLOY: false
+      DEPLOY: true
       APPLICATION_NAME: ${{ github.event.inputs.application_name || inputs.application_name }}
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
       GITHUB_ACTIONS_AUTHOR_EMAIL: github@randytarampi.ca
@@ -124,7 +124,6 @@ jobs:
       - name: Build `docs`
         env:
           BABEL_ENV: production
-          DEPLOY: true
         run: |
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope=*/${{ steps.variables.outputs.application_name }}
