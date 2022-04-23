@@ -143,6 +143,7 @@ jobs:
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/dev)
           single-commit: true
           force: true
+          clean: true
           branch: master
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
           repository-name: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
@@ -156,6 +157,7 @@ jobs:
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/prd)
           single-commit: true
           force: true
+          clean: true
           branch: gh-pages
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
         timeout-minutes: 10
@@ -167,6 +169,7 @@ jobs:
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (jsonresult-theme/prd)
           single-commit: true
           force: true
+          clean: true
           branch: master
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
           repository-name: ${{ github.repository_owner }}/me.resume
