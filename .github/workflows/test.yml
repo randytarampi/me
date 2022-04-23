@@ -144,12 +144,19 @@ jobs:
           NODE_ENV: test
         run: |
           yarn run kill --scope @randy.tarampi/service
+      - name: Collect results
+        if: always()
+        env:
+          NODE_ENV: test
+        run: |
+          yarn run pretest:collect
+          yarn run cover:collect
       - name: Report results to CodeClimate
         if: always()
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
-          $PWD/cc-test-reporter after-build --exit-code $(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;) || true
+          $PWD/cc-test-reporter after-build --exit-code=$(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;) || true
         shell: bash
       - name: Report results to Check Run Reporter (pretest)
         if: always()
@@ -165,13 +172,6 @@ jobs:
           token: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
           report: test-results.xml
           label: test
-      - name: Collect coverage
-        if: always()
-        env:
-          NODE_ENV: test
-        run: |
-          yarn run pretest:collect
-          yarn run cover:collect
       - name: Report coverage to Coveralls
         if: always()
         uses: coverallsapp/github-action@1.1.3
