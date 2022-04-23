@@ -110,5 +110,5 @@ jobs:
           CODECLIMATE_API_HOST: https://codebeat.co/webhooks/code_coverage
           CODECLIMATE_REPO_TOKEN: 98216c3b-5de5-4a1f-b991-beb9bf2162a
         run: |
-          yarn run cover:collect
+          yarn run pretest:collect
           yarn codeclimate-test-reporter < coverage/lcov.info
