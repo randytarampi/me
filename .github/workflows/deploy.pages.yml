@@ -126,7 +126,7 @@ jobs:
           BABEL_ENV: production
         run: |
           yarn lerna run resume --scope=jsonresume-theme-*;
-          yarn lerna run docs --scope=*${{ steps.variables.outputs.application_name }}*
+          yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
       - name: Adjust `docs` for `dev`
         if: ${{ steps.variables.outputs.deployment_environment == 'dev' && steps.variables.outputs.application_name == 'www' }}
         run: |
