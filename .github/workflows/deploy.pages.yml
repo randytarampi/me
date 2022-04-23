@@ -141,7 +141,6 @@ jobs:
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/dev)
-          single-commit: true
           force: true
           clean: true
           branch: master
@@ -167,7 +166,6 @@ jobs:
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (jsonresult-theme/prd)
-          single-commit: true
           force: true
           clean: true
           branch: master
