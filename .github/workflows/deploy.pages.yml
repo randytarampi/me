@@ -56,6 +56,8 @@ jobs:
       DEPLOY: false
       APPLICATION_NAME: ${{ github.event.inputs.application_name || inputs.application_name }}
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
+      GITHUB_ACTIONS_AUTHOR_EMAIL: github@randytarampi.ca
+      GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
     runs-on:
       - ubuntu-latest
     concurrency: deploy-${{ github.ref }}
@@ -128,6 +130,8 @@ jobs:
       - name: Adjust `docs` for `dev`
         if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
         run: |
+          git config --local user.email "$GITHUB_ACTIONS_AUTHOR_EMAIL"
+          git config --local user.name "$GITHUB_ACTIONS_AUTHOR_NAME"
           echo "www.dev.randytarampi.ca" > packages/${{ steps.variables.outputs.application_name }}/docs/CNAME;
           if [ -d "packages/${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all packages/${{ steps.variables.outputs.application_name }}/docs; fi;
           if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ env.GITHUB_REPOSITORY_OWNER }}.github.io.git"; fi;
@@ -135,8 +139,8 @@ jobs:
         if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
-          git-config-email: github@randytarampi.ca
-          git-config-name: github-pages-deploy-action (www/dev)
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/dev)
           single-commit: true
           force: true
           branch: master
@@ -148,8 +152,8 @@ jobs:
         if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'www'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
-          git-config-email: github@randytarampi.ca
-          git-config-name: github-pages-deploy-action (www/prd)
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/prd)
           single-commit: true
           force: true
           branch: gh-pages
@@ -159,8 +163,8 @@ jobs:
         if: ${{ steps.variables.outputs.deployment_environment }} == 'prd' && ${{ steps.variables.outputs.application_name }} == 'jsonresume-theme'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
-          git-config-email: github@randytarampi.ca
-          git-config-name: github-pages-deploy-action (jsonresult-theme/prd)
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (jsonresult-theme/prd)
           single-commit: true
           force: true
           branch: master
