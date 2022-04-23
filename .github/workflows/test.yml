@@ -148,7 +148,7 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
-          $PWD/cc-test-reporter after-build --exit-code $(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;)) || true
+          $PWD/cc-test-reporter after-build --exit-code $(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;) || true
       - name: Report results to Check Run Reporter (pretest)
         if: always()
         uses: check-run-reporter/action@v2.11.1
