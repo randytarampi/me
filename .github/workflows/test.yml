@@ -122,7 +122,7 @@ jobs:
       - name: Actually run `yarn install --frozen-lockfile`
         run: yarn install --frozen-lockfile
 
-      - name: Setup for tests
+      - name: Setup CodeClimate for tests
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $PWD/cc-test-reporter
           chmod +x $PWD/cc-test-reporter
@@ -137,31 +137,64 @@ jobs:
           yarn run pretest
           yarn cover:actual
         timeout-minutes: 10
-      - name: Cleanup & handle test outputs
+      - name: Cleanup after tests
         if: always()
         env:
           NODE_ENV: test
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          CHECK_RUN_REPORTER_TOKEN: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          CODECLIMATE_REPO_TOKEN: ${{ secrets.CC_TEST_REPORTER_ID }}
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          COVERALLS_GIT_BRANCH: ${{ env.BRANCH }}
-          COVERALLS_GIT_COMMIT: ${{ env.COMMIT_SHA }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-          COVERALLS_SERVICE_JOB_ID: ${{ env.BUILD_NUMBER }}
-          COVERALLS_SERVICE_JOB_NUMBER: ${{ env.JOB_NUMBER }}
-          COVERALLS_SERVICE_NAME: github
-          REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
         run: |
           yarn run kill --scope @randy.tarampi/service
-          yarn run pretest:collect
-          if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:pretest || true; fi;
-          yarn run cover:collect
-          if [ "$PULL_REQUEST" ]; then yarn run check-run-reporter:test || true; fi;
-          python <(curl https://report.ci/upload.py) || true
-          bash <(curl -s https://codecov.io/bash) || true
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info || true
-          yarn codeclimate-test-reporter < coverage/lcov.info || true
+      - name: Report results to CodeClimate
+        if: always()
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
           $PWD/cc-test-reporter after-build --exit-code $(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;)) || true
-          yarn run coveralls || true
+      - name: Report results to Check Run Reporter (pretest)
+        if: always()
+        uses: check-run-reporter/action@v2.11.1
+        with:
+          token: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
+          report: pretest-results.xml
+          label: pretest
+      - name: Report results to Check Run Reporter (test)
+        if: always()
+        uses: check-run-reporter/action@v2.11.1
+        with:
+          token: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
+          report: test-results.xml
+          label: test
+      - name: Collect coverage
+        if: always()
+        env:
+          NODE_ENV: test
+        run: |
+          yarn run pretest:collect
+          yarn run cover:collect
+      - name: Report coverage to Coveralls
+        if: always()
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Report coverage to CodeClimate
+        if: always()
+        uses: check-run-reporter/action@v2.11.1
+        with:
+          coverageLocations: coverage/lcov.info:lcov
+      - name: Report coverage to CodeCov
+        if: always()
+        uses: check-run-reporter/action@v2.11.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+      - name: Report coverage to Codacy
+        if: always()
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info
+      - name: Report coverage to report.ci
+        if: always()
+        env:
+          REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
+        run: |
+          python <(curl https://report.ci/upload.py) || true
