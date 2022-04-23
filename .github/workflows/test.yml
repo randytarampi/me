@@ -27,14 +27,15 @@ on:
         required: true
 
   workflow_dispatch:
-    deployment_environment:
-      description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
-      required: true
-      default: dev
-      type: choice
-      options:
-        - dev
-        - prd
+    inputs:
+      deployment_environment:
+        description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prd
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true

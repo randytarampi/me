@@ -22,22 +22,23 @@ on:
         required: true
 
   workflow_dispatch:
-    application_name:
-      description: 'The application to deploy'
-      required: true
-      default: www
-      type: choice
-      options:
-        - www
-        - jsonresume-theme
-    deployment_environment:
-      description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
-      required: true
-      default: dev
-      type: choice
-      options:
-        - dev
-        - prd
+    inputs:
+      application_name:
+        description: 'The application to deploy'
+        required: true
+        default: www
+        type: choice
+        options:
+          - www
+          - jsonresume-theme
+      deployment_environment:
+        description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prd
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
