@@ -134,7 +134,7 @@ jobs:
           git config --local user.name "$GITHUB_ACTIONS_AUTHOR_NAME"
           echo "www.dev.randytarampi.ca" > packages/${{ steps.variables.outputs.application_name }}/docs/CNAME;
           if [ -d "packages/${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all packages/${{ steps.variables.outputs.application_name }}/docs; fi;
-          if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ env.GITHUB_REPOSITORY_OWNER }}.github.io.git"; fi;
+          if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ github.repository_owner }}.github.io.git"; fi;
       - name: Actually deploy (www/dev)
         if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
         uses: JamesIves/github-pages-deploy-action@v4.3.0
@@ -145,7 +145,7 @@ jobs:
           force: true
           branch: master
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
-          repository-name: ${{ env.GITHUB_REPOSITORY_OWNER }}/${{ env.GITHUB_REPOSITORY_OWNER }}.github.io
+          repository-name: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
           token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Actually deploy (www/prd)
@@ -169,7 +169,7 @@ jobs:
           force: true
           branch: master
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
-          repository-name: ${{ env.GITHUB_REPOSITORY_OWNER }}/me.resume
+          repository-name: ${{ github.repository_owner }}/me.resume
           token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Handle deployment (success)
