@@ -24,8 +24,8 @@ jobs:
     env:
       DEPLOY: false
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
-      runs-on:
-        - ubuntu-latest
+    runs-on:
+      - ubuntu-latest
     concurrency: pretest-${{ github.ref }}
     steps:
       - name: Set variables
