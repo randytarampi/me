@@ -17083,10 +17083,10 @@ restore-cursor@^3.1.0:
     onetime "^5.1.0"
     signal-exit "^3.0.2"
 
-resume-cli@^3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/resume-cli/-/resume-cli-3.0.7.tgz#fcf149a3755e7db69f6dc586373b55a76b7b39d2"
-  integrity sha512-9uGpPbVRlk+L0y/uIekHqwRGxs7+VGMnWvPGn8G8mpJgaOw6oIfYqtghB8FTjgfo2qrwlq7JQ3uVuGS+nPVG+g==
+resume-cli@3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/resume-cli/-/resume-cli-3.0.5.tgz#c9f7d8eb2684ec7ee4b30571ad0575004cd4fb3f"
+  integrity sha512-C5/LyLv0wcwg46pL3b/AzwMBpYCwa/FiAt13tBUfZQ1JgJshWYaB5TF3NH1Evlfhb6VpCvSXw+FY4By83pflCA==
   dependencies:
     async "^3.2.0"
     browser-sync "^2.26.7"
