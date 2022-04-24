@@ -13,7 +13,7 @@
     "dms-conversion": "^3.1.1",
     "georaptor": "github:randytarampi/georaptor#me-release",
     "haversine": "^1.1.1",
-    "immutable": "github:randytarampi/immutable-js#me-release",
+    "immutable": "^4.0.0",
     "latlon-geohash": "^1.1.0",
     "libphonenumber-js": "^1.9.52",
     "lodash": "^4.17.21",

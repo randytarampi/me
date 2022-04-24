@@ -14,7 +14,7 @@
     "@randy.tarampi/printables": "^7.0.0",
     "@randy.tarampi/resume": "^7.0.0",
     "@randy.tarampi/views": "^7.0.0",
-    "immutable": "github:randytarampi/immutable-js#me-release",
+    "immutable": "^4.0.0",
     "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",

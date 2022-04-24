@@ -22,7 +22,7 @@
     "@types/react": "^16.14.25",
     "exiftool-vendored": "^16.4.0",
     "history": "^4.10.1",
-    "immutable": "github:randytarampi/immutable-js#me-release",
+    "immutable": "^4.0.0",
     "isomorphic-fetch": "^3.0.0",
     "luxon": "^1.28.0",
     "materialize-css": "^1.0.0",

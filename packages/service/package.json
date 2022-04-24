@@ -18,7 +18,7 @@
     "dynamoose": "^2.8.5",
     "flickr-sdk": "^6.0.0",
     "form-data": "^3.0.1",
-    "immutable": "github:randytarampi/immutable-js#me-release",
+    "immutable": "^4.0.0",
     "instagram-graph-sdk": "^0.4.0",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^4.1.0",
