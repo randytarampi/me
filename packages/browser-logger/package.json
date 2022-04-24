@@ -13,8 +13,7 @@
     "browser-bunyan": "^1.8.0",
     "bunyan": "^2.0.5",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven-js": "^3.27.2",
-    "snyk": "^1.912.0"
+    "raven-js": "^3.27.2"
   },
   "devDependencies": {
     "chai": "^4.3.6",

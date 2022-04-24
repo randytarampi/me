@@ -18,8 +18,7 @@
     "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-materialize": "^3.10.0",
-    "snyk": "^1.912.0"
+    "react-materialize": "^3.10.0"
   },
   "devDependencies": {
     "bluebird": "^3.7.2",

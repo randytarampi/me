@@ -10,8 +10,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^7.0.0",
-    "config": "^3.3.7",
-    "snyk": "^1.912.0"
+    "config": "^3.3.7"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
