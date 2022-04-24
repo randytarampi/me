@@ -73,7 +73,7 @@ module.exports.stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () 
     const path = require("path");
     const autoprefixer = require("gulp-autoprefixer");
     const concat = require("gulp-concat");
-    const sass = require("gulp-sass");
+    const sass = require("gulp-sass")(require("sass"));
 
     return gulp.src([path.join(relativePath, "styles/style.scss")])
         .pipe(sass({

@@ -36,7 +36,7 @@
     "access": "public"
   },
   "repository": {
-    "directory": "me/packages/views",
+    "directory": "packages/views",
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
@@ -48,10 +48,9 @@
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn run snyk-protect && yarn run build",
+    "prepare": "yarn snyk-protect && yarn run build",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "yarn run clean",
-    "snyk-protect": "snyk protect"
+    "preuninstall": "yarn run clean"
   },
   "sideEffects": false,
   "snyk": false

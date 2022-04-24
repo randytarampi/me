@@ -10,23 +10,22 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "luxon": "^1.28.0",
-    "react-metrics": "^2.4.1",
-    "snyk": "^1.912.0"
+    "react-metrics": "^2.4.1"
   },
   "devDependencies": {
     "chai": "^4.3.6",
     "cross-env": "^7.0.3",
     "gulp": "^4.0.2",
-    "jsdom": "^16.7.0",
+    "jsdom": "^19.0.0",
     "mocha-junit-reporter": "^2.0.2",
-    "sinon": "^9.2.4"
+    "sinon": "^13.0.2"
   },
   "directories": {
     "lib": "./src/lib",
     "test": "./test"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "files": [
     "es5",
@@ -46,7 +45,7 @@
     "access": "public"
   },
   "repository": {
-    "directory": "me/packages/redux-metrics",
+    "directory": "packages/redux-metrics",
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
@@ -61,12 +60,11 @@
     "dev:client": "yarn run predev:client && webpack serve --config ./webpack.client.config.js --hot",
     "predev:client": "rm -rf dist/*.js dist/*.css",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn run snyk-protect && yarn run build",
+    "prepare": "yarn snyk-protect && yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
     "start": "yarn run dev",
-    "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test",
-    "snyk-protect": "snyk protect"
+    "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,
   "snyk": false

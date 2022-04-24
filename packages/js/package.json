@@ -19,8 +19,7 @@
     "lodash": "^4.17.21",
     "luxon": "^1.28.0",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
-    "query-string": "^6.14.1",
-    "snyk": "^1.912.0"
+    "query-string": "^7.1.1"
   },
   "devDependencies": {
     "chai": "^4.3.6",
@@ -59,7 +58,7 @@
     "access": "public"
   },
   "repository": {
-    "directory": "me/packages/js",
+    "directory": "packages/js",
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
@@ -71,10 +70,10 @@
     "clean": "gulp -LLLL --color clean",
     "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
     "prepack": "if [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn run snyk-protect && yarn run build",
+    "prepare": "yarn snyk-protect && yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,

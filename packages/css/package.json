@@ -24,7 +24,7 @@
     "access": "public"
   },
   "repository": {
-    "directory": "me/packages/css",
+    "directory": "packages/css",
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },

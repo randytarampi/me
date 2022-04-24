@@ -70,7 +70,7 @@ class S3Source extends CachedDataSource {
                     Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                     Key: key,
                     ...data,
-                    ...jsyaml.safeLoad(data.Body)
+                    ...jsyaml.load(data.Body)
                 });
             });
     }

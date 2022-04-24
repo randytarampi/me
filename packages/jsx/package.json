@@ -33,7 +33,7 @@
     "luxon": "^1.28.0",
     "materialize-css": "^1.0.0",
     "prop-types": "^15.8.1",
-    "query-string": "^6.14.1",
+    "query-string": "^7.1.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-google-maps": "^9.4.5",
@@ -68,12 +68,12 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "gulp": "^4.0.2",
-    "jsdom": "^16.7.0",
+    "jsdom": "^19.0.0",
     "mocha-junit-reporter": "^2.0.2",
     "mock-local-storage": "^1.1.22",
     "proxyquire": "^2.1.3",
     "redux-mock-store": "^1.5.4",
-    "sinon": "^9.2.4"
+    "sinon": "^13.0.2"
   },
   "directories": {
     "lib": "./src/lib",
@@ -107,7 +107,7 @@
     "access": "public"
   },
   "repository": {
-    "directory": "me/packages/jsx",
+    "directory": "packages/jsx",
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
   },
@@ -123,10 +123,9 @@
     "dev:client": "yarn run predev:client && webpack serve --config ./webpack.client.config.js --hot",
     "predev:client": "rm -rf dist/*.js dist/*.css",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn run snyk-protect && yarn run build",
+    "prepare": "yarn snyk-protect && yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
-    "snyk-protect": "snyk protect",
     "start": "yarn run dev",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },

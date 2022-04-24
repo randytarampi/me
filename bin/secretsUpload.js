@@ -101,7 +101,7 @@ commander
             process.exit(1);
         }
 
-        const secretsYaml = jsyaml.safeLoad(secretsConfig);
+        const secretsYaml = jsyaml.load(secretsConfig);
 
         Promise.all(_.map(secretsYaml, uploadSecretForRegion(region)))
             .then(() => {
