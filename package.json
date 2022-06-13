@@ -55,7 +55,7 @@
     "js-yaml": "^4.1.0",
     "json-stringify-safe": "^5.0.1",
     "junit-merge": "^2.0.0",
-    "lerna": "^4.0.0",
+    "lerna": "^5.1.2",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.6.0",
     "npm-check-updates": "^12.5.9",
