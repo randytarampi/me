@@ -75,7 +75,7 @@
     "syncpack": "^6.2.1",
     "terser-webpack-plugin": "^5.3.1",
     "vinyl-paths": "^3.0.1",
-    "webpack": "^5.72.0",
+    "webpack": "^5.76.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^3.11.3",
