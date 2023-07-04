@@ -13,7 +13,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
     "@babel/plugin-transform-property-literals": "^7.16.7",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-env": "^7.22.6",
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.17.7",
     "@snyk/protect": "^1.912.0",
