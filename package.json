@@ -61,7 +61,7 @@
     "npm-check-updates": "^12.5.9",
     "nyc": "^15.1.0",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
-    "postcss": "^8.4.12",
+    "postcss": "^8.4.31",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.4.3",
     "pug": "^3.0.2",
