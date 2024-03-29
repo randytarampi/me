@@ -30,7 +30,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "express": "^4.17.3",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "jsdom": "^19.0.0",
     "mocha-junit-reporter": "^2.0.2",
     "yargs": "^16.2.0"
