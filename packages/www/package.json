@@ -60,7 +60,7 @@
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.72.0",
     "webpack-bundle-analyzer": "^4.5.0",
-    "workbox-webpack-plugin": "^6.5.3"
+    "workbox-webpack-plugin": "^7.1.0"
   },
   "directories": {
     "lib": "./src/lib",
