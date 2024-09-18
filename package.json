@@ -67,7 +67,7 @@
     "pug": "^3.0.2",
     "pug-loader": "^2.4.0",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.50.1",
+    "sass": "^1.79.0",
     "sass-loader": "^12.6.0",
     "semver-compare": "^1.0.0",
     "sinon": "^13.0.2",
