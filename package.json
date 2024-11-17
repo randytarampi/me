@@ -32,7 +32,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "del": "^6.0.0",
-    "eslint": "^7.32.0",
+    "eslint": "^9.15.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "expose-loader": "^3.1.0",
