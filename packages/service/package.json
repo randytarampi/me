@@ -29,7 +29,7 @@
     "pad-right": "^0.2.2",
     "query-string": "^7.1.1",
     "rss": "^1.2.2",
-    "tumblr.js": "^3.0.0",
+    "tumblr.js": "^4.0.0",
     "twitter": "^1.7.1",
     "unsplash-js": "^6.3.0"
   },
