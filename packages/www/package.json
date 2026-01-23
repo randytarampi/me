@@ -56,10 +56,10 @@
     "mock-local-storage": "^1.1.22",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "redux-mock-store": "^1.5.4",
-    "sinon": "^13.0.2",
+    "sinon": "^21.0.1",
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.72.0",
-    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-bundle-analyzer": "^5.2.0",
     "workbox-webpack-plugin": "^6.5.3"
   },
   "directories": {
