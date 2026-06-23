@@ -3,26 +3,28 @@ require("./babel.register.js");
 module.exports = {};
 
 module.exports.clean = ({relativePath, gulp}) => gulp.task("clean", () => {
-    const vinylPaths = require("vinyl-paths");
-    const del = require("del");
+    // NOTE-RT: `vinyl-paths@5` is ESM-built (callable on `.default`), and `del@8` dropped its callable default
+    // NOTE-RT: export in favour of the named `deleteAsync`.
+    const vinylPaths = require("vinyl-paths").default || require("vinyl-paths");
+    const {deleteAsync} = require("del");
     const path = require("path");
 
     const directories = [".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/", "dist/", "build/", "esm/", "es5/"].map(directory => path.join(relativePath, directory));
 
     return gulp.src(directories, {allowEmpty: true})
-        .pipe(vinylPaths(del));
+        .pipe(vinylPaths(deleteAsync));
 });
 
 const isFixed = file => file.eslint && file.eslint.fixed;
 module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
     const fs = require("fs");
     const path = require("path");
-    const eslint = require("gulp-eslint");
+    const eslint = require("gulp-eslint-new");
     const gulpIf = require("gulp-if");
     const resultsFile = process.env.CI && fs.createWriteStream(path.join(relativePath, "eslint-results.xml"));
 
     const stream = gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
-        .pipe(eslint({fix: true, ignorePath: path.join(relativePath, "../../.eslintignore")}))
+        .pipe(eslint({fix: true}))
         .pipe(
             resultsFile
                 ? eslint.format("junit", resultsFile)

@@ -1,0 +1,37 @@
+diff --git a/index.js b/index.js
+index f3ff5b5f134faa8e36d12d014ac9d3e03fb17841..5b658f220a1139f73fe643699aa67875c45c9c8d 100644
+--- a/index.js
++++ b/index.js
+@@ -254,7 +254,31 @@ sassLint.format = function (results, options, configPath) {
+   var config = this.getConfig(options, configPath),
+       format = config.options.formatter.toLowerCase();
+ 
+-  var formatted = require('eslint/lib/formatters/' + format);
++  var formatted;
++  try {
++    formatted = require('eslint/lib/formatters/' + format);
++  } catch (e) {
++    formatted = function(res) {
++      var chalk = require('chalk');
++      var out = '';
++      var totalErrors = 0;
++      var totalWarnings = 0;
++      res.forEach(function(r) {
++        if (r.errorCount === 0 && r.warningCount === 0) return;
++        totalErrors += r.errorCount;
++        totalWarnings += r.warningCount;
++        out += '\n' + chalk.underline(r.filePath) + '\n';
++        r.messages.forEach(function(m) {
++          var severity = m.severity === 2 ? chalk.red('error') : chalk.yellow('warning');
++          out += '  ' + m.line + ':' + m.column + '  ' + severity + '  ' + m.message + '  ' + chalk.dim(m.ruleId) + '\n';
++        });
++      });
++      if (totalErrors > 0 || totalWarnings > 0) {
++        out += '\n\u2716 ' + (totalErrors + totalWarnings) + ' problems (' + totalErrors + ' errors, ' + totalWarnings + ' warnings)\n';
++      }
++      return out;
++    };
++  }
+ 
+   return formatted(results);
+ };
