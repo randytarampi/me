@@ -4,7 +4,7 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import * as fetchLetter from "../../../../../src/lib/actions/fetchLetter";
 import {ConnectedLetter} from "../../../../../src/lib/containers/letter";
