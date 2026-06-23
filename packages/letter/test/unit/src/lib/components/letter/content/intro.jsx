@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import LetterIntro from "../../../../../../../src/lib/components/letter/content/intro";
 import LetterSection from "../../../../../../../src/lib/letterSection";
 
