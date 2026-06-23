@@ -1,10 +1,18 @@
+import React from "react";
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
+import {useLocation} from "react-router";
 import SwipeableViews from "react-swipeable-views";
 import {bindKeyboard} from "react-swipeable-views-utils";
 import {compose} from "redux";
 import {swipeableChangeIndexCreator} from "../actions";
 import selectors from "../data/selectors";
+
+// NOTE-RT: `react-router@7` removed the `withRouter` HOC, so inject the current `location` via the `useLocation` hook.
+export const withLocation = Component => function WithLocation(props) {
+    const location = useLocation();
+
+    return <Component {...props} location={location}/>;
+};
 
 export const mapStateToProps = (state, {location}) => {
     const swipeableIndex = selectors.getSwipeableIndex(state);
@@ -31,7 +39,7 @@ export const mapDispatchToProps = {
 };
 
 export const ConnectedSwipeableRoutes = compose(
-    withRouter,
+    withLocation,
     connect(mapStateToProps, mapDispatchToProps),
     bindKeyboard,
 )(SwipeableViews);

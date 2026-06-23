@@ -1,10 +1,9 @@
 import {logger} from "@randy.tarampi/browser-logger";
 import {expect} from "chai";
-import {ConnectedRouter} from "connected-react-router/immutable";
 import {createBrowserHistory} from "history";
 import React from "react";
 import {Provider} from "react-redux";
-import * as reactRouter from "react-router-config";
+import {HistoryRouter} from "redux-first-history/rr6";
 import sinon from "sinon";
 import {ClientReduxRouterRoot} from "../../../../src/lib/clientReduxRouterRoot";
 import {ConnectedErrorWrapper} from "../../../../src/lib/containers/error";
@@ -17,7 +16,7 @@ describe("ClientReduxRouterRoot", function () {
     const stubComponent = () => <div className="testing">
         Testing...
     </div>;
-    let stubInitialState;
+    let stubInitialState = undefined;
     let stubStore;
     let stubHistory;
     let stubRoutes;
@@ -32,13 +31,11 @@ describe("ClientReduxRouterRoot", function () {
             }
         ];
 
-        sinon.spy(reactRouter, "renderRoutes");
         sinon.spy(logger, "info");
         sinon.spy(logger, "warn");
     });
 
     afterEach(function () {
-        reactRouter.renderRoutes.restore();
         logger.info.restore();
         logger.warn.restore();
         global.navigator = Object.assign({}, globalNavigator);
@@ -98,11 +95,7 @@ describe("ClientReduxRouterRoot", function () {
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
         expect(rendered).to.have.descendants(ConnectedErrorWrapper);
         expect(rendered.find(ConnectedErrorWrapper)).to.have.props(stubProps);
-        expect(rendered).to.have.descendants(ConnectedRouter);
-        expect(rendered.find(ConnectedRouter)).to.have.prop("history", stubHistory);
-
-        // FIXME-RT: Uncomment these lines when we figure out how to make the entire component render properly
-        //expect(reactRouter.renderRoutes.calledOnce).to.eql(true);
-        //sinon.assert.calledWith(reactRouter.renderRoutes, stubRoutes, stubProps);
+        expect(rendered).to.have.descendants(HistoryRouter);
+        expect(rendered.find(HistoryRouter)).to.have.prop("history", stubStore.history);
     });
 });

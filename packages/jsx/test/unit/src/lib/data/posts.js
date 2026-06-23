@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {fromJS, Map} from "immutable";
 import {DateTime} from "luxon";
 import {createAction} from "redux-actions";
-import {REHYDRATE} from "redux-persist/constants";
+import {REHYDRATE} from "redux-persist";
 import {fetchingPostsSuccess} from "../../../../../src/lib/actions/posts/fetchPosts";
 import reducer, {
     getNewestAvailablePostDateForSearchTypeAndPostType,

@@ -2,7 +2,7 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {SWIPEABLE_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableChangeIndex";
 import selectors from "../../../../../../src/lib/data/selectors";
@@ -28,7 +28,7 @@ describe("swipeableChangeIndex", function () {
         });
 
         swipeableChangeIndex = proxyquire("../../../../../../src/lib/actions/routing/swipeableChangeIndex", {
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 push: stubPush
             }
         }).default;

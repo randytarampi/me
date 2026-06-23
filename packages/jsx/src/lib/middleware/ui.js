@@ -1,9 +1,13 @@
-import {LOCATION_CHANGE} from "connected-react-router/immutable";
+import {LOCATION_CHANGE} from "redux-first-history";
 import clearError from "../actions/error/clearError";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";
 import selectors from "../data/selectors";
 
 const getSwipeableTabs = () => {
+    if (typeof document === "undefined") {
+        return null;
+    }
+
     const swipeableTabsElement = document.getElementsByClassName("nav-tabs__swipeable")[0];
 
     return swipeableTabsElement && typeof window.M !== "undefined" && window.M && window.M.Tabs.getInstance(swipeableTabsElement);

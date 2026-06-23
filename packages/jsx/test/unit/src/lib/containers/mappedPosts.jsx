@@ -4,7 +4,7 @@ import {List, Map} from "immutable";
 import proxyquire from "proxyquire";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {MAPPED_POSTS_FETCH_DEBOUNCE_DELAY} from "../../../../../src/lib/containers";
 import * as api from "../../../../../src/lib/data/api";

@@ -3,7 +3,7 @@ import {Map} from "immutable";
 import proxyquire from "proxyquire";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import selectors from "../../../../../src/lib/data/selectors";
 import {shallow} from "../../../../../src/test/util";
@@ -62,7 +62,7 @@ xdescribe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 "push": routerPushStub
             }
         });
@@ -109,7 +109,7 @@ xdescribe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 "push": routerPushStub
             }
         });
@@ -155,7 +155,7 @@ xdescribe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 "push": routerPushStub
             }
         });
@@ -194,7 +194,7 @@ xdescribe("Error", function () {
             "../../actions/error/clearErrorTimeoutHandler": {
                 "default": clearErrorTimeoutHandlerStub
             },
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 "push": routerPushStub
             }
         });

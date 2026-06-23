@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {fromJS} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import {UPDATE_MAP, updateMapCreator} from "../../../../../../../src/lib/actions/map";
 
 describe("updateMap", function () {

@@ -22,11 +22,11 @@ import {
 import {offlineStateLens, persist, persistAutoRehydrate} from "@randy.tarampi/redux-offline-immutable-config";
 import {offline} from "@redux-offline/redux-offline";
 import defaultReduxOfflineConfig from "@redux-offline/redux-offline/lib/defaults";
-import {connectRouter, routerMiddleware} from "connected-react-router/immutable";
-import Immutable, {Map} from "immutable";
+import * as Immutable from "immutable";
 import {applyMiddleware, createStore} from "redux";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
+import {createReduxHistoryContext} from "redux-first-history";
 import {combineReducers} from "redux-immutable";
 import {
     errorMiddleware,
@@ -94,8 +94,14 @@ export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) =>
     };
 };
 
-export const configureOfflineStore = (initialState = Map(), history, reducers, middleware = [], offlineConfig = buildReduxOfflineConfig()) => {
-    const combinedMiddleware = [thunk, metricsMiddleware, routerMiddleware(history), meRouterMiddleware, uiMiddleware, errorMiddleware, ...middleware];
+export const configureOfflineStore = (initialState = Immutable.Map(), history, reducers, middleware = [], offlineConfig = buildReduxOfflineConfig()) => {
+    const {createReduxHistory, routerMiddleware, routerReducer} = createReduxHistoryContext({
+        history,
+        reduxTravelling: false,
+        selectRouterState: state => state.get("router")
+    });
+
+    const combinedMiddleware = [thunk, metricsMiddleware, routerMiddleware, meRouterMiddleware, uiMiddleware, errorMiddleware, ...middleware];
 
     if (typeof window !== "undefined" && window.SENTRY_DSN && window.LOGGER && window.LOGGER.streams.sentry) {
         combinedMiddleware.unshift(ravenMiddleware());
@@ -109,12 +115,14 @@ export const configureOfflineStore = (initialState = Map(), history, reducers, m
     };
     const store = createStore(
         combineReducers({
-            router: connectRouter(history),
+            router: routerReducer,
             ...reducers
         }),
         initialState,
         composeWithDevTools(reduxDevToolsOptions)(applyMiddleware(...combinedMiddleware), offline(offlineConfig))
     );
+
+    store.history = createReduxHistory(store);
 
     return store;
 };

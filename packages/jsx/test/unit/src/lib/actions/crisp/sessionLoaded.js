@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sessionLoaded, {CRISP_SESSION_LOADED} from "../../../../../../src/lib/actions/crisp/sessionLoaded";
 
 describe("sessionLoaded", function () {

@@ -7,7 +7,7 @@ import {
     sortPostsByDate
 } from "@randy.tarampi/js";
 import {fromJS, Map, Set} from "immutable";
-import {REHYDRATE} from "redux-persist/constants";
+import {REHYDRATE} from "redux-persist";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/posts/fetchPosts";
 

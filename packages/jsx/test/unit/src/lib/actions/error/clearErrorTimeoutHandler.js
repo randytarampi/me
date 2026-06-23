@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import clearErrorTimeoutHandler, {CLEAR_ERROR_TIMEOUT_HANDLER} from "../../../../../../src/lib/actions/error/clearErrorTimeoutHandler";
 
 describe("clearErrorTimeoutHandler", function () {

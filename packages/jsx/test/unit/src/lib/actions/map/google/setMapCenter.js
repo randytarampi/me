@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {fromJS} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {SET_GOOGLE_MAP_CENTER, setGoogleMapCenterCreator} from "../../../../../../../src/lib/actions/map";
 

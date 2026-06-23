@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import websiteAvailabilityChanged, {CRISP_WEBSITE_AVAILABILITY_CHANGED} from "../../../../../../src/lib/actions/crisp/websiteAvailabilityChanged";
 
 describe("websiteAvailabilityChanged", function () {

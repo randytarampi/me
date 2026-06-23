@@ -4,7 +4,7 @@ import {shallow} from "enzyme";
 import React from "react";
 import {Marker} from "react-google-maps";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import {InternalLink, MapComponent} from "../../../../../src/lib/components";
 import Post, {
     PostBodyAsArrayComponent,

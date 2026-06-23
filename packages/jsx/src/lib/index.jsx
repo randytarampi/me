@@ -1,3 +1,6 @@
+// NOTE-RT: Must be first — polyfills React.createFactory (removed in React 19) before
+// NOTE-RT: react-google-maps loads transitively through ./components.
+import "./reactShim";
 import * as actions from "./actions";
 import * as api from "./api";
 import * as components from "./components";

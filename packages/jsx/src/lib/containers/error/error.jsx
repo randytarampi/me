@@ -1,4 +1,4 @@
-import {push} from "connected-react-router/immutable";
+import {push} from "redux-first-history";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import clearError from "../../actions/error/clearError";

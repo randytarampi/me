@@ -1,10 +1,10 @@
-import {push} from "connected-react-router/immutable";
+import {push} from "redux-first-history";
 import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
 import Link from "../link";
 
-const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => { // eslint-disable-line no-unused-vars
+const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => {  
     return <Link
         target="_self"
         text={serviceName}

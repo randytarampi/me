@@ -1,9 +1,9 @@
 import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
-import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
+import {HistoryRouter} from "redux-first-history/rr6";
 import {ClientRoot} from "./clientRoot";
 import {ConnectedErrorWrapper} from "./containers/error";
 import ConnectedSwipeableTabs from "./containers/swipeableTabs";
@@ -11,7 +11,7 @@ import {renderSwipeableRoutes} from "./util";
 
 export class ClientSwipeableReduxRouterRoot extends ClientRoot {
     render() {
-        const {store, history, routes, swipeableRoutesProps, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {store, history, routes, swipeableRoutesProps, ...props} = this.props;  
 
         return <Provider store={store}>
             <Fragment>
@@ -28,9 +28,9 @@ export class ClientSwipeableReduxRouterRoot extends ClientRoot {
                 </header>
                 <main>
                     <ConnectedErrorWrapper {...props}>
-                        <ConnectedRouter history={history}>
+                        <HistoryRouter history={store.history || history}>
                             {renderSwipeableRoutes(routes, props, swipeableRoutesProps)}
-                        </ConnectedRouter>
+                        </HistoryRouter>
                     </ConnectedErrorWrapper>
                 </main>
             </Fragment>

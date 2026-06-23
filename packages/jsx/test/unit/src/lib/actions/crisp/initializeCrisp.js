@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import initializeCrisp, {crispNamespaceHandlerMap, CRISP_INITIALIZING, CRISP_INITIALIZED} from "../../../../../../src/lib/actions/crisp/initializeCrisp";
 
 describe("initializeCrisp", function () {

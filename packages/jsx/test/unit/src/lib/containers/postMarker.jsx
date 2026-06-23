@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import * as setGoogleMapCenterAction from "../../../../../src/lib/actions/map/google/setMapCenter";
 import * as setControlStateAction from "../../../../../src/lib/actions/ui/setControlState";

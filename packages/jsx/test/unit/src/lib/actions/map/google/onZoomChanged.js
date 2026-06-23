@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {fromJS} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {
     HANDLE_GOOGLE_MAP_ZOOM_CHANGED,

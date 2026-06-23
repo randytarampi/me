@@ -1,18 +1,18 @@
 import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
-import {ConnectedRouter} from "connected-react-router/immutable";
 import PropTypes from "prop-types";
 import React from "react";
 import {metrics} from "react-metrics";
-import {renderRoutes} from "react-router-config";
+import {HistoryRouter} from "redux-first-history/rr6";
 import ClientReduxRoot from "./clientReduxRoot";
 import {ConnectedErrorWrapper} from "./containers/error";
+import {renderRoutes} from "./util/renderRoutes";
 
 export const ClientReduxRouterRoot = ({store, routes, history, ...props}) => {
     return <ClientReduxRoot store={store} {...props}>
         <ConnectedErrorWrapper {...props}>
-            <ConnectedRouter history={history}>
+            <HistoryRouter history={store.history || history}>
                 {renderRoutes(routes, props)}
-            </ConnectedRouter>
+            </HistoryRouter>
         </ConnectedErrorWrapper>
     </ClientReduxRoot>;
 };

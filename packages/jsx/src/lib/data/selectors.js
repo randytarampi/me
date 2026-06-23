@@ -1,5 +1,4 @@
 import {Gallery, Photo, Post} from "@randy.tarampi/js";
-import {getLocation} from "connected-react-router/immutable";
 import {getApiStateForUrl} from "./api";
 import {getEmoji, hasEmoji} from "./emoji";
 import {getError, getErrorCode, getErrorMessage, getErrorTimeoutHandlerId, hasError} from "./error";
@@ -23,6 +22,12 @@ import {
     getWordPostsSortedByDate
 } from "./posts";
 import {getControlStateForId, getIndexedRoutes, getIndexForRoute, getRouteForIndex, getSwipeableIndex} from "./ui";
+
+export const getLocation = state => {
+    const routerState = state.get("router");
+
+    return routerState ? routerState.location : undefined;
+};
 
 export const selectors = {
     hasError: state => hasError(state.get("error")),

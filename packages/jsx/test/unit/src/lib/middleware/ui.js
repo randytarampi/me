@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {LOCATION_CHANGE} from "connected-react-router/immutable";
+import {LOCATION_CHANGE} from "redux-first-history";
 import sinon from "sinon";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../src/lib/actions/routing";
 import selectors from "../../../../../src/lib/data/selectors";
