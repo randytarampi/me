@@ -1,14 +1,15 @@
 import {Buffer} from "buffer";
-import Busboy from "busboy";
+import busboy from "busboy";
 
 export const parseFilesFromMultipartEvent = ({body, headers, isBase64Encoded}) => new Promise((resolve, reject) => {
-    const busboy = new Busboy({headers: {"content-type": headers["Content-Type"], ...headers}});
+    const busboyInstance = busboy({headers: {"content-type": headers["Content-Type"], ...headers}, defParamCharset: "utf8"});
     const parsed = {};
 
-    busboy.on("field", (fieldname, value) => {
+    busboyInstance.on("field", (fieldname, value) => {
         parsed[fieldname] = value;
     });
-    busboy.on("file", (fieldname, fileStream, filename, encoding, mimetype) => {
+    busboyInstance.on("file", (fieldname, fileStream, info) => {
+        const {filename, encoding, mimeType} = info;
         const fieldForFile = parsed[fieldname] || {};
         parsed[fieldname] = fieldForFile;
 
@@ -16,7 +17,7 @@ export const parseFilesFromMultipartEvent = ({body, headers, isBase64Encoded}) =
             filename,
             data: Buffer.alloc(0),
             encoding,
-            contentType: mimetype
+            contentType: mimeType
         };
         fieldForFile[filename] = fieldForFileAndFileName;
 
@@ -25,15 +26,15 @@ export const parseFilesFromMultipartEvent = ({body, headers, isBase64Encoded}) =
         });
         fileStream.on("end", () => {
             fieldForFileAndFileName.encoding = encoding;
-            fieldForFileAndFileName.contentType = mimetype;
+            fieldForFileAndFileName.contentType = mimeType;
         });
     });
 
-    busboy.on("error", reject);
-    busboy.on("finish", () => resolve(parsed));
+    busboyInstance.on("error", reject);
+    busboyInstance.on("close", () => resolve(parsed));
 
-    busboy.write(body, isBase64Encoded ? "base64" : "binary");
-    busboy.end();
+    busboyInstance.write(body, isBase64Encoded ? "base64" : "binary");
+    busboyInstance.end();
 });
 
 export default parseFilesFromMultipartEvent;

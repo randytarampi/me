@@ -8,9 +8,7 @@ import {filterPostForOrderingConditionsInSearchParams} from "../util";
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || tumblr.createClient({
-            consumer_key: process.env.TUMBLR_API_KEY,
-            consumer_secret: process.env.TUMBLR_API_SECRET,
-            returnPromises: true
+            consumer_key: process.env.TUMBLR_API_KEY
         }),
             cacheClient
         );
