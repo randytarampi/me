@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {Map} from "immutable/dist/immutable";
 import React from "react";
-import {Route} from "react-router";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
+import {ConnectedSwipeableRoutes} from "../../../../../src/lib/containers";
 import {RenderedSwipeableRoutes, renderRoute} from "../../../../../src/lib/util/renderSwipeableRoutes";
 import routes from "../../../../build/routes";
 import {shallow} from "../../../../../src/test/util";
@@ -35,8 +35,8 @@ describe("renderSwipeableRoutes", function () {
             const rendered = shallow(stubStore)(<RenderedSwipeableRoutes routes={stubRoutes} location={stubLocation}/>);
             expect(rendered).to.have.className("routes-container");
             expect(rendered).to.have.className("routes-container__swipeable");
-            expect(rendered).to.have.descendants(Route);
-            expect(rendered.find(Route)).to.have.length(stubRoutes.filter(route => route.path).length);
+            expect(rendered).to.have.descendants(ConnectedSwipeableRoutes);
+            expect(rendered.find(ConnectedSwipeableRoutes)).to.have.length(1);
         });
     });
 
@@ -53,32 +53,21 @@ describe("renderSwipeableRoutes", function () {
         it("doesn't render a non-matching route", function () {
             const stubLocation = {pathname: "/woof"};
             const stubRoutes = routes;
-            const component = renderRoute(stubRoutes, stubRoutes[0]);
-            expect(component).to.be.ok;
-
-            const actualComponent = component({location: stubLocation});
+            const actualComponent = renderRoute(stubRoutes[0], {}, stubLocation);
             expect(actualComponent).to.eql(null);
         });
 
         it("doesn't render an out-of-view route", function () {
             const stubLocation = {pathname: "/posts/foo"};
-
             const stubRoutes = routes;
-            const component = renderRoute(stubRoutes, stubRoutes[1]);
-            expect(component).to.be.ok;
-
-            const actualComponent = component({location: stubLocation});
+            const actualComponent = renderRoute(stubRoutes[1], {}, stubLocation);
             expect(actualComponent).to.eql(null);
         });
 
         it("renders a matched route", function () {
             const stubLocation = {pathname: "/posts"};
-
             const stubRoutes = routes;
-            const component = renderRoute(stubRoutes, stubRoutes[1]);
-            expect(component).to.be.ok;
-
-            const actualComponent = component({location: stubLocation});
+            const actualComponent = renderRoute(stubRoutes[1], {}, stubLocation);
             expect(actualComponent).to.be.ok;
         });
     });

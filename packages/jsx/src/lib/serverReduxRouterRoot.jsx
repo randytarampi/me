@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {renderRoutes} from "react-router-config";
-import {StaticRouter} from "react-router-dom";
+import {StaticRouter} from "react-router";
 import {ConnectedErrorWrapper} from "./containers/error";
 import ReduxRoot from "./reduxRoot";
+import {renderRoutes} from "./util/renderRoutes";
 
-export const ServerReduxRouterRoot = ({store, context, routes, ...props}) =>
+export const ServerReduxRouterRoot = ({store, location, routes, ...props}) =>
     <ReduxRoot store={store} {...props}>
         <main>
             <ConnectedErrorWrapper {...props}>
-                <StaticRouter context={context}>
+                <StaticRouter location={location}>
                     {renderRoutes(routes, props)}
                 </StaticRouter>
             </ConnectedErrorWrapper>
@@ -18,12 +18,15 @@ export const ServerReduxRouterRoot = ({store, context, routes, ...props}) =>
 
 ServerReduxRouterRoot.propTypes = {
     store: PropTypes.object.isRequired,
-    context: PropTypes.object.isRequired,
+    location: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     routes: PropTypes.array.isRequired
 };
 
 ServerReduxRouterRoot.defaultProps = {
-    context: {}
+    location: "/"
 };
 
 export default ServerReduxRouterRoot;

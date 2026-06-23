@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import setError, {SET_ERROR} from "../../../../../../src/lib/actions/error/setError";
 
 describe("setError", function () {

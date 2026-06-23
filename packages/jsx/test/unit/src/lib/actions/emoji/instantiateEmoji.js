@@ -2,7 +2,7 @@ import {Emoji} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import instantiateEmoji, {INSTANTIATE_EMOJI} from "../../../../../../src/lib/actions/emoji/instantiateEmoji";
 
 describe("instantiateEmoji", function () {

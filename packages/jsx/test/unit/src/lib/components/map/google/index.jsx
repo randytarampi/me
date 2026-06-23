@@ -193,7 +193,7 @@ describe("GoogleMap", function () {
                 const stubProps = {
                     id: "woof",
                     meow: "grr",
-                    containerElement: () => <div>Woof</div> // eslint-disable-line react/display-name
+                    containerElement: () => <div>Woof</div>  
                 };
 
                 const rendered = shallow(<GoogleMapComponent {...stubProps}/>);
@@ -206,7 +206,7 @@ describe("GoogleMap", function () {
                 const stubProps = {
                     id: "woof",
                     meow: "grr",
-                    loadingElement: () => <div>Woof</div> // eslint-disable-line react/display-name
+                    loadingElement: () => <div>Woof</div>  
                 };
 
                 const rendered = shallow(<GoogleMapComponent {...stubProps}/>);
@@ -219,7 +219,7 @@ describe("GoogleMap", function () {
                 const stubProps = {
                     id: "woof",
                     meow: "grr",
-                    mapElement: () => <div>Woof</div> // eslint-disable-line react/display-name
+                    mapElement: () => <div>Woof</div>  
                 };
 
                 const rendered = shallow(<GoogleMapComponent {...stubProps}/>);

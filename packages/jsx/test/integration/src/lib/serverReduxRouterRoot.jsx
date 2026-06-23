@@ -12,7 +12,7 @@ import configureStore from "../../../../src/lib/store/configureStore";
 import {mount} from "../../../../src/test/util";
 
 describe("ServerReduxRouterRoot", function () {
-    let stubInitialState;
+    let stubInitialState = undefined;
     let stubStore;
     let stubHistory;
     let stubRoutes;

@@ -4,7 +4,7 @@ import {Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import {
     FETCHING_POSTS,
     FETCHING_POSTS_CANCELLED,

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {LOCATION_CHANGE} from "connected-react-router/immutable";
+import {LOCATION_CHANGE} from "redux-first-history";
 import {fromJS, List, Map} from "immutable";
 import {createAction} from "redux-actions";
 import {setRoutes} from "../../../../../src/lib/actions/routing/setRoutes";

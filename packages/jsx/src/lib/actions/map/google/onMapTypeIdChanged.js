@@ -3,7 +3,7 @@ import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_TYPE_CHANGED = "HANDLE_GOOGLE_MAP_TYPE_CHANGED";
 
-export const onGoogleMapMapTypeIdChangedCreator = (getGoogleMap, id) => dispatch => { // eslint-disable-line no-unused-vars
+export const onGoogleMapMapTypeIdChangedCreator = (getGoogleMap, id) => dispatch => {  
     const googleMap = getGoogleMap();
 
     if (googleMap) {

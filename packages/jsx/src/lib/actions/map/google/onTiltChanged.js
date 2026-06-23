@@ -3,7 +3,7 @@ import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_TILT_CHANGED = "HANDLE_GOOGLE_MAP_TILT_CHANGED";
 
-export const onGoogleMapTiltChangedCreator = (getGoogleMap, id) => dispatch => { // eslint-disable-line no-unused-vars
+export const onGoogleMapTiltChangedCreator = (getGoogleMap, id) => dispatch => {  
     const googleMap = getGoogleMap();
 
     if (googleMap) {

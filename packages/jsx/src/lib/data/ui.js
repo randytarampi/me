@@ -1,6 +1,6 @@
-import {LOCATION_CHANGE} from "connected-react-router/immutable";
 import {fromJS, List, Map} from "immutable";
-import {matchRoutes} from "react-router-config";
+import {matchPath} from "react-router";
+import {LOCATION_CHANGE} from "redux-first-history";
 import {createSelector} from "reselect";
 import {SET_CONTROL_STATE, SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions";
 
@@ -67,21 +67,35 @@ export const getRouteForIndex = (state, index) => {
     const foundRoute = indexedRoutes && indexedRoutes.get(index);
     return foundRoute || null;
 };
+// NOTE-RT: `react-router@7` removed `react-router-config`'s `matchRoutes(routes, pathname)`; match each indexed
+// NOTE-RT: (tab) route directly with v7's `matchPath`. Paths/pathnames are normalised to a leading slash and
+// NOTE-RT: `end` defaults to the v5 `exact` flag (i.e. prefix matching unless `exact` was set).
+const normalizeRoutePath = value => {
+    if (typeof value !== "string" || value.length === 0) {
+        return value;
+    }
+
+    return value.startsWith("/")
+        ? value
+        : `/${value}`;
+};
 export const getIndexForRoute = (state, pathname) => {
     const indexedRoutes = getIndexedRoutes(state);
-    const matchedRoutes = matchRoutes(indexedRoutes, pathname);
-    const bestMatchedRoute = matchedRoutes[matchedRoutes.length - 1];
-    let routeForIndexSearch = bestMatchedRoute && bestMatchedRoute.route;
-    let bestRouteIndex;
 
-    do {
-        if (routeForIndexSearch) {
-            bestRouteIndex = indexedRoutes.findIndex(indexedRoute => indexedRoute.path === routeForIndexSearch.path);
-            routeForIndexSearch = routeForIndexSearch.parent;
+    if (!indexedRoutes || indexedRoutes.size === 0 || typeof pathname !== "string") {
+        return null;
+    }
+
+    const normalizedPathname = normalizeRoutePath(pathname);
+    const bestRouteIndex = indexedRoutes.findIndex(route => {
+        if (!route.path) {
+            return false;
         }
-    } while (bestRouteIndex === -1 && routeForIndexSearch);
 
-    return Number.isFinite(bestRouteIndex) && bestRouteIndex !== -1
+        return !!matchPath({path: normalizeRoutePath(route.path), end: !!route.exact, caseSensitive: !!route.sensitive}, normalizedPathname);
+    });
+
+    return bestRouteIndex !== -1
         ? bestRouteIndex
         : null;
 };

@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import messageSent, {CRISP_MESSAGE_SENT} from "../../../../../../src/lib/actions/crisp/messageSent";
 
 describe("messageSent", function () {

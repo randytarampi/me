@@ -3,7 +3,7 @@ import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_BOUNDS_CHANGED = "HANDLE_GOOGLE_MAP_BOUNDS_CHANGED";
 
-export const onGoogleMapBoundsChangedCreator = (getGoogleMap, id) => dispatch => { // eslint-disable-line no-unused-vars
+export const onGoogleMapBoundsChangedCreator = (getGoogleMap, id) => dispatch => {  
     const googleMap = getGoogleMap();
 
     if (googleMap) {

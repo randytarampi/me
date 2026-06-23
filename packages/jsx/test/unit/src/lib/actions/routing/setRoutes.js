@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import setRoutes, {SET_ROUTES} from "../../../../../../src/lib/actions/routing/setRoutes";
 
 describe("setRoutes", function () {

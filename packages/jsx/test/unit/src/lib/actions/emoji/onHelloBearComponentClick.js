@@ -2,7 +2,7 @@ import {Bear} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {HANDLE_COMPONENT_CLICK} from "../../../../../../src/lib/actions/emoji/onComponentClick";
 import onHelloBearComponentClick, {HANDLE_HELLO_BEAR_COMPONENT_CLICK} from "../../../../../../src/lib/actions/emoji/onHelloBearComponentClick";

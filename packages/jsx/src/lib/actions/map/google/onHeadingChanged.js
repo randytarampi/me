@@ -3,7 +3,7 @@ import {updateMap} from "../updateMap";
 
 export const HANDLE_GOOGLE_MAP_HEADING_CHANGED = "HANDLE_GOOGLE_MAP_HEADING_CHANGED";
 
-export const onGoogleMapHeadingChangedCreator = (getGoogleMap, id) => dispatch => { // eslint-disable-line no-unused-vars
+export const onGoogleMapHeadingChangedCreator = (getGoogleMap, id) => dispatch => {  
     const googleMap = getGoogleMap();
 
     if (googleMap) {

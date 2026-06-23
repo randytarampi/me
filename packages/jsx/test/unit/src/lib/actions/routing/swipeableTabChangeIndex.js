@@ -2,7 +2,7 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
 import selectors from "../../../../../../src/lib/data/selectors";
@@ -29,7 +29,7 @@ describe("swipeableTabChangeIndex", function () {
         });
 
         swipeableTabChangeIndex = proxyquire("../../../../../../src/lib/actions/routing/swipeableTabChangeIndex", {
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 push: stubPush
             }
         }).default;

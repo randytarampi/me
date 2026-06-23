@@ -3,7 +3,7 @@ import {Map} from "immutable/dist/immutable";
 import proxyquire from "proxyquire";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import Link from "../../../../../../src/lib/components/link";
 import {mount} from "../../../../../../src/test/util";
@@ -27,7 +27,7 @@ describe("InternalLink", function () {
         });
 
         proxyquiredInternalLinkModule = proxyquire("../../../../../../src/lib/components/link/internal", {
-            "connected-react-router/immutable": {
+            "redux-first-history": {
                 "push": routerPushStub
             }
         });

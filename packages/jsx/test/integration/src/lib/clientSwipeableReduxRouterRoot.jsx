@@ -1,10 +1,10 @@
 import {logger} from "@randy.tarampi/browser-logger";
 import {expect} from "chai";
-import {ConnectedRouter} from "connected-react-router/immutable";
 import {createBrowserHistory} from "history";
 import {fromJS} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
+import {HistoryRouter} from "redux-first-history/rr6";
 import sinon from "sinon";
 import {ClientSwipeableReduxRouterRoot} from "../../../../src/lib/clientSwipeableReduxRouterRoot";
 import {ConnectedErrorWrapper} from "../../../../src/lib/containers/error";
@@ -102,8 +102,8 @@ describe("ClientSwipeableReduxRouterRoot", function () {
         expect(rendered.find(Provider)).to.have.prop("store", stubStore);
         expect(rendered).to.have.descendants(ConnectedErrorWrapper);
         expect(rendered.find(ConnectedErrorWrapper)).to.have.props(stubProps);
-        expect(rendered).to.have.descendants(ConnectedRouter);
-        expect(rendered.find(ConnectedRouter)).to.have.prop("history", stubHistory);
+        expect(rendered).to.have.descendants(HistoryRouter);
+        expect(rendered.find(HistoryRouter)).to.have.prop("history", stubStore.history);
 
         expect(renderSwipeableRoutesModule.renderSwipeableRoutes.calledOnce).to.eql(true);
         sinon.assert.calledWith(renderSwipeableRoutesModule.renderSwipeableRoutes, stubRoutes, stubProps);

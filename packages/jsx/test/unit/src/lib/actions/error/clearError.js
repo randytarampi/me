@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import clearError, {CLEAR_ERROR} from "../../../../../../src/lib/actions/error/clearError";
 
 describe("clearError", function () {

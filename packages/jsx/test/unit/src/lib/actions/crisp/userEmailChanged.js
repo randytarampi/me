@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import userEmailChanged, {CRISP_USER_EMAIL_CHANGED} from "../../../../../../src/lib/actions/crisp/userEmailChanged";
 
 describe("userEmailChanged", function () {

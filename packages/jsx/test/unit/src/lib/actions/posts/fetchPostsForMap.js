@@ -4,7 +4,7 @@ import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import {Post} from "@randy.tarampi/js";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import selectors from "../../../../../../src/lib/data/selectors";
 

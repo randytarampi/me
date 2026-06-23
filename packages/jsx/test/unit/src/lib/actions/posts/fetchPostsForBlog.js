@@ -4,7 +4,7 @@ import {List, Map, Set} from "immutable";
 import {DateTime} from "luxon";
 import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import {FETCHING_POSTS_CANCELLED, FETCHING_POSTS_PER_PAGE} from "../../../../../../src/lib/actions/posts/fetchPosts";
 import selectors from "../../../../../../src/lib/data/selectors";
