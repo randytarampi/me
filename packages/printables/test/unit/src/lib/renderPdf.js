@@ -87,7 +87,7 @@ describe("renderPdf", function () {
                 sinon.assert.calledWithExactly(stubPuppeteerPage.emulateMediaType, stubPrintable.pdfRenderOptions.mediaType);
 
                 expect(stubPuppeteerPage.setContent.calledOnce).to.be.ok;
-                sinon.assert.calledWithExactly(stubPuppeteerPage.setContent, stubPrintableHtml, {waitUntil: "networkidle0"});
+                sinon.assert.calledWithExactly(stubPuppeteerPage.setContent, stubPrintableHtml, {waitUntil: "load"});
 
                 expect(stubPuppeteerPage.pdf.calledOnce).to.be.ok;
                 sinon.assert.calledWithExactly(stubPuppeteerPage.pdf, {
