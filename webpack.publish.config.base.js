@@ -40,6 +40,11 @@ module.exports = ({
             filename: "[name].js"
         },
         resolve: {
+            // NOTE-RT: Prefer `main` (CJS) over `module` (ESM) for commonjs2 output. ESM-first packages like
+            // NOTE-RT: immutable@5 export a namespace without `default`, which breaks `redux-immutable`'s
+            // NOTE-RT: `_interopRequireDefault(require("immutable")).default.Map` interop inside the bundle.
+            // NOTE-RT: This config is only consumed by jsonresume-theme; client webpack configs are unaffected.
+            mainFields: ["main", "module"],
             extensions: [".js", ".jsx", ".json"]
         },
         module: {
