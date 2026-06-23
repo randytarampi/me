@@ -10,10 +10,10 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "^7.0.0",
-    "config": "^3.3.7"
+    "config": "^4.4.1"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "gulp": "^4.0.2",
     "gulp-pug": "^5.0.0"
   },
@@ -47,10 +47,9 @@
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn snyk-protect && yarn run build",
+    "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean"
   },
-  "sideEffects": false,
-  "snyk": false
+  "sideEffects": false
 }

@@ -130,7 +130,7 @@ export class Organization extends Record({
     }
 
     toSchema() {
-        const {knowsLanguage, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
+        const {knowsLanguage, ...js} = this.toJS();  
 
         return new SchemaOrganization({
             ...js,

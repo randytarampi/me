@@ -29,7 +29,7 @@ const configureRaven = packageJson => Promise.resolve()
                     }
                 }
             );
-            raven.on("error", error => console.error(error, "Raven failed to capture message")); // eslint-disable-line no-console
+            raven.on("error", error => console.error(error, "Raven failed to capture message"));  
 
             if (!process.env.IS_OFFLINE) {
                 raven.install();

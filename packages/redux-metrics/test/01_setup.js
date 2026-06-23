@@ -5,9 +5,11 @@ const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "htt
 global._jsdom = jsdom;
 global.window = jsdom.window;
 global.document = jsdom.window.document;
-global.navigator = {
-    userAgent: "node.js"
-};
+Object.defineProperty(global, "navigator", {
+    configurable: true,
+    writable: true,
+    value: {userAgent: "node.js"}
+});
 global.location = jsdom.window.location;
 
 global.window.NAME = packageJson.name;

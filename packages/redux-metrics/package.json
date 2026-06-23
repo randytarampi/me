@@ -9,15 +9,15 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "luxon": "^1.28.0",
+    "luxon": "^3.7.2",
     "react-metrics": "^2.4.1"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "cross-env": "^7.0.3",
+    "chai": "^4.5.0",
+    "cross-env": "^10.1.0",
     "gulp": "^4.0.2",
-    "jsdom": "^19.0.0",
-    "mocha-junit-reporter": "^2.0.2",
+    "jsdom": "^29.1.1",
+    "mocha-junit-reporter": "^2.2.1",
     "sinon": "^13.0.2"
   },
   "directories": {
@@ -25,7 +25,7 @@
     "test": "./test"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   },
   "files": [
     "es5",
@@ -60,12 +60,11 @@
     "dev:client": "yarn run predev:client && webpack serve --config ./webpack.client.config.js --hot",
     "predev:client": "rm -rf dist/*.js dist/*.css",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn snyk-protect && yarn run build",
+    "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
     "start": "yarn run dev",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false,
-  "snyk": false
+  "sideEffects": false
 }

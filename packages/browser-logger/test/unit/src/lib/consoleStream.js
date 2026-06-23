@@ -119,11 +119,11 @@ describe("ConsoleStream", function () {
         });
 
         afterEach(function () {
-            console.error.restore(); // eslint-disable-line no-console
-            console.warn.restore(); // eslint-disable-line no-console
-            console.info.restore(); // eslint-disable-line no-console
-            console.debug.restore(); // eslint-disable-line no-console
-            console.log.restore(); // eslint-disable-line no-console
+            console.error.restore();  
+            console.warn.restore();  
+            console.info.restore();  
+            console.debug.restore();  
+            console.log.restore();  
 
             window.console = console;
             global.window = window;
@@ -136,49 +136,49 @@ describe("ConsoleStream", function () {
         it("handles FATAL (60)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(60);
 
-            expect(consoleLogger).to.eql(console.error); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.error);  
         });
 
         it("handles ERROR (50)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(50);
 
-            expect(consoleLogger).to.eql(console.error); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.error);  
         });
 
         it("handles WARN (40)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(40);
 
-            expect(consoleLogger).to.eql(console.warn); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.warn);  
         });
 
         it("handles INFO (30)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(30);
 
-            expect(consoleLogger).to.eql(console.info); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.info);  
         });
 
         it("handles DEBUG (20)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(20);
 
-            expect(consoleLogger).to.eql(console.debug); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.debug);  
         });
 
         it("handles TRACE (10)", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(10);
 
-            expect(consoleLogger).to.eql(console.debug); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.debug);  
         });
 
         it("returns `console.log` if there is no other appropriate level", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(-10);
 
-            expect(consoleLogger).to.eql(console.log); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.log);  
         });
 
         it("returns the closest matching logger for a random logging level", function () {
             const consoleLogger = ConsoleStream.consoleLoggerFromLevel(101);
 
-            expect(consoleLogger).to.eql(console.error); // eslint-disable-line no-console
+            expect(consoleLogger).to.eql(console.error);  
         });
     });
 
@@ -202,11 +202,11 @@ describe("ConsoleStream", function () {
         });
 
         afterEach(function () {
-            console.error.restore(); // eslint-disable-line no-console
-            console.warn.restore(); // eslint-disable-line no-console
-            console.info.restore(); // eslint-disable-line no-console
-            console.debug.restore(); // eslint-disable-line no-console
-            console.log.restore(); // eslint-disable-line no-console
+            console.error.restore();  
+            console.warn.restore();  
+            console.info.restore();  
+            console.debug.restore();  
+            console.log.restore();  
 
             window.console = console;
             global.window = window;
@@ -217,8 +217,8 @@ describe("ConsoleStream", function () {
 
             consoleStream.write(stubRecord);
 
-            expect(console.error.calledOnce).to.eql(true); // eslint-disable-line no-console
-            sinon.assert.calledWith(console.error, // eslint-disable-line no-console
+            expect(console.error.calledOnce).to.eql(true);  
+            sinon.assert.calledWith(console.error,  
                 "%c｢%s｣ %c%s%c: %s",
                 "color: grey",
                 bears.bear.toString(),
@@ -237,11 +237,11 @@ describe("ConsoleStream", function () {
 
             consoleStream.write(stubRecord);
 
-            expect(console.error.notCalled).to.eql(true); // eslint-disable-line no-console
-            expect(console.warn.notCalled).to.eql(true); // eslint-disable-line no-console
-            expect(console.info.notCalled).to.eql(true); // eslint-disable-line no-console
-            expect(console.debug.notCalled).to.eql(true); // eslint-disable-line no-console
-            expect(console.log.notCalled).to.eql(true); // eslint-disable-line no-console
+            expect(console.error.notCalled).to.eql(true);  
+            expect(console.warn.notCalled).to.eql(true);  
+            expect(console.info.notCalled).to.eql(true);  
+            expect(console.debug.notCalled).to.eql(true);  
+            expect(console.log.notCalled).to.eql(true);  
         });
     });
 });

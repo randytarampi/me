@@ -14,32 +14,32 @@
     "@randy.tarampi/printables": "^7.0.0",
     "@randy.tarampi/resume": "^7.0.0",
     "@randy.tarampi/views": "^7.0.0",
-    "immutable": "^4.0.0",
-    "lodash": "^4.17.21",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "immutable": "^5.1.6",
+    "lodash": "^4.18.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "react-materialize": "^3.10.0"
   },
   "devDependencies": {
     "bluebird": "^3.7.2",
-    "chai": "^4.3.6",
+    "chai": "^4.5.0",
     "chai-enzyme": "^1.0.0-beta.1",
-    "cheerio": "^1.0.0-rc.10",
-    "config": "^3.3.7",
-    "cross-env": "^7.0.3",
+    "cheerio": "^1.2.0",
+    "config": "^4.4.1",
+    "cross-env": "^10.1.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
-    "express": "^4.17.3",
+    "enzyme-adapter-react-16": "^1.15.8",
+    "express": "^5.2.1",
     "gulp": "^4.0.2",
-    "jsdom": "^19.0.0",
-    "mocha-junit-reporter": "^2.0.2",
-    "yargs": "^16.2.0"
+    "jsdom": "^29.1.1",
+    "mocha-junit-reporter": "^2.2.1",
+    "yargs": "^18.0.0"
   },
   "directories": {
     "lib": "./src/lib"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=20"
   },
   "homepage": "https://www.randytarampi.ca",
   "license": "MIT",
@@ -65,12 +65,11 @@
     "job-applications": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
     "postinstall": "mkdir -p dist",
-    "prepare": "yarn snyk-protect && yarn run build",
+    "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false,
-  "snyk": false
+  "sideEffects": false
 }
