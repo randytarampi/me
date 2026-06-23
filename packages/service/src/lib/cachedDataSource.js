@@ -100,7 +100,7 @@ class CachedDataSource extends DataSource {
      * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the cache
      */
-    async getAllCachedRecords(searchParams) { // eslint-disable-line no-unused-vars
+    async getAllCachedRecords(searchParams) {  
         return this.beforeCachedRecordsGetter(searchParams)
             .then(decoratedCachedRecordsGetterParams => {
                 logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from cache at ${DateTime.utc()}`);
@@ -141,7 +141,7 @@ class CachedDataSource extends DataSource {
      * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Record[]} [Record]{@link Record} entities transformed from data retrieved from the wrapped client
      */
-    async getAllServiceRecords(searchParams) { // eslint-disable-line no-unused-vars
+    async getAllServiceRecords(searchParams) {  
         return this.beforeRecordsGetter(searchParams)
             .then(decoratedRecordsGetterParams => {
                 logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);

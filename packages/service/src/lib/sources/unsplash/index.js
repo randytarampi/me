@@ -1,14 +1,13 @@
 import {Photo} from "@randy.tarampi/js";
 import "isomorphic-fetch";
-import Unsplash, {toJson} from "unsplash-js";
+import {createApi} from "unsplash-js";
 import CachedDataSource from "../../cachedDataSource";
 import {filterPostForOrderingConditionsInSearchParams} from "../util";
 
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super(dataClient || new Unsplash({
-                accessKey: process.env.UNSPLASH_API_KEY,
-                secret: process.env.UNSPLASH_API_SECRET
+        super(dataClient || createApi({
+                accessKey: process.env.UNSPLASH_API_KEY
             }),
             cacheClient);
     }
@@ -73,21 +72,24 @@ class UnsplashSource extends CachedDataSource {
     }
 
     recordsGetter(searchParams) {
-        const unsplashRequest = this.client.users.photos(process.env.UNSPLASH_USER_NAME, searchParams.Unsplash.page, searchParams.Unsplash.per_page, searchParams.Unsplash.order_by);
+        const unsplashRequest = this.client.users.getPhotos({
+            username: process.env.UNSPLASH_USER_NAME,
+            page: searchParams.Unsplash.page,
+            perPage: searchParams.Unsplash.per_page,
+            orderBy: searchParams.Unsplash.order_by
+        });
 
         return unsplashRequest
-            .then(toJson)
-            .then(response => Promise.all(
-                response
+            .then(({response}) => Promise.all(
+                ((response && response.results) || [])
                     .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.instanceToRecord(post), searchParams))
                     .map(photo => this.recordGetter(photo.id, searchParams))
             ));
     }
 
-    recordGetter(photoId, searchParams) {
-        return this.client.photos.getPhoto(photoId, searchParams.Unsplash.width, searchParams.Unsplash.height, searchParams.Unsplash.crop)
-            .then(toJson)
-            .then(json => json && UnsplashSource.instanceToRecord(json));
+    recordGetter(photoId, searchParams) { // eslint-disable-line no-unused-vars
+        return this.client.photos.get({photoId})
+            .then(({response}) => response && UnsplashSource.instanceToRecord(response));
     }
 }
 
