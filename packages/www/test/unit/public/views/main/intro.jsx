@@ -4,7 +4,7 @@ import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import Intro, {IntroText} from "../../../../../src/public/views/main/intro";
 
 describe("Intro", function () {

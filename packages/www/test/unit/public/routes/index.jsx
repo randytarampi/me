@@ -6,9 +6,9 @@ import {ConnectedResume} from "@randy.tarampi/resume";
 import {expect} from "chai";
 import {Map} from "immutable";
 import React from "react";
-import {Redirect} from "react-router";
+import {Navigate} from "react-router";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import {
     BlogPhotoRouteHandler,
     BlogRouteHandler,
@@ -43,7 +43,7 @@ describe("routes", function () {
             const rendered = shallow(stubStore)(<WordsRouteHandler/>);
 
             expect(rendered).to.contain(
-                <Redirect to="/blog/words"/>
+                <Navigate to="/blog/words" replace/>
             );
         });
     });
@@ -53,7 +53,7 @@ describe("routes", function () {
             const rendered = shallow(stubStore)(<PhotosRouteHandler/>);
 
             expect(rendered).to.contain(
-                <Redirect to="/blog/photos"/>
+                <Navigate to="/blog/photos" replace/>
             );
         });
     });

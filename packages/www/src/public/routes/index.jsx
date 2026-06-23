@@ -5,13 +5,13 @@ import {ConnectedResume} from "@randy.tarampi/resume";
 import React, {Fragment} from "react";
 import {Helmet} from "react-helmet";
 import {Tab} from "react-materialize";
-import {Redirect} from "react-router";
+import {Navigate} from "react-router";
 import Main from "../views/main";
 
 const helloBear = new HelloBear();
 
-export const PhotosRouteHandler = props => <Redirect {...props} to="/blog/photos"/>;
-export const WordsRouteHandler = props => <Redirect {...props} to="/blog/words"/>;
+export const PhotosRouteHandler = () => <Navigate to="/blog/photos" replace/>;
+export const WordsRouteHandler = () => <Navigate to="/blog/words" replace/>;
 export const BlogRouteHandler = props => <Fragment>
     <Helmet>
         <title>{__ME_PERSON_NAME__} — Follow me</title>

@@ -1,7 +1,8 @@
+import "@randy.tarampi/jsx/src/lib/reactShim";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import Enzyme from "enzyme";
-import EnzymeAdapter from "enzyme-adapter-react-16";
+import EnzymeAdapter from "@cfaester/enzyme-adapter-react-18";
 import {JSDOM} from "jsdom";
 import "mock-local-storage";
 import packageJson from "../package.json";
@@ -9,9 +10,11 @@ import packageJson from "../package.json";
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global.window = jsdom.window;
 global.document = jsdom.window.document;
-global.navigator = {
-    userAgent: "node.js"
-};
+Object.defineProperty(global, "navigator", {
+    configurable: true,
+    writable: true,
+    value: {userAgent: "node.js"}
+});
 global.location = jsdom.window.location;
 
 Enzyme.configure({adapter: new EnzymeAdapter()});
