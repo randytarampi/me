@@ -69,6 +69,10 @@ describe("Post", function () {
 
         return await PostModel.dynamooseModel.query("status").eq(POST_STATUS.visible).exec()
             .then(posts => {
+                if (!posts.length) {
+                    return;
+                }
+
                 return PostModel.dynamooseModel.batchDelete(posts.map(post => {
                     return {uid: post.uid, status: POST_STATUS.visible};
                 }));
@@ -97,8 +101,9 @@ describe("Post", function () {
             const createdPost = await PostModel.createRecord(stubPost);
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.dynamooseModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
-            expect(postFromDb.tags).to.have.all.members(stubPost.tags.filter(tag => !!tag).map(tag => tag.toLowerCase()).toArray());
-            expect(postFromDb.tags).to.not.have.members([""]);
+            expect(postFromDb.tags).to.be.an.instanceof(Set);
+            expect([...postFromDb.tags]).to.have.all.members(stubPost.tags.filter(tag => !!tag).map(tag => tag.toLowerCase()).toArray());
+            expect([...postFromDb.tags]).to.not.have.members([""]);
         });
     });
 

@@ -8,7 +8,7 @@ const post = new Schema({
         default: model => `${model.source}${compositeKeySeparator}${model.id}`,
         index: [
             {
-                global: true,
+                type: "global",
                 name: "uid-index"
             }
         ]
@@ -23,16 +23,16 @@ const post = new Schema({
         enum: Object.keys(POST_ENTITIES_MAP),
         index: [
             {
-                global: false,
+                type: "local",
                 name: "status-type-index"
             },
             {
-                global: true,
+                type: "global",
                 name: "type-datePublished-index",
                 rangeKey: "datePublished"
             },
             {
-                global: true,
+                type: "global",
                 name: "type-geohash-index",
                 rangeKey: "geohash"
             }
@@ -43,7 +43,7 @@ const post = new Schema({
         required: true,
         index: [
             {
-                global: false,
+                type: "local",
                 name: "status-source-index"
             }
         ]
@@ -53,7 +53,7 @@ const post = new Schema({
         get: date => date && date.toISOString(),
         index: [
             {
-                global: false,
+                type: "local",
                 name: "status-datePublished-index"
             }
         ]
@@ -63,7 +63,7 @@ const post = new Schema({
         get: date => date && date.toISOString(),
         index: [
             {
-                global: false,
+                type: "local",
                 name: "status-dateCreated-index"
             }
         ]
@@ -75,9 +75,13 @@ const post = new Schema({
     tags: {
         type: Set,
         schema: [String],
-        lowercase: true,
-        set: tags => tags && tags
+        // Empty-string tags are filtered out, values lowercased and de-duplicated, and the result returned
+        // as a `Set` so Dynamoose v4 persists a DynamoDB String Set (`SS`) (a plain array would be stored as
+        // a List and fail the read-back type check). Replaces the old `lowercase: true` setting, which does
+        // not apply cleanly to Set modifiers in v4.
+        set: tags => tags && new Set(Array.from(tags)
             .filter(tag => !!tag)
+            .map(tag => tag.toLowerCase()))
     },
     lat: {
         type: Number
@@ -89,7 +93,7 @@ const post = new Schema({
         type: String,
         index: [
             {
-                global: false,
+                type: "local",
                 name: "status-geohash-index"
             }
         ]

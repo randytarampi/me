@@ -80,7 +80,7 @@ describe("util", function () {
             const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
-            sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
+            sinon.assert.calledWith(stubQueryMethod, {...stubQuery.hash, ...stubQuery.range}, stubOptions);
             sinon.assert.notCalled(stubQueryMethodAnd);
             sinon.assert.notCalled(stubQueryMethodFilter);
             sinon.assert.notCalled(stubQueryMethodEq);
@@ -108,7 +108,7 @@ describe("util", function () {
             const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
-            sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
+            sinon.assert.calledWith(stubQueryMethod, {...stubQuery.hash, ...stubQuery.range}, stubOptions);
             sinon.assert.calledOnce(stubQueryMethodAnd);
             sinon.assert.calledWith(stubQueryMethodFilter, Object.keys(stubFilter)[0]);
             sinon.assert.calledWith(stubQueryMethodEq, Object.values(stubFilter)[0]);
@@ -140,7 +140,7 @@ describe("util", function () {
             const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
-            sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
+            sinon.assert.calledWith(stubQueryMethod, {...stubQuery.hash, ...stubQuery.range}, stubOptions);
             sinon.assert.calledOnce(stubQueryMethodAnd);
             sinon.assert.calledWith(stubQueryMethodFilter, Object.keys(stubFilter)[0]);
             sinon.assert.notCalled(stubQueryMethodEq);
@@ -173,7 +173,7 @@ describe("util", function () {
             const query = buildQueryWithFilter(stubQueryOptionsFilter, stubQueryMethod);
 
             expect(query).to.eql(stubQueryMethod);
-            sinon.assert.calledWith(stubQueryMethod, stubQuery, stubOptions);
+            sinon.assert.calledWith(stubQueryMethod, {...stubQuery.hash, ...stubQuery.range}, stubOptions);
             sinon.assert.calledTwice(stubQueryMethodAnd);
             sinon.assert.calledWith(stubQueryMethodFilter, Object.keys(stubFilter)[0]);
             sinon.assert.calledWith(stubQueryMethodFilter, Object.keys(stubFilter)[1]);
