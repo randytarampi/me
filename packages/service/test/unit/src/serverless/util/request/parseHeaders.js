@@ -49,7 +49,7 @@ describe("parseHeaders", function () {
     it("inspects & throws custom headers validation errors", function () {
         versionHeader.validateHeader.restore && versionHeader.validateHeader.restore();
 
-        versionHeader.validateHeader = sinon.stub(versionHeader, "validateHeader").throws(new Error("💥"));
+        stubVersionHeader.validateHeader = sinon.stub(versionHeader, "validateHeader").throws(new Error("💥"));
 
         const stubHeaders = {
             [stubVersionHeader.headerName]: "5"

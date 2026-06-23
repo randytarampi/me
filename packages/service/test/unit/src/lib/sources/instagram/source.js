@@ -79,7 +79,7 @@ describe("InstagramSource", function () {
                     data: instagramPhotos.find(instagramBlogPost => instagramBlogPost.id === postId)
                 });
             }),
-            userSelfMedia: sinon.stub().callsFake(params => { // eslint-disable-line no-unused-vars
+            userSelfMedia: sinon.stub().callsFake(params => {  
                 let posts = instagramPhotos.concat({id: "foo", type: "foo"});
 
                 if (params.limit === 42) { // NOTE-RT: 42 is a sentinel value for an empty array

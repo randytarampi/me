@@ -1,10 +1,10 @@
 service: service
 
-frameworkVersion: ">=2.0.0 <3.0.0"
+frameworkVersion: "4"
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs20.x
 
   apiGateway:
     minimumCompressionSize: 1024
@@ -89,7 +89,7 @@ provider:
 plugins:
 - serverless-secrets
 - serverless-webpack
-- serverless-dynamodb-local
+- serverless-dynamodb
 - serverless-plugin-warmup
 - serverless-offline
 - serverless-domain-manager
