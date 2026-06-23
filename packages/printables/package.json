@@ -11,23 +11,23 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "^7.0.0",
-    "exiftool-vendored": "^16.4.0",
-    "pug": "^3.0.2",
-    "puppeteer": "^13.6.0",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "exiftool-vendored": "^35.21.0",
+    "pug": "^3.0.4",
+    "puppeteer": "^24.43.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^4.5.0",
     "chai-enzyme": "^1.0.0-beta.1",
-    "cheerio": "^1.0.0-rc.10",
-    "cross-env": "^7.0.3",
+    "cheerio": "^1.2.0",
+    "cross-env": "^10.1.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-adapter-react-16": "^1.15.8",
     "gulp": "^4.0.2",
-    "jsdom": "^19.0.0",
-    "mocha-junit-reporter": "^2.0.2",
+    "jsdom": "^29.1.1",
+    "mocha-junit-reporter": "^2.2.1",
     "sinon": "^13.0.2"
   },
   "directories": {
@@ -35,7 +35,7 @@
     "test": "./test"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   },
   "files": [
     "es5",
@@ -63,11 +63,10 @@
     "clean": "gulp -LLLL --color clean",
     "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
-    "prepare": "yarn snyk-protect && yarn run build",
+    "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false,
-  "snyk": false
+  "sideEffects": false
 }
