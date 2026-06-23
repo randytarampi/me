@@ -21,6 +21,10 @@ describe("AuthInfo", function () {
 
         return await AuthInfoModel.dynamooseModel.query("source").eq(stubAuthInfo.source).exec()
             .then(authInfos => {
+                if (!authInfos.length) {
+                    return;
+                }
+
                 return AuthInfoModel.dynamooseModel.batchDelete(authInfos.map(authInfo => {
                     return {id: authInfo.id, source: authInfo.source};
                 }));

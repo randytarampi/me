@@ -39,7 +39,7 @@ describe("searchPosts", function () {
         stubGetRecordCount = sinon.stub().callsFake(params => Promise.resolve(stubPosts.length)); // eslint-disable-line no-unused-vars
 
         stubCreateRecord = sinon.stub().callsFake(post => Promise.resolve(post));
-        stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params._options.descending ? stubPhoto : stubPost)); // eslint-disable-line no-unused-vars
+        stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params._options.descending ? stubPhoto : stubPost));  
 
         DummyCacheClient = DummyCacheClientGenerator({
             dummyDataClientStubs: {
