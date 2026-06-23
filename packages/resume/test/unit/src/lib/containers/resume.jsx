@@ -5,7 +5,7 @@ import {Map} from "immutable";
 import proxyquire from "proxyquire";
 import React from "react";
 import configureStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import {thunk} from "redux-thunk";
 import sinon from "sinon";
 import * as fetchResume from "../../../../../src/lib/actions/fetchResume";
 import {ConnectedResume} from "../../../../../src/lib/containers/resume";

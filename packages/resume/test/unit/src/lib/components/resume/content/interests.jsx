@@ -47,7 +47,7 @@ describe("ResumeInterests", function () {
         expect(rendered).to.have.descendants(".resume-interests__interest");
         expect(rendered).to.have.descendants(".resume-interests__keywords");
         expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__keyword")).to.have.length(stubResume.interests.reduce((keywordCount, interest) => keywordCount += interest.keywords.size, 0));
+        expect(rendered.find(".resume-interests__keyword")).to.have.length(stubResume.interests.reduce((keywordCount, interest) => keywordCount + interest.keywords.size, 0));
         expect(rendered.find(".resume-interests__keyword.show-on-legal")).to.have.length(1);
     });
 });
