@@ -1,5 +1,5 @@
 import {Photo} from "@randy.tarampi/js";
-import Flickr from "flickr-sdk";
+import {createFlickr} from "flickr-sdk";
 import _ from "lodash";
 import {DateTime} from "luxon";
 import CachedDataSource from "../../cachedDataSource";
@@ -9,7 +9,7 @@ export const FLICKR_API_MAX_POSTS_PER_PAGE = 500;
 
 class FlickrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super(dataClient || new Flickr(process.env.FLICKR_API_KEY), cacheClient);
+        super(dataClient || createFlickr(process.env.FLICKR_API_KEY).flickr, cacheClient);
     }
 
     static get type() {
@@ -70,18 +70,18 @@ class FlickrSource extends CachedDataSource {
         let flickrRequest = Promise.resolve(userId);
 
         if (!userId) {
-            flickrRequest = client.people.findByUsername({
+            flickrRequest = client("flickr.people.findByUsername", {
                     username: process.env.FLICKR_USER_NAME
                 })
-                .then(response => response.body && response.body.user && response.body.user.nsid);
+                .then(response => response.user && response.user.nsid);
         }
 
         return flickrRequest
             .then(userId => {
-                return client.people.getPublicPhotos(_.extend({
+                return client("flickr.people.getPublicPhotos", _.extend({
                         user_id: userId
                     }, searchParams.Flickr))
-                    .then(response => response.body.photos.photo);
+                    .then(response => response.photos.photo);
             })
             .then(photos => photos
                 .map(FlickrSource.instanceToRecord)

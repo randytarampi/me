@@ -6,8 +6,8 @@ import PostSearchParams from "../../../../src/lib/postSearchParams";
 import DummyDataSourceGenerator from "../../../lib/dummyDataSourceGenerator";
 
 describe("DataSource", function () {
-    let stubApiKey;
-    let stubApiSecret;
+    let stubApiKey = undefined;
+    let stubApiSecret = undefined;
     let stubType;
     let stubServiceClient;
     let stubPhoto;

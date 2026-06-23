@@ -2,7 +2,6 @@ import {Photo, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
-import Unsplash from "unsplash-js";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import UnsplashSource from "../../../../../../src/lib/sources/unsplash";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
@@ -96,42 +95,31 @@ describe("UnsplashSource", function () {
         delete unsplashPhotos[2].location.position;
         stubServiceClient = {
             photos: {
-                getPhoto: sinon.stub().callsFake((id, width, height, crop) => {
-                    const post = unsplashPhotos.find(unsplashBlogPost => unsplashBlogPost.id === id);
-
-                    if (post) {
-                        if (width) {
-                            post.width = width;
-                        }
-                        if (height) {
-                            post.height = height;
-                        }
-                        if (crop) {
-                            const cropArgument = crop.split(",");
-                            post.width = cropArgument[2];
-                            post.height = cropArgument[3];
-                        }
-                    }
+                get: sinon.stub().callsFake(({photoId}) => {
+                    const post = unsplashPhotos.find(unsplashBlogPost => unsplashBlogPost.id === photoId);
 
                     return Promise.resolve({
-                        json: () => post
+                        response: post
                     });
                 })
             },
             users: {
-                photos: sinon.stub().callsFake((user, page, perPage, orderBy) => { // eslint-disable-line no-unused-vars
+                getPhotos: sinon.stub().callsFake(({perPage}) => {
                     let photos = unsplashPhotos;
 
                     if (perPage === 420) { // NOTE-RT: 420 is a sentinel value for an empty array
                         photos = [];
                     }
 
-                    if (stubServiceClient.users.photos.callCount > 1) { // NOTE-RT: 420 is a sentinel value for an empty array
+                    if (stubServiceClient.users.getPhotos.callCount > 1) { // NOTE-RT: 420 is a sentinel value for an empty array
                         photos = [];
                     }
 
                     return Promise.resolve({
-                        json: () => photos
+                        response: {
+                            results: photos,
+                            total: photos.length
+                        }
                     });
                 })
             }
@@ -198,7 +186,9 @@ describe("UnsplashSource", function () {
             const unsplashSource = new UnsplashSource(null, stubCacheClient);
 
             expect(UnsplashSource.type).to.eql("unsplash");
-            expect(unsplashSource.client).to.be.instanceof(Unsplash);
+            expect(unsplashSource.client).to.be.an("object");
+            expect(unsplashSource.client.users.getPhotos).to.be.a("function");
+            expect(unsplashSource.client.photos.get).to.be.a("function");
             expect(unsplashSource.cacheClient).to.eql(stubCacheClient);
             expect(unsplashSource.initializing).to.be.instanceOf(Promise);
             expect(unsplashSource).to.be.instanceOf(UnsplashSource);
@@ -226,9 +216,14 @@ describe("UnsplashSource", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Photo);
                     });
-                    sinon.assert.calledOnce(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, stubParams.page, stubParams.perPage, "latest");
-                    stubPosts.forEach(stubPost => sinon.assert.calledWith(stubServiceClient.photos.getPhoto, stubPost.id, stubParams.Unsplash.width, stubParams.Unsplash.height, stubParams.Unsplash.crop));
+                    sinon.assert.calledOnce(stubServiceClient.users.getPhotos);
+                    sinon.assert.calledWith(stubServiceClient.users.getPhotos, {
+                        username: process.env.UNSPLASH_USER_NAME,
+                        page: stubParams.page,
+                        perPage: stubParams.perPage,
+                        orderBy: "latest"
+                    });
+                    stubPosts.forEach(stubPost => sinon.assert.calledWith(stubServiceClient.photos.get, {photoId: stubPost.id}));
                 });
         });
 
@@ -240,9 +235,14 @@ describe("UnsplashSource", function () {
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
-                    sinon.assert.calledOnce(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, "latest");
-                    sinon.assert.notCalled(stubServiceClient.photos.getPhoto);
+                    sinon.assert.calledOnce(stubServiceClient.users.getPhotos);
+                    sinon.assert.calledWith(stubServiceClient.users.getPhotos, {
+                        username: process.env.UNSPLASH_USER_NAME,
+                        page: 1,
+                        perPage: stubParams.perPage,
+                        orderBy: "latest"
+                    });
+                    sinon.assert.notCalled(stubServiceClient.photos.get);
                 });
         });
     });
@@ -258,8 +258,13 @@ describe("UnsplashSource", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Photo);
                     });
-                    sinon.assert.calledTwice(stubServiceClient.users.photos);
-                    sinon.assert.calledWith(stubServiceClient.users.photos, process.env.UNSPLASH_USER_NAME, 1, stubParams.perPage, "latest");
+                    sinon.assert.calledTwice(stubServiceClient.users.getPhotos);
+                    sinon.assert.calledWith(stubServiceClient.users.getPhotos, {
+                        username: process.env.UNSPLASH_USER_NAME,
+                        page: 1,
+                        perPage: stubParams.perPage,
+                        orderBy: "latest"
+                    });
                 });
         });
     });
@@ -272,8 +277,8 @@ describe("UnsplashSource", function () {
             return unsplashSource.recordGetter(stubPost.id, stubParams)
                 .then(post => {
                     expect(post).to.be.instanceof(Photo);
-                    sinon.assert.calledOnce(stubServiceClient.photos.getPhoto);
-                    sinon.assert.calledWith(stubServiceClient.photos.getPhoto, stubPost.id, stubParams.width, stubParams.height, stubParams.crop);
+                    sinon.assert.calledOnce(stubServiceClient.photos.get);
+                    sinon.assert.calledWith(stubServiceClient.photos.get, {photoId: stubPost.id});
                 });
         });
 
@@ -284,8 +289,8 @@ describe("UnsplashSource", function () {
             return unsplashSource.recordGetter("foo", stubParams)
                 .then(post => {
                     expect(post).to.not.be.ok;
-                    sinon.assert.calledOnce(stubServiceClient.photos.getPhoto);
-                    sinon.assert.calledWith(stubServiceClient.photos.getPhoto, "foo", stubParams.width, stubParams.height, stubParams.crop);
+                    sinon.assert.calledOnce(stubServiceClient.photos.get);
+                    sinon.assert.calledWith(stubServiceClient.photos.get, {photoId: "foo"});
                 });
         });
     });
