@@ -1,6 +1,6 @@
 import {DateTime} from "luxon";
 import Rss from "rss";
-import packageJson from "../../package.json";
+const packageJson = require("../../package.json");
 
 /**
  * An object that describes an instance of an RSS Feed

@@ -272,13 +272,13 @@ module.exports = (api) => {
                 targets: {
                     node: "current"
                 },
-                useBuiltIns: "usage",
-                corejs: 3
+                modules: "commonjs"
             }
         ],
         [
             "@babel/preset-react",
             {
+                runtime: "automatic",
                 development: isDevelopment
             }
         ]
@@ -287,8 +287,8 @@ module.exports = (api) => {
     let plugins = [
         "lodash",
         configuredMinifyReplace,
-        "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-transform-class-properties",
+        "@babel/plugin-transform-object-rest-spread",
         "@babel/plugin-transform-property-literals"
     ];
 
@@ -306,13 +306,13 @@ module.exports = (api) => {
                         targets: {
                             node: "current"
                         },
-                        useBuiltIns: "usage",
-                        corejs: 3
+                        modules: "commonjs"
                     }
                 ],
                 [
                     "@babel/preset-react",
                     {
+                        runtime: "automatic",
                         development: isDevelopment
                     }
                 ]
@@ -331,13 +331,13 @@ module.exports = (api) => {
                     {
                         forceAllTransforms: true,
                         bugfixes: true,
-                        useBuiltIns: "usage",
-                        corejs: {version: 3, proposals: true}
+                        modules: "commonjs"
                     }
                 ],
                 [
                     "@babel/preset-react",
                     {
+                        runtime: "automatic",
                         development: isDevelopment
                     }
                 ]
@@ -358,13 +358,13 @@ module.exports = (api) => {
                             esmodules: true
                         },
                         bugfixes: true,
-                        useBuiltIns: "usage",
-                        corejs: {version: 3, proposals: true}
+                        modules: "commonjs"
                     }
                 ],
                 [
                     "@babel/preset-react",
                     {
+                        runtime: "automatic",
                         development: isDevelopment
                     }
                 ]

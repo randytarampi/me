@@ -1,5 +1,5 @@
 import {JSDOM} from "jsdom";
-import packageJson from "../package.json";
+const packageJson = require("../package.json");
 
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global._jsdom = jsdom;

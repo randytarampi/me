@@ -3,7 +3,7 @@ import {Resume} from "@randy.tarampi/resume";
 import testResumeJson from "@randy.tarampi/resume/src/resumes/some-awesome-company";
 import {expect} from "chai";
 import {List, Map} from "immutable";
-import packageJson from "../../../../package";
+const packageJson = require("../../../../package");
 import JobApplication from "../../../../src/lib/jobApplication";
 
 describe("JobApplication", function () {

@@ -11,9 +11,9 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "^7.0.0",
-    "exiftool-vendored": "^35.21.0",
+    "exiftool-vendored": "^36.0.0",
     "pug": "^3.0.4",
-    "puppeteer": "^24.43.1",
+    "puppeteer": "^25.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-helmet": "^6.1.0"
@@ -24,10 +24,10 @@
     "cheerio": "^1.2.0",
     "cross-env": "^10.1.0",
     "enzyme": "^3.11.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "jsdom": "^29.1.1",
     "mocha-junit-reporter": "^2.2.1",
-    "sinon": "^13.0.2"
+    "sinon": "^22.0.0"
   },
   "directories": {
     "lib": "./src/lib",

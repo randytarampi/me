@@ -4,7 +4,7 @@ import chaiEnzyme from "chai-enzyme";
 import Enzyme from "enzyme";
 import EnzymeAdapter from "@cfaester/enzyme-adapter-react-18";
 import {JSDOM} from "jsdom";
-import packageJson from "../package.json";
+const packageJson = require("../package.json");
 
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global.window = jsdom.window;
