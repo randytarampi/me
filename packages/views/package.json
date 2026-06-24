@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-pug": "^5.0.0"
   },
   "directories": {

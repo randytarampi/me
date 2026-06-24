@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
-import packageJson from "../../../../../service/package.json";
+const packageJson = require("../../../../../service/package.json");
 
 describe("logger", function () {
     const SENTRY_DSN = process.env.SENTRY_DSN;

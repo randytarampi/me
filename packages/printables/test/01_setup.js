@@ -1,6 +1,6 @@
 import "@randy.tarampi/jsx/src/lib/reactShim";
 import {JSDOM} from "jsdom";
-import packageJson from "../package.json";
+const packageJson = require("../package.json");
 
 const jsdom = new JSDOM("<!doctype html><html><body><div id=\"react-root\"></div></body></html>", {url: "http://localhost:8080"});
 global.window = jsdom.window;

@@ -14,7 +14,7 @@
     "@randy.tarampi/printables": "^7.0.0",
     "@randy.tarampi/resume": "^7.0.0",
     "@randy.tarampi/views": "^7.0.0",
-    "immutable": "^5.1.6",
+    "immutable": "^5.1.7",
     "lodash": "^4.18.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -29,7 +29,7 @@
     "cross-env": "^10.1.0",
     "enzyme": "^3.11.0",
     "express": "^5.2.1",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "jsdom": "^29.1.1",
     "mocha-junit-reporter": "^2.2.1",
     "yargs": "^18.0.0"

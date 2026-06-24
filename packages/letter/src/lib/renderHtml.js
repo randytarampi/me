@@ -1,6 +1,6 @@
 import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables/html";
 import path from "path";
-import packageJson from "../../package";
+const packageJson = require("../../package");
 import LetterComponent from "../public/views/serverApp";
 
 export const renderHtml = ({printable, printableStylesPath, printableTemplatePath, ...renderLocals} = {}) => {
