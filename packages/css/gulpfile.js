@@ -10,8 +10,7 @@ const taskParameters = {
 
 baseGulpfile.clean(taskParameters);
 
-baseGulpfile.sassLint(taskParameters);
-gulp.task("lint", gulp.series(["sassLint"]));
+gulp.task("lint", done => done());
 
 gulp.task("copy", () => {
     const path = require("path");

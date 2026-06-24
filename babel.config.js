@@ -272,7 +272,7 @@ module.exports = (api) => {
                 targets: {
                     node: "current"
                 },
-                useBuiltIns: "entry",
+                useBuiltIns: "usage",
                 corejs: 3
             }
         ],
@@ -306,7 +306,7 @@ module.exports = (api) => {
                         targets: {
                             node: "current"
                         },
-                        useBuiltIns: "entry",
+                        useBuiltIns: "usage",
                         corejs: 3
                     }
                 ],
@@ -331,7 +331,7 @@ module.exports = (api) => {
                     {
                         forceAllTransforms: true,
                         bugfixes: true,
-                        useBuiltIns: "entry",
+                        useBuiltIns: "usage",
                         corejs: {version: 3, proposals: true}
                     }
                 ],
@@ -358,7 +358,7 @@ module.exports = (api) => {
                             esmodules: true
                         },
                         bugfixes: true,
-                        useBuiltIns: "entry",
+                        useBuiltIns: "usage",
                         corejs: {version: 3, proposals: true}
                     }
                 ],

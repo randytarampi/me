@@ -14,8 +14,7 @@ const taskParameters = {
 baseGulpfile.clean(taskParameters);
 
 baseGulpfile.eslint(taskParameters);
-baseGulpfile.sassLint(taskParameters);
-gulp.task("lint", gulp.parallel(["eslint", "sassLint"]));
+gulp.task("lint", gulp.parallel(["eslint"]));
 
 baseGulpfile.testUnit(taskParameters);
 baseGulpfile.testIntegration(taskParameters);

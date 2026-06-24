@@ -125,7 +125,7 @@ if (Immutable.Iterable && typeof Immutable.Iterable.isIterable !== "function") {
 
 // NOTE-RT: `@cfaester/enzyme-adapter-react-18`'s `mount(...).getDOMNode()` returns `undefined` when the wrapper's
 // NOTE-RT: root is a composite (e.g. a `connect()`ed) component, which breaks `chai-enzyme`'s DOM-node-based
-// NOTE-RT: assertions (`.className`/`.attr`/`.id`/`.style`/`.html`). `enzyme-adapter-react-16` resolved the root to
+// NOTE-RT: assertions (`.className`/`.attr`/`.id`/`.style`/`.html`). The previous adapter resolved the root to
 // NOTE-RT: its first host node, so patch `chai-enzyme`'s `el` getter to fall back to the first host descendant.
 try {
     const ReactTestWrapper = require("chai-enzyme/build/ReactTestWrapper").default;

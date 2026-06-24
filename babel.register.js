@@ -1,5 +1,3 @@
-require("@babel/polyfill");
-
 const path = require("path");
 const util = require("./util");
 

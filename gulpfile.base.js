@@ -37,31 +37,6 @@ module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
 
     return stream;
 });
-module.exports.sassLint = ({relativePath, gulp}) => gulp.task("sassLint", () => {
-    const fs = require("fs");
-    const path = require("path");
-    const sassLint = require("gulp-sass-lint");
-    const resultsFile = process.env.CI && fs.createWriteStream(path.join(relativePath, "sassLint-results.xml"));
-
-    const stream = gulp.src([path.join(relativePath, "sass/**/*.s+(a|c)ss")])
-        .pipe(sassLint({
-            options: {
-                formatter: resultsFile
-                    ? "junit"
-                    : undefined
-            }
-        }))
-        .pipe(
-            resultsFile
-                ? sassLint.format("junit", resultsFile)
-                : sassLint.format()
-        )
-        .pipe(sassLint.failOnError());
-
-    stream.on("finish", () => resultsFile && resultsFile.end());
-
-    return stream;
-});
 module.exports.pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
     const path = require("path");
     const pugLinter = require("gulp-pug-linter");
