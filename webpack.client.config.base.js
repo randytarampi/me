@@ -129,18 +129,26 @@ module.exports = ({
         },
         plugins: otherPlugins.concat(plugins),
         devServer: {
-            before: (app, server, compiler) => {
+            setupMiddlewares: (middlewares, devServer) => {
                 if (webpackDevServerMiddleware) {
-                    webpackDevServerMiddleware.forEach(middleware => middleware(app, server, compiler));
+                    webpackDevServerMiddleware.forEach(middleware => middleware(devServer.app, devServer.server, devServer.compiler));
                 }
+
+                return middlewares;
             },
             bonjour: true,
-            clientLogLevel: "trace",
+            client: {
+                logging: "trace",
+                overlay: true
+            },
             compress: true,
-            contentBase: compliationDirectoryPath,
-            overlay: true,
+            static: {
+                directory: compliationDirectoryPath
+            },
+            devMiddleware: {
+                publicPath
+            },
             port: 8080,
-            publicPath,
             stats: "normal"
         },
         optimization: {

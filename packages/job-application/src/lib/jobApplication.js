@@ -2,7 +2,7 @@ import {Letter, defaultLetterJson} from "@randy.tarampi/letter";
 import {Resume, defaultResumeJson} from "@randy.tarampi/resume";
 import {List, Map, Record} from "immutable";
 import _ from "lodash";
-import packageJson from "../../package";
+const packageJson = require("../../package");
 
 const defaultResume = Resume.fromResume(defaultResumeJson);
 const defaultLetter = Letter.fromJSON(defaultLetterJson);

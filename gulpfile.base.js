@@ -80,9 +80,15 @@ module.exports.styles = ({relativePath, gulp}) => gulp.task("styles", gulp.serie
 });
 
 module.exports.testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.${testType}`, () => {
+    const fs = require("fs");
     const path = require("path");
-    const mocha = require("gulp-mocha");
+    const mocha = require("gulp-mocha").default || require("gulp-mocha");
     const mochaConfig = require(path.join(relativePath, "./mocha.config"));
+    const testDirectory = path.join(relativePath, `test/${testType}`);
+
+    if (!fs.existsSync(testDirectory)) {
+        return Promise.resolve();
+    }
 
     if (
         mochaConfig.reporter === "mocha-junit-reporter"
@@ -96,7 +102,7 @@ module.exports.testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.$
                 .join(",");
     }
 
-    return gulp.src([path.join(relativePath, `test/${testType}/**/*.{js,jsx}`)], {read: false, allowEmpty: true})
+    return gulp.src([path.join(testDirectory, "**/*.{js,jsx}")], {read: false, allowEmpty: true})
         .pipe(mocha(mochaConfig));
 });
 module.exports.testUnit = ({relativePath, gulp}) => module.exports.testMocha({

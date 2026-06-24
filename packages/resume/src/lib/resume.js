@@ -1,6 +1,6 @@
 import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
-import packageJson from "../../package";
+const packageJson = require("../../package");
 import {Award} from "./award";
 import {Education} from "./education";
 import {Interest} from "./interest";

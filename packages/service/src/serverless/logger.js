@@ -1,5 +1,5 @@
 import {configureLogger as genericConfigureLogger, createLogger} from "@randy.tarampi/lambda-logger";
-import packageJson from "../../package.json";
+const packageJson = require("../../package.json");
 
 export const configureLogger = () => genericConfigureLogger(packageJson);
 

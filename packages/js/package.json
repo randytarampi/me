@@ -13,7 +13,7 @@
     "dms-conversion": "^3.1.4",
     "georaptor": "github:randytarampi/georaptor#me-release",
     "haversine": "^1.1.1",
-    "immutable": "^5.1.6",
+    "immutable": "^5.1.7",
     "latlon-geohash": "^2.0.0",
     "libphonenumber-js": "^1.13.7",
     "lodash": "^4.18.1",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "chai": "^4.5.0",
     "cross-env": "^10.1.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "mocha-junit-reporter": "^2.2.1"
   },
   "directories": {
