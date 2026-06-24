@@ -13,7 +13,7 @@ import React, {PureComponent} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
 import defaultResume from "../../../resumes/resume.json";
-import Resume from "../../resume";
+import Resume from "../../resume.js";
 import ResumeAbout from "./content/about";
 import ResumeAwards from "./content/awards";
 import ResumeContact from "./content/contact";

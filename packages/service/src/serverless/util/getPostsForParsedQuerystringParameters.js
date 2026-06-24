@@ -1,8 +1,8 @@
 import {Gallery, Photo, POST_TYPES, sortPostsByDate} from "@randy.tarampi/js";
 import _ from "lodash";
-import searchPosts from "../../lib/sources/searchPosts";
-import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams";
-import {checkHeader as checkMeVersionHeader} from "./request/headers/version";
+import searchPosts from "../../lib/sources/searchPosts.js";
+import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams.js";
+import {checkHeader as checkMeVersionHeader} from "./request/headers/version.js";
 
 export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
     let postTypesToFetch = [];

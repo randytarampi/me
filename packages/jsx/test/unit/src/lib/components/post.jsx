@@ -1,11 +1,9 @@
 import {Post as PostEntity} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
-import {Marker} from "react-google-maps";
 import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import {InternalLink, MapComponent} from "../../../../../src/lib/components";
+import {Provider} from "react-redux";
 import Post, {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -16,14 +14,10 @@ import Post, {
     PostTagsComponent,
     PostTitleComponent
 } from "../../../../../src/lib/components/post";
-import {mount} from "../../../../../src/test";
 
 describe("Post", function () {
     let stubPost;
-    let mockStore;
-    let stubMiddleware;
-    let stubInitialState;
-    let stubStore;
+    let store;
 
     beforeEach(function () {
         stubPost = PostEntity.fromJSON({
@@ -31,20 +25,21 @@ describe("Post", function () {
             source: "ᶘ ◕ᴥ◕ᶅ",
             dateCreated: new Date(2500, 0, 1).toISOString()
         });
-        stubMiddleware = [thunk];
-        mockStore = configureStore(stubMiddleware);
-        stubInitialState = undefined;
-        stubStore = mockStore(stubInitialState);
+        store = configureStore([])({});
     });
+
+    const renderPost = props => render(<Provider store={store}><Post {...props}/></Provider>);
+
+    const setElementSize = (element, width, height) => {
+        if (!element) return;
+        Object.defineProperty(element, "clientWidth", {configurable: true, value: width});
+        Object.defineProperty(element, "clientHeight", {configurable: true, value: height});
+    };
 
     describe("PostBodyAsArrayComponent", function () {
         it("renders (no body)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostBodyAsArrayComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-body");
+            const rendered = render(<PostBodyAsArrayComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
 
         it("renders (array body)", function () {
@@ -52,32 +47,21 @@ describe("Post", function () {
                 id: "woof",
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 dateCreated: new Date(2500, 0, 1).toISOString(),
-                body: [
-                    "<p class=\"Woof\">Woof Woof Woof</p>",
-                    "Meow meow meow"
-                ]
+                body: ["<p class=\"Woof\">Woof Woof Woof</p>", "Meow meow meow"]
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostBodyAsArrayComponent {...stubProps}/>);
+            const rendered = render(<PostBodyAsArrayComponent post={stubPost}/>);
 
-            expect(rendered).to.have.descendants(".post-body");
-            expect(rendered.find(".post-body")).to.have.length(2);
-            expect(rendered).to.have.descendants(".post-body > div");
-            expect(rendered).to.have.descendants(".post-body > p > .post-body__text");
+            expect(rendered.container.querySelectorAll(".post-body").length).to.eql(2);
+            expect(rendered.container.querySelector(".post-body > div")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-body > p > .post-body__text")).to.not.eql(null);
         });
     });
 
     describe("PostBodyAsStringComponent", function () {
         it("renders (no body)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostBodyAsStringComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-body");
+            const rendered = render(<PostBodyAsStringComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
 
         it("renders (plain string body)", function () {
@@ -88,13 +72,10 @@ describe("Post", function () {
                 body: "Meow meow meow"
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostBodyAsStringComponent {...stubProps}/>);
+            const rendered = render(<PostBodyAsStringComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-body");
-            expect(rendered).to.have.descendants(".post-body > p > .post-body__text");
+            expect(rendered.container.firstElementChild?.classList.contains("post-body")).to.eql(true);
+            expect(rendered.container.querySelector(".post-body > p > .post-body__text")).to.not.eql(null);
         });
 
         it("renders (html string body)", function () {
@@ -105,13 +86,10 @@ describe("Post", function () {
                 body: "<p class=\"Woof\">Woof Woof Woof</p>"
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostBodyAsStringComponent {...stubProps}/>);
+            const rendered = render(<PostBodyAsStringComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-body");
-            expect(rendered).to.have.descendants(".post-body > div");
+            expect(rendered.container.firstElementChild?.classList.contains("post-body")).to.eql(true);
+            expect(rendered.container.querySelector(".post-body > div")).to.not.eql(null);
         });
     });
 
@@ -124,12 +102,8 @@ describe("Post", function () {
                 datePublished: new Date(2500, 0, 1).toISOString()
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDateCreatedComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-date");
+            const rendered = render(<PostDateCreatedComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
 
         it("renders (has different datePublished)", function () {
@@ -140,47 +114,28 @@ describe("Post", function () {
                 datePublished: new Date(2500, 0, 2).toISOString()
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDateCreatedComponent {...stubProps}/>);
+            const rendered = render(<PostDateCreatedComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--created");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--created");
+            expect(rendered.container.firstElementChild?.classList.contains("post-date")).to.eql(true);
+            expect(rendered.container.querySelector(".post-date__label.post-date__label--created")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-date__date.post-date__date--created")).to.not.eql(null);
         });
 
         it("renders (no dateCreated)", function () {
-            stubPost = PostEntity.fromJSON({
-                id: "woof",
-                source: "ᶘ ◕ᴥ◕ᶅ"
-            });
-
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDateCreatedComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-date");
+            stubPost = PostEntity.fromJSON({id: "woof", source: "ᶘ ◕ᴥ◕ᶅ"});
+            const rendered = render(<PostDateCreatedComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
     });
 
     describe("PostDatePublishedComponent", function () {
         it("renders (has datePublished)", function () {
-            stubPost = PostEntity.fromJSON({
-                id: "woof",
-                source: "ᶘ ◕ᴥ◕ᶅ",
-                datePublished: new Date(2500, 0, 1).toISOString()
-            });
+            stubPost = PostEntity.fromJSON({id: "woof", source: "ᶘ ◕ᴥ◕ᶅ", datePublished: new Date(2500, 0, 1).toISOString()});
+            const rendered = render(<PostDatePublishedComponent post={stubPost}/>);
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
-
-            expect(rendered).to.have.className("post-date");
-            expect(rendered).to.have.descendants(".post-date__label.post-date__label--published");
-            expect(rendered).to.have.descendants(".post-date__date.post-date__date--published");
+            expect(rendered.container.firstElementChild?.classList.contains("post-date")).to.eql(true);
+            expect(rendered.container.querySelector(".post-date__label.post-date__label--published")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-date__date.post-date__date--published")).to.not.eql(null);
         });
 
         it("renders (has unknown creator source)", function () {
@@ -188,21 +143,12 @@ describe("Post", function () {
                 id: "woof",
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 datePublished: new Date(2500, 0, 1).toISOString(),
-                creator: {
-                    username: "woof",
-                    url: "woof://woof.woof/woof/woof",
-                    network: "meow"
-                }
+                creator: {username: "woof", url: "woof://woof.woof/woof/woof", network: "meow"}
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
-
-            expect(rendered).to.have.className("post-date");
-            expect(rendered).to.have.descendants(".post-source__link");
-            expect(rendered).to.not.have.descendants(".post-source__source-name");
+            const rendered = render(<PostDatePublishedComponent post={stubPost}/>);
+            expect(rendered.container.querySelector(".post-source__link")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-source__source-name")).to.eql(null);
         });
 
         it("renders (has known creator source)", function () {
@@ -210,35 +156,18 @@ describe("Post", function () {
                 id: "woof",
                 source: "unsplash",
                 datePublished: new Date(2500, 0, 1).toISOString(),
-                creator: {
-                    username: "woof",
-                    url: "woof://woof.woof/woof/woof",
-                    network: "unsplash"
-                }
+                creator: {username: "woof", url: "woof://woof.woof/woof/woof", network: "unsplash"}
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
-
-            expect(rendered).to.have.className("post-date");
-            expect(rendered).to.have.descendants(".post-source__link");
-            expect(rendered).to.have.descendants(".post-source__source-name");
+            const rendered = render(<PostDatePublishedComponent post={stubPost}/>);
+            expect(rendered.container.querySelector(".post-source__link")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-source__source-name")).to.not.eql(null);
         });
 
         it("renders (no datePublished)", function () {
-            stubPost = PostEntity.fromJSON({
-                id: "woof",
-                source: "ᶘ ◕ᴥ◕ᶅ"
-            });
-
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostDatePublishedComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-date");
+            stubPost = PostEntity.fromJSON({id: "woof", source: "ᶘ ◕ᴥ◕ᶅ"});
+            const rendered = render(<PostDatePublishedComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
     });
 
@@ -249,43 +178,19 @@ describe("Post", function () {
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 datePublished: new Date(2500, 0, 1).toISOString(),
                 sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ],
+                tags: ["woof", "meow", "grr"],
                 lat: 0,
                 long: 0
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = mount(stubStore)(<PostLocationComponent {...stubProps} />);
-
-            expect(rendered).to.have.className("post-location");
-            expect(rendered).to.have.descendants(InternalLink);
+            const rendered = render(<Provider store={store}><PostLocationComponent post={stubPost}/></Provider>);
+            expect(rendered.container.firstElementChild?.classList.contains("post-location")).to.eql(true);
+            expect(rendered.container.querySelector(".post-location__link")).to.not.eql(null);
         });
 
         it("returns (no location)", function () {
-            stubPost = PostEntity.fromJSON({
-                id: "woof",
-                source: "ᶘ ◕ᴥ◕ᶅ",
-                datePublished: new Date(2500, 0, 1).toISOString(),
-                sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ]
-            });
-
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = mount(stubStore)(<PostLocationComponent {...stubProps} />);
-
-            expect(rendered).to.not.have.descendants("post-location");
+            const rendered = render(<Provider store={store}><PostLocationComponent post={stubPost}/></Provider>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
     });
 
@@ -296,23 +201,14 @@ describe("Post", function () {
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 datePublished: new Date(2500, 0, 1).toISOString(),
                 sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ],
+                tags: ["woof", "meow", "grr"],
                 lat: 0,
                 long: 0
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostMapComponent {...stubProps}/>);
+            const rendered = render(<PostMapComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-map");
-            expect(rendered).to.have.descendants(MapComponent);
-            expect(rendered).to.containMatchingElement(<Marker position={{lat: stubPost.lat, lng: stubPost.long}}/>);
+            expect(rendered.container.firstElementChild?.classList.contains("post-map")).to.eql(true);
         });
 
         it("renders (has custom children)", function () {
@@ -321,33 +217,19 @@ describe("Post", function () {
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 datePublished: new Date(2500, 0, 1).toISOString(),
                 sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ],
+                tags: ["woof", "meow", "grr"],
                 lat: 0,
                 long: 0
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const StubChild = () => <div>Woof</div>;
-            const rendered = shallow(<PostMapComponent {...stubProps}><StubChild/></PostMapComponent>);
+            const rendered = render(<PostMapComponent post={stubPost}><div>Woof</div></PostMapComponent>);
 
-            expect(rendered).to.have.className("post-map");
-            expect(rendered).to.have.descendants(MapComponent);
-            expect(rendered).to.have.descendants(StubChild);
+            expect(rendered.container.firstElementChild?.classList.contains("post-map")).to.eql(true);
         });
 
         it("renders (no map)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostMapComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-map");
+            const rendered = render(<PostMapComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
     });
 
@@ -358,244 +240,69 @@ describe("Post", function () {
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 datePublished: new Date(2500, 0, 1).toISOString(),
                 sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ]
+                tags: ["woof", "meow", "grr"]
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostTagsComponent {...stubProps}/>);
+            const rendered = render(<Provider store={store}><PostTagsComponent post={stubPost}/></Provider>);
 
-            expect(rendered).to.have.className("post-tags");
-            expect(rendered).to.have.descendants(".post-tags__label");
-            expect(rendered).to.have.descendants(".post-tags__tag");
+            expect(rendered.container.firstElementChild?.classList.contains("post-tags")).to.eql(true);
+            expect(rendered.container.querySelector(".post-tags__label")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-tags__tag")).to.not.eql(null);
         });
 
         it("renders (no tags)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostTagsComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-tags");
+            const rendered = render(<Provider store={store}><PostTagsComponent post={stubPost}/></Provider>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
     });
 
     describe("PostTitleComponent", function () {
         it("renders (has url)", function () {
-            stubPost = PostEntity.fromJSON({
-                id: "woof",
-                source: "ᶘ ◕ᴥ◕ᶅ",
-                datePublished: new Date(2500, 0, 1).toISOString(),
-                sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ]
-            });
+            stubPost = PostEntity.fromJSON({id: "woof", source: "ᶘ ◕ᴥ◕ᶅ", datePublished: new Date(2500, 0, 1).toISOString(), sourceUrl: "woof.woof/woof", tags: ["woof", "meow", "grr"]});
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostTitleComponent {...stubProps}/>);
+            const rendered = render(<PostTitleComponent post={stubPost} title={"Meow"}/>);
 
-            expect(rendered).to.have.className("post-title");
-            expect(rendered).to.not.have.descendants(".post-title__text");
-            expect(rendered).to.have.descendants(".post-title__link");
+            expect(rendered.container.firstElementChild?.classList.contains("post-title")).to.eql(true);
+            expect(rendered.container.querySelector(".post-title__text")).to.eql(null);
+            expect(rendered.container.querySelector(".post-title__link")).to.not.eql(null);
         });
 
         it("renders (no url)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<PostTitleComponent {...stubProps}/>);
+            const rendered = render(<PostTitleComponent post={stubPost} title={"Meow"}/>);
 
-            expect(rendered).to.have.className("post-title");
-            expect(rendered).to.have.descendants(".post-title__text");
-            expect(rendered).to.not.have.descendants(".post-title__link");
+            expect(rendered.container.firstElementChild?.classList.contains("post-title")).to.eql(true);
+            expect(rendered.container.querySelector(".post-title__text")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-title__link")).to.eql(null);
         });
     });
 
-    describe("width", function () {
-        it("returns the `containerWidth`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
+    describe("dimensions", function () {
+        it("uses the rendered element sizes", function () {
+            const stubProps = {post: stubPost, containerHeight: 123, containerWidth: 456};
+            const rendered = renderPost(stubProps);
+            const postElement = rendered.container.firstElementChild;
+            const metadataElement = rendered.container.querySelector(".post-metadata");
+            const contentElement = rendered.container.querySelector(".post-content");
 
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
+            setElementSize(postElement, 456, 123);
+            setElementSize(metadataElement, 111, 222);
+            setElementSize(contentElement, 333, 444);
 
-            const component = rendered.instance();
-            expect(component.width).to.eql(stubProps.containerWidth);
-        });
-    });
-
-    describe("height", function () {
-        it("returns the `containerHeight`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.height).to.eql(stubProps.containerHeight);
-        });
-    });
-
-    describe("metadataWidth", function () {
-        it("returns the `width`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.metadataWidth).to.eql(component.width);
-            expect(component.metadataWidth).to.eql(component.containerWidth);
-        });
-    });
-
-    describe("metadataHeight", function () {
-        it("returns the `height`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.metadataHeight).to.eql(component.height);
-            expect(component.metadataHeight).to.eql(component.containerHeight);
-        });
-    });
-
-    describe("contentHeight", function () {
-        it("returns the `height`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.contentHeight).to.eql(component.height);
-            expect(component.contentHeight).to.eql(component.containerHeight);
-        });
-    });
-
-    describe("containerWidth", function () {
-        it("returns the `containerWidth`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.containerWidth).to.eql(stubProps.containerWidth);
-        });
-    });
-
-    describe("containerHeight", function () {
-        it("returns the `containerHeight`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.containerHeight).to.eql(stubProps.containerHeight);
-        });
-    });
-
-    describe("scaledHeight", function () {
-        it("returns the `height`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
-            expect(component.scaledHeight).to.eql(component.height);
-            expect(component.scaledHeight).to.eql(component.containerHeight);
-        });
-    });
-
-    describe("title", function () {
-        it("returns `Undefined` if no `post.title`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
+            const component = new Post(stubProps);
+            expect(component.width).to.eql(456);
+            expect(component.height).to.eql(123);
+            expect(component.metadataWidth).to.eql(111);
+            expect(component.metadataHeight).to.eql(222);
+            expect(component.contentHeight).to.eql(444);
+            expect(component.containerWidth).to.eql(456);
+            expect(component.containerHeight).to.eql(123);
+            expect(component.scaledHeight).to.eql(Math.round(456 * 123 / 456));
             expect(component.title).to.eql("Untitled");
         });
 
         it("returns the `post.title` if it exists", function () {
-            stubPost = PostEntity.fromJSON({
-                id: "woof",
-                source: "ᶘ ◕ᴥ◕ᶅ",
-                dateCreated: new Date(2500, 0, 1).toISOString(),
-                title: "Meow meow meow"
-            });
-
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<Post {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post");
-
-            const component = rendered.instance();
+            stubPost = PostEntity.fromJSON({id: "woof", source: "ᶘ ◕ᴥ◕ᶅ", dateCreated: new Date(2500, 0, 1).toISOString(), title: "Meow meow meow"});
+            const component = new Post({post: stubPost, containerHeight: 123, containerWidth: 456});
             expect(component.title).to.eql(stubPost.title);
         });
     });

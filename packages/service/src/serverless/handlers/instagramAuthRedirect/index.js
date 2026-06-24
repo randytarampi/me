@@ -1,7 +1,7 @@
 import {responseBuilder} from "@randy.tarampi/serverless";
-import logger from "../../logger";
-import configureEnvironment from "../../util/configureEnvironment";
-import returnErrorResponse from "../../util/response/returnErrorResponse";
+import logger from "../../logger.js";
+import configureEnvironment from "../../util/configureEnvironment.js";
+import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
 export default (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);

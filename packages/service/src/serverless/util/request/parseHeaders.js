@@ -1,5 +1,5 @@
-import logger from "../../logger";
-import * as version from "./headers/version";
+import logger from "../../logger.js";
+import * as version from "./headers/version.js";
 
 export default headers => {
     if (!headers) {

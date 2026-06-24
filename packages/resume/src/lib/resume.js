@@ -1,16 +1,16 @@
 import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
 const packageJson = require("../../package");
-import {Award} from "./award";
-import {Education} from "./education";
-import {Interest} from "./interest";
-import {Language} from "./language";
-import {Project} from "./project";
-import {Publication} from "./publication";
-import {Reference} from "./reference";
-import {Skill} from "./skill";
-import {Volunteer} from "./volunteer";
-import {Work} from "./work";
+import {Award} from "./award.js";
+import {Education} from "./education.js";
+import {Interest} from "./interest.js";
+import {Language} from "./language.js";
+import {Project} from "./project.js";
+import {Publication} from "./publication.js";
+import {Reference} from "./reference.js";
+import {Skill} from "./skill.js";
+import {Volunteer} from "./volunteer.js";
+import {Work} from "./work.js";
 
 export class Resume extends Record({
     id: null,

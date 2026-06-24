@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeAwardsEntry from "../../../../../../../../src/lib/components/resume/content/awards/entry";
 
@@ -16,22 +16,22 @@ describe("ResumeAwardsEntry", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeAwardsEntry awardsEntry={stubResumeAwardsEntry} index={0}/>);
+        const rendered = render(<ResumeAwardsEntry awardsEntry={stubResumeAwardsEntry} index={0}/>);
 
-        expect(rendered).to.not.have.className("hide-on-print");
-        expect(rendered).to.have.descendants(".resume-awards-entry");
-        expect(rendered).to.have.descendants(".resume-awards-entry__basics");
-        expect(rendered).to.have.descendants(".resume-awards-entry__date");
-        expect(rendered).to.have.descendants(".resume-awards-entry__title");
-        expect(rendered).to.have.descendants(".resume-awards-entry__awarder");
-        expect(rendered).to.have.descendants(".resume-awards-entry__summary");
-        expect(rendered).to.have.descendants(".hide-on-med-and-up > .resume-awards-entry__date");
-        expect(rendered).to.have.descendants(".right.hide-on-small-only > .resume-awards-entry__date");
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(false);
+        expect(rendered.container.querySelector(".resume-awards-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-awards-entry__basics")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-awards-entry__date")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-awards-entry__title")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-awards-entry__awarder")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-awards-entry__summary")).to.not.eql(null);
+        expect(rendered.container.querySelector(".hide-on-med-and-up > .resume-awards-entry__date")).to.not.eql(null);
+        expect(rendered.container.querySelector(".right.hide-on-small-only > .resume-awards-entry__date")).to.not.eql(null);
     });
 
     it("renders (`.hide-on-print` if 4th or subsequent project)", function () {
-        const rendered = shallow(<ResumeAwardsEntry awardsEntry={stubResumeAwardsEntry} index={4}/>);
+        const rendered = render(<ResumeAwardsEntry awardsEntry={stubResumeAwardsEntry} index={4}/>);
 
-        expect(rendered).to.have.className("hide-on-print");
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(true);
     });
 });

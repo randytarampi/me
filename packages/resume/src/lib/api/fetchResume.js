@@ -1,6 +1,5 @@
-import fetch from "isomorphic-fetch";
 import queryString from "query-string";
-import Resume from "../resume";
+import Resume from "../resume.js";
 
 export const buildFetchUrlForVariant = variant => {
     return `${__RESUME_SERVICE_URL__}/${variant}.json`;

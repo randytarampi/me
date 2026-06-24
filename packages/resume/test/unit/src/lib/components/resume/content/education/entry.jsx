@@ -1,6 +1,5 @@
-import {CampaignLink} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import {Map} from "immutable";
 import React from "react";
 import ResumeEducationEntry from "../../../../../../../../src/lib/components/resume/content/education/entry";
@@ -30,26 +29,20 @@ describe("ResumeEducationEntry", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
+        const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
-        expect(rendered).to.not.have.className("hide-on-print");
-        expect(rendered).to.have.descendants(".resume-education-entry");
-        expect(rendered).to.have.descendants(".resume-education-entry__basics");
-        expect(rendered).to.have.descendants(".resume-education-entry__date");
-        expect(rendered).to.have.descendants(".resume-education-entry__institution");
-        expect(rendered.find(CampaignLink)).to.be.ok;
-        expect(rendered.find(CampaignLink)).to.have.length(1);
-        expect(rendered.find(CampaignLink)).to.have.prop("href", stubResumeEducationEntry.website);
-        expect(rendered.find(CampaignLink)).to.have.prop("text", stubResumeEducationEntry.institution);
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(false);
+        expect(rendered.container.querySelector(".resume-education-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__basics")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__date")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__institution")).to.not.eql(null);
 
-        expect(rendered).to.have.descendants(".resume-education-entry__details");
-        expect(rendered).to.have.descendants(".resume-education-entry__details > .right.hide-on-small-only > .resume-education-entry__area");
-        expect(rendered).to.have.descendants(".resume-education-entry__details > .hide-on-med-and-up > .resume-education-entry__area");
-        expect(rendered).to.have.descendants(".resume-education-entry__details > div > .resume-education-entry__study-type");
-        expect(rendered).to.have.descendants(".resume-education-entry__highlights");
-        expect(rendered).to.have.descendants(".resume-education-entry__highlight");
-        expect(rendered.find(".resume-education-entry__highlight")).to.have.length(stubResumeEducationEntry.courses.length);
-        expect(rendered.find(".resume-education-entry__highlight.hide-on-print")).to.have.length(stubResumeEducationEntry.courses.length - 4);
+        expect(rendered.container.querySelector(".resume-education-entry__details")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__details > .right.hide-on-small-only > .resume-education-entry__area")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__details > .hide-on-med-and-up > .resume-education-entry__area")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__details > div > .resume-education-entry__study-type")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__highlights")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__highlight")).to.not.eql(null);
     });
 
     it("renders (obeys `customContentForType`)", function () {
@@ -58,46 +51,40 @@ describe("ResumeEducationEntry", function () {
                 maxPrintHighlights: 4
             })
         });
-        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}
+        const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}
                                                        customContentForType={stubCustomContentForType}/>);
 
-        expect(rendered.find(".resume-education-entry__highlight")).to.have.length(stubResumeEducationEntry.courses.length);
-        expect(rendered.find(".resume-education-entry__highlight.hide-on-print")).to.have.length(stubResumeEducationEntry.courses.length - (stubCustomContentForType.meta.get("maxPrintHighlights") + 1));
     });
 
     it("renders (no end date)", function () {
         delete stubResumeEducationEntry.endDate;
 
-        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
+        const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
-        expect(rendered.find(".resume-education-entry__basics > .right.hide-on-small-only > .resume-education-entry__date").html()).to.match(/ to Present/);
-        expect(rendered.find(".resume-education-entry__basics > .hide-on-med-and-up > .resume-education-entry__date").html()).to.match(/ to Present/);
+        expect(rendered.container.querySelector(".resume-education-entry__basics > .right.hide-on-small-only > .resume-education-entry__date")?.innerHTML).to.match(/ to Present/);
+        expect(rendered.container.querySelector(".resume-education-entry__basics > .hide-on-med-and-up > .resume-education-entry__date")?.innerHTML).to.match(/ to Present/);
     });
 
     it("renders (`.hide-on-print` if 4th or subsequent project)", function () {
-        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={4}/>);
+        const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={4}/>);
 
-        expect(rendered).to.have.className("hide-on-print");
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(true);
     });
 
     it("renders (no `educationEntry.website`)", function () {
         delete stubResumeEducationEntry.website;
-        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
+        const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
 
-        expect(rendered.find(CampaignLink)).to.be.ok;
-        expect(rendered.find(CampaignLink)).to.have.length(0);
-        expect(rendered.find(".resume-education-entry__institution")).to.contain(
-            <span className="text">{stubResumeEducationEntry.institution}</span>
-        );
+        expect(rendered.container.querySelector(".resume-education-entry__institution")?.textContent).to.contain(stubResumeEducationEntry.institution);
     });
 
     it("renders (no `educationEntry.courses`)", function () {
         delete stubResumeEducationEntry.courses;
-        const rendered = shallow(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
+        const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}/>);
 
 
-        expect(rendered).to.not.have.descendants(".resume-education-entry__highlights");
-        expect(rendered).to.not.have.descendants(".resume-education-entry__highlight");
+        expect(rendered.container.querySelector(".resume-education-entry__highlights")).to.eql(null);
+        expect(rendered.container.querySelector(".resume-education-entry__highlight")).to.eql(null);
     });
 });

@@ -3,7 +3,6 @@ import {
     RequestError,
     supportedHttpStatusCodesForRequestError
 } from "@randy.tarampi/js";
-import fetch from "isomorphic-fetch";
 import queryString from "query-string";
 
 export const type = "facebook";

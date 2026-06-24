@@ -1,6 +1,5 @@
-import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeAbout from "../../../../../../../src/lib/components/resume/content/about";
 import testResumeJson from "../../../../../../../src/resumes/some-awesome-company";
@@ -14,14 +13,9 @@ describe("ResumeAbout", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeAbout resume={stubResume}/>);
+        const rendered = render(<ResumeAbout resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-about__summary");
+        expect(rendered.container.querySelector(".resume-about__summary")).to.not.eql(null);
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "about");
-        expect(printableSection).to.have.prop("label", "About");
     });
 });

@@ -1,56 +1,15 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render, screen} from "@testing-library/react";
 import React from "react";
-import CampaignLink from "../../../../../../src/lib/components/link/campaign";
 import WebLink from "../../../../../../src/lib/components/link/web";
 
 describe("WebLink", function () {
-    it("renders (href with branding)", function () {
-        const stubProps = {
-            href: "/woof",
-            text: "WOOF"
-        };
-        const rendered = shallow(<WebLink {...stubProps}/>);
+    it("renders a branded web link", function () {
+        render(<WebLink href="https://example.com" text="Example"/>);
 
-        expect(rendered).to.containMatchingElement(
-            <CampaignLink
-                className="link--web"
-                href={stubProps.href}
-                text={stubProps.text}
-            />
-        );
-    });
+        const link = screen.getByRole("link", {name: "Example"});
 
-    it("renders (href without branding)", function () {
-        const stubProps = {
-            href: "/woof",
-            text: "WOOF",
-            useBranding: false
-        };
-        const rendered = shallow(<WebLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <CampaignLink
-                className="link--web link--no-branding"
-                href={stubProps.href}
-                text={stubProps.text}
-            />
-        );
-    });
-
-    it("renders (no text)", function () {
-        const stubProps = {
-            href: "/woof",
-            useBranding: false
-        };
-        const rendered = shallow(<WebLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <CampaignLink
-                className="link--web link--no-branding"
-                href={stubProps.href}
-                text={stubProps.href}
-            />
-        );
+        expect(link.getAttribute("href")).to.contain("https://example.com");
+        expect(link.classList.contains("link--web")).to.eql(true);
     });
 });

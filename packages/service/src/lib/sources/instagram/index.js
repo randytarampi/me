@@ -1,6 +1,6 @@
-import {InstagramSource} from "./source";
+import {InstagramSource} from "./source.js";
 
-export * from "./authInfo";
-export * from "./source";
+export * from "./authInfo.js";
+export * from "./source.js";
 
 export default InstagramSource;

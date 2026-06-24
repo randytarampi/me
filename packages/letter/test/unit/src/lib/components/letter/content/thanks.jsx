@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterThanks from "../../../../../../../src/lib/components/letter/content/thanks";
 import LetterSection from "../../../../../../../src/lib/letterSection";
@@ -14,10 +14,9 @@ describe("LetterThanks", function () {
     });
 
     it("renders (default content)", function () {
-        const rendered = shallow(<LetterThanks contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterThanks contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-thanks__content");
-        expect(rendered.find(".letter-thanks__content").html()).to.match(/I hope I didn&#x27;t waste your time/);
+        expect(rendered.container.querySelector(".letter-thanks__content")?.textContent).to.match(/I hope I didn't waste your time/);
     });
 
     it("renders (custom content)", function () {
@@ -28,9 +27,8 @@ describe("LetterThanks", function () {
             }
         });
 
-        const rendered = shallow(<LetterThanks contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterThanks contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-thanks__content");
-        expect(rendered.find(".letter-thanks__content")).to.contain(stubContentConfiguration.contentProps.thanks);
+        expect(rendered.container.querySelector(".letter-thanks__content")?.textContent).to.contain("Woof woof woof");
     });
 });

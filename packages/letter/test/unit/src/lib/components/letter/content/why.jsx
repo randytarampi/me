@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterWhy from "../../../../../../../src/lib/components/letter/content/why";
 import LetterEntity from "../../../../../../../src/lib/letter";
@@ -52,10 +52,9 @@ describe("LetterWhy", function () {
     });
 
     it("renders (default content)", function () {
-        const rendered = shallow(<LetterWhy letter={stubLetter} contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterWhy letter={stubLetter} contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-why__content");
-        expect(rendered.find(".letter-why__content").html()).to.match(/I spent the last few years developing on smaller teams/);
+        expect(rendered.container.querySelector(".letter-why__content")?.textContent).to.match(/I spent the last few years developing on smaller teams/);
     });
 
     it("renders (custom content)", function () {
@@ -66,9 +65,8 @@ describe("LetterWhy", function () {
             }
         });
 
-        const rendered = shallow(<LetterWhy letter={stubLetter} contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterWhy letter={stubLetter} contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-why__content");
-        expect(rendered.find(".letter-why__content")).to.contain(stubContentConfiguration.contentProps.why);
+        expect(rendered.container.querySelector(".letter-why__content")?.textContent).to.contain("Woof woof woof");
     });
 });

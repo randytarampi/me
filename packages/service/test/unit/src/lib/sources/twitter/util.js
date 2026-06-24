@@ -1,9 +1,18 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
+import {freshRequire} from "../../../../../lib/freshRequire";
+
+let twitterModulePath;
+
+afterEach(function () {
+    if (twitterModulePath) {
+        delete require.cache[twitterModulePath];
+        twitterModulePath = undefined;
+    }
+});
 
 describe("util", function () {
-    describe("getTwitterClientForSearchParams", function () {
+    it("returns the expected Twitter client", async function () {
         const stubTwitterConfig = new AuthInfoSearchParams({
             clientId: process.env.TWITTER_API_KEY,
             clientSecret: process.env.TWITTER_API_SECRET,
@@ -17,10 +26,21 @@ describe("util", function () {
             }
         }
 
-        const proxyquiredGetTwitterClientForSearchParams = proxyquire("../../../../../../src/lib/sources/twitter/util", {
-            "twitter": StubTwitterClient
-        }).getTwitterClientForSearchParams;
+        twitterModulePath = require.resolve("twitter", {paths: [__dirname]});
+        require.cache[twitterModulePath] = {
+            id: twitterModulePath,
+            filename: twitterModulePath,
+            loaded: true,
+            exports: {
+                __esModule: true,
+                default: StubTwitterClient
+            }
+        };
 
-        expect(proxyquiredGetTwitterClientForSearchParams(stubTwitterConfig)).to.be.instanceof(StubTwitterClient);
+        const {getTwitterClientForSearchParams} = freshRequire("../../../../../../src/lib/sources/twitter/util");
+
+        expect(getTwitterClientForSearchParams(stubTwitterConfig)).to.be.instanceof(StubTwitterClient);
+
+        delete require.cache[twitterModulePath];
     });
 });

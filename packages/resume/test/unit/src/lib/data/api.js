@@ -1,4 +1,4 @@
-import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx";
+import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx/src/lib/index.jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";

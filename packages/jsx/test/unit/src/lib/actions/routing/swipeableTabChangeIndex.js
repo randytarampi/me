@@ -1,44 +1,23 @@
 import {expect} from "chai";
 import {Map} from "immutable";
-import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
 import sinon from "sinon";
-import {SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
+import swipeableTabChangeIndex, {SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
 import selectors from "../../../../../../src/lib/data/selectors";
 
-// FIXME-RT: Unignore these tests when I figure out how to stub out `connectedReactRouter.push` properly
 describe("swipeableTabChangeIndex", function () {
     let mockStore;
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
-    let stubPush;
-    let swipeableTabChangeIndex;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map({});
         stubStore = mockStore(stubInitialState);
-        stubPush = sinon.stub().callsFake(payload => {
-            return {
-                payload,
-                type: "woof"
-            };
-        });
-
-        swipeableTabChangeIndex = proxyquire("../../../../../../src/lib/actions/routing/swipeableTabChangeIndex", {
-            "redux-first-history": {
-                push: stubPush
-            }
-        }).default;
-
-        sinon.stub(selectors, "getRouteForIndex").callsFake((state, index) => {
-            return {
-                path: `/meow/:${index}`
-            };
-        });
+        sinon.stub(selectors, "getRouteForIndex").callsFake((state, index) => ({path: `/meow/:${index}`}));
     });
 
     afterEach(function () {
@@ -49,13 +28,10 @@ describe("swipeableTabChangeIndex", function () {
         it("is dispatched with the expected payload (actual route)", function () {
             const stubIndex = "5";
             const stubId = `0${stubIndex}`;
-            const stubPayload = { currentTarget: { getAttribute: (argument) => argument === "href" && `tab_${stubId}` } };
+            const stubPayload = {currentTarget: {getAttribute: argument => argument === "href" && `tab_${stubId}`}};
             stubStore.dispatch(swipeableTabChangeIndex(stubPayload));
 
-            const actions = stubStore.getActions();
-
-            expect(actions).to.have.length(2);
-            expect(actions).to.eql([
+            expect(stubStore.getActions()).to.eql([
                 {
                     type: SWIPEABLE_TAB_CHANGE_INDEX,
                     payload: {
@@ -63,13 +39,13 @@ describe("swipeableTabChangeIndex", function () {
                     }
                 },
                 {
-                    type: "woof",
+                    type: "@@router/CALL_HISTORY_METHOD",
                     payload: {
-                        pathname: "/meow/"
+                        method: "push",
+                        args: [{pathname: "/meow/"}]
                     }
                 }
             ]);
-            expect(stubPush.calledOnce).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
 
@@ -77,13 +53,10 @@ describe("swipeableTabChangeIndex", function () {
             selectors.getRouteForIndex.restore();
             sinon.stub(selectors, "getRouteForIndex").callsFake(() => null);
 
-            const stubPayload = { currentTarget: { getAttribute: (argument) => argument === "href" && "15" } };
+            const stubPayload = {currentTarget: {getAttribute: argument => argument === "href" && "15"}};
             stubStore.dispatch(swipeableTabChangeIndex(stubPayload));
 
-            const actions = stubStore.getActions();
-
-            expect(actions).to.have.length(1);
-            expect(actions).to.eql([
+            expect(stubStore.getActions()).to.eql([
                 {
                     type: SWIPEABLE_TAB_CHANGE_INDEX,
                     payload: {
@@ -91,7 +64,6 @@ describe("swipeableTabChangeIndex", function () {
                     }
                 }
             ]);
-            expect(stubPush.notCalled).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
     });

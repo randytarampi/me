@@ -1,8 +1,4 @@
 import "../src/lib/reactShim";
-import chai from "chai";
-import chaiEnzyme from "chai-enzyme";
-import Enzyme from "enzyme";
-import EnzymeAdapter from "@cfaester/enzyme-adapter-react-18";
 import {JSDOM} from "jsdom";
 import "mock-local-storage";
 const packageJson = require("../package.json");
@@ -11,6 +7,7 @@ const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "htt
 global._jsdom = jsdom;
 global.window = jsdom.window;
 global.document = jsdom.window.document;
+global.Image = jsdom.window.Image;
 Object.defineProperty(global, "navigator", {
     configurable: true,
     writable: true,
@@ -18,9 +15,29 @@ Object.defineProperty(global, "navigator", {
 });
 global.location = jsdom.window.location;
 
-Enzyme.configure({adapter: new EnzymeAdapter()});
+const materializeInstance = {
+    destroy() {},
+    select() {},
+    open() {},
+    close() {},
+    updateTabIndicator() {}
+};
 
-chai.use(chaiEnzyme());
+const materializeStub = new Proxy({}, {
+    get() {
+        return {
+            init() {
+                return materializeInstance;
+            },
+            getInstance() {
+                return null;
+            }
+        };
+    }
+});
+
+global.M = materializeStub;
+global.window.M = materializeStub;
 
 global.window.NAME = packageJson.name;
 global.window.VERSION = packageJson.version;

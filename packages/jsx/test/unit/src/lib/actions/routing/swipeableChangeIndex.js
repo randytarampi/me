@@ -1,10 +1,9 @@
 import {expect} from "chai";
 import {Map} from "immutable";
-import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
 import sinon from "sinon";
-import {SWIPEABLE_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableChangeIndex";
+import swipeableChangeIndex, {SWIPEABLE_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableChangeIndex";
 import selectors from "../../../../../../src/lib/data/selectors";
 
 describe("swipeableChangeIndex", function () {
@@ -12,32 +11,13 @@ describe("swipeableChangeIndex", function () {
     let stubMiddleware;
     let stubInitialState;
     let stubStore;
-    let stubPush;
-    let swipeableChangeIndex;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map({});
         stubStore = mockStore(stubInitialState);
-        stubPush = sinon.stub().callsFake(payload => {
-            return {
-                payload,
-                type: "woof"
-            };
-        });
-
-        swipeableChangeIndex = proxyquire("../../../../../../src/lib/actions/routing/swipeableChangeIndex", {
-            "redux-first-history": {
-                push: stubPush
-            }
-        }).default;
-
-        sinon.stub(selectors, "getRouteForIndex").callsFake((state, index) => {
-            return {
-                path: `/meow/:${index}`
-            };
-        });
+        sinon.stub(selectors, "getRouteForIndex").callsFake((state, index) => ({path: `/meow/:${index}`}));
     });
 
     afterEach(function () {
@@ -49,10 +29,7 @@ describe("swipeableChangeIndex", function () {
             const stubPayload = "woof";
             stubStore.dispatch(swipeableChangeIndex(stubPayload));
 
-            const actions = stubStore.getActions();
-
-            expect(actions).to.have.length(2);
-            expect(actions).to.eql([
+            expect(stubStore.getActions()).to.eql([
                 {
                     type: SWIPEABLE_CHANGE_INDEX,
                     payload: {
@@ -62,12 +39,13 @@ describe("swipeableChangeIndex", function () {
                     }
                 },
                 {
-                    type: "woof", payload: {
-                        pathname: "/meow/"
+                    type: "@@router/CALL_HISTORY_METHOD",
+                    payload: {
+                        method: "push",
+                        args: [{pathname: "/meow/"}]
                     }
                 }
             ]);
-            expect(stubPush.calledOnce).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
 
@@ -78,10 +56,7 @@ describe("swipeableChangeIndex", function () {
             const stubPayload = "woof";
             stubStore.dispatch(swipeableChangeIndex(stubPayload));
 
-            const actions = stubStore.getActions();
-
-            expect(actions).to.have.length(1);
-            expect(actions).to.eql([
+            expect(stubStore.getActions()).to.eql([
                 {
                     type: SWIPEABLE_CHANGE_INDEX,
                     payload: {
@@ -91,7 +66,6 @@ describe("swipeableChangeIndex", function () {
                     }
                 }
             ]);
-            expect(stubPush.notCalled).to.eql(true);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
     });

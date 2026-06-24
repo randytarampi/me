@@ -1,6 +1,6 @@
-import {FacebookSource} from "./source";
+import {FacebookSource} from "./source.js";
 
-export * from "./authInfo";
-export * from "./source";
+export * from "./authInfo.js";
+export * from "./source.js";
 
 export default FacebookSource;

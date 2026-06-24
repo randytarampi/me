@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FETCHING_POSTS_PER_PAGE} from "../actions/posts/fetchPosts";
 import {fetchPostsForBlogCreator} from "../actions/posts/fetchPostsForBlog";
-import {DimensionsContainerWrappedPosts} from "../components/posts";
+import MeasuredPostsComponent from "../components/posts";
 import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api";
 import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../data/selectors";
 import {generateFilterFunctionForFilterName} from "../util";
@@ -49,7 +49,7 @@ export const connectPosts = connect(
     }
 );
 
-export const ConnectedPosts = connectPosts(DimensionsContainerWrappedPosts);
+export const ConnectedPosts = connectPosts(MeasuredPostsComponent);
 
 ConnectedPosts.propTypes = {
     fetchUrl: PropTypes.string.isRequired,

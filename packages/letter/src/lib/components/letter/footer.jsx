@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 
-export const LetterFooter = ({contentConfiguration, publishedLetterUrl}) => {
+export const LetterFooter = ({contentConfiguration, publishedLetterUrl = __PUBLISHED_LETTER_URL__}) => {
     return <PrintableFooter>
         {
             contentConfiguration.contentProps.footer

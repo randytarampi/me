@@ -1,6 +1,6 @@
-import {emojiReducer, errorReducer, uiReducer} from "@randy.tarampi/jsx";
+import {emojiReducer, errorReducer, uiReducer} from "@randy.tarampi/jsx/src/lib/index.jsx";
 import api from "./api";
-import letter from "./letter";
+import letter from "./letter.js";
 
 export const reducers = {
     api,

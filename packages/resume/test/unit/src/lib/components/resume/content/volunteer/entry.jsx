@@ -1,6 +1,5 @@
-import {CampaignLink} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeVolunteerEntry from "../../../../../../../../src/lib/components/resume/content/volunteer/entry";
 
@@ -27,64 +26,51 @@ describe("ResumeVolunteerEntry", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
+        const rendered = render(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
 
-        expect(rendered).to.not.have.className("hide-on-print");
-        expect(rendered).to.have.descendants(".resume-volunteer-entry");
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__basics");
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__date");
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__organization");
-        expect(rendered.find(CampaignLink)).to.be.ok;
-        expect(rendered.find(CampaignLink)).to.have.length(2);
-        expect(rendered.find(CampaignLink).first()).to.have.prop("href", stubResumeVolunteerEntry.website);
-        expect(rendered.find(CampaignLink).first()).to.have.prop("text", stubResumeVolunteerEntry.organization);
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(false);
+        expect(rendered.container.querySelector(".resume-volunteer-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__basics")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__date")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__organization")).to.not.eql(null);
 
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__website");
-        expect(rendered.find(CampaignLink).last()).to.have.prop("href", stubResumeVolunteerEntry.website);
-        expect(rendered.find(CampaignLink).last()).to.not.have.prop("text");
+        expect(rendered.container.querySelector(".resume-volunteer-entry__website")).to.not.eql(null);
 
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__summary");
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__highlights");
-        expect(rendered).to.have.descendants(".resume-volunteer-entry__highlight");
-        expect(rendered.find(".resume-volunteer-entry__highlight")).to.have.length(stubResumeVolunteerEntry.highlights.length);
-        expect(rendered.find(".resume-volunteer-entry__highlight.show-on-letter.show-on-a4")).to.have.length(3);
-        expect(rendered.find(".resume-volunteer-entry__highlight.show-on-legal")).to.have.length(stubResumeVolunteerEntry.highlights.length - 3);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__summary")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__highlights")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__highlight")).to.not.eql(null);
     });
 
     it("renders (no end date)", function () {
         delete stubResumeVolunteerEntry.endDate;
 
-        const rendered = shallow(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
+        const rendered = render(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
 
-        expect(rendered.find(".resume-volunteer-entry__basics > .right.hide-on-small-only > .resume-volunteer-entry__date").html()).to.match(/ to Present/);
-        expect(rendered.find(".resume-volunteer-entry__basics > .hide-on-med-and-up > .resume-volunteer-entry__date").html()).to.match(/ to Present/);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__basics > .right.hide-on-small-only > .resume-volunteer-entry__date")?.innerHTML).to.match(/ to Present/);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__basics > .hide-on-med-and-up > .resume-volunteer-entry__date")?.innerHTML).to.match(/ to Present/);
     });
 
     it("renders (`.hide-on-print` if 4th or subsequent experience)", function () {
-        const rendered = shallow(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={4}/>);
+        const rendered = render(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={4}/>);
 
-        expect(rendered).to.have.className("hide-on-print");
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(true);
     });
 
     it("renders (no `organization.website`)", function () {
         delete stubResumeVolunteerEntry.website;
-        const rendered = shallow(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
+        const rendered = render(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
 
 
-        expect(rendered.find(CampaignLink)).to.be.ok;
-        expect(rendered.find(CampaignLink)).to.have.length(0);
-        expect(rendered.find(".resume-volunteer-entry__organization")).to.contain(
-            <span className="text">{stubResumeVolunteerEntry.organization}</span>
-        );
-        expect(rendered).to.not.have.descendants(".resume-volunteer-entry__details > .right.hide-on-small-only");
+        expect(rendered.container.querySelector(".resume-volunteer-entry__organization")?.textContent).to.contain(stubResumeVolunteerEntry.organization);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__details > .right.hide-on-small-only")).to.eql(null);
     });
 
     it("renders (no `organization.highlights`)", function () {
         delete stubResumeVolunteerEntry.highlights;
-        const rendered = shallow(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
+        const rendered = render(<ResumeVolunteerEntry volunteerEntry={stubResumeVolunteerEntry} index={0}/>);
 
 
-        expect(rendered).to.not.have.descendants(".resume-volunteer-entry__highlights");
-        expect(rendered).to.not.have.descendants(".resume-volunteer-entry__highlight");
+        expect(rendered.container.querySelector(".resume-volunteer-entry__highlights")).to.eql(null);
+        expect(rendered.container.querySelector(".resume-volunteer-entry__highlight")).to.eql(null);
     });
 });

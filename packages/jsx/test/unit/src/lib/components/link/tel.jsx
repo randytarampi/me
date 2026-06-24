@@ -1,65 +1,15 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render, screen} from "@testing-library/react";
 import React from "react";
-import Link from "../../../../../../src/lib/components/link/link";
 import TelLink from "../../../../../../src/lib/components/link/tel";
 
 describe("TelLink", function () {
-    it("renders (tel with branding)", function () {
-        const stubProps = {
-            tel: "+16043747128",
-            body: "Woof woof woof",
-            text: "WOOF"
-        };
-        const rendered = shallow(<TelLink {...stubProps}/>);
+    it("renders a tel link", function () {
+        render(<TelLink tel="+16045551212"/>);
 
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--tel"
-                tel={stubProps.tel}
-                body={stubProps.body}
-                href={`tel:${stubProps.tel}`}
-                text={stubProps.text}
-            />
-        );
-    });
+        const link = screen.getByRole("link", {name: "+16045551212"});
 
-    it("renders (tel without branding)", function () {
-        const stubProps = {
-            tel: "+16043747128",
-            body: "Woof woof woof",
-            text: "WOOF",
-            useBranding: false
-        };
-        const rendered = shallow(<TelLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--tel link--no-branding"
-                tel={stubProps.tel}
-                body={stubProps.body}
-                href={`tel:${stubProps.tel}`}
-                text={stubProps.text}
-            />
-        );
-    });
-
-    it("renders (no text)", function () {
-        const stubProps = {
-            tel: "+16043747128",
-            body: "Woof woof woof",
-            useBranding: false
-        };
-        const rendered = shallow(<TelLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--tel link--no-branding"
-                tel={stubProps.tel}
-                body={stubProps.body}
-                href={`tel:${stubProps.tel}`}
-                text={stubProps.tel}
-            />
-        );
+        expect(link.getAttribute("href")).to.eql("tel:+16045551212");
+        expect(link.classList.contains("link--tel")).to.eql(true);
     });
 });

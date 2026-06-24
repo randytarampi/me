@@ -1,23 +1,23 @@
 import {Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import proxyquire from "proxyquire";
 import sinon from "sinon";
 import PostSearchParams from "../../../../src/lib/postSearchParams";
 import sources from "../../../../src/lib/sources";
-import DummyCacheClientGenerator from "../../../lib/dummyCacheClientGenerator";
+import {freshRequire} from "../../../lib/freshRequire";
+
+afterEach(function () {
+    sinon.restore();
+});
 
 describe("searchPosts", function () {
     let stubSource;
     let stubPost;
     let stubPhoto;
     let stubPosts;
-    let stubCreateRecords;
     let stubGetRecords;
     let stubGetRecordCount;
-    let stubCreateRecord;
     let stubGetRecord;
-    let DummyCacheClient;
 
     beforeEach(function () {
         stubSource = "tumblr";
@@ -34,34 +34,19 @@ describe("searchPosts", function () {
         stubPhoto = Photo.fromJSON({...stubRawPhoto, raw: stubRawPhoto});
         stubPosts = [stubPhoto, stubPost];
 
-        stubCreateRecords = sinon.stub().callsFake(posts => Promise.resolve(posts));
-        stubGetRecords = sinon.stub().callsFake(params => Promise.resolve(stubPosts)); // eslint-disable-line no-unused-vars
-        stubGetRecordCount = sinon.stub().callsFake(params => Promise.resolve(stubPosts.length)); // eslint-disable-line no-unused-vars
+        stubGetRecords = sinon.stub().resolves(stubPosts);
+        stubGetRecordCount = sinon.stub().resolves(stubPosts.length);
+        stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params.orderBy === "descending" ? stubPhoto : stubPost));
 
-        stubCreateRecord = sinon.stub().callsFake(post => Promise.resolve(post));
-        stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params._options.descending ? stubPhoto : stubPost));  
-
-        DummyCacheClient = DummyCacheClientGenerator({
-            dummyDataClientStubs: {
-                stubGetRecords,
-                stubCreateRecords,
-                stubGetRecordCount,
-
-                stubGetRecord,
-                stubCreateRecord
+        sinon.stub(sources[stubSource], "instanceToRecord").callsFake(json => {
+            if (json.type === "photo") {
+                return stubPhoto;
+            } else if (json.type === "post") {
+                return stubPost;
+            } else {
+                return null;
             }
         });
-
-        sinon.stub(sources[stubSource], "instanceToRecord")
-            .callsFake(json => {
-                if (json.type === "photo") {
-                    return stubPhoto;
-                } else if (json.type === "post") {
-                    return stubPost;
-                } else {
-                    return null;
-                }
-            });
     });
 
     afterEach(function () {
@@ -69,14 +54,14 @@ describe("searchPosts", function () {
     });
 
     it("delegates to `CacheClient` functions", async function () {
-        const proxyquiredSeachPosts = proxyquire("../../../../src/lib/sources/searchPosts", {
-            "../cacheClient": {
-                "default": DummyCacheClient
-            }
-        });
+        const CacheClient = freshRequire("../../../../src/lib/cacheClient").default;
+        sinon.stub(CacheClient.prototype, "getRecords").callsFake(stubGetRecords);
+        sinon.stub(CacheClient.prototype, "getRecordCount").callsFake(stubGetRecordCount);
+        sinon.stub(CacheClient.prototype, "getRecord").callsFake(stubGetRecord);
 
+        const searchPosts = freshRequire("../../../../src/lib/sources/searchPosts").default;
         const stubSearchParams = new PostSearchParams();
-        const postsResult = await proxyquiredSeachPosts.default(stubSearchParams);
+        const postsResult = await searchPosts(stubSearchParams);
 
         expect(postsResult).to.eql({
             posts: stubPosts,

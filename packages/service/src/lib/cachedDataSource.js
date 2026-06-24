@@ -1,9 +1,9 @@
 import {compositeKeySeparator} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
-import logger from "../serverless/logger";
-import CacheClient from "./cacheClient";
-import DataSource from "./dataSource";
-import PostSearchParams from "./postSearchParams";
+import logger from "../serverless/logger.js";
+import CacheClient from "./cacheClient.js";
+import DataSource from "./dataSource.js";
+import PostSearchParams from "./postSearchParams.js";
 
 /**
  * A generic data source that fetches [Record(s)]{@link Record} from some service or some cache, whichever returns first

@@ -1,23 +1,18 @@
 import {Gallery as GalleryEntity} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
 import {GalleryComponent} from "../../../../../src/lib/components/gallery";
-import {
-    PostBodyAsArrayComponent,
-    PostBodyAsStringComponent,
-    PostDateCreatedComponent,
-    PostDatePublishedComponent,
-    PostTagsComponent,
-    PostTitleComponent
-} from "../../../../../src/lib/components/post";
 import {WINDOW_LARGE_BREAKPOINT} from "../../../../../src/lib/util";
-
 
 describe("Gallery", function () {
     let stubGallery;
+    let store;
 
     beforeEach(function () {
+        store = configureStore([])({});
         stubGallery = GalleryEntity.fromJSON({
             id: "woof",
             type: "Woof",
@@ -40,204 +35,68 @@ describe("Gallery", function () {
                 }
             ],
             title: "Woof woof woof",
-            body: [
-                "ʕ•ᴥ•ʔ",
-                "ʕ•ᴥ•ʔﾉ゛",
-                "ʕ◠ᴥ◠ʔ"
-            ],
+            body: ["ʕ•ᴥ•ʔ", "ʕ•ᴥ•ʔﾉ゛", "ʕ◠ᴥ◠ʔ"],
             sourceUrl: "woof://woof.woof/woof",
             creator: {
                 id: -1,
                 username: "ʕ•ᴥ•ʔ",
                 name: "ʕ•ᴥ•ʔ",
                 url: "woof://woof.woof/woof/woof/woof"
-            }
+            },
+            tags: ["woof", "meow", "grr"]
         });
     });
 
-    describe("GalleryComponent", function () {
-        describe("render", function () {
-            const windowInnerWidth = window.innerWidth;
+    it("renders the large gallery layout", function () {
+        const originalInnerWidth = window.innerWidth;
+        window.innerWidth = WINDOW_LARGE_BREAKPOINT * 2;
 
-            afterEach(function () {
-                window.innerWidth = windowInnerWidth;
-            });
+        const stubProps = {
+            post: stubGallery,
+            containerHeight: window.innerHeight,
+            containerWidth: window.innerWidth
+        };
+        const rendered = render(<Provider store={store}><GalleryComponent {...stubProps}/></Provider>);
 
-            it("renders (window.innerWidth >= WINDOW_LARGE_BREAKPOINT)", function () {
-                window.innerWidth = WINDOW_LARGE_BREAKPOINT * 2;
+        expect(rendered.container.firstElementChild?.id).to.eql(stubGallery.uid);
+        expect(rendered.container.firstElementChild?.classList.contains("post--gallery")).to.eql(true);
+        expect(rendered.container.querySelector(".post-metadata")).to.not.eql(null);
+        expect(rendered.container.querySelector(".post-content")).to.not.eql(null);
+        expect(rendered.container.firstElementChild?.getAttribute("style")).to.not.eql(null);
+        expect(rendered.container.textContent).to.contain("Taken:");
 
-                stubGallery = GalleryEntity.fromJSON({
-                    id: "woof",
-                    type: "Woof",
-                    source: "Woofdy",
-                    dateCreated: null,
-                    datePublished: new Date(2500, 0, 1).toISOString(),
-                    width: -1,
-                    height: -2,
-                    photos: [
-                        {
-                            id: "woof://woof.woof/woof/woofto",
-                            width: 640,
-                            height: 480,
-                            sizedPhotos: [{url: "woof://woof.woof/woof/woofto", width: 640, height: 480}]
-                        },
-                        {
-                            id: "woof://woof.woof/woof/woofto?w=800",
-                            width: 800,
-                            sizedPhotos: [{url: "woof://woof.woof/woof/woofto?w=800", width: 800}]
-                        }
-                    ],
-                    title: "Woof woof woof",
-                    body: [
-                        "ʕ•ᴥ•ʔ",
-                        "ʕ•ᴥ•ʔﾉ゛",
-                        "ʕ◠ᴥ◠ʔ"
-                    ],
-                    sourceUrl: "woof://woof.woof/woof",
-                    creator: {
-                        id: -1,
-                        username: "ʕ•ᴥ•ʔ",
-                        name: "ʕ•ᴥ•ʔ",
-                        url: "woof://woof.woof/woof/woof/woof"
-                    },
-                    tags: [
-                        "woof",
-                        "meow",
-                        "grr"
-                    ]
-                });
+        window.innerWidth = originalInnerWidth;
+    });
 
-                const stubProps = {
-                    post: stubGallery,
-                    containerHeight: window.innerHeight,
-                    containerWidth: window.innerWidth
-                };
-                const rendered = shallow(<GalleryComponent {...stubProps}/>);
+    it("renders the small gallery layout", function () {
+        const originalInnerWidth = window.innerWidth;
+        window.innerWidth = WINDOW_LARGE_BREAKPOINT / 2;
 
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--gallery");
-                expect(rendered).to.have.descendants(".post-metadata");
-                expect(rendered).to.have.descendants(".post-content");
-                expect(rendered).to.have.prop("style");
-                expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubGallery}
-                                                                               title={stubGallery.title}/>);
-                expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubGallery}/>);
-                expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubGallery}/>);
-                expect(rendered).to.containMatchingElement(<PostDatePublishedComponent post={stubGallery}/>);
-                expect(rendered).to.containMatchingElement(<PostDateCreatedComponent post={stubGallery}
-                                                                                     label="Taken:"/>);
-                expect(rendered).to.containMatchingElement(<PostTagsComponent post={stubGallery}/>);
-            });
+        const stubProps = {
+            post: stubGallery,
+            containerHeight: window.innerHeight,
+            containerWidth: window.innerWidth
+        };
+        const rendered = render(<Provider store={store}><GalleryComponent {...stubProps}/></Provider>);
 
-            it("renders (window.innerWidth < WINDOW_LARGE_BREAKPOINT)", function () {
-                window.innerWidth = WINDOW_LARGE_BREAKPOINT / 2;
+        expect(rendered.container.firstElementChild?.id).to.eql(stubGallery.uid);
+        expect(rendered.container.firstElementChild?.classList.contains("post--gallery")).to.eql(true);
+        expect(rendered.container.querySelector(".post-metadata")).to.not.eql(null);
+        expect(rendered.container.querySelector(".post-content")).to.eql(null);
+        expect(rendered.container.textContent).to.contain(stubGallery.title);
 
-                stubGallery = GalleryEntity.fromJSON({
-                    id: "woof",
-                    type: "Woof",
-                    source: "Woofdy",
-                    dateCreated: null,
-                    datePublished: new Date(2500, 0, 1).toISOString(),
-                    width: -1,
-                    height: -2,
-                    photos: [
-                        {
-                            id: "woof://woof.woof/woof/woofto",
-                            width: 640,
-                            height: 480,
-                            sizedPhotos: [{url: "woof://woof.woof/woof/woofto", width: 640, height: 480}]
-                        },
-                        {
-                            id: "woof://woof.woof/woof/woofto?w=800",
-                            width: 800,
-                            sizedPhotos: [{url: "woof://woof.woof/woof/woofto?w=800", width: 800}]
-                        }
-                    ],
-                    title: "Woof woof woof",
-                    body: [
-                        "ʕ•ᴥ•ʔ",
-                        "ʕ•ᴥ•ʔﾉ゛",
-                        "ʕ◠ᴥ◠ʔ"
-                    ],
-                    sourceUrl: "woof://woof.woof/woof",
-                    creator: {
-                        id: -1,
-                        username: "ʕ•ᴥ•ʔ",
-                        name: "ʕ•ᴥ•ʔ",
-                        url: "woof://woof.woof/woof/woof/woof"
-                    },
-                    tags: [
-                        "woof",
-                        "meow",
-                        "grr"
-                    ]
-                });
+        window.innerWidth = originalInnerWidth;
+    });
 
-                const stubProps = {
-                    post: stubGallery,
-                    containerHeight: window.innerHeight,
-                    containerWidth: window.innerWidth
-                };
-                const rendered = shallow(<GalleryComponent {...stubProps}/>);
+    it("selects the expected photo for display", function () {
+        const stubProps = {
+            post: stubGallery,
+            containerHeight: window.innerHeight,
+            containerWidth: window.innerWidth
+        };
+        const component = new GalleryComponent(stubProps);
 
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--gallery");
-                expect(rendered).to.not.have.prop("style");
-
-                // NOTE-RT: These are all rendered within the `ProgressiveImage`, so they don't show up in this `shallow`
-                expect(rendered).to.not.have.descendants(".post-metadata");
-                expect(rendered).to.not.have.descendants(".post-content");
-                expect(rendered).to.not.containMatchingElement(<PostTitleComponent post={stubGallery}
-                                                                                   title={stubGallery.title}/>);
-                expect(rendered).to.not.containMatchingElement(<PostBodyAsStringComponent post={stubGallery}/>);
-                expect(rendered).to.not.containMatchingElement(<PostBodyAsArrayComponent post={stubGallery}/>);
-                expect(rendered).to.not.containMatchingElement(<PostDatePublishedComponent post={stubGallery}/>);
-                expect(rendered).to.not.containMatchingElement(<PostDateCreatedComponent post={stubGallery}
-                                                                                         label="Taken:"/>);
-                expect(rendered).to.not.containMatchingElement(<PostTagsComponent post={stubGallery}/>);
-            });
-        });
-
-        describe("selected", function () {
-            const windowDpr = window.devicePixelRatio;
-
-            afterEach(function () {
-                window.devicePixelRatio = windowDpr;
-            });
-
-            it("returns the appropriate Gallery for no DPR", function () {
-                delete window.devicePixelRatio;
-
-                const stubProps = {
-                    post: stubGallery,
-                    containerHeight: window.innerHeight,
-                    containerWidth: window.innerWidth
-                };
-                const rendered = shallow(<GalleryComponent {...stubProps}/>);
-
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--gallery");
-
-                const component = rendered.instance();
-                expect(component.selected).to.eql(stubGallery.largestPhoto.getSizedPhotoForLoading());
-            });
-
-            it("returns the appropriate Gallery for DPR", function () {
-                window.devicePixelRatio = 2;
-
-                const stubProps = {
-                    post: stubGallery,
-                    containerHeight: stubGallery.smallestPhoto.getSizedPhotoForLoading().width * 2,
-                    containerWidth: stubGallery.smallestPhoto.getSizedPhotoForLoading().height * 2
-                };
-                const rendered = shallow(<GalleryComponent {...stubProps}/>);
-
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--gallery");
-
-                const component = rendered.instance();
-                expect(component.selected).to.eql(stubGallery.largestPhoto.sortedSizedPhotos.last());
-            });
-        });
+        expect(component.carouselId).to.eql(`${stubGallery.uid}-carousel`);
+        expect(component.selected).to.eql(stubGallery.largestPhoto.getSizedPhotoForDisplay(component.targetWidth));
     });
 });

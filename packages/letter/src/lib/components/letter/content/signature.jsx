@@ -2,7 +2,7 @@ import {RightDescriptionSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 
-export const LetterSignature = ({letter, assetUrl, contentConfiguration}) => {
+export const LetterSignature = ({letter, assetUrl = __LETTER_ASSET_URL__, contentConfiguration}) => {
     const SectionComponent = contentConfiguration.contentProps.sectionComponent || RightDescriptionSection;
 
     return <SectionComponent

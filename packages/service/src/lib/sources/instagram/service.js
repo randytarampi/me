@@ -1,5 +1,4 @@
 import {getMediaForUser} from "instagram-graph-sdk";
-import fetch from "isomorphic-fetch";
 
 export const baseUrl = "https://graph.facebook.com/v8.0";
 

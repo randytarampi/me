@@ -1,10 +1,10 @@
 import {responseBuilder} from "@randy.tarampi/serverless";
-import cachePosts from "../../../lib/sources/cachePosts";
-import logger from "../../logger";
-import configureEnvironment from "../../util/configureEnvironment";
-import parseQueryStringParametersIntoSearchParams from "../../util/parseQueryStringParametersIntoSearchParams";
-import parseQuerystringParameters from "../../util/request/parseQuerystringParameters";
-import returnErrorResponse from "../../util/response/returnErrorResponse";
+import cachePosts from "../../../lib/sources/cachePosts.js";
+import logger from "../../logger.js";
+import configureEnvironment from "../../util/configureEnvironment.js";
+import parseQueryStringParametersIntoSearchParams from "../../util/parseQueryStringParametersIntoSearchParams.js";
+import parseQuerystringParameters from "../../util/request/parseQuerystringParameters.js";
+import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
 export default (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);

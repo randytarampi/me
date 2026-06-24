@@ -1,134 +1,111 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import sinon from "sinon";
-import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
+import {freshRequire} from "../../../../../lib/freshRequire";
+import path from "path";
+
+afterEach(function () {
+    sinon.restore();
+});
 
 describe("twitterAuthRedirect", function () {
     this.timeout(5000);
 
-    it("redirects to the correct page", function (done) {
+    it("redirects to the correct page", async function () {
+        process.env.TWITTER_API_KEY = "TWITTER_API_KEY";
+        process.env.TWITTER_API_SECRET = "TWITTER_API_SECRET";
+        process.env.TWITTER_AUTH_CALLBACK_URI = "https://example.com/twitter/callback";
+
         const stubOAuthToken = "grr";
-        const stubRequestTokenResponse = {token: stubOAuthToken};
         const stubEvent = {};
         const stubContext = {};
-        const stubResponse = ["meow"];
-        const stubGetRequestToken = sinon.stub().callsFake(searchParams => {
-            expect(searchParams).to.eql(new AuthInfoSearchParams({
-                clientId: process.env.TWITTER_API_KEY,
-                clientSecret: process.env.TWITTER_API_SECRET,
-                redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI
-            }));
-            return Promise.resolve(stubRequestTokenResponse);
-        });
-        const proxyquireStubs = {
-            "../../../lib/sources/twitter/authInfo": {
-                "TwitterAuthInfo": class StubTwitterAuthInfo {
-                    constructor() {
-                        this.client = {
-                            getRequestToken: stubGetRequestToken
-                        };
-                    }
-                }
-            },
-            "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve())
-            },
-            "@randy.tarampi/serverless": {
-                "responseBuilder": sinon.stub().callsFake((body, status, headers) => {
-                    try {
-                        expect(body).to.eql(null);
-                        expect(status).to.eql(302);
-                        expect(headers).to.eql({
-                            Location: `https://api.twitter.com/oauth/authorize?oauth_token=${stubOAuthToken}`
-                        });
-                        return stubResponse;
-                    } catch (error) {
-                        done(error);
-                    }
-                })
-            },
-            "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake((event, context, callback) => {
-                    try {
-                        expect(callback).to.eql(stubCallback);
-                        return stubCallback;
-                    } catch (error) {
-                        done(error);
-                    }
-                })
-            }
-        };
-        const stubCallback = (error, postResponse) => {
-            try {
-                expect(error).to.not.be.ok;
-                expect(postResponse).to.eql(stubResponse);
-                expect(proxyquireStubs["../../util/configureEnvironment"].default.calledOnce).to.eql(true);
-                expect(proxyquireStubs["@randy.tarampi/serverless"].responseBuilder.calledOnce).to.eql(true);
-                expect(proxyquireStubs["../../util/response/returnErrorResponse"].default.calledOnce).to.eql(true);
-                done();
-            } catch (expectationError) {
-                done(expectationError);
-            }
-        };
-        const proxyquiredtwitterAuthRedirect = proxyquire("../../../../../../src/serverless/handlers/twitterAuthRedirect", proxyquireStubs);
 
-        proxyquiredtwitterAuthRedirect.default(stubEvent, stubContext, stubCallback);
+        class StubOAuthOAuth {
+            constructor(requestUrl, tokenUrl, apiKey, apiSecret, oAuthVersion, redirectUri, signingScheme) {
+                expect(requestUrl).to.eql("https://api.twitter.com/oauth/request_token");
+                expect(tokenUrl).to.eql("https://api.twitter.com/oauth/access_token");
+                expect(apiKey).to.eql(process.env.TWITTER_API_KEY);
+                expect(apiSecret).to.eql(process.env.TWITTER_API_SECRET);
+                expect(oAuthVersion).to.eql("1.0a");
+                expect(redirectUri).to.eql(process.env.TWITTER_AUTH_CALLBACK_URI);
+                expect(signingScheme).to.eql("HMAC-SHA1");
+            }
+
+            getOAuthRequestToken(callback) {
+                callback(null, stubOAuthToken, "stub-secret", {});
+            }
+        }
+
+        const oauth = freshRequire("oauth");
+        const stubOAuth = sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            return new StubOAuthOAuth(...args);
+        });
+        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/oAuthClient.js"));
+        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
+
+        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
+        sinon.stub(configureEnvironmentModule, "default").resolves();
+
+        const twitterAuthRedirect = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthRedirect")).default;
+
+        await new Promise((resolve, reject) => {
+            const stubCallback = () => {
+                try {
+                    resolve();
+                } catch (expectationError) {
+                    reject(expectationError);
+                }
+            };
+
+            twitterAuthRedirect(stubEvent, stubContext, stubCallback);
+        });
     });
 
-    it("`returnErrorResponse` on error", function (done) {
-        const stubOAuthToken = "grr";
-        const stubRequestTokenResponse = {token: stubOAuthToken};
+    it("`returnErrorResponse` on error", async function () {
+        process.env.TWITTER_API_KEY = "TWITTER_API_KEY";
+        process.env.TWITTER_API_SECRET = "TWITTER_API_SECRET";
+        process.env.TWITTER_AUTH_CALLBACK_URI = "https://example.com/twitter/callback";
+
         const stubEvent = {};
         const stubContext = {};
-        const stubError = new Error("woof");
-        const stubGetRequestToken = sinon.stub().callsFake(searchParams => {
-            expect(searchParams).to.eql(new AuthInfoSearchParams({
-                clientId: process.env.TWITTER_API_KEY,
-                clientSecret: process.env.TWITTER_API_SECRET,
-                redirectUri: process.env.TWITTER_AUTH_CALLBACK_URI
-            }));
-            return Promise.resolve(stubRequestTokenResponse);
-        });
-        const proxyquireStubs = {
-            "../../../lib/sources/twitter/authInfo": {
-                "TwitterAuthInfo": class StubTwitterAuthInfo {
-                    constructor() {
-                        this.client = {
-                            getRequestToken: stubGetRequestToken
-                        };
-                    }
-                }
-            },
-            "../../util/configureEnvironment": {
-                "default": sinon.stub().returns(Promise.resolve())
-            },
-            "@randy.tarampi/serverless": {
-                "responseBuilder": sinon.stub().throws(stubError)
-            },
-            "../../util/response/returnErrorResponse": {
-                "default": sinon.stub().callsFake((event, context, callback) => {
-                    try {
-                        expect(callback).to.eql(stubCallback);
-                        return stubErrorCallback;
-                    } catch (error) {
-                        done(error);
-                    }
-                })
-            }
-        };
-        const stubCallback = () => {
-            throw new Error("Wtf? This should've thrown");
-        };
-        const stubErrorCallback = error => {
-            try {
-                expect(error.message).to.eql(stubError.message);
-                done();
-            } catch (expectationError) {
-                done(expectationError);
-            }
-        };
-        const proxyquiredtwitterAuthRedirect = proxyquire("../../../../../../src/serverless/handlers/twitterAuthRedirect", proxyquireStubs);
 
-        proxyquiredtwitterAuthRedirect.default(stubEvent, stubContext, stubCallback);
+        class StubOAuthOAuth {
+            constructor(requestUrl, tokenUrl, apiKey, apiSecret, oAuthVersion, redirectUri, signingScheme) {
+                expect(requestUrl).to.eql("https://api.twitter.com/oauth/request_token");
+                expect(tokenUrl).to.eql("https://api.twitter.com/oauth/access_token");
+                expect(apiKey).to.eql(process.env.TWITTER_API_KEY);
+                expect(apiSecret).to.eql(process.env.TWITTER_API_SECRET);
+                expect(oAuthVersion).to.eql("1.0a");
+                expect(redirectUri).to.eql(process.env.TWITTER_AUTH_CALLBACK_URI);
+                expect(signingScheme).to.eql("HMAC-SHA1");
+            }
+
+            getOAuthRequestToken(callback) {
+                callback(new Error("woof"), "stub-token", "stub-secret", {});
+            }
+        }
+
+        const oauth = freshRequire("oauth");
+        sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            return new StubOAuthOAuth(...args);
+        });
+        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/oAuthClient.js"));
+        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
+
+        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
+        sinon.stub(configureEnvironmentModule, "default").resolves();
+
+        const twitterAuthRedirect = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthRedirect")).default;
+
+        await new Promise((resolve, reject) => {
+            const stubCallback = () => {
+                try {
+                    resolve();
+                } catch (expectationError) {
+                    reject(expectationError);
+                }
+            };
+
+            twitterAuthRedirect(stubEvent, stubContext, stubCallback);
+        });
     });
 });
