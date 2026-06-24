@@ -8,10 +8,10 @@ export const ResumeAwards = ({resume, customContent, type, label}) => {
     return <PrintableSection
         printableType="resume"
         type={type}
-        label={customContent[type].label || label}
-        labelNode={customContent[type].labelNode}
-        description={customContent[type].description}
-        descriptionNode={customContent[type].descriptionNode}
+        label={((customContent && customContent[type]) || {}).label || label}
+        labelNode={((customContent && customContent[type]) || {}).labelNode}
+        description={((customContent && customContent[type]) || {}).description}
+        descriptionNode={((customContent && customContent[type]) || {}).descriptionNode}
     >
         {
             resume.awards.map((awardsEntry, index) => {

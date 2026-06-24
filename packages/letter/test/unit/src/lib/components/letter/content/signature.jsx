@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterSignature from "../../../../../../../src/lib/components/letter/content/signature";
 import LetterEntity from "../../../../../../../src/lib/letter";
@@ -52,11 +52,10 @@ describe("LetterSignature", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<LetterSignature letter={stubLetter}
+        const rendered = render(<LetterSignature letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-signature__content");
-        expect(rendered).to.have.descendants(".signature.letter-signature__signature");
-        expect(rendered.find(".signature.letter-signature__signature")).to.have.prop("src", `${__LETTER_ASSET_URL__}/signature.svg`);
+        expect(rendered.container.querySelector(".letter-signature__content")).to.not.eql(null);
+        expect(rendered.container.querySelector(".signature.letter-signature__signature")?.getAttribute("src")).to.eql(`${__LETTER_ASSET_URL__}/signature.svg`);
     });
 });

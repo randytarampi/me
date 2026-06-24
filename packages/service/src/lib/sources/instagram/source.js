@@ -1,13 +1,12 @@
 import {Gallery, Photo, SizedPhoto} from "@randy.tarampi/js";
-import fetch from "isomorphic-fetch";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import {AuthInfo} from "../../authInfo";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
-import {InstagramAuthInfo} from "./authInfo";
-import Instagram from "./service";
-import {type} from "./util";
+import {AuthInfo} from "../../authInfo.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+import {InstagramAuthInfo} from "./authInfo.js";
+import Instagram from "./service.js";
+import {type} from "./util.js";
 
 export class InstagramSource extends CachedDataSource {
     constructor(dataClient, cacheClient, authInfo) {

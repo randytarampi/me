@@ -1,11 +1,37 @@
 import {Gallery, Photo, timedPromise} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import proxyquire from "proxyquire";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram";
+import proxyquiredInstagramSource from "../../../../../../src/lib/sources/instagram/source";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+import path from "path";
+
+let esmock;
+const cleanupEsmockGlobals = () => {
+    delete global.mockKeys;
+    delete global.mockKeysSource;
+    delete global.esmockCache;
+    delete global.esmockCacheGet;
+    delete global.esmockTreeIdGet;
+};
+const loadEsmock = async () => {
+    if (!esmock) {
+        esmock = (await Function("return import('esmock')")()).default;
+    }
+
+    cleanupEsmockGlobals();
+    return esmock;
+};
+
+afterEach(function () {
+    if (esmock) {
+        esmock.purge();
+    }
+
+    cleanupEsmockGlobals();
+});
 
 describe("InstagramSource", function () {
     let stubServiceClient;
@@ -37,7 +63,7 @@ describe("InstagramSource", function () {
     let instagramPhoto;
     let instagramPhotos;
     let instagramGraphEdgeResponse;
-    let proxyquiredInstagramSource;
+    let fetchStub;
 
     beforeEach(function () {
         process.env.INSTAGRAM_ACCESS_TOKEN = "INSTAGRAM_ACCESS_TOKEN";
@@ -209,15 +235,19 @@ describe("InstagramSource", function () {
                 }
             }
         };
-        proxyquiredInstagramSource = proxyquire("../../../../../../src/lib/sources/instagram/source", {
-            "isomorphic-fetch": () => Promise.resolve({
-                json: () => Promise.resolve(instagramGraphEdgeResponse)
-            })
-        }).InstagramSource;
+        fetchStub = sinon.stub(global, "fetch").callsFake(() => Promise.resolve({
+            json: () => Promise.resolve(instagramGraphEdgeResponse)
+        }));
+    });
+
+    afterEach(function () {
+        if (fetchStub) {
+            fetchStub.restore();
+        }
     });
 
     describe("constructor", function () {
-        it("should build a `proxyquiredInstagramSource` instance (including the default `instagram` client)", function () {
+        it("should build a `proxyquiredInstagramSource` instance (including the default `instagram` client)", async function () {
             const instagramSource = new proxyquiredInstagramSource(null, stubCacheClient);
 
             expect(proxyquiredInstagramSource.type).to.eql("instagram");
@@ -227,7 +257,7 @@ describe("InstagramSource", function () {
             expect(instagramSource).to.be.instanceOf(proxyquiredInstagramSource);
         });
 
-        it("should build a `proxyquiredInstagramSource` instance (with stubbed client)", function () {
+        it("should build a `proxyquiredInstagramSource` instance (with stubbed client)", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
 
             expect(proxyquiredInstagramSource.type).to.eql("instagram");
@@ -239,18 +269,18 @@ describe("InstagramSource", function () {
     });
 
     describe("AuthInfoClient", function () {
-        it("returns `InstagramAuthInfo`", function () {
+        it("returns `InstagramAuthInfo`", async function () {
             expect(proxyquiredInstagramSource.AuthInfoClient).to.eql(InstagramAuthInfo);
         });
     });
 
     describe("isEnabled", function () {
-        it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", function () {
+        it("`isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is defined", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             expect(instagramSource.isEnabled).to.eql(true);
         });
 
-        it("`!isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is not defined", function () {
+        it("`!isEnabled` if `process.env.INSTAGRAM_ACCESS_TOKEN` is not defined", async function () {
             delete process.env.INSTAGRAM_ACCESS_TOKEN;
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             expect(instagramSource.isEnabled).to.eql(false);
@@ -258,7 +288,7 @@ describe("InstagramSource", function () {
     });
 
     describe("recordsGetter", function () {
-        it("passes `serviceClient` the expected parameters", function () {
+        it("passes `serviceClient` the expected parameters", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 30, min_id: "meow", max_id: "grr"});
 
@@ -282,7 +312,7 @@ describe("InstagramSource", function () {
                 });
         });
 
-        it("finds no posts", function () {
+        it("finds no posts", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 42});
 
@@ -297,7 +327,7 @@ describe("InstagramSource", function () {
     });
 
     describe("allRecordsGetter", function () {
-        it("finds all posts", function () {
+        it("finds all posts", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
             const stubParams = PostSearchParams.fromJS({perPage: 40, min_id: "meow", max_id: "grr"});
 
@@ -324,7 +354,7 @@ describe("InstagramSource", function () {
     });
 
     describe("recordGetter", function () {
-        it("passes `serviceClient` the expected parameters", function () {
+        it("passes `serviceClient` the expected parameters", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
 
             return instagramSource.recordGetter(stubPost.id)
@@ -335,7 +365,7 @@ describe("InstagramSource", function () {
                 });
         });
 
-        it("finds no post", function () {
+        it("finds no post", async function () {
             const instagramSource = new proxyquiredInstagramSource(stubServiceClient, stubCacheClient);
 
             return instagramSource.recordGetter("foo")

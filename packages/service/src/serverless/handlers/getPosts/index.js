@@ -1,11 +1,11 @@
-import logger from "../../logger";
-import callbackOnWarmup from "../../util/callbackOnWarmup";
-import configureEnvironment from "../../util/configureEnvironment";
-import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters";
-import parseHeaders from "../../util/request/parseHeaders";
-import parseQuerystringParameters from "../../util/request/parseQuerystringParameters";
-import buildPostsResponse from "../../util/response/buildPostsResponse";
-import returnErrorResponse from "../../util/response/returnErrorResponse";
+import logger from "../../logger.js";
+import callbackOnWarmup from "../../util/callbackOnWarmup.js";
+import configureEnvironment from "../../util/configureEnvironment.js";
+import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters.js";
+import parseHeaders from "../../util/request/parseHeaders.js";
+import parseQuerystringParameters from "../../util/request/parseQuerystringParameters.js";
+import buildPostsResponse from "../../util/response/buildPostsResponse.js";
+import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
 export default (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);

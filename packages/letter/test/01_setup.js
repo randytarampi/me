@@ -1,8 +1,4 @@
 import "@randy.tarampi/jsx/src/lib/reactShim";
-import chai from "chai";
-import chaiEnzyme from "chai-enzyme";
-import Enzyme from "enzyme";
-import EnzymeAdapter from "@cfaester/enzyme-adapter-react-18";
 import {JSDOM} from "jsdom";
 const packageJson = require("../package.json");
 
@@ -15,9 +11,6 @@ Object.defineProperty(global, "navigator", {
     value: {userAgent: "node.js"}
 });
 global.location = jsdom.window.location;
-
-Enzyme.configure({adapter: new EnzymeAdapter()});
-chai.use(chaiEnzyme());
 
 global.window.NAME = packageJson.name;
 global.window.VERSION = packageJson.version;

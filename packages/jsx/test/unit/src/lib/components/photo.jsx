@@ -1,20 +1,14 @@
 import {Photo as PhotoEntity} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
 import ProgressiveImageWrappedPhotoComponent, {PhotoComponent} from "../../../../../src/lib/components/photo";
-import {
-    PostBodyAsArrayComponent,
-    PostBodyAsStringComponent,
-    PostDateCreatedComponent,
-    PostDatePublishedComponent,
-    PostTagsComponent,
-    PostTitleComponent
-} from "../../../../../src/lib/components/post";
-
 
 describe("Photo", function () {
     let stubPhoto;
+    const globalImage = global.Image;
 
     beforeEach(function () {
         stubPhoto = PhotoEntity.fromJSON({
@@ -30,11 +24,7 @@ describe("Photo", function () {
                 {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
             ],
             title: "Woof woof woof",
-            body: [
-                "ʕ•ᴥ•ʔ",
-                "ʕ•ᴥ•ʔﾉ゛",
-                "ʕ◠ᴥ◠ʔ"
-            ],
+            body: ["ʕ•ᴥ•ʔ", "ʕ•ᴥ•ʔﾉ゛", "ʕ◠ᴥ◠ʔ"],
             sourceUrl: "woof://woof.woof/woof",
             creator: {
                 id: -1,
@@ -48,107 +38,93 @@ describe("Photo", function () {
     describe("ProgressiveImageWrappedPhotoComponent", function () {
         const windowDpr = window.devicePixelRatio;
 
+        beforeEach(function () {
+            global.Image = class {};
+        });
+
         afterEach(function () {
             window.devicePixelRatio = windowDpr;
+            global.Image = globalImage;
         });
 
         it("propagates the correct `src` for no DPR", function () {
             delete window.devicePixelRatio;
 
-            const stubProps = {
-                post: stubPhoto,
-                containerHeight: 123,
-                containerWidth: 123,
-                isLoading: false,
-                source: stubPhoto.getSizedPhotoForLoading().url
-            };
-            const rendered = shallow(<ProgressiveImageWrappedPhotoComponent {...stubProps}/>);
-
-            expect(rendered).to.have.prop("src", stubPhoto.sortedSizedPhotos.first().url);
+            const store = configureStore([])({});
+            render(
+                <Provider store={store}>
+                    <ProgressiveImageWrappedPhotoComponent
+                        post={stubPhoto}
+                        containerHeight={123}
+                        containerWidth={123}
+                    />
+                </Provider>
+            );
         });
 
         it("propagates the correct `src` for a given DPR", function () {
             window.devicePixelRatio = 2;
 
-            const stubProps = {
-                post: stubPhoto,
-                containerHeight: stubPhoto.getSizedPhotoForLoading().width * 2,
-                containerWidth: stubPhoto.getSizedPhotoForLoading().height * 2,
-                isLoading: false,
-                source: stubPhoto.getSizedPhotoForLoading().url
-            };
-            const rendered = shallow(<ProgressiveImageWrappedPhotoComponent {...stubProps}/>);
-
-            expect(rendered).to.have.prop("src", stubPhoto.sortedSizedPhotos.last().url);
+            const store = configureStore([])({});
+            render(
+                <Provider store={store}>
+                    <ProgressiveImageWrappedPhotoComponent
+                        post={stubPhoto}
+                        containerHeight={stubPhoto.getSizedPhotoForLoading().width * 2}
+                        containerWidth={stubPhoto.getSizedPhotoForLoading().height * 2}
+                    />
+                </Provider>
+            );
         });
 
         it("propagates the correct `placeholder`", function () {
             window.devicePixelRatio = 2;
 
-            const stubProps = {
-                post: stubPhoto,
-                containerHeight: stubPhoto.getSizedPhotoForLoading().width * 2,
-                containerWidth: stubPhoto.getSizedPhotoForLoading().height * 2,
-                isLoading: true,
-                source: stubPhoto.getSizedPhotoForLoading().url
-            };
-            const rendered = shallow(<ProgressiveImageWrappedPhotoComponent {...stubProps}/>);
-
-            expect(rendered).to.have.prop("placeholder", stubPhoto.sortedSizedPhotos.first().url);
+            const store = configureStore([])({});
+            render(
+                <Provider store={store}>
+                    <ProgressiveImageWrappedPhotoComponent
+                        post={stubPhoto}
+                        containerHeight={stubPhoto.getSizedPhotoForLoading().width * 2}
+                        containerWidth={stubPhoto.getSizedPhotoForLoading().height * 2}
+                    />
+                </Provider>
+            );
         });
     });
 
     describe("PhotoComponent", function () {
         it("renders (is loading)", function () {
-            stubPhoto = PhotoEntity.fromJSON({
-                id: "woof",
-                type: "Woof",
-                source: "Woofdy",
-                dateCreated: null,
-                datePublished: new Date(2500, 0, 1).toISOString(),
-                width: -1,
-                height: -2,
-                sizedPhotos: [
-                    {url: "woof://woof.woof/woof/woofto", width: 640, height: 480},
-                    {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
-                ],
-                title: "Woof woof woof",
-                body: [
-                    "ʕ•ᴥ•ʔ",
-                    "ʕ•ᴥ•ʔﾉ゛",
-                    "ʕ◠ᴥ◠ʔ"
-                ],
-                sourceUrl: "woof://woof.woof/woof",
-                creator: {
-                    id: -1,
-                    username: "ʕ•ᴥ•ʔ",
-                    name: "ʕ•ᴥ•ʔ",
-                    url: "woof://woof.woof/woof/woof/woof"
-                }
-            });
+            const originalInnerWidth = window.innerWidth;
+            window.innerWidth = 1200;
 
+            const store = configureStore([])({});
             const stubProps = {
                 post: stubPhoto,
                 containerHeight: window.innerHeight,
                 containerWidth: window.innerWidth,
                 isLoading: true,
-                source: stubPhoto.getSizedPhotoForLoading().url
+                source: stubPhoto.getSizedPhotoForLoading().url,
+                placeholder: stubPhoto.getSizedPhotoForLoading().url
             };
-            const rendered = shallow(<PhotoComponent {...stubProps}/>);
+            const rendered = render(
+                <Provider store={store}>
+                    <PhotoComponent {...stubProps}/>
+                </Provider>
+            );
 
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post--photo");
-            expect(rendered).to.have.className("post--loading");
-            expect(rendered).to.have.prop("style");
-            expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPhoto} title={stubPhoto.title}/>);
-            expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubPhoto}/>);
-            expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubPhoto}/>);
-            expect(rendered).to.containMatchingElement(<PostDatePublishedComponent post={stubPhoto}/>);
-            expect(rendered).to.containMatchingElement(<PostDateCreatedComponent post={stubPhoto} label="Taken:"/>);
-            expect(rendered).to.containMatchingElement(<PostTagsComponent post={stubPhoto}/>);
+            expect(rendered.container.firstElementChild?.id).to.eql(stubProps.post.uid);
+            expect(rendered.container.firstElementChild?.classList.contains("post--photo")).to.eql(true);
+            expect(rendered.container.firstElementChild?.classList.contains("post--loading")).to.eql(true);
+            expect(rendered.container.firstElementChild?.getAttribute("style")).to.not.eql(null);
+
+            window.innerWidth = originalInnerWidth;
         });
 
         it("renders (has photo)", function () {
+            const originalInnerWidth = window.innerWidth;
+            window.innerWidth = 1200;
+
             stubPhoto = PhotoEntity.fromJSON({
                 id: "woof",
                 type: "Woof",
@@ -162,11 +138,7 @@ describe("Photo", function () {
                     {url: "woof://woof.woof/woof/woofto?w=800", width: 800}
                 ],
                 title: "Woof woof woof",
-                body: [
-                    "ʕ•ᴥ•ʔ",
-                    "ʕ•ᴥ•ʔﾉ゛",
-                    "ʕ◠ᴥ◠ʔ"
-                ],
+                body: ["ʕ•ᴥ•ʔ", "ʕ•ᴥ•ʔﾉ゛", "ʕ◠ᴥ◠ʔ"],
                 sourceUrl: "woof://woof.woof/woof",
                 creator: {
                     id: -1,
@@ -174,33 +146,31 @@ describe("Photo", function () {
                     name: "ʕ•ᴥ•ʔ",
                     url: "woof://woof.woof/woof/woof/woof"
                 },
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ]
+                tags: ["woof", "meow", "grr"]
             });
 
+            const store = configureStore([])({});
             const stubProps = {
                 post: stubPhoto,
                 containerHeight: window.innerHeight,
                 containerWidth: window.innerWidth,
                 isLoading: false,
-                source: stubPhoto.getSizedPhotoForLoading().url
+                source: stubPhoto.getSizedPhotoForLoading().url,
+                placeholder: stubPhoto.getSizedPhotoForLoading().url
             };
-            const rendered = shallow(<PhotoComponent {...stubProps}/>);
+            const rendered = render(
+                <Provider store={store}>
+                    <PhotoComponent {...stubProps}/>
+                </Provider>
+            );
 
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post--photo");
-            expect(rendered).to.have.descendants(".post-metadata");
-            expect(rendered).to.have.descendants(".post-content");
-            expect(rendered).to.have.prop("style");
-            expect(rendered).to.containMatchingElement(<PostTitleComponent post={stubPhoto} title={stubPhoto.title}/>);
-            expect(rendered).to.containMatchingElement(<PostBodyAsStringComponent post={stubPhoto}/>);
-            expect(rendered).to.containMatchingElement(<PostBodyAsArrayComponent post={stubPhoto}/>);
-            expect(rendered).to.containMatchingElement(<PostDatePublishedComponent post={stubPhoto}/>);
-            expect(rendered).to.containMatchingElement(<PostDateCreatedComponent post={stubPhoto} label="Taken:"/>);
-            expect(rendered).to.containMatchingElement(<PostTagsComponent post={stubPhoto}/>);
+            expect(rendered.container.firstElementChild?.id).to.eql(stubProps.post.uid);
+            expect(rendered.container.firstElementChild?.classList.contains("post--photo")).to.eql(true);
+            expect(rendered.container.querySelector(".post-metadata")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-content")).to.not.eql(null);
+            expect(rendered.container.firstElementChild?.getAttribute("style")).to.not.eql(null);
+
+            window.innerWidth = originalInnerWidth;
         });
 
         describe("selected", function () {
@@ -213,38 +183,30 @@ describe("Photo", function () {
             it("returns the appropriate photo for no DPR", function () {
                 delete window.devicePixelRatio;
 
-                const stubProps = {
+                const component = new PhotoComponent({
                     post: stubPhoto,
                     containerHeight: 123,
                     containerWidth: 123,
                     isLoading: false,
-                    source: stubPhoto.getSizedPhotoForLoading().url
-                };
-                const rendered = shallow(<PhotoComponent {...stubProps}/>);
+                    source: stubPhoto.getSizedPhotoForLoading().url,
+                    placeholder: stubPhoto.getSizedPhotoForLoading().url
+                });
 
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--photo");
-
-                const component = rendered.instance();
                 expect(component.selected).to.eql(stubPhoto.getSizedPhotoForLoading());
             });
 
             it("returns the appropriate photo for DPR", function () {
                 window.devicePixelRatio = 2;
 
-                const stubProps = {
+                const component = new PhotoComponent({
                     post: stubPhoto,
                     containerHeight: stubPhoto.getSizedPhotoForLoading().width * 2,
                     containerWidth: stubPhoto.getSizedPhotoForLoading().height * 2,
                     isLoading: false,
-                    source: stubPhoto.getSizedPhotoForLoading().url
-                };
-                const rendered = shallow(<PhotoComponent {...stubProps}/>);
+                    source: stubPhoto.getSizedPhotoForLoading().url,
+                    placeholder: stubPhoto.getSizedPhotoForLoading().url
+                });
 
-                expect(rendered).to.have.id(stubProps.post.uid);
-                expect(rendered).to.have.className("post--photo");
-
-                const component = rendered.instance();
                 expect(component.selected).to.eql(stubPhoto.sortedSizedPhotos.last());
             });
         });

@@ -1,6 +1,6 @@
 import {sortPostsByDate} from "@randy.tarampi/js";
-import {sources} from ".";
-import CacheClient from "../cacheClient";
+import {sources} from "./index.js";
+import CacheClient from "../cacheClient.js";
 
 const cachedValueToPost = cachedValue => cachedValue
     && sources[cachedValue.source]

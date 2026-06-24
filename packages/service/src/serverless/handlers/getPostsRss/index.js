@@ -1,13 +1,13 @@
 import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
-import RssFeed from "../../../lib/rssFeed";
-import logger from "../../logger";
-import callbackOnWarmup from "../../util/callbackOnWarmup";
-import configureEnvironment from "../../util/configureEnvironment";
-import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters";
-import parseHeaders from "../../util/request/parseHeaders";
-import parseQuerystringParameters from "../../util/request/parseQuerystringParameters";
-import buildRssResponse from "../../util/response/buildRssResponse";
-import returnErrorResponse from "../../util/response/returnErrorResponse";
+import RssFeed from "../../../lib/rssFeed.js";
+import logger from "../../logger.js";
+import callbackOnWarmup from "../../util/callbackOnWarmup.js";
+import configureEnvironment from "../../util/configureEnvironment.js";
+import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters.js";
+import parseHeaders from "../../util/request/parseHeaders.js";
+import parseQuerystringParameters from "../../util/request/parseQuerystringParameters.js";
+import buildRssResponse from "../../util/response/buildRssResponse.js";
+import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
 export default (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);

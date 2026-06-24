@@ -1,5 +1,5 @@
 import dynamoose from "dynamoose";
-import logger from "../serverless/logger";
+import logger from "../serverless/logger.js";
 
 /**
  * Convert a single value into something Dynamoose v4 can persist. Notably, Dynamoose v4 type-checks `Date`

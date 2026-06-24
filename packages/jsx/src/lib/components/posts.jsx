@@ -1,5 +1,4 @@
 import {logger} from "@randy.tarampi/browser-logger";
-import Dimensions from "@randy.tarampi/react-dimensions";
 import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
@@ -10,6 +9,7 @@ import LoadingSpinner from "../components/loadingSpinner";
 import {ConnectedErrorWrapper} from "../containers";
 import computePostHeight from "../util/computePostHeight";
 import getComponentForType from "../util/getComponentForType";
+import useMeasure from "../hooks/useMeasure";
 import {
     ErrorENOCONTENTContentComponent,
     ErrorESERVERContentComponent,
@@ -161,10 +161,19 @@ PostsComponent.defaultProps = {
     postsLimit: Infinity
 };
 
-export const DimensionsWrappedPosts = Dimensions()(PostsComponent);
+export const MeasuredPostsComponent = props => {
+    const {height, ref, width} = useMeasure();
 
-export const DimensionsContainerWrappedPosts = props => <div className="dimensions-container--posts">
-    <DimensionsWrappedPosts {...props}/>
-</div>;
+    return <div className="dimensions-container--posts" ref={ref}>
+        <PostsComponent
+            {...props}
+            containerHeight={height}
+            containerWidth={width}
+        />
+    </div>;
+};
 
-export default DimensionsContainerWrappedPosts;
+MeasuredPostsComponent.propTypes = PostsComponent.propTypes;
+MeasuredPostsComponent.defaultProps = PostsComponent.defaultProps;
+
+export default MeasuredPostsComponent;

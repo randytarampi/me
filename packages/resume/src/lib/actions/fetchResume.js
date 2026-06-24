@@ -1,4 +1,4 @@
-import {isUrlStateLoading, setErrorCreator} from "@randy.tarampi/jsx";
+import {isUrlStateLoading, setErrorCreator} from "@randy.tarampi/jsx/src/lib/index.jsx";
 import {createAction} from "redux-actions";
 import fetchResume, {buildFetchUrlForVariant} from "../api/fetchResume";
 import selectors from "../data/selectors";

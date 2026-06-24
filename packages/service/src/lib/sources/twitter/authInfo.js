@@ -1,9 +1,9 @@
-import AuthInfoModel from "../../../db/models/authInfo";
-import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo";
-import CacheClient from "../../cacheClient";
-import CachedDataSource from "../../cachedDataSource";
-import {OAuthClient} from "../oAuthClient";
-import {type} from "./util";
+import AuthInfoModel from "../../../db/models/authInfo.js";
+import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo.js";
+import CacheClient from "../../cacheClient.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {OAuthClient} from "../oAuthClient.js";
+import {type} from "./util.js";
 
 export const TWITTER_REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
 export const TWITTER_ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";

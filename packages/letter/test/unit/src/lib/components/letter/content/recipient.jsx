@@ -1,6 +1,9 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {Map} from "immutable";
+import {render} from "@testing-library/react";
 import React from "react";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import LetterRecipient from "../../../../../../../src/lib/components/letter/content/recipient";
 import LetterEntity from "../../../../../../../src/lib/letter";
 import LetterSection from "../../../../../../../src/lib/letterSection";
@@ -11,6 +14,7 @@ describe("LetterRecipient", function () {
     let stubSenderJs;
     let stubRecipientJs;
     let stubLetter;
+    let stubStore;
 
     beforeEach(function () {
         stubContentConfiguration = LetterSection.fromJS({
@@ -48,6 +52,8 @@ describe("LetterRecipient", function () {
                 format: "bar"
             }
         });
+
+        stubStore = configureStore([])(Map({emoji: Map()}));
     });
 
     it("renders (null if no recipient)", function () {
@@ -62,22 +68,22 @@ describe("LetterRecipient", function () {
             }
         });
 
-        const rendered = shallow(<LetterRecipient letter={stubLetter}
-                                                  contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<Provider store={stubStore}><LetterRecipient letter={stubLetter}
+                                                  contentConfiguration={stubContentConfiguration}/></Provider>);
 
-        expect(rendered.getElement()).to.eql(null);
+        expect(rendered.container.firstChild).to.eql(null);
     });
 
     it("renders (default content)", function () {
-        const rendered = shallow(<LetterRecipient letter={stubLetter}
-                                                  contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<Provider store={stubStore}><LetterRecipient letter={stubLetter}
+                                                  contentConfiguration={stubContentConfiguration}/></Provider>);
 
-        expect(rendered).to.have.descendants(".printable-recipient__name");
-        expect(rendered).to.have.descendants(".printable-recipient__title");
-        expect(rendered).to.have.descendants(".printable-recipient__company");
-        expect(rendered).to.have.descendants(".printable-recipient__street-address");
-        expect(rendered).to.have.descendants(".printable-recipient__city-region");
-        expect(rendered).to.have.descendants(".printable-recipient__postal-code");
+        expect(rendered.container.querySelector(".printable-recipient__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__title")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__company")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__street-address")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__city-region")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__postal-code")).to.not.eql(null);
     });
 
     it("renders (no name)", function () {
@@ -103,16 +109,16 @@ describe("LetterRecipient", function () {
             }
         });
 
-        const rendered = shallow(<LetterRecipient letter={stubLetter}
-                                                  contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<Provider store={stubStore}><LetterRecipient letter={stubLetter}
+                                                  contentConfiguration={stubContentConfiguration}/></Provider>);
 
-        expect(rendered).to.not.have.descendants(".printable-recipient__name");
-        expect(rendered).to.have.descendants(".printable-recipient__title");
-        expect(rendered).to.have.descendants(".printable-recipient__company");
-        expect(rendered).to.have.descendants(".printable-recipient__street-address");
-        expect(rendered).to.have.descendants(".printable-recipient__post-office-box-number");
-        expect(rendered).to.have.descendants(".printable-recipient__city-region");
-        expect(rendered).to.have.descendants(".printable-recipient__postal-code");
+        expect(rendered.container.querySelector(".printable-recipient__name")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__title")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__company")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__street-address")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__post-office-box-number")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__city-region")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__postal-code")).to.not.eql(null);
     });
 
     it("renders (no title)", function () {
@@ -127,15 +133,15 @@ describe("LetterRecipient", function () {
             }
         });
 
-        const rendered = shallow(<LetterRecipient letter={stubLetter}
-                                                  contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<Provider store={stubStore}><LetterRecipient letter={stubLetter}
+                                                  contentConfiguration={stubContentConfiguration}/></Provider>);
 
-        expect(rendered).to.have.descendants(".printable-recipient__name");
-        expect(rendered).to.not.have.descendants(".printable-recipient__title");
-        expect(rendered).to.have.descendants(".printable-recipient__company");
-        expect(rendered).to.have.descendants(".printable-recipient__street-address");
-        expect(rendered).to.have.descendants(".printable-recipient__city-region");
-        expect(rendered).to.have.descendants(".printable-recipient__postal-code");
+        expect(rendered.container.querySelector(".printable-recipient__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__title")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__company")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__street-address")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__city-region")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__postal-code")).to.not.eql(null);
     });
 
     it("renders (no company)", function () {
@@ -150,15 +156,15 @@ describe("LetterRecipient", function () {
             }
         });
 
-        const rendered = shallow(<LetterRecipient letter={stubLetter}
-                                                  contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<Provider store={stubStore}><LetterRecipient letter={stubLetter}
+                                                  contentConfiguration={stubContentConfiguration}/></Provider>);
 
-        expect(rendered).to.have.descendants(".printable-recipient__name");
-        expect(rendered).to.have.descendants(".printable-recipient__title");
-        expect(rendered).to.not.have.descendants(".printable-recipient__company");
-        expect(rendered).to.have.descendants(".printable-recipient__street-address");
-        expect(rendered).to.have.descendants(".printable-recipient__city-region");
-        expect(rendered).to.have.descendants(".printable-recipient__postal-code");
+        expect(rendered.container.querySelector(".printable-recipient__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__title")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__company")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__street-address")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__city-region")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__postal-code")).to.not.eql(null);
     });
 
     it("renders (no location)", function () {
@@ -173,14 +179,14 @@ describe("LetterRecipient", function () {
             }
         });
 
-        const rendered = shallow(<LetterRecipient letter={stubLetter}
+        const rendered = render(<LetterRecipient letter={stubLetter}
                                                   contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".printable-recipient__name");
-        expect(rendered).to.have.descendants(".printable-recipient__title");
-        expect(rendered).to.have.descendants(".printable-recipient__company");
-        expect(rendered).to.not.have.descendants(".printable-recipient__street-address");
-        expect(rendered).to.not.have.descendants(".printable-recipient__city-region");
-        expect(rendered).to.not.have.descendants(".printable-recipient__postal-code");
+        expect(rendered.container.querySelector(".printable-recipient__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__title")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__company")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__street-address")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__city-region")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-recipient__postal-code")).to.eql(null);
     });
 });

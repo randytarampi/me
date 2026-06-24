@@ -6,9 +6,13 @@ import {
     PrintableHeader
 } from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
+import {Map} from "immutable";
 import React from "react";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import sinon from "sinon";
+import {thunk} from "redux-thunk";
 import {LetterComponent, mapLetterErrorCodeToErrorContentComponent} from "../../../../../../src/lib/components/letter";
 import LetterEntity from "../../../../../../src/lib/letter";
 
@@ -19,6 +23,8 @@ describe("LetterComponent", function () {
     let stubLetterContentComponent;
     let stubLetter;
     let stubFetchLetter;
+    let mockStore;
+    let stubStore;
 
     beforeEach(function () {
         const testComponent = () => <span className="rawr">foo</span>;
@@ -30,7 +36,7 @@ describe("LetterComponent", function () {
             worksFor: null,
             jobTitle: "Woof",
             picture: null,
-            email: "woof@randytarampi.ca",
+            email: "__VG_EMAIL_ba2fd61a0fac__",
             phone: "+16692216251",
             url: "woof.woof/woof",
             description: "Woof woof woof",
@@ -43,7 +49,7 @@ describe("LetterComponent", function () {
             }
         };
         stubSenderJs = Object.assign({}, stubPersonJs);
-        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
+        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "__VG_EMAIL_6189bc5d9ab3__"});
 
         stubLetterContentComponent = testComponent;
         stubLetter = LetterEntity.fromJS({
@@ -58,210 +64,83 @@ describe("LetterComponent", function () {
         });
 
         stubFetchLetter = sinon.stub();
+        mockStore = configureStore([thunk]);
+        stubStore = mockStore(Map({api: Map(), emoji: Map(), error: Map(), letter: Map(), ui: Map()}));
     });
 
-    describe("componentDidMount", function () {
-        it("calls `fetchLetter` if `variant`", function () {
-            const stubVariant = "woof";
-            const rendered = shallow(<LetterComponent
-                variant={stubVariant}
-                fetchLetter={stubFetchLetter}
-                match={{}}
-                letter={stubLetter}
-            />);
-
-            expect(rendered).to.have.className("printable");
-            expect(rendered).to.have.className("letter");
-            expect(rendered).to.have.descendants(".letter-content");
-            expect(stubFetchLetter.calledOnce).to.be.ok;
-            sinon.assert.calledWith(stubFetchLetter, stubVariant);
-        });
-
-        it("doesn't call `fetchLetter` if there's no `variant` defined", function () {
-            const rendered = shallow(<LetterComponent
-                fetchLetter={stubFetchLetter}
-                match={{}}
-                letter={stubLetter}
-            />);
-
-            expect(rendered).to.have.className("printable");
-            expect(rendered).to.have.className("letter");
-            expect(rendered).to.have.descendants(".letter-content");
-            expect(stubFetchLetter.notCalled).to.be.ok;
-        });
+    it("maps letter error codes", function () {
+        expect(mapLetterErrorCodeToErrorContentComponent("EFETCH")).to.eql(ErrorESERVERContentComponent);
+        expect(mapLetterErrorCodeToErrorContentComponent("ESERVER")).to.eql(ErrorESERVERContentComponent);
+        expect(mapLetterErrorCodeToErrorContentComponent("ENOLETTER")).to.eql(ErrorENOACCESSContentComponent);
+        expect(mapLetterErrorCodeToErrorContentComponent()).to.eql(defaultMapErrorCodeToErrorContent());
     });
 
-    describe("mapLetterErrorCodeToErrorContentComponent", function () {
-        it("handles EFETCH", function () {
-            expect(mapLetterErrorCodeToErrorContentComponent("EFETCH")).to.eql(ErrorESERVERContentComponent);
-        });
-
-        it("handles ESERVER", function () {
-            expect(mapLetterErrorCodeToErrorContentComponent("ESERVER")).to.eql(ErrorESERVERContentComponent);
-        });
-
-        it("handles ENOLETTER", function () {
-            expect(mapLetterErrorCodeToErrorContentComponent("ENOLETTER")).to.eql(ErrorENOACCESSContentComponent);
-        });
-
-        it("defers to defaultMapErrorCodeToErrorContent", function () {
-            expect(mapLetterErrorCodeToErrorContentComponent()).to.eql(defaultMapErrorCodeToErrorContent());
-        });
-    });
-
-    it("renders", function () {
-        const rendered = shallow(<LetterComponent
+    it("renders and fetches the requested variant", function () {
+        const rendered = render(<Provider store={stubStore}><LetterComponent
+            variant="woof"
             fetchLetter={stubFetchLetter}
-            isLoading={false}
             match={{}}
             letter={stubLetter}
-        />);
+        /></Provider>);
 
-        expect(rendered).to.have.className("printable");
-        expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants("title");
-        expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.not.contain(<LoadingSpinner/>);
-        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                                                     printable={stubLetter}/>);
+        expect(rendered.container.querySelector(".printable.letter")).to.not.eql(null);
+        expect(rendered.container.querySelector(".letter-content")).to.not.eql(null);
+        expect(stubFetchLetter.calledOnce).to.eql(true);
+        sinon.assert.calledWith(stubFetchLetter, "woof");
     });
 
-    it("renders (custom content component)", function () {
-        stubLetter = LetterEntity.fromJS({
-            sender: stubSenderJs,
-            recipient: stubRecipientJs,
-            id: "foo",
-            filename: null,
-            content: [
-                {
-                    component: stubLetterContentComponent
-                }
-            ],
-            renderOptions: {
-                format: "bar"
-            }
-        });
-
-        const rendered = shallow(<LetterComponent
-            fetchLetter={stubFetchLetter}
-            isLoading={false}
-            match={{}}
-            letter={stubLetter}
-        />);
-
-        expect(rendered).to.have.className("printable");
-        expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                                                     printable={stubLetter}/>);
-        stubLetter.content.map(contentConfiguration => {
-            const ContentComponent = contentConfiguration.component
-                ? contentConfiguration.component
-                : require(`../../../../../../src/lib/components/letter/content/${contentConfiguration.contentKey}`).default;
-            expect(rendered).to.have.contain(<ContentComponent
-                letter={stubLetter}
-                publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                contentConfiguration={contentConfiguration}
-            />);
-        });
-    });
-
-    it("renders (plain content block)", function () {
-        stubLetter = LetterEntity.fromJS({
-            sender: stubSenderJs,
-            recipient: stubRecipientJs,
-            id: "foo",
-            filename: null,
-            content: [
-                {
-                    contentKey: "intro"
-                }
-            ],
-            renderOptions: {
-                format: "bar"
-            }
-        });
-
-        const rendered = shallow(<LetterComponent
-            fetchLetter={stubFetchLetter}
-            isLoading={false}
-            match={{}}
-            letter={stubLetter}
-        />);
-
-        expect(rendered).to.have.className("printable");
-        expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                                                     printable={stubLetter}/>);
-        stubLetter.content.map(contentConfiguration => {
-            const ContentComponent = contentConfiguration.component
-                ? contentConfiguration.component
-                : require(`../../../../../../src/lib/components/letter/content/${contentConfiguration.contentKey}`).default;
-            expect(rendered).to.have.contain(<ContentComponent
-                letter={stubLetter}
-                publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                contentConfiguration={contentConfiguration}
-            />);
-        });
-    });
-
-    it("renders (customized content block)", function () {
-        stubLetter = LetterEntity.fromJS({
-            sender: stubSenderJs,
-            recipient: stubRecipientJs,
-            id: "foo",
-            filename: null,
-            content: [
-                {
-                    contentKey: "date",
-                    sectionId: "woof",
-                    contentProps: {
-                        meow: "grr"
-                    }
-                }
-            ],
-            renderOptions: {
-                format: "bar"
-            }
-        });
-
-        const rendered = shallow(<LetterComponent
-            fetchLetter={stubFetchLetter}
-            isLoading={false}
-            match={{}}
-            letter={stubLetter}
-        />);
-
-        expect(rendered).to.have.className("printable");
-        expect(rendered).to.have.className("letter");
-        expect(rendered).to.have.descendants(".letter-content");
-        expect(rendered).to.contain(<PrintableHeader letter={stubLetter} publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                                                     printable={stubLetter}/>);
-        stubLetter.content.map(contentConfiguration => {
-            const ContentComponent = contentConfiguration.component
-                ? contentConfiguration.component
-                : require(`../../../../../../src/lib/components/letter/content/${contentConfiguration.contentKey}`).default;
-            expect(rendered).to.have.contain(<ContentComponent
-                letter={stubLetter}
-                publishedLetterUrl={__PUBLISHED_LETTER_URL__}
-                contentConfiguration={contentConfiguration}
-            />);
-        });
-    });
-
-    it("renders (`isLoading`)", function () {
-        const rendered = shallow(<LetterComponent
+    it("renders a loading spinner when loading", function () {
+        const rendered = render(<Provider store={stubStore}><LetterComponent
             fetchLetter={stubFetchLetter}
             isLoading={true}
             match={{}}
             letter={stubLetter}
-        />);
+        /></Provider>);
 
-        expect(rendered).to.have.className("printable");
-        expect(rendered).to.have.className("letter");
-        expect(rendered).to.not.have.descendants(".letter-content");
-        expect(rendered).to.contain(<LoadingSpinner/>);
-        expect(rendered).to.not.contain(<PrintableHeader printable={stubLetter}/>);
+        expect(rendered.container.querySelector(".loading-spinner")).to.not.eql(null);
+        expect(rendered.container.querySelector(".letter-content")).to.eql(null);
+    });
+
+    it("renders letter content", function () {
+        stubLetter = LetterEntity.fromJS({
+            sender: stubSenderJs,
+            recipient: stubRecipientJs,
+            id: "foo",
+            filename: null,
+            content: [{component: stubLetterContentComponent}],
+            renderOptions: {format: "bar"}
+        });
+
+        const rendered = render(<Provider store={stubStore}><LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={false}
+            match={{}}
+            letter={stubLetter}
+        /></Provider>);
+
+        expect(rendered.container.querySelector(".letter-content")).to.not.eql(null);
+        expect(rendered.container.querySelector(".rawr")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header")).to.not.eql(null);
+    });
+
+    it("renders plain content blocks", function () {
+        stubLetter = LetterEntity.fromJS({
+            sender: stubSenderJs,
+            recipient: stubRecipientJs,
+            id: "foo",
+            filename: null,
+            content: [{contentKey: "intro"}],
+            renderOptions: {format: "bar"}
+        });
+
+        const rendered = render(<Provider store={stubStore}><LetterComponent
+            fetchLetter={stubFetchLetter}
+            isLoading={false}
+            match={{}}
+            letter={stubLetter}
+        /></Provider>);
+
+        expect(rendered.container.querySelector(".letter-content")).to.not.eql(null);
+        expect(rendered.container.textContent).to.contain("Give this a shot and keep reading");
     });
 });

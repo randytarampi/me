@@ -1,18 +1,38 @@
-import {SET_ERROR} from "@randy.tarampi/jsx";
+import {SET_ERROR} from "@randy.tarampi/jsx/src/lib/index.jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
-import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
+
+import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchLetter.js";
 import testLetterJson from "../../../../../src/letters/letter.json";
-import {
-    FETCHING_LETTER,
-    FETCHING_LETTER_CANCELLED,
-    FETCHING_LETTER_FAILURE,
-    FETCHING_LETTER_FAILURE_RECOVERY,
-    FETCHING_LETTER_SUCCESS
-} from "../../../../../src/lib/actions/fetchLetter";
-import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchLetter";
+
+const FETCHING_LETTER = "FETCHING_LETTER";
+const FETCHING_LETTER_CANCELLED = "FETCHING_LETTER_CANCELLED";
+const FETCHING_LETTER_FAILURE = "FETCHING_LETTER_FAILURE";
+const FETCHING_LETTER_FAILURE_RECOVERY = "FETCHING_LETTER_FAILURE_RECOVERY";
+const FETCHING_LETTER_SUCCESS = "FETCHING_LETTER_SUCCESS";
+
+const actionPath = require.resolve("../../../../../src/lib/actions/fetchLetter.js");
+const apiPath = require.resolve("../../../../../src/lib/api/fetchLetter.js");
+
+const loadFetchLetterAction = fetchLetterImpl => {
+    delete require.cache[actionPath];
+    delete require.cache[apiPath];
+
+    require.cache[apiPath] = {
+        id: apiPath,
+        filename: apiPath,
+        loaded: true,
+        exports: {
+            __esModule: true,
+            default: fetchLetterImpl,
+            buildFetchUrlForVariant
+        }
+    };
+
+    return require(actionPath);
+};
 
 describe("fetchLetter", function () {
     let mockStore;
@@ -32,16 +52,15 @@ describe("fetchLetter", function () {
         stubStore = mockStore(stubInitialState);
     });
 
-    describe("FETCHING_LETTER", function () {
-        it("isn't dispatched if already `isLoading`", function () {
-            const stubVariant = "test";
-            const stubLetterResponse = testLetterJson;
+    afterEach(function () {
+        delete require.cache[actionPath];
+        delete require.cache[apiPath];
+    });
 
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": () => Promise.resolve(stubLetterResponse)
-                }
-            });
+    describe("FETCHING_LETTER", function () {
+        it("isn't dispatched if already `isLoading`", async function () {
+            const stubVariant = "test";
+            const proxyquiredFetchLetter = loadFetchLetterAction(() => Promise.resolve(testLetterJson));
 
             stubInitialState = Map({
                 api: Map({
@@ -49,78 +68,57 @@ describe("fetchLetter", function () {
                         isLoading: true
                     })
                 }),
-                letter: Map({letter: Map()})
+                letter: Map({ letter: Map() })
             });
             stubStore = mockStore(stubInitialState);
 
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant));
 
-                    expect(actions).to.have.length(1);
-                    expect(actions).to.eql([
-                        {
-                            type: FETCHING_LETTER_CANCELLED,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                isLoading: true
-                            }
-                        }
-                    ]);
-                });
-        });
-
-        it("is dispatched with the expected payload (first variant)", function () {
-            const stubVariant = "test";
-            const stubLetterResponse = testLetterJson;
-
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": variant => {
-                        expect(variant).to.eql(stubVariant);
-
-                        return Promise.resolve(stubLetterResponse);
+            expect(stubStore.getActions()).to.eql([
+                {
+                    type: FETCHING_LETTER_CANCELLED,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        isLoading: true
                     }
                 }
+            ]);
+        });
+
+        it("is dispatched with the expected payload (first variant)", async function () {
+            const stubVariant = "test";
+            const proxyquiredFetchLetter = loadFetchLetterAction(variant => {
+                expect(variant).to.eql(stubVariant);
+                return Promise.resolve(testLetterJson);
             });
 
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant));
 
-                    expect(actions).to.have.length(2);
-                    expect(actions).to.eql([
-                        {
-                            type: FETCHING_LETTER,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant
-                            }
-                        },
-                        {
-                            type: FETCHING_LETTER_SUCCESS,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                letter: testLetterJson
-                            }
-                        }
-                    ]);
-                });
-        });
-
-        it("is dispatched with the expected payload (subsequent page)", function () {
-            const stubVariant = "test";
-            const stubLetterResponse = testLetterJson;
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": variant => {
-                        expect(variant).to.eql(stubVariant);
-
-                        return Promise.resolve(stubLetterResponse);
+            expect(stubStore.getActions()).to.eql([
+                {
+                    type: FETCHING_LETTER,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant
+                    }
+                },
+                {
+                    type: FETCHING_LETTER_SUCCESS,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        letter: testLetterJson
                     }
                 }
+            ]);
+        });
+
+        it("is dispatched with the expected payload (subsequent page)", async function () {
+            const stubVariant = "test";
+            const proxyquiredFetchLetter = loadFetchLetterAction(variant => {
+                expect(variant).to.eql(stubVariant);
+                return Promise.resolve(testLetterJson);
             });
 
             stubInitialState = Map({
@@ -130,98 +128,80 @@ describe("fetchLetter", function () {
                     })
                 }),
                 letter: Map({
-                    letters: Map({letter: testLetterJson})
+                    letters: Map({ letter: testLetterJson })
                 })
             });
             stubStore = mockStore(stubInitialState);
 
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant));
 
-                    expect(actions).to.have.length(2);
-                    expect(actions).to.eql([
-                        {
-                            type: FETCHING_LETTER,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant
-                            }
-                        },
-                        {
-                            type: FETCHING_LETTER_SUCCESS,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                letter: testLetterJson
-                            }
-                        }
-                    ]);
-                });
+            expect(stubStore.getActions()).to.eql([
+                {
+                    type: FETCHING_LETTER,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant
+                    }
+                },
+                {
+                    type: FETCHING_LETTER_SUCCESS,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        letter: testLetterJson
+                    }
+                }
+            ]);
         });
     });
 
     describe("FETCHING_LETTER_FAILURE", function () {
-        it("is dispatched with the expected payload (no letter)", function () {
+        it("is dispatched with the expected payload (no letter)", async function () {
             const stubVariant = "test";
-            const stubLetterResponse = null;
+            const proxyquiredFetchLetter = loadFetchLetterAction(() => Promise.resolve(null));
 
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": () => Promise.resolve(stubLetterResponse)
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant));
+
+            expect(stubStore.getActions()).to.eql([
+                {
+                    type: FETCHING_LETTER,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant
+                    }
+                },
+                {
+                    type: FETCHING_LETTER_SUCCESS,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        letter: null
+                    }
+                },
+                {
+                    type: SET_ERROR,
+                    payload: {
+                        error: undefined,
+                        errorCode: "ENOLETTER",
+                        errorMessage: undefined
+                    }
                 }
-            });
-
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
-                    const expectedActions = [
-                        {
-                            type: FETCHING_LETTER,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant
-                            }
-                        },
-                        {
-                            type: FETCHING_LETTER_SUCCESS,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                letter: null
-                            }
-                        },
-                        {
-                            type: SET_ERROR,
-                            payload: {
-                                error: undefined,
-                                errorCode: "ENOLETTER",
-                                errorMessage: undefined
-                            }
-                        }
-                    ];
-
-                    expect(actions).to.have.length(expectedActions.length);
-                    expect(actions).to.eql(expectedActions);
-                });
+            ]);
         });
 
-        it("is dispatched with the expected payload (fetch error)", function () {
+        it("is dispatched with the expected payload (fetch error)", async function () {
             const stubVariant = "test";
             const stubLetterResponse = new Error("woof");
+            const proxyquiredFetchLetter = loadFetchLetterAction(() => Promise.reject(stubLetterResponse));
 
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": () => Promise.reject(stubLetterResponse)
-                }
-            });
-
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
+                .then(() => {
+                    throw new Error("Expected fetchLetter to reject");
+                })
                 .catch(error => {
                     expect(error).to.eql(stubLetterResponse);
 
-                    const actions = stubStore.getActions();
-                    const expectedActions = [
+                    expect(stubStore.getActions()).to.eql([
                         {
                             type: FETCHING_LETTER,
                             payload: {
@@ -245,22 +225,13 @@ describe("fetchLetter", function () {
                                 errorMessage: undefined
                             }
                         }
-                    ];
-
-                    expect(actions).to.have.length(expectedActions.length);
-                    expect(actions).to.eql(expectedActions);
+                    ]);
                 });
         });
 
-        it("is dispatched with the expected payload (fetch error but already loaded the letter variant)", function () {
+        it("is dispatched with the expected payload (fetch error but already loaded the letter variant)", async function () {
             const stubVariant = "test";
-            const stubLetterResponse = testLetterJson;
-
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": () => Promise.reject(stubLetterResponse)
-                }
-            });
+            const proxyquiredFetchLetter = loadFetchLetterAction(() => Promise.reject(testLetterJson));
 
             stubInitialState = Map({
                 api: Map({
@@ -270,76 +241,68 @@ describe("fetchLetter", function () {
                     })
                 }),
                 letter: Map({
-                    letters: Map({[stubVariant]: testLetterJson})
+                    letters: Map({ [stubVariant]: testLetterJson })
                 })
             });
             stubStore = mockStore(stubInitialState);
 
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant));
 
-                    expect(actions).to.have.length(3);
-                    expect(actions).to.eql([
-                        {
-                            type: FETCHING_LETTER,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant
-                            }
-                        },
-                        {
-                            type: FETCHING_LETTER_FAILURE,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                error: stubLetterResponse
-                            }
-                        },
-                        {
-                            type: FETCHING_LETTER_FAILURE_RECOVERY,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                letter: testLetterJson
-                            }
-                        }
-                    ]);
-                });
+            expect(stubStore.getActions()).to.eql([
+                {
+                    type: FETCHING_LETTER,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant
+                    }
+                },
+                {
+                    type: FETCHING_LETTER_FAILURE,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        error: testLetterJson
+                    }
+                },
+                {
+                    type: FETCHING_LETTER_FAILURE_RECOVERY,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        letter: testLetterJson
+                    }
+                }
+            ]);
         });
     });
 
     describe("FETCHING_LETTER_SUCCESS", function () {
-        it("is dispatched with the expected payload", function () {
+        it("is dispatched with the expected payload", async function () {
             const stubVariant = "test";
-            const stubLetterResponse = testLetterJson;
-
-            const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/actions/fetchLetter", {
-                "../api/fetchLetter": {
-                    "default": variant => {
-                        expect(variant).to.eql(stubVariant);
-
-                        return Promise.resolve(stubLetterResponse);
-                    }
-                }
+            const proxyquiredFetchLetter = loadFetchLetterAction(variant => {
+                expect(variant).to.eql(stubVariant);
+                return Promise.resolve(testLetterJson);
             });
 
-            return stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant))
-                .then(() => {
-                    const actions = stubStore.getActions();
+            await stubStore.dispatch(proxyquiredFetchLetter.default(stubVariant));
 
-                    expect(actions).to.have.length(2);
-                    expect(actions[1]).to.eql(
-                        {
-                            type: FETCHING_LETTER_SUCCESS,
-                            payload: {
-                                fetchUrl: buildFetchUrlForVariant(stubVariant),
-                                variant: stubVariant,
-                                letter: stubLetterResponse
-                            }
-                        }
-                    );
-                });
+            expect(stubStore.getActions()).to.eql([
+                {
+                    type: FETCHING_LETTER,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant
+                    }
+                },
+                {
+                    type: FETCHING_LETTER_SUCCESS,
+                    payload: {
+                        fetchUrl: buildFetchUrlForVariant(stubVariant),
+                        variant: stubVariant,
+                        letter: testLetterJson
+                    }
+                }
+            ]);
         });
     });
 });

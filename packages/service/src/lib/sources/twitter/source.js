@@ -1,11 +1,11 @@
 import {Post, POST_STATUS} from "@randy.tarampi/js";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import {AuthInfo} from "../../authInfo";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
-import {TwitterAuthInfo} from "./authInfo";
-import {getTwitterClient, type} from "./util";
+import {AuthInfo} from "../../authInfo.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+import {TwitterAuthInfo} from "./authInfo.js";
+import {getTwitterClient, type} from "./util.js";
 
 const dateStringToDateTime = dateString => DateTime.fromFormat(dateString, "EEE MMM dd HH:mm:ss ZZZ yyyy");
 

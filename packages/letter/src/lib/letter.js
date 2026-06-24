@@ -1,6 +1,6 @@
 import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
-import LetterSection from "./letterSection";
+import LetterSection from "./letterSection.js";
 
 export class Letter extends Record({
     sender: null,

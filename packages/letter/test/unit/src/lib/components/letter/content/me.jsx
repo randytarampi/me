@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterMe from "../../../../../../../src/lib/components/letter/content/me";
 import LetterSection from "../../../../../../../src/lib/letterSection";
@@ -14,12 +14,10 @@ describe("LetterMe", function () {
     });
 
     it("renders (default content)", function () {
-        const rendered = shallow(<LetterMe contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterMe contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-me__content");
-
-        expect(rendered.find(".letter-me__content").length).to.eql(1);
-        expect(rendered.find(".letter-me__content").html()).to.match(/I&#x27;m not your run of the mill software developer/);
+        expect(rendered.container.querySelectorAll(".letter-me__content").length).to.eql(1);
+        expect(rendered.container.querySelector(".letter-me__content")?.textContent).to.match(/I'm not your run of the mill software developer/);
     });
 
     it("renders (custom content)", function () {
@@ -30,12 +28,9 @@ describe("LetterMe", function () {
             }
         });
 
-        const rendered = shallow(<LetterMe contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterMe contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-me__content");
-        expect(rendered).to.contain(stubContentConfiguration.contentProps.aboutMe);
-
-        expect(rendered.find(".letter-me__content").length).to.eql(1);
-        expect(rendered.find(".letter-me__content").html()).to.match(/Woof woof woof/);
+        expect(rendered.container.querySelectorAll(".letter-me__content").length).to.eql(1);
+        expect(rendered.container.querySelector(".letter-me__content")?.textContent).to.contain("Woof woof woof");
     });
 });

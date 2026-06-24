@@ -1,7 +1,6 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
-import {Container} from "react-materialize";
 import Header from "../../../../../../src/lib/components/printable/header";
 
 describe("Header", function () {
@@ -32,19 +31,19 @@ describe("Header", function () {
         const stubProps = {
             printable: stubPrintable
         };
-        const rendered = shallow(<Header {...stubProps} />);
+        const rendered = render(<Header {...stubProps} />);
 
-        expect(rendered).to.have.id("header");
-        expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(Container);
-        expect(rendered).to.have.descendants(".printable-header__picture");
-        expect(rendered).to.have.descendants(".printable-header__name");
-        expect(rendered).to.have.descendants(".printable-header__label");
-        expect(rendered).to.have.descendants(".printable-header__contact");
-        expect(rendered).to.have.descendants(".printable-header__email");
-        expect(rendered).to.have.descendants(".printable-header__tel");
-        expect(rendered).to.have.descendants(".printable-header__web");
-        expect(rendered).to.have.descendants(".printable-header__location");
+        expect(rendered.container.firstElementChild?.id).to.eql("header");
+        expect(rendered.container.firstElementChild?.classList.contains("printable-header")).to.eql(true);
+        expect(rendered.container.querySelector(".container")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__picture")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__label")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__contact")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__web")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__location")).to.not.eql(null);
     });
 
     it("renders (without a photo)", function () {
@@ -53,19 +52,19 @@ describe("Header", function () {
         const stubProps = {
             printable: stubPrintable
         };
-        const rendered = shallow(<Header {...stubProps} />);
+        const rendered = render(<Header {...stubProps} />);
 
-        expect(rendered).to.have.id("header");
-        expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(Container);
-        expect(rendered).to.not.have.descendants(".printable-header__picture");
-        expect(rendered).to.have.descendants(".printable-header__name");
-        expect(rendered).to.have.descendants(".printable-header__label");
-        expect(rendered).to.have.descendants(".printable-header__contact");
-        expect(rendered).to.have.descendants(".printable-header__email");
-        expect(rendered).to.have.descendants(".printable-header__tel");
-        expect(rendered).to.have.descendants(".printable-header__web");
-        expect(rendered).to.have.descendants(".printable-header__location");
+        expect(rendered.container.firstElementChild?.id).to.eql("header");
+        expect(rendered.container.firstElementChild?.classList.contains("printable-header")).to.eql(true);
+        expect(rendered.container.querySelector(".container")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__picture")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-header__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__label")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__contact")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__web")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__location")).to.not.eql(null);
     });
 
     it("renders (without a location and website)", function () {
@@ -75,19 +74,19 @@ describe("Header", function () {
         const stubProps = {
             printable: stubPrintable
         };
-        const rendered = shallow(<Header {...stubProps} />);
+        const rendered = render(<Header {...stubProps} />);
 
-        expect(rendered).to.have.id("header");
-        expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(Container);
-        expect(rendered).to.have.descendants(".printable-header__picture");
-        expect(rendered).to.have.descendants(".printable-header__name");
-        expect(rendered).to.have.descendants(".printable-header__label");
-        expect(rendered).to.have.descendants(".printable-header__contact");
-        expect(rendered).to.have.descendants(".printable-header__email");
-        expect(rendered).to.have.descendants(".printable-header__tel");
-        expect(rendered).to.not.have.descendants(".printable-header__web");
-        expect(rendered).to.not.have.descendants(".printable-header__location");
+        expect(rendered.container.firstElementChild?.id).to.eql("header");
+        expect(rendered.container.firstElementChild?.classList.contains("printable-header")).to.eql(true);
+        expect(rendered.container.querySelector(".container")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__picture")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__label")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__contact")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__web")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-header__location")).to.eql(null);
     });
 
     it("renders (without a location)", function () {
@@ -96,19 +95,19 @@ describe("Header", function () {
         const stubProps = {
             printable: stubPrintable
         };
-        const rendered = shallow(<Header {...stubProps} />);
+        const rendered = render(<Header {...stubProps} />);
 
-        expect(rendered).to.have.id("header");
-        expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(Container);
-        expect(rendered).to.have.descendants(".printable-header__picture");
-        expect(rendered).to.have.descendants(".printable-header__name");
-        expect(rendered).to.have.descendants(".printable-header__label");
-        expect(rendered).to.have.descendants(".printable-header__contact");
-        expect(rendered).to.have.descendants(".printable-header__email");
-        expect(rendered).to.have.descendants(".printable-header__tel");
-        expect(rendered).to.have.descendants(".printable-header__web");
-        expect(rendered).to.not.have.descendants(".printable-header__location");
+        expect(rendered.container.firstElementChild?.id).to.eql("header");
+        expect(rendered.container.firstElementChild?.classList.contains("printable-header")).to.eql(true);
+        expect(rendered.container.querySelector(".container")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__picture")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__label")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__contact")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__web")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__location")).to.eql(null);
     });
 
     it("renders (without a website)", function () {
@@ -117,18 +116,18 @@ describe("Header", function () {
         const stubProps = {
             printable: stubPrintable
         };
-        const rendered = shallow(<Header {...stubProps} />);
+        const rendered = render(<Header {...stubProps} />);
 
-        expect(rendered).to.have.id("header");
-        expect(rendered).to.have.className("printable-header");
-        expect(rendered).to.have.descendants(Container);
-        expect(rendered).to.have.descendants(".printable-header__picture");
-        expect(rendered).to.have.descendants(".printable-header__name");
-        expect(rendered).to.have.descendants(".printable-header__label");
-        expect(rendered).to.have.descendants(".printable-header__contact");
-        expect(rendered).to.have.descendants(".printable-header__email");
-        expect(rendered).to.have.descendants(".printable-header__tel");
-        expect(rendered).to.not.have.descendants(".printable-header__web");
-        expect(rendered).to.have.descendants(".printable-header__location");
+        expect(rendered.container.firstElementChild?.id).to.eql("header");
+        expect(rendered.container.firstElementChild?.classList.contains("printable-header")).to.eql(true);
+        expect(rendered.container.querySelector(".container")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__picture")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__label")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__contact")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".printable-header__web")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-header__location")).to.not.eql(null);
     });
 });

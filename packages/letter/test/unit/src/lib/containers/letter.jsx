@@ -1,28 +1,28 @@
 import * as api from "@randy.tarampi/jsx/src/lib/data/api";
-import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
+import {render} from "@testing-library/react";
 import {Map} from "immutable";
 import React from "react";
+import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
+import proxyquire from "proxyquire";
 import sinon from "sinon";
+import {thunk} from "redux-thunk";
 import * as fetchLetter from "../../../../../src/lib/actions/fetchLetter";
-import {ConnectedLetter} from "../../../../../src/lib/containers/letter";
 import selectors from "../../../../../src/lib/data/selectors";
 
-// FIXME-RT: Unignore these tests when I figure out how to pass `<Provider store={store}...` to enzyme
-xdescribe("ConnectedLetter", function () {
+describe("ConnectedLetter", function () {
     let mockStore;
-    let stubMiddleware;
-    let stubInitialState;
     let stubStore;
+    let stubInitialState;
     let stubLetter;
     let stubIsLoadingUrl;
     let stubIsLoadingUrlSelector;
+    let LetterComponentSpy;
+    let ConnectedLetter;
 
     beforeEach(function () {
-        stubMiddleware = [thunk];
-        mockStore = configureStore(stubMiddleware);
+        mockStore = configureStore([thunk]);
         stubInitialState = Map();
         stubStore = mockStore(stubInitialState);
 
@@ -32,6 +32,14 @@ xdescribe("ConnectedLetter", function () {
         stubIsLoadingUrl = false;
         stubIsLoadingUrlSelector = sinon.stub().returns(stubIsLoadingUrl);
         sinon.stub(api, "createIsLoadingUrlSelector").returns(stubIsLoadingUrlSelector);
+
+        LetterComponentSpy = sinon.spy(props => <div data-testid="letter-probe" />);
+        ({ConnectedLetter} = proxyquire("../../../../../src/lib/containers/letter", {
+            "../components/letter": {
+                LetterComponent: LetterComponentSpy,
+                default: LetterComponentSpy
+            }
+        }));
     });
 
     afterEach(function () {
@@ -40,50 +48,20 @@ xdescribe("ConnectedLetter", function () {
         api.createIsLoadingUrlSelector.restore();
     });
 
-    it("receives default props", function () {
-        const stubProps = {
-            match: {
-                params: {
-                    grr: "rawr"
-                }
-            }
-        };
+    it("maps state and dispatches fetchLetter", function () {
+        const rendered = render(<Provider store={stubStore}><ConnectedLetter match={{params: {grr: "rawr"}}} /></Provider>);
 
-        const rendered = shallow(stubStore)(<ConnectedLetter {...stubProps} />);
+        expect(rendered.container.querySelector("[data-testid='letter-probe']")).to.not.eql(null);
+        expect(LetterComponentSpy.calledOnce).to.eql(true);
 
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("letter", stubLetter);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "letter");
-        expect(rendered).to.have.prop("fetchLetter");
+        const props = LetterComponentSpy.firstCall.args[0];
+        expect(props.letter).to.eql(stubLetter);
+        expect(props.isLoading).to.eql(stubIsLoadingUrl);
+        expect(props.variant).to.eql("letter");
+        expect(props.fetchLetter).to.be.a("function");
 
-        expect(fetchLetter.fetchLetterCreator.notCalled).to.eql(true);
-    });
-
-    it("dispatches `fetchLetterCreator` properly", function () {
-        const stubProps = {
-            match: {
-                params: {
-                    grr: "rawr"
-                }
-            }
-        };
-
-        const rendered = shallow(stubStore)(<ConnectedLetter {...stubProps} />);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("letter", stubLetter);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "letter");
-        expect(rendered).to.have.prop("fetchLetter");
-
-        expect(fetchLetter.fetchLetterCreator.notCalled).to.eql(true);
-
-        const mappedFetchLetter = rendered.prop("fetchLetter");
-
-        mappedFetchLetter(rendered.prop("variant"));
-
+        props.fetchLetter(props.variant);
         expect(fetchLetter.fetchLetterCreator.calledOnce).to.eql(true);
-        sinon.assert.calledWith(fetchLetter.fetchLetterCreator, rendered.prop("variant"));
+        sinon.assert.calledWith(fetchLetter.fetchLetterCreator, "letter");
     });
 });

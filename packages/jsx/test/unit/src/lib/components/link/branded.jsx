@@ -1,64 +1,29 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render, screen} from "@testing-library/react";
 import React from "react";
-import BrandedLink, * as brandedLinks from "../../../../../../src/lib/components/link/branded";
-import CampaignLink from "../../../../../../src/lib/components/link/campaign";
+import BrandedLink, {
+    GitHubLink,
+    LinkedInLink,
+    TwitterLink,
+    brandedLinkMap,
+    getBrandedLinkForNetwork
+} from "../../../../../../src/lib/components/link/branded";
 
 describe("BrandedLink", function () {
-    it("renders (href with branding)", function () {
-        const stubProps = {
-            serviceUrl: "woof",
-            username: "meow",
-            serviceType: "grr"
-        };
-        const rendered = shallow(<BrandedLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <CampaignLink
-                href={`${stubProps.serviceUrl}/${stubProps.username}`}
-                text={stubProps.username}
-                className={`link--branded link--${stubProps.serviceType}`}
-            />
-        );
+    it("maps networks to branded link components", function () {
+        expect(getBrandedLinkForNetwork("github")).to.eql(GitHubLink);
+        expect(getBrandedLinkForNetwork("TWITTER")).to.eql(TwitterLink);
+        expect(getBrandedLinkForNetwork("linkedin")).to.eql(LinkedInLink);
+        expect(brandedLinkMap.github).to.eql(GitHubLink);
     });
 
-    it("renders (href without branding)", function () {
-        const stubProps = {
-            serviceUrl: "woof",
-            username: "meow",
-            serviceType: "grr",
-            useBranding: false
-        };
-        const rendered = shallow(<BrandedLink {...stubProps}/>);
+    it("renders a branded link", function () {
+        render(<BrandedLink serviceName="GitHub" serviceType="github" serviceUrl="https://www.github.com" username="octocat"/>);
 
-        expect(rendered).to.containMatchingElement(
-            <CampaignLink
-                href={`${stubProps.serviceUrl}/${stubProps.username}`}
-                text={stubProps.username}
-                className={`link--branded link--${stubProps.serviceType} link--no-branding`}
-            />
-        );
-    });
+        const link = screen.getByRole("link", {name: "octocat"});
 
-    Object.keys(brandedLinks)
-        .filter(key => !["default", "BrandedLink", "brandedLinkMap", "getBrandedLinkForNetwork"].includes(key))
-        .forEach(key => {
-        describe(key, function () {
-            it("renders", function () {
-                const stubProps = {
-                    username: "meow"
-                };
-                const specificBrandedLink = brandedLinks[key];
-                const rendered = shallow(specificBrandedLink(stubProps));
-
-                expect(rendered).to.have.length(1);
-
-                const campaignLink = rendered;
-                expect(campaignLink).to.have.length(1);
-                expect(campaignLink).to.have.prop("text", stubProps.username);
-                expect(campaignLink).to.have.prop("href");
-                expect(campaignLink.prop("href")).to.contain(stubProps.username);
-            });
-        });
+        expect(link.getAttribute("href")).to.contain("https://www.github.com/octocat");
+        expect(link.classList.contains("link--branded")).to.eql(true);
+        expect(link.classList.contains("link--github")).to.eql(true);
     });
 });

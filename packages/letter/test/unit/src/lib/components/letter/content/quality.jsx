@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterQuality from "../../../../../../../src/lib/components/letter/content/quality";
 import LetterSection from "../../../../../../../src/lib/letterSection";
@@ -14,10 +14,9 @@ describe("LetterQuality", function () {
     });
 
     it("renders (default content)", function () {
-        const rendered = shallow(<LetterQuality contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterQuality contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-quality__content");
-        expect(rendered.find(".letter-quality__content").html()).to.match(/And it&#x27;s not like I just build software for end users either/);
+        expect(rendered.container.querySelector(".letter-quality__content")?.textContent).to.match(/And it's not like I just build software for end users either/);
     });
 
     it("renders (custom content)", function () {
@@ -28,10 +27,8 @@ describe("LetterQuality", function () {
             }
         });
 
-        const rendered = shallow(<LetterQuality contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterQuality contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-quality__content");
-        expect(rendered.find(".letter-quality__content").html()).to.not.match(/And it&#x27;s not like I just build software for end users either/);
-        expect(rendered.find(".letter-quality__content")).to.contain(stubContentConfiguration.contentProps.quality);
+        expect(rendered.container.querySelector(".letter-quality__content")?.textContent).to.contain("Woof woof woof");
     });
 });

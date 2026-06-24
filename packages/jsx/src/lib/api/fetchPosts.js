@@ -1,6 +1,5 @@
 import {getEntityForType, Post} from "@randy.tarampi/js";
 import {logger} from "@randy.tarampi/browser-logger";
-import fetch from "isomorphic-fetch";
 import queryString from "query-string";
 
 export const fetchPostsApi = (fetchUrl, searchParams) => {

@@ -3,7 +3,7 @@ import path from "path";
 const packageJson = require("../../package");
 import ResumeComponent from "../public/views/serverApp";
 import resumeJson from "../resumes/resume.json";
-import Resume from "./resume";
+import Resume from "./resume.js";
 
 export const renderHtml = ({passedPrintable, printableStylesPath, printableTemplatePath, ...renderLocals} = {}) => {
     const printable = passedPrintable || Resume.fromResume(resumeJson);

@@ -2,8 +2,8 @@ import {Photo} from "@randy.tarampi/js";
 import {createFlickr} from "flickr-sdk";
 import _ from "lodash";
 import {DateTime} from "luxon";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 export const FLICKR_API_MAX_POSTS_PER_PAGE = 500;
 

@@ -1,6 +1,6 @@
-import {isUrlStateLoading, setErrorCreator} from "@randy.tarampi/jsx";
+import {isUrlStateLoading, setErrorCreator} from "@randy.tarampi/jsx/src/lib/index.jsx";
 import {createAction} from "redux-actions";
-import fetchLetter, {buildFetchUrlForVariant} from "../api/fetchLetter";
+import fetchLetter, {buildFetchUrlForVariant} from "../api/fetchLetter.js";
 import selectors from "../data/selectors";
 
 export const FETCHING_LETTER_FAILURE = "FETCHING_LETTER_FAILURE";

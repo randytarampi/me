@@ -5,9 +5,11 @@ import {Col, Row} from "react-materialize";
 import {ResumeCustomContent} from "../../resumeCustomContent";
 
 export const ResumeFooter = ({customContent}) => {
+    const footerContent = customContent && customContent.footer || {};
+
     return <PrintableFooter>
         {
-            customContent.footer.body
+            footerContent.body
             || <Fragment>
                 <Row className="row valign-wrapper center-align hide-on-print">
                     <Col l={8} offset="l2">

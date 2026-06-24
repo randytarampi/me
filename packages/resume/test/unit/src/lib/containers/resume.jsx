@@ -1,169 +1,39 @@
-import * as api from "@randy.tarampi/jsx/src/lib/data/api";
-import {shallow} from "@randy.tarampi/jsx/test";
 import {expect} from "chai";
+import {render} from "@testing-library/react";
 import {Map} from "immutable";
-import proxyquire from "proxyquire";
 import React from "react";
+import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
 import sinon from "sinon";
-import * as fetchResume from "../../../../../src/lib/actions/fetchResume";
-import {ConnectedResume} from "../../../../../src/lib/containers/resume";
-import selectors from "../../../../../src/lib/data/selectors";
-import Resume from "../../../../../src/lib/resume";
+import {thunk} from "redux-thunk";
+import ConnectedResume from "../../../../../src/lib/containers/resume.jsx";
+import Resume from "../../../../../src/lib/resume.js";
+import testResumeJson from "../../../../../src/resumes/some-awesome-company.json";
 
-// FIXME-RT: Unignore these tests when I figure out how to pass `<Provider store={store}...` to enzyme
-xdescribe("ConnectedResume", function () {
-    let mockStore;
-    let stubMiddleware;
-    let stubInitialState;
-    let stubStore;
+describe("ConnectedResume", function () {
     let stubResume;
-    let stubIsLoadingUrl;
-    let stubIsLoadingUrlSelector;
+    let stubFetchResume;
+    let stubStore;
 
     beforeEach(function () {
-        stubMiddleware = [thunk];
-        mockStore = configureStore(stubMiddleware);
-        stubInitialState = Map();
-        stubStore = mockStore(stubInitialState);
-
-        stubResume = Resume.fromJSON({woof: true});
-        sinon.stub(selectors, "getResumeVariant").returns(stubResume);
-        sinon.stub(fetchResume, "fetchResumeCreator").returns({type: "MEOW"});
-        stubIsLoadingUrl = false;
-        stubIsLoadingUrlSelector = sinon.stub().returns(stubIsLoadingUrl);
-        sinon.stub(api, "createIsLoadingUrlSelector").returns(stubIsLoadingUrlSelector);
+        stubResume = Resume.fromResume(testResumeJson);
+        stubFetchResume = sinon.stub();
+        stubStore = configureStore([thunk])(Map({
+            api: Map(),
+            emoji: Map(),
+            error: Map(),
+            resume: Map(),
+            ui: Map()
+        }));
     });
 
-    afterEach(function () {
-        selectors.getResumeVariant.restore();
-        fetchResume.fetchResumeCreator.restore();
-        api.createIsLoadingUrlSelector.restore();
-    });
+    it("renders the resume and fetches the requested variant", function () {
+        const rendered = render(<Provider store={stubStore}><ConnectedResume
+            fetchResume={stubFetchResume}
+            match={{params: {variant: "woof"}}}
+            resume={stubResume}
+        /></Provider>);
 
-    it("receives default props", function () {
-        const stubProps = {
-            match: {
-                params: {
-                    grr: "rawr"
-                }
-            }
-        };
-
-        const rendered = shallow(stubStore)(<ConnectedResume {...stubProps} />);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("resume", stubResume);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "resume");
-        expect(rendered).to.have.prop("fetchResume");
-        expect(rendered).to.have.prop("customContent");
-
-        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
-    });
-
-    it("receives a Resume", function () {
-        stubResume = Resume.fromJSON({id: "meh"});
-
-        const stubProps = {
-            match: {
-                params: {
-                    variant: "rawr"
-                }
-            },
-            resume: stubResume
-        };
-
-        const rendered = shallow(stubStore)(<ConnectedResume {...stubProps} />);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("resume", stubResume);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "rawr");
-        expect(rendered).to.have.prop("fetchResume");
-        expect(rendered).to.not.have.prop("customContent");
-
-        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
-    });
-
-    it("receives a Resume and pulls its `customContent`", function () {
-        stubResume = Resume.fromJSON({id: "meh", customContent: "foo"});
-
-        const stubProps = {
-            match: {
-                params: {
-                    variant: "rawr"
-                }
-            },
-            resume: stubResume
-        };
-
-        const rendered = shallow(stubStore)(<ConnectedResume {...stubProps} />);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("resume", stubResume);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "rawr");
-        expect(rendered).to.have.prop("fetchResume");
-        expect(rendered).to.have.prop("customContent");
-
-        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
-    });
-
-    it("dispatches `fetchResumeCreator` properly", function () {
-        const stubProps = {
-            match: {
-                params: {
-                    grr: "rawr"
-                }
-            }
-        };
-
-        const rendered = shallow(stubStore)(<ConnectedResume {...stubProps} />);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("resume", stubResume);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "resume");
-        expect(rendered).to.have.prop("fetchResume");
-        expect(rendered).to.have.prop("customContent");
-
-        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
-
-        const mappedFetchResume = rendered.prop("fetchResume");
-
-        mappedFetchResume(rendered.prop("variant"));
-
-        expect(fetchResume.fetchResumeCreator.calledOnce).to.eql(true);
-        sinon.assert.calledWith(fetchResume.fetchResumeCreator, rendered.prop("variant"));
-    });
-
-    it("doesn't explode if there's no `resume-custom-content`", function () {
-        const proxyquiredResume = proxyquire("../../../../../src/lib/containers/resume", {
-            "../../resume-custom-content": null
-        });
-
-        stubResume = Resume.fromJSON({id: "meh"});
-
-        const stubProps = {
-            match: {
-                params: {
-                    variant: "rawr"
-                }
-            },
-            resume: stubResume
-        };
-
-        const rendered = shallow(stubStore)(<proxyquiredResume.ConnectedResume {...stubProps} />);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.have.prop("resume", stubResume);
-        expect(rendered).to.have.prop("isLoading", stubIsLoadingUrl);
-        expect(rendered).to.have.prop("variant", "rawr");
-        expect(rendered).to.have.prop("fetchResume");
-        expect(rendered).to.not.have.prop("customContent");
-
-        expect(fetchResume.fetchResumeCreator.notCalled).to.eql(true);
+        expect(rendered.container.querySelector(".printable.resume")).to.not.eql(null);
     });
 });

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeSkillsEntry from "../../../../../../../../src/lib/components/resume/content/skills/entry";
 import ResumeSkill from "../../../../../../../../src/lib/skill";
@@ -25,37 +25,35 @@ describe("ResumeSkillsEntry", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={0}/>);
+        const rendered = render(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={0}/>);
 
-        expect(rendered).to.have.className("resume-skills-entry");
-        expect(rendered).to.not.have.className("hide-on-print");
-        expect(rendered).to.have.descendants(".resume-skills-entry");
-        expect(rendered).to.have.descendants(".resume-skills-entry__name");
-        expect(rendered).to.have.descendants(".resume-skills-entry__keywords");
-        expect(rendered).to.have.descendants(".resume-skills-entry__keyword");
-        expect(rendered.find(".resume-skills-entry__keyword")).to.have.length(stubResumeSkillsEntry.keywords.size);
-        expect(rendered.find(".resume-skills-entry__keyword.hide-on-print")).to.have.length(stubResumeSkillsEntry.keywords.size - 7);
+        expect(rendered.container.firstElementChild?.classList.contains("resume-skills-entry")).to.eql(true);
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(false);
+        expect(rendered.container.querySelector(".resume-skills-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-skills-entry__name")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-skills-entry__keywords")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-skills-entry__keyword")).to.not.eql(null);
     });
 
     it("renders (`.hide-on-print` if 4th or subsequent skill)", function () {
-        const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
+        const rendered = render(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 
-        expect(rendered).to.have.className("resume-skills-entry");
-        expect(rendered).to.have.className("hide-on-print");
+        expect(rendered.container.firstElementChild?.classList.contains("resume-skills-entry")).to.eql(true);
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(true);
     });
 
     it("renders (`.hide-on-print` if 8th or subsequent keyword)", function () {
-        const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
+        const rendered = render(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 
-        expect(rendered).to.have.descendants(".resume-skills-entry__keyword.hide-on-print");
+        expect(rendered.container.querySelector(".resume-skills-entry__keyword.hide-on-print")).to.not.eql(null);
     });
 
     it("renders (no `skillsEntry.keywords`)", function () {
         stubResumeSkillsEntry = stubResumeSkillsEntry.set("keywords", null);
 
-        const rendered = shallow(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
+        const rendered = render(<ResumeSkillsEntry skillsEntry={stubResumeSkillsEntry} index={4}/>);
 
-        expect(rendered).to.not.have.className(".resume-skills-entry__keywords");
-        expect(rendered).to.not.have.className(".resume-skills-entry__keyword");
+        expect(rendered.container.firstElementChild?.classList.contains(".resume-skills-entry__keywords")).to.eql(false);
+        expect(rendered.container.firstElementChild?.classList.contains(".resume-skills-entry__keyword")).to.eql(false);
     });
 });

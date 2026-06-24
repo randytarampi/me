@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import RawHtmlSection from "../../../../../../../src/lib/components/printable/section/rawHtmlSection";
 
@@ -13,14 +13,15 @@ describe("RawHtmlSection", function () {
             sideContent: stubSideContent
         };
         const stubChildren = <span className="Woof">Woof woof woof</span>;
-        const rendered = shallow(<RawHtmlSection {...stubProps}>{stubChildren}</RawHtmlSection>);
+        const rendered = render(<RawHtmlSection {...stubProps}>{stubChildren}</RawHtmlSection>);
 
-        expect(rendered).to.have.prop("className", "printable-section__raw-html meow");
-        expect(rendered).to.not.have.descendants(".printable-section__header");
-        expect(rendered).to.not.have.descendants(".printable-section__header > .printable-section__label");
-        expect(rendered).to.not.have.descendants(".printable-section__header .printable-section__description");
-        expect(rendered).to.have.descendants(".printable-section__content");
-        expect(rendered).to.not.contain(stubChildren);
-        expect(rendered).to.not.contain(stubSideContent);
+        expect(rendered.container.firstElementChild?.classList.contains("printable-section__raw-html")).to.eql(true);
+        expect(rendered.container.firstElementChild?.classList.contains("meow")).to.eql(true);
+        expect(rendered.container.querySelector(".printable-section__header")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-section__header > .printable-section__label")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-section__header .printable-section__description")).to.eql(null);
+        expect(rendered.container.querySelector(".printable-section__content")).to.not.eql(null);
+        expect(rendered.container.innerHTML).to.not.contain("Woof woof woof");
+        expect(rendered.container.textContent).to.not.contain(stubSideContent);
     });
 });

@@ -1,7 +1,7 @@
 import dynamoose from "dynamoose";
-import {Aws} from "../aws";
-import logger, {configureLogger} from "../logger";
-import loadServerlessSecrets from "./loadServerlessSecrets";
+import {Aws} from "../aws.js";
+import logger, {configureLogger} from "../logger.js";
+import loadServerlessSecrets from "./loadServerlessSecrets.js";
 
 dynamoose.aws.sdk = Aws;
 

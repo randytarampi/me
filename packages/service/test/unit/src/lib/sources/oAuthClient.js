@@ -1,6 +1,7 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import {AuthInfoSearchParams} from "../../../../../src/lib/authInfoSearchParams";
+import sinon from "sinon";
+import {freshRequire} from "../../../../lib/freshRequire";
 
 describe("OAuthClient", function () {
     let stubRequestUrl;
@@ -93,138 +94,132 @@ describe("OAuthClient", function () {
         stubAccessTokenSecret = "hm";
     });
 
+    afterEach(function () {
+        sinon.restore();
+    });
+
     describe("getRequestToken", function () {
-        it("delegates to `OAuth` with the correct parameters", function () {
-            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
-                "oauth": {
-                    OAuth: StubOAuthOAuth
-                }
-            }).default;
-            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+        it("delegates to `OAuth` with the correct parameters", async function () {
+            const oauth = freshRequire("oauth");
+            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+                return new StubOAuthOAuth(...args);
+            });
+            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
-            return proxyquiredOAuthClient.getRequestToken(new AuthInfoSearchParams({
-                    clientId: stubApiKey,
-                    clientSecret: stubApiSecret,
-                    redirectUri: stubRedirectUri
-                }))
-                .then(tokenResponse => {
-                    expect(tokenResponse.token).to.eql(stubRequestToken);
-                    expect(tokenResponse.tokenSecret).to.eql(stubRequestTokenSecret);
-                });
+            return oAuthClient.getRequestToken(new AuthInfoSearchParams({
+                clientId: stubApiKey,
+                clientSecret: stubApiSecret,
+                redirectUri: stubRedirectUri
+            })).then(tokenResponse => {
+                expect(tokenResponse.token).to.eql(stubRequestToken);
+                expect(tokenResponse.tokenSecret).to.eql(stubRequestTokenSecret);
+            });
         });
 
-        it("handles errors (callback)", function () {
-            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
-                "oauth": {
-                    OAuth: StubOAuthOAuthWithCallbackErrors
-                }
-            }).default;
-            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+        it("handles errors (callback)", async function () {
+            const oauth = freshRequire("oauth");
+            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+                return new StubOAuthOAuthWithCallbackErrors(...args);
+            });
+            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
-            return proxyquiredOAuthClient.getRequestToken(new AuthInfoSearchParams({
-                    clientId: stubApiKey,
-                    clientSecret: stubApiSecret,
-                    redirectUri: stubRedirectUri
-                }))
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error.message).to.eql("getOAuthRequestToken");
-                });
+            return oAuthClient.getRequestToken(new AuthInfoSearchParams({
+                clientId: stubApiKey,
+                clientSecret: stubApiSecret,
+                redirectUri: stubRedirectUri
+            })).then(() => {
+                throw new Error("Wtf? This should've thrown");
+            }).catch(error => {
+                expect(error.message).to.eql("getOAuthRequestToken");
+            });
         });
 
-        it("handles errors (OAuth)", function () {
-            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
-                "oauth": {
-                    OAuth: StubOAuthOAuthWithErrors
-                }
-            }).default;
-            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+        it("handles errors (OAuth)", async function () {
+            const oauth = freshRequire("oauth");
+            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+                return new StubOAuthOAuthWithErrors(...args);
+            });
+            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
-            return proxyquiredOAuthClient.getRequestToken(new AuthInfoSearchParams({
-                    clientId: stubApiKey,
-                    clientSecret: stubApiSecret,
-                    redirectUri: stubRedirectUri
-                }))
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error.message).to.eql("getOAuthRequestToken");
-                });
+            return oAuthClient.getRequestToken(new AuthInfoSearchParams({
+                clientId: stubApiKey,
+                clientSecret: stubApiSecret,
+                redirectUri: stubRedirectUri
+            })).then(() => {
+                throw new Error("Wtf? This should've thrown");
+            }).catch(error => {
+                expect(error.message).to.eql("getOAuthRequestToken");
+            });
         });
     });
 
     describe("getAccessToken", function () {
-        it("delegates to `OAuth` with the correct parameters", function () {
-            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
-                "oauth": {
-                    OAuth: StubOAuthOAuth
-                }
-            }).default;
-            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+        it("delegates to `OAuth` with the correct parameters", async function () {
+            const oauth = freshRequire("oauth");
+            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+                return new StubOAuthOAuth(...args);
+            });
+            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
-            return proxyquiredOAuthClient.getAccessToken(new AuthInfoSearchParams({
-                    clientId: stubApiKey,
-                    clientSecret: stubApiSecret,
-                    redirectUri: stubRedirectUri,
-                    requestToken: stubRequestToken,
-                    requestTokenSecret: stubRequestTokenSecret,
-                    requestTokenVerifier: stubRequestTokenVerifier
-                }))
-                .then(tokenResponse => {
-                    expect(tokenResponse.token).to.eql(stubAccessToken);
-                    expect(tokenResponse.tokenSecret).to.eql(stubAccessTokenSecret);
-                });
+            return oAuthClient.getAccessToken(new AuthInfoSearchParams({
+                clientId: stubApiKey,
+                clientSecret: stubApiSecret,
+                redirectUri: stubRedirectUri,
+                requestToken: stubRequestToken,
+                requestTokenSecret: stubRequestTokenSecret,
+                requestTokenVerifier: stubRequestTokenVerifier
+            })).then(tokenResponse => {
+                expect(tokenResponse.token).to.eql(stubAccessToken);
+                expect(tokenResponse.tokenSecret).to.eql(stubAccessTokenSecret);
+            });
         });
 
-        it("handles errors (callback)", function () {
-            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
-                "oauth": {
-                    OAuth: StubOAuthOAuthWithCallbackErrors
-                }
-            }).default;
-            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+        it("handles errors (callback)", async function () {
+            const oauth = freshRequire("oauth");
+            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+                return new StubOAuthOAuthWithCallbackErrors(...args);
+            });
+            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
-            return proxyquiredOAuthClient.getAccessToken(new AuthInfoSearchParams({
-                    clientId: stubApiKey,
-                    clientSecret: stubApiSecret,
-                    redirectUri: stubRedirectUri,
-                    requestToken: stubRequestToken,
-                    requestTokenSecret: stubRequestTokenSecret,
-                    requestTokenVerifier: stubRequestTokenVerifier
-                }))
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error.message).to.eql("getOAuthAccessToken");
-                });
+            return oAuthClient.getAccessToken(new AuthInfoSearchParams({
+                clientId: stubApiKey,
+                clientSecret: stubApiSecret,
+                redirectUri: stubRedirectUri,
+                requestToken: stubRequestToken,
+                requestTokenSecret: stubRequestTokenSecret,
+                requestTokenVerifier: stubRequestTokenVerifier
+            })).then(() => {
+                throw new Error("Wtf? This should've thrown");
+            }).catch(error => {
+                expect(error.message).to.eql("getOAuthAccessToken");
+            });
         });
 
-        it("handles errors (OAuth)", function () {
-            const ProxyquiredOAuthClient = proxyquire("../../../../../src/lib/sources/oAuthClient", {
-                "oauth": {
-                    OAuth: StubOAuthOAuthWithErrors
-                }
-            }).default;
-            const proxyquiredOAuthClient = new ProxyquiredOAuthClient(stubRequestUrl, stubTokenUrl);
+        it("handles errors (OAuth)", async function () {
+            const oauth = freshRequire("oauth");
+            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+                return new StubOAuthOAuthWithErrors(...args);
+            });
+            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
-            return proxyquiredOAuthClient.getAccessToken(new AuthInfoSearchParams({
-                    clientId: stubApiKey,
-                    clientSecret: stubApiSecret,
-                    redirectUri: stubRedirectUri,
-                    requestToken: stubRequestToken,
-                    requestTokenSecret: stubRequestTokenSecret,
-                    requestTokenVerifier: stubRequestTokenVerifier
-                }))
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error.message).to.eql("getOAuthAccessToken");
-                });
+            return oAuthClient.getAccessToken(new AuthInfoSearchParams({
+                clientId: stubApiKey,
+                clientSecret: stubApiSecret,
+                redirectUri: stubRedirectUri,
+                requestToken: stubRequestToken,
+                requestTokenSecret: stubRequestTokenSecret,
+                requestTokenVerifier: stubRequestTokenVerifier
+            })).then(() => {
+                throw new Error("Wtf? This should've thrown");
+            }).catch(error => {
+                expect(error.message).to.eql("getOAuthAccessToken");
+            });
         });
     });
 });

@@ -1,14 +1,7 @@
-import {mount as enzymeMount} from "enzyme";
+import React from "react";
+import {render} from "@testing-library/react";
 import {Provider} from "react-redux";
 
-export const enzymeRendererForRenderFunction = renderFunction => store => (node, options = {}) => renderFunction(node, {
-    ...options,
-    wrappingComponent: Provider,
-    wrappingComponentProps: {
-        store
-    }
-});
-
-export const mount = enzymeRendererForRenderFunction(enzymeMount);
+export const mount = store => (node, options = {}) => render(<Provider store={store}>{node}</Provider>, options);
 
 export default mount;

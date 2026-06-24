@@ -9,10 +9,10 @@ export const ResumeVolunteer = ({resume, customContent, type, label}) => {
         printableType="resume"
         hideOnPrint={true}
         type={type}
-        label={customContent[type].label || label}
-        labelNode={customContent[type].labelNode}
-        description={customContent[type].description}
-        descriptionNode={customContent[type].descriptionNode}
+        label={((customContent && customContent[type]) || {}).label || label}
+        labelNode={((customContent && customContent[type]) || {}).labelNode}
+        description={((customContent && customContent[type]) || {}).description}
+        descriptionNode={((customContent && customContent[type]) || {}).descriptionNode}
     >
         {
             resume.volunteer.map((volunteerEntry, index) => {

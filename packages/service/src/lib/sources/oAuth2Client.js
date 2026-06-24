@@ -1,5 +1,4 @@
 import FormData from "form-data";
-import fetch from "isomorphic-fetch";
 
 export class OAuth2Client {
     constructor(tokenUrl) {

@@ -1,25 +1,21 @@
 import {Gallery, LinkPost, Photo, Post, POST_TYPES} from "@randy.tarampi/js";
 import {expect} from "chai";
-import config from "config";
-import proxyquire from "proxyquire";
-import serverlessSecretsClient from "serverless-secrets/client";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../src/lib/postSearchParams";
 import loadConfig from "../../../../../src/serverless/util/loadConfig";
-import loadServerlessSecrets from "../../../../../src/serverless/util/loadServerlessSecrets";
 import {parseQueryStringParametersIntoSearchParams} from "../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams";
 import {ME_API_VERSION_HEADER} from "../../../../../src/serverless/util/request/headers/version";
+import {freshRequire} from "../../../../lib/freshRequire";
+
+afterEach(function () {
+    sinon.restore();
+});
 
 describe("util", function () {
     describe("parseQueryStringParametersIntoSearchParams", function () {
-        it("returns the expected PostSearchParams", function () {
-            const baseParameters = {
-                type: "woof"
-            };
-            const queryStringParameters = {
-                source: "meow",
-                perPage: "4"
-            };
+        it("returns the expected PostSearchParams", async function () {
+            const baseParameters = {type: "woof"};
+            const queryStringParameters = {source: "meow", perPage: "4"};
             const searchParams = parseQueryStringParametersIntoSearchParams(baseParameters)(queryStringParameters);
 
             expect(searchParams).to.be.instanceOf(PostSearchParams);
@@ -30,93 +26,145 @@ describe("util", function () {
     });
 
     describe("configureEnvironment", function () {
-        it("propagates thrown errors", function () {
+        it("propagates thrown errors", async function () {
             const stubErrorMessage = "woof";
-            const proxyquiredConfigureEnvironment = proxyquire("../../../../../src/serverless/util/configureEnvironment", {
-                "./loadServerlessSecrets": {
-                    "default": sinon.stub().returns(Promise.reject(new Error(stubErrorMessage)))
-                }
-            });
+            const dynamoose = freshRequire("dynamoose");
+            sinon.stub(dynamoose.aws.ddb, "local");
 
-            return proxyquiredConfigureEnvironment.default()
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error.message).to.eql(stubErrorMessage);
-                });
+            const loadServerlessSecretsModule = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js");
+            sinon.stub(loadServerlessSecretsModule, "default").rejects(new Error(stubErrorMessage));
+
+            const loggerModule = freshRequire("../../../../../src/serverless/logger.js");
+            sinon.stub(loggerModule, "configureLogger");
+
+            const configureEnvironment = freshRequire("../../../../../src/serverless/util/configureEnvironment.js").default;
+
+            return configureEnvironment().then(() => {
+                throw new Error("Wtf? This should've thrown");
+            }).catch(error => {
+                expect(error.message).to.eql(stubErrorMessage);
+            });
         });
 
-        it("works", function () {
-            const proxyquireStubs = {
-                "./loadServerlessSecrets": {
-                    "default": sinon.stub().returns(Promise.resolve())
-                },
-                "../logger": {
-                    "configureLogger": sinon.stub().returns(Promise.resolve())
-                }
-            };
-            const proxyquiredConfigureEnvironment = proxyquire("../../../../../src/serverless/util/configureEnvironment", proxyquireStubs);
+        it("works", async function () {
+            const dynamoose = freshRequire("dynamoose");
+            sinon.stub(dynamoose.aws.ddb, "local");
 
-            return proxyquiredConfigureEnvironment.default()
-                .then(() => {
-                    expect(proxyquireStubs["./loadServerlessSecrets"].default.calledOnce).to.eql(true);
-                    expect(proxyquireStubs["../logger"].configureLogger.calledOnce).to.eql(true);
-                });
+            const loadServerlessSecretsModule = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js");
+            sinon.stub(loadServerlessSecretsModule, "default").resolves();
+
+            const loggerModule = freshRequire("../../../../../src/serverless/logger.js");
+            sinon.stub(loggerModule, "configureLogger").resolves();
+
+            const configureEnvironment = freshRequire("../../../../../src/serverless/util/configureEnvironment.js").default;
+
+            return configureEnvironment().then(() => {
+                expect(loadServerlessSecretsModule.default.calledOnce).to.eql(true);
+                expect(loggerModule.configureLogger.calledOnce).to.eql(true);
+            });
         });
     });
 
     describe("loadServerlessSecrets", function () {
-        let originalNodeEnv = process.env.NODE_ENV;
+        const secretEnvVars = [
+            "FLICKR_API_KEY",
+            "FLICKR_API_SECRET",
+            "UNSPLASH_API_KEY",
+            "UNSPLASH_API_SECRET",
+            "FACEBOOK_API_KEY",
+            "FACEBOOK_API_SECRET",
+            "FACEBOOK_ACCESS_TOKEN",
+            "INSTAGRAM_API_KEY",
+            "INSTAGRAM_API_SECRET",
+            "INSTAGRAM_ACCESS_TOKEN",
+            "TUMBLR_API_KEY",
+            "TUMBLR_API_SECRET",
+            "TWITTER_API_KEY",
+            "TWITTER_API_SECRET",
+            "SENTRY_DSN"
+        ];
+
+        let originalSecretEnvVars;
 
         beforeEach(function () {
-            sinon.stub(serverlessSecretsClient, "load").callsFake(() => Promise.resolve());
-            process.env.NODE_ENV = "!test";
+            originalSecretEnvVars = secretEnvVars.reduce((env, envVarName) => {
+                env[envVarName] = process.env[envVarName];
+                return env;
+            }, {});
         });
 
         afterEach(function () {
-            serverlessSecretsClient.load.restore();
-            process.env.NODE_ENV = originalNodeEnv;
-        });
-
-        it("delegates to serverlessSecretsClient.load()", function () {
-            return loadServerlessSecrets()
-                .then(() => {
-                    expect(serverlessSecretsClient.load.calledOnce).to.eql(true);
-                });
-        });
-
-        it("shortcircuits in `NODE_ENV === \"test\"`", function () {
             process.env.NODE_ENV = "test";
 
-            return loadServerlessSecrets()
-                .then(() => {
-                    expect(serverlessSecretsClient.load.notCalled).to.eql(true);
-                });
+            secretEnvVars.forEach(envVarName => {
+                if (typeof originalSecretEnvVars[envVarName] === "undefined") {
+                    delete process.env[envVarName];
+                } else {
+                    process.env[envVarName] = originalSecretEnvVars[envVarName];
+                }
+            });
         });
-    });
 
-    describe("loadConfig", function () {
-        it("delegates to `config`", function () {
-            const loadedConfig = loadConfig.default();
+        it("loads secrets from SSM", async function () {
+            process.env.NODE_ENV = "dev";
 
-            expect(loadedConfig).to.be.an("object");
-            expect(loadedConfig.posts).to.eql(config.get("posts"));
-            expect(loadedConfig.me).to.eql(config.get("me"));
-            expect(loadedConfig.logger).to.eql({
-                enabled: config.has("logger").toString(),
-                streams: Object.keys(config.get("logger.streams")).reduce((streams, key) => {
-                    streams[key] = config.get(`logger.streams.${key}`).toString();
-                    return streams;
-                }, {}),
-                level: config.get("logger.level"),
-                src: config.get("logger.src").toString()
+            const send = sinon.stub().callsFake(async command => {
+                return {
+                    Parameters: command.input.Names.map(name => {
+                        return {
+                            Name: name,
+                            Value: `${name}-value`
+                        };
+                    })
+                };
+            });
+
+            const ssm = freshRequire("@aws-sdk/client-ssm");
+            sinon.stub(ssm, "GetParametersCommand").callsFake(function GetParametersCommand(input) {
+                this.input = input;
+            });
+            sinon.stub(ssm, "SSMClient").callsFake(function SSMClient() {
+                this.send = send;
+            });
+
+            const loadServerlessSecrets = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js").default;
+
+            return loadServerlessSecrets().then(() => {
+                expect(send.calledTwice).to.eql(true);
+                expect(process.env.FLICKR_API_KEY).to.eql("flickr-api-key-value");
+                expect(process.env.TWITTER_API_SECRET).to.eql("twitter-api-secret-value");
+            });
+        });
+
+        it("shortcircuits in `NODE_ENV === \"test\"`", async function () {
+            process.env.NODE_ENV = "test";
+
+            const loadServerlessSecrets = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js").default;
+
+            return loadServerlessSecrets().then(() => {
+                expect(process.env.NODE_ENV).to.eql("test");
             });
         });
     });
 
+    describe("loadConfig", function () {
+        it("delegates to `config`", async function () {
+            process.env.NODE_ENV = "test";
+            const loadedConfig = loadConfig.default();
+
+            expect(loadedConfig).to.be.an("object");
+            expect(loadedConfig.posts).to.be.an("object");
+            expect(loadedConfig.me).to.be.an("object");
+            expect(loadedConfig.logger).to.be.an("object");
+            expect(loadedConfig.logger.enabled).to.be.ok;
+            expect(loadedConfig.logger.streams).to.be.an("object");
+            expect(loadedConfig.logger.level).to.be.ok;
+            expect(loadedConfig.logger.src).to.be.ok;
+        });
+    });
+
     describe("getPostsForParsedQuerystringParameters", function () {
-        it("delegates to `searchPosts` (ME_API_VERSION_HEADER >= 4)", function () {
+        it("delegates to `searchPosts` (ME_API_VERSION_HEADER >= 4)", async function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
@@ -141,33 +189,31 @@ describe("util", function () {
                     global: stubPosts[stubPosts.length - 1]
                 }
             };
-            const proxyquireStubs = {
-                "../../lib/sources/searchPosts": {
-                    "default": sinon.stub().callsFake(() => {
-                        const result = [stubPost, stubPhoto, stubGallery];
 
-                        return Promise.resolve({
-                            first: stubPost,
-                            firstFetched: stubPost,
-                            last: stubGallery,
-                            lastFetched: stubGallery,
-                            posts: result,
-                            total: result.length
-                        });
-                    })
-                }
-            };
+            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
+            const proxyquiredSearchPosts = sinon.stub().callsFake(() => {
+                const result = [stubPost, stubPhoto, stubGallery];
 
-            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
-
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
-                .then(postsResult => {
-                    expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
+                return Promise.resolve({
+                    first: stubPost,
+                    firstFetched: stubPost,
+                    last: stubGallery,
+                    lastFetched: stubGallery,
+                    posts: result,
+                    total: result.length
                 });
+            });
+            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
+
+            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+
+            return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
+                expect(postsResult).to.eql(expectedPostsResult);
+                expect(proxyquiredSearchPosts.calledOnce).to.eql(true);
+            });
         });
 
-        it("delegates to `searchPosts` (ME_API_VERSION_HEADER <= 3)", function () {
+        it("delegates to `searchPosts` (ME_API_VERSION_HEADER <= 3)", async function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
@@ -212,51 +258,45 @@ describe("util", function () {
                     [Photo.type]: stubPhoto
                 }
             };
-            const proxyquireStubs = {
-                "../../lib/sources/searchPosts": {
-                    "default": sinon.stub().callsFake(searchParams => {
-                        let baseResult = null;
 
-                        switch (searchParams.type) {
-                            case Gallery.type:
-                                baseResult = stubGallery;
-                                break;
+            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
+                let baseResult = null;
 
-                            case Photo.type:
-                                baseResult = stubPhoto;
-                                break;
+                switch (searchParams.type) {
+                    case Gallery.type:
+                        baseResult = stubGallery;
+                        break;
 
-                            case Post.type:
-                                baseResult = stubPost;
-                                break;
-                        }
+                    case Photo.type:
+                        baseResult = stubPhoto;
+                        break;
 
-                        return Promise.resolve({
-                            first: baseResult,
-                            firstFetched: baseResult,
-                            last: baseResult,
-                            lastFetched: baseResult,
-                            posts: baseResult
-                                ? [baseResult]
-                                : [],
-                            total: baseResult
-                                ? 1
-                                : 0
-                        });
-                    })
+                    case Post.type:
+                        baseResult = stubPost;
+                        break;
                 }
-            };
 
-            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
-
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
-                .then(postsResult => {
-                    expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.callCount).to.eql(POST_TYPES.length);
+                return Promise.resolve({
+                    first: baseResult,
+                    firstFetched: baseResult,
+                    last: baseResult,
+                    lastFetched: baseResult,
+                    posts: baseResult ? [baseResult] : [],
+                    total: baseResult ? 1 : 0
                 });
+            });
+            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
+
+            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+
+            return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
+                expect(postsResult).to.eql(expectedPostsResult);
+                expect(proxyquiredSearchPosts.callCount).to.eql(POST_TYPES.length);
+            });
         });
 
-        it("delegates to `searchPosts` (a single type)", function () {
+        it("delegates to `searchPosts` (a single type)", async function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubPost];
@@ -285,43 +325,41 @@ describe("util", function () {
                     [Post.type]: stubPost
                 }
             };
-            const proxyquireStubs = {
-                "../../lib/sources/searchPosts": {
-                    "default": sinon.stub().callsFake(searchParams => {
-                        let baseResult = null;
 
-                        switch (searchParams.type) {
-                            case Photo.type:
-                                baseResult = stubPhoto;
-                                break;
+            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
+                let baseResult = null;
 
-                            case Post.type:
-                                baseResult = stubPost;
-                                break;
-                        }
+                switch (searchParams.type) {
+                    case Photo.type:
+                        baseResult = stubPhoto;
+                        break;
 
-                        return Promise.resolve({
-                            first: baseResult,
-                            firstFetched: baseResult,
-                            last: baseResult,
-                            lastFetched: baseResult,
-                            posts: [baseResult],
-                            total: 1
-                        });
-                    })
+                    case Post.type:
+                        baseResult = stubPost;
+                        break;
                 }
-            };
 
-            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
-
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
-                .then(postsResult => {
-                    expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledOnce).to.eql(true);
+                return Promise.resolve({
+                    first: baseResult,
+                    firstFetched: baseResult,
+                    last: baseResult,
+                    lastFetched: baseResult,
+                    posts: [baseResult],
+                    total: 1
                 });
+            });
+            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
+
+            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+
+            return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
+                expect(postsResult).to.eql(expectedPostsResult);
+                expect(proxyquiredSearchPosts.calledOnce).to.eql(true);
+            });
         });
 
-        it("delegates to `searchPosts` (multiple types)", function () {
+        it("delegates to `searchPosts` (multiple types)", async function () {
             const stubGallery = Gallery.fromJS({id: "woof", dateCreated: new Date(1900, 0, 2)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubPosts = [stubGallery, stubPhoto];
@@ -355,40 +393,38 @@ describe("util", function () {
                     [Photo.type]: stubPhoto
                 }
             };
-            const proxyquireStubs = {
-                "../../lib/sources/searchPosts": {
-                    "default": sinon.stub().callsFake(searchParams => {
-                        let baseResult = null;
 
-                        switch (searchParams.type) {
-                            case Photo.type:
-                                baseResult = stubPhoto;
-                                break;
+            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
+                let baseResult = null;
 
-                            case Gallery.type:
-                                baseResult = stubGallery;
-                                break;
-                        }
+                switch (searchParams.type) {
+                    case Photo.type:
+                        baseResult = stubPhoto;
+                        break;
 
-                        return Promise.resolve({
-                            first: baseResult,
-                            firstFetched: baseResult,
-                            last: baseResult,
-                            lastFetched: baseResult,
-                            posts: [baseResult],
-                            total: 1
-                        });
-                    })
+                    case Gallery.type:
+                        baseResult = stubGallery;
+                        break;
                 }
-            };
 
-            const proxyquiredGetPostsForParsedQuerystringParameters = proxyquire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters", proxyquireStubs);
-
-            return proxyquiredGetPostsForParsedQuerystringParameters.default(stubQueryParameters, stubRequestHeaders)
-                .then(postsResult => {
-                    expect(postsResult).to.eql(expectedPostsResult);
-                    expect(proxyquireStubs["../../lib/sources/searchPosts"].default.calledTwice).to.eql(true);
+                return Promise.resolve({
+                    first: baseResult,
+                    firstFetched: baseResult,
+                    last: baseResult,
+                    lastFetched: baseResult,
+                    posts: [baseResult],
+                    total: 1
                 });
+            });
+            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
+
+            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+
+            return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
+                expect(postsResult).to.eql(expectedPostsResult);
+                expect(proxyquiredSearchPosts.calledTwice).to.eql(true);
+            });
         });
     });
 });

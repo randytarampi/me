@@ -11,7 +11,7 @@ export * from "./language";
 export * from "./project";
 export * from "./publication";
 export * from "./reference";
-export * from "./resume";
+export * from "./resume.js";
 export * from "./resumeCustomContent";
 export * from "./skill";
 export * from "./volunteer";

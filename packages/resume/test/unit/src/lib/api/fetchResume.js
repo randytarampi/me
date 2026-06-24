@@ -1,37 +1,37 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import Resume from "../../../../../src/lib/resume";
 import testResumeJson from "../../../../../src/resumes/some-awesome-company";
+import sinon from "sinon";
+import fetchResumeApi from "../../../../../src/lib/api/fetchResume";
 
 describe("fetchResume", function () {
-    it("delegates to `fetch` with the correct parameters", function () {
+    it("delegates to `fetch` with the correct parameters", async function () {
         const stubVariant = "fetch!";
         const stubResumeResponse = {
             json: () => {
                 return Promise.resolve(testResumeJson);
             }
         };
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.match(/\/fetch!/);
 
-        const proxyquiredFetchResume = proxyquire("../../../../../src/lib/api/fetchResume", {
-            "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.match(/\/fetch!/);
+            expect(options.headers).to.eql({
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8"
+            });
 
-                expect(options.headers).to.eql({
-                    "Accept": "application/json",
-                    "Accept-Charset": "utf-8"
-                });
-
-                return Promise.resolve(stubResumeResponse);
-            }
+            return Promise.resolve(stubResumeResponse);
         });
 
-        return proxyquiredFetchResume.default(stubVariant)
-            .then(resumeResponse => {
-                expect(resumeResponse).to.eql(Resume.fromResume(testResumeJson));
-            });
+        try {
+            const resumeResponse = await fetchResumeApi(stubVariant);
+            expect(resumeResponse).to.eql(Resume.fromResume(testResumeJson));
+        } finally {
+            fetchStub.restore();
+        }
     });
 
-    it("returns `null` if `status` is `404`", function () {
+    it("returns `null` if `status` is `404`", async function () {
         const stubVariant = "fetch!";
         const stubResumeResponse = {
             status: 404,
@@ -39,24 +39,23 @@ describe("fetchResume", function () {
                 return Promise.reject(new Error("Wtf? This shouldn't have thrown"));
             }
         };
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.match(/\/fetch!/);
 
-        const proxyquiredFetchResume = proxyquire("../../../../../src/lib/api/fetchResume", {
-            "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.match(/\/fetch!/);
+            expect(options.headers).to.eql({
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8"
+            });
 
-                expect(options.headers).to.eql({
-                    "Accept": "application/json",
-                    "Accept-Charset": "utf-8"
-                });
-
-                return Promise.resolve(stubResumeResponse);
-            }
+            return Promise.resolve(stubResumeResponse);
         });
 
-        return proxyquiredFetchResume.default(stubVariant)
-            .then(resumeResponse => {
-                expect(resumeResponse).to.not.be.ok;
-                expect(resumeResponse).to.eql(null);
-            });
+        try {
+            const resumeResponse = await fetchResumeApi(stubVariant);
+            expect(resumeResponse).to.not.be.ok;
+            expect(resumeResponse).to.eql(null);
+        } finally {
+            fetchStub.restore();
+        }
     });
 });
