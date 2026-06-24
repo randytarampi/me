@@ -12,7 +12,6 @@
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/plugin-transform-property-literals": "^7.29.7",
-    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-react": "^7.29.7",
     "@babel/register": "^7.29.7",
@@ -28,7 +27,7 @@
     "config": "^4.4.1",
     "connect-history-api-fallback": "^2.0.0",
     "copy-webpack-plugin": "^14.0.0",
-    "coveralls": "^3.1.1",
+    "core-js": "^3.30.2",
     "cross-env": "^10.1.0",
     "css-loader": "^7.1.4",
     "del": "^8.0.1",
@@ -49,7 +48,6 @@
     "gulp-pug": "^5.0.0",
     "gulp-pug-linter": "^1.5.0",
     "gulp-sass": "^5.1.0",
-    "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^3.0.0",
     "history": "^5.3.0",
     "html-webpack-harddisk-plugin": "^2.0.0",
@@ -88,7 +86,7 @@
     "yargs": "^18.0.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "resolutions": {
     "react-is": "^19.2.0",
@@ -98,15 +96,11 @@
   "repository": "randytarampi/me.git",
   "scripts": {
     "bootstrap": "yarn install",
-    "check-run-reporter:actual": "curl \"https://api.check-run-reporter.com/api/v1/submissions\" --user $CHECK_RUN_REPORTER_TOKEN -X POST",
-    "check-run-reporter:pretest": "yarn run check-run-reporter:actual -- -F report=@\"./pretest-results.xml\" -F label=\"pretest\" -F sha=\"$COMMIT_SHA\" -F root=\"$(pwd)\"",
-    "check-run-reporter:test": "yarn run check-run-reporter:actual -- -F report=@\"./test-results.xml\" -F label=\"test\" -F sha=\"$COMMIT_SHA\" -F root=\"$(pwd)\"",
     "clean": "./bin/clean.sh",
     "cover": "yarn run cover:actual; yarn run cover:collect",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "cover:actual:collect:lcov": "mkdir -p .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -r .nyc_output ../..; fi;\" && nyc report --reporter=lcov",
     "cover:collect": "yarn run test:collect; yarn run cover:actual:collect:lcov",
-    "coveralls": "cat coverage/lcov.info | coveralls",
     "install": "./bin/install.sh",
     "kill": "lerna run kill",
     "ncu:root": "ncu",
@@ -114,7 +108,7 @@
     "prepare": "./bin/prepare.sh",
     "pretest": "yarn run pretest:actual; yarn run pretest:collect",
     "pretest:actual": "cross-env-shell NODE_ENV=test lerna run pretest --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
-    "pretest:actual:collect": "junit-merge $(ls packages/*/{eslint,sassLint}-results.xml) --out ./pretest-results.xml || true",
+    "pretest:actual:collect": "junit-merge $(ls packages/*/eslint-results.xml) --out ./pretest-results.xml || true",
     "pretest:collect": "yarn run pretest:actual:collect",
     "pretest:service:dynamodb-local": "bin/pretest:service:dynamodb-local.sh",
     "start:service": "lerna run start --stream --scope=@randy.tarampi/service",
@@ -122,7 +116,7 @@
     "start:www": "lerna run start --stream --scope=@randy.tarampi/www",
     "test": "yarn run test:actual; yarn run test:collect",
     "test:actual": "cross-env-shell NODE_ENV=test lerna run test --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
-    "test:actual:collect": "junit-merge $(ls packages/*/test-results.xml) --out ./test-results.xml",
+    "test:actual:collect": "junit-merge $(find packages -name 'test-results.xml' -type f 2>/dev/null) --out ./test-results.xml || true",
     "test:collect": "yarn run test:actual:collect"
   },
   "workspaces": [
