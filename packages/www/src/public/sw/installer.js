@@ -1,5 +1,3 @@
-import "@babel/polyfill";
-
 import {register} from "register-service-worker";
 import {onCached, onError, onOffline, onReady, onRegistered, onUpdated, onUpdateFound} from "./util";
 

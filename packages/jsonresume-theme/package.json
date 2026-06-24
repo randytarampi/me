@@ -9,10 +9,10 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
     "@randy.tarampi/resume": "^7.0.0",
     "@randy.tarampi/views": "^7.0.0",
     "config": "^4.4.1",
+    "core-js": "^3.30.2",
     "resume-cli": "3.7.1"
   },
   "devDependencies": {

@@ -10,7 +10,6 @@
   "browser": "./esm/index.client.js",
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
     "@fortawesome/fontawesome-free": "^7.2.0",
     "@randy.tarampi/assets": "^7.0.0",
     "@randy.tarampi/css": "^7.0.0",
@@ -20,6 +19,7 @@
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/views": "^7.0.0",
     "@types/react": "^19.2.17",
+    "core-js": "^3.30.2",
     "exiftool-vendored": "^35.21.0",
     "history": "^5.3.0",
     "immutable": "^5.1.6",
@@ -47,7 +47,6 @@
     "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^10.1.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.8",
     "express": "^5.2.1",
     "gulp": "^4.0.2",
     "html-webpack-plugin": "^5.6.7",

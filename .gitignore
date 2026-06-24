@@ -71,7 +71,6 @@ config/local.js
 # Test result reports
 pretest-results.xml
 eslint-results.xml
-sassLint-results.xml
 test-results.xml
 
 # Written resources
