@@ -1,10 +1,10 @@
 import {Post, timedPromise} from "@randy.tarampi/js";
+import {GetObjectCommand, ListObjectsV2Command, S3Client} from "@aws-sdk/client-s3";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams";
 import S3Source from "../../../../../../src/lib/sources/s3";
-import {Aws} from "../../../../../../src/serverless/aws";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
 
 describe("S3Source", function () {
@@ -59,38 +59,39 @@ describe("S3Source", function () {
         ];
         s3Posts = stubPosts.map(stubPost => Object.assign({}, s3Post, {id: stubPost.id}));
         stubServiceClient = {
-            listObjectsV2: sinon.stub().callsFake(function (options) {
-                const response = {
-                    Contents: s3Posts.map(s3Post => {
-                        return {Key: s3Post.id};
-                    }),
-                    IsTruncated: false,
-                    NextContinuationToken: null,
-                };
+            send: sinon.stub().callsFake(async function (command) {
+                if (command instanceof ListObjectsV2Command) {
+                    const response = {
+                        Contents: s3Posts.map(s3Post => {
+                            return {Key: s3Post.id};
+                        }),
+                        IsTruncated: false,
+                        NextContinuationToken: null,
+                    };
 
-                if (options.MaxKeys === 420) { // NOTE-RT: 420 is a sentinel value for an empty array
-                    response.Contents = [];
-                }
+                    if (command.input.MaxKeys === 420) { // NOTE-RT: 420 is a sentinel value for an empty array
+                        response.Contents = [];
+                    }
 
-                if (options.MaxKeys === 720) { // NOTE-RT: 720 is a sentinel value for a paginated request
-                    response.IsTruncated = true;
-                    response.NextContinuationToken = "woof";
+                    if (command.input.MaxKeys === 720 && !command.input.ContinuationToken) { // NOTE-RT: 720 is a sentinel value for a paginated request
+                        response.IsTruncated = true;
+                        response.NextContinuationToken = "woof";
+                    }
 
-                    if (stubServiceClient.listObjectsV2.callCount > 1) {
+                    if (command.input.MaxKeys === 720 && command.input.ContinuationToken === "woof") {
                         response.IsTruncated = false;
                         response.NextContinuationToken = null;
                         response.Contents = [Object.assign({}, s3Post, {id: "roar.yaml"})];
                     }
+
+                    return response;
                 }
 
-                this.promise = () => Promise.resolve(response);
+                if (command instanceof GetObjectCommand) {
+                    return s3Posts.find(s3Post => s3Post.id === command.input.Key);
+                }
 
-                return this;
-            }),
-            getObject: sinon.stub().callsFake(function (options) {
-                this.promise = () => Promise.resolve(s3Posts.find(s3Post => s3Post.id === options.Key));
-
-                return this;
+                throw new Error(`Unexpected command: ${command.constructor.name}`);
             })
         };
 
@@ -159,11 +160,11 @@ describe("S3Source", function () {
     });
 
     describe("constructor", function () {
-        it("should build a `S3Source` instance (including the default `XRayedAwsSdk.S3` client)", function () {
+        it("should build a `S3Source` instance (including the default `S3Client` client)", function () {
             const s3Source = new S3Source(null, stubCacheClient);
 
             expect(S3Source.type).to.eql("s3");
-            expect(s3Source.client).to.be.instanceof(Aws.S3);
+            expect(s3Source.client).to.be.instanceof(S3Client);
             expect(s3Source.cacheClient).to.eql(stubCacheClient);
             expect(s3Source.initializing).to.be.instanceOf(Promise);
             expect(s3Source).to.be.instanceOf(S3Source);
@@ -204,8 +205,9 @@ describe("S3Source", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Post);
                     });
-                    sinon.assert.calledOnce(stubServiceClient.listObjectsV2);
-                    sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
+                    sinon.assert.calledOnce(stubServiceClient.send);
+                    expect(stubServiceClient.send.firstCall.args[0]).to.be.instanceof(ListObjectsV2Command);
+                    expect(stubServiceClient.send.firstCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
@@ -223,12 +225,14 @@ describe("S3Source", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Post);
                     });
-                    sinon.assert.calledTwice(stubServiceClient.listObjectsV2);
-                    sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
+                    sinon.assert.calledTwice(stubServiceClient.send);
+                    expect(stubServiceClient.send.firstCall.args[0]).to.be.instanceof(ListObjectsV2Command);
+                    expect(stubServiceClient.send.firstCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
-                    sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
+                    expect(stubServiceClient.send.secondCall.args[0]).to.be.instanceof(ListObjectsV2Command);
+                    expect(stubServiceClient.send.secondCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage,
                         ContinuationToken: "woof"
@@ -244,8 +248,9 @@ describe("S3Source", function () {
                 .then(posts => {
                     expect(posts).to.be.instanceof(Array);
                     expect(posts).to.be.empty;
-                    sinon.assert.calledOnce(stubServiceClient.listObjectsV2);
-                    sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
+                    sinon.assert.calledOnce(stubServiceClient.send);
+                    expect(stubServiceClient.send.firstCall.args[0]).to.be.instanceof(ListObjectsV2Command);
+                    expect(stubServiceClient.send.firstCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
@@ -265,12 +270,14 @@ describe("S3Source", function () {
                     posts.map(post => {
                         expect(post).to.be.instanceof(Post);
                     });
-                    sinon.assert.calledTwice(stubServiceClient.listObjectsV2);
-                    sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
+                    sinon.assert.calledTwice(stubServiceClient.send);
+                    expect(stubServiceClient.send.firstCall.args[0]).to.be.instanceof(ListObjectsV2Command);
+                    expect(stubServiceClient.send.firstCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage
                     });
-                    sinon.assert.calledWith(stubServiceClient.listObjectsV2, {
+                    expect(stubServiceClient.send.secondCall.args[0]).to.be.instanceof(ListObjectsV2Command);
+                    expect(stubServiceClient.send.secondCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         MaxKeys: stubParams.perPage,
                         ContinuationToken: "woof"
@@ -286,8 +293,9 @@ describe("S3Source", function () {
             return s3Source.recordGetter(stubPost.id, PostSearchParams.fromJS())
                 .then(post => {
                     expect(post).to.be.instanceof(Post);
-                    sinon.assert.calledOnce(stubServiceClient.getObject);
-                    sinon.assert.calledWith(stubServiceClient.getObject, {
+                    sinon.assert.calledOnce(stubServiceClient.send);
+                    expect(stubServiceClient.send.firstCall.args[0]).to.be.instanceof(GetObjectCommand);
+                    expect(stubServiceClient.send.firstCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         Key: stubPost.id
                     });
@@ -300,8 +308,9 @@ describe("S3Source", function () {
             return s3Source.recordGetter("foo", PostSearchParams.fromJS())
                 .then(post => {
                     expect(post).to.not.be.ok;
-                    sinon.assert.calledOnce(stubServiceClient.getObject);
-                    sinon.assert.calledWith(stubServiceClient.getObject, {
+                    sinon.assert.calledOnce(stubServiceClient.send);
+                    expect(stubServiceClient.send.firstCall.args[0]).to.be.instanceof(GetObjectCommand);
+                    expect(stubServiceClient.send.firstCall.args[0].input).to.eql({
                         Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                         Key: "foo"
                     });

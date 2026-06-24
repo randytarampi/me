@@ -1,8 +1,8 @@
 import {Map} from "immutable";
 import {createSelector} from "reselect";
-import defaultLetter from "../../letters/letter.json";
+const defaultLetter = require("../../letters/letter.json");
 import {FETCHING_LETTER_SUCCESS} from "../actions/fetchLetter";
-import Letter from "../letter";
+import Letter from "../letter.js";
 
 const defaultVariant = "letter";
 const defaultState = Map({

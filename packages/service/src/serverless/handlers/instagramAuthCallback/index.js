@@ -1,10 +1,10 @@
 import {RequestError} from "@randy.tarampi/js";
 import {responseBuilder} from "@randy.tarampi/serverless";
-import {AuthInfoSearchParams} from "../../../lib/authInfoSearchParams";
-import {InstagramAuthInfo} from "../../../lib/sources/instagram/authInfo";
-import logger from "../../logger";
-import configureEnvironment from "../../util/configureEnvironment";
-import returnErrorResponse from "../../util/response/returnErrorResponse";
+import {AuthInfoSearchParams} from "../../../lib/authInfoSearchParams.js";
+import {InstagramAuthInfo} from "../../../lib/sources/instagram/authInfo.js";
+import logger from "../../logger.js";
+import configureEnvironment from "../../util/configureEnvironment.js";
+import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
 export default (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);

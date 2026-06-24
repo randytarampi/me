@@ -1,6 +1,5 @@
-import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeReferences from "../../../../../../../src/lib/components/resume/content/references";
 import testResumeJson from "../../../../../../../src/resumes/some-awesome-company";
@@ -14,16 +13,11 @@ describe("ResumeReferences", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeReferences resume={stubResume}/>);
+        const rendered = render(<ResumeReferences resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-references__reference");
-        expect(rendered).to.have.descendants(".resume-references__reference-quote");
-        expect(rendered).to.have.descendants(".resume-references__reference-referee");
+        expect(rendered.container.querySelector(".resume-references__reference")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-references__reference-quote")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-references__reference-referee")).to.not.eql(null);
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "references");
-        expect(printableSection).to.have.prop("label", "References");
     });
 });

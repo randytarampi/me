@@ -1,113 +1,59 @@
 import {expect} from "chai";
-import {Map} from "immutable/dist/immutable";
-import proxyquire from "proxyquire";
+import {fireEvent, render, screen} from "@testing-library/react";
+import {Map} from "immutable";
 import React from "react";
+import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
 import sinon from "sinon";
-import Link from "../../../../../../src/lib/components/link";
-import {mount} from "../../../../../../src/test/util";
+import {thunk} from "redux-thunk";
+import {
+    BlogAppLink,
+    CodeAppLink,
+    InternalLink as InternalLinkComponent,
+    PhotosAppLink,
+    ResumeAppLink,
+    WordsAppLink
+} from "../../../../../../src/lib/components/link/internal";
 
 describe("InternalLink", function () {
     let mockStore;
-    let stubMiddleware;
-    let stubInitialState;
-    let stubStore;
-    let routerPushStub;
-    let proxyquiredInternalLinkModule;
-    let InternalLink;
-    let internalLinks;
-
-    const setInternalLinkModule = () => {
-        routerPushStub = sinon.stub().callsFake(payload => {
-            return {
-                payload,
-                type: "woof"
-            };
-        });
-
-        proxyquiredInternalLinkModule = proxyquire("../../../../../../src/lib/components/link/internal", {
-            "redux-first-history": {
-                "push": routerPushStub
-            }
-        });
-        InternalLink = proxyquiredInternalLinkModule.default;
-        internalLinks = Object.keys(proxyquiredInternalLinkModule).reduce((actualInternalLinks, internalLinkKey) => {
-            if (!["default", "InternalLink"].includes(internalLinkKey)) {
-                actualInternalLinks[internalLinkKey] = proxyquiredInternalLinkModule[internalLinkKey];
-            }
-
-            return actualInternalLinks;
-        }, {});
-    };
-
-    setInternalLinkModule();
+    let store;
 
     beforeEach(function () {
-        stubMiddleware = [thunk];
-        mockStore = configureStore(stubMiddleware);
-        stubInitialState = Map();
-        stubStore = mockStore(stubInitialState);
+        mockStore = configureStore([thunk]);
+        store = mockStore(Map());
     });
 
-    it("renders", function () {
-        const stubProps = {
-            href: "woof",
-            serviceName: "meow",
-            serviceType: "grr"
-        };
-        const rendered = mount(stubStore)(<InternalLink {...stubProps}/>);
+    it("dispatches navigation when clicked", function () {
+        const onClick = sinon.stub();
 
-        expect(rendered).to.containMatchingElement(
-            <Link
-                target="_self"
-                href={stubProps.href}
-                text={stubProps.serviceName}
-                className={`link--${stubProps.serviceType}`}
-            />
-        );
+        render(<Provider store={store}><InternalLinkComponent href="/foo" serviceName="Foo" onClick={onClick}/></Provider>);
+
+        const link = screen.getByRole("link", {name: "Foo"});
+
+        fireEvent.click(link);
+
+        expect(store.getActions().length).to.eql(1);
+        expect(onClick.calledOnce).to.eql(true);
+        expect(link.getAttribute("href")).to.eql("/foo");
+        expect(link.classList.contains("link--internal")).to.eql(true);
+        expect(link.getAttribute("target")).to.eql("_self");
     });
 
-    Object.keys(internalLinks)
-        .filter(key => !["default", "InternalLink"].includes(key))
-        .forEach(key => {
-            describe(key, function () {
-                it("renders", function () {
-                    const specificInternalLink = internalLinks[key];
-                    const rendered = mount(stubStore)(specificInternalLink());
+    [
+        [BlogAppLink, "Blog", "link--blog"],
+        [CodeAppLink, "Code", "link--code"],
+        [PhotosAppLink, "Photos", "link--photos"],
+        [ResumeAppLink, "Resume", "link--resume"],
+        [WordsAppLink, "Words", "link--words"]
+    ].forEach(([Component, name, className]) => {
+        it(`renders ${name} app link`, function () {
+            render(<Provider store={store}><Component/></Provider>);
 
-                    expect(rendered).to.have.length(1);
+            const link = screen.getByRole("link", {name});
 
-                    const link = rendered;
-                    expect(link).to.have.length(1);
-                    expect(link).to.have.prop("serviceType");
-                    expect(link).to.have.prop("serviceName");
-                    expect(link).to.have.prop("href");
-                });
-            });
+            expect(link.classList.contains(className)).to.eql(true);
+            expect(link.getAttribute("target")).to.eql("_self");
         });
-
-    // FIXME-RT: Unignore this test when I figure out how to stub out `routerPushStub` properly
-    xit("dispatches `onClick` properly", function () {
-        const stubProps = {
-            href: "woof",
-            serviceName: "meow",
-            serviceType: "grr"
-        };
-        const rendered = mount(stubStore)(<InternalLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <Link
-                target="_self"
-                href={stubProps.href}
-                text={stubProps.serviceName}
-                className={`link--${stubProps.serviceType}`}
-            />
-        );
-
-        expect(routerPushStub.notCalled).to.eql(true);
-        rendered.simulate("click");
-        expect(routerPushStub.calledOnce).to.eql(true);
-        sinon.assert.calledWith(routerPushStub, stubProps.href);
     });
 });

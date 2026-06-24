@@ -1,0 +1,6 @@
+{
+  "name": "@randy.tarampi/react-dimensions",
+  "version": "7.0.0",
+  "private": true,
+  "main": "./index.js"
+}

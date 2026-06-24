@@ -1,11 +1,12 @@
 import {expect} from "chai";
 import {fromJS, Map, Set} from "immutable";
 import {DateTime} from "luxon";
-import proxyquire from "proxyquire";
-import configureStore from "redux-mock-store";
 import {Post} from "@randy.tarampi/js";
+import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
 import sinon from "sinon";
+import * as fetchPostsModule from "../../../../../../src/lib/actions/posts/fetchPosts";
+import fetchPostsForMap from "../../../../../../src/lib/actions/posts/fetchPostsForMap";
 import selectors from "../../../../../../src/lib/data/selectors";
 
 describe("fetchPostsForMap", function () {
@@ -17,47 +18,43 @@ describe("fetchPostsForMap", function () {
     let stubGetMap;
     let stubOldestPost;
     let stubGetOldestPostForBoundingBox;
+    let stubFetchPostsCreator;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map({
             api: Map(),
-            posts: Map({
-                posts: Set()
-            })
+            posts: Map({posts: Set()})
         });
         stubStore = mockStore(stubInitialState);
         stubMap = {
-            center: {
-                lat: 0,
-                lng: 0
-            },
+            center: {lat: 0, lng: 0},
             bounds: {
                 north: 1,
                 east: 1,
                 south: -1,
-                west: -1,
+                west: -1
             }
         };
         stubGetMap = sinon.stub(selectors, "getMap").returns(fromJS(stubMap));
         stubOldestPost = Post.fromJS({id: "woof", dateCreated: DateTime.local().toISO()});
         stubGetOldestPostForBoundingBox = sinon.stub(selectors, "getOldestPostForBoundingBox").returns(stubOldestPost);
+        stubFetchPostsCreator = sinon.stub(fetchPostsModule, "fetchPostsCreator");
     });
 
     afterEach(function () {
-        stubGetMap.restore && stubGetMap.restore();
-        stubGetOldestPostForBoundingBox.restore && stubGetOldestPostForBoundingBox.restore();
+        stubGetMap.restore();
+        stubGetOldestPostForBoundingBox.restore();
+        stubFetchPostsCreator.restore();
     });
 
-    it("doesn't explode if there's no map", function () {
+    it("doesn't explode if there's no map", async function () {
         const stubFetchUrl = "/woof";
-        const stubSearchParams = undefined;
         const stubMapId = "grr";
-        const stubPostsResponse = {
-            posts: []
-        };
-        const stubFetchPostsCreator = sinon.stub().callsFake((fetchUrl, postType, searchParams, searchType) => () => {
+        const stubPostsResponse = {posts: []};
+
+        stubFetchPostsCreator.callsFake((fetchUrl, postType, searchParams, searchType) => () => {
             expect(fetchUrl).to.eql(stubFetchUrl);
             expect(postType).to.eql("global");
             expect(searchParams).to.eql({
@@ -69,40 +66,25 @@ describe("fetchPostsForMap", function () {
                 west: undefined
             });
             expect(searchType).to.eql("map");
-
             return Promise.resolve(stubPostsResponse);
-        });
-
-        const proxyquiredFetchPosts = proxyquire("../../../../../../src/lib/actions/posts/fetchPostsForMap", {
-            "./fetchPosts": {
-                "fetchPostsCreator": stubFetchPostsCreator
-            }
         });
 
         stubGetMap.returns(null);
         stubGetOldestPostForBoundingBox.returns(null);
 
-        stubStore = mockStore(stubInitialState);
+        await stubStore.dispatch(fetchPostsForMap(stubMapId, stubFetchUrl, undefined, undefined));
 
-        return stubStore.dispatch(proxyquiredFetchPosts.default(stubMapId, stubFetchUrl, undefined, stubSearchParams))
-            .then(() => {
-                const actions = stubStore.getActions();
-
-                expect(actions).to.eql([]);
-
-                sinon.assert.calledWith(stubGetMap, stubInitialState, stubMapId);
-                sinon.assert.calledWith(stubGetOldestPostForBoundingBox, stubInitialState, undefined, undefined, undefined, undefined);
-            });
+        expect(stubStore.getActions()).to.eql([]);
+        sinon.assert.calledWith(stubGetMap, stubInitialState, stubMapId);
+        sinon.assert.calledWith(stubGetOldestPostForBoundingBox, stubInitialState, undefined, undefined, undefined, undefined);
     });
 
-    it("delegates to `fetchPostsCreator` with the correct searchParams (first fetch)", function () {
+    it("delegates to `fetchPostsCreator` with the correct searchParams (first fetch)", async function () {
         const stubFetchUrl = "/woof";
-        const stubSearchParams = {};
         const stubMapId = "grr";
-        const stubPostsResponse = {
-            posts: []
-        };
-        const stubFetchPostsCreator = sinon.stub().callsFake((fetchUrl, postType, searchParams, searchType) => () => {
+        const stubPostsResponse = {posts: []};
+
+        stubFetchPostsCreator.callsFake((fetchUrl, postType, searchParams, searchType) => () => {
             expect(fetchUrl).to.eql(stubFetchUrl);
             expect(postType).to.eql("global");
             expect(searchParams).to.eql({
@@ -111,32 +93,19 @@ describe("fetchPostsForMap", function () {
                 ...stubMap.bounds
             });
             expect(searchType).to.eql("map");
-
             return Promise.resolve(stubPostsResponse);
-        });
-
-        const proxyquiredFetchPosts = proxyquire("../../../../../../src/lib/actions/posts/fetchPostsForMap", {
-            "./fetchPosts": {
-                "fetchPostsCreator": stubFetchPostsCreator
-            }
         });
 
         stubGetOldestPostForBoundingBox.returns(null);
 
-        stubStore = mockStore(stubInitialState);
+        await stubStore.dispatch(fetchPostsForMap(stubMapId, stubFetchUrl, undefined, {}));
 
-        return stubStore.dispatch(proxyquiredFetchPosts.default(stubMapId, stubFetchUrl, undefined, stubSearchParams))
-            .then(() => {
-                const actions = stubStore.getActions();
-
-                expect(actions).to.eql([]);
-
-                sinon.assert.calledWith(stubGetMap, stubInitialState, stubMapId);
-                sinon.assert.calledWith(stubGetOldestPostForBoundingBox, stubInitialState, stubMap.bounds.north, stubMap.bounds.east, stubMap.bounds.south, stubMap.bounds.west);
-            });
+        expect(stubStore.getActions()).to.eql([]);
+        sinon.assert.calledWith(stubGetMap, stubInitialState, stubMapId);
+        sinon.assert.calledWith(stubGetOldestPostForBoundingBox, stubInitialState, stubMap.bounds.north, stubMap.bounds.east, stubMap.bounds.south, stubMap.bounds.west);
     });
 
-    it("delegates to `fetchPostsCreator` with the correct searchParams (subsequent fetch)", function () {
+    it("delegates to `fetchPostsCreator` with the correct searchParams (subsequent fetch)", async function () {
         const stubFetchUrl = "/woof";
         const stubSearchParams = {
             type: Post.type,
@@ -145,15 +114,15 @@ describe("fetchPostsForMap", function () {
             filterValue: "meow"
         };
         const stubMapId = "grr";
-        const stubPostsResponse = {
-            posts: []
-        };
-        const stubFetchPostsCreator = sinon.stub().callsFake((fetchUrl, postType, searchParams, searchType) => () => {
+        const stubPostsResponse = {posts: []};
+        const stubOldestLoadedPostDate = stubOldestPost.date;
+
+        stubFetchPostsCreator.callsFake((fetchUrl, postType, searchParams, searchType) => () => {
             expect(fetchUrl).to.eql(stubFetchUrl);
             expect(postType).to.eql(stubSearchParams.type);
             expect(searchParams).to.eql({
                 orderBy: "datePublished",
-                orderComparator: stubOldestPost.date.toISO(),
+                orderComparator: stubOldestLoadedPostDate.toISO(),
                 orderComparatorType: "String",
                 orderOperator: "lt",
                 lat: stubMap.center.lat,
@@ -164,26 +133,13 @@ describe("fetchPostsForMap", function () {
                 [stubSearchParams.filter]: stubSearchParams.filterValue
             });
             expect(searchType).to.eql("map");
-
             return Promise.resolve(stubPostsResponse);
         });
 
-        const proxyquiredFetchPosts = proxyquire("../../../../../../src/lib/actions/posts/fetchPostsForMap", {
-            "./fetchPosts": {
-                "fetchPostsCreator": stubFetchPostsCreator
-            }
-        });
+        await stubStore.dispatch(fetchPostsForMap(stubMapId, stubFetchUrl, stubSearchParams.type, stubSearchParams));
 
-        stubStore = mockStore(stubInitialState);
-
-        return stubStore.dispatch(proxyquiredFetchPosts.default(stubMapId, stubFetchUrl, stubSearchParams.type, stubSearchParams))
-            .then(() => {
-                const actions = stubStore.getActions();
-
-                expect(actions).to.eql([]);
-
-                sinon.assert.calledWith(stubGetMap, stubInitialState, stubMapId);
-                sinon.assert.calledWith(stubGetOldestPostForBoundingBox, stubInitialState, stubMap.bounds.north, stubMap.bounds.east, stubMap.bounds.south, stubMap.bounds.west);
-            });
+        expect(stubStore.getActions()).to.eql([]);
+        sinon.assert.calledWith(stubGetMap, stubInitialState, stubMapId);
+        sinon.assert.calledWith(stubGetOldestPostForBoundingBox, stubInitialState, stubMap.bounds.north, stubMap.bounds.east, stubMap.bounds.south, stubMap.bounds.west);
     });
 });

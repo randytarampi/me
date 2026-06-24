@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import {DateTime} from "luxon";
 import React from "react";
 import sinon from "sinon";
@@ -30,24 +30,18 @@ describe("LetterDate", function () {
                 date: DateTime.fromISO("1991-11-14")
             }
         });
-        const rendered = shallow(<LetterDate contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterDate contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-date__date-string");
-        expect(rendered).to.contain(<p className="letter-date__date-string">
-            {
-                stubContentConfiguration.contentProps.date.toLocaleString(DateTime.DATE_FULL)
-            }
-        </p>);
+        expect(rendered.container.querySelector(".letter-date__date-string")?.textContent).to.eql(
+            stubContentConfiguration.contentProps.date.toLocaleString(DateTime.DATE_FULL)
+        );
     });
 
     it("renders (custom date)", function () {
-        const rendered = shallow(<LetterDate contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterDate contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-date__date-string");
-        expect(rendered).to.contain(<p className="letter-date__date-string">
-            {
-                DateTime.fromJSDate(now).toLocaleString(DateTime.DATE_FULL)
-            }
-        </p>);
+        expect(rendered.container.querySelector(".letter-date__date-string")?.textContent).to.eql(
+            DateTime.fromJSDate(now).toLocaleString(DateTime.DATE_FULL)
+        );
     });
 });

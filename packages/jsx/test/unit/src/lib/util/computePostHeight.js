@@ -15,6 +15,12 @@ describe("computePostHeight", function () {
     });
 
     it("computes the height for a `Post` (`Photo`) that has dimension attributes", function () {
+        Object.defineProperty(window, "innerWidth", {
+            configurable: true,
+            writable: true,
+            value: WINDOW_LARGE_BREAKPOINT
+        });
+
         const stubContainerWidth = 500;
         const stubPost = Photo.fromJS({source: "ʕ•ᴥ•ʔ", id: "woof", height: 1000, width: 1000});
 

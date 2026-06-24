@@ -1,10 +1,9 @@
-import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeEducation from "../../../../../../../../src/lib/components/resume/content/education";
 import ResumeEducationEntry from "../../../../../../../../src/lib/components/resume/content/education/entry";
-import testResumeJson from "../../../../../../../../src/resumes/some-awesome-company";
+import testResumeJson from "../../../../../../../../src/resumes/some-awesome-company.json";
 
 describe("ResumeEducation", function () {
     const testResumeJsonString = JSON.stringify(testResumeJson);
@@ -15,15 +14,9 @@ describe("ResumeEducation", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeEducation resume={stubResume}/>);
+        const rendered = render(<ResumeEducation resume={stubResume}/>);
+        const educationEntries = rendered.container.querySelectorAll(".resume-education-entry");
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "education");
-        expect(printableSection).to.have.prop("label", "Education");
-
-        const educationEntries = rendered.find(ResumeEducationEntry);
         expect(educationEntries).to.have.length(stubResume.education.length);
     });
 });

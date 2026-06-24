@@ -1,8 +1,7 @@
 import {Photo} from "@randy.tarampi/js";
-import "isomorphic-fetch";
 import {createApi} from "unsplash-js";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {

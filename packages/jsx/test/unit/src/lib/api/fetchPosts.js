@@ -1,11 +1,12 @@
 import {getEntityForType, Photo, Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import proxyquire from "proxyquire";
+import sinon from "sinon";
 import queryString from "query-string";
+import fetchPostsApi from "../../../../../src/lib/api/fetchPosts";
 
 describe("fetchPosts", function () {
-    it("delegates to `fetch` with the correct parameters", function () {
+    it("delegates to `fetch` with the correct parameters", async function () {
         const stubFetchUrl = "/fetch!";
         const stubPost = Post.fromJSON({
             id: "woof",
@@ -34,39 +35,39 @@ describe("fetchPosts", function () {
             grr: 2
         };
 
-        const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/api/fetchPosts", {
-            "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.match(/^\/fetch!/);
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.match(/^\/fetch!/);
 
-                const parsedQuerystringParams = queryString.parse(fetchUrl.replace(stubFetchUrl, ""));
-                expect(parsedQuerystringParams).to.eql({
-                    woof: stubSearchParams.woof.toString(),
-                    meow: stubSearchParams.meow.toString(),
-                    grr: stubSearchParams.grr.toString()
-                });
+            const parsedQuerystringParams = queryString.parse(fetchUrl.replace(stubFetchUrl, ""));
+            expect(parsedQuerystringParams).to.eql({
+                woof: stubSearchParams.woof.toString(),
+                meow: stubSearchParams.meow.toString(),
+                grr: stubSearchParams.grr.toString()
+            });
 
-                expect(options.headers).to.eql({
-                    "Accept": "application/json",
-                    "Accept-Charset": "utf-8",
-                    "ME-API-VERSION": 4
-                });
+            expect(options.headers).to.eql({
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "ME-API-VERSION": 4
+            });
 
-                return Promise.resolve(stubPostsResponse);
-            }
+            return Promise.resolve(stubPostsResponse);
         });
 
-        return proxyquiredFetchPosts.default(stubFetchUrl, stubSearchParams)
-            .then(postsResponse => {
-                expect(postsResponse).to.eql({
-                    posts: stubPosts.map(post => getEntityForType(post.type).fromJS(post)),
-                    total: stubPosts.length,
-                    oldest: stubPost.dateCreated.toISO(),
-                    newest: stubPhoto.dateCreated.toISO()
-                });
+        try {
+            const postsResponse = await fetchPostsApi(stubFetchUrl, stubSearchParams);
+            expect(postsResponse).to.eql({
+                posts: stubPosts.map(post => getEntityForType(post.type).fromJS(post)),
+                total: stubPosts.length,
+                oldest: stubPost.dateCreated.toISO(),
+                newest: stubPhoto.dateCreated.toISO()
             });
+        } finally {
+            fetchStub.restore();
+        }
     });
 
-    it("instantiates a `Post` for unrecognized `Post.type`s", function () {
+    it("instantiates a `Post` for unrecognized `Post.type`s", async function () {
         const stubFetchUrl = "/fetch!";
         const stubPost = Post.fromJSON({
             id: "woof",
@@ -96,35 +97,35 @@ describe("fetchPosts", function () {
             grr: 2
         };
 
-        const proxyquiredFetchPosts = proxyquire("../../../../../src/lib/api/fetchPosts", {
-            "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.match(/^\/fetch!/);
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.match(/^\/fetch!/);
 
-                const parsedQuerystringParams = queryString.parse(fetchUrl.replace(stubFetchUrl, ""));
-                expect(parsedQuerystringParams).to.eql({
-                    woof: stubSearchParams.woof.toString(),
-                    meow: stubSearchParams.meow.toString(),
-                    grr: stubSearchParams.grr.toString()
-                });
+            const parsedQuerystringParams = queryString.parse(fetchUrl.replace(stubFetchUrl, ""));
+            expect(parsedQuerystringParams).to.eql({
+                woof: stubSearchParams.woof.toString(),
+                meow: stubSearchParams.meow.toString(),
+                grr: stubSearchParams.grr.toString()
+            });
 
-                expect(options.headers).to.eql({
-                    "Accept": "application/json",
-                    "Accept-Charset": "utf-8",
-                    "ME-API-VERSION": 4
-                });
+            expect(options.headers).to.eql({
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "ME-API-VERSION": 4
+            });
 
-                return Promise.resolve(stubPostsResponse);
-            }
+            return Promise.resolve(stubPostsResponse);
         });
 
-        return proxyquiredFetchPosts.default(stubFetchUrl, stubSearchParams)
-            .then(postsResponse => {
-                expect(postsResponse).to.eql({
-                    posts: stubPosts.map(post => Post.fromJS(post)),
-                    total: stubPosts.length,
-                    oldest: stubPost.dateCreated.toISO(),
-                    newest: stubPhoto.dateCreated.toISO()
-                });
+        try {
+            const postsResponse = await fetchPostsApi(stubFetchUrl, stubSearchParams);
+            expect(postsResponse).to.eql({
+                posts: stubPosts.map(post => Post.fromJS(post)),
+                total: stubPosts.length,
+                oldest: stubPost.dateCreated.toISO(),
+                newest: stubPhoto.dateCreated.toISO()
             });
+        } finally {
+            fetchStub.restore();
+        }
     });
 });

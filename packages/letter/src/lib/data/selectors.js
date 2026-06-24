@@ -1,5 +1,5 @@
-import {selectors as jsxSelectors} from "@randy.tarampi/jsx";
-import {getLetterVariant} from "./letter";
+import {selectors as jsxSelectors} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {getLetterVariant} from "./letter.js";
 
 export const selectors = {
     ...jsxSelectors,

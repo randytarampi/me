@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterAboutYou from "../../../../../../../src/lib/components/letter/content/you";
 import LetterSection from "../../../../../../../src/lib/letterSection";
@@ -14,11 +14,11 @@ describe("LetterAboutYou", function () {
     });
 
     it("renders (default content)", function () {
-        const rendered = shallow(<LetterAboutYou contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterAboutYou contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-you__content");
-        expect(rendered.find(".letter-you__content").first().html()).to.match(/I don&#x27;t usually talk about myself this often/);
-        expect(rendered.find(".letter-you__content").last().html()).to.match(/I scoped out your team and it looks like/);
+        expect(rendered.container.querySelectorAll(".letter-you__content").length).to.eql(2);
+        expect(rendered.container.querySelectorAll(".letter-you__content")[0]?.textContent).to.match(/I don't usually talk about myself this often/);
+        expect(rendered.container.querySelectorAll(".letter-you__content")[1]?.textContent).to.match(/I scoped out your team and it looks like/);
     });
 
     it("renders (custom content)", function () {
@@ -29,10 +29,10 @@ describe("LetterAboutYou", function () {
             }
         });
 
-        const rendered = shallow(<LetterAboutYou contentConfiguration={stubContentConfiguration}/>);
+        const rendered = render(<LetterAboutYou contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-you__content");
-        expect(rendered.find(".letter-you__content").first().html()).to.match(/I don&#x27;t usually talk about myself this often/);
-        expect(rendered.find(".letter-you__content")).to.contain(stubContentConfiguration.contentProps.aboutYou);
+        expect(rendered.container.querySelectorAll(".letter-you__content").length).to.eql(2);
+        expect(rendered.container.querySelectorAll(".letter-you__content")[0]?.textContent).to.match(/I don't usually talk about myself this often/);
+        expect(rendered.container.querySelectorAll(".letter-you__content")[1]?.textContent).to.contain("Woof woof woof");
     });
 });

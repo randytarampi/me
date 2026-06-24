@@ -1,7 +1,18 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import sinon from "sinon";
+import path from "path";
+import {pathToFileURL} from "url";
+
 const packageJson = require("../../../../../service/package.json");
+const bunyan = require("bunyan");
+const bunyanSentryStream = require("bunyan-sentry-stream");
+const raven = require("raven");
+
+const loadLoggerModule = async () => Function(`return import(${JSON.stringify(`${pathToFileURL(path.resolve(__dirname, "../../../../src/lib/index.js")).href}?t=${Date.now()}-${Math.random()}`)})`)();
+
+afterEach(function () {
+    sinon.restore();
+});
 
 describe("logger", function () {
     const SENTRY_DSN = process.env.SENTRY_DSN;
@@ -22,21 +33,17 @@ describe("logger", function () {
     });
 
     describe("configureLogger", function () {
-        it("configures raven properly", function () {
-            const ravenStubs = {
-                config: sinon.stub(),
-                on: sinon.stub(),
-                install: sinon.stub()
-            };
-            const {configureLogger} = proxyquire("../../../../src/lib", {
-                raven: ravenStubs
-            });
+        it("configures raven properly", async function () {
+            const ravenConfigStub = sinon.stub(raven, "config");
+            const ravenOnStub = sinon.stub(raven, "on");
+            const ravenInstallStub = sinon.stub(raven, "install");
+            const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.calledOnce(ravenStubs.install);
-                    sinon.assert.calledWith(ravenStubs.on, "error");
-                    sinon.assert.calledWith(ravenStubs.config, process.env.SENTRY_DSN, sinon.match({
+                    sinon.assert.calledOnce(ravenInstallStub);
+                    sinon.assert.calledWith(ravenOnStub, "error");
+                    sinon.assert.calledWith(ravenConfigStub, process.env.SENTRY_DSN, sinon.match({
                         logger: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                         release: packageJson.version,
                         environment: process.env.SERVERLESS_STAGE
@@ -44,27 +51,23 @@ describe("logger", function () {
                 });
         });
 
-        it("configures raven regardless of logger status", function () {
+        it("configures raven regardless of logger status", async function () {
             delete process.env.LOGGER_ENABLED;
             delete process.env.LOGGER_STREAM_HUMAN_ENABLED;
             delete process.env.LOGGER_STREAM_STDOUT_ENABLED;
             delete process.env.LOGGER_STREAM_SENTRY_ENABLED;
             delete process.env.LOGGER_SRC_ENABLED;
 
-            const ravenStubs = {
-                config: sinon.stub(),
-                on: sinon.stub(),
-                install: sinon.stub()
-            };
-            const {configureLogger} = proxyquire("../../../../src/lib", {
-                raven: ravenStubs
-            });
+            const ravenConfigStub = sinon.stub(raven, "config");
+            const ravenOnStub = sinon.stub(raven, "on");
+            const ravenInstallStub = sinon.stub(raven, "install");
+            const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.calledOnce(ravenStubs.install);
-                    sinon.assert.calledWith(ravenStubs.on, "error");
-                    sinon.assert.calledWith(ravenStubs.config, process.env.SENTRY_DSN, sinon.match({
+                    sinon.assert.calledOnce(ravenInstallStub);
+                    sinon.assert.calledWith(ravenOnStub, "error");
+                    sinon.assert.calledWith(ravenConfigStub, process.env.SENTRY_DSN, sinon.match({
                         logger: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                         release: packageJson.version,
                         environment: process.env.SERVERLESS_STAGE
@@ -72,23 +75,19 @@ describe("logger", function () {
                 });
         });
 
-        it("configures raven but does not install it if `process.env.IS_OFFLINE`", function () {
+        it("configures raven but does not install it if `process.env.IS_OFFLINE`", async function () {
             process.env.IS_OFFLINE = true;
 
-            const ravenStubs = {
-                config: sinon.stub(),
-                on: sinon.stub(),
-                install: sinon.stub()
-            };
-            const {configureLogger} = proxyquire("../../../../src/lib", {
-                raven: ravenStubs
-            });
+            const ravenConfigStub = sinon.stub(raven, "config");
+            const ravenOnStub = sinon.stub(raven, "on");
+            const ravenInstallStub = sinon.stub(raven, "install");
+            const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.notCalled(ravenStubs.install);
-                    sinon.assert.calledWith(ravenStubs.on, "error");
-                    sinon.assert.calledWith(ravenStubs.config, process.env.SENTRY_DSN, sinon.match({
+                    sinon.assert.notCalled(ravenInstallStub);
+                    sinon.assert.calledWith(ravenOnStub, "error");
+                    sinon.assert.calledWith(ravenConfigStub, process.env.SENTRY_DSN, sinon.match({
                         logger: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                         release: packageJson.version,
                         environment: process.env.SERVERLESS_STAGE
@@ -96,43 +95,36 @@ describe("logger", function () {
                 });
         });
 
-        it("doesn't configure raven if there's no `process.env.SENTRY_DSN`", function () {
+        it("doesn't configure raven if there's no `process.env.SENTRY_DSN`", async function () {
             delete process.env.SENTRY_DSN;
 
-            const ravenStubs = {
-                config: sinon.stub(),
-                on: sinon.stub(),
-                install: sinon.stub()
-            };
-            const {configureLogger} = proxyquire("../../../../src/lib", {
-                raven: ravenStubs
-            });
+            const ravenConfigStub = sinon.stub(raven, "config");
+            const ravenOnStub = sinon.stub(raven, "on");
+            const ravenInstallStub = sinon.stub(raven, "install");
+            const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.notCalled(ravenStubs.install);
-                    sinon.assert.notCalled(ravenStubs.on);
-                    sinon.assert.notCalled(ravenStubs.config);
+                    sinon.assert.notCalled(ravenInstallStub);
+                    sinon.assert.notCalled(ravenOnStub);
+                    sinon.assert.notCalled(ravenConfigStub);
                 });
         });
     });
 
     describe("createLogger", function () {
-        it("configures bunyan streams from logger stream environment variables", function () {
+        it("configures bunyan streams from logger stream environment variables", async function () {
             delete process.env.LOGGER_STREAM_HUMAN_ENABLED;
             delete process.env.LOGGER_STREAM_STDOUT_ENABLED;
             delete process.env.LOGGER_STREAM_SENTRY_ENABLED;
 
-            const bunyanStubs = {
-                createLogger: sinon.stub()
-            };
-            const {createLogger} = proxyquire("../../../../src/lib", {
-                bunyan: bunyanStubs
-            });
+            const bunyanStubs = sinon.stub(bunyan, "createLogger");
+            sinon.stub(bunyanSentryStream, "SentryStream").callsFake(function StubSentryStream() {});
+            const {createLogger} = await loadLoggerModule();
 
             createLogger(packageJson);
 
-            sinon.assert.calledWith(bunyanStubs.createLogger, sinon.match({
+            sinon.assert.calledWith(bunyanStubs, sinon.match({
                 name: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                 version: packageJson.version,
                 environment: process.env.SERVERLESS_STAGE,
@@ -140,24 +132,28 @@ describe("logger", function () {
             }));
         });
 
-        it("configures bunyan streams from logger stream environment variables", function () {
-            const bunyanStubs = {
-                createLogger: sinon.stub()
-            };
-            const {createLogger} = proxyquire("../../../../src/lib", {
-                bunyan: bunyanStubs
-            });
+        it("configures bunyan streams from logger stream environment variables", async function () {
+            process.env.LOGGER_ENABLED = "true";
+            process.env.LOGGER_LEVEL = "trace";
+            process.env.LOGGER_STREAM_HUMAN_ENABLED = "true";
+            process.env.LOGGER_STREAM_STDOUT_ENABLED = "true";
+            process.env.LOGGER_STREAM_SENTRY_ENABLED = "true";
+            process.env.LOGGER_SRC_ENABLED = "true";
+
+            const bunyanStubs = sinon.stub(bunyan, "createLogger");
+            sinon.stub(bunyanSentryStream, "SentryStream").callsFake(function StubSentryStream() {});
+            const {createLogger} = await loadLoggerModule();
 
             createLogger(packageJson);
 
-            sinon.assert.calledWith(bunyanStubs.createLogger, sinon.match({
+            sinon.assert.calledWith(bunyanStubs, sinon.match({
                 name: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                 version: packageJson.version,
                 environment: process.env.SERVERLESS_STAGE
             }));
 
-            sinon.assert.calledOnce(bunyanStubs.createLogger);
-            expect(bunyanStubs.createLogger.args[0][0].streams).to.have.length(3);
+            sinon.assert.calledOnce(bunyanStubs);
+            expect(bunyanStubs.args[0][0].streams).to.have.length(3);
         });
     });
 });

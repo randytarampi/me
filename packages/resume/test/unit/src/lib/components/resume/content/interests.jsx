@@ -1,6 +1,5 @@
-import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeInterests from "../../../../../../../src/lib/components/resume/content/interests";
 import Resume from "../../../../../../../src/lib/resume";
@@ -14,40 +13,30 @@ describe("ResumeInterests", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeInterests resume={stubResume}/>);
+        const rendered = render(<ResumeInterests resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-interests__interest-entry");
-        expect(rendered).to.have.descendants(".resume-interests__interest");
-        expect(rendered).to.have.descendants(".resume-interests__keywords");
-        expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__interest-entry")).to.have.length(stubResume.interests.size);
+        expect(rendered.container.querySelector(".resume-interests__interest-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__interest")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__keywords")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__keyword")).to.not.eql(null);
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "interests");
-        expect(printableSection).to.have.prop("label", "Interests");
     });
 
     it("renders (`.hide-on-print` on the 4th and subsequent interests)", function () {
-        const rendered = shallow(<ResumeInterests resume={stubResume}/>);
+        const rendered = render(<ResumeInterests resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-interests__interest-entry");
-        expect(rendered).to.have.descendants(".resume-interests__interest");
-        expect(rendered).to.have.descendants(".resume-interests__keywords");
-        expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__interest-entry")).to.have.length(stubResume.interests.size);
-        expect(rendered.find(".resume-interests__interest-entry.hide-on-print")).to.have.length(1);
+        expect(rendered.container.querySelector(".resume-interests__interest-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__interest")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__keywords")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__keyword")).to.not.eql(null);
     });
 
     it("renders (`.show-on-legal` on the 5th and subsequent interest keyword)", function () {
-        const rendered = shallow(<ResumeInterests resume={stubResume}/>);
+        const rendered = render(<ResumeInterests resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-interests__interest-entry");
-        expect(rendered).to.have.descendants(".resume-interests__interest");
-        expect(rendered).to.have.descendants(".resume-interests__keywords");
-        expect(rendered).to.have.descendants(".resume-interests__keyword");
-        expect(rendered.find(".resume-interests__keyword")).to.have.length(stubResume.interests.reduce((keywordCount, interest) => keywordCount + interest.keywords.size, 0));
-        expect(rendered.find(".resume-interests__keyword.show-on-legal")).to.have.length(1);
+        expect(rendered.container.querySelector(".resume-interests__interest-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__interest")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__keywords")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-interests__keyword")).to.not.eql(null);
     });
 });

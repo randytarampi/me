@@ -1,6 +1,5 @@
-import {shallow as enzymeShallow} from "enzyme";
-import {enzymeRendererForRenderFunction} from "./mount";
+import mount from "./mount";
 
-export const shallow = enzymeRendererForRenderFunction(enzymeShallow);
+export const shallow = mount;
 
 export default shallow;

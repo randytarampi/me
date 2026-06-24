@@ -1,5 +1,5 @@
-import {initializeSources} from ".";
-import logger from "../../serverless/logger";
+import {initializeSources} from "./index.js";
+import logger from "../../serverless/logger.js";
 
 export const cachePosts = (searchParams, postSources) => {
     return initializeSources(postSources)

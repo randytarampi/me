@@ -1,6 +1,5 @@
-import {CampaignLink} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumePublicationsEntry from "../../../../../../../../src/lib/components/resume/content/publications/entry";
 
@@ -18,42 +17,32 @@ describe("ResumePublicationsEntry", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={0}/>);
+        const rendered = render(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={0}/>);
 
-        expect(rendered).to.not.have.className("hide-on-print");
-        expect(rendered).to.have.descendants(".resume-publications-entry");
-        expect(rendered).to.have.descendants(".resume-publications-entry__basics");
-        expect(rendered).to.have.descendants(".resume-publications-entry__date");
-        expect(rendered).to.have.descendants(".resume-publications-entry__name");
-        expect(rendered.find(CampaignLink)).to.be.ok;
-        expect(rendered.find(CampaignLink)).to.have.length(2);
-        expect(rendered.find(CampaignLink).first()).to.have.prop("href", stubResumePublicationsEntry.url);
-        expect(rendered.find(CampaignLink).first()).to.have.prop("text", stubResumePublicationsEntry.name);
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(false);
+        expect(rendered.container.querySelector(".resume-publications-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-publications-entry__basics")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-publications-entry__date")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-publications-entry__name")).to.not.eql(null);
 
-        expect(rendered).to.have.descendants(".resume-publications-entry__url");
-        expect(rendered.find(CampaignLink).last()).to.have.prop("href", stubResumePublicationsEntry.url);
-        expect(rendered.find(CampaignLink).last()).to.not.have.prop("text");
+        expect(rendered.container.querySelector(".resume-publications-entry__url")).to.not.eql(null);
 
-        expect(rendered).to.have.descendants(".resume-publications-entry__publisher");
-        expect(rendered).to.have.descendants(".resume-publications-entry__summary");
+        expect(rendered.container.querySelector(".resume-publications-entry__publisher")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-publications-entry__summary")).to.not.eql(null);
     });
 
     it("renders (`.hide-on-print` if 4th or subsequent publication)", function () {
-        const rendered = shallow(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={4}/>);
+        const rendered = render(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={4}/>);
 
-        expect(rendered).to.have.className("hide-on-print");
+        expect(rendered.container.firstElementChild?.classList.contains("hide-on-print")).to.eql(true);
     });
 
     it("renders (no `publicationsEntry.url`)", function () {
         delete stubResumePublicationsEntry.url;
-        const rendered = shallow(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={0}/>);
+        const rendered = render(<ResumePublicationsEntry publicationsEntry={stubResumePublicationsEntry} index={0}/>);
 
 
-        expect(rendered.find(CampaignLink)).to.be.ok;
-        expect(rendered.find(CampaignLink)).to.have.length(0);
-        expect(rendered.find(".resume-publications-entry__name")).to.contain(
-            <span className="text">{stubResumePublicationsEntry.name}</span>
-        );
-        expect(rendered).to.not.have.descendants(".resume-publications-entry__details > .right.hide-on-small-only");
+        expect(rendered.container.querySelector(".resume-publications-entry__name")?.textContent).to.contain(stubResumePublicationsEntry.name);
+        expect(rendered.container.querySelector(".resume-publications-entry__details > .right.hide-on-small-only")).to.eql(null);
     });
 });

@@ -1,12 +1,12 @@
 import {Gallery, LinkPost, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
 import _ from "lodash";
-import logger from "../../../serverless/logger";
-import {AuthInfo} from "../../authInfo";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
-import {FacebookAuthInfo} from "./authInfo";
-import {FacebookApiClient} from "./client";
-import {type} from "./util";
+import logger from "../../../serverless/logger.js";
+import {AuthInfo} from "../../authInfo.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+import {FacebookAuthInfo} from "./authInfo.js";
+import {FacebookApiClient} from "./client.js";
+import {type} from "./util.js";
 
 const fbPostJsonToLocationCreated = ({place}) => {
     if (place) {

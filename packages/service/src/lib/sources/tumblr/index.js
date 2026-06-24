@@ -2,8 +2,8 @@ import {Gallery, Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.taramp
 import _ from "lodash";
 import {DateTime} from "luxon";
 import tumblr from "tumblr.js";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {

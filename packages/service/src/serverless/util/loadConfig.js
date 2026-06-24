@@ -1,6 +1,12 @@
 module.exports.default = () => {
     const path = require("path");
-    process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../../../../config");
+    const fs = require("fs");
+    const packageConfigDir = path.join(process.cwd(), "config");
+    const rootConfigDir = path.join(process.cwd(), "../../config");
+
+    process.env.NODE_CONFIG_DIR = fs.existsSync(packageConfigDir)
+        ? packageConfigDir
+        : rootConfigDir;
     const config = require("config");
 
     return {

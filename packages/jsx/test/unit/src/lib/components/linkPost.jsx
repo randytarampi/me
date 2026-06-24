@@ -1,7 +1,9 @@
 import {LinkPost} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
 import {
     LinkPostBodyAsArrayComponent,
     LinkPostBodyAsStringComponent,
@@ -16,18 +18,16 @@ describe("LinkPostComponent", function () {
         stubPost = LinkPost.fromJSON({
             id: "woof",
             source: "ᶘ ◕ᴥ◕ᶅ",
-            dateCreated: new Date(2500, 0, 1).toISOString()
+            dateCreated: new Date(2500, 0, 1).toISOString(),
+            linkSourceUrl: "https://www.example.com/woof",
+            linkTitle: "Woof"
         });
     });
 
     describe("LinkPostBodyAsArrayComponent", function () {
         it("renders (no body)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<LinkPostBodyAsArrayComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-link-body");
+            const rendered = render(<LinkPostBodyAsArrayComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
 
         it("renders (array body)", function () {
@@ -35,32 +35,21 @@ describe("LinkPostComponent", function () {
                 id: "woof",
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 dateCreated: new Date(2500, 0, 1).toISOString(),
-                linkBody: [
-                    "<p class=\"Woof\">Woof Woof Woof</p>",
-                    "Meow meow meow"
-                ]
+                linkBody: ["<p class=\"Woof\">Woof Woof Woof</p>", "Meow meow meow"]
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<LinkPostBodyAsArrayComponent {...stubProps}/>);
+            const rendered = render(<LinkPostBodyAsArrayComponent post={stubPost}/>);
 
-            expect(rendered).to.have.descendants(".post-link-body");
-            expect(rendered.find(".post-link-body")).to.have.length(2);
-            expect(rendered).to.have.descendants(".post-link-body > div");
-            expect(rendered).to.have.descendants(".post-link-body > p > .post-link-body__text");
+            expect(rendered.container.querySelectorAll(".post-link-body").length).to.eql(2);
+            expect(rendered.container.querySelector(".post-link-body > div")).to.not.eql(null);
+            expect(rendered.container.querySelector(".post-link-body > p > .post-link-body__text")).to.not.eql(null);
         });
     });
 
     describe("LinkPostBodyAsStringComponent", function () {
         it("renders (no body)", function () {
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<LinkPostBodyAsStringComponent {...stubProps}/>);
-
-            expect(rendered).to.not.have.className("post-link-body");
+            const rendered = render(<LinkPostBodyAsStringComponent post={stubPost}/>);
+            expect(rendered.container.firstElementChild).to.eql(null);
         });
 
         it("renders (plain string body)", function () {
@@ -71,13 +60,10 @@ describe("LinkPostComponent", function () {
                 linkBody: "Meow meow meow"
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<LinkPostBodyAsStringComponent {...stubProps}/>);
+            const rendered = render(<LinkPostBodyAsStringComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-link-body");
-            expect(rendered).to.have.descendants(".post-link-body > p > .post-link-body__text");
+            expect(rendered.container.firstElementChild?.classList.contains("post-link-body")).to.eql(true);
+            expect(rendered.container.querySelector(".post-link-body > p > .post-link-body__text")).to.not.eql(null);
         });
 
         it("renders (html string body)", function () {
@@ -88,13 +74,10 @@ describe("LinkPostComponent", function () {
                 linkBody: "<p class=\"Woof\">Woof Woof Woof</p>"
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<LinkPostBodyAsStringComponent {...stubProps}/>);
+            const rendered = render(<LinkPostBodyAsStringComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-link-body");
-            expect(rendered).to.have.descendants(".post-link-body > div");
+            expect(rendered.container.firstElementChild?.classList.contains("post-link-body")).to.eql(true);
+            expect(rendered.container.querySelector(".post-link-body > div")).to.not.eql(null);
         });
     });
 
@@ -104,38 +87,22 @@ describe("LinkPostComponent", function () {
                 id: "woof",
                 source: "ᶘ ◕ᴥ◕ᶅ",
                 datePublished: new Date(2500, 0, 1).toISOString(),
-                sourceUrl: "woof.woof/woof",
-                tags: [
-                    "woof",
-                    "meow",
-                    "grr"
-                ]
+                linkSourceUrl: "https://www.example.com/woof",
+                linkTitle: "Woof",
+                tags: ["woof", "meow", "grr"]
             });
 
-            const stubProps = {
-                post: stubPost
-            };
-            const rendered = shallow(<LinkPostTitleComponent {...stubProps}/>);
+            const rendered = render(<LinkPostTitleComponent post={stubPost}/>);
 
-            expect(rendered).to.have.className("post-link-title");
-            expect(rendered).to.not.have.descendants(".post-link-title__text");
-            expect(rendered).to.have.descendants(".post-link-title__link");
+            expect(rendered.container.firstElementChild?.classList.contains("post-link-title")).to.eql(true);
+            expect(rendered.container.querySelector(".post-link-title__text")).to.eql(null);
+            expect(rendered.container.querySelector(".post-link-title__link")).to.not.eql(null);
         });
     });
 
     describe("title", function () {
-        it("returns `Undefined` if no `post.title`", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<LinkPostComponent {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post post--link");
-
-            const component = rendered.instance();
+        it("returns `🔗` if no `post.title`", function () {
+            const component = new LinkPostComponent({post: stubPost, containerHeight: 123, containerWidth: 123});
             expect(component.title).to.eql("🔗");
         });
 
@@ -147,32 +114,23 @@ describe("LinkPostComponent", function () {
                 title: "Meow meow meow"
             });
 
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<LinkPostComponent {...stubProps}/>);
-
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post post--link");
-
-            const component = rendered.instance();
+            const component = new LinkPostComponent({post: stubPost, containerHeight: 123, containerWidth: 123});
             expect(component.title).to.eql(stubPost.title);
         });
     });
 
     describe("render", function () {
         it("renders", function () {
-            const stubProps = {
-                post: stubPost,
-                containerHeight: 123,
-                containerWidth: 123
-            };
-            const rendered = shallow(<LinkPostComponent {...stubProps}/>);
+            const store = configureStore([])({});
+            const stubProps = {post: stubPost, containerHeight: 123, containerWidth: 123};
+            const rendered = render(
+                <Provider store={store}>
+                    <LinkPostComponent {...stubProps}/>
+                </Provider>
+            );
 
-            expect(rendered).to.have.id(stubProps.post.uid);
-            expect(rendered).to.have.className("post post--link");
+            expect(rendered.container.firstElementChild?.id).to.eql(stubProps.post.uid);
+            expect(rendered.container.firstElementChild?.classList.contains("post--link")).to.eql(true);
         });
     });
 });

@@ -1,5 +1,4 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import queryString from "query-string";
 import sinon from "sinon";
 import * as facebookUtil from "../../../../../../src/lib/sources/facebook/util";
@@ -22,7 +21,7 @@ describe("util", function () {
     });
 
     describe("fetchFacebookEdge", function () {
-        it("returns the response's JSON body", function () {
+        it("returns the response's JSON body", async function () {
             const stubEdge = "woof";
             const stubAccessToken = "meow";
             const stubQueryParameters = {grr: true, rawr: 1};
@@ -31,26 +30,26 @@ describe("util", function () {
                 status: 200,
                 json: sinon.stub().returns(Promise.resolve(stubFacebookResponseData))
             };
-            const proxyquiredFacebookUtil = proxyquire("../../../../../../src/lib/sources/facebook/util", {
-                "isomorphic-fetch": (fetchUrl, options) => {
-                    expect(fetchUrl).to.eql(facebookUtil.buildFacebookApiUrl(stubEdge, stubAccessToken, stubQueryParameters));
+            const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+                expect(fetchUrl).to.eql(facebookUtil.buildFacebookApiUrl(stubEdge, stubAccessToken, stubQueryParameters));
 
-                    expect(options.headers).to.eql({
-                        Accept: "application/json",
-                        "Accept-Charset": "utf-8"
-                    });
+                expect(options.headers).to.eql({
+                    Accept: "application/json",
+                    "Accept-Charset": "utf-8"
+                });
 
-                    return Promise.resolve(stubFacebookResponse);
-                }
+                return Promise.resolve(stubFacebookResponse);
             });
 
-            return proxyquiredFacebookUtil.fetchFacebookEdge(stubEdge, stubAccessToken, stubQueryParameters)
-                .then(responseData => {
-                    expect(responseData).to.eql(stubFacebookResponseData);
-                });
+            try {
+                const responseData = await facebookUtil.fetchFacebookEdge(stubEdge, stubAccessToken, stubQueryParameters);
+                expect(responseData).to.eql(stubFacebookResponseData);
+            } finally {
+                fetchStub.restore();
+            }
         });
 
-        it("handles errors", function () {
+        it("handles errors", async function () {
             const stubEdge = "woof";
             const stubAccessToken = "meow";
             const stubQueryParameters = {grr: true, rawr: 1};
@@ -63,26 +62,25 @@ describe("util", function () {
                 status: 400,
                 json: sinon.stub().returns(Promise.resolve(stubFacebookResponseData))
             };
-            const proxyquiredFacebookUtil = proxyquire("../../../../../../src/lib/sources/facebook/util", {
-                "isomorphic-fetch": (fetchUrl, options) => {
-                    expect(fetchUrl).to.eql(facebookUtil.buildFacebookApiUrl(stubEdge, stubAccessToken, stubQueryParameters));
+            const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+                expect(fetchUrl).to.eql(facebookUtil.buildFacebookApiUrl(stubEdge, stubAccessToken, stubQueryParameters));
 
-                    expect(options.headers).to.eql({
-                        Accept: "application/json",
-                        "Accept-Charset": "utf-8"
-                    });
+                expect(options.headers).to.eql({
+                    Accept: "application/json",
+                    "Accept-Charset": "utf-8"
+                });
 
-                    return Promise.resolve(stubFacebookResponse);
-                }
+                return Promise.resolve(stubFacebookResponse);
             });
 
-            return proxyquiredFacebookUtil.fetchFacebookEdge(stubEdge, stubAccessToken, stubQueryParameters)
-                .then(() => {
-                    throw new Error("Wtf? This should've thrown");
-                })
-                .catch(error => {
-                    expect(error.message).to.eql(stubFacebookResponseData.error.message);
-                });
+            try {
+                await facebookUtil.fetchFacebookEdge(stubEdge, stubAccessToken, stubQueryParameters);
+                throw new Error("Wtf? This should've thrown");
+            } catch (error) {
+                expect(error.message).to.eql(stubFacebookResponseData.error.message);
+            } finally {
+                fetchStub.restore();
+            }
         });
     });
 });

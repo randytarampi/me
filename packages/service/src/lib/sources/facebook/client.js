@@ -1,4 +1,4 @@
-import {fetchFacebookEdge} from "./util";
+import {fetchFacebookEdge} from "./util.js";
 
 export class FacebookApiClient {
     constructor(accessToken) {

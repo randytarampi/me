@@ -1,5 +1,5 @@
-import baseLetter from "../letters/letter.json";
-import Letter from "./letter";
+const baseLetter = require("../letters/letter.json");
+import Letter from "./letter.js";
 
 export const buildLetter = (letterTemplate, id) => {
     const json = Object.assign({}, baseLetter, letterTemplate);

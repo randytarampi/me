@@ -1,10 +1,10 @@
-import AuthInfoModel from "../../../db/models/authInfo";
-import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo";
-import CacheClient from "../../cacheClient";
-import CachedDataSource from "../../cachedDataSource";
-import {OAuth2Client} from "../oAuth2Client";
-import {baseUrl} from "./service";
-import {type} from "./util";
+import AuthInfoModel from "../../../db/models/authInfo.js";
+import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo.js";
+import CacheClient from "../../cacheClient.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {OAuth2Client} from "../oAuth2Client.js";
+import {baseUrl} from "./service.js";
+import {type} from "./util.js";
 
 export const INSTAGRAM_TOKEN_URL = `${baseUrl}/oauth/authorize`;
 

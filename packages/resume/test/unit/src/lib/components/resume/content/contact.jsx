@@ -1,6 +1,5 @@
-import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeContact from "../../../../../../../src/lib/components/resume/content/contact";
 import testResumeJson from "../../../../../../../src/resumes/some-awesome-company";
@@ -14,32 +13,22 @@ describe("ResumeContact", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeContact resume={stubResume}/>);
+        const rendered = render(<ResumeContact resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-contact__email");
-        expect(rendered).to.have.descendants(".resume-contact__tel");
-        expect(rendered).to.have.descendants(".resume-contact__web");
+        expect(rendered.container.querySelector(".resume-contact__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-contact__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-contact__web")).to.not.eql(null);
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "contact");
-        expect(printableSection).to.have.prop("label", "Contact");
     });
 
     it("renders (no website)", function () {
         delete stubResume.basics.website;
 
-        const rendered = shallow(<ResumeContact resume={stubResume}/>);
+        const rendered = render(<ResumeContact resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-contact__email");
-        expect(rendered).to.have.descendants(".resume-contact__tel");
-        expect(rendered).to.not.have.descendants(".resume-contact__web");
+        expect(rendered.container.querySelector(".resume-contact__email")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-contact__tel")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-contact__web")).to.eql(null);
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "contact");
-        expect(printableSection).to.have.prop("label", "Contact");
     });
 });

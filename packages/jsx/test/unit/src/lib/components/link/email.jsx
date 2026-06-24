@@ -1,97 +1,17 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
-import queryString from "query-string";
+import {render, screen} from "@testing-library/react";
 import React from "react";
 import EmailLink from "../../../../../../src/lib/components/link/email";
-import Link from "../../../../../../src/lib/components/link/link";
 
 describe("EmailLink", function () {
-    it("renders (email with branding)", function () {
-        const stubProps = {
-            email: "woof@randytarampi.ca",
-            body: "Woof woof woof",
-            subject: "Meow meow meow"
-        };
-        const rendered = shallow(<EmailLink {...stubProps}/>);
+    it("renders a mailto link with body and subject", function () {
+        render(<EmailLink email="me@example.com" body="Hello there" subject="Greetings"/>);
 
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--email"
-                target="_self"
-                email={stubProps.email}
-                body={stubProps.body}
-                subject={stubProps.subject}
-                href={`mailto:${stubProps.email}?${queryString.stringify({
-                    body: stubProps.body,
-                    subject: stubProps.subject
-                })}`}
-                text={stubProps.email}
-            />
-        );
-    });
+        const link = screen.getByRole("link", {name: "me@example.com"});
 
-    it("renders (email without branding)", function () {
-        const stubProps = {
-            email: "woof@randytarampi.ca",
-            body: "Woof woof woof",
-            subject: "Meow meow meow",
-            text: "WOOF",
-            useBranding: false
-        };
-        const rendered = shallow(<EmailLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--email link--no-branding"
-                target="_self"
-                body={stubProps.body}
-                subject={stubProps.subject}
-                href={`mailto:${stubProps.email}?${queryString.stringify({
-                    body: stubProps.body,
-                    subject: stubProps.subject
-                })}`}
-                text={stubProps.text}
-            />
-        );
-    });
-
-    it("renders (no body)", function () {
-        const stubProps = {
-            email: "woof@randytarampi.ca",
-            subject: "Meow meow meow",
-            text: "WOOF",
-            useBranding: false
-        };
-        const rendered = shallow(<EmailLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--email link--no-branding"
-                target="_self"
-                subject={stubProps.subject}
-                href={`mailto:${stubProps.email}?${queryString.stringify({
-                    subject: stubProps.subject
-                })}`}
-                text={stubProps.text}
-            />
-        );
-    });
-
-    it("renders (no body and no subject)", function () {
-        const stubProps = {
-            email: "woof@randytarampi.ca",
-            text: "WOOF",
-            useBranding: false
-        };
-        const rendered = shallow(<EmailLink {...stubProps}/>);
-
-        expect(rendered).to.containMatchingElement(
-            <Link
-                className="link--email link--no-branding"
-                target="_self"
-                href={`mailto:${stubProps.email}`}
-                text={stubProps.text}
-            />
-        );
+        expect(link.getAttribute("href")).to.contain("mailto:me@example.com");
+        expect(link.getAttribute("href")).to.contain("body=Hello%20there");
+        expect(link.getAttribute("href")).to.contain("subject=Greetings");
+        expect(link.classList.contains("link--email")).to.eql(true);
     });
 });

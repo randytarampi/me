@@ -1,40 +1,40 @@
 import {expect} from "chai";
-import proxyquire from "proxyquire";
 import testLetterJson from "../../../../../src/letters/letter.json";
-import Letter from "../../../../../src/lib/letter";
+import Letter from "../../../../../src/lib/letter.js";
+import sinon from "sinon";
+import fetchLetterApi from "../../../../../src/lib/api/fetchLetter.js";
 
 describe("fetchLetter", function () {
-    it("delegates to `fetch` with the correct parameters", function () {
+    it("delegates to `fetch` with the correct parameters", async function () {
         const stubVariant = "fetch!";
         const stubLetterResponse = {
             json: () => {
                 return Promise.resolve(testLetterJson);
             }
         };
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.match(/\/fetch!/);
 
-        const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/api/fetchLetter", {
-            "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.match(/\/fetch!/);
+            expect(options.headers).to.eql({
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8"
+            });
 
-                expect(options.headers).to.eql({
-                    "Accept": "application/json",
-                    "Accept-Charset": "utf-8"
-                });
-
-                return Promise.resolve(stubLetterResponse);
-            }
+            return Promise.resolve(stubLetterResponse);
         });
 
-        return proxyquiredFetchLetter.default(stubVariant)
-            .then(letterResponse => {
-                expect(letterResponse.toJSON()).to.eql(Letter.fromJSON({
-                    ...testLetterJson,
-                    id: stubVariant
-                }).toJSON());
-            });
+        try {
+            const letterResponse = await fetchLetterApi(stubVariant);
+            expect(letterResponse.toJSON()).to.eql(Letter.fromJSON({
+                ...testLetterJson,
+                id: stubVariant
+            }).toJSON());
+        } finally {
+            fetchStub.restore();
+        }
     });
 
-    it("returns `null` if `status` is `404`", function () {
+    it("returns `null` if `status` is `404`", async function () {
         const stubVariant = "fetch!";
         const stubLetterResponse = {
             status: 404,
@@ -42,24 +42,23 @@ describe("fetchLetter", function () {
                 return Promise.reject(new Error("Wtf? This shouldn't have thrown"));
             }
         };
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.match(/\/fetch!/);
 
-        const proxyquiredFetchLetter = proxyquire("../../../../../src/lib/api/fetchLetter", {
-            "isomorphic-fetch": (fetchUrl, options) => {
-                expect(fetchUrl).to.match(/\/fetch!/);
+            expect(options.headers).to.eql({
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8"
+            });
 
-                expect(options.headers).to.eql({
-                    "Accept": "application/json",
-                    "Accept-Charset": "utf-8"
-                });
-
-                return Promise.resolve(stubLetterResponse);
-            }
+            return Promise.resolve(stubLetterResponse);
         });
 
-        return proxyquiredFetchLetter.default(stubVariant)
-            .then(letterResponse => {
-                expect(letterResponse).to.not.be.ok;
-                expect(letterResponse).to.eql(null);
-            });
+        try {
+            const letterResponse = await fetchLetterApi(stubVariant);
+            expect(letterResponse).to.not.be.ok;
+            expect(letterResponse).to.eql(null);
+        } finally {
+            fetchStub.restore();
+        }
     });
 });

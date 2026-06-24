@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import LetterSalutation from "../../../../../../../src/lib/components/letter/content/salutation";
 import LetterEntity from "../../../../../../../src/lib/letter";
@@ -63,20 +63,17 @@ describe("LetterSalutation", function () {
             }
         });
 
-        const rendered = shallow(<LetterSalutation letter={stubLetter}
+        const rendered = render(<LetterSalutation letter={stubLetter}
                                                    contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-salutation__content");
-        expect(rendered).to.contain(<h3 className="letter-salutation__content">{"To whom it may concern,"}</h3>);
+        expect(rendered.container.querySelector(".letter-salutation__content")?.textContent).to.eql("To whom it may concern,");
     });
 
     it("renders (with name)", function () {
-        const rendered = shallow(<LetterSalutation letter={stubLetter}
+        const rendered = render(<LetterSalutation letter={stubLetter}
                                                    contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-salutation__content");
-        expect(rendered).to.contain(<h3
-            className="letter-salutation__content">{`Hello ${stubLetter.recipient.firstName},`}</h3>);
+        expect(rendered.container.querySelector(".letter-salutation__content")?.textContent).to.eql(`Hello ${stubLetter.recipient.firstName},`);
     });
 
     it("renders (with custom greeting)", function () {
@@ -87,11 +84,9 @@ describe("LetterSalutation", function () {
             }
         });
 
-        const rendered = shallow(<LetterSalutation letter={stubLetter}
+        const rendered = render(<LetterSalutation letter={stubLetter}
                                                    contentConfiguration={stubContentConfiguration}/>);
 
-        expect(rendered).to.have.descendants(".letter-salutation__content");
-        expect(rendered).to.contain(<h3
-            className="letter-salutation__content">{`Woof ${stubLetter.recipient.firstName},`}</h3>);
+        expect(rendered.container.querySelector(".letter-salutation__content")?.textContent).to.eql(`Woof ${stubLetter.recipient.firstName},`);
     });
 });

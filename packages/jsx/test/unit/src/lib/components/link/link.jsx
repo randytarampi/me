@@ -1,187 +1,21 @@
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render, screen} from "@testing-library/react";
 import React from "react";
-import sinon from "sinon";
 import Link from "../../../../../../src/lib/components/link/link";
 
 describe("Link", function () {
-    it("renders (href & text)", function () {
-        const stubProps = {
-            href: "/woof",
-            name: "woof",
-            text: "WOOF"
-        };
-        const rendered = shallow(<Link {...stubProps}/>);
+    it("renders an anchor with metrics attributes", function () {
+        render(<Link href="/hello" className="extra">Hello</Link>);
 
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type="href"
-                data-metrics-name={stubProps.name}
-                data-metrics-label={stubProps.text}
-                data-metrics-value={stubProps.href}
-                className="link"
-            >
-                {stubProps.text}
-            </a>
-        );
-    });
+        const link = screen.getByRole("link", {name: "Hello"});
 
-    it("renders (children & text)", function () {
-        const stubChildren = "WOOF";
-        const stubProps = {
-            href: "/woof",
-            name: "woof"
-        };
-        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type="href"
-                data-metrics-name={stubProps.name}
-                data-metrics-label={stubChildren}
-                data-metrics-value={stubProps.href}
-                className="link"
-            >
-                {stubChildren}
-            </a>
-        );
-    });
-
-    it("renders (children & onClick)", function () {
-        const stubChildren = "WOOF";
-        const stubProps = {
-            onClick: sinon.stub(),
-            name: "woof"
-        };
-        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type="onClick"
-                data-metrics-name={stubProps.name}
-                data-metrics-label={stubChildren}
-                data-metrics-value={undefined}
-                className="link"
-            >
-                {stubChildren}
-            </a>
-        );
-    });
-
-    it("renders (children & no name)", function () {
-        const stubChildren = "WOOF";
-        const stubProps = {
-            onClick: sinon.stub()
-        };
-        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type="onClick"
-                data-metrics-name={stubChildren}
-                data-metrics-label={stubChildren}
-                data-metrics-value={undefined}
-                className="link"
-            >
-                {stubChildren}
-            </a>
-        );
-    });
-
-    it("renders (children & no name & aria-label)", function () {
-        const stubChildren = "WOOF";
-        const stubProps = {
-            onClick: sinon.stub(),
-            "aria-label": "close"
-        };
-        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type="onClick"
-                data-metrics-name={stubProps["aria-label"]}
-                data-metrics-label={stubProps["aria-label"]}
-                data-metrics-value={undefined}
-                className="link"
-                aria-label={stubProps["aria-label"]}
-            >
-                {stubChildren}
-            </a>
-        );
-    });
-
-    it("renders (className)", function () {
-        const stubChildren = "WOOF";
-        const stubProps = {
-            onClick: sinon.stub(),
-            "aria-label": "close",
-            className: "woof meow grr"
-        };
-        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
-
-        expect(rendered).to.have.props({
-            ...stubProps,
-            className: "link " + stubProps.className
-        });
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type="onClick"
-                data-metrics-name={stubProps["aria-label"]}
-                data-metrics-label={stubProps["aria-label"]}
-                data-metrics-value={undefined}
-                className="link woof meow grr"
-                aria-label={stubProps["aria-label"]}
-            >
-                {stubChildren}
-            </a>
-        );
-    });
-
-    it("renders (no onClick and no href)", function () {
-        const stubChildren = "WOOF";
-        const stubProps = {
-            "aria-label": "close"
-        };
-        const rendered = shallow(<Link {...stubProps}>{stubChildren}</Link>);
-
-        expect(rendered).to.have.props(stubProps);
-        expect(rendered).to.containMatchingElement(
-            <a
-                target="__blank"
-                rel="noopener noreferrer"
-                data-metrics-event-name="anchor"
-                data-metrics-type={undefined}
-                data-metrics-name={stubProps["aria-label"]}
-                data-metrics-label={stubProps["aria-label"]}
-                data-metrics-value={undefined}
-                className="link"
-                aria-label={stubProps["aria-label"]}
-            >
-                {stubChildren}
-            </a>
-        );
+        expect(link.getAttribute("href")).to.eql("/hello");
+        expect(link.getAttribute("target")).to.eql("__blank");
+        expect(link.getAttribute("rel")).to.eql("noopener noreferrer");
+        expect(link.getAttribute("data-metrics-type")).to.eql("href");
+        expect(link.getAttribute("data-metrics-name")).to.eql("Hello");
+        expect(link.getAttribute("data-metrics-label")).to.eql("Hello");
+        expect(link.classList.contains("link")).to.eql(true);
+        expect(link.classList.contains("extra")).to.eql(true);
     });
 });

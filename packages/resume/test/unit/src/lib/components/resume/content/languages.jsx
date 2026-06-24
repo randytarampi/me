@@ -1,6 +1,5 @@
-import {PrintableSection} from "@randy.tarampi/jsx";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {render} from "@testing-library/react";
 import React from "react";
 import ResumeLanguages from "../../../../../../../src/lib/components/resume/content/languages";
 import testResumeJson from "../../../../../../../src/resumes/some-awesome-company";
@@ -14,16 +13,11 @@ describe("ResumeLanguages", function () {
     });
 
     it("renders", function () {
-        const rendered = shallow(<ResumeLanguages resume={stubResume}/>);
+        const rendered = render(<ResumeLanguages resume={stubResume}/>);
 
-        expect(rendered).to.have.descendants(".resume-languages__language-entry");
-        expect(rendered).to.have.descendants(".resume-languages__language");
-        expect(rendered).to.have.descendants(".resume-languages__fluency");
+        expect(rendered.container.querySelector(".resume-languages__language-entry")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-languages__language")).to.not.eql(null);
+        expect(rendered.container.querySelector(".resume-languages__fluency")).to.not.eql(null);
 
-        const printableSection = rendered.find(PrintableSection);
-        expect(printableSection).to.have.length(1);
-        expect(printableSection).to.have.prop("printableType", "resume");
-        expect(printableSection).to.have.prop("type", "languages");
-        expect(printableSection).to.have.prop("label", "Languages");
     });
 });

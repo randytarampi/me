@@ -2,11 +2,12 @@ import {Post} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {List, Map, Set} from "immutable";
 import {DateTime} from "luxon";
-import proxyquire from "proxyquire";
 import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
 import sinon from "sinon";
+import * as fetchPostsModule from "../../../../../../src/lib/actions/posts/fetchPosts";
 import {FETCHING_POSTS_CANCELLED, FETCHING_POSTS_PER_PAGE} from "../../../../../../src/lib/actions/posts/fetchPosts";
+import fetchPostsForBlog from "../../../../../../src/lib/actions/posts/fetchPostsForBlog";
 import selectors from "../../../../../../src/lib/data/selectors";
 
 describe("fetchPostsForBlog", function () {
@@ -17,113 +18,95 @@ describe("fetchPostsForBlog", function () {
     let stubGetPostsSortedByDate;
     let stubGetOldestFetchedPostDateForSearchTypeAndPostType;
     let stubGetOldestAvailablePostDateForSearchTypeAndPostType;
+    let stubFetchPostsCreator;
 
     beforeEach(function () {
         stubMiddleware = [thunk];
         mockStore = configureStore(stubMiddleware);
         stubInitialState = Map({
             api: Map(),
-            posts: Map({
-                posts: Set()
-            })
+            posts: Map({posts: Set()})
         });
         stubStore = mockStore(stubInitialState);
         stubGetPostsSortedByDate = sinon.stub(selectors, "getPostsSortedByDate");
         stubGetOldestFetchedPostDateForSearchTypeAndPostType = sinon.stub(selectors, "getOldestFetchedPostDateForSearchTypeAndPostType");
         stubGetOldestAvailablePostDateForSearchTypeAndPostType = sinon.stub(selectors, "getOldestAvailablePostDateForSearchTypeAndPostType");
+        stubFetchPostsCreator = sinon.stub(fetchPostsModule, "fetchPostsCreator");
     });
 
     afterEach(function () {
-        stubGetPostsSortedByDate.restore && stubGetPostsSortedByDate.restore();
-        stubGetOldestFetchedPostDateForSearchTypeAndPostType.restore && stubGetOldestFetchedPostDateForSearchTypeAndPostType.restore();
-        stubGetOldestAvailablePostDateForSearchTypeAndPostType.restore && stubGetOldestAvailablePostDateForSearchTypeAndPostType.restore();
+        stubGetPostsSortedByDate.restore();
+        stubGetOldestFetchedPostDateForSearchTypeAndPostType.restore();
+        stubGetOldestAvailablePostDateForSearchTypeAndPostType.restore();
+        stubFetchPostsCreator.restore();
     });
 
-    it("dispatches FETCHING_POSTS_CANCELLED if already loaded the oldest post", function () {
+    it("dispatches FETCHING_POSTS_CANCELLED if already loaded the oldest post", async function () {
         const stubFetchUrl = "/woof";
-        const stubPostsResponse = {
-            posts: []
-        };
         const stubOldestAvailablePostDate = DateTime.local();
         const stubOldestLoadedPostDate = stubOldestAvailablePostDate;
-        const stubFetchPostsCreator = sinon.stub().callsFake(() => () => Promise.resolve(stubPostsResponse));
+        const stubPostsResponse = {posts: []};
 
-        const proxyquiredFetchPosts = proxyquire("../../../../../../src/lib/actions/posts/fetchPostsForBlog", {
-            "./fetchPosts": {
-                "fetchPostsCreator": stubFetchPostsCreator
-            }
+        stubFetchPostsCreator.callsFake((fetchUrl, postType, searchParams, searchType) => () => {
+            expect(fetchUrl).to.eql(stubFetchUrl);
+            expect(postType).to.eql("global");
+            expect(searchParams).to.eql({
+                perPage: FETCHING_POSTS_PER_PAGE,
+                orderBy: "datePublished",
+                orderComparator: stubOldestLoadedPostDate.toISO(),
+                orderComparatorType: "String",
+                orderOperator: "lt"
+            });
+            expect(searchType).to.eql("blog");
+            return Promise.resolve(stubPostsResponse);
         });
 
         stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate.toISO());
         stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(stubOldestAvailablePostDate.toISO());
 
-        stubStore = mockStore(stubInitialState);
+        await stubStore.dispatch(fetchPostsForBlog(stubFetchUrl));
 
-        return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl))
-            .then(() => {
-                const actions = stubStore.getActions();
-
-                expect(actions).to.eql([
-                    {
-                        type: FETCHING_POSTS_CANCELLED,
-                        payload: {
-                            fetchUrl: stubFetchUrl,
-                            searchParams: {
-                                orderBy: "datePublished",
-                                orderComparator: stubOldestLoadedPostDate.toISO(),
-                                orderComparatorType: "String",
-                                orderOperator: "lt",
-                                perPage: FETCHING_POSTS_PER_PAGE
-                            },
-                            oldestPostAvailableDate: stubOldestAvailablePostDate,
-                            oldestLoadedPostDate: stubOldestLoadedPostDate
-                        }
-                    }
-                ]);
-
-                expect(stubFetchPostsCreator.notCalled).to.eql(true);
-            });
+        expect(stubStore.getActions()).to.eql([
+            {
+                type: FETCHING_POSTS_CANCELLED,
+                payload: {
+                    fetchUrl: stubFetchUrl,
+                    searchParams: {
+                        orderBy: "datePublished",
+                        orderComparator: stubOldestLoadedPostDate.toISO(),
+                        orderComparatorType: "String",
+                        orderOperator: "lt",
+                        perPage: FETCHING_POSTS_PER_PAGE
+                    },
+                    oldestPostAvailableDate: stubOldestAvailablePostDate,
+                    oldestLoadedPostDate: stubOldestLoadedPostDate
+                }
+            }
+        ]);
     });
 
-    it("delegates to `fetchPostsCreator` with the correct searchParams (first fetch)", function () {
+    it("delegates to `fetchPostsCreator` with the correct searchParams (first fetch)", async function () {
         const stubFetchUrl = "/woof";
         const stubSearchParams = {};
-        const stubPostsResponse = {
-            posts: []
-        };
-        const stubOldestAvailablePostDate = null;
-        const stubOldestLoadedPostDate = null;
-        const stubFetchPostsCreator = sinon.stub().callsFake((fetchUrl, postType, searchParams, searchType) => () => {
+        const stubPostsResponse = {posts: []};
+
+        stubFetchPostsCreator.callsFake((fetchUrl, postType, searchParams, searchType) => () => {
             expect(fetchUrl).to.eql(stubFetchUrl);
             expect(postType).to.eql("global");
-            expect(searchParams).to.eql({
-                perPage: FETCHING_POSTS_PER_PAGE
-            });
+            expect(searchParams).to.eql({perPage: FETCHING_POSTS_PER_PAGE});
             expect(searchType).to.eql("blog");
-
             return Promise.resolve(stubPostsResponse);
         });
 
-        const proxyquiredFetchPosts = proxyquire("../../../../../../src/lib/actions/posts/fetchPostsForBlog", {
-            "./fetchPosts": {
-                "fetchPostsCreator": stubFetchPostsCreator
-            }
-        });
+        stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(null);
+        stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(null);
 
-        stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate);
-        stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(stubOldestAvailablePostDate);
+        await stubStore.dispatch(fetchPostsForBlog(stubFetchUrl, undefined, stubSearchParams));
 
-        stubStore = mockStore(stubInitialState);
-
-        return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl, undefined, stubSearchParams))
-            .then(() => {
-                const actions = stubStore.getActions();
-
-                expect(actions).to.eql([]);
-            });
+        expect(stubStore.getActions()).to.eql([]);
     });
 
-    it("delegates to `fetchPostsCreator` with the correct searchParams (subsequent fetch)", function () {
+    it("delegates to `fetchPostsCreator` with the correct searchParams (subsequent fetch)", async function () {
         const stubFetchUrl = "/woof";
         const stubSearchParams = {
             type: "global",
@@ -131,12 +114,11 @@ describe("fetchPostsForBlog", function () {
             filter: "tags",
             filterValue: "meow"
         };
-        const stubPostsResponse = {
-            posts: []
-        };
         const stubOldestAvailablePostDate = DateTime.local();
         const stubOldestLoadedPostDate = stubOldestAvailablePostDate.plus({years: 1});
-        const stubFetchPostsCreator = sinon.stub().callsFake((fetchUrl, postType, searchParams, searchType) => () => {
+        const stubPostsResponse = {posts: []};
+
+        stubFetchPostsCreator.callsFake((fetchUrl, postType, searchParams, searchType) => () => {
             expect(fetchUrl).to.eql(stubFetchUrl);
             expect(postType).to.eql(stubSearchParams.type);
             expect(searchParams).to.eql({
@@ -149,14 +131,7 @@ describe("fetchPostsForBlog", function () {
                 [stubSearchParams.filter]: stubSearchParams.filterValue
             });
             expect(searchType).to.eql("blog");
-
             return Promise.resolve(stubPostsResponse);
-        });
-
-        const proxyquiredFetchPosts = proxyquire("../../../../../../src/lib/actions/posts/fetchPostsForBlog", {
-            "./fetchPosts": {
-                "fetchPostsCreator": stubFetchPostsCreator
-            }
         });
 
         stubGetPostsSortedByDate.returns(List([
@@ -166,13 +141,8 @@ describe("fetchPostsForBlog", function () {
         stubGetOldestFetchedPostDateForSearchTypeAndPostType.returns(stubOldestLoadedPostDate.minus({days: 1}).toISO());
         stubGetOldestAvailablePostDateForSearchTypeAndPostType.returns(stubOldestAvailablePostDate.toISO());
 
-        stubStore = mockStore(stubInitialState);
+        await stubStore.dispatch(fetchPostsForBlog(stubFetchUrl, stubSearchParams.type, stubSearchParams));
 
-        return stubStore.dispatch(proxyquiredFetchPosts.default(stubFetchUrl, stubSearchParams.type, stubSearchParams))
-            .then(() => {
-                const actions = stubStore.getActions();
-
-                expect(actions).to.eql([]);
-            });
+        expect(stubStore.getActions()).to.eql([]);
     });
 });

@@ -1,5 +1,5 @@
 import {RequestError} from "@randy.tarampi/js";
-import logger from "../../logger";
+import logger from "../../logger.js";
 
 export default (querystringParameters = {}) => {
     if (!querystringParameters) {

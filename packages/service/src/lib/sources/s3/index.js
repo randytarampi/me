@@ -1,12 +1,44 @@
 import {Post} from "@randy.tarampi/js";
+import {GetObjectCommand, ListObjectsV2Command, S3Client} from "@aws-sdk/client-s3";
 import jsyaml from "js-yaml";
-import {Aws} from "../../../serverless/aws";
-import CachedDataSource from "../../cachedDataSource";
-import {filterPostForOrderingConditionsInSearchParams} from "../util";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+
+const defaultRegion = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || "us-east-1";
+
+const bodyToString = async body => {
+    if (typeof body === "string") {
+        return body;
+    }
+
+    if (Buffer.isBuffer(body)) {
+        return body.toString("utf8");
+    }
+
+    if (body && typeof body.transformToString === "function") {
+        return body.transformToString();
+    }
+
+    if (body && typeof body.text === "function") {
+        return body.text();
+    }
+
+    if (body && typeof body[Symbol.asyncIterator] === "function") {
+        let output = "";
+
+        for await (const chunk of body) {
+            output += Buffer.isBuffer(chunk) ? chunk.toString("utf8") : chunk;
+        }
+
+        return output;
+    }
+
+    return body;
+};
 
 class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
-        super(dataClient || new Aws.S3(), cacheClient);
+        super(dataClient || new S3Client({region: defaultRegion}), cacheClient);
     }
 
     get isEnabled() {
@@ -33,24 +65,22 @@ class S3Source extends CachedDataSource {
     }
 
     async recordsGetter(searchParams) {
-        return this.client.listObjectsV2(searchParams.S3)
-            .promise()
-            .then(async ({Contents, IsTruncated, NextContinuationToken}) => {
-                let posts = await Promise.all(Contents.map(object => {
-                        return this.getRecord(object.Key, searchParams);
-                    }))
-                    .then(posts => posts.filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
-                    );
+        const {Contents = [], IsTruncated, NextContinuationToken} = await this.client.send(new ListObjectsV2Command(searchParams.S3));
 
-                if (IsTruncated) {
-                    posts = posts.concat(await this.allRecordsGetter(
-                        searchParams
-                            .set("continuationToken", NextContinuationToken)
-                    ));
-                }
+        let posts = await Promise.all(Contents.map(object => {
+                return this.getRecord(object.Key, searchParams);
+            }))
+            .then(posts => posts.filter(post => filterPostForOrderingConditionsInSearchParams(post, searchParams))
+            );
 
-                return posts;
-            });
+        if (IsTruncated) {
+            posts = posts.concat(await this.allRecordsGetter(
+                searchParams
+                    .set("continuationToken", NextContinuationToken)
+            ));
+        }
+
+        return posts;
     }
 
     async allRecordsGetter(searchParams) {
@@ -63,14 +93,20 @@ class S3Source extends CachedDataSource {
     }
 
     recordGetter(key, searchParams) {
-        return this.client.getObject(searchParams.set("id", key).S3)
-            .promise()
-            .then(data => {
-                return data && S3Source.instanceToRecord({
+        return this.client.send(new GetObjectCommand(searchParams.set("id", key).S3))
+            .then(async data => {
+                if (!data) {
+                    return null;
+                }
+
+                const body = await bodyToString(data.Body);
+
+                return S3Source.instanceToRecord({
                     Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                     Key: key,
                     ...data,
-                    ...jsyaml.load(data.Body)
+                    Body: body,
+                    ...(body ? jsyaml.load(body) : {})
                 });
             });
     }
