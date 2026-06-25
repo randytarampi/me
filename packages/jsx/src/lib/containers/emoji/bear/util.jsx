@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
-import {onBearComponentClickCreator} from "../../../actions/emoji/onBearComponentClick";
-import {connectEmoji} from "../util";
+import {onBearComponentClickCreator} from "../../../actions/emoji/onBearComponentClick.js";
+import {connectEmoji} from "../util.jsx";
 
 export const connectBear = emojiComponent => connect(
     null,

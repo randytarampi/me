@@ -14,20 +14,20 @@ import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
 import defaultResume from "../../../resumes/resume.json";
 import Resume from "../../resume.js";
-import ResumeAbout from "./content/about";
-import ResumeAwards from "./content/awards";
-import ResumeContact from "./content/contact";
-import ResumeEducation from "./content/education";
-import ResumeInterests from "./content/interests";
-import ResumeLanguages from "./content/languages";
-import ResumeProfiles from "./content/profiles";
-import ResumeProjects from "./content/projects";
-import ResumePublications from "./content/publications";
-import ResumeReferences from "./content/references";
-import ResumeSkills from "./content/skills";
-import ResumeVolunteer from "./content/volunteer";
-import ResumeWork from "./content/work";
-import ResumeFooter from "./footer";
+import ResumeAbout from "./content/about.jsx";
+import ResumeAwards from "./content/awards/index.jsx";
+import ResumeContact from "./content/contact.jsx";
+import ResumeEducation from "./content/education/index.jsx";
+import ResumeInterests from "./content/interests.jsx";
+import ResumeLanguages from "./content/languages.jsx";
+import ResumeProfiles from "./content/profiles.jsx";
+import ResumeProjects from "./content/projects/index.jsx";
+import ResumePublications from "./content/publications/index.jsx";
+import ResumeReferences from "./content/references.jsx";
+import ResumeSkills from "./content/skills/index.jsx";
+import ResumeVolunteer from "./content/volunteer/index.jsx";
+import ResumeWork from "./content/work/index.jsx";
+import ResumeFooter from "./footer.jsx";
 
 export const mapResumeErrorCodeToErrorContentComponent = errorCode => {
     switch (errorCode) {

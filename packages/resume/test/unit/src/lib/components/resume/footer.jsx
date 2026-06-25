@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumeFooter from "../../../../../../src/lib/components/resume/footer";
+import ResumeFooter from "../../../../../../src/lib/components/resume/footer.jsx";
 
 describe("ResumeFooter", function () {
     it("renders", function () {

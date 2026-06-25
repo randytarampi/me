@@ -1,8 +1,8 @@
 import {Person} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {List, Map} from "immutable";
-import Letter from "../../../../src/lib/letter";
-import LetterSection from "../../../../src/lib/letterSection";
+import Letter from "../../../../src/lib/letter.js";
+import LetterSection from "../../../../src/lib/letterSection.js";
 
 describe("Letter", function () {
     let stubPersonJs;

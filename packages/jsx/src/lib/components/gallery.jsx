@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Carousel, Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
-import {WINDOW_LARGE_BREAKPOINT} from "../util";
-import {PhotoComponent} from "./photo";
+import {WINDOW_LARGE_BREAKPOINT} from "../util/index.js";
+import {PhotoComponent} from "./photo.jsx";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -13,7 +13,7 @@ import {
     PostDatePublishedComponent, PostLocationComponent,
     PostTagsComponent,
     PostTitleComponent
-} from "./post";
+} from "./post.jsx";
 
 export class GalleryComponent extends PhotoComponent {
     get selected() {

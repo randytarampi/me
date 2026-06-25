@@ -1,6 +1,6 @@
-import {ConnectedGoogleMap} from "./google";
+import {ConnectedGoogleMap} from "./google/index.jsx";
 
-export * from "./google";
+export * from "./google/index.jsx";
 
 export const ConnectedMap = ConnectedGoogleMap;
 

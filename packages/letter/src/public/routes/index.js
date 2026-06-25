@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import LetterContainer from "../../lib/containers/letter";
+import LetterContainer from "../../lib/containers/letter.jsx";
 
 const routes = [
     {

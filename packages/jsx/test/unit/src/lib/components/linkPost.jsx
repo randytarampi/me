@@ -1,15 +1,15 @@
-import {LinkPost} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import configureStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import {
+const {LinkPost} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const configureStore = require("redux-mock-store");
+const {Provider} = require("react-redux");
+const {
     LinkPostBodyAsArrayComponent,
     LinkPostBodyAsStringComponent,
     LinkPostComponent,
     LinkPostTitleComponent
-} from "../../../../../src/lib/components/linkPost";
+} = require("../../../../../src/lib/components/linkPost.jsx");
 
 describe("LinkPostComponent", function () {
     let stubPost;

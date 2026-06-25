@@ -1,13 +1,20 @@
-import {expect} from "chai";
-import {LOCATION_CHANGE} from "redux-first-history";
-import sinon from "sinon";
-import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../src/lib/actions/routing";
-import selectors from "../../../../../src/lib/data/selectors";
-import ui from "../../../../../src/lib/middleware/ui";
+const {expect} = require("chai");
+const {JSDOM} = require("jsdom");
+const {LOCATION_CHANGE} = require("redux-first-history");
+const sinon = require("sinon");
+const {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} = require("../../../../../src/lib/actions/routing/index.js");
+const selectors = require("../../../../../src/lib/data/selectors.js").default || require("../../../../../src/lib/data/selectors.js");
+const ui = require("../../../../../src/lib/middleware/ui.js").default || require("../../../../../src/lib/middleware/ui.js");
 
 describe("ui", function () {
-    const originalM = typeof window.M !== "undefined" && window.M;
-    const originalDocumentBodyInnerHtml = window.document.body.innerHTML;
+    const globalWindow = global.window || new JSDOM("<html><div id=\"react-root\"></div></html>").window;
+    const originalM = typeof globalWindow.M !== "undefined" && globalWindow.M;
+    const originalDocumentBodyInnerHtml = globalWindow.document.body.innerHTML;
+
+    if (!global.window) {
+        global.window = globalWindow;
+        global.document = globalWindow.document;
+    }
     let stubGetInstance;
     let stubSelect;
     let stubStore;
@@ -16,6 +23,8 @@ describe("ui", function () {
     let stubM;
 
     beforeEach(function () {
+        const jsdomWindow = globalWindow;
+
         stubSelect = sinon.stub();
         stubStore = {
             dispatch: sinon.stub(),
@@ -38,14 +47,16 @@ describe("ui", function () {
             }
         };
 
-        window.M = stubM;
-        window.document.body.innerHTML = "<html><div id=\"react-root\"><div class=\"nav-tabs__swipeable\"></div></div></html>";
+        jsdomWindow.M = stubM;
+        jsdomWindow.document.body.innerHTML = "<html><div id=\"react-root\"><div class=\"nav-tabs__swipeable\"></div></div></html>";
         sinon.stub(selectors, "getIndexForRoute").returns(1);
     });
 
     afterEach(function () {
-        window.M = originalM;
-        window.document.body.innerHTML = originalDocumentBodyInnerHtml;
+        const jsdomWindow = globalWindow;
+
+        jsdomWindow.M = originalM;
+        jsdomWindow.document.body.innerHTML = originalDocumentBodyInnerHtml;
 
         selectors.getIndexForRoute.restore();
     });
@@ -64,7 +75,7 @@ describe("ui", function () {
     });
 
     it("doesn't swipe tabs on `LOCATION_CHANGE` if there are no tabs to swipe", function () {
-        window.M = null;
+        globalWindow.M = null;
 
         const stubAction = {
             type: LOCATION_CHANGE,

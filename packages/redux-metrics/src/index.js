@@ -1,5 +1,5 @@
-import metrics from "./lib";
+import metrics from "./lib/index.js";
 
-export * from "./lib";
+export * from "./lib/index.js";
 
 export default metrics;

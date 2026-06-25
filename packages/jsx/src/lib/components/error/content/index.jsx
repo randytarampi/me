@@ -1,12 +1,12 @@
-import {ErrorENOACCESSContentComponent} from "./enoaccess";
-import {ErrorENOCONTENTContentComponent} from "./enocontent";
-import {ErrorENOTFOUNDContentComponent} from "./enotfound";
-import {ErrorESERVERContentComponent} from "./eserver";
+import {ErrorENOACCESSContentComponent} from "./enoaccess.jsx";
+import {ErrorENOCONTENTContentComponent} from "./enocontent.jsx";
+import {ErrorENOTFOUNDContentComponent} from "./enotfound.jsx";
+import {ErrorESERVERContentComponent} from "./eserver.jsx";
 
-export * from "./enoaccess";
-export * from "./enocontent";
-export * from "./enotfound";
-export * from "./eserver";
+export * from "./enoaccess.jsx";
+export * from "./enocontent.jsx";
+export * from "./enotfound.jsx";
+export * from "./eserver.jsx";
 
 export const errorContents = {
     ESERVER: ErrorESERVERContentComponent,

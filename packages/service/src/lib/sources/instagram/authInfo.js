@@ -1,14 +1,14 @@
-import AuthInfoModel from "../../../db/models/authInfo.js";
-import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo.js";
-import CacheClient from "../../cacheClient.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {OAuth2Client} from "../oAuth2Client.js";
-import {baseUrl} from "./service.js";
-import {type} from "./util.js";
+const AuthInfoModel = require("../../../db/models/authInfo.js");
+const {AUTH_INFO_TYPE, AuthInfo} = require("../../authInfo.js");
+const CacheClient = require("../../cacheClient.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {OAuth2Client} = require("../oAuth2Client.js");
+const {baseUrl} = require("./service.js");
+const {type} = require("./util.js");
 
-export const INSTAGRAM_TOKEN_URL = `${baseUrl}/oauth/authorize`;
+const INSTAGRAM_TOKEN_URL = `${baseUrl}/oauth/authorize`;
 
-export class InstagramAuthInfo extends CachedDataSource {
+class InstagramAuthInfo extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(
             dataClient || new OAuth2Client(INSTAGRAM_TOKEN_URL),
@@ -47,4 +47,7 @@ export class InstagramAuthInfo extends CachedDataSource {
     }
 }
 
-export default InstagramAuthInfo;
+module.exports = InstagramAuthInfo;
+module.exports.INSTAGRAM_TOKEN_URL = INSTAGRAM_TOKEN_URL;
+module.exports.InstagramAuthInfo = InstagramAuthInfo;
+module.exports.default = module.exports;

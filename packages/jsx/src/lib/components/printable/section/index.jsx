@@ -1,13 +1,13 @@
-import PrintableSection from "./section";
+import PrintableSection from "./section.jsx";
 
-export * from "./section";
+export * from "./section.jsx";
 
-export * from "./leftDescriptionSection";
-export * from "./leftPullSection";
+export * from "./leftDescriptionSection.jsx";
+export * from "./leftPullSection.jsx";
 
-export * from "./rightDescriptionSection";
-export * from "./rightPushSection";
+export * from "./rightDescriptionSection.jsx";
+export * from "./rightPushSection.jsx";
 
-export * from "./rawHtmlSection";
+export * from "./rawHtmlSection.jsx";
 
 export default PrintableSection;

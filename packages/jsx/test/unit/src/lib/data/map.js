@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {fromJS, Map} from "immutable";
-import {createAction} from "redux-actions";
-import {clearMap, instantiateGoogleMap, updateMap} from "../../../../../src/lib/actions/map";
-import reducer, {getMap, hasMap} from "../../../../../src/lib/data/maps";
+const {expect} = require("chai");
+const {fromJS, Map} = require("immutable");
+const {createAction} = require("redux-actions");
+const {clearMap, instantiateGoogleMap, updateMap} = require("../../../../../src/lib/actions/map/index.js");
+const reducer = require("../../../../../src/lib/data/maps.js").default || require("../../../../../src/lib/data/maps.js");
+const {getMap, hasMap} = require("../../../../../src/lib/data/maps.js");
 
 describe("map", function () {
     let stubInitialState;

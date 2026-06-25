@@ -2,7 +2,7 @@ import queryString from "query-string";
 import {buildLetter} from "../buildLetter.js";
 
 export const buildFetchUrlForVariant = variant => {
-    return `${__LETTER_SERVICE_URL__}/${variant}.json`;
+    return `${process.env.LETTER_SERVICE_URL || (typeof __LETTER_SERVICE_URL__ !== "undefined" ? __LETTER_SERVICE_URL__ : "http://localhost")}/${variant}.json`;
 };
 
 export const fetchLetterApi = (variant, searchParams) => {

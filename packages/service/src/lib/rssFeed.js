@@ -1,11 +1,11 @@
-import {DateTime} from "luxon";
-import Rss from "rss";
+const {DateTime} = require("luxon");
+const Rss = require("rss");
 const packageJson = require("../../package.json");
 
 /**
  * An object that describes an instance of an RSS Feed
  */
-export class RssFeed extends Rss {
+class RssFeed extends Rss {
     constructor({title, feedUrl, siteUrl, imageUrl, customNamespaces, customElements, ttl = 60, pubDate = DateTime.utc().toJSDate(), generator = packageJson.name, docs = "https://validator.w3.org/feed/docs/rss2.html", ...rssOptions} = {}) {
         super({
             title,
@@ -23,4 +23,6 @@ export class RssFeed extends Rss {
     }
 }
 
-export default RssFeed;
+module.exports = RssFeed;
+module.exports.RssFeed = RssFeed;
+module.exports.default = module.exports;

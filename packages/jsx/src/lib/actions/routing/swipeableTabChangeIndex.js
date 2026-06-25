@@ -1,6 +1,6 @@
 import {push} from "redux-first-history";
 import {createAction} from "redux-actions";
-import selectors from "../../data/selectors";
+import selectors from "../../data/selectors.js";
 
 export const SWIPEABLE_TAB_CHANGE_INDEX = "SWIPEABLE_TAB_CHANGE_INDEX";
 

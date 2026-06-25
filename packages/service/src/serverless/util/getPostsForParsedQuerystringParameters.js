@@ -1,10 +1,10 @@
-import {Gallery, Photo, POST_TYPES, sortPostsByDate} from "@randy.tarampi/js";
-import _ from "lodash";
-import searchPosts from "../../lib/sources/searchPosts.js";
-import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams.js";
-import {checkHeader as checkMeVersionHeader} from "./request/headers/version.js";
+const {Gallery, Photo, POST_TYPES, sortPostsByDate} = require("@randy.tarampi/js");
+const _ = require("lodash");
+const searchPosts = require("../../lib/sources/searchPosts.js").default || require("../../lib/sources/searchPosts.js");
+const parseQueryStringParametersIntoSearchParams = require("./parseQueryStringParametersIntoSearchParams.js").default || require("./parseQueryStringParametersIntoSearchParams.js");
+const {checkHeader: checkMeVersionHeader} = require("./request/headers/version.js");
 
-export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
+const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
     let postTypesToFetch = [];
 
     if (
@@ -75,4 +75,6 @@ export const getPostsForParsedQuerystringParameters = ({type, ...queryParameters
         });
 };
 
-export default getPostsForParsedQuerystringParameters;
+module.exports = getPostsForParsedQuerystringParameters;
+module.exports.getPostsForParsedQuerystringParameters = getPostsForParsedQuerystringParameters;
+module.exports.default = module.exports;

@@ -1,8 +1,8 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import metricsInstance from "@randy.tarampi/redux-metrics";
-import metrics from "../../../../../src/lib/middleware/metrics";
-import {
+const {expect} = require("chai");
+const sinon = require("sinon");
+const metricsInstance = require("@randy.tarampi/redux-metrics");
+const metrics = require("../../../../../src/lib/middleware/metrics.js").default || require("../../../../../src/lib/middleware/metrics.js");
+const {
     CRISP_CHAT_CLOSED,
     CRISP_CHAT_OPENED,
     CRISP_MESSAGE_SENT,
@@ -12,24 +12,26 @@ import {
     CRISP_USER_NICKNAME_CHANGED,
     CRISP_USER_PHONE_CHANGED,
     CRISP_WEBSITE_AVAILABILITY_CHANGED
-} from "./../../../../../src/lib/actions/crisp";
+} = require("../../../../../src/lib/actions/crisp/index.js");
 
 describe("metrics", function () {
-    const metricsInstanceApi = metricsInstance.api;
+    const metricsInstanceApi = metricsInstance.default.api;
 
     beforeEach(function () {
-        Object.defineProperty(metricsInstance, "api", {
+        Object.defineProperty(metricsInstance.default, "api", {
             value: {
                 trackReduxAction: sinon.stub()
             },
-            writable: false
+            writable: false,
+            configurable: true
         });
     });
 
     afterEach(function () {
-        Object.defineProperty(metricsInstance, "api", {
+        Object.defineProperty(metricsInstance.default, "api", {
             value: metricsInstanceApi,
-            writable: false
+            writable: false,
+            configurable: true
         });
     });
 
@@ -42,8 +44,8 @@ describe("metrics", function () {
 
         metrics()(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
-        expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-        sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction]);
+        expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+        sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction]);
     });
 
     it("calls `next` before anything else", function () {
@@ -53,11 +55,12 @@ describe("metrics", function () {
             payload: "grr"
         };
 
-        Object.defineProperty(metricsInstance, "api", {
+        Object.defineProperty(metricsInstance.default, "api", {
             value: {
                 trackReduxAction: sinon.stub().throws(new Error("woof"))
             },
-            writable: false
+            writable: false,
+            configurable: true
         });
 
         try {
@@ -66,7 +69,7 @@ describe("metrics", function () {
         } catch (error) {
             expect(error.message).to.eql("woof");
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
         }
     });
 
@@ -77,11 +80,12 @@ describe("metrics", function () {
             payload: "grr"
         };
 
-        Object.defineProperty(metricsInstance, "api", {
+        Object.defineProperty(metricsInstance.default, "api", {
             value: {
                 trackReduxAction: null
             },
-            writable: false
+            writable: false,
+            configurable: true
         });
 
         metrics()(stubNext)(stubAction);
@@ -99,8 +103,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 crisp: {
                     chat: "open"
                 }
@@ -118,8 +122,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 crisp: {
                     chat: "closed"
                 }
@@ -142,8 +146,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 crisp: {
                     user_id: stubAction.payload.user.user_id
                 },
@@ -164,8 +168,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 crisp: {
                     session_id: stubAction.payload
                 }
@@ -183,8 +187,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 user: {
                     avatar: stubAction.payload
                 }
@@ -202,8 +206,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 user: {
                     email: stubAction.payload
                 }
@@ -221,8 +225,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 user: {
                     name: stubAction.payload
                 }
@@ -240,8 +244,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 user: {
                     phone: stubAction.payload
                 }
@@ -259,8 +263,8 @@ describe("metrics", function () {
 
             metrics()(stubNext)(stubAction);
             expect(stubNext.calledOnce).to.eql(true);
-            expect(metricsInstance.api.trackReduxAction.calledOnce).to.eql(true);
-            sinon.assert.calledWith(metricsInstance.api.trackReduxAction, [stubAction, {
+            expect(metricsInstance.default.api.trackReduxAction.calledOnce).to.eql(true);
+            sinon.assert.calledWith(metricsInstance.default.api.trackReduxAction, [stubAction, {
                 app: {
                     availability: stubAction.payload
                 }

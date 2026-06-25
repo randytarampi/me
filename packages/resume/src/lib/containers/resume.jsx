@@ -1,10 +1,10 @@
 import {createIsLoadingUrlSelector} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchResumeCreator} from "../actions";
-import {buildFetchUrlForVariant} from "../api";
-import {ResumeComponent} from "../components/resume";
-import selectors from "../data/selectors";
+import {fetchResumeCreator} from "../actions/index.js";
+import {buildFetchUrlForVariant} from "../api/index.js";
+import {ResumeComponent} from "../components/resume/index.jsx";
+import selectors from "../data/selectors.js";
 
 let allResumeCustomContent = {};
 

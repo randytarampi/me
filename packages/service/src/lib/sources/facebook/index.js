@@ -1,6 +1,6 @@
-import {FacebookSource} from "./source.js";
+const {FacebookSource} = require("./source.js");
 
-export * from "./authInfo.js";
-export * from "./source.js";
-
-export default FacebookSource;
+module.exports = FacebookSource;
+Object.assign(module.exports, require("./authInfo.js"));
+Object.assign(module.exports, require("./source.js"));
+module.exports.default = module.exports;

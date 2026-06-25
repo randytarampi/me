@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import path from "path";
 import {Helmet} from "react-helmet";
-import buildLetter from "../../../../src/lib/buildLetter";
-import renderHtml from "../../../../src/lib/renderHtml";
+import buildLetter from "../../../../src/lib/buildLetter.js";
+import {renderHtml} from "../../../../src/lib/renderHtml.js";
 
 describe("renderHtml", function () {
     this.timeout(60000);
@@ -16,7 +16,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JSON", function () {
-        const letter = buildLetter(path.join(__dirname, "../../../../src/letters/some-awesome-company.json"));
+        const letter = buildLetter(path.resolve("src/letters/some-awesome-company.json"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.a("string");
@@ -24,7 +24,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JS", function () {
-        const letter = buildLetter(path.join(__dirname, "../../resources/meow.js"));
+        const letter = buildLetter(path.resolve("test/resources/meow.js"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.a("string");
@@ -32,7 +32,7 @@ describe("renderHtml", function () {
     });
 
     it("works with JSX", function () {
-        const letter = buildLetter(path.join(__dirname, "../../resources/woof.jsx"));
+        const letter = buildLetter(path.resolve("test/resources/woof.js"));
         const letterHtml = renderHtml(letter);
 
         expect(letterHtml).to.be.a("string");

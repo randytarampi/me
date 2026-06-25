@@ -1,7 +1,7 @@
 import AwsXRay from "aws-xray-sdk";
 import {expect} from "chai";
 import sinon from "sinon";
-import {configureAwsSdk} from "../../../../src/lib/configureAwsSdk";
+import {configureAwsSdk} from "../../../../src/lib/configureAwsSdk.js";
 
 describe("configureAwsSdk", function () {
     const originalNodeEnv = process.env.NODE_ENV;

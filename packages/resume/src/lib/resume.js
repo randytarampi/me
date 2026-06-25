@@ -1,6 +1,6 @@
 import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
-const packageJson = require("../../package");
+import {readFileSync} from "fs";
 import {Award} from "./award.js";
 import {Education} from "./education.js";
 import {Interest} from "./interest.js";
@@ -11,6 +11,8 @@ import {Reference} from "./reference.js";
 import {Skill} from "./skill.js";
 import {Volunteer} from "./volunteer.js";
 import {Work} from "./work.js";
+
+const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
 
 export class Resume extends Record({
     id: null,

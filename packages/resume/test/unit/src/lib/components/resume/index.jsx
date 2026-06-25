@@ -12,8 +12,8 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import sinon from "sinon";
 import {thunk} from "redux-thunk";
-import {mapResumeErrorCodeToErrorContentComponent, ResumeComponent} from "../../../../../../src/lib/components/resume";
-import Resume from "../../../../../../src/lib/resume";
+import {mapResumeErrorCodeToErrorContentComponent, ResumeComponent} from "../../../../../../src/lib/components/resume/index.jsx";
+import Resume from "../../../../../../src/lib/resume.js";
 import testResumeJson from "../../../../../../src/resumes/some-awesome-company.json";
 
 describe("ResumeComponent", function () {

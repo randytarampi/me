@@ -1,5 +1,5 @@
-export * from "./index.client";
+export * from "./index.client.js";
 
-export * from "./lib/renderHtml";
+export * from "./lib/renderHtml.js";
 
-export * from "./public/views/serverApp";
+export * from "./public/views/serverApp.js";

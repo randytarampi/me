@@ -1,8 +1,8 @@
 import {Gallery, Photo, Post} from "@randy.tarampi/js";
-import {getApiStateForUrl} from "./api";
-import {getEmoji, hasEmoji} from "./emoji";
-import {getError, getErrorCode, getErrorMessage, getErrorTimeoutHandlerId, hasError} from "./error";
-import {getMap, hasMap} from "./maps";
+import {getApiStateForUrl} from "./api.js";
+import {getEmoji, hasEmoji} from "./emoji.js";
+import {getError, getErrorCode, getErrorMessage, getErrorTimeoutHandlerId, hasError} from "./error.js";
+import {getMap, hasMap} from "./maps.js";
 import {
     createFilteredPostsSelector,
     getNewestAvailablePostDateForSearchTypeAndPostType,
@@ -20,8 +20,8 @@ import {
     getPostsSortedByDate,
     getWordPosts,
     getWordPostsSortedByDate
-} from "./posts";
-import {getControlStateForId, getIndexedRoutes, getIndexForRoute, getRouteForIndex, getSwipeableIndex} from "./ui";
+} from "./posts.js";
+import {getControlStateForId, getIndexedRoutes, getIndexForRoute, getRouteForIndex, getSwipeableIndex} from "./ui.js";
 
 export const getLocation = state => {
     const routerState = state.get("router");

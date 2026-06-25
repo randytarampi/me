@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumeLanguages from "../../../../../../../src/lib/components/resume/content/languages";
+import ResumeLanguages from "../../../../../../../src/lib/components/resume/content/languages.jsx";
 import testResumeJson from "../../../../../../../src/resumes/some-awesome-company";
 
 describe("ResumeLanguages", function () {

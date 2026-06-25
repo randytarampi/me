@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Route, Routes, useLocation, useParams} from "react-router";
+import {Route, Routes, useLocation, useParams} from "../reactRouter.cjs";
 
 // NOTE-RT: A native `react-router@7` replacement for the removed `react-router-config` `renderRoutes`.
 // NOTE-RT: `react-router@5` defaulted to prefix matching unless `exact` was set, whereas `react-router@7` matches

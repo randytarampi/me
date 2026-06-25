@@ -1,12 +1,12 @@
 import React from "react";
-import {CodeClimateShield} from "./codeClimate";
-import {UptimeRobotShield} from "./uptimeRobot";
-import {WebsiteUpDownShield} from "./websiteUpDown";
+import {CodeClimateShield} from "./codeClimate.jsx";
+import {UptimeRobotShield} from "./uptimeRobot.jsx";
+import {WebsiteUpDownShield} from "./websiteUpDown.jsx";
 
-export * from "./codeClimate";
-export * from "./npmVersion";
-export * from "./uptimeRobot";
-export * from "./websiteUpDown";
+export * from "./codeClimate.jsx";
+export * from "./npmVersion.jsx";
+export * from "./uptimeRobot.jsx";
+export * from "./websiteUpDown.jsx";
 
 export const Shields = ({children}) => <div className="shields">
     {children}

@@ -1,4 +1,10 @@
-const path = require("path");
+import {createRequire} from "module";
+import path from "path";
+import {fileURLToPath} from "url";
+import webpackBaseConfig from "../../webpack.client.config.base.js";
+
+const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const fs = require("fs");
@@ -7,7 +13,6 @@ const express = require("express");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const {buildPugLocals} = require("@randy.tarampi/views");
-const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const sources = [
     "*.md",
@@ -23,7 +28,7 @@ if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.t
     sources.push(path.resolve(require.resolve("@randy.tarampi/assets"), "../../assets/web/*"));
 }
 
-module.exports = webpackBaseConfig({
+export default webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
     webpackDevServerMiddleware: [

@@ -1,7 +1,7 @@
 import {LOCATION_CHANGE} from "redux-first-history";
-import clearError from "../actions/error/clearError";
-import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing";
-import selectors from "../data/selectors";
+import clearError from "../actions/error/clearError.js";
+import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing/index.js";
+import selectors from "../data/selectors.js";
 
 const getSwipeableTabs = () => {
     if (typeof document === "undefined") {

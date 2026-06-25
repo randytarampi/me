@@ -1,9 +1,9 @@
-import {expect} from "chai";
-import {fromJS} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import {SET_GOOGLE_MAP_CENTER, setGoogleMapCenterCreator} from "../../../../../../../src/lib/actions/map";
+const {expect} = require("chai");
+const {fromJS} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const {SET_GOOGLE_MAP_CENTER, setGoogleMapCenterCreator} = require("../../../../../../../src/lib/actions/map/index.js");
 
 describe("setGoogleMapCenter", function () {
     let mockStore;

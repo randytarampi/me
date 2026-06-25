@@ -2,8 +2,8 @@ import {expect} from "chai";
 import {render} from "@testing-library/react";
 import {Map} from "immutable";
 import React from "react";
-import ResumeEducationEntry from "../../../../../../../../src/lib/components/resume/content/education/entry";
-import {ResumeCustomPrintableSectionContent} from "../../../../../../../../src/lib/resumeCustomContent";
+import ResumeEducationEntry from "../../../../../../../../src/lib/components/resume/content/education/entry.jsx";
+import {ResumeCustomPrintableSectionContent} from "../../../../../../../../src/lib/resumeCustomContent.js";
 
 describe("ResumeEducationEntry", function () {
     let stubResumeEducationEntry;

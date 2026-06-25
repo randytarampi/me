@@ -1,8 +1,8 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import * as versionHeader from "../../../../../../src/serverless/util/request/headers/version";
-import buildRssResponse, * as postsReponseBuilder
-    from "../../../../../../src/serverless/util/response/buildRssResponse";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const versionHeader = require("../../../../../../src/serverless/util/request/headers/version.js");
+const buildRssResponse = require("../../../../../../src/serverless/util/response/buildRssResponse.js");
+const postsReponseBuilder = buildRssResponse;
 
 describe("buildRssResponse", function () {
     describe("buildRssV1ResponseBody", function () {
@@ -65,3 +65,4 @@ describe("buildRssResponse", function () {
         });
     });
 });
+module.exports.default = module.exports;

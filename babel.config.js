@@ -1,8 +1,15 @@
-const path = require("path");
-process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
+import {createRequire} from "module";
+import {dirname, join} from "path";
+import {fileURLToPath} from "url";
+import util from "./util.js";
+
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const config = require("config");
-const {isDevelopment} = require("./util");
+const {isDevelopment} = util;
 
 const configuredMinifyReplace = [
     "minify-replace",
@@ -180,7 +187,10 @@ const configuredMinifyReplace = [
                 identifierName: "__ME_PERSON_NAME__",
                 replacement: {
                     type: "stringLiteral",
-                    value: config.get("me.person.name")
+                    value: (() => {
+                        const name = config.get("me.person.name");
+                        return typeof name === "function" ? name.call(config) : name;
+                    })()
                 }
             },
             {
@@ -264,7 +274,7 @@ const configuredMinifyReplace = [
     }
 ];
 
-module.exports = (api) => {
+export default (api) => {
     let presets = [
         [
             "@babel/preset-env",

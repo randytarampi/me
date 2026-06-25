@@ -1,6 +1,6 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import {freshRequire} from "../../../../../lib/freshRequire";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
 
 afterEach(function () {
     sinon.restore();
@@ -8,6 +8,8 @@ afterEach(function () {
 
 describe("cachePosts", function () {
     it("delegates to `cachePosts` (API trigger)", async function () {
+        const originalFlickrApiKey = process.env.FLICKR_API_KEY;
+        process.env.FLICKR_API_KEY = "flickr-key";
         const stubEvent = {queryStringParameters: {woof: "meow"}};
         const stubContext = {};
         const stubSortedPosts = ["meow"];
@@ -53,9 +55,17 @@ describe("cachePosts", function () {
 
             cachePostsHandler(stubEvent, stubContext, stubCallback);
         });
+
+        if (typeof originalFlickrApiKey === "undefined") {
+            delete process.env.FLICKR_API_KEY;
+        } else {
+            process.env.FLICKR_API_KEY = originalFlickrApiKey;
+        }
     });
 
     it("delegates to `cachePosts` (scheduled event)", async function () {
+        const originalFlickrApiKey = process.env.FLICKR_API_KEY;
+        process.env.FLICKR_API_KEY = "flickr-key";
         const stubEvent = {woof: "meow"};
         const stubContext = {};
         const stubSortedPosts = ["meow"];
@@ -101,9 +111,17 @@ describe("cachePosts", function () {
 
             cachePostsHandler(stubEvent, stubContext, stubCallback);
         });
+
+        if (typeof originalFlickrApiKey === "undefined") {
+            delete process.env.FLICKR_API_KEY;
+        } else {
+            process.env.FLICKR_API_KEY = originalFlickrApiKey;
+        }
     });
 
     it("`returnErrorResponse` on error", async function () {
+        const originalFlickrApiKey = process.env.FLICKR_API_KEY;
+        process.env.FLICKR_API_KEY = "flickr-key";
         const stubEvent = {queryStringParameters: {woof: "meow"}};
         const stubContext = {};
         const stubError = new Error("woof");
@@ -153,5 +171,12 @@ describe("cachePosts", function () {
             errorHandlerStub.callsFake(stubErrorCallback);
             cachePostsHandler(stubEvent, stubContext, stubCallback);
         });
+
+        if (typeof originalFlickrApiKey === "undefined") {
+            delete process.env.FLICKR_API_KEY;
+        } else {
+            process.env.FLICKR_API_KEY = originalFlickrApiKey;
+        }
     });
 });
+module.exports.default = module.exports;

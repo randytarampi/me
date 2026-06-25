@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import Header from "../../../../../../src/lib/components/printable/header";
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const Header = require("../../../../../../src/lib/components/printable/header.jsx").default || require("../../../../../../src/lib/components/printable/header.jsx");
 
 describe("Header", function () {
     let stubPrintable;

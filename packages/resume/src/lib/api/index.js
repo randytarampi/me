@@ -1,1 +1,1 @@
-export * from "./fetchResume";
+export * from "./fetchResume.js";

@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import SmsLink from "../../../../../../src/lib/components/link/sms";
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const SmsLink = require("../../../../../../src/lib/components/link/sms.jsx").default || require("../../../../../../src/lib/components/link/sms.jsx");
 
 describe("SmsLink", function () {
     it("renders an sms link", function () {

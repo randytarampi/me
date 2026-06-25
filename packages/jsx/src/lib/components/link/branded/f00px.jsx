@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import BrandedLink from "./brandedLink";
+import BrandedLink from "./brandedLink.jsx";
 
 export const F00pxLink = props => {
     return <BrandedLink {...props} serviceType="f00px" serviceName="500px" serviceUrl="https://www.500px.com"/>;

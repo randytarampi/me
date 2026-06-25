@@ -1,5 +1,4 @@
 const me = require("./me");
-const defer = require("config/defer").deferConfig;
 
 const POSTS_SERVER_PORT = 3006;
 const RESUME_SERVER_PORT = 3004;
@@ -68,12 +67,12 @@ module.exports = {
     resume: {
         bundle: {
             name: "resume",
-            sw: defer(function () {
+            sw: function () {
                 return `${this.resume.bundle.name}.sw`;
-            }),
-            swInstaller: defer(function () {
+            },
+            swInstaller: function () {
                 return `${this.resume.bundle.sw}.installer`;
-            })
+            }
         },
         expectations: {
             pages: 1,
@@ -86,12 +85,12 @@ module.exports = {
     letter: {
         bundle: {
             name: "letter",
-            sw: defer(function () {
+            sw: function () {
                 return `${this.letter.bundle.name}.sw`;
-            }),
-            swInstaller: defer(function () {
+            },
+            swInstaller: function () {
                 return `${this.letter.bundle.sw}.installer`;
-            })
+            }
         },
         expectations: {
             pages: 1,
@@ -114,12 +113,12 @@ module.exports = {
     www: {
         bundle: {
             name: "www",
-            sw: defer(function () {
+            sw: function () {
                 return `${this.www.bundle.name}.sw`;
-            }),
-            swInstaller: defer(function () {
+            },
+            swInstaller: function () {
                 return `${this.www.bundle.sw}.installer`;
-            })
+            }
         },
         codeUrl: "/code",
         photosUrl: "/photos",

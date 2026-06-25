@@ -1,7 +1,7 @@
 import {Map} from "immutable";
-import {CLEAR_EMOJI} from "../actions/emoji/clearEmoji";
-import {INSTANTIATE_EMOJI} from "../actions/emoji/instantiateEmoji";
-import {UPDATE_EMOJI} from "../actions/emoji/updateEmoji";
+import {CLEAR_EMOJI} from "../actions/emoji/clearEmoji.js";
+import {INSTANTIATE_EMOJI} from "../actions/emoji/instantiateEmoji.js";
+import {UPDATE_EMOJI} from "../actions/emoji/updateEmoji.js";
 
 export const emojiReducer = (state = Map(), action) => {
     switch (action.type) {

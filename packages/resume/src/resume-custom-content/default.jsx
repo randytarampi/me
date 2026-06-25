@@ -5,7 +5,7 @@ import {
     ResumeCustomContent,
     ResumeCustomPrintableFooterContent,
     ResumeCustomPrintableSectionContent
-} from "../lib/resumeCustomContent";
+} from "../lib/resumeCustomContent.js";
 
 const defaultContent = new ResumeCustomContent({
     education: new ResumeCustomPrintableSectionContent({

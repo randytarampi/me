@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import LoadingSpinner from "../../../../../src/lib/components/loadingSpinner";
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const LoadingSpinner = require("../../../../../src/lib/components/loadingSpinner.jsx").default || require("../../../../../src/lib/components/loadingSpinner.jsx");
 
 describe("LoadingSpinner", function () {
     it("renders", function () {

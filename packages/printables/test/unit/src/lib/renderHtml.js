@@ -1,60 +1,36 @@
 import {expect} from "chai";
 import path from "path";
+import React from "react";
 import pug from "pug";
 import sinon from "sinon";
-import * as buildPugLocalsModule from "../../../../src/lib/buildPugLocals";
-import {renderHtml} from "../../../../src/lib/renderHtml";
+import {renderHtml} from "../../../../src/lib/renderHtml.js";
 
 describe("renderHtml", function () {
-    let stubPugLocalsBuilder;
-    let stubRenderLocals;
-    let stubPrintableComponent;
-    let stubPrintableStylesPath;
-    let stubPrintable;
-
-    beforeEach(function () {
-        stubPugLocalsBuilder = sinon.stub().returns({
-            woof: "meow"
-        });
-        sinon.stub(buildPugLocalsModule, "buildPugLocalsBuilder").returns(stubPugLocalsBuilder);
-        sinon.stub(pug, "renderFile").returns("grr");
-
-        stubRenderLocals = {
-            rawr: 1
-        };
-        stubPrintableComponent = {
-            argh: 2
-        };
-        stubPrintableStylesPath = "/foo/bar";
-        stubPrintable = {
-            ugh: 3
-        };
-    });
-
     afterEach(function () {
-        buildPugLocalsModule.buildPugLocalsBuilder.restore();
-        pug.renderFile.restore();
+        sinon.restore();
     });
 
     it("calls `pug.renderFile` with the correct arguments", function () {
-        const pugLocalsBuilder = renderHtml({
-            printableComponent: stubPrintableComponent,
-            printableStylesPath: stubPrintableStylesPath,
-            printable: stubPrintable
-        });
-        expect(pugLocalsBuilder).to.be.instanceof(Function);
-        expect(buildPugLocalsModule.buildPugLocalsBuilder.calledOnce).to.be.ok;
-        sinon.assert.calledWith(buildPugLocalsModule.buildPugLocalsBuilder, {
-            printableComponent: stubPrintableComponent,
-            printableStylesPath: stubPrintableStylesPath,
-            printable: stubPrintable
-        });
+        const PrintableComponent = ({rawr}) => React.createElement("div", null, `woof ${rawr}`);
+        sinon.stub(pug, "renderFile").returns("grr");
 
-        const renderedHtml = pugLocalsBuilder(stubRenderLocals);
+        const renderedHtml = renderHtml({
+            printableComponent: PrintableComponent,
+            printableStylesPath: path.resolve("test/resources/styles.css"),
+            printable: {ugh: 3}
+        })({rawr: 1, printable: {ugh: 3}});
+
         expect(renderedHtml).to.eql("grr");
-        expect(stubPugLocalsBuilder.calledOnce).to.be.ok;
-        sinon.assert.calledWith(stubPugLocalsBuilder, stubRenderLocals);
         expect(pug.renderFile.calledOnce).to.be.ok;
-        sinon.assert.calledWith(pug.renderFile, path.resolve(require.resolve("@randy.tarampi/views"), "../../templates/index.pug"), {woof: "meow"});
+
+        const [templatePath, locals] = pug.renderFile.firstCall.args;
+        expect(templatePath).to.eql(path.resolve("../views/templates/index.pug"));
+        expect(locals).to.contain({
+            environment: "printable",
+            rawr: 1
+        });
+        expect(locals.content).to.contain("woof 1");
+        expect(locals.css).to.contain("body");
+        expect(locals.printable).to.eql({ugh: 3});
     });
 });

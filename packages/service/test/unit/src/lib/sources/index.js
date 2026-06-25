@@ -1,18 +1,23 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import AuthInfo from "../../../../../src/lib/authInfo";
-import sources, {initializeSources} from "../../../../../src/lib/sources";
-import {FacebookSource} from "../../../../../src/lib/sources/facebook";
-import {InstagramSource} from "../../../../../src/lib/sources/instagram";
-import {TwitterSource} from "../../../../../src/lib/sources/twitter";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const AuthInfo = require("../../../../../src/lib/authInfo.js");
+const sources = require("../../../../../src/lib/sources/index.js");
+const {initializeSources} = sources;
+const {FacebookSource} = require("../../../../../src/lib/sources/facebook/index.js");
+const {InstagramSource} = require("../../../../../src/lib/sources/instagram/index.js");
+const {TwitterSource} = require("../../../../../src/lib/sources/twitter/index.js");
 
 describe("sources", function () {
     describe("initializeSources", function () {
         let stubFacebookAuthInfoClientGetter;
         let stubInstagramAuthInfoClientGetter;
         let stubTwitterAuthInfoClientGetter;
+        let originalFlickrApiKey;
 
         beforeEach(function () {
+            originalFlickrApiKey = process.env.FLICKR_API_KEY;
+            process.env.FLICKR_API_KEY = "flickr-key";
+
             class StubFacebookAuthInfoClient {
                 getRecords(searchParams) {
                     try {
@@ -56,6 +61,11 @@ describe("sources", function () {
             stubFacebookAuthInfoClientGetter.restore();
             stubInstagramAuthInfoClientGetter.restore();
             stubTwitterAuthInfoClientGetter.restore();
+            if (typeof originalFlickrApiKey === "undefined") {
+                delete process.env.FLICKR_API_KEY;
+            } else {
+                process.env.FLICKR_API_KEY = originalFlickrApiKey;
+            }
         });
 
         it("returns initialized sources", function () {
@@ -129,3 +139,4 @@ describe("sources", function () {
         });
     });
 });
+module.exports.default = module.exports;

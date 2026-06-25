@@ -1,9 +1,15 @@
-const path = require("path");
-process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
+import {createRequire} from "module";
+import {dirname, join} from "path";
+import {fileURLToPath} from "url";
+import util from "./util.js";
+
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const util = require("./util");
 
 const {
     isDevelopment,
@@ -23,7 +29,7 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
     );
 }
 
-module.exports = ({
+export default ({
                       sourceDirectoryPath,
                       compliationDirectoryPath,
                       plugins: otherPlugins = [],

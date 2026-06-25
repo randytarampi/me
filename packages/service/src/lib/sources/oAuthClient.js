@@ -1,6 +1,6 @@
-import {OAuth} from "oauth";
+const {OAuth} = require("oauth");
 
-export class OAuthClient {
+class OAuthClient {
     constructor(requestUrl, tokenUrl) {
         this.requestUrl = requestUrl;
         this.tokenUrl = tokenUrl;
@@ -64,4 +64,6 @@ export class OAuthClient {
     }
 }
 
-export default OAuthClient;
+module.exports = OAuthClient;
+module.exports.OAuthClient = OAuthClient;
+module.exports.default = module.exports;

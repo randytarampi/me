@@ -3,7 +3,7 @@ import * as exiftoolModule from "exiftool-vendored";
 import path from "path";
 import puppeteer from "puppeteer";
 import sinon from "sinon";
-import renderPdf from "../../../../src/lib/renderPdf";
+import renderPdf from "../../../../src/lib/renderPdf.js";
 
 describe("renderPdf", function () {
     const PRINTABLE_PUPPETEER_NO_SANDBOX = process.env.PRINTABLE_PUPPETEER_NO_SANDBOX;

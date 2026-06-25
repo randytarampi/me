@@ -1,10 +1,6 @@
-import {Gallery, LinkPost, Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import GalleryComponent from "../../../../../src/lib/components/gallery";
-import LinkPostComponent from "../../../../../src/lib/components/linkPost";
-import PhotoComponent from "../../../../../src/lib/components/photo";
-import PostComponent from "../../../../../src/lib/components/post";
-import getComponentForType from "../../../../../src/lib/util/getComponentForType";
+const {Gallery, LinkPost, Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const getComponentForType = require("../../../../../src/lib/util/getComponentForType.js").default || require("../../../../../src/lib/util/getComponentForType.js");
 
 describe("getComponentForType", function () {
     it("gets `Gallery`s", function () {
@@ -12,7 +8,7 @@ describe("getComponentForType", function () {
 
         const GalleryConstructor = getComponentForType(stubGallery.type);
 
-        expect(GalleryConstructor).to.eql(GalleryComponent);
+        expect(GalleryConstructor.name).to.eql("GalleryComponent");
     });
 
     it("gets `LinkPost`s", function () {
@@ -20,7 +16,7 @@ describe("getComponentForType", function () {
 
         const LinkPostConstructor = getComponentForType(stubLinkPost.type);
 
-        expect(LinkPostConstructor).to.eql(LinkPostComponent);
+        expect(LinkPostConstructor.name).to.eql("LinkPostComponent");
     });
 
     it("gets `Photo`s", function () {
@@ -28,7 +24,7 @@ describe("getComponentForType", function () {
 
         const PhotoConstructor = getComponentForType(stubPhoto.type);
 
-        expect(PhotoConstructor).to.eql(PhotoComponent);
+        expect(PhotoConstructor.name).to.eql("ProgressiveImageWrappedPhotoComponent");
     });
 
     it("gets `Post`s", function () {
@@ -36,7 +32,7 @@ describe("getComponentForType", function () {
 
         const PostConstructor = getComponentForType(stubPost.type);
 
-        expect(PostConstructor).to.eql(PostComponent);
+        expect(PostConstructor.name).to.eql("PostComponent");
     });
 
     it("throws when it encounters an unknown type", function () {

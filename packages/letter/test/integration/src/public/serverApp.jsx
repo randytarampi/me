@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import App from "../../../../src/public/views/serverApp";
+import App from "../../../../src/public/views/serverApp.jsx";
 
 describe("serverApp", function () {
     it("renders", function () {

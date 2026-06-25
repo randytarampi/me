@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {AuthInfoSearchParams} from "../../../../../src/lib/authInfoSearchParams";
-import sinon from "sinon";
-import {freshRequire} from "../../../../lib/freshRequire";
+const {expect} = require("chai");
+const {AuthInfoSearchParams} = require("../../../../../src/lib/authInfoSearchParams.js");
+const sinon = require("sinon");
+const {loadEsmock, purgeEsmock} = require("../../../../lib/loadEsmock.js");
 
 describe("OAuthClient", function () {
     let stubRequestUrl;
@@ -96,15 +96,22 @@ describe("OAuthClient", function () {
 
     afterEach(function () {
         sinon.restore();
+        purgeEsmock();
     });
+
+    const loadOAuthClient = async oauthMock => {
+        const esmock = await loadEsmock();
+        return (await esmock("../../../../../src/lib/sources/oAuthClient.js", {
+            oauth: oauthMock
+        })).default;
+    };
 
     describe("getRequestToken", function () {
         it("delegates to `OAuth` with the correct parameters", async function () {
-            const oauth = freshRequire("oauth");
-            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuth(...args);
             });
-            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const OAuthClient = await loadOAuthClient({OAuth});
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getRequestToken(new AuthInfoSearchParams({
@@ -118,11 +125,10 @@ describe("OAuthClient", function () {
         });
 
         it("handles errors (callback)", async function () {
-            const oauth = freshRequire("oauth");
-            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithCallbackErrors(...args);
             });
-            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const OAuthClient = await loadOAuthClient({OAuth});
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getRequestToken(new AuthInfoSearchParams({
@@ -137,11 +143,10 @@ describe("OAuthClient", function () {
         });
 
         it("handles errors (OAuth)", async function () {
-            const oauth = freshRequire("oauth");
-            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithErrors(...args);
             });
-            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const OAuthClient = await loadOAuthClient({OAuth});
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getRequestToken(new AuthInfoSearchParams({
@@ -158,11 +163,10 @@ describe("OAuthClient", function () {
 
     describe("getAccessToken", function () {
         it("delegates to `OAuth` with the correct parameters", async function () {
-            const oauth = freshRequire("oauth");
-            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuth(...args);
             });
-            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const OAuthClient = await loadOAuthClient({OAuth});
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getAccessToken(new AuthInfoSearchParams({
@@ -179,11 +183,10 @@ describe("OAuthClient", function () {
         });
 
         it("handles errors (callback)", async function () {
-            const oauth = freshRequire("oauth");
-            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithCallbackErrors(...args);
             });
-            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const OAuthClient = await loadOAuthClient({OAuth});
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getAccessToken(new AuthInfoSearchParams({
@@ -201,11 +204,10 @@ describe("OAuthClient", function () {
         });
 
         it("handles errors (OAuth)", async function () {
-            const oauth = freshRequire("oauth");
-            sinon.stub(oauth, "OAuth").callsFake(function (...args) {
+            const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithErrors(...args);
             });
-            const OAuthClient = freshRequire("../../../../../src/lib/sources/oAuthClient").default;
+            const OAuthClient = await loadOAuthClient({OAuth});
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getAccessToken(new AuthInfoSearchParams({
@@ -223,3 +225,4 @@ describe("OAuthClient", function () {
         });
     });
 });
+module.exports.default = module.exports;

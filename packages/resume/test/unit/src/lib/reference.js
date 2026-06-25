@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Reference from "../../../../src/lib/reference";
+import Reference from "../../../../src/lib/reference.js";
 
 describe("Reference", function () {
     let stubReferenceJs;

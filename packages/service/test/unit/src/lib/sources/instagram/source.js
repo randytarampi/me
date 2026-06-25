@@ -1,12 +1,12 @@
-import {Gallery, Photo, timedPromise} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {DateTime} from "luxon";
-import sinon from "sinon";
-import PostSearchParams from "../../../../../../src/lib/postSearchParams";
-import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram";
-import proxyquiredInstagramSource from "../../../../../../src/lib/sources/instagram/source";
-import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
-import path from "path";
+const {Gallery, Photo, timedPromise} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {DateTime} = require("luxon");
+const sinon = require("sinon");
+const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
+const {InstagramAuthInfo} = require("../../../../../../src/lib/sources/instagram/index.js");
+const proxyquiredInstagramSource = require("../../../../../../src/lib/sources/instagram/source.js");
+const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+const path = require("path");
 
 let esmock;
 const cleanupEsmockGlobals = () => {
@@ -377,3 +377,4 @@ describe("InstagramSource", function () {
         });
     });
 });
+module.exports.default = module.exports;

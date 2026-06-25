@@ -1,4 +1,4 @@
-import mount from "./mount";
+import mount from "./mount.js";
 
 export const shallow = mount;
 

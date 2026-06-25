@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {formatNumber} from "libphonenumber-js";
-import Organization from "../../../../src/lib/organization";
-import PostalAddress from "../../../../src/lib/postalAddress";
+import Organization from "../../../../src/lib/organization.js";
+import PostalAddress from "../../../../src/lib/postalAddress.js";
 
 describe("Organization", function () {
     let stubOrganizationJson;

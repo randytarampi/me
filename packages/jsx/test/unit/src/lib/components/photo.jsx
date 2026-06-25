@@ -1,10 +1,11 @@
-import {Photo as PhotoEntity} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import configureStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import ProgressiveImageWrappedPhotoComponent, {PhotoComponent} from "../../../../../src/lib/components/photo";
+const {Photo as PhotoEntity} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const configureStore = require("redux-mock-store");
+const {Provider} = require("react-redux");
+const ProgressiveImageWrappedPhotoComponent = require("../../../../../src/lib/components/photo.jsx").default || require("../../../../../src/lib/components/photo.jsx");
+const {PhotoComponent} = require("../../../../../src/lib/components/photo.jsx");
 
 describe("Photo", function () {
     let stubPhoto;

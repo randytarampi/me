@@ -1,9 +1,9 @@
-import {compositeKeySeparator} from "@randy.tarampi/js";
-import {DateTime} from "luxon";
-import logger from "../serverless/logger.js";
-import CacheClient from "./cacheClient.js";
-import DataSource from "./dataSource.js";
-import PostSearchParams from "./postSearchParams.js";
+const {compositeKeySeparator} = require("@randy.tarampi/js");
+const {DateTime} = require("luxon");
+const logger = require("../serverless/logger.js");
+const CacheClient = require("./cacheClient.js");
+const DataSource = require("./dataSource.js");
+const PostSearchParams = require("./postSearchParams.js");
 
 /**
  * A generic data source that fetches [Record(s)]{@link Record} from some service or some cache, whichever returns first
@@ -292,4 +292,5 @@ class CachedDataSource extends DataSource {
     }
 }
 
-export default CachedDataSource;
+module.exports = CachedDataSource;
+module.exports.default = module.exports;

@@ -1,2 +1,2 @@
-export * from "./html";
-export * from "./pdf";
+export * from "./html.js";
+export * from "./pdf.js";

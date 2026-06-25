@@ -1,8 +1,10 @@
-import logger from "../logger.js";
+const logger = require("../logger.js");
 
-export const callbackOnWarmup = (event, context, callback) => {
+const callbackOnWarmup = (event, context, callback) => {
     logger.debug("%s@%s warmed up request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
     return callback(null, "Lambda is warm!");
 };
 
-export default callbackOnWarmup;
+module.exports = callbackOnWarmup;
+module.exports.callbackOnWarmup = callbackOnWarmup;
+module.exports.default = module.exports;

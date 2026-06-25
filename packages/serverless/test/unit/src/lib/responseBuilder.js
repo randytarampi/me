@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import mime from "mime-types";
-import {responseBuilder} from "../../../../src/lib/responseBuilder";
+import {responseBuilder} from "../../../../src/lib/responseBuilder.js";
 
 describe("responseBuilder", function () {
     it("builds a response", function () {

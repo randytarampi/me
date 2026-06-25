@@ -1,4 +1,4 @@
-import * as api from "@randy.tarampi/jsx/src/lib/data/api";
+import * as api from "@randy.tarampi/jsx/src/lib/data/api.js";
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import {Map} from "immutable";
@@ -8,8 +8,8 @@ import configureStore from "redux-mock-store";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
 import {thunk} from "redux-thunk";
-import * as fetchLetter from "../../../../../src/lib/actions/fetchLetter";
-import selectors from "../../../../../src/lib/data/selectors";
+import * as fetchLetter from "../../../../../src/lib/actions/fetchLetter.js";
+import selectors from "../../../../../src/lib/data/selectors.js";
 
 describe("ConnectedLetter", function () {
     let mockStore;

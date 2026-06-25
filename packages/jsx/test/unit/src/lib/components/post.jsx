@@ -1,10 +1,11 @@
-import {Post as PostEntity} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import configureStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import Post, {
+const {Post as PostEntity} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const configureStore = require("redux-mock-store");
+const {Provider} = require("react-redux");
+const Post = require("../../../../../src/lib/components/post.jsx").default || require("../../../../../src/lib/components/post.jsx");
+const {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
     PostDateCreatedComponent,
@@ -13,7 +14,7 @@ import Post, {
     PostMapComponent,
     PostTagsComponent,
     PostTitleComponent
-} from "../../../../../src/lib/components/post";
+} = require("../../../../../src/lib/components/post.jsx");
 
 describe("Post", function () {
     let stubPost;

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import {assemblePrintable} from "./assemblePrintable";
+import {assemblePrintable} from "./assemblePrintable.js";
 
 export const assemblePrintables = printableBuilder => {
     const printableAssembler = assemblePrintable(printableBuilder);

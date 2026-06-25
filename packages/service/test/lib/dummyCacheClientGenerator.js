@@ -1,7 +1,7 @@
-import CacheClient from "../../src/lib/cacheClient";
-import DummyDataClientGenerator from "./dummyDataClientGenerator";
+const CacheClient = require("../../src/lib/cacheClient.js");
+const DummyDataClientGenerator = require("./dummyDataClientGenerator.js");
 
-export const DummyCacheClientGenerator = ({
+const DummyCacheClientGenerator = ({
                     dummyDataClientStubs
                 }) => {
     const DummyDataClient = DummyDataClientGenerator(dummyDataClientStubs);
@@ -13,4 +13,6 @@ export const DummyCacheClientGenerator = ({
     };
 };
 
-export default DummyCacheClientGenerator;
+module.exports = DummyCacheClientGenerator;
+module.exports.DummyCacheClientGenerator = DummyCacheClientGenerator;
+module.exports.default = module.exports;

@@ -1,2 +1,2 @@
-import "../src/lib";
-import "../src";
+import "../src/lib/index.js";
+import "../src/index.js";

@@ -1,3 +1,5 @@
-export * from "./lib";
+import {readFileSync} from "fs";
 
-export {default as defaultResumeJson} from "./resumes/resume.json";
+export * from "./lib/index.js";
+
+export const defaultResumeJson = JSON.parse(readFileSync("src/resumes/resume.json", "utf8"));

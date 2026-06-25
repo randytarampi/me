@@ -1,13 +1,13 @@
-import {expect} from "chai";
-import {fromJS} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import {
+const {expect} = require("chai");
+const {fromJS} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const {
     HANDLE_GOOGLE_MAP_TILT_CHANGED,
     onGoogleMapTiltChangedCreator,
     UPDATE_MAP
-} from "../../../../../../../src/lib/actions/map";
+} = require("../../../../../../../src/lib/actions/map/index.js");
 
 describe("onGoogleMapTiltChanged", function () {
     let mockStore;

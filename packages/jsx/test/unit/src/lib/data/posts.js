@@ -1,11 +1,12 @@
-import {Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {fromJS, Map} from "immutable";
-import {DateTime} from "luxon";
-import {createAction} from "redux-actions";
-import {REHYDRATE} from "redux-persist";
-import {fetchingPostsSuccess} from "../../../../../src/lib/actions/posts/fetchPosts";
-import reducer, {
+const {Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {fromJS, Map} = require("immutable");
+const {DateTime} = require("luxon");
+const {createAction} = require("redux-actions");
+const {REHYDRATE} = require("redux-persist");
+const {fetchingPostsSuccess} = require("../../../../../src/lib/actions/posts/fetchPosts.js");
+const reducer = require("../../../../../src/lib/data/posts.js").default || require("../../../../../src/lib/data/posts.js");
+const {
     getNewestAvailablePostDateForSearchTypeAndPostType,
     getNewestFetchedPostDateForSearchTypeAndPostType,
     getNewestPost,
@@ -22,7 +23,7 @@ import reducer, {
     getPostsSortedByDateForBoundingBox,
     getWordPosts,
     getWordPostsSortedByDate
-} from "../../../../../src/lib/data/posts";
+} = require("../../../../../src/lib/data/posts.js");
 
 describe("posts", function () {
     let stubInitialState;

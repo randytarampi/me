@@ -1,20 +1,8 @@
-import {
-    castDatePropertyToDateTime,
-    compositeKeySeparator,
-    convertLatLongToGeohash,
-    Gallery,
-    getGeohashesForBoundingBox,
-    getGeohashesForRadiusAroundGeohash,
-    getGeohashesForRadiusAroundPoint,
-    getHaversineDistance,
-    Photo,
-    Post,
-    POST_STATUS
-} from "@randy.tarampi/js";
-import {Big} from "big.js";
-import {Record} from "immutable";
-import _ from "lodash";
-import {DateTime, Duration} from "luxon";
+const {castDatePropertyToDateTime, compositeKeySeparator, convertLatLongToGeohash, Gallery, getGeohashesForBoundingBox, getGeohashesForRadiusAroundGeohash, getGeohashesForRadiusAroundPoint, getHaversineDistance, Photo, Post, POST_STATUS} = require("@randy.tarampi/js");
+const {Big} = require("big.js");
+const {Record} = require("immutable");
+const _ = require("lodash");
+const {DateTime, Duration} = require("luxon");
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -70,10 +58,11 @@ const PostSearchParamsRecord = Record(searchParamsRecordDefinition);
  * @extends PostSearchParamsRecord
  */
 class PostSearchParams extends PostSearchParamsRecord {
-    constructor({beforeDate, width, height, page, perPage, lat, long, north, east, south, west, ...properties} = {}) {
+    constructor({beforeDate, afterDate, width, height, page, perPage, lat, long, north, east, south, west, ...properties} = {}) {
         super({
             ...properties,
             beforeDate: castDatePropertyToDateTime(beforeDate),
+            afterDate: castDatePropertyToDateTime(afterDate),
             width: width && Number(width),
             height: height && Number(height),
             perPage: perPage ? Number(perPage) : 100,
@@ -612,7 +601,7 @@ class PostSearchParams extends PostSearchParamsRecord {
  * @param orderComparatorType {string} Defines the intended JS object for `orderComparator`
  * @returns {*}
  */
-export const castOrderComparator = (orderComparator, orderComparatorType) => {
+const castOrderComparator = (orderComparator, orderComparatorType) => {
     switch (orderComparatorType) {
         case "String":
             return orderComparator && orderComparator.toString();
@@ -643,7 +632,7 @@ export const castOrderComparator = (orderComparator, orderComparatorType) => {
  * @param rightSideComparator {*}
  * @returns {boolean}
  */
-export const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideComparator) => {
+const computeOrderingComparison = (orderOperator, leftSideComparator, rightSideComparator) => {
     switch (orderOperator) {
         case "lt":
             return leftSideComparator < rightSideComparator;
@@ -669,7 +658,7 @@ export const computeOrderingComparison = (orderOperator, leftSideComparator, rig
  * @param relativeOrderComparatorAdjustment {*}
  * @returns {*}
  */
-export const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (relativeOrderComparatorAdjustmentOperator, relativeOrderComparatorBasis, relativeOrderComparatorAdjustment) => {
+const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (relativeOrderComparatorAdjustmentOperator, relativeOrderComparatorBasis, relativeOrderComparatorAdjustment) => {
     switch (relativeOrderComparatorAdjustmentOperator) {
         case "DateTime.minus":
             return relativeOrderComparatorBasis.minus(relativeOrderComparatorAdjustment);
@@ -679,4 +668,8 @@ export const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (rela
     }
 };
 
-export default PostSearchParams;
+module.exports = PostSearchParams;
+module.exports.castOrderComparator = castOrderComparator;
+module.exports.computeOrderingComparison = computeOrderingComparison;
+module.exports.computeOrderComparatorFromRelativeOrderComparatorAdjustment = computeOrderComparatorFromRelativeOrderComparatorAdjustment;
+module.exports.default = module.exports;

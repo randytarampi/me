@@ -1,1 +1,1 @@
-import "../src/index.server";
+export {};

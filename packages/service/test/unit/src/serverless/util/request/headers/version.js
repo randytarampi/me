@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import * as versionHeader from "../../../../../../../src/serverless/util/request/headers/version";
+const {expect} = require("chai");
+const versionHeader = require("../../../../../../../src/serverless/util/request/headers/version.js");
 
 describe("version", function () {
     describe("headerName", function () {
@@ -100,3 +100,4 @@ describe("version", function () {
         });
     });
 });
+module.exports.default = module.exports;

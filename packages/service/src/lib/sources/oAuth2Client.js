@@ -1,6 +1,6 @@
-import FormData from "form-data";
+const FormData = require("form-data");
 
-export class OAuth2Client {
+class OAuth2Client {
     constructor(tokenUrl) {
         this.tokenUrl = tokenUrl;
     }
@@ -23,4 +23,6 @@ export class OAuth2Client {
     }
 }
 
-export default OAuth2Client;
+module.exports = OAuth2Client;
+module.exports.OAuth2Client = OAuth2Client;
+module.exports.default = module.exports;

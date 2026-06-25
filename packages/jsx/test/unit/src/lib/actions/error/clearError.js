@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import clearError, {CLEAR_ERROR} from "../../../../../../src/lib/actions/error/clearError";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const clearError = require("../../../../../../src/lib/actions/error/clearError.js").default || require("../../../../../../src/lib/actions/error/clearError.js");
+const {CLEAR_ERROR} = require("../../../../../../src/lib/actions/error/clearError.js");
 
 describe("clearError", function () {
     let mockStore;

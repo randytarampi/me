@@ -1,4 +1,4 @@
-import {BearGenerator, defaultBearComponents} from "./bear";
+import {BearGenerator, defaultBearComponents} from "./bear.js";
 
 const defaultComponents = {
     ...defaultBearComponents,

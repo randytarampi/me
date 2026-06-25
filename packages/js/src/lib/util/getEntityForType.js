@@ -1,7 +1,7 @@
-import {Gallery} from "../gallery";
-import {LinkPost} from "../linkPost";
-import {Photo} from "../photo";
-import {Post} from "../post";
+import {Gallery} from "../gallery.js";
+import {LinkPost} from "../linkPost.js";
+import {Photo} from "../photo.js";
+import {Post} from "../post.js";
 
 export const POST_ENTITIES = [Post, Photo, Gallery, LinkPost];
 export const POST_ENTITIES_MAP = POST_ENTITIES.reduce((entitiesMap, entity) => {

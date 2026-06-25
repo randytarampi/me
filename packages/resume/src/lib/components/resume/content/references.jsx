@@ -2,7 +2,7 @@ import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import {ResumeCustomContent} from "../../../resumeCustomContent";
+import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
 export const ResumeReferences = ({resume, customContent, type, label}) => {
     return <PrintableSection

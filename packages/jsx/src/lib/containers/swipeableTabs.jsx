@@ -1,7 +1,7 @@
 import React from "react";
 import {Tabs} from "react-materialize";
 import {connect} from "react-redux";
-import {swipeableTabChangeIndexCreator} from "../actions";
+import {swipeableTabChangeIndexCreator} from "../actions/index.js";
 
 export const ConnectedSwipeableTabs = connect(
     null,

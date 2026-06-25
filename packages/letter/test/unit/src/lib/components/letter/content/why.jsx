@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import LetterWhy from "../../../../../../../src/lib/components/letter/content/why";
-import LetterEntity from "../../../../../../../src/lib/letter";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterWhy from "../../../../../../../src/lib/components/letter/content/why.jsx";
+import LetterEntity from "../../../../../../../src/lib/letter.js";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterWhy", function () {
     let stubContentConfiguration;

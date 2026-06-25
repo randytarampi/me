@@ -1,14 +1,9 @@
-import {expect} from "chai";
-import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
-import {freshRequire} from "../../../../../lib/freshRequire";
-
-let twitterModulePath;
+const {expect} = require("chai");
+const {AuthInfoSearchParams} = require("../../../../../../src/lib/authInfoSearchParams.js");
+const {loadEsmock, purgeEsmock} = require("../../../../../lib/loadEsmock.js");
 
 afterEach(function () {
-    if (twitterModulePath) {
-        delete require.cache[twitterModulePath];
-        twitterModulePath = undefined;
-    }
+    purgeEsmock();
 });
 
 describe("util", function () {
@@ -26,21 +21,14 @@ describe("util", function () {
             }
         }
 
-        twitterModulePath = require.resolve("twitter", {paths: [__dirname]});
-        require.cache[twitterModulePath] = {
-            id: twitterModulePath,
-            filename: twitterModulePath,
-            loaded: true,
-            exports: {
-                __esModule: true,
+        const esmock = await loadEsmock();
+        const {getTwitterClientForSearchParams} = await esmock("../../../../../../src/lib/sources/twitter/util.js", {
+            twitter: {
                 default: StubTwitterClient
             }
-        };
-
-        const {getTwitterClientForSearchParams} = freshRequire("../../../../../../src/lib/sources/twitter/util");
+        });
 
         expect(getTwitterClientForSearchParams(stubTwitterConfig)).to.be.instanceof(StubTwitterClient);
-
-        delete require.cache[twitterModulePath];
     });
 });
+module.exports.default = module.exports;

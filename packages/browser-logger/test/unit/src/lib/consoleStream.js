@@ -1,10 +1,18 @@
+import {JSDOM} from "jsdom";
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
 import {nameFromLevel} from "browser-bunyan";
 import {expect} from "chai";
 import sinon from "sinon";
-import ConsoleStream from "../../../../src/lib/consoleStream";
+import ConsoleStream from "../../../../src/lib/consoleStream.js";
 
 describe("ConsoleStream", function () {
+    const globalWindow = global.window || new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"}).window;
+
+    if (!global.window) {
+        global.window = globalWindow;
+        global.document = globalWindow.document;
+    }
+
     let bears;
 
     beforeEach(function () {
@@ -107,7 +115,7 @@ describe("ConsoleStream", function () {
     });
 
     describe("consoleLoggerFromLevel", function () {
-        const window = global.window;
+        const window = globalWindow;
         const console = window.console;
 
         beforeEach(function () {
@@ -183,7 +191,7 @@ describe("ConsoleStream", function () {
     });
 
     describe("write", function () {
-        const window = global.window;
+        const window = globalWindow;
         const console = window.console;
         let stubRecord;
 

@@ -1,9 +1,9 @@
-import api from "./api";
-import emoji from "./emoji";
-import error from "./error";
-import maps from "./maps";
-import posts from "./posts";
-import ui from "./ui";
+import api from "./api.js";
+import emoji from "./emoji.js";
+import error from "./error.js";
+import maps from "./maps.js";
+import posts from "./posts.js";
+import ui from "./ui.js";
 
 export const reducers = {
     api,

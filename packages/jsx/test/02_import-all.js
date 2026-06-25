@@ -1,1 +1,1 @@
-import "../src/index.server";
+require("../es5/index.client.js");

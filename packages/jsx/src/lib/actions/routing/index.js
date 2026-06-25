@@ -1,3 +1,3 @@
-export * from "./setRoutes";
-export * from "./swipeableChangeIndex";
-export * from "./swipeableTabChangeIndex";
+export * from "./setRoutes.js";
+export * from "./swipeableChangeIndex.js";
+export * from "./swipeableTabChangeIndex.js";

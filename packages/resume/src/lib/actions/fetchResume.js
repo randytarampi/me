@@ -1,7 +1,8 @@
-import {isUrlStateLoading, setErrorCreator} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {isUrlStateLoading} from "@randy.tarampi/jsx/src/lib/data/api.js";
+import {setErrorCreator} from "@randy.tarampi/jsx/src/lib/actions/error/setError.js";
 import {createAction} from "redux-actions";
-import fetchResume, {buildFetchUrlForVariant} from "../api/fetchResume";
-import selectors from "../data/selectors";
+import fetchResume, {buildFetchUrlForVariant} from "../api/fetchResume.js";
+import selectors from "../data/selectors.js";
 
 export const FETCHING_RESUME_FAILURE = "FETCHING_RESUME_FAILURE";
 export const FETCHING_RESUME_SUCCESS = "FETCHING_RESUME_SUCCESS";

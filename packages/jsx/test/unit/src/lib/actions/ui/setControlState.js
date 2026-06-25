@@ -1,8 +1,8 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import {setControlStateCreator, SET_CONTROL_STATE} from "../../../../../../src/lib/actions/ui";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const {setControlStateCreator, SET_CONTROL_STATE} = require("../../../../../../src/lib/actions/ui/index.js");
 
 describe("setControlState", function () {
     let mockStore;

@@ -1,7 +1,7 @@
-import {GoogleMapComponent} from "./google";
+import {GoogleMapComponent} from "./google/index.jsx";
 
-export * from "./util";
-export * from "./google";
+export * from "./util.js";
+export * from "./google/index.jsx";
 
 export const MapComponent = GoogleMapComponent;
 

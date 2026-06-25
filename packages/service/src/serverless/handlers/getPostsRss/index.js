@@ -1,15 +1,15 @@
-import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
-import RssFeed from "../../../lib/rssFeed.js";
-import logger from "../../logger.js";
-import callbackOnWarmup from "../../util/callbackOnWarmup.js";
-import configureEnvironment from "../../util/configureEnvironment.js";
-import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters.js";
-import parseHeaders from "../../util/request/parseHeaders.js";
-import parseQuerystringParameters from "../../util/request/parseQuerystringParameters.js";
-import buildRssResponse from "../../util/response/buildRssResponse.js";
-import returnErrorResponse from "../../util/response/returnErrorResponse.js";
+const {augmentUrlWithTrackingParams} = require("@randy.tarampi/js");
+const RssFeed = require("../../../lib/rssFeed.js").default || require("../../../lib/rssFeed.js");
+const logger = require("../../logger.js");
+const callbackOnWarmup = require("../../util/callbackOnWarmup.js").default || require("../../util/callbackOnWarmup.js");
+const configureEnvironment = require("../../util/configureEnvironment.js").default || require("../../util/configureEnvironment.js");
+const getPostsForParsedQuerystringParameters = require("../../util/getPostsForParsedQuerystringParameters.js").default || require("../../util/getPostsForParsedQuerystringParameters.js");
+const parseHeaders = require("../../util/request/parseHeaders.js").default || require("../../util/request/parseHeaders.js");
+const parseQuerystringParameters = require("../../util/request/parseQuerystringParameters.js").default || require("../../util/request/parseQuerystringParameters.js");
+const buildRssResponse = require("../../util/response/buildRssResponse.js").default || require("../../util/response/buildRssResponse.js");
+const returnErrorResponse = require("../../util/response/returnErrorResponse.js").default || require("../../util/response/returnErrorResponse.js");
 
-export default (event, context, callback) => {
+module.exports = (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
     if (event.source === "serverless-plugin-warmup") {
@@ -55,3 +55,4 @@ export default (event, context, callback) => {
         .then(rss => callback(null, buildRssResponse({rss}, parsedHeaders)))
         .catch(errorHandler);
 };
+module.exports.default = module.exports;

@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {LOCATION_CHANGE} from "redux-first-history";
-import sinon from "sinon";
-import router from "../../../../../src/lib/middleware/router";
+const {expect} = require("chai");
+const {LOCATION_CHANGE} = require("redux-first-history");
+const sinon = require("sinon");
+const router = require("../../../../../src/lib/middleware/router.js").default || require("../../../../../src/lib/middleware/router.js");
 
 describe("router", function () {
     it("dispatches `clearError` on `LOCATION_CHANGE`", function () {

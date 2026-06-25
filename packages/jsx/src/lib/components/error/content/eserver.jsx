@@ -1,8 +1,8 @@
 import {DeadBear} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import React from "react";
-import {ConnectedBear} from "../../../containers/emoji/bear";
-import {EmailLink} from "../../link";
+import {ConnectedBear} from "../../../containers/emoji/bear/index.jsx";
+import {EmailLink} from "../../link/index.jsx";
 
 export const ErrorESERVERContentComponent = () => <ConnectedBear emoji={DeadBear.fromJS()} id="error-dead-bear">
     <h2 className="error__message--header">

@@ -1,7 +1,7 @@
-import Emoji from "./emoji";
+import Emoji from "./emoji.js";
 
-export * from "./emoji";
-export * from "./bear";
-export * from "./character";
+export * from "./emoji.js";
+export * from "./bear/index.js";
+export * from "./character.js";
 
 export default Emoji;

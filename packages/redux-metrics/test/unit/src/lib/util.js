@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {buildEventDetails, buildReduxActionEventDetails} from "../../../../src/lib/util";
+import {buildEventDetails, buildReduxActionEventDetails} from "../../../../src/lib/util.js";
 
 describe("util", function () {
     let clock;

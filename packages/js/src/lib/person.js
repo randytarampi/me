@@ -1,11 +1,11 @@
 import {Person as SchemaPerson} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber, parseNumber} from "libphonenumber-js";
-import Organization from "./organization";
-import Place from "./place";
-import PostalAddress from "./postalAddress";
-import Profile from "./profile";
-import {castDatePropertyToDateTime} from "./util";
+import Organization from "./organization.js";
+import Place from "./place.js";
+import PostalAddress from "./postalAddress.js";
+import Profile from "./profile.js";
+import {castDatePropertyToDateTime} from "./util/index.js";
 
 export class Person extends Record({
     honorificPrefix: null,

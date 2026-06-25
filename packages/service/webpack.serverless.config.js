@@ -1,11 +1,12 @@
 const path = require("path");
+const util = require("../../util.cjs");
+
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const SentryPlugin = require("webpack-sentry-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
-const util = require("../../util");
 
 const {
     isDevelopment,
@@ -98,3 +99,4 @@ module.exports = {
         extensions: [".js", ".jsx", ".json"]
     }
 };
+module.exports.default = module.exports;

@@ -1,13 +1,13 @@
-import AuthInfoModel from "../../../db/models/authInfo.js";
-import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo.js";
-import CacheClient from "../../cacheClient.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {OAuth2Client} from "../oAuth2Client.js";
-import {buildFacebookApiEdge, fetchFacebookEdge, type} from "./util.js";
+const AuthInfoModel = require("../../../db/models/authInfo.js");
+const {AUTH_INFO_TYPE, AuthInfo} = require("../../authInfo.js");
+const CacheClient = require("../../cacheClient.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {OAuth2Client} = require("../oAuth2Client.js");
+const facebookUtil = require("./util.js");
 
-export const FACEBOOK_TOKEN_URL = buildFacebookApiEdge("oauth/access_token");
+const FACEBOOK_TOKEN_URL = facebookUtil.buildFacebookApiEdge("oauth/access_token");
 
-export class FacebookAuthInfo extends CachedDataSource {
+class FacebookAuthInfo extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(
             dataClient || new OAuth2Client(FACEBOOK_TOKEN_URL),
@@ -16,7 +16,7 @@ export class FacebookAuthInfo extends CachedDataSource {
     }
 
     static get type() {
-        return type;
+        return facebookUtil.type;
     }
 
     static instanceToRecord(combinedResponse) {
@@ -45,7 +45,7 @@ export class FacebookAuthInfo extends CachedDataSource {
         return this.client.getAccessToken(searchParams)
             .then(tokenJson => {
                 if (tokenJson && tokenJson.access_token) {
-                    return fetchFacebookEdge("me", tokenJson.access_token)
+                    return facebookUtil.fetchFacebookEdge("me", tokenJson.access_token)
                         .then(userJson => this.constructor.instanceToRecord({
                             userJson,
                             tokenJson
@@ -57,4 +57,7 @@ export class FacebookAuthInfo extends CachedDataSource {
     }
 }
 
-export default FacebookAuthInfo;
+module.exports = FacebookAuthInfo;
+module.exports.FACEBOOK_TOKEN_URL = FACEBOOK_TOKEN_URL;
+module.exports.FacebookAuthInfo = FacebookAuthInfo;
+module.exports.default = module.exports;

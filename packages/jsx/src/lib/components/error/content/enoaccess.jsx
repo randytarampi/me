@@ -1,8 +1,8 @@
 import {DoubtBear} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import React from "react";
-import {ConnectedBear} from "../../../containers/emoji/bear";
-import {InternalLink} from "../../link/internal";
+import {ConnectedBear} from "../../../containers/emoji/bear/index.jsx";
+import {InternalLink} from "../../link/internal/index.jsx";
 
 export const ErrorENOACCESSContentComponent = props => <ConnectedBear emoji={DoubtBear.fromJS()} id="error-doubt-bear">
     <h2 className="error__message--header">

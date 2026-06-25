@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Emoji, {Character, defaultComponents} from "../../../../src/lib/emoji";
+import Emoji, {Character, defaultComponents} from "../../../../src/lib/emoji/index.js";
 
 describe("Emoji", () => {
     describe("fromJS", () => {

@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import setRoutes, {SET_ROUTES} from "../../../../../../src/lib/actions/routing/setRoutes";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const setRoutes = require("../../../../../../src/lib/actions/routing/setRoutes.js").default || require("../../../../../../src/lib/actions/routing/setRoutes.js");
+const {SET_ROUTES} = require("../../../../../../src/lib/actions/routing/setRoutes.js");
 
 describe("setRoutes", function () {
     let mockStore;

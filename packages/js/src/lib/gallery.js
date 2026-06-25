@@ -1,8 +1,8 @@
 import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
-import Photo from "./photo";
-import Post, {PostClassGenerator} from "./post";
-import {sortPhotosByWidth} from "./util";
+import Photo from "./photo.js";
+import Post, {PostClassGenerator} from "./post.js";
+import {sortPhotosByWidth} from "./util/index.js";
 
 export class Gallery extends PostClassGenerator({
     photos: List()

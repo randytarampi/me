@@ -1,7 +1,9 @@
-import "@randy.tarampi/jsx/src/lib/reactShim";
-import {JSDOM} from "jsdom";
-import "mock-local-storage";
-const packageJson = require("../package.json");
+require("@randy.tarampi/jsx/src/lib/reactShim.js");
+const {JSDOM} = require("jsdom");
+require("mock-local-storage");
+const {readFileSync} = require("fs");
+
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global.window = jsdom.window;

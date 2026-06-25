@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {metrics} from "react-metrics";
-import {ClientRoot} from "./clientRoot";
+import {ClientRoot} from "./clientRoot.jsx";
 import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
-import ReduxRoot from "./reduxRoot";
+import ReduxRoot from "./reduxRoot.jsx";
 
 export class ClientReduxRoot extends ClientRoot {
     render() {

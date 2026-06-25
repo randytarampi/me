@@ -1,13 +1,32 @@
 import {SentryStream} from "bunyan-sentry-stream";
 import {expect} from "chai";
+import {readFileSync} from "fs";
 import {JSDOM} from "jsdom";
 import raven from "raven-js";
 import sinon from "sinon";
-import {buildBunyanConfiguration, buildRavenConfiguration} from "../../../../src/lib";
-import ConsoleStream from "../../../../src/lib/consoleStream";
+import {buildBunyanConfiguration, buildRavenConfiguration} from "../../../../src/lib/index.js";
+import ConsoleStream from "../../../../src/lib/consoleStream.js";
+
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 describe("logger", function () {
-    const globalWindow = global.window;
+    const globalWindow = global.window || new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"}).window;
+
+    if (!global.window) {
+        global.window = globalWindow;
+        global.document = globalWindow.document;
+    }
+
+    globalWindow.NAME = packageJson.name;
+    globalWindow.VERSION = packageJson.version;
+    globalWindow.ENVIRONMENT = process.env.NODE_ENV;
+    globalWindow.SENTRY_DSN = "https://__VG_EMAIL_02e075afce7e__/woof";
+    globalWindow.LOGGER = {
+        level: "trace",
+        streams: {
+            console: true
+        }
+    };
 
     afterEach(function () {
         global.window = globalWindow;

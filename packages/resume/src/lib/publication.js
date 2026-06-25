@@ -1,4 +1,4 @@
-import {castDatePropertyToDateTime} from "@randy.tarampi/js";
+import {castDatePropertyToDateTime} from "../../../js/src/lib/util/index.js";
 import {Record} from "immutable";
 
 export class Publication extends Record({

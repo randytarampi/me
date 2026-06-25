@@ -19,3 +19,5 @@ const setupLocal = () => {
 module.exports = {
     setupLocal
 };
+module.exports.setupLocal = setupLocal;
+module.exports.default = module.exports;

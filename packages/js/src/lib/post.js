@@ -1,8 +1,8 @@
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
-import Place from "./place";
-import Profile from "./profile";
-import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util";
+import Place from "./place.js";
+import Profile from "./profile.js";
+import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util/index.js";
 
 export const POST_OVERRIDING_TAG_SENTINEL_REGEX = /❕([\w.]+)❔/;
 

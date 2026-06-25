@@ -1,19 +1,23 @@
 import {Person} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {List} from "immutable";
+import {createRequire} from "module";
+import path from "path";
+import Award from "../../../../src/lib/award.js";
+import Education from "../../../../src/lib/education.js";
+import Interest from "../../../../src/lib/interest.js";
+import Language from "../../../../src/lib/language.js";
+import Project from "../../../../src/lib/project.js";
+import Publication from "../../../../src/lib/publication.js";
+import Reference from "../../../../src/lib/reference.js";
+import Resume from "../../../../src/lib/resume.js";
+import Skill from "../../../../src/lib/skill.js";
+import Volunteer from "../../../../src/lib/volunteer.js";
+import Work from "../../../../src/lib/work.js";
+
+const require = createRequire(path.resolve("test/unit/src/lib/resume.js"));
 const packageJson = require("../../../../package");
-import Award from "../../../../src/lib/award";
-import Education from "../../../../src/lib/education";
-import Interest from "../../../../src/lib/interest";
-import Language from "../../../../src/lib/language";
-import Project from "../../../../src/lib/project";
-import Publication from "../../../../src/lib/publication";
-import Reference from "../../../../src/lib/reference";
-import Resume from "../../../../src/lib/resume";
-import Skill from "../../../../src/lib/skill";
-import Volunteer from "../../../../src/lib/volunteer";
-import Work from "../../../../src/lib/work";
-import testResumeJson from "../../../../src/resumes/some-awesome-company";
+const testResumeJson = require("../../../../src/resumes/some-awesome-company.json");
 
 describe("Resume", function () {
     let stubResumeJs;

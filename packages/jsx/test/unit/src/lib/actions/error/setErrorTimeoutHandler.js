@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import setErrorTimeoutHandler, {SET_ERROR_TIMEOUT_HANDLER} from "../../../../../../src/lib/actions/error/setErrorTimeoutHandler";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const setErrorTimeoutHandler = require("../../../../../../src/lib/actions/error/setErrorTimeoutHandler.js").default || require("../../../../../../src/lib/actions/error/setErrorTimeoutHandler.js");
+const {SET_ERROR_TIMEOUT_HANDLER} = require("../../../../../../src/lib/actions/error/setErrorTimeoutHandler.js");
 
 describe("setErrorTimeoutHandler", function () {
     let mockStore;

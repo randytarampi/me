@@ -1,4 +1,4 @@
-const baseLetter = require("../letters/letter.json");
+import baseLetter from "../letters/letter.json" with {type: "json"};
 import Letter from "./letter.js";
 
 export const buildLetter = (letterTemplate, id) => {

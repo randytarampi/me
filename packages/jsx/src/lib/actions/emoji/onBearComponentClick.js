@@ -1,8 +1,8 @@
 import {defaultBearComponents} from "@randy.tarampi/js";
 import {createAction} from "redux-actions";
-import selectors from "../../data/selectors";
-import onComponentClick from "./onComponentClick";
-import updateEmoji from "./updateEmoji";
+import selectors from "../../data/selectors.js";
+import onComponentClick from "./onComponentClick.js";
+import updateEmoji from "./updateEmoji.js";
 
 export const HANDLE_BEAR_COMPONENT_CLICK = "HANDLE_BEAR_COMPONENT_CLICK";
 

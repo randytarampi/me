@@ -1,9 +1,9 @@
-import {Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import DataSource from "../../../../src/lib/dataSource";
-import PostSearchParams from "../../../../src/lib/postSearchParams";
-import DummyDataSourceGenerator from "../../../lib/dummyDataSourceGenerator";
+const {Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const DataSource = require("../../../../src/lib/dataSource.js");
+const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
+const DummyDataSourceGenerator = require("../../../lib/dummyDataSourceGenerator.js");
 
 describe("DataSource", function () {
     let stubApiKey = undefined;
@@ -300,3 +300,4 @@ describe("DataSource", function () {
         });
     });
 });
+module.exports.default = module.exports;

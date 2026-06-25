@@ -1,11 +1,11 @@
-import {Post, POST_STATUS} from "@randy.tarampi/js";
-import _ from "lodash";
-import {DateTime} from "luxon";
-import {AuthInfo} from "../../authInfo.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
-import {TwitterAuthInfo} from "./authInfo.js";
-import {getTwitterClient, type} from "./util.js";
+const {Post, POST_STATUS} = require("@randy.tarampi/js");
+const _ = require("lodash");
+const {DateTime} = require("luxon");
+const {AuthInfo} = require("../../authInfo.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+const {TwitterAuthInfo} = require("./authInfo.js");
+const {getTwitterClient, type} = require("./util.js");
 
 const dateStringToDateTime = dateString => DateTime.fromFormat(dateString, "EEE MMM dd HH:mm:ss ZZZ yyyy");
 
@@ -132,7 +132,7 @@ const tweetJsonToLocationCreated = ({coordinates, place}) => {
     return null;
 };
 
-export class TwitterSource extends CachedDataSource {
+class TwitterSource extends CachedDataSource {
     constructor(dataClient, cacheClient, authInfo) {
         authInfo = authInfo || new AuthInfo({
             token: process.env.TWITTER_API_BEARER_TOKEN,
@@ -226,4 +226,6 @@ export class TwitterSource extends CachedDataSource {
     }
 }
 
-export default TwitterSource;
+module.exports = TwitterSource;
+module.exports.TwitterSource = TwitterSource;
+module.exports.default = module.exports;

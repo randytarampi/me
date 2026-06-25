@@ -1,6 +1,6 @@
 import {RequestError} from "@randy.tarampi/js";
 import {expect} from "chai";
-import {returnErrorResponseForLogger} from "../../../../src/lib/returnErrorResponseForLogger";
+import {returnErrorResponseForLogger} from "../../../../src/lib/returnErrorResponseForLogger.js";
 
 describe("returnErrorResponseForLogger", function () {
     it("handles `RequestError`s", function () {

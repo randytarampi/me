@@ -1,13 +1,19 @@
-import {Photo} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {JSDOM} from "jsdom";
-import computePostHeight, {
+const {Photo} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {JSDOM} = require("jsdom");
+const computePostHeight = require("../../../../../src/lib/util/computePostHeight.js").default || require("../../../../../src/lib/util/computePostHeight.js");
+const {
     WINDOW_LARGE_BREAKPOINT,
     WINDOW_LARGE_PHOTO_SCALE
-} from "../../../../../src/lib/util/computePostHeight";
+} = require("../../../../../src/lib/util/computePostHeight.js");
 
 describe("computePostHeight", function () {
-    const globalWindow = global.window;
+    const globalWindow = global.window || new JSDOM("<!doctype html><html><body></body></html>").window;
+
+    if (!global.window) {
+        global.window = globalWindow;
+        global.document = globalWindow.document;
+    }
 
     afterEach(function () {
         global.window = globalWindow;

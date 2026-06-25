@@ -3,8 +3,8 @@ import DmsCoordinates from "dms-conversion";
 import {List, Map, Record} from "immutable";
 import geohash from "latlon-geohash";
 import {formatNumber} from "libphonenumber-js";
-import PostalAddress from "./postalAddress";
-import {convertLatLongToGeohash} from "./util";
+import PostalAddress from "./postalAddress.js";
+import {convertLatLongToGeohash} from "./util/index.js";
 
 export class Place extends Record({
     additionalName: null,

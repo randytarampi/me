@@ -1,10 +1,14 @@
-import {Letter} from "@randy.tarampi/letter";
-import {Resume} from "@randy.tarampi/resume";
-import testResumeJson from "@randy.tarampi/resume/src/resumes/some-awesome-company";
+import {Letter} from "@randy.tarampi/letter/src/lib/letter.js";
+import {Resume} from "@randy.tarampi/resume/src/lib/resume.js";
+import testResumeJson from "@randy.tarampi/resume/src/resumes/some-awesome-company.json" with {type: "json"};
 import {expect} from "chai";
-import {List, Map} from "immutable";
+import {List, Map, isRecord} from "immutable";
+import {createRequire} from "module";
+import path from "path";
+import JobApplication from "../../../../src/lib/jobApplication.js";
+
+const require = createRequire(path.resolve("test/unit/src/lib/jobApplication.js"));
 const packageJson = require("../../../../package");
-import JobApplication from "../../../../src/lib/jobApplication";
 
 describe("JobApplication", function () {
     let stubPersonJs;
@@ -107,11 +111,11 @@ describe("JobApplication", function () {
             });
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.resume.basics.name).to.not.eql(stubResumeJs.basics.name);
             expect(jobApplication.get("resume").basics.name).to.eql(stubResumeJs.basics.name);
             expect(jobApplication.resume.basics.name).to.eql(`${stubSenderJs.givenName} ${stubSenderJs.familyName}`);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
+            expect(isRecord(jobApplication.letter)).to.be.true;
             expect(jobApplication.letter.sender.name).to.eql(`${stubSenderJs.givenName} ${stubSenderJs.familyName}`);
             expect(jobApplication.renderOptions).to.be.instanceOf(Map);
             expect(jobApplication.renderOptions.get("format")).to.eql(stubLetterJs.renderOptions.format);
@@ -135,11 +139,11 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.resume.basics.name).to.not.eql(stubResumeJs.basics.name);
             expect(jobApplication.get("resume").basics.name).to.eql(stubResumeJs.basics.name);
             expect(jobApplication.resume.basics.name).to.eql(`${stubSenderJs.givenName} ${stubSenderJs.familyName}`);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
+            expect(isRecord(jobApplication.letter)).to.be.true;
             expect(jobApplication.letter.sender.name).to.eql(`${stubSenderJs.givenName} ${stubSenderJs.familyName}`);
             expect(jobApplication.renderOptions).to.be.instanceOf(Map);
             expect(jobApplication.renderOptions.get("format")).to.eql(stubLetterJs.renderOptions.format);
@@ -163,11 +167,11 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJSON(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.resume.basics.name).to.not.eql(stubResumeJs.basics.name);
             expect(jobApplication.get("resume").basics.name).to.eql(stubResumeJs.basics.name);
             expect(jobApplication.resume.basics.name).to.eql(`${stubSenderJs.givenName} ${stubSenderJs.familyName}`);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
+            expect(isRecord(jobApplication.letter)).to.be.true;
             expect(jobApplication.letter.sender.name).to.eql(`${stubSenderJs.givenName} ${stubSenderJs.familyName}`);
             expect(jobApplication.renderOptions).to.be.instanceOf(Map);
             expect(jobApplication.renderOptions.get("format")).to.eql(stubLetterJs.renderOptions.format);
@@ -255,8 +259,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pdfRenderOptions).to.eql({
                 ...stubJobApplicationJs.renderOptions,
                 content: `${packageJson.version},bar`,
@@ -281,8 +285,8 @@ describe("JobApplication", function () {
             });
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pdfRenderOptions).to.eql(stubJobApplicationJs.letter.renderOptions);
             expect(jobApplication.letter.pdfRenderOptions).to.eql(stubJobApplicationJs.letter.renderOptions);
             expect(jobApplication.resume.pdfRenderOptions).to.eql(stubJobApplicationJs.letter.renderOptions);
@@ -303,8 +307,8 @@ describe("JobApplication", function () {
             });
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pdfRenderOptions).to.eql(null);
             expect(jobApplication.letter.pdfRenderOptions).to.eql(null);
             expect(jobApplication.resume.pdfRenderOptions).to.eql(stubJobApplicationJs.resume.renderOptions); // NOTE-RT: This is intentional –` how else does a document override what's being ordered by the job application?
@@ -316,8 +320,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pdfRenderExpectations).to.eql(stubLetterJs.renderExpectations);
             expect(jobApplication.letter.pdfRenderExpectations).to.eql(stubJobApplicationJs.renderExpectations);
             expect(jobApplication.resume.pdfRenderExpectations).to.eql(stubJobApplicationJs.renderExpectations);
@@ -329,8 +333,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pdfRenderExpectations).to.eql(stubLetterJs.renderExpectations);
             expect(jobApplication.letter.pdfRenderExpectations).to.eql(stubLetterJs.renderExpectations);
             expect(jobApplication.resume.pdfRenderExpectations).to.eql(stubLetterJs.renderExpectations);
@@ -343,8 +347,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pdfRenderExpectations).to.eql(null);
             expect(jobApplication.letter.pdfRenderExpectations).to.eql(null);
             expect(jobApplication.resume.pdfRenderExpectations).to.eql(null);
@@ -356,8 +360,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pageSize).to.eql(stubJobApplicationJs.renderOptions.format);
             expect(jobApplication.letter.pageSize).to.eql(stubJobApplicationJs.renderOptions.format);
             expect(jobApplication.resume.pageSize).to.eql(stubJobApplicationJs.renderOptions.format);
@@ -369,8 +373,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pageSize).to.eql(jobApplication.pageSize);
             expect(jobApplication.letter.pageSize).to.eql(jobApplication.pageSize);
             expect(jobApplication.resume.pageSize).to.eql(null); // NOTE-RT: This is intentional –` how else does a document override what's being ordered by the job application?
@@ -383,8 +387,8 @@ describe("JobApplication", function () {
             const jobApplication = JobApplication.fromJS(stubJobApplicationJs);
 
             expect(jobApplication).to.be.instanceOf(JobApplication);
-            expect(jobApplication.letter).to.be.instanceOf(Letter);
-            expect(jobApplication.resume).to.be.instanceOf(Resume);
+            expect(isRecord(jobApplication.letter)).to.be.true;
+            expect(isRecord(jobApplication.resume)).to.be.true;
             expect(jobApplication.pageSize).to.eql(null);
             expect(jobApplication.letter.pageSize).to.eql(null);
             expect(jobApplication.resume.pageSize).to.eql(null);

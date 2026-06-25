@@ -5,7 +5,7 @@ import {
     FETCHING_RESUME_FAILURE_RECOVERY,
     FETCHING_RESUME_FAILURE,
     FETCHING_RESUME_SUCCESS
-} from "../actions/fetchResume";
+} from "../actions/fetchResume.js";
 
 export const apiReducer = (state = Map(), action) => {
     switch (action.type) {

@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import Shields, * as shieldLinks from "../../../../../../src/lib/components/link/shields";
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+import Shields, * as shieldLinks from "../../../../../../src/lib/components/link/shields/index.jsx";
 
 describe("Shield", function () {
     it("renders all Shields", function () {

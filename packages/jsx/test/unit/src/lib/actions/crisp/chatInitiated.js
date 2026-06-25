@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import chatInitiated, {CRISP_CHAT_INITIATED} from "../../../../../../src/lib/actions/crisp/chatInitiated";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const chatInitiated = require("../../../../../../src/lib/actions/crisp/chatInitiated.js").default || require("../../../../../../src/lib/actions/crisp/chatInitiated.js");
+const {CRISP_CHAT_INITIATED} = require("../../../../../../src/lib/actions/crisp/chatInitiated.js");
 
 describe("chatInitiated", function () {
     let mockStore;

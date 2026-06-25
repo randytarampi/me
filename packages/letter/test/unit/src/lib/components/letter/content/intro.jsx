@@ -5,8 +5,8 @@ import {Provider} from "react-redux";
 import {render} from "@testing-library/react";
 import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
-import LetterIntro from "../../../../../../../src/lib/components/letter/content/intro";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterIntro from "../../../../../../../src/lib/components/letter/content/intro.jsx";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterIntro", function () {
     let stubContentConfiguration;

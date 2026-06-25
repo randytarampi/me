@@ -1,4 +1,4 @@
-import {EmojiClassGenerator} from "../";
+import {EmojiClassGenerator} from "../index.js";
 
 export const defaultBearComponents = {
     leftAction: {id: "leftAction", position: 1},

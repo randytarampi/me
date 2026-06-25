@@ -1,4 +1,10 @@
-const path = require("path");
+import {createRequire} from "module";
+import path from "path";
+import {fileURLToPath} from "url";
+import webpackBaseConfig from "../../webpack.client.config.base.js";
+
+const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const fs = require("fs");
@@ -6,7 +12,6 @@ const config = require("config");
 const express = require("express");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpackBaseConfig = require("../../webpack.client.config.base");
 
 const publicPath = `${config.get("www.assetUrl")}/`;
 
@@ -69,7 +74,7 @@ const views = [
     ["map", `${config.get("www.publishUrl")}${config.get("www.mapUrl")}`]
 ];
 
-module.exports = ({plugins, ...overrides}) => webpackBaseConfig({
+export default ({plugins, ...overrides}) => webpackBaseConfig({
     publicPath: publicPath,
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),

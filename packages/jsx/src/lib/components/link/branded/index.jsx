@@ -1,31 +1,31 @@
-import {AngelListLink} from "./angelList";
-import {BrandedLink} from "./brandedLink";
-import {F00pxLink} from "./f00px";
-import {FacebookLink} from "./facebook";
-import {FlickrLink} from "./flickr";
-import {GitHubLink} from "./github";
-import {InstagramLink} from "./instagram";
-import {LinkedInLink} from "./linkedIn";
-import {SoundCloudLink} from "./soundCloud";
-import {StackOverflowLink} from "./stackOverflow";
-import {TumblrLink} from "./tumblr";
-import {TwitterLink} from "./twitter";
-import {UnsplashLink} from "./unsplash";
+import {AngelListLink} from "./angelList.jsx";
+import {BrandedLink} from "./brandedLink.jsx";
+import {F00pxLink} from "./f00px.jsx";
+import {FacebookLink} from "./facebook.jsx";
+import {FlickrLink} from "./flickr.jsx";
+import {GitHubLink} from "./github.jsx";
+import {InstagramLink} from "./instagram.jsx";
+import {LinkedInLink} from "./linkedIn.jsx";
+import {SoundCloudLink} from "./soundCloud.jsx";
+import {StackOverflowLink} from "./stackOverflow.jsx";
+import {TumblrLink} from "./tumblr.jsx";
+import {TwitterLink} from "./twitter.jsx";
+import {UnsplashLink} from "./unsplash.jsx";
 
-export * from "./angelList";
-export * from "./f00px";
-export * from "./facebook";
-export * from "./flickr";
-export * from "./github";
-export * from "./instagram";
-export * from "./linkedIn";
-export * from "./soundCloud";
-export * from "./stackOverflow";
-export * from "./tumblr";
-export * from "./twitter";
-export * from "./unsplash";
+export * from "./angelList.jsx";
+export * from "./f00px.jsx";
+export * from "./facebook.jsx";
+export * from "./flickr.jsx";
+export * from "./github.jsx";
+export * from "./instagram.jsx";
+export * from "./linkedIn.jsx";
+export * from "./soundCloud.jsx";
+export * from "./stackOverflow.jsx";
+export * from "./tumblr.jsx";
+export * from "./twitter.jsx";
+export * from "./unsplash.jsx";
 
-export * from "./brandedLink";
+export * from "./brandedLink.jsx";
 
 export const brandedLinkMap = {
     angellist: AngelListLink,

@@ -1,6 +1,24 @@
-import {DynamooseModel} from "../dynamooseModel.js";
-import PostSchema from "../schema/post.js";
+const {DynamooseModel} = require("../dynamooseModel.js");
+const PostSchema = require("../schema/post.js");
 
-export const getModel = (modelName = process.env.SERVICE_POSTS_DYNAMODB_TABLE) => new DynamooseModel(modelName, PostSchema);
+let model;
 
-export default getModel();
+const getModel = (modelName = process.env.SERVICE_POSTS_DYNAMODB_TABLE || "local-posts") => {
+    if (!model) {
+        model = new DynamooseModel(modelName, PostSchema);
+    }
+
+    return model;
+};
+
+module.exports = new Proxy({}, {
+    get(_target, prop) {
+        return getModel()[prop];
+    },
+    set(_target, prop, value) {
+        getModel()[prop] = value;
+        return true;
+    }
+});
+module.exports.getModel = getModel;
+module.exports.default = module.exports;

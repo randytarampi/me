@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import BrandedLink from "./brandedLink";
+import BrandedLink from "./brandedLink.jsx";
 
 export const GitHubLink = props => {
     return <BrandedLink {...props} serviceName="GitHub" serviceType="github" serviceUrl="https://www.github.com"/>;

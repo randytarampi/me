@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import fs from "fs";
 import sinon from "sinon";
-import renderCss from "../../../../src/lib/renderCss";
+import renderCss from "../../../../src/lib/renderCss.js";
 
 describe("renderCss", function () {
     beforeEach(function () {

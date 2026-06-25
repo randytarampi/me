@@ -1,6 +1,6 @@
 import geohash from "latlon-geohash";
-import {getGeohashesForRadiusAroundPoint} from "./getGeohashesForRadiusAroundPoint";
-import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius";
+import {getGeohashesForRadiusAroundPoint} from "./getGeohashesForRadiusAroundPoint.js";
+import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius.js";
 
 /**
  * @function Return a set of geohashes that cover a circle for a given geohash and radius

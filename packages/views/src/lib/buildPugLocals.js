@@ -1,4 +1,4 @@
-import {Person} from "@randy.tarampi/js";
+import {Person} from "../../../js/src/index.js";
 import config from "config";
 
 export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) => {

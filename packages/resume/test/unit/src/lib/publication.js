@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import Publication from "../../../../src/lib/publication";
+import Publication from "../../../../src/lib/publication.js";
 
 describe("Publication", function () {
     let stubPublicationJs;

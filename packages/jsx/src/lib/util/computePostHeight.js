@@ -5,7 +5,7 @@ export const computePostHeight = containerWidth => (post, cachedPostHeight) => {
     if (post.height && post.width) {
         let scaledHeight = containerWidth * (post.height / post.width);
 
-        if (window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
+        if (typeof window !== "undefined" && window.innerWidth >= WINDOW_LARGE_BREAKPOINT) {
             scaledHeight = scaledHeight * WINDOW_LARGE_PHOTO_SCALE;
         }
 
@@ -20,7 +20,7 @@ export const computePostHeight = containerWidth => (post, cachedPostHeight) => {
         return cachedPostHeight;
     }
 
-    return typeof window !== "undefined" && window.innerHeight || 1000;
+    return (typeof window !== "undefined" && window.innerHeight) || 1000;
 };
 
 export default computePostHeight;

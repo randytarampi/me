@@ -1,10 +1,11 @@
-require("../../../../../babel.register");
+const dynamoose = require("dynamoose");
+const {getModel: getPostModel} = require("../../db/models/post.js");
+const {getModel: getAuthInfoModel} = require("../../db/models/authInfo.js");
+const {setupLocal} = require("./util.js");
 
 const TABLE_ALREADY_EXISTS_PATTERN = /already exists|preexisting|ResourceInUseException/i;
 
 const waitForLocalDynamoDb = async ({attempts = 30, delay = 1000} = {}) => {
-    const dynamoose = require("dynamoose");
-
     for (let attempt = 1; attempt <= attempts; attempt++) {
         try {
             await dynamoose.aws.ddb().listTables({});
@@ -20,14 +21,9 @@ const waitForLocalDynamoDb = async ({attempts = 30, delay = 1000} = {}) => {
 };
 
 const createLocalTables = async () => {
-    const {setupLocal} = require("./util");
-
     setupLocal();
 
     await waitForLocalDynamoDb();
-
-    const getPostModel = require("../../db/models/post").getModel;
-    const getAuthInfoModel = require("../../db/models/authInfo").getModel;
 
     const models = [
         getPostModel(process.env.SERVICE_POSTS_DYNAMODB_TABLE),
@@ -49,7 +45,7 @@ const createLocalTables = async () => {
     }
 };
 
-module.exports = {createLocalTables};
+module.exports.createLocalTables = createLocalTables;
 
 if (require.main === module) {
     createLocalTables()
@@ -59,3 +55,4 @@ if (require.main === module) {
             process.exit(1);
         });
 }
+module.exports.default = module.exports;

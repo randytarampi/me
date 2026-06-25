@@ -6,7 +6,7 @@ import React, {Fragment} from "react";
 import {Helmet} from "react-helmet";
 import {Tab} from "react-materialize";
 import {Navigate} from "react-router";
-import Main from "../views/main";
+import Main from "../views/main/index.jsx";
 
 const helloBear = new HelloBear();
 

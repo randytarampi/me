@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {matchPath, useLocation} from "react-router";
-import {ConnectedSwipeableRoutes} from "../containers";
+import {ConnectedSwipeableRoutes} from "../containers/index.jsx";
+import {matchPath, useLocation} from "../reactRouter.cjs";
 
 // NOTE-RT: `react-router@7`'s `matchPath(pattern, pathname)` replaces `react-router@5`'s `matchPath(pathname, options)`;
 // NOTE-RT: `react-router@5` prefix-matched unless `exact` was set, so `end` defaults to the route's `exact` flag.

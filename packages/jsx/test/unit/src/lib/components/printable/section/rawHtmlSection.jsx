@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import RawHtmlSection from "../../../../../../../src/lib/components/printable/section/rawHtmlSection";
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const RawHtmlSection = require("../../../../../../../src/lib/components/printable/section/rawHtmlSection.jsx").default || require("../../../../../../../src/lib/components/printable/section/rawHtmlSection.jsx");
 
 describe("RawHtmlSection", function () {
     it("renders", function () {

@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import parseQuerystringParameters from "../../../../../../src/serverless/util/request/parseQuerystringParameters";
+const {expect} = require("chai");
+const parseQuerystringParameters = require("../../../../../../src/serverless/util/request/parseQuerystringParameters.js");
 
 describe("parseQuerystringParameters", function () {
     it("returns empty query string parameters if it receives no query string parameters", function () {
@@ -43,3 +43,4 @@ describe("parseQuerystringParameters", function () {
         }
     });
 });
+module.exports.default = module.exports;

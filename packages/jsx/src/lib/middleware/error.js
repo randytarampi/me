@@ -1,5 +1,5 @@
-import {CLEAR_ERROR} from "../actions/error/clearError";
-import selectors from "../data/selectors";
+import {CLEAR_ERROR} from "../actions/error/clearError.js";
+import selectors from "../data/selectors.js";
 
 export const errorMiddleware = store => next => action => {
     if (action.type === CLEAR_ERROR) {
