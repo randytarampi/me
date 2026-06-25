@@ -1,11 +1,11 @@
-import InternalLink from "./internalLink";
+import InternalLink from "./internalLink.jsx";
 
-export * from "./blog";
-export * from "./code";
-export * from "./photos";
-export * from "./resume";
-export * from "./words";
+export * from "./blog.jsx";
+export * from "./code.jsx";
+export * from "./photos.jsx";
+export * from "./resume.jsx";
+export * from "./words.jsx";
 
-export * from "./internalLink";
+export * from "./internalLink.jsx";
 
 export default InternalLink;

@@ -1,4 +1,4 @@
-import {setupLocal as setupDynamoDbLocal} from "../src/serverless/dynamodb/util";
+const {setupLocal: setupDynamoDbLocal} = require("../src/serverless/dynamodb/util.js");
 
 setupDynamoDbLocal();
 
@@ -41,3 +41,4 @@ process.env.ME_PERSON_EMAIL = "woof@randytarampi.ca";
 
 process.env.BLOG_URL = "woof://woof.woof/blog";
 process.env.FEED_URL = "woof://woof.woof/feed.rss";
+module.exports.default = module.exports;

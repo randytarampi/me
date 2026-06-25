@@ -1,5 +1,5 @@
-import {Place} from "../place";
-import {getNumericalPrecision} from "./getNumericalPrecision";
+import {Place} from "../place.js";
+import {getNumericalPrecision} from "./getNumericalPrecision.js";
 
 /**
  * @function Return {@link Post}s that have unique locations

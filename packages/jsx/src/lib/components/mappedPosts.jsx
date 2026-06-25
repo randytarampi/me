@@ -1,9 +1,9 @@
 import {List} from "immutable";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
-import {ConnectedMap} from "../containers/map";
-import {ConnectedPostMarker} from "../containers/postMarker";
-import {GoogleMapMarkerClustererComponent} from "./map";
+import {ConnectedMap} from "../containers/map/index.jsx";
+import {ConnectedPostMarker} from "../containers/postMarker.jsx";
+import {GoogleMapMarkerClustererComponent} from "./map/index.jsx";
 
 export class MappedPostsComponent extends PureComponent {
     constructor(props) {

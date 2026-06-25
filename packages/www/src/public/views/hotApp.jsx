@@ -30,8 +30,8 @@ import {createBrowserHistory} from "history";
 import {Map} from "immutable";
 import React, {PureComponent} from "react";
 import {hot} from "react-hot-loader";
-import {reducers} from "../data/reducers";
-import routes from "../routes";
+import {reducers} from "../data/reducers.js";
+import routes from "../routes/index.jsx";
 
 export class App extends PureComponent {
     constructor() {

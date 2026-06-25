@@ -1,4 +1,4 @@
-import {buildEventDetails, buildReduxActionEventDetails} from "../util";
+import * as util from "../util.js";
 
 class GtmMetrics {
     constructor({name = "GTM", ...options} = {}) {
@@ -13,7 +13,7 @@ class GtmMetrics {
         return new Promise(resolve => {
             return resolve(this.dataLayer.push({
                 event: eventName,
-                ...buildEventDetails(details)
+                ...util.buildEventDetails(details)
             }));
         });
     }
@@ -23,7 +23,7 @@ class GtmMetrics {
     }
 
     trackReduxAction(action, supplementaryDetails = {}) {
-        return this.track("action", buildReduxActionEventDetails(action, supplementaryDetails));
+        return this.track("action", util.buildReduxActionEventDetails(action, supplementaryDetails));
     }
 }
 

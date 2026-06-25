@@ -1,19 +1,9 @@
-import {
-    compositeKeySeparator,
-    Gallery,
-    MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION,
-    Photo,
-    Post,
-    POST_STATUS
-} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {DateTime, Duration} from "luxon";
-import sinon from "sinon";
-import PostSearchParams, {
-    castOrderComparator,
-    computeOrderComparatorFromRelativeOrderComparatorAdjustment,
-    computeOrderingComparison
-} from "../../../../src/lib/postSearchParams";
+const {compositeKeySeparator, Gallery, MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION, Photo, Post, POST_STATUS} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {DateTime, Duration} = require("luxon");
+const sinon = require("sinon");
+const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
+const {castOrderComparator, computeOrderComparatorFromRelativeOrderComparatorAdjustment, computeOrderingComparison} = PostSearchParams;
 
 describe("PostSearchParams", function () {
     let clock;
@@ -421,7 +411,7 @@ describe("PostSearchParams", function () {
         });
 
         it("should properly format properties for query containing `beforeDate`", function () {
-            const searchParams = PostSearchParams.fromJS({beforeDate: DateTime.utc()});
+            const searchParams = PostSearchParams.fromJS({beforeDate: DateTime.utc().toISO()});
 
             expect(searchParams.Facebook).to.eql({
                 fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
@@ -431,7 +421,7 @@ describe("PostSearchParams", function () {
         });
 
         it("should properly format properties for query containing `afterDate`", function () {
-            const searchParams = PostSearchParams.fromJS({afterDate: DateTime.utc()});
+            const searchParams = PostSearchParams.fromJS({afterDate: DateTime.utc().toISO()});
 
             expect(searchParams.Facebook).to.eql({
                 fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type",
@@ -1288,3 +1278,4 @@ describe("PostSearchParams", function () {
         });
     });
 });
+module.exports.default = module.exports;

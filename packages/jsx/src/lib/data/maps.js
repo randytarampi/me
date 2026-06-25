@@ -1,5 +1,5 @@
 import {fromJS, Map} from "immutable";
-import {CLEAR_MAP, INSTANTIATE_GOOGLE_MAP, UPDATE_MAP} from "../actions/map";
+import {CLEAR_MAP, INSTANTIATE_GOOGLE_MAP, UPDATE_MAP} from "../actions/map/index.js";
 
 export const mapReducer = (state = Map(), action) => {
     switch (action.type) {

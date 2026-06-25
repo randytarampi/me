@@ -1,13 +1,14 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import BrandedLink, {
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const BrandedLink = require("../../../../../../src/lib/components/link/branded/index.jsx").default || require("../../../../../../src/lib/components/link/branded/index.jsx");
+const {
     GitHubLink,
     LinkedInLink,
     TwitterLink,
     brandedLinkMap,
     getBrandedLinkForNetwork
-} from "../../../../../../src/lib/components/link/branded";
+} = require("../../../../../../src/lib/components/link/branded/index.jsx");
 
 describe("BrandedLink", function () {
     it("maps networks to branded link components", function () {

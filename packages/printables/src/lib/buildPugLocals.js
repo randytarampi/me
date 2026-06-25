@@ -1,6 +1,6 @@
-import * as viewsModule from "@randy.tarampi/views";
-import {renderCss} from "./renderCss";
-import {getRenderedHelmet, renderJsx} from "./renderJsx";
+import * as viewsModule from "../../../views/src/lib/index.js";
+import {renderCss} from "./renderCss.js";
+import {getRenderedHelmet, renderJsx} from "./renderJsx.js";
 
 export const buildPugLocalsBuilder = ({printableComponent, printableStylesPath}) => {
     const printableJsxRenderer = renderJsx(printableComponent);
@@ -21,4 +21,3 @@ export const buildPugLocalsBuilder = ({printableComponent, printableStylesPath})
 };
 
 export default buildPugLocalsBuilder;
-

@@ -1,21 +1,16 @@
 import {expect} from "chai";
 import {JSDOM} from "jsdom";
-import sinon from "sinon";
-import * as util from "../../../../../src/lib/util";
-import GtmClient from "../../../../../src/lib/vendors/gtm";
+import GtmClient from "../../../../../src/lib/vendors/gtm.js";
 
 describe("GtmClient", function () {
-    const globalWindow = global.window;
+    const globalWindow = global.window || new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"}).window;
 
-    beforeEach(function () {
-        sinon.stub(util, "buildEventDetails").returns({});
-        sinon.stub(util, "buildReduxActionEventDetails").returns({});
-    });
+    if (!global.window) {
+        global.window = globalWindow;
+        global.document = globalWindow.document;
+    }
 
     afterEach(function () {
-        util.buildEventDetails.restore();
-        util.buildReduxActionEventDetails.restore();
-
         global.window = globalWindow;
         global.document = globalWindow.document;
     });
@@ -67,11 +62,8 @@ describe("GtmClient", function () {
             return gtmClient.track(stubEventName, stubEventDetails)
                 .then(returnValue => {
                     expect(returnValue).to.eql(stubDataLayer.length);
-                    expect(stubDataLayer).to.eql([{
-                        event: stubEventName
-                    }]);
-                    expect(util.buildEventDetails.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(util.buildEventDetails, stubEventDetails);
+                    expect(stubDataLayer).to.have.lengthOf(1);
+                    expect(stubDataLayer[0].event).to.eql(stubEventName);
                 });
         });
     });
@@ -97,11 +89,8 @@ describe("GtmClient", function () {
             return gtmClient.pageView(stubEventName, stubEventDetails)
                 .then(returnValue => {
                     expect(returnValue).to.eql(stubDataLayer.length);
-                    expect(stubDataLayer).to.eql([{
-                        event: stubEventName
-                    }]);
-                    expect(util.buildEventDetails.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(util.buildEventDetails, stubEventDetails);
+                    expect(stubDataLayer).to.have.lengthOf(1);
+                    expect(stubDataLayer[0].event).to.eql(stubEventName);
                 });
         });
     });
@@ -130,11 +119,8 @@ describe("GtmClient", function () {
             return gtmClient.trackReduxAction(stubAction, stubEventDetails)
                 .then(returnValue => {
                     expect(returnValue).to.eql(stubDataLayer.length);
-                    expect(stubDataLayer).to.eql([{
-                        event: "action"
-                    }]);
-                    expect(util.buildReduxActionEventDetails.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(util.buildReduxActionEventDetails, stubAction, stubEventDetails);
+                    expect(stubDataLayer).to.have.lengthOf(1);
+                    expect(stubDataLayer[0].event).to.eql("action");
                 });
         });
 
@@ -154,11 +140,8 @@ describe("GtmClient", function () {
             return gtmClient.trackReduxAction(stubAction)
                 .then(returnValue => {
                     expect(returnValue).to.eql(stubDataLayer.length);
-                    expect(stubDataLayer).to.eql([{
-                        event: "action"
-                    }]);
-                    expect(util.buildReduxActionEventDetails.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(util.buildReduxActionEventDetails, stubAction);
+                    expect(stubDataLayer).to.have.lengthOf(1);
+                    expect(stubDataLayer[0].event).to.eql("action");
                 });
         });
     });

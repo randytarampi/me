@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {RequestError, requestErrorCodeToHttpStatusCode} from "../../../../src/lib/requestError";
+import {RequestError, requestErrorCodeToHttpStatusCode} from "../../../../src/lib/requestError.js";
 
 describe("RequestError", function () {
     describe("constructor", function () {

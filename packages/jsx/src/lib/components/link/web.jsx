@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import CampaignLink from "./campaign";
+import CampaignLink from "./campaign.jsx";
 
 export const WebLink = ({useBranding, ...props}) => {
     return <CampaignLink {...props}

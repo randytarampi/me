@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sessionLoaded, {CRISP_SESSION_LOADED} from "../../../../../../src/lib/actions/crisp/sessionLoaded";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sessionLoaded = require("../../../../../../src/lib/actions/crisp/sessionLoaded.js").default || require("../../../../../../src/lib/actions/crisp/sessionLoaded.js");
+const {CRISP_SESSION_LOADED} = require("../../../../../../src/lib/actions/crisp/sessionLoaded.js");
 
 describe("sessionLoaded", function () {
     let mockStore;

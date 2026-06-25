@@ -1,14 +1,14 @@
-import {Gallery, Photo, SizedPhoto} from "@randy.tarampi/js";
-import _ from "lodash";
-import {DateTime} from "luxon";
-import {AuthInfo} from "../../authInfo.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
-import {InstagramAuthInfo} from "./authInfo.js";
-import Instagram from "./service.js";
-import {type} from "./util.js";
+const {Gallery, Photo, SizedPhoto} = require("@randy.tarampi/js");
+const _ = require("lodash");
+const {DateTime} = require("luxon");
+const {AuthInfo} = require("../../authInfo.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+const {InstagramAuthInfo} = require("./authInfo.js");
+const Instagram = require("./service.js");
+const {type} = require("./util.js");
 
-export class InstagramSource extends CachedDataSource {
+class InstagramSource extends CachedDataSource {
     constructor(dataClient, cacheClient, authInfo) {
         authInfo = authInfo || new AuthInfo({token: process.env.INSTAGRAM_ACCESS_TOKEN});
         super(dataClient || new Instagram(authInfo.token), cacheClient);
@@ -225,4 +225,6 @@ export class InstagramSource extends CachedDataSource {
     }
 }
 
-export default InstagramSource;
+module.exports = InstagramSource;
+module.exports.InstagramSource = InstagramSource;
+module.exports.default = module.exports;

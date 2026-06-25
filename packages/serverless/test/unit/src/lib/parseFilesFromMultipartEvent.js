@@ -2,7 +2,7 @@ import {Buffer} from "buffer";
 import {expect} from "chai";
 import fs from "fs";
 import path from "path";
-import {parseFilesFromMultipartEvent} from "../../../../src/lib/parseFilesFromMultipartEvent";
+import {parseFilesFromMultipartEvent} from "../../../../src/lib/parseFilesFromMultipartEvent.js";
 
 const ensureBodyIsMultipartFormData = file => file.replace(/\n/g, "\r\n");
 
@@ -10,7 +10,7 @@ describe("parseFilesFromMultipartEvent", function () {
     let stubEvent;
 
     beforeEach(function (done) {
-        fs.readFile(path.join(__dirname, "../../../resources/upload.json.single"), "utf8", (error, file) => {
+        fs.readFile(path.resolve("test/resources/upload.json.single"), "utf8", (error, file) => {
             if (error) {
                 return done(error);
             }
@@ -37,7 +37,7 @@ describe("parseFilesFromMultipartEvent", function () {
     });
 
     it("parses a file (image)", function () {
-        stubEvent.body = ensureBodyIsMultipartFormData(fs.readFileSync(path.join(__dirname, "../../../resources/upload.image.single"), "utf8"));
+        stubEvent.body = ensureBodyIsMultipartFormData(fs.readFileSync(path.resolve("test/resources/upload.image.single"), "utf8"));
         stubEvent.headers["Content-Type"] = "multipart/form-data; boundary=------------------------5dc2a512cc3537aa";
 
         return parseFilesFromMultipartEvent(stubEvent)
@@ -49,7 +49,7 @@ describe("parseFilesFromMultipartEvent", function () {
     });
 
     it("parses multiple files", function () {
-        stubEvent.body = ensureBodyIsMultipartFormData(fs.readFileSync(path.join(__dirname, "../../../resources/upload.json.multiple"), "utf8"));
+        stubEvent.body = ensureBodyIsMultipartFormData(fs.readFileSync(path.resolve("test/resources/upload.json.multiple"), "utf8"));
         stubEvent.headers["Content-Type"] = "multipart/form-data; boundary=------------------------81905c4e69b81594";
 
         return parseFilesFromMultipartEvent(stubEvent)

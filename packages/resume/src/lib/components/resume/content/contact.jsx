@@ -2,7 +2,7 @@ import {CampaignLink, EmailLink, PrintableSection, TelLink} from "@randy.tarampi
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import {ResumeCustomContent} from "../../../resumeCustomContent";
+import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
 export const ResumeContact = ({resume, customContent, type, label}) => {
     return <PrintableSection

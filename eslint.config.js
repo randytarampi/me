@@ -1,7 +1,7 @@
-const js = require("@eslint/js");
-const importPlugin = require("eslint-plugin-import");
-const reactPlugin = require("eslint-plugin-react");
-const globals = require("globals");
+import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import reactPlugin from "eslint-plugin-react";
+import globals from "globals";
 
 const buildGlobals = {
     Promise: "readonly",
@@ -43,7 +43,7 @@ const buildGlobals = {
     __SW_BUNDLE_PATH__: "readonly"
 };
 
-module.exports = [
+export default [
     {
         ignores: [
             "**/node_modules/**",

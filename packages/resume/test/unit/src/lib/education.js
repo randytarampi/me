@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {List} from "immutable";
 import {DateTime} from "luxon";
-import Education from "../../../../src/lib/education";
+import Education from "../../../../src/lib/education.js";
 
 describe("Education", function () {
     let stubEducationJs;

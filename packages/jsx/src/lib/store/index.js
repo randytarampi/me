@@ -1,2 +1,2 @@
-export * from "./configureStore";
-export * from "./configureOfflineStore";
+export * from "./configureStore.js";
+export * from "./configureOfflineStore.js";

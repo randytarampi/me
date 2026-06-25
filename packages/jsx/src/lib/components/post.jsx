@@ -7,9 +7,9 @@ import React, {Fragment, PureComponent} from "react";
 import {Marker} from "react-google-maps";
 import {Col, Row} from "react-materialize";
 import {connect} from "react-redux";
-import {updateMapCreator} from "../actions";
-import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link";
-import {MapComponent} from "./map";
+import {updateMapCreator} from "../actions/index.js";
+import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link/index.jsx";
+import {MapComponent} from "./map/index.jsx";
 
 export class PostComponent extends PureComponent {
     get postElement() {

@@ -1,13 +1,13 @@
-import logger from "../../logger.js";
-import callbackOnWarmup from "../../util/callbackOnWarmup.js";
-import configureEnvironment from "../../util/configureEnvironment.js";
-import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters.js";
-import parseHeaders from "../../util/request/parseHeaders.js";
-import parseQuerystringParameters from "../../util/request/parseQuerystringParameters.js";
-import buildPostsResponse from "../../util/response/buildPostsResponse.js";
-import returnErrorResponse from "../../util/response/returnErrorResponse.js";
+const logger = require("../../logger.js");
+const callbackOnWarmup = require("../../util/callbackOnWarmup.js").default || require("../../util/callbackOnWarmup.js");
+const configureEnvironment = require("../../util/configureEnvironment.js").default || require("../../util/configureEnvironment.js");
+const getPostsForParsedQuerystringParameters = require("../../util/getPostsForParsedQuerystringParameters.js").default || require("../../util/getPostsForParsedQuerystringParameters.js");
+const parseHeaders = require("../../util/request/parseHeaders.js").default || require("../../util/request/parseHeaders.js");
+const parseQuerystringParameters = require("../../util/request/parseQuerystringParameters.js").default || require("../../util/request/parseQuerystringParameters.js");
+const buildPostsResponse = require("../../util/response/buildPostsResponse.js").default || require("../../util/response/buildPostsResponse.js");
+const returnErrorResponse = require("../../util/response/returnErrorResponse.js").default || require("../../util/response/returnErrorResponse.js");
 
-export default (event, context, callback) => {
+module.exports = (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
     if (event.source === "serverless-plugin-warmup") {
@@ -30,3 +30,4 @@ export default (event, context, callback) => {
         .then(postsResult => callback(null, buildPostsResponse(postsResult, parsedHeaders)))
         .catch(errorHandler);
 };
+module.exports.default = module.exports;

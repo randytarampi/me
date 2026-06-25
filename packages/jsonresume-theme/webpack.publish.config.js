@@ -1,9 +1,15 @@
-const path = require("path");
-const webpackBaseConfig = require("../../webpack.publish.config.base");
-const {webpackNodeExternalsWhitelist} = require("../../util");
+import {createRequire} from "module";
+import path from "path";
+import {fileURLToPath} from "url";
+import webpackBaseConfig from "../../webpack.publish.config.base.js";
+import {webpackNodeExternalsWhitelist} from "../../util.js";
+
+const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const nodeExternals = require("webpack-node-externals");
 
-module.exports = webpackBaseConfig({
+export default webpackBaseConfig({
     babelEnv: "client.es5",
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "es5"),

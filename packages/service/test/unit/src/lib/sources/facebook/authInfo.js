@@ -1,13 +1,13 @@
-import {timedPromise} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import {AuthInfo} from "../../../../../../src/lib/authInfo";
-import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams";
-import CacheClient from "../../../../../../src/lib/cacheClient";
-import {FACEBOOK_TOKEN_URL, FacebookAuthInfo} from "../../../../../../src/lib/sources/facebook/authInfo";
-import * as facebookUtil from "../../../../../../src/lib/sources/facebook/util";
-import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
-import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+const {timedPromise} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {AuthInfo} = require("../../../../../../src/lib/authInfo.js");
+const AuthInfoSearchParams = require("../../../../../../src/lib/authInfoSearchParams.js");
+const CacheClient = require("../../../../../../src/lib/cacheClient.js");
+const facebookUtil = require("../../../../../../src/lib/sources/facebook/util.js");
+const {FACEBOOK_TOKEN_URL, FacebookAuthInfo} = require("../../../../../../src/lib/sources/facebook/authInfo.js");
+const {OAuth2Client} = require("../../../../../../src/lib/sources/oAuth2Client.js");
+const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
 
 describe("FacebookAuthInfo", function () {
     let stubServiceClient;
@@ -48,6 +48,11 @@ describe("FacebookAuthInfo", function () {
         facebookAccessTokenResponse = {
             access_token: facebookAccessToken
         };
+        sinon.stub(global, "fetch").returns(Promise.resolve({
+            status: 200,
+            json: sinon.stub().returns(Promise.resolve(facebookUser))
+        }));
+        sinon.stub(facebookUtil, "fetchFacebookEdge").resolves(facebookUser);
         stubAuthInfo = FacebookAuthInfo.instanceToRecord({
             tokenJson: facebookAccessTokenResponse,
             userJson: facebookUser
@@ -114,12 +119,10 @@ describe("FacebookAuthInfo", function () {
         DummyCacheClient = builtDummyClasses.DummyCacheClient;
 
         stubCacheClient = new DummyCacheClient("ᶘ ◕ᴥ◕ᶅ");
-
-        sinon.stub(facebookUtil, "fetchFacebookEdge").returns(Promise.resolve(facebookUser));
     });
 
     afterEach(function () {
-        facebookUtil.fetchFacebookEdge.restore();
+        sinon.restore();
     });
 
     describe("constructor", function () {
@@ -198,3 +201,4 @@ describe("FacebookAuthInfo", function () {
         });
     });
 });
+module.exports.default = module.exports;

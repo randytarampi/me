@@ -1,12 +1,12 @@
-import {Gallery, LinkPost, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
-import _ from "lodash";
-import logger from "../../../serverless/logger.js";
-import {AuthInfo} from "../../authInfo.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
-import {FacebookAuthInfo} from "./authInfo.js";
-import {FacebookApiClient} from "./client.js";
-import {type} from "./util.js";
+const {Gallery, LinkPost, Photo, Post, POST_STATUS} = require("@randy.tarampi/js");
+const _ = require("lodash");
+const logger = require("../../../serverless/logger.js");
+const {AuthInfo} = require("../../authInfo.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+const {FacebookAuthInfo} = require("./authInfo.js");
+const {FacebookApiClient} = require("./client.js");
+const {type} = require("./util.js");
 
 const fbPostJsonToLocationCreated = ({place}) => {
     if (place) {
@@ -54,7 +54,7 @@ const fbPostJsonToPostJson = postJson => {
     };
 };
 
-export class FacebookSource extends CachedDataSource {
+class FacebookSource extends CachedDataSource {
     constructor(dataClient, cacheClient, authInfo) {
         authInfo = authInfo || new AuthInfo({token: process.env.FACEBOOK_ACCESS_TOKEN});
         super(dataClient || new FacebookApiClient(authInfo.token), cacheClient);
@@ -199,4 +199,6 @@ export class FacebookSource extends CachedDataSource {
     }
 }
 
-export default FacebookSource;
+module.exports = FacebookSource;
+module.exports.FacebookSource = FacebookSource;
+module.exports.default = module.exports;

@@ -1,10 +1,12 @@
-import PostSearchParams from "../../lib/postSearchParams.js";
+const PostSearchParams = require("../../lib/postSearchParams.js");
 
-export const parseQueryStringParametersIntoSearchParams = baseParameters => queryStringParameters => {
+const parseQueryStringParametersIntoSearchParams = baseParameters => queryStringParameters => {
     return PostSearchParams.fromJSON({
         ...baseParameters,
         ...queryStringParameters
     });
 };
 
-export default parseQueryStringParametersIntoSearchParams;
+module.exports = parseQueryStringParametersIntoSearchParams;
+module.exports.parseQueryStringParametersIntoSearchParams = parseQueryStringParametersIntoSearchParams;
+module.exports.default = module.exports;

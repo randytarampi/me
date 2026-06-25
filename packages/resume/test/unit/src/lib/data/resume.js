@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";
-import {fetchingResumeSuccess} from "../../../../../src/lib/actions/fetchResume";
-import reducer, {getResume, getResumes} from "../../../../../src/lib/data/resume";
+import {fetchingResumeSuccess} from "../../../../../src/lib/actions/fetchResume.js";
+import reducer, {getResume, getResumes} from "../../../../../src/lib/data/resume.js";
 
 describe("resume", function () {
     let stubInitialState;

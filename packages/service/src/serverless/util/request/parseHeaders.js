@@ -1,7 +1,7 @@
-import logger from "../../logger.js";
-import * as version from "./headers/version.js";
+const logger = require("../../logger.js");
+const version = require("./headers/version.js");
 
-export default headers => {
+module.exports = headers => {
     if (!headers) {
         return headers;
     }
@@ -33,3 +33,4 @@ export default headers => {
         ...parsedHeaders
     };
 };
+module.exports.default = module.exports;

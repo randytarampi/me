@@ -1,5 +1,5 @@
-import selectors from "../../data/selectors";
-import {fetchPostsCreator} from "./fetchPosts";
+import selectors from "../../data/selectors.js";
+import {fetchPostsCreator} from "./fetchPosts.js";
 
 export const fetchPostsForMapCreator = (mapId, fetchUrl, postType = "global", {filter, filterValue, ...params} = {}) => (dispatch, getState) => {
     const state = getState();

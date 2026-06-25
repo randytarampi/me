@@ -1,6 +1,6 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import {freshRequire} from "../../../../../lib/freshRequire";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
 
 afterEach(function () {
     sinon.restore();
@@ -86,3 +86,4 @@ describe("facebookAuthRedirect", function () {
         });
     });
 });
+module.exports.default = module.exports;

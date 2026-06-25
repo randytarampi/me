@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {List} from "immutable";
-import Interest from "../../../../src/lib/interest";
+import Interest from "../../../../src/lib/interest.js";
 
 describe("Interest", function () {
     let stubInterestJs;

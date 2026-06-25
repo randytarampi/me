@@ -1,4 +1,4 @@
-import {getNumericalPrecision} from "./getNumericalPrecision";
+import {getNumericalPrecision} from "./getNumericalPrecision.js";
 
 /**
  * Significant Figure Hash Length

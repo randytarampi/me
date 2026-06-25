@@ -1,6 +1,6 @@
-import CachedDataSource from "../../src/lib/cachedDataSource";
+const CachedDataSource = require("../../src/lib/cachedDataSource.js");
 
-export const DummyCachedDataSourceGenerator = ({
+const DummyCachedDataSourceGenerator = ({
                                                    stubType,
 
                                                    stubBeforeRecordsGetter,
@@ -93,4 +93,6 @@ export const DummyCachedDataSourceGenerator = ({
     };
 };
 
-export default DummyCachedDataSourceGenerator;
+module.exports = DummyCachedDataSourceGenerator;
+module.exports.DummyCachedDataSourceGenerator = DummyCachedDataSourceGenerator;
+module.exports.default = module.exports;

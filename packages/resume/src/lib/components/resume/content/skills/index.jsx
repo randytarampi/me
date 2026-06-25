@@ -2,8 +2,8 @@ import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Row} from "react-materialize";
-import {ResumeCustomContent} from "../../../../resumeCustomContent";
-import ResumeSkillsEntry from "./entry";
+import {ResumeCustomContent} from "../../../../resumeCustomContent.js";
+import ResumeSkillsEntry from "./entry.jsx";
 
 export const ResumeSkills = ({resume, customContent, type, label}) => {
     return <PrintableSection

@@ -1,5 +1,5 @@
-import {assemblePrintables} from "./assemblePrintables";
-import {renderHtml} from "./renderHtml";
+import {assemblePrintables} from "./assemblePrintables.js";
+import {renderHtml} from "./renderHtml.js";
 
 export const renderPrintableHtml = (htmlRenderer, printableRenderOptions) => printable => {
     return Promise.resolve({

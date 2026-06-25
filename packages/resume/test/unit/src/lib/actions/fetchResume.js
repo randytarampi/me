@@ -1,12 +1,16 @@
-import {SET_ERROR} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {SET_ERROR} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
-import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
+import {createRequire} from "module";
+import path from "path";
 
 import Resume from "../../../../../src/lib/resume.js";
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchResume.js";
-import testResumeJson from "../../../../../src/resumes/some-awesome-company.json";
+
+const require = createRequire(path.resolve("test/unit/src/lib/actions/fetchResume.js"));
+const configureStore = require("redux-mock-store").default || require("redux-mock-store");
+const testResumeJson = require("../../../../../src/resumes/some-awesome-company.json");
 
 const FETCHING_RESUME = "FETCHING_RESUME";
 const FETCHING_RESUME_CANCELLED = "FETCHING_RESUME_CANCELLED";

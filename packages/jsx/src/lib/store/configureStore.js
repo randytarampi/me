@@ -10,7 +10,7 @@ import {
     ravenMiddleware,
     routerMiddleware as meRouterMiddleware,
     uiMiddleware
-} from "../middleware";
+} from "../middleware/index.js";
 
 export const configureStore = (initialState = Immutable.Map(), history, reducers, middleware = []) => {
     const {createReduxHistory, routerMiddleware, routerReducer} = createReduxHistoryContext({

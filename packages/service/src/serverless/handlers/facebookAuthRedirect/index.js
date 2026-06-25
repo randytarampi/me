@@ -1,9 +1,9 @@
-import {responseBuilder} from "@randy.tarampi/serverless";
-import logger from "../../logger.js";
-import configureEnvironment from "../../util/configureEnvironment.js";
-import returnErrorResponse from "../../util/response/returnErrorResponse.js";
+const {responseBuilder} = require("@randy.tarampi/serverless");
+const logger = require("../../logger.js");
+const configureEnvironment = require("../../util/configureEnvironment.js").default || require("../../util/configureEnvironment.js");
+const returnErrorResponse = require("../../util/response/returnErrorResponse.js").default || require("../../util/response/returnErrorResponse.js");
 
-export default (event, context, callback) => {
+module.exports = (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
     configureEnvironment()
@@ -14,3 +14,4 @@ export default (event, context, callback) => {
         })
         .catch(returnErrorResponse(event, context, callback));
 };
+module.exports.default = module.exports;

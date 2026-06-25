@@ -1,4 +1,4 @@
-import {PostClassGenerator} from "./post";
+import {PostClassGenerator} from "./post.js";
 
 export class LinkPost extends PostClassGenerator({
     linkSourceUrl: null,

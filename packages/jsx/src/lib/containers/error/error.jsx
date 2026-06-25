@@ -1,11 +1,11 @@
 import {push} from "redux-first-history";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import clearError from "../../actions/error/clearError";
-import clearErrorTimeoutHandler from "../../actions/error/clearErrorTimeoutHandler";
-import setErrorTimeout from "../../actions/error/setErrorTimeoutHandler";
-import {ErrorComponent} from "../../components/error";
-import selectors from "../../data/selectors";
+import clearError from "../../actions/error/clearError.js";
+import clearErrorTimeoutHandler from "../../actions/error/clearErrorTimeoutHandler.js";
+import setErrorTimeout from "../../actions/error/setErrorTimeoutHandler.js";
+import {ErrorComponent} from "../../components/error/index.jsx";
+import selectors from "../../data/selectors.js";
 
 export const connectError = connect(
     (state, ownProps) => {

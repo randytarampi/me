@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import {formatNumber} from "libphonenumber-js";
-import Place from "../../../../src/lib/place";
-import PostalAddress from "../../../../src/lib/postalAddress";
+import Place from "../../../../src/lib/place.js";
+import PostalAddress from "../../../../src/lib/postalAddress.js";
 
 describe("Place", function () {
     let stubPlaceJson;

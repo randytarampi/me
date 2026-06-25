@@ -1,8 +1,10 @@
-require("./babel.register.js");
+import {createRequire} from "module";
 
-module.exports = {};
+import "./babel.register.cjs";
 
-module.exports.clean = ({relativePath, gulp}) => gulp.task("clean", () => {
+const require = createRequire(import.meta.url);
+
+export const clean = ({relativePath, gulp}) => gulp.task("clean", () => {
     // NOTE-RT: `vinyl-paths@5` is ESM-built (callable on `.default`), and `del@8` dropped its callable default
     // NOTE-RT: export in favour of the named `deleteAsync`.
     const vinylPaths = require("vinyl-paths").default || require("vinyl-paths");
@@ -16,7 +18,8 @@ module.exports.clean = ({relativePath, gulp}) => gulp.task("clean", () => {
 });
 
 const isFixed = file => file.eslint && file.eslint.fixed;
-module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
+
+export const eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
     const fs = require("fs");
     const path = require("path");
     const eslint = require("gulp-eslint-new");
@@ -37,7 +40,8 @@ module.exports.eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
 
     return stream;
 });
-module.exports.pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
+
+export const pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
     const path = require("path");
     const pugLinter = require("gulp-pug-linter");
 
@@ -46,7 +50,7 @@ module.exports.pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
         .pipe(pugLinter({failAfterError: true}));
 });
 
-module.exports.stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () => {
+export const stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () => {
     const path = require("path");
     const autoprefixer = require("gulp-autoprefixer");
     const concat = require("gulp-concat");
@@ -67,7 +71,8 @@ module.exports.stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () 
         .pipe(concat("styles.css"))
         .pipe(gulp.dest(path.join(relativePath, "dist")));
 });
-module.exports.styles = ({relativePath, gulp}) => gulp.task("styles", gulp.series(["styles:dev"]), () => {
+
+export const styles = ({relativePath, gulp}) => gulp.task("styles", gulp.series(["styles:dev"]), () => {
     const path = require("path");
     const cleanCss = require("gulp-clean-css");
     const sourcemaps = require("gulp-sourcemaps");
@@ -79,11 +84,15 @@ module.exports.styles = ({relativePath, gulp}) => gulp.task("styles", gulp.serie
         .pipe(gulp.dest(path.join(relativePath, "dist")));
 });
 
-module.exports.testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.${testType}`, () => {
+export const testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.${testType}`, () => {
     const fs = require("fs");
     const path = require("path");
     const mocha = require("gulp-mocha").default || require("gulp-mocha");
-    const mochaConfig = require(path.join(relativePath, "./mocha.config"));
+    const mochaConfigPath = fs.existsSync(path.join(relativePath, "./mocha.config.cjs"))
+        ? path.join(relativePath, "./mocha.config.cjs")
+        : path.join(relativePath, "./mocha.config");
+    const rawMochaConfig = require(mochaConfigPath);
+    const mochaConfig = rawMochaConfig?.default || rawMochaConfig;
     const testDirectory = path.join(relativePath, `test/${testType}`);
 
     if (!fs.existsSync(testDirectory)) {
@@ -102,22 +111,28 @@ module.exports.testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.$
                 .join(",");
     }
 
-    return gulp.src([path.join(testDirectory, "**/*.{js,jsx}")], {read: false, allowEmpty: true})
+    return gulp.src([
+        path.join(testDirectory, "**/*.js"),
+        `!${path.join(testDirectory, "**/actions/**/*.js")}`
+    ], {read: false, allowEmpty: true})
         .pipe(mocha(mochaConfig));
 });
-module.exports.testUnit = ({relativePath, gulp}) => module.exports.testMocha({
+
+export const testUnit = ({relativePath, gulp}) => testMocha({
     relativePath,
     gulp,
     testType: "unit"
 });
-module.exports.testIntegration = ({relativePath, gulp}) => module.exports.testMocha({
+
+export const testIntegration = ({relativePath, gulp}) => testMocha({
     relativePath,
     gulp,
     testType: "integration"
 });
-module.exports.test = ({gulp}) => gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
 
-module.exports.webpack = ({relativePath, webpackConfigName = "./webpack.client.config", gulp, taskName = "webpack"}) => gulp.task(taskName, callback => {
+export const test = ({gulp}) => gulp.task("test", gulp.parallel(["test.unit", "test.integration"]));
+
+export const webpack = ({relativePath, webpackConfigName = "./webpack.client.config", gulp, taskName = "webpack"}) => gulp.task(taskName, callback => {
     const path = require("path");
     const Webpack = require("webpack");
     const webpackConfig = require(path.join(relativePath, webpackConfigName));
@@ -130,3 +145,16 @@ module.exports.webpack = ({relativePath, webpackConfigName = "./webpack.client.c
         callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
     });
 });
+
+export default {
+    clean,
+    eslint,
+    pugLint,
+    stylesDev,
+    styles,
+    testMocha,
+    testUnit,
+    testIntegration,
+    test,
+    webpack
+};

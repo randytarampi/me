@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import LetterQuality from "../../../../../../../src/lib/components/letter/content/quality";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterQuality from "../../../../../../../src/lib/components/letter/content/quality.jsx";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterQuality", function () {
     let stubContentConfiguration;

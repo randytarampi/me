@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {DateTime} from "luxon";
-import Award from "../../../../src/lib/award";
+import Award from "../../../../src/lib/award.js";
 
 describe("Award", function () {
     let stubAwardJs;

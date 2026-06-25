@@ -1,8 +1,8 @@
 import {fromJS, List, Map} from "immutable";
-import {matchPath} from "react-router";
 import {LOCATION_CHANGE} from "redux-first-history";
 import {createSelector} from "reselect";
-import {SET_CONTROL_STATE, SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions";
+import {matchPath} from "../reactRouter.cjs";
+import {SET_CONTROL_STATE, SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/index.js";
 
 const initialState = Map({
     routes: List(),
@@ -101,4 +101,3 @@ export const getIndexForRoute = (state, pathname) => {
 };
 
 export const getControlStateForId = (state, id) => state.getIn(["controls", id]);
-

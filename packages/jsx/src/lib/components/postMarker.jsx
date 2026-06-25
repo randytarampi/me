@@ -6,7 +6,7 @@ import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {Provider, ReactReduxContext} from "react-redux";
-import {getSvgPathForPost, scalePixelValueForWindowDevicePixelRatio} from "../util";
+import {getSvgPathForPost, scalePixelValueForWindowDevicePixelRatio} from "../util/index.js";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -14,7 +14,7 @@ import {
     PostDatePublishedComponent,
     PostTagsComponent,
     PostTitleComponent
-} from "./post";
+} from "./post.jsx";
 
 export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading}) => {
     const rowClassName = ["marker-info-box-post"];

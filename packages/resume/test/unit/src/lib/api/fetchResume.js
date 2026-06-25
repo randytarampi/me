@@ -1,8 +1,12 @@
 import {expect} from "chai";
-import Resume from "../../../../../src/lib/resume";
-import testResumeJson from "../../../../../src/resumes/some-awesome-company";
+import path from "path";
+import Resume from "../../../../../src/lib/resume.js";
+import {createRequire} from "module";
 import sinon from "sinon";
-import fetchResumeApi from "../../../../../src/lib/api/fetchResume";
+import fetchResumeApi from "../../../../../src/lib/api/fetchResume.js";
+
+const require = createRequire(path.resolve("test/unit/src/lib/api/fetchResume.js"));
+const testResumeJson = require("../../../../../src/resumes/some-awesome-company.json");
 
 describe("fetchResume", function () {
     it("delegates to `fetch` with the correct parameters", async function () {

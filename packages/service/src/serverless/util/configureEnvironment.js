@@ -1,7 +1,8 @@
-import dynamoose from "dynamoose";
-import {Aws} from "../aws.js";
-import logger, {configureLogger} from "../logger.js";
-import loadServerlessSecrets from "./loadServerlessSecrets.js";
+const dynamoose = require("dynamoose");
+const {Aws} = require("../aws.js");
+const logger = require("../logger.js");
+const {configureLogger} = logger;
+const loadServerlessSecrets = require("./loadServerlessSecrets.js").default || require("./loadServerlessSecrets.js");
 
 dynamoose.aws.sdk = Aws;
 
@@ -9,7 +10,7 @@ if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
     dynamoose.aws.ddb.local();
 }
 
-export default () => {
+module.exports = () => {
     return loadServerlessSecrets()
         .then(() => {
             return configureLogger();
@@ -19,3 +20,4 @@ export default () => {
             throw error;
         });
 };
+module.exports.default = module.exports;

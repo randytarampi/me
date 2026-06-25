@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {Col} from "react-materialize";
-import SectionWrapper from "./sectionWrapper";
+import SectionWrapper from "./sectionWrapper.jsx";
 
 export const RightPushSection = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children, sideContent}) => {
     const sectionClassNames = [

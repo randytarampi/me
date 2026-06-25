@@ -1,7 +1,14 @@
-import {Photo, Post, POST_STATUS, SizedPhoto} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {DateTime} from "luxon";
-import PostModel from "../../../../../src/db/models/post";
+const {Photo, Post, POST_STATUS, SizedPhoto} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {DateTime} = require("luxon");
+const {setupLocal} = require("../../../../../src/serverless/dynamodb/util.js");
+
+let PostModel;
+
+before(async function () {
+    setupLocal();
+    ({default: PostModel} = await import("../../../../../src/db/models/post.js"));
+});
 
 describe("Post", function () {
     this.timeout(60000);
@@ -605,3 +612,4 @@ describe("Post", function () {
         });
     });
 });
+module.exports.default = module.exports;

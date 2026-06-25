@@ -1,11 +1,11 @@
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import queryString from "query-string";
-import {Character} from "../../../../src/lib/emoji";
-import Gallery from "../../../../src/lib/gallery";
-import Photo from "../../../../src/lib/photo";
-import Post from "../../../../src/lib/post";
-import * as util from "../../../../src/lib/util";
+import {Character} from "../../../../src/lib/emoji/index.js";
+import Gallery from "../../../../src/lib/gallery.js";
+import Photo from "../../../../src/lib/photo.js";
+import Post from "../../../../src/lib/post.js";
+import * as util from "../../../../src/lib/util/index.js";
 
 describe("util", function () {
     describe("sortPhotosByWidth", function () {
@@ -183,11 +183,11 @@ describe("util", function () {
 
             const augmentedHref = util.augmentUrlWithTrackingParams(stubHref);
             const expectedAugmentedHref = `/woof?${queryString.stringify({
-                utm_source: __CAMPAIGN_SOURCE__,
-                utm_medium: __CAMPAIGN_MEDIUM__,
-                utm_campaign: __CAMPAIGN_NAME__,
-                utm_term: __CAMPAIGN_TERM__,
-                utm_content: __CAMPAIGN_CONTENT__
+                utm_source: "",
+                utm_medium: "referral",
+                utm_campaign: "",
+                utm_term: "",
+                utm_content: ""
             })}`;
 
             expect(augmentedHref).to.eql(expectedAugmentedHref);
@@ -215,11 +215,11 @@ describe("util", function () {
 
             const augmentedHref = util.augmentUrlWithTrackingParams(stubHref, stubParameters);
             const expectedAugmentedHref = `/woof?${queryString.stringify({
-                utm_source: __CAMPAIGN_SOURCE__,
-                utm_medium: __CAMPAIGN_MEDIUM__,
-                utm_campaign: __CAMPAIGN_NAME__,
-                utm_term: __CAMPAIGN_TERM__,
-                utm_content: __CAMPAIGN_CONTENT__
+                utm_source: "",
+                utm_medium: "referral",
+                utm_campaign: "",
+                utm_term: "",
+                utm_content: ""
             })}`;
 
             expect(augmentedHref).to.eql(expectedAugmentedHref);

@@ -1,9 +1,9 @@
 import {augmentUrlWithTrackingParams} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import React from "react";
-import {CampaignContext} from "../../contexts";
-import {InternalLink} from "./internal";
-import {Link} from "./link";
+import {CampaignContext} from "../../contexts/index.jsx";
+import {InternalLink} from "./internal/index.jsx";
+import {Link} from "./link.jsx";
 
 export const CampaignLink = ({useBranding, href, source, medium, name, term, content, ...props}) => {
     return <CampaignContext.Consumer>

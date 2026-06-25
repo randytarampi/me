@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import {buildReduxOfflineConfig, reduxOfflineConfig} from "../../../../../src/lib/store/configureOfflineStore";
+const {expect} = require("chai");
+const {buildReduxOfflineConfig, reduxOfflineConfig} = require("../../../../../src/lib/store/configureOfflineStore.js");
 
 describe("configureOfflineStore", function () {
     describe("buildReduxOfflineConfig", function () {

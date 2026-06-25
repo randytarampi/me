@@ -1,13 +1,19 @@
-import {Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import {freshRequire} from "../../../../../lib/freshRequire";
+const {Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {loadEsmock, purgeEsmock} = require("../../../../../lib/loadEsmock.js");
 
 afterEach(function () {
     sinon.restore();
+    purgeEsmock();
 });
 
 describe("getPosts", function () {
+    const loadHandler = async mocks => {
+        const esmock = await loadEsmock();
+        return (await esmock("../../../../../../src/serverless/handlers/getPosts/index.js", mocks)).default;
+    };
+
     it("delegates to `getPostsForParsedQuerystringParameters`", async function () {
         const stubEvent = {};
         const stubContext = {};
@@ -36,17 +42,10 @@ describe("getPosts", function () {
         };
         const stubResponse = "meow";
 
-        const parseHeadersModule = freshRequire("../../../../../../src/serverless/util/request/parseHeaders.js");
-        sinon.stub(parseHeadersModule, "default").returns(stubHeaders);
-
-        const parseQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/request/parseQuerystringParameters.js");
-        sinon.stub(parseQuerystringParametersModule, "default").returns(stubQuerystringParameters);
-
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const getPostsForParsedQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js");
-        sinon.stub(getPostsForParsedQuerystringParametersModule, "default").resolves({
+        const parseHeadersStub = sinon.stub().returns(stubHeaders);
+        const parseQuerystringParametersStub = sinon.stub().returns(stubQuerystringParameters);
+        const configureEnvironmentStub = sinon.stub().resolves();
+        const getPostsForParsedQuerystringParametersStub = sinon.stub().resolves({
             first: {
                 global: stubPost,
                 [Post.type]: stubPost,
@@ -64,30 +63,33 @@ describe("getPosts", function () {
                 [stubPost.constructor.name]: 1
             }
         });
-
-        const buildPostsResponseModule = freshRequire("../../../../../../src/serverless/util/response/buildPostsResponse.js");
-        sinon.stub(buildPostsResponseModule, "default").callsFake((postsResult, headers) => {
+        const buildPostsResponseStub = sinon.stub().callsFake((postsResult, headers) => {
             expect(headers).to.eql(stubHeaders);
             expect(postsResult).to.eql(expectedPostsResult);
             return stubResponse;
         });
+        const returnErrorResponseStub = sinon.stub().returns(sinon.stub());
 
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
-        const errorHandlerStub = sinon.stub().returns(undefined);
-        sinon.stub(returnErrorResponseModule, "default").returns(errorHandlerStub);
+        const getPosts = await loadHandler({
+            "../../util/request/parseHeaders.js": {default: parseHeadersStub},
+            "../../util/request/parseQuerystringParameters.js": {default: parseQuerystringParametersStub},
+            "../../util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../util/getPostsForParsedQuerystringParameters.js": {default: getPostsForParsedQuerystringParametersStub},
+            "../../util/response/buildPostsResponse.js": {default: buildPostsResponseStub},
+            "../../util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
-        const getPosts = freshRequire("../../../../../../src/serverless/handlers/getPosts").default;
         await new Promise((resolve, reject) => {
             const stubCallback = (error, postsResult) => {
                 try {
                     expect(error).to.not.be.ok;
                     expect(postsResult).to.eql(stubResponse);
-                    expect(parseHeadersModule.default.calledOnce).to.eql(true);
-                    expect(parseQuerystringParametersModule.default.calledOnce).to.eql(true);
-                    expect(configureEnvironmentModule.default.calledOnce).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersModule.default.calledOnce).to.eql(true);
-                    expect(buildPostsResponseModule.default.calledOnce).to.eql(true);
-                    expect(returnErrorResponseModule.default.calledOnce).to.eql(true);
+                    expect(parseHeadersStub.calledOnce).to.eql(true);
+                    expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
+                    expect(configureEnvironmentStub.calledOnce).to.eql(true);
+                    expect(getPostsForParsedQuerystringParametersStub.calledOnce).to.eql(true);
+                    expect(buildPostsResponseStub.calledOnce).to.eql(true);
+                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -107,17 +109,10 @@ describe("getPosts", function () {
         const stubQuerystringParameters = {};
         const stubError = new Error("woof");
 
-        const parseHeadersModule = freshRequire("../../../../../../src/serverless/util/request/parseHeaders.js");
-        sinon.stub(parseHeadersModule, "default").returns(stubHeaders);
-
-        const parseQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/request/parseQuerystringParameters.js");
-        sinon.stub(parseQuerystringParametersModule, "default").returns(stubQuerystringParameters);
-
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const getPostsForParsedQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js");
-        sinon.stub(getPostsForParsedQuerystringParametersModule, "default").resolves({
+        const parseHeadersStub = sinon.stub().returns(stubHeaders);
+        const parseQuerystringParametersStub = sinon.stub().returns(stubQuerystringParameters);
+        const configureEnvironmentStub = sinon.stub().resolves();
+        const getPostsForParsedQuerystringParametersStub = sinon.stub().resolves({
             first: {
                 global: stubPost,
                 [Post.type]: stubPost,
@@ -135,15 +130,20 @@ describe("getPosts", function () {
                 [stubPost.constructor.name]: 1
             }
         });
+        const buildPostsResponseStub = sinon.stub().throws(stubError);
+        const returnErrorResponseStub = sinon.stub();
+        const errorHandlerStub = sinon.stub();
+        returnErrorResponseStub.returns(errorHandlerStub);
 
-        const buildPostsResponseModule = freshRequire("../../../../../../src/serverless/util/response/buildPostsResponse.js");
-        sinon.stub(buildPostsResponseModule, "default").throws(stubError);
+        const getPosts = await loadHandler({
+            "../../util/request/parseHeaders.js": {default: parseHeadersStub},
+            "../../util/request/parseQuerystringParameters.js": {default: parseQuerystringParametersStub},
+            "../../util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../util/getPostsForParsedQuerystringParameters.js": {default: getPostsForParsedQuerystringParametersStub},
+            "../../util/response/buildPostsResponse.js": {default: buildPostsResponseStub},
+            "../../util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
-        const errorHandlerStub = sinon.stub().returns(undefined);
-        sinon.stub(returnErrorResponseModule, "default").callsFake(() => errorHandlerStub);
-
-        const getPosts = freshRequire("../../../../../../src/serverless/handlers/getPosts").default;
         await new Promise((resolve, reject) => {
             const stubCallback = () => {
                 throw new Error("Wtf? This should've thrown");
@@ -152,12 +152,12 @@ describe("getPosts", function () {
             const stubErrorCallback = error => {
                 try {
                     expect(error.message).to.eql(stubError.message);
-                    expect(parseHeadersModule.default.calledOnce).to.eql(true);
-                    expect(parseQuerystringParametersModule.default.calledOnce).to.eql(true);
-                    expect(configureEnvironmentModule.default.calledOnce).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersModule.default.calledOnce).to.eql(true);
-                    expect(buildPostsResponseModule.default.calledOnce).to.eql(true);
-                    expect(returnErrorResponseModule.default.calledOnce).to.eql(true);
+                    expect(parseHeadersStub.calledOnce).to.eql(true);
+                    expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
+                    expect(configureEnvironmentStub.calledOnce).to.eql(true);
+                    expect(getPostsForParsedQuerystringParametersStub.calledOnce).to.eql(true);
+                    expect(buildPostsResponseStub.calledOnce).to.eql(true);
+                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -175,26 +175,24 @@ describe("getPosts", function () {
         const stubHeaders = {};
         const stubError = new Error("woof");
 
-        const parseHeadersModule = freshRequire("../../../../../../src/serverless/util/request/parseHeaders.js");
-        sinon.stub(parseHeadersModule, "default").returns(stubHeaders);
+        const parseHeadersStub = sinon.stub().returns(stubHeaders);
+        const parseQuerystringParametersStub = sinon.stub().throws(stubError);
+        const configureEnvironmentStub = sinon.stub().resolves();
+        const getPostsForParsedQuerystringParametersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const buildPostsResponseStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const returnErrorResponseStub = sinon.stub();
+        const errorHandlerStub = sinon.stub();
+        returnErrorResponseStub.returns(errorHandlerStub);
 
-        const parseQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/request/parseQuerystringParameters.js");
-        sinon.stub(parseQuerystringParametersModule, "default").throws(stubError);
+        const getPosts = await loadHandler({
+            "../../util/request/parseHeaders.js": {default: parseHeadersStub},
+            "../../util/request/parseQuerystringParameters.js": {default: parseQuerystringParametersStub},
+            "../../util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../util/getPostsForParsedQuerystringParameters.js": {default: getPostsForParsedQuerystringParametersStub},
+            "../../util/response/buildPostsResponse.js": {default: buildPostsResponseStub},
+            "../../util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const getPostsForParsedQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js");
-        sinon.stub(getPostsForParsedQuerystringParametersModule, "default").throws(new Error("Wtf? This should've thrown"));
-
-        const buildPostsResponseModule = freshRequire("../../../../../../src/serverless/util/response/buildPostsResponse.js");
-        sinon.stub(buildPostsResponseModule, "default").throws(new Error("Wtf? This should've thrown"));
-
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
-        const errorHandlerStub = sinon.stub().returns(undefined);
-        sinon.stub(returnErrorResponseModule, "default").callsFake(() => errorHandlerStub);
-
-        const getPosts = freshRequire("../../../../../../src/serverless/handlers/getPosts").default;
         await new Promise((resolve, reject) => {
             const stubCallback = () => {
                 throw new Error("Wtf? This should've thrown");
@@ -203,12 +201,12 @@ describe("getPosts", function () {
             const stubErrorCallback = error => {
                 try {
                     expect(error.message).to.eql(stubError.message);
-                    expect(parseHeadersModule.default.calledOnce).to.eql(true);
-                    expect(parseQuerystringParametersModule.default.calledOnce).to.eql(true);
-                    expect(configureEnvironmentModule.default.notCalled).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersModule.default.notCalled).to.eql(true);
-                    expect(buildPostsResponseModule.default.notCalled).to.eql(true);
-                    expect(returnErrorResponseModule.default.calledOnce).to.eql(true);
+                    expect(parseHeadersStub.calledOnce).to.eql(true);
+                    expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
+                    expect(configureEnvironmentStub.notCalled).to.eql(true);
+                    expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
+                    expect(buildPostsResponseStub.notCalled).to.eql(true);
+                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -224,36 +222,33 @@ describe("getPosts", function () {
         const stubEvent = {source: "serverless-plugin-warmup"};
         const stubContext = {};
 
-        const getPostsForParsedQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js");
-        sinon.stub(getPostsForParsedQuerystringParametersModule, "default").throws(new Error("Wtf? This should've thrown"));
+        const parseHeadersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const parseQuerystringParametersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const configureEnvironmentStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const getPostsForParsedQuerystringParametersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const buildPostsResponseStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
+        const returnErrorResponseStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
 
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").throws(new Error("Wtf? This should've thrown"));
+        const getPosts = await loadHandler({
+            "../../util/request/parseHeaders.js": {default: parseHeadersStub},
+            "../../util/request/parseQuerystringParameters.js": {default: parseQuerystringParametersStub},
+            "../../util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../util/getPostsForParsedQuerystringParameters.js": {default: getPostsForParsedQuerystringParametersStub},
+            "../../util/response/buildPostsResponse.js": {default: buildPostsResponseStub},
+            "../../util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
-        const parseHeadersModule = freshRequire("../../../../../../src/serverless/util/request/parseHeaders.js");
-        sinon.stub(parseHeadersModule, "default").throws(new Error("Wtf? This should've thrown"));
-
-        const parseQuerystringParametersModule = freshRequire("../../../../../../src/serverless/util/request/parseQuerystringParameters.js");
-        sinon.stub(parseQuerystringParametersModule, "default").throws(new Error("Wtf? This should've thrown"));
-
-        const buildPostsResponseModule = freshRequire("../../../../../../src/serverless/util/response/buildPostsResponse.js");
-        sinon.stub(buildPostsResponseModule, "default").throws(new Error("Wtf? This should've thrown"));
-
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
-        sinon.stub(returnErrorResponseModule, "default").throws(new Error("Wtf? This should've thrown"));
-
-        const getPosts = freshRequire("../../../../../../src/serverless/handlers/getPosts").default;
         await new Promise((resolve, reject) => {
             const stubCallback = (error, lambdaIsWarm) => {
                 try {
                     expect(error).to.not.be.ok;
                     expect(lambdaIsWarm).to.match(/Lambda is warm!/);
-                    expect(parseHeadersModule.default.notCalled).to.eql(true);
-                    expect(parseQuerystringParametersModule.default.notCalled).to.eql(true);
-                    expect(configureEnvironmentModule.default.notCalled).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersModule.default.notCalled).to.eql(true);
-                    expect(buildPostsResponseModule.default.notCalled).to.eql(true);
-                    expect(returnErrorResponseModule.default.notCalled).to.eql(true);
+                    expect(parseHeadersStub.notCalled).to.eql(true);
+                    expect(parseQuerystringParametersStub.notCalled).to.eql(true);
+                    expect(configureEnvironmentStub.notCalled).to.eql(true);
+                    expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
+                    expect(buildPostsResponseStub.notCalled).to.eql(true);
+                    expect(returnErrorResponseStub.notCalled).to.eql(true);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -264,3 +259,4 @@ describe("getPosts", function () {
         });
     });
 });
+module.exports.default = module.exports;

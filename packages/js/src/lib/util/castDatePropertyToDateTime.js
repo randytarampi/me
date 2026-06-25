@@ -6,7 +6,7 @@ import {DateTime} from "luxon";
  * @returns {DateTime}
  */
 export const castDatePropertyToDateTime = needsToBeCastToDateTimeOrNull => {
-    if (needsToBeCastToDateTimeOrNull instanceof DateTime) {
+    if (DateTime.isDateTime(needsToBeCastToDateTimeOrNull)) {
         return needsToBeCastToDateTimeOrNull;
     } else if (typeof needsToBeCastToDateTimeOrNull === "string") {
         return DateTime.fromISO(needsToBeCastToDateTimeOrNull);

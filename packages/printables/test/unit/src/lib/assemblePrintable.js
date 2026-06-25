@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import path from "path";
 import sinon from "sinon";
-import assemblePrintable from "../../../../src/lib/assemblePrintable";
+import assemblePrintable from "../../../../src/lib/assemblePrintable.js";
 
 describe("assemblePrintable", function () {
     let stubPrintableBuilder;
@@ -17,7 +17,7 @@ describe("assemblePrintable", function () {
 
     it("calls `printableBuilder` with the correct parameters", function () {
         const stubPrintableFilename = "test";
-        const assembledPrintable = assemblePrintable(stubPrintableBuilder)(path.join(__dirname, `../../../resources/${stubPrintableFilename}`));
+        const assembledPrintable = assemblePrintable(stubPrintableBuilder)(path.resolve("test/resources", stubPrintableFilename));
 
         expect(assembledPrintable).to.eql({
             printableJson: {},

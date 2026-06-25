@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";
-import {fetchingLetterSuccess} from "../../../../../src/lib/actions/fetchLetter";
-import reducer, {getLetter, getLetters} from "../../../../../src/lib/data/letter";
+import {fetchingLetterSuccess} from "../../../../../src/lib/actions/fetchLetter.js";
+import reducer, {getLetter, getLetters} from "../../../../../src/lib/data/letter.js";
 
 describe("letter", function () {
     let stubInitialState;

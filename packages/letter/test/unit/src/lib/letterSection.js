@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {Map} from "immutable";
-import LetterSection from "../../../../src/lib/letterSection";
+import LetterSection from "../../../../src/lib/letterSection.js";
 
 describe("LetterSection", function () {
     describe("constructor", function () {

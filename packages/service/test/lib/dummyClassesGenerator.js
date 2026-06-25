@@ -1,9 +1,9 @@
-import DummyCacheClientGenerator from "./dummyCacheClientGenerator";
-import DummyCachedDataSourceGenerator from "./dummyCachedDataSourceGenerator";
-import DummyDataClientGenerator from "./dummyDataClientGenerator";
-import DummyDataSourceGenerator from "./dummyDataSourceGenerator";
+const DummyCacheClientGenerator = require("./dummyCacheClientGenerator.js");
+const DummyCachedDataSourceGenerator = require("./dummyCachedDataSourceGenerator.js");
+const DummyDataClientGenerator = require("./dummyDataClientGenerator.js");
+const DummyDataSourceGenerator = require("./dummyDataSourceGenerator.js");
 
-export const dummyClassesGenerator = ({
+const dummyClassesGenerator = ({
                                           stubType,
 
                                           stubBeforeRecordsGetter,
@@ -94,4 +94,6 @@ export const dummyClassesGenerator = ({
     };
 };
 
-export default dummyClassesGenerator;
+module.exports = dummyClassesGenerator;
+module.exports.dummyClassesGenerator = dummyClassesGenerator;
+module.exports.default = module.exports;

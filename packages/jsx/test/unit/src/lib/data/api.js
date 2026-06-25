@@ -1,20 +1,21 @@
-import {expect} from "chai";
-import {fromJS, Map} from "immutable";
-import {createAction} from "redux-actions";
-import {
+const {expect} = require("chai");
+const {fromJS, Map} = require("immutable");
+const {createAction} = require("redux-actions");
+const {
     FETCHING_POSTS_PER_PAGE,
     fetchingPosts,
     fetchingPostsCancelled,
     fetchingPostsFailure,
     fetchingPostsSuccess
-} from "../../../../../src/lib/actions/posts/fetchPosts";
-import reducer, {
+} = require("../../../../../src/lib/actions/posts/fetchPosts.js");
+const reducer = require("../../../../../src/lib/data/api.js").default || require("../../../../../src/lib/data/api.js");
+const {
     createGetErrorForUrlSelector,
     createIsLoadingUrlSelector,
     getApiStateForUrl,
     getApiStateForUrlFromGlobalState,
     getErrorForUrlState
-} from "../../../../../src/lib/data/api";
+} = require("../../../../../src/lib/data/api.js");
 
 describe("api", function () {
     let stubInitialState;

@@ -1,10 +1,11 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import swipeableTabChangeIndex, {SWIPEABLE_TAB_CHANGE_INDEX} from "../../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
-import selectors from "../../../../../../src/lib/data/selectors";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const swipeableTabChangeIndex = require("../../../../../../src/lib/actions/routing/swipeableTabChangeIndex.js").default || require("../../../../../../src/lib/actions/routing/swipeableTabChangeIndex.js");
+const {SWIPEABLE_TAB_CHANGE_INDEX} = require("../../../../../../src/lib/actions/routing/swipeableTabChangeIndex.js");
+const selectors = require("../../../../../../src/lib/data/selectors.js").default || require("../../../../../../src/lib/data/selectors.js");
 
 describe("swipeableTabChangeIndex", function () {
     let mockStore;

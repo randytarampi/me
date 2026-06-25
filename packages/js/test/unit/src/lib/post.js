@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {List} from "immutable";
 import {DateTime} from "luxon";
-import Post from "../../../../src/lib/post";
-import Profile from "../../../../src/lib/profile";
-import {augmentUrlWithTrackingParams, compositeKeySeparator} from "../../../../src/lib/util";
+import Post from "../../../../src/lib/post.js";
+import Profile from "../../../../src/lib/profile.js";
+import {augmentUrlWithTrackingParams, compositeKeySeparator} from "../../../../src/lib/util/index.js";
 
 describe("Post", () => {
     describe("constructor", () => {

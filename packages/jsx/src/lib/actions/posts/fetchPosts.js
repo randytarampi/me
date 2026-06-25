@@ -1,8 +1,8 @@
 import {createAction} from "redux-actions";
-import fetchPosts from "../../api/fetchPosts";
-import {isUrlStateLoading} from "../../data/api";
-import selectors from "../../data/selectors";
-import setError from "../error/setError";
+import fetchPosts from "../../api/fetchPosts.js";
+import {isUrlStateLoading} from "../../data/api.js";
+import selectors from "../../data/selectors.js";
+import setError from "../error/setError.js";
 
 export const FETCHING_POSTS_FAILURE = "FETCHING_POSTS_FAILURE";
 export const FETCHING_POSTS_FAILURE_RECOVERY = "FETCHING_POSTS_FAILURE_RECOVERY";

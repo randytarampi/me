@@ -1,3 +1,16 @@
+const path = require("path");
+const {fileURLToPath} = require("url");
+
+const normalizeFileName = fileName => {
+    if (!fileName) {
+        return undefined;
+    }
+
+    return fileName.startsWith("file:")
+        ? fileURLToPath(fileName)
+        : fileName;
+};
+
 const getCallerFile = () => {
     const originalPrepareStackTrace = Error.prepareStackTrace;
     Error.prepareStackTrace = (_, stack) => stack;
@@ -10,29 +23,30 @@ const getCallerFile = () => {
 
     const callerFrame = stack && stack.find(frame => {
         const fileName = frame && frame.getFileName && frame.getFileName();
-        return fileName && fileName !== __filename;
+        return normalizeFileName(fileName) && normalizeFileName(fileName) !== __filename;
     });
 
-    return callerFrame && callerFrame.getFileName ? callerFrame.getFileName() : undefined;
+    return callerFrame && callerFrame.getFileName ? normalizeFileName(callerFrame.getFileName()) : undefined;
 };
 
-export const freshRequire = modulePath => {
-    const path = require("path");
+const freshRequire = modulePath => {
     const callerFile = getCallerFile();
-    const callerDir = callerFile
-        ? path.dirname(callerFile)
-        : process.cwd();
-    const isBareModule = !path.isAbsolute(modulePath) && !modulePath.startsWith(".");
-    const resolvedModulePath = path.isAbsolute(modulePath)
-        ? modulePath
-        : modulePath.startsWith(".")
-            ? require.resolve(path.resolve(callerDir, modulePath))
-            : require.resolve(modulePath, {paths: [callerDir]});
+    const resolvedModulePath = require.resolve(modulePath, {paths: [callerFile ? path.dirname(callerFile) : process.cwd()]});
+
     delete require.cache[resolvedModulePath];
     const moduleExports = require(resolvedModulePath);
 
-    if (isBareModule && moduleExports && typeof moduleExports === "object") {
-        const mutableExports = {...moduleExports};
+    if (moduleExports && typeof moduleExports === "object") {
+        const mutableExports = Object.create(Object.getPrototypeOf(moduleExports));
+
+        for (const [key, descriptor] of Object.entries(Object.getOwnPropertyDescriptors(moduleExports))) {
+            Object.defineProperty(mutableExports, key, {
+                value: descriptor.get ? descriptor.get.call(moduleExports) : descriptor.value,
+                enumerable: descriptor.enumerable,
+                writable: true,
+                configurable: true
+            });
+        }
 
         require.cache[resolvedModulePath] = {
             id: resolvedModulePath,
@@ -46,3 +60,5 @@ export const freshRequire = modulePath => {
 
     return moduleExports;
 };
+module.exports.freshRequire = freshRequire;
+module.exports.default = module.exports;

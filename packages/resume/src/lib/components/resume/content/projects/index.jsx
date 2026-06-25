@@ -1,8 +1,8 @@
 import {PrintableSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
-import {ResumeCustomContent} from "../../../../resumeCustomContent";
-import ResumeProjectsEntry from "./entry";
+import {ResumeCustomContent} from "../../../../resumeCustomContent.js";
+import ResumeProjectsEntry from "./entry.jsx";
 
 export const ResumeProjects = ({resume, customContent, type, label}) => {
     return <PrintableSection

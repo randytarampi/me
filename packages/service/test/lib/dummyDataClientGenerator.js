@@ -1,4 +1,4 @@
-export const DummyDataClientGenerator = ({
+const DummyDataClientGenerator = ({
                                              stubGetRecords,
                                              stubGetRecordCount,
                                              stubCreateRecords,
@@ -33,4 +33,6 @@ export const DummyDataClientGenerator = ({
     };
 };
 
-export default DummyDataClientGenerator;
+module.exports = DummyDataClientGenerator;
+module.exports.DummyDataClientGenerator = DummyDataClientGenerator;
+module.exports.default = module.exports;

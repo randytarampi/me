@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Profile from "../../../../src/lib/profile";
+import Profile from "../../../../src/lib/profile.js";
 
 describe("Profile", function () {
     describe("constructor", function () {

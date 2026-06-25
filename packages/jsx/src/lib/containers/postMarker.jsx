@@ -1,9 +1,9 @@
 import {POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {setControlStateCreator, setGoogleMapCenterCreator} from "../actions";
-import {buildPostMarkerId, PostMarkerComponent} from "../components/postMarker";
-import selectors from "../data/selectors";
+import {setControlStateCreator, setGoogleMapCenterCreator} from "../actions/index.js";
+import {buildPostMarkerId, PostMarkerComponent} from "../components/postMarker.jsx";
+import selectors from "../data/selectors.js";
 
 export const connectPostMarker = connect(
     (state, ownProps) => {

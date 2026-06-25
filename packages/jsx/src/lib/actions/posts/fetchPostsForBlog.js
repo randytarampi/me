@@ -1,7 +1,7 @@
 import {DateTime} from "luxon";
-import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../../data/selectors";
-import {generateFilterFunctionForFilterName} from "../../util/posts";
-import {FETCHING_POSTS_PER_PAGE, fetchingPostsCancelled, fetchPostsCreator} from "./fetchPosts";
+import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../../data/selectors.js";
+import {generateFilterFunctionForFilterName} from "../../util/posts.js";
+import {FETCHING_POSTS_PER_PAGE, fetchingPostsCancelled, fetchPostsCreator} from "./fetchPosts.js";
 
 const selectOldestFilteredPostDate = (postType, filter, filterValue, state) => {
     const postsFilters = [generateFilterFunctionForFilterName[filter](filterValue)];

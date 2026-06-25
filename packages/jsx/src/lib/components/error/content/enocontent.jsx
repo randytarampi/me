@@ -1,6 +1,6 @@
 import {ShrugBear} from "@randy.tarampi/js";
 import React from "react";
-import {ConnectedBear} from "../../../containers/emoji/bear";
+import {ConnectedBear} from "../../../containers/emoji/bear/index.jsx";
 
 export const ErrorENOCONTENTContentComponent = () => <ConnectedBear emoji={ShrugBear.fromJS()} id="error-shrug-bear">
     <h2 className="error__message--header">

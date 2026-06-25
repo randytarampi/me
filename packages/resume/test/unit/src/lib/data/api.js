@@ -1,14 +1,19 @@
-import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";
+import {createRequire} from "module";
+import path from "path";
 import {
     fetchingResume,
     fetchingResumeCancelled,
     fetchingResumeFailure,
     fetchingResumeSuccess
-} from "../../../../../src/lib/actions/fetchResume";
-import reducer from "../../../../../src/lib/data/api";
+} from "../../../../../src/lib/actions/fetchResume.js";
+import reducer from "../../../../../src/lib/data/api.js";
+
+const require = createRequire(path.resolve("test/unit/src/lib/data/api.js"));
+const testResumeJson = require("../../../../../src/resumes/resume.json");
 
 describe("api", function () {
     let stubInitialState;

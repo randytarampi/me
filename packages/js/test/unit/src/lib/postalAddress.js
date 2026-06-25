@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import PostalAddress from "../../../../src/lib/postalAddress";
+import PostalAddress from "../../../../src/lib/postalAddress.js";
 
 describe("PostalAddress", function () {
     describe("constructor", function () {

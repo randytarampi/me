@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import userEmailChanged, {CRISP_USER_EMAIL_CHANGED} from "../../../../../../src/lib/actions/crisp/userEmailChanged";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const userEmailChanged = require("../../../../../../src/lib/actions/crisp/userEmailChanged.js").default || require("../../../../../../src/lib/actions/crisp/userEmailChanged.js");
+const {CRISP_USER_EMAIL_CHANGED} = require("../../../../../../src/lib/actions/crisp/userEmailChanged.js");
 
 describe("userEmailChanged", function () {
     let mockStore;

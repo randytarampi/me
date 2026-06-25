@@ -1,9 +1,7 @@
-import {RightPushSection} from "@randy.tarampi/jsx";
 import React from "react";
+import {RightPushSection} from "@randy.tarampi/jsx";
 
-const Woof = () => <RightPushSection type="woof">
-    WOOF WOOF WOOF
-</RightPushSection>;
+const Woof = () => React.createElement(RightPushSection, {type: "woof"}, "WOOF WOOF WOOF");
 
 export default {
     content: [

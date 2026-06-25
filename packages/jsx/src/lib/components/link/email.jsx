@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import queryString from "query-string";
 import React from "react";
-import Link from "./link";
+import Link from "./link.jsx";
 
 export const EmailLink = ({useBranding, ...props}) => {
     return <Link {...props}

@@ -1,7 +1,7 @@
 import {CampaignLink} from "@randy.tarampi/jsx";
 import React, {Fragment} from "react";
-import {JobApplication} from "../lib";
-import defaultJobApplication from "./jobApplication";
+import {JobApplication} from "../lib/index.js";
+import defaultJobApplication from "./jobApplication.js";
 
 const date = "2018-10-31";
 

@@ -1,5 +1,5 @@
-import {renderPdf} from "./renderPdf";
-import {renderPrintablesHtml} from "./renderPrintablesHtml";
+import {renderPdf} from "./renderPdf.js";
+import {renderPrintablesHtml} from "./renderPrintablesHtml.js";
 
 export const renderPrintablesToPdf = ({
                                           printableComponent,

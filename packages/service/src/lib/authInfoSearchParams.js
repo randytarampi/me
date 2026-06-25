@@ -1,5 +1,5 @@
-import {compositeKeySeparator} from "@randy.tarampi/js";
-import {Record} from "immutable";
+const {compositeKeySeparator} = require("@randy.tarampi/js");
+const {Record} = require("immutable");
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -38,7 +38,7 @@ const AuthInfoSearchParamsRecord = Record(searchParamsRecordDefinition);
  * Turn some generic search parameters into a query parameters for [AuthInfo]{@link AuthInfo} for some services
  * @extends AuthInfoSearchParamsRecord
  */
-export class AuthInfoSearchParams extends AuthInfoSearchParamsRecord {
+class AuthInfoSearchParams extends AuthInfoSearchParamsRecord {
     get OAuth() {
         return {
             access_token_key: this.accessToken,
@@ -133,4 +133,6 @@ export class AuthInfoSearchParams extends AuthInfoSearchParamsRecord {
     }
 }
 
-export default AuthInfoSearchParams;
+module.exports = AuthInfoSearchParams;
+module.exports.AuthInfoSearchParams = AuthInfoSearchParams;
+module.exports.default = module.exports;

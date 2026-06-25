@@ -3,7 +3,7 @@ import {CampaignLink} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import {ResumeCustomPrintableSectionContent} from "../../../../resumeCustomContent";
+import {ResumeCustomPrintableSectionContent} from "../../../../resumeCustomContent.js";
 
 const monthYearFormat = {month: "long", year: "numeric"};
 

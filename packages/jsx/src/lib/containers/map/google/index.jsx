@@ -9,8 +9,8 @@ import {
     onGoogleMapMapTypeIdChangedCreator,
     onGoogleMapTiltChangedCreator,
     onGoogleMapZoomChangedCreator
-} from "../../../actions/map/google";
-import {GoogleMapComponent} from "../../../components/map";
+} from "../../../actions/map/google/index.js";
+import {GoogleMapComponent} from "../../../components/map/index.jsx";
 
 export const connectGoogleMap = connect(
     null,

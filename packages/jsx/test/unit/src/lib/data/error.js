@@ -1,17 +1,18 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import {createAction} from "redux-actions";
-import {clearError} from "../../../../../src/lib/actions/error/clearError";
-import {setError} from "../../../../../src/lib/actions/error/setError";
-import {setErrorTimeoutHandler} from "../../../../../src/lib/actions/error/setErrorTimeoutHandler";
-import reducer, {
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const {createAction} = require("redux-actions");
+const {clearError} = require("../../../../../src/lib/actions/error/clearError.js");
+const {setError} = require("../../../../../src/lib/actions/error/setError.js");
+const {setErrorTimeoutHandler} = require("../../../../../src/lib/actions/error/setErrorTimeoutHandler.js");
+const reducer = require("../../../../../src/lib/data/error.js").default || require("../../../../../src/lib/data/error.js");
+const {
     getError,
     getErrorCode,
     getErrorMessage,
     getErrorState,
     getErrorTimeoutHandlerId,
     hasError
-} from "../../../../../src/lib/data/error";
+} = require("../../../../../src/lib/data/error.js");
 
 describe("error", function () {
     let stubInitialState;

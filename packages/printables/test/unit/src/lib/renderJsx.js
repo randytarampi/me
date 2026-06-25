@@ -2,12 +2,15 @@ import {expect} from "chai";
 import React from "react";
 import {Helmet} from "react-helmet";
 import sinon from "sinon";
-import {getRenderedHelmet, renderJsx} from "../../../../src/lib/renderJsx";
+import {getRenderedHelmet, renderJsx} from "../../../../src/lib/renderJsx.js";
 
 describe("renderJsx", function () {
     describe("renderJsx", function () {
         it("calls `renderToStaticMarkup`", function () {
-            const stubComponent = props => <div id="woof" {...props}>Woof!</div>;
+            const stubComponent = props => React.createElement("div", {
+                id: "woof",
+                ...props
+            }, "Woof!");
             const stubProps = {
                 meow: "grr",
                 pageSize: "RAWR"

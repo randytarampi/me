@@ -1,9 +1,9 @@
-import {Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import CacheClient from "../../../../src/lib/cacheClient";
-import PostSearchParams from "../../../../src/lib/postSearchParams";
-import DummyDataClientGenerator from "../../../lib/dummyDataClientGenerator";
+const {Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const CacheClient = require("../../../../src/lib/cacheClient.js");
+const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
+const DummyDataClientGenerator = require("../../../lib/dummyDataClientGenerator.js");
 
 describe("CacheClient", function () {
     let stubType;
@@ -243,3 +243,4 @@ describe("CacheClient", function () {
         });
     });
 });
+module.exports.default = module.exports;

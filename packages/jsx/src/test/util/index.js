@@ -1,2 +1,2 @@
-export * from "./mount";
-export * from "./shallow";
+export * from "./mount.js";
+export * from "./shallow.js";

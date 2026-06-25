@@ -1,19 +1,20 @@
-import {Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {Map, Set} from "immutable";
-import {DateTime} from "luxon";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import fetchPosts, {
+const {Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {Map, Set} = require("immutable");
+const {DateTime} = require("luxon");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const fetchPosts = require("../../../../../../src/lib/actions/posts/fetchPosts.js").default || require("../../../../../../src/lib/actions/posts/fetchPosts.js");
+const {
     FETCHING_POSTS,
     FETCHING_POSTS_CANCELLED,
     FETCHING_POSTS_FAILURE,
     FETCHING_POSTS_FAILURE_RECOVERY,
     FETCHING_POSTS_PER_PAGE,
     FETCHING_POSTS_SUCCESS
-} from "../../../../../../src/lib/actions/posts/fetchPosts";
-import {SET_ERROR} from "../../../../../../src/lib/actions/error/setError";
+} = require("../../../../../../src/lib/actions/posts/fetchPosts.js");
+const {SET_ERROR} = require("../../../../../../src/lib/actions/error/setError.js");
 
 describe("fetchPosts", function () {
     let mockStore;

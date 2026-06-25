@@ -1,13 +1,13 @@
-import {expect} from "chai";
-import {fromJS, Map, Set} from "immutable";
-import {DateTime} from "luxon";
-import {Post} from "@randy.tarampi/js";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import * as fetchPostsModule from "../../../../../../src/lib/actions/posts/fetchPosts";
-import fetchPostsForMap from "../../../../../../src/lib/actions/posts/fetchPostsForMap";
-import selectors from "../../../../../../src/lib/data/selectors";
+const {expect} = require("chai");
+const {fromJS, Map, Set} = require("immutable");
+const {DateTime} = require("luxon");
+const {Post} = require("@randy.tarampi/js");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const fetchPostsModule = require("../../../../../../src/lib/actions/posts/fetchPosts.js");
+const fetchPostsForMap = require("../../../../../../src/lib/actions/posts/fetchPostsForMap.js").default || require("../../../../../../src/lib/actions/posts/fetchPostsForMap.js");
+const selectors = require("../../../../../../src/lib/data/selectors.js").default || require("../../../../../../src/lib/data/selectors.js");
 
 describe("fetchPostsForMap", function () {
     let mockStore;

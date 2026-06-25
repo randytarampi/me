@@ -1,1 +1,1 @@
-export * from "./fetchPosts";
+export * from "./fetchPosts.js";

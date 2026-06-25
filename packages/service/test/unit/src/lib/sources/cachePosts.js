@@ -1,15 +1,20 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import * as sources from "../../../../../src/lib/sources";
-import {cachePosts} from "../../../../../src/lib/sources/cachePosts";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {freshRequire} = require("../../../../lib/freshRequire.js");
 
 describe("cacheRecords", function () {
     let stubSearchParams;
     let stubSource;
     let stubSources;
     let stubPosts;
+    let sources;
+    let cachePosts;
+    let originalFlickrApiKey;
 
     beforeEach(function () {
+        originalFlickrApiKey = process.env.FLICKR_API_KEY;
+        process.env.FLICKR_API_KEY = "flickr-key";
+
         stubPosts = ["meow"];
         stubSearchParams = {type: "woof"};
         stubSource = {
@@ -19,11 +24,18 @@ describe("cacheRecords", function () {
             })
         };
         stubSources = [stubSource];
+        sources = freshRequire("../../../../../src/lib/sources/index.js");
         sinon.stub(sources, "initializeSources").returns(Promise.resolve(stubSources));
+        cachePosts = freshRequire("../../../../../src/lib/sources/cachePosts.js").cachePosts;
     });
 
     afterEach(function () {
-        sources.initializeSources.restore();
+        sinon.restore();
+        if (typeof originalFlickrApiKey === "undefined") {
+            delete process.env.FLICKR_API_KEY;
+        } else {
+            process.env.FLICKR_API_KEY = originalFlickrApiKey;
+        }
     });
 
     it("returns some posts", function () {
@@ -53,3 +65,4 @@ describe("cacheRecords", function () {
             });
     });
 });
+module.exports.default = module.exports;

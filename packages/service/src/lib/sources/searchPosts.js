@@ -1,6 +1,6 @@
-import {sortPostsByDate} from "@randy.tarampi/js";
-import {sources} from "./index.js";
-import CacheClient from "../cacheClient.js";
+const {sortPostsByDate} = require("@randy.tarampi/js");
+const {sources} = require("./index.js");
+const CacheClient = require("../cacheClient.js");
 
 const cachedValueToPost = cachedValue => cachedValue
     && sources[cachedValue.source]
@@ -13,7 +13,7 @@ const cachedValueToPost = cachedValue => cachedValue
  * @param searchParams {PostSearchParams}
  * @returns {Promise<{posts: Post[], total: Number, first: Post, last: Post} | never | {posts: null, total: null, first: null, last: null, error: any}>}
  */
-export const searchPosts = searchParams => {
+const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
 
     return Promise.all([
@@ -51,4 +51,6 @@ export const searchPosts = searchParams => {
         });
 };
 
-export default searchPosts;
+module.exports = searchPosts;
+module.exports.searchPosts = searchPosts;
+module.exports.default = module.exports;

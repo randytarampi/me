@@ -1,8 +1,11 @@
 import {Map} from "immutable";
 import {createSelector} from "reselect";
-import defaultResume from "../../resumes/resume.json";
-import {FETCHING_RESUME_SUCCESS} from "../actions/fetchResume";
+import {FETCHING_RESUME_SUCCESS} from "../actions/fetchResume.js";
 import Resume from "../resume.js";
+
+import {readFileSync} from "fs";
+
+const defaultResume = JSON.parse(readFileSync("src/resumes/resume.json", "utf8"));
 
 const defaultVariant = "resume";
 const defaultState = Map({

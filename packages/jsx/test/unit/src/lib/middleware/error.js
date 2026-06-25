@@ -1,8 +1,8 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import {CLEAR_ERROR} from "../../../../../src/lib/actions/error/clearError";
-import selectors from "../../../../../src/lib/data/selectors";
-import error from "../../../../../src/lib/middleware/error";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {CLEAR_ERROR} = require("../../../../../src/lib/actions/error/clearError.js");
+const selectors = require("../../../../../src/lib/data/selectors.js").default || require("../../../../../src/lib/data/selectors.js");
+const error = require("../../../../../src/lib/middleware/error.js").default || require("../../../../../src/lib/middleware/error.js");
 
 describe("error", function () {
     beforeEach(function () {

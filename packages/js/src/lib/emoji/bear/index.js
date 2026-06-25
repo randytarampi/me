@@ -1,12 +1,12 @@
-import Bear from "./bear";
+import Bear from "./bear.js";
 
-export * from "./bear";
+export * from "./bear.js";
 
-export * from "./deadBear";
-export * from "./disBear";
-export * from "./doubtBear";
-export * from "./helloBear";
-export * from "./lennyBear";
-export * from "./shrugBear";
+export * from "./deadBear.js";
+export * from "./disBear.js";
+export * from "./doubtBear.js";
+export * from "./helloBear.js";
+export * from "./lennyBear.js";
+export * from "./shrugBear.js";
 
 export default Bear;

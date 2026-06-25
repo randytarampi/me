@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {mapErrorCodeToErrorContentComponent} from "./content";
-import ErrorComponent from "./error";
+import {mapErrorCodeToErrorContentComponent} from "./content/index.jsx";
+import ErrorComponent from "./error.jsx";
 
 export const ErrorWrapperComponent = ({children, ...props}) => {
     const errorContentComponent = props.errorContentComponent || props.mapErrorCodeToErrorContentComponent(props.errorCode);

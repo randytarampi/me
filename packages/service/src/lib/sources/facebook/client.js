@@ -1,6 +1,6 @@
-import {fetchFacebookEdge} from "./util.js";
+const {fetchFacebookEdge} = require("./util.js");
 
-export class FacebookApiClient {
+class FacebookApiClient {
     constructor(accessToken) {
         this.accessToken = accessToken;
         this.fetch = this.fetch.bind(this);
@@ -15,4 +15,6 @@ export class FacebookApiClient {
     }
 }
 
-export default FacebookApiClient;
+module.exports = FacebookApiClient;
+module.exports.FacebookApiClient = FacebookApiClient;
+module.exports.default = module.exports;

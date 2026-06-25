@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import messageComposeReceived, {CRISP_MESSAGE_COMPOSE_RECEIVED} from "../../../../../../src/lib/actions/crisp/messageComposeReceived";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const messageComposeReceived = require("../../../../../../src/lib/actions/crisp/messageComposeReceived.js").default || require("../../../../../../src/lib/actions/crisp/messageComposeReceived.js");
+const {CRISP_MESSAGE_COMPOSE_RECEIVED} = require("../../../../../../src/lib/actions/crisp/messageComposeReceived.js");
 
 describe("messageComposeReceived", function () {
     let mockStore;

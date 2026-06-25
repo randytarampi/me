@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {GoogleMap, withGoogleMap, withScriptjs} from "react-google-maps";
-import {LoadingSpinner} from "../../loadingSpinner";
-import {MAP_CONTAINER_HEIGHT_PX} from "../util";
-import {GoogleMapStyles} from "./styles";
+import {LoadingSpinner} from "../../loadingSpinner.jsx";
+import {MAP_CONTAINER_HEIGHT_PX} from "../util.js";
+import {GoogleMapStyles} from "./styles.js";
 
 export const MAP_API_URL = `https://maps.googleapis.com/maps/api/js?key=${__GCP_API_KEY__}&v=3.exp&libraries=geometry,drawing,places`;
 
-export * from "./markerClusterer";
+export * from "./markerClusterer.jsx";
 
 export const ComposedGoogleMap = withScriptjs(withGoogleMap(({googleMapRef, ...props}) => <GoogleMap
     ref={googleMapRef} {...props}/>));

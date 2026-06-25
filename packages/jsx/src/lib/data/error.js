@@ -1,7 +1,7 @@
 import {Map} from "immutable";
-import {CLEAR_ERROR} from "../actions/error/clearError";
-import {SET_ERROR} from "../actions/error/setError";
-import {SET_ERROR_TIMEOUT_HANDLER} from "../actions/error/setErrorTimeoutHandler";
+import {CLEAR_ERROR} from "../actions/error/clearError.js";
+import {SET_ERROR} from "../actions/error/setError.js";
+import {SET_ERROR_TIMEOUT_HANDLER} from "../actions/error/setErrorTimeoutHandler.js";
 
 export const errorReducer = (state = Map(), action) => {
     switch (action.type) {

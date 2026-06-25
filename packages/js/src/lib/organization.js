@@ -1,7 +1,7 @@
 import {Organization as SchemaOrganization} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber} from "libphonenumber-js";
-import PostalAddress from "./postalAddress";
+import PostalAddress from "./postalAddress.js";
 
 export class Organization extends Record({
     additionalName: null,

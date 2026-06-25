@@ -1,9 +1,10 @@
-import {Emoji} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import instantiateEmoji, {INSTANTIATE_EMOJI} from "../../../../../../src/lib/actions/emoji/instantiateEmoji";
+const {Emoji} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const instantiateEmoji = require("../../../../../../src/lib/actions/emoji/instantiateEmoji.js").default || require("../../../../../../src/lib/actions/emoji/instantiateEmoji.js");
+const {INSTANTIATE_EMOJI} = require("../../../../../../src/lib/actions/emoji/instantiateEmoji.js");
 
 describe("instantiateEmoji", function () {
     let mockStore;

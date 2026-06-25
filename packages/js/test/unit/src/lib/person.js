@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {formatNumber, parseNumber} from "libphonenumber-js";
 import {DateTime} from "luxon";
-import Person from "../../../../src/lib/person";
-import PostalAddress from "../../../../src/lib/postalAddress";
+import Person from "../../../../src/lib/person.js";
+import PostalAddress from "../../../../src/lib/postalAddress.js";
 
 describe("Person", function () {
     let stubPersonJson;

@@ -1,19 +1,19 @@
-import {expect} from "chai";
-import {fireEvent, render, screen} from "@testing-library/react";
-import {Map} from "immutable";
-import React from "react";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import sinon from "sinon";
-import {thunk} from "redux-thunk";
-import {
+const {expect} = require("chai");
+const {fireEvent, render, screen} = require("@testing-library/react");
+const {Map} = require("immutable");
+const React = require("react");
+const {Provider} = require("react-redux");
+const configureStore = require("redux-mock-store");
+const sinon = require("sinon");
+const {thunk} = require("redux-thunk");
+const {
     BlogAppLink,
     CodeAppLink,
     InternalLink as InternalLinkComponent,
     PhotosAppLink,
     ResumeAppLink,
     WordsAppLink
-} from "../../../../../../src/lib/components/link/internal";
+} = require("../../../../../../src/lib/components/link/internal/index.jsx");
 
 describe("InternalLink", function () {
     let mockStore;

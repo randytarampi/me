@@ -1,11 +1,12 @@
-import {Emoji} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {Map} from "immutable";
-import {createAction} from "redux-actions";
-import {clearEmoji} from "../../../../../src/lib/actions/emoji/clearEmoji";
-import {instantiateEmoji} from "../../../../../src/lib/actions/emoji/instantiateEmoji";
-import {updateEmoji} from "../../../../../src/lib/actions/emoji/updateEmoji";
-import reducer, {getEmoji, hasEmoji} from "../../../../../src/lib/data/emoji";
+const {Emoji} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const {createAction} = require("redux-actions");
+const {clearEmoji} = require("../../../../../src/lib/actions/emoji/clearEmoji.js");
+const {instantiateEmoji} = require("../../../../../src/lib/actions/emoji/instantiateEmoji.js");
+const {updateEmoji} = require("../../../../../src/lib/actions/emoji/updateEmoji.js");
+const reducer = require("../../../../../src/lib/data/emoji.js").default || require("../../../../../src/lib/data/emoji.js");
+const {getEmoji, hasEmoji} = require("../../../../../src/lib/data/emoji.js");
 
 describe("emoji", function () {
     let stubInitialState;

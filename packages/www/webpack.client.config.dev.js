@@ -1,1 +1,1 @@
-module.exports = require("./webpack.client.config.esm");
+export {default} from "./webpack.client.config.esm.js";

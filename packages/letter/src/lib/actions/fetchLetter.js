@@ -1,7 +1,8 @@
-import {isUrlStateLoading, setErrorCreator} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {isUrlStateLoading} from "@randy.tarampi/jsx/src/lib/data/api.js";
+import {setErrorCreator} from "@randy.tarampi/jsx/src/lib/actions/error/setError.js";
 import {createAction} from "redux-actions";
 import fetchLetter, {buildFetchUrlForVariant} from "../api/fetchLetter.js";
-import selectors from "../data/selectors";
+import selectors from "../data/selectors.js";
 
 export const FETCHING_LETTER_FAILURE = "FETCHING_LETTER_FAILURE";
 export const FETCHING_LETTER_FAILURE_RECOVERY = "FETCHING_LETTER_FAILURE_RECOVERY";

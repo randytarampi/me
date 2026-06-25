@@ -1,7 +1,7 @@
 import {reducers as jsxReducers} from "@randy.tarampi/jsx";
 import {reducers as letterReducers} from "@randy.tarampi/letter";
 import {reducers as resumeReducers} from "@randy.tarampi/resume";
-import api from "./api";
+import api from "./api.js";
 
 export const reducers = {
     ...jsxReducers,

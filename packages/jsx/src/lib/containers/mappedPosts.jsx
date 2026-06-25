@@ -2,11 +2,11 @@ import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchPostsForMapCreator} from "../actions";
-import {MappedPostsComponent} from "../components/mappedPosts";
-import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data";
-import {createComplexPostsSelector, selectors} from "../data/selectors";
-import {generateFilterFunctionForFilterName, generateTransformFunctionForTransformName} from "../util";
+import {fetchPostsForMapCreator} from "../actions/index.js";
+import {MappedPostsComponent} from "../components/mappedPosts.jsx";
+import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/index.js";
+import {createComplexPostsSelector, selectors} from "../data/selectors.js";
+import {generateFilterFunctionForFilterName, generateTransformFunctionForTransformName} from "../util/index.js";
 
 const getBasePostsSelectorForType = type => {
     switch (type) {

@@ -1,8 +1,8 @@
-import {expect} from "chai";
-import {fromJS} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import {UPDATE_MAP, updateMapCreator} from "../../../../../../../src/lib/actions/map";
+const {expect} = require("chai");
+const {fromJS} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const {UPDATE_MAP, updateMapCreator} = require("../../../../../../../src/lib/actions/map/index.js");
 
 describe("updateMap", function () {
     let mockStore;

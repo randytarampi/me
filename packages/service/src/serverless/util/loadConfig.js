@@ -1,12 +1,14 @@
-module.exports.default = () => {
-    const path = require("path");
-    const fs = require("fs");
+const fs = require("fs");
+const path = require("path");
+
+module.exports = () => {
     const packageConfigDir = path.join(process.cwd(), "config");
     const rootConfigDir = path.join(process.cwd(), "../../config");
 
     process.env.NODE_CONFIG_DIR = fs.existsSync(packageConfigDir)
         ? packageConfigDir
         : rootConfigDir;
+
     const config = require("config");
 
     return {
@@ -26,3 +28,4 @@ module.exports.default = () => {
         me: config.get("me")
     };
 };
+module.exports.default = module.exports;

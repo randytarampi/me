@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {StaticRouter} from "react-router";
-import {ConnectedErrorWrapper} from "./containers/error";
-import ReduxRoot from "./reduxRoot";
-import {renderRoutes} from "./util/renderRoutes";
+import {ConnectedErrorWrapper} from "./containers/error/index.jsx";
+import ReduxRoot from "./reduxRoot.jsx";
+import {StaticRouter} from "./reactRouter.cjs";
+import {renderRoutes} from "./util/renderRoutes.cjs";
 
 export const ServerReduxRouterRoot = ({store, location, routes, ...props}) =>
     <ReduxRoot store={store} {...props}>

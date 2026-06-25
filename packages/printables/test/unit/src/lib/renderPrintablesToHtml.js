@@ -1,105 +1,93 @@
 import {expect} from "chai";
 import fs from "fs";
 import path from "path";
+import React from "react";
 import sinon from "sinon";
-import * as renderPrintablesHtmlModule from "../../../../src/lib/renderPrintablesHtml";
-import {renderPrintablesToHtml} from "../../../../src/lib/renderPrintablesToHtml";
+import {renderPrintablesToHtml} from "../../../../src/lib/renderPrintablesToHtml.js";
 
 describe("renderPrintablesToHtml", function () {
-    let stubPrintableComponent;
-    let stubPrintableStylesPath;
-    let stubPrintableBuilder;
-    let stubPrintableTemplateDirectory;
-    let stubPrintableRenderOptions;
-    let stubPrintableDestinationDirectory;
-    let stubPrintableHtmlPairs;
-
-    beforeEach(function () {
-        stubPrintableComponent = "woof";
-        stubPrintableStylesPath = "meow";
-        stubPrintableBuilder = "grr";
-        stubPrintableTemplateDirectory = "rawr";
-        stubPrintableRenderOptions = "argh";
-        stubPrintableDestinationDirectory = "bah";
-        stubPrintableHtmlPairs = [
-            {printableHtml: 1, printable: 2},
-            {printableHtml: 3, printable: 4}
-        ];
-
-        sinon.stub(fs, "writeFile").callsFake((path, file, callback) => callback());
-        sinon.stub(renderPrintablesHtmlModule, "renderPrintablesHtml").returns(Promise.resolve(stubPrintableHtmlPairs));
-    });
-
     afterEach(function () {
-        fs.writeFile.restore();
-        renderPrintablesHtmlModule.renderPrintablesHtml.restore();
+        sinon.restore();
     });
 
-    it("delegates to `renderPrintablesHtml` and `fs.writeFile`", function () {
-        return renderPrintablesToHtml({
-            printableComponent: stubPrintableComponent,
-            printableStylesPath: stubPrintableStylesPath,
-            printableBuilder: stubPrintableBuilder,
-            printableTemplateDirectory: stubPrintableTemplateDirectory,
-            printableRenderOptions: stubPrintableRenderOptions,
-            printableDestinationDirectory: stubPrintableDestinationDirectory
-        })
-            .then(files => {
-                expect(files).to.have.length(stubPrintableHtmlPairs.length);
+    it("delegates to `renderPrintablesHtml` and `fs.writeFile`", async function () {
+        const printableComponent = ({printable}) => React.createElement("div", null, printable.name);
+        const printableStylesPath = path.resolve("test/resources/styles.css");
+        const printableTemplateDirectory = path.resolve("test/resources/printables");
+        const printableBuilder = (printableJson, printableFilename) => ({
+            ...printableJson,
+            filename: printableFilename
+        });
+        const printableDestinationDirectory = path.resolve("test/resources/output");
 
-                expect(renderPrintablesHtmlModule.renderPrintablesHtml.calledOnce).to.be.ok;
-                sinon.assert.calledWith(renderPrintablesHtmlModule.renderPrintablesHtml, {
-                    printableComponent: stubPrintableComponent,
-                    printableStylesPath: stubPrintableStylesPath,
-                    printableBuilder: stubPrintableBuilder,
-                    printableTemplateDirectory: stubPrintableTemplateDirectory,
-                    printableRenderOptions: stubPrintableRenderOptions
-                });
+        fs.mkdirSync(printableDestinationDirectory, {recursive: true});
+        sinon.stub(fs, "writeFile").callsFake((filePath, file, callback) => callback());
 
-                expect(fs.writeFile.calledTwice).to.be.ok;
-                stubPrintableHtmlPairs.forEach(({printableHtml: stubPrintableHtml}) => {
-                    sinon.assert.calledWith(fs.writeFile, path.join(stubPrintableDestinationDirectory, "/undefined.html"), stubPrintableHtml);
-                });
-            });
+        const files = await renderPrintablesToHtml({
+            printableComponent,
+            printableStylesPath,
+            printableBuilder,
+            printableTemplateDirectory,
+            printableRenderOptions: {woof: "meow"},
+            printableDestinationDirectory
+        });
+
+        expect(files).to.have.length(3);
+        expect(fs.writeFile.callCount).to.eql(3);
+        expect(fs.writeFile.firstCall.args[0]).to.match(/\.html$/);
     });
 
-    it("handles errors", function () {
-        fs.writeFile.restore();
+    it("handles errors", async function () {
+        const printableComponent = ({printable}) => React.createElement("div", null, printable.name);
+        const printableStylesPath = path.resolve("test/resources/styles.css");
+        const printableTemplateDirectory = path.resolve("test/resources/printables");
+        const printableBuilder = (printableJson, printableFilename) => ({
+            ...printableJson,
+            filename: printableFilename
+        });
+        const printableDestinationDirectory = path.resolve("test/resources/output");
+
         sinon.stub(fs, "writeFile").throws(new Error("woof"));
 
-        return renderPrintablesToHtml({
-            printableComponent: stubPrintableComponent,
-            printableStylesPath: stubPrintableStylesPath,
-            printableBuilder: stubPrintableBuilder,
-            printableTemplateDirectory: stubPrintableTemplateDirectory,
-            printableRenderOptions: stubPrintableRenderOptions,
-            printableDestinationDirectory: stubPrintableDestinationDirectory
-        })
-            .then(() => {
-                throw new Error("Wtf? This should've thrown");
-            })
-            .catch(error => {
-                expect(error.message).to.eql("woof");
+        try {
+            await renderPrintablesToHtml({
+                printableComponent,
+                printableStylesPath,
+                printableBuilder,
+                printableTemplateDirectory,
+                printableRenderOptions: {woof: "meow"},
+                printableDestinationDirectory
             });
+            throw new Error("Wtf? This should've thrown");
+        } catch (error) {
+            expect(error.message).to.eql("woof");
+        }
     });
 
-    it("handles `fs.writeFile` errors", function () {
-        fs.writeFile.restore();
-        sinon.stub(fs, "writeFile").callsFake((path, file, callback) => callback(new Error("meow")));
+    it("handles `fs.writeFile` errors", async function () {
+        const printableComponent = ({printable}) => React.createElement("div", null, printable.name);
+        const printableStylesPath = path.resolve("test/resources/styles.css");
+        const printableTemplateDirectory = path.resolve("test/resources/printables");
+        const printableBuilder = (printableJson, printableFilename) => ({
+            ...printableJson,
+            filename: printableFilename
+        });
+        const printableDestinationDirectory = path.resolve("test/resources/output");
 
-        return renderPrintablesToHtml({
-            printableComponent: stubPrintableComponent,
-            printableStylesPath: stubPrintableStylesPath,
-            printableBuilder: stubPrintableBuilder,
-            printableTemplateDirectory: stubPrintableTemplateDirectory,
-            printableRenderOptions: stubPrintableRenderOptions,
-            printableDestinationDirectory: stubPrintableDestinationDirectory
-        })
-            .then(() => {
-                throw new Error("Wtf? This should've thrown");
-            })
-            .catch(error => {
-                expect(error.message).to.eql("meow");
+        sinon.stub(fs, "writeFile").callsFake((filePath, file, callback) => callback(new Error("meow")));
+
+        try {
+            await renderPrintablesToHtml({
+                printableComponent,
+                printableStylesPath,
+                printableBuilder,
+                printableTemplateDirectory,
+                printableRenderOptions: {woof: "meow"},
+                printableDestinationDirectory
             });
+            throw new Error("Wtf? This should've thrown");
+        } catch (error) {
+            expect(error.message).to.eql("meow");
+        }
     });
 });

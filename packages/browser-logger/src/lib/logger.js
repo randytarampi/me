@@ -1,7 +1,7 @@
 import {createLogger as browserBunyanCreateLogger, stdSerializers} from "browser-bunyan";
 import {SentryStream} from "bunyan-sentry-stream";
 import raven from "raven-js";
-import ConsoleStream from "./consoleStream";
+import ConsoleStream from "./consoleStream.js";
 
 const getWindowVariables = () => {
     if (typeof window !== "undefined" && window) {

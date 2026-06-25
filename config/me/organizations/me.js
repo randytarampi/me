@@ -1,22 +1,21 @@
-const defer = require("config/defer").deferConfig;
 const profiles = require("../profiles");
 
 module.exports = {
     email: "jobs@randytarampi.ca",
     telephone: "+4917656927128",
     image: "https://secure.gravatar.com/avatar/2efab7e328dae90b9ff272f9ee4974b8?s=512",
-    logo: defer(function () {
+    logo: function () {
         return this.me.resume.basics.image;
-    }),
-    name: defer(function () {
+    },
+    name: function () {
         return `${this.me.resume.basics.givenName} ${this.me.resume.basics.familyName}`;
-    }),
+    },
     url: "https://www.randytarampi.ca/blog",
     description: "I moved out here to broaden my skillset and horizons and now I'm doubling down and looking for my next big thing – a 50m² place with a decent amount of natural light and quiet neighbours 🤣",
     address: {
-        countryCode: defer(function () {
+        countryCode: function () {
             return this.me.resume.basics.address.addressCountry;
-        }),
+        },
         addressCountry: "DE",
         addressLocality: "Berlin",
         addressRegion: "",

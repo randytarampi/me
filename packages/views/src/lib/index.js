@@ -1,1 +1,1 @@
-export * from "./buildPugLocals";
+export * from "./buildPugLocals.js";

@@ -1,10 +1,10 @@
-import {Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {List} from "immutable";
-import {
+const {Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {List} = require("immutable");
+const {
     generateFilterFunctionForFilterName,
     generateTransformFunctionForTransformName
-} from "../../../../../src/lib/util";
+} = require("../../../../../src/lib/util/index.js");
 
 describe("posts", function () {
     let stubWords;
