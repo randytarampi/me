@@ -1,6 +1,6 @@
 import React from "react";
-import Error from "../../../src/lib/containers/error";
-import Posts from "../../../src/lib/containers/posts";
+import Error from "../../../src/lib/containers/error/index.jsx";
+import Posts from "../../../src/lib/containers/posts.jsx";
 
 const routes = [
     {

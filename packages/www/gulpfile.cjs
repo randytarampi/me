@@ -1,10 +1,12 @@
-require("../../babel.register.js");
-
+const {createRequire} = require("module");
 const path = require("path");
+const require2 = createRequire(__filename);
+const baseGulpfile = require2("../../gulpfile.base.js").default || require2("../../gulpfile.base.js");
+
+require2("../../babel.register.cjs");
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
-const baseGulpfile = require("../../gulpfile.base");
 
 const taskParameters = {
     relativePath: __dirname,

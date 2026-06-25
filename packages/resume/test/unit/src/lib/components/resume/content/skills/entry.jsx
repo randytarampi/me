@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumeSkillsEntry from "../../../../../../../../src/lib/components/resume/content/skills/entry";
-import ResumeSkill from "../../../../../../../../src/lib/skill";
+import ResumeSkillsEntry from "../../../../../../../../src/lib/components/resume/content/skills/entry.jsx";
+import ResumeSkill from "../../../../../../../../src/lib/skill.js";
 
 describe("ResumeSkillsEntry", function () {
     let stubResumeSkillsEntry;

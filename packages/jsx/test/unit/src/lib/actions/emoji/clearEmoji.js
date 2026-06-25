@@ -1,9 +1,10 @@
-import {Emoji} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import clearEmoji, {CLEAR_EMOJI} from "../../../../../../src/lib/actions/emoji/clearEmoji";
+const {Emoji} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const clearEmoji = require("../../../../../../src/lib/actions/emoji/clearEmoji.js").default || require("../../../../../../src/lib/actions/emoji/clearEmoji.js");
+const {CLEAR_EMOJI} = require("../../../../../../src/lib/actions/emoji/clearEmoji.js");
 
 describe("clearEmoji", function () {
     let mockStore;

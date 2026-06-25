@@ -1,9 +1,9 @@
-import {getEntityForType, Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {DateTime} from "luxon";
-import sinon from "sinon";
-import queryString from "query-string";
-import fetchPostsApi from "../../../../../src/lib/api/fetchPosts";
+const {getEntityForType, Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {DateTime} = require("luxon");
+const sinon = require("sinon");
+const queryString = require("query-string").default || require("query-string");
+const fetchPostsApi = require("../../../../../src/lib/api/fetchPosts.js").default || require("../../../../../src/lib/api/fetchPosts.js");
 
 describe("fetchPosts", function () {
     it("delegates to `fetch` with the correct parameters", async function () {

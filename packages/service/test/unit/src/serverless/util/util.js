@@ -1,11 +1,11 @@
-import {Gallery, LinkPost, Photo, Post, POST_TYPES} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import PostSearchParams from "../../../../../src/lib/postSearchParams";
-import loadConfig from "../../../../../src/serverless/util/loadConfig";
-import {parseQueryStringParametersIntoSearchParams} from "../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams";
-import {ME_API_VERSION_HEADER} from "../../../../../src/serverless/util/request/headers/version";
-import {freshRequire} from "../../../../lib/freshRequire";
+const {Gallery, LinkPost, Photo, Post, POST_TYPES} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const PostSearchParams = require("../../../../../src/lib/postSearchParams.js");
+const loadConfig = require("../../../../../src/serverless/util/loadConfig.js");
+const {parseQueryStringParametersIntoSearchParams} = require("../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams.js");
+const {ME_API_VERSION_HEADER} = require("../../../../../src/serverless/util/request/headers/version.js");
+const {freshRequire} = require("../../../../lib/freshRequire.js");
 
 afterEach(function () {
     sinon.restore();
@@ -150,7 +150,7 @@ describe("util", function () {
     describe("loadConfig", function () {
         it("delegates to `config`", async function () {
             process.env.NODE_ENV = "test";
-            const loadedConfig = loadConfig.default();
+            const loadedConfig = loadConfig();
 
             expect(loadedConfig).to.be.an("object");
             expect(loadedConfig.posts).to.be.an("object");
@@ -428,3 +428,4 @@ describe("util", function () {
         });
     });
 });
+module.exports.default = module.exports;

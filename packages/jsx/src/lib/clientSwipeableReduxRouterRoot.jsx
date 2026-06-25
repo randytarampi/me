@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {metrics} from "react-metrics";
 import {Provider} from "react-redux";
-import {HistoryRouter} from "redux-first-history/rr6";
-import {ClientRoot} from "./clientRoot";
-import {ConnectedErrorWrapper} from "./containers/error";
-import ConnectedSwipeableTabs from "./containers/swipeableTabs";
-import {renderSwipeableRoutes} from "./util";
+import {ClientRoot} from "./clientRoot.jsx";
+import {ConnectedErrorWrapper} from "./containers/error/index.jsx";
+import ConnectedSwipeableTabs from "./containers/swipeableTabs.jsx";
+import {HistoryRouter} from "./reduxFirstHistoryRr6.cjs";
+import {renderSwipeableRoutes} from "./util/renderSwipeableRoutes.cjs";
 
 export class ClientSwipeableReduxRouterRoot extends ClientRoot {
     render() {

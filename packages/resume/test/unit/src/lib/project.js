@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {List} from "immutable";
 import {DateTime} from "luxon";
-import Project from "../../../../src/lib/project";
+import Project from "../../../../src/lib/project.js";
 
 describe("Project", function () {
     let stubProjectJs;

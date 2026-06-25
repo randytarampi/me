@@ -1,0 +1,23 @@
+exports.__esModule = true;
+const React = require("react");
+
+const {Router} = require("./reactRouter.cjs");
+
+function HistoryRouter({basename, children, history}) {
+    const [state, setState] = React.useState({
+        action: history.action,
+        location: history.location
+    });
+
+    React.useLayoutEffect(() => history.listen(setState), [history]);
+
+    return React.createElement(Router, {
+        basename,
+        children,
+        location: state.location,
+        navigationType: state.action,
+        navigator: history
+    });
+}
+
+exports.HistoryRouter = HistoryRouter;

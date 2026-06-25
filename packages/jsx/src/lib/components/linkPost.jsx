@@ -4,7 +4,7 @@ import isHtml from "is-html";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
-import {CampaignLink} from "./link";
+import {CampaignLink} from "./link/index.jsx";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -14,7 +14,7 @@ import {
     PostLocationComponent,
     PostTagsComponent,
     PostTitleComponent
-} from "./post";
+} from "./post.jsx";
 
 export class LinkPostComponent extends PostComponent {
     get title() {

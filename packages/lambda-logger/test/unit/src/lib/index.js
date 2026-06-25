@@ -1,14 +1,15 @@
 import {expect} from "chai";
+import {readFileSync} from "fs";
+import bunyan from "bunyan";
+import bunyanSentryStream from "bunyan-sentry-stream";
 import sinon from "sinon";
 import path from "path";
 import {pathToFileURL} from "url";
+import raven from "raven";
 
-const packageJson = require("../../../../../service/package.json");
-const bunyan = require("bunyan");
-const bunyanSentryStream = require("bunyan-sentry-stream");
-const raven = require("raven");
+const packageJson = JSON.parse(readFileSync("../service/package.json", "utf8"));
 
-const loadLoggerModule = async () => Function(`return import(${JSON.stringify(`${pathToFileURL(path.resolve(__dirname, "../../../../src/lib/index.js")).href}?t=${Date.now()}-${Math.random()}`)})`)();
+const loadLoggerModule = async () => Function(`return import(${JSON.stringify(`${pathToFileURL(path.resolve("src/lib/index.js")).href}?t=${Date.now()}-${Math.random()}`)})`)();
 
 afterEach(function () {
     sinon.restore();

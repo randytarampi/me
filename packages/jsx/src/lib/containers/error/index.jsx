@@ -1,2 +1,2 @@
-export * from "./error";
-export * from "./wrapper";
+export * from "./error.jsx";
+export * from "./wrapper.jsx";

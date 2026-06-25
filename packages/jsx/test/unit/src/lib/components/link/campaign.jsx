@@ -1,9 +1,9 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import configureStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import CampaignLink from "../../../../../../src/lib/components/link/campaign";
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const configureStore = require("redux-mock-store");
+const {Provider} = require("react-redux");
+const CampaignLink = require("../../../../../../src/lib/components/link/campaign.jsx").default || require("../../../../../../src/lib/components/link/campaign.jsx");
 
 describe("CampaignLink", function () {
     it("renders same-origin links as internal links", function () {

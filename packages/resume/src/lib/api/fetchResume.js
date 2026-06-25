@@ -2,7 +2,7 @@ import queryString from "query-string";
 import Resume from "../resume.js";
 
 export const buildFetchUrlForVariant = variant => {
-    return `${__RESUME_SERVICE_URL__}/${variant}.json`;
+    return `${process.env.RESUME_SERVICE_URL || (typeof __RESUME_SERVICE_URL__ !== "undefined" ? __RESUME_SERVICE_URL__ : "http://localhost")}/${variant}.json`;
 };
 
 export const fetchResumeApi = (variant, searchParams) => {

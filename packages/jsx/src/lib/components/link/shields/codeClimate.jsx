@@ -1,5 +1,5 @@
 import React from "react";
-import {CampaignLink} from "../campaign";
+import {CampaignLink} from "../campaign.jsx";
 
 export const CodeClimateShield = () => <CampaignLink
     className="shield"

@@ -1,10 +1,10 @@
-import {Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {DateTime} from "luxon";
-import sinon from "sinon";
-import PostSearchParams from "../../../../src/lib/postSearchParams";
-import sources from "../../../../src/lib/sources";
-import {freshRequire} from "../../../lib/freshRequire";
+const {Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {DateTime} = require("luxon");
+const sinon = require("sinon");
+const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
+const sources = require("../../../../src/lib/sources/index.js");
+const {freshRequire} = require("../../../lib/freshRequire.js");
 
 afterEach(function () {
     sinon.restore();
@@ -77,3 +77,4 @@ describe("searchPosts", function () {
         expect(stubGetRecord.calledTwice).to.eql(true);
     });
 });
+module.exports.default = module.exports;

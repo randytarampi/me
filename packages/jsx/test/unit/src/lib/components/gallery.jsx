@@ -1,11 +1,11 @@
-import {Gallery as GalleryEntity} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {render} from "@testing-library/react";
-import React from "react";
-import configureStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import {GalleryComponent} from "../../../../../src/lib/components/gallery";
-import {WINDOW_LARGE_BREAKPOINT} from "../../../../../src/lib/util";
+const {Gallery as GalleryEntity} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {render} = require("@testing-library/react");
+const React = require("react");
+const configureStore = require("redux-mock-store");
+const {Provider} = require("react-redux");
+const {GalleryComponent} = require("../../../../../src/lib/components/gallery.jsx");
+const {WINDOW_LARGE_BREAKPOINT} = require("../../../../../src/lib/util/index.js");
 
 describe("Gallery", function () {
     let stubGallery;

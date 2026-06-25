@@ -21,7 +21,7 @@ import {
 } from "@randy.tarampi/js";
 import {offlineStateLens, persist, persistAutoRehydrate} from "@randy.tarampi/redux-offline-immutable-config";
 import {offline} from "@redux-offline/redux-offline";
-import defaultReduxOfflineConfig from "@redux-offline/redux-offline/lib/defaults";
+import defaultReduxOfflineConfig from "@redux-offline/redux-offline/lib/defaults/index.js";
 import * as Immutable from "immutable";
 import {applyMiddleware, createStore} from "redux";
 import {thunk} from "redux-thunk";
@@ -34,7 +34,7 @@ import {
     ravenMiddleware,
     routerMiddleware as meRouterMiddleware,
     uiMiddleware
-} from "../middleware";
+} from "../middleware/index.js";
 
 export const reduxOfflineImmutableTransformRecords = [
     Bear,

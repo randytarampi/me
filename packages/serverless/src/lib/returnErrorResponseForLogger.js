@@ -1,5 +1,5 @@
 import {RequestError} from "@randy.tarampi/js";
-import {responseBuilder} from "./responseBuilder";
+import {responseBuilder} from "./responseBuilder.js";
 
 /**
  * @function returnErrorResponseForLogger

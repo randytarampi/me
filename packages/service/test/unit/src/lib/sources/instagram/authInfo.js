@@ -1,12 +1,12 @@
-import {timedPromise} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import {AuthInfo} from "../../../../../../src/lib/authInfo";
-import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams";
-import CacheClient from "../../../../../../src/lib/cacheClient";
-import {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram";
-import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client";
-import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+const {timedPromise} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {AuthInfo} = require("../../../../../../src/lib/authInfo.js");
+const AuthInfoSearchParams = require("../../../../../../src/lib/authInfoSearchParams.js");
+const CacheClient = require("../../../../../../src/lib/cacheClient.js");
+const {INSTAGRAM_TOKEN_URL, InstagramAuthInfo} = require("../../../../../../src/lib/sources/instagram/index.js");
+const {OAuth2Client} = require("../../../../../../src/lib/sources/oAuth2Client.js");
+const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
 
 describe("InstagramAuthInfo", function () {
     let stubServiceClient;
@@ -183,3 +183,4 @@ describe("InstagramAuthInfo", function () {
         });
     });
 });
+module.exports.default = module.exports;

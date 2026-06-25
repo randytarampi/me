@@ -1,12 +1,12 @@
-import {RequestError} from "@randy.tarampi/js";
-import {responseBuilder} from "@randy.tarampi/serverless";
-import {AuthInfoSearchParams} from "../../../lib/authInfoSearchParams.js";
-import {TwitterAuthInfo} from "../../../lib/sources/twitter/authInfo.js";
-import logger from "../../logger.js";
-import configureEnvironment from "../../util/configureEnvironment.js";
-import returnErrorResponse from "../../util/response/returnErrorResponse.js";
+const {RequestError} = require("@randy.tarampi/js");
+const {responseBuilder} = require("@randy.tarampi/serverless");
+const {AuthInfoSearchParams} = require("../../../lib/authInfoSearchParams.js");
+const {TwitterAuthInfo} = require("../../../lib/sources/twitter/authInfo.js");
+const logger = require("../../logger.js");
+const configureEnvironment = require("../../util/configureEnvironment.js").default || require("../../util/configureEnvironment.js");
+const returnErrorResponse = require("../../util/response/returnErrorResponse.js").default || require("../../util/response/returnErrorResponse.js");
 
-export default (event, context, callback) => {
+module.exports = (event, context, callback) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
     const errorHandler = returnErrorResponse(event, context, callback);
@@ -31,3 +31,4 @@ export default (event, context, callback) => {
         })
         .catch(errorHandler);
 };
+module.exports.default = module.exports;

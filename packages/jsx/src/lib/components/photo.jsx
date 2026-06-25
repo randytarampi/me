@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
-import {scalePixelValueForWindowDevicePixelRatio, WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util";
+import {scalePixelValueForWindowDevicePixelRatio, WINDOW_LARGE_BREAKPOINT, WINDOW_LARGE_PHOTO_SCALE} from "../util/index.js";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -14,7 +14,7 @@ import {
     PostLocationComponent,
     PostTagsComponent,
     PostTitleComponent
-} from "./post";
+} from "./post.jsx";
 
 export class PhotoComponent extends PostComponent {
     get selected() {

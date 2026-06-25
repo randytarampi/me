@@ -1,6 +1,6 @@
-import {Gallery, Photo, Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {
+const {Gallery, Photo, Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {
     cameraSvgPath,
     commentSvgPath,
     facebookSvgPath,
@@ -9,7 +9,7 @@ import {
     instagramSvgPath,
     tumblrSvgPath,
     twitterSvgPath
-} from "../../../../../src/lib/util/getSvgPathForPost";
+} = require("../../../../../src/lib/util/getSvgPathForPost.js");
 
 describe("getSvgPathForPost", function () {
     it("works for `facebook`", function () {

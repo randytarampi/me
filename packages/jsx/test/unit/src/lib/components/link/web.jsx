@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import WebLink from "../../../../../../src/lib/components/link/web";
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const WebLink = require("../../../../../../src/lib/components/link/web.jsx").default || require("../../../../../../src/lib/components/link/web.jsx");
 
 describe("WebLink", function () {
     it("renders a branded web link", function () {

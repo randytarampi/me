@@ -6,7 +6,7 @@ import {
     FETCHING_POSTS_FAILURE,
     FETCHING_POSTS_FAILURE_RECOVERY,
     FETCHING_POSTS_SUCCESS
-} from "../actions/posts/fetchPosts";
+} from "../actions/posts/fetchPosts.js";
 
 export const apiReducer = (state = Map(), action) => {
     switch (action.type) {

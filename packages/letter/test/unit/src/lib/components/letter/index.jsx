@@ -13,8 +13,8 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import sinon from "sinon";
 import {thunk} from "redux-thunk";
-import {LetterComponent, mapLetterErrorCodeToErrorContentComponent} from "../../../../../../src/lib/components/letter";
-import LetterEntity from "../../../../../../src/lib/letter";
+import {LetterComponent, mapLetterErrorCodeToErrorContentComponent} from "../../../../../../src/lib/components/letter/index.jsx";
+import LetterEntity from "../../../../../../src/lib/letter.js";
 
 describe("LetterComponent", function () {
     let stubPersonJs;

@@ -9,7 +9,7 @@ import {
     CRISP_USER_NICKNAME_CHANGED,
     CRISP_USER_PHONE_CHANGED,
     CRISP_WEBSITE_AVAILABILITY_CHANGED
-} from "../actions/crisp";
+} from "../actions/crisp/index.js";
 import metrics from "@randy.tarampi/redux-metrics";
 
 export const metricsMiddleware = () => next => action => {

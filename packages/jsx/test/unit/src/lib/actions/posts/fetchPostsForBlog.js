@@ -1,14 +1,14 @@
-import {Post} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {List, Map, Set} from "immutable";
-import {DateTime} from "luxon";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import * as fetchPostsModule from "../../../../../../src/lib/actions/posts/fetchPosts";
-import {FETCHING_POSTS_CANCELLED, FETCHING_POSTS_PER_PAGE} from "../../../../../../src/lib/actions/posts/fetchPosts";
-import fetchPostsForBlog from "../../../../../../src/lib/actions/posts/fetchPostsForBlog";
-import selectors from "../../../../../../src/lib/data/selectors";
+const {Post} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {List, Map, Set} = require("immutable");
+const {DateTime} = require("luxon");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const fetchPostsModule = require("../../../../../../src/lib/actions/posts/fetchPosts.js");
+const {FETCHING_POSTS_CANCELLED, FETCHING_POSTS_PER_PAGE} = require("../../../../../../src/lib/actions/posts/fetchPosts.js");
+const fetchPostsForBlog = require("../../../../../../src/lib/actions/posts/fetchPostsForBlog.js").default || require("../../../../../../src/lib/actions/posts/fetchPostsForBlog.js");
+const selectors = require("../../../../../../src/lib/data/selectors.js").default || require("../../../../../../src/lib/data/selectors.js");
 
 describe("fetchPostsForBlog", function () {
     let mockStore;

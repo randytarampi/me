@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import SizedPhoto from "../../../../src/lib/sizedPhoto";
+import SizedPhoto from "../../../../src/lib/sizedPhoto.js";
 
 describe("SizedPhoto", () => {
     describe("fromJS", () => {

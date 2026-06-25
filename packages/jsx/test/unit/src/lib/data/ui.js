@@ -1,19 +1,20 @@
-import {expect} from "chai";
-import {LOCATION_CHANGE} from "redux-first-history";
-import {fromJS, List, Map} from "immutable";
-import {createAction} from "redux-actions";
-import {setRoutes} from "../../../../../src/lib/actions/routing/setRoutes";
-import {swipeableChangeIndex} from "../../../../../src/lib/actions/routing/swipeableChangeIndex";
-import {swipeableTabChangeIndex} from "../../../../../src/lib/actions/routing/swipeableTabChangeIndex";
-import {setControlState} from "../../../../../src/lib/actions/ui/setControlState";
-import reducer, {
+const {expect} = require("chai");
+const {LOCATION_CHANGE} = require("redux-first-history");
+const {fromJS, List, Map} = require("immutable");
+const {createAction} = require("redux-actions");
+const {setRoutes} = require("../../../../../src/lib/actions/routing/setRoutes.js");
+const {swipeableChangeIndex} = require("../../../../../src/lib/actions/routing/swipeableChangeIndex.js");
+const {swipeableTabChangeIndex} = require("../../../../../src/lib/actions/routing/swipeableTabChangeIndex.js");
+const {setControlState} = require("../../../../../src/lib/actions/ui/setControlState.js");
+const reducer = require("../../../../../src/lib/data/ui.js").default || require("../../../../../src/lib/data/ui.js");
+const {
     getControlStateForId,
     getIndexForRoute,
     getRouteForIndex,
     getRoutes,
     getSwipeable,
     getSwipeableIndex
-} from "../../../../../src/lib/data/ui";
+} = require("../../../../../src/lib/data/ui.js");
 
 describe("ui", function () {
     let stubInitialState;

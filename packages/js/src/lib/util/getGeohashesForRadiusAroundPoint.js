@@ -1,5 +1,5 @@
 import proximityhash from "proximityhash";
-import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius";
+import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius.js";
 
 /**
  * @function Return a set of geohashes that cover a circle for a given location and radius

@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import Link from "../../../../../../src/lib/components/link/link";
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const Link = require("../../../../../../src/lib/components/link/link.jsx").default || require("../../../../../../src/lib/components/link/link.jsx");
 
 describe("Link", function () {
     it("renders an anchor with metrics attributes", function () {

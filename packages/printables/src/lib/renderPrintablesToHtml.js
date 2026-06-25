@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import {renderPrintablesHtml} from "./renderPrintablesHtml";
+import {renderPrintablesHtml} from "./renderPrintablesHtml.js";
 
 export const renderPrintablesToHtml = ({
                                            printableComponent,

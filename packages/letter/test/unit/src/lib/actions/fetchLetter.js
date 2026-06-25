@@ -1,11 +1,15 @@
-import {SET_ERROR} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {SET_ERROR} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
-import configureStore from "redux-mock-store";
 import {thunk} from "redux-thunk";
+import {createRequire} from "module";
+import path from "path";
 
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchLetter.js";
-import testLetterJson from "../../../../../src/letters/letter.json";
+
+const require = createRequire(path.resolve("test/unit/src/lib/actions/fetchLetter.js"));
+const configureStore = require("redux-mock-store").default || require("redux-mock-store");
+const testLetterJson = require("../../../../../src/letters/letter.json");
 
 const FETCHING_LETTER = "FETCHING_LETTER";
 const FETCHING_LETTER_CANCELLED = "FETCHING_LETTER_CANCELLED";

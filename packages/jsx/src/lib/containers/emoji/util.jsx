@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
 import {Emoji as EmojiEntity} from "@randy.tarampi/js";
-import {clearEmojiCreator} from "../../actions/emoji/clearEmoji";
-import {instantiateEmojiCreator} from "../../actions/emoji/instantiateEmoji";
-import {onComponentClickCreator} from "../../actions/emoji/onComponentClick";
-import selectors from "../../data/selectors";
+import {clearEmojiCreator} from "../../actions/emoji/clearEmoji.js";
+import {instantiateEmojiCreator} from "../../actions/emoji/instantiateEmoji.js";
+import {onComponentClickCreator} from "../../actions/emoji/onComponentClick.js";
+import selectors from "../../data/selectors.js";
 
 export const connectEmoji = emojiComponent => connect(
     (state, ownProps) => {

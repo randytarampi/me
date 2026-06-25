@@ -1,1 +1,1 @@
-export * from "./letter";
+export * from "./letter/index.jsx";

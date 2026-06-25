@@ -1,8 +1,12 @@
 import {expect} from "chai";
-import testLetterJson from "../../../../../src/letters/letter.json";
+import path from "path";
+import {createRequire} from "module";
 import Letter from "../../../../../src/lib/letter.js";
 import sinon from "sinon";
 import fetchLetterApi from "../../../../../src/lib/api/fetchLetter.js";
+
+const require = createRequire(path.resolve("test/unit/src/lib/api/fetchLetter.js"));
+const testLetterJson = require("../../../../../src/letters/letter.json");
 
 describe("fetchLetter", function () {
     it("delegates to `fetch` with the correct parameters", async function () {

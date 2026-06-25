@@ -2,10 +2,10 @@ import {logger} from "@randy.tarampi/jsx";
 import React, {Fragment, PureComponent} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
-import Bears from "./bears";
-import Intro from "./intro";
-import New from "./new";
-import Works from "./works";
+import Bears from "./bears.jsx";
+import Intro from "./intro.jsx";
+import New from "./new.jsx";
+import Works from "./works.jsx";
 
 export class Main extends PureComponent {
     componentDidMount() {

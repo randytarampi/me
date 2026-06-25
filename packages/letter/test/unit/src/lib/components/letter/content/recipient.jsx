@@ -4,9 +4,9 @@ import {render} from "@testing-library/react";
 import React from "react";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import LetterRecipient from "../../../../../../../src/lib/components/letter/content/recipient";
-import LetterEntity from "../../../../../../../src/lib/letter";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterRecipient from "../../../../../../../src/lib/components/letter/content/recipient.jsx";
+import LetterEntity from "../../../../../../../src/lib/letter.js";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterRecipient", function () {
     let stubContentConfiguration;

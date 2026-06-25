@@ -1,13 +1,13 @@
-import baseLetter from "../letters";
+import baseLetter from "../letters/index.js";
 
-export * from "./components";
-export * from "./containers";
-export * from "./actions";
-export * from "./api";
-export * from "./data";
+export * from "./components/index.jsx";
+export * from "./containers/index.jsx";
+export * from "./actions/index.js";
+export * from "./api/index.js";
+export * from "./data/index.js";
 
-export * from "./letter";
-export * from "./letterSection";
+export * from "./letter.js";
+export * from "./letterSection.js";
 
 export {
     baseLetter

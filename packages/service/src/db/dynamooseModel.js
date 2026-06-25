@@ -1,5 +1,5 @@
-import dynamoose from "dynamoose";
-import logger from "../serverless/logger.js";
+const dynamoose = require("dynamoose");
+const logger = require("../serverless/logger.js");
 
 /**
  * Convert a single value into something Dynamoose v4 can persist. Notably, Dynamoose v4 type-checks `Date`
@@ -21,7 +21,7 @@ const toDynamoCompatibleValue = value => {
  * @param record {Record}
  * @returns {Object}
  */
-export const recordToDynamoObject = record => {
+const recordToDynamoObject = record => {
     const object = record.toJS();
 
     // Dynamoose v4 invokes `default` functions with no arguments (unlike v1/v2, which passed the model
@@ -103,7 +103,7 @@ const filterHasContains = _filter => Boolean(_filter) && Object.keys(_filter).so
  * @param _filter {Object} A Dynamoose parseable filter object
  * @returns {Object|dynamoose.Condition}
  */
-export const buildScanFilter = _filter => {
+const buildScanFilter = _filter => {
     if (!filterHasContains(_filter)) {
         return _filter;
     }
@@ -170,7 +170,7 @@ export const buildScanFilter = _filter => {
 /**
  * Model an Immutable [Record]{@link Record} with a [Record.uid]{@link Record.uid} with Dynamoose
  */
-export class DynamooseModel {
+class DynamooseModel {
     constructor(modelName, schema) {
         this.modelName = modelName;
         this.schema = schema;
@@ -316,7 +316,7 @@ export class DynamooseModel {
  * @param queryMethod {function} A Dynamoose `Model.query` or similar method
  * @returns {Query}
  */
-export const buildQueryWithFilter = ({_options, _filter, _query}, queryMethod) => {
+const buildQueryWithFilter = ({_options, _filter, _query}, queryMethod) => {
     const {hash, range, ...hashShorthand} = _query;
     const actualHash = hash || hashShorthand;
 
@@ -352,7 +352,7 @@ export const buildQueryWithFilter = ({_options, _filter, _query}, queryMethod) =
  * @param _options {Object} Dynamoose specific query options, like `indexName` and `ExclusiveStartKey`
  * @returns {Query|Scan}
  */
-export const applyScanQueryOptions = (itemRetriever, _options = {}) => {
+const applyScanQueryOptions = (itemRetriever, _options = {}) => {
     let retriever = itemRetriever;
     const {indexName, ExclusiveStartKey} = _options || {};
 
@@ -375,7 +375,7 @@ export const applyScanQueryOptions = (itemRetriever, _options = {}) => {
  * @param modelGetter {function} One of the model methods defined in this file, like `getRecords`
  * @returns {Function}
  */
-export const recursivelyGet = ({_options, _filter, _query}, modelGetter) => async justFetched => {
+const recursivelyGet = ({_options, _filter, _query}, modelGetter) => async justFetched => {
     const {limit: originalLimit = 1, _numberPreviouslyFetched = 0, _nextLimit = originalLimit} = _options || {};
     const totalFetched = justFetched.length + _numberPreviouslyFetched;
 
@@ -417,4 +417,11 @@ export const recursivelyGet = ({_options, _filter, _query}, modelGetter) => asyn
 };
 
 
-export default DynamooseModel;
+module.exports = DynamooseModel;
+module.exports.recordToDynamoObject = recordToDynamoObject;
+module.exports.buildScanFilter = buildScanFilter;
+module.exports.buildQueryWithFilter = buildQueryWithFilter;
+module.exports.applyScanQueryOptions = applyScanQueryOptions;
+module.exports.recursivelyGet = recursivelyGet;
+module.exports.DynamooseModel = DynamooseModel;
+module.exports.default = module.exports;

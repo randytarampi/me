@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumeAwardsEntry from "../../../../../../../../src/lib/components/resume/content/awards/entry";
+import ResumeAwardsEntry from "../../../../../../../../src/lib/components/resume/content/awards/entry.jsx";
 
 describe("ResumeAwardsEntry", function () {
     let stubResumeAwardsEntry;

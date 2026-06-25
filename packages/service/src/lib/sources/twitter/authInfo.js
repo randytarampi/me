@@ -1,14 +1,14 @@
-import AuthInfoModel from "../../../db/models/authInfo.js";
-import {AUTH_INFO_TYPE, AuthInfo} from "../../authInfo.js";
-import CacheClient from "../../cacheClient.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {OAuthClient} from "../oAuthClient.js";
-import {type} from "./util.js";
+const AuthInfoModel = require("../../../db/models/authInfo.js");
+const {AUTH_INFO_TYPE, AuthInfo} = require("../../authInfo.js");
+const CacheClient = require("../../cacheClient.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {OAuthClient} = require("../oAuthClient.js");
+const {type} = require("./util.js");
 
-export const TWITTER_REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
-export const TWITTER_ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
+const TWITTER_REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
+const TWITTER_ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
 
-export class TwitterAuthInfo extends CachedDataSource {
+class TwitterAuthInfo extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(
             dataClient || new OAuthClient(TWITTER_REQUEST_TOKEN_URL, TWITTER_ACCESS_TOKEN_URL),
@@ -48,4 +48,8 @@ export class TwitterAuthInfo extends CachedDataSource {
     }
 }
 
-export default TwitterAuthInfo;
+module.exports = TwitterAuthInfo;
+module.exports.TWITTER_REQUEST_TOKEN_URL = TWITTER_REQUEST_TOKEN_URL;
+module.exports.TWITTER_ACCESS_TOKEN_URL = TWITTER_ACCESS_TOKEN_URL;
+module.exports.TwitterAuthInfo = TwitterAuthInfo;
+module.exports.default = module.exports;

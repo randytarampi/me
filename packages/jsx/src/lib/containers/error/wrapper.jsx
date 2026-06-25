@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import {connectError} from ".";
-import {ErrorWrapperComponent} from "../../components/error";
+import {connectError} from "./index.jsx";
+import {ErrorWrapperComponent} from "../../components/error/index.jsx";
 
 export const ConnectedErrorWrapper = connectError(ErrorWrapperComponent);
 

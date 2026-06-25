@@ -3,8 +3,8 @@ import {render} from "@testing-library/react";
 import {DateTime} from "luxon";
 import React from "react";
 import sinon from "sinon";
-import LetterDate from "../../../../../../../src/lib/components/letter/content/date";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterDate from "../../../../../../../src/lib/components/letter/content/date.jsx";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterDate", function () {
     let clock;

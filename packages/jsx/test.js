@@ -1,1 +1,1 @@
-module.exports = require("./esm/test");  
+export * from "./src/lib/index.jsx";

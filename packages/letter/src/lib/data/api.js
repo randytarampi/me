@@ -5,7 +5,7 @@ import {
     FETCHING_LETTER_FAILURE,
     FETCHING_LETTER_FAILURE_RECOVERY,
     FETCHING_LETTER_SUCCESS
-} from "../actions/fetchLetter";
+} from "../actions/fetchLetter.js";
 
 export const apiReducer = (state = Map(), action) => {
     switch (action.type) {

@@ -1,3 +1,4 @@
-export * from "./lib";
+import defaultLetterJson from "./letters/letter.json" with {type: "json"};
 
-export const defaultLetterJson = require("./letters/letter.json");
+export * from "./lib/index.jsx";
+export {defaultLetterJson};

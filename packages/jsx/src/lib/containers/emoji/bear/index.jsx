@@ -1,6 +1,6 @@
-import ConnectedBear from "./bear";
+import ConnectedBear from "./bear.jsx";
 
-export * from "./bear";
-export * from "./helloBear";
+export * from "./bear.jsx";
+export * from "./helloBear.jsx";
 
 export default ConnectedBear;

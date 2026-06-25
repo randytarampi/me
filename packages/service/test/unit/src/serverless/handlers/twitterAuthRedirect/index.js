@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import {freshRequire} from "../../../../../lib/freshRequire";
-import path from "path";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
+const path = require("path");
 
 afterEach(function () {
     sinon.restore();
@@ -109,3 +109,4 @@ describe("twitterAuthRedirect", function () {
         });
     });
 });
+module.exports.default = module.exports;

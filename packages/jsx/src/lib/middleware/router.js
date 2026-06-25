@@ -1,5 +1,5 @@
 import {LOCATION_CHANGE} from "redux-first-history";
-import clearError from "../actions/error/clearError";
+import clearError from "../actions/error/clearError.js";
 
 export const routerMiddleware = store => next => action => {
     if (action.type === LOCATION_CHANGE) {

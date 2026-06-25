@@ -1,8 +1,8 @@
 import {render} from "@testing-library/react";
 import {expect} from "chai";
 import React from "react";
-import App from "../../../../src/public/views/serverApp";
-import Resume from "../../../../src/lib/resume";
+import App from "../../../../src/public/views/serverApp.jsx";
+import Resume from "../../../../src/lib/resume.js";
 import resumeJson from "../../../../src/resumes/resume.json";
 
 describe("serverApp", function () {

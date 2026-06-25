@@ -2,10 +2,10 @@ import {config as metricsConfig} from "@randy.tarampi/redux-metrics";
 import PropTypes from "prop-types";
 import React from "react";
 import {metrics} from "react-metrics";
-import {HistoryRouter} from "redux-first-history/rr6";
-import ClientReduxRoot from "./clientReduxRoot";
-import {ConnectedErrorWrapper} from "./containers/error";
-import {renderRoutes} from "./util/renderRoutes";
+import ClientReduxRoot from "./clientReduxRoot.jsx";
+import {ConnectedErrorWrapper} from "./containers/error/index.jsx";
+import {HistoryRouter} from "./reduxFirstHistoryRr6.cjs";
+import {renderRoutes} from "./util/renderRoutes.cjs";
 
 export const ClientReduxRouterRoot = ({store, routes, history, ...props}) => {
     return <ClientReduxRoot store={store} {...props}>

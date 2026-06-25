@@ -1,4 +1,4 @@
-import {selectors as jsxSelectors} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {selectors as jsxSelectors} from "@randy.tarampi/jsx/src/lib/data/selectors.js";
 import {getResumeVariant} from "./resume.js";
 
 export const selectors = {

@@ -1,17 +1,13 @@
-import {RequestError} from "@randy.tarampi/js";
-import {responseBuilder} from "@randy.tarampi/serverless";
-import {
-    checkHeader as checkMeVersionHeader,
-    getHeaderValue as getMeVersionHeaderValue,
-    headerName as meVersionHeaderName
-} from "../request/headers/version";
+const {RequestError} = require("@randy.tarampi/js");
+const {responseBuilder} = require("@randy.tarampi/serverless");
+const {checkHeader: checkMeVersionHeader, getHeaderValue: getMeVersionHeaderValue, headerName: meVersionHeaderName} = require("../request/headers/version.js");
 
 /**
  * Set `Post.raw` to `null` before we send it down.
  * @param post {Post}
  * @returns {Post}
  */
-export const setPostRawToNull = post => post.set("raw", null);
+const setPostRawToNull = post => post.set("raw", null);
 
 /**
  * Build a version 3 GET [Posts]{@link Post} response – some array of Post objects with some metadata
@@ -21,7 +17,7 @@ export const setPostRawToNull = post => post.set("raw", null);
  * @param last {(object|undefined)} The latest (newest) [Post]{@link Post}s for some query
  * @returns {{posts: {Post[]}, total: {number}, oldest: {(object|undefined)}, newest: {(object|undefined)}}}
  */
-export const buildPostsV3ResponseBody = ({posts, total, first, last, firstFetched, lastFetched}) => {
+const buildPostsV3ResponseBody = ({posts, total, first, last, firstFetched, lastFetched}) => {
     return {
         posts: posts.map(setPostRawToNull),
         total,
@@ -52,7 +48,7 @@ export const buildPostsV3ResponseBody = ({posts, total, first, last, firstFetche
  * @param last {(Post|undefined)} The latest (newest) [Post]{@link Post} for some query
  * @returns {{posts: {Post[]}, total: {number}, oldest: {(string|undefined)}, newest: {(string|undefined)}}}
  */
-export const buildPostsV2ResponseBody = ({posts, total, first, last}) => {
+const buildPostsV2ResponseBody = ({posts, total, first, last}) => {
     return {
         posts: posts.map(setPostRawToNull),
         total,
@@ -66,7 +62,7 @@ export const buildPostsV2ResponseBody = ({posts, total, first, last}) => {
  * @param posts {Post[]}
  * @returns {Post[]}
  */
-export const buildPostsV1ResponseBody = posts => posts.map(setPostRawToNull);
+const buildPostsV1ResponseBody = posts => posts.map(setPostRawToNull);
 
 
 /**
@@ -80,7 +76,7 @@ export const buildPostsV1ResponseBody = posts => posts.map(setPostRawToNull);
  * @param parsedHeaders The headers containing a specified [ME-API-VERSION]{@link ME_API_VERSION_HEADER}
  * @returns {(object|RequestError)}
  */
-export default ({posts, total, first, last, ...metadata}, parsedHeaders) => {
+module.exports = ({posts, total, first, last, ...metadata}, parsedHeaders) => {
     if (checkMeVersionHeader(parsedHeaders, 1)) {
         return responseBuilder(buildPostsV1ResponseBody(posts));
     }
@@ -100,3 +96,8 @@ export default ({posts, total, first, last, ...metadata}, parsedHeaders) => {
 
     throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, RequestError.codes.badRequest);
 };
+module.exports.setPostRawToNull = setPostRawToNull;
+module.exports.buildPostsV3ResponseBody = buildPostsV3ResponseBody;
+module.exports.buildPostsV2ResponseBody = buildPostsV2ResponseBody;
+module.exports.buildPostsV1ResponseBody = buildPostsV1ResponseBody;
+module.exports.default = module.exports;

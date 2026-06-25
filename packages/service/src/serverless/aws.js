@@ -1,6 +1,8 @@
-import {configureAwsSdk} from "@randy.tarampi/serverless";
-import logger from "./logger.js";
+const {configureAwsSdk} = require("@randy.tarampi/serverless");
+const logger = require("./logger.js");
 
-export const Aws = configureAwsSdk(logger);
+const Aws = configureAwsSdk(logger);
 
-export default Aws;
+module.exports = Aws;
+module.exports.Aws = Aws;
+module.exports.default = module.exports;

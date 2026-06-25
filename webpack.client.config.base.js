@@ -1,5 +1,12 @@
-const path = require("path");
-process.env.NODE_CONFIG_DIR = path.join(__dirname, "config");
+import {createRequire} from "module";
+import {dirname, join} from "path";
+import {fileURLToPath} from "url";
+import util from "./util.js";
+
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const config = require("config");
 const SentryPlugin = require("webpack-sentry-plugin");
@@ -8,7 +15,6 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
-const util = require("./util");
 
 const {
     isDevelopment,
@@ -45,7 +51,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = ({
+export default ({
                       sourceDirectoryPath,
                       compliationDirectoryPath,
                       webpackDevServerMiddleware,

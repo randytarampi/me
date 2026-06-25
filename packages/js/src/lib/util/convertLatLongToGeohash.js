@@ -1,5 +1,5 @@
 import geohash from "latlon-geohash";
-import {getGeohashPrecisionForLatsOrLongs} from "./getGeohashPrecisionForLatOrLong";
+import {getGeohashPrecisionForLatsOrLongs} from "./getGeohashPrecisionForLatOrLong.js";
 
 /**
  * @function Convert a latitude and longitude to a geohash

@@ -1,11 +1,11 @@
-import {Gallery, Photo, Post, timedPromise} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {DateTime} from "luxon";
-import sinon from "sinon";
-import tumblr from "tumblr.js";
-import PostSearchParams from "../../../../../../src/lib/postSearchParams";
-import TumblrSource from "../../../../../../src/lib/sources/tumblr";
-import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator";
+const {Gallery, Photo, Post, timedPromise} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {DateTime} = require("luxon");
+const sinon = require("sinon");
+const tumblr = require("tumblr.js");
+const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
+const TumblrSource = require("../../../../../../src/lib/sources/tumblr/index.js");
+const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
 
 describe("TumblrSource", function () {
     let stubServiceClient;
@@ -330,3 +330,4 @@ describe("TumblrSource", function () {
         });
     });
 });
+module.exports.default = module.exports;

@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import TelLink from "../../../../../../src/lib/components/link/tel";
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const TelLink = require("../../../../../../src/lib/components/link/tel.jsx").default || require("../../../../../../src/lib/components/link/tel.jsx");
 
 describe("TelLink", function () {
     it("renders a tel link", function () {

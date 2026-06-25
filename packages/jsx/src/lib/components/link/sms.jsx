@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Link from "./link";
+import Link from "./link.jsx";
 
 export const SmsLink = ({useBranding, ...props}) => {
     return <Link {...props}

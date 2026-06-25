@@ -1,8 +1,12 @@
 import {expect} from "chai";
+import {createRequire} from "module";
+import path from "path";
 import {Helmet} from "react-helmet";
-import renderHtml from "../../../../src/lib/renderHtml";
-import Resume from "../../../../src/lib/resume";
-import resumeJson from "../../../../src/resumes/resume.json";
+import {renderHtml} from "../../../../src/lib/renderHtml.js";
+import Resume from "../../../../src/lib/resume.js";
+
+const require = createRequire(path.resolve("test/integration/src/lib/renderHtml.js"));
+const resumeJson = require("../../../../src/resumes/resume.json");
 
 describe("renderHtml", function () {
     this.timeout(60000);

@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import LetterMe from "../../../../../../../src/lib/components/letter/content/me";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterMe from "../../../../../../../src/lib/components/letter/content/me.jsx";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterMe", function () {
     let stubContentConfiguration;

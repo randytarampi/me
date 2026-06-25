@@ -1,6 +1,6 @@
-import sinon from "sinon";
-import path from "path";
-import {freshRequire} from "../../../../../lib/freshRequire";
+const sinon = require("sinon");
+const path = require("path");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
 
 afterEach(function () {
     sinon.restore();
@@ -52,3 +52,4 @@ describe("instagramAuthRedirect", function () {
         instagramAuthRedirect(stubEvent, stubContext, () => {});
     });
 });
+module.exports.default = module.exports;

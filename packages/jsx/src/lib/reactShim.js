@@ -1,5 +1,5 @@
 // NOTE-RT: React 19 compatibility polyfills for unmaintained dependencies.
-const React = require("react");
+import React from "react";
 
 // NOTE-RT: React 19 and React Testing Library expect `global.IS_REACT_ACT_ENVIRONMENT` to be set up-front.
 // NOTE-RT: Declare it in React test setup (which loads this shim first) so mocha's `checkLeaks: true` treats it
@@ -14,7 +14,7 @@ if (typeof React.createFactory !== "function") {
     React.createFactory = type => React.createElement.bind(null, type);
 }
 
-const ReactDOM = require("react-dom");
+import ReactDOM from "react-dom";
 
 if (typeof ReactDOM.findDOMNode !== "function") {
     ReactDOM.findDOMNode = instance => {
@@ -43,7 +43,7 @@ if (typeof ReactDOM.findDOMNode !== "function") {
 // NOTE-RT: `immutable@5` keeps `Iterable` as a deprecated alias of `Collection` but dropped the legacy static
 // NOTE-RT: helpers (`Iterable.isIterable`, etc.) that older immutable-aware deps (e.g.
 // NOTE-RT: `@actra-development-oss/redux-persist-transform-filter-immutable`) still call. Restore them.
-const Immutable = require("immutable");
+import Immutable from "immutable";
 
 if (Immutable.Iterable && typeof Immutable.Iterable.isIterable !== "function") {
     const legacyStatics = {

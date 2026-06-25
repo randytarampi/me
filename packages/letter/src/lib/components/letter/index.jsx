@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
-import LetterFooter from "./footer";
+import LetterFooter from "./footer.jsx";
 
 export const mapLetterErrorCodeToErrorContentComponent = errorCode => {
     switch (errorCode) {

@@ -1,5 +1,5 @@
 import React from "react";
-import InternalLink from "./internalLink";
+import InternalLink from "./internalLink.jsx";
 
 export const BlogAppLink = props => {
     return <InternalLink {...props} serviceType="blog" serviceName="Blog" href={__POSTS_APP_URL__}/>;

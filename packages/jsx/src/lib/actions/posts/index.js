@@ -1,3 +1,3 @@
-export * from "./fetchPosts";
-export * from "./fetchPostsForBlog";
-export * from "./fetchPostsForMap";
+export * from "./fetchPosts.js";
+export * from "./fetchPostsForBlog.js";
+export * from "./fetchPostsForMap.js";

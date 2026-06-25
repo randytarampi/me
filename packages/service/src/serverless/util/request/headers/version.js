@@ -1,18 +1,18 @@
-import {RequestError} from "@randy.tarampi/js";
+const {RequestError} = require("@randy.tarampi/js");
 
 /**
  * Define the header name for specifying the desired ME API version
  * @type {string}
  */
-export const ME_API_VERSION_HEADER = "ME-API-VERSION";
+const ME_API_VERSION_HEADER = "ME-API-VERSION";
 
-export const headerName = ME_API_VERSION_HEADER;
+const headerName = ME_API_VERSION_HEADER;
 
-export const parseHeader = headers => {
+const parseHeader = headers => {
     return Number(getHeaderValue(headers));
 };
 
-export const validateHeader = headers => {
+const validateHeader = headers => {
     const headerValue = getHeaderValue(headers);
 
     if (!headerValue) {
@@ -28,7 +28,7 @@ export const validateHeader = headers => {
     }
 };
 
-export const getHeaderValue = headers => {
+const getHeaderValue = (headers = {}) => {
     const normalizedHeaderKeys = Object.keys(headers).map(header => header.toLowerCase());
     const headerValues = Object.values(headers);
     const normalizedHeaderName = headerName.toLowerCase();
@@ -41,7 +41,7 @@ export const getHeaderValue = headers => {
     return undefined;
 };
 
-export const checkHeader = (headers, expectedHeaderValue) => {
+const checkHeader = (headers, expectedHeaderValue) => {
     const headerValue = getHeaderValue(headers);
 
     if (!headerValue) {
@@ -54,3 +54,10 @@ export const checkHeader = (headers, expectedHeaderValue) => {
 
     return false;
 };
+module.exports.ME_API_VERSION_HEADER = ME_API_VERSION_HEADER;
+module.exports.headerName = headerName;
+module.exports.parseHeader = parseHeader;
+module.exports.validateHeader = validateHeader;
+module.exports.getHeaderValue = getHeaderValue;
+module.exports.checkHeader = checkHeader;
+module.exports.default = module.exports;

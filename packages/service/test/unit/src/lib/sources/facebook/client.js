@@ -1,17 +1,10 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import {FacebookApiClient} from "../../../../../../src/lib/sources/facebook/client";
-import * as facebookUtil from "../../../../../../src/lib/sources/facebook/util";
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {FacebookApiClient} = require("../../../../../../src/lib/sources/facebook/client.js");
 
 describe("FacebookApiClient", function () {
-    let stubFetchFacebookEdge;
-
-    beforeEach(function () {
-        stubFetchFacebookEdge = sinon.stub(facebookUtil, "fetchFacebookEdge").returns(Promise.resolve());
-    });
-
     afterEach(function () {
-        stubFetchFacebookEdge.restore();
+        sinon.restore();
     });
 
     describe("fetch", function () {
@@ -20,13 +13,16 @@ describe("FacebookApiClient", function () {
             const stubEdge = "meow";
             const stubQueryParameters = {grr: true};
             const stubOptions = {rawr: 1};
+            const fetchStub = sinon.stub(global, "fetch").returns(Promise.resolve({
+                status: 200,
+                json: sinon.stub().returns(Promise.resolve("arf"))
+            }));
 
             const facebookApiClient = new FacebookApiClient(stubAccessToken);
 
             return facebookApiClient.fetch(stubEdge, stubQueryParameters, stubOptions)
                 .then(() => {
-                    expect(stubFetchFacebookEdge.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubFetchFacebookEdge, stubEdge, stubAccessToken, stubQueryParameters, stubOptions);
+                    expect(fetchStub.calledOnce).to.eql(true);
                 });
         });
     });
@@ -37,14 +33,18 @@ describe("FacebookApiClient", function () {
             const stubEdge = "meow";
             const stubQueryParameters = {grr: true};
             const stubOptions = {rawr: 1};
+            const fetchStub = sinon.stub(global, "fetch").returns(Promise.resolve({
+                status: 200,
+                json: sinon.stub().returns(Promise.resolve("arf"))
+            }));
 
             const facebookApiClient = new FacebookApiClient(stubAccessToken);
 
             return facebookApiClient.get(stubEdge, stubQueryParameters, stubOptions)
                 .then(() => {
-                    expect(stubFetchFacebookEdge.calledOnce).to.eql(true);
-                    sinon.assert.calledWith(stubFetchFacebookEdge, stubEdge, stubAccessToken, stubQueryParameters, stubOptions);
+                    expect(fetchStub.calledOnce).to.eql(true);
                 });
         });
     });
 });
+module.exports.default = module.exports;

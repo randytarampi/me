@@ -2,7 +2,7 @@ import {CampaignLink, getBrandedLinkForNetwork, PrintableSection} from "@randy.t
 import PropTypes from "prop-types";
 import React from "react";
 import {Col, Row} from "react-materialize";
-import {ResumeCustomContent} from "../../../resumeCustomContent";
+import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
 const getLinkComponentForProfile = profile => {
     const network = profile.network;

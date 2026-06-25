@@ -1,5 +1,7 @@
 import {JSDOM} from "jsdom";
-const packageJson = require("../package.json");
+import {readFileSync} from "fs";
+
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});
 global._jsdom = jsdom;

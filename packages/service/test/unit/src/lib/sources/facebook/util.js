@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import queryString from "query-string";
-import sinon from "sinon";
-import * as facebookUtil from "../../../../../../src/lib/sources/facebook/util";
+const {expect} = require("chai");
+const queryString = require("query-string").default || require("query-string");
+const sinon = require("sinon");
+const facebookUtil = require("../../../../../../src/lib/sources/facebook/util.js");
 
 describe("util", function () {
     describe("buildFacebookApiEdge", function () {
@@ -84,3 +84,4 @@ describe("util", function () {
         });
     });
 });
+module.exports.default = module.exports;

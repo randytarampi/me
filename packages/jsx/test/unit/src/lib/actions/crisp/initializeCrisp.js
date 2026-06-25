@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import initializeCrisp, {crispNamespaceHandlerMap, CRISP_INITIALIZING, CRISP_INITIALIZED} from "../../../../../../src/lib/actions/crisp/initializeCrisp";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const initializeCrisp = require("../../../../../../src/lib/actions/crisp/initializeCrisp.js").default || require("../../../../../../src/lib/actions/crisp/initializeCrisp.js");
+const {crispNamespaceHandlerMap, CRISP_INITIALIZING, CRISP_INITIALIZED} = require("../../../../../../src/lib/actions/crisp/initializeCrisp.js");
 
 describe("initializeCrisp", function () {
     let mockStore;

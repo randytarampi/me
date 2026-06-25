@@ -1,11 +1,15 @@
-const util = require("../../util");
+import {createRequire} from "module";
+import path from "path";
+import {fileURLToPath} from "url";
+import util from "../../util.js";
+import webpackBaseConfig from "./webpack.client.config.base.js";
 
-const path = require("path");
+const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const config = require("config");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
-const webpackBaseConfig = require("./webpack.client.config.base");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const packageJson = require("./package");
 const {DefinePlugin} = require("webpack");
@@ -31,7 +35,7 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
     );
 }
 
-module.exports = webpackBaseConfig({
+export default webpackBaseConfig({
     babelEnv: "client.es5",
     entry: {
         [bundleName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/views/index.jsx")],

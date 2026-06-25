@@ -1,6 +1,6 @@
 import {createAction} from "redux-actions";
-import selectors from "../../data/selectors";
-import {updateEmoji} from "./updateEmoji";
+import selectors from "../../data/selectors.js";
+import {updateEmoji} from "./updateEmoji.js";
 
 export const HANDLE_COMPONENT_CLICK = "HANDLE_COMPONENT_CLICK";
 

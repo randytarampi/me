@@ -1,6 +1,13 @@
-import {expect} from "chai";
-import AuthInfoModel from "../../../../../src/db/models/authInfo";
-import {AuthInfo} from "../../../../../src/lib/authInfo";
+const {expect} = require("chai");
+const {AuthInfo} = require("../../../../../src/lib/authInfo.js");
+const {setupLocal} = require("../../../../../src/serverless/dynamodb/util.js");
+
+let AuthInfoModel;
+
+before(async function () {
+    setupLocal();
+    ({default: AuthInfoModel} = await import("../../../../../src/db/models/authInfo.js"));
+});
 
 describe("AuthInfo", function () {
     this.timeout(60000);
@@ -109,3 +116,4 @@ describe("AuthInfo", function () {
         });
     });
 });
+module.exports.default = module.exports;

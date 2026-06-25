@@ -3,7 +3,7 @@ module.exports = {
     sort: true,
     fullTrace: true,
     checkLeaks: true,
-    require: ["../../babel.register.js", "./test/01_setup", "./test/02_import-all"],
+    require: ["../../babel.register.cjs", "./test/01_setup", "./test/02_import-all"],
     exit: true,
     reporter: process.env.CI ? "mocha-junit-reporter" : "spec",
     reporterOptions: {
@@ -30,3 +30,4 @@ module.exports = {
         }
     }
 };
+module.exports.default = module.exports;

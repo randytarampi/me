@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {List} from "immutable";
-import Skill from "../../../../src/lib/skill";
+import Skill from "../../../../src/lib/skill.js";
 
 describe("Skill", function () {
     let stubSkillJs;

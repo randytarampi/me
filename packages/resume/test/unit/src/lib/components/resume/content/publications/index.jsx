@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumePublications from "../../../../../../../../src/lib/components/resume/content/publications";
-import ResumePublicationsEntry from "../../../../../../../../src/lib/components/resume/content/publications/entry";
+import ResumePublications from "../../../../../../../../src/lib/components/resume/content/publications/index.jsx";
+import ResumePublicationsEntry from "../../../../../../../../src/lib/components/resume/content/publications/entry.jsx";
 import testResumeJson from "../../../../../../../../src/resumes/some-awesome-company.json";
 
 describe("ResumePublications", function () {

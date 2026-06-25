@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Language from "../../../../src/lib/language";
+import Language from "../../../../src/lib/language.js";
 
 describe("Language", function () {
     let stubLanguageJs;

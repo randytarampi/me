@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {render, screen} from "@testing-library/react";
-import React from "react";
-import EmailLink from "../../../../../../src/lib/components/link/email";
+const {expect} = require("chai");
+const {render, screen} = require("@testing-library/react");
+const React = require("react");
+const EmailLink = require("../../../../../../src/lib/components/link/email.jsx").default || require("../../../../../../src/lib/components/link/email.jsx");
 
 describe("EmailLink", function () {
     it("renders a mailto link with body and subject", function () {

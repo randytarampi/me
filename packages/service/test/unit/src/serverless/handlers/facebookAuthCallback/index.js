@@ -1,8 +1,8 @@
-import {RequestError, requestErrorCodeToHttpStatusCode} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
-import {freshRequire} from "../../../../../lib/freshRequire";
+const {RequestError, requestErrorCodeToHttpStatusCode} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {AuthInfoSearchParams} = require("../../../../../../src/lib/authInfoSearchParams.js");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
 
 afterEach(function () {
     sinon.restore();
@@ -171,3 +171,4 @@ describe("facebookAuthCallback", function () {
         });
     });
 });
+module.exports.default = module.exports;

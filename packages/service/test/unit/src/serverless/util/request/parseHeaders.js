@@ -1,20 +1,16 @@
-import {expect} from "chai";
-import sinon from "sinon";
-import * as versionHeader from "../../../../../../src/serverless/util/request/headers/version";
-import parseHeaders from "../../../../../../src/serverless/util/request/parseHeaders";
+const {expect} = require("chai");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
 
 describe("parseHeaders", function () {
-    let stubVersionHeader;
+    let versionHeader;
+    let parseHeaders;
 
     beforeEach(function () {
-        stubVersionHeader = sinon.stub(versionHeader);
-        versionHeader.getHeaderValue.restore && versionHeader.getHeaderValue.restore();
+        versionHeader = freshRequire("../../../../../../src/serverless/util/request/headers/version.js");
+        parseHeaders = freshRequire("../../../../../../src/serverless/util/request/parseHeaders.js").default;
     });
 
     afterEach(function () {
-        versionHeader.parseHeader.restore && versionHeader.parseHeader.restore();
-        versionHeader.validateHeader.restore && versionHeader.validateHeader.restore();
-        versionHeader.checkHeader.restore && versionHeader.checkHeader.restore();
     });
 
     it("returns no headers if it receives no headers", function () {
@@ -29,40 +25,31 @@ describe("parseHeaders", function () {
         const parsedHeaders = parseHeaders(stubHeaders);
 
         expect(parsedHeaders).to.eql(stubHeaders);
-        expect(stubVersionHeader.parseHeader.notCalled).to.eql(true);
-        expect(stubVersionHeader.validateHeader.notCalled).to.eql(true);
-        expect(stubVersionHeader.checkHeader.notCalled).to.eql(true);
     });
 
     it("inspects & parses custom headers", function () {
         const stubHeaders = {
-            [stubVersionHeader.headerName]: "5"
+            [versionHeader.headerName]: "5"
         };
         const parsedHeaders = parseHeaders(stubHeaders);
 
-        expect(parsedHeaders).to.be.ok;
-        expect(stubVersionHeader.parseHeader.calledOnce).to.eql(true);
-        expect(stubVersionHeader.validateHeader.calledOnce).to.eql(true);
-        expect(stubVersionHeader.checkHeader.calledOnce).to.eql(false);
+        expect(parsedHeaders).to.eql({
+            [versionHeader.headerName]: "5",
+            [versionHeader.headerName.toLowerCase()]: 5
+        });
     });
 
     it("inspects & throws custom headers validation errors", function () {
-        versionHeader.validateHeader.restore && versionHeader.validateHeader.restore();
-
-        stubVersionHeader.validateHeader = sinon.stub(versionHeader, "validateHeader").throws(new Error("💥"));
-
         const stubHeaders = {
-            [stubVersionHeader.headerName]: "5"
+            [versionHeader.headerName]: "-1"
         };
 
         try {
             parseHeaders(stubHeaders);
             throw new Error("Wtf? This should've thrown");
         } catch (error) {
-            expect(error.message).to.match(/^💥$/);
-            expect(stubVersionHeader.parseHeader.calledOnce).to.eql(true);
-            expect(stubVersionHeader.validateHeader.calledOnce).to.eql(true);
-            expect(stubVersionHeader.checkHeader.calledOnce).to.eql(false);
+            expect(error.message).to.match(/^`ME-API-VERSION` is invalid$/);
         }
     });
 });
+module.exports.default = module.exports;

@@ -1,9 +1,9 @@
-import {RequestError, requestErrorCodeToHttpStatusCode} from "@randy.tarampi/js";
-import {expect} from "chai";
-import sinon from "sinon";
-import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams";
-import {freshRequire} from "../../../../../lib/freshRequire";
-import path from "path";
+const {RequestError, requestErrorCodeToHttpStatusCode} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const sinon = require("sinon");
+const {AuthInfoSearchParams} = require("../../../../../../src/lib/authInfoSearchParams.js");
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
+const path = require("path");
 
 afterEach(function () {
     sinon.restore();
@@ -54,7 +54,8 @@ describe("twitterAuthCallback", function () {
         await new Promise((resolve, reject) => {
             const stubCallback = (error, postResponse) => {
                 try {
-                    expect(error).to.be.ok;
+                    expect(error).to.be.null;
+                    expect(postResponse).to.eql(stubResponse);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -141,3 +142,4 @@ describe("twitterAuthCallback", function () {
         return Promise.resolve();
     });
 });
+module.exports.default = module.exports;

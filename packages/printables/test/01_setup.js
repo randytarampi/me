@@ -1,6 +1,9 @@
-import "@randy.tarampi/jsx/src/lib/reactShim";
+import "@randy.tarampi/jsx/src/lib/reactShim.js";
 import {JSDOM} from "jsdom";
-const packageJson = require("../package.json");
+import {readFileSync} from "fs";
+import {Helmet} from "react-helmet";
+
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 const jsdom = new JSDOM("<!doctype html><html><body><div id=\"react-root\"></div></body></html>", {url: "http://localhost:8080"});
 global.window = jsdom.window;
@@ -16,3 +19,5 @@ global.window.LOGGER = {
         console: true
     }
 };
+
+Helmet.canUseDOM = false;

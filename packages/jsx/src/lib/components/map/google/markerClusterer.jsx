@@ -1,6 +1,6 @@
 import React from "react";
 import {MarkerClusterer} from "react-google-maps/lib/components/addons/MarkerClusterer";
-import {GoogleMapMarkerClustererStyles} from "./styles";
+import {GoogleMapMarkerClustererStyles} from "./styles.js";
 
 export const GoogleMapMarkerClustererComponent = ({...props}) => <MarkerClusterer
     defaultStyles={GoogleMapMarkerClustererStyles}

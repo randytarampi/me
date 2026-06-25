@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import selectors from "../../data/selectors";
+import selectors from "../../data/selectors.js";
 
 export const INSTANTIATE_EMOJI = "INSTANTIATE_EMOJI";
 

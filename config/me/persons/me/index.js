@@ -1,4 +1,3 @@
-const defer = require("config/defer").deferConfig;
 const me = require("../../organizations/me");
 const sfu = require("../../organizations/sfu");
 const svh = require("../../organizations/svh");
@@ -7,9 +6,9 @@ module.exports = {
     ...me,
     givenName: "Randy",
     familyName: "Tarampi",
-    name: defer(function () {
+    name: function () {
         return `${this.me.resume.basics.givenName} ${this.me.resume.basics.familyName}`;
-    }),
+    },
     honorificPrefix: "Mr.",
     jobTitle: "Lookin' for a home, not a job",
     gender: "Male",

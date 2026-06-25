@@ -1,7 +1,7 @@
-import {Photo} from "@randy.tarampi/js";
-import {createApi} from "unsplash-js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+const {Photo} = require("@randy.tarampi/js");
+const {createApi} = require("unsplash-js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
 
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -92,4 +92,5 @@ class UnsplashSource extends CachedDataSource {
     }
 }
 
-export default UnsplashSource;
+module.exports = UnsplashSource;
+module.exports.default = module.exports;

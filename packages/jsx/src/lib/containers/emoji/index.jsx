@@ -1,6 +1,6 @@
-import ConnectedEmoji from "./emoji";
+import ConnectedEmoji from "./emoji.jsx";
 
-export * from "./emoji";
-export * from "./bear";
+export * from "./emoji.jsx";
+export * from "./bear/index.jsx";
 
 export default ConnectedEmoji;

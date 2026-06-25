@@ -1,12 +1,12 @@
-import {compositeKeySeparator} from "@randy.tarampi/js";
-import {Record} from "immutable";
+const {compositeKeySeparator} = require("@randy.tarampi/js");
+const {Record} = require("immutable");
 
-export const AUTH_INFO_TYPE = {
+const AUTH_INFO_TYPE = {
     oAuth: "OAUTH_TOKEN",
     oAuth2: "OAUTH2_TOKEN"
 };
 
-export class AuthInfo extends Record({
+class AuthInfo extends Record({
     token: null,
     tokenSecret: null,
     id: null,
@@ -19,4 +19,7 @@ export class AuthInfo extends Record({
     }
 }
 
-export default AuthInfo;
+module.exports = AuthInfo;
+module.exports.AUTH_INFO_TYPE = AUTH_INFO_TYPE;
+module.exports.AuthInfo = AuthInfo;
+module.exports.default = module.exports;

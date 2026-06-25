@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import LetterSignature from "../../../../../../../src/lib/components/letter/content/signature";
-import LetterEntity from "../../../../../../../src/lib/letter";
-import LetterSection from "../../../../../../../src/lib/letterSection";
+import LetterSignature from "../../../../../../../src/lib/components/letter/content/signature.jsx";
+import LetterEntity from "../../../../../../../src/lib/letter.js";
+import LetterSection from "../../../../../../../src/lib/letterSection.js";
 
 describe("LetterSignature", function () {
     let stubContentConfiguration;

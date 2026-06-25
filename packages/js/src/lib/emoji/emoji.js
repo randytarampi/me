@@ -1,6 +1,6 @@
 import {Map, Record} from "immutable";
-import * as util from "../util";
-import Character from "./character";
+import * as util from "../util/index.js";
+import Character from "./character.js";
 
 export const defaultComponents = {
     leftEye: {id: "leftEye", character: "•", position: 1},

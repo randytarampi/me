@@ -1,11 +1,11 @@
-import {expect} from "chai";
-import {fromJS} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import {
+const {expect} = require("chai");
+const {fromJS} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const {
     HANDLE_GOOGLE_MAP_IDLE,
     onGoogleMapIdleCreator
-} from "../../../../../../../src/lib/actions/map";
+} = require("../../../../../../../src/lib/actions/map/index.js");
 
 describe("onGoogleMapIdle", function () {
     let mockStore;

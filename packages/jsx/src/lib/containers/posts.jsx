@@ -2,12 +2,12 @@ import {Gallery, Photo, Post} from "@randy.tarampi/js";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {FETCHING_POSTS_PER_PAGE} from "../actions/posts/fetchPosts";
-import {fetchPostsForBlogCreator} from "../actions/posts/fetchPostsForBlog";
-import MeasuredPostsComponent from "../components/posts";
-import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api";
-import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../data/selectors";
-import {generateFilterFunctionForFilterName} from "../util";
+import {FETCHING_POSTS_PER_PAGE} from "../actions/posts/fetchPosts.js";
+import {fetchPostsForBlogCreator} from "../actions/posts/fetchPostsForBlog.js";
+import MeasuredPostsComponent from "../components/posts.jsx";
+import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api.js";
+import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../data/selectors.js";
+import {generateFilterFunctionForFilterName} from "../util/index.js";
 
 export const connectPosts = connect(
     (state, ownProps) => {

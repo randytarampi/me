@@ -1,12 +1,13 @@
-import {Bear} from "@randy.tarampi/js";
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import sinon from "sinon";
-import {HANDLE_COMPONENT_CLICK} from "../../../../../../src/lib/actions/emoji/onComponentClick";
-import onHelloBearComponentClick, {HANDLE_HELLO_BEAR_COMPONENT_CLICK} from "../../../../../../src/lib/actions/emoji/onHelloBearComponentClick";
-import {UPDATE_EMOJI} from "../../../../../../src/lib/actions/emoji/updateEmoji";
+const {Bear} = require("@randy.tarampi/js");
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const sinon = require("sinon");
+const {HANDLE_COMPONENT_CLICK} = require("../../../../../../src/lib/actions/emoji/onComponentClick.js");
+const onHelloBearComponentClick = require("../../../../../../src/lib/actions/emoji/onHelloBearComponentClick.js").default || require("../../../../../../src/lib/actions/emoji/onHelloBearComponentClick.js");
+const {HANDLE_HELLO_BEAR_COMPONENT_CLICK} = require("../../../../../../src/lib/actions/emoji/onHelloBearComponentClick.js");
+const {UPDATE_EMOJI} = require("../../../../../../src/lib/actions/emoji/updateEmoji.js");
 
 describe("onHelloBearComponentClick", function () {
     let mockStore;

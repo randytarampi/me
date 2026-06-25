@@ -1,7 +1,7 @@
-import {expect} from "chai";
-import {AuthInfoSearchParams} from "../../../../../src/lib/authInfoSearchParams";
-import sinon from "sinon";
-import OAuth2Client from "../../../../../src/lib/sources/oAuth2Client";
+const {expect} = require("chai");
+const {AuthInfoSearchParams} = require("../../../../../src/lib/authInfoSearchParams.js");
+const sinon = require("sinon");
+const OAuth2Client = require("../../../../../src/lib/sources/oAuth2Client.js");
 
 describe("OAuth2Client", function () {
     let stubApiKey;
@@ -57,3 +57,4 @@ describe("OAuth2Client", function () {
         });
     });
 });
+module.exports.default = module.exports;

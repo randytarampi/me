@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {List} from "immutable";
 import {DateTime} from "luxon";
-import Photo from "../../../../src/lib/photo";
-import SizedPhoto from "../../../../src/lib/sizedPhoto";
-import {augmentUrlWithTrackingParams} from "../../../../src/lib/util";
+import Photo from "../../../../src/lib/photo.js";
+import SizedPhoto from "../../../../src/lib/sizedPhoto.js";
+import {augmentUrlWithTrackingParams} from "../../../../src/lib/util/index.js";
 
 describe("Photo", () => {
     describe("constructor", () => {

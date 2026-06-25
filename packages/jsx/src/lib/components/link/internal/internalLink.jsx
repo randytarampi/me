@@ -2,7 +2,7 @@ import {push} from "redux-first-history";
 import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
-import Link from "../link";
+import Link from "../link.jsx";
 
 const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => {  
     return <Link

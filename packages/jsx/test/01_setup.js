@@ -1,6 +1,6 @@
-import "../src/lib/reactShim";
-import {JSDOM} from "jsdom";
-import "mock-local-storage";
+require("../src/lib/reactShim.js");
+const {JSDOM} = require("jsdom");
+require("mock-local-storage");
 const packageJson = require("../package.json");
 
 const jsdom = new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"});

@@ -1,6 +1,6 @@
-import {getGeohashesForRadiusAroundPoint} from "./getGeohashesForRadiusAroundPoint";
-import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius";
-import {getHaversineDistance} from "./getHaversineDistance";
+import {getGeohashesForRadiusAroundPoint} from "./getGeohashesForRadiusAroundPoint.js";
+import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius.js";
+import {getHaversineDistance} from "./getHaversineDistance.js";
 
 /**
  * @function Convert a latitude and longitude bounding box to a set of geohashes

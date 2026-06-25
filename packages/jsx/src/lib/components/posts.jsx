@@ -5,17 +5,17 @@ import {List} from "immutable";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import Infinite from "react-infinite";
-import LoadingSpinner from "../components/loadingSpinner";
-import {ConnectedErrorWrapper} from "../containers";
-import computePostHeight from "../util/computePostHeight";
-import getComponentForType from "../util/getComponentForType";
-import useMeasure from "../hooks/useMeasure";
+import LoadingSpinner from "./loadingSpinner.jsx";
+import {ConnectedErrorWrapper} from "../containers/index.jsx";
+import computePostHeight from "../util/computePostHeight.js";
+import getComponentForType from "../util/getComponentForType.js";
+import useMeasure from "../hooks/useMeasure.js";
 import {
     ErrorENOCONTENTContentComponent,
     ErrorESERVERContentComponent,
     mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent
-} from "./error";
-import PostComponent from "./post";
+} from "./error/index.jsx";
+import PostComponent from "./post.jsx";
 
 export const mapPostsErrorCodeToErrorContentComponent = errorCode => {
     switch (errorCode) {

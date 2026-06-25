@@ -1,31 +1,52 @@
-import {expect} from "chai";
-import getBrowserLanguage from "../../../../../src/lib/util/getBrowserLanguage";
+const {expect} = require("chai");
+const getBrowserLanguage = require("../../../../../src/lib/util/getBrowserLanguage.js").default || require("../../../../../src/lib/util/getBrowserLanguage.js");
 
 describe("getBrowserLanguage", function () {
     const navigatorLanguages = navigator.languages;
     const navigatorLanguage = navigator.language;
 
     afterEach(function () {
-        navigator.language = navigatorLanguage;
-        navigator.languages = navigatorLanguages;
+        Object.defineProperty(navigator, "language", {
+            configurable: true,
+            value: navigatorLanguage
+        });
+        Object.defineProperty(navigator, "languages", {
+            configurable: true,
+            value: navigatorLanguages
+        });
     });
 
     it("gets `en` by default", function () {
-        delete navigator.language;
-        delete navigator.languages;
+        Object.defineProperty(navigator, "language", {
+            configurable: true,
+            value: undefined
+        });
+        Object.defineProperty(navigator, "languages", {
+            configurable: true,
+            value: undefined
+        });
 
         expect(getBrowserLanguage()).to.eql("en");
     });
 
     it("gets `navigator.languages[0]`", function () {
-        navigator.languages = ["woof", "meow"];
+        Object.defineProperty(navigator, "languages", {
+            configurable: true,
+            value: ["woof", "meow"]
+        });
 
         expect(getBrowserLanguage()).to.eql(navigator.languages[0]);
     });
 
     it("gets `navigator.language`", function () {
-        navigator.languages = undefined;
-        navigator.language = "grr";
+        Object.defineProperty(navigator, "languages", {
+            configurable: true,
+            value: undefined
+        });
+        Object.defineProperty(navigator, "language", {
+            configurable: true,
+            value: "grr"
+        });
 
         expect(getBrowserLanguage()).to.eql(navigator.language);
     });

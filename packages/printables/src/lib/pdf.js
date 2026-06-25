@@ -1,2 +1,2 @@
-export {renderPrintablesToPdf} from "./renderPrintablesToPdf";
-export {renderPdf} from "./renderPdf";
+export {renderPrintablesToPdf} from "./renderPrintablesToPdf.js";
+export {renderPdf} from "./renderPdf.js";

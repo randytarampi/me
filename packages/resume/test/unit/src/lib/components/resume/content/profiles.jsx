@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumeProfiles from "../../../../../../../src/lib/components/resume/content/profiles";
+import ResumeProfiles from "../../../../../../../src/lib/components/resume/content/profiles.jsx";
 import testResumeJson from "../../../../../../../src/resumes/some-awesome-company.json";
 
 describe("ResumeProfiles", function () {

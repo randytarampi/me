@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import BrandedLink from "./brandedLink";
+import BrandedLink from "./brandedLink.jsx";
 
 export const FacebookLink = props => {
     return <BrandedLink {...props} serviceName="Facebook" serviceType="facebook"

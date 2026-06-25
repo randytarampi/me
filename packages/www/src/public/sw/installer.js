@@ -1,5 +1,5 @@
 import {register} from "register-service-worker";
-import {onCached, onError, onOffline, onReady, onRegistered, onUpdated, onUpdateFound} from "./util";
+import {onCached, onError, onOffline, onReady, onRegistered, onUpdated, onUpdateFound} from "./util.js";
 
 register(__SW_BUNDLE_PATH__, {
     ready: onReady,

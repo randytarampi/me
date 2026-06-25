@@ -1,6 +1,6 @@
-import DataSource from "../../src/lib/dataSource";
+const DataSource = require("../../src/lib/dataSource.js");
 
-export const DummyDataSourceGenerator = ({
+const DummyDataSourceGenerator = ({
                                              stubType,
 
                                              stubBeforeRecordsGetter,
@@ -55,4 +55,6 @@ export const DummyDataSourceGenerator = ({
     };
 };
 
-export default DummyDataSourceGenerator;
+module.exports = DummyDataSourceGenerator;
+module.exports.DummyDataSourceGenerator = DummyDataSourceGenerator;
+module.exports.default = module.exports;

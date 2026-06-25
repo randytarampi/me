@@ -1,6 +1,12 @@
 import queryString from "query-string";
 
-export const augmentUrlWithTrackingParams = (href, {source = __CAMPAIGN_SOURCE__, medium = __CAMPAIGN_MEDIUM__, name = __CAMPAIGN_NAME__, term = __CAMPAIGN_TERM__, content = __CAMPAIGN_CONTENT__} = {}) => {
+const CAMPAIGN_SOURCE = globalThis.__CAMPAIGN_SOURCE__ ?? "";
+const CAMPAIGN_MEDIUM = globalThis.__CAMPAIGN_MEDIUM__ ?? "referral";
+const CAMPAIGN_NAME = globalThis.__CAMPAIGN_NAME__ ?? "";
+const CAMPAIGN_TERM = globalThis.__CAMPAIGN_TERM__ ?? "";
+const CAMPAIGN_CONTENT = globalThis.__CAMPAIGN_CONTENT__ ?? "";
+
+export const augmentUrlWithTrackingParams = (href, {source = CAMPAIGN_SOURCE, medium = CAMPAIGN_MEDIUM, name = CAMPAIGN_NAME, term = CAMPAIGN_TERM, content = CAMPAIGN_CONTENT} = {}) => {
     const parsedHref = queryString.parseUrl(href);
     const hrefUrl = parsedHref.url;
     const hrefQueryParameters = parsedHref.query;

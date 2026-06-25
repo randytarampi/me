@@ -1,7 +1,7 @@
-require("../../babel.register.js");
+require("../../babel.register.cjs");
+const baseGulpfile = require("../../gulpfile.base.js");
 
 const gulp = require("gulp");
-const baseGulpfile = require("../../gulpfile.base");
 
 const taskParameters = {
     relativePath: __dirname,
@@ -16,3 +16,4 @@ gulp.task("lint", gulp.parallel(["eslint"]));
 baseGulpfile.testUnit(taskParameters);
 baseGulpfile.testIntegration(taskParameters);
 baseGulpfile.test(taskParameters);
+module.exports.default = module.exports;

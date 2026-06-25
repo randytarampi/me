@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {List} from "immutable";
 import {DateTime} from "luxon";
-import Volunteer from "../../../../src/lib/volunteer";
+import Volunteer from "../../../../src/lib/volunteer.js";
 
 describe("Volunteer", function () {
     let stubVolunteerJs;

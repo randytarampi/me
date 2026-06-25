@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {updateMap} from "../updateMap";
+import {updateMap} from "../updateMap.js";
 
 export const HANDLE_GOOGLE_MAP_HEADING_CHANGED = "HANDLE_GOOGLE_MAP_HEADING_CHANGED";
 

@@ -1,18 +1,10 @@
 import {expect} from "chai";
-import sinon from "sinon";
-import config, {gtmClient} from "../../../../src/lib/config";
-import * as util from "../../../../src/lib/util";
-import GtmClient from "../../../../src/lib/vendors/gtm";
+import config, {gtmClient} from "../../../../src/lib/config.js";
+import GtmClient from "../../../../src/lib/vendors/gtm.js";
+
+import {buildEventDetails} from "../../../../src/lib/util.js";
 
 describe("config", function () {
-    beforeEach(function () {
-        sinon.stub(util, "buildEventDetails").returns({});
-    });
-
-    afterEach(function () {
-        util.buildEventDetails.restore();
-    });
-
     describe("vendors", function () {
         it("has the expected vendors", function () {
             expect(config.vendors).to.eql([
@@ -24,7 +16,7 @@ describe("config", function () {
     });
 
     describe("pageDefaults", function () {
-        it("calls `util.buildEventDetails` with the expected parameters", function () {
+        it("calls `buildEventDetails` with the expected parameters", function () {
             const stubRouteState = {
                 pathname: "woof",
                 search: "grr",
@@ -34,14 +26,13 @@ describe("config", function () {
 
             const eventDetails = config.pageDefaults(stubRouteState);
             expect(eventDetails).to.be.ok;
-            expect(util.buildEventDetails.calledOnce).to.eql(true);
-            sinon.assert.calledWith(util.buildEventDetails, {
+            expect(eventDetails).to.eql(buildEventDetails({
                 value: stubRouteState.pathname,
                 pathname: stubRouteState.pathname,
                 search: stubRouteState.search,
                 hash: stubRouteState.hash,
                 params: stubRouteState.params
-            });
+            }));
         });
     });
 });

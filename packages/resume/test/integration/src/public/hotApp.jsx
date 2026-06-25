@@ -1,7 +1,7 @@
 import {render} from "@testing-library/react";
 import {expect} from "chai";
 import React from "react";
-import App from "../../../../src/public/views/hotApp";
+import App from "../../../../src/public/views/hotApp.jsx";
 
 describe("hotApp", function () {
     it("renders", function () {

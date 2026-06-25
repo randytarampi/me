@@ -1,8 +1,9 @@
-import {expect} from "chai";
-import {Map} from "immutable";
-import configureStore from "redux-mock-store";
-import {thunk} from "redux-thunk";
-import userNicknameChanged, {CRISP_USER_NICKNAME_CHANGED} from "../../../../../../src/lib/actions/crisp/userNicknameChanged";
+const {expect} = require("chai");
+const {Map} = require("immutable");
+const configureStore = require("redux-mock-store");
+const {thunk} = require("redux-thunk");
+const userNicknameChanged = require("../../../../../../src/lib/actions/crisp/userNicknameChanged.js").default || require("../../../../../../src/lib/actions/crisp/userNicknameChanged.js");
+const {CRISP_USER_NICKNAME_CHANGED} = require("../../../../../../src/lib/actions/crisp/userNicknameChanged.js");
 
 describe("userNicknameChanged", function () {
     let mockStore;

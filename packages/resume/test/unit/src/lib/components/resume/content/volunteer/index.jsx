@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
-import ResumeVolunteer from "../../../../../../../../src/lib/components/resume/content/volunteer";
-import ResumeVolunteerEntry from "../../../../../../../../src/lib/components/resume/content/volunteer/entry";
+import ResumeVolunteer from "../../../../../../../../src/lib/components/resume/content/volunteer/index.jsx";
+import ResumeVolunteerEntry from "../../../../../../../../src/lib/components/resume/content/volunteer/entry.jsx";
 import testResumeJson from "../../../../../../../../src/resumes/some-awesome-company.json";
 
 describe("ResumeVolunteer", function () {

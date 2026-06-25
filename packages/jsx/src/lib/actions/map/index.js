@@ -1,4 +1,4 @@
-export * from "./google";
+export * from "./google/index.js";
 
-export * from "./clearMap";
-export * from "./updateMap";
+export * from "./clearMap.js";
+export * from "./updateMap.js";

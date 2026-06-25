@@ -1,9 +1,9 @@
-import {Gallery, Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.tarampi/js";
-import _ from "lodash";
-import {DateTime} from "luxon";
-import tumblr from "tumblr.js";
-import CachedDataSource from "../../cachedDataSource.js";
-import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+const {Gallery, Photo, Post, SizedPhoto, sortPhotosByWidth} = require("@randy.tarampi/js");
+const _ = require("lodash");
+const {DateTime} = require("luxon");
+const tumblr = require("tumblr.js");
+const CachedDataSource = require("../../cachedDataSource.js");
+const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
 
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -142,7 +142,7 @@ class TumblrSource extends CachedDataSource {
 }
 
 // # NOTE-RT: This is pretty gross modifying the HTML we're passing along, but I think this'll be more common than not for other post providers going forwards, especially the more sophisticated platforms.
-export const processCaptionHtml = caption => {
+const processCaptionHtml = caption => {
     const tags = ["p", "ol", "ul"];
 
     return tags.reduce((processedCaption, tag) => processedCaption
@@ -150,4 +150,6 @@ export const processCaptionHtml = caption => {
         .replace(new RegExp(`</${tag}>`, "g"), `</span></${tag}>`), caption);
 };
 
-export default TumblrSource;
+module.exports = TumblrSource;
+module.exports.processCaptionHtml = processCaptionHtml;
+module.exports.default = module.exports;

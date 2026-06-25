@@ -1,4 +1,4 @@
-import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx/src/lib/index.jsx";
+import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";
@@ -7,8 +7,8 @@ import {
     fetchingLetterCancelled,
     fetchingLetterFailure,
     fetchingLetterSuccess
-} from "../../../../../src/lib/actions/fetchLetter";
-import reducer from "../../../../../src/lib/data/api";
+} from "../../../../../src/lib/actions/fetchLetter.js";
+import reducer from "../../../../../src/lib/data/api.js";
 
 describe("api", function () {
     let stubInitialState;

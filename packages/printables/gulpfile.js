@@ -1,10 +1,14 @@
-require("../../babel.register.js");
+import {createRequire} from "module";
+import path from "path";
+import {fileURLToPath} from "url";
+import baseGulpfile from "../../gulpfile.base.js";
 
-const path = require("path");
+const require = createRequire(import.meta.url);
+require("../../babel.register.cjs");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
-const baseGulpfile = require("../../gulpfile.base");
 
 const taskParameters = {
     relativePath: __dirname,
