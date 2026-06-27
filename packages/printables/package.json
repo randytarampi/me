@@ -10,7 +10,7 @@
   "browser": "./esm/index.client.js",
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/views": "^7.0.0",
+    "@randy.tarampi/views": "workspace:*",
     "exiftool-vendored": "^36.0.0",
     "pug": "^3.0.4",
     "puppeteer": "^25.2.0",
