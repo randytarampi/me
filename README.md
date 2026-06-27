@@ -15,26 +15,25 @@ _  / / / / /  __/_/_ __|
 [![Maintained with Lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lernajs.io/)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/randytarampi/me.svg?style=flat-square)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/randytarampi/me.svg?style=flat-square)
-[![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
 
 A monorepo for everything that goes into [www.randytarampi.ca](https://www.randytarampi.ca).
 
 - [job-application](packages/job-application) (which ties together my [resume](packages/resume) and a personalized [cover letter](packages/letter))
-- [jsonresume-theme-randytarampi](packages/jsonresume-theme) (A [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi), built for me but shared for all)
-- [service](packages/service)
-- [www](packages/www)
+- [jsonresume-theme-randytarampi](packages/jsonresume-theme) (a [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi), built for me but shared for all)
+- [service](packages/service) and [www](packages/www)
+- Shared packages: [assets](packages/assets), [browser-logger](packages/browser-logger), [css](packages/css), [js](packages/js), [jsx](packages/jsx), [lambda-logger](packages/lambda-logger), [letter](packages/letter), [printables](packages/printables), [react-dimensions](packages/react-dimensions), [redux-metrics](packages/redux-metrics), [resume](packages/resume), [serverless](packages/serverless), [views](packages/views)
 
 # Dependencies
 ```
 brew install nvm
-nvm install 12
-npm install -g yarn
+nvm install 24
+corepack enable
 ```
 
 # Installation
 
 ```
-yarn install
+yarn bootstrap
 ```
 
 # Configuration, Usage, Deployment, etc.
@@ -45,6 +44,9 @@ You'll want to read each package's README.
 
 ```
 yarn test
+
+# or, for one package
+npx lerna run test --scope @randy.tarampi/www
 ```
 
 
