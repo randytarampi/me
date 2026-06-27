@@ -54,6 +54,10 @@ on:
       REPORT_CI_TOKEN:
         required: true
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Run affected test suite
@@ -104,24 +108,22 @@ jobs:
       - name: Configure `yarn`
         run: |
           yarn config set script-shell $(which bash)
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
-      - name: Restore `node_modules` cache
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Cache Yarn
+        uses: actions/cache@v4
         with:
           path: |
+            .yarn/cache
             node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ steps.get-date.outputs.date }}
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-
-            ${{ runner.os }}-yarn-
-      - name: Actually run `yarn install --immutable`
-        run: yarn install --immutable
+            yarn-${{ runner.os }}-
+      - name: Cache Nx
+        uses: actions/cache@v4
+        with:
+          path: .nx
+          key: nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Actually run `yarn install --immutable --immutable-cache`
+        run: yarn install --immutable --immutable-cache
 
       - name: Setup CodeClimate for tests
         run: |
