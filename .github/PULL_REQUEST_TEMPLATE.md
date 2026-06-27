@@ -1,13 +1,13 @@
-A short summary of the work to be pulled in, and any other general comments.
+## Description
 
-Meat
----
-- committish – A description of the work done to achieve the task at hand.
+What changed and why.
 
-Sides
----
-- committish – A description of the work which was not planned but still within scope of the task at hand.
+## Testing
 
-Dessert
----
-- committish – A description of any work which was totally out of scope of the driving task.
+What you ran. If you didn’t run anything, say why.
+
+## Checklist
+
+- [ ] I read the repo guidance
+- [ ] The relevant tests pass
+- [ ] Any cross-package fallout is handled
