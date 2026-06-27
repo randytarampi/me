@@ -11,9 +11,9 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.0.0",
     "@aws-sdk/client-ssm": "^3.0.0",
-    "@randy.tarampi/js": "^7.0.0",
-    "@randy.tarampi/lambda-logger": "^7.0.0",
-    "@randy.tarampi/serverless": "^7.0.0",
+    "@randy.tarampi/js": "workspace:*",
+    "@randy.tarampi/lambda-logger": "workspace:*",
+    "@randy.tarampi/serverless": "workspace:*",
     "big.js": "^7.0.1",
     "config": "^4.4.1",
     "dynamoose": "^4.2.0",

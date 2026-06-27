@@ -6586,17 +6586,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@randy.tarampi/assets@npm:^7.0.0, @randy.tarampi/assets@workspace:packages/assets":
+"@randy.tarampi/assets@workspace:*, @randy.tarampi/assets@workspace:packages/assets":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/assets@workspace:packages/assets"
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/browser-logger@npm:^7.0.0, @randy.tarampi/browser-logger@workspace:packages/browser-logger":
+"@randy.tarampi/browser-logger@workspace:*, @randy.tarampi/browser-logger@workspace:packages/browser-logger":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/browser-logger@workspace:packages/browser-logger"
   dependencies:
-    "@randy.tarampi/js": "npm:^7.0.0"
+    "@randy.tarampi/js": "workspace:*"
     browser-bunyan: "npm:^1.8.0"
     bunyan: "npm:^2.0.5"
     bunyan-sentry-stream: "github:randytarampi/bunyan-sentry-stream#me-release"
@@ -6610,7 +6610,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/css@npm:^7.0.0, @randy.tarampi/css@workspace:packages/css":
+"@randy.tarampi/css@workspace:*, @randy.tarampi/css@workspace:packages/css":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/css@workspace:packages/css"
   dependencies:
@@ -6625,11 +6625,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/job-application@workspace:packages/job-application"
   dependencies:
-    "@randy.tarampi/jsx": "npm:^7.0.0"
-    "@randy.tarampi/letter": "npm:^7.0.0"
-    "@randy.tarampi/printables": "npm:^7.0.0"
-    "@randy.tarampi/resume": "npm:^7.0.0"
-    "@randy.tarampi/views": "npm:^7.0.0"
+    "@randy.tarampi/jsx": "workspace:*"
+    "@randy.tarampi/letter": "workspace:*"
+    "@randy.tarampi/printables": "workspace:*"
+    "@randy.tarampi/resume": "workspace:*"
+    "@randy.tarampi/views": "workspace:*"
     bluebird: "npm:^3.7.2"
     chai: "npm:^4.5.0"
     chai-enzyme: "npm:^1.0.0-beta.1"
@@ -6650,7 +6650,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/js@npm:^7.0.0, @randy.tarampi/js@workspace:packages/js":
+"@randy.tarampi/js@workspace:*, @randy.tarampi/js@workspace:packages/js":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/js@workspace:packages/js"
   dependencies:
@@ -6672,16 +6672,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/jsx@npm:^7.0.0, @randy.tarampi/jsx@workspace:packages/jsx":
+"@randy.tarampi/jsx@workspace:*, @randy.tarampi/jsx@workspace:packages/jsx":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/jsx@workspace:packages/jsx"
   dependencies:
     "@actra-development-oss/redux-persist-transform-filter-immutable": "npm:^1.0.0"
     "@fortawesome/fontawesome-free": "npm:^7.2.0"
-    "@randy.tarampi/browser-logger": "npm:^7.0.0"
-    "@randy.tarampi/js": "npm:^7.0.0"
-    "@randy.tarampi/react-dimensions": "npm:^7.0.0"
-    "@randy.tarampi/redux-metrics": "npm:^7.0.0"
+    "@randy.tarampi/browser-logger": "workspace:*"
+    "@randy.tarampi/js": "workspace:*"
+    "@randy.tarampi/react-dimensions": "workspace:*"
+    "@randy.tarampi/redux-metrics": "workspace:*"
     "@randy.tarampi/redux-offline-immutable-config": "npm:latest"
     "@randy.tarampi/schema-dot-org-json-ld-components": "npm:latest"
     "@randy.tarampi/schema-dot-org-types": "npm:latest"
@@ -6738,7 +6738,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/lambda-logger@npm:^7.0.0, @randy.tarampi/lambda-logger@workspace:packages/lambda-logger":
+"@randy.tarampi/lambda-logger@workspace:*, @randy.tarampi/lambda-logger@workspace:packages/lambda-logger":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/lambda-logger@workspace:packages/lambda-logger"
   dependencies:
@@ -6754,18 +6754,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/letter@npm:^7.0.0, @randy.tarampi/letter@workspace:packages/letter":
+"@randy.tarampi/letter@workspace:*, @randy.tarampi/letter@workspace:packages/letter":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/letter@workspace:packages/letter"
   dependencies:
     "@fortawesome/fontawesome-free": "npm:^7.2.0"
-    "@randy.tarampi/assets": "npm:^7.0.0"
-    "@randy.tarampi/css": "npm:^7.0.0"
-    "@randy.tarampi/js": "npm:^7.0.0"
-    "@randy.tarampi/jsx": "npm:^7.0.0"
-    "@randy.tarampi/printables": "npm:^7.0.0"
+    "@randy.tarampi/assets": "workspace:*"
+    "@randy.tarampi/css": "workspace:*"
+    "@randy.tarampi/js": "workspace:*"
+    "@randy.tarampi/jsx": "workspace:*"
+    "@randy.tarampi/printables": "workspace:*"
     "@randy.tarampi/schema-dot-org-json-ld-components": "npm:latest"
-    "@randy.tarampi/views": "npm:^7.0.0"
+    "@randy.tarampi/views": "workspace:*"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
     cheerio: "npm:^1.2.0"
@@ -6802,11 +6802,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/printables@npm:^7.0.0, @randy.tarampi/printables@workspace:packages/printables":
+"@randy.tarampi/printables@workspace:*, @randy.tarampi/printables@workspace:packages/printables":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/printables@workspace:packages/printables"
   dependencies:
-    "@randy.tarampi/views": "npm:^7.0.0"
+    "@randy.tarampi/views": "workspace:*"
     chai: "npm:^4.5.0"
     chai-enzyme: "npm:^1.0.0-beta.1"
     cheerio: "npm:^1.2.0"
@@ -6825,13 +6825,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/react-dimensions@npm:^7.0.0, @randy.tarampi/react-dimensions@workspace:packages/react-dimensions":
+"@randy.tarampi/react-dimensions@workspace:*, @randy.tarampi/react-dimensions@workspace:packages/react-dimensions":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/react-dimensions@workspace:packages/react-dimensions"
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/redux-metrics@npm:^7.0.0, @randy.tarampi/redux-metrics@workspace:packages/redux-metrics":
+"@randy.tarampi/redux-metrics@workspace:*, @randy.tarampi/redux-metrics@workspace:packages/redux-metrics":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/redux-metrics@workspace:packages/redux-metrics"
   dependencies:
@@ -6870,18 +6870,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@randy.tarampi/resume@npm:^7.0.0, @randy.tarampi/resume@workspace:packages/resume":
+"@randy.tarampi/resume@workspace:*, @randy.tarampi/resume@workspace:packages/resume":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/resume@workspace:packages/resume"
   dependencies:
     "@fortawesome/fontawesome-free": "npm:^7.2.0"
-    "@randy.tarampi/assets": "npm:^7.0.0"
-    "@randy.tarampi/css": "npm:^7.0.0"
-    "@randy.tarampi/js": "npm:^7.0.0"
-    "@randy.tarampi/jsx": "npm:^7.0.0"
-    "@randy.tarampi/printables": "npm:^7.0.0"
+    "@randy.tarampi/assets": "workspace:*"
+    "@randy.tarampi/css": "workspace:*"
+    "@randy.tarampi/js": "workspace:*"
+    "@randy.tarampi/jsx": "workspace:*"
+    "@randy.tarampi/printables": "workspace:*"
     "@randy.tarampi/schema-dot-org-json-ld-components": "npm:latest"
-    "@randy.tarampi/views": "npm:^7.0.0"
+    "@randy.tarampi/views": "workspace:*"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
     cheerio: "npm:^1.2.0"
@@ -6941,11 +6941,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@randy.tarampi/serverless@npm:^7.0.0, @randy.tarampi/serverless@workspace:packages/serverless":
+"@randy.tarampi/serverless@workspace:*, @randy.tarampi/serverless@workspace:packages/serverless":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/serverless@workspace:packages/serverless"
   dependencies:
-    "@randy.tarampi/js": "npm:^7.0.0"
+    "@randy.tarampi/js": "workspace:*"
     aws-xray-sdk: "npm:^3.12.0"
     busboy: "npm:^1.6.0"
     chai: "npm:^4.5.0"
@@ -6963,9 +6963,9 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.0.0"
     "@aws-sdk/client-ssm": "npm:^3.0.0"
-    "@randy.tarampi/js": "npm:^7.0.0"
-    "@randy.tarampi/lambda-logger": "npm:^7.0.0"
-    "@randy.tarampi/serverless": "npm:^7.0.0"
+    "@randy.tarampi/js": "workspace:*"
+    "@randy.tarampi/lambda-logger": "workspace:*"
+    "@randy.tarampi/serverless": "workspace:*"
     big.js: "npm:^7.0.1"
     chai: "npm:^4.5.0"
     config: "npm:^4.4.1"
@@ -7005,11 +7005,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/views@npm:^7.0.0, @randy.tarampi/views@workspace:packages/views":
+"@randy.tarampi/views@workspace:*, @randy.tarampi/views@workspace:packages/views":
   version: 0.0.0-use.local
   resolution: "@randy.tarampi/views@workspace:packages/views"
   dependencies:
-    "@randy.tarampi/js": "npm:^7.0.0"
+    "@randy.tarampi/js": "workspace:*"
     config: "npm:^4.4.1"
     cross-env: "npm:^10.1.0"
     gulp: "npm:^5.0.1"
@@ -7022,15 +7022,15 @@ __metadata:
   resolution: "@randy.tarampi/www@workspace:packages/www"
   dependencies:
     "@fortawesome/fontawesome-free": "npm:^7.2.0"
-    "@randy.tarampi/assets": "npm:^7.0.0"
-    "@randy.tarampi/browser-logger": "npm:^7.0.0"
-    "@randy.tarampi/css": "npm:^7.0.0"
-    "@randy.tarampi/js": "npm:^7.0.0"
-    "@randy.tarampi/jsx": "npm:^7.0.0"
-    "@randy.tarampi/letter": "npm:^7.0.0"
-    "@randy.tarampi/resume": "npm:^7.0.0"
+    "@randy.tarampi/assets": "workspace:*"
+    "@randy.tarampi/browser-logger": "workspace:*"
+    "@randy.tarampi/css": "workspace:*"
+    "@randy.tarampi/js": "workspace:*"
+    "@randy.tarampi/jsx": "workspace:*"
+    "@randy.tarampi/letter": "workspace:*"
+    "@randy.tarampi/resume": "workspace:*"
     "@randy.tarampi/schema-dot-org-json-ld-components": "npm:latest"
-    "@randy.tarampi/views": "npm:^7.0.0"
+    "@randy.tarampi/views": "workspace:*"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
     cheerio: "npm:^1.2.0"
@@ -17804,8 +17804,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jsonresume-theme-randytarampi@workspace:packages/jsonresume-theme"
   dependencies:
-    "@randy.tarampi/resume": "npm:^7.0.0"
-    "@randy.tarampi/views": "npm:^7.0.0"
+    "@randy.tarampi/resume": "workspace:*"
+    "@randy.tarampi/views": "workspace:*"
     config: "npm:^4.4.1"
     core-js: "npm:^3.49.0"
     cross-env: "npm:^10.1.0"

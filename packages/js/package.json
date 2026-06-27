@@ -75,5 +75,8 @@
     "preuninstall": "yarn run clean",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  }
 }

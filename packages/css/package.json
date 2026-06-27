@@ -35,5 +35,8 @@
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

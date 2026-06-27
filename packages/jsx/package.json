@@ -12,10 +12,10 @@
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
     "@fortawesome/fontawesome-free": "^7.2.0",
-    "@randy.tarampi/browser-logger": "^7.0.0",
-    "@randy.tarampi/js": "^7.0.0",
-    "@randy.tarampi/react-dimensions": "^7.0.0",
-    "@randy.tarampi/redux-metrics": "^7.0.0",
+    "@randy.tarampi/browser-logger": "workspace:*",
+    "@randy.tarampi/js": "workspace:*",
+    "@randy.tarampi/react-dimensions": "workspace:*",
+    "@randy.tarampi/redux-metrics": "workspace:*",
     "@randy.tarampi/redux-offline-immutable-config": "latest",
     "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
     "@randy.tarampi/schema-dot-org-types": "latest",
@@ -130,5 +130,8 @@
     "./src/lib/reactShim.js",
     "./es5/lib/reactShim.js",
     "./esm/lib/reactShim.js"
-  ]
+  ],
+  "engines": {
+    "node": ">=20"
+  }
 }

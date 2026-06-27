@@ -9,8 +9,8 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/resume": "^7.0.0",
-    "@randy.tarampi/views": "^7.0.0",
+    "@randy.tarampi/resume": "workspace:*",
+    "@randy.tarampi/views": "workspace:*",
     "config": "^4.4.1",
     "core-js": "^3.49.0",
     "resume-cli": "3.7.1"

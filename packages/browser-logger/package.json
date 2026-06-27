@@ -9,7 +9,7 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@randy.tarampi/js": "^7.0.0",
+    "@randy.tarampi/js": "workspace:*",
     "browser-bunyan": "^1.8.0",
     "bunyan": "^2.0.5",
     "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
@@ -64,5 +64,8 @@
     "start": "yarn run dev",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  }
 }

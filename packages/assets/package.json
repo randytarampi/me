@@ -22,5 +22,8 @@
     "directory": "packages/assets",
     "type": "git",
     "url": "https://github.com/randytarampi/me.git"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
