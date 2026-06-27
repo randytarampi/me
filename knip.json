@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    "packages/*": {
+      "entry": ["package.json"],
+      "ignore": [
+        "coverage/**",
+        ".nyc_output/**",
+        "dist/**",
+        "build/**",
+        "packages/*/coverage/**",
+        "packages/*/.nyc_output/**",
+        "packages/*/dist/**",
+        "packages/*/build/**",
+        "packages/*/test/**",
+        "packages/*/tests/**"
+      ]
+    }
+  }
+}
