@@ -1,7 +1,7 @@
 const {expect} = require("chai");
 const {AuthInfoSearchParams} = require("../../../../../src/lib/authInfoSearchParams.js");
 const sinon = require("sinon");
-const {loadEsmock, purgeEsmock} = require("../../../../lib/loadEsmock.js");
+const {freshRequire} = require("../../../../lib/freshRequire.js");
 
 describe("OAuthClient", function () {
     let stubRequestUrl;
@@ -96,14 +96,13 @@ describe("OAuthClient", function () {
 
     afterEach(function () {
         sinon.restore();
-        purgeEsmock();
     });
 
-    const loadOAuthClient = async oauthMock => {
-        const esmock = await loadEsmock();
-        return (await esmock("../../../../../src/lib/sources/oAuthClient.js", {
-            oauth: oauthMock
-        })).default;
+    const loadOAuthClient = async OAuth => {
+        const oauth = freshRequire("oauth");
+        oauth.OAuth = OAuth;
+
+        return freshRequire("../../../../../src/lib/sources/oAuthClient.js").default;
     };
 
     describe("getRequestToken", function () {
@@ -111,7 +110,7 @@ describe("OAuthClient", function () {
             const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuth(...args);
             });
-            const OAuthClient = await loadOAuthClient({OAuth});
+            const OAuthClient = await loadOAuthClient(OAuth);
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getRequestToken(new AuthInfoSearchParams({
@@ -128,7 +127,7 @@ describe("OAuthClient", function () {
             const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithCallbackErrors(...args);
             });
-            const OAuthClient = await loadOAuthClient({OAuth});
+            const OAuthClient = await loadOAuthClient(OAuth);
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getRequestToken(new AuthInfoSearchParams({
@@ -146,7 +145,7 @@ describe("OAuthClient", function () {
             const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithErrors(...args);
             });
-            const OAuthClient = await loadOAuthClient({OAuth});
+            const OAuthClient = await loadOAuthClient(OAuth);
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getRequestToken(new AuthInfoSearchParams({
@@ -166,7 +165,7 @@ describe("OAuthClient", function () {
             const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuth(...args);
             });
-            const OAuthClient = await loadOAuthClient({OAuth});
+            const OAuthClient = await loadOAuthClient(OAuth);
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getAccessToken(new AuthInfoSearchParams({
@@ -186,7 +185,7 @@ describe("OAuthClient", function () {
             const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithCallbackErrors(...args);
             });
-            const OAuthClient = await loadOAuthClient({OAuth});
+            const OAuthClient = await loadOAuthClient(OAuth);
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getAccessToken(new AuthInfoSearchParams({
@@ -207,7 +206,7 @@ describe("OAuthClient", function () {
             const OAuth = sinon.stub().callsFake(function (...args) {
                 return new StubOAuthOAuthWithErrors(...args);
             });
-            const OAuthClient = await loadOAuthClient({OAuth});
+            const OAuthClient = await loadOAuthClient(OAuth);
             const oAuthClient = new OAuthClient(stubRequestUrl, stubTokenUrl);
 
             return oAuthClient.getAccessToken(new AuthInfoSearchParams({

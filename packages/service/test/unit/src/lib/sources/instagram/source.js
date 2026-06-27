@@ -6,31 +6,9 @@ const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js"
 const {InstagramAuthInfo} = require("../../../../../../src/lib/sources/instagram/index.js");
 const proxyquiredInstagramSource = require("../../../../../../src/lib/sources/instagram/source.js");
 const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
-const path = require("path");
-
-let esmock;
-const cleanupEsmockGlobals = () => {
-    delete global.mockKeys;
-    delete global.mockKeysSource;
-    delete global.esmockCache;
-    delete global.esmockCacheGet;
-    delete global.esmockTreeIdGet;
-};
-const loadEsmock = async () => {
-    if (!esmock) {
-        esmock = (await Function("return import('esmock')")()).default;
-    }
-
-    cleanupEsmockGlobals();
-    return esmock;
-};
 
 afterEach(function () {
-    if (esmock) {
-        esmock.purge();
-    }
-
-    cleanupEsmockGlobals();
+    sinon.restore();
 });
 
 describe("InstagramSource", function () {

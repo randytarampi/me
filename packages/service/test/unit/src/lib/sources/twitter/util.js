@@ -1,10 +1,6 @@
 const {expect} = require("chai");
 const {AuthInfoSearchParams} = require("../../../../../../src/lib/authInfoSearchParams.js");
-const {loadEsmock, purgeEsmock} = require("../../../../../lib/loadEsmock.js");
-
-afterEach(function () {
-    purgeEsmock();
-});
+const {freshRequire} = require("../../../../../lib/freshRequire.js");
 
 describe("util", function () {
     it("returns the expected Twitter client", async function () {
@@ -21,12 +17,10 @@ describe("util", function () {
             }
         }
 
-        const esmock = await loadEsmock();
-        const {getTwitterClientForSearchParams} = await esmock("../../../../../../src/lib/sources/twitter/util.js", {
-            twitter: {
-                default: StubTwitterClient
-            }
-        });
+        const twitter = freshRequire("twitter");
+        twitter.default = StubTwitterClient;
+
+        const {getTwitterClientForSearchParams} = freshRequire("../../../../../../src/lib/sources/twitter/util.js");
 
         expect(getTwitterClientForSearchParams(stubTwitterConfig)).to.be.instanceof(StubTwitterClient);
     });
