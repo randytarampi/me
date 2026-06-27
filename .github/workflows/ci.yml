@@ -11,6 +11,10 @@ on:
       - '.github/workflows/test.yml'
       - '.github/workflows/deploy.pages.yml'
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   install:
     uses: ./.github/workflows/install.yml
