@@ -3070,23 +3070,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfaester/enzyme-adapter-react-18@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "@cfaester/enzyme-adapter-react-18@npm:0.8.0"
-  dependencies:
-    enzyme-shallow-equal: "npm:^1.0.0"
-    function.prototype.name: "npm:^1.1.6"
-    has: "npm:^1.0.4"
-    react-is: "npm:^18.2.0"
-    react-shallow-renderer: "npm:^16.15.0"
-  peerDependencies:
-    enzyme: ^3.11.0
-    react: ">=18"
-    react-dom: ">=18"
-  checksum: 10c0/06b2c8d741cfb36179fbc15b7403a56c95f0ff2c884556a9f6858594e5a11f70bf4e100b07ef78049435da6614a7e016558938674d9abe3fb2db776e9e7430a6
-  languageName: node
-  linkType: hard
-
 "@cspotcode/source-map-support@npm:^0.8.1":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -6697,24 +6680,24 @@ __metadata:
     "@fortawesome/fontawesome-free": "npm:^7.2.0"
     "@randy.tarampi/browser-logger": "npm:^7.0.0"
     "@randy.tarampi/js": "npm:^7.0.0"
+    "@randy.tarampi/react-dimensions": "npm:^7.0.0"
     "@randy.tarampi/redux-metrics": "npm:^7.0.0"
     "@randy.tarampi/redux-offline-immutable-config": "npm:latest"
     "@randy.tarampi/schema-dot-org-json-ld-components": "npm:latest"
     "@randy.tarampi/schema-dot-org-types": "npm:latest"
     "@redux-offline/redux-offline": "npm:^2.6.0"
     "@testing-library/dom": "npm:^10"
+    "@testing-library/jest-dom": "npm:^6.9.1"
     "@testing-library/react": "npm:^16"
     "@types/googlemaps": "npm:^3.43.3"
     "@types/markerclustererplus": "npm:^2.1.33"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
     chai-dom: "npm:^1.12"
-    chai-enzyme: "npm:^1.0.0-beta.1"
     cheerio: "npm:^1.2.0"
     classnames: "npm:^2.5.1"
     config: "npm:^4.4.1"
     cross-env: "npm:^10.1.0"
-    enzyme: "npm:^3.11.0"
     gulp: "npm:^5.0.1"
     history: "npm:^5.3.0"
     immutable: "npm:^5.1.7"
@@ -6726,7 +6709,6 @@ __metadata:
     mocha-junit-reporter: "npm:^2.2.1"
     mock-local-storage: "npm:^1.1.24"
     prop-types: "npm:^15.8.1"
-    proxyquire: "npm:^2.1.3"
     query-string: "npm:^9.4.0"
     react: "npm:^19.2.7"
     react-dom: "npm:^19.2.7"
@@ -6767,7 +6749,6 @@ __metadata:
     cross-env: "npm:^10.1.0"
     gulp: "npm:^5.0.1"
     mocha-junit-reporter: "npm:^2.2.1"
-    proxyquire: "npm:^2.1.3"
     raven: "npm:^2.6.4"
     sinon: "npm:^22.0.0"
   languageName: unknown
@@ -6787,13 +6768,11 @@ __metadata:
     "@randy.tarampi/views": "npm:^7.0.0"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
-    chai-enzyme: "npm:^1.0.0-beta.1"
     cheerio: "npm:^1.2.0"
     config: "npm:^4.4.1"
     copy-webpack-plugin: "npm:^14.0.0"
     core-js: "npm:^3.49.0"
     cross-env: "npm:^10.1.0"
-    enzyme: "npm:^3.11.0"
     exiftool-vendored: "npm:^36.0.0"
     express: "npm:^5.2.1"
     gulp: "npm:^5.0.1"
@@ -6805,7 +6784,6 @@ __metadata:
     materialize-css: "npm:^1.0.0"
     mocha-junit-reporter: "npm:^2.2.1"
     prop-types: "npm:^15.8.1"
-    proxyquire: "npm:^2.1.3"
     query-string: "npm:^9.4.0"
     react: "npm:^19.2.7"
     react-dom: "npm:^19.2.7"
@@ -6844,6 +6822,12 @@ __metadata:
     react-dom: "npm:^19.2.7"
     react-helmet: "npm:^6.1.0"
     sinon: "npm:^22.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@randy.tarampi/react-dimensions@npm:^7.0.0, @randy.tarampi/react-dimensions@workspace:packages/react-dimensions":
+  version: 0.0.0-use.local
+  resolution: "@randy.tarampi/react-dimensions@workspace:packages/react-dimensions"
   languageName: unknown
   linkType: soft
 
@@ -6900,13 +6884,11 @@ __metadata:
     "@randy.tarampi/views": "npm:^7.0.0"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
-    chai-enzyme: "npm:^1.0.0-beta.1"
     cheerio: "npm:^1.2.0"
     config: "npm:^4.4.1"
     copy-webpack-plugin: "npm:^14.0.0"
     core-js: "npm:^3.49.0"
     cross-env: "npm:^10.1.0"
-    enzyme: "npm:^3.11.0"
     exiftool-vendored: "npm:^36.0.0"
     express: "npm:^5.2.1"
     gulp: "npm:^5.0.1"
@@ -6918,7 +6900,6 @@ __metadata:
     materialize-css: "npm:^1.0.0"
     mocha-junit-reporter: "npm:^2.2.1"
     prop-types: "npm:^15.8.1"
-    proxyquire: "npm:^2.1.3"
     pug: "npm:^3.0.4"
     query-string: "npm:^9.4.0"
     react: "npm:^19.2.7"
@@ -7003,7 +6984,6 @@ __metadata:
     mocha-junit-reporter: "npm:^2.2.1"
     oauth: "npm:^0.10.2"
     pad-right: "npm:^0.2.2"
-    proxyquire: "npm:^2.1.3"
     query-string: "npm:^9.4.0"
     rss: "npm:^1.2.2"
     serverless: "npm:^4.38.1"
@@ -7053,13 +7033,11 @@ __metadata:
     "@randy.tarampi/views": "npm:^7.0.0"
     "@types/react": "npm:^19.2.17"
     chai: "npm:^4.5.0"
-    chai-enzyme: "npm:^1.0.0-beta.1"
     cheerio: "npm:^1.2.0"
     config: "npm:^4.4.1"
     copy-webpack-plugin: "npm:^14.0.0"
     core-js: "npm:^3.49.0"
     cross-env: "npm:^10.1.0"
-    enzyme: "npm:^3.11.0"
     express: "npm:^5.2.1"
     gulp: "npm:^5.0.1"
     history: "npm:^5.3.0"
@@ -13054,7 +13032,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enzyme-shallow-equal@npm:^1.0.0, enzyme-shallow-equal@npm:^1.0.1":
+"enzyme-shallow-equal@npm:^1.0.1":
   version: 1.0.7
   resolution: "enzyme-shallow-equal@npm:1.0.7"
   dependencies:
@@ -13559,7 +13537,7 @@ __metadata:
     string.prototype.trimend: "npm:^1.0.9"
     tsconfig-paths: "npm:^3.15.0"
   peerDependencies:
-    eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9
+    eslint: "*"
   checksum: 10c0/bfb1b8fc8800398e62ddfefbf3638d185286edfed26dfe00875cc2846d954491b4f5112457831588b757fa789384e1ae585f812614c4797f0499fa234fd4a48b
   languageName: node
   linkType: hard
@@ -14342,16 +14320,6 @@ __metadata:
   dependencies:
     minimatch: "npm:^5.0.1"
   checksum: 10c0/6ee725bec3e1936d680a45f14439b224d9f7c71658c145addcf551dd82f03d608522eb6b191aa086b392bc3e52ed4ce0ed8d78e24b203e6c5e867560a05d1121
-  languageName: node
-  linkType: hard
-
-"fill-keys@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "fill-keys@npm:1.0.2"
-  dependencies:
-    is-object: "npm:~1.0.1"
-    merge-descriptors: "npm:~1.0.0"
-  checksum: 10c0/39d01c6d1fbb7cbb05ccbfee5746afcb03dbaf8990f09f3b1b23a144d215c0b685b9db8f40b0e949627e49baa8e5530a1b7f9a2c50ef29acc715a91c45bbb6da
   languageName: node
   linkType: hard
 
@@ -15731,7 +15699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"has@npm:^1.0.3, has@npm:^1.0.4":
+"has@npm:^1.0.3":
   version: 1.0.4
   resolution: "has@npm:1.0.4"
   checksum: 10c0/82c1220573dc1f0a014a5d6189ae52a1f820f99dfdc00323c3a725b5002dcb7f04e44f460fea7af068474b2dd7c88cbe1846925c84017be9e31e1708936d305b
@@ -16866,13 +16834,6 @@ __metadata:
   version: 2.0.0
   resolution: "is-obj@npm:2.0.0"
   checksum: 10c0/85044ed7ba8bd169e2c2af3a178cacb92a97aa75de9569d02efef7f443a824b5e153eba72b9ae3aca6f8ce81955271aa2dc7da67a8b720575d3e38104208cb4e
-  languageName: node
-  linkType: hard
-
-"is-object@npm:~1.0.1":
-  version: 1.0.2
-  resolution: "is-object@npm:1.0.2"
-  checksum: 10c0/9cfb80c3a850f453d4a77297e0556bc2040ac6bea5b6e418aee208654938b36bab768169bef3945ccfac7a9bb460edd8034e7c6d8973bcf147d7571e1b53e764
   languageName: node
   linkType: hard
 
@@ -18863,7 +18824,6 @@ __metadata:
     "@babel/preset-env": "npm:^8.0.2"
     "@babel/preset-react": "npm:^8.0.1"
     "@babel/register": "npm:^8.0.1"
-    "@cfaester/enzyme-adapter-react-18": "npm:^0.8.0"
     "@eslint/js": "npm:^10.0.1"
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.6.2"
     "@testing-library/jest-dom": "npm:^6.9.1"
@@ -19012,7 +18972,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge-descriptors@npm:1.0.3, merge-descriptors@npm:~1.0.0":
+"merge-descriptors@npm:1.0.3":
   version: 1.0.3
   resolution: "merge-descriptors@npm:1.0.3"
   checksum: 10c0/866b7094afd9293b5ea5dcd82d71f80e51514bed33b4c4e9f516795dc366612a4cbb4dc94356e943a8a6914889a914530badff27f397191b9b75cda20b6bae93
@@ -19509,13 +19469,6 @@ __metadata:
   version: 1.0.1
   resolution: "modify-values@npm:1.0.1"
   checksum: 10c0/6acb1b82aaf7a02f9f7b554b20cbfc159f223a79c66b0a257511c5933d50b85e12ea1220b0a90a2af6f80bc29ff784f929a52a51881867a93ae6a12ce87a729a
-  languageName: node
-  linkType: hard
-
-"module-not-found-error@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "module-not-found-error@npm:1.0.1"
-  checksum: 10c0/e57250016b320ef9d0e0037fdb63fb279ca93100a0cee3ef6e90139cbec734215be4a70857dfc0d62ee353d9f8126d2882aa0a80dba49b69292901263a21ea69
   languageName: node
   linkType: hard
 
@@ -22630,17 +22583,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proxyquire@npm:^2.1.3":
-  version: 2.1.3
-  resolution: "proxyquire@npm:2.1.3"
-  dependencies:
-    fill-keys: "npm:^1.0.2"
-    module-not-found-error: "npm:^1.0.1"
-    resolve: "npm:^1.11.1"
-  checksum: 10c0/f2e57670ed57ef047720516f0ad2f88bfdba4aaa54139bf5d7fe6ec84bf91ec932f402c56439b44d3596743fd9405be4aac99a924eb897e3396c5be1a81672b0
-  languageName: node
-  linkType: hard
-
 "psl@npm:^1.1.28":
   version: 1.15.0
   resolution: "psl@npm:1.15.0"
@@ -23465,18 +23407,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-shallow-renderer@npm:^16.15.0":
-  version: 16.15.0
-  resolution: "react-shallow-renderer@npm:16.15.0"
-  dependencies:
-    object-assign: "npm:^4.1.1"
-    react-is: "npm:^16.12.0 || ^17.0.0 || ^18.0.0"
-  peerDependencies:
-    react: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/c194d741792e86043a4ae272f7353c1cb9412bc649945c4220c6a101a6ea5410cceb3d65d5a4d750f11a24f7426e8eec7977e8a4e3ad5d3ee235ca2b18166fa8
-  languageName: node
-  linkType: hard
-
 "react-side-effect@npm:^2.1.0":
   version: 2.1.2
   resolution: "react-side-effect@npm:2.1.2"
@@ -24221,7 +24151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.11.1, resolve@npm:^1.15.1, resolve@npm:^1.20.0, resolve@npm:^1.22.1, resolve@npm:^1.22.11":
+"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.15.1, resolve@npm:^1.20.0, resolve@npm:^1.22.1, resolve@npm:^1.22.11":
   version: 1.22.12
   resolution: "resolve@npm:1.22.12"
   dependencies:
@@ -24251,7 +24181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.1.6#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.11.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.15.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.11#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.1.6#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.15.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.11#optional!builtin<compat/resolve>":
   version: 1.22.12
   resolution: "resolve@patch:resolve@npm%3A1.22.12#optional!builtin<compat/resolve>::version=1.22.12&hash=c3c19d"
   dependencies:

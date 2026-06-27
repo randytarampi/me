@@ -58,8 +58,8 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^10",
-    "@testing-library/react": "^16",
     "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16",
     "chai": "^4.5.0",
     "chai-dom": "^1.12",
     "cheerio": "^1.2.0",

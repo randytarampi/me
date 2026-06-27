@@ -84,3 +84,5 @@ packages/service/posts
 
 # Deepwork progress (not committed)
 .slim/deepwork/
+
+.nx/
