@@ -1,3 +1,4 @@
+// @ts-check
 import geohash from "latlon-geohash";
 import {getGeohashPrecisionForLatsOrLongs} from "./getGeohashPrecisionForLatOrLong.js";
 

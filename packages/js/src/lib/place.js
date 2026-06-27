@@ -1,3 +1,4 @@
+// @ts-check
 import {Place as SchemaPlace} from "@randy.tarampi/schema-dot-org-types";
 import DmsCoordinates from "dms-conversion";
 import {List, Map, Record} from "immutable";
@@ -6,6 +7,7 @@ import {formatNumber} from "libphonenumber-js";
 import PostalAddress from "./postalAddress.js";
 import {convertLatLongToGeohash} from "./util/index.js";
 
+/** A place record with geo helpers. */
 export class Place extends Record({
     additionalName: null,
     name: null,
@@ -144,6 +146,7 @@ export class Place extends Record({
         return null;
     }
 
+    /** @param {object} [js={}] - Raw JS data. @returns {Place} */
     static fromJS(js = {}) {
         return new Place({
             ...js,
@@ -155,6 +158,7 @@ export class Place extends Record({
         });
     }
 
+    /** @param {object} [json={}] - Raw JSON data. @returns {Place} */
     static fromJSON(json = {}) {
         return new Place({
             ...json,
@@ -166,6 +170,7 @@ export class Place extends Record({
         });
     }
 
+    /** @param {object} [json={}] - Resume-style data. @returns {Place} */
     static fromResume(json = {}) {
         return new Place({
             ...json,
@@ -178,6 +183,7 @@ export class Place extends Record({
         });
     }
 
+    /** @returns {object} Resume-friendly data. */
     toResume() {
         return {
             name: this.name,
@@ -190,6 +196,7 @@ export class Place extends Record({
         };
     }
 
+    /** @returns {SchemaPlace} Schema.org output. */
     toSchema() {
         return new SchemaPlace({
             ...this.toJS(),

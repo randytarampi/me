@@ -1,3 +1,4 @@
+// @ts-check
 import bunyan from "bunyan";
 import bunyanFormat from "bunyan-format";
 import bunyanSentryStream from "bunyan-sentry-stream";
@@ -37,6 +38,7 @@ const configureRaven = packageJson => Promise.resolve()
         }
     });
 
+/** @param {*} packageJson - The package metadata. @returns {Promise<*>} The raven setup promise. */
 export const configureLogger = packageJson => configureRaven(packageJson);
 
 const bunyanStreams = [];
@@ -67,6 +69,7 @@ if (process.env.LOGGER_ENABLED === "true") {
     }
 }
 
+/** @param {*} packageJson - The package metadata. @returns {*} A bunyan logger. */
 export const createLogger = packageJson => bunyan.createLogger({
     name: getLoggerNameForPackageAndLambda(packageJson),
     streams: bunyanStreams,
@@ -76,4 +79,5 @@ export const createLogger = packageJson => bunyan.createLogger({
     serializers: bunyan.stdSerializers
 });
 
+/** @type {typeof createLogger} */
 export default createLogger;

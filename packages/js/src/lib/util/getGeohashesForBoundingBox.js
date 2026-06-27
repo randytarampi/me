@@ -1,3 +1,4 @@
+// @ts-check
 import {getGeohashesForRadiusAroundPoint} from "./getGeohashesForRadiusAroundPoint.js";
 import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius.js";
 import {getHaversineDistance} from "./getHaversineDistance.js";

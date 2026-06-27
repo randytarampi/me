@@ -1,3 +1,4 @@
+// @ts-check
 import {Person as SchemaPerson} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber, parseNumber} from "libphonenumber-js";
@@ -7,6 +8,7 @@ import PostalAddress from "./postalAddress.js";
 import Profile from "./profile.js";
 import {castDatePropertyToDateTime} from "./util/index.js";
 
+/** A person record with the usual resume/schema helpers. */
 export class Person extends Record({
     honorificPrefix: null,
     additionalName: null,
@@ -36,6 +38,7 @@ export class Person extends Record({
     knowsLanguage: List(),
     knowsAbout: List()
 }) {
+    /** @param {object} [properties={}] - Raw person data. */
     constructor({birthDate, ...properties} = {}) {
         super({
             birthDate: castDatePropertyToDateTime(birthDate),
@@ -135,6 +138,7 @@ export class Person extends Record({
         return this.location && this.location.countryCode;
     }
 
+    /** @param {object} [js={}] - Raw JS data. @returns {Person} */
     static fromJS(js = {}) {
         return new Person({
             ...js,
@@ -150,6 +154,7 @@ export class Person extends Record({
         });
     }
 
+    /** @param {object} [json={}] - Raw JSON data. @returns {Person} */
     static fromJSON(json = {}) {
         return new Person({
             ...json,
@@ -165,6 +170,7 @@ export class Person extends Record({
         });
     }
 
+    /** @param {object} [json={}] - Resume-style data. @returns {Person} */
     static fromResume(json = {}) {
         return new Person({
             ...json,
@@ -182,6 +188,7 @@ export class Person extends Record({
         });
     }
 
+    /** @returns {object} Resume-friendly data. */
     toResume() {
         return {
             name: this.name,
@@ -198,6 +205,7 @@ export class Person extends Record({
         };
     }
 
+    /** @returns {SchemaPerson} Schema.org output. */
     toSchema() {
         const {profiles, knowsLanguage, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
 

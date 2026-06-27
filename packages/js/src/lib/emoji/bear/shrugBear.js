@@ -1,3 +1,4 @@
+// @ts-check
 import {BearGenerator, defaultBearComponents} from "./bear.js";
 
 const defaultComponents = {
@@ -8,6 +9,7 @@ const defaultComponents = {
     rightAction: {id: "rightAction", character: "¯", position: 11}
 };
 
+/** A bear that shrugs harder than most people do. */
 export class ShrugBear extends BearGenerator({
     components: defaultComponents
 }) {

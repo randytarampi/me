@@ -1,3 +1,4 @@
+// @ts-check
 export * from "./emoji/index.js";
 export * from "./util/index.js";
 

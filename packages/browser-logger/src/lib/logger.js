@@ -1,8 +1,10 @@
+// @ts-check
 import {createLogger as browserBunyanCreateLogger, stdSerializers} from "browser-bunyan";
 import {SentryStream} from "bunyan-sentry-stream";
 import raven from "raven-js";
 import ConsoleStream from "./consoleStream.js";
 
+/** The browser globals this logger cares about. */
 const getWindowVariables = () => {
     if (typeof window !== "undefined" && window) {
         return {
@@ -17,6 +19,7 @@ const getWindowVariables = () => {
     return {};
 };
 
+/** @returns {object} Raven config for the browser. */
 export const buildRavenConfiguration = () => {
     const {windowName, windowEnvironment, windowVersion, windowLogger} = getWindowVariables();
 
@@ -33,6 +36,7 @@ export const buildRavenConfiguration = () => {
     };
 };
 
+/** @returns {object} Bunyan config for the browser. */
 export const buildBunyanConfiguration = () => {
     const {windowName, windowEnvironment, windowVersion, windowSentryDsn, windowLogger} = getWindowVariables();
 
@@ -77,10 +81,13 @@ export const buildBunyanConfiguration = () => {
     };
 };
 
+/** @returns {*} A browser logger. */
 export const createLogger = () => {
     return browserBunyanCreateLogger(buildBunyanConfiguration());
 };
 
+/** The shared browser logger. */
 export const logger = createLogger();
 
+/** @type {typeof logger} */
 export default logger;

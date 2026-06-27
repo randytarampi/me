@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @function Sort two [Characters]{@link Character} by position, ascending.
  * @param a {Character}

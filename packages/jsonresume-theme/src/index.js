@@ -1,3 +1,4 @@
+// @ts-check
 import {renderHtml, Resume} from "@randy.tarampi/resume";
 import config from "config";
 import path from "path";
@@ -6,6 +7,7 @@ import {fileURLToPath} from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/** @param {*} resumeJson - Resume data. @param {string} pageSize - The paper size. @returns {*} Rendered HTML. */
 export const render = (resumeJson, pageSize) => {
     const resume = Resume.fromResume(resumeJson);
     return renderHtml({
@@ -42,11 +44,13 @@ export const render = (resumeJson, pageSize) => {
     });
 };
 
+/** @type {{format: string, mediaType: string}} */
 export const pdfRenderOptions = {
     format: process.env.RESUME_PDF_SIZE || "Letter",
     mediaType: "print"
 };
 
+/** @type {object} */
 export const pdfRenderExpectations = config && config.has("resume.expectations")
     ? config.get("resume.expectations")
     : {

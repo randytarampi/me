@@ -1,3 +1,4 @@
+// @ts-check
 import geohash from "latlon-geohash";
 import {getGeohashesForRadiusAroundPoint} from "./getGeohashesForRadiusAroundPoint.js";
 import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius.js";

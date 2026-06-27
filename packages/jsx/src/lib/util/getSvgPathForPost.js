@@ -1,3 +1,4 @@
+// @ts-check
 import {Gallery, Photo, Post} from "@randy.tarampi/js";
 
 // import FacebookSvg from "@fortawesome/fontawesome-free/svgs/brands/facebook.svg";
@@ -21,6 +22,7 @@ export const cameraSvgPath = "M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21
 // import CommentSvg from "@fortawesome/fontawesome-free/svgs/solid/comment-alt.svg";
 export const commentSvgPath = "M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64z";
 
+/** @param {{source?: string, type?: string, id?: string}} post - The post to iconify. @returns {string} The SVG path. */
 export const getSvgPathForPost = post => {
     switch (post.source) {
         case "facebook":

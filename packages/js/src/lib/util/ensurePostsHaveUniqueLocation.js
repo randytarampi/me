@@ -1,3 +1,4 @@
+// @ts-check
 import {Place} from "../place.js";
 import {getNumericalPrecision} from "./getNumericalPrecision.js";
 

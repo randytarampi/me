@@ -1,3 +1,4 @@
+// @ts-check
 const {compositeKeySeparator} = require("@randy.tarampi/js");
 const {DateTime} = require("luxon");
 const logger = require("../serverless/logger.js");

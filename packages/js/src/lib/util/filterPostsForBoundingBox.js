@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @function Return {@link Post}s that fit within a bounding box.
  * @param posts {Post[]}

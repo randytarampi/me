@@ -1,3 +1,4 @@
+// @ts-check
 const _ = require("lodash");
 const PostModel = require("../db/models/post.js");
 const logger = require("../serverless/logger.js");

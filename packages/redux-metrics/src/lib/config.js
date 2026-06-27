@@ -1,9 +1,12 @@
+// @ts-check
 import Gtm from "./vendors/gtm.js";
 
 import * as util from "./util.js";
 
+/** The GTM client. */
 export const gtmClient = new Gtm();
 
+/** @type {{vendors: Array<{api: *}>, pageDefaults: (routeState: object) => object}} */
 export default {
     vendors: [
         {api: gtmClient}

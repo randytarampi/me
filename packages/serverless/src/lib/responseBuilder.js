@@ -1,3 +1,4 @@
+// @ts-check
 import mime from "mime-types";
 
 const jsonMimeTypes = [mime.types.json];
@@ -8,14 +9,7 @@ const defaultHeaders = {
     "Content-Type": mime.types.json
 };
 
-/**
- * Build an AWS API Gateway HTTP response
- * @param body {*}
- * @param statusCode {number}
- * @param passedHeaders {Object}
- * @param isBase64Encoded {boolean}
- * @returns {{body: (undefined|string), isBase64Encoded: boolean, headers: object, statusCode: number}}
- */
+/** Build an AWS API Gateway HTTP response. */
 export const responseBuilder = (body = undefined, statusCode = 200, passedHeaders = defaultHeaders, isBase64Encoded = false) => {
     let properBody = body;
     const headers = {
@@ -37,4 +31,5 @@ export const responseBuilder = (body = undefined, statusCode = 200, passedHeader
     };
 };
 
+/** @type {typeof responseBuilder} */
 export default responseBuilder;

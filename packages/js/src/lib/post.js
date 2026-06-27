@@ -1,3 +1,4 @@
+// @ts-check
 import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import Place from "./place.js";
@@ -14,12 +15,18 @@ const overridableTagProperties = {
     title: tagValue => tagValue
 };
 
+/** @type {{visible: string, hidden: string, archived: string}} */
 export const POST_STATUS = {
     visible: "VISIBLE",
     hidden: "HIDDEN",
     archived: "ARCHIVED"
 };
 
+/**
+ * Build a Record base class for post-ish things.
+ * @param {object} [otherProperties={}] - Extra record fields.
+ * @returns {Function} A post record class.
+ */
 export const PostClassGenerator = otherProperties => class AbstractPost extends Record({
     id: null,
     type: null,

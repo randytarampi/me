@@ -1,9 +1,11 @@
+// @ts-check
 import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
 import Photo from "./photo.js";
 import Post, {PostClassGenerator} from "./post.js";
 import {sortPhotosByWidth} from "./util/index.js";
 
+/** A gallery record made of photos. */
 export class Gallery extends PostClassGenerator({
     photos: List()
 }) {
@@ -31,6 +33,7 @@ export class Gallery extends PostClassGenerator({
         return this.largestPhoto.largestImage;
     }
 
+    /** @param {number} width - The space we need to fill. @returns {*} The best-fit image. */
     getSizedPhotoForDisplay(width) {
         const widthAppropriatePhotos = this.smallestPhoto.sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width && sizedPhoto.size !== "raw");
 
@@ -38,6 +41,7 @@ export class Gallery extends PostClassGenerator({
     }
 
 
+    /** @returns {*} The smallest image for quick loading. */
     getSizedPhotoForLoading() {
         return this.smallestImage;
     }
@@ -56,6 +60,7 @@ export class Gallery extends PostClassGenerator({
         };
     }
 
+    /** @returns {SchemaBlogPosting} Schema.org output. */
     toSchema() {
         const firstPhoto = this.photos.first();
         const {photos, ...superSchema} = super.toSchema(); // eslint-disable-line no-unused-vars
@@ -83,6 +88,7 @@ export class Gallery extends PostClassGenerator({
         });
     }
 
+    /** @param {object} [options={}] - RSS bits. @returns {object} RSS-friendly image extras. */
     toRss(options = {}) {
         const firstPhoto = this.photos.first();
         return {

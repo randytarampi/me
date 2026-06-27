@@ -1,6 +1,8 @@
+// @ts-check
 import {Buffer} from "buffer";
 import busboy from "busboy";
 
+/** @param {{body: string, headers: object, isBase64Encoded: boolean}} event - The multipart event. @returns {Promise<object>} Parsed form data. */
 export const parseFilesFromMultipartEvent = ({body, headers, isBase64Encoded}) => new Promise((resolve, reject) => {
     const busboyInstance = busboy({headers: {"content-type": headers["Content-Type"], ...headers}, defParamCharset: "utf8"});
     const parsed = {};
@@ -37,4 +39,5 @@ export const parseFilesFromMultipartEvent = ({body, headers, isBase64Encoded}) =
     busboyInstance.end();
 });
 
+/** @type {typeof parseFilesFromMultipartEvent} */
 export default parseFilesFromMultipartEvent;

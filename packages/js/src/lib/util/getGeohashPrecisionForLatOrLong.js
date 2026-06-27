@@ -1,3 +1,4 @@
+// @ts-check
 import {getNumericalPrecision} from "./getNumericalPrecision.js";
 
 /**

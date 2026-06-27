@@ -1,23 +1,24 @@
+// @ts-check
 import {RequestError} from "@randy.tarampi/js";
 import {responseBuilder} from "./responseBuilder.js";
 
 /**
  * @function returnErrorResponseForLogger
- * @param [logger=console] {Object} A logger
- * @returns {Function} An AWS lambda handler
+ * @param {*} [logger=console] - A logger.
+ * @returns {Function} An AWS lambda handler.
  */
 export const returnErrorResponseForLogger = (logger = console) =>
     /**
      * @function returnErrorResponse
-     * @param event {Object} The AWS lambda event
-     * @param context {Object} The AWS lambda context
-     * @param callback {Function} The AWS lambda callback
-     * @returns {Function} An actual error handler
+     * @param {*} event - The AWS lambda event.
+     * @param {*} context - The AWS lambda context.
+     * @param {Function} callback - The AWS lambda callback.
+     * @returns {Function} An actual error handler.
      */
         (event, context, callback) =>
         /**
          * Actually handle the error and send a proper HTTP response
-         * @param error
+         * @param {*} error - The thrown error.
          */
             error => {
             logger.debug("%s@%s handling error on request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);

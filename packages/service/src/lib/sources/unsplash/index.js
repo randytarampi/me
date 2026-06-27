@@ -1,8 +1,10 @@
+// @ts-check
 const {Photo} = require("@randy.tarampi/js");
 const {createApi} = require("unsplash-js");
 const CachedDataSource = require("../../cachedDataSource.js");
 const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
 
+/** Unsplash-backed post source. */
 class UnsplashSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || createApi({
@@ -92,5 +94,6 @@ class UnsplashSource extends CachedDataSource {
     }
 }
 
+/** @type {typeof UnsplashSource} */
 module.exports = UnsplashSource;
 module.exports.default = module.exports;
