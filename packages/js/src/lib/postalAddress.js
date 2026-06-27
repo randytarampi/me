@@ -1,6 +1,8 @@
+// @ts-check
 import {PostalAddress as SchemaPostalAddress} from "@randy.tarampi/schema-dot-org-types";
 import {Record} from "immutable";
 
+/** Postal address bits, plus some sugar for resume/schema output. */
 export class PostalAddress extends Record({
     streetAddress: null,
     postalCode: null,
@@ -30,18 +32,21 @@ export class PostalAddress extends Record({
         return this.get("countryCode") || this.country;
     }
 
+    /** @param {object} js - Raw address data. @returns {PostalAddress} */
     static fromJS(js) {
         return new PostalAddress({
             ...js
         });
     }
 
+    /** @param {object} json - Raw JSON address data. @returns {PostalAddress} */
     static fromJSON(json) {
         return new PostalAddress({
             ...json
         });
     }
 
+    /** @param {object} json - Resume address data. @returns {PostalAddress} */
     static fromResume(json) {
         return PostalAddress.fromJSON({
             streetAddress: json.address,
@@ -52,6 +57,7 @@ export class PostalAddress extends Record({
         });
     }
 
+    /** @returns {object} Resume-friendly address data. */
     toResume() {
         return {
             address: this.address,
@@ -62,6 +68,7 @@ export class PostalAddress extends Record({
         };
     }
 
+    /** @returns {SchemaPostalAddress} Schema.org output. */
     toSchema() {
         const {countryCode, ...js} = this.toJS(); // eslint-disable-line no-unused-vars
         return new SchemaPostalAddress({

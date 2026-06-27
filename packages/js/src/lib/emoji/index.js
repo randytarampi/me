@@ -1,3 +1,4 @@
+// @ts-check
 import Emoji from "./emoji.js";
 
 export * from "./emoji.js";

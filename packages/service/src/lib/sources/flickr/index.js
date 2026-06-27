@@ -1,3 +1,4 @@
+// @ts-check
 const {Photo} = require("@randy.tarampi/js");
 const {createFlickr} = require("flickr-sdk");
 const _ = require("lodash");
@@ -5,8 +6,10 @@ const {DateTime} = require("luxon");
 const CachedDataSource = require("../../cachedDataSource.js");
 const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
 
+/** @type {number} */
 const FLICKR_API_MAX_POSTS_PER_PAGE = 500;
 
+/** Flickr-backed post source. */
 class FlickrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || createFlickr(process.env.FLICKR_API_KEY).flickr, cacheClient);
@@ -90,6 +93,7 @@ class FlickrSource extends CachedDataSource {
     }
 }
 
+/** @type {typeof FlickrSource} */
 module.exports = FlickrSource;
 module.exports.FLICKR_API_MAX_POSTS_PER_PAGE = FLICKR_API_MAX_POSTS_PER_PAGE;
 module.exports.default = module.exports;

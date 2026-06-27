@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * Per https://www.movable-type.co.uk/scripts/geohash.html, where the `index + 1` is the geohash precision and the value is the cell width (in metres)
  * @type {number[]}

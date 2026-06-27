@@ -1,3 +1,4 @@
+// @ts-check
 const {DateTime} = require("luxon");
 const Rss = require("rss");
 const packageJson = require("../../package.json");
@@ -5,7 +6,9 @@ const packageJson = require("../../package.json");
 /**
  * An object that describes an instance of an RSS Feed
  */
+/** RSS feed wrapper with saner defaults. */
 class RssFeed extends Rss {
+    /** @param {object} [options={}] - Feed options. */
     constructor({title, feedUrl, siteUrl, imageUrl, customNamespaces, customElements, ttl = 60, pubDate = DateTime.utc().toJSDate(), generator = packageJson.name, docs = "https://validator.w3.org/feed/docs/rss2.html", ...rssOptions} = {}) {
         super({
             title,

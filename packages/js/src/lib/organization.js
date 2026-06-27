@@ -1,8 +1,10 @@
+// @ts-check
 import {Organization as SchemaOrganization} from "@randy.tarampi/schema-dot-org-types";
 import {List, Record} from "immutable";
 import {formatNumber} from "libphonenumber-js";
 import PostalAddress from "./postalAddress.js";
 
+/** An organization record with the same convenience helpers as Person. */
 export class Organization extends Record({
     additionalName: null,
     name: null,
@@ -83,6 +85,7 @@ export class Organization extends Record({
         return this.location && this.location.countryCode;
     }
 
+    /** @param {object} [js={}] - Raw JS data. @returns {Organization} */
     static fromJS(js = {}) {
         return new Organization({
             ...js,
@@ -94,6 +97,7 @@ export class Organization extends Record({
         });
     }
 
+    /** @param {object} [json={}] - Raw JSON data. @returns {Organization} */
     static fromJSON(json = {}) {
         return new Organization({
             ...json,
@@ -105,6 +109,7 @@ export class Organization extends Record({
         });
     }
 
+    /** @param {object} [json={}] - Resume-style data. @returns {Organization} */
     static fromResume(json = {}) {
         return new Organization({
             ...json,
@@ -117,6 +122,7 @@ export class Organization extends Record({
         });
     }
 
+    /** @returns {object} Resume-friendly data. */
     toResume() {
         return {
             name: this.name,
@@ -129,6 +135,7 @@ export class Organization extends Record({
         };
     }
 
+    /** @returns {SchemaOrganization} Schema.org output. */
     toSchema() {
         const {knowsLanguage, ...js} = this.toJS();  
 

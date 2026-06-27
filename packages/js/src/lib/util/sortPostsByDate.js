@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @function Sort two [Posts]{@link Post} by date, descending.
  * @param a {Post}

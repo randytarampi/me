@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * A generic data source that fetches [Record(s)]{@link Record} from some service
  * @abstract
@@ -5,7 +6,7 @@
 class DataSource {
     /**
      * Build a data source that fetches [Record(s)]{@link Record} from some service using some client
-     * @param client {object} A client that wraps some service that serves content to be transformed into [Records]{@link Record}
+     * @param {*} client - A client that wraps some service that serves content to be transformed into [Records]{@link Record}
      */
     constructor(client) {
         this.client = client;

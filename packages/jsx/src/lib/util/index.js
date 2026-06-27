@@ -1,3 +1,4 @@
+// @ts-check
 import "../reactShim.js";
 
 export * from "./computePostHeight.js";

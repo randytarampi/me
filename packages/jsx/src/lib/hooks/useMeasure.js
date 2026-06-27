@@ -1,5 +1,7 @@
+// @ts-check
 import {useCallback, useEffect, useRef, useState} from "react";
 
+/** @returns {{width: number, height: number, ref: (node: *) => void}} A ref callback and measured dimensions. */
 export const useMeasure = () => {
     const [dimensions, setDimensions] = useState({
         width: 0,

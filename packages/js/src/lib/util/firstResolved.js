@@ -1,4 +1,10 @@
+// @ts-check
 // NOTE-RT: Lifted from https://stackoverflow.com/a/37235274/1786400
+/**
+ * Resolve with the first promise that lands cleanly.
+ * @param {Array<Promise<*>>} promises - Promises to race.
+ * @returns {Promise<*>} The first good value, or one ugly aggregated error.
+ */
 export const firstResolved = promises => {
     // If a request fails, count that as a resolution so it will keep
     // waiting for other possible successes. If a request succeeds,

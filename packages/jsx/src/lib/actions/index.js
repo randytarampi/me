@@ -1,3 +1,4 @@
+// @ts-check
 export * from "./crisp/index.js";
 export * from "./emoji/index.js";
 export * from "./error/index.js";

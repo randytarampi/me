@@ -1,3 +1,4 @@
+// @ts-check
 const _ = require("lodash");
 const AuthInfoSearchParams = require("../authInfoSearchParams.js");
 const Facebook = require("./facebook/index.js");
@@ -15,6 +16,7 @@ const sources = [Facebook, Flickr, Instagram, S3, Tumblr, Twitter, Unsplash].red
     }, {}
 );
 
+/** @param {string[]} [namedSources] - Only initialize these sources. @returns {Promise<Array<*>>} Ready-to-go source instances. */
 const initializeSources = namedSources => Promise.all(
     Object.entries(sources)
         .filter(keyValuePair => !namedSources || !namedSources.length || namedSources.includes(keyValuePair[0]))

@@ -1,3 +1,4 @@
+// @ts-check
 import * as Immutable from "immutable";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
@@ -12,6 +13,7 @@ import {
     uiMiddleware
 } from "../middleware/index.js";
 
+/** @param {*} [initialState=Immutable.Map()] - Initial state. @param {*} history - History instance. @param {*} reducers - Reducer map. @param {Array<*>} [middleware=[]] - Extra middleware. @returns {*} A Redux store. */
 export const configureStore = (initialState = Immutable.Map(), history, reducers, middleware = []) => {
     const {createReduxHistory, routerMiddleware, routerReducer} = createReduxHistoryContext({
         history,

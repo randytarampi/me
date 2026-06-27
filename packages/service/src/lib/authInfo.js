@@ -1,3 +1,4 @@
+// @ts-check
 const {compositeKeySeparator} = require("@randy.tarampi/js");
 const {Record} = require("immutable");
 
@@ -6,6 +7,7 @@ const AUTH_INFO_TYPE = {
     oAuth2: "OAUTH2_TOKEN"
 };
 
+/** Auth tokens for a source, with a stable uid getter. */
 class AuthInfo extends Record({
     token: null,
     tokenSecret: null,
@@ -14,6 +16,7 @@ class AuthInfo extends Record({
     type: AUTH_INFO_TYPE.oAuth2,
     raw: null
 }) {
+    /** @returns {string} The stable record id. */
     get uid() {
         return `${this.source}${compositeKeySeparator}${this.id}`;
     }

@@ -1,3 +1,4 @@
+// @ts-check
 const {Post} = require("@randy.tarampi/js");
 const {GetObjectCommand, ListObjectsV2Command, S3Client} = require("@aws-sdk/client-s3");
 const jsyaml = require("js-yaml");
@@ -36,6 +37,7 @@ const bodyToString = async body => {
     return body;
 };
 
+/** S3-backed post source. */
 class S3Source extends CachedDataSource {
     constructor(dataClient, cacheClient) {
         super(dataClient || new S3Client({region: defaultRegion}), cacheClient);
@@ -112,5 +114,6 @@ class S3Source extends CachedDataSource {
     }
 }
 
+/** @type {typeof S3Source} */
 module.exports = S3Source;
 module.exports.default = module.exports;

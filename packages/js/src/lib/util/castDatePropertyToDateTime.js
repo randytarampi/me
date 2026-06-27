@@ -1,3 +1,4 @@
+// @ts-check
 import {DateTime} from "luxon";
 
 /**

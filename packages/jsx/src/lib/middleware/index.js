@@ -1,3 +1,4 @@
+// @ts-check
 export * from "./error.js";
 export * from "./metrics.js";
 export * from "./raven.js";

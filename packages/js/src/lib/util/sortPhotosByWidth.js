@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @function Sort two [Photos]{@link Photo} by width, ascending.
  * @param a {Photo}

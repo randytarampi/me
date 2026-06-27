@@ -1,6 +1,8 @@
+// @ts-check
 export const WINDOW_LARGE_BREAKPOINT = 992;
 export const WINDOW_LARGE_PHOTO_SCALE = 8 / 12;
 
+/** @param {number} containerWidth - The container width. @returns {(post: *, cachedPostHeight?: number) => number} The height calculator. */
 export const computePostHeight = containerWidth => (post, cachedPostHeight) => {
     if (post.height && post.width) {
         let scaledHeight = containerWidth * (post.height / post.width);

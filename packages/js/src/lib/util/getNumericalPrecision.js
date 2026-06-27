@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * Determine the number of decimal places for a given {number} per https://stackoverflow.com/questions/9553354/how-do-i-get-the-decimal-places-of-a-floating-point-number-in-javascript.
  * @param number {number} The number you want to determine the precision of.

@@ -1,9 +1,11 @@
+// @ts-check
 import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
 import Post, {PostClassGenerator} from "./post.js";
 import SizedPhoto from "./sizedPhoto.js";
 import {sortPhotosByWidth} from "./util/index.js";
 
+/** A post that carries a few sizes of the same image. */
 export class Photo extends PostClassGenerator({
     width: null,
     height: null,
@@ -31,24 +33,29 @@ export class Photo extends PostClassGenerator({
         return this.sizedPhotos.sort(sortPhotosByWidth);
     }
 
+    /** @param {number} width - The space we need to fill. @returns {*} The best-fit image. */
     getSizedPhotoForDisplay(width) {
         const widthAppropriatePhotos = this.sortedSizedPhotos.filter(sizedPhoto => sizedPhoto.width >= width && sizedPhoto.size !== "raw");
 
         return widthAppropriatePhotos.first() || this.sortedSizedPhotos.last();
     }
 
+    /** @returns {*} The smallest image. */
     get smallestImage() {
         return this.sortedSizedPhotos.first();
     }
 
+    /** @returns {*} The largest image. */
     get largestImage() {
         return this.sortedSizedPhotos.last();
     }
 
+    /** @returns {*} The smallest image for quick loading. */
     getSizedPhotoForLoading() {
         return this.smallestImage;
     }
 
+    /** @returns {SchemaBlogPosting} Schema.org output, because search engines are nosy. */
     toSchema() {
         const {sizedPhotos, ...superSchema} = super.toSchema(); // eslint-disable-line no-unused-vars
         const imagePostSchema = {
@@ -75,6 +82,7 @@ export class Photo extends PostClassGenerator({
         });
     }
 
+    /** @param {object} [options={}] - RSS bits. @returns {object} RSS-friendly image extras. */
     toRss(options = {}) {
         return {
             ...super.toRss(options),
@@ -89,10 +97,12 @@ export class Photo extends PostClassGenerator({
 
 export default Photo;
 
+/** @param {number} limitedWidth @param {number} originalWidth @param {number} originalHeight @returns {number} */
 const scaleHeightToWidth = (limitedWidth, originalWidth, originalHeight) => {
     return ~~((originalHeight / originalWidth) * limitedWidth);
 };
 
+/** @param {object} sizedPhotoJs @param {number} fullWidth @param {number} fullHeight @returns {object} */
 const ensureSizedPhotoHasHeight = (sizedPhotoJs, fullWidth, fullHeight) => {
     if (sizedPhotoJs.height) {
         return sizedPhotoJs;

@@ -1,3 +1,4 @@
+// @ts-check
 import {BearGenerator, defaultBearComponents} from "./bear.js";
 
 const defaultComponents = {
@@ -5,6 +6,7 @@ const defaultComponents = {
     rightLeaningRightArm: {id: "rightLeaningRightArm", character: "ﾉ゛", position: 10},
 };
 
+/** A cheerful bear. */
 export class HelloBear extends BearGenerator({
     components: defaultComponents
 }) {

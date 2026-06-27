@@ -1,3 +1,4 @@
+// @ts-check
 import {BearGenerator, defaultBearComponents} from "./bear.js";
 
 const defaultComponents = {
@@ -6,6 +7,7 @@ const defaultComponents = {
     rightEye: {id: "rightEye", character: " ͡°", position: 7},
 };
 
+/** The classic shrug-adjacent bear. */
 export class LennyBear extends BearGenerator({
     components: defaultComponents
 }) {

@@ -1,3 +1,4 @@
+// @ts-check
 import proximityhash from "proximityhash";
 import {getGeohashPrecisionForRadius} from "./getGeohashPrecisionForRadius.js";
 

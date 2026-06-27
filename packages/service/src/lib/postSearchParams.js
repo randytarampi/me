@@ -1,3 +1,4 @@
+// @ts-check
 const {castDatePropertyToDateTime, compositeKeySeparator, convertLatLongToGeohash, Gallery, getGeohashesForBoundingBox, getGeohashesForRadiusAroundGeohash, getGeohashesForRadiusAroundPoint, getHaversineDistance, Photo, Post, POST_STATUS} = require("@randy.tarampi/js");
 const {Big} = require("big.js");
 const {Record} = require("immutable");

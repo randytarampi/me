@@ -1,3 +1,4 @@
+// @ts-check
 import Bear from "./bear.js";
 
 export * from "./bear.js";

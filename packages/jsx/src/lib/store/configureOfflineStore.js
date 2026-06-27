@@ -1,3 +1,4 @@
+// @ts-check
 import {createBlacklistFilter, createFilter, createWhitelistFilter} from "@actra-development-oss/redux-persist-transform-filter-immutable";
 import {logger} from "@randy.tarampi/browser-logger";
 import {
@@ -77,6 +78,7 @@ export const createImmutableBlacklistFilter = createBlacklistFilter;
 export const createImmutableFilter = createFilter;
 export const createImmutableWhitelistFilter = createWhitelistFilter;
 
+/** @param {object} [overrides={}] - Config overrides. @param {Array<*>} [otherTransforms=[]] - Extra transforms. @returns {object} The merged config. */
 export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) => {
     const transforms = (overrides.persistOptions && overrides.persistOptions.transforms && [...overrides.persistOptions.transforms]) || [];
 
@@ -94,6 +96,7 @@ export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) =>
     };
 };
 
+/** @param {*} [initialState=Immutable.Map()] - Initial state. @param {*} history - History instance. @param {*} reducers - Reducer map. @param {Array<*>} [middleware=[]] - Extra middleware. @param {*} [offlineConfig=buildReduxOfflineConfig()] - Offline config. @returns {*} A Redux store. */
 export const configureOfflineStore = (initialState = Immutable.Map(), history, reducers, middleware = [], offlineConfig = buildReduxOfflineConfig()) => {
     const {createReduxHistory, routerMiddleware, routerReducer} = createReduxHistoryContext({
         history,

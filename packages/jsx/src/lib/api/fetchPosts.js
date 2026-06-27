@@ -1,7 +1,9 @@
+// @ts-check
 import {getEntityForType, Post} from "@randy.tarampi/js";
 import {logger} from "@randy.tarampi/browser-logger";
 import queryString from "query-string";
 
+/** @param {string} fetchUrl - The API URL. @param {object} searchParams - Query params. @returns {Promise<object>} The fetched payload. */
 export const fetchPostsApi = (fetchUrl, searchParams) => {
     const parsedFetchUrl = queryString.parseUrl(fetchUrl);
     return fetch(`${parsedFetchUrl.url}?${queryString.stringify({
