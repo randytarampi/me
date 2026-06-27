@@ -1,0 +1,16 @@
+{
+  "targetDefaults": {
+    "build": {
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/package.json", "{projectRoot}/*.config.js"],
+      "outputs": ["{projectRoot}/dist/", "{projectRoot}/es5/", "{projectRoot}/esm/"]
+    },
+    "lint": {
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/test/**", "{projectRoot}/eslint.config.js", "{projectRoot}/package.json"],
+      "outputs": []
+    },
+    "test": {
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/test/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/test-results.xml", "{projectRoot}/.nyc_output/"]
+    }
+  }
+}

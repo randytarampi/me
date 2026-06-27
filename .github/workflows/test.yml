@@ -56,7 +56,7 @@ on:
 
 jobs:
   test:
-    name: Run `yarn test`
+    name: Run affected test suite
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -131,13 +131,18 @@ jobs:
         shell: bash
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v2.0.1
-      - name: Actually run `yarn test`
+      - name: Actually run affected tests
         id: test-actual
         env:
           NODE_ENV: test
         run: |
-          yarn run pretest
-          yarn cover:actual
+          if [ "$(npx lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
+            yarn run pretest
+            yarn cover:actual
+          else
+            npx lerna run pretest --since HEAD...origin/master
+            npx lerna run cover --since HEAD...origin/master
+          fi
         timeout-minutes: 10
       - name: Cleanup after tests
         if: always()
