@@ -32,15 +32,15 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
             organization: process.env.SENTRY_ORG,
             project: process.env.SENTRY_PROJECT,
             apiKey: process.env.SENTRY_AUTH_TOKEN,
-            release: process.env.TRAVIS_TAG || process.env.TRAVIS_COMMIT,
+            release: process.env.GITHUB_REF_NAME || process.env.GITHUB_SHA,
             releaseBody: (version, projects) => {
                 return {
                     version,
                     projects,
                     refs: [
                         {
-                            repository: process.env.TRAVIS_REPO_SLUG,
-                            commit: process.env.TRAVIS_COMMIT
+                            repository: process.env.GITHUB_REPOSITORY,
+                            commit: process.env.GITHUB_SHA
                         }
                     ]
                 };
