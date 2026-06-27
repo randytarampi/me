@@ -42,5 +42,3 @@ gulp.task("build:dev", gulp.series([
 ]));
 
 gulp.task("test", gulp.series(["build"]));
-
-gulp.task("travis", gulp.series(["test"]));
