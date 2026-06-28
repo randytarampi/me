@@ -21,8 +21,6 @@ on:
         required: true
       COVERALLS_REPO_TOKEN:
         required: true
-      REPORT_CI_TOKEN:
-        required: true
 
   workflow_dispatch:
     inputs:
@@ -97,7 +95,7 @@ jobs:
           path: |
             .yarn/cache
             node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-${{ runner.os }}-
       - name: Cache Nx
@@ -173,10 +171,3 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage/lcov.info
-      - name: Report coverage to report.ci
-        if: always()
-        env:
-          REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
-        run: |
-          python <(curl https://report.ci/upload.py) || true
-        shell: bash

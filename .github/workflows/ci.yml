@@ -41,7 +41,6 @@ jobs:
       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
 
   deploy__www--dev:
     if: ${{ github.event_name == 'push' }}
