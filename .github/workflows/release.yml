@@ -1,9 +1,12 @@
 name: release
 
 on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [master]
+
+# Branch protection is still required to prevent direct pushes to master from bypassing CI.
 
 concurrency:
   group: release-${{ github.ref }}
@@ -19,7 +22,7 @@ env:
 
 jobs:
   release:
-    if: ${{ github.actor != 'github-actions[bot]' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.actor != 'github-actions[bot]' }}
     environment: production
     runs-on: ubuntu-latest
     steps:
