@@ -1,9 +1,8 @@
-exports.__esModule = true;
-const React = require("react");
+import React from "react";
 
-const {Router} = require("./reactRouter.cjs");
+import {Router} from "./reactRouter.cjs";
 
-function HistoryRouter({basename, children, history}) {
+export function HistoryRouter({basename, children, history}) {
     const [state, setState] = React.useState({
         action: history.action,
         location: history.location
@@ -19,5 +18,3 @@ function HistoryRouter({basename, children, history}) {
         navigator: history
     });
 }
-
-exports.HistoryRouter = HistoryRouter;
