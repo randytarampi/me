@@ -7,7 +7,15 @@ on:
       - '!.github/**'
       - '.github/workflows/ci.yml'
       - '.github/workflows/install.yml'
-      - '.github/workflows/pretest.yml'
+      - '.github/workflows/test.yml'
+      - '.github/workflows/deploy.pages.yml'
+
+  pull_request:
+    paths:
+      - '**'
+      - '!.github/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
       - '.github/workflows/deploy.pages.yml'
 
@@ -32,11 +40,11 @@ jobs:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      CHECK_RUN_REPORTER_TOKEN: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       REPORT_CI_TOKEN: ${{ secrets.REPORT_CI_TOKEN }}
 
   deploy__www--dev:
+    if: ${{ github.event_name == 'push' }}
     needs:
       - install
     uses: ./.github/workflows/deploy.pages.yml

@@ -1,9 +1,13 @@
 name: release
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - CI
     branches:
       - master
+    types:
+      - completed
 
 concurrency:
   group: release-${{ github.ref }}
@@ -19,7 +23,8 @@ env:
 
 jobs:
   release:
-    if: ${{ github.actor != 'github-actions[bot]' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.actor != 'github-actions[bot]' }}
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Run `git checkout`
@@ -40,8 +45,51 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Check for publishable changes
+        id: changed
+        run: |
+          if [ -n "$(npx lerna changed -alp || true)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Version packages
-        run: npx lerna version --conventional-commits --yes
+        if: ${{ steps.changed.outputs.has_changes == 'true' }}
+        id: version
+        run: |
+          npx lerna version --conventional-commits --yes
+          RELEASE_VERSION=$(node -p 'require("./lerna.json").version')
+          echo "tag=v$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build release artifacts
+        if: ${{ steps.changed.outputs.has_changes == 'true' }}
+        run: |
+          yarn lerna run letter --scope=@randy.tarampi/letter
+          yarn lerna run resume --scope=@randy.tarampi/resume
+          yarn lerna run resume --scope=jsonresume-theme-randytarampi
+          yarn lerna run docs --scope=@randy.tarampi/letter
+          yarn lerna run docs --scope=@randy.tarampi/resume
+          yarn lerna run docs --scope=jsonresume-theme-randytarampi
+          yarn lerna run docs --scope=@randy.tarampi/www
+
+      - name: Create release tarball
+        if: ${{ steps.changed.outputs.has_changes == 'true' }}
+        run: tar -czf me.tar.gz --exclude=.git --exclude=node_modules --exclude=.yarn/cache .
 
       - name: Publish packages
-        run: npx lerna publish from-git --yes
+        if: ${{ steps.changed.outputs.has_changes == 'true' }}
+        run: npx lerna publish from-git --yes --provenance
+
+      - name: Publish GitHub release
+        if: ${{ steps.changed.outputs.has_changes == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          shopt -s nullglob
+          assets=(me.tar.gz packages/jsonresume-theme/docs/resume.*.pdf packages/letter/docs/letter.*.pdf)
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --target "${{ github.event.workflow_run.head_sha }}" \
+            --notes "" \
+            "${assets[@]}"

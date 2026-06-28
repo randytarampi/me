@@ -5,6 +5,17 @@ on:
     tags:
       - 'v*'
 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'The deployment environment'
+        required: true
+        default: prd
+        type: choice
+        options:
+          - dev
+          - prd
+
 concurrency:
   group: deploy-service-${{ github.ref }}
   cancel-in-progress: true
@@ -15,12 +26,12 @@ permissions:
 
 jobs:
   deploy-service:
-    environment: prd
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'prd' }}
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      NODE_ENV: prd
+      NODE_ENV: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'prd' }}
     steps:
       - name: Run `git checkout`
         uses: actions/checkout@v4
@@ -48,4 +59,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy service
-        run: cd packages/service && npx serverless deploy --stage prd
+        run: cd packages/service && yarn run deploy
