@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/randytarampi/me/compare/v7.0.1...v8.0.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **build:** make it actually build. Babel 8 dropped bugfixes, Docker doesn't need a TTY. 🤦‍♂️ ([1823e4f](https://github.com/randytarampi/me/commit/1823e4f9a8599e62eb538de16125108d661fe66e))
+
+
+### chore
+
+* **package:** Upgrade :allthethings:. ([533e87e](https://github.com/randytarampi/me/commit/533e87e4f39e13cc5e007b70cb760346c7f7bdad))
+* **package:** Upgrade packages for 2020-11-22. ([1d6dc26](https://github.com/randytarampi/me/commit/1d6dc260baf7de78aa571b50830c7f8359b3b1fd))
+
+
+### Features
+
+* **service:** migrate serverless to v4 + serverless-dynamodb ([b325f40](https://github.com/randytarampi/me/commit/b325f40bac82f2053ebc2c17294870346de7aada))
+
+
+### BREAKING CHANGES
+
+* **package:** Also upgrade packages to support `node^12.22` (dropping support for `node<=10`), which is about to go unsupported this year anyways, but hey...
+
+Signed-off-by: Randy Tarampi <rt@randytarampi.ca>
+* **package:** Drop support for node@8
+
+
+
+
+
 # [7.0.0](https://github.com/randytarampi/me/compare/v6.3.5...v7.0.0) (2020-10-19)
 
 **Note:** Version bump only for package @randy.tarampi/serverless

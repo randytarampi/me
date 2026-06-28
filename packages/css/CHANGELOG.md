@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/randytarampi/me/compare/v7.0.1...v8.0.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **css:** Remove `.printable:after` empty content. ([6a3d830](https://github.com/randytarampi/me/commit/6a3d830234087817777824c940199337935dac80))
+
+
+### chore
+
+* **package:** Upgrade :allthethings:. ([533e87e](https://github.com/randytarampi/me/commit/533e87e4f39e13cc5e007b70cb760346c7f7bdad))
+
+
+### BREAKING CHANGES
+
+* **package:** Also upgrade packages to support `node^12.22` (dropping support for `node<=10`), which is about to go unsupported this year anyways, but hey...
+
+Signed-off-by: Randy Tarampi <rt@randytarampi.ca>
+
+
+
+
+
 # [7.0.0](https://github.com/randytarampi/me/compare/v6.3.5...v7.0.0) (2020-10-19)
 
 **Note:** Version bump only for package @randy.tarampi/css

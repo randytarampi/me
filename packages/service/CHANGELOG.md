@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/randytarampi/me/compare/v7.0.1...v8.0.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **ci:** apply review feedback — fix workflow_dispatch schema, add environment: production, complete release.yml, fix deploy workflows. 🤞 ([7255208](https://github.com/randytarampi/me/commit/72552080782f55d1e2b7e5322f59843ed4535fd1))
+* packages/service/package.json to reduce vulnerabilities ([30a21d7](https://github.com/randytarampi/me/commit/30a21d7fe4c0038797511d3625096e4e6fe0ef7c))
+* **service:** Whoops. Revert to `unsplash-js@6` 'cause 7 is really breaking ([160987b](https://github.com/randytarampi/me/commit/160987b596a580b57383f0e2f0fef85ceb12b6ca))
+* upgrade instagram-graph-sdk from 0.2.1 to 0.3.1 ([fb8df6b](https://github.com/randytarampi/me/commit/fb8df6be02faed92a4a5dbde5bc41b1964f498c8))
+
+
+### chore
+
+* **package:** Upgrade :allthethings:. ([533e87e](https://github.com/randytarampi/me/commit/533e87e4f39e13cc5e007b70cb760346c7f7bdad))
+* **package:** Upgrade packages for 2020-11-22. ([1d6dc26](https://github.com/randytarampi/me/commit/1d6dc260baf7de78aa571b50830c7f8359b3b1fd))
+
+
+### Features
+
+* **service:** migrate dynamoose to v4 ([ad763d6](https://github.com/randytarampi/me/commit/ad763d684dfd5b9783bfb26ebcb33938790fde35))
+* **service:** migrate flickr-sdk v7 + unsplash-js v7 ([3b6ff5d](https://github.com/randytarampi/me/commit/3b6ff5d96ffd27ca68ce063668b6264556d1445d))
+* **service:** migrate serverless to v4 + serverless-dynamodb ([b325f40](https://github.com/randytarampi/me/commit/b325f40bac82f2053ebc2c17294870346de7aada))
+
+
+### BREAKING CHANGES
+
+* **package:** Also upgrade packages to support `node^12.22` (dropping support for `node<=10`), which is about to go unsupported this year anyways, but hey...
+
+Signed-off-by: Randy Tarampi <rt@randytarampi.ca>
+* **package:** Drop support for node@8
+
+
+
+
+
 ## [7.0.1](https://github.com/randytarampi/me/compare/v7.0.0...v7.0.1) (2020-10-21)
 
 

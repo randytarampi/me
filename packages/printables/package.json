@@ -1,7 +1,7 @@
 {
   "name": "@randy.tarampi/printables",
   "description": "A wrapper around some common printable tasks for jsonresume-theme-randytarampi and @randy.tarampi/letter",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "author": {
     "name": "Randy Tarampi",
     "email": "rt@randytarampi.ca",

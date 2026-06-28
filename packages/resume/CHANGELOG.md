@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/randytarampi/me/compare/v7.0.1...v8.0.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **build:** make it actually build. Babel 8 dropped bugfixes, Docker doesn't need a TTY. 🤦‍♂️ ([1823e4f](https://github.com/randytarampi/me/commit/1823e4f9a8599e62eb538de16125108d661fe66e))
+* **resume:** Adjust `resume` content to fit on a single page with `puppeteer@13` ([893b134](https://github.com/randytarampi/me/commit/893b1349e115d86c8e2237ee105deaa5fc9fd440))
+* **www,letter,resume:** finish killing react-hot-loader. It's been dying since 2022. Let it go. 🪦 Also: relax engines.node to >=20. ([162a3bc](https://github.com/randytarampi/me/commit/162a3bca5059aa9305dee2a634e876964f20fcb7))
+
+
+### chore
+
+* **package:** Upgrade :allthethings:. ([533e87e](https://github.com/randytarampi/me/commit/533e87e4f39e13cc5e007b70cb760346c7f7bdad))
+* **package:** Upgrade packages for 2020-11-22. ([1d6dc26](https://github.com/randytarampi/me/commit/1d6dc260baf7de78aa571b50830c7f8359b3b1fd))
+
+
+### Features
+
+* **resume:** migrate to React 19 + react-router v7 ([0e8b85f](https://github.com/randytarampi/me/commit/0e8b85f018900dbbbf79f6c77ff5ec80a435048e))
+
+
+### BREAKING CHANGES
+
+* **package:** Also upgrade packages to support `node^12.22` (dropping support for `node<=10`), which is about to go unsupported this year anyways, but hey...
+
+Signed-off-by: Randy Tarampi <rt@randytarampi.ca>
+* **package:** Drop support for node@8
+
+
+
+
+
 # [7.0.0](https://github.com/randytarampi/me/compare/v6.3.5...v7.0.0) (2020-10-19)
 
 **Note:** Version bump only for package @randy.tarampi/resume
