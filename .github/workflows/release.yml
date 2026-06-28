@@ -52,6 +52,10 @@ jobs:
             echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - name: Version packages
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
         id: version
