@@ -116,6 +116,16 @@ jobs:
         shell: bash
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v2.0.1
+      - name: Build packages
+        env:
+          NODE_ENV: test
+        run: |
+          if [ "$(npx lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
+            yarn run build
+          else
+            npx lerna run build --since HEAD...origin/master
+          fi
+        timeout-minutes: 15
       - name: Actually run affected tests
         id: test-actual
         env:
