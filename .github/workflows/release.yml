@@ -43,7 +43,7 @@ jobs:
         run: corepack enable
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn install
 
       - name: Check for publishable changes
         id: changed
