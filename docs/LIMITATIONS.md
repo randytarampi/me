@@ -1,6 +1,9 @@
 # Limitations
 
 - `packages/service` is still CommonJS (`"type": "commonjs"`) while the rest of the workspace is ESM.
+- `node-config` is CJS-only, uses `require()` internally, and blocks a future `service`/`www` ESM migration. We need a replacement before going full ESM.
+- The `freshRequire` test helper clears `require.cache` and reloads modules as a sinon/esmock substitute for ESM stubbing. It's fragile test infrastructure debt and not well documented.
+- `packages/jsx/src/lib/reactRouter.cjs` is the last CJS wrapper in an otherwise mostly-ESM `jsx` package. It stays because loading the ESM `react-router` root breaks the mocha/Babel path through the package's ESM entrypoint, so we use targeted absolute-path requires instead.
 - `enzyme` / `chai-enzyme` are still referenced in `packages/job-application` and `packages/printables`.
 - `materialize-css` and `react-materialize` are legacy but still functional.
 
