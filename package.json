@@ -73,7 +73,7 @@
     "yargs": "^18.0.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "resolutions": {
     "react-is": "^19.2.0"

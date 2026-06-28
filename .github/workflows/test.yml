@@ -15,8 +15,6 @@ on:
         required: true
       CC_TEST_REPORTER_ID:
         required: true
-      CHECK_RUN_REPORTER_TOKEN:
-        required: true
       CODACY_PROJECT_TOKEN:
         required: true
       CODECOV_TOKEN:
@@ -36,23 +34,6 @@ on:
         options:
           - dev
           - prd
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-      CC_TEST_REPORTER_ID:
-        required: true
-      CHECK_RUN_REPORTER_TOKEN:
-        required: true
-      CODACY_PROJECT_TOKEN:
-        required: true
-      CODECOV_TOKEN:
-        required: true
-      COVERALLS_REPO_TOKEN:
-        required: true
-      REPORT_CI_TOKEN:
-        required: true
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -74,7 +55,7 @@ jobs:
       - name: Set variables
         id: variables
         run: |
-          echo "::set-output name=deployment_environment::$DEPLOYMENT_ENVIRONMENT"
+          echo "deployment_environment=$DEPLOYMENT_ENVIRONMENT" >> $GITHUB_OUTPUT
           echo "NODE_ENV=$DEPLOYMENT_ENVIRONMENT" >> $GITHUB_ENV
           echo "PRINTABLE_PUPPETEER_NO_SANDBOX=$CI" >> $GITHUB_ENV
           echo "CPU_ARCH=$RUNNER_ARCH" >> $GITHUB_ENV
