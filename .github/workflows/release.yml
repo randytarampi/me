@@ -1,13 +1,9 @@
 name: release
 
 on:
-  workflow_run:
-    workflows:
-      - CI
+  push:
     branches:
       - master
-    types:
-      - completed
 
 concurrency:
   group: release-${{ github.ref }}
@@ -23,7 +19,7 @@ env:
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.actor != 'github-actions[bot]' }}
+    if: ${{ github.actor != 'github-actions[bot]' }}
     environment: production
     runs-on: ubuntu-latest
     steps:
@@ -92,6 +88,6 @@ jobs:
           assets=(me.tar.gz packages/jsonresume-theme/docs/resume.*.pdf packages/letter/docs/letter.*.pdf)
           gh release create "${{ steps.version.outputs.tag }}" \
             --title "${{ steps.version.outputs.tag }}" \
-            --target "${{ github.event.workflow_run.head_sha }}" \
+            --target "${{ github.sha }}" \
             --notes "" \
             "${assets[@]}"
