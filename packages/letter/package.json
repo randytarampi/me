@@ -30,7 +30,6 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-helmet": "^6.1.0",
-    "react-hot-loader": "^4.13.1",
     "react-materialize": "^3.10.0",
     "react-redux": "^9.3.0",
     "redux": "^5.0.1",

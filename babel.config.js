@@ -333,7 +333,7 @@ export default (api) => {
         case "client":
         case "client.es5": {
             if (isDevelopment) {
-                plugins.push("react-hot-loader/babel");
+                plugins.push("react-refresh/babel");
             }
             presets = [
                 [
@@ -357,7 +357,7 @@ export default (api) => {
         case "publish":
         case "client.esm": {
             if (isDevelopment) {
-                plugins.push("react-hot-loader/babel");
+                plugins.push("react-refresh/babel");
             }
             presets = [
                 [
