@@ -91,9 +91,6 @@ jobs:
           sudo apt-get install language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei
 
       # @NOTE-RT: Rerun `install` to make sure we've got our dependencies
-      - name: Configure `yarn`
-        run: |
-          yarn config set script-shell $(which bash)
       - name: Cache Yarn
         uses: actions/cache@v4
         with:
