@@ -1,6 +1,6 @@
 {
   "name": "@randy.tarampi/www",
-  "type": "commonjs",
+  "type": "module",
   "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
   "version": "7.0.0",
   "author": {

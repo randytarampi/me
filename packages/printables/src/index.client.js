@@ -1,1 +1,2 @@
-export * from "./lib/html.js";
+// Browser builds do not need the server-side printable helpers.
+export {};

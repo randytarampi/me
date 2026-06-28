@@ -1,12 +1,5 @@
 exports.__esModule = true;
-const path = require("path");
-
-const reactRouterDomPackagePath = require.resolve("react-router-dom/package.json");
-const reactRouterPath = require.resolve("react-router", {
-    paths: [path.dirname(reactRouterDomPackagePath)]
-});
-
-const reactRouter = require(reactRouterPath);
+const reactRouter = require("react-router");
 
 exports.Router = reactRouter.Router;
 exports.Route = reactRouter.Route;

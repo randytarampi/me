@@ -340,7 +340,6 @@ export default (api) => {
                     "@babel/preset-env",
                     {
                         forceAllTransforms: true,
-                        bugfixes: true,
                         modules: "commonjs"
                     }
                 ],
@@ -367,7 +366,6 @@ export default (api) => {
                         targets: {
                             esmodules: true
                         },
-                        bugfixes: true,
                         modules: "commonjs"
                     }
                 ],

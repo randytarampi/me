@@ -50,7 +50,7 @@ export default webpackBaseConfig({
         }),
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: path.resolve(require.resolve("@randy.tarampi/views"), "../../templates/index.pug"),
+            template: path.join(path.dirname(require.resolve("@randy.tarampi/views/package.json")), "templates/index.pug"),
             templateParameters: buildPugLocals({
                 bundleName: config.get("letter.bundle.name")
             }),

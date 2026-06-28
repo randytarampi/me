@@ -1,6 +1,7 @@
 {
   "targetDefaults": {
     "build": {
+      "dependsOn": ["^build"],
       "inputs": ["{projectRoot}/src/**", "{projectRoot}/package.json", "{projectRoot}/*.config.js"],
       "outputs": ["{projectRoot}/dist/", "{projectRoot}/es5/", "{projectRoot}/esm/"]
     },

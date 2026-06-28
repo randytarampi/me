@@ -10,5 +10,5 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 const config = require("config");
 const server = require("express");
 const app = server();
-app.use(server.static(path.resolve(require.resolve("@randy.tarampi/resume"), "../../dist")));
+app.use(server.static(path.join(path.dirname(require.resolve("@randy.tarampi/resume/package.json")), "dist")));
 export default app.listen(config.get("letter.serverPort"));

@@ -34,7 +34,7 @@ const buildPrintableResumeRendererParameters = ({printableDestinationDirectory} 
 
     return {
         printableComponent,
-        printableStylesPath: path.resolve(require.resolve("@randy.tarampi/resume"), "../../dist/styles.css"),
+        printableStylesPath: path.join(path.dirname(require.resolve("@randy.tarampi/resume/package.json")), "dist/styles.css"),
         printableRenderOptions: {
             bundleName: "jobApplications",
             pageUrl: config.get("resume.publishUrl"),
@@ -56,7 +56,7 @@ const buildPrintableLetterRendererParameters = ({printableDestinationDirectory} 
 
     return {
         printableComponent,
-        printableStylesPath: path.resolve(require.resolve("@randy.tarampi/letter"), "../../dist/styles.css"),
+        printableStylesPath: path.join(path.dirname(require.resolve("@randy.tarampi/letter/package.json")), "dist/styles.css"),
         printableRenderOptions: {
             bundleName: "jobApplications",
             pageUrl: config.get("letter.publishUrl"),

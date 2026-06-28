@@ -61,7 +61,7 @@ export default ({
                     loader: "babel-loader",
                     options: {
                         cacheDirectory: true,
-                        configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
+                        configFile: join(sourceDirectoryPath, "../../babel.config.js"),
                         envName: babelEnv
                     }
                 }
