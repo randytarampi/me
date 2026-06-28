@@ -73,6 +73,12 @@ export default ({
             publicPath
         },
         resolve: {
+            alias: {
+                "@randy.tarampi/jsx$": join(dirname(require.resolve("@randy.tarampi/jsx/package.json")), "src/index.client.js"),
+                "@randy.tarampi/printables$": join(dirname(require.resolve("@randy.tarampi/printables/package.json")), "src/index.client.js"),
+                "@randy.tarampi/resume$": join(dirname(require.resolve("@randy.tarampi/resume/package.json")), "src/index.client.js"),
+                "@randy.tarampi/letter$": join(dirname(require.resolve("@randy.tarampi/letter/package.json")), "src/index.client.js")
+            },
             extensions: [".js", ".jsx", ".json"]
         },
         module: {
@@ -88,7 +94,7 @@ export default ({
                     type: babelJsType,
                     loader: "babel-loader",
                     options: {
-                        configFile: path.join(sourceDirectoryPath, "../../babel.config.js"),
+                        configFile: join(sourceDirectoryPath, "../../babel.config.js"),
                         envName: babelEnv
                     }
                 },
@@ -113,9 +119,9 @@ export default ({
                                 sourceMap: true,
                                 sassOptions: {
                                     includePaths: [
-                                        path.join(sourceDirectoryPath, "node_modules"),
-                                        path.join(sourceDirectoryPath, "../css/node_modules"),
-                                        path.join(sourceDirectoryPath, "../../node_modules")
+                                        join(sourceDirectoryPath, "node_modules"),
+                                        join(sourceDirectoryPath, "../css/node_modules"),
+                                        join(sourceDirectoryPath, "../../node_modules")
                                     ]
                                 },
                                 additionalData: `$asset-url: "${config.get("www.assetUrl")}";\n`

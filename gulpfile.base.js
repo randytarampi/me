@@ -52,7 +52,7 @@ export const pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
 
 export const stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () => {
     const path = require("path");
-    const autoprefixer = require("gulp-autoprefixer");
+    const autoprefixer = require("gulp-autoprefixer").default || require("gulp-autoprefixer");
     const concat = require("gulp-concat");
     const sass = require("gulp-sass")(require("sass"));
 
@@ -135,7 +135,8 @@ export const test = ({gulp}) => gulp.task("test", gulp.parallel(["test.unit", "t
 export const webpack = ({relativePath, webpackConfigName = "./webpack.client.config", gulp, taskName = "webpack"}) => gulp.task(taskName, callback => {
     const path = require("path");
     const Webpack = require("webpack");
-    const webpackConfig = require(path.join(relativePath, webpackConfigName));
+    const webpackConfigModule = require(path.join(relativePath, webpackConfigName));
+    const webpackConfig = webpackConfigModule?.default || webpackConfigModule;
 
     Webpack(webpackConfig, function (error, stats) {
         if (error) {
