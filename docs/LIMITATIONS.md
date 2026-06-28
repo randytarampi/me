@@ -1,7 +1,6 @@
 # Limitations
 
 - `packages/service` is still CommonJS (`"type": "commonjs"`) while the rest of the workspace is ESM.
-- `react-hot-loader` is still present in `packages/www`, `packages/resume`, `packages/letter`, and `babel.config.js`.
 - `enzyme` / `chai-enzyme` are still referenced in `packages/job-application` and `packages/printables`.
 - `materialize-css` and `react-materialize` are legacy but still functional.
 

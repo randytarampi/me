@@ -1,6 +1,7 @@
 import {createRequire} from "module";
 import {dirname, join} from "path";
 import {fileURLToPath} from "url";
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import util from "./util.js";
 
 const require = createRequire(import.meta.url);
@@ -23,7 +24,8 @@ const {
 
 const plugins = [
     new MiniCssExtractPlugin(),
-    new HtmlWebpackHarddiskPlugin()
+    new HtmlWebpackHarddiskPlugin(),
+    isDevelopment && new ReactRefreshWebpackPlugin()
 ];
 
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
