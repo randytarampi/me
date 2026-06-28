@@ -1,0 +1,9 @@
+eslint:
+  enabled: true
+  config_file: eslint.config.js
+jshint:
+  enabled: false
+shellcheck:
+  enabled: true
+scss:
+  enabled: false
