@@ -1,6 +1,5 @@
 import {renderHtml as genericRenderHtml} from "../../../printables/src/lib/html.js";
-import path from "path";
-import {dirname} from "path";
+import path, {dirname} from "path";
 import {readFileSync} from "fs";
 import {fileURLToPath} from "url";
 
