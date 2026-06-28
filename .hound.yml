@@ -1,6 +1,6 @@
+# Hound doesn't support ESLint 10 flat config yet.
 eslint:
-  enabled: true
-  config_file: eslint.config.js
+  enabled: false
 jshint:
   enabled: false
 shellcheck:
