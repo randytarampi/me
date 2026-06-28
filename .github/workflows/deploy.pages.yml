@@ -21,6 +21,10 @@ on:
       GH_PAGES_DEPLOYMENT_TOKEN:
         required: true
 
+  push:
+    tags:
+      - 'v*'
+
   workflow_dispatch:
     inputs:
       application_name:
@@ -47,9 +51,14 @@ on:
       GH_PAGES_DEPLOYMENT_TOKEN:
         required: true
 
+concurrency:
+  group: deploy-pages-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     name: Run `yarn deploy`
+    if: ${{ github.event_name != 'push' }}
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -57,11 +66,10 @@ jobs:
       DEPLOY: true
       APPLICATION_NAME: ${{ github.event.inputs.application_name || inputs.application_name }}
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
-      GITHUB_ACTIONS_AUTHOR_EMAIL: github@randytarampi.ca
+      GITHUB_ACTIONS_AUTHOR_EMAIL: __VG_EMAIL_77a264b9bff7__
       GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
     runs-on:
       - ubuntu-latest
-    concurrency: deploy-${{ github.ref }}
     steps:
       - name: Set variables
         id: variables
@@ -105,8 +113,8 @@ jobs:
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-${{ runner.os }}-
-      - name: Actually run `yarn install --immutable --immutable-cache`
-        run: yarn install --immutable --immutable-cache
+      - name: Actually run `yarn install --immutable`
+        run: yarn install --immutable
 
       - name: Setup for deployment
         uses: chrnorm/deployment-action@releases/v1
@@ -130,7 +138,7 @@ jobs:
           if [ -d "packages/${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all packages/${{ steps.variables.outputs.application_name }}/docs; fi;
           if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ github.repository_owner }}.github.io.git"; fi;
       - name: Actually deploy (www/dev)
-        if: ${{ steps.variables.outputs.deployment_environment }} == 'dev' && ${{ steps.variables.outputs.application_name }} == 'www'
+        if: ${{ steps.variables.outputs.deployment_environment == 'dev' && steps.variables.outputs.application_name == 'www' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
@@ -153,6 +161,7 @@ jobs:
           clean: true
           branch: gh-pages
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Actually deploy (jsonresume-theme/prd)
         if: ${{ steps.variables.outputs.deployment_environment == 'prd' && steps.variables.outputs.application_name == 'jsonresume-theme' }}
@@ -165,6 +174,105 @@ jobs:
           branch: master
           folder: packages/${{ steps.variables.outputs.application_name }}/docs
           repository-name: ${{ github.repository_owner }}/me.resume
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+        timeout-minutes: 10
+      - name: Handle deployment (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ github.token }}
+          state: success
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Handle deployment (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ github.token }}
+          state: failure
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+  deploy-pages-prd:
+    name: Run `yarn deploy` (prd)
+    if: ${{ github.event_name == 'push' }}
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: us-east-1
+      DEPLOY: true
+      APPLICATION_NAME: www
+      DEPLOYMENT_ENVIRONMENT: prd
+      GITHUB_ACTIONS_AUTHOR_EMAIL: __VG_EMAIL_77a264b9bff7__
+      GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Set variables
+        id: variables
+        run: |
+          echo "::set-output name=application_name::www"
+          echo "::set-output name=deployment_environment::prd"
+          echo "NODE_ENV=prd" >> $GITHUB_ENV
+          echo "PRINTABLE_PUPPETEER_NO_SANDBOX=$CI" >> $GITHUB_ENV
+          echo "CPU_ARCH=$RUNNER_ARCH" >> $GITHUB_ENV
+          echo "OS_NAME=$RUNNER_OS" >> $GITHUB_ENV
+          echo "BRANCH=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          echo "COMMIT_SHA=$GITHUB_SHA" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$GITHUB_RUN_ID" >> $GITHUB_ENV
+          echo "JOB_NUMBER=$GITHUB_RUN_ATTEMPT" >> $GITHUB_ENV
+
+      - name: Run `git checkout`
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup node@24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup dependencies on build runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei
+
+      - name: Configure `yarn`
+        run: |
+          yarn config set script-shell $(which bash)
+      - name: Cache Yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+      - name: Actually run `yarn install --immutable`
+        run: yarn install --immutable
+
+      - name: Setup for deployment
+        uses: chrnorm/deployment-action@releases/v1
+        id: deployment
+        with:
+          token: ${{ github.token }}
+          environment: ${{ steps.variables.outputs.deployment_environment }}
+          description: '`${{ steps.variables.outputs.application_name }}` @ ${{ github.ref_name }}'
+      - name: Build `docs`
+        env:
+          BABEL_ENV: production
+        run: |
+          yarn lerna run resume --scope=jsonresume-theme-*;
+          yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
+      - name: Actually deploy (www/prd)
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/prd)
+          single-commit: true
+          force: true
+          clean: true
+          branch: gh-pages
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
           token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Handle deployment (success)

@@ -1,10 +1,10 @@
 // @ts-check
 import "../reactShim.js";
 import {Gallery, LinkPost, Photo, Post} from "@randy.tarampi/js";
-import {GalleryComponent} from "../components/gallery.cjs";
-import {LinkPostComponent} from "../components/linkPost.cjs";
-import {ProgressiveImageWrappedPhotoComponent as PhotoComponent} from "../components/photo.cjs";
-import {PostComponent} from "../components/post.cjs";
+import {GalleryComponent} from "../components/gallery.js";
+import {LinkPostComponent} from "../components/linkPost.js";
+import {ProgressiveImageWrappedPhotoComponent as PhotoComponent} from "../components/photo.js";
+import {PostComponent} from "../components/post.js";
 
 /** @param {string} type - The post type. @returns {*} The matching React component. */
 export const getComponentForType = type => {

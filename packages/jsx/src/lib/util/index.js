@@ -8,5 +8,5 @@ export * from "./getSvgPathForPost.js";
 export * from "./posts.js";
 export * from "./scalePixelValueForWindowDevicePixelRatio.js";
 
-export * from "./renderRoutes.cjs";
-export * from "./renderSwipeableRoutes.cjs";
+export * from "./renderRoutes.js";
+export * from "./renderSwipeableRoutes.js";

@@ -3,7 +3,7 @@ import React from "react";
 import {ConnectedErrorWrapper} from "./containers/error/index.jsx";
 import ReduxRoot from "./reduxRoot.jsx";
 import {StaticRouter} from "./reactRouter.cjs";
-import {renderRoutes} from "./util/renderRoutes.cjs";
+import {renderRoutes} from "./util/renderRoutes.js";
 
 export const ServerReduxRouterRoot = ({store, location, routes, ...props}) =>
     <ReduxRoot store={store} {...props}>

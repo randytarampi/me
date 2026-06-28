@@ -6,8 +6,8 @@ import {Provider} from "react-redux";
 import {ClientRoot} from "./clientRoot.jsx";
 import {ConnectedErrorWrapper} from "./containers/error/index.jsx";
 import ConnectedSwipeableTabs from "./containers/swipeableTabs.jsx";
-import {HistoryRouter} from "./reduxFirstHistoryRr6.cjs";
-import {renderSwipeableRoutes} from "./util/renderSwipeableRoutes.cjs";
+import {HistoryRouter} from "./reduxFirstHistoryRr6.js";
+import {renderSwipeableRoutes} from "./util/renderSwipeableRoutes.js";
 
 export class ClientSwipeableReduxRouterRoot extends ClientRoot {
     render() {

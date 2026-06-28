@@ -4,8 +4,8 @@ import React from "react";
 import {metrics} from "react-metrics";
 import ClientReduxRoot from "./clientReduxRoot.jsx";
 import {ConnectedErrorWrapper} from "./containers/error/index.jsx";
-import {HistoryRouter} from "./reduxFirstHistoryRr6.cjs";
-import {renderRoutes} from "./util/renderRoutes.cjs";
+import {HistoryRouter} from "./reduxFirstHistoryRr6.js";
+import {renderRoutes} from "./util/renderRoutes.js";
 
 export const ClientReduxRouterRoot = ({store, routes, history, ...props}) => {
     return <ClientReduxRoot store={store} {...props}>
