@@ -1,0 +1,162 @@
+name: deploy.pages.reusable
+
+on:
+  workflow_call:
+    inputs:
+      application_name:
+        description: 'The application to deploy'
+        required: true
+        type: string
+      deployment_environment:
+        description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+        required: true
+        type: string
+      deployment_ref:
+        description: 'The ref or SHA used in deployment metadata'
+        required: true
+        type: string
+      adjust_docs_for_dev:
+        description: 'Whether to rewrite the dev CNAME before deployment'
+        required: false
+        default: false
+        type: boolean
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      GH_PAGES_DEPLOYMENT_TOKEN:
+        required: true
+
+jobs:
+  deploy:
+    name: Run `yarn deploy`
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: us-east-1
+      DEPLOY: true
+      APPLICATION_NAME: ${{ inputs.application_name }}
+      DEPLOYMENT_ENVIRONMENT: ${{ inputs.deployment_environment }}
+      GITHUB_ACTIONS_AUTHOR_EMAIL: __VG_EMAIL_77a264b9bff7__
+      GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Set variables
+        id: variables
+        run: |
+          echo "application_name=$APPLICATION_NAME" >> $GITHUB_OUTPUT
+          echo "deployment_environment=$DEPLOYMENT_ENVIRONMENT" >> $GITHUB_OUTPUT
+          echo "NODE_ENV=$DEPLOYMENT_ENVIRONMENT" >> $GITHUB_ENV
+          echo "PRINTABLE_PUPPETEER_NO_SANDBOX=$CI" >> $GITHUB_ENV
+          echo "CPU_ARCH=$RUNNER_ARCH" >> $GITHUB_ENV
+          echo "OS_NAME=$RUNNER_OS" >> $GITHUB_ENV
+          echo "BRANCH=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          echo "COMMIT_SHA=$GITHUB_SHA" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$GITHUB_RUN_ID" >> $GITHUB_ENV
+          echo "JOB_NUMBER=$GITHUB_RUN_ATTEMPT" >> $GITHUB_ENV
+
+      - name: Run `git checkout`
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup node@24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup dependencies on build runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei
+
+      - name: Cache Yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+      - name: Actually run `yarn install`
+        env:
+          YARN_ENABLE_HARDENED_MODE: false
+        run: yarn install
+
+      - name: Setup for deployment
+        uses: chrnorm/deployment-action@releases/v1
+        id: deployment
+        with:
+          token: ${{ github.token }}
+          environment: ${{ steps.variables.outputs.deployment_environment }}
+          description: ${{ format('`{0}` @ {1}', steps.variables.outputs.application_name, inputs.deployment_ref) }}
+      - name: Build `docs`
+        env:
+          BABEL_ENV: production
+        run: |
+          yarn lerna run resume --scope=jsonresume-theme-*;
+          yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
+      - name: Adjust `docs` for `dev`
+        if: ${{ inputs.adjust_docs_for_dev }}
+        run: |
+          git config --local user.email "$GITHUB_ACTIONS_AUTHOR_EMAIL"
+          git config --local user.name "$GITHUB_ACTIONS_AUTHOR_NAME"
+          echo "www.dev.randytarampi.ca" > packages/${{ steps.variables.outputs.application_name }}/docs/CNAME;
+          if [ -d "packages/${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all packages/${{ steps.variables.outputs.application_name }}/docs; fi;
+          if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ github.repository_owner }}.github.io.git"; fi;
+      - name: Actually deploy (www/dev)
+        if: ${{ inputs.application_name == 'www' && inputs.deployment_environment == 'dev' }}
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/dev)
+          force: true
+          clean: true
+          branch: master
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
+          repository-name: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+        timeout-minutes: 10
+      - name: Actually deploy (www/prd)
+        if: ${{ inputs.application_name == 'www' && inputs.deployment_environment == 'prd' }}
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/prd)
+          single-commit: true
+          force: true
+          clean: true
+          branch: gh-pages
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+        timeout-minutes: 10
+      - name: Actually deploy (jsonresume-theme/prd)
+        if: ${{ inputs.application_name == 'jsonresume-theme' && inputs.deployment_environment == 'prd' }}
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
+          git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (jsonresume-theme/prd)
+          force: true
+          clean: true
+          branch: master
+          folder: packages/${{ steps.variables.outputs.application_name }}/docs
+          repository-name: ${{ github.repository_owner }}/me.resume
+          token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+        timeout-minutes: 10
+      - name: Handle deployment (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ github.token }}
+          state: success
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Handle deployment (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ github.token }}
+          state: failure
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}

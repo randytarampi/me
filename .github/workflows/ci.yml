@@ -9,6 +9,7 @@ on:
       - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
       - '.github/workflows/deploy.pages.yml'
+      - '.github/workflows/deploy.pages.reusable.yml'
 
   pull_request:
     paths:
@@ -18,6 +19,7 @@ on:
       - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
       - '.github/workflows/deploy.pages.yml'
+      - '.github/workflows/deploy.pages.reusable.yml'
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
