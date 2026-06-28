@@ -1,0 +1,8 @@
+---
+exclude_paths:
+  - "packages/*/es5/**"
+  - "packages/*/esm/**"
+  - "packages/*/dist/**"
+  - "packages/www/docs/**"
+  - "projectFilesBackup/**"
+  - "**/*.min.js"
