@@ -86,6 +86,17 @@ jobs:
           YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
+      - name: Build packages
+        env:
+          NODE_ENV: prd
+        run: |
+          if [ "$(npx lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
+            yarn run build
+          else
+            npx lerna run build --since HEAD...origin/master
+          fi
+        timeout-minutes: 15
+
       - name: Setup for deployment
         uses: chrnorm/deployment-action@releases/v1
         id: deployment
