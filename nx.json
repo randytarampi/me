@@ -10,8 +10,45 @@
       "outputs": []
     },
     "test": {
+      "dependsOn": ["^build", "build"],
       "inputs": ["{projectRoot}/src/**", "{projectRoot}/test/**", "{projectRoot}/package.json"],
       "outputs": ["{projectRoot}/test-results.xml", "{projectRoot}/.nyc_output/"]
+    },
+    "cover": {
+      "dependsOn": ["^build", "build"],
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/test/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/coverage/", "{projectRoot}/.nyc_output/"]
+    },
+    "job-application": {
+      "dependsOn": ["^build", "build"],
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/dist/"]
+    },
+    "job-applications": {
+      "dependsOn": ["^build", "build"],
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/dist/"]
+    },
+    "docs": {
+      "dependsOn": ["^build", "build"],
+      "inputs": ["{projectRoot}/dist/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/docs/"]
+    },
+    "resume": {
+      "dependsOn": ["^build", "build"],
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/dist/"]
+    },
+    "letter": {
+      "dependsOn": ["^build", "build"],
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/dist/"]
+    },
+    "start": {
+      "dependsOn": ["^build"]
+    },
+    "dev": {
+      "dependsOn": ["^build"]
     }
   }
 }
