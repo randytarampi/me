@@ -1,10 +1,9 @@
 // @ts-check
 import {renderHtml, Resume} from "@randy.tarampi/resume";
 import config from "config";
-import path, {dirname} from "path";
-import {fileURLToPath} from "url";
+import path from "path";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 
 /** @param {*} resumeJson - Resume data. @param {string} pageSize - The paper size. @returns {*} Rendered HTML. */
 export const render = (resumeJson, pageSize) => {
