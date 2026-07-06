@@ -1,6 +1,11 @@
 import {Person} from "@randy.tarampi/js";
 import {List, Map, Record} from "immutable";
-import {readFileSync} from "fs";
+// NOTE-RT: a static JSON import (rather than `readFileSync` + a computed `__dirname`/
+// `import.meta.url` path) resolves correctly regardless of the caller's working directory,
+// and works consistently whether this file runs as real ESM, is compiled to CommonJS by
+// Babel, or is bundled by webpack (e.g. jsonresume-theme's publish bundle) - matching the
+// existing pattern already used for `resume.json`/`letter.json` in `index.client.js`.
+import packageJson from "../../package.json" with {type: "json"};
 import {Award} from "./award.js";
 import {Education} from "./education.js";
 import {Interest} from "./interest.js";
@@ -11,8 +16,6 @@ import {Reference} from "./reference.js";
 import {Skill} from "./skill.js";
 import {Volunteer} from "./volunteer.js";
 import {Work} from "./work.js";
-
-const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
 
 export class Resume extends Record({
     id: null,

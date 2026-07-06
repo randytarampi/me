@@ -2,10 +2,12 @@ import {Map} from "immutable";
 import {createSelector} from "reselect";
 import {FETCHING_RESUME_SUCCESS} from "../actions/fetchResume.js";
 import Resume from "../resume.js";
-
-import {readFileSync} from "fs";
-
-const defaultResume = JSON.parse(readFileSync("src/resumes/resume.json", "utf8"));
+// NOTE-RT: a static JSON import (rather than `readFileSync` + a computed `__dirname`/
+// `import.meta.url` path) resolves correctly regardless of the caller's working directory,
+// and works consistently whether this file runs as real ESM, is compiled to CommonJS by
+// Babel, or is bundled by webpack - matching the existing pattern already used for
+// `resume.json`/`letter.json` in `index.client.js`.
+import defaultResume from "../../resumes/resume.json" with {type: "json"};
 
 const defaultVariant = "resume";
 const defaultState = Map({
