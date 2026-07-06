@@ -36,7 +36,7 @@ describe("LetterComponent", function () {
             worksFor: null,
             jobTitle: "Woof",
             picture: null,
-            email: "__VG_EMAIL_ba2fd61a0fac__",
+            email: "woof@randytarampi.ca",
             phone: "+16692216251",
             url: "woof.woof/woof",
             description: "Woof woof woof",
@@ -49,7 +49,7 @@ describe("LetterComponent", function () {
             }
         };
         stubSenderJs = Object.assign({}, stubPersonJs);
-        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "__VG_EMAIL_6189bc5d9ab3__"});
+        stubRecipientJs = Object.assign({}, stubPersonJs, {givenName: "Meow", email: "meow@randytarampi.ca"});
 
         stubLetterContentComponent = testComponent;
         stubLetter = LetterEntity.fromJS({

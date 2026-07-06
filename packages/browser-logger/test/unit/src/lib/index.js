@@ -20,7 +20,7 @@ describe("logger", function () {
     globalWindow.NAME = packageJson.name;
     globalWindow.VERSION = packageJson.version;
     globalWindow.ENVIRONMENT = process.env.NODE_ENV;
-    globalWindow.SENTRY_DSN = "https://__VG_EMAIL_02e075afce7e__/woof";
+    globalWindow.SENTRY_DSN = "https://meow@sentry.io/woof";
     globalWindow.LOGGER = {
         level: "trace",
         streams: {
