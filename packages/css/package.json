@@ -30,7 +30,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "scripts": {
-    "build": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd gulp -LLLL --color build",
+    "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ]; then exit 74; fi;",
     "prepare": "yarn run build",

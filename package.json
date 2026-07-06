@@ -75,7 +75,7 @@
   "repository": "randytarampi/me.git",
   "scripts": {
     "bootstrap": "yarn install",
-    "build": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd lerna run build --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
+    "build": "lerna run build --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "clean": "./bin/clean.sh",
     "cover": "yarn run cover:actual; yarn run cover:collect",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",

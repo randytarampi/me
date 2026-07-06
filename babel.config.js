@@ -6,6 +6,15 @@ const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
 const __filename = import.meta.filename;
 process.env.NODE_CONFIG_DIR = join(__dirname, "config");
+// NOTE-RT: library build scripts (build/build:babel:es5/build:babel:esm/build:gulp) deliberately no
+// longer hardcode NODE_ENV/NODE_CONFIG_ENV themselves, so a package can be built standalone (or as
+// part of a caller that already sets its own real NODE_ENV, e.g. `test`/`dev`/`printable`) without
+// this file clobbering that intent. `config` itself already falls back to NODE_ENV when
+// NODE_CONFIG_ENV is unset - this mirrors that exact chain, only replacing config's own ultimate
+// "development" default (which doesn't match any file in `config/` - there's no development.yml)
+// with "prd", so a truly bare invocation (nothing set at all) still resolves a real, safe config
+// flavour instead of warning and silently falling back to `default.cjs`/`local.cjs` only.
+process.env.NODE_CONFIG_ENV = process.env.NODE_CONFIG_ENV || process.env.NODE_ENV || "prd";
 
 const config = require("config");
 const {isDevelopment} = util;
