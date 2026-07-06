@@ -6,7 +6,7 @@
 - The main components in use are `Carousel`, `Col`, `Container`, `Row`, `Tab`, and `Tabs`.
 - `window.M` globals appear in 3 source files: `swipeableTabs.jsx`, `ui.js`, and `www/sw/util.js`.
 - `react-materialize@3.10.0` declares peer deps for React `^17` only, which is incompatible with React 19.
-- `reactShim.js` walks `_reactInternals` to patch enzyme, which is brittle.
+- `reactShim.js` walks `_reactInternals`/`_reactInternalFiber` to back a `ReactDOM.findDOMNode` polyfill for React 19 (needed by `react-materialize`/swipeable-tab helpers), which is brittle.
 
 ## Replacement options
 

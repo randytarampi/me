@@ -15,12 +15,12 @@ Canonical commands:
 
 Constraints and sharp edges:
 - Node 24, Yarn 4.17, and Lerna 9 are the baseline.
-- ESM is the default; `service` and `www` are the CommonJS exceptions.
-- Config/tooling files that need CommonJS stay `.cjs`.
+- Every workspace package is `"type": "module"` — full ESM, no package-level CommonJS exceptions remain.
+- Config/tooling files that need CommonJS stay `.cjs` (e.g. `mocha.config.cjs`, `loadConfig.cjs`, `util.cjs`, `config/**/*.cjs`).
 - Shared packages mostly depend on each other with `workspace:*`; the app surfaces sit on top.
 - `service` depends on `js`, `lambda-logger`, and `serverless`; `www` depends on the shared UI/logger/theme packages.
 - Watch the flaky `redux-metrics` timestamp test.
-- The `jsx` package still has an incomplete enzyme → RTL migration, so some tests use CJS wrappers.
+- `enzyme`/`chai-enzyme` are fully removed repo-wide; `jsx` uses React Testing Library. `jsx/src/lib/reactRouter.cjs` remains a deliberate CJS wrapper (react-router internals need it), unrelated to enzyme.
 - `materialize-css`-era code is legacy and brittle; keep changes there narrow.
 
 Details:

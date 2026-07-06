@@ -4,7 +4,7 @@
 
 - Tests use Mocha, usually wired through `gulp-mocha`.
 - Mocha config files that need CommonJS should stay `.cjs` (`mocha.config.cjs` is the usual shape).
-- Use `sinon` for stubbing/mocking. Don’t reach for `proxyquire` or `esmock` unless you have a very good reason.
+- Use `sinon` for stubbing/mocking non-module-boundary code. For mocking ES module dependencies (a target module's own imports), use `esmock` — the sanctioned approach, adopted throughout `packages/service`'s test suite, replacing the old `require.cache`-deleting `freshRequire` helper which doesn't work against real ESM module instances. Don't reach for `proxyquire`.
 
 ## Building
 
@@ -15,7 +15,7 @@
 ## ESM rules
 
 - ESM is the default because the repo is `type: module`.
-- `service` and `www` are the CommonJS exceptions; don’t “fix” them without checking the build/test fallout.
+- Every workspace package is now `"type": "module"` — there are no remaining package-level CommonJS exceptions. Only specific tooling/config files stay CommonJS via the `.cjs` extension (e.g. `mocha.config.cjs`, `loadConfig.cjs`, `util.cjs`, `config/**/*.cjs`); don’t rename those without checking the build/test fallout.
 - Config files that need CommonJS should use `.cjs`.
 
 ## Dependency management
