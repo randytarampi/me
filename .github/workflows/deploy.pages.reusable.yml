@@ -38,7 +38,7 @@ jobs:
       DEPLOY: true
       APPLICATION_NAME: ${{ inputs.application_name }}
       DEPLOYMENT_ENVIRONMENT: ${{ inputs.deployment_environment }}
-      GITHUB_ACTIONS_AUTHOR_EMAIL: __VG_EMAIL_77a264b9bff7__
+      GITHUB_ACTIONS_AUTHOR_EMAIL: github@randytarampi.ca
       GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
     runs-on:
       - ubuntu-latest
@@ -86,17 +86,6 @@ jobs:
           YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
-      - name: Build packages
-        env:
-          NODE_ENV: prd
-        run: |
-          if [ "$(npx lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
-            yarn run build
-          else
-            npx lerna run build --since HEAD...origin/master
-          fi
-        timeout-minutes: 15
-
       - name: Setup for deployment
         uses: chrnorm/deployment-action@releases/v1
         id: deployment
@@ -105,8 +94,6 @@ jobs:
           environment: ${{ steps.variables.outputs.deployment_environment }}
           description: ${{ format('`{0}` @ {1}', steps.variables.outputs.application_name, inputs.deployment_ref) }}
       - name: Build `docs`
-        env:
-          BABEL_ENV: production
         run: |
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
