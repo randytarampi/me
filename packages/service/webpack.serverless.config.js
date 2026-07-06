@@ -1,12 +1,14 @@
-const path = require("path");
-const util = require("../../util.cjs");
+import path from "path";
+import util from "../../util.js";
 
-const slsw = require("serverless-webpack");
-const nodeExternals = require("webpack-node-externals");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const webpack = require("webpack");
-const SentryPlugin = require("webpack-sentry-plugin");
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+import slsw from "serverless-webpack";
+import nodeExternals from "webpack-node-externals";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import webpack from "webpack";
+import SentryPlugin from "webpack-sentry-plugin";
+import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
+
+const __dirname = import.meta.dirname;
 
 const {
     isDevelopment,
@@ -58,7 +60,7 @@ if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     );
 }
 
-module.exports = {
+export default {
     entry: slsw.lib.entries,
     mode: resolveMode(),
     devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
@@ -99,4 +101,3 @@ module.exports = {
         extensions: [".js", ".jsx", ".json"]
     }
 };
-module.exports.default = module.exports;

@@ -1,7 +1,7 @@
-const {Photo, Post, POST_STATUS, SizedPhoto} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const {setupLocal} = require("../../../../../src/serverless/dynamodb/util.js");
+import {Photo, Post, POST_STATUS, SizedPhoto} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import {setupLocal} from "../../../../../src/serverless/dynamodb/util.js";
 
 let PostModel;
 
@@ -612,4 +612,3 @@ describe("Post", function () {
         });
     });
 });
-module.exports.default = module.exports;

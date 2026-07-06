@@ -1,11 +1,11 @@
-const {Post, timedPromise} = require("@randy.tarampi/js");
-const {GetObjectCommand, ListObjectsV2Command, S3Client} = require("@aws-sdk/client-s3");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
-const S3Source = require("../../../../../../src/lib/sources/s3/index.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {Post, timedPromise} from "@randy.tarampi/js";
+import {GetObjectCommand, ListObjectsV2Command, S3Client} from "@aws-sdk/client-s3";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import sinon from "sinon";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
+import S3Source from "../../../../../../src/lib/sources/s3/index.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("S3Source", function () {
     let stubServiceClient;
@@ -318,4 +318,3 @@ describe("S3Source", function () {
         });
     });
 });
-module.exports.default = module.exports;

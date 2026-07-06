@@ -1,9 +1,9 @@
-const {Photo, Post, POST_STATUS, timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const CachedDataSource = require("../../../../src/lib/cachedDataSource.js");
-const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
-const dummyClassesGenerator = require("../../../lib/dummyClassesGenerator.js");
+import {Photo, Post, POST_STATUS, timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import sinon from "sinon";
+import CachedDataSource from "../../../../src/lib/cachedDataSource.js";
+import PostSearchParams from "../../../../src/lib/postSearchParams.js";
+import dummyClassesGenerator from "../../../lib/dummyClassesGenerator.js";
 
 describe("CachedDataSource", function () {
     let stubType;
@@ -723,4 +723,3 @@ describe("CachedDataSource", function () {
         });
     });
 });
-module.exports.default = module.exports;

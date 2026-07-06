@@ -1,9 +1,7 @@
-const {expect} = require("chai");
-const {freshRequire} = require("../../../../../lib/freshRequire.js");
+import {expect} from "chai";
+import getPostsRss from "../../../../../../src/serverless/handlers/getPostsRss/index.js";
 
 describe("getPostsRss", function () {
-    const getPostsRss = freshRequire("../../../../../../src/serverless/handlers/getPostsRss").default;
-
     it("handles a request", function () {
         expect(() => getPostsRss({}, {}, () => {})).to.not.throw();
     });
@@ -20,4 +18,3 @@ describe("getPostsRss", function () {
         expect(() => getPostsRss({source: "serverless-plugin-warmup"}, {}, () => {})).to.not.throw();
     });
 });
-module.exports.default = module.exports;

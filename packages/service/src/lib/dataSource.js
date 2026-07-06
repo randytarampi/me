@@ -151,5 +151,4 @@ class DataSource {
     }
 }
 
-module.exports = DataSource;
-module.exports.default = module.exports;
+export default DataSource;

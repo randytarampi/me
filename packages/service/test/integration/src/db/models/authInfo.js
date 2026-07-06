@@ -1,6 +1,6 @@
-const {expect} = require("chai");
-const {AuthInfo} = require("../../../../../src/lib/authInfo.js");
-const {setupLocal} = require("../../../../../src/serverless/dynamodb/util.js");
+import {expect} from "chai";
+import {AuthInfo} from "../../../../../src/lib/authInfo.js";
+import {setupLocal} from "../../../../../src/serverless/dynamodb/util.js";
 
 let AuthInfoModel;
 
@@ -116,4 +116,3 @@ describe("AuthInfo", function () {
         });
     });
 });
-module.exports.default = module.exports;

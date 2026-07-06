@@ -1,8 +1,8 @@
 // @ts-check
-const {TwitterSource} = require("./source.js");
+import {TwitterSource} from "./source.js";
+
+export * from "./authInfo.js";
+export * from "./source.js";
 
 /** @type {typeof TwitterSource} */
-module.exports = TwitterSource;
-Object.assign(module.exports, require("./authInfo.js"));
-Object.assign(module.exports, require("./source.js"));
-module.exports.default = module.exports;
+export default TwitterSource;

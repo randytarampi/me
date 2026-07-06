@@ -1,6 +1,6 @@
-const {GetParametersCommand, SSMClient} = require("@aws-sdk/client-ssm");
-const fs = require("fs");
-const path = require("path");
+import {GetParametersCommand, SSMClient} from "@aws-sdk/client-ssm";
+import fs from "fs";
+import path from "path";
 
 const CONFIG_FILE_NAME = ".serverless-secrets.json";
 
@@ -34,7 +34,7 @@ const getSecrets = async (client, parameterNames) => {
     return secrets;
 };
 
-module.exports = () => {
+export default () => {
     if (process.env.NODE_ENV === "test") {
         return Promise.resolve();
     }
@@ -71,4 +71,3 @@ module.exports = () => {
             }
         });
 };
-module.exports.default = module.exports;

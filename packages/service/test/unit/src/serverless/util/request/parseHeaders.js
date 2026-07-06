@@ -1,18 +1,8 @@
-const {expect} = require("chai");
-const {freshRequire} = require("../../../../../lib/freshRequire.js");
+import {expect} from "chai";
+import versionHeader from "../../../../../../src/serverless/util/request/headers/version.js";
+import parseHeaders from "../../../../../../src/serverless/util/request/parseHeaders.js";
 
 describe("parseHeaders", function () {
-    let versionHeader;
-    let parseHeaders;
-
-    beforeEach(function () {
-        versionHeader = freshRequire("../../../../../../src/serverless/util/request/headers/version.js");
-        parseHeaders = freshRequire("../../../../../../src/serverless/util/request/parseHeaders.js").default;
-    });
-
-    afterEach(function () {
-    });
-
     it("returns no headers if it receives no headers", function () {
         const stubHeaders = null;
         const parsedHeaders = parseHeaders(stubHeaders);
@@ -52,4 +42,3 @@ describe("parseHeaders", function () {
         }
     });
 });
-module.exports.default = module.exports;

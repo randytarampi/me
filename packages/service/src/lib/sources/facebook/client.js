@@ -1,4 +1,4 @@
-const {fetchFacebookEdge} = require("./util.js");
+import {fetchFacebookEdge} from "./util.js";
 
 class FacebookApiClient {
     constructor(accessToken) {
@@ -15,6 +15,6 @@ class FacebookApiClient {
     }
 }
 
-module.exports = FacebookApiClient;
-module.exports.FacebookApiClient = FacebookApiClient;
-module.exports.default = module.exports;
+export default FacebookApiClient;
+
+export {FacebookApiClient};

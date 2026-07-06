@@ -1,7 +1,7 @@
 // @ts-check
-const _ = require("lodash");
-const PostModel = require("../db/models/post.js");
-const logger = require("../serverless/logger.js");
+import _ from "lodash";
+import PostModel from "../db/models/post.js";
+import logger from "../serverless/logger.js";
 
 /**
  * A generic class that gets and sets [Records]{@link Record} in some data store
@@ -95,5 +95,4 @@ class CacheClient {
     }
 }
 
-module.exports = CacheClient;
-module.exports.default = module.exports;
+export default CacheClient;

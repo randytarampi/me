@@ -1,9 +1,8 @@
-const {returnErrorResponseForLogger} = require("@randy.tarampi/serverless");
-const logger = require("../../logger.js");
+import {returnErrorResponseForLogger} from "@randy.tarampi/serverless";
+import logger from "../../logger.js";
 
 /**
  * @function returnErrorResponse
  * @returns {Function} An actual error handler
  */
-module.exports = returnErrorResponseForLogger(logger);
-module.exports.default = module.exports;
+export default returnErrorResponseForLogger(logger);

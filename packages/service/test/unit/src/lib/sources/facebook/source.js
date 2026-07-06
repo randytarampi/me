@@ -1,11 +1,11 @@
-const {Gallery, LinkPost, Photo, Post, timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
-const {FacebookAuthInfo} = require("../../../../../../src/lib/sources/facebook/authInfo.js");
-const {FacebookSource} = require("../../../../../../src/lib/sources/facebook/source.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {Gallery, LinkPost, Photo, Post, timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import sinon from "sinon";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
+import {FacebookAuthInfo} from "../../../../../../src/lib/sources/facebook/authInfo.js";
+import {FacebookSource} from "../../../../../../src/lib/sources/facebook/source.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("FacebookSource", function () {
     let stubServiceClient;
@@ -565,4 +565,3 @@ describe("FacebookSource", function () {
         });
     });
 });
-module.exports.default = module.exports;

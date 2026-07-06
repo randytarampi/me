@@ -1,6 +1,6 @@
-const {compositeKeySeparator} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const AuthInfoSearchParams = require("../../../../src/lib/authInfoSearchParams.js");
+import {compositeKeySeparator} from "@randy.tarampi/js";
+import {expect} from "chai";
+import AuthInfoSearchParams from "../../../../src/lib/authInfoSearchParams.js";
 
 describe("AuthInfoSearchParams", function () {
     describe("Dynamoose", function () {
@@ -115,4 +115,3 @@ describe("AuthInfoSearchParams", function () {
         });
     });
 });
-module.exports.default = module.exports;

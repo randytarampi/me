@@ -1,13 +1,13 @@
-const {timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {AuthInfo} = require("../../../../../../src/lib/authInfo.js");
-const AuthInfoSearchParams = require("../../../../../../src/lib/authInfoSearchParams.js");
-const CacheClient = require("../../../../../../src/lib/cacheClient.js");
-const facebookUtil = require("../../../../../../src/lib/sources/facebook/util.js");
-const {FACEBOOK_TOKEN_URL, FacebookAuthInfo} = require("../../../../../../src/lib/sources/facebook/authInfo.js");
-const {OAuth2Client} = require("../../../../../../src/lib/sources/oAuth2Client.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import sinon from "sinon";
+import {AuthInfo} from "../../../../../../src/lib/authInfo.js";
+import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams.js";
+import CacheClient from "../../../../../../src/lib/cacheClient.js";
+import facebookUtil from "../../../../../../src/lib/sources/facebook/util.js";
+import {FACEBOOK_TOKEN_URL, FacebookAuthInfo} from "../../../../../../src/lib/sources/facebook/authInfo.js";
+import {OAuth2Client} from "../../../../../../src/lib/sources/oAuth2Client.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("FacebookAuthInfo", function () {
     let stubServiceClient;
@@ -201,4 +201,3 @@ describe("FacebookAuthInfo", function () {
         });
     });
 });
-module.exports.default = module.exports;

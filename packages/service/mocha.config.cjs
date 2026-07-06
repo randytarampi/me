@@ -1,5 +1,9 @@
 module.exports = {
-    globals: ["expect"],
+    // NOTE-RT: `esmock` (https://github.com/iambumblehead/esmock) intentionally attaches this
+    // handful of properties to `global` the first time it's used in a process, to coordinate
+    // its mocked module graph. Allowlisting them here keeps `checkLeaks` meaningful for
+    // everything else while not flagging `esmock`'s own, expected globals as a leak.
+    globals: ["expect", "mockKeys", "mockKeysSource", "esmockCache", "esmockCacheGet", "esmockTreeIdGet"],
     sort: true,
     fullTrace: true,
     checkLeaks: true,
@@ -30,4 +34,3 @@ module.exports = {
         }
     }
 };
-module.exports.default = module.exports;

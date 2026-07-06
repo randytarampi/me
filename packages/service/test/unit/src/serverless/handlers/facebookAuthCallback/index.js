@@ -1,8 +1,9 @@
-const {RequestError, requestErrorCodeToHttpStatusCode} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {AuthInfoSearchParams} = require("../../../../../../src/lib/authInfoSearchParams.js");
-const {freshRequire} = require("../../../../../lib/freshRequire.js");
+import {RequestError, requestErrorCodeToHttpStatusCode} from "@randy.tarampi/js";
+import {responseBuilder} from "@randy.tarampi/serverless";
+import {expect} from "chai";
+import sinon from "sinon";
+import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams.js";
+import esmock from "../../../../../lib/esmock.js";
 
 afterEach(function () {
     sinon.restore();
@@ -16,9 +17,8 @@ describe("facebookAuthCallback", function () {
         const stubEvent = {queryStringParameters: {code: stubCode}};
         const stubContext = {};
         const stubToken = {access_token: "woof", user: {id: "meow"}};
-        const stubResponse = ["meow"];
+        const expectedResponse = responseBuilder(stubToken);
 
-        const facebookAuthInfoModule = freshRequire("../../../../../../src/lib/sources/facebook/authInfo.js");
         const getRecordStub = sinon.stub().callsFake((code, searchParams) => {
             expect(code).to.eql(stubCode);
             expect(searchParams).to.eql(new AuthInfoSearchParams({
@@ -29,32 +29,26 @@ describe("facebookAuthCallback", function () {
             }));
             return Promise.resolve(stubToken);
         });
-        sinon.stub(facebookAuthInfoModule, "FacebookAuthInfo").callsFake(function StubFacebookAuthInfo() {
+        const StubFacebookAuthInfo = function StubFacebookAuthInfo() {
             this.getRecord = getRecordStub;
+        };
+
+        const configureEnvironmentStub = sinon.stub().resolves();
+        const returnErrorResponseStub = sinon.stub().returns(sinon.stub());
+
+        const {default: facebookAuthCallback} = await esmock("../../../../../../src/serverless/handlers/facebookAuthCallback/index.js", import.meta.url, {
+            "../../../../../../src/lib/sources/facebook/authInfo.js": {FacebookAuthInfo: StubFacebookAuthInfo},
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
         });
-
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const serverlessModule = freshRequire("@randy.tarampi/serverless");
-        sinon.stub(serverlessModule, "responseBuilder").callsFake(token => {
-            expect(token).to.eql(stubToken);
-            return stubResponse;
-        });
-
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
-        sinon.stub(returnErrorResponseModule, "default").returns(sinon.stub());
-
-        const facebookAuthCallback = freshRequire("../../../../../../src/serverless/handlers/facebookAuthCallback").default;
 
         await new Promise((resolve, reject) => {
             const stubCallback = (error, postResponse) => {
                 try {
                     expect(error).to.not.be.ok;
-                    expect(postResponse).to.eql(stubResponse);
-                    expect(configureEnvironmentModule.default.calledOnce).to.eql(true);
-                    expect(serverlessModule.responseBuilder.calledOnce).to.eql(true);
-                    expect(returnErrorResponseModule.default.calledOnce).to.eql(true);
+                    expect(postResponse).to.eql(expectedResponse);
+                    expect(configureEnvironmentStub.calledOnce).to.eql(true);
+                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
                     expect(getRecordStub.calledOnce).to.eql(true);
                     resolve();
                 } catch (expectationError) {
@@ -70,11 +64,13 @@ describe("facebookAuthCallback", function () {
         const stubCode = "grr";
         const stubEvent = {queryStringParameters: {code: stubCode}};
         const stubContext = {};
+        // NOTE-RT: `responseBuilder` (from `@randy.tarampi/serverless`, which can't be mocked - see the
+        // note atop `cachePosts`'s test) throws when handed a circular object, since it internally
+        // `JSON.stringify`s the token - this is used here to genuinely trigger the error path.
         const stubToken = {access_token: "woof", user: {id: "meow"}};
-        const stubError = new Error("woof");
+        stubToken.self = stubToken;
 
-        const facebookAuthInfoModule = freshRequire("../../../../../../src/lib/sources/facebook/authInfo.js");
-        sinon.stub(facebookAuthInfoModule, "FacebookAuthInfo").callsFake(function StubFacebookAuthInfo() {
+        const StubFacebookAuthInfo = function StubFacebookAuthInfo() {
             this.getRecord = sinon.stub().callsFake((code, searchParams) => {
                 expect(code).to.eql(stubCode);
                 expect(searchParams).to.eql(new AuthInfoSearchParams({
@@ -85,19 +81,17 @@ describe("facebookAuthCallback", function () {
                 }));
                 return Promise.resolve(stubToken);
             });
-        });
+        };
 
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const serverlessModule = freshRequire("@randy.tarampi/serverless");
-        sinon.stub(serverlessModule, "responseBuilder").throws(stubError);
-
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
+        const configureEnvironmentStub = sinon.stub().resolves();
         const errorHandlerStub = sinon.stub();
-        sinon.stub(returnErrorResponseModule, "default").returns(errorHandlerStub);
+        const returnErrorResponseStub = sinon.stub().returns(errorHandlerStub);
 
-        const facebookAuthCallback = freshRequire("../../../../../../src/serverless/handlers/facebookAuthCallback").default;
+        const {default: facebookAuthCallback} = await esmock("../../../../../../src/serverless/handlers/facebookAuthCallback/index.js", import.meta.url, {
+            "../../../../../../src/lib/sources/facebook/authInfo.js": {FacebookAuthInfo: StubFacebookAuthInfo},
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
         await new Promise((resolve, reject) => {
             const stubCallback = () => {
@@ -106,7 +100,7 @@ describe("facebookAuthCallback", function () {
 
             const stubErrorCallback = error => {
                 try {
-                    expect(error.message).to.eql(stubError.message);
+                    expect(error.message).to.match(/circular structure/i);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -122,7 +116,6 @@ describe("facebookAuthCallback", function () {
         const stubEvent = {queryStringParameters: {}};
         const stubContext = {};
 
-        const facebookAuthInfoModule = freshRequire("../../../../../../src/lib/sources/facebook/authInfo.js");
         const getRecordStub = sinon.stub().callsFake((code, searchParams) => {
             expect(code).to.eql(undefined);
             expect(searchParams).to.eql(new AuthInfoSearchParams({
@@ -133,21 +126,19 @@ describe("facebookAuthCallback", function () {
             }));
             return Promise.resolve({access_token: "woof", user: {id: "meow"}});
         });
-        sinon.stub(facebookAuthInfoModule, "FacebookAuthInfo").callsFake(function StubFacebookAuthInfo() {
+        const StubFacebookAuthInfo = function StubFacebookAuthInfo() {
             this.getRecord = getRecordStub;
-        });
+        };
 
-        const configureEnvironmentModule = freshRequire("../../../../../../src/serverless/util/configureEnvironment.js");
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const serverlessModule = freshRequire("@randy.tarampi/serverless");
-        sinon.stub(serverlessModule, "responseBuilder").throws(new Error("Wtf? This should've thrown"));
-
-        const returnErrorResponseModule = freshRequire("../../../../../../src/serverless/util/response/returnErrorResponse.js");
+        const configureEnvironmentStub = sinon.stub().resolves();
         const errorHandlerStub = sinon.stub();
-        sinon.stub(returnErrorResponseModule, "default").returns(errorHandlerStub);
+        const returnErrorResponseStub = sinon.stub().returns(errorHandlerStub);
 
-        const facebookAuthCallback = freshRequire("../../../../../../src/serverless/handlers/facebookAuthCallback").default;
+        const {default: facebookAuthCallback} = await esmock("../../../../../../src/serverless/handlers/facebookAuthCallback/index.js", import.meta.url, {
+            "../../../../../../src/lib/sources/facebook/authInfo.js": {FacebookAuthInfo: StubFacebookAuthInfo},
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
         await new Promise((resolve, reject) => {
             const stubCallback = () => {
@@ -171,4 +162,3 @@ describe("facebookAuthCallback", function () {
         });
     });
 });
-module.exports.default = module.exports;

@@ -1,7 +1,7 @@
-const {expect} = require("chai");
-const {AuthInfoSearchParams} = require("../../../../../src/lib/authInfoSearchParams.js");
-const sinon = require("sinon");
-const {freshRequire} = require("../../../../lib/freshRequire.js");
+import {expect} from "chai";
+import {AuthInfoSearchParams} from "../../../../../src/lib/authInfoSearchParams.js";
+import sinon from "sinon";
+import esmock from "../../../../lib/esmock.js";
 
 describe("OAuthClient", function () {
     let stubRequestUrl;
@@ -99,10 +99,11 @@ describe("OAuthClient", function () {
     });
 
     const loadOAuthClient = async OAuth => {
-        const oauth = freshRequire("oauth");
-        oauth.OAuth = OAuth;
+        const {default: OAuthClient} = await esmock("../../../../../src/lib/sources/oAuthClient.js", import.meta.url, {
+            oauth: {OAuth}
+        });
 
-        return freshRequire("../../../../../src/lib/sources/oAuthClient.js").default;
+        return OAuthClient;
     };
 
     describe("getRequestToken", function () {
@@ -224,4 +225,3 @@ describe("OAuthClient", function () {
         });
     });
 });
-module.exports.default = module.exports;

@@ -1,4 +1,4 @@
-const {getMediaForUser} = require("instagram-graph-sdk");
+import {getMediaForUser} from "instagram-graph-sdk";
 
 const baseUrl = "https://graph.facebook.com/v8.0";
 
@@ -41,7 +41,6 @@ class InstagramClient {
     }
 }
 
-module.exports = InstagramClient;
-module.exports.baseUrl = baseUrl;
-module.exports.InstagramClient = InstagramClient;
-module.exports.default = module.exports;
+export default InstagramClient;
+
+export {baseUrl, InstagramClient};

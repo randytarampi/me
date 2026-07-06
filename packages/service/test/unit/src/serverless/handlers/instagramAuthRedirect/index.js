@@ -1,6 +1,5 @@
-const sinon = require("sinon");
-const path = require("path");
-const {freshRequire} = require("../../../../../lib/freshRequire.js");
+import sinon from "sinon";
+import esmock from "../../../../../lib/esmock.js";
 
 afterEach(function () {
     sinon.restore();
@@ -16,13 +15,13 @@ describe("instagramAuthRedirect", function () {
         const stubEvent = {queryStringParameters: {code: "grr"}};
         const stubContext = {};
 
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").resolves();
+        const configureEnvironmentStub = sinon.stub().resolves();
+        const returnErrorResponseStub = sinon.stub().returns(sinon.stub());
 
-        const returnErrorResponseModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/response/returnErrorResponse.js"));
-        sinon.stub(returnErrorResponseModule, "default").returns(sinon.stub());
-
-        const instagramAuthRedirect = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/instagramAuthRedirect")).default;
+        const {default: instagramAuthRedirect} = await esmock("../../../../../../src/serverless/handlers/instagramAuthRedirect/index.js", import.meta.url, {
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
         await new Promise((resolve, reject) => {
             const stubCallback = (error, postResponse) => {
@@ -44,12 +43,12 @@ describe("instagramAuthRedirect", function () {
         const stubEvent = {queryStringParameters: {code: "grr"}};
         const stubContext = {};
 
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").rejects(new Error("woof"));
+        const configureEnvironmentStub = sinon.stub().rejects(new Error("woof"));
 
-        const instagramAuthRedirect = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/instagramAuthRedirect")).default;
+        const {default: instagramAuthRedirect} = await esmock("../../../../../../src/serverless/handlers/instagramAuthRedirect/index.js", import.meta.url, {
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub}
+        });
 
         instagramAuthRedirect(stubEvent, stubContext, () => {});
     });
 });
-module.exports.default = module.exports;

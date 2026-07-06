@@ -1,9 +1,9 @@
 // @ts-check
-const {castDatePropertyToDateTime, compositeKeySeparator, convertLatLongToGeohash, Gallery, getGeohashesForBoundingBox, getGeohashesForRadiusAroundGeohash, getGeohashesForRadiusAroundPoint, getHaversineDistance, Photo, Post, POST_STATUS} = require("@randy.tarampi/js");
-const {Big} = require("big.js");
-const {Record} = require("immutable");
-const _ = require("lodash");
-const {DateTime, Duration} = require("luxon");
+import {castDatePropertyToDateTime, compositeKeySeparator, convertLatLongToGeohash, Gallery, getGeohashesForBoundingBox, getGeohashesForRadiusAroundGeohash, getGeohashesForRadiusAroundPoint, getHaversineDistance, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
+import {Big} from "big.js";
+import {Record} from "immutable";
+import _ from "lodash";
+import {DateTime, Duration} from "luxon";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -669,8 +669,6 @@ const computeOrderComparatorFromRelativeOrderComparatorAdjustment = (relativeOrd
     }
 };
 
-module.exports = PostSearchParams;
-module.exports.castOrderComparator = castOrderComparator;
-module.exports.computeOrderingComparison = computeOrderingComparison;
-module.exports.computeOrderComparatorFromRelativeOrderComparatorAdjustment = computeOrderComparatorFromRelativeOrderComparatorAdjustment;
-module.exports.default = module.exports;
+export default PostSearchParams;
+
+export {castOrderComparator, computeOrderingComparison, computeOrderComparatorFromRelativeOrderComparatorAdjustment};

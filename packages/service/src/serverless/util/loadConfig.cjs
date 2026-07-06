@@ -28,4 +28,3 @@ module.exports = () => {
         me: config.get("me")
     };
 };
-module.exports.default = module.exports;

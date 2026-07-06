@@ -1,5 +1,5 @@
-const {DynamooseModel} = require("../dynamooseModel.js");
-const AuthInfoSchema = require("../schema/authInfo.js");
+import {DynamooseModel} from "../dynamooseModel.js";
+import AuthInfoSchema from "../schema/authInfo.js";
 
 let model;
 
@@ -11,7 +11,7 @@ const getModel = (modelName = process.env.SERVICE_AUTH_INFO_DYNAMODB_TABLE || "l
     return model;
 };
 
-module.exports = new Proxy({}, {
+export default new Proxy({}, {
     get(_target, prop) {
         return getModel()[prop];
     },
@@ -20,5 +20,5 @@ module.exports = new Proxy({}, {
         return true;
     }
 });
-module.exports.getModel = getModel;
-module.exports.default = module.exports;
+
+export {getModel};

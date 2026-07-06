@@ -1,11 +1,10 @@
-const {Photo, timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
-const FlickrSource = require("../../../../../../src/lib/sources/flickr/index.js");
-const {FLICKR_API_MAX_POSTS_PER_PAGE} = FlickrSource;
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {Photo, timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import sinon from "sinon";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
+import FlickrSource, {FLICKR_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/flickr/index.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("FlickrSource", function () {
     let stubServiceClient;
@@ -333,4 +332,3 @@ describe("FlickrSource", function () {
         });
     });
 });
-module.exports.default = module.exports;

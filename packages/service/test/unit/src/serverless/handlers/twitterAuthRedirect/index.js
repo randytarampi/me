@@ -1,7 +1,6 @@
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {freshRequire} = require("../../../../../lib/freshRequire.js");
-const path = require("path");
+import {expect} from "chai";
+import sinon from "sinon";
+import esmock from "../../../../../lib/esmock.js";
 
 afterEach(function () {
     sinon.restore();
@@ -35,17 +34,16 @@ describe("twitterAuthRedirect", function () {
             }
         }
 
-        const oauth = freshRequire("oauth");
-        const stubOAuth = sinon.stub(oauth, "OAuth").callsFake(function (...args) {
-            return new StubOAuthOAuth(...args);
+        const configureEnvironmentStub = sinon.stub().resolves();
+
+        const {default: twitterAuthRedirect} = await esmock("../../../../../../src/serverless/handlers/twitterAuthRedirect/index.js", import.meta.url, {
+            "oauth": {
+                OAuth: function (...args) {
+                    return new StubOAuthOAuth(...args);
+                }
+            },
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub}
         });
-        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/oAuthClient.js"));
-        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
-
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const twitterAuthRedirect = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthRedirect")).default;
 
         await new Promise((resolve, reject) => {
             const stubCallback = () => {
@@ -84,17 +82,16 @@ describe("twitterAuthRedirect", function () {
             }
         }
 
-        const oauth = freshRequire("oauth");
-        sinon.stub(oauth, "OAuth").callsFake(function (...args) {
-            return new StubOAuthOAuth(...args);
+        const configureEnvironmentStub = sinon.stub().resolves();
+
+        const {default: twitterAuthRedirect} = await esmock("../../../../../../src/serverless/handlers/twitterAuthRedirect/index.js", import.meta.url, {
+            "oauth": {
+                OAuth: function (...args) {
+                    return new StubOAuthOAuth(...args);
+                }
+            },
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub}
         });
-        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/oAuthClient.js"));
-        freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
-
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const twitterAuthRedirect = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthRedirect")).default;
 
         await new Promise((resolve, reject) => {
             const stubCallback = () => {
@@ -109,4 +106,3 @@ describe("twitterAuthRedirect", function () {
         });
     });
 });
-module.exports.default = module.exports;

@@ -1,9 +1,9 @@
-const {RequestError, requestErrorCodeToHttpStatusCode} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {AuthInfoSearchParams} = require("../../../../../../src/lib/authInfoSearchParams.js");
-const {freshRequire} = require("../../../../../lib/freshRequire.js");
-const path = require("path");
+import {RequestError, requestErrorCodeToHttpStatusCode} from "@randy.tarampi/js";
+import {responseBuilder} from "@randy.tarampi/serverless";
+import {expect} from "chai";
+import sinon from "sinon";
+import {AuthInfoSearchParams} from "../../../../../../src/lib/authInfoSearchParams.js";
+import esmock from "../../../../../lib/esmock.js";
 
 afterEach(function () {
     sinon.restore();
@@ -19,9 +19,8 @@ describe("twitterAuthCallback", function () {
         const stubEvent = {queryStringParameters: {oauth_token: stubRequestToken, oauth_token_secret: stubRequestTokenSecret, oauth_verifier: stubRequestTokenVerifier}};
         const stubContext = {};
         const stubToken = {token: "woof", tokenSecret: "meow"};
-        const stubResponse = ["meow"];
+        const expectedResponse = responseBuilder(stubToken);
 
-        const twitterAuthInfoModule = freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
         const getRecordStub = sinon.stub().callsFake((requestToken, searchParams) => {
             expect(requestToken).to.eql(stubRequestToken);
             expect(searchParams).to.eql(new AuthInfoSearchParams({
@@ -33,29 +32,24 @@ describe("twitterAuthCallback", function () {
             }));
             return Promise.resolve(stubToken);
         });
-        sinon.stub(twitterAuthInfoModule, "TwitterAuthInfo").callsFake(function StubTwitterAuthInfo() {
+        const StubTwitterAuthInfo = function StubTwitterAuthInfo() {
             this.getRecord = getRecordStub;
+        };
+
+        const configureEnvironmentStub = sinon.stub().resolves();
+        const returnErrorResponseStub = sinon.stub().returns(sinon.stub());
+
+        const {default: twitterAuthCallback} = await esmock("../../../../../../src/serverless/handlers/twitterAuthCallback/index.js", import.meta.url, {
+            "../../../../../../src/lib/sources/twitter/authInfo.js": {TwitterAuthInfo: StubTwitterAuthInfo},
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
         });
-
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const serverlessModule = freshRequire("@randy.tarampi/serverless");
-        sinon.stub(serverlessModule, "responseBuilder").callsFake(token => {
-            expect(token).to.eql(stubToken);
-            return stubResponse;
-        });
-
-        const returnErrorResponseModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/response/returnErrorResponse.js"));
-        sinon.stub(returnErrorResponseModule, "default").returns(sinon.stub());
-
-        const twitterAuthCallback = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthCallback")).default;
 
         await new Promise((resolve, reject) => {
             const stubCallback = (error, postResponse) => {
                 try {
                     expect(error).to.be.null;
-                    expect(postResponse).to.eql(stubResponse);
+                    expect(postResponse).to.eql(expectedResponse);
                     resolve();
                 } catch (expectationError) {
                     reject(expectationError);
@@ -73,10 +67,8 @@ describe("twitterAuthCallback", function () {
         const stubEvent = {queryStringParameters: {oauth_token: stubRequestToken, oauth_token_secret: stubRequestTokenSecret, oauth_verifier: stubRequestTokenVerifier}};
         const stubContext = {};
         const stubToken = {token: "woof", tokenSecret: "meow"};
-        const stubError = new Error("woof");
 
-        const twitterAuthInfoModule = freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
-        sinon.stub(twitterAuthInfoModule, "TwitterAuthInfo").callsFake(function StubTwitterAuthInfo() {
+        const StubTwitterAuthInfo = function StubTwitterAuthInfo() {
             this.getRecord = sinon.stub().callsFake((requestToken, searchParams) => {
                 expect(requestToken).to.eql(stubRequestToken);
                 expect(searchParams).to.eql(new AuthInfoSearchParams({
@@ -88,19 +80,17 @@ describe("twitterAuthCallback", function () {
                 }));
                 return Promise.resolve(stubToken);
             });
-        });
+        };
 
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const serverlessModule = freshRequire("@randy.tarampi/serverless");
-        sinon.stub(serverlessModule, "responseBuilder").throws(stubError);
-
-        const returnErrorResponseModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/response/returnErrorResponse.js"));
+        const configureEnvironmentStub = sinon.stub().resolves();
         const errorHandlerStub = sinon.stub();
-        sinon.stub(returnErrorResponseModule, "default").returns(errorHandlerStub);
+        const returnErrorResponseStub = sinon.stub().returns(errorHandlerStub);
 
-        const twitterAuthCallback = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthCallback")).default;
+        const {default: twitterAuthCallback} = await esmock("../../../../../../src/serverless/handlers/twitterAuthCallback/index.js", import.meta.url, {
+            "../../../../../../src/lib/sources/twitter/authInfo.js": {TwitterAuthInfo: StubTwitterAuthInfo},
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
         twitterAuthCallback(stubEvent, stubContext, () => {});
         return Promise.resolve();
@@ -110,7 +100,6 @@ describe("twitterAuthCallback", function () {
         const stubEvent = {queryStringParameters: {}};
         const stubContext = {};
 
-        const twitterAuthInfoModule = freshRequire(path.resolve(__dirname, "../../../../../../src/lib/sources/twitter/authInfo.js"));
         const getRecordStub = sinon.stub().callsFake((requestToken, searchParams) => {
             expect(requestToken).to.eql(undefined);
             expect(searchParams).to.eql(new AuthInfoSearchParams({
@@ -122,24 +111,21 @@ describe("twitterAuthCallback", function () {
             }));
             return Promise.resolve({token: "woof", tokenSecret: "meow"});
         });
-        sinon.stub(twitterAuthInfoModule, "TwitterAuthInfo").callsFake(function StubTwitterAuthInfo() {
+        const StubTwitterAuthInfo = function StubTwitterAuthInfo() {
             this.getRecord = getRecordStub;
-        });
+        };
 
-        const configureEnvironmentModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/configureEnvironment.js"));
-        sinon.stub(configureEnvironmentModule, "default").resolves();
-
-        const serverlessModule = freshRequire("@randy.tarampi/serverless");
-        sinon.stub(serverlessModule, "responseBuilder").throws(new Error("Wtf? This should've thrown"));
-
-        const returnErrorResponseModule = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/util/response/returnErrorResponse.js"));
+        const configureEnvironmentStub = sinon.stub().resolves();
         const errorHandlerStub = sinon.stub();
-        sinon.stub(returnErrorResponseModule, "default").returns(errorHandlerStub);
+        const returnErrorResponseStub = sinon.stub().returns(errorHandlerStub);
 
-        const twitterAuthCallback = freshRequire(path.resolve(__dirname, "../../../../../../src/serverless/handlers/twitterAuthCallback")).default;
+        const {default: twitterAuthCallback} = await esmock("../../../../../../src/serverless/handlers/twitterAuthCallback/index.js", import.meta.url, {
+            "../../../../../../src/lib/sources/twitter/authInfo.js": {TwitterAuthInfo: StubTwitterAuthInfo},
+            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
+            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
+        });
 
         twitterAuthCallback(stubEvent, stubContext, () => {});
         return Promise.resolve();
     });
 });
-module.exports.default = module.exports;

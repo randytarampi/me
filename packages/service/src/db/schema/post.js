@@ -1,5 +1,5 @@
-const {compositeKeySeparator, POST_ENTITIES_MAP, POST_STATUS} = require("@randy.tarampi/js");
-const dynamoose = require("dynamoose");
+import {compositeKeySeparator, POST_ENTITIES_MAP, POST_STATUS} from "@randy.tarampi/js";
+import dynamoose from "dynamoose";
 
 const {Schema} = dynamoose;
 
@@ -110,5 +110,4 @@ const post = new Schema({
     timestamps: true
 });
 
-module.exports = post;
-module.exports.default = module.exports;
+export default post;

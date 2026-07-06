@@ -1,9 +1,9 @@
-const {Gallery, Photo, Post, SizedPhoto, sortPhotosByWidth} = require("@randy.tarampi/js");
-const _ = require("lodash");
-const {DateTime} = require("luxon");
-const tumblr = require("tumblr.js");
-const CachedDataSource = require("../../cachedDataSource.js");
-const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+import {Gallery, Photo, Post, SizedPhoto, sortPhotosByWidth} from "@randy.tarampi/js";
+import _ from "lodash";
+import {DateTime} from "luxon";
+import tumblr from "tumblr.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 class TumblrSource extends CachedDataSource {
     constructor(dataClient, cacheClient) {
@@ -150,6 +150,6 @@ const processCaptionHtml = caption => {
         .replace(new RegExp(`</${tag}>`, "g"), `</span></${tag}>`), caption);
 };
 
-module.exports = TumblrSource;
-module.exports.processCaptionHtml = processCaptionHtml;
-module.exports.default = module.exports;
+export default TumblrSource;
+
+export {processCaptionHtml};

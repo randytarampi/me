@@ -1,17 +1,17 @@
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {freshRequire} = require("../../../../lib/freshRequire.js");
+import {expect} from "chai";
+import sinon from "sinon";
+import esmock from "../../../../lib/esmock.js";
 
 describe("cacheRecords", function () {
     let stubSearchParams;
     let stubSource;
     let stubSources;
     let stubPosts;
-    let sources;
+    let initializeSourcesStub;
     let cachePosts;
     let originalFlickrApiKey;
 
-    beforeEach(function () {
+    beforeEach(async function () {
         originalFlickrApiKey = process.env.FLICKR_API_KEY;
         process.env.FLICKR_API_KEY = "flickr-key";
 
@@ -24,9 +24,11 @@ describe("cacheRecords", function () {
             })
         };
         stubSources = [stubSource];
-        sources = freshRequire("../../../../../src/lib/sources/index.js");
-        sinon.stub(sources, "initializeSources").returns(Promise.resolve(stubSources));
-        cachePosts = freshRequire("../../../../../src/lib/sources/cachePosts.js").cachePosts;
+        initializeSourcesStub = sinon.stub().returns(Promise.resolve(stubSources));
+
+        ({cachePosts} = await esmock("../../../../../src/lib/sources/cachePosts.js", import.meta.url, {
+            "../../../../../src/lib/sources/index.js": {initializeSources: initializeSourcesStub}
+        }));
     });
 
     afterEach(function () {
@@ -45,7 +47,7 @@ describe("cacheRecords", function () {
                     stubPosts
                 ]);
                 expect(stubSource.getAllServiceRecords.calledOnce).to.eql(true);
-                expect(sources.initializeSources.calledOnce).to.eql(true);
+                expect(initializeSourcesStub.calledOnce).to.eql(true);
             });
     });
 
@@ -61,8 +63,7 @@ describe("cacheRecords", function () {
                     []
                 ]);
                 expect(stubSource.getAllServiceRecords.calledOnce).to.eql(true);
-                expect(sources.initializeSources.calledOnce).to.eql(true);
+                expect(initializeSourcesStub.calledOnce).to.eql(true);
             });
     });
 });
-module.exports.default = module.exports;

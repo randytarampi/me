@@ -1,11 +1,11 @@
-const {Gallery, Photo, timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
-const {InstagramAuthInfo} = require("../../../../../../src/lib/sources/instagram/index.js");
-const proxyquiredInstagramSource = require("../../../../../../src/lib/sources/instagram/source.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {Gallery, Photo, timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import sinon from "sinon";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
+import {InstagramAuthInfo} from "../../../../../../src/lib/sources/instagram/index.js";
+import proxyquiredInstagramSource from "../../../../../../src/lib/sources/instagram/source.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 afterEach(function () {
     sinon.restore();
@@ -355,4 +355,3 @@ describe("InstagramSource", function () {
         });
     });
 });
-module.exports.default = module.exports;

@@ -1,10 +1,11 @@
-const {Photo, Post} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
-const sources = require("../../../../src/lib/sources/index.js");
-const {freshRequire} = require("../../../lib/freshRequire.js");
+import {Photo, Post} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import sinon from "sinon";
+import CacheClient from "../../../../src/lib/cacheClient.js";
+import PostSearchParams from "../../../../src/lib/postSearchParams.js";
+import searchPosts from "../../../../src/lib/sources/searchPosts.js";
+import sources from "../../../../src/lib/sources/index.js";
 
 afterEach(function () {
     sinon.restore();
@@ -54,12 +55,10 @@ describe("searchPosts", function () {
     });
 
     it("delegates to `CacheClient` functions", async function () {
-        const CacheClient = freshRequire("../../../../src/lib/cacheClient").default;
         sinon.stub(CacheClient.prototype, "getRecords").callsFake(stubGetRecords);
         sinon.stub(CacheClient.prototype, "getRecordCount").callsFake(stubGetRecordCount);
         sinon.stub(CacheClient.prototype, "getRecord").callsFake(stubGetRecord);
 
-        const searchPosts = freshRequire("../../../../src/lib/sources/searchPosts").default;
         const stubSearchParams = new PostSearchParams();
         const postsResult = await searchPosts(stubSearchParams);
 
@@ -77,4 +76,3 @@ describe("searchPosts", function () {
         expect(stubGetRecord.calledTwice).to.eql(true);
     });
 });
-module.exports.default = module.exports;

@@ -1,4 +1,4 @@
-const Twitter = require("twitter").default || require("twitter");
+import Twitter from "twitter";
 
 const type = "twitter";
 
@@ -11,7 +11,6 @@ const getTwitterClient = twitterOAuthCredentials => new Twitter({
     access_token_secret: process.env.TWITTER_API_BEARER_TOKEN_SECRET,
     ...twitterOAuthCredentials
 });
-module.exports.type = type;
-module.exports.getTwitterClientForSearchParams = getTwitterClientForSearchParams;
-module.exports.getTwitterClient = getTwitterClient;
-module.exports.default = module.exports;
+export {type, getTwitterClientForSearchParams, getTwitterClient};
+
+export default {type, getTwitterClientForSearchParams, getTwitterClient};

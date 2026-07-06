@@ -1,6 +1,6 @@
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {FacebookApiClient} = require("../../../../../../src/lib/sources/facebook/client.js");
+import {expect} from "chai";
+import sinon from "sinon";
+import {FacebookApiClient} from "../../../../../../src/lib/sources/facebook/client.js";
 
 describe("FacebookApiClient", function () {
     afterEach(function () {
@@ -47,4 +47,3 @@ describe("FacebookApiClient", function () {
         });
     });
 });
-module.exports.default = module.exports;

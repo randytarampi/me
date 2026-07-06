@@ -1,9 +1,8 @@
-const {compositeKeySeparator, Gallery, MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION, Photo, Post, POST_STATUS} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime, Duration} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../src/lib/postSearchParams.js");
-const {castOrderComparator, computeOrderComparatorFromRelativeOrderComparatorAdjustment, computeOrderingComparison} = PostSearchParams;
+import {compositeKeySeparator, Gallery, MAX_CELL_WIDTH_FOR_GEOHASH_PRECISION, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime, Duration} from "luxon";
+import sinon from "sinon";
+import PostSearchParams, {castOrderComparator, computeOrderComparatorFromRelativeOrderComparatorAdjustment, computeOrderingComparison} from "../../../../src/lib/postSearchParams.js";
 
 describe("PostSearchParams", function () {
     let clock;
@@ -1278,4 +1277,3 @@ describe("PostSearchParams", function () {
         });
     });
 });
-module.exports.default = module.exports;

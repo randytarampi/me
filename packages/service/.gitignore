@@ -48,6 +48,7 @@ dist
 build
 .webpack
 .dynamodb
+dynamodb-local-metadata.json
 
 # Posts content
 posts/

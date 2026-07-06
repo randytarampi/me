@@ -1,7 +1,7 @@
-const {setupLocal: setupLocalDynamoDb} = require("./util.js");
-const {getModel: getAuthInfoModel} = require("../../db/models/authInfo.js");
+import {setupLocal as setupLocalDynamoDb} from "./util.js";
+import {getModel as getAuthInfoModel} from "../../db/models/authInfo.js";
 
-module.exports = () => {
+export default () => {
     setupLocalDynamoDb();
 
     const tableName = process.env.SERVICE_AUTH_INFO_DYNAMODB_TABLE;
@@ -10,4 +10,3 @@ module.exports = () => {
 
     return authInfoModel.getCreateTableRequest();
 };
-module.exports.default = module.exports;

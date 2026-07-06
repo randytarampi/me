@@ -1,6 +1,6 @@
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {buildQueryWithFilter} = require("../../../../src/db/dynamooseModel.js");
+import {expect} from "chai";
+import sinon from "sinon";
+import {buildQueryWithFilter} from "../../../../src/db/dynamooseModel.js";
 
 describe("util", function () {
     describe("buildQueryWithFilter", function () {
@@ -182,4 +182,3 @@ describe("util", function () {
         });
     });
 });
-module.exports.default = module.exports;

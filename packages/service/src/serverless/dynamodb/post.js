@@ -1,7 +1,7 @@
-const {setupLocal: setupLocalDynamoDb} = require("./util.js");
-const {getModel: getPostModel} = require("../../db/models/post.js");
+import {setupLocal as setupLocalDynamoDb} from "./util.js";
+import {getModel as getPostModel} from "../../db/models/post.js";
 
-module.exports = () => {
+export default () => {
     setupLocalDynamoDb();
 
     const tableName = process.env.SERVICE_POSTS_DYNAMODB_TABLE;
@@ -10,4 +10,3 @@ module.exports = () => {
 
     return postModel.getCreateTableRequest();
 };
-module.exports.default = module.exports;

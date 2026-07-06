@@ -1,7 +1,7 @@
-const dynamoose = require("dynamoose");
-const {getModel: getPostModel} = require("../../db/models/post.js");
-const {getModel: getAuthInfoModel} = require("../../db/models/authInfo.js");
-const {setupLocal} = require("./util.js");
+import dynamoose from "dynamoose";
+import {getModel as getPostModel} from "../../db/models/post.js";
+import {getModel as getAuthInfoModel} from "../../db/models/authInfo.js";
+import {setupLocal} from "./util.js";
 
 const TABLE_ALREADY_EXISTS_PATTERN = /already exists|preexisting|ResourceInUseException/i;
 
@@ -45,9 +45,9 @@ const createLocalTables = async () => {
     }
 };
 
-module.exports.createLocalTables = createLocalTables;
+export {createLocalTables};
 
-if (require.main === module) {
+if (process.argv[1] === import.meta.filename) {
     createLocalTables()
         .then(() => process.exit(0))
         .catch(error => {
@@ -55,4 +55,5 @@ if (require.main === module) {
             process.exit(1);
         });
 }
-module.exports.default = module.exports;
+
+export default {createLocalTables};

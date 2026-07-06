@@ -1,6 +1,6 @@
 // @ts-check
-const {compositeKeySeparator} = require("@randy.tarampi/js");
-const {Record} = require("immutable");
+import {compositeKeySeparator} from "@randy.tarampi/js";
+import {Record} from "immutable";
 
 const AUTH_INFO_TYPE = {
     oAuth: "OAUTH_TOKEN",
@@ -22,7 +22,6 @@ class AuthInfo extends Record({
     }
 }
 
-module.exports = AuthInfo;
-module.exports.AUTH_INFO_TYPE = AUTH_INFO_TYPE;
-module.exports.AuthInfo = AuthInfo;
-module.exports.default = module.exports;
+export default AuthInfo;
+
+export {AUTH_INFO_TYPE, AuthInfo};

@@ -1,8 +1,8 @@
-const {compositeKeySeparator} = require("@randy.tarampi/js");
-const dynamoose = require("dynamoose");
+import {compositeKeySeparator} from "@randy.tarampi/js";
+import dynamoose from "dynamoose";
 
 const {Schema} = dynamoose;
-const {AUTH_INFO_TYPE} = require("../../lib/authInfo.js");
+import {AUTH_INFO_TYPE} from "../../lib/authInfo.js";
 
 const authInfo = new Schema({
     uid: {
@@ -32,5 +32,4 @@ const authInfo = new Schema({
     timestamps: true
 });
 
-module.exports = authInfo;
-module.exports.default = module.exports;
+export default authInfo;

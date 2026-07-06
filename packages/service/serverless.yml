@@ -101,7 +101,7 @@ custom:
       - test
       - local
     start:
-      port: ${file(src/serverless/util/loadConfig.js):default.posts.dbPort}
+      port: ${file(src/serverless/util/loadConfig.cjs):default.posts.dbPort}
       inMemory: false
       dbPath: ./
       migrate: true
@@ -120,7 +120,7 @@ custom:
       prd: "alias/serverless-prd"
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
-    httpPort: ${file(src/serverless/util/loadConfig.js):default.posts.serverPort}
+    httpPort: ${file(src/serverless/util/loadConfig.cjs):default.posts.serverPort}
     noPrependStageInUrl: true
   customDomain:
     domainName: ${file(env.yml):${self:provider.stage}.domainName}

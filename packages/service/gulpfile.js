@@ -1,5 +1,9 @@
+import {createRequire} from "module";
+import baseGulpfile from "../../gulpfile.base.js";
+
+const require = createRequire(import.meta.url);
 require("../../babel.register.cjs");
-const baseGulpfile = require("../../gulpfile.base.js");
+const __dirname = import.meta.dirname;
 
 const gulp = require("gulp");
 
@@ -16,4 +20,3 @@ gulp.task("lint", gulp.parallel(["eslint"]));
 baseGulpfile.testUnit(taskParameters);
 baseGulpfile.testIntegration(taskParameters);
 baseGulpfile.test(taskParameters);
-module.exports.default = module.exports;

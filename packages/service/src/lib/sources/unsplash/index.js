@@ -1,8 +1,8 @@
 // @ts-check
-const {Photo} = require("@randy.tarampi/js");
-const {createApi} = require("unsplash-js");
-const CachedDataSource = require("../../cachedDataSource.js");
-const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+import {Photo} from "@randy.tarampi/js";
+import {createApi} from "unsplash-js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 /** Unsplash-backed post source. */
 class UnsplashSource extends CachedDataSource {
@@ -95,5 +95,4 @@ class UnsplashSource extends CachedDataSource {
 }
 
 /** @type {typeof UnsplashSource} */
-module.exports = UnsplashSource;
-module.exports.default = module.exports;
+export default UnsplashSource;

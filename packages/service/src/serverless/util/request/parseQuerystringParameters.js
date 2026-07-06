@@ -1,7 +1,7 @@
-const {RequestError} = require("@randy.tarampi/js");
-const logger = require("../../logger.js");
+import {RequestError} from "@randy.tarampi/js";
+import logger from "../../logger.js";
 
-module.exports = (querystringParameters = {}) => {
+export default (querystringParameters = {}) => {
     if (!querystringParameters) {
         return {};
     }
@@ -29,4 +29,3 @@ module.exports = (querystringParameters = {}) => {
         ...parsedQuerystringParameters
     };
 };
-module.exports.default = module.exports;

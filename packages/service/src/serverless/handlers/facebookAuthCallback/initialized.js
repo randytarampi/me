@@ -1,4 +1,4 @@
-require("../../util/configureEnvironment.js");
+import "../../util/configureEnvironment.js";
+import index from "./index.js";
 
-module.exports = require("./index.js");
-module.exports.default = module.exports;
+export default index;

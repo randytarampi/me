@@ -1,9 +1,8 @@
-const {Photo, Post} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const versionHeader = require("../../../../../../src/serverless/util/request/headers/version.js");
-const buildPostsResponse = require("../../../../../../src/serverless/util/response/buildPostsResponse.js");
-const postsReponseBuilder = buildPostsResponse;
+import {Photo, Post} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import versionHeader from "../../../../../../src/serverless/util/request/headers/version.js";
+import buildPostsResponse, * as postsReponseBuilder from "../../../../../../src/serverless/util/response/buildPostsResponse.js";
 
 describe("buildPostsResponse", function () {
     let stubPost;
@@ -179,4 +178,3 @@ describe("buildPostsResponse", function () {
         });
     });
 });
-module.exports.default = module.exports;

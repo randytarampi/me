@@ -5,5 +5,6 @@ const filterPostForOrderingConditionsInSearchParams = (post, searchParams) => {
 
     return true;
 };
-module.exports.filterPostForOrderingConditionsInSearchParams = filterPostForOrderingConditionsInSearchParams;
-module.exports.default = module.exports;
+export {filterPostForOrderingConditionsInSearchParams};
+
+export default {filterPostForOrderingConditionsInSearchParams};

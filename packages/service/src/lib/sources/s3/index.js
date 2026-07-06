@@ -1,9 +1,9 @@
 // @ts-check
-const {Post} = require("@randy.tarampi/js");
-const {GetObjectCommand, ListObjectsV2Command, S3Client} = require("@aws-sdk/client-s3");
-const jsyaml = require("js-yaml");
-const CachedDataSource = require("../../cachedDataSource.js");
-const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+import {Post} from "@randy.tarampi/js";
+import {GetObjectCommand, ListObjectsV2Command, S3Client} from "@aws-sdk/client-s3";
+import {load as loadYaml} from "js-yaml";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 const defaultRegion = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || "us-east-1";
 
@@ -108,12 +108,11 @@ class S3Source extends CachedDataSource {
                     Key: key,
                     ...data,
                     Body: body,
-                    ...(body ? jsyaml.load(body) : {})
+                    ...(body ? loadYaml(body) : {})
                 });
             });
     }
 }
 
 /** @type {typeof S3Source} */
-module.exports = S3Source;
-module.exports.default = module.exports;
+export default S3Source;

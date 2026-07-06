@@ -1,12 +1,12 @@
-const {timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {AuthInfo} = require("../../../../../../src/lib/authInfo.js");
-const AuthInfoSearchParams = require("../../../../../../src/lib/authInfoSearchParams.js");
-const CacheClient = require("../../../../../../src/lib/cacheClient.js");
-const {OAuthClient} = require("../../../../../../src/lib/sources/oAuthClient.js");
-const {TWITTER_ACCESS_TOKEN_URL, TWITTER_REQUEST_TOKEN_URL, TwitterAuthInfo} = require("../../../../../../src/lib/sources/twitter/authInfo.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import sinon from "sinon";
+import {AuthInfo} from "../../../../../../src/lib/authInfo.js";
+import AuthInfoSearchParams from "../../../../../../src/lib/authInfoSearchParams.js";
+import CacheClient from "../../../../../../src/lib/cacheClient.js";
+import {OAuthClient} from "../../../../../../src/lib/sources/oAuthClient.js";
+import {TWITTER_ACCESS_TOKEN_URL, TWITTER_REQUEST_TOKEN_URL, TwitterAuthInfo} from "../../../../../../src/lib/sources/twitter/authInfo.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("TwitterAuthInfo", function () {
     let stubServiceClient;
@@ -195,4 +195,3 @@ describe("TwitterAuthInfo", function () {
         });
     });
 });
-module.exports.default = module.exports;

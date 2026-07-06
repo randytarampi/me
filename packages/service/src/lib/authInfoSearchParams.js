@@ -1,6 +1,6 @@
 // @ts-check
-const {compositeKeySeparator} = require("@randy.tarampi/js");
-const {Record} = require("immutable");
+import {compositeKeySeparator} from "@randy.tarampi/js";
+import {Record} from "immutable";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -134,6 +134,6 @@ class AuthInfoSearchParams extends AuthInfoSearchParamsRecord {
     }
 }
 
-module.exports = AuthInfoSearchParams;
-module.exports.AuthInfoSearchParams = AuthInfoSearchParams;
-module.exports.default = module.exports;
+export default AuthInfoSearchParams;
+
+export {AuthInfoSearchParams};

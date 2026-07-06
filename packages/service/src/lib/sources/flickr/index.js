@@ -1,10 +1,10 @@
 // @ts-check
-const {Photo} = require("@randy.tarampi/js");
-const {createFlickr} = require("flickr-sdk");
-const _ = require("lodash");
-const {DateTime} = require("luxon");
-const CachedDataSource = require("../../cachedDataSource.js");
-const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
+import {Photo} from "@randy.tarampi/js";
+import {createFlickr} from "flickr-sdk";
+import _ from "lodash";
+import {DateTime} from "luxon";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 /** @type {number} */
 const FLICKR_API_MAX_POSTS_PER_PAGE = 500;
@@ -94,6 +94,6 @@ class FlickrSource extends CachedDataSource {
 }
 
 /** @type {typeof FlickrSource} */
-module.exports = FlickrSource;
-module.exports.FLICKR_API_MAX_POSTS_PER_PAGE = FLICKR_API_MAX_POSTS_PER_PAGE;
-module.exports.default = module.exports;
+export default FlickrSource;
+
+export {FLICKR_API_MAX_POSTS_PER_PAGE};

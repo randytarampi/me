@@ -1,11 +1,10 @@
-const {expect} = require("chai");
-const sinon = require("sinon");
-const AuthInfo = require("../../../../../src/lib/authInfo.js");
-const sources = require("../../../../../src/lib/sources/index.js");
-const {initializeSources} = sources;
-const {FacebookSource} = require("../../../../../src/lib/sources/facebook/index.js");
-const {InstagramSource} = require("../../../../../src/lib/sources/instagram/index.js");
-const {TwitterSource} = require("../../../../../src/lib/sources/twitter/index.js");
+import {expect} from "chai";
+import sinon from "sinon";
+import AuthInfo from "../../../../../src/lib/authInfo.js";
+import sources, {initializeSources} from "../../../../../src/lib/sources/index.js";
+import {FacebookSource} from "../../../../../src/lib/sources/facebook/index.js";
+import {InstagramSource} from "../../../../../src/lib/sources/instagram/index.js";
+import {TwitterSource} from "../../../../../src/lib/sources/twitter/index.js";
 
 describe("sources", function () {
     describe("initializeSources", function () {
@@ -139,4 +138,3 @@ describe("sources", function () {
         });
     });
 });
-module.exports.default = module.exports;

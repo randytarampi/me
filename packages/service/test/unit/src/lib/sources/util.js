@@ -1,6 +1,6 @@
-const {expect} = require("chai");
-const sinon = require("sinon");
-const {filterPostForOrderingConditionsInSearchParams} = require("../../../../../src/lib/sources/util.js");
+import {expect} from "chai";
+import sinon from "sinon";
+import {filterPostForOrderingConditionsInSearchParams} from "../../../../../src/lib/sources/util.js";
 
 describe("util", function () {
     describe("filterPostForOrderingConditionsInSearchParams", function () {
@@ -31,4 +31,3 @@ describe("util", function () {
         });
     });
 });
-module.exports.default = module.exports;

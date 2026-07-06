@@ -1,8 +1,8 @@
-const sources = require("./index.js");
-const logger = require("../../serverless/logger.js");
+import {initializeSources} from "./index.js";
+import logger from "../../serverless/logger.js";
 
 const cachePosts = (searchParams, postSources) => {
-    return sources.initializeSources(postSources)
+    return initializeSources(postSources)
         .then(initializedSources => Promise.all(initializedSources.map(postSource => {
             return postSource.getAllServiceRecords(searchParams)
                 .catch(error => {
@@ -12,6 +12,6 @@ const cachePosts = (searchParams, postSources) => {
         })));
 };
 
-module.exports = cachePosts;
-module.exports.cachePosts = cachePosts;
-module.exports.default = module.exports;
+export default cachePosts;
+
+export {cachePosts};

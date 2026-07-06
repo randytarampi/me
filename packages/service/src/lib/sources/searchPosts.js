@@ -1,6 +1,6 @@
-const {sortPostsByDate} = require("@randy.tarampi/js");
-const {sources} = require("./index.js");
-const CacheClient = require("../cacheClient.js");
+import {sortPostsByDate} from "@randy.tarampi/js";
+import {sources} from "./index.js";
+import CacheClient from "../cacheClient.js";
 
 const cachedValueToPost = cachedValue => cachedValue
     && sources[cachedValue.source]
@@ -51,6 +51,6 @@ const searchPosts = searchParams => {
         });
 };
 
-module.exports = searchPosts;
-module.exports.searchPosts = searchPosts;
-module.exports.default = module.exports;
+export default searchPosts;
+
+export {searchPosts};

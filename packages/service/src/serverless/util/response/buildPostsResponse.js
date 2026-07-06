@@ -1,6 +1,6 @@
-const {RequestError} = require("@randy.tarampi/js");
-const {responseBuilder} = require("@randy.tarampi/serverless");
-const {checkHeader: checkMeVersionHeader, getHeaderValue: getMeVersionHeaderValue, headerName: meVersionHeaderName} = require("../request/headers/version.js");
+import {RequestError} from "@randy.tarampi/js";
+import {responseBuilder} from "@randy.tarampi/serverless";
+import {checkHeader as checkMeVersionHeader, getHeaderValue as getMeVersionHeaderValue, headerName as meVersionHeaderName} from "../request/headers/version.js";
 
 /**
  * Set `Post.raw` to `null` before we send it down.
@@ -76,7 +76,7 @@ const buildPostsV1ResponseBody = posts => posts.map(setPostRawToNull);
  * @param parsedHeaders The headers containing a specified [ME-API-VERSION]{@link ME_API_VERSION_HEADER}
  * @returns {(object|RequestError)}
  */
-module.exports = ({posts, total, first, last, ...metadata}, parsedHeaders) => {
+export default ({posts, total, first, last, ...metadata}, parsedHeaders) => {
     if (checkMeVersionHeader(parsedHeaders, 1)) {
         return responseBuilder(buildPostsV1ResponseBody(posts));
     }
@@ -96,8 +96,5 @@ module.exports = ({posts, total, first, last, ...metadata}, parsedHeaders) => {
 
     throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, RequestError.codes.badRequest);
 };
-module.exports.setPostRawToNull = setPostRawToNull;
-module.exports.buildPostsV3ResponseBody = buildPostsV3ResponseBody;
-module.exports.buildPostsV2ResponseBody = buildPostsV2ResponseBody;
-module.exports.buildPostsV1ResponseBody = buildPostsV1ResponseBody;
-module.exports.default = module.exports;
+
+export {setPostRawToNull, buildPostsV3ResponseBody, buildPostsV2ResponseBody, buildPostsV1ResponseBody};

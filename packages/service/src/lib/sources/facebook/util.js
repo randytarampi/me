@@ -1,5 +1,5 @@
-const {httpStatusCodeToRequestErrorCode, RequestError, supportedHttpStatusCodesForRequestError} = require("@randy.tarampi/js");
-const queryString = require("query-string").default || require("query-string");
+import {httpStatusCodeToRequestErrorCode, RequestError, supportedHttpStatusCodesForRequestError} from "@randy.tarampi/js";
+import queryString from "query-string";
 
 const type = "facebook";
 
@@ -30,9 +30,6 @@ const fetchFacebookEdge = (edge, accessToken, queryParameters, options) => fetch
 
         return body;
     });
-module.exports.type = type;
-module.exports.FACEBOOK_API_URL = FACEBOOK_API_URL;
-module.exports.buildFacebookApiEdge = buildFacebookApiEdge;
-module.exports.buildFacebookApiUrl = buildFacebookApiUrl;
-module.exports.fetchFacebookEdge = fetchFacebookEdge;
-module.exports.default = module.exports;
+export {type, FACEBOOK_API_URL, buildFacebookApiEdge, buildFacebookApiUrl, fetchFacebookEdge};
+
+export default {type, FACEBOOK_API_URL, buildFacebookApiEdge, buildFacebookApiUrl, fetchFacebookEdge};

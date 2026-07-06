@@ -1,7 +1,7 @@
-const DummyCacheClientGenerator = require("./dummyCacheClientGenerator.js");
-const DummyCachedDataSourceGenerator = require("./dummyCachedDataSourceGenerator.js");
-const DummyDataClientGenerator = require("./dummyDataClientGenerator.js");
-const DummyDataSourceGenerator = require("./dummyDataSourceGenerator.js");
+import DummyCacheClientGenerator from "./dummyCacheClientGenerator.js";
+import DummyCachedDataSourceGenerator from "./dummyCachedDataSourceGenerator.js";
+import DummyDataClientGenerator from "./dummyDataClientGenerator.js";
+import DummyDataSourceGenerator from "./dummyDataSourceGenerator.js";
 
 const dummyClassesGenerator = ({
                                           stubType,
@@ -94,6 +94,6 @@ const dummyClassesGenerator = ({
     };
 };
 
-module.exports = dummyClassesGenerator;
-module.exports.dummyClassesGenerator = dummyClassesGenerator;
-module.exports.default = module.exports;
+export default dummyClassesGenerator;
+
+export {dummyClassesGenerator};

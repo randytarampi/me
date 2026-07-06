@@ -1,10 +1,10 @@
-const {Photo, timedPromise} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const {DateTime} = require("luxon");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
-const UnsplashSource = require("../../../../../../src/lib/sources/unsplash/index.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {Photo, timedPromise} from "@randy.tarampi/js";
+import {expect} from "chai";
+import {DateTime} from "luxon";
+import sinon from "sinon";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
+import UnsplashSource from "../../../../../../src/lib/sources/unsplash/index.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("UnsplashSource", function () {
     let stubServiceClient;
@@ -295,4 +295,3 @@ describe("UnsplashSource", function () {
         });
     });
 });
-module.exports.default = module.exports;

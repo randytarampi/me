@@ -1,4 +1,4 @@
-const {RequestError} = require("@randy.tarampi/js");
+import {RequestError} from "@randy.tarampi/js";
 
 /**
  * Define the header name for specifying the desired ME API version
@@ -54,10 +54,6 @@ const checkHeader = (headers, expectedHeaderValue) => {
 
     return false;
 };
-module.exports.ME_API_VERSION_HEADER = ME_API_VERSION_HEADER;
-module.exports.headerName = headerName;
-module.exports.parseHeader = parseHeader;
-module.exports.validateHeader = validateHeader;
-module.exports.getHeaderValue = getHeaderValue;
-module.exports.checkHeader = checkHeader;
-module.exports.default = module.exports;
+export {ME_API_VERSION_HEADER, headerName, parseHeader, validateHeader, getHeaderValue, checkHeader};
+
+export default {ME_API_VERSION_HEADER, headerName, parseHeader, validateHeader, getHeaderValue, checkHeader};

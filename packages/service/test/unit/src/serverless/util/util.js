@@ -1,11 +1,11 @@
-const {Gallery, LinkPost, Photo, Post, POST_TYPES} = require("@randy.tarampi/js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const PostSearchParams = require("../../../../../src/lib/postSearchParams.js");
-const loadConfig = require("../../../../../src/serverless/util/loadConfig.js");
-const {parseQueryStringParametersIntoSearchParams} = require("../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams.js");
-const {ME_API_VERSION_HEADER} = require("../../../../../src/serverless/util/request/headers/version.js");
-const {freshRequire} = require("../../../../lib/freshRequire.js");
+import {Gallery, LinkPost, Photo, Post, POST_TYPES} from "@randy.tarampi/js";
+import {expect} from "chai";
+import sinon from "sinon";
+import esmock from "../../../../lib/esmock.js";
+import PostSearchParams from "../../../../../src/lib/postSearchParams.js";
+import loadConfig from "../../../../../src/serverless/util/loadConfig.cjs";
+import {parseQueryStringParametersIntoSearchParams} from "../../../../../src/serverless/util/parseQueryStringParametersIntoSearchParams.js";
+import {ME_API_VERSION_HEADER} from "../../../../../src/serverless/util/request/headers/version.js";
 
 afterEach(function () {
     sinon.restore();
@@ -28,16 +28,15 @@ describe("util", function () {
     describe("configureEnvironment", function () {
         it("propagates thrown errors", async function () {
             const stubErrorMessage = "woof";
-            const dynamoose = freshRequire("dynamoose");
-            sinon.stub(dynamoose.aws.ddb, "local");
+            const stubDynamooseLocal = sinon.stub();
+            const stubLoadServerlessSecrets = sinon.stub().rejects(new Error(stubErrorMessage));
+            const stubConfigureLogger = sinon.stub();
 
-            const loadServerlessSecretsModule = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js");
-            sinon.stub(loadServerlessSecretsModule, "default").rejects(new Error(stubErrorMessage));
-
-            const loggerModule = freshRequire("../../../../../src/serverless/logger.js");
-            sinon.stub(loggerModule, "configureLogger");
-
-            const configureEnvironment = freshRequire("../../../../../src/serverless/util/configureEnvironment.js").default;
+            const {default: configureEnvironment} = await esmock("../../../../../src/serverless/util/configureEnvironment.js", import.meta.url, {
+                dynamoose: {default: {aws: {ddb: {local: stubDynamooseLocal}}}},
+                "../../../../../src/serverless/util/loadServerlessSecrets.js": {default: stubLoadServerlessSecrets},
+                "../../../../../src/serverless/logger.js": {configureLogger: stubConfigureLogger}
+            });
 
             return configureEnvironment().then(() => {
                 throw new Error("Wtf? This should've thrown");
@@ -47,20 +46,19 @@ describe("util", function () {
         });
 
         it("works", async function () {
-            const dynamoose = freshRequire("dynamoose");
-            sinon.stub(dynamoose.aws.ddb, "local");
+            const stubDynamooseLocal = sinon.stub();
+            const stubLoadServerlessSecrets = sinon.stub().resolves();
+            const stubConfigureLogger = sinon.stub().resolves();
 
-            const loadServerlessSecretsModule = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js");
-            sinon.stub(loadServerlessSecretsModule, "default").resolves();
-
-            const loggerModule = freshRequire("../../../../../src/serverless/logger.js");
-            sinon.stub(loggerModule, "configureLogger").resolves();
-
-            const configureEnvironment = freshRequire("../../../../../src/serverless/util/configureEnvironment.js").default;
+            const {default: configureEnvironment} = await esmock("../../../../../src/serverless/util/configureEnvironment.js", import.meta.url, {
+                dynamoose: {default: {aws: {ddb: {local: stubDynamooseLocal}}}},
+                "../../../../../src/serverless/util/loadServerlessSecrets.js": {default: stubLoadServerlessSecrets},
+                "../../../../../src/serverless/logger.js": {configureLogger: stubConfigureLogger}
+            });
 
             return configureEnvironment().then(() => {
-                expect(loadServerlessSecretsModule.default.calledOnce).to.eql(true);
-                expect(loggerModule.configureLogger.calledOnce).to.eql(true);
+                expect(stubLoadServerlessSecrets.calledOnce).to.eql(true);
+                expect(stubConfigureLogger.calledOnce).to.eql(true);
             });
         });
     });
@@ -119,15 +117,19 @@ describe("util", function () {
                 };
             });
 
-            const ssm = freshRequire("@aws-sdk/client-ssm");
-            sinon.stub(ssm, "GetParametersCommand").callsFake(function GetParametersCommand(input) {
+            const stubGetParametersCommand = sinon.stub().callsFake(function GetParametersCommand(input) {
                 this.input = input;
             });
-            sinon.stub(ssm, "SSMClient").callsFake(function SSMClient() {
+            const stubSSMClient = sinon.stub().callsFake(function SSMClient() {
                 this.send = send;
             });
 
-            const loadServerlessSecrets = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js").default;
+            const {default: loadServerlessSecrets} = await esmock("../../../../../src/serverless/util/loadServerlessSecrets.js", import.meta.url, {
+                "@aws-sdk/client-ssm": {
+                    GetParametersCommand: stubGetParametersCommand,
+                    SSMClient: stubSSMClient
+                }
+            });
 
             return loadServerlessSecrets().then(() => {
                 expect(send.calledTwice).to.eql(true);
@@ -139,7 +141,7 @@ describe("util", function () {
         it("shortcircuits in `NODE_ENV === \"test\"`", async function () {
             process.env.NODE_ENV = "test";
 
-            const loadServerlessSecrets = freshRequire("../../../../../src/serverless/util/loadServerlessSecrets.js").default;
+            const {default: loadServerlessSecrets} = await esmock("../../../../../src/serverless/util/loadServerlessSecrets.js", import.meta.url);
 
             return loadServerlessSecrets().then(() => {
                 expect(process.env.NODE_ENV).to.eql("test");
@@ -190,7 +192,6 @@ describe("util", function () {
                 }
             };
 
-            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
             const proxyquiredSearchPosts = sinon.stub().callsFake(() => {
                 const result = [stubPost, stubPhoto, stubGallery];
 
@@ -203,9 +204,10 @@ describe("util", function () {
                     total: result.length
                 });
             });
-            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
 
-            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
 
             return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
                 expect(postsResult).to.eql(expectedPostsResult);
@@ -259,7 +261,6 @@ describe("util", function () {
                 }
             };
 
-            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
             const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
                 let baseResult = null;
 
@@ -286,9 +287,10 @@ describe("util", function () {
                     total: baseResult ? 1 : 0
                 });
             });
-            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
 
-            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
 
             return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
                 expect(postsResult).to.eql(expectedPostsResult);
@@ -326,7 +328,6 @@ describe("util", function () {
                 }
             };
 
-            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
             const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
                 let baseResult = null;
 
@@ -349,9 +350,10 @@ describe("util", function () {
                     total: 1
                 });
             });
-            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
 
-            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
 
             return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
                 expect(postsResult).to.eql(expectedPostsResult);
@@ -394,7 +396,6 @@ describe("util", function () {
                 }
             };
 
-            const searchPostsModule = freshRequire("../../../../../src/lib/sources/searchPosts.js");
             const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
                 let baseResult = null;
 
@@ -417,9 +418,10 @@ describe("util", function () {
                     total: 1
                 });
             });
-            sinon.stub(searchPostsModule, "default").callsFake(proxyquiredSearchPosts);
 
-            const getPostsForParsedQuerystringParameters = freshRequire("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js").default;
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
 
             return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
                 expect(postsResult).to.eql(expectedPostsResult);
@@ -428,4 +430,3 @@ describe("util", function () {
         });
     });
 });
-module.exports.default = module.exports;

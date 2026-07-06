@@ -1,7 +1,7 @@
 // @ts-check
-const {DateTime} = require("luxon");
-const Rss = require("rss");
-const packageJson = require("../../package.json");
+import {DateTime} from "luxon";
+import Rss from "rss";
+import packageJson from "../../package.json" with {type: "json"};
 
 /**
  * An object that describes an instance of an RSS Feed
@@ -26,6 +26,6 @@ class RssFeed extends Rss {
     }
 }
 
-module.exports = RssFeed;
-module.exports.RssFeed = RssFeed;
-module.exports.default = module.exports;
+export default RssFeed;
+
+export {RssFeed};

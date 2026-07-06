@@ -1,11 +1,11 @@
-const {Post, POST_STATUS} = require("@randy.tarampi/js");
-const _ = require("lodash");
-const {DateTime} = require("luxon");
-const {AuthInfo} = require("../../authInfo.js");
-const CachedDataSource = require("../../cachedDataSource.js");
-const {filterPostForOrderingConditionsInSearchParams} = require("../util.js");
-const {TwitterAuthInfo} = require("./authInfo.js");
-const {getTwitterClient, type} = require("./util.js");
+import {Post, POST_STATUS} from "@randy.tarampi/js";
+import _ from "lodash";
+import {DateTime} from "luxon";
+import {AuthInfo} from "../../authInfo.js";
+import CachedDataSource from "../../cachedDataSource.js";
+import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
+import {TwitterAuthInfo} from "./authInfo.js";
+import {getTwitterClient, type} from "./util.js";
 
 const dateStringToDateTime = dateString => DateTime.fromFormat(dateString, "EEE MMM dd HH:mm:ss ZZZ yyyy");
 
@@ -226,6 +226,6 @@ class TwitterSource extends CachedDataSource {
     }
 }
 
-module.exports = TwitterSource;
-module.exports.TwitterSource = TwitterSource;
-module.exports.default = module.exports;
+export default TwitterSource;
+
+export {TwitterSource};

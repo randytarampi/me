@@ -33,6 +33,6 @@ const DummyDataClientGenerator = ({
     };
 };
 
-module.exports = DummyDataClientGenerator;
-module.exports.DummyDataClientGenerator = DummyDataClientGenerator;
-module.exports.default = module.exports;
+export default DummyDataClientGenerator;
+
+export {DummyDataClientGenerator};

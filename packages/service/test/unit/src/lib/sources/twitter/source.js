@@ -1,12 +1,12 @@
-const {Post, timedPromise} = require("@randy.tarampi/js");
-const {Big} = require("big.js");
-const {expect} = require("chai");
-const sinon = require("sinon");
-const Twitter = require("twitter").default || require("twitter");
-const PostSearchParams = require("../../../../../../src/lib/postSearchParams.js");
-const {TwitterAuthInfo} = require("../../../../../../src/lib/sources/twitter/authInfo.js");
-const {TwitterSource} = require("../../../../../../src/lib/sources/twitter/source.js");
-const dummyClassesGenerator = require("../../../../../lib/dummyClassesGenerator.js");
+import {Post, timedPromise} from "@randy.tarampi/js";
+import {Big} from "big.js";
+import {expect} from "chai";
+import sinon from "sinon";
+import Twitter from "twitter";
+import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
+import {TwitterAuthInfo} from "../../../../../../src/lib/sources/twitter/authInfo.js";
+import {TwitterSource} from "../../../../../../src/lib/sources/twitter/source.js";
+import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("TwitterSource", function () {
     let stubServiceClient;
@@ -740,4 +740,3 @@ describe("TwitterSource", function () {
         });
     });
 });
-module.exports.default = module.exports;

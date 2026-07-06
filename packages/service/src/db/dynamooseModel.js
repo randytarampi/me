@@ -1,5 +1,5 @@
-const dynamoose = require("dynamoose");
-const logger = require("../serverless/logger.js");
+import dynamoose from "dynamoose";
+import logger from "../serverless/logger.js";
 
 /**
  * Convert a single value into something Dynamoose v4 can persist. Notably, Dynamoose v4 type-checks `Date`
@@ -417,11 +417,6 @@ const recursivelyGet = ({_options, _filter, _query}, modelGetter) => async justF
 };
 
 
-module.exports = DynamooseModel;
-module.exports.recordToDynamoObject = recordToDynamoObject;
-module.exports.buildScanFilter = buildScanFilter;
-module.exports.buildQueryWithFilter = buildQueryWithFilter;
-module.exports.applyScanQueryOptions = applyScanQueryOptions;
-module.exports.recursivelyGet = recursivelyGet;
-module.exports.DynamooseModel = DynamooseModel;
-module.exports.default = module.exports;
+export default DynamooseModel;
+
+export {recordToDynamoObject, buildScanFilter, buildQueryWithFilter, applyScanQueryOptions, recursivelyGet, DynamooseModel};

@@ -1,4 +1,4 @@
-const {OAuth} = require("oauth");
+import {OAuth} from "oauth";
 
 class OAuthClient {
     constructor(requestUrl, tokenUrl) {
@@ -64,6 +64,6 @@ class OAuthClient {
     }
 }
 
-module.exports = OAuthClient;
-module.exports.OAuthClient = OAuthClient;
-module.exports.default = module.exports;
+export default OAuthClient;
+
+export {OAuthClient};
