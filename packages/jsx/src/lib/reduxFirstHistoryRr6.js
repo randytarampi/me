@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Router} from "./reactRouter.cjs";
+import {Router} from "react-router";
 
 export function HistoryRouter({basename, children, history}) {
     const [state, setState] = React.useState({

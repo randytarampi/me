@@ -1,7 +1,7 @@
 import {fromJS, List, Map} from "immutable";
 import {LOCATION_CHANGE} from "redux-first-history";
 import {createSelector} from "reselect";
-import {matchPath} from "../reactRouter.cjs";
+import {matchPath} from "react-router";
 import {SET_CONTROL_STATE, SET_ROUTES, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/index.js";
 
 const initialState = Map({

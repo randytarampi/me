@@ -5,7 +5,7 @@ import {bindKeyboard} from "react-swipeable-views-utils";
 import {compose} from "redux";
 import {swipeableChangeIndexCreator} from "../actions/index.js";
 import selectors from "../data/selectors.js";
-import {useLocation} from "../reactRouter.cjs";
+import {useLocation} from "react-router";
 
 // NOTE-RT: `react-router@7` removed the `withRouter` HOC, so inject the current `location` via the `useLocation` hook.
 export const withLocation = Component => function WithLocation(props) {
