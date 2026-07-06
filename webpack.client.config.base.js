@@ -1,12 +1,11 @@
 import {createRequire} from "module";
 import {dirname, join} from "path";
-import {fileURLToPath} from "url";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import util from "./util.js";
 
 const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = import.meta.dirname;
+const __filename = import.meta.filename;
 process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const config = require("config");
@@ -79,7 +78,19 @@ export default ({
                 "@randy.tarampi/jsx$": join(dirname(require.resolve("@randy.tarampi/jsx/package.json")), "src/index.client.js"),
                 "@randy.tarampi/printables$": join(dirname(require.resolve("@randy.tarampi/printables/package.json")), "src/index.client.js"),
                 "@randy.tarampi/resume$": join(dirname(require.resolve("@randy.tarampi/resume/package.json")), "src/index.client.js"),
-                "@randy.tarampi/letter$": join(dirname(require.resolve("@randy.tarampi/letter/package.json")), "src/index.client.js")
+                "@randy.tarampi/letter$": join(dirname(require.resolve("@randy.tarampi/letter/package.json")), "src/index.client.js"),
+                // NOTE-RT: `immutable@5` ships no `"exports"`/`"browser"` field, so webpack's default
+                // `target: "web"` `mainFields` (`["browser", "module", "main"]`) resolves the bare
+                // `"immutable"` specifier to its real-ESM build (`dist/immutable.es.js`, no default
+                // export) for EVERY consumer in the bundle - including third-party, unmodifiable
+                // pre-compiled CJS code like `redux-immutable`, which does
+                // `_interopRequireDefault(require("immutable")).default.Map` internally. Against a
+                // genuine ESM module with no default export, that `.default` access resolves to
+                // `undefined`, crashing at runtime (`_immutable2.default.Map` is not an object).
+                // Forcing `immutable` to resolve to its CJS/UMD build here fixes this for every
+                // consumer at once, matching what `webpack.publish.config.base.js`'s
+                // `mainFields: ["main", "module"]` already does for the PDF-generation bundles.
+                "immutable$": require.resolve("immutable")
             },
             extensions: [".js", ".jsx", ".json"]
         },
@@ -94,6 +105,20 @@ export default ({
                     test: /\.jsx?$/,
                     exclude: babelLoaderExclusions,
                     type: babelJsType,
+                    // NOTE-RT: needed since `client.esm`'s Babel case (see `babel.config.js`) now
+                    // preserves real `import`/`export` syntax instead of transpiling to CommonJS
+                    // (required for `react-refresh-webpack-plugin`'s own real-ESM preamble to match
+                    // the rest of the module). Once webpack sees genuine ESM syntax originating from
+                    // a `"type": "module"` package, it enforces Node's strict "fully specified"
+                    // import-specifier rule (an extension is mandatory, even for a bare
+                    // `node_modules` subpath import like `lodash/isFunction`) - many existing
+                    // relative/bare imports in this repo predate that rule. Disabling it here keeps
+                    // resolution loose, matching the behaviour every other Babel env already had
+                    // when Babel transpiled ESM to CommonJS `require()` calls (which never enforced
+                    // this rule in the first place).
+                    resolve: {
+                        fullySpecified: false
+                    },
                     loader: "babel-loader",
                     options: {
                         configFile: join(sourceDirectoryPath, "../../babel.config.js"),
@@ -152,18 +177,22 @@ export default ({
             },
             bonjour: true,
             client: {
-                logging: "trace",
+                // NOTE-RT: `webpack-dev-server@5` only accepts none/error/warn/info/log/verbose here;
+                // `"trace"` fails devServer schema validation before Babel/react-refresh is ever reached.
+                logging: "verbose",
                 overlay: true
             },
             compress: true,
             static: {
                 directory: compliationDirectoryPath
             },
+            // NOTE-RT: top-level `devServer.stats` was removed in the webpack-dev-server v4->v5
+            // migration; `stats` now lives under `devMiddleware.stats`.
             devMiddleware: {
-                publicPath
+                publicPath,
+                stats: "normal"
             },
-            port: 8080,
-            stats: "normal"
+            port: 8080
         },
         optimization: {
             splitChunks: {

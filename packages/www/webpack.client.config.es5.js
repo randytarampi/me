@@ -1,11 +1,10 @@
 import {createRequire} from "module";
 import path from "path";
-import {fileURLToPath} from "url";
 import util from "../../util.js";
 import webpackBaseConfig from "./webpack.client.config.base.js";
 
 const require = createRequire(import.meta.url);
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const config = require("config");

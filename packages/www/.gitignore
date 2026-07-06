@@ -40,5 +40,5 @@ node_modules
 .DS_Store
 
 # Compiled resources
-dist
+/dist
 build
