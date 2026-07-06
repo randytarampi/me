@@ -1,5 +1,6 @@
 {
   "name": "jsonresume-theme-randytarampi",
+  "type": "module",
   "description": "A JSON resume theme for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -11,7 +12,7 @@
   "dependencies": {
     "@randy.tarampi/resume": "workspace:*",
     "@randy.tarampi/views": "workspace:*",
-    "config": "^4.4.1",
+    "config": "^5.0.0-alpha.2",
     "core-js": "^3.49.0",
     "resume-cli": "3.7.1"
   },
@@ -69,12 +70,12 @@
   "scripts": {
     "build": "yarn run build:copy && yarn run build:webpack && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm",
-    "build:babel:esm": "BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension",
+    "build:babel:esm": "NODE_ENV=production NODE_CONFIG_ENV=prd BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension && node -e \"require('fs').writeFileSync('esm/package.json', JSON.stringify({type:'commonjs'}))\"",
     "build:copy": "mkdir -p dist && yarn build:copy:index.pug && yarn build:copy:layout.pug && yarn build:copy:styles.css && cp *.md dist/",
     "build:copy:index.pug": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/views/package.json\")), \"templates/index.pug\")') ./dist/index.pug",
     "build:copy:layout.pug": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/views/package.json\")), \"templates/layout.pug\")') ./dist/layout.pug",
     "build:copy:styles.css": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/resume/package.json\")), \"dist/styles.css\")') ./dist/styles.css",
-    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config.js",
+    "build:webpack": "NODE_ENV=production NODE_CONFIG_ENV=prd PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config.js && node -e \"require('fs').writeFileSync('es5/package.json', JSON.stringify({type:'commonjs'}))\"",
     "clean": "gulp -LLLL --color clean",
     "docs": "mkdir -p docs && cp -r dist/* docs",
     "kill:server": "bash -c 'if [ -f /tmp/ca.randytarampi.me.jsonresume-theme.server.pid ]; then echo \"Killing server ($(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid)) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"; kill -9 $(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid) 2>/dev/null || true; rm /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; fi'",

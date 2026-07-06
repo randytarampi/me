@@ -1,5 +1,6 @@
 {
   "name": "@randy.tarampi/views",
+  "type": "module",
   "description": "Some common Pug templates for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -10,7 +11,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "workspace:*",
-    "config": "^4.4.1"
+    "config": "^5.0.0-alpha.2"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
@@ -42,9 +43,9 @@
   "scripts": {
     "build": "yarn run build:gulp && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm && yarn run build:babel:es5",
-    "build:babel:es5": "cross-env-shell BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files --keep-file-extension",
-    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension",
-    "build:gulp": "gulp -LLLL --color build",
+    "build:babel:es5": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files --keep-file-extension && node -e \"require('fs').writeFileSync('es5/package.json', JSON.stringify({type:'commonjs'}))\"",
+    "build:babel:esm": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension && node -e \"require('fs').writeFileSync('esm/package.json', JSON.stringify({type:'commonjs'}))\"",
+    "build:gulp": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",

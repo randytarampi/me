@@ -1,5 +1,6 @@
 {
   "name": "@randy.tarampi/css",
+  "type": "module",
   "description": "Some common styles for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -29,7 +30,7 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "scripts": {
-    "build": "gulp -LLLL --color build",
+    "build": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
