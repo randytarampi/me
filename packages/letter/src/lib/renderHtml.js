@@ -1,12 +1,13 @@
 import {renderHtml as genericRenderHtml} from "../../../printables/src/lib/html.js";
-import path, {dirname} from "path";
-import {readFileSync} from "fs";
-import {fileURLToPath} from "url";
+import path from "path";
 
-import LetterComponent from "../public/views/serverApp.js";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
+import LetterComponent from "../public/views/serverApp.jsx";
+// NOTE-RT: a static JSON import (rather than `readFileSync` + a computed `__dirname`/
+// `import.meta.url` path) resolves correctly regardless of the caller's working directory,
+// and works consistently whether this file runs as real ESM, is compiled to CommonJS by
+// Babel, or is bundled by webpack (e.g. jsonresume-theme's publish bundle) - matching the
+// existing pattern already used for `resume.json`/`letter.json` in `index.client.js`.
+import packageJson from "../../package.json" with {type: "json"};
 
 export const renderHtml = (options = {}) => {
     const printable = options.printable || options;

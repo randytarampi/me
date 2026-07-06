@@ -1,11 +1,10 @@
 import {createRequire} from "module";
 import path from "path";
-import {fileURLToPath} from "url";
 import baseGulpfile from "../../gulpfile.base.js";
 
 const require = createRequire(import.meta.url);
 require("../../babel.register.cjs");
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
@@ -30,7 +29,7 @@ const buildPrintablesParameters = () => {
     const path = require("path");
     const config = require("config");
     const packageJson = require("./package");
-    const printableComponent = require("./src/public/views/serverApp").default;
+    const printableComponent = require("./src/public/views/serverApp.jsx").default;
     const printableBuilder = require("./src/lib/buildResume").default;
 
     return {
@@ -49,7 +48,7 @@ const buildPrintablesParameters = () => {
 };
 
 gulp.task("resume:pdf", async () => {
-    const server = require("./server");
+    const server = (await import("./server.js")).default;
     const {renderPrintablesToPdf} = require("@randy.tarampi/printables");
 
     return renderPrintablesToPdf(buildPrintablesParameters())
