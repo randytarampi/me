@@ -1,5 +1,9 @@
 import {Person} from "../../../js/src/index.js";
-import config from "config";
+// NOTE-RT: `config@5.0.0-alpha.2` doesn't declare an `"exports"` map yet, so a bare
+// `import config from "config"` would still resolve the package's CJS `"main"` field. This
+// file runs directly under plain Node (server-side rendering, not webpack-bundled), so it
+// uses the explicit ESM subpath to get config's real ESM entry point.
+import config from "config/lib/config.mjs";
 
 export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) => {
     const mePerson = config.has("me.person") ? Person.fromJSON(config.get("me.person")) : null;
