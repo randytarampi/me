@@ -1,11 +1,10 @@
 import {createRequire} from "module";
 import path from "path";
-import {fileURLToPath} from "url";
 import baseGulpfile from "../../gulpfile.base.js";
 
 const require = createRequire(import.meta.url);
 require("../../babel.register.cjs");
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 process.env.NODE_CONFIG_DIR = path.join(__dirname, "../../config");
 
 const gulp = require("gulp");
@@ -105,7 +104,7 @@ const renderJobApplication = name => {
 
 gulp.task("job-application:pdf", async () => {
     const args = require("yargs").argv;
-    const server = require("./server");
+    const server = (await import("./server.js")).default;
 
     return renderJobApplication(args.file || args.name)
         .then(() => server.close())
@@ -119,7 +118,7 @@ gulp.task("job-applications", async () => {
     const fs = require("fs");
     const os = require("os");
     const Promise = require("bluebird");
-    const server = require("./server");
+    const server = (await import("./server.js")).default;
 
     return new Promise((resolve, reject) => {
         fs.readdir(path.join(__dirname, "src/job-applications"), (error, files) => {
