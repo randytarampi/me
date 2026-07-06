@@ -1,4 +1,4 @@
-const metroVancouver = require("../../organizations/metroVancouver");
+const metroVancouver = require("../../organizations/metroVancouver.cjs");
 
 module.exports = {
     entity: metroVancouver,

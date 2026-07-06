@@ -1,4 +1,4 @@
-const sfu = require("../../organizations/sfu");
+const sfu = require("../../organizations/sfu.cjs");
 
 module.exports = {
     entity: sfu,

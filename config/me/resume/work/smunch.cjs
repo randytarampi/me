@@ -1,4 +1,4 @@
-const smunch = require("../../organizations/smunch");
+const smunch = require("../../organizations/smunch.cjs");
 
 module.exports = {
     entity: smunch,

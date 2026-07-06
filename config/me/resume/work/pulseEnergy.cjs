@@ -1,4 +1,4 @@
-const pulseEnergy = require("../../organizations/pulseEnergy");
+const pulseEnergy = require("../../organizations/pulseEnergy.cjs");
 
 module.exports = {
     entity: pulseEnergy,

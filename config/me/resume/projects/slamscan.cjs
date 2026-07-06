@@ -1,4 +1,4 @@
-const fetchAuto = require("../../organizations/fetchAuto");
+const fetchAuto = require("../../organizations/fetchAuto.cjs");
 
 module.exports = {
     entity: fetchAuto,

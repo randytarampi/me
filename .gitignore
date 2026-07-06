@@ -63,6 +63,10 @@ esm
 .webpack
 *.pdf_original
 
+# Except the headless bundle smoke test, which lives in a directory named `dist` on purpose
+!packages/www/test/integration/dist/
+!packages/www/test/integration/dist/**
+
 # Environment variables
 .env
 
@@ -73,7 +77,7 @@ esm
 .secrets.*.yml
 
 # Local configuration
-config/local.js
+config/local.cjs
 
 # Test result reports
 pretest-results.xml

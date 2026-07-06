@@ -1,4 +1,4 @@
-const yardi = require("../../organizations/yardi");
+const yardi = require("../../organizations/yardi.cjs");
 
 module.exports = {
     entity: yardi,

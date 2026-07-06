@@ -1,5 +1,5 @@
-const person = require("../../persons/me");
-const {buildResumeProfilesByName} = require("../../util");
+const person = require("../../persons/me/index.cjs");
+const {buildResumeProfilesByName} = require("../../util.cjs");
 
 module.exports = {
     ...person,

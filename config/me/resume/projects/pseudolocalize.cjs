@@ -1,4 +1,4 @@
-const me = require("../../organizations/me");
+const me = require("../../organizations/me.cjs");
 
 module.exports = {
     entity: me,

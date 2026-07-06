@@ -1,4 +1,4 @@
-const deed = require("../../organizations/deed");
+const deed = require("../../organizations/deed.cjs");
 
 module.exports = {
     entity: deed,

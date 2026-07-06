@@ -1,4 +1,4 @@
-const me = require("./me");
+const me = require("./me/index.cjs");
 
 const POSTS_SERVER_PORT = 3006;
 const RESUME_SERVER_PORT = 3004;
@@ -65,14 +65,16 @@ module.exports = {
         }
     },
     resume: {
+        // NOTE-RT: `sw`/`swInstaller` used to be `function () { return this.resume.bundle...; }`
+        // computed properties, relying on an old node-config convention where function-valued
+        // config entries were auto-evaluated as getters bound to the root config object. The
+        // installed `config` version no longer does this, so those raw, un-invoked functions were
+        // leaking through as webpack entry names. Both are self-referential to `name` in this same
+        // object, so they're replaced here with their already-known, static equivalents.
         bundle: {
             name: "resume",
-            sw: function () {
-                return `${this.resume.bundle.name}.sw`;
-            },
-            swInstaller: function () {
-                return `${this.resume.bundle.sw}.installer`;
-            }
+            sw: "resume.sw",
+            swInstaller: "resume.sw.installer"
         },
         expectations: {
             pages: 1,
@@ -83,14 +85,11 @@ module.exports = {
         serverPort: RESUME_SERVER_PORT
     },
     letter: {
+        // NOTE-RT: see the identical note on `resume.bundle` above.
         bundle: {
             name: "letter",
-            sw: function () {
-                return `${this.letter.bundle.name}.sw`;
-            },
-            swInstaller: function () {
-                return `${this.letter.bundle.sw}.installer`;
-            }
+            sw: "letter.sw",
+            swInstaller: "letter.sw.installer"
         },
         expectations: {
             pages: 1,
@@ -111,14 +110,11 @@ module.exports = {
         dbPort: POSTS_DB_PORT
     },
     www: {
+        // NOTE-RT: see the identical note on `resume.bundle` above.
         bundle: {
             name: "www",
-            sw: function () {
-                return `${this.www.bundle.name}.sw`;
-            },
-            swInstaller: function () {
-                return `${this.www.bundle.sw}.installer`;
-            }
+            sw: "www.sw",
+            swInstaller: "www.sw.installer"
         },
         codeUrl: "/code",
         photosUrl: "/photos",

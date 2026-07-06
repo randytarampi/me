@@ -1,4 +1,4 @@
-const windermereCommunityPrograms = require("../../organizations/windermereCommunityPrograms");
+const windermereCommunityPrograms = require("../../organizations/windermereCommunityPrograms.cjs");
 
 module.exports = {
     entity: windermereCommunityPrograms,

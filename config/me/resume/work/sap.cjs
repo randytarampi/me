@@ -1,4 +1,4 @@
-const sap = require("../../organizations/sap");
+const sap = require("../../organizations/sap.cjs");
 
 module.exports = {
     entity: sap,

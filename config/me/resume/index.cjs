@@ -1,25 +1,25 @@
-const basics = require("./basics");
+const basics = require("./basics/index.cjs");
 
-const deed = require("./work/deed");
-const smunch = require("./work/smunch");
-const fetchAuto = require("./work/fetchAuto");
-const yardi = require("./work/yardi");
-const pulseEnergy = require("./work/pulseEnergy");
-const metroVancouver = require("./work/metroVancouver");
-const sap = require("./work/sap");
-const sfuWork = require("./work/sfu");
+const deed = require("./work/deed.cjs");
+const smunch = require("./work/smunch.cjs");
+const fetchAuto = require("./work/fetchAuto.cjs");
+const yardi = require("./work/yardi.cjs");
+const pulseEnergy = require("./work/pulseEnergy.cjs");
+const metroVancouver = require("./work/metroVancouver.cjs");
+const sap = require("./work/sap.cjs");
+const sfuWork = require("./work/sfu.cjs");
 
-const sfuVolunteer = require("./volunteer/sfu");
-const windermereCommunityPrograms = require("./volunteer/windermereCommunityPrograms");
+const sfuVolunteer = require("./volunteer/sfu.cjs");
+const windermereCommunityPrograms = require("./volunteer/windermereCommunityPrograms.cjs");
 
-const blog = require("./projects/blog");
-const letter = require("./projects/letter");
-const pseudoimage = require("./projects/pseudoimage");
-const pseudolocalize = require("./projects/pseudolocalize");
-const resume = require("./projects/resume");
-const slamscan = require("./projects/slamscan");
+const blog = require("./projects/blog.cjs");
+const letter = require("./projects/letter.cjs");
+const pseudoimage = require("./projects/pseudoimage.cjs");
+const pseudolocalize = require("./projects/pseudolocalize.cjs");
+const resume = require("./projects/resume.cjs");
+const slamscan = require("./projects/slamscan.cjs");
 
-const sfuEducation = require("./education/sfu");
+const sfuEducation = require("./education/sfu.cjs");
 
 module.exports = {
     basics,

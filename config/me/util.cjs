@@ -1,4 +1,4 @@
-const profiles = require("./profiles");
+const profiles = require("./profiles.cjs");
 
 const mapProfileToResumeProfile = (network, profile) => {
     return Object.assign({network}, profile);
