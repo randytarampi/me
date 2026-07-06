@@ -20,7 +20,7 @@ describe("renderPrintablesToHtml", function () {
         });
         const printableDestinationDirectory = path.resolve("test/resources/output");
 
-        fs.mkdirSync(printableDestinationDirectory, {recursive: true});
+        sinon.stub(fs.promises, "mkdir").returns(Promise.resolve());
         sinon.stub(fs, "writeFile").callsFake((filePath, file, callback) => callback());
 
         const files = await renderPrintablesToHtml({
@@ -31,6 +31,9 @@ describe("renderPrintablesToHtml", function () {
             printableRenderOptions: {woof: "meow"},
             printableDestinationDirectory
         });
+
+        expect(fs.promises.mkdir.calledOnce).to.be.ok;
+        sinon.assert.calledWithExactly(fs.promises.mkdir, printableDestinationDirectory, {recursive: true});
 
         expect(files).to.have.length(3);
         expect(fs.writeFile.callCount).to.eql(3);
@@ -47,6 +50,7 @@ describe("renderPrintablesToHtml", function () {
         });
         const printableDestinationDirectory = path.resolve("test/resources/output");
 
+        sinon.stub(fs.promises, "mkdir").returns(Promise.resolve());
         sinon.stub(fs, "writeFile").throws(new Error("woof"));
 
         try {
@@ -74,6 +78,7 @@ describe("renderPrintablesToHtml", function () {
         });
         const printableDestinationDirectory = path.resolve("test/resources/output");
 
+        sinon.stub(fs.promises, "mkdir").returns(Promise.resolve());
         sinon.stub(fs, "writeFile").callsFake((filePath, file, callback) => callback(new Error("meow")));
 
         try {
@@ -88,6 +93,33 @@ describe("renderPrintablesToHtml", function () {
             throw new Error("Wtf? This should've thrown");
         } catch (error) {
             expect(error.message).to.eql("meow");
+        }
+    });
+
+    it("handles `fs.promises.mkdir` errors", async function () {
+        const printableComponent = ({printable}) => React.createElement("div", null, printable.name);
+        const printableStylesPath = path.resolve("test/resources/styles.css");
+        const printableTemplateDirectory = path.resolve("test/resources/printables");
+        const printableBuilder = (printableJson, printableFilename) => ({
+            ...printableJson,
+            filename: printableFilename
+        });
+        const printableDestinationDirectory = path.resolve("test/resources/output");
+
+        sinon.stub(fs.promises, "mkdir").returns(Promise.reject(new Error("grr")));
+
+        try {
+            await renderPrintablesToHtml({
+                printableComponent,
+                printableStylesPath,
+                printableBuilder,
+                printableTemplateDirectory,
+                printableRenderOptions: {woof: "meow"},
+                printableDestinationDirectory
+            });
+            throw new Error("Wtf? This should've thrown");
+        } catch (error) {
+            expect(error.message).to.eql("grr");
         }
     });
 });

@@ -10,13 +10,16 @@ export const renderPrintablesToHtml = ({
                                            printableRenderOptions,
                                            printableDestinationDirectory
                                        }) => {
-    return renderPrintablesHtml({
-        printableComponent,
-        printableStylesPath,
-        printableBuilder,
-        printableTemplateDirectory,
-        printableRenderOptions
-    })
+    // NOTE-RT: `fs.writeFile` doesn't create missing parent directories - it just fails with `ENOENT`.
+    // NOTE-RT: Ensure the destination directory exists before we ever try to write into it.
+    return fs.promises.mkdir(printableDestinationDirectory, {recursive: true})
+        .then(() => renderPrintablesHtml({
+            printableComponent,
+            printableStylesPath,
+            printableBuilder,
+            printableTemplateDirectory,
+            printableRenderOptions
+        }))
         .then(printableHtmlPairs => Promise.all(printableHtmlPairs.map(({printableHtml, printable}) => new Promise((resolve, reject) => {
             try {
                 return fs.writeFile(path.join(printableDestinationDirectory, `${printable.filename}.html`), printableHtml, error => {

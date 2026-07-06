@@ -1,8 +1,13 @@
 import {ExifTool} from "exiftool-vendored";
+import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
 
 export const renderPdf = async ({printableHtml, printable, printableDestinationDirectory}) => {
+    // NOTE-RT: Puppeteer doesn't create missing parent directories when writing a PDF to a path - it just
+    // NOTE-RT: fails with `ENOENT`. Ensure the destination directory exists before we ever try to write into it.
+    await fs.promises.mkdir(printableDestinationDirectory, {recursive: true});
+
     const exifTool = new ExifTool();
     const puppeteerLaunchArgs = [];
 

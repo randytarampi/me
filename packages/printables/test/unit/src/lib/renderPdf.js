@@ -1,5 +1,6 @@
 import {expect} from "chai";
 import * as exiftoolModule from "exiftool-vendored";
+import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
 import sinon from "sinon";
@@ -19,6 +20,7 @@ describe("renderPdf", function () {
     let stubExifToolRead;
     let stubExifToolWrite;
     let stubExifToolEnd;
+    let stubFsPromisesMkdir;
 
     beforeEach(function () {
         stubActualPages = 1;
@@ -38,6 +40,8 @@ describe("renderPdf", function () {
                 rawr: "argh"
             }
         };
+
+        stubFsPromisesMkdir = sinon.stub(fs.promises, "mkdir").returns(Promise.resolve());
 
         stubPuppeteerPage = {
             emulateMediaType: sinon.stub().returns(Promise.resolve()),
@@ -64,8 +68,22 @@ describe("renderPdf", function () {
         stubExifToolRead.restore();
         stubExifToolWrite.restore();
         stubExifToolEnd.restore();
+        stubFsPromisesMkdir.restore();
 
         process.env.PRINTABLE_PUPPETEER_NO_SANDBOX = PRINTABLE_PUPPETEER_NO_SANDBOX;
+    });
+
+    it("creates the destination directory before launching `puppeteer`", function () {
+        return renderPdf({
+            printableHtml: stubPrintableHtml,
+            printable: stubPrintable,
+            printableDestinationDirectory: stubPrintableDestinationDirectory
+        })
+            .then(() => {
+                expect(stubFsPromisesMkdir.calledOnce).to.be.ok;
+                sinon.assert.calledWithExactly(stubFsPromisesMkdir, stubPrintableDestinationDirectory, {recursive: true});
+                expect(stubFsPromisesMkdir.calledBefore(puppeteer.launch)).to.be.ok;
+            });
     });
 
     it("is hooked into `puppeteer` correctly", function () {
