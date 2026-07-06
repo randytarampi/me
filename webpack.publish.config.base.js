@@ -1,11 +1,10 @@
 import {createRequire} from "module";
-import {dirname, join} from "path";
-import {fileURLToPath} from "url";
+import {join} from "path";
 import util from "./util.js";
 
 const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = import.meta.dirname;
+const __filename = import.meta.filename;
 process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");

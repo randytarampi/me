@@ -1,11 +1,9 @@
 import {createRequire} from "module";
-import path from "path";
-import {fileURLToPath} from "url";
 import baseGulpfile from "../../gulpfile.base.js";
 
 const require = createRequire(import.meta.url);
 require("../../babel.register.cjs");
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 
 const gulp = require("gulp");
 
