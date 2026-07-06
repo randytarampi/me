@@ -12,7 +12,7 @@
     "babel-plugin-istanbul": "^8.0.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-minify-replace": "^0.5.0",
-    "config": "^4.4.1",
+    "config": "^5.0.0-alpha.2",
     "copy-webpack-plugin": "^14.0.0",
     "core-js": "^3.49.0",
     "cross-env": "^10.1.0",
@@ -75,7 +75,7 @@
   "repository": "randytarampi/me.git",
   "scripts": {
     "bootstrap": "yarn install",
-    "build": "lerna run build --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
+    "build": "cross-env-shell NODE_ENV=production NODE_CONFIG_ENV=prd lerna run build --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "clean": "./bin/clean.sh",
     "cover": "yarn run cover:actual; yarn run cover:collect",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
