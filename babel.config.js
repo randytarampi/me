@@ -321,6 +321,61 @@ const rewriteEsmSpecifierExtensions = ({types: t}) => {
     };
 };
 
+// NOTE-RT: only used by the "client.esm" case's genuine-ESM library build output (gated behind
+// `BABEL_ESM_STANDALONE_BUILD`, same as `rewriteEsmSpecifierExtensions` above). A couple of source
+// files (e.g. `packages/resume/src/lib/containers/resume.jsx`, `packages/letter/src/lib/
+// components/letter/index.jsx`) use a bare `require(...)` to optionally/dynamically load
+// gitignored, user-supplied local content - this works unmodified in webpack bundles (where a bare
+// `require` is webpack's own always-available native primitive, regardless of ESM/CJS output) and
+// used to work in this same standalone build back when it still compiled to CommonJS (Node
+// provides a real ambient `require` in any CJS module). Now that this build's output is genuine
+// ESM, there's no ambient `require` unless one is explicitly created - this plugin detects any
+// bare, unbound `require(...)` call in a file and injects a real `createRequire`-backed local
+// `require` binding for it, so those call sites keep working completely unchanged.
+const injectRequireShimForStandaloneEsm = ({types: t}) => {
+    return {
+        name: "inject-require-shim-for-standalone-esm",
+        visitor: {
+            Program: {
+                exit(path) {
+                    let usesBareRequire = false;
+
+                    path.traverse({
+                        CallExpression(innerPath) {
+                            if (
+                                t.isIdentifier(innerPath.node.callee, {name: "require"}) &&
+                                !innerPath.scope.getBinding("require")
+                            ) {
+                                usesBareRequire = true;
+                            }
+                        }
+                    });
+
+                    if (!usesBareRequire) {
+                        return;
+                    }
+
+                    path.unshiftContainer("body", t.variableDeclaration("const", [
+                        t.variableDeclarator(
+                            t.identifier("require"),
+                            t.callExpression(t.identifier("createRequire"), [
+                                t.memberExpression(
+                                    t.metaProperty(t.identifier("import"), t.identifier("meta")),
+                                    t.identifier("url")
+                                )
+                            ])
+                        )
+                    ]));
+                    path.unshiftContainer("body", t.importDeclaration(
+                        [t.importSpecifier(t.identifier("createRequire"), t.identifier("createRequire"))],
+                        t.stringLiteral("module")
+                    ));
+                }
+            }
+        }
+    };
+};
+
 export default (api) => {
     let presets = [
         [
@@ -377,35 +432,6 @@ export default (api) => {
             break;
         }
 
-        case "client": {
-            if (isDevelopment) {
-                // NOTE-RT: `react-refresh/babel` has its own internal guard that independently
-                // requires Babel's own env name (`api.env()`) to literally be "development", but this
-                // repo's custom env-name scheme (`client`, `client.esm`, ...) never uses
-                // that literal value for real dev-server invocations. `isDevelopment` above is already
-                // the authoritative, fail-safe (opt-in on `NODE_ENV`/`BABEL_ENV` === "development")
-                // gate for this plugin, so it's safe to skip the plugin's own redundant internal check.
-                plugins.push(["react-refresh/babel", {skipEnvCheck: true}]);
-            }
-            presets = [
-                [
-                    "@babel/preset-env",
-                    {
-                        forceAllTransforms: true,
-                        modules: "commonjs"
-                    }
-                ],
-                [
-                    "@babel/preset-react",
-                    {
-                        runtime: "automatic",
-                        development: isDevelopment
-                    }
-                ]
-            ];
-            break;
-        }
-
         // NOTE-RT: `client.esm` is used for both (1) every package's own `build:babel:esm` script,
         // which Babel-transpiles `src` into a standalone, genuinely-ESM `esm/` output directory
         // (real `import`/`export` syntax, no CJS stamp), and (2) `packages/www`'s own
@@ -418,7 +444,12 @@ export default (api) => {
         // "client.esm" + "client.esm.webpack" back when the library build still needed CommonJS).
         case "client.esm": {
             if (isDevelopment) {
-                // NOTE-RT: see the identical note in the "client" case above.
+                // NOTE-RT: `react-refresh/babel` has its own internal guard that independently
+                // requires Babel's own env name (`api.env()`) to literally be "development", but this
+                // repo's custom env-name scheme (`client.esm`, ...) never uses that literal value for
+                // real dev-server invocations. `isDevelopment` above is already the authoritative,
+                // fail-safe (opt-in on `NODE_ENV`/`BABEL_ENV` === "development") gate for this plugin,
+                // so it's safe to skip the plugin's own redundant internal check.
                 plugins.push(["react-refresh/babel", {skipEnvCheck: true}]);
             }
             if (process.env.BABEL_ESM_STANDALONE_BUILD === "true") {
@@ -430,6 +461,7 @@ export default (api) => {
                 // `resolve.extensionAlias` to follow a rewritten `.js` specifier back to an actual
                 // `.jsx` source file, which the `www` bundle doesn't (and shouldn't need to) set up.
                 plugins.push(rewriteEsmSpecifierExtensions);
+                plugins.push(injectRequireShimForStandaloneEsm);
             }
             presets = [
                 [
