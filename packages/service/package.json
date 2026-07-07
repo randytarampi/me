@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "aws-dynamodb-local": "^0.0.14",
-    "chai": "^4.5.0",
+    "chai": "^6.2.2",
     "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^10.1.0",
     "esmock": "^2.7.6",

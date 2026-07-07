@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.7.2",
-    "chai": "^4.5.0",
+    "chai": "^6.2.2",
     "cheerio": "^1.2.0",
     "config": "^5.0.0-alpha.2",
     "cross-env": "^10.1.0",

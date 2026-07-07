@@ -23,7 +23,7 @@
     "query-string": "^9.4.1"
   },
   "devDependencies": {
-    "chai": "^4.5.0",
+    "chai": "^6.2.2",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
     "mocha-junit-reporter": "^2.2.1"
