@@ -367,16 +367,16 @@ export default (api) => {
             break;
         }
 
-        // NOTE-RT: `client.esm` is used for TWO genuinely different purposes that happen to share
-        // this env name: (1) every package's own `build:babel:esm` script, which Babel-transpiles
-        // `src` into a standalone `esm/` output directory that's still `require()`'d as CommonJS
-        // elsewhere (its own `esm/package.json` explicitly declares `{"type": "commonjs"}`) - this
-        // needs `modules: "commonjs"`, same as `publish`; and (2) `packages/www`'s own
-        // `webpack.client.config.esm.js` dev-server bundle, which needs real ESM (`modules: false`)
-        // for `react-refresh-webpack-plugin` interop (see the dedicated "client.esm.webpack" case
-        // below). These must NOT share the same `modules` setting, so they're intentionally kept as
-        // separate env names/cases instead of being merged.
-        case "publish":
+        // NOTE-RT: `client.esm` is used for both (1) every package's own `build:babel:esm` script,
+        // which Babel-transpiles `src` into a standalone, genuinely-ESM `esm/` output directory
+        // (real `import`/`export` syntax, no CJS stamp), and (2) `packages/www`'s own
+        // `webpack.client.config.esm.js` dev-server bundle, which also needs real ESM
+        // (`modules: false`) for `react-refresh-webpack-plugin` interop - webpack wraps ESM-syntax
+        // modules with its own Harmony-style `__webpack_exports__` parameter, and mismatching that
+        // with Babel-compiled CommonJS crashes at runtime with
+        // `ReferenceError: exports is not defined in ES module scope`. Since both purposes now need
+        // the same `modules: false` setting, they share this single case (previously split into
+        // "client.esm" + "client.esm.webpack" back when the library build still needed CommonJS).
         case "client.esm": {
             if (isDevelopment) {
                 // NOTE-RT: see the identical note in the "client" case above.
@@ -389,47 +389,6 @@ export default (api) => {
                         targets: {
                             esmodules: true
                         },
-                        modules: "commonjs"
-                    }
-                ],
-                [
-                    "@babel/preset-react",
-                    {
-                        runtime: "automatic",
-                        development: isDevelopment
-                    }
-                ]
-            ];
-            break;
-        }
-
-        case "client.esm.webpack": {
-            if (isDevelopment) {
-                // NOTE-RT: see the identical note in the "client" case above.
-                plugins.push(["react-refresh/babel", {skipEnvCheck: true}]);
-            }
-            presets = [
-                [
-                    "@babel/preset-env",
-                    {
-                        targets: {
-                            esmodules: true
-                        },
-                        // NOTE-RT: unlike every other case, `modules` stays `false` here so Babel
-                        // preserves real ES module `import`/`export` syntax instead of transpiling
-                        // to CommonJS. This is the standard, documented way to pair webpack + Babel +
-                        // `react-refresh-webpack-plugin` (only active when `isDevelopment`): the
-                        // plugin injects its own real-ESM preamble into every module it instruments,
-                        // and webpack wraps ESM-syntax modules with its own Harmony-style
-                        // `__webpack_exports__` parameter - if Babel had already transpiled the rest
-                        // of the module body to CommonJS's bare `exports` identifier instead, the two
-                        // conventions mismatch and crash at runtime with
-                        // `ReferenceError: exports is not defined in ES module scope`. This is a
-                        // dedicated env name (NOT reused from `client.esm` above) specifically because
-                        // `client.esm` is also used for every package's own `build:babel:esm` library
-                        // transpile step, which needs `modules: "commonjs"` instead (see the note
-                        // above) - only `packages/www`'s own webpack dev-server ESM bundle
-                        // (`webpack.client.config.esm.js`) sets `babelEnv: "client.esm.webpack"`.
                         modules: false
                     }
                 ],

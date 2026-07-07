@@ -38,12 +38,10 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
 }
 
 export default webpackBaseConfig({
-    // NOTE-RT: intentionally NOT "client.esm" - that env name is also used by every package's own
-    // `build:babel:esm` library-transpile script, which needs `modules: "commonjs"` (its `esm/`
-    // output directory is still `require()`'d as CommonJS elsewhere). This webpack dev-server/build
-    // bundle instead needs real ESM (`modules: false`) for `react-refresh-webpack-plugin` interop -
-    // see `babel.config.js`'s dedicated "client.esm.webpack" case for the full explanation.
-    babelEnv: "client.esm.webpack",
+    // NOTE-RT: every package's own `build:babel:esm` library-transpile script and this webpack
+    // dev-server/build bundle now share the same "client.esm" env (both need real ESM
+    // `modules: false` output) - see `babel.config.js`'s "client.esm" case for the full explanation.
+    babelEnv: "client.esm",
     // babelJsType: "javascript/esm",
     rules: [],
 

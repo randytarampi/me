@@ -18,7 +18,7 @@ const {buildPugLocals} = require("@randy.tarampi/views");
 
 const {isDevelopment} = util;
 
-// NOTE-RT: the web build is ESM-only (see `babel.config.js`'s "client.esm.webpack" case); this
+// NOTE-RT: the web build is ESM-only (see `babel.config.js`'s "client.esm" case); this
 // bundle name mirrors `packages/www/webpack.client.config.esm.js`'s own `.esm`-suffixed entry so
 // `packages/views/templates/layout.pug`'s (now unconditional) `type="module"` script tags find
 // the actual emitted files.
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.t
 export default webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
-    babelEnv: "client.esm.webpack",
+    babelEnv: "client.esm",
     webpackDevServerMiddleware: [
         (app) => app.use("/api/letter", express.static("./src/letters")),
     ],
