@@ -2,7 +2,7 @@ import {Map} from "immutable";
 import {createSelector} from "reselect";
 import {FETCHING_RESUME_SUCCESS} from "../actions/fetchResume.js";
 import Resume from "../resume.browser.js";
-import defaultResume from "../../resumes/resume.json";
+import defaultResume from "../../resumes/resume.json" with {type: "json"};
 
 const defaultVariant = "resume";
 const defaultState = Map({

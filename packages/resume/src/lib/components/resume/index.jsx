@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Helmet} from "react-helmet";
 import {Container} from "react-materialize";
-import defaultResume from "../../../resumes/resume.json";
+import defaultResume from "../../../resumes/resume.json" with {type: "json"};
 import Resume from "../../resume.js";
 import ResumeAbout from "./content/about.jsx";
 import ResumeAwards from "./content/awards/index.jsx";
