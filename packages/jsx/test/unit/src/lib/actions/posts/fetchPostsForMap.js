@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {expect} = require("chai");
 const {fromJS, Map, Set} = require("immutable");
 const {DateTime} = require("luxon");

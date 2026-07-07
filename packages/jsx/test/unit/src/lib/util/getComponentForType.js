@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {Gallery, LinkPost, Photo, Post} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const getComponentForType = require("../../../../../src/lib/util/getComponentForType.js").default || require("../../../../../src/lib/util/getComponentForType.js");

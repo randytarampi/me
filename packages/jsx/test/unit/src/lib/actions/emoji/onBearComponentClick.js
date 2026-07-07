@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {Bear, defaultBearComponents} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const {Map} = require("immutable");

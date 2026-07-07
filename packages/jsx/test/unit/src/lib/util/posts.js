@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {Photo, Post} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const {List} = require("immutable");

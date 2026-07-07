@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {expect} = require("chai");
 const {LOCATION_CHANGE} = require("redux-first-history");
 const sinon = require("sinon");

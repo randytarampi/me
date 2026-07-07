@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {expect} = require("chai");
 const {fromJS} = require("immutable");
 const configureStore = require("redux-mock-store");

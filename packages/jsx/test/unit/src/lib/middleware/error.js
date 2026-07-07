@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {expect} = require("chai");
 const sinon = require("sinon");
 const {CLEAR_ERROR} = require("../../../../../src/lib/actions/error/clearError.js");

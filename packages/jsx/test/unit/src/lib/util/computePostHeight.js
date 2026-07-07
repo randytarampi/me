@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {Photo} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const {JSDOM} = require("jsdom");

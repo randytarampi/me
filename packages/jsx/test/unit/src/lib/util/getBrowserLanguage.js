@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {expect} = require("chai");
 const getBrowserLanguage = require("../../../../../src/lib/util/getBrowserLanguage.js").default || require("../../../../../src/lib/util/getBrowserLanguage.js");
 

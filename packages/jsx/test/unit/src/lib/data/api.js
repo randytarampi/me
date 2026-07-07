@@ -1,3 +1,7 @@
+import {createRequire} from "module";
+
+const require = createRequire(import.meta.url);
+
 const {expect} = require("chai");
 const {fromJS, Map} = require("immutable");
 const {createAction} = require("redux-actions");
