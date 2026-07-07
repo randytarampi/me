@@ -169,9 +169,22 @@ export default ({
                 },
                 {
                     test: /\.(eot|ttf|woff|woff2|svg|gif|png|ico)$/,
-                    loader: "file-loader",
-                    options: {
-                        name: "[name].[ext]"
+                    // NOTE-RT: previously `loader: "file-loader"` with `options: {name: "[name].[ext]"}`.
+                    // `@fortawesome/fontawesome-free`'s own `regular.scss`/`solid.scss` partials (pulled in
+                    // via `packages/css/styles/fonts.scss`) declare `@font-face src: url(...)` for these
+                    // same font files, which `css-loader`/`mini-css-extract-plugin` resolve as a *module
+                    // import* of this same source file, independent of any `file-loader`-produced module for
+                    // the identical resource. Mixing a `file-loader`-based rule with that second resolution
+                    // path caused webpack to additionally emit a second, corrupted copy of each affected font
+                    // under a content-hash filename (e.g. `db5e5ccecfbcc73d03fa.woff2`) as an "auxiliary
+                    // asset" of the `styles` chunk - its content was `file-loader`'s own generated JS wrapper
+                    // source, not real font bytes, so the URL still 200'd but the browser couldn't parse it
+                    // as a font. Using webpack5's native Asset Modules (`type: "asset/resource"`) instead -
+                    // the mechanism `css-loader`'s own resolution already expects - makes both paths agree
+                    // on a single, correctly-named/contented emitted asset per source file.
+                    type: "asset/resource",
+                    generator: {
+                        filename: "[name][ext]"
                     }
                 }
             ]
