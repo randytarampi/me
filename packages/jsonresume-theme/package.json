@@ -20,8 +20,7 @@
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "gulp": "^5.0.1",
-    "mocha-junit-reporter": "^2.2.1",
-    "webpack-node-externals": "^3.0.0"
+    "mocha-junit-reporter": "^2.2.1"
   },
   "directories": {
     "lib": "./src/lib",
@@ -32,7 +31,6 @@
   },
   "files": [
     "dist/*{pug,css}",
-    "es5",
     "esm",
     "npm-shrinkwrap.json"
   ],
@@ -58,7 +56,8 @@
     "work"
   ],
   "license": "MIT",
-  "main": "./es5/index.js",
+  "main": "./esm/index.js",
+  "module": "./esm/index.js",
   "publishConfig": {
     "access": "public"
   },
@@ -68,19 +67,18 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "scripts": {
-    "build": "yarn run build:copy && yarn run build:webpack && yarn run build:babel",
+    "build": "yarn run build:copy && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm",
     "build:babel:esm": "BABEL_ENV=client.esm BABEL_ESM_STANDALONE_BUILD=true babel src --out-dir esm --root-mode upward --copy-files",
     "build:copy": "mkdir -p dist && yarn build:copy:index.pug && yarn build:copy:layout.pug && yarn build:copy:styles.css && cp *.md dist/",
     "build:copy:index.pug": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/views/package.json\")), \"templates/index.pug\")') ./dist/index.pug",
     "build:copy:layout.pug": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/views/package.json\")), \"templates/layout.pug\")') ./dist/layout.pug",
     "build:copy:styles.css": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/resume/package.json\")), \"dist/styles.css\")') ./dist/styles.css",
-    "build:webpack": "PRINTABLE_TEMPLATE_PATH=\"../dist/index.pug\" RESUME_STYLES_PATH=\"../dist/styles.css\" webpack --config webpack.publish.config.js && node -e \"require('fs').writeFileSync('es5/package.json', JSON.stringify({type:'commonjs'}))\"",
     "clean": "gulp -LLLL --color clean",
     "docs": "mkdir -p docs && cp -r dist/* docs",
     "kill:server": "bash -c 'if [ -f /tmp/ca.randytarampi.me.jsonresume-theme.server.pid ]; then echo \"Killing server ($(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid)) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"; kill -9 $(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid) 2>/dev/null || true; rm /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; fi'",
     "postinstall": "yarn run resume:json",
-    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
+    "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",
