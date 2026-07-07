@@ -11,7 +11,7 @@
   "browser": "./esm/index.client.js",
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^7.2.0",
+    "@fortawesome/fontawesome-free": "^7.3.0",
     "@randy.tarampi/assets": "workspace:*",
     "@randy.tarampi/css": "workspace:*",
     "@randy.tarampi/js": "workspace:*",
@@ -23,11 +23,11 @@
     "core-js": "^3.49.0",
     "exiftool-vendored": "^36.0.0",
     "history": "^5.3.0",
-    "immutable": "^5.1.7",
+    "immutable": "^5.1.9",
     "luxon": "^3.7.2",
     "materialize-css": "^1.0.0",
     "prop-types": "^15.8.1",
-    "query-string": "^9.4.0",
+    "query-string": "^9.4.1",
     "raf": "^3.4.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -53,7 +53,7 @@
     "redux-mock-store": "^1.5.5",
     "redux-thunk": "^3.1.0",
     "sinon": "^22.0.0",
-    "webpack": "^5.107.2"
+    "webpack": "^5.108.4"
   },
   "directories": {
     "lib": "./src/lib",
