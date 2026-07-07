@@ -160,8 +160,7 @@ export default ({
                     test: /\.(eot|ttf|woff|woff2|svg|gif|png|ico)$/,
                     loader: "file-loader",
                     options: {
-                        name: "[name].[ext]",
-                        outputPath: "dist/"
+                        name: "[name].[ext]"
                     }
                 }
             ]
