@@ -1,9 +1,18 @@
 /* global google */
-import {MarkerClusterer} from "@googlemaps/markerclusterer";
+// NOTE-RT: `@googlemaps/markerclusterer` ships a UMD build (`main: "dist/index.umd.js"`) whose
+// export assignments aren't statically analyzable by Node's own CJS-to-ESM interop (`cjs-module-
+// lexer`), so a named import (`import {MarkerClusterer} from "..."`) fails with "does not provide
+// an export named 'MarkerClusterer'" once this package's own build output is genuine ESM loaded
+// via Node's native `require()`/`import()` - even though the same named destructure works fine
+// under a plain CJS `require()` of this same dependency. A default import always maps to the
+// whole `module.exports` object under this interop, regardless of what the lexer could detect.
+import MarkerClustererModule from "@googlemaps/markerclusterer";
 import PropTypes from "prop-types";
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useMap} from "@vis.gl/react-google-maps";
 import {GoogleMapMarkerClustererStyles} from "./styles.js";
+
+const {MarkerClusterer} = MarkerClustererModule;
 
 // NOTE-RT: faithfully reimplements the classic `MarkerClustererPlus`/`react-google-maps`
 // clusterer icon-selection algorithm (bucket the cluster's marker count on a log scale, clamped
