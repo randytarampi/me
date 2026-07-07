@@ -77,26 +77,36 @@ export default webpackBaseConfig({
                 ]
     },
     plugins: plugins.concat([
-        new WorkboxPlugin.GenerateSW({
-            swDest: `${swBundleName}.js`,
-            skipWaiting: true,
-            clientsClaim: true,
-            offlineGoogleAnalytics: false,
-            cacheId: packageJson.name,
-            runtimeCaching: [
-                {
-                    urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
-                    handler: "StaleWhileRevalidate",
-                    options: {
-                        cacheName: "external",
-                        expiration: {
-                            maxEntries: 100,
-                            purgeOnQuotaError: true
+        // NOTE-RT: precache-manifest generation has no value against unminified dev bundles (it
+        // only matters for the real production build) and was the direct source of both the
+        // "GenerateSW has been called multiple times" warning (re-triggered by every self-inflicted
+        // dev-server recompile - see `devServer.static.watch: false` above) and the "won't be
+        // precached" oversized-file warnings (dev bundles are never minified, see
+        // `optimization.minimizer` above). Skip it entirely outside of production builds.
+        ...(!isDevelopment
+            ? [
+                new WorkboxPlugin.GenerateSW({
+                    swDest: `${swBundleName}.js`,
+                    skipWaiting: true,
+                    clientsClaim: true,
+                    offlineGoogleAnalytics: false,
+                    cacheId: packageJson.name,
+                    runtimeCaching: [
+                        {
+                            urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
+                            handler: "StaleWhileRevalidate",
+                            options: {
+                                cacheName: "external",
+                                expiration: {
+                                    maxEntries: 100,
+                                    purgeOnQuotaError: true
+                                }
+                            }
                         }
-                    }
-                }
+                    ]
+                })
             ]
-        }),
+            : []),
         new DefinePlugin({
             __SW_BUNDLE_PATH__: JSON.stringify(path.join(publicPath, `${swBundleName}.js`))
         })

@@ -79,6 +79,11 @@ export default ({
                 "@randy.tarampi/printables$": join(dirname(require.resolve("@randy.tarampi/printables/package.json")), "src/index.client.js"),
                 "@randy.tarampi/resume$": join(dirname(require.resolve("@randy.tarampi/resume/package.json")), "src/index.client.js"),
                 "@randy.tarampi/letter$": join(dirname(require.resolve("@randy.tarampi/letter/package.json")), "src/index.client.js"),
+                // NOTE-RT: hardens against a reported (but not locally reproducible) resolution error
+                // for this package's `esm/package.json` - mirrors the same alias shortcut already used
+                // above for `jsx`/`printables`/`resume`/`letter`, bypassing fragile `package.json`
+                // field-based resolution for this workspace package too.
+                "@randy.tarampi/browser-logger$": join(dirname(require.resolve("@randy.tarampi/browser-logger/package.json")), "src/index.js"),
                 // NOTE-RT: `immutable@5` ships no `"exports"`/`"browser"` field, so webpack's default
                 // `target: "web"` `mainFields` (`["browser", "module", "main"]`) resolves the bare
                 // `"immutable"` specifier to its real-ESM build (`dist/immutable.es.js`, no default
@@ -183,7 +188,15 @@ export default ({
             },
             compress: true,
             static: {
-                directory: compliationDirectoryPath
+                directory: compliationDirectoryPath,
+                // NOTE-RT: `HtmlWebpackHarddiskPlugin`/`alwaysWriteToDisk: true` (see `plugins` above)
+                // and `BundleAnalyzerPlugin` (see `webpack.publish.config.base.js`) both physically
+                // write into this same directory on every compile. With the default `watch: true`,
+                // webpack-dev-server treats those self-writes as a source change and triggers another
+                // compile, ad infinitum - which also re-invokes `WorkboxPlugin.GenerateSW` every time
+                // (hence its "called multiple times" warning) against ever-changing dev bundles.
+                // Disabling `watch` here stops the self-triggering rebuild loop entirely.
+                watch: false
             },
             // NOTE-RT: top-level `devServer.stats` was removed in the webpack-dev-server v4->v5
             // migration; `stats` now lives under `devMiddleware.stats`.
