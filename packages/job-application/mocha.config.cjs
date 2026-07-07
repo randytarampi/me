@@ -3,7 +3,7 @@ module.exports = {
     sort: true,
     fullTrace: true,
     checkLeaks: true,
-    require: ["../../babel.register.cjs", "./test/01_setup", "./test/02_import-all"],
+    require: ["../../babel.register.cjs", "./test/01_setup", "./test/02_import-all", "./test/03_import-esm-build"],
     exit: true,
     reporter: process.env.CI ? "mocha-junit-reporter" : "spec",
     reporterOptions: {
