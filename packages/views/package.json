@@ -42,7 +42,7 @@
   "scripts": {
     "build": "yarn run build:gulp && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm",
-    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension && node -e \"require('fs').writeFileSync('esm/package.json', JSON.stringify({type:'commonjs'}))\"",
+    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension",
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
