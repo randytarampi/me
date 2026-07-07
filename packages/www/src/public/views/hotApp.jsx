@@ -47,13 +47,23 @@ export class App extends PureComponent {
                     persistCallback: () => {
                         logger.debug("Rehydrated state!");
 
-                        if (window.$crisp) {
-                            store.dispatch(initializeCrispCreator(window.$crisp));
+                        // NOTE-RT: wrapped in try/finally - these are best-effort side effects (an
+                        // NOTE-RT: unreachable/blocked/mis-configured Crisp widget, or anything a route's own
+                        // NOTE-RT: setup dispatch might throw for) and must never be allowed to prevent
+                        // NOTE-RT: `rehydrated` from being set. Previously, any exception thrown here left
+                        // NOTE-RT: `this.setState({rehydrated: true})` unreached, permanently stuck on
+                        // NOTE-RT: `<LoadingSpinner/>` with no way to recover short of a hard reload.
+                        try {
+                            if (window.$crisp) {
+                                store.dispatch(initializeCrispCreator(window.$crisp));
+                            }
+
+                            store.dispatch(setRoutesCreator(routes));
+                        } catch (error) {
+                            logger.error(error, "Error while finishing app initialization after rehydration");
+                        } finally {
+                            this.setState({rehydrated: true});
                         }
-
-                        store.dispatch(setRoutesCreator(routes));
-
-                        this.setState({rehydrated: true});
                     },
                     persistOptions: {
                         records: reduxOfflineImmutableTransformRecords.concat([
