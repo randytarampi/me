@@ -410,6 +410,10 @@ export default (api) => {
             break;
         }
 
+        // NOTE-RT: only consumer is `packages/service/webpack.serverless.config.js`'s AWS Lambda
+        // bundle. `modules: false` (real ESM output) matches the deployed `nodejs24.x` runtime's
+        // native ESM handler support - see that webpack config's own `output.module`/
+        // `experiments.outputModule` for the other half of this change.
         case "server": {
             presets = [
                 [
@@ -418,7 +422,7 @@ export default (api) => {
                         targets: {
                             node: "current"
                         },
-                        modules: "commonjs"
+                        modules: false
                     }
                 ],
                 [
