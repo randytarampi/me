@@ -2,7 +2,7 @@ import {createServer} from "http";
 import {join} from "path";
 import {expect} from "chai";
 import express from "express";
-import {JSDOM, requestInterceptor, VirtualConsole} from "jsdom";
+import puppeteer from "puppeteer";
 
 // NOTE-RT: deliberately NOT using `import.meta.url`/`import.meta.dirname` here - doing so triggers a
 // confirmed, reproducible crash (`ReferenceError: require is not defined in ES module scope`) when
@@ -13,22 +13,27 @@ import {JSDOM, requestInterceptor, VirtualConsole} from "jsdom";
 // the `dist/` path from `process.cwd()` avoids `import.meta` entirely with no behavior change.
 const distDirectoryPath = join(process.cwd(), "dist");
 
-// NOTE-RT: this is a headless, jsdom-based smoke test for the class of bug reported multiple times
-// against `yarn run start:www`'s real-browser bundle (`ReferenceError: exports is not defined`,
-// `immutable`/`redux-immutable`'s default-import interop crashing, etc.) - none of which the
-// existing `test/integration/src/public/views/*.jsx` tests could ever catch, since those `require()`
-// raw `src/` files directly rather than exercising the actual, webpack-bundled production output.
-// jsdom does not implement `<script type="module">` (see jsdom's own README "Unimplemented parts of
-// the web platform"), so it naturally skips this HTML's `type="module"` script tags and only runs
-// the `nomodule` (ES5) bundle - exactly the "targets the ES5 bundle specifically" scoping called
-// for here, since the resolution-based bugs this test guards against reproduce identically in both
-// bundles, and jsdom's support for real `type="module"` execution is comparatively immature.
+// NOTE-RT: this is a headless-browser smoke test for the class of bug reported multiple times against
+// `yarn run start:www`'s real bundle (`ReferenceError: exports is not defined`, `immutable`/
+// `redux-immutable`'s default-import interop crashing, `ReferenceError: Can't find variable: process`,
+// etc.) - none of which the existing `test/integration/src/public/views/*.jsx` tests could ever
+// catch, since those `require()` raw `src/` files directly rather than exercising the actual,
+// webpack-bundled production output.
+//
+// NOTE-RT: this previously used `jsdom` to load the built bundle, relying on jsdom naturally skipping
+// `<script type="module">` tags (which jsdom's own README lists as unimplemented) and falling back to
+// a `nomodule`/ES5 sibling bundle instead. Since this repo dropped its ES5 web build entirely in favour
+// of shipping a single ESM-only bundle, that `nomodule` fallback no longer exists, so jsdom has nothing
+// left to execute at all and the test could never observe any rendered content. A real, headless
+// Chromium instance (via Puppeteer, already a dependency elsewhere in this workspace for PDF
+// rendering) is used instead, since it actually supports `type="module"` script execution.
 describe("dist/browserBundle", function () {
     this.timeout(30000);
 
     let server;
     let baseUrl;
-    let dom;
+    let browser;
+    let page;
 
     before(function (done) {
         const app = express();
@@ -42,15 +47,19 @@ describe("dist/browserBundle", function () {
         });
     });
 
-    after(function (done) {
-        if (dom) {
-            dom.window.close();
+    after(async function () {
+        if (page) {
+            await page.close();
         }
 
-        server.close(done);
+        if (browser) {
+            await browser.close();
+        }
+
+        await new Promise(resolve => server.close(resolve));
     });
 
-    it("loads the built ES5 bundle with no runtime errors and renders content", async function () {
+    it("loads the built ESM bundle with no runtime errors and renders content", async function () {
         const collectedErrors = [];
 
         // NOTE-RT: `packages/jsx/src/lib/middleware/ui.js`'s `getSwipeableTabsExpectedTabId` has a
@@ -60,91 +69,40 @@ describe("dist/browserBundle", function () {
         // happens once redux-offline's async rehydration completes) - `getIndexForRoute` legitimately
         // returns `null` (no indexed routes yet), and `swipeableTabs.$tabLinks[null]` is `undefined`,
         // crashing on `.hash`. This is a distinct, unrelated bug class from the ones this smoke test
-        // targets (webpack/module-resolution crashes), so it's tolerated here - the same way the
-        // service-worker registration no-op is tolerated below - rather than asserted against, and is
-        // separately tracked in `docs/LIMITATIONS.md` as a known, pre-existing, out-of-scope defect
-        // rather than silently hidden. jsdom reports the SAME uncaught exception on two independent
-        // channels (`"jsdomError"` and the standard `window` `"error"` event), so this filter is
-        // applied consistently to both below.
+        // targets (webpack/module-resolution crashes), so it's tolerated here rather than asserted
+        // against, and is separately tracked in `docs/LIMITATIONS.md` as a known, pre-existing,
+        // out-of-scope defect rather than silently hidden.
         const isKnownSwipeableTabsRaceError = error =>
             error && typeof error.message === "string" && error.message.includes("reading 'hash'");
+        // NOTE-RT: the sandbox's posts API is unreachable in this environment, so redux-offline's
+        // network probe/retries against it produce a stream of expected, benign fetch failures - not
+        // the class of runtime bug (module resolution, missing globals) this smoke test guards
+        // against.
+        const isKnownUnreachableApiError = error =>
+            error && typeof error.message === "string" && /fetch|network|ERR_/i.test(error.message);
 
-        const virtualConsole = new VirtualConsole();
+        browser = await puppeteer.launch({headless: true, args: ["--no-sandbox"]});
+        page = await browser.newPage();
 
-        // NOTE-RT: `nomodule`/`defer` scripts execute synchronously as part of `JSDOM.fromURL()`'s
-        // own resolution (before it returns), so any listener attached only after `await` would miss
-        // a crash that happens during that initial run. jsdom's `"jsdomError"` virtual-console event
-        // (type `"unhandled-exception"`) is the one channel guaranteed to observe an uncaught
-        // exception thrown by a running script regardless of timing, since it's wired up before the
-        // dom is even constructed below. Only `"unhandled-exception"`-typed events are collected -
-        // jsdom also emits `"jsdomError"` for its own known-incomplete CSS engine (`type:
-        // "css-parsing"`, confirmed reproduced against this real Materialize-based bundle) and for
-        // resource-loading issues, neither of which are the class of real runtime bug this test
-        // guards against, matching the tolerate-known-jsdom-gaps approach used for the service-worker
-        // registration no-op below.
-        virtualConsole.on("jsdomError", error => {
-            if (error && error.type === "unhandled-exception") {
-                const cause = error.cause || error;
-
-                if (!isKnownSwipeableTabsRaceError(cause)) {
-                    collectedErrors.push(cause);
-                }
+        page.on("pageerror", error => {
+            if (!isKnownSwipeableTabsRaceError(error) && !isKnownUnreachableApiError(error)) {
+                collectedErrors.push(error);
             }
         });
 
-        dom = await JSDOM.fromURL(`${baseUrl}/index.html`, {
-            runScripts: "dangerously",
-            virtualConsole,
-            resources: {
-                interceptors: [
-                    // NOTE-RT: keep this smoke test fast/offline-safe by short-circuiting every
-                    // request that isn't our own locally-served bundle - fonts, images, and
-                    // third-party scripts (Sentry/GTM/Crisp/gravatar) would otherwise trigger real,
-                    // slow, network-dependent fetches every time this test runs.
-                    requestInterceptor(request => {
-                        if (!request.url.startsWith(baseUrl)) {
-                            return new Response("", {status: 200});
-                        }
-
-                        return undefined;
-                    })
-                ]
-            },
-            beforeParse(window) {
-                window.addEventListener("error", event => {
-                    const error = event.error || event.message;
-
-                    if (!isKnownSwipeableTabsRaceError(error)) {
-                        collectedErrors.push(error);
-                    }
-                });
-                window.addEventListener("unhandledrejection", event => {
-                    if (!isKnownSwipeableTabsRaceError(event.reason)) {
-                        collectedErrors.push(event.reason);
-                    }
-                });
-            }
-        });
+        await page.goto(`${baseUrl}/index.html`, {waitUntil: "domcontentloaded", timeout: 30000});
 
         // Wait for React to actually render real, non-empty content into `#react-root` (confirms the
         // bundle didn't just avoid throwing, but genuinely booted the app and rendered its first real
-        // content), or time out with a clear failure. Waiting on `textContent` rather than merely
-        // `children.length > 0` avoids a race where an initial, still-empty wrapper element briefly
-        // satisfies a children-only check before the real content underneath it has rendered.
-        await new Promise((resolve, reject) => {
-            const start = Date.now();
-            const interval = setInterval(() => {
-                const reactRoot = dom.window.document.getElementById("react-root");
+        // content), or time out with a clear failure.
+        await page.waitForFunction(
+            () => {
+                const reactRoot = document.getElementById("react-root");
 
-                if (reactRoot && reactRoot.children.length > 0 && reactRoot.textContent.trim().length > 0) {
-                    clearInterval(interval);
-                    resolve();
-                } else if (Date.now() - start > 20000) {
-                    clearInterval(interval);
-                    reject(new Error("Timed out waiting for #react-root to render any non-empty content"));
-                }
-            }, 100);
-        });
+                return Boolean(reactRoot && reactRoot.children.length > 0 && reactRoot.textContent.trim().length > 0);
+            },
+            {timeout: 20000}
+        );
 
         // Give the app a brief, bounded settle period after its first real content appears, so any
         // errors thrown shortly after initial mount (e.g. from a short `setTimeout`-deferred follow-up
@@ -156,10 +114,20 @@ describe("dist/browserBundle", function () {
             `Expected no runtime errors while loading the bundle, but collected:\n${collectedErrors.map(error => (error && error.stack) || error).join("\n")}`
         ).to.eql([]);
 
-        const reactRoot = dom.window.document.getElementById("react-root");
+        const reactRootHandle = await page.$("#react-root");
 
-        expect(reactRoot).to.be.ok;
-        expect(reactRoot.children.length).to.be.above(0);
-        expect(reactRoot.textContent.trim().length).to.be.above(0);
+        expect(reactRootHandle).to.be.ok;
+
+        const {childrenCount, textContentLength} = await page.evaluate(() => {
+            const reactRoot = document.getElementById("react-root");
+
+            return {
+                childrenCount: reactRoot.children.length,
+                textContentLength: reactRoot.textContent.trim().length
+            };
+        });
+
+        expect(childrenCount).to.be.above(0);
+        expect(textContentLength).to.be.above(0);
     });
 });
