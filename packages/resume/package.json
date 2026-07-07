@@ -9,7 +9,7 @@
     "url": "https://www.randytarampi.ca"
   },
   "browser": {
-    "./es5/index.server.js": "./esm/index.client.js",
+    "./esm/index.server.js": "./esm/index.client.js",
     "./src/lib/data/resume.js": "./src/lib/data/resume.browser.js",
     "./src/lib/resume.js": "./src/lib/resume.browser.js"
   },
@@ -69,11 +69,6 @@
   },
   "files": [
     "dist/styles.css",
-    "es5/!(resume*)",
-    "es5/index.client.js",
-    "es5/index.server.js",
-    "es5/resumes/index.js",
-    "es5/resumes/resume.json",
     "esm/!(resume*)",
     "esm/index.client.js",
     "esm/index.server.js",
@@ -104,7 +99,7 @@
     "work"
   ],
   "license": "MIT",
-  "main": "./es5/index.server.js",
+  "main": "./esm/index.server.js",
   "module": "./esm/index.server.js",
   "publishConfig": {
     "access": "public"
@@ -116,8 +111,7 @@
   },
   "scripts": {
     "build": "yarn run build:gulp && yarn run build:babel",
-    "build:babel": "yarn run build:babel:esm && yarn run build:babel:es5",
-    "build:babel:es5": "cross-env-shell BABEL_ENV=client.es5 babel src --out-dir es5 --root-mode upward --copy-files --keep-file-extension && node -e \"require('fs').writeFileSync('es5/package.json', JSON.stringify({type:'commonjs'}))\"",
+    "build:babel": "yarn run build:babel:esm",
     "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm babel src --out-dir esm --root-mode upward --copy-files --keep-file-extension && node -e \"require('fs').writeFileSync('esm/package.json', JSON.stringify({type:'commonjs'}))\"",
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
@@ -127,7 +121,7 @@
     "docs": "gulp -LLLL --color docs",
     "kill:server": "if [ -f /tmp/ca.randytarampi.me.resume.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.resume.server.pid`) from /tmp/ca.randytarampi.me.resume.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.resume.server.pid`; rm /tmp/ca.randytarampi.me.resume.server.pid; fi;",
     "predev:client": "rm -rf dist/*.js dist/*.css || true",
-    "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./es5\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
+    "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "preuninstall": "yarn run clean",

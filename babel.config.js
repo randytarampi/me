@@ -338,12 +338,11 @@ export default (api) => {
             break;
         }
 
-        case "client":
-        case "client.es5": {
+        case "client": {
             if (isDevelopment) {
                 // NOTE-RT: `react-refresh/babel` has its own internal guard that independently
                 // requires Babel's own env name (`api.env()`) to literally be "development", but this
-                // repo's custom env-name scheme (`client`, `client.es5`, `client.esm`, ...) never uses
+                // repo's custom env-name scheme (`client`, `client.esm`, ...) never uses
                 // that literal value for real dev-server invocations. `isDevelopment` above is already
                 // the authoritative, fail-safe (opt-in on `NODE_ENV`/`BABEL_ENV` === "development")
                 // gate for this plugin, so it's safe to skip the plugin's own redundant internal check.
@@ -380,7 +379,7 @@ export default (api) => {
         case "publish":
         case "client.esm": {
             if (isDevelopment) {
-                // NOTE-RT: see the identical note in the "client"/"client.es5" case above.
+                // NOTE-RT: see the identical note in the "client" case above.
                 plugins.push(["react-refresh/babel", {skipEnvCheck: true}]);
             }
             presets = [
@@ -406,7 +405,7 @@ export default (api) => {
 
         case "client.esm.webpack": {
             if (isDevelopment) {
-                // NOTE-RT: see the identical note in the "client"/"client.es5" case above.
+                // NOTE-RT: see the identical note in the "client" case above.
                 plugins.push(["react-refresh/babel", {skipEnvCheck: true}]);
             }
             presets = [

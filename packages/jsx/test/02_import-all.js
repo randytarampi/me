@@ -1,1 +1,1 @@
-require("../es5/index.client.js");
+require("../esm/index.client.js");

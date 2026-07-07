@@ -59,7 +59,7 @@ export default ({
                       rules: otherRules = [],
                       plugins: otherPlugins = [],
                       publicPath = "/",
-                      babelEnv = "client.es5",
+                      babelEnv = "client",
                       babelLoaderExclusions = util.babelLoaderExclusions,
                       babelJsType = "javascript/auto",
                       ...configOverrides

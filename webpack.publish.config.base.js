@@ -32,7 +32,7 @@ export default ({
                       sourceDirectoryPath,
                       compliationDirectoryPath,
                       plugins: otherPlugins = [],
-                      babelEnv = "client.es5",
+                      babelEnv = "client",
                       babelLoaderExclusions = util.babelLoaderExclusions,
                       ...configOverrides
                   }) => {

@@ -16,7 +16,7 @@ const nodeExternals = require("webpack-node-externals");
 // own auto-detection misses it in this hoisted workspace layout (no local `node_modules` next
 // to this package), so it's listed explicitly here too, exactly like the existing `"pug"` external.
 export default webpackBaseConfig({
-    babelEnv: "client.es5",
+    babelEnv: "client",
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "es5"),
     entry: {

@@ -1,5 +1,6 @@
 import {createRequire} from "module";
 import path from "path";
+import util from "../../util.js";
 import webpackBaseConfig from "../../webpack.client.config.base.js";
 
 const require = createRequire(import.meta.url);
@@ -11,7 +12,17 @@ const config = require("config");
 const express = require("express");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const {buildPugLocals} = require("@randy.tarampi/views");
+
+const {isDevelopment} = util;
+
+// NOTE-RT: the web build is ESM-only (see `babel.config.js`'s "client.esm.webpack" case); this
+// bundle name mirrors `packages/www/webpack.client.config.esm.js`'s own `.esm`-suffixed entry so
+// `packages/views/templates/layout.pug`'s (now unconditional) `type="module"` script tags find
+// the actual emitted files.
+const bundleName = `${config.get("letter.bundle.name")}.esm`;
 
 const sources = [
     "*.md",
@@ -30,12 +41,37 @@ if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.t
 export default webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
+    babelEnv: "client.esm.webpack",
     webpackDevServerMiddleware: [
         (app) => app.use("/api/letter", express.static("./src/letters")),
     ],
     entry: {
-        letter: ["raf/polyfill", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],
+        [bundleName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "./src/public/views/index.jsx")],
         styles: path.join(__dirname, "./styles/style.scss")
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: util.webpackVendorInclusions,
+                    name: "vendor",
+                    filename: "vendor.esm.js",
+                    chunks: "all"
+                }
+            }
+        },
+        minimizer:
+            isDevelopment
+                ? []
+                : [
+                    new TerserPlugin({
+                        parallel: true,
+                        terserOptions: {
+                            sourceMap: true
+                        }
+                    }),
+                    new OptimizeCSSAssetsPlugin()
+                ]
     },
     plugins: [
         new CopyWebpackPlugin({
@@ -51,7 +87,8 @@ export default webpackBaseConfig({
             filename: "index.html",
             template: path.join(path.dirname(require.resolve("@randy.tarampi/views/package.json")), "templates/index.pug"),
             templateParameters: buildPugLocals({
-                bundleName: config.get("letter.bundle.name")
+                bundleName: config.get("letter.bundle.name"),
+                esmBundleName: bundleName
             }),
             alwaysWriteToDisk: true,
             excludeChunks: [
@@ -59,7 +96,7 @@ export default webpackBaseConfig({
                 config.get("letter.bundle.name"),
                 `${config.get("letter.bundle.swInstaller")}`,
                 "vendor.esm",
-                `${config.get("letter.bundle.name")}.esm`,
+                bundleName,
                 `${config.get("letter.bundle.swInstaller")}.esm`
             ]
         })
