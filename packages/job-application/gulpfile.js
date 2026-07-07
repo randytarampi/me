@@ -38,7 +38,7 @@ const buildPrintableResumeRendererParameters = ({printableDestinationDirectory} 
             bundleName: "jobApplications",
             pageUrl: config.get("resume.publishUrl"),
             packageJson,
-            assetUrl: config.get("letter.assetUrl"),
+            assetUrl: config.get("resume.assetUrl"),
             publishedResumeUrl: config.get("resume.publishUrl")
         },
         printableDestinationDirectory
