@@ -79,13 +79,18 @@ export class App extends PureComponent {
                 [
                     createImmutableFilter("resume", null, [
                         {
-                            path: "resumes",
+                            // NOTE-RT: must be an array (an actual Immutable `getIn` key-path), not a bare
+                            // NOTE-RT: string - `redux-persist-transform-filter-immutable`'s `filterObject`
+                            // NOTE-RT: helper calls `state.getIn(path)` with this value as-is, and Immutable's
+                            // NOTE-RT: `getIn` throws "Invalid keyPath: expected Ordered Collection or Array"
+                            // NOTE-RT: for anything else.
+                            path: ["resumes"],
                             filterFunction: resumes => resumes instanceof Map
                         }
                     ]),
                     createImmutableFilter("letter", null, [
                         {
-                            path: "letters",
+                            path: ["letters"],
                             filterFunction: letters => letters instanceof Map
                         }
                     ])

@@ -58,7 +58,11 @@ export const stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () =>
 
     return gulp.src([path.join(relativePath, "styles/style.scss")])
         .pipe(sass({
-            includePaths: [
+            // NOTE-RT: `gulp-sass@6`'s bundled compiler wraps the modern Dart Sass JS API
+            // (`compileString`/`compileStringAsync`), which only understands `loadPaths` - the
+            // legacy `includePaths` option is silently ignored, so `node_modules`-relative
+            // `@import`s (e.g. `materialize-css/sass/...`) failed to resolve at all.
+            loadPaths: [
                 path.join(relativePath, "node_modules"),
                 path.join(relativePath, "../css/node_modules"),
                 path.join(relativePath, "../../node_modules")

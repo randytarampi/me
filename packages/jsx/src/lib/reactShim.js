@@ -17,8 +17,13 @@ import * as Immutable from "immutable";
 
 // NOTE-RT: React 19 and React Testing Library expect `global.IS_REACT_ACT_ENVIRONMENT` to be set up-front.
 // NOTE-RT: Declare it in React test setup (which loads this shim first) so mocha's `checkLeaks: true` treats it
-// NOTE-RT: as part of the baseline rather than a per-test leak.
-if (typeof global.IS_REACT_ACT_ENVIRONMENT === "undefined") {
+// NOTE-RT: as part of the baseline rather than a per-test leak. Guarded to Node-only (`typeof window ===
+// NOTE-RT: "undefined"`, true under mocha, false in every real/bundled browser) because this same shim is
+// NOTE-RT: also the first thing imported by this package's browser entrypoint (`index.jsx`) - setting this
+// NOTE-RT: flag there made React believe every real browser session was a test, firing a spurious "not
+// NOTE-RT: wrapped in act(...)" warning on every ordinary state update (most visibly on redux-offline's
+// NOTE-RT: retries), flooding the console.
+if (typeof window === "undefined" && typeof global.IS_REACT_ACT_ENVIRONMENT === "undefined") {
     global.IS_REACT_ACT_ENVIRONMENT = true;
 }
 

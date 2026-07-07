@@ -150,7 +150,13 @@ export default ({
                             options: {
                                 sourceMap: true,
                                 sassOptions: {
-                                    includePaths: [
+                                    // NOTE-RT: `sass-loader@17` only reads `loadPaths` (matching the modern
+                                    // Dart Sass JS API) - the legacy `includePaths` name is silently ignored.
+                                    // This was previously dead configuration, masked by `sass-loader`'s own
+                                    // default webpack-resolver importer already resolving these bare
+                                    // `node_modules` specifiers; renamed here for correctness/consistency with
+                                    // the `gulpfile.base.js` `styles:dev` task's identical fix.
+                                    loadPaths: [
                                         join(sourceDirectoryPath, "node_modules"),
                                         join(sourceDirectoryPath, "../css/node_modules"),
                                         join(sourceDirectoryPath, "../../node_modules")
