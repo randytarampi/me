@@ -1,10 +1,4 @@
-// NOTE-RT: `@randy.tarampi/jsx`'s compiled `esm/index.client.js` is a CJS module (its own `esm/package.json`
-// declares `{"type":"commonjs"}` for Node `require()` interop). When Mocha loads this spec file as native
-// ESM (per its own `"type":"module"` package.json), Node's named-export detection for CJS modules can't
-// statically confirm these two properties, so a named import throws `SyntaxError: Named export ... not
-// found`. Importing the default (the full CJS `module.exports` object) and destructuring from it avoids
-// relying on that static detection.
-import jsx from "@randy.tarampi/jsx";
+import {getApiStateForUrl, getErrorForUrlState} from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {Map} from "immutable";
 import {createAction} from "redux-actions";
@@ -15,8 +9,6 @@ import {
     fetchingLetterSuccess
 } from "../../../../../src/lib/actions/fetchLetter.js";
 import reducer from "../../../../../src/lib/data/api.js";
-
-const {getApiStateForUrl, getErrorForUrlState} = jsx;
 
 describe("api", function () {
     let stubInitialState;
