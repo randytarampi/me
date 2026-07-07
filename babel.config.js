@@ -282,6 +282,45 @@ const configuredMinifyReplace = [
     }
 ];
 
+// NOTE-RT: only used by the "client.esm" case's genuine-ESM library build output. Node's own core
+// ESM loader (unlike webpack/Mocha's own tolerant resolution) refuses unrecognized extensions
+// (`.jsx`) and requires "fully specified" bare subpath imports for CommonJS dependencies -
+// `babel-plugin-lodash` (the "lodash" plugin above) rewrites `import {x} from "lodash"` into
+// `import x from "lodash/x"`, which resolves fine under Node's CJS algorithm but isn't "fully
+// specified" for ESM. This plugin rewrites both cases to real, `require()`/`import()`-loadable
+// specifiers (`./Foo.jsx` -> `./Foo.js`, `lodash/x` -> `lodash/x.js`), matching this same env's
+// `build:babel:esm` script (which also drops `--keep-file-extension`, so `.jsx` source files are
+// physically renamed to `.js` in the emitted output - keeping filenames and specifiers in sync).
+// It must be listed after "lodash" in the `plugins` array below so it also sees (and fixes up) the
+// bare `lodash/x` imports "lodash" itself inserts, not just the ones already in source.
+const rewriteEsmSpecifierExtensions = ({types: t}) => {
+    const rewriteSource = (sourceNode) => {
+        if (!sourceNode || !t.isStringLiteral(sourceNode)) {
+            return;
+        }
+
+        if (sourceNode.value.endsWith(".jsx")) {
+            sourceNode.value = `${sourceNode.value.slice(0, -4)}.js`;
+        } else if (/^lodash\/[^./]+$/.test(sourceNode.value)) {
+            sourceNode.value = `${sourceNode.value}.js`;
+        }
+    };
+
+    return {
+        name: "rewrite-esm-specifier-extensions",
+        visitor: {
+            "ImportDeclaration|ExportNamedDeclaration|ExportAllDeclaration"(path) {
+                rewriteSource(path.node.source);
+            },
+            CallExpression(path) {
+                if (t.isImport(path.node.callee) && path.node.arguments.length === 1) {
+                    rewriteSource(path.node.arguments[0]);
+                }
+            }
+        }
+    };
+};
+
 export default (api) => {
     let presets = [
         [
@@ -381,6 +420,16 @@ export default (api) => {
             if (isDevelopment) {
                 // NOTE-RT: see the identical note in the "client" case above.
                 plugins.push(["react-refresh/babel", {skipEnvCheck: true}]);
+            }
+            if (process.env.BABEL_ESM_STANDALONE_BUILD === "true") {
+                // NOTE-RT: only set by each package's own `build:babel:esm` script (never by
+                // `packages/www`'s webpack dev-server bundle, which also uses this same env name -
+                // see the case comment above). Rewriting specifiers this way only makes sense for a
+                // standalone `esm/` output directory meant to be `require()`/`import()`-loaded
+                // directly by Node; webpack's own resolver would need a matching
+                // `resolve.extensionAlias` to follow a rewritten `.js` specifier back to an actual
+                // `.jsx` source file, which the `www` bundle doesn't (and shouldn't need to) set up.
+                plugins.push(rewriteEsmSpecifierExtensions);
             }
             presets = [
                 [
