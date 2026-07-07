@@ -13,6 +13,7 @@
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^1.0.0",
     "@fortawesome/fontawesome-free": "^7.2.0",
+    "@googlemaps/markerclusterer": "^2.5.3",
     "@randy.tarampi/browser-logger": "workspace:*",
     "@randy.tarampi/js": "workspace:*",
     "@randy.tarampi/react-dimensions": "workspace:*",
@@ -24,6 +25,7 @@
     "@types/googlemaps": "^3.43.3",
     "@types/markerclustererplus": "^2.1.33",
     "@types/react": "^19.2.17",
+    "@vis.gl/react-google-maps": "^1.9.0",
     "classnames": "^2.5.1",
     "history": "^5.3.0",
     "immutable": "^5.1.7",
@@ -35,7 +37,6 @@
     "query-string": "^9.4.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-google-maps": "^9.4.5",
     "react-infinite": "^0.13.0",
     "react-materialize": "^3.10.0",
     "react-metrics": "^2.4.1",

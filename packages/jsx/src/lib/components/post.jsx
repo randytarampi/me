@@ -4,7 +4,7 @@ import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
 import React, {Fragment, PureComponent} from "react";
-import {Marker} from "react-google-maps";
+import {Marker} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import {connect} from "react-redux";
 import {updateMapCreator} from "../actions/index.js";

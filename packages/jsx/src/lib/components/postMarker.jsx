@@ -1,8 +1,7 @@
 import {Gallery, Photo, Post, POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
-import React, {PureComponent} from "react";
-import {Marker} from "react-google-maps";
-import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
+import React, {PureComponent, useCallback, useState} from "react";
+import {InfoWindow, Marker} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {Provider, ReactReduxContext} from "react-redux";
@@ -87,35 +86,33 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
     }
 
     render() {
-        const {onVisibilityToggle, isVisible, post, store} = this.props;
+        const {onVisibilityToggle, post, store, anchor} = this.props;
 
-        return <InfoBox
+        if (!anchor) {
+            return null;
+        }
+
+        return <InfoWindow
+            anchor={anchor}
             onCloseClick={onVisibilityToggle}
-            options={{
-                infoBoxClearance: 20,
-                enableEventPropagation: true,
-                boxClass: `marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`,
-                pixelOffset: {
-                    width: -1 * this.width / 2,
-                    height: -1 * this.height / 2
-                },
-                boxStyle: {
-                    backgroundColor: "white"
-                }
-            }}
-            defaultVisible={false}
-            visible={isVisible}
+            pixelOffset={[-1 * this.width / 2, -1 * this.height / 2]}
+            maxWidth={Math.round(window.innerWidth * 3 / 4)}
         >
-            <Provider store={store}>
-                <PostMarkerInfoBoxContentComponent
-                    post={post}
-                    title={this.title}
-                    style={{
-                        maxWidth: Math.round(window.innerWidth * 3 / 4)
-                    }}
-                />
-            </Provider>
-        </InfoBox>;
+            <div
+                className={`marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`}
+                style={{backgroundColor: "white"}}
+            >
+                <Provider store={store}>
+                    <PostMarkerInfoBoxContentComponent
+                        post={post}
+                        title={this.title}
+                        style={{
+                            maxWidth: Math.round(window.innerWidth * 3 / 4)
+                        }}
+                    />
+                </Provider>
+            </div>
+        </InfoWindow>;
     }
 }
 
@@ -123,7 +120,8 @@ PostMarkerInfoBoxComponent.propTypes = {
     post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired,
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    anchor: PropTypes.object
 };
 
 export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
@@ -147,47 +145,46 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
     }
 
     render() {
-        const {onVisibilityToggle, isVisible, post, store} = this.props;
+        const {onVisibilityToggle, post, store, anchor} = this.props;
         const placeholder = post.getSizedPhotoForLoading(this.targetWidth);
         const selected = post.getSizedPhotoForDisplay(this.targetWidth);
 
+        if (!anchor) {
+            return null;
+        }
+
         return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
             {
-                (source, isLoading) => <InfoBox
+                (source, isLoading) => <InfoWindow
+                    anchor={anchor}
                     onCloseClick={onVisibilityToggle}
-                    options={{
-                        infoBoxClearance: 20,
-                        enableEventPropagation: true,
-                        boxClass: ["marker-info-box", `marker-info-box__${post.type}`, this.postInfoBoxElementId].join(" "),
-                        pixelOffset: {
-                            width: -1 * this.scaledWidth / 2,
-                            height: -1 * this.scaledHeight / 2
-                        },
-                        boxStyle: {
+                    pixelOffset={[-1 * this.scaledWidth / 2, -1 * this.scaledHeight / 2]}
+                    maxWidth={this.scaledWidth}
+                >
+                    <div
+                        className={["marker-info-box", `marker-info-box__${post.type}`, this.postInfoBoxElementId].join(" ")}
+                        style={{
                             backgroundImage: isLoading
                                 ? `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${source})`
                                 : `url(${source})`,
                             backgroundColor: isLoading
                                 ? "white"
                                 : null
-                        },
-                        maxWidth: this.scaledWidth
-                    }}
-                    defaultVisible={false}
-                    visible={isVisible}
-                >
-                    <Provider store={store}>
-                        <PostMarkerInfoBoxContentComponent
-                            isLoading={isLoading}
-                            post={post}
-                            title={this.title}
-                            style={{
-                                height: this.scaledHeight,
-                                width: this.scaledWidth
-                            }}
-                        />
-                    </Provider>
-                </InfoBox>
+                        }}
+                    >
+                        <Provider store={store}>
+                            <PostMarkerInfoBoxContentComponent
+                                isLoading={isLoading}
+                                post={post}
+                                title={this.title}
+                                style={{
+                                    height: this.scaledHeight,
+                                    width: this.scaledWidth
+                                }}
+                            />
+                        </Provider>
+                    </div>
+                </InfoWindow>
             }
         </ProgressiveImage>;
     }
@@ -196,7 +193,8 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
 PhotoMarkerInfoBoxComponent.propTypes = {
     post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
-    onVisibilityToggle: PropTypes.func.isRequired
+    onVisibilityToggle: PropTypes.func.isRequired,
+    anchor: PropTypes.object
 };
 
 const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityToggle, ...props}) => {
@@ -233,37 +231,53 @@ renderPostMarkerInfoBoxComponentForPost.propTypes = {
 
 export const buildPostMarkerId = post => `marker--${post.uid}`;
 
-export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, ...props}) => <ReactReduxContext.Consumer>
-    {
-        ({store}) => (
-            <Marker
-                className={`marker marker__${post.type} ${buildPostMarkerId(post)}`}
-                id={buildPostMarkerId(post)}
-                icon={{
-                    path: getSvgPathForPost(post),
-                    fillColor: "#ec7500",
-                    fillOpacity: 1,
-                    scale: 0.05,
-                    strokeWeight: 1
-                }}
-                title={post.title}
-                defaultPosition={{
-                    lat: post.lat,
-                    lng: post.long
-                }}
-                onClick={() => {
-                    setMapCenter({
-                        lat: post.lat,
-                        lng: post.long
-                    });
-                    onVisibilityToggle(!isVisible);
-                }}
-            >
-                {renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, store, ...props})}
-            </Marker>
-        )
-    }
-</ReactReduxContext.Consumer>;
+// NOTE-RT: `@vis.gl/react-google-maps`'s `InfoWindow` is anchored to a marker *instance* (a
+// sibling, not a `Marker` child like the old `InfoBox`), so the marker instance is captured via
+// `ref`/local state here and threaded down into `renderPostMarkerInfoBoxComponentForPost` as
+// `anchor`. The same ref callback also reports the marker instance to `setMarkerRef` (when
+// present, i.e. when rendered as a child of `GoogleMapMarkerClustererComponent`) for clustering.
+export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, setMarkerRef, ...props}) => {
+    const [markerInstance, setMarkerInstance] = useState(null);
+    const handleMarkerRef = useCallback(marker => {
+        setMarkerInstance(marker);
+
+        if (setMarkerRef) {
+            setMarkerRef(marker, buildPostMarkerId(post));
+        }
+    }, [setMarkerRef, post]);
+
+    return <ReactReduxContext.Consumer>
+        {
+            ({store}) => (
+                <>
+                    <Marker
+                        ref={handleMarkerRef}
+                        icon={{
+                            path: getSvgPathForPost(post),
+                            fillColor: "#ec7500",
+                            fillOpacity: 1,
+                            scale: 0.05,
+                            strokeWeight: 1
+                        }}
+                        title={post.title}
+                        position={{
+                            lat: post.lat,
+                            lng: post.long
+                        }}
+                        onClick={() => {
+                            setMapCenter({
+                                lat: post.lat,
+                                lng: post.long
+                            });
+                            onVisibilityToggle(!isVisible);
+                        }}
+                    />
+                    {renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, store, anchor: markerInstance, ...props})}
+                </>
+            )
+        }
+    </ReactReduxContext.Consumer>;
+};
 
 PostMarkerComponent.defaultProps = {
     isVisible: false
@@ -273,7 +287,8 @@ PostMarkerComponent.propTypes = {
     post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired,
-    setMapCenter: PropTypes.func.isRequired
+    setMapCenter: PropTypes.func.isRequired,
+    setMarkerRef: PropTypes.func
 };
 
 export default PostMarkerComponent;

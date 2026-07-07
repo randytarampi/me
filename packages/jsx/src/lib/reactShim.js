@@ -1,6 +1,4 @@
 // NOTE-RT: React 19 compatibility polyfills for unmaintained dependencies.
-import React from "react";
-
 import ReactDOM from "react-dom";
 
 // NOTE-RT: `immutable@5` keeps `Iterable` as a deprecated alias of `Collection` but dropped the legacy static
@@ -22,12 +20,6 @@ import * as Immutable from "immutable";
 // NOTE-RT: as part of the baseline rather than a per-test leak.
 if (typeof global.IS_REACT_ACT_ENVIRONMENT === "undefined") {
     global.IS_REACT_ACT_ENVIRONMENT = true;
-}
-
-// NOTE-RT: React 19 removed the long-deprecated `React.createFactory`, which unmaintained dependencies
-// NOTE-RT: (e.g. `react-google-maps`) still call at import time. Re-add a faithful polyfill.
-if (typeof React.createFactory !== "function") {
-    React.createFactory = type => React.createElement.bind(null, type);
 }
 
 if (typeof ReactDOM.findDOMNode !== "function") {
