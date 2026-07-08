@@ -88,6 +88,18 @@ export const styles = ({relativePath, gulp}) => gulp.task("styles", gulp.series(
         .pipe(gulp.dest(path.join(relativePath, "dist")));
 });
 
+// NOTE-RT: recursively checks whether `directory` contains at least one `.js` file outside any
+// `actions/` subdirectory, mirroring `testMocha`'s own spec glob/exclusion below.
+const containsSpecFiles = (fs, path, directory) => fs.readdirSync(directory, {withFileTypes: true}).some(entry => {
+    const entryPath = path.join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+        return entry.name !== "actions" && containsSpecFiles(fs, path, entryPath);
+    }
+
+    return entry.isFile() && path.extname(entry.name) === ".js";
+});
+
 export const testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.${testType}`, () => {
     const fs = require("fs");
     const path = require("path");
@@ -100,6 +112,17 @@ export const testMocha = ({relativePath, gulp, testType}) => gulp.task(`test.${t
     const testDirectory = path.join(relativePath, `test/${testType}`);
 
     if (!fs.existsSync(testDirectory)) {
+        return Promise.resolve();
+    }
+
+    // NOTE-RT: some packages' `test/integration` directories hold only non-`.js`-extension
+    // fixtures/stubs (e.g. `jsx`'s leftover, never-finished RTL-migration `.jsx` placeholders) and
+    // have zero real `.js` spec files. Passing an empty file list straight through to the
+    // underlying `mocha` CLI (via `gulp-mocha`) makes Mocha silently fall back to its own default
+    // spec discovery - scanning the whole `test/` directory, including this config's own
+    // `require`-only setup files (e.g. `01_setup.js`) - which then crashes trying to load those as
+    // native ESM. Skip the task entirely instead, same as the "directory doesn't exist" case above.
+    if (!containsSpecFiles(fs, path, testDirectory)) {
         return Promise.resolve();
     }
 
