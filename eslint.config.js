@@ -49,7 +49,6 @@ export default [
             "**/node_modules/**",
             "**/dist/**",
             "**/build/**",
-            "**/es5/**",
             "**/esm/**",
             "**/docs/**",
             "**/coverage/**",

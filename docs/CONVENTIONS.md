@@ -10,7 +10,7 @@
 
 - Gulp owns the task orchestration.
 - Webpack owns bundling and package outputs.
-- Expect ES5 + ESM dual builds in places that still need both.
+- The build is genuinely ESM end-to-end now - there's no more ES5/CommonJS dual build anywhere (see `docs/ARCHITECTURE.md`'s "Build pipeline" section for the full story and the two remaining, deliberate CJS exceptions).
 
 ## ESM rules
 
