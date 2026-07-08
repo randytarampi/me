@@ -1,18 +1,25 @@
 /* global google */
-// NOTE-RT: `@googlemaps/markerclusterer` ships a UMD build (`main: "dist/index.umd.js"`) whose
-// export assignments aren't statically analyzable by Node's own CJS-to-ESM interop (`cjs-module-
-// lexer`), so a named import (`import {MarkerClusterer} from "..."`) fails with "does not provide
-// an export named 'MarkerClusterer'" once this package's own build output is genuine ESM loaded
-// via Node's native `require()`/`import()` - even though the same named destructure works fine
-// under a plain CJS `require()` of this same dependency. A default import always maps to the
-// whole `module.exports` object under this interop, regardless of what the lexer could detect.
-import MarkerClustererModule from "@googlemaps/markerclusterer";
+// NOTE-RT: `@googlemaps/markerclusterer` resolves to a genuinely different build depending on who's
+// asking: webpack (`resolve.mainFields: ["browser", "module", "main"]`, see
+// `webpack.client.config.base.js`) picks its real-ESM `module` build (`dist/index.esm.mjs`, a plain
+// named `export {MarkerClusterer}`, no `default`), while Node's native `require()`/`import()` of
+// this package's own standalone `esm/` build output (no `"exports"` map to prefer otherwise) falls
+// back to its UMD `main` build (`dist/index.umd.js`), whose export assignment isn't statically
+// analyzable by Node's own CJS-to-ESM interop (`cjs-module-lexer`) - a plain named import
+// (`import {MarkerClusterer} from "..."`) throws "does not provide an export named
+// 'MarkerClusterer'" there. A namespace import works against both shapes at once: the real-ESM
+// build exposes `MarkerClusterer` directly on the namespace object, while the UMD build's whole
+// `module.exports` shows up as the namespace's `default` (Node's CJS-interop convention) - so
+// whichever one is actually undefined here, fall back to the other.
+import * as MarkerClustererModule from "@googlemaps/markerclusterer";
 import PropTypes from "prop-types";
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useMap} from "@vis.gl/react-google-maps";
 import {GoogleMapMarkerClustererStyles} from "./styles.js";
 
-const {MarkerClusterer} = MarkerClustererModule;
+const {MarkerClusterer} = MarkerClustererModule.MarkerClusterer
+    ? MarkerClustererModule
+    : MarkerClustererModule.default;
 
 // NOTE-RT: faithfully reimplements the classic `MarkerClustererPlus`/`react-google-maps`
 // clusterer icon-selection algorithm (bucket the cluster's marker count on a log scale, clamped
