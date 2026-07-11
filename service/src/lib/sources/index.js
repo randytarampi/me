@@ -4,10 +4,15 @@ import AuthInfoSearchParams from "../authInfoSearchParams.js";
 import Flickr from "./flickr/index.js";
 import GitHub from "./github/index.js";
 import S3 from "./s3/index.js";
+import SoundCloud from "./soundcloud/index.js";
+import StackOverflow from "./stackoverflow/index.js";
 import Tumblr from "./tumblr/index.js";
 import Unsplash from "./unsplash/index.js";
+import Vimeo from "./vimeo/index.js";
+import WordPress from "./wordpress/index.js";
+import YouTube from "./youtube/index.js";
 
-const sources = [Flickr, GitHub, S3, Tumblr, Unsplash].reduce(
+const sources = [Flickr, GitHub, S3, SoundCloud, StackOverflow, Tumblr, Unsplash, Vimeo, WordPress, YouTube].reduce(
     (sources, source) => {
         sources[source.type] = source;
         return sources;

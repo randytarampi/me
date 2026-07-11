@@ -85,6 +85,44 @@ class PostSearchParams extends PostSearchParamsRecord {
         };
     }
 
+    get WordPress() {
+        return {
+            page: this.page,
+            per_page: Math.min(this.perPage, 100)
+        };
+    }
+
+    get YouTube() {
+        return {
+            maxResults: Math.min(this.perPage, 50),
+            pageToken: this.continuationToken
+        };
+    }
+
+    get Vimeo() {
+        return {
+            page: this.page,
+            per_page: Math.min(this.perPage, 50)
+        };
+    }
+
+    get StackOverflow() {
+        return {
+            page: this.page,
+            pagesize: Math.min(this.perPage, 100),
+            order: "desc",
+            sort: "activity",
+            site: "stackoverflow"
+        };
+    }
+
+    get SoundCloud() {
+        return {
+            limit: Math.min(this.perPage, 50),
+            offset: (this.page - 1) * Math.min(this.perPage, 50)
+        };
+    }
+
     get Flickr() {
         return {
             page: this.page,
