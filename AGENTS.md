@@ -37,3 +37,8 @@ Setup / onboarding:
 - If layout or scripts change, update the command list and `ARCHITECTURE.md`.
 - If a repo rule changes (Node, ESM, linting, commits), update `CONVENTIONS.md`.
 - Only keep unresolved items in `LIMITATIONS.md`; remove entries when fixed.
+
+## Commit and PR conventions
+- Use [GitHub keywords](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/using-keywords-in-issues-and-pull-requests#linking-a-pull-request-to-an-issue) (`Closes #N`, `Fixes #N`, `Resolves #N`) in commit messages and PR descriptions to automatically link and close related issues/PRs.
+- Keep commits small and atomic — one logical change per commit. Don't push until ready.
+- Follow [Conventional Commits](https://www.conventionalcommits.org/) format (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`, `chore:`).
