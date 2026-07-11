@@ -12,7 +12,7 @@ const config = require("config");
 const express = require("express");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const {buildPugLocals} = require("@randy.tarampi/views");
 
@@ -70,7 +70,7 @@ export default webpackBaseConfig({
                             sourceMap: true
                         }
                     }),
-                    new OptimizeCSSAssetsPlugin()
+                    new CssMinimizerPlugin()
                 ]
     },
     plugins: [

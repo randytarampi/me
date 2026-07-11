@@ -11,7 +11,7 @@ process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 const config = require("config");
 const SentryPlugin = require("webpack-sentry-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
@@ -225,7 +225,7 @@ export default ({
                                 sourceMap: true
                             }
                         }),
-                        new OptimizeCSSAssetsPlugin()
+                        new CssMinimizerPlugin()
                     ]
         },
         ...configOverrides

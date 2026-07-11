@@ -12,7 +12,7 @@ const config = require("config");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const packageJson = require("./package");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const {DefinePlugin} = require("webpack");
 
@@ -69,7 +69,7 @@ export default webpackBaseConfig({
                             sourceMap: true
                         }
                     }),
-                    new OptimizeCSSAssetsPlugin()
+                    new CssMinimizerPlugin()
                 ]
     },
     plugins: plugins.concat([
