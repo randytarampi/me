@@ -4,6 +4,7 @@ import {Big} from "big.js";
 import {Record} from "immutable";
 import _ from "lodash";
 import {DateTime, Duration} from "luxon";
+import logger from "../serverless/logger.js";
 
 /**
  * @typedef {Object} searchParamsRecordDefinition
@@ -516,23 +517,29 @@ class PostSearchParams extends PostSearchParamsRecord {
     }
 
     get geohashQueries() {
+        const MAX_GEOHASH_QUERIES = 20;
         const geoRadius = this.geoRadius;
         const geohashQuery = this.geohash;
         const geohashQueryPrecision = this.get("geohashPrecision");
 
-        if ([this.north, this.east, this.south, this.west].every(Number.isFinite)) {
-            return getGeohashesForBoundingBox(this.north, this.east, this.south, this.west, geohashQueryPrecision);
-        }
+        let queries;
 
-        if (geoRadius) {
+        if ([this.north, this.east, this.south, this.west].every(Number.isFinite)) {
+            queries = getGeohashesForBoundingBox(this.north, this.east, this.south, this.west, geohashQueryPrecision);
+        } else if (geoRadius) {
             if ([this.lat, this.long].every(Number.isFinite)) {
-                return getGeohashesForRadiusAroundPoint(this.lat, this.long, geoRadius, geohashQueryPrecision);
+                queries = getGeohashesForRadiusAroundPoint(this.lat, this.long, geoRadius, geohashQueryPrecision);
             } else if (geohashQuery) {
-                return getGeohashesForRadiusAroundGeohash(geohashQuery, geoRadius, geohashQueryPrecision);
+                queries = getGeohashesForRadiusAroundGeohash(geohashQuery, geoRadius, geohashQueryPrecision);
             }
         }
 
-        return undefined;
+        if (queries && queries.length > MAX_GEOHASH_QUERIES) {
+            logger.warn(`Geohash query count (${queries.length}) exceeds cap (${MAX_GEOHASH_QUERIES}), truncating. Consider coarser precision.`);
+            queries = queries.slice(0, MAX_GEOHASH_QUERIES);
+        }
+
+        return queries;
     }
 
     get orderComparator() {
