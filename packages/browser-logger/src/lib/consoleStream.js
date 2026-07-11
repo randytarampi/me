@@ -1,5 +1,13 @@
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
-import {nameFromLevel} from "browser-bunyan";
+
+const pinoLevelNames = {
+    10: "trace",
+    20: "debug",
+    30: "info",
+    40: "warn",
+    50: "error",
+    60: "fatal"
+};
 
 const bears = {
     lennyBear: new LennyBear(),
@@ -82,7 +90,7 @@ class ConsoleStream {
                 "color: grey",
                 bears.bear.toString(),
                 `color: ${ConsoleStream.colorFromLevel(record.level)}`,
-                nameFromLevel[record.level].toUpperCase(),
+                (pinoLevelNames[record.level] || "unknown").toUpperCase(),
                 "color: unset",
                 record.msg
             );

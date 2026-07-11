@@ -11,10 +11,8 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "workspace:*",
-    "browser-bunyan": "^1.8.0",
-    "bunyan": "^2.0.5",
-    "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven-js": "^3.27.2"
+    "@sentry/browser": "^9.0.0",
+    "pino": "^9.0.0"
   },
   "devDependencies": {
     "chai": "^6.2.2",

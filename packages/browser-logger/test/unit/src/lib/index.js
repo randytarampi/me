@@ -1,10 +1,10 @@
-import {SentryStream} from "bunyan-sentry-stream";
 import {expect} from "chai";
 import {readFileSync} from "fs";
 import {JSDOM} from "jsdom";
-import raven from "raven-js";
+import * as Sentry from "@sentry/browser";
+import pino from "pino";
 import sinon from "sinon";
-import {buildBunyanConfiguration, buildRavenConfiguration} from "../../../../src/lib/index.js";
+import {buildPinoConfiguration, buildSentryConfiguration} from "../../../../src/lib/index.js";
 import ConsoleStream from "../../../../src/lib/consoleStream.js";
 
 const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
@@ -33,15 +33,12 @@ describe("logger", function () {
         global.document = globalWindow.document;
     });
 
-    describe("buildRavenConfiguration", function () {
-        it("returns a valid raven configuration", function () {
-            const ravenConfiguration = buildRavenConfiguration();
+    describe("buildSentryConfiguration", function () {
+        it("returns a valid sentry configuration", function () {
+            const sentryConfiguration = buildSentryConfiguration();
 
-            expect(ravenConfiguration).to.eql({
+            expect(sentryConfiguration).to.eql({
                 logger: window.NAME,
-                autoBreadcrumbs: true,
-                captureUnhandledRejections: true,
-                maxBreadcrumbs: 100,
                 environment: window.ENVIRONMENT,
                 release: window.VERSION,
                 debug: true
@@ -49,16 +46,16 @@ describe("logger", function () {
         });
     });
 
-    describe("buildBunyanConfiguration", function () {
+    describe("buildPinoConfiguration", function () {
         beforeEach(function () {
-            sinon.stub(raven, "install");
+            sinon.stub(Sentry, "init");
         });
 
         afterEach(function () {
-            raven.install.restore();
+            Sentry.init.restore();
         });
 
-        it("returns a valid bunyan configuration (with a `window`)", function () {
+        it("returns a valid pino configuration (with a `window`)", function () {
             const stubName = "woof";
             const stubVersion = "grr";
             const stubEnironment = "meow";
@@ -79,28 +76,22 @@ describe("logger", function () {
             global.window.SENTRY_DSN = stubSentryDsn;
             global.window.LOGGER = stubLoggerConfig;
 
-            const bunyanConfiguration = buildBunyanConfiguration();
+            const pinoConfiguration = buildPinoConfiguration();
 
-            expect(bunyanConfiguration.name).to.eql(stubName);
-            expect(bunyanConfiguration.version).to.eql(stubVersion);
-            expect(bunyanConfiguration.environment).to.eql(stubEnironment);
-            expect(bunyanConfiguration.streams).to.have.length(2);
-            expect(bunyanConfiguration.streams[0].stream).to.be.ok;
-            expect(bunyanConfiguration.streams[0].stream).to.be.instanceOf(ConsoleStream);
-            expect(bunyanConfiguration.streams[1].stream).to.be.ok;
-            expect(bunyanConfiguration.streams[1].stream).to.be.instanceOf(SentryStream);
-            expect(bunyanConfiguration.src).to.eql(false);
-            expect(raven.install.calledOnce).to.eql(true);
+            expect(pinoConfiguration.name).to.eql(stubName);
+            expect(pinoConfiguration.version).to.eql(stubVersion);
+            expect(pinoConfiguration.environment).to.eql(stubEnironment);
+            expect(pinoConfiguration.stream).to.be.ok;
+            expect(Sentry.init.calledOnce).to.eql(true);
         });
 
-        it("returns a valid bunyan configuration (without a `window`)", function () {
+        it("returns a valid pino configuration (without a `window`)", function () {
             global.window = undefined;
             global.document = undefined;
 
-            const bunyanConfiguration = buildBunyanConfiguration();
+            const pinoConfiguration = buildPinoConfiguration();
 
-            expect(bunyanConfiguration.name).to.eql("jsx");
-            expect(bunyanConfiguration.src).to.eql(false);
+            expect(pinoConfiguration.name).to.eql("jsx");
         });
     });
 });

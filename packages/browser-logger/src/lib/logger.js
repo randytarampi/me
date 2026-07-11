@@ -1,7 +1,6 @@
 // @ts-check
-import {createLogger as browserBunyanCreateLogger, stdSerializers} from "browser-bunyan";
-import {SentryStream} from "bunyan-sentry-stream";
-import raven from "raven-js";
+import * as Sentry from "@sentry/browser";
+import pino from "pino";
 import ConsoleStream from "./consoleStream.js";
 
 /** The browser globals this logger cares about. */
@@ -19,15 +18,12 @@ const getWindowVariables = () => {
     return {};
 };
 
-/** @returns {object} Raven config for the browser. */
-export const buildRavenConfiguration = () => {
+/** @returns {object} Sentry config for the browser. */
+export const buildSentryConfiguration = () => {
     const {windowName, windowEnvironment, windowVersion, windowLogger} = getWindowVariables();
 
     return {
         logger: windowName,
-        autoBreadcrumbs: true,
-        captureUnhandledRejections: true,
-        maxBreadcrumbs: 100,
         environment: windowEnvironment,
         release: windowVersion,
         debug: windowLogger
@@ -36,54 +32,67 @@ export const buildRavenConfiguration = () => {
     };
 };
 
-/** @returns {object} Bunyan config for the browser. */
-export const buildBunyanConfiguration = () => {
+/** @returns {object} Pino config for the browser. */
+export const buildPinoConfiguration = () => {
     const {windowName, windowEnvironment, windowVersion, windowSentryDsn, windowLogger} = getWindowVariables();
 
     if (windowLogger) {
-        const bunyanStreams = [];
+        const pinoStreams = [];
         const enabledStreams = windowLogger.streams;
         const minimumLevel = windowLogger.level;
 
         if (enabledStreams.console) {
-            bunyanStreams.push({
+            pinoStreams.push({
                 stream: new ConsoleStream(),
-                level: minimumLevel,
-                type: "raw"
+                level: minimumLevel
             });
         }
 
         if (enabledStreams.sentry) {
             if (windowSentryDsn) {
-                raven.config(windowSentryDsn, buildRavenConfiguration()).install();
-                bunyanStreams.push({
+                Sentry.init({
+                    dsn: windowSentryDsn,
+                    ...buildSentryConfiguration()
+                });
+                pinoStreams.push({
                     level: "warn",
-                    type: "raw",
-                    stream: new SentryStream(raven)
+                    stream: {
+                        write(data) {
+                            try {
+                                const record = typeof data === "string" ? JSON.parse(data) : data;
+                                if (record.err) {
+                                    Sentry.captureException(record.err, {extra: record});
+                                } else if (record.level >= 50) {
+                                    Sentry.captureException(new Error(record.msg), {extra: record});
+                                } else {
+                                    Sentry.captureMessage(record.msg, {level: "warning", extra: record});
+                                }
+                            } catch (e) {
+                                console.error("Failed to send to Sentry:", e);
+                            }
+                        }
+                    }
                 });
             }
         }
 
         return {
             name: windowName || "jsx",
-            streams: bunyanStreams,
-            src: false, // NOTE-RT: Needs to be false because it needs DTrace
+            level: minimumLevel,
+            ...(pinoStreams.length > 0 ? {stream: pino.multistream(pinoStreams)} : {}),
             version: windowVersion,
-            environment: windowEnvironment,
-            serializers: stdSerializers
+            environment: windowEnvironment
         };
     }
 
     return {
-        name: "jsx",
-        src: false, // NOTE-RT: Needs to be false because it needs DTrace
-        serializers: stdSerializers
+        name: "jsx"
     };
 };
 
 /** @returns {*} A browser logger. */
 export const createLogger = () => {
-    return browserBunyanCreateLogger(buildBunyanConfiguration());
+    return pino(buildPinoConfiguration());
 };
 
 /** The shared browser logger. */
