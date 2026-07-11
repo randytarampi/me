@@ -1,9 +1,3 @@
 import "../src/serverless/handlers/cachePosts/initialized.js";
-import "../src/serverless/handlers/facebookAuthCallback/initialized.js";
-import "../src/serverless/handlers/facebookAuthRedirect/initialized.js";
 import "../src/serverless/handlers/getPosts/initialized.js";
 import "../src/serverless/handlers/getPostsRss/initialized.js";
-import "../src/serverless/handlers/instagramAuthCallback/initialized.js";
-import "../src/serverless/handlers/instagramAuthRedirect/initialized.js";
-import "../src/serverless/handlers/twitterAuthCallback/initialized.js";
-import "../src/serverless/handlers/twitterAuthRedirect/initialized.js";
