@@ -231,6 +231,16 @@ describe("PostSearchParams", function () {
 
             expect(searchParams.geohashQueries).to.eql(undefined);
         });
+
+        it("caps geohash queries at 20 when radius generates too many", function () {
+            const searchParams = PostSearchParams.fromJS({
+                geoRadius: 5000,
+                lat: 0,
+                long: 0
+            });
+
+            expect(searchParams.geohashQueries.length).to.be.at.most(20);
+        });
     });
 
     describe("Flickr", function () {
