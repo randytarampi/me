@@ -19,7 +19,7 @@ export const renderHtml = (options = {}) => {
     return genericRenderHtml({
         printableComponent: ResumeComponent,
         printableStylesPath: process.env.RESUME_STYLES_PATH || (typeof __RESUME_STYLES_PATH__ !== "undefined" && __RESUME_STYLES_PATH__ ? path.resolve(__RESUME_STYLES_PATH__) : null) || printableStylesPath || path.resolve("dist/styles.css"),
-        printableTemplatePath,
+        printableTemplatePath: printableTemplatePath || path.resolve("../packages/views/templates/index.pug"),
         printable
     })({
         bundleName: "resume",

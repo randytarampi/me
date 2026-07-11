@@ -7,7 +7,7 @@ import path from "path";
 import {pathToFileURL} from "url";
 import raven from "raven";
 
-const packageJson = JSON.parse(readFileSync("../service/package.json", "utf8"));
+const packageJson = JSON.parse(readFileSync("../../service/package.json", "utf8"));
 
 const loadLoggerModule = async () => Function(`return import(${JSON.stringify(`${pathToFileURL(path.resolve("src/lib/index.js")).href}?t=${Date.now()}-${Math.random()}`)})`)();
 

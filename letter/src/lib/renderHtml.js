@@ -1,4 +1,4 @@
-import {renderHtml as genericRenderHtml} from "../../../packages/printables/src/lib/html.js";
+import {renderHtml as genericRenderHtml} from "@randy.tarampi/printables/html.js";
 import path from "path";
 
 import LetterComponent from "../public/views/serverApp.jsx";
@@ -16,7 +16,7 @@ export const renderHtml = (options = {}) => {
     return genericRenderHtml({
         printableComponent: LetterComponent,
         printableStylesPath: process.env.LETTER_STYLES_PATH || (typeof __LETTER_STYLES_PATH__ !== "undefined" && __LETTER_STYLES_PATH__ ? path.join(__dirname, __LETTER_STYLES_PATH__) : null) || printableStylesPath || path.join(__dirname, "../../dist/styles.css"),
-        printableTemplatePath,
+        printableTemplatePath: printableTemplatePath || path.resolve("../packages/views/templates/index.pug"),
         printable
     })({
         bundleName: "letter",
