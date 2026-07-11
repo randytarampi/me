@@ -3,7 +3,7 @@ module.exports = {
     // handful of properties to `global` the first time it's used in a process, to coordinate
     // its mocked module graph. Allowlisting them here keeps `checkLeaks` meaningful for
     // everything else while not flagging `esmock`'s own, expected globals as a leak.
-    globals: ["expect", "mockKeys", "mockKeysSource", "esmockCache", "esmockCacheGet", "esmockTreeIdGet"],
+    globals: ["expect", "mockKeys", "mockKeysSource", "esmockCache", "esmockCacheGet", "esmockTreeIdGet", "__SENTRY__", "onunhandledrejection"],
     sort: true,
     fullTrace: true,
     checkLeaks: true,

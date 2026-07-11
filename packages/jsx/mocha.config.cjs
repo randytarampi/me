@@ -1,5 +1,5 @@
 module.exports = {
-    globals: ["expect"],
+    globals: ["expect", "__SENTRY__", "onunhandledrejection"],
     sort: true,
     fullTrace: true,
     checkLeaks: true,
