@@ -14,7 +14,6 @@
     "@randy.tarampi/js": "workspace:*",
     "@randy.tarampi/lambda-logger": "workspace:*",
     "@randy.tarampi/serverless": "workspace:*",
-    "big.js": "^7.0.1",
     "config": "^5.0.0-alpha.2",
     "dynamoose": "^4.2.0",
     "flickr-sdk": "^7.1.0",

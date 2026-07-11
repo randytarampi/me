@@ -1,6 +1,6 @@
 // @ts-check
 import {castDatePropertyToDateTime, compositeKeySeparator, convertLatLongToGeohash, Gallery, getGeohashesForBoundingBox, getGeohashesForRadiusAroundGeohash, getGeohashesForRadiusAroundPoint, getHaversineDistance, Photo, Post, POST_STATUS} from "@randy.tarampi/js";
-import {Big} from "big.js";
+
 import {Record} from "immutable";
 import _ from "lodash";
 import {DateTime, Duration} from "luxon";
@@ -106,35 +106,6 @@ class PostSearchParams extends PostSearchParamsRecord {
             width: this.width,
             height: this.height,
             crop: this.crop
-        };
-    }
-
-    get Instagram() {
-        const baseRequest = {
-            after: (this.page - 1) * this.perPage,
-            limit: this.perPage,
-            fields: [
-                "caption",
-                "children",
-                "id",
-                "media_type",
-                "media_url",
-                "permalink",
-                "thumbnail_url",
-                "timestamp",
-                "username",
-            ]
-        };
-
-        const filterRequest = {};
-
-        if (this.afterId) {
-            filterRequest.after = this.afterId;
-        }
-
-        return {
-            ...baseRequest,
-            ...filterRequest
         };
     }
 
@@ -409,73 +380,6 @@ class PostSearchParams extends PostSearchParamsRecord {
             ...filterRequest,
             MaxKeys: Math.min(this.perPage, 1000)
         };
-    }
-
-    get Twitter() {
-        if (this.id) {
-            return {
-                id: this.id
-            };
-        }
-
-        const twitterQuery = {};
-
-        if (this.perPage) {
-            twitterQuery.count = this.perPage;
-        }
-
-        if (this.beforeId) {
-            twitterQuery.max_id = this.beforeId && new Big(this.beforeId).minus(1).toString();
-        }
-
-        if (this.afterId) {
-            twitterQuery.since_id = this.afterId;
-        }
-
-        return twitterQuery;
-    }
-
-    get Facebook() {
-        const facebookQuery = {
-            fields: "attachments,backdated_time,caption,created_time,description,from,full_picture,icon,message,message_tags,name,object_id,permalink_url,place,privacy,properties,source,type"
-        };
-
-        if (this.perPage) {
-            facebookQuery.count = this.perPage;
-        }
-
-        if (this.hasOrderingConditions) {
-            switch (this.orderBy) {
-                case "datePublished": {
-                    switch (this.orderOperator) {
-                        case "lt":
-                            facebookQuery.until = Math.round(this.orderComparator.toSeconds()) - 1;
-                            break;
-
-                        case "lte":
-                            facebookQuery.until = Math.round(this.orderComparator.toSeconds());
-                            break;
-
-                        case "gt":
-                        case "gte":
-                            facebookQuery.since = Math.round(this.orderComparator.toSeconds());
-                            break;
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        if (this.beforeDate) {
-            facebookQuery.until = Math.round(this.beforeDate.toSeconds()) - 1;
-        }
-
-        if (this.afterDate) {
-            facebookQuery.since = Math.round(this.afterDate.toSeconds());
-        }
-
-        return facebookQuery;
     }
 
     get geoRadius() {
