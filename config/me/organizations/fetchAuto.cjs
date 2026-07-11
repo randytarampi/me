@@ -10,7 +10,6 @@ module.exports = {
     image: "https://www.fetchauto.ca/assets/img/F_logo.png",
     url: "https://www.fetchauto.ca",
     sameAs: [
-        "https://www.facebook.com/fetchauto.ca",
         "https://www.linkedin.com/company/fetchauto",
         "https://github.com/fetch-auto"
     ],

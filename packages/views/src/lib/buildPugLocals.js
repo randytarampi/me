@@ -22,13 +22,6 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
         };
     }
 
-    if (meProfiles) {
-        if (meProfiles.Facebook) {
-            meLocals.facebookUsername = meProfiles.Facebook.username;
-            meLocals.facebookUserId = meProfiles.Facebook.userId;
-        }
-    }
-
     const locals = {
         environment: process.env.NODE_ENV || "local",
         assetUrl,
@@ -38,7 +31,6 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
         gtmContainerId: config.has("gtm.container.id") ? config.get("gtm.container.id") : null,
         gaPropertyId: config.has("ga.property.id") ? config.get("ga.property.id") : null,
         mixpanelAppId: config.has("mixpanel.app.id") ? config.get("mixpanel.app.id") : null,
-        facebookAppId: config.has("facebook.app.id") ? config.get("facebook.app.id") : null,
         locale: "en_CA",
         stylesheetName: "styles.css",
         ...meLocals,

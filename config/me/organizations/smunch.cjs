@@ -10,7 +10,6 @@ module.exports = {
     image: "https://www.smunch.co/hubfs/logo_horizontal_purple_115x30px.svg",
     url: "https://www.smunch.co/en",
     sameAs: [
-        "https://www.facebook.com/smunch.co",
         "https://www.linkedin.com/company/smunch",
         "https://github.com/smunch"
     ],

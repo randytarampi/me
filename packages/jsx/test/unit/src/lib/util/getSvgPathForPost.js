@@ -7,20 +7,12 @@ const {expect} = require("chai");
 const {
     cameraSvgPath,
     commentSvgPath,
-    facebookSvgPath,
     flickrSvgPath,
     getSvgPathForPost,
     tumblrSvgPath
 } = require("../../../../../src/lib/util/getSvgPathForPost.js");
 
 describe("getSvgPathForPost", function () {
-    it("works for `facebook`", function () {
-        const stubPost = Photo.fromJS({source: "facebook"});
-        const svgPath = getSvgPathForPost(stubPost);
-
-        expect(svgPath).to.eql(facebookSvgPath);
-    });
-
     it("works for `flickr`", function () {
         const stubPost = Photo.fromJS({source: "flickr"});
         const svgPath = getSvgPathForPost(stubPost);

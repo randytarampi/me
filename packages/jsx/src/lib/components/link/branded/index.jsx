@@ -1,7 +1,6 @@
 import {AngelListLink} from "./angelList.jsx";
 import {BrandedLink} from "./brandedLink.jsx";
 import {F00pxLink} from "./f00px.jsx";
-import {FacebookLink} from "./facebook.jsx";
 import {FlickrLink} from "./flickr.jsx";
 import {GitHubLink} from "./github.jsx";
 import {LinkedInLink} from "./linkedIn.jsx";
@@ -12,7 +11,6 @@ import {UnsplashLink} from "./unsplash.jsx";
 
 export * from "./angelList.jsx";
 export * from "./f00px.jsx";
-export * from "./facebook.jsx";
 export * from "./flickr.jsx";
 export * from "./github.jsx";
 export * from "./linkedIn.jsx";
@@ -26,7 +24,6 @@ export * from "./brandedLink.jsx";
 export const brandedLinkMap = {
     angellist: AngelListLink,
     f00px: F00pxLink,
-    facebook: FacebookLink,
     flickr: FlickrLink,
     github: GitHubLink,
     linkedin: LinkedInLink,

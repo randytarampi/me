@@ -74,9 +74,6 @@ provider:
     FLICKR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_SECRET}
     UNSPLASH_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_KEY}
     UNSPLASH_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_SECRET}
-    FACEBOOK_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_API_KEY}
-    FACEBOOK_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_API_SECRET}
-    FACEBOOK_ACCESS_TOKEN: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_ACCESS_TOKEN}
     TUMBLR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_KEY}
     TUMBLR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_SECRET}
     SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
@@ -148,17 +145,7 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
       CAMPAIGN_MEDIUM: rss
     warmup:
       enabled: true
-  facebookAuthRedirect:
-    handler: src/serverless/handlers/facebookAuthRedirect/initialized.default
-    events: ${file(env.yml):${self:provider.stage}.functions.facebookAuthRedirect.events}
-    onError:
-      Ref: LambdaDeadLetterQueue
-  facebookAuthCallback:
-    handler: src/serverless/handlers/facebookAuthCallback/initialized.default
-    events: ${file(env.yml):${self:provider.stage}.functions.facebookAuthCallback.events}
-    onError:
-      Ref: LambdaDeadLetterQueue
-resources:
+  resources:
   Resources:
     LambdaDeadLetterQueue:
       Type: AWS::SNS::Topic

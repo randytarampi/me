@@ -11,7 +11,6 @@ module.exports = {
     url: "https://joindeed.com",
     sameAs: [
         "https://www.linkedin.com/company/joindeed",
-        "https://www.facebook.com/joindeednow",
         "https://github.com/joindeed",
         "https://www.crunchbase.com/organization/deed-2"
     ],

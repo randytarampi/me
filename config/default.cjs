@@ -11,11 +11,6 @@ const LETTER_APP_PORT = WWW_APP_PORT;
 const POSTS_DB_PORT = 8000;
 
 module.exports = {
-    facebook: {
-        app: {
-            id: ""
-        }
-    },
     linkedIn: {
         app: {
             id: ""

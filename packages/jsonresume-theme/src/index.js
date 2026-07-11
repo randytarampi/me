@@ -21,12 +21,6 @@ export const render = (resumeJson, pageSize) => {
         pugDescription: resume.basics.summary,
         meImageUrl: resume.basics.picture,
         pageUrl: resume.basics.website,
-        facebookUsername: config && config.has("me.profiles.Facebook.username")
-            ? config.get("me.profiles.Facebook.username")
-            : resumeJson.facebook && resumeJson.facebook.user && resumeJson.facebook.user.username,
-        facebookAppId: config && config.has("facebook.app.id")
-            ? config.get("facebook.app.id")
-            : resumeJson.facebook && resumeJson.facebook.app && resumeJson.facebook.app.id,
         gtmContainerId: config && config.has("gtm.container.id")
             ? config.get("gtm.container.id")
             : resumeJson.gtm && resumeJson.gtm.container && resumeJson.gtm.container.id,
