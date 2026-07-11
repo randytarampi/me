@@ -110,17 +110,7 @@ export default ({
                     test: /\.jsx?$/,
                     exclude: babelLoaderExclusions,
                     type: babelJsType,
-                    // NOTE-RT: needed since `client.esm`'s Babel case (see `babel.config.js`) now
-                    // preserves real `import`/`export` syntax instead of transpiling to CommonJS
-                    // (required for `react-refresh-webpack-plugin`'s own real-ESM preamble to match
-                    // the rest of the module). Once webpack sees genuine ESM syntax originating from
-                    // a `"type": "module"` package, it enforces Node's strict "fully specified"
-                    // import-specifier rule (an extension is mandatory, even for a bare
-                    // `node_modules` subpath import like `lodash/isFunction`) - many existing
-                    // relative/bare imports in this repo predate that rule. Disabling it here keeps
-                    // resolution loose, matching the behaviour every other Babel env already had
-                    // when Babel transpiled ESM to CommonJS `require()` calls (which never enforced
-                    // this rule in the first place).
+                    // NOTE-RT: `fullySpecified: false` — see docs/CONVENTIONS.md#esm-rules
                     resolve: {
                         fullySpecified: false
                     },
@@ -150,13 +140,8 @@ export default ({
                             options: {
                                 sourceMap: true,
                                 sassOptions: {
-                                    // NOTE-RT: `sass-loader@17` only reads `loadPaths` (matching the modern
-                                    // Dart Sass JS API) - the legacy `includePaths` name is silently ignored.
-                                    // This was previously dead configuration, masked by `sass-loader`'s own
-                                    // default webpack-resolver importer already resolving these bare
-                                    // `node_modules` specifiers; renamed here for correctness/consistency with
-                                    // the `gulpfile.base.js` `styles:dev` task's identical fix.
-                                    loadPaths: [
+                                // NOTE-RT: `loadPaths` (not `includePaths`) — see docs/CONVENTIONS.md#building
+                                loadPaths: [
                                         join(sourceDirectoryPath, "node_modules"),
                                         join(sourceDirectoryPath, "../css/node_modules"),
                                         join(sourceDirectoryPath, "../../node_modules")
@@ -208,13 +193,7 @@ export default ({
             compress: true,
             static: {
                 directory: compliationDirectoryPath,
-                // NOTE-RT: `HtmlWebpackHarddiskPlugin`/`alwaysWriteToDisk: true` (see `plugins` above)
-                // and `BundleAnalyzerPlugin` (see `webpack.publish.config.base.js`) both physically
-                // write into this same directory on every compile. With the default `watch: true`,
-                // webpack-dev-server treats those self-writes as a source change and triggers another
-                // compile, ad infinitum - which also re-invokes `WorkboxPlugin.GenerateSW` every time
-                // (hence its "called multiple times" warning) against ever-changing dev bundles.
-                // Disabling `watch` here stops the self-triggering rebuild loop entirely.
+                // NOTE-RT: `watch: false` — see docs/CONVENTIONS.md#webpack
                 watch: false
             },
             // NOTE-RT: top-level `devServer.stats` was removed in the webpack-dev-server v4->v5

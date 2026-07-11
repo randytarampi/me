@@ -31,7 +31,7 @@ class CacheClient {
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
                 return undefined;
-            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
+            }); // NOTE-RT: swallow caching errors — see docs/CONVENTIONS.md#error-handling
     }
 
     /**
@@ -49,7 +49,7 @@ class CacheClient {
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
                 return undefined;
-            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
+            }); // NOTE-RT: swallow caching errors — see docs/CONVENTIONS.md#error-handling
     }
 
     /**
@@ -63,7 +63,7 @@ class CacheClient {
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(records.map(record => record.uid))})`);
                 return undefined;
-            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
+            }); // NOTE-RT: swallow caching errors — see docs/CONVENTIONS.md#error-handling
     }
 
     /**
@@ -81,7 +81,7 @@ class CacheClient {
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
                 return undefined;
-            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
+            }); // NOTE-RT: swallow caching errors — see docs/CONVENTIONS.md#error-handling
     }
 
     /**
@@ -95,7 +95,7 @@ class CacheClient {
             .catch(error => {
                 logger.error(error, `error for (${record.uid})`);
                 return undefined;
-            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
+            }); // NOTE-RT: swallow caching errors — see docs/CONVENTIONS.md#error-handling
     }
 }
 

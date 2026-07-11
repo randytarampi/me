@@ -1,15 +1,6 @@
-// NOTE-RT: documents the production-like `NODE_ENV` values this repo's build scripts actually use
-// (`"production"`, the ecosystem-standard value every build script hardcodes so React/Terser/
-// webpack's own `mode` resolution behave correctly, and `"prd"`, the value `config/`'s own file
-// naming convention expects - there is no `config/production.yml`). Every build script that sets
-// `NODE_ENV=production` also sets `NODE_CONFIG_ENV=prd` alongside it (decoupling "which config file
-// to load" from `NODE_ENV` itself, per `config@5`'s own supported mechanism for this), so `config`
-// correctly loads `config/prd.yml` instead of silently falling back to `default.cjs`/`local.cjs`.
+// NOTE-RT: NODE_ENV/NODE_CONFIG_ENV decoupling — see docs/CONVENTIONS.md#building
 const productionEnvs = ["production", "prd"];
-// NOTE-RT: opt-in, not opt-out - development-mode tooling (react-refresh, HMR, eval-source-map)
-// is only enabled when `NODE_ENV`/`BABEL_ENV` is explicitly set to the literal `"development"`.
-// A missing/unexpected env var now fails safe (production-like output) instead of silently
-// enabling development-only behavior (which used to crash `react-refresh/babel` outright).
+// NOTE-RT: development mode is opt-in — see docs/CONVENTIONS.md#building
 const isNodeEnvDevelopment = process.env.NODE_ENV === "development";
 const isBabelEnvDevelopment = process.env.BABEL_ENV !== undefined
     ? process.env.BABEL_ENV === "development"

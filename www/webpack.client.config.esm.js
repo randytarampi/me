@@ -38,9 +38,7 @@ if (!isDevelopment || process.env.BUNDLE_ANALYZER) {
 }
 
 export default webpackBaseConfig({
-    // NOTE-RT: every package's own `build:babel:esm` library-transpile script and this webpack
-    // dev-server/build bundle now share the same "client.esm" env (both need real ESM
-    // `modules: false` output) - see `babel.config.js`'s "client.esm" case for the full explanation.
+    // NOTE-RT: shared "client.esm" env — see babel.config.js's "client.esm" case
     babelEnv: "client.esm",
     // babelJsType: "javascript/esm",
     rules: [],
@@ -75,12 +73,7 @@ export default webpackBaseConfig({
                 ]
     },
     plugins: plugins.concat([
-        // NOTE-RT: precache-manifest generation has no value against unminified dev bundles (it
-        // only matters for the real production build) and was the direct source of both the
-        // "GenerateSW has been called multiple times" warning (re-triggered by every self-inflicted
-        // dev-server recompile - see `devServer.static.watch: false` above) and the "won't be
-        // precached" oversized-file warnings (dev bundles are never minified, see
-        // `optimization.minimizer` above). Skip it entirely outside of production builds.
+        // NOTE-RT: GenerateSW skipped for dev builds — see docs/CONVENTIONS.md#webpack
         ...(!isDevelopment
             ? [
                 new WorkboxPlugin.GenerateSW({

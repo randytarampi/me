@@ -5,8 +5,7 @@ import "./babel.register.cjs";
 const require = createRequire(import.meta.url);
 
 export const clean = ({relativePath, gulp}) => gulp.task("clean", () => {
-    // NOTE-RT: `vinyl-paths@5` is ESM-built (callable on `.default`), and `del@8` dropped its callable default
-    // NOTE-RT: export in favour of the named `deleteAsync`.
+    // NOTE-RT: ESM `.default` pattern — see docs/CONVENTIONS.md#esm-rules
     const vinylPaths = require("vinyl-paths").default || require("vinyl-paths");
     const {deleteAsync} = require("del");
     const path = require("path");
@@ -58,10 +57,7 @@ export const stylesDev = ({relativePath, gulp}) => gulp.task("styles:dev", () =>
 
     return gulp.src([path.join(relativePath, "styles/style.scss")])
         .pipe(sass({
-            // NOTE-RT: `gulp-sass@6`'s bundled compiler wraps the modern Dart Sass JS API
-            // (`compileString`/`compileStringAsync`), which only understands `loadPaths` - the
-            // legacy `includePaths` option is silently ignored, so `node_modules`-relative
-            // `@import`s (e.g. `materialize-css/sass/...`) failed to resolve at all.
+            // NOTE-RT: `loadPaths` (not `includePaths`) — see docs/CONVENTIONS.md#building
             loadPaths: [
                 path.join(relativePath, "node_modules"),
                 path.join(relativePath, "../css/node_modules"),

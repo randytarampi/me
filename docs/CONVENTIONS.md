@@ -5,18 +5,26 @@
 - Tests use Mocha, usually wired through `gulp-mocha`.
 - Mocha config files that need CommonJS should stay `.cjs` (`mocha.config.cjs` is the usual shape).
 - Use `sinon` for stubbing/mocking non-module-boundary code. For mocking ES module dependencies (a target module's own imports), use `esmock` — the sanctioned approach, adopted throughout `service`'s test suite, replacing the old `require.cache`-deleting `freshRequire` helper which doesn't work against real ESM module instances. Don't reach for `proxyquire`.
+- **esmock must be imported dynamically** (not statically at module top level). `esmock`'s own module graph contains top-level `await`, and Mocha's spec-file loader tries to `require()` each spec file first — Node refuses to synchronously `require()` any ESM graph with top-level `await`, throwing `ERR_REQUIRE_ASYNC_MODULE`. A dynamic `import("esmock")` inside a function sidesteps this: the wrapper module loads via `require()` just fine, and the dynamic import resolves later during async test execution. See `service/test/lib/esmock.js`.
+- **Pre-require built ESM artifacts in integration tests** as a regression guard against the real `esm/` output becoming un-`require()`-able (e.g. a stray `.jsx` extension or un-fully-specified bare import). These issues don't surface when testing against `../src` via Babel's live transform alone. See `resume/test/03_import-esm-build.js` and `letter/test/03_import-esm-build.js`.
+- **Pre-require packages to avoid `ERR_REQUIRE_ESM_RACE_CONDITION`**: Mocha's `requireOrImport` always tries a dynamic `import()` of a `.js` spec file first. When that spec's import graph includes an unbuilt `.jsx` file, the `import()` partially registers the ESM dep before rejecting, then Mocha falls back to `require()` — which collides with the partial registration. Fully `require()`-ing the package first (with nothing else racing) leaves a complete, cached module instance so both paths resolve to the same instance.
 
 ## Building
 
 - Gulp owns the task orchestration.
 - Webpack owns bundling and package outputs.
 - The build is genuinely ESM end-to-end now - there's no more ES5/CommonJS dual build anywhere (see `docs/ARCHITECTURE.md`'s "Build pipeline" section for the full story and the two remaining, deliberate CJS exceptions).
+- **NODE_ENV/NODE_CONFIG_ENV decoupling**: Build scripts set `NODE_ENV=production` (the ecosystem-standard value for React/Terser/webpack `mode` resolution) and `NODE_CONFIG_ENV=prd` alongside it. This decouples "which config file to load" from `NODE_ENV` itself, per `config@5`'s supported mechanism — `config` loads `config/prd.yml` instead of silently falling back to `default.cjs`/`local.cjs`. The production-like values are `"production"` and `"prd"`. See `util.cjs`.
+- **Development mode is opt-in, not opt-out**: Development-mode tooling (react-refresh, HMR, eval-source-map) is only enabled when `NODE_ENV`/`BABEL_ENV` is explicitly set to the literal `"development"`. A missing/unexpected env var fails safe (production-like output) instead of silently enabling development-only behavior. See `util.cjs`.
+- **Sass `loadPaths` (not `includePaths`)**: `gulp-sass@6` and `sass-loader@17` wrap the modern Dart Sass JS API (`compileString`/`compileStringAsync`), which only understands `loadPaths`. The legacy `includePaths` option is silently ignored. Always use `loadPaths` in sass options. See `gulpfile.base.js` and `webpack.client.config.base.js`.
 
 ## ESM rules
 
 - ESM is the default because the repo is `type: module`.
 - Every workspace package is now `"type": "module"` — there are no remaining package-level CommonJS exceptions. Only specific tooling/config files stay CommonJS via the `.cjs` extension (e.g. `mocha.config.cjs`, `loadConfig.cjs`, `util.cjs`, `config/**/*.cjs`); don’t rename those without checking the build/test fallout.
 - Config files that need CommonJS should use `.cjs`.
+- **ESM `.default` import pattern**: When `require()`-ing an ESM-built package, the default export may be on `.default` (e.g. `require("vinyl-paths").default`). Always use the fallback pattern: `require("pkg").default || require("pkg")`. This is needed for packages like `vinyl-paths@5`, `gulp-mocha`, `gulp-autoprefixer`, and `gulp-if`.
+- **`fullySpecified: false` on webpack babel-loader rules**: When webpack sees genuine ESM syntax from a `"type": "module"` package, it enforces Node's strict "fully specified" import-specifier rule (extension required even for bare `node_modules` subpath imports). Many existing imports predate this rule. Disable it per-rule with `resolve: { fullySpecified: false }` on every babel-loader rule that processes ESM output. See `webpack.client.config.base.js` and `service/webpack.serverless.config.js`.
 
 ## Dependency management
 
@@ -31,6 +39,18 @@
 - Node 24 is the baseline.
 - ESLint uses flat config (`eslint.config.js`).
 - Follow conventional commits; release automation assumes predictable commit messages.
+
+## Error handling
+
+- **Cache failures should never break the request**: Intentionally swallow caching errors — the service falls back to the origin source. See `service/src/lib/cacheClient.js`.
+- **Best-effort side effects must never block state transitions**: Wrap setup/teardown side effects (e.g. Crisp widget, route setup dispatches) in try/finally so an exception never prevents critical state from being set. See `www/src/public/views/hotApp.jsx`.
+
+## Webpack
+
+- **`devServer.static.watch: false`**: `HtmlWebpackHarddiskPlugin` and `BundleAnalyzerPlugin` both physically write into the dev server's static directory on every compile. With the default `watch: true`, webpack-dev-server treats those self-writes as source changes and triggers another compile, ad infinitum. Disabling `watch` stops the self-triggering rebuild loop. See `webpack.client.config.base.js`.
+- **`GenerateSW` is skipped for dev builds**: Precaching unminified dev bundles has no value and was the source of "GenerateSW has been called multiple times" warnings (re-triggered by every self-inflicted dev-server recompile) and oversized-file warnings. See `www/webpack.client.config.esm.js`.
+- **Serverless webpack output uses `.js` (not `.mjs`)**: `serverless-webpack`'s `individually: false` packaging resolves each function's deployed `handler` path by matching the output filename against the original handler's basename. Real ESM output works under `.js` because `nodejs24.x` resolves module format from the nearest `package.json`'s `"type"` field. See `service/webpack.serverless.config.js`.
+- **Serverless webpack needs explicit `library.type: "module"`**: Without it, webpack's real-ESM output captures each entry's exports into a local runtime variable internally but never re-exposes them via a real top-level `export` statement — so `nodejs24.x` can't find the handler export. See `service/webpack.serverless.config.js`.
 
 ## Voice and Style
 
