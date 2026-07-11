@@ -15,6 +15,10 @@ import metrics from "@randy.tarampi/redux-metrics";
 export const metricsMiddleware = () => next => action => {
     next(action);
 
+    if (process.env.NODE_ENV !== "prd") {
+        return;
+    }
+
     const trackReduxAction = metrics
         && metrics.api
         && _.isFunction(metrics.api.trackReduxAction)

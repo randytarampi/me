@@ -10,6 +10,10 @@ class GtmMetrics {
     }
 
     track(eventName, details) {
+        if (typeof process !== "undefined" && process.env && process.env.NODE_ENV !== "prd") {
+            return Promise.resolve([]);
+        }
+
         return new Promise(resolve => {
             return resolve(this.dataLayer.push({
                 event: eventName,
