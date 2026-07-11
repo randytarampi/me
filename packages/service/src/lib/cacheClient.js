@@ -1,5 +1,4 @@
 // @ts-check
-import _ from "lodash";
 import PostModel from "../db/models/post.js";
 import logger from "../serverless/logger.js";
 
@@ -25,13 +24,14 @@ class CacheClient {
     async getRecords(searchParams) {
         logger.trace(`getting records (${JSON.stringify(searchParams)}) from cache`);
 
-        const queries = _.flatten([searchParams[this.type]]);
+        const queries = Array.isArray(searchParams[this.type]) ? searchParams[this.type] : [searchParams[this.type]];
 
         return Promise.all(queries.map(this.dataClient.getRecords))
-            .then(_.flatten)
+            .then(results => results.flat())
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
-            }); // NOTE-RT: Just swallow caching errors
+                return undefined;
+            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
     }
 
     /**
@@ -42,13 +42,14 @@ class CacheClient {
     async getRecordCount(searchParams) {
         logger.trace(`getting count of records (${JSON.stringify(searchParams)}) from cache`);
 
-        const queries = _.flatten([searchParams[this.type]]);
+        const queries = Array.isArray(searchParams[this.type]) ? searchParams[this.type] : [searchParams[this.type]];
 
         return Promise.all(queries.map(this.dataClient.getRecordCount))
-            .then(_.sum)
+            .then(results => results.reduce((sum, n) => sum + n, 0))
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
-            }); // NOTE-RT: Just swallow caching errors
+                return undefined;
+            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
     }
 
     /**
@@ -61,7 +62,8 @@ class CacheClient {
         return this.dataClient.createRecords(records)
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(records.map(record => record.uid))})`);
-            }); // NOTE-RT: Just swallow caching errors
+                return undefined;
+            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
     }
 
     /**
@@ -72,13 +74,14 @@ class CacheClient {
     async getRecord(searchParams) {
         logger.trace(`getting record (${JSON.stringify(searchParams)}) from cache`);
 
-        const queries = _.flatten([searchParams[this.type]]);
+        const queries = Array.isArray(searchParams[this.type]) ? searchParams[this.type] : [searchParams[this.type]];
 
         return Promise.all(queries.map(this.dataClient.getRecord))
-            .then(_.first)
+            .then(results => results[0])
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
-            }); // NOTE-RT: Just swallow caching errors
+                return undefined;
+            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
     }
 
     /**
@@ -91,7 +94,8 @@ class CacheClient {
         return this.dataClient.createRecord(record)
             .catch(error => {
                 logger.error(error, `error for (${record.uid})`);
-            }); // NOTE-RT: Just swallow caching errors
+                return undefined;
+            }); // NOTE-RT: Intentionally swallow caching errors — cache failures should not break the request, the service falls back to the origin source
     }
 }
 
