@@ -16,11 +16,6 @@ module.exports = {
             id: ""
         }
     },
-    instagram: {
-        app: {
-            id: ""
-        }
-    },
     linkedIn: {
         app: {
             id: ""

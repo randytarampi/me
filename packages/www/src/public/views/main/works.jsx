@@ -1,5 +1,5 @@
 import {DoubtBear} from "@randy.tarampi/js";
-import {CampaignLink, ConnectedBear, F00pxLink, FlickrLink, InstagramLink, RowBlock} from "@randy.tarampi/jsx";
+import {CampaignLink, ConnectedBear, F00pxLink, FlickrLink, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
 
@@ -23,8 +23,7 @@ const Works = () =>
                 One of those people that's interested in my photography? You'll find my favourite works on <CampaignLink
                 href="https://unsplash.com/@randytarampi" text="Unsplash"/>. I stopped using <F00pxLink
                 useBranding={false} text="500px"/> ages ago, don't really upload much to <FlickrLink
-                useBranding={false} text="Flickr"/> and really only use <InstagramLink
-                useBranding={false} text="Instagram"/> when I'm on the road and shamed into sharing.
+                useBranding={false} text="Flickr"/>.
             </p>
         </Col>
         <Col className="block__bear hide-on-med-and-down" l={5} s={12}>

@@ -12,7 +12,6 @@ module.exports = {
     sameAs: [
         "https://www.linkedin.com/company/joindeed",
         "https://twitter.com/join_deed",
-        "https://www.instagram.com/join.deed",
         "https://www.facebook.com/joindeednow",
         "https://github.com/joindeed",
         "https://www.crunchbase.com/organization/deed-2"

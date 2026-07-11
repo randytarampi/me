@@ -12,7 +12,6 @@ module.exports = {
     sameAs: [
         "https://www.facebook.com/fetchauto.ca",
         "https://twitter.com/FetchAuto",
-        "https://www.instagram.com/fetchauto",
         "https://www.linkedin.com/company/fetchauto",
         "https://github.com/fetch-auto"
     ],

@@ -4,7 +4,6 @@ import {
     ConnectedHelloBear,
     EmailLink,
     GitHubLink,
-    InstagramLink,
     LinkedInLink,
     ResumeAppLink,
     RowBlock,
@@ -24,7 +23,7 @@ export const IntroText = () =>
         </p>
         <p>
             If you're interested in my work check me out on <GitHubLink useBranding={false} text="GitHub"/>, look at
-            where I've been on <InstagramLink useBranding={false} text="Instagram"/> or peek in on what's going on in my
+            where I've been or peek in on what's going on in my
             life at my <BlogAppLink text="blog"/>. I've even got an <CampaignLink useBranding={false} className="link--rss" text="RSS feed" href={__POSTS_FEED_URL__}/>!
         </p>
         <p>

@@ -4,7 +4,6 @@ import {F00pxLink} from "./f00px.jsx";
 import {FacebookLink} from "./facebook.jsx";
 import {FlickrLink} from "./flickr.jsx";
 import {GitHubLink} from "./github.jsx";
-import {InstagramLink} from "./instagram.jsx";
 import {LinkedInLink} from "./linkedIn.jsx";
 import {SoundCloudLink} from "./soundCloud.jsx";
 import {StackOverflowLink} from "./stackOverflow.jsx";
@@ -17,7 +16,6 @@ export * from "./f00px.jsx";
 export * from "./facebook.jsx";
 export * from "./flickr.jsx";
 export * from "./github.jsx";
-export * from "./instagram.jsx";
 export * from "./linkedIn.jsx";
 export * from "./soundCloud.jsx";
 export * from "./stackOverflow.jsx";
@@ -33,7 +31,6 @@ export const brandedLinkMap = {
     facebook: FacebookLink,
     flickr: FlickrLink,
     github: GitHubLink,
-    instagram: InstagramLink,
     linkedin: LinkedInLink,
     soundcloud: SoundCloudLink,
     stackoverflow: StackOverflowLink,

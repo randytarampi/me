@@ -91,7 +91,7 @@ export default webpackBaseConfig({
                     cacheId: packageJson.name,
                     runtimeCaching: [
                         {
-                            urlPattern: /.*(?:flickr|instagram|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
+                            urlPattern: /.*(?:flickr|tumblr|unsplash|gravatar)\.com|.*(shields)\.io|.*(crisp)\.chat/,
                             handler: "StaleWhileRevalidate",
                             options: {
                                 cacheName: "external",

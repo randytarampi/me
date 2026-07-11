@@ -19,7 +19,6 @@ module.exports = {
         "AWS Lambda",
         "DynamoDB",
         "Tumblr",
-        "Instagram",
         "Unsplash",
         "Flickr",
         "S3"

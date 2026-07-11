@@ -3,5 +3,5 @@ const {buildResumeProfilesByName} = require("../../util.cjs");
 
 module.exports = {
     ...person,
-    profiles: buildResumeProfilesByName(["GitHub", "Instagram", "LinkedIn", "Flickr", "AngelList", "StackOverflow"])
+    profiles: buildResumeProfilesByName(["GitHub", "LinkedIn", "Flickr", "AngelList", "StackOverflow"])
 };

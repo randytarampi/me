@@ -20,7 +20,6 @@
     "flickr-sdk": "^7.1.0",
     "form-data": "^4.0.6",
     "immutable": "^5.1.9",
-    "instagram-graph-sdk": "^0.4.0",
     "js-yaml": "^5.2.1",
     "lodash": "^4.18.1",
     "luxon": "^3.7.2",
