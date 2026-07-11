@@ -44,8 +44,6 @@
     "react-progressive-image": "^0.6.0",
     "react-redux": "^9.3.0",
     "react-router": "^8.1.0",
-    "react-router-config": "^5.1.1",
-    "react-router-dom": "^7.18.1",
     "react-swipeable-views": "^0.14.2",
     "react-swipeable-views-utils": "^0.14.2",
     "redux": "^5.0.1",
