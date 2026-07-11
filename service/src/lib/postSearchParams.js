@@ -78,6 +78,13 @@ class PostSearchParams extends PostSearchParamsRecord {
         });
     }
 
+    get GitHub() {
+        return {
+            page: this.page,
+            per_page: Math.min(this.perPage, 100)
+        };
+    }
+
     get Flickr() {
         return {
             page: this.page,
