@@ -1,14 +1,11 @@
 import {expect} from "chai";
 import {readFileSync} from "fs";
-import * as Sentry from "@sentry/node";
-import pino from "pino";
+import esmock from "esmock";
 import sinon from "sinon";
 import path from "path";
 import {pathToFileURL} from "url";
 
 const packageJson = JSON.parse(readFileSync("../../service/package.json", "utf8"));
-
-const loadLoggerModule = async () => Function(`return import(${JSON.stringify(`${pathToFileURL(path.resolve("src/lib/index.js")).href}?t=${Date.now()}-${Math.random()}`)})`)();
 
 afterEach(function () {
     sinon.restore();
@@ -34,8 +31,10 @@ describe("logger", function () {
 
     describe("configureLogger", function () {
         it("configures sentry properly", async function () {
-            const sentryInitStub = sinon.stub(Sentry, "init");
-            const {configureLogger} = await loadLoggerModule();
+            const sentryInitStub = sinon.stub().returns();
+            const {configureLogger} = await esmock("../../../../src/lib/index.js", {
+                "@sentry/node": {init: sentryInitStub}
+            });
 
             return configureLogger(packageJson)
                 .then(() => {
@@ -55,8 +54,10 @@ describe("logger", function () {
             delete process.env.LOGGER_STREAM_SENTRY_ENABLED;
             delete process.env.LOGGER_SRC_ENABLED;
 
-            const sentryInitStub = sinon.stub(Sentry, "init");
-            const {configureLogger} = await loadLoggerModule();
+            const sentryInitStub = sinon.stub().returns();
+            const {configureLogger} = await esmock("../../../../src/lib/index.js", {
+                "@sentry/node": {init: sentryInitStub}
+            });
 
             return configureLogger(packageJson)
                 .then(() => {
@@ -72,8 +73,10 @@ describe("logger", function () {
         it("does not configure sentry if `process.env.IS_OFFLINE`", async function () {
             process.env.IS_OFFLINE = true;
 
-            const sentryInitStub = sinon.stub(Sentry, "init");
-            const {configureLogger} = await loadLoggerModule();
+            const sentryInitStub = sinon.stub().returns();
+            const {configureLogger} = await esmock("../../../../src/lib/index.js", {
+                "@sentry/node": {init: sentryInitStub}
+            });
 
             return configureLogger(packageJson)
                 .then(() => {
@@ -84,8 +87,10 @@ describe("logger", function () {
         it("doesn't configure sentry if there's no `process.env.SENTRY_DSN`", async function () {
             delete process.env.SENTRY_DSN;
 
-            const sentryInitStub = sinon.stub(Sentry, "init");
-            const {configureLogger} = await loadLoggerModule();
+            const sentryInitStub = sinon.stub().returns();
+            const {configureLogger} = await esmock("../../../../src/lib/index.js", {
+                "@sentry/node": {init: sentryInitStub}
+            });
 
             return configureLogger(packageJson)
                 .then(() => {
@@ -100,8 +105,10 @@ describe("logger", function () {
             delete process.env.LOGGER_STREAM_STDOUT_ENABLED;
             delete process.env.LOGGER_STREAM_SENTRY_ENABLED;
 
-            const pinoStub = sinon.stub(pino, "pino").returns({});
-            const {createLogger} = await loadLoggerModule();
+            const pinoStub = sinon.stub().returns({});
+            const {createLogger} = await esmock("../../../../src/lib/index.js", {
+                pino: {default: pinoStub}
+            });
 
             createLogger(packageJson);
 
@@ -120,9 +127,11 @@ describe("logger", function () {
             process.env.LOGGER_STREAM_SENTRY_ENABLED = "true";
             process.env.LOGGER_SRC_ENABLED = "true";
 
-            const pinoStub = sinon.stub(pino, "pino").returns({});
-            sinon.stub(pino, "multistream").returns({});
-            const {createLogger} = await loadLoggerModule();
+            const pinoStub = sinon.stub().returns({});
+            pinoStub.multistream = sinon.stub().returns({});
+            const {createLogger} = await esmock("../../../../src/lib/index.js", {
+                pino: {default: pinoStub}
+            });
 
             createLogger(packageJson);
 
