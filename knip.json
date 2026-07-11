@@ -15,6 +15,46 @@
         "packages/*/test/**",
         "packages/*/tests/**"
       ]
+    },
+    "service": {
+      "entry": ["package.json"],
+      "ignore": [
+        "coverage/**",
+        ".nyc_output/**",
+        "dist/**",
+        "build/**",
+        "test/**"
+      ]
+    },
+    "www": {
+      "entry": ["package.json"],
+      "ignore": [
+        "coverage/**",
+        ".nyc_output/**",
+        "dist/**",
+        "build/**",
+        "test/**"
+      ]
+    },
+    "resume": {
+      "entry": ["package.json"],
+      "ignore": [
+        "coverage/**",
+        ".nyc_output/**",
+        "dist/**",
+        "build/**",
+        "test/**"
+      ]
+    },
+    "letter": {
+      "entry": ["package.json"],
+      "ignore": [
+        "coverage/**",
+        ".nyc_output/**",
+        "dist/**",
+        "build/**",
+        "test/**"
+      ]
     }
   }
 }

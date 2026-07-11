@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/syncpack/schema.json",
-  "source": ["packages/*/package.json"],
+  "source": ["packages/*/package.json", "service/package.json", "www/package.json", "resume/package.json", "letter/package.json"],
   "versionGroups": [
     {
       "dependencies": ["chai"],

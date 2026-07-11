@@ -94,7 +94,7 @@
     "pretest:collect": "yarn run pretest:actual:collect",
     "pretest:service:dynamodb-local": "bin/pretest:service:dynamodb-local.sh",
     "start:service": "lerna run start --stream --scope=@randy.tarampi/service",
-    "start:web": "lerna run start --stream --scope=@randy.tarampi/{service,www}",
+    "start:web": "lerna run start --stream --scope=@randy.tarampi/service --scope=@randy.tarampi/www",
     "start:www": "lerna run start --stream --scope=@randy.tarampi/www",
     "test": "yarn run test:actual; yarn run test:collect",
     "test:actual": "cross-env-shell NODE_ENV=test lerna run test --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
