@@ -20,8 +20,10 @@ const {
 
 describe("metrics", function () {
     const metricsInstanceApi = metricsInstance.default.api;
+    const originalNodeEnv = process.env.NODE_ENV;
 
     beforeEach(function () {
+        process.env.NODE_ENV = "prd";
         Object.defineProperty(metricsInstance.default, "api", {
             value: {
                 trackReduxAction: sinon.stub()
@@ -37,6 +39,7 @@ describe("metrics", function () {
             writable: false,
             configurable: true
         });
+        process.env.NODE_ENV = originalNodeEnv;
     });
 
     it("calls `trackReduxAction` with the correct properties", function () {
