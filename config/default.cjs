@@ -26,11 +26,6 @@ module.exports = {
             id: ""
         }
     },
-    twitter: {
-        app: {
-            id: ""
-        }
-    },
     gtm: {
         container: {
             id: ""

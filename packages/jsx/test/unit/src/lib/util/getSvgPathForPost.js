@@ -10,8 +10,7 @@ const {
     facebookSvgPath,
     flickrSvgPath,
     getSvgPathForPost,
-    tumblrSvgPath,
-    twitterSvgPath
+    tumblrSvgPath
 } = require("../../../../../src/lib/util/getSvgPathForPost.js");
 
 describe("getSvgPathForPost", function () {
@@ -34,13 +33,6 @@ describe("getSvgPathForPost", function () {
         const svgPath = getSvgPathForPost(stubPost);
 
         expect(svgPath).to.eql(tumblrSvgPath);
-    });
-
-    it("works for `twitter`", function () {
-        const stubPost = Gallery.fromJS({source: "twitter"});
-        const svgPath = getSvgPathForPost(stubPost);
-
-        expect(svgPath).to.eql(twitterSvgPath);
     });
 
     it("works for `unsplash`", function () {

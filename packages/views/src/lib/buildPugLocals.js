@@ -23,10 +23,6 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
     }
 
     if (meProfiles) {
-        if (meProfiles.Twitter) {
-            meLocals.twitterUsername = meProfiles.Twitter.username;
-        }
-
         if (meProfiles.Facebook) {
             meLocals.facebookUsername = meProfiles.Facebook.username;
             meLocals.facebookUserId = meProfiles.Facebook.userId;

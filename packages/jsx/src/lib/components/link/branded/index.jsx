@@ -8,7 +8,6 @@ import {LinkedInLink} from "./linkedIn.jsx";
 import {SoundCloudLink} from "./soundCloud.jsx";
 import {StackOverflowLink} from "./stackOverflow.jsx";
 import {TumblrLink} from "./tumblr.jsx";
-import {TwitterLink} from "./twitter.jsx";
 import {UnsplashLink} from "./unsplash.jsx";
 
 export * from "./angelList.jsx";
@@ -20,7 +19,6 @@ export * from "./linkedIn.jsx";
 export * from "./soundCloud.jsx";
 export * from "./stackOverflow.jsx";
 export * from "./tumblr.jsx";
-export * from "./twitter.jsx";
 export * from "./unsplash.jsx";
 
 export * from "./brandedLink.jsx";
@@ -35,7 +33,6 @@ export const brandedLinkMap = {
     soundcloud: SoundCloudLink,
     stackoverflow: StackOverflowLink,
     tumblr: TumblrLink,
-    twitter: TwitterLink,
     unsplash: UnsplashLink
 };
 

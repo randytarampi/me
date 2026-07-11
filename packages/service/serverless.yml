@@ -79,8 +79,6 @@ provider:
     FACEBOOK_ACCESS_TOKEN: ${file(env.yml):${self:provider.stage}.environmentSecrets.FACEBOOK_ACCESS_TOKEN}
     TUMBLR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_KEY}
     TUMBLR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_SECRET}
-    TWITTER_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.TWITTER_API_KEY}
-    TWITTER_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TWITTER_API_SECRET}
     SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
 
 plugins:
@@ -160,17 +158,6 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
     events: ${file(env.yml):${self:provider.stage}.functions.facebookAuthCallback.events}
     onError:
       Ref: LambdaDeadLetterQueue
-  twitterAuthRedirect:
-    handler: src/serverless/handlers/twitterAuthRedirect/initialized.default
-    events: ${file(env.yml):${self:provider.stage}.functions.twitterAuthRedirect.events}
-    onError:
-      Ref: LambdaDeadLetterQueue
-  twitterAuthCallback:
-    handler: src/serverless/handlers/twitterAuthCallback/initialized.default
-    events: ${file(env.yml):${self:provider.stage}.functions.twitterAuthCallback.events}
-    onError:
-      Ref: LambdaDeadLetterQueue
-
 resources:
   Resources:
     LambdaDeadLetterQueue:

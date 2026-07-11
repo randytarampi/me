@@ -5,7 +5,6 @@ const BrandedLink = require("../../../../../../src/lib/components/link/branded/i
 const {
     GitHubLink,
     LinkedInLink,
-    TwitterLink,
     brandedLinkMap,
     getBrandedLinkForNetwork
 } = require("../../../../../../src/lib/components/link/branded/index.jsx");
@@ -13,7 +12,6 @@ const {
 describe("BrandedLink", function () {
     it("maps networks to branded link components", function () {
         expect(getBrandedLinkForNetwork("github")).to.eql(GitHubLink);
-        expect(getBrandedLinkForNetwork("TWITTER")).to.eql(TwitterLink);
         expect(getBrandedLinkForNetwork("linkedin")).to.eql(LinkedInLink);
         expect(brandedLinkMap.github).to.eql(GitHubLink);
     });

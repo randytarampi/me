@@ -5,10 +5,9 @@ import Facebook from "./facebook/index.js";
 import Flickr from "./flickr/index.js";
 import S3 from "./s3/index.js";
 import Tumblr from "./tumblr/index.js";
-import Twitter from "./twitter/index.js";
 import Unsplash from "./unsplash/index.js";
 
-const sources = [Facebook, Flickr, S3, Tumblr, Twitter, Unsplash].reduce(
+const sources = [Facebook, Flickr, S3, Tumblr, Unsplash].reduce(
     (sources, source) => {
         sources[source.type] = source;
         return sources;

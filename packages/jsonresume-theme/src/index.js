@@ -21,9 +21,6 @@ export const render = (resumeJson, pageSize) => {
         pugDescription: resume.basics.summary,
         meImageUrl: resume.basics.picture,
         pageUrl: resume.basics.website,
-        twitterUsername: config && config.has("me.profiles.Twitter.username")
-            ? config.get("me.profiles.Twitter.username")
-            : resumeJson.twitter && resumeJson.twitter.user && resumeJson.twitter.user.username,
         facebookUsername: config && config.has("me.profiles.Facebook.username")
             ? config.get("me.profiles.Facebook.username")
             : resumeJson.facebook && resumeJson.facebook.user && resumeJson.facebook.user.username,
