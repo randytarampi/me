@@ -4,15 +4,21 @@ import GtmClient from "../../../../../src/lib/vendors/gtm.js";
 
 describe("GtmClient", function () {
     const globalWindow = global.window || new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"}).window;
+    const originalNodeEnv = process.env.NODE_ENV;
 
     if (!global.window) {
         global.window = globalWindow;
         global.document = globalWindow.document;
     }
 
+    beforeEach(function () {
+        process.env.NODE_ENV = "prd";
+    });
+
     afterEach(function () {
         global.window = globalWindow;
         global.document = globalWindow.document;
+        process.env.NODE_ENV = originalNodeEnv;
     });
 
     describe("constructor", function () {
