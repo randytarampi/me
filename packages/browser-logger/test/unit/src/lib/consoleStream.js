@@ -1,9 +1,17 @@
 import {JSDOM} from "jsdom";
 import {Bear, DeadBear, DisBear, DoubtBear, LennyBear, ShrugBear} from "@randy.tarampi/js";
-import {nameFromLevel} from "browser-bunyan";
 import {expect} from "chai";
 import sinon from "sinon";
 import ConsoleStream from "../../../../src/lib/consoleStream.js";
+
+const pinoLevelNames = {
+    10: "trace",
+    20: "debug",
+    30: "info",
+    40: "warn",
+    50: "error",
+    60: "fatal"
+};
 
 describe("ConsoleStream", function () {
     const globalWindow = global.window || new JSDOM("<html><div id=\"react-root\"></div></html>", {url: "http://localhost:8080"}).window;
@@ -231,7 +239,7 @@ describe("ConsoleStream", function () {
                 "color: grey",
                 bears.bear.toString(),
                 `color: ${ConsoleStream.colorFromLevel(stubRecord.level)}`,
-                nameFromLevel[stubRecord.level].toUpperCase(),
+                (pinoLevelNames[stubRecord.level] || "unknown").toUpperCase(),
                 "color: unset",
                 stubRecord.msg
             );

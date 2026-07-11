@@ -31,10 +31,8 @@
     "npm-shrinkwrap.json"
   ],
   "keywords": [
-    "bunyan",
-    "bunyan-browser",
     "logger",
-    "raven",
+    "pino",
     "sentry"
   ],
   "license": "MIT",

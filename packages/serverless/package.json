@@ -34,9 +34,7 @@
     "npm-shrinkwrap.json"
   ],
   "keywords": [
-    "bunyan",
     "logger",
-    "raven",
     "sentry"
   ],
   "license": "MIT",
