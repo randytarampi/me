@@ -96,7 +96,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           shopt -s nullglob
-          assets=(me.tar.gz packages/jsonresume-theme/docs/resume.*.pdf packages/letter/docs/letter.*.pdf)
+          assets=(me.tar.gz packages/jsonresume-theme/docs/resume.*.pdf letter/docs/letter.*.pdf)
           gh release create "${{ steps.version.outputs.tag }}" \
             --title "${{ steps.version.outputs.tag }}" \
             --target "${{ github.sha }}" \

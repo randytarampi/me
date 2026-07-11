@@ -1,0 +1,97 @@
+{
+  "name": "@randy.tarampi/service",
+  "description": "The backend for www.randytarampi.ca",
+  "version": "8.0.0",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "bugs": "https://github.com/randytarampi/me/issues",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1081.0",
+    "@aws-sdk/client-ssm": "^3.1081.0",
+    "@randy.tarampi/js": "workspace:*",
+    "@randy.tarampi/lambda-logger": "workspace:*",
+    "@randy.tarampi/serverless": "workspace:*",
+    "config": "^5.0.0-alpha.2",
+    "dynamoose": "^4.2.0",
+    "flickr-sdk": "^7.1.0",
+    "form-data": "^4.0.6",
+    "immutable": "^5.1.9",
+    "js-yaml": "^5.2.1",
+    "lodash": "^4.18.1",
+    "luxon": "^3.7.2",
+    "mime-types": "^3.0.2",
+    "query-string": "^9.4.1",
+    "rss": "^1.2.2",
+    "tumblr.js": "^5.0.1",
+    "unsplash-js": "^8.0.0"
+  },
+  "devDependencies": {
+    "aws-dynamodb-local": "^0.0.14",
+    "chai": "^6.2.2",
+    "copy-webpack-plugin": "^14.0.0",
+    "cross-env": "^10.1.0",
+    "esmock": "^2.7.6",
+    "gulp": "^5.0.1",
+    "mocha-junit-reporter": "^2.2.1",
+    "serverless": "^4.38.1",
+    "serverless-domain-manager": "^10.2.0",
+    "serverless-dynamodb": "^0.2.58",
+    "serverless-offline": "^14.7.4",
+    "serverless-plugin-tracing": "^2.0.0",
+    "serverless-plugin-warmup": "^8.4.1",
+    "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
+    "serverless-webpack": "^5.15.4",
+    "sinon": "^22.0.0",
+    "webpack": "^5.108.4",
+    "webpack-bundle-analyzer": "^5.3.0",
+    "webpack-node-externals": "^3.0.0",
+    "webpack-sentry-plugin": "^2.0.3"
+  },
+  "directories": {
+    "lib": "./src/lib",
+    "test": "./test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "directory": "service",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "scripts": {
+    "clean": "gulp -LLLL --color clean",
+    "cover": "yarn run pretest:dynamodb-local && cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test && yarn run kill:dynamodb-local",
+    "deploy": "if [ -z \"$NODE_ENV\" ]; then cross-env-shell NODE_ENV=dev yarn run deploy; else yarn run deploy:$NODE_ENV; fi; ",
+    "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
+    "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1",
+    "dev": "yarn run dev:serverless",
+    "dev:serverless": "cross-env-shell NODE_ENV=development sls offline start",
+    "kill": "yarn run kill:dynamodb-local",
+    "kill:dynamodb-local": "bash -c 'if [ -f /tmp/ca.randytarampi.me.service.dynamo.pid ]; then echo \"Killing dynamodb-local ($(cat /tmp/ca.randytarampi.me.service.dynamo.pid)) from /tmp/ca.randytarampi.me.service.dynamo.pid\"; kill -9 $(cat /tmp/ca.randytarampi.me.service.dynamo.pid) 2>/dev/null || true; rm /tmp/ca.randytarampi.me.service.dynamo.pid; fi'",
+    "poststart": "yarn run kill",
+    "posttest": "yarn run kill",
+    "prepare": "node -e \"require('aws-dynamodb-local').install({installPath: './.dynamodb'})\"",
+    "prestart": "yarn run kill",
+    "pretest": "gulp -LLLL --color lint",
+    "pretest:dynamodb-local": "yarn run kill:dynamodb-local && yarn run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\";",
+    "preuninstall": "yarn run preuninstall:dynamodb && yarn run clean",
+    "preuninstall:dynamodb": "sls dynamodb remove",
+    "start": "yarn run dev",
+    "start:dynamodb-local": "yarn run start:dynamodb-local:install && yarn run start:dynamodb-local:start && yarn run start:dynamodb-local:migrate",
+    "start:dynamodb-local:install": "node -e \"require('aws-dynamodb-local').install({installPath: './.dynamodb'})\"",
+    "start:dynamodb-local:migrate": "node src/serverless/dynamodb/migrate.js",
+    "start:dynamodb-local:start": "bash -c 'java -Djava.library.path=./.dynamodb/DynamoDBLocal_lib -jar ./.dynamodb/DynamoDBLocal.jar -inMemory -sharedDb >/dev/null 2>&1 & echo $! > /tmp/ca.randytarampi.me.service.dynamo.pid'",
+    "test": "yarn run pretest:dynamodb-local && yarn run test:actual",
+    "test:actual": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
+  }
+}

@@ -1,0 +1,91 @@
+const {createRequire} = require("module");
+const path = require("path");
+const require2 = createRequire(__filename);
+const baseGulpfile = require2("../gulpfile.base.js").default || require2("../gulpfile.base.js");
+
+require2("../babel.register.cjs");
+process.env.NODE_CONFIG_DIR = path.join(__dirname, "../config");
+
+const gulp = require("gulp");
+
+const taskParameters = {
+    relativePath: __dirname,
+    gulp
+};
+
+baseGulpfile.clean(taskParameters);
+
+baseGulpfile.eslint(taskParameters);
+gulp.task("lint", gulp.parallel(["eslint"]));
+
+baseGulpfile.testUnit(taskParameters);
+baseGulpfile.testIntegration(taskParameters);
+baseGulpfile.test(taskParameters);
+
+baseGulpfile.webpack({...taskParameters, taskName: "webpack.esm", webpackConfigName: "webpack.client.config.esm.js"});
+
+gulp.task("webpack", gulp.parallel(["webpack.esm"]));
+
+gulp.task("docs:dist", () => {
+    return gulp
+        .src([
+            "dist/**",
+            "CNAME"
+        ])
+        .pipe(gulp.dest("./docs"));
+});
+
+gulp.task("docs", gulp.series([
+    "docs:dist"
+]));
+
+gulp.task("sitemap", (done) => {
+    const config = require("config");
+    const fs = require("fs");
+    const ReactRouterSitemap = require("react-router-sitemap").default;
+
+    try {
+        const routes = require("./src/public/routes").default;
+        const publishUrl = config.get("www.publishUrl");
+
+        ReactRouterSitemap.fromRouteConfiguration(routes)
+            .filterPaths({
+                isValid: false,
+                rules: [
+                    /\*/,
+                    /^\/:unsupportedPath/
+                ]
+            })
+            .applyParams({
+                "/resume/:variant?": [
+                    {"variant?": ""}
+                ],
+                "/letter/:variant?": [
+                    {"variant?": ""}
+                ]
+            })
+            .build(publishUrl)
+            .save(path.join(__dirname, "dist/sitemap.xml"));
+
+        fs.writeFile(path.join(__dirname, "dist/robots.txt"), `Sitemap: ${config.get("www.publishUrl")}${config.get("www.assetUrl")}/sitemap.xml`, done);
+    } catch {
+        done();
+    }
+});
+
+gulp.task("build", gulp.series([
+    "clean",
+    gulp.parallel(["webpack", "sitemap"])
+]));
+
+gulp.task("build:dev", gulp.series([
+    gulp.parallel(["lint", "webpack", "sitemap"])
+]));
+
+gulp.task("dev",
+    gulp.series([
+        "build:dev"
+    ])
+);
+
+gulp.task("default", gulp.series(["dev"]));

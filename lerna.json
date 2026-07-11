@@ -1,6 +1,10 @@
 {
   "packages": [
-    "packages/*"
+    "packages/*",
+    "service",
+    "www",
+    "resume",
+    "letter"
   ],
   "version": "8.0.0",
   "command": {

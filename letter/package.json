@@ -1,0 +1,118 @@
+{
+  "name": "@randy.tarampi/letter",
+  "type": "module",
+  "description": "A cover letter generator for www.randytarampi.ca",
+  "version": "8.0.0",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "browser": "./esm/index.client.js",
+  "bugs": "https://github.com/randytarampi/me/issues",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.0",
+    "@randy.tarampi/assets": "workspace:*",
+    "@randy.tarampi/css": "workspace:*",
+    "@randy.tarampi/js": "workspace:*",
+    "@randy.tarampi/jsx": "workspace:*",
+    "@randy.tarampi/printables": "workspace:*",
+    "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
+    "@randy.tarampi/views": "workspace:*",
+    "@types/react": "^19.2.17",
+    "core-js": "^3.49.0",
+    "exiftool-vendored": "^36.0.0",
+    "history": "^5.3.0",
+    "immutable": "^5.1.9",
+    "luxon": "^3.7.2",
+    "materialize-css": "^1.0.0",
+    "prop-types": "^15.8.1",
+    "query-string": "^9.4.1",
+    "raf": "^3.4.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-helmet": "^6.1.0",
+    "react-materialize": "^3.10.0",
+    "react-redux": "^9.3.0",
+    "redux": "^5.0.1",
+    "redux-actions": "^3.0.3",
+    "redux-immutable": "^4.0.0",
+    "reselect": "^5.2.0"
+  },
+  "devDependencies": {
+    "chai": "^6.2.2",
+    "cheerio": "^1.2.0",
+    "config": "^5.0.0-alpha.2",
+    "copy-webpack-plugin": "^14.0.0",
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1",
+    "gulp": "^5.0.1",
+    "html-webpack-plugin": "^5.6.7",
+    "jsdom": "^29.1.1",
+    "mocha-junit-reporter": "^2.2.1",
+    "redux-mock-store": "^1.5.5",
+    "redux-thunk": "^3.1.0",
+    "sinon": "^22.0.0",
+    "webpack": "^5.108.4"
+  },
+  "directories": {
+    "lib": "./src/lib",
+    "test": "./test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist/styles.css",
+    "esm/!(letters*)",
+    "esm/letters/index.js",
+    "esm/letters/letter.json",
+    "npm-shrinkwrap.json",
+    "src/letters/letter.json",
+    "styles"
+  ],
+  "keywords": [
+    "@randy.tarampi/letter",
+    "cover letter",
+    "documents",
+    "employment",
+    "job applications",
+    "jobs",
+    "letters",
+    "print",
+    "work"
+  ],
+  "license": "MIT",
+  "main": "./esm/index.server.js",
+  "module": "./esm/index.server.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "directory": "letter",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "scripts": {
+    "build": "yarn run build:gulp && yarn run build:babel",
+    "build:babel": "yarn run build:babel:esm",
+    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm BABEL_ESM_STANDALONE_BUILD=true babel src --out-dir esm --root-mode upward --copy-files",
+    "build:gulp": "gulp -LLLL --color build",
+    "clean": "gulp -LLLL --color clean",
+    "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
+    "dev": "yarn run dev:client",
+    "dev:client": "yarn run predev:client && cross-env-shell NODE_ENV=development webpack serve --config ./webpack.client.config.js --hot",
+    "docs": "gulp -LLLL --color docs",
+    "kill:server": "if [ -f /tmp/ca.randytarampi.me.letter.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.letter.server.pid`; rm /tmp/ca.randytarampi.me.letter.server.pid; fi;",
+    "letter": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color letter",
+    "predev:client": "rm -rf dist/*.js dist/*.css || true",
+    "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
+    "prepare": "yarn run build",
+    "pretest": "gulp -LLLL --color lint",
+    "preuninstall": "yarn run clean",
+    "start": "yarn run dev",
+    "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
+    "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
+  },
+  "sideEffects": false
+}

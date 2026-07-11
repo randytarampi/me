@@ -261,14 +261,14 @@ const configuredMinifyReplace = [
                 identifierName: "__RESUME_PACKAGE_NAME__",
                 replacement: {
                     type: "stringLiteral",
-                    value: require("./packages/resume/package").name
+                    value: require("./resume/package").name
                 }
             },
             {
                 identifierName: "__LETTER_PACKAGE_NAME__",
                 replacement: {
                     type: "stringLiteral",
-                    value: require("./packages/letter/package").name
+                    value: require("./letter/package").name
                 }
             },
             {
@@ -323,7 +323,7 @@ const rewriteEsmSpecifierExtensions = ({types: t}) => {
 
 // NOTE-RT: only used by the "client.esm" case's genuine-ESM library build output (gated behind
 // `BABEL_ESM_STANDALONE_BUILD`, same as `rewriteEsmSpecifierExtensions` above). A couple of source
-// files (e.g. `packages/resume/src/lib/containers/resume.jsx`, `packages/letter/src/lib/
+        // files (e.g. `resume/src/lib/containers/resume.jsx`, `letter/src/lib/
 // components/letter/index.jsx`) use a bare `require(...)` to optionally/dynamically load
 // gitignored, user-supplied local content - this works unmodified in webpack bundles (where a bare
 // `require` is webpack's own always-available native primitive, regardless of ESM/CJS output) and
@@ -410,7 +410,7 @@ export default (api) => {
             break;
         }
 
-        // NOTE-RT: only consumer is `packages/service/webpack.serverless.config.js`'s AWS Lambda
+        // NOTE-RT: only consumer is `service/webpack.serverless.config.js`'s AWS Lambda
         // bundle. `modules: false` (real ESM output) matches the deployed `nodejs24.x` runtime's
         // native ESM handler support - see that webpack config's own `output.module`/
         // `experiments.outputModule` for the other half of this change.
@@ -438,7 +438,7 @@ export default (api) => {
 
         // NOTE-RT: `client.esm` is used for both (1) every package's own `build:babel:esm` script,
         // which Babel-transpiles `src` into a standalone, genuinely-ESM `esm/` output directory
-        // (real `import`/`export` syntax, no CJS stamp), and (2) `packages/www`'s own
+        // (real `import`/`export` syntax, no CJS stamp), and (2) `www`'s own
         // `webpack.client.config.esm.js` dev-server bundle, which also needs real ESM
         // (`modules: false`) for `react-refresh-webpack-plugin` interop - webpack wraps ESM-syntax
         // modules with its own Harmony-style `__webpack_exports__` parameter, and mismatching that
@@ -458,7 +458,7 @@ export default (api) => {
             }
             if (process.env.BABEL_ESM_STANDALONE_BUILD === "true") {
                 // NOTE-RT: only set by each package's own `build:babel:esm` script (never by
-                // `packages/www`'s webpack dev-server bundle, which also uses this same env name -
+                // `www`'s webpack dev-server bundle, which also uses this same env name -
                 // see the case comment above). Rewriting specifiers this way only makes sense for a
                 // standalone `esm/` output directory meant to be `require()`/`import()`-loaded
                 // directly by Node; webpack's own resolver would need a matching

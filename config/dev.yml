@@ -23,8 +23,8 @@ posts:
   postsUrl: https://service.dev.randytarampi.ca/posts
   wordsUrl: https://service.dev.randytarampi.ca/posts?type=Post
   feedUrl: https://service.dev.randytarampi.ca/posts/feed.rss
-  resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/resume/src/resumes
-  letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/packages/letter/src/letters
+  resumeUrl: https://raw.githubusercontent.com/randytarampi/me/master/resume/src/resumes
+  letterUrl: https://raw.githubusercontent.com/randytarampi/me/master/letter/src/letters
 www:
   publishUrl: https://www.dev.randytarampi.ca
   assetUrl: &wwwAssetUrl ""

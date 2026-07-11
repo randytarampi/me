@@ -6923,9 +6923,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/letter@workspace:*, @randy.tarampi/letter@workspace:packages/letter":
+"@randy.tarampi/letter@workspace:*, @randy.tarampi/letter@workspace:letter":
   version: 0.0.0-use.local
-  resolution: "@randy.tarampi/letter@workspace:packages/letter"
+  resolution: "@randy.tarampi/letter@workspace:letter"
   dependencies:
     "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@randy.tarampi/assets": "workspace:*"
@@ -7037,9 +7037,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@randy.tarampi/resume@workspace:*, @randy.tarampi/resume@workspace:packages/resume":
+"@randy.tarampi/resume@workspace:*, @randy.tarampi/resume@workspace:resume":
   version: 0.0.0-use.local
-  resolution: "@randy.tarampi/resume@workspace:packages/resume"
+  resolution: "@randy.tarampi/resume@workspace:resume"
   dependencies:
     "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@randy.tarampi/assets": "workspace:*"
@@ -7124,9 +7124,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/service@workspace:packages/service":
+"@randy.tarampi/service@workspace:service":
   version: 0.0.0-use.local
-  resolution: "@randy.tarampi/service@workspace:packages/service"
+  resolution: "@randy.tarampi/service@workspace:service"
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.1081.0"
     "@aws-sdk/client-ssm": "npm:^3.1081.0"
@@ -7134,7 +7134,6 @@ __metadata:
     "@randy.tarampi/lambda-logger": "workspace:*"
     "@randy.tarampi/serverless": "workspace:*"
     aws-dynamodb-local: "npm:^0.0.14"
-    big.js: "npm:^7.0.1"
     chai: "npm:^6.2.2"
     config: "npm:^5.0.0-alpha.2"
     copy-webpack-plugin: "npm:^14.0.0"
@@ -7182,9 +7181,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@randy.tarampi/www@workspace:packages/www":
+"@randy.tarampi/www@workspace:www":
   version: 0.0.0-use.local
-  resolution: "@randy.tarampi/www@workspace:packages/www"
+  resolution: "@randy.tarampi/www@workspace:www"
   dependencies:
     "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@randy.tarampi/assets": "workspace:*"
@@ -9983,13 +9982,6 @@ __metadata:
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
   checksum: 10c0/230520f1ff920b2d2ce3e372d77a33faa4fa60d802fe01ca4ffbc321ee06023fe9a741ac02793ee778040a16b7e497f7d60c504d1c402b8fdab6f03bb785a25f
-  languageName: node
-  linkType: hard
-
-"big.js@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "big.js@npm:7.0.1"
-  checksum: 10c0/2ea2c2e263db37b2d5c6ad6246408eabf13ba07776cfd92bf464db201ef9aa9aa1712accbfe97f4aba5d358567ebefe768e8a50102cde11f35ef3497ddc2747c
   languageName: node
   linkType: hard
 

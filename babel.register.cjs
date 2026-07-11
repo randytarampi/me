@@ -20,7 +20,7 @@ require("@babel/register").default({
         // lets them go through the same CommonJS transform as every other package file (with a
         // real, working `__dirname`), matching how they're already compiled for the real build.
         //
-        // NOTE-RT: `packages/service` IS excluded here (unlike every other package). It has no
+        // NOTE-RT: `service` IS excluded here (unlike every other package). It has no
         // `build` script at all (it's a Lambda/serverless backend, not a bundled frontend
         // package) - its real runtime never Babel-transforms these files, it runs them as native
         // ESM directly under Node. Running its test/src files through this hook at test time
@@ -39,6 +39,6 @@ require("@babel/register").default({
         // `require()`/import resolution inside the re-transformed output). Requiring these files
         // at test time (e.g. a regression check against the real build output) should load them
         // exactly as-is, matching how they're actually consumed in production.
-        /packages\/(?!service\/)(?!.*\/webpack(?:\.[^/]+)*\.js$)(?!.*\/(?:esm|dist|build|es5)\/)/
+        /^(?=.*(?:packages\/(?!service\/)|(?:^|\/)(?:www|resume|letter)\/))(?!.*(?:^|\/)webpack(?:\.[^/]+)*\.js$)(?!.*\/(?:esm|dist|build|es5)\/).+/
     ]
 });

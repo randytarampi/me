@@ -4,7 +4,7 @@
 
 - Tests use Mocha, usually wired through `gulp-mocha`.
 - Mocha config files that need CommonJS should stay `.cjs` (`mocha.config.cjs` is the usual shape).
-- Use `sinon` for stubbing/mocking non-module-boundary code. For mocking ES module dependencies (a target module's own imports), use `esmock` — the sanctioned approach, adopted throughout `packages/service`'s test suite, replacing the old `require.cache`-deleting `freshRequire` helper which doesn't work against real ESM module instances. Don't reach for `proxyquire`.
+- Use `sinon` for stubbing/mocking non-module-boundary code. For mocking ES module dependencies (a target module's own imports), use `esmock` — the sanctioned approach, adopted throughout `service`'s test suite, replacing the old `require.cache`-deleting `freshRequire` helper which doesn't work against real ESM module instances. Don't reach for `proxyquire`.
 
 ## Building
 

@@ -126,7 +126,7 @@ export default ({
                     },
                     loader: "babel-loader",
                     options: {
-                        configFile: join(sourceDirectoryPath, "../../babel.config.js"),
+                        configFile: join(sourceDirectoryPath, "../babel.config.js"),
                         envName: babelEnv
                     }
                 },

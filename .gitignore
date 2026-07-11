@@ -66,6 +66,8 @@ esm
 # Except the headless bundle smoke test, which lives in a directory named `dist` on purpose
 !packages/www/test/integration/dist/
 !packages/www/test/integration/dist/**
+!www/test/integration/dist/
+!www/test/integration/dist/**
 
 # Environment variables
 .env
@@ -85,6 +87,7 @@ eslint-results.xml
 
 # Written resources
 packages/service/posts
+service/posts
 
 # Deepwork progress (not committed)
 .slim/deepwork/

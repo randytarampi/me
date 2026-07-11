@@ -4,5 +4,6 @@ exclude_paths:
   - "packages/*/esm/**"
   - "packages/*/dist/**"
   - "packages/www/docs/**"
+  - "www/docs/**"
   - "projectFilesBackup/**"
   - "**/*.min.js"

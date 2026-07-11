@@ -61,4 +61,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy service
-        run: cd packages/service && yarn run deploy
+        run: cd service && yarn run deploy

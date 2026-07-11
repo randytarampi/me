@@ -102,7 +102,11 @@
     "test:collect": "yarn run test:actual:collect"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "service",
+    "www",
+    "resume",
+    "letter"
   ],
   "packageManager": "yarn@4.17.0",
   "devDependencies": {

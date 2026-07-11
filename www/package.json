@@ -1,0 +1,96 @@
+{
+  "name": "@randy.tarampi/www",
+  "type": "module",
+  "description": "ʕつ•ᴥ•ʔつ ︵ (ɐɔ˙ᴉdɯɐɹɐʇʎpuɐɹ)",
+  "version": "8.0.0",
+  "author": {
+    "name": "Randy Tarampi",
+    "email": "rt@randytarampi.ca",
+    "url": "https://www.randytarampi.ca"
+  },
+  "bugs": "https://github.com/randytarampi/me/issues",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.0",
+    "@randy.tarampi/assets": "workspace:*",
+    "@randy.tarampi/browser-logger": "workspace:*",
+    "@randy.tarampi/css": "workspace:*",
+    "@randy.tarampi/js": "workspace:*",
+    "@randy.tarampi/jsx": "workspace:*",
+    "@randy.tarampi/letter": "workspace:*",
+    "@randy.tarampi/resume": "workspace:*",
+    "@randy.tarampi/schema-dot-org-json-ld-components": "latest",
+    "@randy.tarampi/views": "workspace:*",
+    "@types/react": "^19.2.17",
+    "core-js": "^3.49.0",
+    "history": "^5.3.0",
+    "immutable": "^5.1.9",
+    "lodash": "^4.18.1",
+    "materialize-css": "^1.0.0",
+    "prop-types": "^15.8.1",
+    "raf": "^3.4.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-helmet": "^6.1.0",
+    "react-materialize": "^3.10.0",
+    "react-redux": "^9.3.0",
+    "react-router": "^8.1.0",
+    "react-router-sitemap": "^1.2.0",
+    "redux": "^5.0.1",
+    "redux-immutable": "^4.0.0",
+    "redux-thunk": "^3.1.0",
+    "register-service-worker": "^1.7.2"
+  },
+  "devDependencies": {
+    "chai": "^6.2.2",
+    "cheerio": "^1.2.0",
+    "config": "^5.0.0-alpha.2",
+    "copy-webpack-plugin": "^14.0.0",
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1",
+    "gulp": "^5.0.1",
+    "html-webpack-plugin": "^5.6.7",
+    "jsdom": "^29.1.1",
+    "mocha-junit-reporter": "^2.2.1",
+    "mock-local-storage": "^1.1.24",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "puppeteer": "^25.3.0",
+    "redux-mock-store": "^1.5.5",
+    "sinon": "^22.0.0",
+    "terser-webpack-plugin": "^5.6.1",
+    "webpack": "^5.108.4",
+    "webpack-bundle-analyzer": "^5.3.0",
+    "workbox-webpack-plugin": "^7.4.1"
+  },
+  "directories": {
+    "lib": "./src/lib",
+    "test": "./test"
+  },
+  "homepage": "https://www.randytarampi.ca",
+  "license": "MIT",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "directory": "www",
+    "type": "git",
+    "url": "https://github.com/randytarampi/me.git"
+  },
+  "scripts": {
+    "build": "CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color build",
+    "clean": "gulp -LLLL --color clean",
+    "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
+    "dev": "yarn run dev:client",
+    "dev:client": "yarn run predev:client && NODE_ENV=development CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") webpack serve --config ./webpack.client.config.dev.js --hot",
+    "docs": "gulp -LLLL --color docs",
+    "predev:client": "rm -rf dist/*.js dist/*.css || true",
+    "prepare": "yarn run build",
+    "pretest": "gulp -LLLL --color lint",
+    "preuninstall": "yarn run clean",
+    "start": "yarn run dev",
+    "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

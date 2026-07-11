@@ -18,10 +18,10 @@ _  / / / / /  __/_/_ __|
 
 A monorepo for everything that goes into [www.randytarampi.ca](https://www.randytarampi.ca).
 
-- [job-application](packages/job-application) (which ties together my [resume](packages/resume) and a personalized [cover letter](packages/letter))
+- [job-application](packages/job-application) (which ties together my [resume](resume) and a personalized [cover letter](letter))
 - [jsonresume-theme-randytarampi](packages/jsonresume-theme) (a [JSON resume theme](http://themes.jsonresume.org/theme/randytarampi), built for me but shared for all)
-- [service](packages/service) and [www](packages/www)
-- Shared packages: [assets](packages/assets), [browser-logger](packages/browser-logger), [css](packages/css), [js](packages/js), [jsx](packages/jsx), [lambda-logger](packages/lambda-logger), [letter](packages/letter), [printables](packages/printables), [react-dimensions](packages/react-dimensions), [redux-metrics](packages/redux-metrics), [resume](packages/resume), [serverless](packages/serverless), [views](packages/views)
+- [service](service) and [www](www)
+- Shared packages: [assets](packages/assets), [browser-logger](packages/browser-logger), [css](packages/css), [js](packages/js), [jsx](packages/jsx), [lambda-logger](packages/lambda-logger), [letter](letter), [printables](packages/printables), [react-dimensions](packages/react-dimensions), [redux-metrics](packages/redux-metrics), [resume](resume), [serverless](packages/serverless), [views](packages/views)
 
 # Dependencies
 ```
