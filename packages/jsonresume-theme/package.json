@@ -92,6 +92,7 @@
     "resume:publish": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") resume publish --force --theme $(node -p \"require(\\\"./package.json\\\").name.replace(\\\"jsonresume-theme-\\\", \\\"\\\")\")",
     "start": "yarn run resume",
     "start:server": "yarn run kill:server; bash -c 'node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server ($(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid)) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"'",
+    "validate": "resume validate",
     "test": "NODE_ENV=test yarn run resume"
   }
 }
