@@ -7162,7 +7162,7 @@ __metadata:
     serverless-webpack: "npm:^5.15.4"
     sinon: "npm:^22.0.0"
     tumblr.js: "npm:^5.0.1"
-    unsplash-js: "npm:^7.0.20"
+    unsplash-js: "npm:^8.0.0"
     webpack: "npm:^5.108.4"
     webpack-bundle-analyzer: "npm:^5.3.0"
     webpack-node-externals: "npm:^3.0.0"
@@ -20464,6 +20464,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"openapi-fetch@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "openapi-fetch@npm:0.17.0"
+  dependencies:
+    openapi-typescript-helpers: "npm:^0.1.0"
+  checksum: 10c0/7e981d28c7839469662a73d44f3a85e05c1a5842a8afd5d6e36c75cbf085aa7f705862871cc7ce07c04605ddc936af3d5850c2cc66d193ee1fea07e7135da192
+  languageName: node
+  linkType: hard
+
+"openapi-typescript-helpers@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "openapi-typescript-helpers@npm:0.1.0"
+  checksum: 10c0/3a148cf7d6a7f51124966a0fef64c2fbcf1a5a0a1e6320dd627f0733787ac4259877be43f7a7a2910684e3d5d238c6a9655c6f9e1f3adaa9a2a61477e3b8481f
+  languageName: node
+  linkType: hard
+
 "opener@npm:^1.5.2":
   version: 1.5.2
   resolution: "opener@npm:1.5.2"
@@ -27226,10 +27242,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unsplash-js@npm:^7.0.20":
-  version: 7.0.20
-  resolution: "unsplash-js@npm:7.0.20"
-  checksum: 10c0/600446997714bb4d9593f13313139b3c12f05020c742a5991abc0a080250ca821af33644ed29feda3aa7624e7349a4ad936a11319d510067f7320aa993e0fb90
+"unsplash-js@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "unsplash-js@npm:8.0.0"
+  dependencies:
+    openapi-fetch: "npm:^0.17.0"
+  checksum: 10c0/cfea6e99caf06040ce8eb3a9a091189939a4e93dd0a4ac602638eabd40c54d25c7924edcd44a7c21d3abaaaf1c25d236507e0dfdba03459e248edb4f0d238cb0
   languageName: node
   linkType: hard
 

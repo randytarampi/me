@@ -27,7 +27,7 @@
     "query-string": "^9.4.1",
     "rss": "^1.2.2",
     "tumblr.js": "^5.0.1",
-    "unsplash-js": "^7.0.20"
+    "unsplash-js": "^8.0.0"
   },
   "devDependencies": {
     "aws-dynamodb-local": "^0.0.14",

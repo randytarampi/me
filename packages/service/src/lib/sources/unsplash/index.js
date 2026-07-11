@@ -73,24 +73,53 @@ class UnsplashSource extends CachedDataSource {
     }
 
     recordsGetter(searchParams) {
-        const unsplashRequest = this.client.users.getPhotos({
-            username: process.env.UNSPLASH_USER_NAME,
-            page: searchParams.Unsplash.page,
-            perPage: searchParams.Unsplash.per_page,
-            orderBy: searchParams.Unsplash.order_by
+        const unsplashRequest = this.client.GET("/users/{username}/photos", {
+            params: {
+                path: {username: process.env.UNSPLASH_USER_NAME},
+                query: {
+                    page: searchParams.Unsplash.page,
+                    per_page: searchParams.Unsplash.per_page,
+                    order_by: searchParams.Unsplash.order_by
+                }
+            }
         });
 
         return unsplashRequest
-            .then(({response}) => Promise.all(
-                ((response && response.results) || [])
-                    .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.instanceToRecord(post), searchParams))
-                    .map(photo => this.recordGetter(photo.id, searchParams))
-            ));
+            .then(({data, error}) => {
+                if (error) {
+                    return [];
+                }
+
+                return Promise.all(
+                    (data || [])
+                        .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.instanceToRecord(post), searchParams))
+                        .map(photo => this.recordGetter(photo.id, searchParams))
+                );
+            });
     }
 
     recordGetter(photoId, searchParams) { // eslint-disable-line no-unused-vars
-        return this.client.photos.get({photoId})
-            .then(({response}) => response && UnsplashSource.instanceToRecord(response));
+        return this.client.GET("/photos/{assetSlug}", {
+            params: {
+                path: {assetSlug: photoId}
+            }
+        })
+            .then(({data, error}) => {
+                if (error) {
+                    return null;
+                }
+
+                // ToS compliance: track download (fire-and-forget)
+                if (data) {
+                    this.client.GET("/photos/{id}/download", {
+                        params: {
+                            path: {id: photoId}
+                        }
+                    }).catch(() => {});
+                }
+
+                return data && UnsplashSource.instanceToRecord(data);
+            });
     }
 }
 
