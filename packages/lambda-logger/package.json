@@ -10,10 +10,9 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "bunyan": "^2.0.5",
-    "bunyan-format": "^0.2.1",
-    "bunyan-sentry-stream": "github:randytarampi/bunyan-sentry-stream#me-release",
-    "raven": "^2.6.4"
+    "@sentry/node": "^9.0.0",
+    "pino": "^9.0.0",
+    "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
     "chai": "^6.2.2",

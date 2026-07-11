@@ -1,11 +1,10 @@
 import {expect} from "chai";
 import {readFileSync} from "fs";
-import bunyan from "bunyan";
-import bunyanSentryStream from "bunyan-sentry-stream";
+import * as Sentry from "@sentry/node";
+import pino from "pino";
 import sinon from "sinon";
 import path from "path";
 import {pathToFileURL} from "url";
-import raven from "raven";
 
 const packageJson = JSON.parse(readFileSync("../../service/package.json", "utf8"));
 
@@ -34,106 +33,86 @@ describe("logger", function () {
     });
 
     describe("configureLogger", function () {
-        it("configures raven properly", async function () {
-            const ravenConfigStub = sinon.stub(raven, "config");
-            const ravenOnStub = sinon.stub(raven, "on");
-            const ravenInstallStub = sinon.stub(raven, "install");
+        it("configures sentry properly", async function () {
+            const sentryInitStub = sinon.stub(Sentry, "init");
             const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.calledOnce(ravenInstallStub);
-                    sinon.assert.calledWith(ravenOnStub, "error");
-                    sinon.assert.calledWith(ravenConfigStub, process.env.SENTRY_DSN, sinon.match({
-                        logger: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
+                    sinon.assert.calledOnce(sentryInitStub);
+                    sinon.assert.calledWith(sentryInitStub, sinon.match({
+                        dsn: process.env.SENTRY_DSN,
                         release: packageJson.version,
                         environment: process.env.SERVERLESS_STAGE
                     }));
                 });
         });
 
-        it("configures raven regardless of logger status", async function () {
+        it("configures sentry regardless of logger status", async function () {
             delete process.env.LOGGER_ENABLED;
             delete process.env.LOGGER_STREAM_HUMAN_ENABLED;
             delete process.env.LOGGER_STREAM_STDOUT_ENABLED;
             delete process.env.LOGGER_STREAM_SENTRY_ENABLED;
             delete process.env.LOGGER_SRC_ENABLED;
 
-            const ravenConfigStub = sinon.stub(raven, "config");
-            const ravenOnStub = sinon.stub(raven, "on");
-            const ravenInstallStub = sinon.stub(raven, "install");
+            const sentryInitStub = sinon.stub(Sentry, "init");
             const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.calledOnce(ravenInstallStub);
-                    sinon.assert.calledWith(ravenOnStub, "error");
-                    sinon.assert.calledWith(ravenConfigStub, process.env.SENTRY_DSN, sinon.match({
-                        logger: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
+                    sinon.assert.calledOnce(sentryInitStub);
+                    sinon.assert.calledWith(sentryInitStub, sinon.match({
+                        dsn: process.env.SENTRY_DSN,
                         release: packageJson.version,
                         environment: process.env.SERVERLESS_STAGE
                     }));
                 });
         });
 
-        it("configures raven but does not install it if `process.env.IS_OFFLINE`", async function () {
+        it("does not configure sentry if `process.env.IS_OFFLINE`", async function () {
             process.env.IS_OFFLINE = true;
 
-            const ravenConfigStub = sinon.stub(raven, "config");
-            const ravenOnStub = sinon.stub(raven, "on");
-            const ravenInstallStub = sinon.stub(raven, "install");
+            const sentryInitStub = sinon.stub(Sentry, "init");
             const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.notCalled(ravenInstallStub);
-                    sinon.assert.calledWith(ravenOnStub, "error");
-                    sinon.assert.calledWith(ravenConfigStub, process.env.SENTRY_DSN, sinon.match({
-                        logger: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
-                        release: packageJson.version,
-                        environment: process.env.SERVERLESS_STAGE
-                    }));
+                    sinon.assert.notCalled(sentryInitStub);
                 });
         });
 
-        it("doesn't configure raven if there's no `process.env.SENTRY_DSN`", async function () {
+        it("doesn't configure sentry if there's no `process.env.SENTRY_DSN`", async function () {
             delete process.env.SENTRY_DSN;
 
-            const ravenConfigStub = sinon.stub(raven, "config");
-            const ravenOnStub = sinon.stub(raven, "on");
-            const ravenInstallStub = sinon.stub(raven, "install");
+            const sentryInitStub = sinon.stub(Sentry, "init");
             const {configureLogger} = await loadLoggerModule();
 
             return configureLogger(packageJson)
                 .then(() => {
-                    sinon.assert.notCalled(ravenInstallStub);
-                    sinon.assert.notCalled(ravenOnStub);
-                    sinon.assert.notCalled(ravenConfigStub);
+                    sinon.assert.notCalled(sentryInitStub);
                 });
         });
     });
 
     describe("createLogger", function () {
-        it("configures bunyan streams from logger stream environment variables", async function () {
+        it("configures pino streams from logger stream environment variables (all disabled)", async function () {
             delete process.env.LOGGER_STREAM_HUMAN_ENABLED;
             delete process.env.LOGGER_STREAM_STDOUT_ENABLED;
             delete process.env.LOGGER_STREAM_SENTRY_ENABLED;
 
-            const bunyanStubs = sinon.stub(bunyan, "createLogger");
-            sinon.stub(bunyanSentryStream, "SentryStream").callsFake(function StubSentryStream() {});
+            const pinoStub = sinon.stub(pino, "pino").returns({});
             const {createLogger} = await loadLoggerModule();
 
             createLogger(packageJson);
 
-            sinon.assert.calledWith(bunyanStubs, sinon.match({
+            sinon.assert.calledWith(pinoStub, sinon.match({
                 name: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                 version: packageJson.version,
-                environment: process.env.SERVERLESS_STAGE,
-                streams: []
+                environment: process.env.SERVERLESS_STAGE
             }));
         });
 
-        it("configures bunyan streams from logger stream environment variables", async function () {
+        it("configures pino streams from logger stream environment variables (all enabled)", async function () {
             process.env.LOGGER_ENABLED = "true";
             process.env.LOGGER_LEVEL = "trace";
             process.env.LOGGER_STREAM_HUMAN_ENABLED = "true";
@@ -141,20 +120,19 @@ describe("logger", function () {
             process.env.LOGGER_STREAM_SENTRY_ENABLED = "true";
             process.env.LOGGER_SRC_ENABLED = "true";
 
-            const bunyanStubs = sinon.stub(bunyan, "createLogger");
-            sinon.stub(bunyanSentryStream, "SentryStream").callsFake(function StubSentryStream() {});
+            const pinoStub = sinon.stub(pino, "pino").returns({});
+            sinon.stub(pino, "multistream").returns({});
             const {createLogger} = await loadLoggerModule();
 
             createLogger(packageJson);
 
-            sinon.assert.calledWith(bunyanStubs, sinon.match({
+            sinon.assert.calledWith(pinoStub, sinon.match({
                 name: `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`,
                 version: packageJson.version,
                 environment: process.env.SERVERLESS_STAGE
             }));
 
-            sinon.assert.calledOnce(bunyanStubs);
-            expect(bunyanStubs.args[0][0].streams).to.have.length(3);
+            sinon.assert.calledOnce(pinoStub);
         });
     });
 });

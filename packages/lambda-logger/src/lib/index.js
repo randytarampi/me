@@ -1,24 +1,20 @@
 // @ts-check
-import bunyan from "bunyan";
-import bunyanFormat from "bunyan-format";
-import bunyanSentryStream from "bunyan-sentry-stream";
-import raven from "raven";
+import * as Sentry from "@sentry/node";
+import pino from "pino";
 
 const getLoggerNameForPackageAndLambda = packageJson => `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`;
 
-const configureRaven = packageJson => Promise.resolve()
+const configureSentry = packageJson => Promise.resolve()
     .then(() => {
-        if (process.env.SENTRY_DSN) {
-            raven.config(
-                process.env.SENTRY_DSN,
-                {
-                    logger: getLoggerNameForPackageAndLambda(packageJson),
-                    autoBreadcrumbs: true,
-                    captureUnhandledRejections: true,
-                    maxBreadcrumbs: 100,
-                    environment: process.env.SERVERLESS_STAGE,
-                    release: packageJson.version,
-                    tags: {
+        if (process.env.SENTRY_DSN && !process.env.IS_OFFLINE) {
+            Sentry.init({
+                dsn: process.env.SENTRY_DSN,
+                environment: process.env.SERVERLESS_STAGE,
+                release: packageJson.version,
+                integrations: integrations => integrations.filter(i => i.name !== "OnUncaughtException" && i.name !== "OnUnhandledRejection"),
+                beforeSend: (event, hint) => {
+                    event.tags = {
+                        ...event.tags,
                         lambda: process.env.AWS_LAMBDA_FUNCTION_NAME,
                         version: process.env.AWS_LAMBDA_FUNCTION_VERSION,
                         memory_size: process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE,
@@ -27,56 +23,68 @@ const configureRaven = packageJson => Promise.resolve()
                         service_name: process.env.SERVERLESS_SERVICE,
                         stage: process.env.SERVERLESS_STAGE,
                         region: process.env.AWS_REGION
-                    }
+                    };
+                    event.logger = getLoggerNameForPackageAndLambda(packageJson);
+                    return event;
                 }
-            );
-            raven.on("error", error => console.error(error, "Raven failed to capture message"));  
-
-            if (!process.env.IS_OFFLINE) {
-                raven.install();
-            }
+            });
         }
     });
 
-/** @param {*} packageJson - The package metadata. @returns {Promise<*>} The raven setup promise. */
-export const configureLogger = packageJson => configureRaven(packageJson);
+/** @param {*} packageJson - The package metadata. @returns {Promise<*>} The sentry setup promise. */
+export const configureLogger = packageJson => configureSentry(packageJson);
 
-const bunyanStreams = [];
+const sentryStream = {
+    write(data) {
+        try {
+            const record = typeof data === "string" ? JSON.parse(data) : data;
+            if (record.err) {
+                Sentry.captureException(record.err, {extra: record});
+            } else if (record.level >= 50) {
+                Sentry.captureException(new Error(record.msg), {extra: record});
+            } else {
+                Sentry.captureMessage(record.msg, {level: "warning", extra: record});
+            }
+        } catch (e) {
+            console.error("Failed to send to Sentry:", e);
+        }
+    }
+};
+
+const pinoStreams = [];
 
 if (process.env.LOGGER_ENABLED === "true") {
     const minimumLevel = process.env.LOGGER_LEVEL;
 
     if (process.env.LOGGER_STREAM_HUMAN_ENABLED === "true") {
-        bunyanStreams.push({
-            stream: bunyanFormat({outputMode: "long"}),
+        pinoStreams.push({
+            stream: process.stdout,
             level: minimumLevel
         });
     }
 
     if (process.env.LOGGER_STREAM_STDOUT_ENABLED === "true") {
-        bunyanStreams.push({
+        pinoStreams.push({
             stream: process.stdout,
             level: minimumLevel
         });
     }
 
     if (process.env.LOGGER_STREAM_SENTRY_ENABLED === "true") {
-        bunyanStreams.push({
+        pinoStreams.push({
             level: "warn",
-            type: "raw",
-            stream: new bunyanSentryStream.SentryStream(raven)
+            stream: sentryStream
         });
     }
 }
 
-/** @param {*} packageJson - The package metadata. @returns {*} A bunyan logger. */
-export const createLogger = packageJson => bunyan.createLogger({
+/** @param {*} packageJson - The package metadata. @returns {*} A pino logger. */
+export const createLogger = packageJson => pino({
     name: getLoggerNameForPackageAndLambda(packageJson),
-    streams: bunyanStreams,
-    src: process.env.LOGGER_SRC_ENABLED === "true",
+    level: process.env.LOGGER_LEVEL || "info",
+    ...(pinoStreams.length > 0 ? {stream: pino.multistream(pinoStreams)} : {}),
     version: packageJson.version,
-    environment: process.env.SERVERLESS_STAGE,
-    serializers: bunyan.stdSerializers
+    environment: process.env.SERVERLESS_STAGE
 });
 
 /** @type {typeof createLogger} */
