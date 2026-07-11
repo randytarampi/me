@@ -1,6 +1,24 @@
-import {buildRavenConfiguration} from "@randy.tarampi/browser-logger";
-import ReduxRavenMiddleware from "redux-raven-middleware";
+import * as Sentry from "@sentry/browser";
 
-export const ravenMiddleware = () => new ReduxRavenMiddleware(window.SENTRY_DSN, buildRavenConfiguration());
+export const ravenMiddleware = () => store => next => action => {
+    try {
+        const result = next(action);
+
+        Sentry.addBreadcrumb({
+            category: "redux",
+            message: action.type,
+            level: "info",
+            data: {
+                action: action.type,
+                ...(action.payload ? {payload: action.payload} : {})
+            }
+        });
+
+        return result;
+    } catch (err) {
+        Sentry.captureException(err, {extra: {action}});
+        throw err;
+    }
+};
 
 export default ravenMiddleware;
