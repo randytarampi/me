@@ -1,5 +1,11 @@
 import {Photo as PhotoEntity} from "@randy.tarampi/js";
-import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
+// NOTE-RT: `@randy.tarampi/schema-dot-org-json-ld-components` is an old, Babel-6-era CJS build
+// NOTE-RT: that sets `exports.default = JsonLd` but Node's ESM loader wraps the entire `module.exports`
+// NOTE-RT: as the default export, so `import X from "..."` gives `{default: JsonLd}` instead of `JsonLd`.
+import SchemaJsonLdComponentModule from "@randy.tarampi/schema-dot-org-json-ld-components";
+const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
+    ? SchemaJsonLdComponentModule.default
+    : SchemaJsonLdComponentModule;
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";

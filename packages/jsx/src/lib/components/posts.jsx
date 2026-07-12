@@ -1,5 +1,11 @@
 import {logger} from "@randy.tarampi/browser-logger";
-import SchemaJsonLdComponent from "@randy.tarampi/schema-dot-org-json-ld-components";
+// NOTE-RT: `@randy.tarampi/schema-dot-org-json-ld-components` is an old, Babel-6-era CJS build
+// NOTE-RT: that sets `exports.default = JsonLd` but Node's ESM loader wraps the entire `module.exports`
+// NOTE-RT: as the default export, so `import X from "..."` gives `{default: JsonLd}` instead of `JsonLd`.
+import SchemaJsonLdComponentModule from "@randy.tarampi/schema-dot-org-json-ld-components";
+const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
+    ? SchemaJsonLdComponentModule.default
+    : SchemaJsonLdComponentModule;
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
 import PropTypes from "prop-types";
