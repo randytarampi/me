@@ -49,7 +49,7 @@
   "work": [
     {
       "company": "Deed",
-      "position": "Senior Software Developer",
+      "position": "Senior Software Developer | Technical Lead | Software Architect",
       "startDate": "2020-06-22T00:00:00.000+02:00",
       "endDate": null,
       "summary": "At the height of a pandemic, I decided to take my talents to a place that helps people help others – easing the lockdown loneliness, connecting time and talent to those that need it, and focusing funds and attention to those helping victims of war",
@@ -429,6 +429,10 @@
     {
       "fluency": "Intermediate",
       "language": "French"
+    },
+    {
+      "fluency": "Beginner",
+      "language": "German"
     }
   ],
   "interests": [

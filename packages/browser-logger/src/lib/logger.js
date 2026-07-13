@@ -32,17 +32,38 @@ export const buildSentryConfiguration = () => {
     };
 };
 
+// NOTE-RT: `pino/browser.js` (the build webpack selects via the `"browser"` field) does not export
+// `multistream` — it's a stripped-down browser-only build. We combine multiple destinations into
+// a single writable stream instead, since the browser pino build accepts a single `stream` option.
+const buildMultiDestinationStream = (destinations) => {
+    if (destinations.length === 1) {
+        return destinations[0].stream;
+    }
+
+    return {
+        write(data) {
+            destinations.forEach(({stream, level}) => {
+                try {
+                    stream.write(data);
+                } catch (e) {
+                    // Swallow — logging should never break the app
+                }
+            });
+        }
+    };
+};
+
 /** @returns {object} Pino config for the browser. */
 export const buildPinoConfiguration = () => {
     const {windowName, windowEnvironment, windowVersion, windowSentryDsn, windowLogger} = getWindowVariables();
 
     if (windowLogger) {
-        const pinoStreams = [];
+        const destinations = [];
         const enabledStreams = windowLogger.streams;
         const minimumLevel = windowLogger.level;
 
         if (enabledStreams.console) {
-            pinoStreams.push({
+            destinations.push({
                 stream: new ConsoleStream(),
                 level: minimumLevel
             });
@@ -54,7 +75,7 @@ export const buildPinoConfiguration = () => {
                     dsn: windowSentryDsn,
                     ...buildSentryConfiguration()
                 });
-                pinoStreams.push({
+                destinations.push({
                     level: "warn",
                     stream: {
                         write(data) {
@@ -79,7 +100,7 @@ export const buildPinoConfiguration = () => {
         return {
             name: windowName || "jsx",
             level: minimumLevel,
-            ...(pinoStreams.length > 0 ? {stream: pino.multistream(pinoStreams)} : {}),
+            ...(destinations.length > 0 ? {stream: buildMultiDestinationStream(destinations)} : {}),
             version: windowVersion,
             environment: windowEnvironment
         };

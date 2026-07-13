@@ -18,13 +18,10 @@
     "sameAs": [
       "https://www.randytarampi.ca/resume",
       "https://github.com/randytarampi",
-      "https://instagram.com/randytarampi",
       "https://linkedin.com/in/randytarampi",
       "https://www.flickr.com/people/randytarampi",
       "https://angel.co/randytarampi",
       "https://stackoverflow.com/story/randytarampi",
-      "https://facebook.com/randytarampi",
-      "https://twitter.com/randytarampi",
       "https://unsplash.com/@randytarampi",
       "https://tumblr.randytarampi.ca",
       "https://500px.com/randytarampi",
@@ -44,6 +41,10 @@
       {
         "alternateName": "it",
         "name": "Italian"
+      },
+      {
+        "alternateName": "de",
+        "name": "German"
       }
     ],
     "givenName": "Randy",
@@ -84,13 +85,10 @@
       "sameAs": [
         "https://www.randytarampi.ca/resume",
         "https://github.com/randytarampi",
-        "https://instagram.com/randytarampi",
         "https://linkedin.com/in/randytarampi",
         "https://www.flickr.com/people/randytarampi",
         "https://angel.co/randytarampi",
         "https://stackoverflow.com/story/randytarampi",
-        "https://facebook.com/randytarampi",
-        "https://twitter.com/randytarampi",
         "https://unsplash.com/@randytarampi",
         "https://tumblr.randytarampi.ca",
         "https://500px.com/randytarampi",
@@ -110,6 +108,10 @@
         {
           "alternateName": "it",
           "name": "Italian"
+        },
+        {
+          "alternateName": "de",
+          "name": "German"
         }
       ]
     },
@@ -132,13 +134,10 @@
       "sameAs": [
         "https://www.randytarampi.ca/resume",
         "https://github.com/randytarampi",
-        "https://instagram.com/randytarampi",
         "https://linkedin.com/in/randytarampi",
         "https://www.flickr.com/people/randytarampi",
         "https://angel.co/randytarampi",
         "https://stackoverflow.com/story/randytarampi",
-        "https://facebook.com/randytarampi",
-        "https://twitter.com/randytarampi",
         "https://unsplash.com/@randytarampi",
         "https://tumblr.randytarampi.ca",
         "https://500px.com/randytarampi",
@@ -158,6 +157,10 @@
         {
           "alternateName": "it",
           "name": "Italian"
+        },
+        {
+          "alternateName": "de",
+          "name": "German"
         }
       ]
     },
@@ -180,12 +183,6 @@
         "url": "https://github.com/randytarampi"
       },
       {
-        "network": "Instagram",
-        "username": "randytarampi",
-        "userId": "51039588",
-        "url": "https://instagram.com/randytarampi"
-      },
-      {
         "network": "LinkedIn",
         "username": "randytarampi",
         "url": "https://linkedin.com/in/randytarampi"
@@ -204,17 +201,6 @@
         "network": "StackOverflow",
         "username": "randytarampi",
         "url": "https://stackoverflow.com/story/randytarampi"
-      },
-      {
-        "network": "Facebook",
-        "username": "randytarampi",
-        "userId": "831915416",
-        "url": "https://facebook.com/randytarampi"
-      },
-      {
-        "network": "Twitter",
-        "username": "randytarampi",
-        "url": "https://twitter.com/randytarampi"
       },
       {
         "network": "Unsplash",

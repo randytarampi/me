@@ -67,6 +67,13 @@ export default ({
     return {
         target: "web",
         mode: resolveMode(),
+        // NOTE-RT: `@googlemaps/markerclusterer` ships ESM with no default export. The namespace
+        // import + runtime fallback in `markerClusterer.jsx` handles both shapes correctly, but
+        // webpack's static analysis still warns about the missing `default`. Suppress that
+        // specific false-positive so it doesn't pollute build output.
+        ignoreWarnings: [
+            /export 'default' \(imported as 'MarkerClustererModule'\) was not found in '@googlemaps\/markerclusterer'/
+        ],
         devtool: isDevelopment ? "eval-source-map" : "nosources-source-map",
         output: {
             path: compliationDirectoryPath,
