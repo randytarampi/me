@@ -81,7 +81,6 @@
     "prepack": "if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "yarn run clean",
     "resume": "yarn run resume:json && yarn run resume:pdf && yarn run resume:html",
     "resume:a4": "RESUME_PDF_SIZE=A4 NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=a4,$(node -p \"require(\\\"./package.json\\\").version\") resume export dist/resume.a4.pdf --force -f pdf --theme randytarampi && (cp dist/resume.a4.pdf dist/a4.pdf 2>/dev/null || :)",
     "resume:html": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") resume export dist/resume.html --force -f html --theme randytarampi && (cp dist/resume.index dist/index.html 2>/dev/null || :)",

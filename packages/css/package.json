@@ -34,8 +34,7 @@
     "clean": "gulp -LLLL --color clean",
     "prepack": "if [ ! -d \"./dist\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
-    "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "yarn run clean"
+    "pretest": "gulp -LLLL --color lint"
   },
   "engines": {
     "node": ">=20"

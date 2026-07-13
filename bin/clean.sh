@@ -7,14 +7,12 @@ LERNA_CONCURRENCY=${CPUS_COUNT:=$(node -p "require(\"os\").cpus().length")}
 
 cd "${REPO_ROOT}";
 
-# NOTE: Run service's DynamoDB removal first, before concurrent preuninstall deletes build artifacts.
-# `sls dynamodb remove` triggers Serverless variable resolution which loads source files that import
-# `@randy.tarampi/lambda-logger` (whose `main` is `./esm/index.js`). If other packages' `preuninstall`
-# (which runs `gulp clean` → deletes `esm/`) runs concurrently, the resolution fails.
-yarn workspace @randy.tarampi/service run preuninstall:dynamodb || true;
+# NOTE: `preuninstall` is only for uninstall-specific cleanup (e.g. service removing local DynamoDB tables).
+# It may fail if env vars or build artifacts aren't available — that's fine during a clean.
+yarn lerna run preuninstall --concurrency "${LERNA_CONCURRENCY}" --no-bail || true;
 
-yarn lerna run preuninstall --concurrency "${LERNA_CONCURRENCY}" --ignore @randy.tarampi/service;
-
-yarn lerna clean --yes --concurrency "${LERNA_CONCURRENCY}";
+# NOTE: `lerna run clean` runs each package's `gulp clean` task to delete build artifacts (esm/, dist/, etc.).
+# This replaces `lerna clean` (which only removes node_modules symlinks) — `rm -rf node_modules` below handles that.
+yarn lerna run clean --concurrency "${LERNA_CONCURRENCY}";
 
 rm -rf node_modules coverage .nyc_output;

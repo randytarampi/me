@@ -109,7 +109,6 @@
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "yarn run clean",
     "start": "yarn run dev",
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"

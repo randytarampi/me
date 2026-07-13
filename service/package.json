@@ -85,7 +85,7 @@
     "prestart": "yarn run kill",
     "pretest": "gulp -LLLL --color lint",
     "pretest:dynamodb-local": "yarn run kill:dynamodb-local && yarn run start:dynamodb-local && echo \"Started dynamodb-local (`cat /tmp/ca.randytarampi.me.service.dynamo.pid`) from /tmp/ca.randytarampi.me.service.dynamo.pid\";",
-    "preuninstall": "yarn run preuninstall:dynamodb && yarn run clean",
+    "preuninstall": "yarn run preuninstall:dynamodb",
     "preuninstall:dynamodb": "sls dynamodb remove",
     "start": "yarn run dev",
     "start:dynamodb-local": "yarn run start:dynamodb-local:install && yarn run start:dynamodb-local:start && yarn run start:dynamodb-local:migrate",

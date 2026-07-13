@@ -71,7 +71,6 @@
     "prepack": "if [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "yarn run clean",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,

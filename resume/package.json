@@ -124,7 +124,6 @@
     "prepack": "if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
-    "preuninstall": "yarn run clean",
     "resume": "yarn run resume:json && yarn run resume:pdf && yarn run resume:html",
     "resume:html": " cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp resume:html",
     "resume:json": "gulp -LLLL --color resume:json",
