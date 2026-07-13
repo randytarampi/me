@@ -1,5 +1,5 @@
 // @ts-check
-export const compositeKeySeparator = "--@me/sep!-";
+export {compositeKeySeparator} from "./compositeKeySeparator.js";
 
 export * from "./augmentUrlWithTrackingParams.js";
 export * from "./castDatePropertyToDateTime.js";

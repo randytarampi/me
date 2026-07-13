@@ -3,7 +3,8 @@ import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from
 import {List} from "immutable";
 import Photo from "./photo.js";
 import Post, {PostClassGenerator} from "./post.js";
-import {sortPhotosByWidth} from "./util/index.js";
+// NOTE: Import directly from the specific util file to avoid the circular dependency through the barrel.
+import {sortPhotosByWidth} from "./util/sortPhotosByWidth.js";
 
 /** A gallery record made of photos. */
 export class Gallery extends PostClassGenerator({

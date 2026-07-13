@@ -3,7 +3,12 @@ import {BlogPosting as SchemaBlogPosting} from "@randy.tarampi/schema-dot-org-ty
 import {List, Record} from "immutable";
 import Place from "./place.js";
 import Profile from "./profile.js";
-import {augmentUrlWithTrackingParams, castDatePropertyToDateTime, compositeKeySeparator} from "./util/index.js";
+// NOTE: Import directly from specific util files, not the barrel `./util/index.js`.
+// The barrel re-exports `getEntityForType.js`, which imports `gallery.js`, `photo.js`, and `post.js`
+// — creating a circular dependency that causes a TDZ error in ESM/webpack.
+import {augmentUrlWithTrackingParams} from "./util/augmentUrlWithTrackingParams.js";
+import {castDatePropertyToDateTime} from "./util/castDatePropertyToDateTime.js";
+import {compositeKeySeparator} from "./util/compositeKeySeparator.js";
 
 export const POST_OVERRIDING_TAG_SENTINEL_REGEX = /❕([\w.]+)❔/;
 

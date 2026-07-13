@@ -3,7 +3,8 @@ import {BlogPosting as SchemaBlogPosting, ImageObject as SchemaImageObject} from
 import {List} from "immutable";
 import Post, {PostClassGenerator} from "./post.js";
 import SizedPhoto from "./sizedPhoto.js";
-import {sortPhotosByWidth} from "./util/index.js";
+// NOTE: Import directly from the specific util file to avoid the circular dependency through the barrel.
+import {sortPhotosByWidth} from "./util/sortPhotosByWidth.js";
 
 /** A post that carries a few sizes of the same image. */
 export class Photo extends PostClassGenerator({

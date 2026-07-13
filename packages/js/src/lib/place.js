@@ -5,7 +5,8 @@ import {List, Map, Record} from "immutable";
 import geohash from "latlon-geohash";
 import {formatNumber} from "libphonenumber-js";
 import PostalAddress from "./postalAddress.js";
-import {convertLatLongToGeohash} from "./util/index.js";
+// NOTE: Import directly from the specific util file to avoid the circular dependency through the barrel.
+import {convertLatLongToGeohash} from "./util/convertLatLongToGeohash.js";
 
 /** A place record with geo helpers. */
 export class Place extends Record({

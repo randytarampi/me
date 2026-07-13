@@ -6,7 +6,8 @@ import Organization from "./organization.js";
 import Place from "./place.js";
 import PostalAddress from "./postalAddress.js";
 import Profile from "./profile.js";
-import {castDatePropertyToDateTime} from "./util/index.js";
+// NOTE: Import directly from the specific util file to avoid circular dependency through the barrel.
+import {castDatePropertyToDateTime} from "./util/castDatePropertyToDateTime.js";
 
 /** A person record with the usual resume/schema helpers. */
 export class Person extends Record({
