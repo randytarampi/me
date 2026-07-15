@@ -38,7 +38,7 @@
     "reselect": "^5.2.0"
   },
   "devDependencies": {
-    "chai": "^4.5.0",
+    "chai": "^6.2.2",
     "cheerio": "^1.2.0",
     "config": "^4.4.1",
     "copy-webpack-plugin": "^14.0.0",

@@ -33,7 +33,7 @@
     "unsplash-js": "^7.0.20"
   },
   "devDependencies": {
-    "chai": "^4.5.0",
+    "chai": "^6.2.2",
     "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
