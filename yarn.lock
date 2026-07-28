@@ -28233,11 +28233,11 @@ __metadata:
   linkType: hard
 
 "velocityjs@npm:^2.1.6":
-  version: 2.1.6
-  resolution: "velocityjs@npm:2.1.6"
+  version: 2.1.7
+  resolution: "velocityjs@npm:2.1.7"
   dependencies:
     debug: "npm:^4.3.4"
-  checksum: 10c0/37b0c2d57340ef3ed8b8e6f47fe76dc2023a0d3aa53bb38aa72b29e5ec32f11c28b15c372fddc031993a1def87ef5cb5ff531dd147614c6806ffc1d4db77172b
+  checksum: 10c0/031ed178ce6317df0cd4333c214437bd8aa2a41b5cda7249f5e0743fd4ab550160b8a0ee0ee64147ce403c41fe37850b98324f2b56627ea928ff1421458bd1c4
   languageName: node
   linkType: hard
 
