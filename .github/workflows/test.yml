@@ -33,10 +33,6 @@ on:
           - dev
           - prd
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   test:
     name: Run affected test suite
