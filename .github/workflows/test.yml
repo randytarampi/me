@@ -13,10 +13,6 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
-      CODACY_PROJECT_TOKEN:
-        required: true
-      CODECOV_TOKEN:
-        required: true
       COVERALLS_REPO_TOKEN:
         required: true
 
@@ -135,15 +131,20 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Report coverage to CodeCov
-        if: always()
-        uses: codecov/codecov-action@v2
+          file: coverage/lcov.info
+          flag-name: node-${{ matrix.node-version }}
+          parallel: true
+
+  coveralls:
+    name: Finalize the Coveralls report
+    needs:
+      - test
+    if: always()
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Tell Coveralls every matrix leg has reported
+        uses: coverallsapp/github-action@v2
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
-      - name: Report coverage to Codacy
-        if: always()
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
