@@ -93,7 +93,7 @@ custom:
       - test
       - local
     start:
-      port: ${file(src/serverless/util/loadConfig.cjs):default.posts.dbPort}
+      port: ${file(src/serverless/util/loadConfig.cjs):posts.dbPort}
       inMemory: false
       dbPath: ./
       migrate: true
@@ -112,7 +112,7 @@ custom:
       prd: "alias/serverless-prd"
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
-    httpPort: ${file(src/serverless/util/loadConfig.cjs):default.posts.serverPort}
+    httpPort: ${file(src/serverless/util/loadConfig.cjs):posts.serverPort}
     noPrependStageInUrl: true
   customDomain:
     domainName: ${file(env.yml):${self:provider.stage}.domainName}
@@ -324,8 +324,8 @@ resources:
     PostsDynamoDbTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
-      Properties: ${file(src/serverless/dynamodb/post.js):default}
+      Properties: ${file(src/serverless/dynamodb/post.js)}
     AuthInfoDynamoDbTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
-      Properties: ${file(src/serverless/dynamodb/authInfo.js):default}
+      Properties: ${file(src/serverless/dynamodb/authInfo.js)}
