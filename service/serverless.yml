@@ -145,7 +145,8 @@ functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.func
       CAMPAIGN_MEDIUM: rss
     warmup:
       enabled: true
-  resources:
+
+resources:
   Resources:
     LambdaDeadLetterQueue:
       Type: AWS::SNS::Topic
