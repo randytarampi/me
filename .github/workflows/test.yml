@@ -13,8 +13,6 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
-      CC_TEST_REPORTER_ID:
-        required: true
       CODACY_PROJECT_TOKEN:
         required: true
       CODECOV_TOKEN:
@@ -104,12 +102,6 @@ jobs:
           YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
-      - name: Setup CodeClimate for tests
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $PWD/cc-test-reporter
-          chmod +x $PWD/cc-test-reporter
-          $PWD/cc-test-reporter before-build
-        shell: bash
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v2.0.1
       - name: Actually run affected tests
@@ -138,23 +130,11 @@ jobs:
         run: |
           yarn run pretest:collect
           yarn run cover:collect
-      - name: Report results to CodeClimate
-        if: always()
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: |
-          $PWD/cc-test-reporter after-build --exit-code=$(if [[ "${{ steps.test-actual.outcome.success }}" == 'success' ]]; then echo '0'; else echo '1'; fi;) || true
-        shell: bash
       - name: Report coverage to Coveralls
         if: always()
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Report coverage to CodeClimate
-        if: always()
-        uses: paambaati/codeclimate-action@v3.0.0
-        with:
-          coverageLocations: coverage/lcov.info:lcov
       - name: Report coverage to CodeCov
         if: always()
         uses: codecov/codecov-action@v2
