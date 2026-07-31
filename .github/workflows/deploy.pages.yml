@@ -50,7 +50,7 @@ concurrency:
 
 jobs:
   deploy__www--dev:
-    if: ${{ github.event_name != 'push' && (github.event.inputs.deployment_environment || inputs.deployment_environment || 'dev') == 'dev' && (github.event.inputs.application_name || inputs.application_name || 'www') == 'www' }}
+    if: ${{ (github.event.inputs.deployment_environment || inputs.deployment_environment || 'dev') == 'dev' && (github.event.inputs.application_name || inputs.application_name || 'www') == 'www' }}
     uses: ./.github/workflows/deploy.pages.reusable.yml
     with:
       application_name: ${{ github.event.inputs.application_name || inputs.application_name || 'www' }}
@@ -63,12 +63,12 @@ jobs:
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
 
   deploy__www--prd:
-    if: ${{ github.event_name == 'push' || (github.event.inputs.deployment_environment || inputs.deployment_environment || 'dev') == 'prd' }}
+    if: ${{ (github.event.inputs.deployment_environment || inputs.deployment_environment || 'dev') == 'prd' }}
     uses: ./.github/workflows/deploy.pages.reusable.yml
     with:
       application_name: ${{ github.event.inputs.application_name || inputs.application_name || 'www' }}
-      deployment_environment: ${{ github.event_name == 'push' && 'prd' || (github.event.inputs.deployment_environment || inputs.deployment_environment || 'prd') }}
-      deployment_ref: ${{ github.event_name == 'push' && github.ref_name || github.sha }}
+      deployment_environment: prd
+      deployment_ref: ${{ github.sha }}
       adjust_docs_for_dev: false
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
