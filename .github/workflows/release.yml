@@ -98,8 +98,26 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          shopt -s nullglob
-          assets=(me.tar.gz packages/jsonresume-theme/docs/resume.*.pdf letter/docs/letter.*.pdf)
+          set -euo pipefail
+
+          # NOTE-RT: no `nullglob`. A pattern that matches nothing used to vanish silently, so a
+          # release could be published with no assets at all and nothing would say so.
+          assets=()
+          for pattern in \
+            "me.tar.gz" \
+            "packages/jsonresume-theme/docs/resume.*.pdf" \
+            "resume/docs/resume.*.pdf" \
+            "letter/docs/letter.*.pdf"
+          do
+            # shellcheck disable=SC2206 # deliberate: $pattern is a glob and must be expanded
+            matched=($pattern)
+            if [ ! -e "${matched[0]}" ]; then
+              echo "::error::No release asset matched '$pattern'"
+              exit 1
+            fi
+            assets+=("${matched[@]}")
+          done
+
           gh release create "${{ steps.version.outputs.tag }}" \
             --title "${{ steps.version.outputs.tag }}" \
             --target "${{ github.sha }}" \
