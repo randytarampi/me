@@ -1,0 +1,13 @@
+name: me
+runtime: nodejs
+main: src/index.ts
+description: >-
+  The identity, access and repository configuration `randytarampi/me` depends on. Pulumi owns
+  identity, access and repository configuration; `service/serverless.yml` owns the application.
+
+# NOTE-RT: a self-managed S3 backend rather than Pulumi Cloud — the AWS account already exists, so
+# this keeps state and the key that encrypts its secrets in one place with no SaaS dependency. The
+# bucket is a bootstrap prerequisite, not something this program creates: it has to exist before the
+# program that would create it can store its own state. See `README.md` for the ordering.
+backend:
+  url: s3://randytarampi-me-pulumi-state?region=us-east-1

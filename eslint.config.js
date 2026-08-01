@@ -59,7 +59,13 @@ export default [
             "**/.idea/**",
             // NOTE-RT: Yarn's own bundled releases. Linting `.yarn/releases/yarn-*.js` accounted for
             // 7,805 of the 8,376 problems `yarn lint` reported, which buried every real one.
-            "**/.yarn/**"
+            "**/.yarn/**",
+            // NOTE-RT: `infrastructure/` is the only TypeScript in the repo, and this config has no
+            // TypeScript parser — `js.configs.recommended` applies to every file, so without this
+            // every `.ts` file would fail to parse. Adding `typescript-eslint` to lint one leaf
+            // workspace would change the parser for the whole monorepo; that workspace is instead
+            // type-checked by `tsc --noEmit` (its `build` script), which CI runs.
+            "**/*.ts"
         ]
     },
     js.configs.recommended,

@@ -1,0 +1,29 @@
+{
+  "name": "@randy.tarampi/infrastructure",
+  "version": "8.0.0",
+  "description": "The identity, access and repository configuration this monorepo depends on, declared rather than clicked.",
+  "license": "MIT",
+  "author": "Randy Tarampi <hey@randytarampi.ca> (https://www.randytarampi.ca)",
+  "repository": "https://github.com/randytarampi/me.git",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "preview": "pulumi preview --diff",
+    "up": "pulumi up"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^7.40.0",
+    "@pulumi/command": "^1.2.1",
+    "@pulumi/github": "^6.14.1",
+    "@pulumi/pulumi": "^3.255.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

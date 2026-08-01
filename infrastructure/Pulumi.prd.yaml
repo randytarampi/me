@@ -1,0 +1,10 @@
+# NOTE-RT: `pulumi stack init prd --secrets-provider="awskms://alias/serverless-prd?region=ca-central-1"`
+# adds `secretsprovider` and `encryptedkey` to this file on first run. They are committed once they
+# exist — `encryptedkey` is a KMS-encrypted data key, not a secret in the clear.
+config:
+  # NOTE-RT: `ca-central-1`, because that is where `service`'s `deploy:prd` actually deploys (see
+  # `service/package.json`). The prd ACM certificate is in `us-east-1` regardless — an edge-optimized
+  # API Gateway domain can only use a `us-east-1` certificate — which is why `src/aws/adopted.ts`
+  # reaches for an explicit `us-east-1` provider rather than the stack's default one.
+  aws:region: ca-central-1
+  me:stage: prd

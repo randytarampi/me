@@ -21,11 +21,22 @@
 ## ESM rules
 
 - ESM is the default because the repo is `type: module`.
-- Every workspace package is now `"type": "module"` — there are no remaining package-level CommonJS exceptions. Only specific tooling/config files stay CommonJS via the `.cjs` extension (e.g. `mocha.config.cjs`, `loadConfig.cjs`, `util.cjs`, `config/**/*.cjs`); don’t rename those without checking the build/test fallout.
+- Every workspace package is `"type": "module"` with exactly one exception, `infrastructure` (see below). Only specific tooling/config files stay CommonJS via the `.cjs` extension (e.g. `mocha.config.cjs`, `loadConfig.cjs`, `util.cjs`, `config/**/*.cjs`); don’t rename those without checking the build/test fallout.
 - Config files that need CommonJS should use `.cjs`.
 - **ESM `.default` import pattern**: When `require()`-ing an ESM-built package, the default export may be on `.default` (e.g. `require("vinyl-paths").default`). Always use the fallback pattern: `require("pkg").default || require("pkg")`. This is needed for packages like `vinyl-paths@5`, `gulp-mocha`, `gulp-autoprefixer`, and `gulp-if`.
 - **`fullySpecified: false` on webpack babel-loader rules**: When webpack sees genuine ESM syntax from a `"type": "module"` package, it enforces Node's strict "fully specified" import-specifier rule (extension required even for bare `node_modules` subpath imports). Many existing imports predate this rule. Disable it per-rule with `resolve: { fullySpecified: false }` on every babel-loader rule that processes ESM output. See `webpack.client.config.base.js` and `service/webpack.serverless.config.js`.
 - **Avoid barrel imports in circular dependency chains**: If module A imports from `./util/index.js` and `util/index.js` re-exports a module that imports A back, import directly from the specific file instead (e.g. `from "./util/compositeKeySeparator.js"`). Barrel files (`index.js` that re-export everything) create transitive dependency cycles that cause `ReferenceError: Cannot access 'X' before initialization` (TDZ) at runtime under native ESM. This bit us with `post.js → util/index.js → getEntityForType.js → gallery.js/photo.js → post.js`. If you're adding a new entity or util, import from the specific file, not the barrel. See `packages/js/src/lib/models/` for the corrected pattern.
+
+## The `infrastructure` workspace
+
+`infrastructure/` declares the identity, access and repository configuration this repo depends on — the GitHub Actions OIDC provider and deploy roles, the SSM parameters `service` reads at deploy time, the `master` ruleset, the `dev`/`prd` environments, the Actions secret inventory, and the npm trusted publishers `release.yml` publishes through. It is a leaf: nothing imports from it.
+
+It breaks two repo-wide rules on purpose, and both are contained by that leafness:
+
+- **It is the only `"type": "commonjs"` workspace.** Pulumi's Node language host loads the program's entry point itself and its bundled TypeScript transpilation emits CommonJS. An ESM program would have to be pre-compiled before every `pulumi preview`, turning a read-only drift check into a build.
+- **It is the only TypeScript in the repo**, and owns the only `tsconfig.json`. Pulumi's resource surface is large enough that types earn their keep; `eslint.config.js` ignores `**/*.ts` rather than pulling a TypeScript parser into the whole monorepo, so the type check *is* `yarn workspace @randy.tarampi/infrastructure run build` (`tsc --noEmit`).
+
+The boundary that matters: Pulumi owns identity, access and repository configuration. `service/serverless.yml` owns the application — the posts S3 bucket, both DynamoDB tables, the SNS dead-letter topic, the six CloudWatch alarms and the API Gateway custom domain stay there. Moving them would put two tools in a fight over one CloudFormation stack. See `infrastructure/README.md` for the bootstrap ordering and the steps that cannot be automated.
 
 ## Build artifacts
 

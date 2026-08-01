@@ -1,0 +1,25 @@
+{
+  // NOTE-RT: the only `tsconfig.json` in the repo. It exists because this workspace is the only
+  // TypeScript in it, and it is deliberately scoped here — nothing outside `infrastructure/`
+  // imports from this workspace, so the language choice cannot leak into the ESM packages.
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022"],
+    // NOTE-RT: CommonJS to match `package.json`'s `"type": "commonjs"`. Pulumi's Node language
+    // host transpiles and loads `main` itself; it does not run this compiler. `yarn build` here
+    // is `tsc --noEmit`, i.e. a type check, and its module setting has to agree with what Pulumi
+    // will actually do at run time or the check would be validating a different program.
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts"]
+}

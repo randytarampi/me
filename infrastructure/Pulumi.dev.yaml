@@ -1,0 +1,6 @@
+# NOTE-RT: `pulumi stack init dev --secrets-provider="awskms://alias/serverless-dev?region=us-east-1"`
+# adds `secretsprovider` and `encryptedkey` to this file on first run. They are committed once they
+# exist — `encryptedkey` is a KMS-encrypted data key, not a secret in the clear.
+config:
+  aws:region: us-east-1
+  me:stage: dev
