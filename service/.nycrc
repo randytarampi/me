@@ -19,7 +19,7 @@
     "lcov"
   ],
   "require": [
-    "../../babel.register.cjs"
+    "../babel.register.cjs"
   ],
   "cache": true,
   "all": true,
