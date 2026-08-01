@@ -1,0 +1,76 @@
+name: infrastructure
+
+# NOTE-RT: preview only, and only on pull requests. Nothing here applies anything — `pulumi up` is
+# a deliberate act run by a human who has read the diff, because this program owns the credentials
+# every other workflow depends on. A bad apply here doesn't break a deploy, it removes the ability
+# to deploy at all.
+on:
+  pull_request:
+    paths:
+      - 'infrastructure/**'
+      - '.github/workflows/infrastructure.yml'
+
+  workflow_dispatch:
+
+concurrency:
+  group: infrastructure-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  # NOTE-RT: for `me-infrastructure-preview`, whose trust policy pins `sub` to
+  # `repo:randytarampi/me:pull_request` and whose only permission is `ReadOnlyAccess`. A
+  # pull-request job can't sit behind a protected environment without a human approving every PR,
+  # so the trust condition here is the weakest in the program — which is exactly why the role it
+  # unlocks can't change anything.
+  id-token: write
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Preview `${{ matrix.stack }}`
+    strategy:
+      fail-fast: false
+      matrix:
+        stack: [dev, prd]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run `git checkout`
+        uses: actions/checkout@v7
+
+      - name: Setup node@24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        env:
+          YARN_ENABLE_HARDENED_MODE: false
+        run: yarn install
+
+      - name: Assume the read-only preview role
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::471964952458:role/me-infrastructure-preview
+          role-session-name: infrastructure-preview-${{ github.run_id }}
+          aws-region: us-east-1
+
+      - name: Run `pulumi preview`
+        uses: pulumi/actions@v6
+        with:
+          command: preview
+          stack-name: ${{ matrix.stack }}
+          work-dir: infrastructure
+          diff: true
+          comment-on-pr: true
+        env:
+          # NOTE-RT: the state backend is declared in `infrastructure/Pulumi.yaml`, and the secrets
+          # provider is KMS, so there is no Pulumi Cloud token and no passphrase to supply. The
+          # only credential this job needs beyond the assumed role is a GitHub token for the
+          # `@pulumi/github` provider's reads.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
