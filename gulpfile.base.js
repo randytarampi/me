@@ -47,8 +47,11 @@ export const pugLint = ({relativePath, gulp}) => gulp.task("pugLint", () => {
     const path = require("path");
     const pugLinter = require("gulp-pug-linter");
 
+    // NOTE-RT: `templates/`, not `views/`. `@randy.tarampi/views` is the only caller of this task
+    // and it has never had a `views/` directory, so the glob resolved to a path that doesn't exist
+    // and gulp 5 raises `ENOENT: scandir` rather than quietly matching nothing.
     return gulp
-        .src(path.join(relativePath, "views/**/*.pug"))
+        .src(path.join(relativePath, "templates/**/*.pug"))
         .pipe(pugLinter({failAfterError: true}));
 });
 
