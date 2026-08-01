@@ -65,6 +65,16 @@ export default [
     js.configs.recommended,
     reactPlugin.configs.flat.recommended,
     {
+        // NOTE-RT: settings don't merge across flat-config blocks, they replace — so this has to be
+        // stated globally, or every block that sets `settings` leaves the plugin guessing and
+        // warning on every run.
+        settings: {
+            react: {
+                version: "19.2"
+            }
+        }
+    },
+    {
         files: ["**/*.{js,jsx}"],
         plugins: {
             import: importPlugin
