@@ -78,9 +78,28 @@ provider:
     TUMBLR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_SECRET}
     SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
 
+build:
+  esbuild:
+    # NOTE-RT: this package is `"type": "module"`, so esbuild emits ESM. Lambda's `nodejs24.x`
+    # runs with `--no-experimental-detect-module`, and the artifact's generated `package.json`
+    # doesn't carry `"type": "module"`, so an ESM bundle named `.js` would be loaded as CommonJS
+    # and die on its first `import`. `.mjs` makes the module format explicit to the runtime.
+    # See https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html#nodejs-handler-esm
+    outExtension:
+      '.js': '.mjs'
+    sourcemap:
+      type: linked
+    minify: false
+
+package:
+  patterns:
+    # NOTE-RT: `serverless-secrets` writes this manifest next to `serverless.yml` at package time
+    # and `src/serverless/util/loadServerlessSecrets.js` reads it from `process.cwd()` at runtime,
+    # so it has to sit at the root of the artifact. `copy-webpack-plugin` used to put it there.
+    - .serverless-secrets.json
+
 plugins:
 - serverless-secrets
-- serverless-webpack
 - serverless-dynamodb
 - serverless-plugin-warmup
 - serverless-offline
@@ -97,12 +116,6 @@ custom:
       inMemory: false
       dbPath: ./
       migrate: true
-  webpack:
-    individually: false
-    webpackConfig: ./webpack.serverless.config.js
-    includeModules:
-      forceExclude:
-      - aws-sdk
   serverlessSecrets:
     throwOnMissingSecret: true
     providerOptions:
