@@ -113,7 +113,11 @@ jobs:
             yarn lerna run pretest --since HEAD...origin/master
             yarn lerna run cover --since HEAD...origin/master
           fi
-        timeout-minutes: 10
+        # NOTE-RT: on a `master` push `lerna ls --since` is empty, so this takes the *full* branch:
+        # build every workspace, render the Puppeteer PDFs, and run the service suite against
+        # DynamoDB Local. 10 minutes was never enough for that. This figure is a ceiling meant to
+        # catch a hang, not a measurement — tighten it once a few real runs have been observed.
+        timeout-minutes: 45
       - name: Cleanup after tests
         if: always()
         env:
