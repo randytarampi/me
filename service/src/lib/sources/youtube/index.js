@@ -22,9 +22,9 @@ class YouTubeSource extends CachedDataSource {
 
     static instanceToRecord(json) {
         const snippet = json.snippet || {};
-        const thumbnails = snippet.thumbnails || {};
-        const bestThumbnail = thumbnails.maxres || thumbnails.high || thumbnails.medium || thumbnails.default || {};
 
+        // NOTE-RT: `snippet.thumbnails` is deliberately not read here — `Post` has no image field
+        // (only `Photo` does), so there is nowhere to put it. It stays reachable via `raw`.
         return Post.fromJS({
             raw: json,
             id: json.id?.videoId || json.id,

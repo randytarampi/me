@@ -21,10 +21,8 @@ class VimeoSource extends CachedDataSource {
     }
 
     static instanceToRecord(json) {
-        const pictures = json.pictures || {};
-        const sizes = pictures.sizes || [];
-        const bestPicture = sizes[sizes.length - 1] || {};
-
+        // NOTE-RT: Vimeo's `pictures.sizes` are deliberately not read here — `Post` has no image
+        // field (only `Photo` does), so there is nowhere to put them. They stay reachable via `raw`.
         return Post.fromJS({
             raw: json,
             id: String(json.uri?.replace("/videos/", "") || json.id),

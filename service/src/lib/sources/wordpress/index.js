@@ -22,9 +22,8 @@ class WordPressSource extends CachedDataSource {
     }
 
     static instanceToRecord(json) {
-        const featuredImage = json._embedded?.["wp:featuredmedia"]?.[0];
-        const imageUrl = featuredImage?.source_url || json.featured_image || null;
-
+        // NOTE-RT: the featured media URL is deliberately not read here — `Post` has no image field
+        // (only `Photo` does), so there is nowhere to put it. It stays reachable via `raw`.
         return Post.fromJS({
             raw: json,
             id: String(json.id),
