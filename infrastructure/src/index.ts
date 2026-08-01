@@ -1,5 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
 
+import {apiCertificateArn, hostedZoneId, secretsKmsKeyArn} from "./aws/adopted";
 import {infrastructurePreviewRole, serviceDeployRole} from "./aws/oidc";
 import {managedSecretNames, unmanagedSecretNames} from "./aws/secrets";
 import {githubRepositoryFullName, stage} from "./config";
@@ -43,3 +44,13 @@ export const infrastructurePreviewRoleArn: pulumi.Output<string> | undefined =
  */
 export const managedSecrets = managedSecretNames;
 export const unmanagedSecrets = unmanagedSecretNames;
+
+/**
+ * The ARNs `service/env.yml` currently spells out as literals, so there is one place to read them
+ * from. `prd`'s certificate is in `us-east-1` while `prd` itself deploys to `ca-central-1` — that
+ * is correct for an edge-optimized custom domain, and exporting both makes it a stated fact rather
+ * than something a reader has to notice.
+ */
+export const acmCertificateArn = apiCertificateArn;
+export const kmsKeyArn = secretsKmsKeyArn;
+export const route53ZoneId = hostedZoneId;
