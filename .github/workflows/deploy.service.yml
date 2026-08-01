@@ -69,7 +69,11 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          # NOTE-RT: `service`'s `deploy:prd` targets `ca-central-1` and `deploy:dev` targets
+          # `us-east-1` (see `service/package.json`). Both pass `--region` explicitly, so a
+          # mismatch here was survivable rather than harmless — anything else the job asks AWS
+          # for would have gone to the wrong region.
+          aws-region: ${{ inputs.deployment_environment == 'prd' && 'ca-central-1' || 'us-east-1' }}
 
       - name: Deploy service
         run: cd service && yarn run deploy
