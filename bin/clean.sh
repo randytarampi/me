@@ -2,7 +2,10 @@
 
 set -e;
 
-REPO_ROOT=${TRAVIS_BUILD_DIR:=$(pwd)}
+# NOTE-RT: derived from this script's own location. It used to read `$TRAVIS_BUILD_DIR`,
+# falling back to `$(pwd)` — this repo left Travis behind years ago, and the fallback quietly
+# made the script depend on where it was invoked from.
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LERNA_CONCURRENCY=${CPUS_COUNT:=$(node -p "require(\"os\").cpus().length")}
 
 cd "${REPO_ROOT}";
