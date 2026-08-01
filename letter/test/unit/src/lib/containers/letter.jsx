@@ -5,11 +5,36 @@ import {Map} from "immutable";
 import React from "react";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import proxyquire from "proxyquire";
 import sinon from "sinon";
 import {thunk} from "redux-thunk";
+import {createRequire} from "module";
+import path from "path";
 import * as fetchLetter from "../../../../../src/lib/actions/fetchLetter.js";
 import selectors from "../../../../../src/lib/data/selectors.js";
+
+// NOTE-RT: same `require.cache` injection the `fetchLetter` action suite uses. `proxyquire` is not
+// a dependency of this monorepo, and this package has no `esmock` either.
+const require = createRequire(path.resolve("test/unit/src/lib/containers/letter.jsx"));
+const containerPath = require.resolve("../../../../../src/lib/containers/letter.jsx");
+const componentPath = require.resolve("../../../../../src/lib/components/letter/index.jsx");
+
+const loadConnectedLetter = LetterComponentStub => {
+    delete require.cache[containerPath];
+    delete require.cache[componentPath];
+
+    require.cache[componentPath] = {
+        id: componentPath,
+        filename: componentPath,
+        loaded: true,
+        exports: {
+            __esModule: true,
+            default: LetterComponentStub,
+            LetterComponent: LetterComponentStub
+        }
+    };
+
+    return require(containerPath);
+};
 
 describe("ConnectedLetter", function () {
     let mockStore;
@@ -34,12 +59,7 @@ describe("ConnectedLetter", function () {
         sinon.stub(api, "createIsLoadingUrlSelector").returns(stubIsLoadingUrlSelector);
 
         LetterComponentSpy = sinon.spy(() => <div data-testid="letter-probe" />);
-        ({ConnectedLetter} = proxyquire("../../../../../src/lib/containers/letter", {
-            "../components/letter": {
-                LetterComponent: LetterComponentSpy,
-                default: LetterComponentSpy
-            }
-        }));
+        ({ConnectedLetter} = loadConnectedLetter(LetterComponentSpy));
     });
 
     afterEach(function () {
