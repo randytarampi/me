@@ -32,7 +32,9 @@ concurrency:
 
 permissions:
   contents: read
-  id-token: write
+  # NOTE-RT: no `id-token: write`. It was requested but never used — nothing here assumes a role
+  # via OIDC, the deploy runs on the long-lived `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` pair.
+  # It belongs back here the moment `configure-aws-credentials` gets a `role-to-assume`.
 
 jobs:
   deploy-service:
