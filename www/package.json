@@ -91,6 +91,6 @@
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

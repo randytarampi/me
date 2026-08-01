@@ -130,6 +130,6 @@
     "./esm/lib/reactShim.js"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

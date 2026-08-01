@@ -24,6 +24,6 @@
     "url": "https://github.com/randytarampi/me.git"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

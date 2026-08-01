@@ -39,7 +39,7 @@
     "lib": "./src/lib"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "homepage": "https://www.randytarampi.ca",
   "license": "MIT",

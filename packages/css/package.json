@@ -37,6 +37,6 @@
     "pretest": "gulp -LLLL --color lint"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
