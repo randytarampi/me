@@ -287,7 +287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-dynamodb@npm:^3.474.0, @aws-sdk/client-dynamodb@npm:^3.782.0":
+"@aws-sdk/client-dynamodb@npm:^3.782.0":
   version: 3.1075.0
   resolution: "@aws-sdk/client-dynamodb@npm:3.1075.0"
   dependencies:
@@ -741,21 +741,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/lib-dynamodb@npm:^3.474.0":
-  version: 3.1075.0
-  resolution: "@aws-sdk/lib-dynamodb@npm:3.1075.0"
-  dependencies:
-    "@aws-sdk/core": "npm:^3.974.23"
-    "@aws-sdk/util-dynamodb": "npm:^3.996.5"
-    "@smithy/core": "npm:^3.24.6"
-    "@smithy/types": "npm:^4.14.3"
-    tslib: "npm:^2.6.2"
-  peerDependencies:
-    "@aws-sdk/client-dynamodb": ^3.1075.0
-  checksum: 10c0/5ebf326f8def8ee5e3ae2cdc73fc50b383dd879412afc75689427ea93634c52c0e1a7f3444f4462417c74357507671f12e0843166fd81c20a798f03b59fe5419
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/middleware-endpoint-discovery@npm:^3.972.19":
   version: 3.972.19
   resolution: "@aws-sdk/middleware-endpoint-discovery@npm:3.972.19"
@@ -936,7 +921,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/util-dynamodb@npm:^3.782.0, @aws-sdk/util-dynamodb@npm:^3.996.5":
+"@aws-sdk/util-dynamodb@npm:^3.782.0":
   version: 3.996.5
   resolution: "@aws-sdk/util-dynamodb@npm:3.996.5"
   dependencies:
@@ -8148,7 +8133,6 @@ __metadata:
     "@randy.tarampi/js": "workspace:*"
     "@randy.tarampi/lambda-logger": "workspace:*"
     "@randy.tarampi/serverless": "workspace:*"
-    aws-dynamodb-local: "npm:^0.0.14"
     chai: "npm:^6.2.2"
     config: "npm:^5.0.0-alpha.2"
     cross-env: "npm:^10.1.0"
@@ -8168,7 +8152,6 @@ __metadata:
     rss: "npm:^1.2.2"
     serverless: "npm:^4.38.1"
     serverless-domain-manager: "npm:^10.2.0"
-    serverless-dynamodb: "npm:^0.2.58"
     serverless-offline: "npm:^14.7.4"
     serverless-plugin-warmup: "npm:^8.4.1"
     serverless-secrets: "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10"
@@ -10895,15 +10878,6 @@ __metadata:
   dependencies:
     possible-typed-array-names: "npm:^1.0.0"
   checksum: 10c0/d07226ef4f87daa01bd0fe80f8f310982e345f372926da2e5296aecc25c41cab440916bbaa4c5e1034b453af3392f67df5961124e4b586df1e99793a1374bdb2
-  languageName: node
-  linkType: hard
-
-"aws-dynamodb-local@npm:^0.0.14":
-  version: 0.0.14
-  resolution: "aws-dynamodb-local@npm:0.0.14"
-  dependencies:
-    tar: "npm:^7.5.6"
-  checksum: 10c0/ccbb37077046301526304940a346339ac8ba197c59f0a3b7870b557043f8b4ae360ab27edc42082d4e28bae4a3f2b8f4b7b5867e08fd1cd02caece14914cdd80
   languageName: node
   linkType: hard
 
@@ -26129,17 +26103,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-dynamodb@npm:^0.2.58":
-  version: 0.2.58
-  resolution: "serverless-dynamodb@npm:0.2.58"
-  dependencies:
-    "@aws-sdk/client-dynamodb": "npm:^3.474.0"
-    "@aws-sdk/lib-dynamodb": "npm:^3.474.0"
-    aws-dynamodb-local: "npm:^0.0.14"
-  checksum: 10c0/7c3371a8e51804f91160a69144d37102efbeae77b0cad4ad02814401edee4b58c7dd97b5e5283e03202c42c3fcbd9b34b35d3c2d8a1d7e1c21185c11e63d03b0
-  languageName: node
-  linkType: hard
-
 "serverless-offline@npm:^14.7.4":
   version: 14.7.4
   resolution: "serverless-offline@npm:14.7.4"
@@ -27538,7 +27501,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:*, tar@npm:^7.4.3, tar@npm:^7.5.4, tar@npm:^7.5.6":
+"tar@npm:*, tar@npm:^7.4.3, tar@npm:^7.5.4":
   version: 7.5.19
   resolution: "tar@npm:7.5.19"
   dependencies:

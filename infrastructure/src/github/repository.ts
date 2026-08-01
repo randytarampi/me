@@ -31,13 +31,11 @@ export const actionsPermissions = ownsGlobalResources
             githubOwnedAllowed: true,
             verifiedAllowed: true,
             // NOTE-RT: exactly the third-party actions `.github/workflows/` reaches for, and
-            // nothing else. `rrainn/dynamodb-action` is here only until the LocalStack service
-            // container replaces it in `test.yml`; drop it in the same change.
+            // nothing else.
             patternsAlloweds: [
                 "JamesIves/github-pages-deploy-action@*",
                 "aws-actions/configure-aws-credentials@*",
                 "coverallsapp/github-action@*",
-                "rrainn/dynamodb-action@*",
                 "pulumi/actions@*"
             ]
         }

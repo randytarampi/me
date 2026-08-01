@@ -106,7 +106,6 @@ package:
 
 plugins:
 - serverless-secrets
-- serverless-dynamodb
 - serverless-plugin-warmup
 - serverless-offline
 - serverless-domain-manager
@@ -117,15 +116,11 @@ custom:
   # would make `sls print` and `sls offline start` require live AWS credentials, breaking local
   # development. The account id is not a secret; the point here is to state it exactly once.
   awsAccountId: "471964952458"
-  dynamodb:
-    stages:
-      - test
-      - local
-    start:
-      port: ${file(src/serverless/util/loadConfig.cjs):posts.dbPort}
-      inMemory: false
-      dbPath: ./
-      migrate: true
+  # NOTE-RT: no `dynamodb:` block, and no `serverless-dynamodb` plugin. The local database is a
+  # `localstack/localstack` container started by `service/package.json`'s `localstack:*` scripts,
+  # and the tables are created by `src/serverless/dynamodb/migrate.js` against it. Nothing about
+  # the local database needs to be a Serverless plugin - it was one only because DynamoDB Local
+  # needed a JAR downloaded and a JVM started, which is exactly the dependency this removes.
   serverlessSecrets:
     throwOnMissingSecret: true
     providerOptions:

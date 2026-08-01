@@ -45,6 +45,22 @@ jobs:
     runs-on:
       - ubuntu-latest
     concurrency: test-${{ github.ref }}-${{ matrix.node-version }}
+    # NOTE-RT: replaces `rrainn/dynamodb-action`, which declared `runs.using: node12`. `service`'s
+    # `localstack:start` no-ops when something is already listening on 4566, so the same scripts
+    # work here and on a laptop without branching on `CI`.
+    services:
+      localstack:
+        image: localstack/localstack:4
+        ports:
+          - 4566:4566
+        env:
+          SERVICES: dynamodb
+        options: >-
+          --health-cmd "curl --fail http://localhost:4566/_localstack/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 12
+          --health-start-period 20s
     steps:
       - name: Set variables
         id: variables
@@ -100,8 +116,6 @@ jobs:
           YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
-      - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v4.0.0
       - name: Actually run affected tests
         id: test-actual
         env:
@@ -115,9 +129,9 @@ jobs:
             yarn lerna run cover --since HEAD...origin/master
           fi
         # NOTE-RT: on a `master` push `lerna ls --since` is empty, so this takes the *full* branch:
-        # build every workspace, render the Puppeteer PDFs, and run the service suite against
-        # DynamoDB Local. 10 minutes was never enough for that. This figure is a ceiling meant to
-        # catch a hang, not a measurement — tighten it once a few real runs have been observed.
+        # build every workspace, render the Puppeteer PDFs, and run the service suite against the
+        # LocalStack container above. 10 minutes was never enough for that. This figure is a ceiling
+        # meant to catch a hang, not a measurement — tighten it once a few real runs are observed.
         timeout-minutes: 45
       - name: Cleanup after tests
         if: always()

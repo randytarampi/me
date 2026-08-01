@@ -8,7 +8,9 @@ const WWW_APP_PORT = 8080;
 const RESUME_APP_PORT = WWW_APP_PORT;
 const LETTER_APP_PORT = WWW_APP_PORT;
 
-const POSTS_DB_PORT = 8000;
+// NOTE-RT: 4566, LocalStack's single edge port, not DynamoDB Local's 8000. The local database is a
+// `localstack/localstack` container now - see `service/package.json`'s `localstack:*` scripts.
+const POSTS_DB_PORT = 4566;
 
 module.exports = {
     linkedIn: {
