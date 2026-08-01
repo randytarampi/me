@@ -25,6 +25,9 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.actor != 'github-actions[bot]' }}
     environment: prd
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.changed.outputs.has_changes }}
+      tag: ${{ steps.version.outputs.tag }}
     steps:
       - name: Run `git checkout`
         uses: actions/checkout@v4
@@ -123,3 +126,42 @@ jobs:
             --target "${{ github.sha }}" \
             --notes "" \
             "${assets[@]}"
+
+  # NOTE-RT: deploys hang off `release` directly rather than off the `v*` tag it pushes. Tags
+  # pushed with the checkout-persisted `GITHUB_TOKEN` never create a workflow run, so the tag
+  # triggers these workflows used to carry could not fire — production has not deployed since
+  # 2022-04-24. Calling them here also keeps one release and its deploys in a single run.
+  deploy-pages:
+    needs: release
+    if: ${{ needs.release.outputs.has_changes == 'true' }}
+    uses: ./.github/workflows/deploy.pages.yml
+    with:
+      application_name: www
+      deployment_environment: prd
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+
+  deploy-pages--jsonresume-theme:
+    needs: release
+    if: ${{ needs.release.outputs.has_changes == 'true' }}
+    uses: ./.github/workflows/deploy.pages.yml
+    with:
+      application_name: jsonresume-theme
+      deployment_environment: prd
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+
+  deploy-service:
+    needs: release
+    if: ${{ needs.release.outputs.has_changes == 'true' }}
+    uses: ./.github/workflows/deploy.service.yml
+    with:
+      deployment_environment: prd
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
