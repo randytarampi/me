@@ -74,7 +74,10 @@ jobs:
       - name: Setup dependencies on build runner
         run: |
           sudo apt-get update
-          sudo apt-get install language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei
+          # NOTE-RT: `--yes` because relying on the runner image's assume-yes default is a wager on
+          # someone else's config; `'japan*'` quoted because apt takes it as a regex, and unquoted
+          # the shell would glob it against the working directory first.
+          sudo apt-get install --yes language-pack-ja 'japan*' fonts-wqy-microhei ttf-wqy-microhei
 
       - name: Cache Yarn
         uses: actions/cache@v6
