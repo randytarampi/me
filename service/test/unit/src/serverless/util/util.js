@@ -29,12 +29,10 @@ describe("util", function () {
         it("propagates thrown errors", async function () {
             const stubErrorMessage = "woof";
             const stubDynamooseLocal = sinon.stub();
-            const stubLoadServerlessSecrets = sinon.stub().rejects(new Error(stubErrorMessage));
-            const stubConfigureLogger = sinon.stub();
+            const stubConfigureLogger = sinon.stub().rejects(new Error(stubErrorMessage));
 
             const {default: configureEnvironment} = await esmock("../../../../../src/serverless/util/configureEnvironment.js", import.meta.url, {
                 dynamoose: {default: {aws: {ddb: {local: stubDynamooseLocal}}}},
-                "../../../../../src/serverless/util/loadServerlessSecrets.js": {default: stubLoadServerlessSecrets},
                 "../../../../../src/serverless/logger.js": {configureLogger: stubConfigureLogger}
             });
 
@@ -47,104 +45,15 @@ describe("util", function () {
 
         it("works", async function () {
             const stubDynamooseLocal = sinon.stub();
-            const stubLoadServerlessSecrets = sinon.stub().resolves();
             const stubConfigureLogger = sinon.stub().resolves();
 
             const {default: configureEnvironment} = await esmock("../../../../../src/serverless/util/configureEnvironment.js", import.meta.url, {
                 dynamoose: {default: {aws: {ddb: {local: stubDynamooseLocal}}}},
-                "../../../../../src/serverless/util/loadServerlessSecrets.js": {default: stubLoadServerlessSecrets},
                 "../../../../../src/serverless/logger.js": {configureLogger: stubConfigureLogger}
             });
 
             return configureEnvironment().then(() => {
-                expect(stubLoadServerlessSecrets.calledOnce).to.eql(true);
                 expect(stubConfigureLogger.calledOnce).to.eql(true);
-            });
-        });
-    });
-
-    describe("loadServerlessSecrets", function () {
-        const secretEnvVars = [
-            "FLICKR_API_KEY",
-            "FLICKR_API_SECRET",
-            "UNSPLASH_API_KEY",
-            "UNSPLASH_API_SECRET",
-            "FACEBOOK_API_KEY",
-            "FACEBOOK_API_SECRET",
-            "FACEBOOK_ACCESS_TOKEN",
-            "INSTAGRAM_API_KEY",
-            "INSTAGRAM_API_SECRET",
-            "INSTAGRAM_ACCESS_TOKEN",
-            "TUMBLR_API_KEY",
-            "TUMBLR_API_SECRET",
-            "TWITTER_API_KEY",
-            "TWITTER_API_SECRET",
-            "SENTRY_DSN"
-        ];
-
-        let originalSecretEnvVars;
-
-        beforeEach(function () {
-            originalSecretEnvVars = secretEnvVars.reduce((env, envVarName) => {
-                env[envVarName] = process.env[envVarName];
-                return env;
-            }, {});
-        });
-
-        afterEach(function () {
-            process.env.NODE_ENV = "test";
-
-            secretEnvVars.forEach(envVarName => {
-                if (typeof originalSecretEnvVars[envVarName] === "undefined") {
-                    delete process.env[envVarName];
-                } else {
-                    process.env[envVarName] = originalSecretEnvVars[envVarName];
-                }
-            });
-        });
-
-        it("loads secrets from SSM", async function () {
-            process.env.NODE_ENV = "dev";
-
-            const send = sinon.stub().callsFake(async command => {
-                return {
-                    Parameters: command.input.Names.map(name => {
-                        return {
-                            Name: name,
-                            Value: `${name}-value`
-                        };
-                    })
-                };
-            });
-
-            const stubGetParametersCommand = sinon.stub().callsFake(function GetParametersCommand(input) {
-                this.input = input;
-            });
-            const stubSSMClient = sinon.stub().callsFake(function SSMClient() {
-                this.send = send;
-            });
-
-            const {default: loadServerlessSecrets} = await esmock("../../../../../src/serverless/util/loadServerlessSecrets.js", import.meta.url, {
-                "@aws-sdk/client-ssm": {
-                    GetParametersCommand: stubGetParametersCommand,
-                    SSMClient: stubSSMClient
-                }
-            });
-
-            return loadServerlessSecrets().then(() => {
-                expect(send.calledTwice).to.eql(true);
-                expect(process.env.FLICKR_API_KEY).to.eql("flickr-api-key-value");
-                expect(process.env.TWITTER_API_SECRET).to.eql("twitter-api-secret-value");
-            });
-        });
-
-        it("shortcircuits in `NODE_ENV === \"test\"`", async function () {
-            process.env.NODE_ENV = "test";
-
-            const {default: loadServerlessSecrets} = await esmock("../../../../../src/serverless/util/loadServerlessSecrets.js", import.meta.url);
-
-            return loadServerlessSecrets().then(() => {
-                expect(process.env.NODE_ENV).to.eql("test");
             });
         });
     });
