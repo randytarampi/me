@@ -90,11 +90,21 @@ jobs:
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
         run: tar -czf me.tar.gz --exclude=.git --exclude=node_modules --exclude=.yarn/cache .
 
+      # NOTE-RT: no `NODE_AUTH_TOKEN`, and no `NPM_TOKEN` secret behind it. Lerna 9 performs npm's
+      # OIDC exchange itself — it requests a token with audience `npm:registry.npmjs.org`, trades it
+      # per-package at `/-/npm/v1/oidc/token/exchange/package/<name>`, and enables provenance on its
+      # own when the repository and package are both public, which is why `--provenance` is gone
+      # too. The trust relationships are declared in `infrastructure/src/npm/trustedPublishers.ts`.
+      #
+      # `setup-node`'s `registry-url` above still writes an `.npmrc` line referencing
+      # `NODE_AUTH_TOKEN`, which now resolves empty; Lerna sets its own token in `user` config,
+      # which takes precedence. That precedence is asserted here rather than verified, so the first
+      # release must be run with `--loglevel verbose` — Lerna's OIDC helper never throws, so a
+      # skipped exchange looks like a plain auth failure and the `oidc` breadcrumbs are the only
+      # way to tell the two apart.
       - name: Publish packages
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn lerna publish from-git --yes --provenance
+        run: yarn lerna publish from-git --yes --loglevel verbose
 
       - name: Publish GitHub release
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
@@ -139,8 +149,6 @@ jobs:
       application_name: www
       deployment_environment: prd
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
 
   deploy-pages--jsonresume-theme:
@@ -151,8 +159,6 @@ jobs:
       application_name: jsonresume-theme
       deployment_environment: prd
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
 
   deploy-service:
@@ -161,7 +167,5 @@ jobs:
     uses: ./.github/workflows/deploy.service.yml
     with:
       deployment_environment: prd
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+    # NOTE-RT: no `secrets:` at all. The deploy assumes an OIDC role and reads the Serverless
+    # licence key from SSM, so there is nothing left here to hand down.
