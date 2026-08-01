@@ -68,21 +68,12 @@ provider:
     Resource:
       - "*"
 
+  # NOTE-RT: the credentials live in here too, as `${ssm:…}` references resolved at deploy time -
+  # see `env.yml`. There is no separate `environmentSecrets` block and no `serverless-secrets`
+  # plugin: its AWS provider `require`s the v2 `aws-sdk` as an uninstalled peer dependency, from a
+  # `before:package:createDeploymentArtifacts` hook, so every `sls package` and `sls deploy` died
+  # there. `sls print` never reaches that hook, which is why it looked healthy for years.
   environment: ${file(env.yml):${self:provider.stage}.environment}
-  environmentSecrets: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.environmentSecrets}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
-    FLICKR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_KEY}
-    FLICKR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.FLICKR_API_SECRET}
-    UNSPLASH_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_KEY}
-    UNSPLASH_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.UNSPLASH_API_SECRET}
-    TUMBLR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_KEY}
-    TUMBLR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_SECRET}
-    SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
-    # NOTE-RT: `env.yml` also names SSM parameters for the GitHub, YouTube, Vimeo, StackOverflow
-    # and SoundCloud sources, but they're deliberately not listed here yet. `custom.serverlessSecrets
-    # .throwOnMissingSecret` is `true`, so naming a parameter that doesn't exist in Parameter Store
-    # makes `configureEnvironment.js` throw and takes *every* function down, not just that source.
-    # To enable one: create the SSM parameter, add its identifier to `config/me/profiles.cjs`
-    # (see `env.yml`), then add its key here.
 
 build:
   esbuild:
@@ -97,15 +88,7 @@ build:
       type: linked
     minify: false
 
-package:
-  patterns:
-    # NOTE-RT: `serverless-secrets` writes this manifest next to `serverless.yml` at package time
-    # and `src/serverless/util/loadServerlessSecrets.js` reads it from `process.cwd()` at runtime,
-    # so it has to sit at the root of the artifact. `copy-webpack-plugin` used to put it there.
-    - .serverless-secrets.json
-
 plugins:
-- serverless-secrets
 - serverless-plugin-warmup
 - serverless-offline
 - serverless-domain-manager
@@ -121,13 +104,13 @@ custom:
   # and the tables are created by `src/serverless/dynamodb/migrate.js` against it. Nothing about
   # the local database needs to be a Serverless plugin - it was one only because DynamoDB Local
   # needed a JAR downloaded and a JVM started, which is exactly the dependency this removes.
-  serverlessSecrets:
-    throwOnMissingSecret: true
-    providerOptions:
-      region: ${self:provider.region}
-    keys:
-      dev: "alias/serverless-dev"
-      prd: "alias/serverless-prd"
+  #
+  # NOTE-RT: no `serverlessSecrets:` block either, and nothing replaces it. The credentials are
+  # `${ssm:…}` references in `env.yml`, so there is no `throwOnMissingSecret` to set (an
+  # unresolvable reference fails the deploy outright), no KMS alias to name per stage (SSM decrypts
+  # `SecureString` parameters itself), and no `package.patterns` entry for a `.serverless-secrets
+  # .json` manifest that no longer gets written. The execution role also loses the wildcard
+  # `ssm:GetParameters` the plugin injected at `before:package:setupProviderConfiguration`.
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
     httpPort: ${file(src/serverless/util/loadConfig.cjs):posts.serverPort}
@@ -145,7 +128,11 @@ custom:
   warmup:
     prewarm: true
 
-functions: # NOTE-RT: Can't just go `${file(env.yml):${self:provider.stage}.functions}` because `serverless-secrets` makes assumptions about what's actually in your configuration file
+# NOTE-RT: can't just go `${file(env.yml):${self:provider.stage}.functions}` - `env.yml` carries
+# only each function's `events` (plus `getPostsRss`'s `CAMPAIGN_MEDIUM`), because those are the
+# stage-dependent parts. `handler`, `timeout`, `onError` and `warmup` are the same everywhere and
+# live here, so the block is assembled rather than referenced wholesale.
+functions:
   cachePosts:
     handler: src/serverless/handlers/cachePosts/initialized.default
     timeout: 90
