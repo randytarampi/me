@@ -1,13 +1,23 @@
 name: deploy (service)
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_call:
+    inputs:
+      deployment_environment:
+        description: 'The deployment environment'
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      SERVERLESS_ACCESS_KEY:
+        required: true
 
   workflow_dispatch:
     inputs:
-      environment:
+      deployment_environment:
         description: 'The deployment environment'
         required: true
         default: prd
@@ -26,12 +36,12 @@ permissions:
 
 jobs:
   deploy-service:
-    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'prd' }}
+    environment: ${{ inputs.deployment_environment }}
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      NODE_ENV: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'prd' }}
+      NODE_ENV: ${{ inputs.deployment_environment }}
       # NOTE-RT: Serverless Framework v4 refuses to run unauthenticated, and the CLI's interactive
       # login prompt would hang a CI run. See https://www.serverless.com/framework/docs/guides/license-keys
       SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
