@@ -14143,6 +14143,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-formatter-junit@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "eslint-formatter-junit@npm:9.0.1"
+  checksum: 10c0/817d5ac38582ae53aaaca9f75df1a169d24f73dc157a4ad85914dd413274da47d498db9129f4a72ebea44c24b52a70b2d0b4a76108d9c85035b8e088f71e0486
+  languageName: node
+  linkType: hard
+
 "eslint-import-resolver-node@npm:^0.3.9":
   version: 0.3.10
   resolution: "eslint-import-resolver-node@npm:0.3.10"
@@ -19396,6 +19403,7 @@ __metadata:
     css-minimizer-webpack-plugin: "npm:^5.0.0"
     del: "npm:^8.0.1"
     eslint: "npm:^10.6.0"
+    eslint-formatter-junit: "npm:^9.0.1"
     eslint-plugin-import: "npm:^2.32.0"
     eslint-plugin-react: "npm:^7.37.5"
     expose-loader: "npm:^5.0.1"
