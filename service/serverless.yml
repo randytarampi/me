@@ -44,23 +44,23 @@ provider:
   - Effect: Allow
     Action:
     - dynamodb:*
-    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}
+    Resource: arn:aws:dynamodb:${self:provider.region}:${self:custom.awsAccountId}:table/${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}
   - Effect: Allow
     Action:
     - dynamodb:*
-    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}/*
+    Resource: arn:aws:dynamodb:${self:provider.region}:${self:custom.awsAccountId}:table/${self:provider.environment.SERVICE_POSTS_DYNAMODB_TABLE}/*
   - Effect: Allow
     Action:
       - dynamodb:*
-    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}
+    Resource: arn:aws:dynamodb:${self:provider.region}:${self:custom.awsAccountId}:table/${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}
   - Effect: Allow
     Action:
       - dynamodb:*
-    Resource: arn:aws:dynamodb:${self:provider.region}:471964952458:table/${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}/*
+    Resource: arn:aws:dynamodb:${self:provider.region}:${self:custom.awsAccountId}:table/${self:provider.environment.SERVICE_AUTH_INFO_DYNAMODB_TABLE}/*
   - Effect: Allow
     Action:
       - lambda:InvokeFunction
-    Resource: arn:aws:lambda:${self:provider.region}:471964952458:function:${self:service}-${self:provider.stage}-*
+    Resource: arn:aws:lambda:${self:provider.region}:${self:custom.awsAccountId}:function:${self:service}-${self:provider.stage}-*
   - Effect: Allow
     Action:
       - xray:PutTraceSegments
@@ -112,6 +112,11 @@ plugins:
 - serverless-domain-manager
 
 custom:
+  # NOTE-RT: deliberately a literal rather than `${aws:accountId}`. That variable is resolved by
+  # an STS call, and a failed call is a hard error that no default value catches - so using it
+  # would make `sls print` and `sls offline start` require live AWS credentials, breaking local
+  # development. The account id is not a secret; the point here is to state it exactly once.
+  awsAccountId: "471964952458"
   dynamodb:
     stages:
       - test
