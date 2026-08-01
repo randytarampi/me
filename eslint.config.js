@@ -92,7 +92,15 @@ export default [
                 node: {
                     extensions: [".js", ".jsx", ".json"]
                 }
-            }
+            },
+            // NOTE-RT: `eslint-import-resolver-node` predates package `exports` maps and only reads
+            // `main`/`module`, so it cannot see these — all three are declared dependencies that
+            // resolve fine at runtime. This is a resolver limitation, not a missing package.
+            "import/core-modules": [
+                "react-router",
+                "@octokit/rest",
+                "unsplash-js"
+            ]
         },
         rules: {
             "no-useless-escape": "warn",
