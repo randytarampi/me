@@ -8,3 +8,8 @@ config:
   # reaches for an explicit `us-east-1` provider rather than the stack's default one.
   aws:region: ca-central-1
   me:stage: prd
+  # NOTE-RT: `prd` is the stack that owns everything with no notion of a stage — the IAM OIDC
+  # provider, the `master` ruleset, the environments, the Actions secret inventory, the Pages
+  # settings and the npm trusted publishers. `dev` references them rather than creating a second
+  # copy, which IAM and GitHub would both reject. See `src/config.ts`.
+  me:ownsGlobalResources: "true"
