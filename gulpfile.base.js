@@ -24,15 +24,18 @@ export const eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
     const eslint = require("gulp-eslint-new");
     const gulpIf = require("gulp-if");
     const resultsFile = process.env.CI && fs.createWriteStream(path.join(relativePath, "eslint-results.xml"));
+    // NOTE-RT: never rewrite sources in CI. `pretest` autofixing and writing back meant CI reported
+    // a clean tree while quietly editing it, so drift never surfaced in a build.
+    const fix = !process.env.CI;
 
     const stream = gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
-        .pipe(eslint({fix: true}))
+        .pipe(eslint({fix}))
         .pipe(
             resultsFile
                 ? eslint.format("junit", resultsFile)
                 : eslint.format()
         )
-        .pipe(gulpIf(isFixed, gulp.dest(relativePath)))
+        .pipe(gulpIf(file => fix && isFixed(file), gulp.dest(relativePath)))
         .pipe(eslint.failAfterError());
 
     stream.on("finish", () => resultsFile && resultsFile.end());
