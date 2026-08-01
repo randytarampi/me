@@ -70,7 +70,7 @@ export default [
             import: importPlugin
         },
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: "latest",
             sourceType: "module",
             parserOptions: {
                 ecmaFeatures: {
@@ -118,7 +118,7 @@ export default [
         // undefined globals: the twelve `mocha.config.cjs` files alone reported 17 each.
         files: ["**/*.cjs"],
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: "latest",
             sourceType: "commonjs",
             globals: {
                 ...globals.node,
