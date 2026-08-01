@@ -54,6 +54,10 @@ describe("ResumeEducationEntry", function () {
         const rendered = render(<ResumeEducationEntry educationEntry={stubResumeEducationEntry} index={0}
                                                        customContentForType={stubCustomContentForType}/>);
 
+        // NOTE-RT: highlights past the limit aren't dropped, they're marked `hide-on-print`. The
+        // default limit of 3 would hide the last two of these six; `maxPrintHighlights: 4` hides one.
+        expect(rendered.container.querySelectorAll(".resume-education-entry__highlight")).to.have.lengthOf(6);
+        expect(rendered.container.querySelectorAll(".resume-education-entry__highlight.hide-on-print")).to.have.lengthOf(1);
     });
 
     it("renders (no end date)", function () {
