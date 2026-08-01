@@ -140,6 +140,11 @@ custom:
   customDomain:
     domainName: ${file(env.yml):${self:provider.stage}.domainName}
     certificateName: ${file(env.yml):${self:provider.stage}.acmName}
+    # NOTE-RT: stated outright because it decides which region the certificate is looked up in.
+    # `prd` deploys to `ca-central-1` but both stages' `acmArn` live in `us-east-1` (see `env.yml`),
+    # which is only correct for an edge-optimized endpoint - leaving it to the plugin's default
+    # made a working deploy depend on that default never changing.
+    endpointType: edge
     createRoute53Record: true
     basePath: ""
   warmup:
