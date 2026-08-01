@@ -106,12 +106,12 @@ jobs:
         env:
           NODE_ENV: test
         run: |
-          if [ "$(npx lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
+          if [ "$(yarn lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
             yarn run pretest
             yarn cover:actual
           else
-            npx lerna run pretest --since HEAD...origin/master
-            npx lerna run cover --since HEAD...origin/master
+            yarn lerna run pretest --since HEAD...origin/master
+            yarn lerna run cover --since HEAD...origin/master
           fi
         timeout-minutes: 10
       - name: Cleanup after tests
