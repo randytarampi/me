@@ -7670,7 +7670,6 @@ __metadata:
     serverless-domain-manager: "npm:^10.2.0"
     serverless-dynamodb: "npm:^0.2.58"
     serverless-offline: "npm:^14.7.4"
-    serverless-plugin-tracing: "npm:^2.0.0"
     serverless-plugin-warmup: "npm:^8.4.1"
     serverless-secrets: "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10"
     sinon: "npm:^22.0.0"
@@ -25459,13 +25458,6 @@ __metadata:
   peerDependencies:
     serverless: ^4.0.0
   checksum: 10c0/8314bb5337e55b660de9b10ddbcfd8c961e5ce3799ac5d81ed87438238c5ddb7c2408dfccb42f0a67a55c7fe84d55f0d920b861b14df03afe99d1a84de872111
-  languageName: node
-  linkType: hard
-
-"serverless-plugin-tracing@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "serverless-plugin-tracing@npm:2.0.0"
-  checksum: 10c0/6ae7749f22ca7597f697e21e8d504b4d0e8389475a2904b0ac8f85e7b0a9b78adad8d0347ff657132bf4793b62f8c93c4904170dbe523c53156677519d0c91d0
   languageName: node
   linkType: hard
 

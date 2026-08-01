@@ -40,7 +40,6 @@
     "serverless-domain-manager": "^10.2.0",
     "serverless-dynamodb": "^0.2.58",
     "serverless-offline": "^14.7.4",
-    "serverless-plugin-tracing": "^2.0.0",
     "serverless-plugin-warmup": "^8.4.1",
     "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "sinon": "^22.0.0"

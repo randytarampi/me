@@ -110,7 +110,6 @@ plugins:
 - serverless-plugin-warmup
 - serverless-offline
 - serverless-domain-manager
-- serverless-plugin-tracing
 
 custom:
   dynamodb:
