@@ -24,9 +24,6 @@ export const render = (resumeJson, pageSize) => {
         gtmContainerId: config && config.has("gtm.container.id")
             ? config.get("gtm.container.id")
             : resumeJson.gtm && resumeJson.gtm.container && resumeJson.gtm.container.id,
-        gaPropertyId: config && config.has("ga.property.id")
-            ? config.get("ga.property.id")
-            : resumeJson.ga && resumeJson.ga.property && resumeJson.ga.property.id,
         mixpanelAppId: config && config.has("mixpanel.app.id")
             ? config.get("mixpanel.app.id")
             : resumeJson.mixpanel && resumeJson.mixpanel.app && resumeJson.mixpanel.app.id,

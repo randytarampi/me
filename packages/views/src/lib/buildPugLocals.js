@@ -28,7 +28,6 @@ export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) =>
         logger: config.has("logger") ? JSON.stringify(config.get("logger")) : JSON.stringify(null),
         sentryDsn: config.has("sentry.dsn") ? config.get("sentry.dsn") : null,
         gtmContainerId: config.has("gtm.container.id") ? config.get("gtm.container.id") : null,
-        gaPropertyId: config.has("ga.property.id") ? config.get("ga.property.id") : null,
         mixpanelAppId: config.has("mixpanel.app.id") ? config.get("mixpanel.app.id") : null,
         locale: "en_CA",
         stylesheetName: "styles.css",

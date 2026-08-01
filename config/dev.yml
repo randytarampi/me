@@ -4,9 +4,6 @@ github:
 gtm:
   container:
     id: GTM-W6NFL6M
-ga:
-  property:
-    id: UA-50921068-6
 mixpanel:
   app:
     id: 0c0d4669fdc9a52ecb789ab3c27cc900
