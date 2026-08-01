@@ -58,11 +58,11 @@ jobs:
           echo "JOB_NUMBER=$GITHUB_RUN_ATTEMPT" >> $GITHUB_ENV
 
       - name: Run `git checkout`
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Setup node@24
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
       - name: Enable Corepack
@@ -73,7 +73,7 @@ jobs:
           sudo apt-get install language-pack-ja japan* fonts-wqy-microhei ttf-wqy-microhei
 
       - name: Cache Yarn
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             .yarn/cache
@@ -107,7 +107,7 @@ jobs:
           if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ github.repository_owner }}.github.io.git"; fi;
       - name: Actually deploy (www/dev)
         if: ${{ inputs.application_name == 'www' && inputs.deployment_environment == 'dev' }}
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/dev)
@@ -120,7 +120,7 @@ jobs:
         timeout-minutes: 10
       - name: Actually deploy (www/prd)
         if: ${{ inputs.application_name == 'www' && inputs.deployment_environment == 'prd' }}
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (www/prd)
@@ -133,7 +133,7 @@ jobs:
         timeout-minutes: 10
       - name: Actually deploy (jsonresume-theme/prd)
         if: ${{ inputs.application_name == 'jsonresume-theme' && inputs.deployment_environment == 'prd' }}
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
           git-config-name: ${{ env.GITHUB_ACTIONS_AUTHOR_NAME }} (jsonresume-theme/prd)
