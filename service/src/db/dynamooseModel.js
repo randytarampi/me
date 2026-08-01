@@ -190,7 +190,10 @@ class DynamooseModel {
 
     /**
      * Build the DynamoDB `CreateTable` request for this model without performing any network requests.
-     * Used by the `serverless-dynamodb` resource generators to seed the local DynamoDB tables.
+     * Used by `src/serverless/dynamodb/{post,authInfo}.js` to generate this table's CloudFormation
+     * `Properties` block, i.e. by the real deploy - not, despite what this comment used to say, by
+     * the local emulator. Local tables are created by `src/serverless/dynamodb/migrate.js` calling
+     * `createTable()` below.
      * @returns {Promise<Object>}
      */
     async getCreateTableRequest() {
