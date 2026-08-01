@@ -79,7 +79,7 @@
     "clean": "./bin/clean.sh",
     "cover": "yarn run cover:actual; yarn run cover:collect",
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
-    "cover:actual:collect:lcov": "mkdir -p .nyc_output/ coverage/ && lerna exec -- \"if [ -d \"./.nyc_output\" ]; then cp -r .nyc_output ../..; fi;\" && nyc report --reporter=lcov",
+    "cover:actual:collect:lcov": "mkdir -p .nyc_output/ coverage/ && lerna exec -- 'if [ -d ./.nyc_output ]; then cp -r .nyc_output \"$LERNA_ROOT_PATH\"; fi;' && nyc report --reporter=lcov",
     "cover:collect": "yarn run test:collect; yarn run cover:actual:collect:lcov",
     "install": "./bin/install.sh",
     "lint": "eslint .",
