@@ -4,6 +4,10 @@ import {apiCertificateArn, hostedZoneId, secretsKmsKeyArn} from "./aws/adopted";
 import {infrastructurePreviewRole, serviceDeployRole} from "./aws/oidc";
 import {managedSecretNames, unmanagedSecretNames} from "./aws/secrets";
 import {githubRepositoryFullName, stage} from "./config";
+import {environments} from "./github/environments";
+import "./github/repository";
+import {masterRuleset} from "./github/rulesets";
+import {retiredSecretsList} from "./github/secrets";
 
 /**
  * The entry point Pulumi loads. Every resource module is imported for its side effects and
@@ -54,3 +58,11 @@ export const unmanagedSecrets = unmanagedSecretNames;
 export const acmCertificateArn = apiCertificateArn;
 export const kmsKeyArn = secretsKmsKeyArn;
 export const route53ZoneId = hostedZoneId;
+
+/**
+ * The repository-level configuration, exported so `pulumi stack output` answers "is `master`
+ * actually protected, and which environments can deploy?" without opening the GitHub UI.
+ */
+export const deploymentEnvironments = environments.map(environmentResource => environmentResource.environment);
+export const masterRulesetId = masterRuleset?.rulesetId;
+export const secretsRetired = retiredSecretsList;
