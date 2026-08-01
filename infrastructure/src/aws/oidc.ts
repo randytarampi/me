@@ -11,6 +11,7 @@ import {
     stage,
     tags
 } from "../config";
+import {serverlessLicenseKeyParameterName, serviceSecretNames} from "./secretNames";
 
 const callerIdentity = aws.getCallerIdentityOutput();
 const accountId = callerIdentity.accountId;
@@ -170,10 +171,15 @@ const serviceDeployPolicy = new aws.iam.Policy(`me-deploy-service-${stage}`, {
             {
                 Sid: "ReadThisStagesSecrets",
                 Effect: "Allow",
-                Action: ["ssm:GetParameter", "ssm:GetParameters", "ssm:GetParametersByPath", "ssm:DescribeParameters"],
+                Action: ["ssm:GetParameter", "ssm:GetParameters", "ssm:DescribeParameters"],
+                // NOTE-RT: enumerated, not a path prefix. `serverless-secrets` passes each name to
+                // `ssm:GetParameters` verbatim, so the parameters are flat (`flickr-api-key`) with
+                // no `/<stage>/` namespace to scope against — the stages are separated by region.
+                // A `parameter/*` grant would hand the deploy role every secret in the account.
                 Resource: [
-                    `arn:aws:ssm:${region}:${account}:parameter/${stage}/*`,
-                    `arn:aws:ssm:${region}:${account}:parameter/serverless-framework/license-key`
+                    ...Object.values(serviceSecretNames)
+                        .map(name => `arn:aws:ssm:${region}:${account}:parameter/${name}`),
+                    `arn:aws:ssm:${region}:${account}:parameter${serverlessLicenseKeyParameterName}`
                 ]
             },
             {

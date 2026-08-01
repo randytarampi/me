@@ -1,6 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 
 import {infrastructurePreviewRole, serviceDeployRole} from "./aws/oidc";
+import {managedSecretNames, unmanagedSecretNames} from "./aws/secrets";
 import {githubRepositoryFullName, stage} from "./config";
 
 /**
@@ -31,3 +32,14 @@ export const serviceDeployRoleArn = serviceDeployRole.arn;
 /** The ARN `.github/workflows/infrastructure.yml` assumes to run `pulumi preview` on a PR. */
 export const infrastructurePreviewRoleArn: pulumi.Output<string> | undefined =
     infrastructurePreviewRole?.arn;
+
+/**
+ * Which of `service/env.yml`'s 13 secrets this stack has a value for, and which it does not.
+ *
+ * NOTE-RT: exported so the gap is visible in `pulumi stack output` rather than only in a preview
+ * warning nobody scrolls back to. Anything listed in `unmanagedSecrets` must stay out of
+ * `provider.environmentSecrets` in `service/serverless.yml` — `throwOnMissingSecret: true` turns a
+ * missing parameter into a total outage, not a degraded source.
+ */
+export const managedSecrets = managedSecretNames;
+export const unmanagedSecrets = unmanagedSecretNames;
