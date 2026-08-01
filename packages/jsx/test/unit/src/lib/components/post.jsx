@@ -1,4 +1,4 @@
-const {Post as PostEntity} = require("@randy.tarampi/js");
+const {Post: PostEntity} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const {render} = require("@testing-library/react");
 const React = require("react");

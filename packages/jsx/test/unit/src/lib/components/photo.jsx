@@ -1,4 +1,4 @@
-const {Photo as PhotoEntity} = require("@randy.tarampi/js");
+const {Photo: PhotoEntity} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const {render} = require("@testing-library/react");
 const React = require("react");

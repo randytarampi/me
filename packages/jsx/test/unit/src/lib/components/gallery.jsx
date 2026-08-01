@@ -1,4 +1,4 @@
-const {Gallery as GalleryEntity} = require("@randy.tarampi/js");
+const {Gallery: GalleryEntity} = require("@randy.tarampi/js");
 const {expect} = require("chai");
 const {render} = require("@testing-library/react");
 const React = require("react");

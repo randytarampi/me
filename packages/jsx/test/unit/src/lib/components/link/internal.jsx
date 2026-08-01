@@ -9,7 +9,7 @@ const {thunk} = require("redux-thunk");
 const {
     BlogAppLink,
     CodeAppLink,
-    InternalLink as InternalLinkComponent,
+    InternalLink: InternalLinkComponent,
     PhotosAppLink,
     ResumeAppLink,
     WordsAppLink
