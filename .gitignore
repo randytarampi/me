@@ -64,8 +64,6 @@ esm
 *.pdf_original
 
 # Except the headless bundle smoke test, which lives in a directory named `dist` on purpose
-!packages/www/test/integration/dist/
-!packages/www/test/integration/dist/**
 !www/test/integration/dist/
 !www/test/integration/dist/**
 
