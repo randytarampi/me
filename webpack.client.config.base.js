@@ -8,7 +8,7 @@ const __dirname = import.meta.dirname;
 process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const config = require("config");
-const SentryPlugin = require("webpack-sentry-plugin");
+const {sentryWebpackPlugin} = require("@sentry/webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const PostCssPresetEnv = require("postcss-preset-env");
@@ -26,27 +26,28 @@ const plugins = [
     isDevelopment && new ReactRefreshWebpackPlugin()
 ];
 
+// NOTE-RT: this was `webpack-sentry-plugin`, unmaintained since 2019 and written against a
+// Sentry API generation that predates debug IDs - which is why it needed a `filenameTransform`
+// to rewrite `dist/` to `docs/`. `@sentry/webpack-plugin` matches sourcemaps to frames by
+// embedded debug ID, so no path rewriting is required.
+//
+// Still inert until `SENTRY_AUTH_TOKEN` exists as a repository secret; nothing uploads today.
 if (process.env.DEPLOY && process.env.SENTRY_AUTH_TOKEN) {
     plugins.push(
-        new SentryPlugin({
-            organization: process.env.SENTRY_ORG,
+        sentryWebpackPlugin({
+            org: process.env.SENTRY_ORG,
             project: process.env.SENTRY_PROJECT,
-            apiKey: process.env.SENTRY_AUTH_TOKEN,
-            release: process.env.GITHUB_REF_NAME || process.env.GITHUB_SHA,
-            releaseBody: (version, projects) => {
-                return {
-                    version,
-                    projects,
-                    refs: [
-                        {
-                            repository: process.env.GITHUB_REPOSITORY,
-                            commit: process.env.GITHUB_SHA
-                        }
-                    ]
-                };
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            release: {
+                name: process.env.GITHUB_REF_NAME || process.env.GITHUB_SHA,
+                setCommits: {
+                    repo: process.env.GITHUB_REPOSITORY,
+                    commit: process.env.GITHUB_SHA
+                }
             },
-            filenameTransform: name => `~/${name.replace(/dist\//g, "docs/")}`,
-            suppressConflictError: true
+            sourcemaps: {
+                assets: "./dist/**"
+            }
         })
     );
 }
