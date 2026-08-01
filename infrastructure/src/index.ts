@@ -8,6 +8,7 @@ import {environments} from "./github/environments";
 import "./github/repository";
 import {masterRuleset} from "./github/rulesets";
 import {retiredSecretsList} from "./github/secrets";
+import {publishableWorkspaces} from "./npm/trustedPublishers";
 
 /**
  * The entry point Pulumi loads. Every resource module is imported for its side effects and
@@ -66,3 +67,13 @@ export const route53ZoneId = hostedZoneId;
 export const deploymentEnvironments = environments.map(environmentResource => environmentResource.environment);
 export const masterRulesetId = masterRuleset?.rulesetId;
 export const secretsRetired = retiredSecretsList;
+
+/**
+ * The workspaces `release.yml` publishes through npm trusted publishing rather than a token.
+ *
+ * NOTE-RT: verifying this one is not optional. Lerna's OIDC helper never throws — a misconfigured
+ * trusted publisher does not produce an OIDC error, it produces a generic auth failure much later.
+ * Run `lerna publish --loglevel verbose` and look for the `oidc` breadcrumbs; their *absence* is
+ * the only signal that the exchange was skipped.
+ */
+export const trustedPublishers = publishableWorkspaces;
