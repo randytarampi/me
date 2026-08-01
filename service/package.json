@@ -10,7 +10,6 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1081.0",
-    "@aws-sdk/client-ssm": "^3.1081.0",
     "@octokit/rest": "^22.0.1",
     "@randy.tarampi/js": "workspace:*",
     "@randy.tarampi/lambda-logger": "workspace:*",
@@ -40,7 +39,6 @@
     "serverless-domain-manager": "^10.2.0",
     "serverless-offline": "^14.7.4",
     "serverless-plugin-warmup": "^8.4.1",
-    "serverless-secrets": "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10",
     "sinon": "^22.0.0"
   },
   "directories": {

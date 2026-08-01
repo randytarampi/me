@@ -385,22 +385,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-ssm@npm:^3.1081.0":
-  version: 3.1081.0
-  resolution: "@aws-sdk/client-ssm@npm:3.1081.0"
-  dependencies:
-    "@aws-sdk/core": "npm:^3.974.29"
-    "@aws-sdk/credential-provider-node": "npm:^3.972.64"
-    "@aws-sdk/types": "npm:^3.973.15"
-    "@smithy/core": "npm:^3.29.0"
-    "@smithy/fetch-http-handler": "npm:^5.6.2"
-    "@smithy/node-http-handler": "npm:^4.9.2"
-    "@smithy/types": "npm:^4.15.1"
-    tslib: "npm:^2.6.2"
-  checksum: 10c0/e90e6f952db7dc328fa0399eecc1f9e6164bbe8982cebacf1d8e8dcc2a20e882bcf48c34b3d6342f4c15b4d02900cefae8b27a9b301c69b65bd66bc397344e01
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/core@npm:^3.974.23":
   version: 3.974.23
   resolution: "@aws-sdk/core@npm:3.974.23"
@@ -8128,7 +8112,6 @@ __metadata:
   resolution: "@randy.tarampi/service@workspace:service"
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.1081.0"
-    "@aws-sdk/client-ssm": "npm:^3.1081.0"
     "@octokit/rest": "npm:^22.0.1"
     "@randy.tarampi/js": "workspace:*"
     "@randy.tarampi/lambda-logger": "workspace:*"
@@ -8154,7 +8137,6 @@ __metadata:
     serverless-domain-manager: "npm:^10.2.0"
     serverless-offline: "npm:^14.7.4"
     serverless-plugin-warmup: "npm:^8.4.1"
-    serverless-secrets: "github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10"
     sinon: "npm:^22.0.0"
     tumblr.js: "npm:^5.0.1"
     unsplash-js: "npm:^8.0.0"
@@ -26142,17 +26124,6 @@ __metadata:
   version: 8.4.1
   resolution: "serverless-plugin-warmup@npm:8.4.1"
   checksum: 10c0/b82f81f1600764a57ea7775ecaec347052c27e080f49b17b50b6f66dc4449aa3de2cb7539cb1ff6f1f7e9aba4c1bad4a1acea826ddf48a6041a28eea20c19529
-  languageName: node
-  linkType: hard
-
-"serverless-secrets@github:RishitKedia/serverless-secrets#fix-get-parameters-limit-of-10":
-  version: 3.0.0-beta.11
-  resolution: "serverless-secrets@https://github.com/RishitKedia/serverless-secrets.git#commit=7f42d9f2aeee9e46ed9a8ac1b81dcfeafd5b0964"
-  dependencies:
-    lodash: "npm:^4.17.4"
-  peerDependencies:
-    aws-sdk: ^2.102.0
-  checksum: 10c0/e6085e759c7ba60d5856d11dff0dc767248eeed54fbbf93e3713a10d1dff57ecf25246599ee87d6e1e5c7171cd5817e544c1a5192bd917cf2463b99611e43a80
   languageName: node
   linkType: hard
 
