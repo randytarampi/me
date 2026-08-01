@@ -39,8 +39,6 @@ jobs:
     environment: ${{ inputs.deployment_environment }}
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       NODE_ENV: ${{ inputs.deployment_environment }}
       # NOTE-RT: Serverless Framework v4 refuses to run unauthenticated, and the CLI's interactive
       # login prompt would hang a CI run. See https://www.serverless.com/framework/docs/guides/license-keys
