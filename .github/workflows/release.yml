@@ -49,7 +49,7 @@ jobs:
       - name: Check for publishable changes
         id: changed
         run: |
-          if [ -n "$(npx lerna changed -alp || true)" ]; then
+          if [ -n "$(yarn lerna changed -alp || true)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -57,7 +57,7 @@ jobs:
 
       - name: Build packages
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
-        run: npx lerna run build
+        run: yarn lerna run build
 
       - name: Configure git
         run: |
@@ -67,7 +67,7 @@ jobs:
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
         id: version
         run: |
-          npx lerna version --conventional-commits --yes
+          yarn lerna version --conventional-commits --yes
           RELEASE_VERSION=$(node -p 'require("./lerna.json").version')
           echo "tag=v$RELEASE_VERSION" >> $GITHUB_OUTPUT
 
@@ -88,7 +88,7 @@ jobs:
 
       - name: Publish packages
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
-        run: npx lerna publish from-git --yes --provenance
+        run: yarn lerna publish from-git --yes --provenance
 
       - name: Publish GitHub release
         if: ${{ steps.changed.outputs.has_changes == 'true' }}
