@@ -56,7 +56,10 @@ export default [
             "**/.serverless/**",
             "**/.webpack/**",
             "**/.dynamodb/**",
-            "**/.idea/**"
+            "**/.idea/**",
+            // NOTE-RT: Yarn's own bundled releases. Linting `.yarn/releases/yarn-*.js` accounted for
+            // 7,805 of the 8,376 problems `yarn lint` reported, which buried every real one.
+            "**/.yarn/**"
         ]
     },
     js.configs.recommended,
@@ -107,6 +110,20 @@ export default [
             "import/no-unresolved": "error",
             "import/default": "error",
             "no-global-assign": "error"
+        }
+    },
+    {
+        // NOTE-RT: `.cjs` is how this repo spells "this file has to be CommonJS" — see
+        // docs/CONVENTIONS.md. Without a block of its own, `require`/`module`/`__dirname` are
+        // undefined globals: the twelve `mocha.config.cjs` files alone reported 17 each.
+        files: ["**/*.cjs"],
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: "commonjs",
+            globals: {
+                ...globals.node,
+                ...globals.commonjs
+            }
         }
     }
 ];
