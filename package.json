@@ -90,7 +90,7 @@
     "prepare": "husky && ./bin/prepare.sh",
     "pretest": "yarn run pretest:actual; yarn run pretest:collect",
     "pretest:actual": "cross-env-shell NODE_ENV=test lerna run pretest --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
-    "pretest:actual:collect": "junit-merge $(ls packages/*/eslint-results.xml) --out ./pretest-results.xml || true",
+    "pretest:actual:collect": "junit-merge $(find packages service www resume letter -name 'eslint-results.xml' -type f -not -path '*/node_modules/*' 2>/dev/null) --out ./pretest-results.xml || true",
     "pretest:collect": "yarn run pretest:actual:collect",
     "pretest:service:dynamodb-local": "bin/pretest:service:dynamodb-local.sh",
     "start:service": "lerna run start --stream --scope=@randy.tarampi/service",
@@ -98,7 +98,7 @@
     "start:www": "lerna run start --stream --scope=@randy.tarampi/www",
     "test": "yarn run test:actual; yarn run test:collect",
     "test:actual": "cross-env-shell NODE_ENV=test lerna run test --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
-    "test:actual:collect": "junit-merge $(find packages -name 'test-results.xml' -type f 2>/dev/null) --out ./test-results.xml || true",
+    "test:actual:collect": "junit-merge $(find packages service www resume letter -name 'test-results.xml' -type f -not -path '*/node_modules/*' 2>/dev/null) --out ./test-results.xml || true",
     "test:collect": "yarn run test:actual:collect"
   },
   "workspaces": [
