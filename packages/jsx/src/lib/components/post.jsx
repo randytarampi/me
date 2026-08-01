@@ -3,9 +3,6 @@ import {Post, POST_ENTITIES, POST_OVERRIDING_TAG_SENTINEL_REGEX} from "@randy.ta
 // NOTE-RT: that sets `exports.default = JsonLd` but Node's ESM loader wraps the entire `module.exports`
 // NOTE-RT: as the default export, so `import X from "..."` gives `{default: JsonLd}` instead of `JsonLd`.
 import SchemaJsonLdComponentModule from "@randy.tarampi/schema-dot-org-json-ld-components";
-const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
-    ? SchemaJsonLdComponentModule.default
-    : SchemaJsonLdComponentModule;
 import isHtml from "is-html";
 import {DateTime} from "luxon";
 import PropTypes from "prop-types";
@@ -16,6 +13,9 @@ import {connect} from "react-redux";
 import {updateMapCreator} from "../actions/index.js";
 import {CampaignLink, getBrandedLinkForNetwork, InternalLink} from "./link/index.jsx";
 import {MapComponent} from "./map/index.jsx";
+const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
+    ? SchemaJsonLdComponentModule.default
+    : SchemaJsonLdComponentModule;
 
 export class PostComponent extends PureComponent {
     get postElement() {

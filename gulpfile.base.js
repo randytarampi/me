@@ -165,7 +165,7 @@ export const webpack = ({relativePath, webpackConfigName = "./webpack.client.con
         if (error) {
             return callback(error);
         }
-        console.log(stats.toString({colors: true})); // eslint-disable-line no-console
+        console.log(stats.toString({colors: true}));
         callback(stats.compilation.errors && stats.compilation.errors[0] && stats.compilation.errors[0]);
     });
 });

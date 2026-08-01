@@ -3,9 +3,6 @@ import {logger} from "@randy.tarampi/browser-logger";
 // NOTE-RT: that sets `exports.default = JsonLd` but Node's ESM loader wraps the entire `module.exports`
 // NOTE-RT: as the default export, so `import X from "..."` gives `{default: JsonLd}` instead of `JsonLd`.
 import SchemaJsonLdComponentModule from "@randy.tarampi/schema-dot-org-json-ld-components";
-const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
-    ? SchemaJsonLdComponentModule.default
-    : SchemaJsonLdComponentModule;
 import {ItemList as SchemaItemList, ListItem as SchemaListItem} from "@randy.tarampi/schema-dot-org-types";
 import {List} from "immutable";
 import PropTypes from "prop-types";
@@ -22,6 +19,9 @@ import {
     mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent
 } from "./error/index.jsx";
 import PostComponent from "./post.jsx";
+const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
+    ? SchemaJsonLdComponentModule.default
+    : SchemaJsonLdComponentModule;
 
 export const mapPostsErrorCodeToErrorContentComponent = errorCode => {
     switch (errorCode) {

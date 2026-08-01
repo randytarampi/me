@@ -63,15 +63,15 @@ const uploadSecretForRegion = region => (secretTextOrObject, secretName) => new 
 
     const slsCommand = slsArguments.join(" ");
 
-    console.debug(`Running \`${slsCommand}\``); // eslint-disable-line no-console
+    console.debug(`Running \`${slsCommand}\``);
 
     childProcess.exec(slsCommand, slsCommandOptions, error => {
         if (error) {
-            console.debug(`Error running \`${slsCommand}\``); // eslint-disable-line no-console
+            console.debug(`Error running \`${slsCommand}\``);
             return reject(error);
         }
 
-        console.debug(`Ran \`${slsCommand}\` successfully`); // eslint-disable-line no-console
+        console.debug(`Ran \`${slsCommand}\` successfully`);
         resolve();
     });
 });
@@ -83,7 +83,7 @@ commander
     .option("-k, --key <string>", "The ID or alias for the AWS KMS key that we want to use to encrypt these secrets")
     .action(region => {
         if (!region) {
-            console.error("Please supply a region"); // eslint-disable-line no-console
+            console.error("Please supply a region");
             process.exit(1);
         }
 
@@ -94,9 +94,9 @@ commander
             secretsConfig = fs.readFileSync(secretsConfigPath, "utf8");
         } catch (error) {
             if (error.code === "ENOENT") {
-                console.error(`Could not open ${secretsConfigPath}`); // eslint-disable-line no-console
+                console.error(`Could not open ${secretsConfigPath}`);
             } else {
-                console.error(error); // eslint-disable-line no-console
+                console.error(error);
             }
             process.exit(1);
         }
@@ -105,11 +105,11 @@ commander
 
         Promise.all(_.map(secretsYaml, uploadSecretForRegion(region)))
             .then(() => {
-                console.log("Secrets upload success"); // eslint-disable-line no-console
+                console.log("Secrets upload success");
                 process.exit(0);
             })
             .catch(error => {
-                console.error(error, "Secrets upload failed"); // eslint-disable-line no-console
+                console.error(error, "Secrets upload failed");
                 process.exit(1);
             });
     })

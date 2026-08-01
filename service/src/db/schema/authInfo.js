@@ -1,8 +1,8 @@
 import {compositeKeySeparator} from "@randy.tarampi/js";
 import dynamoose from "dynamoose";
+import {AUTH_INFO_TYPE} from "../../lib/authInfo.js";
 
 const {Schema} = dynamoose;
-import {AUTH_INFO_TYPE} from "../../lib/authInfo.js";
 
 const authInfo = new Schema({
     uid: {

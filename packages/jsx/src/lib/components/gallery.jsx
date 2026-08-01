@@ -3,9 +3,6 @@ import {Gallery as GalleryEntity} from "@randy.tarampi/js";
 // NOTE-RT: that sets `exports.default = JsonLd` but Node's ESM loader wraps the entire `module.exports`
 // NOTE-RT: as the default export, so `import X from "..."` gives `{default: JsonLd}` instead of `JsonLd`.
 import SchemaJsonLdComponentModule from "@randy.tarampi/schema-dot-org-json-ld-components";
-const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
-    ? SchemaJsonLdComponentModule.default
-    : SchemaJsonLdComponentModule;
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
 import {Carousel, Col, Row} from "react-materialize";
@@ -20,6 +17,9 @@ import {
     PostTagsComponent,
     PostTitleComponent
 } from "./post.jsx";
+const SchemaJsonLdComponent = SchemaJsonLdComponentModule && SchemaJsonLdComponentModule.default
+    ? SchemaJsonLdComponentModule.default
+    : SchemaJsonLdComponentModule;
 
 export class GalleryComponent extends PhotoComponent {
     get selected() {
