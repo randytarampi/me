@@ -36,6 +36,7 @@
     "esmock": "^2.7.6",
     "gulp": "^5.0.1",
     "mocha-junit-reporter": "^2.2.1",
+    "nyc": "^18.0.0",
     "serverless": "^4.38.1",
     "serverless-domain-manager": "^10.2.0",
     "serverless-dynamodb": "^0.2.58",

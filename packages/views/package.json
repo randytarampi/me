@@ -14,6 +14,7 @@
     "config": "^5.0.0-alpha.2"
   },
   "devDependencies": {
+    "@babel/cli": "^8.0.1",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
     "gulp-pug": "^5.0.0"

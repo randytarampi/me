@@ -53,6 +53,7 @@
     "jsdom": "^29.1.1",
     "mocha-junit-reporter": "^2.2.1",
     "mock-local-storage": "^1.1.24",
+    "nyc": "^18.0.0",
     "puppeteer": "^25.3.0",
     "redux-mock-store": "^1.5.5",
     "sinon": "^22.0.0",
