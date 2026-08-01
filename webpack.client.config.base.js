@@ -5,7 +5,6 @@ import util from "./util.js";
 
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
-const __filename = import.meta.filename;
 process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 
 const config = require("config");

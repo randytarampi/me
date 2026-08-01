@@ -42,10 +42,10 @@ const buildMultiDestinationStream = (destinations) => {
 
     return {
         write(data) {
-            destinations.forEach(({stream, level}) => {
+            destinations.forEach(({stream}) => {
                 try {
                     stream.write(data);
-                } catch (e) {
+                } catch {
                     // Swallow — logging should never break the app
                 }
             });

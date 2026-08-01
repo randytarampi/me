@@ -4,7 +4,6 @@ import util from "./util.js";
 
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
-const __filename = import.meta.filename;
 process.env.NODE_CONFIG_DIR = join(__dirname, "config");
 // NOTE-RT: NODE_ENV/NODE_CONFIG_ENV decoupling — see docs/CONVENTIONS.md#building
 process.env.NODE_CONFIG_ENV = process.env.NODE_CONFIG_ENV || process.env.NODE_ENV || "prd";

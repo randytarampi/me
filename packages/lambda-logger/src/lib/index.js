@@ -12,7 +12,7 @@ const configureSentry = packageJson => Promise.resolve()
                 environment: process.env.SERVERLESS_STAGE,
                 release: packageJson.version,
                 integrations: integrations => integrations.filter(i => i.name !== "OnUncaughtException" && i.name !== "OnUnhandledRejection"),
-                beforeSend: (event, hint) => {
+                beforeSend: event => {
                     event.tags = {
                         ...event.tags,
                         lambda: process.env.AWS_LAMBDA_FUNCTION_NAME,

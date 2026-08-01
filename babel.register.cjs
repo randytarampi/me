@@ -1,5 +1,4 @@
 const path = require("path");
-const util = require("./util.cjs");
 
 require("@babel/register").default({
     configFile: path.join(__dirname, "babel.config.js"),

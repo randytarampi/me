@@ -7,7 +7,6 @@ import config from "config/lib/config.mjs";
 
 export const buildPugLocals = ({packageJson, helmetContent, ...passedLocals}) => {
     const mePerson = config.has("me.person") ? Person.fromJSON(config.get("me.person")) : null;
-    const meProfiles = config.has("me.profiles") ? config.get("me.profiles") : null;
     const assetUrl = config.has("www.assetUrl") ? config.get("www.assetUrl") : null;
 
     let meLocals = {};

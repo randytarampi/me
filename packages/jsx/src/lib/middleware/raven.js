@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/browser";
 
-export const ravenMiddleware = () => store => next => action => {
+export const ravenMiddleware = () => () => next => action => {
     try {
         const result = next(action);
 
