@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
-import WordPressSource, {WORDPRESS_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/wordpress/index.js";
+import WordPressSource from "../../../../../../src/lib/sources/wordpress/index.js";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("WordPressSource", function () {

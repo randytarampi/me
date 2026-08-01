@@ -3,7 +3,6 @@ import {readFileSync} from "fs";
 import {JSDOM} from "jsdom";
 import esmock from "esmock";
 import sinon from "sinon";
-import ConsoleStream from "../../../../src/lib/consoleStream.js";
 
 const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 

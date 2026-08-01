@@ -1,9 +1,6 @@
-import {expect} from "chai";
 import {readFileSync} from "fs";
 import esmock from "esmock";
 import sinon from "sinon";
-import path from "path";
-import {pathToFileURL} from "url";
 
 const packageJson = JSON.parse(readFileSync("../../service/package.json", "utf8"));
 

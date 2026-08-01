@@ -33,7 +33,7 @@ describe("ConnectedLetter", function () {
         stubIsLoadingUrlSelector = sinon.stub().returns(stubIsLoadingUrl);
         sinon.stub(api, "createIsLoadingUrlSelector").returns(stubIsLoadingUrlSelector);
 
-        LetterComponentSpy = sinon.spy(props => <div data-testid="letter-probe" />);
+        LetterComponentSpy = sinon.spy(() => <div data-testid="letter-probe" />);
         ({ConnectedLetter} = proxyquire("../../../../../src/lib/containers/letter", {
             "../components/letter": {
                 LetterComponent: LetterComponentSpy,

@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
-import VimeoSource, {VIMEO_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/vimeo/index.js";
+import VimeoSource from "../../../../../../src/lib/sources/vimeo/index.js";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("VimeoSource", function () {

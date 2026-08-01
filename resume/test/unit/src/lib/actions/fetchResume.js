@@ -5,7 +5,6 @@ import {thunk} from "redux-thunk";
 import {createRequire} from "module";
 import path from "path";
 
-import Resume from "../../../../../src/lib/resume.js";
 import {buildFetchUrlForVariant} from "../../../../../src/lib/api/fetchResume.js";
 
 const require = createRequire(path.resolve("test/unit/src/lib/actions/fetchResume.js"));

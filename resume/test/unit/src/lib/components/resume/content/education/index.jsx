@@ -2,7 +2,6 @@ import {expect} from "chai";
 import {render} from "@testing-library/react";
 import React from "react";
 import ResumeEducation from "../../../../../../../../src/lib/components/resume/content/education/index.jsx";
-import ResumeEducationEntry from "../../../../../../../../src/lib/components/resume/content/education/entry.jsx";
 import testResumeJson from "../../../../../../../../src/resumes/some-awesome-company.json";
 
 describe("ResumeEducation", function () {

@@ -1,9 +1,7 @@
 import {
     ErrorENOACCESSContentComponent,
     ErrorESERVERContentComponent,
-    LoadingSpinner,
     mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent,
-    PrintableHeader
 } from "@randy.tarampi/jsx";
 import {expect} from "chai";
 import {render} from "@testing-library/react";

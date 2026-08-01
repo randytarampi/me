@@ -1,6 +1,4 @@
 import {expect} from "chai";
-import sinon from "sinon";
-import AuthInfo from "../../../../../src/lib/authInfo.js";
 import sources, {initializeSources} from "../../../../../src/lib/sources/index.js";
 
 describe("sources", function () {

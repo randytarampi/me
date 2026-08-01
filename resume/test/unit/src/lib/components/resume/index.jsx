@@ -1,7 +1,6 @@
 import {
     ErrorENOACCESSContentComponent,
     ErrorESERVERContentComponent,
-    LoadingSpinner,
     mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContent
 } from "@randy.tarampi/jsx";
 import {expect} from "chai";

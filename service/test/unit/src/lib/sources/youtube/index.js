@@ -3,7 +3,7 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import sinon from "sinon";
 import PostSearchParams from "../../../../../../src/lib/postSearchParams.js";
-import YouTubeSource, {YOUTUBE_API_MAX_POSTS_PER_PAGE} from "../../../../../../src/lib/sources/youtube/index.js";
+import YouTubeSource from "../../../../../../src/lib/sources/youtube/index.js";
 import dummyClassesGenerator from "../../../../../lib/dummyClassesGenerator.js";
 
 describe("YouTubeSource", function () {
