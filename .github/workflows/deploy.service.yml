@@ -7,13 +7,11 @@ on:
         description: 'The deployment environment'
         required: true
         type: string
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-      SERVERLESS_ACCESS_KEY:
-        required: true
+    # NOTE-RT: no `secrets:`. The AWS credentials are gone — this job assumes
+    # `me-deploy-service-<stage>` via OIDC (see `infrastructure/src/aws/oidc.ts`) — and the
+    # Serverless Framework licence key is read from SSM at `/serverless-framework/license-key`,
+    # which the deploy role can already reach because `serverless-secrets` needs `ssm:GetParameter`
+    # regardless. See https://www.serverless.com/framework/docs/guides/license-keys
 
   workflow_dispatch:
     inputs:
@@ -32,9 +30,10 @@ concurrency:
 
 permissions:
   contents: read
-  # NOTE-RT: no `id-token: write`. It was requested but never used — nothing here assumes a role
-  # via OIDC, the deploy runs on the long-lived `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` pair.
-  # It belongs back here the moment `configure-aws-credentials` gets a `role-to-assume`.
+  # NOTE-RT: back, and now actually used — `configure-aws-credentials` has a `role-to-assume` below,
+  # so this job really does need to mint an OIDC token. It was previously requested and unused,
+  # which is its own kind of lie about what a workflow does.
+  id-token: write
 
 jobs:
   deploy-service:
@@ -42,9 +41,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: ${{ inputs.deployment_environment }}
-      # NOTE-RT: Serverless Framework v4 refuses to run unauthenticated, and the CLI's interactive
-      # login prompt would hang a CI run. See https://www.serverless.com/framework/docs/guides/license-keys
-      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
     steps:
       - name: Run `git checkout`
         uses: actions/checkout@v7
@@ -66,16 +62,29 @@ jobs:
           YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
-      - name: Configure AWS credentials from secrets
+      - name: Assume the deploy role
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # NOTE-RT: the trust policy behind this ARN requires a `sub` of
+          # `repo:randytarampi/me:environment:<stage>`, which this job satisfies only because it
+          # declares `environment:` above. Remove that and the role stops being assumable.
+          #
+          # The account id is a literal for the same reason `service/serverless.yml` keeps one:
+          # deriving it needs an STS call, and it is not a secret.
+          role-to-assume: arn:aws:iam::471964952458:role/me-deploy-service-${{ inputs.deployment_environment }}
+          role-session-name: deploy-service-${{ github.run_id }}
           # NOTE-RT: `service`'s `deploy:prd` targets `ca-central-1` and `deploy:dev` targets
           # `us-east-1` (see `service/package.json`). Both pass `--region` explicitly, so a
           # mismatch here was survivable rather than harmless — anything else the job asks AWS
           # for would have gone to the wrong region.
           aws-region: ${{ inputs.deployment_environment == 'prd' && 'ca-central-1' || 'us-east-1' }}
+
+      - name: Prove which identity we're deploying as
+        # NOTE-RT: cheap, and it is the assertion that the whole OIDC migration turns on — the ARN
+        # here must read `…:assumed-role/me-deploy-service-<stage>/…`. Until that has been seen in
+        # a real run, the 2022 access keys must not be deleted: there is no other credential left
+        # to create a replacement with.
+        run: aws sts get-caller-identity
 
       - name: Deploy service
         run: cd service && yarn run deploy
