@@ -77,6 +77,12 @@ provider:
     TUMBLR_API_KEY: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_KEY}
     TUMBLR_API_SECRET: ${file(env.yml):${self:provider.stage}.environmentSecrets.TUMBLR_API_SECRET}
     SENTRY_DSN: ${file(env.yml):${self:provider.stage}.environmentSecrets.SENTRY_DSN}
+    # NOTE-RT: `env.yml` also names SSM parameters for the GitHub, YouTube, Vimeo, StackOverflow
+    # and SoundCloud sources, but they're deliberately not listed here yet. `custom.serverlessSecrets
+    # .throwOnMissingSecret` is `true`, so naming a parameter that doesn't exist in Parameter Store
+    # makes `configureEnvironment.js` throw and takes *every* function down, not just that source.
+    # To enable one: create the SSM parameter, add its identifier to `config/me/profiles.cjs`
+    # (see `env.yml`), then add its key here.
 
 build:
   esbuild:
