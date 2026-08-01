@@ -121,6 +121,15 @@ export default [
         }
     },
     {
+        // NOTE-RT: prop-type validation is a production concern. Test files stand up throwaway
+        // inline components purely as render probes, and declaring `propTypes` for those adds
+        // ceremony without catching anything.
+        files: ["**/test/**/*.{js,jsx}"],
+        rules: {
+            "react/prop-types": "off"
+        }
+    },
+    {
         // NOTE-RT: `.cjs` is how this repo spells "this file has to be CommonJS" — see
         // docs/CONVENTIONS.md. Without a block of its own, `require`/`module`/`__dirname` are
         // undefined globals: the twelve `mocha.config.cjs` files alone reported 17 each.
