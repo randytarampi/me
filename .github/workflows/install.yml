@@ -8,11 +8,8 @@ on:
         required: false
         default: dev
         type: string
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
+    # NOTE-RT: no `secrets:`. This workflow runs `yarn install` and nothing else — it never had any
+    # use for the AWS credentials it was being handed.
 
   workflow_dispatch:
     inputs:
@@ -29,9 +26,6 @@ jobs:
   install:
     name: Run `yarn install`
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: us-east-1
       DEPLOY: false
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
     runs-on:

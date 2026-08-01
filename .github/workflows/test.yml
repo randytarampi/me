@@ -9,10 +9,6 @@ on:
         default: dev
         type: string
     secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
       COVERALLS_REPO_TOKEN:
         required: true
 
@@ -36,8 +32,13 @@ jobs:
         # NOTE-RT: Node 20 reached end of life on 2026-04-30. 26 is Current, not yet LTS.
         node-version: [22, 24, 26]
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # NOTE-RT: deliberately fake, and previously the repository's real 2022-vintage production
+      # keys. `service`'s suite talks to a local emulator, but the AWS SDK still refuses to sign a
+      # request without *some* credential in the chain, which is the only reason they were ever
+      # here. Handing a test job production credentials to satisfy a signature check is a bad
+      # trade; `test`/`test` is the conventional pair for local AWS emulators.
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
       AWS_REGION: us-east-1
       DEPLOY: false
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
