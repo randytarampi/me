@@ -58,15 +58,17 @@ For each key in `environmentSecrets`, you'll want to push a value into an AWS SS
 serverless secrets set -n <key name> -t <secret value> -k <alias/serverless-dev|alias/serverless-prd>
 ```
 
-Or you can take the top level `config/template.secrets.yml`, fill it in accordingly and run the `bin/secretsUpload` script for some AWS region.
+Better: don't do it by hand at all. `infrastructure/src/aws/secrets.ts` declares every one of these parameters, so the values live encrypted in the stack's config and `pulumi preview` tells you which ones are still missing:
 
 ```bash
-cp ../../config/template.secrets.yml ../../config/.secrets.<AWS_REGION>.yml # Create a region specific template file
-
-# Populate the relevant fields as necessary...
-
-../../bin/secretsUpload --region AWS_REGION
+cd ../infrastructure
+pulumi config set --stack prd --secret me:secret.flickr-api-key '…'
+pulumi up --stack prd
 ```
+
+This replaces `bin/secretsUpload.js`, which read `TRAVIS_BUILD_DIR` and still pointed at the pre-relocation `packages/service`.
+
+> **`throwOnMissingSecret` is `true`.** Naming a key in `provider.environmentSecrets` before its parameter exists doesn't degrade one source — it makes `configureEnvironment.js` throw and takes every function down. Create the parameter first, then add the key.
 
 # Usage
 
