@@ -344,6 +344,26 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.SERVICE_POSTS_S3_BUCKET_NAME}
+    # NOTE-RT: STOP AND READ BEFORE THE FIRST DEPLOY. These two files resolve their `TableName`
+    # from `process.env.SERVICE_*_DYNAMODB_TABLE` in the *CLI* process, which is never set there -
+    # those are Lambda environment variables from `env.yml`. `src/serverless/dynamodb/util.js`'s
+    # `setupLocal()` therefore defaults them, so `sls print --stage prd` renders
+    # `TableName: local-posts` / `local-authInfo` while `provider.environment` correctly says
+    # `prd-service-posts-2019-01-11` / `prd-service-authInfo-2019-01-18`. The stack declares one
+    # pair of tables and the functions read another.
+    #
+    # This is long-standing - unchanged since before the monorepo relocation, so the live 2022 stack
+    # was deployed this way too - and it is deliberately NOT fixed here. Correcting the name is a
+    # `TableName` change, i.e. a CloudFormation *replacement* of a live DynamoDB table. Before
+    # touching it, establish against the real stack which tables actually exist:
+    #
+    #   aws cloudformation get-template --stack-name service-prd \
+    #     --query 'TemplateBody.Resources.PostsDynamoDbTable.Properties.TableName'
+    #   aws dynamodb list-tables --region ca-central-1
+    #
+    # `DeletionPolicy: Retain` means a replacement orphans rather than deletes the old table, but if
+    # the target name already exists the update fails with `already exists` mid-deploy. Whichever
+    # name wins, `provider.environment` and these resources have to agree afterwards.
     PostsDynamoDbTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
