@@ -122,15 +122,16 @@ jobs:
       - name: Actually run `yarn install`
         run: yarn install
 
-      # NOTE-RT: this exists because of what the first-ever run of this job did. All six matrix legs
-      # across two runs died the same way: partway through the workspace builds, immediately after
-      # `@randy.tarampi/serverless:build`, with `gulp build` processes still alive at cleanup and
-      # `##[error]The operation was canceled.` as the only message. One leg's step recorded no
-      # `conclusion` and no `completed_at` at all, which is what it looks like when the runner
-      # itself goes away rather than a step failing. Nothing had reached a single test.
+      # NOTE-RT: this exists because of what the first-ever runs of this job did — every matrix leg
+      # died with `##[error]The operation was canceled.` and nothing else, one of them recording no
+      # `conclusion` and no `completed_at` at all, which is what it looks like when the runner goes
+      # away rather than when a step fails.
       #
-      # These two figures are the cheapest way to tell memory exhaustion from disk exhaustion on the
-      # next run, and the runner image ships ~30GB of toolchains this repository never touches.
+      # The two figures settled it: 78GB of disk free before the reclaim and 99GB after, so disk was
+      # never the constraint, while `free -h` reports ~14GB against a `cover` invocation that was
+      # running four webpack/Puppeteer/LocalStack tasks at once (see the step below). Keep printing
+      # them — they are what turns "the runner vanished" into a number — and keep the reclaim, which
+      # is cheap and removes ~30GB of toolchains this repository never touches.
       - name: Reclaim runner disk and report resources
         run: |
           echo "::group::Before"
@@ -153,31 +154,42 @@ jobs:
         env:
           NODE_ENV: test
         run: |
+          since=(--since HEAD...origin/master)
+
           if [ "$(yarn lerna ls --since HEAD...origin/master --json 2>/dev/null)" = "[]" ]; then
-            yarn run pretest
-            yarn cover:actual
-          else
-            yarn lerna run pretest --since HEAD...origin/master --concurrency 1 --stream
-            yarn lerna run cover --since HEAD...origin/master --concurrency 1 --stream
+            since=()
           fi
-        # NOTE-RT: on a `master` push `lerna ls --since` is empty, so this takes the *full* branch:
-        # build every workspace, render the Puppeteer PDFs, and run the service suite against the
-        # LocalStack container above. 10 minutes was never enough for that. This figure is a ceiling
-        # meant to catch a hang, not a measurement — tighten it once a few real runs are observed.
+
+          rm -rf .nyc_output/ coverage/
+
+          yarn lerna run pretest "${since[@]}" --concurrency 1 --stream
+          yarn lerna run cover "${since[@]}" --concurrency 1 --stream
+        # NOTE-RT: one code path, differing only in whether `--since` is passed. The empty-`[]`
+        # branch used to call the root `pretest` and `cover:actual` scripts instead, and between
+        # them they accounted for everything that made the first four runs of this job unreadable:
         #
-        # NOTE-RT: `--concurrency 1`, and `2>/dev/null` on the `lerna ls` so the `[]` comparison sees
-        # stdout rather than stdout interleaved with lerna's notices.
+        #   - `pretest` is `pretest:actual; pretest:collect`. The `;` means a lint failure is
+        #     swallowed and the script exits with the *collector's* status, so nine workspaces could
+        #     fail to lint and the step would carry on as though nothing had happened.
+        #   - `cover:actual` runs `--no-bail --concurrency $(nproc)` with no `--stream`. Four
+        #     coverage tasks at once — webpack bundles, Puppeteer renders and the LocalStack suite
+        #     among them — buffered, on a runner with ~14GB of memory. `cover` is also the target
+        #     that `dependsOn` `build`, which is why the workspace builds appeared *after* the lint
+        #     failures, and why the silence that followed could never be pinned to a task.
+        #
+        # Nothing is lost by not calling them: `Collect results` below runs both collectors under
+        # `if: always()`, and the `rm -rf` above is the one other thing `cover:actual` did.
+        #
+        # NOTE-RT: `2>/dev/null` on the `lerna ls` so the `[]` comparison sees stdout rather than
+        # stdout interleaved with lerna's notices. On a `master` push it is empty, so this takes the
+        # *full* branch: build every workspace, render the Puppeteer PDFs, and run the service suite
+        # against the LocalStack container above. 10 minutes was never enough for that; 45 is a
+        # ceiling meant to catch a hang, not a measurement — tighten it once a few real runs are
+        # observed.
         #
         # NOTE-RT: `--stream` is not cosmetic, it is the diagnostic. Nx's default output style
-        # buffers each task's output and prints it as a group *when the task finishes* — so a task
-        # that never finishes is never named. Every leg of the first two runs shows
-        # `@randy.tarampi/serverless:build` completing and then total silence (4 minutes on one leg,
-        # 28 on another) until the job is killed, which tells us only that the *next* task in the
-        # graph hangs, not which one it is. Streaming prints the task name up front.
-        #
-        # It is not a resource problem: the step above reports 78GB of disk and 14GB of memory free.
-        # It is not reproducible locally either — `NODE_ENV=test CI=true NX_DAEMON=false yarn lerna
-        # run build --concurrency 1` completes all 14 projects in well under a minute of task time.
+        # buffers each task's output and prints it as a group *when the task finishes*, so a task
+        # that never finishes is never named.
         timeout-minutes: 45
       - name: Cleanup after tests
         if: always()
