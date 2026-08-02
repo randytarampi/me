@@ -16,9 +16,6 @@
     "text-summary",
     "lcov"
   ],
-  "require": [
-    "../babel.register.cjs"
-  ],
   "cache": true,
   "all": true,
   "check-coverage": true,
