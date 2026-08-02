@@ -138,8 +138,10 @@ jobs:
           free -h
           echo "::endgroup::"
 
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
-            /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          # NOTE-RT: deliberately *not* `$AGENT_TOOLSDIRECTORY`, which the widely-copied version of
+          # this snippet includes. `actions/setup-node` installs into it, and it is on `PATH` for
+          # the rest of the job — deleting it here removes the Node this job is running on.
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost || true
 
           echo "::group::After"
           df -h /
