@@ -2,6 +2,14 @@ name: CI
 
 on:
   push:
+    # NOTE-RT: `master` only. Without this every branch with an open pull request runs the entire
+    # suite *twice* — once for the `push` and once for the `pull_request` — on separate runners with
+    # separate concurrency groups, so neither cancels the other. Three matrix legs became six for no
+    # additional signal, and it made triaging the first real run considerably harder than it needed
+    # to be. Branch pushes are still covered: the pull request is what gates the merge, and it is
+    # also the ref the `master` ruleset's required status check is read from.
+    branches:
+      - master
     paths:
       - '**'
       - '!.github/**'
