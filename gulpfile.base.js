@@ -28,13 +28,15 @@ export const eslint = ({relativePath, gulp}) => gulp.task("eslint", () => {
     // a clean tree while quietly editing it, so drift never surfaced in a build.
     const fix = !process.env.CI;
 
+    // NOTE-RT: always format to stdout, and *additionally* write JUnit in CI. Previously it was one
+    // or the other, so a CI failure printed nothing but `ESLintError ... Failed with 50 errors` -
+    // no rule, no file, no line. `eslint-results.xml` is collected as an artifact and read after the
+    // fact, which is no help at all while you are staring at a red run trying to work out whether
+    // 50 errors means fifty problems or one misresolved import counted fifty times.
     const stream = gulp.src([path.join(relativePath, "**/*.{js,jsx}")])
         .pipe(eslint({fix}))
-        .pipe(
-            resultsFile
-                ? eslint.format("junit", resultsFile)
-                : eslint.format()
-        )
+        .pipe(eslint.format())
+        .pipe(gulpIf(() => !!resultsFile, eslint.format("junit", resultsFile)))
         .pipe(gulpIf(file => fix && isFixed(file), gulp.dest(relativePath)))
         .pipe(eslint.failAfterError());
 
