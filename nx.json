@@ -8,8 +8,15 @@
     },
     "lint": {
       "cache": true,
+      "dependsOn": ["^build"],
       "inputs": ["{projectRoot}/src/**", "{projectRoot}/test/**", "{projectRoot}/eslint.config.js", "{projectRoot}/package.json"],
       "outputs": []
+    },
+    "pretest": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["{projectRoot}/src/**", "{projectRoot}/test/**", "{projectRoot}/eslint.config.js", "{projectRoot}/package.json"],
+      "outputs": ["{projectRoot}/eslint-results.xml"]
     },
     "test": {
       "dependsOn": ["^build", "build"],
