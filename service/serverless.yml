@@ -99,6 +99,32 @@ custom:
   # would make `sls print` and `sls offline start` require live AWS credentials, breaking local
   # development. The account id is not a secret; the point here is to state it exactly once.
   awsAccountId: "471964952458"
+  # NOTE-RT: the DynamoDB table names live here, and `env.yml` references them, rather than the
+  # other way round. That is forced, not preferred.
+  #
+  # `resources.Resources.*DynamoDbTable.Properties` comes from
+  # `src/serverless/dynamodb/{post,authInfo}.js`, which build the create-table request from the
+  # dynamoose schema - so those files have to learn the stage's table name from somewhere. The only
+  # resolver Serverless v4 hands a `${file(*.js)}` variable is `resolveConfigurationProperty`, and
+  # it resolves `${self:…}` references but *not* `${file(…)}` ones: asked for
+  # `["provider", "environment"]` it returns the literal string `${file(env.yml):prd.environment}`,
+  # so indexing into it yields `undefined`. `resolveVariable`, the documented alternative, never
+  # settles at all - awaiting it deadlocks the resolution pass and `sls print` emits no `resources`.
+  # A `self:`-only expression is the one shape both the YAML and the JavaScript can read.
+  #
+  # The dates are the tables' 2019 creation dates, not a naming convention, so each stage is spelled
+  # out rather than composed from `${self:provider.stage}-${self:service}-…`. Renaming one stage's
+  # table then cannot silently rename another's - and `prd`'s holds 1,666 posts.
+  postsTableNamesByStage:
+    local: local-posts
+    dev: dev-service-posts-2019-01-11
+    prd: prd-service-posts-2019-01-11
+  authInfoTableNamesByStage:
+    local: local-authInfo
+    dev: dev-service-authInfo-2019-01-18
+    prd: prd-service-authInfo-2019-01-18
+  postsTableName: ${self:custom.postsTableNamesByStage.${self:provider.stage}}
+  authInfoTableName: ${self:custom.authInfoTableNamesByStage.${self:provider.stage}}
   # NOTE-RT: no `dynamodb:` block, and no `serverless-dynamodb` plugin. The local database is a
   # `localstack/localstack` container started by `service/package.json`'s `localstack:*` scripts,
   # and the tables are created by `src/serverless/dynamodb/migrate.js` against it. Nothing about
@@ -331,26 +357,37 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.SERVICE_POSTS_S3_BUCKET_NAME}
-    # NOTE-RT: STOP AND READ BEFORE THE FIRST DEPLOY. These two files resolve their `TableName`
-    # from `process.env.SERVICE_*_DYNAMODB_TABLE` in the *CLI* process, which is never set there -
-    # those are Lambda environment variables from `env.yml`. `src/serverless/dynamodb/util.js`'s
-    # `setupLocal()` therefore defaults them, so `sls print --stage prd` renders
-    # `TableName: local-posts` / `local-authInfo` while `provider.environment` correctly says
-    # `prd-service-posts-2019-01-11` / `prd-service-authInfo-2019-01-18`. The stack declares one
-    # pair of tables and the functions read another.
+    # NOTE-RT: these two files used to resolve their `TableName` from
+    # `process.env.SERVICE_*_DYNAMODB_TABLE` in the *CLI* process, where it is never set - those are
+    # Lambda environment variables from `env.yml`. `src/serverless/dynamodb/util.js`'s `setupLocal()`
+    # unconditionally defaulted them, so every rendered template declared `TableName: local-posts` /
+    # `local-authInfo` while `provider.environment` - and every IAM resource ARN above and every
+    # alarm `TableName` dimension below - said `${stage}-service-posts-…`.
     #
-    # This is long-standing - unchanged since before the monorepo relocation, so the live 2022 stack
-    # was deployed this way too - and it is deliberately NOT fixed here. Correcting the name is a
-    # `TableName` change, i.e. a CloudFormation *replacement* of a live DynamoDB table. Before
-    # touching it, establish against the real stack which tables actually exist:
+    # Checked against the live account on 2026-08-02, because the answer decides whether this is a
+    # cosmetic misalignment or a data-loss trap:
     #
-    #   aws cloudformation get-template --stack-name service-prd \
-    #     --query 'TemplateBody.Resources.PostsDynamoDbTable.Properties.TableName'
-    #   aws dynamodb list-tables --region ca-central-1
+    #   $ aws cloudformation get-template --stack-name service-prd --region ca-central-1 \
+    #       --query 'TemplateBody.Resources.PostsDynamoDbTable.Properties.TableName'
+    #   "prd-service-posts-2019-01-11"
+    #   $ aws dynamodb list-tables --region ca-central-1
+    #   ["prd-service-authInfo-2019-01-18", "prd-service-posts-2019-01-11"]
     #
-    # `DeletionPolicy: Retain` means a replacement orphans rather than deletes the old table, but if
-    # the target name already exists the update fails with `already exists` mid-deploy. Whichever
-    # name wins, `provider.environment` and these resources have to agree afterwards.
+    # The live stack has always declared the correct names, and `local-posts`/`local-authInfo` have
+    # never existed in `ca-central-1`. So the bug was in the *current source* only, and deploying it
+    # unfixed would have renamed a table holding 1,666 posts - which CloudFormation performs as a
+    # replacement. `DeletionPolicy: Retain` would have orphaned rather than deleted the real table,
+    # but production would have come back up reading an empty one.
+    #
+    # Both files now resolve `custom.postsTableName` / `custom.authInfoTableName`, which `env.yml`
+    # also references, so `TableName` and `SERVICE_*_DYNAMODB_TABLE` are the same string by
+    # construction. Verify after any change to either - and poison the environment while you do it,
+    # because that is what distinguishes a working resolution from a silent fallback:
+    #
+    #   for s in local dev prd; do
+    #     SERVICE_POSTS_DYNAMODB_TABLE=POISONED yarn sls print --stage "$s" \
+    #       | grep -E 'TableName|_DYNAMODB_TABLE'
+    #   done
     PostsDynamoDbTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain

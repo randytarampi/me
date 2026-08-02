@@ -1,16 +1,16 @@
 import dynamoose from "dynamoose";
 
 const setupLocal = () => {
-    // NOTE-RT: these two defaults are *unconditional*, unlike the endpoint override below, and that
-    // leaks into the deployed CloudFormation template — `post.js`/`authInfo.js` call this before
-    // reading the table name, and the Serverless CLI process never has these variables set, so
-    // `sls print --stage prd` declares `local-posts`/`local-authInfo` while the functions are
-    // configured to read `prd-service-…`. See the note above `PostsDynamoDbTable` in
-    // `serverless.yml`; fixing it is a live DynamoDB table replacement, not a one-line edit.
-    process.env.SERVICE_POSTS_DYNAMODB_TABLE = process.env.SERVICE_POSTS_DYNAMODB_TABLE || "local-posts";
-    process.env.SERVICE_AUTH_INFO_DYNAMODB_TABLE = process.env.SERVICE_AUTH_INFO_DYNAMODB_TABLE || "local-authInfo";
-
     if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test" || !process.env.NODE_ENV) {
+        // NOTE-RT: these two defaults used to sit *outside* this guard, which meant they applied to
+        // the Serverless CLI process as well - and `post.js`/`authInfo.js` then read the table name
+        // back out of `process.env`, so every rendered template declared `local-posts` /
+        // `local-authInfo` regardless of stage. They resolve the name from the configuration now
+        // (see the note in `post.js`), so these defaults serve only their original purpose: giving
+        // `migrate.js` and the test suite a table to talk to when nothing else has named one.
+        process.env.SERVICE_POSTS_DYNAMODB_TABLE = process.env.SERVICE_POSTS_DYNAMODB_TABLE || "local-posts";
+        process.env.SERVICE_AUTH_INFO_DYNAMODB_TABLE = process.env.SERVICE_AUTH_INFO_DYNAMODB_TABLE || "local-authInfo";
+
         // NOTE-RT: `region: "localhost"` makes the emulator reject every request with
         // `UnrecognizedClientException: The Access Key ID or security token is invalid.` (its SigV4
         // handling needs a real-looking region). Use the AWS-documented fake local credentials/region instead.
