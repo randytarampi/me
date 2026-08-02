@@ -46,6 +46,28 @@ export const region = new pulumi.Config("aws").require("region");
 export const ownsGlobalResources = config.getBoolean("ownsGlobalResources") ?? false;
 
 /**
+ * Extra branch patterns permitted to deploy to `dev`, on top of `master`.
+ *
+ * NOTE-RT: this exists for exactly one purpose, and it is temporary by design. The bootstrap depends
+ * on proving the OIDC role and rehearsing a full `dev` deploy from a working branch *before* the
+ * merge — but `pulumi up` is what creates the `master`-only deployment branch policy, so after the
+ * first `up` the `workflow_dispatch` the rehearsal needs is rejected by the environment before the
+ * job starts. Chicken, meet egg.
+ *
+ * Set it, rehearse, then remove it and `up` again. It applies to the `dev` environment only: the
+ * whole point of the branch policy is that production deploys from `master` and nowhere else, and a
+ * knob that could relax that is a knob that eventually will.
+ *
+ * NOTE-RT: set on the **`prd`** stack, despite the name. `src/github/environments.ts` only declares
+ * the environments when `ownsGlobalResources` is true, and `prd` is the owner — a GitHub environment
+ * exists once per repository, not once per stage. Setting this on `dev` does nothing at all.
+ *
+ *     pulumi config set --stack prd --path 'me:devDeploymentBranches[0]' 'chore/shippable-backlog'
+ *     pulumi config rm  --stack prd --path 'me:devDeploymentBranches[0]'
+ */
+export const devDeploymentBranches = config.getObject<string[]>("devDeploymentBranches") ?? [];
+
+/**
  * The `sub` claim a GitHub Actions job presents when it declares `environment: <environment>`.
  *
  * NOTE-RT: `randytarampi/me` was created 2018-07-17, so it predates immutable subject claims —

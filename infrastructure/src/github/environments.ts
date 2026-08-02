@@ -1,7 +1,14 @@
 import * as github from "@pulumi/github";
 
-import {defaultBranch, githubRepo, ownsGlobalResources} from "../config";
+import {defaultBranch, devDeploymentBranches, githubRepo, ownsGlobalResources} from "../config";
 import {provider} from "./provider";
+
+/**
+ * `randytarampi`, by numeric id — `gh api users/randytarampi --jq .id`.
+ *
+ * NOTE-RT: the provider takes ids, not logins. The id is stable across a rename; the login is not.
+ */
+const reviewerUserId = 592216;
 
 /**
  * The deployment environments, with the protection rules they have never had.
@@ -23,11 +30,15 @@ import {provider} from "./provider";
 const environment = (name: string) => new github.RepositoryEnvironment(name, {
     repository: githubRepo,
     environment: name,
-    // NOTE-RT: no `reviewers`. A required reviewer on `prd` would be the natural hardening, and it
-    // is a real choice rather than an oversight: it pauses the release chain — `release.yml` calls
-    // the deploys directly with `needs: release`, so an approval gate stops a release mid-flight
-    // until a human acts. That is arguably right for a portfolio and a nuisance for automation.
-    // Decide it deliberately; do not discover it during a release.
+    // NOTE-RT: `prd` requires an approval, permanently. This was decided rather than discovered, and
+    // the cost is worth stating plainly: `release.yml:26` and `deploy.service.yml:41` *both* declare
+    // `environment: prd`, so every release waits for a human twice — once before `release` versions
+    // and publishes, then again before `deploy-pages`, `deploy-pages--jsonresume-theme` and
+    // `deploy-service` (which wait together, as one round). A release therefore never completes
+    // unattended. That is the point.
+    //
+    // `dev` gets none: it is the rehearsal, and a rehearsal nobody can run is not one.
+    ...(name === "prd" ? {reviewers: [{users: [reviewerUserId]}]} : {}),
     canAdminsBypass: true,
     deploymentBranchPolicy: {
         protectedBranches: false,
@@ -35,20 +46,42 @@ const environment = (name: string) => new github.RepositoryEnvironment(name, {
     }
 }, {provider});
 
-const branchPolicy = (name: string, environmentResource: github.RepositoryEnvironment) =>
-    new github.RepositoryEnvironmentDeploymentPolicy(name, {
+const branchPolicy = (
+    resourceName: string,
+    environmentResource: github.RepositoryEnvironment,
+    branchPattern: string
+) =>
+    new github.RepositoryEnvironmentDeploymentPolicy(resourceName, {
         repository: githubRepo,
         environment: environmentResource.environment,
-        // NOTE-RT: `master` only. Nothing else should ever be able to deploy — the whole reason
-        // this plan exists is that a push to *any* branch used to publish production Pages.
-        branchPattern: defaultBranch
+        // NOTE-RT: `master` only, save for the declared `dev` exceptions below. Nothing else should
+        // ever be able to deploy — the whole reason this plan exists is that a push to *any* branch
+        // used to publish production Pages.
+        branchPattern
     }, {provider});
+
+/**
+ * NOTE-RT: one policy resource per pattern, because the API models them that way — a
+ * `RepositoryEnvironmentDeploymentPolicy` carries a single `branchPattern`. The resource name has to
+ * encode the pattern rather than just the environment, or adding an exception would look to Pulumi
+ * like an *update* of the `master` policy and quietly replace it.
+ */
+const policyResourceName = (environmentName: string, branchPattern: string) =>
+    `${environmentName}-${branchPattern.replace(/[^a-zA-Z0-9-]/g, "-")}`;
 
 export const environments = ownsGlobalResources
     ? ["dev", "prd"].map(name => {
         const environmentResource = environment(name);
 
-        branchPolicy(name, environmentResource);
+        branchPolicy(name, environmentResource, defaultBranch);
+
+        if (name === "dev") {
+            devDeploymentBranches.forEach(branchPattern => branchPolicy(
+                policyResourceName(name, branchPattern),
+                environmentResource,
+                branchPattern
+            ));
+        }
 
         return environmentResource;
     })
