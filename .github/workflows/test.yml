@@ -154,6 +154,21 @@ jobs:
         env:
           NODE_ENV: test
         run: |
+          # NOTE-RT: interleaved into *this* step's output on purpose. Every leg of every run of
+          # this job so far has ended with `The runner has received a shutdown signal`, which is
+          # what a GitHub-hosted runner says when its agent is killed — most often because the VM
+          # ran out of memory. The `free -h` in the step above is a single reading taken before any
+          # work starts, so it cannot show a peak; this can. A background process started in an
+          # earlier step would lose its stdout with that step, hence starting it here.
+          (
+            while :; do
+              awk '/MemAvailable/ {a=$2} /SwapFree/ {s=$2} END {printf "[mem] %s available=%dMB swapfree=%dMB\n", strftime("%H:%M:%S"), a/1024, s/1024}' /proc/meminfo
+              sleep 20
+            done
+          ) &
+          memoryWatcher=$!
+          trap 'kill "$memoryWatcher" 2>/dev/null || true' EXIT
+
           since=(--since HEAD...origin/master)
 
           if [ "$(yarn lerna ls --since HEAD...origin/master --json 2>/dev/null)" = "[]" ]; then
