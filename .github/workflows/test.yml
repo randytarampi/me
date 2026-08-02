@@ -42,6 +42,10 @@ jobs:
       AWS_REGION: us-east-1
       DEPLOY: false
       DEPLOYMENT_ENVIRONMENT: ${{ github.event.inputs.deployment_environment || inputs.deployment_environment }}
+      # NOTE-RT: the daemon is a long-lived background process that holds the project graph in
+      # memory for the whole run. Useful on a laptop across many invocations; on a runner that
+      # invokes Nx twice it is pure resident memory competing with the builds.
+      NX_DAEMON: false
     runs-on:
       - ubuntu-latest
     concurrency: test-${{ github.ref }}-${{ matrix.node-version }}
@@ -118,22 +122,53 @@ jobs:
       - name: Actually run `yarn install`
         run: yarn install
 
+      # NOTE-RT: this exists because of what the first-ever run of this job did. All six matrix legs
+      # across two runs died the same way: partway through the workspace builds, immediately after
+      # `@randy.tarampi/serverless:build`, with `gulp build` processes still alive at cleanup and
+      # `##[error]The operation was canceled.` as the only message. One leg's step recorded no
+      # `conclusion` and no `completed_at` at all, which is what it looks like when the runner
+      # itself goes away rather than a step failing. Nothing had reached a single test.
+      #
+      # These two figures are the cheapest way to tell memory exhaustion from disk exhaustion on the
+      # next run, and the runner image ships ~30GB of toolchains this repository never touches.
+      - name: Reclaim runner disk and report resources
+        run: |
+          echo "::group::Before"
+          df -h /
+          free -h
+          echo "::endgroup::"
+
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+
+          echo "::group::After"
+          df -h /
+          free -h
+          echo "::endgroup::"
+
       - name: Actually run affected tests
         id: test-actual
         env:
           NODE_ENV: test
         run: |
-          if [ "$(yarn lerna ls --since HEAD...origin/master --json)" = "[]" ]; then
+          if [ "$(yarn lerna ls --since HEAD...origin/master --json 2>/dev/null)" = "[]" ]; then
             yarn run pretest
             yarn cover:actual
           else
-            yarn lerna run pretest --since HEAD...origin/master
-            yarn lerna run cover --since HEAD...origin/master
+            yarn lerna run pretest --since HEAD...origin/master --concurrency 1
+            yarn lerna run cover --since HEAD...origin/master --concurrency 1
           fi
         # NOTE-RT: on a `master` push `lerna ls --since` is empty, so this takes the *full* branch:
         # build every workspace, render the Puppeteer PDFs, and run the service suite against the
         # LocalStack container above. 10 minutes was never enough for that. This figure is a ceiling
         # meant to catch a hang, not a measurement — tighten it once a few real runs are observed.
+        #
+        # NOTE-RT: `--concurrency 1`, and `2>/dev/null` on the `lerna ls` so the `[]` comparison sees
+        # stdout rather than stdout interleaved with lerna's notices. Nx defaults to three tasks in
+        # parallel, which puts `resume`, `service` and `www` — including a full webpack client
+        # bundle — on the runner at the same moment. That is exactly where every leg of the first
+        # real run died. Serial is slower and it is the only version anyone has seen finish; raise it
+        # again once the resource figures printed above show headroom.
         timeout-minutes: 45
       - name: Cleanup after tests
         if: always()
