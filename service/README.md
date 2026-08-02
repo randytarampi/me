@@ -33,32 +33,23 @@ dev: &devConfig
   profile: serverless-dev
   domainName: <where you want your service to be served from>
   acmArn: <an ACM ARN so serverless can setup for HTTPS>
-  kmsKeyArn: <a KMS ARN so serverless-secrets can pull API keys and other `environmentSecrets` out of the SSM store>
+  kmsKeyArn: <a KMS ARN, so SSM can decrypt the SecureString parameters below>
   environment: &environment
     FLICKR_USER_NAME:
     UNSPLASH_USER_NAME:
-    INSTAGRAM_AUTH_CALLBACK_URI:
     TUMBLR_USER_NAME:
-  environmentSecrets: &environmentSecrets
-    FLICKR_API_KEY: flickr-api-key
-    FLICKR_API_SECRET: flickr-api-secret
-    UNSPLASH_API_KEY: unsplash-api-key
-    UNSPLASH_API_SECRET: unsplash-api-secret
-    INSTAGRAM_API_KEY: instagram-api-key
-    INSTAGRAM_API_SECRET: instagram-api-secret
-    INSTAGRAM_ACCESS_TOKEN: instagram-access-token
-    TUMBLR_API_KEY: tumblr-api-key
-    TUMBLR_API_SECRET: tumblr-api-secret
-    SENTRY_DSN: sentry-dsn
+    FLICKR_API_KEY: ${ssm:flickr-api-key}
+    FLICKR_API_SECRET: ${ssm:flickr-api-secret}
+    UNSPLASH_API_KEY: ${ssm:unsplash-api-key}
+    UNSPLASH_API_SECRET: ${ssm:unsplash-api-secret}
+    TUMBLR_API_KEY: ${ssm:tumblr-api-key}
+    TUMBLR_API_SECRET: ${ssm:tumblr-api-secret}
+    SENTRY_DSN: ${ssm:sentry-dsn}
 ```
 
-For each key in `environmentSecrets`, you'll want to push a value into an AWS SSM store with `serverless secrets`.
+The credentials are ordinary `environment` entries — Serverless v4 resolves `${ssm:…}` at deploy time and decrypts `SecureString` parameters itself. There is no `environmentSecrets` block and no plugin; the values are baked into the CloudFormation template by whoever runs the deploy, so the function never talks to Parameter Store.
 
-```bash
-serverless secrets set -n <key name> -t <secret value> -k <alias/serverless-dev|alias/serverless-prd>
-```
-
-Better: don't do it by hand at all. `infrastructure/src/aws/secrets.ts` declares every one of these parameters, so the values live encrypted in the stack's config and `pulumi preview` tells you which ones are still missing:
+Declare the parameters rather than pushing them by hand. `infrastructure/src/aws/secrets.ts` owns every one of them, so the values live encrypted in the stack's config and `pulumi preview` tells you which are still missing:
 
 ```bash
 cd ../infrastructure
@@ -68,7 +59,9 @@ pulumi up --stack prd
 
 This replaces `bin/secretsUpload.js`, which read `TRAVIS_BUILD_DIR` and still pointed at the pre-relocation `packages/service`.
 
-> **`throwOnMissingSecret` is `true`.** Naming a key in `provider.environmentSecrets` before its parameter exists doesn't degrade one source — it makes `configureEnvironment.js` throw and takes every function down. Create the parameter first, then add the key.
+> **A missing parameter fails the deploy, not the function.** `${ssm:…}` carries no default on purpose: an unresolvable reference stops `sls deploy` before anything is published, which is a far better failure than a live function holding a credential that merely looks present.
+
+> **The resolved values end up in the CloudFormation template**, which lives in the Serverless deployment bucket and is visible in the Lambda console. That bucket must block public access and be encrypted, and no workflow may run `sls deploy --verbose` — it would print the rendered template into a CI log.
 
 # Usage
 
