@@ -119,6 +119,21 @@ It goes to SSM rather than to a GitHub secret, because the deploy role already n
 | `me:secret.<parameter-name>` | unset | An SSM SecureString value. Unset parameters are skipped, not defaulted. |
 | `me:githubSecret.<NAME>` | unset | A GitHub Actions secret value. Same. |
 
+One of those thirteen values needs saying out loud, because it is the only one that also exists in
+tracked configuration and can therefore drift silently:
+
+```bash
+pulumi config set --stack dev --secret me:secret.sentry-dsn \
+  'https://5f246bd3456d477da7ebf2d4fd06f2bb@o159971.ingest.us.sentry.io/1240735'
+pulumi config set --stack prd --secret me:secret.sentry-dsn \
+  'https://5f246bd3456d477da7ebf2d4fd06f2bb@o159971.ingest.us.sentry.io/1240735'
+```
+
+`config/{dev,prd,printable}.yml` moved off the legacy pre-organisation-id `@sentry.io/1240735` host,
+but the Lambda does not read those files — it reads `SENTRY_DSN` from `${ssm:sentry-dsn}`. Set the
+parameter to the same value or the backend keeps reporting to the old host while the browser reports
+to the new one, which is worse than either alone: the two halves of a trace stop meeting.
+
 ## One-offs this program can't do
 
 Pulumi will not delete what it never created, so a few things are a single manual command:
