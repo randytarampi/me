@@ -90,8 +90,6 @@ jobs:
           restore-keys: |
             yarn-${{ runner.os }}-
       - name: Actually run `yarn install`
-        env:
-          YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
       # NOTE-RT: this used to be `chrnorm/deployment-action@releases/v1`, which declares

@@ -112,8 +112,6 @@ jobs:
           path: .nx
           key: nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Actually run `yarn install`
-        env:
-          YARN_ENABLE_HARDENED_MODE: false
         run: yarn install
 
       - name: Actually run affected tests
