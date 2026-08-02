@@ -157,8 +157,8 @@ jobs:
             yarn run pretest
             yarn cover:actual
           else
-            yarn lerna run pretest --since HEAD...origin/master --concurrency 1
-            yarn lerna run cover --since HEAD...origin/master --concurrency 1
+            yarn lerna run pretest --since HEAD...origin/master --concurrency 1 --stream
+            yarn lerna run cover --since HEAD...origin/master --concurrency 1 --stream
           fi
         # NOTE-RT: on a `master` push `lerna ls --since` is empty, so this takes the *full* branch:
         # build every workspace, render the Puppeteer PDFs, and run the service suite against the
@@ -166,11 +166,18 @@ jobs:
         # meant to catch a hang, not a measurement — tighten it once a few real runs are observed.
         #
         # NOTE-RT: `--concurrency 1`, and `2>/dev/null` on the `lerna ls` so the `[]` comparison sees
-        # stdout rather than stdout interleaved with lerna's notices. Nx defaults to three tasks in
-        # parallel, which puts `resume`, `service` and `www` — including a full webpack client
-        # bundle — on the runner at the same moment. That is exactly where every leg of the first
-        # real run died. Serial is slower and it is the only version anyone has seen finish; raise it
-        # again once the resource figures printed above show headroom.
+        # stdout rather than stdout interleaved with lerna's notices.
+        #
+        # NOTE-RT: `--stream` is not cosmetic, it is the diagnostic. Nx's default output style
+        # buffers each task's output and prints it as a group *when the task finishes* — so a task
+        # that never finishes is never named. Every leg of the first two runs shows
+        # `@randy.tarampi/serverless:build` completing and then total silence (4 minutes on one leg,
+        # 28 on another) until the job is killed, which tells us only that the *next* task in the
+        # graph hangs, not which one it is. Streaming prints the task name up front.
+        #
+        # It is not a resource problem: the step above reports 78GB of disk and 14GB of memory free.
+        # It is not reproducible locally either — `NODE_ENV=test CI=true NX_DAEMON=false yarn lerna
+        # run build --concurrency 1` completes all 14 projects in well under a minute of task time.
         timeout-minutes: 45
       - name: Cleanup after tests
         if: always()
