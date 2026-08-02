@@ -6,6 +6,24 @@ Now that `build`/`test`/`job-applications` are fixed at the source (not just pat
 - `chai`, `gulp-mocha`, and `webpack-cli` are all current (`^6.2.2`, `^10.0.1`, `^7.2.1` respectively); `chai-dom` (an unused `packages/jsx` devDependency) was dropped entirely. `webpack-dev-server` was deliberately held back at `^5.2.6` (not bumped to `^6.0.0`): `@pmmmwh/react-refresh-webpack-plugin` (used for React Fast Refresh in `letter`/`resume`/`www`'s dev servers) statically imports a `webpack-dev-server` SockJS client export removed in v6, and its latest published release (`0.6.2`) still only declares peer-dependency support for `webpack-dev-server` `4.8.0+`/`5.x` - revisit this once that plugin ships v6 support.
 - `unsplash-js` was upgraded from `v7` to `v8` — a full TypeScript rewrite with a different response shape (`{data, error}` instead of the `{response}` the old `UnsplashSource` destructured). The migration updated the response destructuring, added the required `download` endpoint call for Unsplash ToS compliance, and adjusted the `createApi` call for the v8 API. Done.
 
+## Coverage is blank for the three ESM-native suites
+
+`service`, `www` and `job-application` report `Statements: Unknown% (0/0)` even though their suites
+run and pass — `service`'s is 327 tests. Instrumentation comes from `babel-plugin-istanbul`, which
+`babel.config.js` adds in the `test` env, and it only sees code that goes through a Babel
+transform. Those three load their tests as native ESM (`esmock`, `file://` specifiers), so nothing
+transforms them and nyc records nothing.
+
+This is not new — before `.nycrc`'s `require: babel.register.cjs` was removed, *every* workspace
+reported `0/0`, which is also why `check-coverage: true` never failed anything. Removing it fixed
+the other ten; these three need a different mechanism.
+
+- Fix by: an ESM loader hook (`@istanbuljs/esm-loader-hook`, or Node's own
+  `--experimental-loader`), or by moving these three to `c8`, which reads V8's built-in coverage and
+  needs no transform at all.
+- Until then: their `lcov` contributes nothing to Coveralls, so the repository-wide number is
+  understated and says nothing about the backend.
+
 ## `packages/jsx/src/lib/reactShim.js`
 
 This shim exists to keep React 19 working with a few legacy dependencies.
