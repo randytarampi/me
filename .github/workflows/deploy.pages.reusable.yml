@@ -51,16 +51,21 @@ jobs:
       - name: Set variables
         id: variables
         run: |
-          echo "application_name=$APPLICATION_NAME" >> $GITHUB_OUTPUT
-          echo "deployment_environment=$DEPLOYMENT_ENVIRONMENT" >> $GITHUB_OUTPUT
-          echo "NODE_ENV=$DEPLOYMENT_ENVIRONMENT" >> $GITHUB_ENV
-          echo "PRINTABLE_PUPPETEER_NO_SANDBOX=$CI" >> $GITHUB_ENV
-          echo "CPU_ARCH=$RUNNER_ARCH" >> $GITHUB_ENV
-          echo "OS_NAME=$RUNNER_OS" >> $GITHUB_ENV
-          echo "BRANCH=$GITHUB_REF_NAME" >> $GITHUB_ENV
-          echo "COMMIT_SHA=$GITHUB_SHA" >> $GITHUB_ENV
-          echo "BUILD_NUMBER=$GITHUB_RUN_ID" >> $GITHUB_ENV
-          echo "JOB_NUMBER=$GITHUB_RUN_ATTEMPT" >> $GITHUB_ENV
+          {
+            echo "application_name=$APPLICATION_NAME"
+            echo "deployment_environment=$DEPLOYMENT_ENVIRONMENT"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "NODE_ENV=$DEPLOYMENT_ENVIRONMENT"
+            echo "PRINTABLE_PUPPETEER_NO_SANDBOX=$CI"
+            echo "CPU_ARCH=$RUNNER_ARCH"
+            echo "OS_NAME=$RUNNER_OS"
+            echo "BRANCH=$GITHUB_REF_NAME"
+            echo "COMMIT_SHA=$GITHUB_SHA"
+            echo "BUILD_NUMBER=$GITHUB_RUN_ID"
+            echo "JOB_NUMBER=$GITHUB_RUN_ATTEMPT"
+          } >> "$GITHUB_ENV"
 
       - name: Run `git checkout`
         uses: actions/checkout@v7
