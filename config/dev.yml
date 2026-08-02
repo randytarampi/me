@@ -11,7 +11,14 @@ crisp:
   app:
     id: 03689d2b-80ab-4f5d-90cb-a2de269ea9c3
 sentry:
-  dsn: https://5f246bd3456d477da7ebf2d4fd06f2bb@sentry.io/1240735
+  # NOTE-RT: the `o159971.` prefix is the organisation id, and it is not cosmetic - the browser SDK
+  # extracts the organisation id from the DSN host and uses it for trace propagation, so the legacy
+  # `@sentry.io/1240735` form (which carries no organisation id) silently degraded distributed
+  # tracing. Same public key, same project id; only the ingest host changed. `dev`, `prd` and
+  # `printable` deliberately share one project - they are separated by the `environment` tag that
+  # `packages/views/src/lib/buildPugLocals.js` bakes in, which only recently stopped being
+  # hardcoded to `production` for every deploy.
+  dsn: https://5f246bd3456d477da7ebf2d4fd06f2bb@o159971.ingest.us.sentry.io/1240735
 gcp:
   api:
     key: AIzaSyDp9DoelWlkF7KYaUgw7HElwmMQFQMVu_Q
