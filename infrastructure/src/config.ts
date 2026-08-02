@@ -14,6 +14,15 @@ export const githubRepositoryFullName = `${githubOwner}/${githubRepo}` as const;
 /** The branch `release.yml` versions, publishes and deploys from. */
 export const defaultBranch = "master";
 
+/**
+ * The DIY S3 backend `Pulumi.yaml` points at.
+ *
+ * NOTE-RT: duplicated from `Pulumi.yaml`'s `backend.url` because the two need it for different
+ * reasons and neither can read the other — `Pulumi.yaml` to *find* the state, `src/aws/oidc.ts` to
+ * grant the preview role write access to the lock file. Change one, change both.
+ */
+export const pulumiStateBucket = "randytarampi-me-pulumi-state";
+
 const config = new pulumi.Config("me");
 
 /**
