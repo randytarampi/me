@@ -43,9 +43,10 @@ export const infrastructurePreviewRoleArn: pulumi.Output<string> | undefined =
  * Which of `service/env.yml`'s 13 secrets this stack has a value for, and which it does not.
  *
  * NOTE-RT: exported so the gap is visible in `pulumi stack output` rather than only in a preview
- * warning nobody scrolls back to. Anything listed in `unmanagedSecrets` must stay out of
- * `provider.environmentSecrets` in `service/serverless.yml` — `throwOnMissingSecret: true` turns a
- * missing parameter into a total outage, not a degraded source.
+ * warning nobody scrolls back to. Anything listed in `unmanagedSecrets` still has a `${ssm:…}`
+ * reference in `service/env.yml`'s `provider.environment` with no parameter behind it, and an
+ * unresolvable reference fails the whole deploy — so this list is the set of things to supply
+ * before the next `sls deploy`, not a set of merely degraded sources.
  */
 export const managedSecrets = managedSecretNames;
 export const unmanagedSecrets = unmanagedSecretNames;

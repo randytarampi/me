@@ -5,16 +5,16 @@
  * deploy role's `ssm:GetParameters` to exactly this list without importing — and therefore
  * declaring — the parameters themselves.
  *
- * These are the exact values of `environmentSecrets` in `service/env.yml`, and they are deliberately
- * flat rather than `/<stage>/`-prefixed: `serverless-secrets` passes the name to `ssm:GetParameters`
- * verbatim (`node_modules/serverless-secrets/lib/providers/aws.js`), so a path prefix would just
- * mean the plugin looks for something that isn't there. `dev` and `prd` don't collide because they
- * live in different regions, not because they have different names.
+ * These are the exact names `service/env.yml` references as `${ssm:<name>}` under
+ * `provider.environment`, resolved by whoever runs the deploy rather than by the function. They are
+ * deliberately flat rather than `/<stage>/`-prefixed, because `dev` and `prd` are separated by
+ * region, not by namespace — and because that is how the parameters were created in 2022, so a
+ * prefix would mean looking for something that isn't there.
  *
- * The list is the *whole* set, including the six sources `provider.environmentSecrets` does not yet
- * name. That asymmetry is the point: `custom.serverlessSecrets.throwOnMissingSecret` is `true`, so
- * naming a parameter in `serverless.yml` before it exists takes down every function, not just the
- * one source. Declaring them here is what makes it safe to finish that wiring.
+ * The list is the whole set of thirteen. It used to be larger than what `serverless.yml` named,
+ * because the old `serverless-secrets` plugin's `throwOnMissingSecret` turned one absent parameter
+ * into a runtime outage across every function; with `${ssm:…}` an absent parameter fails the deploy
+ * instead, so `env.yml` now names all thirteen and the two lists agree.
  */
 export const serviceSecretNames: Readonly<Record<string, string>> = {
     FLICKR_API_KEY: "flickr-api-key",
@@ -36,8 +36,8 @@ export const serviceSecretNames: Readonly<Record<string, string>> = {
  * The Serverless Framework v4 licence key, which v4.4.19+ reads from SSM.
  *
  * NOTE-RT: this is why there is no `SERVERLESS_ACCESS_KEY` GitHub secret. The deploy role already
- * needs `ssm:GetParameter` for `serverless-secrets`, so putting the licence key on the same path
- * costs nothing and leaves one fewer credential to rotate.
+ * needs `ssm:GetParameter` to resolve the `${ssm:…}` references in `env.yml`, so putting the licence
+ * key on the same path costs nothing and leaves one fewer credential to rotate.
  *
  * @see https://www.serverless.com/framework/docs/guides/license-keys
  */

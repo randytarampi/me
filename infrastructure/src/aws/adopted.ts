@@ -9,8 +9,8 @@ import {stage} from "../config";
  * NOTE-RT: these are *looked up*, not imported into this program's management. That is a deliberate
  * departure from the plan, and the reasoning is worth stating rather than burying:
  *
- * - Importing means Pulumi can also destroy. The KMS key here encrypts every `serverless-secrets`
- *   value; a mistaken replace or delete makes all of them permanently unreadable. The certificate
+ * - Importing means Pulumi can also destroy. The KMS key here encrypts every SecureString
+ *   parameter; a mistaken replace or delete makes all of them permanently unreadable. The certificate
  *   and the hosted zone are the front door to the whole site.
  * - The gate that was supposed to make importing safe — "a `preview` showing zero replaces and zero
  *   deletes" — can only be run against the live account. Committing an import-based program that
@@ -41,7 +41,7 @@ export const apiCertificate = aws.acm.getCertificateOutput({
     mostRecent: true
 }, {provider: usEast1});
 
-/** The key `serverless-secrets` encrypts this stage's SecureString parameters under. */
+/** The key this stage's SecureString parameters are encrypted under. */
 export const secretsKmsAlias = aws.kms.getAliasOutput({
     name: `alias/serverless-${stage}`
 });

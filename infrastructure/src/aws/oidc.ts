@@ -172,8 +172,12 @@ const serviceDeployPolicy = new aws.iam.Policy(`me-deploy-service-${stage}`, {
                 Sid: "ReadThisStagesSecrets",
                 Effect: "Allow",
                 Action: ["ssm:GetParameter", "ssm:GetParameters", "ssm:DescribeParameters"],
-                // NOTE-RT: enumerated, not a path prefix. `serverless-secrets` passes each name to
-                // `ssm:GetParameters` verbatim, so the parameters are flat (`flickr-api-key`) with
+                // NOTE-RT: this role is now the *only* principal that reads these. `env.yml`'s
+                // `${ssm:…}` references are resolved at deploy time, so the functions no longer
+                // hold any SSM permission at all — the wildcard `ssm:GetParameters` that
+                // `serverless-secrets` injected into the execution role went with the plugin.
+                //
+                // Enumerated, not a path prefix: the parameters are flat (`flickr-api-key`) with
                 // no `/<stage>/` namespace to scope against — the stages are separated by region.
                 // A `parameter/*` grant would hand the deploy role every secret in the account.
                 Resource: [

@@ -10,8 +10,9 @@ on:
     # NOTE-RT: no `secrets:`. The AWS credentials are gone — this job assumes
     # `me-deploy-service-<stage>` via OIDC (see `infrastructure/src/aws/oidc.ts`) — and the
     # Serverless Framework licence key is read from SSM at `/serverless-framework/license-key`,
-    # which the deploy role can already reach because `serverless-secrets` needs `ssm:GetParameter`
-    # regardless. See https://www.serverless.com/framework/docs/guides/license-keys
+    # which the deploy role can already reach because resolving `env.yml`'s `${ssm:...}` credential
+    # references needs `ssm:GetParameter` regardless.
+    # See https://www.serverless.com/framework/docs/guides/license-keys
 
   workflow_dispatch:
     inputs:

@@ -6,16 +6,17 @@ import {serverlessLicenseKeyParameterName, serviceSecretNames} from "./secretNam
 
 const config = new pulumi.Config("me");
 
-/** The KMS alias `serverless-secrets` already encrypts this stage's parameters under. */
+/** The KMS alias this stage's parameters have been encrypted under since 2022. */
 const kmsKeyAlias = `alias/serverless-${stage}`;
 
 /**
  * Declares one SecureString parameter, but only if its value has been supplied.
  *
  * NOTE-RT: a missing value is skipped rather than defaulted. Creating the parameter with a
- * placeholder would be worse than not creating it: `throwOnMissingSecret` would stop complaining,
- * the deploy would succeed, and the source would fail at runtime against the live API with a
- * credential that looks present. `pulumi preview` warning about the gap is the honest failure mode.
+ * placeholder would be worse than not creating it: the `${ssm:…}` reference in `env.yml` would
+ * resolve, the deploy would succeed, and the source would fail at run time against the live API
+ * with a credential that looks present. `pulumi preview` warning about the gap is the honest
+ * failure mode, and an unresolvable reference failing the deploy is the second line of defence.
  *
  * Values are supplied out of band and stored encrypted in `Pulumi.<stack>.yaml` by this stack's KMS
  * secrets provider:
@@ -29,9 +30,9 @@ const secureParameter = (parameterName: string) => {
         pulumi.log.warn(
             `No value configured for SSM parameter '${parameterName}'. It is not being managed by ` +
             `this stack. Set it with \`pulumi config set --stack ${stage} --secret ` +
-            `me:secret.${parameterName} '…'\`, or leave it out of \`provider.environmentSecrets\` ` +
-            `in service/serverless.yml — with \`throwOnMissingSecret: true\`, naming a parameter ` +
-            `that does not exist takes down every function.`
+            `me:secret.${parameterName} '…'\`, or drop its \`\${ssm:${parameterName}}\` reference ` +
+            `from \`provider.environment\` in service/env.yml — an unresolvable reference fails ` +
+            `the whole deploy, not just the one source that needed it.`
         );
 
         return undefined;
@@ -42,7 +43,7 @@ const secureParameter = (parameterName: string) => {
         type: aws.ssm.ParameterType.SecureString,
         keyId: kmsKeyAlias,
         value,
-        description: `Read by \`service\` @ ${stage} via serverless-secrets`,
+        description: `Resolved into \`service\` @ ${stage} at deploy time by \${ssm:${parameterName}}`,
         tags
     });
 };

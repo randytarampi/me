@@ -57,7 +57,7 @@ requires AWS credentials, and the only credentials that exist today are the ones
    The bucket is not created by this program: it has to exist before the program that would create
    it has anywhere to keep its own state.
 
-2. **Initialise the stacks**, using the KMS keys that already exist for `serverless-secrets`:
+2. **Initialise the stacks**, using the KMS keys the SSM parameters have been encrypted under since 2022:
 
    ```bash
    cd infrastructure
@@ -105,7 +105,7 @@ pulumi config set --stack prd --secret 'me:secret./serverless-framework/license-
 ```
 
 It goes to SSM rather than to a GitHub secret, because the deploy role already needs
-`ssm:GetParameter` for `serverless-secrets`.
+`ssm:GetParameter` to resolve the `${ssm:…}` credential references in `service/env.yml`.
 
 ## Configuration
 
@@ -140,7 +140,7 @@ cd infrastructure && pulumi preview --diff --stack prd
 
 The preview must report **zero replaces and zero deletes** against the ACM certificate, KMS alias
 and hosted zone. A replace on the KMS key is a stop-the-line failure: it would make every
-`serverless-secrets` value permanently unreadable.
+SecureString parameter permanently unreadable.
 
 After configuring npm trusted publishing, verify it rather than assuming it. Lerna's OIDC helper
 never throws, so a misconfigured trust relationship looks exactly like an ordinary auth failure —
