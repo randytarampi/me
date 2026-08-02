@@ -17,6 +17,13 @@ the six CloudWatch alarms and the API Gateway custom domain stay in `serverless.
 lifecycle is the service's. Moving them here would put two tools in a fight over one CloudFormation
 stack, and CloudFormation always wins that fight by deleting something.
 
+The live `service-prd` stack already manages `prd-service-posts-2019-01-11` (1,666 items) and
+`prd-service-authInfo-2019-01-18` under those exact names — confirmed 2026-08-02 against
+`cloudformation get-template`. Nothing here adopts, imports or renames them, and nothing should:
+a `TableName` change is a CloudFormation *replacement*. The names are declared once, in
+`service/serverless.yml`'s `custom.postsTableNamesByStage`, and read from there by both the Lambda
+environment variable and the table resource.
+
 ## What's here
 
 | Module | Owns |
@@ -25,7 +32,7 @@ stack, and CloudFormation always wins that fight by deleting something.
 | `src/aws/secrets.ts` | The 13 SSM parameters `service` reads, plus the Serverless licence key |
 | `src/aws/secretNames.ts` | Just the names, so the IAM policy can enumerate them without declaring them |
 | `src/aws/adopted.ts` | Read-only lookups of the ACM certificate, KMS alias and Route53 zone `env.yml` hardcodes |
-| `src/github/environments.ts` | `dev` and `prd`, with `master`-only deployment branch policies |
+| `src/github/environments.ts` | `dev` and `prd`, with `master`-only deployment branch policies and a required reviewer on `prd` |
 | `src/github/rulesets.ts` | `master` branch protection and `v*` tag protection |
 | `src/github/repository.ts` | The Actions allowlist, and a `gh api` shim for Pages **Enforce HTTPS** |
 | `src/github/secrets.ts` | The live secret inventory, and deletion of the five dead ones |
@@ -44,6 +51,46 @@ that split, the second `pulumi up` fails with `EntityAlreadyExists` and wedges a
 
 **The ordering is genuinely circular and getting it wrong is unrecoverable.** Creating the OIDC role
 requires AWS credentials, and the only credentials that exist today are the ones being retired.
+
+0. **Reconnoitre first.** Every step below branches on something only the live account can answer,
+   and all of these are read-only:
+
+   ```bash
+   aws sts get-caller-identity
+
+   # Which SSM parameters already exist — they need `import`, not `config set`. Names only.
+   for region in us-east-1 ca-central-1; do
+     aws ssm describe-parameters --region "$region" \
+       --query 'Parameters[].{Name:Name,Type:Type,Modified:LastModifiedDate}' --output table
+   done
+
+   # Everything `src/aws/adopted.ts` looks up. A lookup that finds nothing fails the preview.
+   aws kms describe-key --key-id alias/serverless-dev --region us-east-1
+   aws kms describe-key --key-id alias/serverless-prd --region ca-central-1
+   aws acm list-certificates --region us-east-1 --certificate-statuses ISSUED \
+     --query 'CertificateSummaryList[].{Domain:DomainName,Arn:CertificateArn}' --output table
+   aws route53 list-hosted-zones-by-name --dns-name randytarampi.ca
+
+   aws iam list-open-id-connect-providers          # expect []
+   aws iam list-access-keys
+   aws s3api head-bucket --bucket randytarampi-me-pulumi-state
+   ```
+
+   As of **2026-08-02**, in account `471964952458`, that returned:
+
+   - **Nine of the thirteen service parameters already exist**, identically in both regions, dating
+     to 2018-10-31: `flickr-api-{key,secret}`, `unsplash-api-{key,secret}`, `tumblr-api-{key,secret}`,
+     `github-api-{key,secret}` and `sentry-dsn`. Four do not — `youtube-api-key`,
+     `vimeo-access-token`, `stackoverflow-api-key`, `soundcloud-access-token` — nor does
+     `/serverless-framework/license-key`. Step 3 below is not optional.
+   - **Only `*.randytarampi.ca` is ISSUED in `us-east-1`.** There is no `*.dev.randytarampi.ca`
+     certificate, and `src/aws/adopted.ts` looks one up whenever `stage !== "prd"` — so
+     `pulumi preview --stack dev` cannot succeed, and neither can `sls create_domain --stage dev`.
+     Request it (DNS validation, zone `Z1FDZJSPGC7GU7`) before doing anything with `dev`.
+   - Both KMS aliases are `Enabled`, the hosted zone is `Z1FDZJSPGC7GU7`, there are no OIDC
+     providers, and the state bucket does not exist. IAM user `rawr` has **two** active access keys
+     (2020-04-04 and 2026-01-13) — work out which one is in the `AWS_ACCESS_KEY_ID` repository
+     secret before deleting either, because the other is probably the one you are typing with.
 
 1. **Create the state bucket**, once, with the existing admin credentials:
 
@@ -68,21 +115,61 @@ requires AWS credentials, and the only credentials that exist today are the ones
    Both commands add `secretsprovider` and `encryptedkey` to the committed `Pulumi.<stack>.yaml`.
    Commit them: `encryptedkey` is a KMS-encrypted data key, not a secret in the clear.
 
-3. **Apply `prd`, then `dev`.** `prd` owns the globals, so it goes first.
+3. **Import the parameters that already exist, before setting any value.** `aws.ssm.Parameter` in
+   `src/aws/secrets.ts` has no `overwrite`, so a create against an existing parameter fails the
+   whole `up` with `ParameterAlreadyExists`:
 
-4. **Prove the role works before deleting anything.** Switch `deploy.service.yml` to
+   ```bash
+   for p in flickr-api-key flickr-api-secret unsplash-api-key unsplash-api-secret \
+            tumblr-api-key tumblr-api-secret github-api-key github-api-secret sentry-dsn; do
+     pulumi import --stack prd --yes aws:ssm/parameter:Parameter "$p" "$p"
+     pulumi import --stack dev --yes aws:ssm/parameter:Parameter "$p" "$p"
+   done
+   ```
+
+   Both stacks, because the parameters exist in both regions and the stages are separated by region
+   rather than by namespace. Only then `pulumi config set` the four missing ones and the licence key.
+
+4. **Apply `prd`, then `dev`.** `prd` owns the globals, so it goes first.
+
+   `pulumi up --stack prd` also runs three `command.local.Command` resources **on this machine** —
+   `gh secret delete`, `gh api … /pages` for Enforce HTTPS, and the npm trust dry run — so `gh` and
+   `npm` have to be authenticated here, not just AWS. Export `GITHUB_TOKEN="$(gh auth token)"` first;
+   the `@pulumi/github` provider reads it.
+
+5. **Prove the role works before deleting anything.** Switch `deploy.service.yml` to
    `role-to-assume` (already done), run it via `workflow_dispatch`, and confirm the
    `aws sts get-caller-identity` step prints an ARN of the form
    `…:assumed-role/me-deploy-service-prd/…`.
 
-5. **Only then** retire the old keys:
+   There is a chicken-and-egg problem here that costs an afternoon if you meet it live: step 4
+   creates the `master`-only deployment branch policy, so a `workflow_dispatch` from the working
+   branch you are about to merge is rejected by the environment *before the job starts*. Declare the
+   exception, rehearse, then remove it:
+
+   ```bash
+   pulumi config set --stack prd --path 'me:devDeploymentBranches[0]' 'chore/shippable-backlog'
+   pulumi up --stack prd
+   gh workflow run deploy.service.yml --ref chore/shippable-backlog -f deployment_environment=dev
+   # … once it has been seen working …
+   pulumi config rm --stack prd --path 'me:devDeploymentBranches[0]'
+   pulumi up --stack prd
+   ```
+
+   On the `prd` stack despite the name: environments are declared only when `ownsGlobalResources`,
+   and a GitHub environment exists once per repository, not once per stage. Setting it on `dev` does
+   nothing. It applies to the `dev` environment only — `prd` has no equivalent, deliberately.
+
+6. **Only then** retire the old keys:
 
    ```bash
    pulumi config set --stack prd me:retireAwsAccessKeys true
    pulumi up --stack prd
    ```
 
-   Deleting them before step 4 passes leaves no credential with which to create the replacement.
+   Deleting them before step 5 passes leaves no credential with which to create the replacement.
+   `me:retireAwsAccessKeys` removes the *GitHub secrets*; the underlying IAM keys are a separate
+   `aws iam delete-access-key`, and there are two of them on `rawr`.
 
 ## Two things that cannot be automated
 
@@ -114,8 +201,9 @@ It goes to SSM rather than to a GitHub secret, because the deploy role already n
 | `me:stage` | — | `dev` or `prd`. Must match the GitHub environment name; the OIDC trust policy is pinned to it. |
 | `me:ownsGlobalResources` | `false` | `true` on `prd` only. |
 | `me:requiredStatusCheck` | unset | The `master` ruleset's required check. **Read it off a real green run**, don't guess — for a called workflow the check surfaces under the *caller's* job name. |
-| `me:retireAwsAccessKeys` | `false` | Deletes the 2022 AWS secrets. Flip only after step 4 above. |
+| `me:retireAwsAccessKeys` | `false` | Deletes the 2022 AWS secrets. Flip only after step 5 above. |
 | `me:npmTrustDryRun` | `true` | npm permits one trust configuration per package; a wrong one is revoked by id, not overwritten. Read the dry run first. |
+| `me:devDeploymentBranches` | `[]` | Extra branch patterns allowed to deploy to the **`dev`** environment, on top of `master`. Set on the **`prd`** stack. Temporary: for the pre-merge rehearsal only. |
 | `me:secret.<parameter-name>` | unset | An SSM SecureString value. Unset parameters are skipped, not defaulted. |
 | `me:githubSecret.<NAME>` | unset | A GitHub Actions secret value. Same. |
 
@@ -133,6 +221,20 @@ pulumi config set --stack prd --secret me:secret.sentry-dsn \
 but the Lambda does not read those files — it reads `SENTRY_DSN` from `${ssm:sentry-dsn}`. Set the
 parameter to the same value or the backend keeps reporting to the old host while the browser reports
 to the new one, which is worse than either alone: the two halves of a trace stop meeting.
+
+## `prd` requires an approval, and it costs two rounds
+
+`src/github/environments.ts` puts a required reviewer on `prd` and none on `dev`. That is a
+deliberate choice, not a default, and the consequence is worth knowing before a release rather than
+during one: `release.yml:26` and `deploy.service.yml:41` **both** declare `environment: prd`, so a
+single release stops twice —
+
+1. before `release` versions, publishes and cuts the GitHub release;
+2. before `deploy-pages`, `deploy-pages--jsonresume-theme` and `deploy-service`, which wait together
+   as one round.
+
+A release therefore never completes unattended. `canAdminsBypass` is `true`, so the bypass exists —
+but taking it is a decision, which is the point.
 
 ## One-offs this program can't do
 
