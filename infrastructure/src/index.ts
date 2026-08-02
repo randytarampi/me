@@ -56,6 +56,10 @@ export const unmanagedSecrets = unmanagedSecretNames;
  * from. `prd`'s certificate is in `us-east-1` while `prd` itself deploys to `ca-central-1` — that
  * is correct for an edge-optimized custom domain, and exporting both makes it a stated fact rather
  * than something a reader has to notice.
+ *
+ * NOTE-RT: `acmCertificateArn` can be `undefined`, on `dev` only — an empty value means no ISSUED
+ * certificate exists for that stage's domain and `sls create_domain` will fail until one is
+ * requested. See `src/aws/adopted.ts`; on `prd` a missing certificate is still a hard error.
  */
 export const acmCertificateArn = apiCertificateArn;
 export const kmsKeyArn = secretsKmsKeyArn;

@@ -84,9 +84,11 @@ requires AWS credentials, and the only credentials that exist today are the ones
      `vimeo-access-token`, `stackoverflow-api-key`, `soundcloud-access-token` — nor does
      `/serverless-framework/license-key`. Step 3 below is not optional.
    - **Only `*.randytarampi.ca` is ISSUED in `us-east-1`.** There is no `*.dev.randytarampi.ca`
-     certificate, and `src/aws/adopted.ts` looks one up whenever `stage !== "prd"` — so
-     `pulumi preview --stack dev` cannot succeed, and neither can `sls create_domain --stage dev`.
-     Request it (DNS validation, zone `Z1FDZJSPGC7GU7`) before doing anything with `dev`.
+     certificate. `src/aws/adopted.ts` degrades rather than fails for that one lookup on `dev`, so
+     the stack still comes up — `acmCertificateArn` is simply empty, and a warning says so. But
+     `sls create_domain --stage dev` will fail until one is requested (DNS validation, zone
+     `Z1FDZJSPGC7GU7`), so the full `dev` rehearsal needs it. On `prd` a missing certificate is
+     still a hard error.
    - Both KMS aliases are `Enabled`, the hosted zone is `Z1FDZJSPGC7GU7`, there are no OIDC
      providers, and the state bucket does not exist. IAM user `rawr` has **two** active access keys
      (2020-04-04 and 2026-01-13) — work out which one is in the `AWS_ACCESS_KEY_ID` repository

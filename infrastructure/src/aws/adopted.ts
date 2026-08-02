@@ -35,11 +35,50 @@ import {stage} from "../config";
 const usEast1 = new aws.Provider("us-east-1", {region: "us-east-1"});
 
 /** `*.randytarampi.ca` for `prd`, `*.dev.randytarampi.ca` for `dev`. */
-export const apiCertificate = aws.acm.getCertificateOutput({
-    domain: stage === "prd" ? "*.randytarampi.ca" : "*.dev.randytarampi.ca",
-    statuses: ["ISSUED"],
-    mostRecent: true
-}, {provider: usEast1});
+export const apiCertificateDomain = stage === "prd" ? "*.randytarampi.ca" : "*.dev.randytarampi.ca";
+
+/**
+ * NOTE-RT: the one lookup here that is allowed to come back empty, and only outside `prd`.
+ *
+ * As of 2026-08-02 there is no `*.dev.randytarampi.ca` certificate — `us-east-1` has only
+ * `*.randytarampi.ca`. A hard lookup therefore fails `pulumi preview --stack dev` at this line,
+ * before a single resource is evaluated, which makes the entire `dev` stack unusable over one
+ * output that nothing in this program consumes: `acmCertificateArn` is published for `env.yml` to
+ * reference, and `service`'s own deploy reads its ARN from `env.yml`, not from here.
+ *
+ * `prd` still fails loudly. Losing production's certificate is not a degraded state.
+ *
+ * The `catch` is narrow on purpose. Only "no certificate found" is swallowed; an `AccessDenied`, a
+ * throttle or a credential failure rethrows, because "the certificate does not exist" and "I am not
+ * allowed to look" are very different facts and collapsing them is how a lookup stops being a
+ * drift signal. Requesting the certificate (DNS validation, zone `Z1FDZJSPGC7GU7`) is still the
+ * right fix — this only stops its absence from blocking everything else.
+ */
+const lookUpApiCertificateArn = async (): Promise<string | undefined> => {
+    try {
+        const certificate = await aws.acm.getCertificate({
+            domain: apiCertificateDomain,
+            statuses: ["ISSUED"],
+            mostRecent: true
+        }, {provider: usEast1});
+
+        return certificate.arn;
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+
+        if (stage === "prd" || !/no certificate/i.test(message)) {
+            throw error;
+        }
+
+        pulumi.log.warn(
+            `No ISSUED \`${apiCertificateDomain}\` certificate in us-east-1, so \`acmCertificateArn\` is `
+            + "unset for this stack. `sls create_domain` will fail until one is requested — request it "
+            + "with DNS validation against zone `randytarampi.ca.`."
+        );
+
+        return undefined;
+    }
+};
 
 /** The key this stage's SecureString parameters are encrypted under. */
 export const secretsKmsAlias = aws.kms.getAliasOutput({
@@ -52,6 +91,6 @@ export const hostedZone = aws.route53.getZoneOutput({
     privateZone: false
 });
 
-export const apiCertificateArn: pulumi.Output<string> = apiCertificate.arn;
+export const apiCertificateArn: pulumi.Output<string | undefined> = pulumi.output(lookUpApiCertificateArn());
 export const secretsKmsKeyArn: pulumi.Output<string> = secretsKmsAlias.targetKeyArn;
 export const hostedZoneId: pulumi.Output<string> = hostedZone.zoneId;
