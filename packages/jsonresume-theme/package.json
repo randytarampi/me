@@ -11,9 +11,9 @@
   "dependencies": {
     "@randy.tarampi/resume": "workspace:*",
     "@randy.tarampi/views": "workspace:*",
-    "config": "^4.4.1",
+    "config": "^5.0.1",
     "core-js": "^3.49.0",
-    "resume-cli": "3.7.1"
+    "resume-cli": "3.7.2"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
