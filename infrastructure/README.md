@@ -224,7 +224,7 @@ above), or the next `up` fails with `ParameterAlreadyExists`.
 | --- | --- | --- |
 | `me:stage` | — | `dev` or `prd`. Must match the GitHub environment name; the OIDC trust policy is pinned to it. |
 | `me:ownsGlobalResources` | `false` | `true` on `prd` only. |
-| `me:requiredStatusCheck` | unset | The `master` ruleset's required check. **Read it off a real green run**, don't guess — for a called workflow the check surfaces under the *caller's* job name. |
+| `me:requiredStatusCheck` | unset | **Deprecated, unread.** Was meant to gate `master`'s ruleset on a named check; removed 2026-08-29 because rulesets enforce required status checks on *every* push to the ref, not just PR merges, which rejected `release.yml`'s own version-bump commit with no bypass actor available on this personal-owned repository (see `src/github/rulesets.ts`). Safe to `pulumi config rm` if already set. |
 | `me:retireAwsAccessKeys` | `false` | Deletes the 2022 AWS secrets. Flip only after step 5 above. |
 | `me:npmTrustDryRun` | `true` | npm permits one trust configuration per package; a wrong one is revoked by id, not overwritten. Read the dry run first. |
 | `me:devDeploymentBranches` | `[]` | Extra branch patterns allowed to deploy to the **`dev`** environment, on top of `master`. Set on the **`prd`** stack. Temporary: for the pre-merge rehearsal only. |

@@ -1,21 +1,7 @@
 import * as github from "@pulumi/github";
-import * as pulumi from "@pulumi/pulumi";
 
 import {githubRepo, ownsGlobalResources} from "../config";
 import {provider} from "./provider";
-
-const config = new pulumi.Config("me");
-
-/**
- * The GitHub Actions app, so `release.yml` can push past its own protection.
- *
- * NOTE-RT: `15368` is not folklore — it is `GET /apps/github-actions`, checked rather than
- * remembered. `release.yml`'s `lerna version` pushes a version commit **and** a tag to `master`
- * using the checkout-persisted `GITHUB_TOKEN`, so both rulesets below need this bypass or the
- * release fails on its own protection. This is precisely the exemption `release.yml:9`'s comment
- * has been claiming exists since before `master` was protected at all.
- */
-const githubActionsAppId = 15368;
 
 /**
  * Repository admin, so a human is never locked out of their own repository.
@@ -24,34 +10,37 @@ const githubActionsAppId = 15368;
  */
 const repositoryAdminRoleId = 5;
 
+/**
+ * NOTE-RT: there used to be a second entry here — `{actorId: 15368, actorType: "Integration",
+ * bypassMode: "always"}` for the `github-actions` app (`15368` from `GET /apps/github-actions`),
+ * so `release.yml`'s `lerna version` could push its version-bump commit and tag past these two
+ * rulesets using the checkout-persisted `GITHUB_TOKEN`. It does not work: `randytarampi/me` is a
+ * personal, user-owned repository, and GitHub's ruleset API rejects an `Integration` bypass actor
+ * unless that app is installed on the ruleset's own repository or an owning organization — found
+ * as `POST .../rulesets: 422 … Actor GitHub Actions integration must be part of the ruleset
+ * source or owner organization` on the first `pulumi up --stack prd`, for both rulesets below,
+ * since they share this array. Personal accounts have no owning organization, and the built-in
+ * Actions bot is not a discoverable app installation on this repository either.
+ *
+ * Rather than reintroduce a long-lived credential to push as a real `User` bypass actor instead,
+ * the two rules that actually needed a bypass were removed below: tag *creation* is no longer
+ * restricted, and `master`'s required-status-check rule is gone. Both changes are explained where
+ * they used to be.
+ */
 const bypassActors: github.types.input.RepositoryRulesetBypassActor[] = [
-    {actorId: githubActionsAppId, actorType: "Integration", bypassMode: "always"},
     {actorId: repositoryAdminRoleId, actorType: "RepositoryRole", bypassMode: "always"}
 ];
 
 /**
- * The name of the check that must pass before `master` will accept a push.
- *
- * NOTE-RT: not guessed, and not defaulted. For a called workflow the check surfaces under the
- * *caller's* job name, so the string is a property of how `ci.yml` invokes `test.yml`, not of
- * either file in isolation — and this repository has never produced one: the only check runs on
- * `master` today are Dependabot's. Read the real name off the first green run with
- * `gh api repos/randytarampi/me/commits/<sha>/check-runs --jq '.check_runs[].name'`, then
- * `pulumi config set --stack prd me:requiredStatusCheck '<name>'`.
- *
- * Until it is set, the ruleset is still created — deletion and force-push protection are worth
- * having on their own — but without a status-check rule, and the preview says so.
+ * NOTE-RT: `master` used to also require a named status check here, read from `me:requiredStatusCheck`
+ * and applied as `requiredStatusChecks` below. Removed: GitHub evaluates a ruleset's required-status-
+ * check rule against *every* push to the ref, not only pull-request merges, so it rejected
+ * `release.yml`'s own `lerna version` commit — a brand-new commit that was never itself run through
+ * CI — with no bypass actor available to get it past that one rule on this personal-owned repository
+ * (see the note above `bypassActors`). CI still fully gates every pull request before it reaches
+ * `master`; this only stopped re-enforcing that a second time on the ref itself, which is the one
+ * enforcement point a personal account cannot bypass around. `me:requiredStatusCheck` is unused now.
  */
-const requiredStatusCheck = config.get("requiredStatusCheck");
-
-if (ownsGlobalResources && !requiredStatusCheck) {
-    pulumi.log.warn(
-        "No `me:requiredStatusCheck` configured, so `master` is protected against deletion and " +
-        "force-pushes but not against merging red. Read the real check name off the first green " +
-        "run — `gh api repos/randytarampi/me/commits/<sha>/check-runs --jq '.check_runs[].name'` — " +
-        "and set it. Guessing it produces a rule that silently matches nothing."
-    );
-}
 
 /**
  * `master` protection, which `release.yml:9` has claimed as a prerequisite while the branch had
@@ -76,18 +65,7 @@ export const masterRuleset = ownsGlobalResources
         bypassActors,
         rules: {
             deletion: true,
-            nonFastForward: true,
-            ...(requiredStatusCheck
-                ? {
-                    requiredStatusChecks: {
-                        requiredChecks: [{context: requiredStatusCheck}],
-                        // NOTE-RT: `strict` would additionally demand the branch be up to date with
-                        // its base before a push lands. On a repository whose own release job
-                        // pushes to `master`, that turns every release into a race.
-                        strictRequiredStatusChecksPolicy: false
-                    }
-                }
-                : {})
+            nonFastForward: true
         }
     }, {provider})
     : undefined;
@@ -95,10 +73,13 @@ export const masterRuleset = ownsGlobalResources
 /**
  * Release tags, which are the input to every deploy.
  *
- * NOTE-RT: `creation: true` *restricts* creation rather than permitting it — combined with the
- * bypass actors above, that means only `release.yml` (and a human admin) can mint a `v*` tag.
- * Deletion and force-moves are blocked outright, because a moved release tag silently rewrites what
- * a published version means.
+ * NOTE-RT: creation is deliberately *not* restricted, unlike the design this replaced. `creation:
+ * true` would have restricted minting a `v*` tag to bypass actors only — which is exactly what broke
+ * on this personal-owned repository (see the note above `bypassActors`): no `Integration` bypass
+ * actor is usable here, so `release.yml`'s `lerna publish` tag push would have been rejected with
+ * no way past it. Once a `v*` tag exists, though, it is immutable: deletion and force-moves are
+ * still blocked outright, because a moved or deleted release tag silently rewrites what a published
+ * version means, and neither of those needs a bypass actor for the normal release flow.
  */
 export const releaseTagRuleset = ownsGlobalResources
     ? new github.RepositoryRuleset("release-tags", {
@@ -114,7 +95,6 @@ export const releaseTagRuleset = ownsGlobalResources
         },
         bypassActors,
         rules: {
-            creation: true,
             deletion: true,
             nonFastForward: true,
             update: true
