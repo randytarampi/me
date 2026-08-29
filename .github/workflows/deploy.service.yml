@@ -61,6 +61,16 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build workspace dependencies
+        # NOTE-RT: `service` has no `build` script of its own, but its Serverless file resolvers
+        # (`src/serverless/dynamodb/*.js`) import `@randy.tarampi/js`, `@randy.tarampi/lambda-logger`
+        # and `@randy.tarampi/serverless` by their `esm/` entry points — a fresh checkout has never
+        # compiled those. Unlike `test.yml`, this job never runs an Nx target with `dependsOn:
+        # ["^build"]`, so nothing builds those dependencies implicitly; found the hard way as
+        # `Cannot find package '…/@randy.tarampi/lambda-logger/esm/index.js'` on the first real
+        # `Deploy service` run.
+        run: yarn build
+
       - name: Assume the deploy role
         uses: aws-actions/configure-aws-credentials@v6
         with:
