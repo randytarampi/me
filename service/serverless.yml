@@ -6,22 +6,23 @@ provider:
   name: aws
   runtime: nodejs24.x
 
+  # NOTE-RT: `apiKeys` lives here, not directly under `provider`. Serverless v4's stricter schema
+  # rejects `provider.apiKeys` as unrecognized - the framework itself now reads it from
+  # `provider.apiGateway.apiKeys` (confirmed against the installed `serverless` package's compiled
+  # source), a nesting change from older versions that this file predates.
   apiGateway:
     minimumCompressionSize: 1024
+    apiKeys:
+    - ${self:provider.stage}-${self:service}-user
 
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
-  baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
-  domainName: ${file(env.yml):${self:provider.stage}.domainName}
   memorySize: 256
   timeout: 30
 
   tracing:
     apiGateway: true
     lambda: true
-
-  apiKeys:
-  - ${self:provider.stage}-${self:service}-user
 
   iamRoleStatements:
   - Effect: Allow
@@ -125,6 +126,12 @@ custom:
     prd: prd-service-authInfo-2019-01-18
   postsTableName: ${self:custom.postsTableNamesByStage.${self:provider.stage}}
   authInfoTableName: ${self:custom.authInfoTableNamesByStage.${self:provider.stage}}
+  # NOTE-RT: these two used to live directly under `provider`, purely as shared values for `env.yml`
+  # to reference back (`${self:provider.baseDomainName}`) rather than repeating the `${file(env.yml):…}`
+  # lookup. Serverless v4's stricter schema rejects unrecognized `provider` properties - neither is
+  # a real core or plugin-defined property, so they moved here, where `custom` tolerates anything.
+  baseDomainName: ${file(env.yml):${self:provider.stage}.baseDomainName}
+  domainName: ${file(env.yml):${self:provider.stage}.domainName}
   # NOTE-RT: no `dynamodb:` block, and no `serverless-dynamodb` plugin. The local database is a
   # `localstack/localstack` container started by `service/package.json`'s `localstack:*` scripts,
   # and the tables are created by `src/serverless/dynamodb/migrate.js` against it. Nothing about
@@ -151,8 +158,13 @@ custom:
     endpointType: edge
     createRoute53Record: true
     basePath: ""
+  # NOTE-RT: `default` names the (only) warmer. Serverless v4's stricter schema requires every
+  # warmer to be an object keyed by name under `custom.warmup`, and functions opt in the same way
+  # (`warmup.default.enabled`) - the old flat `custom.warmup.prewarm` / `functions.*.warmup.enabled`
+  # shape errored with "must be object" and "Every warmer should be declared in the custom section".
   warmup:
-    prewarm: true
+    default:
+      prewarm: true
 
 # NOTE-RT: can't just go `${file(env.yml):${self:provider.stage}.functions}` - `env.yml` carries
 # only each function's `events` (plus `getPostsRss`'s `CAMPAIGN_MEDIUM`), because those are the
@@ -171,7 +183,8 @@ functions:
     onError:
       Ref: LambdaDeadLetterQueue
     warmup:
-      enabled: true
+      default:
+        enabled: true
   getPostsRss:
     handler: src/serverless/handlers/getPostsRss/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
@@ -180,7 +193,8 @@ functions:
     environment:
       CAMPAIGN_MEDIUM: rss
     warmup:
-      enabled: true
+      default:
+        enabled: true
 
 resources:
   Resources:
