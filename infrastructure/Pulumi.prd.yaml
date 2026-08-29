@@ -13,3 +13,6 @@ config:
   # settings and the npm trusted publishers. `dev` references them rather than creating a second
   # copy, which IAM and GitHub would both reject. See `src/config.ts`.
   me:ownsGlobalResources: "true"
+  me:requiredStatusCheck: test / Run affected test suite (24)
+secretsprovider: awskms://alias/serverless-prd?region=ca-central-1
+encryptedkey: AQICAHi8KvDrpmNRNqlu4t6u71fmXNWsHmz668ZwJ/1dLcXL2AF5hJqwGhcIE7Pyr5EksHdSAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMQGzORh5p473oYR1LAgEQgDsTdgwR/fttKwR2nVMM9hJ7xCO7xr9V75EbLma0HEoURQVLksqtLlP3dAUNQ2c/E+pepQwodM2V+yiASA==

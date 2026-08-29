@@ -4,3 +4,5 @@
 config:
   aws:region: us-east-1
   me:stage: dev
+secretsprovider: awskms://alias/serverless-dev?region=us-east-1
+encryptedkey: AQICAHjhae86pbofeP6AeBWYMaV93AuDnwsmgCgAkSQD4O4sKgHBT15Zz7GeNBuJiCgLYRJxAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMKLK8y8UxX/sk7qUGAgEQgDtXAGQ7LP3SaptvjxiXs+9lBKJs4eKvTOghsIYK1UjLfatyHTItwjOcfPZAtDFx6Hz2bsQjTBMxuwAjSg==
