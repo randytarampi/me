@@ -151,6 +151,17 @@ const serviceDeployPolicy = new aws.iam.Policy(`me-deploy-service-${stage}`, {
                 Resource: `arn:aws:logs:${region}:${account}:log-group:/aws/lambda/service-${stage}-*`
             },
             {
+                // NOTE-RT: found the hard way, `AccessDenied` on `events:DescribeRule` while
+                // creating `WarmUpPluginDefaultEventsRuleSchedule1` — the CloudFormation stack
+                // manages an `AWS::Events::Rule` per scheduled function (`cachePosts`'s seven
+                // crons, plus the warmup plugin's own warmer schedule since it moved to the
+                // multi-warmer config), and nothing in this policy granted `events:*` at all.
+                Sid: "OwnEventRules",
+                Effect: "Allow",
+                Action: "events:*",
+                Resource: `arn:aws:events:${region}:${account}:rule/service-${stage}-*`
+            },
+            {
                 Sid: "OwnTablesBucketAndTopic",
                 Effect: "Allow",
                 Action: ["dynamodb:*", "sns:*"],
