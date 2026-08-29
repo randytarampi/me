@@ -14,5 +14,27 @@ config:
   # copy, which IAM and GitHub would both reject. See `src/config.ts`.
   me:ownsGlobalResources: "true"
   me:requiredStatusCheck: test / Run affected test suite (24)
+  me:secret.flickr-api-key:
+    secure: v1:nbHrA/9L7PqROZvC:tgKzVlmsmDZkYN1E1B/ALjhHmoC/+nd2Lak0rGQSQLr0S9rbrQx1rjZTuPhVWT8k
+  me:secret.flickr-api-secret:
+    secure: v1:6yRm3IAmYBaQCxhd:60EXNLIKg/fbbm+1EhDDqhi1awxnDy0jOeDtE1P5sbE=
+  me:secret.unsplash-api-key:
+    secure: v1:ZaHbGLw2VHMc0EMQ:pD61XdwPvvyo5cIQuqKFBHokOnpsu59oVRBwiE1O5rH3uIYm6YGd5oIcm+mySYpWL1kw5GOxr81BCRjPniW/W/+66/oE76sDACjvAlfztmI=
+  me:secret.unsplash-api-secret:
+    secure: v1:P0Y4rH14TViHPnj7:VeesQRL+REEnIRyrzE22oitgtxCjXcEfGM3XYwcJjf4dxTCmsl8y4HeelPLegPx8Wt4xLzDc7HXon5HinCPPCoBaD/iqovk/LbJNHskWBEk=
+  me:secret.tumblr-api-key:
+    secure: v1:6AgqHoz7JJ7luHSO:d//RiNrAXN+qyd6R8vtkslFbtFy0JFT+nfQi0uIZE5DQer3WnKaf0RUZOD4sTtHwqEaXBiwUZk7yuEKGjXUxge9z
+  me:secret.tumblr-api-secret:
+    secure: v1:3BBS+OOBmgd2h4sX:2Sbk8RKirF6Qwv6J6YLXKnfLovTgFbrTO1ub9oMJ9HtNkXo+wz+URP3lQTrHiW6aAea7CUInopy+InxmV+MWd8bB
+  me:secret.github-api-key:
+    secure: v1:7r5Cc+OR9DmCnR7o:yJPBGy+rvrXNXROTCDwa0UVni99CdOz6MUnK3h8BeiCsOtza
+  me:secret.github-api-secret:
+    secure: v1:KfZ17Yj2Idfew49G:mlETiRh5K725kfQX3E1FQJVytFbL2RY8okyWkbLnmgBKcrx6Mt13bGHLPIq/mT3JOmyLUaRD25I=
+  me:secret./serverless-framework/license-key:
+    secure: v1:ljuLYSWystMKJoXB:vWsCRiwuyPL3gdsJqDOSY5HEw3MeDHMOPFlVmbabjD5b1L5ZS59zye8wUbOhlp1JnY+4md2xlozK0XfEuZKHTAL6QTnYlMoJZALsRpUh3Sc8qZPKNERM7iTa3JpeHdnBKGMgJbJXBY/q+cW9N3qqC4V3VdApCQ45afXi+tVIZY9u8b9eDULAxylC+wbzPzMJFIcGVXjKkkCK3exna4h7ECvOdh/jpwh2lz2GZZpgW59MVCsWJPj0WHw1Jb9Hfabp/H1CgXyqACB5lgaJwMXajbqhoWgO6TjyJ9NYJlT1PP0NAAYO7PBeh5ka8K0/nVBh4rFlKbr5Rzs4QKxHMwKfXRk3VNKpggTpQaCZZoAJTmZ9cV5V6qCzWxLleD7D+M1dkWmCjfwNMrMeMpk5YBLvd3sdGBEa7IfyWxIPe6BPgGMpyWZ2nCpDkNpvgjA/sTdtGB20SbVxLlrzNHJ5YAXEeIfhSOfb+ebtXY9Q5RqNv7E6W+EbjA0AYULkmhql4/gHRi4iulo240E7n52W55t6ol5C21Njzk31mxttAD6pBviOpvq7kXZe60TORvsDwZkyS7qef8BDIZdlJHTatSs72grCFErcPg0Ly5eSFeZA9ZZ4oPzeHmYeV5/xTFFQzXCfWFJqCEFN89heX7VZ6tOp6k05qM/IRn/HiZmfmzmIRbzZLa3bl1sj0g/SrvUu/7OSP6jCCFwP/VW98Lu/52k=
+  me:secret.sentry-dsn:
+    secure: v1:LoMTGmBauEEs9cFX:4pZqxo/dTsxYi/670jVaA0YzIvZcWeCd6fICGtRjABblx9iLQXJdotkyHAOFrH03L7r6shdemd6nA5TSoVjH4qZOciAfek+4O0E=
+  me:devDeploymentBranches:
+    - chore/shippable-backlog
 secretsprovider: awskms://alias/serverless-prd?region=ca-central-1
 encryptedkey: AQICAHi8KvDrpmNRNqlu4t6u71fmXNWsHmz668ZwJ/1dLcXL2AF5hJqwGhcIE7Pyr5EksHdSAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMQGzORh5p473oYR1LAgEQgDsTdgwR/fttKwR2nVMM9hJ7xCO7xr9V75EbLma0HEoURQVLksqtLlP3dAUNQ2c/E+pepQwodM2V+yiASA==

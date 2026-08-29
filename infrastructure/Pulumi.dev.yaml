@@ -4,5 +4,25 @@
 config:
   aws:region: us-east-1
   me:stage: dev
+  me:secret.flickr-api-key:
+    secure: v1:xpVx3sU5xtJ313o6:KYCcM+wC/LwiDyzr0uFLA117dNfXLNBuNyuLlpJFz4QCb6yYtei3EVGN6Gn+KyX5
+  me:secret.flickr-api-secret:
+    secure: v1:qfW29OcWJdfNbMSD:OU/564l88Io5DQd+saFhDB2LANDJ/XiA23V6JPsKgVM=
+  me:secret.unsplash-api-key:
+    secure: v1:lwcRBigTCX5Hy/2J:SIfBL8PpnifwdmXAr5BdrJ4rv8poM/mNtLqrjJo7G0UFH/TNecEVt523Wx+LNykd39udvg7pcUgOtO44RhupKJ8woe6YLgjzoZC6BVFxJV4=
+  me:secret.unsplash-api-secret:
+    secure: v1:Mmkze2VKsYkOayhg:Q9K2T3JP9GaGwlqySXWJ7S8jbwwRwkwiBRLcTLaLuWZirDfH5p9EijNfM1v1JePHW/vN4xLnOTMTKGokuZ6xqQcq35FGl4w+ce49Pldf/pE=
+  me:secret.tumblr-api-key:
+    secure: v1:Noa643O2+sn71X02:C20MkuaF6a4XEPxMi7MMqU0hn7lNrVSlZgsRJ6FP/9HKmhuo72dNW9Osj5FzmRp627FfE0ICmaIRQc2tGKaEy7Vj
+  me:secret.tumblr-api-secret:
+    secure: v1:3s58nMHAZQM4vJ5s:Vtpg2snFhWPBGn3bgQaOPeuYS2x2DlnfPXgsCpNDwLZ43QAFNFV+9xzGdCkCVYrO9QwLBOAEDLp3kiNHDNlFVOId
+  me:secret.github-api-key:
+    secure: v1:Icqu6XfLk4vh46ze:yJvQfiN2HN22sNLvlBwQ7MUi6d/NaN2lKoaMjl8mvMXGk9A+
+  me:secret.github-api-secret:
+    secure: v1:D5DMT3IPbOkxeDEb:s1AoBO/br31+9J3WTnsiDFaNgYJ48KyFad9mxms6LKdDcwUa3JgyIltBvK7lNs5YHgEOOxOKoJ4=
+  me:secret.sentry-dsn:
+    secure: v1:zmByLA2vItUdXmt1:YhmxTVhbMuJek5EPaM+t1wTbqA6cxhQGRGp3E1K3zJaXr1y67yyAcj1CvgtIhB++9wvSHTetyFQ3FF9vx4KaFFtoH2oitHiOMqE=
+  me:secret./serverless-framework/license-key:
+    secure: v1:VSR6uPUewvgyk4x4:FDUWV0khddx8H3JtOQbeh6MlWgw6uL3Iqsw4Eaqy3T4wURMdoIqcfw5WumGa6Dn3mCPY1od/UFoqKO43ZtnHjw1NSE795sd1DhdDgvIGtOSCliD3+rVKK3Mxip0DM4gliAgH2+W2K8/HDGES5bk5Cwj33xbaQNRVkvASaM7ML+hRHoTXDWL1H9sCnrSkjn2ZfUMzUGMbKGTFBeFhItPA9h9BY3ExcNc/+ry403HF0n2QBtmEhN+bHUMZy5vPsQXqiXsbHvp+U5IALNQSHFlW4e8TfEpEz2+AY+XRNDsPXaUrnRDKpp8L7M6ACsMZG+XRboCwEz6n9cKL+N4XP02POCmEjHpsCH1Vn3eB1ZMh0Z9qcbanOAKWYr3FsHTKFK2nlODwfg71eJ41ZyXe1EeUytnJRHVUgiWJw+TPC97yoxVTbAObBAntOJqJhUYXMnEkYxibYeVSKmttdkyMLyGGKBFVNcWdjg5ObAnFZhyeuFtU1mEEvT+l8pGeJqzDWnLZ5MC0s6zvlcdVPlz9jfbB+1CvfotXobHHXHnNw6mzJx9UdB7TjyOaFrVzVI7pkumprepMofZiXgjSe4PlMlLDhsjQsF3ajJkF1ueO5vAMCkeRG3bYxQxlb8L3YQHddtiITUNRqnldPiV3juBqvm+ag1ua6DgTCLHTPmcI1jdlojn3kHc5rySd/EGpj/dRzYanYqnIP2lwLua6MErSDzw=
 secretsprovider: awskms://alias/serverless-dev?region=us-east-1
 encryptedkey: AQICAHjhae86pbofeP6AeBWYMaV93AuDnwsmgCgAkSQD4O4sKgHBT15Zz7GeNBuJiCgLYRJxAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMKLK8y8UxX/sk7qUGAgEQgDtXAGQ7LP3SaptvjxiXs+9lBKJs4eKvTOghsIYK1UjLfatyHTItwjOcfPZAtDFx6Hz2bsQjTBMxuwAjSg==
