@@ -80,19 +80,25 @@ requires AWS credentials, and the only credentials that exist today are the ones
 
    - **Nine of the thirteen service parameters already exist**, identically in both regions, dating
      to 2018-10-31: `flickr-api-{key,secret}`, `unsplash-api-{key,secret}`, `tumblr-api-{key,secret}`,
-     `github-api-{key,secret}` and `sentry-dsn`. Four do not — `youtube-api-key`,
-     `vimeo-access-token`, `stackoverflow-api-key`, `soundcloud-access-token` — nor does
-     `/serverless-framework/license-key`. Step 3 below is not optional.
-   - **Only `*.randytarampi.ca` is ISSUED in `us-east-1`.** There is no `*.dev.randytarampi.ca`
-     certificate. `src/aws/adopted.ts` degrades rather than fails for that one lookup on `dev`, so
-     the stack still comes up — `acmCertificateArn` is simply empty, and a warning says so. But
-     `sls create_domain --stage dev` will fail until one is requested (DNS validation, zone
-     `Z1FDZJSPGC7GU7`), so the full `dev` rehearsal needs it. On `prd` a missing certificate is
-     still a hard error.
+     `github-api-{key,secret}` and `sentry-dsn`. Four did not — `youtube-api-key`,
+     `vimeo-access-token`, `stackoverflow-api-key`, `soundcloud-access-token` — nor did
+     `/serverless-framework/license-key`, which was set directly in both regions on 2026-08-29 via
+     the console rather than through `pulumi import`/`config set`; import it on both stacks anyway
+     so Pulumi's state agrees with what is actually in SSM. The other four remain unset and that is
+     fine now: every `${ssm:…}` reference in `service/env.yml` carries a `, ''` default (decided
+     2026-08-29), so an unset parameter degrades the one source that needed it instead of failing
+     the whole deploy — set them whenever a value shows up, not before.
+   - **`*.dev.randytarampi.ca` was ISSUED in `us-east-1` on 2026-08-29** (DNS-validated against zone
+     `Z1FDZJSPGC7GU7`, ARN `certificate/b7723060-01e4-4697-a94f-f8f3f761509a`), and `service/env.yml`
+     now points at it. `src/aws/adopted.ts` still degrades rather than fails if a `dev` certificate
+     is ever missing again, so the stack comes up either way — `acmCertificateArn` is simply empty
+     and a warning says so when it is. On `prd` a missing certificate is still a hard error.
    - Both KMS aliases are `Enabled`, the hosted zone is `Z1FDZJSPGC7GU7`, there are no OIDC
-     providers, and the state bucket does not exist. IAM user `rawr` has **two** active access keys
-     (2020-04-04 and 2026-01-13) — work out which one is in the `AWS_ACCESS_KEY_ID` repository
-     secret before deleting either, because the other is probably the one you are typing with.
+     providers, and the state bucket does not exist. IAM user `rawr` had **two** active access keys
+     as of the 2026-08-02 recon (2020-04-04 and 2026-01-13); the credentials configured locally on
+     2026-08-29 use a third (`AKIAW3Y2NU6FEHK5TVWL`), which does not match either — re-run
+     `aws iam list-access-keys` before retiring anything in step 6, and confirm against the
+     `AWS_ACCESS_KEY_ID` repository secret specifically, not just what is active on this machine.
 
 1. **Create the state bucket**, once, with the existing admin credentials:
 
@@ -119,25 +125,31 @@ requires AWS credentials, and the only credentials that exist today are the ones
 
 3. **Import the parameters that already exist, before setting any value.** `aws.ssm.Parameter` in
    `src/aws/secrets.ts` has no `overwrite`, so a create against an existing parameter fails the
-   whole `up` with `ParameterAlreadyExists`:
+   whole `up` with `ParameterAlreadyExists` — and that now includes the licence key, set directly
+   through the console on 2026-08-29 rather than through this program:
 
    ```bash
    for p in flickr-api-key flickr-api-secret unsplash-api-key unsplash-api-secret \
-            tumblr-api-key tumblr-api-secret github-api-key github-api-secret sentry-dsn; do
+            tumblr-api-key tumblr-api-secret github-api-key github-api-secret sentry-dsn \
+            /serverless-framework/license-key; do
      pulumi import --stack prd --yes aws:ssm/parameter:Parameter "$p" "$p"
      pulumi import --stack dev --yes aws:ssm/parameter:Parameter "$p" "$p"
    done
    ```
 
    Both stacks, because the parameters exist in both regions and the stages are separated by region
-   rather than by namespace. Only then `pulumi config set` the four missing ones and the licence key.
+   rather than by namespace. The four still-missing ones (`youtube-api-key`, `vimeo-access-token`,
+   `stackoverflow-api-key`, `soundcloud-access-token`) don't need `pulumi config set` before the
+   first `up` — every `${ssm:…}` reference in `service/env.yml` now degrades gracefully, so set
+   them whenever a value turns up.
 
 4. **Apply `prd`, then `dev`.** `prd` owns the globals, so it goes first.
 
    `pulumi up --stack prd` also runs three `command.local.Command` resources **on this machine** —
    `gh secret delete`, `gh api … /pages` for Enforce HTTPS, and the npm trust dry run — so `gh` and
-   `npm` have to be authenticated here, not just AWS. Export `GITHUB_TOKEN="$(gh auth token)"` first;
-   the `@pulumi/github` provider reads it.
+   `npm` have to be authenticated here, not just AWS. The `@pulumi/github` provider reads
+   `GITHUB_TOKEN`, falling back to `GH_TOKEN` if that's what's already exported — export
+   `GITHUB_TOKEN="$(gh auth token)"` first if neither is set.
 
 5. **Prove the role works before deleting anything.** Switch `deploy.service.yml` to
    `role-to-assume` (already done), run it via `workflow_dispatch`, and confirm the
@@ -171,7 +183,10 @@ requires AWS credentials, and the only credentials that exist today are the ones
 
    Deleting them before step 5 passes leaves no credential with which to create the replacement.
    `me:retireAwsAccessKeys` removes the *GitHub secrets*; the underlying IAM keys are a separate
-   `aws iam delete-access-key`, and there are two of them on `rawr`.
+   `aws iam delete-access-key`. Re-run `aws iam list-access-keys` immediately before this step and
+   confirm which key id is actually in the `AWS_ACCESS_KEY_ID` repository secret — `rawr` has
+   carried more than two over the life of this account, and the one active on whichever machine
+   runs this command is not necessarily the one to delete.
 
 ## Two things that cannot be automated
 
@@ -187,6 +202,9 @@ bound to the *calling* repository.
    interim, or switch `deploy.pages.reusable.yml` to `actions/create-github-app-token` and store the
    App id and private key instead.
 
+Decided 2026-08-29: **stay on the interim PAT for now.** No App has been created; nothing in
+`deploy.pages.reusable.yml` changes. Revisit once the App is worth the click.
+
 **Obtaining the Serverless Framework licence key.** Get it from the Serverless dashboard, then:
 
 ```bash
@@ -195,6 +213,10 @@ pulumi config set --stack prd --secret 'me:secret./serverless-framework/license-
 
 It goes to SSM rather than to a GitHub secret, because the deploy role already needs
 `ssm:GetParameter` to resolve the `${ssm:…}` credential references in `service/env.yml`.
+
+**Already done, 2026-08-29** — set directly in SSM in both regions, through the console rather than
+through this command. That means it needs `pulumi import`, not `pulumi config set` (see step 3
+above), or the next `up` fails with `ParameterAlreadyExists`.
 
 ## Configuration
 
@@ -206,7 +228,7 @@ It goes to SSM rather than to a GitHub secret, because the deploy role already n
 | `me:retireAwsAccessKeys` | `false` | Deletes the 2022 AWS secrets. Flip only after step 5 above. |
 | `me:npmTrustDryRun` | `true` | npm permits one trust configuration per package; a wrong one is revoked by id, not overwritten. Read the dry run first. |
 | `me:devDeploymentBranches` | `[]` | Extra branch patterns allowed to deploy to the **`dev`** environment, on top of `master`. Set on the **`prd`** stack. Temporary: for the pre-merge rehearsal only. |
-| `me:secret.<parameter-name>` | unset | An SSM SecureString value. Unset parameters are skipped, not defaulted. |
+| `me:secret.<parameter-name>` | unset | An SSM SecureString value. Unset parameters are skipped, not defaulted — and every `${ssm:…}` reference to one in `service/env.yml` resolves to `''`, so the source that needed it is simply switched off rather than blocking the deploy. |
 | `me:githubSecret.<NAME>` | unset | A GitHub Actions secret value. Same. |
 
 One of those thirteen values needs saying out loud, because it is the only one that also exists in
