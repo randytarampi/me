@@ -13,8 +13,9 @@
  *
  * The list is the whole set of thirteen. It used to be larger than what `serverless.yml` named,
  * because the old `serverless-secrets` plugin's `throwOnMissingSecret` turned one absent parameter
- * into a runtime outage across every function; with `${ssm:…}` an absent parameter fails the deploy
- * instead, so `env.yml` now names all thirteen and the two lists agree.
+ * into a runtime outage across every function; `env.yml` now names all thirteen and the two lists
+ * agree. Each `${ssm:…}` reference there also carries a `, ''` default (decided 2026-08-29), so an
+ * absent parameter degrades just that one source rather than failing the deploy or the function.
  */
 export const serviceSecretNames: Readonly<Record<string, string>> = {
     FLICKR_API_KEY: "flickr-api-key",

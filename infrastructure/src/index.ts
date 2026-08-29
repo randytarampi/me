@@ -44,9 +44,10 @@ export const infrastructurePreviewRoleArn: pulumi.Output<string> | undefined =
  *
  * NOTE-RT: exported so the gap is visible in `pulumi stack output` rather than only in a preview
  * warning nobody scrolls back to. Anything listed in `unmanagedSecrets` still has a `${ssm:…}`
- * reference in `service/env.yml`'s `provider.environment` with no parameter behind it, and an
- * unresolvable reference fails the whole deploy — so this list is the set of things to supply
- * before the next `sls deploy`, not a set of merely degraded sources.
+ * reference in `service/env.yml`'s `provider.environment`, but every one of those now carries a
+ * `, ''` default — an unresolved parameter degrades the one source that needed it instead of
+ * failing the deploy. So this list is a backlog of sources currently switched off, worth supplying
+ * a value for eventually, not a blocker for the next `sls deploy`.
  */
 export const managedSecrets = managedSecretNames;
 export const unmanagedSecrets = unmanagedSecretNames;

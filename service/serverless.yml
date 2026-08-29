@@ -132,11 +132,11 @@ custom:
   # needed a JAR downloaded and a JVM started, which is exactly the dependency this removes.
   #
   # NOTE-RT: no `serverlessSecrets:` block either, and nothing replaces it. The credentials are
-  # `${ssm:…}` references in `env.yml`, so there is no `throwOnMissingSecret` to set (an
-  # unresolvable reference fails the deploy outright), no KMS alias to name per stage (SSM decrypts
-  # `SecureString` parameters itself), and no `package.patterns` entry for a `.serverless-secrets
-  # .json` manifest that no longer gets written. The execution role also loses the wildcard
-  # `ssm:GetParameters` the plugin injected at `before:package:setupProviderConfiguration`.
+  # `${ssm:…}` references in `env.yml`, each with a `, ''` default (decided 2026-08-29 - see the
+  # comment there), so there is no `throwOnMissingSecret` to set, no KMS alias to name per stage
+  # (SSM decrypts `SecureString` parameters itself), and no `package.patterns` entry for a
+  # `.serverless-secrets.json` manifest that no longer gets written. The execution role also loses
+  # the wildcard `ssm:GetParameters` the plugin injected at `before:package:setupProviderConfiguration`.
   alarmTopic: ${file(env.yml):${self:provider.stage}.alarmTopic}
   serverless-offline:
     httpPort: ${file(src/serverless/util/loadConfig.cjs):posts.serverPort}

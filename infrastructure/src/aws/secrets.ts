@@ -15,8 +15,10 @@ const kmsKeyAlias = `alias/serverless-${stage}`;
  * NOTE-RT: a missing value is skipped rather than defaulted. Creating the parameter with a
  * placeholder would be worse than not creating it: the `${ssm:…}` reference in `env.yml` would
  * resolve, the deploy would succeed, and the source would fail at run time against the live API
- * with a credential that looks present. `pulumi preview` warning about the gap is the honest
- * failure mode, and an unresolvable reference failing the deploy is the second line of defence.
+ * with a credential that looks present. `pulumi preview` warning about the gap is the intended
+ * signal now — every `${ssm:…}` reference in `env.yml` carries a `, ''` default (decided
+ * 2026-08-29), so a missing parameter degrades the one source that needed it rather than failing
+ * the whole deploy the way it used to.
  *
  * Values are supplied out of band and stored encrypted in `Pulumi.<stack>.yaml` by this stack's KMS
  * secrets provider:
@@ -29,10 +31,9 @@ const secureParameter = (parameterName: string) => {
     if (!value) {
         pulumi.log.warn(
             `No value configured for SSM parameter '${parameterName}'. It is not being managed by ` +
-            `this stack. Set it with \`pulumi config set --stack ${stage} --secret ` +
-            `me:secret.${parameterName} '…'\`, or drop its \`\${ssm:${parameterName}}\` reference ` +
-            `from \`provider.environment\` in service/env.yml — an unresolvable reference fails ` +
-            `the whole deploy, not just the one source that needed it.`
+            `this stack, and the source(s) that read it are running without that credential. Set ` +
+            `it with \`pulumi config set --stack ${stage} --secret me:secret.${parameterName} '…'\`` +
+            ` once a value is available.`
         );
 
         return undefined;
