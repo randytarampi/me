@@ -62,7 +62,7 @@
     "cover": "cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test",
     "job-application": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-application",
     "job-applications": "cross-env-shell NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=pdf CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") gulp -LLLL --color job-applications",
-    "kill:server": "if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;",
+    "kill:server": "bash -c 'if [ -f /tmp/ca.randytarampi.me.job-application.server.pid ]; then echo \"Killing server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\"; kill -9 `cat /tmp/ca.randytarampi.me.job-application.server.pid`; rm /tmp/ca.randytarampi.me.job-application.server.pid; fi;'",
     "postinstall": "mkdir -p dist",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",

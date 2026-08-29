@@ -32,7 +32,7 @@
   "scripts": {
     "build": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
-    "prepack": "if [ ! -d \"./dist\" ]; then exit 74; fi;",
+    "prepack": "bash -c 'if [ ! -d \"./dist\" ]; then exit 74; fi;'",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint"
   },
