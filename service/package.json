@@ -62,7 +62,7 @@
   "scripts": {
     "clean": "gulp -LLLL --color clean",
     "cover": "yarn run pretest:localstack && cross-env-shell NODE_ENV=test nyc gulp -LLLL --color test && yarn run kill:localstack",
-    "deploy": "if [ -z \"$NODE_ENV\" ]; then cross-env-shell NODE_ENV=dev yarn run deploy; else yarn run deploy:$NODE_ENV; fi; ",
+    "deploy": "bash -c 'if [ -z \"$NODE_ENV\" ]; then cross-env-shell NODE_ENV=dev yarn run deploy; else yarn run deploy:$NODE_ENV; fi;'",
     "deploy:dev": "sls create_domain --stage $NODE_ENV --region us-east-1 && sls deploy --conceal --stage $NODE_ENV --region us-east-1",
     "deploy:prd": "sls create_domain --stage $NODE_ENV --region ca-central-1 && sls deploy --conceal --stage $NODE_ENV --region ca-central-1",
     "dev": "yarn run dev:serverless",
