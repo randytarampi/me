@@ -1,15 +1,1 @@
-{
-    "version": "0.1.0",
-    "id": "56cdc515-543f-4a31-8020-338e55359cb8",
-    "timestamp": "2026-08-29T19:32:06.700468Z",
-    "vcs": {
-        "type": "git",
-        "revision": "80d594d22d15a698cf33447ce8e2b07654dc77cd",
-        "origin": "github",
-        "repository": "git@github.com:randytarampi/me.git"
-    },
-    "tool": {
-        "name": "chatter-cli"
-    },
-    "files": []
-}
+chatter:gzip:H4sIAAAAAAAA/3WS0Y7CIBBF3/0K0+dFKYWW+h37tBtjEKbKpqUGqGZj/PctuFWrlrcO5869TOc8m/cnOYJ1ujXJap7gRZp8XKtahUIlOIUSKlTgDBAlRY62TAESwGnFCgaFKAeF1w04L5pDEBJMcoQ5IuVnWq4ysiLZgjOap/xr4I/S9eQ5flwb/B4gaHfa/zOxbOGoh4AcK1ZSRYhKmchLLqsso7SQwIFscZEzqmRRSJVE+WVI1rb12MqIJlrJvfAe7KPd0zhGjSpdQwj9fcPvPSNwEH4flNpUVjhvO+k7C0tn5VKc3LLVSi68e7CLKtma4Cp87ztu/97mJuxseFfiwIXIiOSYY4JwifMMo5R2pyenm1DswPgg/emMhimqz+Wt3na+taPxvYDDnxN6olWkmlZBvbkulqxF1++Ra40Bj1jyVnWZyGWF2cH7QQ1nOmzs0O+p9ZtamxA7ZXQ6dcTBqBucZ5Ps5e3N+qU65u731/p6dvkDV5ouvZoDAAA=
