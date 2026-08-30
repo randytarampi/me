@@ -6,17 +6,22 @@ import parseQueryStringParametersIntoSearchParams from "../../util/parseQueryStr
 import parseQuerystringParameters from "../../util/request/parseQuerystringParameters.js";
 import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
-export default (event, context, callback) => {
+// NOTE-RT: async, no `callback` parameter - AWS Lambda's Node.js 24 runtime has removed
+// callback-based function handlers entirely (`Runtime.CallbackHandlerDeprecated`); the handler
+// must `return` a value (or a promise of one) instead.
+export default async (event, context) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
     const {sources: postSources, ...eventParameters} = event.queryStringParameters || event.postsSearchParameters || event;
 
-    configureEnvironment()
-        .then(() => {
-            return cachePosts(parseQueryStringParametersIntoSearchParams({})(
-                parseQuerystringParameters(eventParameters)), postSources
-            )
-                .then(sortedPosts => callback(null, responseBuilder(sortedPosts)));
-        })
-        .catch(returnErrorResponse(event, context, callback));
+    try {
+        await configureEnvironment();
+        const sortedPosts = await cachePosts(parseQueryStringParametersIntoSearchParams({})(
+            parseQuerystringParameters(eventParameters)), postSources
+        );
+
+        return responseBuilder(sortedPosts);
+    } catch (error) {
+        return returnErrorResponse(event, context)(error);
+    }
 };

@@ -8,16 +8,13 @@ describe("returnErrorResponseForLogger", function () {
 
         const stubEvent = {};
         const stubContext = {};
-        const stubCallback = (error, response) => {
-            expect(error).to.not.be.ok;
-
-            expect(response.body).to.contain(stubError.message);
-            expect(response.body).to.contain(stubError.code);
-            expect(response.statusCode).to.eql(stubError.statusCode);
-        };
         const stubError = new RequestError("woof", RequestError.codes.badRequest);
 
-        returnErrorResponse(stubEvent, stubContext, stubCallback)(stubError);
+        const response = returnErrorResponse(stubEvent, stubContext)(stubError);
+
+        expect(response.body).to.contain(stubError.message);
+        expect(response.body).to.contain(stubError.code);
+        expect(response.statusCode).to.eql(stubError.statusCode);
     });
 
     it("handles other errors", function () {
@@ -25,15 +22,11 @@ describe("returnErrorResponseForLogger", function () {
 
         const stubEvent = {};
         const stubContext = {};
-        const stubCallback = (error, response) => {
-            expect(error).to.be.ok;
-
-            expect(response.body).to.contain("An unexpected error occurred");
-            expect(response.body).to.not.contain(stubError.message);
-            expect(response.statusCode).to.eql(500);
-        };
         const stubError = new Error("meow");
 
-        returnErrorResponse(stubEvent, stubContext, stubCallback)(stubError);
+        // NOTE-RT: rethrows rather than calling a `callback` - AWS Lambda's Node.js 24 runtime
+        // removed callback-based function handlers entirely, so an unexpected error must fail the
+        // handler's own promise instead.
+        expect(() => returnErrorResponse(stubEvent, stubContext)(stubError)).to.throw(stubError);
     });
 });

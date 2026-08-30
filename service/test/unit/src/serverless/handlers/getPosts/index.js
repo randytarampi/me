@@ -77,25 +77,15 @@ describe("getPosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = (error, postsResult) => {
-                try {
-                    expect(error).to.not.be.ok;
-                    expect(postsResult).to.eql(stubResponse);
-                    expect(parseHeadersStub.calledOnce).to.eql(true);
-                    expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
-                    expect(configureEnvironmentStub.calledOnce).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersStub.calledOnce).to.eql(true);
-                    expect(buildPostsResponseStub.calledOnce).to.eql(true);
-                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
+        const postsResult = await getPosts(stubEvent, stubContext);
 
-            getPosts(stubEvent, stubContext, stubCallback);
-        });
+        expect(postsResult).to.eql(stubResponse);
+        expect(parseHeadersStub.calledOnce).to.eql(true);
+        expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
+        expect(configureEnvironmentStub.calledOnce).to.eql(true);
+        expect(getPostsForParsedQuerystringParametersStub.calledOnce).to.eql(true);
+        expect(buildPostsResponseStub.calledOnce).to.eql(true);
+        expect(returnErrorResponseStub.calledOnce).to.eql(true);
     });
 
     it("`returnErrorResponse` on error", async function () {
@@ -129,9 +119,8 @@ describe("getPosts", function () {
             }
         });
         const buildPostsResponseStub = sinon.stub().throws(stubError);
-        const returnErrorResponseStub = sinon.stub();
-        const errorHandlerStub = sinon.stub();
-        returnErrorResponseStub.returns(errorHandlerStub);
+        const errorHandlerStub = sinon.stub().returns("error-response");
+        const returnErrorResponseStub = sinon.stub().returns(errorHandlerStub);
 
         const getPosts = await loadHandler({
             "../../../../../../src/serverless/util/request/parseHeaders.js": {default: parseHeadersStub},
@@ -142,29 +131,17 @@ describe("getPosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = () => {
-                throw new Error("Wtf? This should've thrown");
-            };
+        const result = await getPosts(stubEvent, stubContext);
 
-            const stubErrorCallback = error => {
-                try {
-                    expect(error.message).to.eql(stubError.message);
-                    expect(parseHeadersStub.calledOnce).to.eql(true);
-                    expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
-                    expect(configureEnvironmentStub.calledOnce).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersStub.calledOnce).to.eql(true);
-                    expect(buildPostsResponseStub.calledOnce).to.eql(true);
-                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
-
-            errorHandlerStub.callsFake(stubErrorCallback);
-            getPosts(stubEvent, stubContext, stubCallback);
-        });
+        expect(result).to.eql("error-response");
+        expect(errorHandlerStub.calledOnce).to.eql(true);
+        expect(errorHandlerStub.firstCall.args[0].message).to.eql(stubError.message);
+        expect(parseHeadersStub.calledOnce).to.eql(true);
+        expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
+        expect(configureEnvironmentStub.calledOnce).to.eql(true);
+        expect(getPostsForParsedQuerystringParametersStub.calledOnce).to.eql(true);
+        expect(buildPostsResponseStub.calledOnce).to.eql(true);
+        expect(returnErrorResponseStub.calledOnce).to.eql(true);
     });
 
     it("`returnErrorResponse` on parse error", async function () {
@@ -178,9 +155,8 @@ describe("getPosts", function () {
         const configureEnvironmentStub = sinon.stub().resolves();
         const getPostsForParsedQuerystringParametersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
         const buildPostsResponseStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const returnErrorResponseStub = sinon.stub();
-        const errorHandlerStub = sinon.stub();
-        returnErrorResponseStub.returns(errorHandlerStub);
+        const errorHandlerStub = sinon.stub().returns("error-response");
+        const returnErrorResponseStub = sinon.stub().returns(errorHandlerStub);
 
         const getPosts = await loadHandler({
             "../../../../../../src/serverless/util/request/parseHeaders.js": {default: parseHeadersStub},
@@ -191,29 +167,17 @@ describe("getPosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = () => {
-                throw new Error("Wtf? This should've thrown");
-            };
+        const result = await getPosts(stubEvent, stubContext);
 
-            const stubErrorCallback = error => {
-                try {
-                    expect(error.message).to.eql(stubError.message);
-                    expect(parseHeadersStub.calledOnce).to.eql(true);
-                    expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
-                    expect(configureEnvironmentStub.notCalled).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
-                    expect(buildPostsResponseStub.notCalled).to.eql(true);
-                    expect(returnErrorResponseStub.calledOnce).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
-
-            errorHandlerStub.callsFake(stubErrorCallback);
-            getPosts(stubEvent, stubContext, stubCallback);
-        });
+        expect(result).to.eql("error-response");
+        expect(errorHandlerStub.calledOnce).to.eql(true);
+        expect(errorHandlerStub.firstCall.args[0].message).to.eql(stubError.message);
+        expect(parseHeadersStub.calledOnce).to.eql(true);
+        expect(parseQuerystringParametersStub.calledOnce).to.eql(true);
+        expect(configureEnvironmentStub.notCalled).to.eql(true);
+        expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
+        expect(buildPostsResponseStub.notCalled).to.eql(true);
+        expect(returnErrorResponseStub.calledOnce).to.eql(true);
     });
 
     it("returns early after being warmed", async function () {
@@ -236,24 +200,14 @@ describe("getPosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = (error, lambdaIsWarm) => {
-                try {
-                    expect(error).to.not.be.ok;
-                    expect(lambdaIsWarm).to.match(/Lambda is warm!/);
-                    expect(parseHeadersStub.notCalled).to.eql(true);
-                    expect(parseQuerystringParametersStub.notCalled).to.eql(true);
-                    expect(configureEnvironmentStub.notCalled).to.eql(true);
-                    expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
-                    expect(buildPostsResponseStub.notCalled).to.eql(true);
-                    expect(returnErrorResponseStub.notCalled).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
+        const lambdaIsWarm = await getPosts(stubEvent, stubContext);
 
-            getPosts(stubEvent, stubContext, stubCallback);
-        });
+        expect(lambdaIsWarm).to.match(/Lambda is warm!/);
+        expect(parseHeadersStub.notCalled).to.eql(true);
+        expect(parseQuerystringParametersStub.notCalled).to.eql(true);
+        expect(configureEnvironmentStub.notCalled).to.eql(true);
+        expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
+        expect(buildPostsResponseStub.notCalled).to.eql(true);
+        expect(returnErrorResponseStub.notCalled).to.eql(true);
     });
 });

@@ -7,14 +7,17 @@ import parseQuerystringParameters from "../../util/request/parseQuerystringParam
 import buildPostsResponse from "../../util/response/buildPostsResponse.js";
 import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 
-export default (event, context, callback) => {
+// NOTE-RT: async, no `callback` parameter - AWS Lambda's Node.js 24 runtime has removed
+// callback-based function handlers entirely (`Runtime.CallbackHandlerDeprecated`); the handler
+// must `return` a value (or a promise of one) instead.
+export default async (event, context) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
 
     if (event.source === "serverless-plugin-warmup") {
-        return callbackOnWarmup(event, context, callback);
+        return callbackOnWarmup(event, context);
     }
 
-    const errorHandler = returnErrorResponse(event, context, callback);
+    const errorHandler = returnErrorResponse(event, context);
     let parsedHeaders;
     let parsedQuerystringParameters;
 
@@ -25,8 +28,11 @@ export default (event, context, callback) => {
         return errorHandler(error);
     }
 
-    configureEnvironment()
-        .then(() => getPostsForParsedQuerystringParameters(parsedQuerystringParameters, parsedHeaders))
-        .then(postsResult => callback(null, buildPostsResponse(postsResult, parsedHeaders)))
-        .catch(errorHandler);
+    try {
+        await configureEnvironment();
+        const postsResult = await getPostsForParsedQuerystringParameters(parsedQuerystringParameters, parsedHeaders);
+        return buildPostsResponse(postsResult, parsedHeaders);
+    } catch (error) {
+        return errorHandler(error);
+    }
 };

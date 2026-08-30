@@ -35,23 +35,13 @@ describe("cachePosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: stubReturnErrorResponse}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = (error, result) => {
-                try {
-                    expect(error).to.not.be.ok;
-                    expect(result).to.eql(expectedResponse);
-                    expect(stubConfigureEnvironment.calledOnce).to.eql(true);
-                    expect(stubParseQuerystringParameters.calledOnce).to.eql(true);
-                    expect(stubParseQueryStringParametersIntoSearchParams.calledOnce).to.eql(true);
-                    expect(stubCachePosts.calledOnce).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
+        const result = await cachePostsHandler(stubEvent, stubContext);
 
-            cachePostsHandler(stubEvent, stubContext, stubCallback);
-        });
+        expect(result).to.eql(expectedResponse);
+        expect(stubConfigureEnvironment.calledOnce).to.eql(true);
+        expect(stubParseQuerystringParameters.calledOnce).to.eql(true);
+        expect(stubParseQueryStringParametersIntoSearchParams.calledOnce).to.eql(true);
+        expect(stubCachePosts.calledOnce).to.eql(true);
 
         if (typeof originalFlickrApiKey === "undefined") {
             delete process.env.FLICKR_API_KEY;
@@ -82,23 +72,13 @@ describe("cachePosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: stubReturnErrorResponse}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = (error, result) => {
-                try {
-                    expect(error).to.not.be.ok;
-                    expect(result).to.eql(expectedResponse);
-                    expect(stubConfigureEnvironment.calledOnce).to.eql(true);
-                    expect(stubParseQuerystringParameters.calledOnce).to.eql(true);
-                    expect(stubParseQueryStringParametersIntoSearchParams.calledOnce).to.eql(true);
-                    expect(stubCachePosts.calledOnce).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
+        const result = await cachePostsHandler(stubEvent, stubContext);
 
-            cachePostsHandler(stubEvent, stubContext, stubCallback);
-        });
+        expect(result).to.eql(expectedResponse);
+        expect(stubConfigureEnvironment.calledOnce).to.eql(true);
+        expect(stubParseQuerystringParameters.calledOnce).to.eql(true);
+        expect(stubParseQueryStringParametersIntoSearchParams.calledOnce).to.eql(true);
+        expect(stubCachePosts.calledOnce).to.eql(true);
 
         if (typeof originalFlickrApiKey === "undefined") {
             delete process.env.FLICKR_API_KEY;
@@ -118,7 +98,7 @@ describe("cachePosts", function () {
         const stubParseQuerystringParameters = sinon.stub().returns({woof: "meow"});
         const stubParseQueryStringParametersIntoSearchParams = sinon.stub().callsFake(() => () => ({woof: "meow"}));
         const stubCachePosts = sinon.stub().rejects(stubError);
-        const errorHandlerStub = sinon.stub();
+        const errorHandlerStub = sinon.stub().returns("error-response");
         const stubReturnErrorResponse = sinon.stub().callsFake(() => errorHandlerStub);
 
         const {default: cachePostsHandler} = await esmock("../../../../../../src/serverless/handlers/cachePosts/index.js", import.meta.url, {
@@ -129,28 +109,16 @@ describe("cachePosts", function () {
             "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: stubReturnErrorResponse}
         });
 
-        await new Promise((resolve, reject) => {
-            const stubCallback = () => {
-                throw new Error("Wtf? This should've thrown");
-            };
+        const result = await cachePostsHandler(stubEvent, stubContext);
 
-            const stubErrorCallback = error => {
-                try {
-                    expect(error.message).to.eql(stubError.message);
-                    expect(stubConfigureEnvironment.calledOnce).to.eql(true);
-                    expect(stubParseQuerystringParameters.calledOnce).to.eql(true);
-                    expect(stubParseQueryStringParametersIntoSearchParams.calledOnce).to.eql(true);
-                    expect(stubCachePosts.calledOnce).to.eql(true);
-                    expect(stubReturnErrorResponse.calledOnce).to.eql(true);
-                    resolve();
-                } catch (expectationError) {
-                    reject(expectationError);
-                }
-            };
-
-            errorHandlerStub.callsFake(stubErrorCallback);
-            cachePostsHandler(stubEvent, stubContext, stubCallback);
-        });
+        expect(result).to.eql("error-response");
+        expect(errorHandlerStub.calledOnce).to.eql(true);
+        expect(errorHandlerStub.firstCall.args[0].message).to.eql(stubError.message);
+        expect(stubConfigureEnvironment.calledOnce).to.eql(true);
+        expect(stubParseQuerystringParameters.calledOnce).to.eql(true);
+        expect(stubParseQueryStringParametersIntoSearchParams.calledOnce).to.eql(true);
+        expect(stubCachePosts.calledOnce).to.eql(true);
+        expect(stubReturnErrorResponse.calledOnce).to.eql(true);
 
         if (typeof originalFlickrApiKey === "undefined") {
             delete process.env.FLICKR_API_KEY;
