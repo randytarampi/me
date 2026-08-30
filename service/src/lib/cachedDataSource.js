@@ -37,7 +37,12 @@ class CachedDataSource extends DataSource {
      */
     async cachedRecordsGetter(searchParams) {
         return this.cacheClient.getRecords(searchParams.set("source", this.constructor.type))
-            .then(cachedRecords => cachedRecords.map(cachedRecord => this.constructor.instanceToRecord(cachedRecord.raw)));
+            // NOTE-RT: `getRecords` deliberately swallows cache errors and resolves to `undefined`
+            // (see docs/CONVENTIONS.md#error-handling) so a single failed lookup falls back to the
+            // origin source instead of breaking the request - but only if callers actually tolerate
+            // that `undefined`. Defaulting to `[]` here lets `getCachedRecords`'s own cache-miss
+            // check (`!records || !records.length`) do its job instead of crashing on `.map()` first.
+            .then(cachedRecords => (cachedRecords || []).map(cachedRecord => this.constructor.instanceToRecord(cachedRecord.raw)));
     }
 
     /**
@@ -93,7 +98,8 @@ class CachedDataSource extends DataSource {
      */
     async allCachedRecordsGetter(searchParams) {
         return this.cacheClient.getRecords(searchParams.set("source", this.constructor.type).set("all", true))
-            .then(cachedRecords => cachedRecords.map(cachedRecord => this.constructor.instanceToRecord(cachedRecord.raw)));
+            // NOTE-RT: see the identical NOTE-RT in `cachedRecordsGetter` above.
+            .then(cachedRecords => (cachedRecords || []).map(cachedRecord => this.constructor.instanceToRecord(cachedRecord.raw)));
     }
 
     /**

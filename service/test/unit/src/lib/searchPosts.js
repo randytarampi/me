@@ -75,4 +75,19 @@ describe("searchPosts", function () {
         expect(stubGetRecords.calledOnce).to.eql(true);
         expect(stubGetRecord.calledTwice).to.eql(true);
     });
+
+    // NOTE-RT: `CacheClient#getRecords` deliberately swallows its own errors and resolves to
+    // `undefined` (docs/CONVENTIONS.md#error-handling) so one content type's cache failure falls
+    // back gracefully instead of taking down the whole request. This used to crash with
+    // `Cannot read properties of undefined (reading 'map')`.
+    it("degrades to an empty result when `getRecords` resolves `undefined`", async function () {
+        sinon.stub(CacheClient.prototype, "getRecords").resolves(undefined);
+        sinon.stub(CacheClient.prototype, "getRecordCount").callsFake(stubGetRecordCount);
+        sinon.stub(CacheClient.prototype, "getRecord").callsFake(stubGetRecord);
+
+        const stubSearchParams = new PostSearchParams();
+        const postsResult = await searchPosts(stubSearchParams);
+
+        expect(postsResult.posts).to.eql([]);
+    });
 });

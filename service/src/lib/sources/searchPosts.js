@@ -18,7 +18,13 @@ const searchPosts = searchParams => {
 
     return Promise.all([
             cacheClient.getRecords(searchParams)
-                .then(cachedPosts => cachedPosts.map(cachedValueToPost)),
+                // NOTE-RT: `getRecords` deliberately swallows cache errors and resolves to
+                // `undefined` (see docs/CONVENTIONS.md#error-handling) - a schema mismatch,
+                // throttling, or any other per-type lookup failure used to crash this whole
+                // request with `Cannot read properties of undefined (reading 'map')`, which Lambda
+                // then reports as a failed invocation and API Gateway surfaces as a 502. Defaulting
+                // to `[]` degrades that one content type to "no cached posts found" instead.
+                .then(cachedPosts => (cachedPosts || []).map(cachedValueToPost)),
             cacheClient.getRecordCount(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")

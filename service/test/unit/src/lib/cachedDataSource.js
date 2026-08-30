@@ -179,6 +179,30 @@ describe("CachedDataSource", function () {
                     sinon.assert.calledTwice(stubInstanceToRecord);
                 });
         });
+
+        // NOTE-RT: `CacheClient#getRecords` deliberately swallows its own errors and resolves to
+        // `undefined` (docs/CONVENTIONS.md#error-handling). This used to crash with
+        // `Cannot read properties of undefined (reading 'map')` instead of degrading gracefully.
+        it("degrades to an empty array when `this.cacheClient.getRecords` resolves `undefined`", function () {
+            delete dummyClassBuilderArguments.stubCachedRecordsGetter;
+            dummyClassBuilderArguments.stubGetRecords = sinon.stub().rejects(new Error("woof"));
+            builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
+
+            DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
+            DummyDataClient = builtDummyClasses.DummyDataClient;
+            DummyCacheClient = builtDummyClasses.DummyCacheClient;
+
+            stubDataClient = new DummyDataClient();
+            stubCacheClient = new DummyCacheClient();
+
+            const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
+            const stubSearchParams = PostSearchParams.fromJS({type: Photo.type, source: stubType});
+
+            return cachedDataSource.cachedRecordsGetter(stubSearchParams)
+                .then(cachedPosts => {
+                    expect(cachedPosts).to.eql([]);
+                });
+        });
     });
 
     describe("afterCachedRecordsGetter", function () {
@@ -231,6 +255,28 @@ describe("CachedDataSource", function () {
                             indexName: "type-datePublished-index"
                         }
                     }));
+                });
+        });
+
+        // NOTE-RT: see the identical NOTE-RT in `cachedRecordsGetter` above.
+        it("degrades to an empty array when `this.cacheClient.getRecords` resolves `undefined`", function () {
+            delete dummyClassBuilderArguments.stubAllCachedRecordsGetter;
+            dummyClassBuilderArguments.stubGetRecords = sinon.stub().rejects(new Error("woof"));
+            builtDummyClasses = dummyClassesGenerator(dummyClassBuilderArguments);
+
+            DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
+            DummyDataClient = builtDummyClasses.DummyDataClient;
+            DummyCacheClient = builtDummyClasses.DummyCacheClient;
+
+            stubDataClient = new DummyDataClient();
+            stubCacheClient = new DummyCacheClient();
+
+            const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
+            const stubSearchParams = PostSearchParams.fromJS({type: Photo.type, source: stubType});
+
+            return cachedDataSource.allCachedRecordsGetter(stubSearchParams)
+                .then(cachedPosts => {
+                    expect(cachedPosts).to.eql([]);
                 });
         });
     });
