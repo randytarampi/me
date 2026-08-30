@@ -88,9 +88,23 @@ const post = new Schema({
         // as a `Set` so Dynamoose v4 persists a DynamoDB String Set (`SS`) (a plain array would be stored as
         // a List and fail the read-back type check). Replaces the old `lowercase: true` setting, which does
         // not apply cleanly to Set modifiers in v4.
-        set: tags => tags && new Set(Array.from(tags)
-            .filter(tag => !!tag)
-            .map(tag => tag.toLowerCase()))
+        //
+        // NOTE-RT: must return `undefined`, not an empty `Set`, when nothing survives filtering. DynamoDB
+        // rejects an empty Set outright ("Pass a non-empty set, or options.convertEmptyValues=true"), and
+        // that's a client-side validation error the AWS SDK raises against the *whole batch* before it's
+        // ever sent - so a single untagged post used to fail every other post in the same `createRecords`
+        // batch write. `tags` isn't `required`, so omitting it entirely is a clean no-op here.
+        set: tags => {
+            if (!tags) {
+                return tags;
+            }
+
+            const filteredTags = new Set(Array.from(tags)
+                .filter(tag => !!tag)
+                .map(tag => tag.toLowerCase()));
+
+            return filteredTags.size ? filteredTags : undefined;
+        }
     },
     lat: {
         type: Number
