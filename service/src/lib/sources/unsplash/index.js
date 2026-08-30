@@ -94,7 +94,15 @@ class UnsplashSource extends CachedDataSource {
                     (data || [])
                         .filter(post => filterPostForOrderingConditionsInSearchParams(UnsplashSource.instanceToRecord(post), searchParams))
                         .map(photo => this.recordGetter(photo.id, searchParams))
-                );
+                )
+                    // NOTE-RT: unlike every other source, Unsplash fetches each photo individually
+                    // via `recordGetter`, which resolves `null` on a per-photo API error or missing
+                    // data - confirmed live against `service-dev-cachePosts`, where an unfiltered
+                    // `null` reached `cacheRecords`/`CacheClient#setRecords` and crashed the whole
+                    // Lambda process with an unawaited, uncaught `TypeError: Cannot read properties
+                    // of null (reading 'uid')`. Every other source's `recordsGetter` already filters
+                    // its mapped records before returning; this one needs to filter `null`s too.
+                    .then(photos => photos.filter(photo => photo));
             });
     }
 

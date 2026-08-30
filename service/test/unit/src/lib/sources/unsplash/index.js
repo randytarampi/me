@@ -261,6 +261,33 @@ describe("UnsplashSource", function () {
                     sinon.assert.neverCalledWith(stubServiceClient.GET, "/photos/{assetSlug}");
                 });
         });
+
+        // NOTE-RT: unlike every other source, `recordsGetter` fetches each listed photo
+        // individually via `recordGetter`, which resolves `null` on a per-photo API error or
+        // missing data. Confirmed live against `service-dev-cachePosts`: an unfiltered `null`
+        // reached `cacheRecords`/`CacheClient#setRecords` and crashed the whole Lambda process.
+        it("filters out a photo whose individual fetch fails, instead of returning a null entry", function () {
+            const unsplashSource = new UnsplashSource(stubServiceClient, stubCacheClient);
+            const stubParams = PostSearchParams.fromJS({perPage: 30, page: 2, orderBy: "woof"});
+
+            // NOTE-RT: a full, valid entry so the listing's own ordering filter (which calls
+            // `instanceToRecord` on every listed photo before any individual fetch happens) doesn't
+            // crash first - only the individual `/photos/{assetSlug}` fetch for this one id is
+            // overridden to fail, matching the real API's behavior for a photo that's listed but
+            // has since been deleted/hidden.
+            unsplashPhotos = unsplashPhotos.concat(Object.assign({}, unsplashPhoto, {id: "deleted-photo"}));
+            stubServiceClient.GET.withArgs("/photos/{assetSlug}", {params: {path: {assetSlug: "deleted-photo"}}})
+                .resolves({data: null, error: {errors: ["Not found"]}});
+
+            return unsplashSource.recordsGetter(stubParams)
+                .then(posts => {
+                    expect(posts).to.have.length(stubPosts.length);
+                    posts.map(post => {
+                        expect(post).to.be.instanceof(Photo);
+                        expect(post.id).to.not.eql("deleted-photo");
+                    });
+                });
+        });
     });
 
     describe("allRecordsGetter", function () {
