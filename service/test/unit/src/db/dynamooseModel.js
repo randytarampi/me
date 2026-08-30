@@ -1,8 +1,49 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {buildQueryWithFilter} from "../../../../src/db/dynamooseModel.js";
+import {Post} from "@randy.tarampi/js";
+import {buildQueryWithFilter, recordToDynamoObject} from "../../../../src/db/dynamooseModel.js";
 
 describe("util", function () {
+    describe("recordToDynamoObject", function () {
+        // NOTE-RT: `raw` is declared as `dynamoose.type.ANY`, so dynamoose never type-checks or
+        // converts its nested content. Some sources (S3 YAML posts, in particular) parse straight
+        // into native `Date` instances nested inside `raw`, which the AWS SDK's marshaller used to
+        // reject with "Unsupported type passed: <Date>. Pass options.convertClassInstanceToMap=true...".
+        it("sanitizes a native Date nested inside `raw` into a JSON-safe ISO string", function () {
+            const stubDate = new Date("2019-01-14T23:17:45.000Z");
+            const stubPost = Post.fromJS({
+                id: "2019-01-14.yaml",
+                source: "s3",
+                raw: {id: "2019-01-14.yaml", dateCreated: stubDate, nested: {publishedAt: stubDate}}
+            });
+
+            const dynamoObject = recordToDynamoObject(stubPost);
+
+            expect(dynamoObject.raw.dateCreated).to.eql(stubDate.toISOString());
+            expect(dynamoObject.raw.nested.publishedAt).to.eql(stubDate.toISOString());
+        });
+
+        it("leaves a `raw` with no Date instances untouched", function () {
+            const stubPost = Post.fromJS({
+                id: "48223752322",
+                source: "flickr",
+                raw: {id: "48223752322", title: "Zoomin'"}
+            });
+
+            const dynamoObject = recordToDynamoObject(stubPost);
+
+            expect(dynamoObject.raw).to.eql({id: "48223752322", title: "Zoomin'"});
+        });
+
+        it("omits `raw` entirely when it's not set, rather than sanitizing null/undefined", function () {
+            const stubPost = Post.fromJS({id: "48223752322", source: "flickr"});
+
+            const dynamoObject = recordToDynamoObject(stubPost);
+
+            expect(dynamoObject.raw).to.eql(undefined);
+        });
+    });
+
     describe("buildQueryWithFilter", function () {
         it("handles a simple query", function () {
             const stubQueryMethod = sinon.stub();

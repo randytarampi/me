@@ -17,6 +17,28 @@ const toDynamoCompatibleValue = value => {
 };
 
 /**
+ * `raw` is declared as `dynamoose.type.ANY` (see `db/schema/{post,authInfo}.js`) - a verbatim,
+ * untyped third-party API/YAML-parsed response - so dynamoose has no schema to type-check or convert
+ * its nested content, and it flows straight to the AWS SDK's marshaller unmodified. Some sources
+ * (S3 YAML posts, in particular) come out of their parser with native `Date` instances already
+ * nested inside `raw` (e.g. `dateCreated`), and the marshaller rejects those with "Unsupported type
+ * passed: <Date>. Pass options.convertClassInstanceToMap=true..." since it only converts class
+ * instances when explicitly told to. A JSON round-trip guarantees `raw`'s content is exactly what a
+ * "raw third-party API response" should be - plain strings, numbers, booleans, arrays and objects -
+ * matching `JSON.stringify`'s own `Date -> toISOString()` behavior, without needing to change any
+ * marshalling options that would affect every other attribute.
+ * @param value {*}
+ * @returns {*}
+ */
+const sanitizeRawForDynamo = value => {
+    if (value === null || value === undefined) {
+        return value;
+    }
+
+    return JSON.parse(JSON.stringify(value));
+};
+
+/**
  * Convert an Immutable [Record]{@link Record} into a plain object Dynamoose v4 can persist.
  * @param record {Record}
  * @returns {Object}
@@ -30,7 +52,11 @@ const recordToDynamoObject = record => {
     object.uid = record.uid;
 
     return Object.keys(object).reduce((normalized, key) => {
-        const value = toDynamoCompatibleValue(object[key]);
+        let value = toDynamoCompatibleValue(object[key]);
+
+        if (key === "raw") {
+            value = sanitizeRawForDynamo(value);
+        }
 
         // Dynamoose v4 type-checks attributes and rejects explicit `null`/`undefined` values for typed
         // attributes (e.g. an absent `lat`/`long`/`tags`), so we omit them entirely instead.
