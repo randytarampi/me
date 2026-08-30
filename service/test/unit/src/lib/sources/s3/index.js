@@ -256,6 +256,54 @@ describe("S3Source", function () {
                     });
                 });
         });
+
+        // NOTE-RT: a corrupted/non-YAML S3 object (e.g. a real `YAMLException` from a body
+        // containing a null byte) used to reject the whole `Promise.all` in `recordsGetter`,
+        // discarding every other valid post fetched in that same run - not just the bad one.
+        it("isolates a single object's failure instead of discarding every other post in the same run", function () {
+            const brokenServiceClient = {
+                send: sinon.stub().callsFake(async function (command) {
+                    if (command instanceof ListObjectsV2Command) {
+                        return {
+                            Contents: [{Key: "good.yaml"}, {Key: "broken.yaml"}],
+                            IsTruncated: false,
+                            NextContinuationToken: null
+                        };
+                    }
+
+                    if (command instanceof GetObjectCommand && command.input.Key === "broken.yaml") {
+                        // NOTE-RT: js-yaml explicitly rejects a null byte in its input, matching the
+                        // exact `YAMLException` seen against a real corrupted S3 object in production.
+                        return {Body: "\u0000this is not valid yaml"};
+                    }
+
+                    if (command instanceof GetObjectCommand && command.input.Key === "good.yaml") {
+                        return Object.assign({}, s3Post, {id: "good.yaml"});
+                    }
+
+                    throw new Error(`Unexpected command: ${command.constructor.name}`);
+                })
+            };
+            // NOTE-RT: the shared `stubCacheClient` above always resolves `getRecord` with the
+            // same `stubPost` regardless of the query, which would cache-hit both objects and
+            // never reach `brokenServiceClient` at all - a dedicated always-miss cache client is
+            // needed here so `recordsGetter` actually falls through to the (broken) S3 fetch.
+            const alwaysMissCacheClient = {
+                getRecord: sinon.stub().resolves(undefined),
+                getRecords: sinon.stub().resolves(undefined),
+                setRecord: sinon.stub().callsFake(record => Promise.resolve(record)),
+                setRecords: sinon.stub().callsFake(records => Promise.resolve(records))
+            };
+            const s3Source = new S3Source(brokenServiceClient, alwaysMissCacheClient);
+            const stubParams = PostSearchParams.fromJS({perPage: 30});
+
+            return s3Source.recordsGetter(stubParams)
+                .then(posts => {
+                    expect(posts).to.have.length(1);
+                    expect(posts[0]).to.be.instanceof(Post);
+                    expect(posts[0].id).to.eql("good.yaml");
+                });
+        });
     });
 
     describe("allRecordsGetter", function () {
