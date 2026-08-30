@@ -88,6 +88,18 @@ build:
     sourcemap:
       type: linked
     minify: false
+    # NOTE-RT: found live in `dev` - every `getPosts` invocation died at init with
+    # `Dynamic require of "node:https" is not supported`. dynamoose -> @aws-sdk/client-dynamodb ->
+    # @smithy/node-http-handler is CommonJS and calls `require("node:https")` internally; esbuild
+    # bundles that call into the ESM output via a `__require2` shim that has no real `require` to
+    # call in an ESM module, so it throws instead. This is documented, expected esbuild/ESM
+    # behaviour, not a bug - see https://github.com/evanw/esbuild/issues/1921 and the Serverless
+    # maintainers' own workaround at https://github.com/serverless/serverless/issues/13033. The
+    # banner restores a working `require` in scope for exactly this case.
+    banner:
+      js: |
+        import {createRequire} from "node:module";
+        globalThis.require = createRequire(import.meta.url);
 
 plugins:
 - serverless-plugin-warmup
