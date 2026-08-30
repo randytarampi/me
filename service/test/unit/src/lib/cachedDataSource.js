@@ -407,6 +407,25 @@ describe("CachedDataSource", function () {
             expect(stubAfterRecordsGetter.calledWith([], stubParams)).to.eql(true);
             expect(stubCreateRecords.notCalled).to.eql(true);
         });
+
+        // NOTE-RT: `cacheRecords` is deliberately fire-and-forget - the response shouldn't wait on
+        // a cache write - but that used to mean an unawaited rejection became an unhandled promise
+        // rejection, crashing the whole Lambda process regardless of what caused it. Confirmed
+        // live against `service-dev-cachePosts`.
+        it("doesn't reject when caching the retrieved records fails", async function () {
+            stubCreateRecords = sinon.stub().rejects(new Error("woof"));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCreateRecords});
+            DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
+            DummyCacheClient = builtDummyClasses.DummyCacheClient;
+            stubCacheClient = new DummyCacheClient("doesn't reject when caching the retrieved records fails");
+
+            const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
+            const stubParams = PostSearchParams.fromJS();
+
+            const posts = await cachedDataSource.getServiceRecords(stubParams);
+
+            expect(posts).to.eql(stubPosts);
+        });
     });
 
     describe("getAllServiceRecords", function () {
@@ -689,6 +708,23 @@ describe("CachedDataSource", function () {
             expect(stubAfterRecordGetter.calledOnce).to.eql(true);
             expect(stubAfterRecordGetter.calledWith(null, stubParams)).to.eql(true);
             expect(stubCreateRecord.notCalled).to.eql(true);
+        });
+
+        // NOTE-RT: see the identical NOTE-RT in `getServiceRecords`'s equivalent test above -
+        // `cacheRecord` is the same fire-and-forget shape, just for a single record.
+        it("doesn't reject when caching the retrieved record fails", async function () {
+            stubCreateRecord = sinon.stub().rejects(new Error("woof"));
+            builtDummyClasses = dummyClassesGenerator({...dummyClassBuilderArguments, stubCreateRecord});
+            DummyCachedDataSource = builtDummyClasses.DummyCachedDataSource;
+            DummyCacheClient = builtDummyClasses.DummyCacheClient;
+            stubCacheClient = new DummyCacheClient("doesn't reject when caching the retrieved record fails");
+
+            const cachedDataSource = new DummyCachedDataSource(stubServiceClient, stubCacheClient);
+            const stubParams = PostSearchParams.fromJS();
+
+            const post = await cachedDataSource.getServiceRecord(stubPost.id, stubParams);
+
+            expect(post).to.eql(stubPost);
         });
     });
 

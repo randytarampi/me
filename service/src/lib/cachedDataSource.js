@@ -136,7 +136,14 @@ class CachedDataSource extends DataSource {
                 logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
                 return this.recordsGetter(decoratedRecordsGetterParams)
                     .then(records => {
-                        this.cacheRecords(records);
+                        // NOTE-RT: deliberately fire-and-forget - the response shouldn't wait on a
+                        // cache write - but that means nothing ever awaits this promise either, so
+                        // any rejection becomes an unhandled rejection that crashes the whole Lambda
+                        // process, regardless of what `CacheClient`'s own internal catches do or
+                        // don't cover (confirmed live: a `TypeError` in `setRecords`'s own trace
+                        // logging, from a `null` entry in `records`, killed `service-dev-cachePosts`
+                        // entirely). This `.catch()` is the actual backstop.
+                        this.cacheRecords(records).catch(error => logger.error(error, `error caching records (${JSON.stringify(records.map(record => record && record.id))})`));
                         logger.trace(`retrieved records (${JSON.stringify(records.map(record => record.id))}) from service at ${DateTime.utc()}`);
                         return this.afterRecordsGetter(records, decoratedRecordsGetterParams);
                     });
@@ -154,7 +161,8 @@ class CachedDataSource extends DataSource {
                 logger.trace(`retrieving record (${JSON.stringify(searchParams)}) from service at ${DateTime.utc()}`);
                 return this.allRecordsGetter(decoratedRecordsGetterParams)
                     .then(records => {
-                        this.cacheRecords(records);
+                        // NOTE-RT: see the identical NOTE-RT in `getServiceRecords` above.
+                        this.cacheRecords(records).catch(error => logger.error(error, `error caching records (${JSON.stringify(records.map(record => record && record.id))})`));
                         logger.trace(`retrieved records (${JSON.stringify(records.map(record => record.id))}) from service at ${DateTime.utc()}`);
                         return this.afterRecordsGetter(records, decoratedRecordsGetterParams);
                     });
@@ -275,7 +283,9 @@ class CachedDataSource extends DataSource {
                 logger.trace(`retrieving record (${recordId}) from service at ${DateTime.utc()}`);
                 return this.recordGetter(recordId, decoratedRecordGetterParams)
                     .then(record => {
-                        this.cacheRecord(record);
+                        // NOTE-RT: see the identical NOTE-RT in `getServiceRecords` above - same
+                        // fire-and-forget shape, same backstop needed.
+                        this.cacheRecord(record).catch(error => logger.error(error, `error caching record (${record && record.id})`));
                         logger.trace(`retrieved record from service ${record && record.uid} at ${DateTime.utc()}`);
                         return this.afterRecordGetter(record, decoratedRecordGetterParams);
                     });

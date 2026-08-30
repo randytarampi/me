@@ -93,6 +93,20 @@ describe("CacheClient", function () {
             expect(stubCreateRecords.calledOnce).to.eql(true);
             expect(stubCreateRecords.calledWith(stubPosts)).to.eql(true);
         });
+
+        // NOTE-RT: a `null`/`undefined` entry in `records` (e.g. a source's per-item fetch that
+        // failed) used to throw in this method's own trace-log line, *before* the `.catch()` above
+        // ever got a chance to run - confirmed live against `service-dev-cachePosts`, where this
+        // exact line crashed the whole Lambda process via an unhandled rejection.
+        it("doesn't throw when `records` contains a `null` entry", async function () {
+            const cacheClient = new CacheClient(undefined, stubDataClient);
+            expect(cacheClient).to.be.instanceOf(CacheClient);
+
+            const createdPosts = await cacheClient.setRecords([stubPost, null, stubPhoto]);
+            expect(createdPosts).to.be.ok;
+            expect(stubCreateRecords.calledOnce).to.eql(true);
+            expect(stubCreateRecords.calledWith([stubPost, null, stubPhoto])).to.eql(true);
+        });
     });
 
     describe("getRecords", function () {

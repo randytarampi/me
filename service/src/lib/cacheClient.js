@@ -58,10 +58,14 @@ class CacheClient {
      * @returns {Promise<Record[]>}
      */
     async setRecords(records) {
-        logger.trace(`setting records (${JSON.stringify(records.map(record => record.uid))}}) in cache`);
+        // NOTE-RT: guards against a `null`/`undefined` entry in `records` (e.g. a source's
+        // per-item fetch that failed) so the trace log itself can't throw *before* the `.catch()`
+        // below ever gets a chance to run - confirmed live: this exact line crashed the whole
+        // `service-dev-cachePosts` Lambda process via an unhandled rejection.
+        logger.trace(`setting records (${JSON.stringify(records.map(record => record && record.uid))}}) in cache`);
         return this.dataClient.createRecords(records)
             .catch(error => {
-                logger.error(error, `error for (${JSON.stringify(records.map(record => record.uid))})`);
+                logger.error(error, `error for (${JSON.stringify(records.map(record => record && record.uid))})`);
                 return undefined;
             }); // NOTE-RT: swallow caching errors — see docs/CONVENTIONS.md#error-handling
     }
