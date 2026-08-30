@@ -26,7 +26,11 @@ const authInfo = new Schema({
     },
     raw: {
         type: Object,
-        required: true
+        required: true,
+        // NOTE-RT: see the identical NOTE-RT in `post.js` - without this, dynamoose has no declared
+        // nested schema for `raw`, so every key underneath it gets silently stripped down to an
+        // empty object on every single write.
+        schema: dynamoose.type.ANY
     }
 }, {
     timestamps: true
