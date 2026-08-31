@@ -74,16 +74,19 @@ describe("Post", function () {
             stubPhoto
         ];
 
-        return await PostModel.dynamooseModel.query("status").eq(POST_STATUS.visible).exec()
-            .then(posts => {
-                if (!posts.length) {
-                    return;
-                }
+        // NOTE-RT: dynamoose's `batchDelete` has no chunking — DynamoDB caps `BatchWriteItem` at 25
+        // items per request, and rejects the *entire* request if exceeded. Previous test suites
+        // (e.g. `authInfo.js`) can leave stale posts that accumulate beyond 25, so the cleanup
+        // here must chunk, just like `DynamooseModel#createRecords`.
+        const posts = await PostModel.dynamooseModel.query("status").eq(POST_STATUS.visible).exec();
+        if (!posts.length) {
+            return;
+        }
 
-                return PostModel.dynamooseModel.batchDelete(posts.map(post => {
-                    return {uid: post.uid, status: POST_STATUS.visible};
-                }));
-            });
+        const keys = posts.map(post => ({uid: post.uid, status: POST_STATUS.visible}));
+        for (let i = 0; i < keys.length; i += 25) {
+            await PostModel.dynamooseModel.batchDelete(keys.slice(i, i + 25));
+        }
     });
 
     describe("createRecord", function () {
@@ -180,6 +183,39 @@ describe("Post", function () {
             expect(createdPosts).to.have.length(stubPosts.length);
             return await Promise.all(stubPosts.map(async createdPost => {
                 expect(createdPost.uid).to.be.ok;
+                const postFromDb = await PostModel.dynamooseModel.get({
+                    uid: createdPost.uid,
+                    status: POST_STATUS.visible
+                });
+                expect(postFromDb.uid).to.eql(createdPost.uid);
+            }));
+        });
+
+        // NOTE-RT: DynamoDB's `BatchWriteItem` API hard-caps a single request at 25 items and
+        // rejects the *entire* request if that's exceeded - confirmed live against
+        // `service-dev-cachePosts`, where a 30-item and a 50-item batch both failed to persist
+        // anything at all. `createRecords` must chunk larger arrays across multiple requests.
+        it("persists more posts than DynamoDB's 25-item BatchWriteItem limit in one call", async function () {
+            const manyPosts = Array.from({length: 30}, (_ignored, index) => Post.fromJSON({
+                raw: {},
+                id: `woof-${index}`,
+                source: "Woofdy",
+                dateCreated: DateTime.utc().toISO(),
+                datePublished: DateTime.utc().toISO(),
+                title: `Woof woof woof ${index}`,
+                body: ["ʕ•ᴥ•ʔ"],
+                sourceUrl: `woof://woof.woof/woof-${index}`,
+                creator: {
+                    id: -1,
+                    username: "ʕ•ᴥ•ʔ",
+                    name: "ʕ•ᴥ•ʔ",
+                    url: "woof://woof.woof/woof/woof/woof"
+                }
+            }));
+
+            const createdPosts = await PostModel.createRecords(manyPosts);
+            expect(createdPosts).to.have.length(manyPosts.length);
+            return await Promise.all(manyPosts.map(async createdPost => {
                 const postFromDb = await PostModel.dynamooseModel.get({
                     uid: createdPost.uid,
                     status: POST_STATUS.visible

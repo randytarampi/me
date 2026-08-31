@@ -39,6 +39,13 @@ const sanitizeRawForDynamo = value => {
 };
 
 /**
+ * DynamoDB's `BatchWriteItem` API hard-caps a single request at 25 items ("Member must have length
+ * less than or equal to 25"). See the NOTE-RT on `DynamooseModel#createRecords` for how this bit us.
+ * @type {number}
+ */
+const DYNAMODB_BATCH_WRITE_LIMIT = 25;
+
+/**
  * Convert an Immutable [Record]{@link Record} into a plain object Dynamoose v4 can persist.
  * @param record {Record}
  * @returns {Object}
@@ -285,7 +292,20 @@ class DynamooseModel {
      */
     async createRecords(records) {
         logger.trace(`persisting records (${JSON.stringify(records.map(record => record.uid))})`);
-        await this.dynamooseModel.batchPut(records.map(recordToDynamoObject));
+
+        // NOTE-RT: DynamoDB's `BatchWriteItem` API (which `batchPut` wraps) hard-caps a single
+        // request at 25 items - "Member must have length less than or equal to 25" - and rejects
+        // the *entire* request, not just the overflow, if that limit is exceeded. `batchPut` does
+        // not chunk on our behalf, so any source returning more than 25 records in one run (e.g. a
+        // `perPage: 100` search) used to fail to cache anything at all. Confirmed live against
+        // `service-dev-cachePosts`, where both a 30-item `s3` batch and a 50-item `unsplash` batch
+        // failed this exact validation, silently (`CacheClient#setRecords` already swallows
+        // caching errors - see docs/CONVENTIONS.md#error-handling).
+        for (let chunkStart = 0; chunkStart < records.length; chunkStart += DYNAMODB_BATCH_WRITE_LIMIT) {
+            const chunk = records.slice(chunkStart, chunkStart + DYNAMODB_BATCH_WRITE_LIMIT);
+            await this.dynamooseModel.batchPut(chunk.map(recordToDynamoObject));
+        }
+
         logger.trace(`persisted records (${JSON.stringify(records.map(record => record.uid))})`);
         return records;
     }
