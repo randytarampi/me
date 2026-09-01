@@ -12,7 +12,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "workspace:*",
-    "exiftool-vendored": "^36.0.0",
+    "exiftool-vendored": "^37.2.0",
     "pug": "^3.0.4",
     "puppeteer": "^25.3.0",
     "react": "^19.2.7",
