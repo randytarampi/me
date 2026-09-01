@@ -1,10 +1,10 @@
 {
   "name": "@randy.tarampi/react-dimensions",
   "version": "8.0.0",
-  "private": true,
-  "type": "module",
-  "main": "./index.js",
   "engines": {
     "node": ">=22"
-  }
+  },
+  "main": "./index.js",
+  "private": true,
+  "type": "module"
 }

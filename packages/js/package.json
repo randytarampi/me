@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/js",
-  "type": "module",
   "description": "Some common JS entities for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -23,7 +22,7 @@
     "query-string": "^9.4.1"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "chai": "^6.2.2",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
@@ -34,15 +33,14 @@
     "lib": "./src/lib",
     "test": "./test"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "files": [
     "esm",
     "npm-shrinkwrap.json"
   ],
   "keywords": [
-    "bear",
-    "emoji",
-    "subtegmine",
-    "woof",
     "ʕ•ᴥ•ʔ",
     "υφάδι",
     "гав",
@@ -51,7 +49,11 @@
     "বুনন",
     "横糸",
     "纬",
-    "씨"
+    "씨",
+    "bear",
+    "emoji",
+    "subtegmine",
+    "woof"
   ],
   "license": "MIT",
   "main": "./esm/index.js",
@@ -76,7 +78,5 @@
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
   "sideEffects": false,
-  "engines": {
-    "node": ">=22"
-  }
+  "type": "module"
 }

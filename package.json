@@ -12,7 +12,7 @@
     "babel-plugin-istanbul": "^8.0.2",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-minify-replace": "^0.5.0",
-    "config": "^5.0.0-alpha.2",
+    "config": "^5.0.1",
     "copy-webpack-plugin": "^14.0.0",
     "core-js": "^3.49.0",
     "cross-env": "^10.1.0",
@@ -63,17 +63,41 @@
     "workbox-webpack-plugin": "^7.4.1",
     "yargs": "^18.0.0"
   },
+  "devDependencies": {
+    "@babel/cli": "^8.0.4",
+    "@babel/core": "^8.0.1",
+    "@babel/plugin-transform-class-properties": "^8.0.1",
+    "@babel/plugin-transform-object-rest-spread": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/register": "^8.0.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.3",
+    "@sentry/webpack-plugin": "^5.4.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "babel-loader": "^10.1.1",
+    "eslint-formatter-junit": "^9.0.1",
+    "gulp-sass": "^6.0.1",
+    "husky": "^9.1.7",
+    "immutable": "^5.1.9",
+    "knip": "^6.33.0",
+    "lerna": "^10.0.1",
+    "lint-staged": "^17.4.1",
+    "react-refresh": "^0.18.0",
+    "webpack-cli": "^7.2.3",
+    "webpack-dev-server": "^6.0.0"
+  },
   "engines": {
     "node": ">=22"
   },
+  "packageManager": "yarn@4.17.0",
+  "private": true,
+  "repository": "randytarampi/me.git",
   "resolutions": {
     "lerna/js-yaml": "^4.3.1",
     "nx/brace-expansion": "^5.0.9",
     "react-is": "^19.2.0"
   },
-  "private": true,
-  "type": "module",
-  "repository": "randytarampi/me.git",
+  "resolutionsComment": "Pinned react-is to keep legacy React/Materialize transitive resolution stable.",
   "scripts": {
     "bootstrap": "yarn install",
     "build": "lerna run build --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
@@ -82,11 +106,11 @@
     "cover:actual": "rm -rf .nyc_output/ coverage/ && lerna run cover --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "cover:actual:collect:lcov": "mkdir -p .nyc_output/ coverage/ && lerna exec -- 'if [ -d ./.nyc_output ]; then cp -r .nyc_output \"$LERNA_ROOT_PATH\"; fi;' && nyc report --reporter=lcov",
     "cover:collect": "yarn run test:collect; yarn run cover:actual:collect:lcov",
-    "lint": "eslint .",
     "kill": "lerna run kill",
     "knip": "knip",
-    "ncu:root": "ncu",
+    "lint": "eslint .",
     "ncu:lerna": "lerna --concurrency=1 exec ncu",
+    "ncu:root": "ncu",
     "prepare": "husky && ./bin/prepare.sh",
     "pretest": "yarn run pretest:actual; yarn run pretest:collect",
     "pretest:actual": "cross-env-shell NODE_ENV=test lerna run pretest --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
@@ -101,6 +125,7 @@
     "test:actual:collect": "junit-merge $(find packages service www resume letter -name 'test-results.xml' -type f -not -path '*/node_modules/*' 2>/dev/null) --out ./test-results.xml || true",
     "test:collect": "yarn run test:actual:collect"
   },
+  "type": "module",
   "workspaces": [
     "packages/*",
     "service",
@@ -108,30 +133,5 @@
     "resume",
     "letter",
     "infrastructure"
-  ],
-  "packageManager": "yarn@4.17.0",
-  "devDependencies": {
-    "@babel/cli": "^8.0.1",
-    "@babel/core": "^8.0.1",
-    "@babel/plugin-transform-class-properties": "^8.0.1",
-    "@babel/plugin-transform-object-rest-spread": "^8.0.1",
-    "@babel/preset-env": "^8.0.2",
-    "@babel/preset-react": "^8.0.1",
-    "@babel/register": "^8.0.1",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
-    "@sentry/webpack-plugin": "^5.4.0",
-    "@testing-library/jest-dom": "^6.9.1",
-    "babel-loader": "^10.1.1",
-    "eslint-formatter-junit": "^9.0.1",
-    "gulp-sass": "^6.0.1",
-    "husky": "^9.1.7",
-    "immutable": "^5.1.9",
-    "knip": "^6.25.0",
-    "lerna": "^9.0.7",
-    "lint-staged": "^17.0.8",
-    "react-refresh": "^0.18.0",
-    "webpack-cli": "^7.2.1",
-    "webpack-dev-server": "^6.0.0"
-  },
-  "resolutionsComment": "Pinned react-is to keep legacy React/Materialize transitive resolution stable."
+  ]
 }

@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/serverless",
-  "type": "module",
   "description": "Some opinionated serverless utilities for my own use",
   "version": "8.0.0",
   "author": {
@@ -16,7 +15,7 @@
     "mime-types": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "chai": "^6.2.2",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
@@ -61,5 +60,6 @@
     "pretest": "gulp -LLLL --color lint",
     "start": "yarn run dev",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
-  }
+  },
+  "type": "module"
 }

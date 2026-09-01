@@ -1,6 +1,5 @@
 {
   "name": "jsonresume-theme-randytarampi",
-  "type": "module",
   "description": "A JSON resume theme for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -12,12 +11,12 @@
   "dependencies": {
     "@randy.tarampi/resume": "workspace:*",
     "@randy.tarampi/views": "workspace:*",
-    "config": "^5.0.0-alpha.2",
+    "config": "^5.0.1",
     "core-js": "^3.49.0",
-    "resume-cli": "3.7.1"
+    "resume-cli": "3.7.2"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "gulp": "^5.0.1",
@@ -92,7 +91,8 @@
     "resume:publish": "NODE_ENV=printable CAMPAIGN_SOURCE=$(node -p \"require(\\\"./package.json\\\").name\") CAMPAIGN_MEDIUM=html CAMPAIGN_CONTENT=$(node -p \"require(\\\"./package.json\\\").version\") resume publish --force --theme $(node -p \"require(\\\"./package.json\\\").name.replace(\\\"jsonresume-theme-\\\", \\\"\\\")\")",
     "start": "yarn run resume",
     "start:server": "yarn run kill:server; bash -c 'node ./server.js & echo $! > /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; echo \"Started server ($(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid)) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"'",
-    "validate": "resume validate",
-    "test": "NODE_ENV=test yarn run resume"
-  }
+    "test": "NODE_ENV=test yarn run resume",
+    "validate": "resume validate"
+  },
+  "type": "module"
 }

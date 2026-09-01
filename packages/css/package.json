@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/css",
-  "type": "module",
   "description": "Some common styles for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -15,6 +14,9 @@
   "devDependencies": {
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "files": [
     "npm-shrinkwrap.json",
@@ -36,7 +38,5 @@
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint"
   },
-  "engines": {
-    "node": ">=22"
-  }
+  "type": "module"
 }

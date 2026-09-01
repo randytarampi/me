@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/views",
-  "type": "module",
   "description": "Some common Pug templates for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -11,16 +10,19 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "workspace:*",
-    "config": "^5.0.0-alpha.2"
+    "config": "^5.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
     "gulp-pug": "^5.0.0"
   },
   "directories": {
     "lib": "./src/lib"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "files": [
     "dist",
@@ -51,7 +53,5 @@
     "pretest": "gulp -LLLL --color lint"
   },
   "sideEffects": false,
-  "engines": {
-    "node": ">=22"
-  }
+  "type": "module"
 }

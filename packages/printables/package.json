@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/printables",
-  "type": "module",
   "description": "A wrapper around some common printable tasks for jsonresume-theme-randytarampi and @randy.tarampi/letter",
   "version": "8.0.0",
   "author": {
@@ -12,7 +11,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/views": "workspace:*",
-    "exiftool-vendored": "^36.0.0",
+    "exiftool-vendored": "^37.2.0",
     "pug": "^3.0.4",
     "puppeteer": "^25.3.0",
     "react": "^19.2.7",
@@ -20,12 +19,12 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "chai": "^6.2.2",
     "cheerio": "^1.2.0",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "mocha-junit-reporter": "^2.2.1",
     "nyc": "^18.0.0",
     "sinon": "^22.0.0"
@@ -65,5 +64,6 @@
     "pretest": "gulp -LLLL --color lint",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "type": "module"
 }

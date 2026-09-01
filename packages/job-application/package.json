@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/job-application",
-  "type": "module",
   "description": "A utility to generate coherent job application (resume + cover letter) packages.",
   "version": "8.0.0",
   "author": {
@@ -22,15 +21,15 @@
     "react-materialize": "^3.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "bluebird": "^3.7.2",
     "chai": "^6.2.2",
     "cheerio": "^1.2.0",
-    "config": "^5.0.0-alpha.2",
+    "config": "^5.0.1",
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "gulp": "^5.0.1",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "mocha-junit-reporter": "^2.2.1",
     "nyc": "^18.0.0",
     "yargs": "^18.0.0"
@@ -69,5 +68,6 @@
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.job-application.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.job-application.server.pid`) from /tmp/ca.randytarampi.me.job-application.server.pid\";",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "type": "module"
 }

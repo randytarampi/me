@@ -1,6 +1,5 @@
 {
   "name": "@randy.tarampi/letter",
-  "type": "module",
   "description": "A cover letter generator for www.randytarampi.ca",
   "version": "8.0.0",
   "author": {
@@ -21,7 +20,7 @@
     "@randy.tarampi/views": "workspace:*",
     "@types/react": "^19.2.17",
     "core-js": "^3.49.0",
-    "exiftool-vendored": "^36.0.0",
+    "exiftool-vendored": "^37.2.0",
     "history": "^5.3.0",
     "immutable": "^5.1.9",
     "luxon": "^3.7.2",
@@ -40,16 +39,16 @@
     "reselect": "^5.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "chai": "^6.2.2",
     "cheerio": "^1.2.0",
-    "config": "^5.0.0-alpha.2",
+    "config": "^5.0.1",
     "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "gulp": "^5.0.1",
     "html-webpack-plugin": "^5.6.7",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "mocha-junit-reporter": "^2.2.1",
     "nyc": "^18.0.0",
     "redux-mock-store": "^1.5.5",
@@ -115,5 +114,6 @@
     "start:server": "yarn run kill:server; node ./server.js & echo $! > /tmp/ca.randytarampi.me.letter.server.pid; echo \"Started server (`cat /tmp/ca.randytarampi.me.letter.server.pid`) from /tmp/ca.randytarampi.me.letter.server.pid\";",
     "test": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "type": "module"
 }

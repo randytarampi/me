@@ -14,7 +14,7 @@
     "@randy.tarampi/js": "workspace:*",
     "@randy.tarampi/lambda-logger": "workspace:*",
     "@randy.tarampi/serverless": "workspace:*",
-    "config": "^5.0.0-alpha.2",
+    "config": "^5.0.1",
     "dynamoose": "^4.2.0",
     "flickr-sdk": "^7.1.0",
     "form-data": "^4.0.6",
@@ -50,7 +50,6 @@
   },
   "license": "MIT",
   "private": true,
-  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -79,5 +78,6 @@
     "start": "yarn run dev",
     "test": "yarn run pretest:localstack && yarn run test:actual",
     "test:actual": "cross-env-shell NODE_ENV=test gulp -LLLL --color test"
-  }
+  },
+  "type": "module"
 }
