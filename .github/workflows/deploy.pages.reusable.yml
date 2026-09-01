@@ -46,7 +46,6 @@ jobs:
       - ubuntu-latest
     permissions:
       contents: write
-      deployments: write
     steps:
       - name: Set variables
         id: variables
