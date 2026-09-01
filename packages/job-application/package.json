@@ -30,7 +30,7 @@
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "gulp": "^5.0.1",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "mocha-junit-reporter": "^2.2.1",
     "nyc": "^18.0.0",
     "yargs": "^18.0.0"
