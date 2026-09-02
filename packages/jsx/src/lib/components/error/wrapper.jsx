@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
-import {mapErrorCodeToErrorContentComponent} from "./content/index.jsx";
+import {mapErrorCodeToErrorContentComponent as defaultMapErrorCodeToErrorContentComponent} from "./content/index.jsx";
 import ErrorComponent from "./error.jsx";
 
-export const ErrorWrapperComponent = ({children, ...props}) => {
-    const errorContentComponent = props.errorContentComponent || props.mapErrorCodeToErrorContentComponent(props.errorCode);
+export const ErrorWrapperComponent = ({children, hasError = false, mapErrorCodeToErrorContentComponent = defaultMapErrorCodeToErrorContentComponent, ...props}) => {
+    const errorContentComponent = props.errorContentComponent || mapErrorCodeToErrorContentComponent(props.errorCode);
 
     return <Fragment>
         {
             errorContentComponent
-                ? <ErrorComponent {...props} errorContentComponent={errorContentComponent}/>
+                ? <ErrorComponent {...props} hasError={hasError} mapErrorCodeToErrorContentComponent={mapErrorCodeToErrorContentComponent} errorContentComponent={errorContentComponent}/>
                 : children
         }
     </Fragment>;
@@ -25,9 +25,5 @@ ErrorWrapperComponent.propTypes = {
     mapErrorCodeToErrorContentComponent: PropTypes.func.isRequired
 };
 
-ErrorWrapperComponent.defaultProps = {
-    hasError: false,
-    mapErrorCodeToErrorContentComponent
-};
 
 export default ErrorWrapperComponent;

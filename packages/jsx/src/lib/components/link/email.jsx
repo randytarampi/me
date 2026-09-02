@@ -3,14 +3,14 @@ import queryString from "query-string";
 import React from "react";
 import Link from "./link.jsx";
 
-export const EmailLink = ({useBranding, ...props}) => {
+export const EmailLink = ({useBranding = true, email = "jobs@randytarampi.ca", ...props}) => {
     return <Link {...props}
                  className={["link--email", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
                  target="_self"
-                 href={`mailto:${props.email}${props.body || props.subject ? `?${queryString.stringify({
+                 href={`mailto:${email}${props.body || props.subject ? `?${queryString.stringify({
                      body: props.body,
                      subject: props.subject
-                 })}` : ""}`} text={props.text || props.email}/>;
+                 })}` : ""}`} text={props.text || email}/>;
 };
 
 EmailLink.propTypes = {
@@ -22,9 +22,5 @@ EmailLink.propTypes = {
     email: PropTypes.string.isRequired
 };
 
-EmailLink.defaultProps = {
-    useBranding: true,
-    email: "jobs@randytarampi.ca"
-};
 
 export default EmailLink;

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import CampaignLink from "./campaign.jsx";
 
-export const WebLink = ({useBranding, ...props}) => {
+export const WebLink = ({useBranding = true, ...props}) => {
     return <CampaignLink {...props}
                          className={["link--web", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
                          text={props.text || props.href}/>;
@@ -15,8 +15,5 @@ WebLink.propTypes = {
     text: PropTypes.string
 };
 
-WebLink.defaultProps = {
-    useBranding: true
-};
 
 export default WebLink;

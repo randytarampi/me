@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import Link from "./link.jsx";
 
-export const TelLink = ({useBranding, ...props}) => {
+export const TelLink = ({useBranding = true, tel = "+16043747128", ...props}) => {
     return <Link {...props}
                  className={["link--tel", useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
-                 href={`tel:${props.tel}`} text={props.text || props.tel}/>;
+                 href={`tel:${tel}`} text={props.text || tel}/>;
 };
 
 TelLink.propTypes = {
@@ -15,9 +15,5 @@ TelLink.propTypes = {
     useBranding: PropTypes.bool,
 };
 
-TelLink.defaultProps = {
-    useBranding: true,
-    tel: "+16043747128"
-};
 
 export default TelLink;

@@ -3,7 +3,7 @@ import React from "react";
 import {Col, Row} from "react-materialize";
 import SectionWrapper from "./sectionWrapper.jsx";
 
-export const LeftDescriptionSection = ({printableType, type, label, labelNode, description, descriptionNode, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
+export const LeftDescriptionSection = ({printableType, type, label, labelNode, description, descriptionNode, hideOnPrint = false, showOnLetter = false, showOnA4 = false, showOnLegal = false, hideOnScreen = false, verticallyAlignContent = false, className, children}) => {
     const sectionClassNames = [
         "printable-section--description",
         "printable-section--description-left"
@@ -72,13 +72,5 @@ LeftDescriptionSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-LeftDescriptionSection.defaultProps = {
-    hideOnPrint: false,
-    hideOnScreen: false,
-    showOnA4: false,
-    showOnLegal: false,
-    showOnLetter: false,
-    verticallyAlignContent: false
-};
 
 export default LeftDescriptionSection;

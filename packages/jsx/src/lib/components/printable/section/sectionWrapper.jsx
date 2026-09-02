@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Row} from "react-materialize";
 
-export const SectionWrapper = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children}) => {
+export const SectionWrapper = ({printableType, type, hideOnPrint = false, showOnLetter = false, showOnA4 = false, showOnLegal = false, hideOnScreen = false, verticallyAlignContent = false, className, children}) => {
     const classNames = [
         "printable-section",
         "printable-" + type,
@@ -48,13 +48,5 @@ SectionWrapper.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-SectionWrapper.defaultProps = {
-    hideOnPrint: false,
-    hideOnScreen: false,
-    showOnA4: false,
-    showOnLegal: false,
-    showOnLetter: false,
-    verticallyAlignContent: false
-};
 
 export default SectionWrapper;

@@ -3,7 +3,7 @@ import React from "react";
 import {Col} from "react-materialize";
 import SectionWrapper from "./sectionWrapper.jsx";
 
-export const RightPushSection = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children, sideContent}) => {
+export const RightPushSection = ({printableType, type, hideOnPrint = false, showOnLetter = false, showOnA4 = false, showOnLegal = false, hideOnScreen = false, verticallyAlignContent = false, className, children, sideContent}) => {
     const sectionClassNames = [
         "printable-section--push",
         "printable-section--push-right"
@@ -42,13 +42,5 @@ RightPushSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-RightPushSection.defaultProps = {
-    hideOnPrint: false,
-    hideOnScreen: false,
-    showOnA4: false,
-    showOnLegal: false,
-    showOnLetter: false,
-    verticallyAlignContent: false
-};
 
 export default RightPushSection;

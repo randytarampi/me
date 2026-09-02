@@ -4,7 +4,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Link from "../link.jsx";
 
-const InternalLinkInternal = ({serviceName, serviceType, className, ...props}) => {  
+const InternalLinkInternal = ({serviceName, serviceType = "internal", className, ...props}) => {
     return <Link
         target="_self"
         text={serviceName}
@@ -20,9 +20,6 @@ InternalLinkInternal.propTypes = {
     serviceType: PropTypes.string.isRequired
 };
 
-InternalLinkInternal.defaultProps = {
-    serviceType: "internal"
-};
 
 export const InternalLink = connect(
     null,

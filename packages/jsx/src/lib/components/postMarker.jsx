@@ -236,7 +236,7 @@ export const buildPostMarkerId = post => `marker--${post.uid}`;
 // `ref`/local state here and threaded down into `renderPostMarkerInfoBoxComponentForPost` as
 // `anchor`. The same ref callback also reports the marker instance to `setMarkerRef` (when
 // present, i.e. when rendered as a child of `GoogleMapMarkerClustererComponent`) for clustering.
-export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMapCenter, setMarkerRef, ...props}) => {
+export const PostMarkerComponent = ({post, isVisible = false, onVisibilityToggle, setMapCenter, setMarkerRef, ...props}) => {
     const [markerInstance, setMarkerInstance] = useState(null);
     const handleMarkerRef = useCallback(marker => {
         setMarkerInstance(marker);
@@ -279,9 +279,6 @@ export const PostMarkerComponent = ({post, isVisible, onVisibilityToggle, setMap
     </ReactReduxContext.Consumer>;
 };
 
-PostMarkerComponent.defaultProps = {
-    isVisible: false
-};
 
 PostMarkerComponent.propTypes = {
     post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,

@@ -5,7 +5,7 @@ import ReduxRoot from "./reduxRoot.jsx";
 import {StaticRouter} from "react-router";
 import {renderRoutes} from "./util/renderRoutes.js";
 
-export const ServerReduxRouterRoot = ({store, location, routes, ...props}) =>
+export const ServerReduxRouterRoot = ({store, location = "/", routes, ...props}) =>
     <ReduxRoot store={store} {...props}>
         <main>
             <ConnectedErrorWrapper {...props}>
@@ -25,8 +25,5 @@ ServerReduxRouterRoot.propTypes = {
     routes: PropTypes.array.isRequired
 };
 
-ServerReduxRouterRoot.defaultProps = {
-    location: "/"
-};
 
 export default ServerReduxRouterRoot;

@@ -3,7 +3,7 @@ import React from "react";
 import {Col} from "react-materialize";
 import SectionWrapper from "./sectionWrapper.jsx";
 
-export const LeftPullSection = ({printableType, type, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className, children, sideContent}) => {
+export const LeftPullSection = ({printableType, type, hideOnPrint = false, showOnLetter = false, showOnA4 = false, showOnLegal = false, hideOnScreen = false, verticallyAlignContent = false, className, children, sideContent}) => {
     const sectionClassNames = [
         "printable-section--pull",
         "printable-section--pull-left"
@@ -42,13 +42,5 @@ LeftPullSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-LeftPullSection.defaultProps = {
-    hideOnPrint: false,
-    hideOnScreen: false,
-    showOnA4: false,
-    showOnLegal: false,
-    showOnLetter: false,
-    verticallyAlignContent: false
-};
 
 export default LeftPullSection;

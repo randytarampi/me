@@ -3,7 +3,7 @@ import React from "react";
 import {Col} from "react-materialize";
 import SectionWrapper from "./sectionWrapper.jsx";
 
-export const RawHtmlLetterSection = ({printableType, type, rawHtml, hideOnPrint, showOnLetter, showOnA4, showOnLegal, hideOnScreen, verticallyAlignContent, className}) => {
+export const RawHtmlLetterSection = ({printableType, type, rawHtml, hideOnPrint = false, showOnLetter = false, showOnA4 = false, showOnLegal = false, hideOnScreen = false, verticallyAlignContent = false, className}) => {
     const sectionClassNames = [
         "printable-section__raw-html"
     ];
@@ -36,13 +36,5 @@ RawHtmlLetterSection.propTypes = {
     verticallyAlignContent: PropTypes.bool
 };
 
-RawHtmlLetterSection.defaultProps = {
-    hideOnPrint: false,
-    hideOnScreen: false,
-    showOnA4: false,
-    showOnLegal: false,
-    showOnLetter: false,
-    verticallyAlignContent: false
-};
 
 export default RawHtmlLetterSection;

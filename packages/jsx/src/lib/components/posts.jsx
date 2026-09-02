@@ -180,6 +180,5 @@ export const MeasuredPostsComponent = props => {
 };
 
 MeasuredPostsComponent.propTypes = PostsComponent.propTypes;
-MeasuredPostsComponent.defaultProps = PostsComponent.defaultProps;
 
 export default MeasuredPostsComponent;

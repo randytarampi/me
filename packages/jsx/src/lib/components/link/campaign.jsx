@@ -5,7 +5,7 @@ import {CampaignContext} from "../../contexts/index.jsx";
 import {InternalLink} from "./internal/index.jsx";
 import {Link} from "./link.jsx";
 
-export const CampaignLink = ({useBranding, href, source, medium, name, term, content, ...props}) => {
+export const CampaignLink = ({useBranding = true, href, source, medium, name, term, content, ...props}) => {
     return <CampaignContext.Consumer>
         {
             campaignContext => {
@@ -53,8 +53,5 @@ CampaignLink.propTypes = {
     content: PropTypes.string
 };
 
-CampaignLink.defaultProps = {
-    useBranding: true
-};
 
 export default CampaignLink;

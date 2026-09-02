@@ -2,11 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import CampaignLink from "../campaign.jsx";
 
-export const BrandedLink = ({serviceName, serviceType, serviceUrl, username, useBranding, ...props}) => { // eslint-disable-line no-unused-vars
+export const BrandedLink = ({serviceName, serviceType, serviceUrl, username, useBranding = true, ...props}) => { // eslint-disable-line no-unused-vars
     return <CampaignLink
         text={username}
         href={`${serviceUrl}/${username}`}
         {...props}
+        useBranding={useBranding}
         className={[`link--branded link--${serviceType}`, useBranding ? "" : "link--no-branding", props.className].join(" ").trim()}
     />;
 };
@@ -20,8 +21,5 @@ BrandedLink.propTypes = {
     serviceUrl: PropTypes.string.isRequired,
 };
 
-BrandedLink.defaultProps = {
-    useBranding: true
-};
 
 export default BrandedLink;
