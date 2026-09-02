@@ -28,10 +28,14 @@ jspm_packages
 
 # npm and yarn directories
 .npm
+# NOTE-RT: negate `.yarn` itself first — a global `~/.gitignore` `.yarn` rule otherwise excludes
+# this whole tree and defeats every negation below.
+!.yarn/
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
 !.yarn/patches
+!.yarn/patches/**
 .pnp.*
 
 # Optional REPL history

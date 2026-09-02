@@ -30,7 +30,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-helmet": "^6.1.0",
-    "react-materialize": "^3.10.0",
+    "react-materialize": "patch:react-materialize@npm%3A3.10.0#~/.yarn/patches/react-materialize-npm-3.10.0-8c04db38ef.patch",
     "react-redux": "^9.3.0",
     "react-router": "^8.1.0",
     "react-router-sitemap": "^1.2.0",

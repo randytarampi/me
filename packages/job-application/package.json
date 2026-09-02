@@ -18,7 +18,7 @@
     "lodash": "^4.18.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-materialize": "^3.10.0"
+    "react-materialize": "patch:react-materialize@npm%3A3.10.0#~/.yarn/patches/react-materialize-npm-3.10.0-8c04db38ef.patch"
   },
   "devDependencies": {
     "@babel/cli": "^8.0.4",

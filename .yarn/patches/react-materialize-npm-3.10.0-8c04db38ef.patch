@@ -1,0 +1,79 @@
+diff --git a/lib/Carousel.js b/lib/Carousel.js
+index d97ab33807033569feaf2d9bdee845e41f40d0f8..c7299ff76245b406b7490d3512b9f085112bf71e 100644
+--- a/lib/Carousel.js
++++ b/lib/Carousel.js
+@@ -24,11 +24,22 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
+ var Carousel = function Carousel(_ref) {
+   var children = _ref.children,
+       className = _ref.className,
+-      carouselId = _ref.carouselId,
++      _ref$carouselId = _ref.carouselId,
++      carouselId = _ref$carouselId === void 0 ? "Carousel-".concat((0, _idgen.default)()) : _ref$carouselId,
+       fixedItem = _ref.fixedItem,
+       images = _ref.images,
+       centerImages = _ref.centerImages,
+-      options = _ref.options;
++      options = _ref.options === void 0 ? {
++    duration: 200,
++    dist: -100,
++    shift: 0,
++    padding: 0,
++    numVisible: 5,
++    fullWidth: false,
++    indicators: false,
++    noWrap: false,
++    onCycleTo: null
++  } : _ref.options;
+   var carouselRef = (0, _react.useRef)(null);
+   (0, _react.useEffect)(function () {
+     var instance = M.Carousel.init(carouselRef.current, options);
+@@ -149,22 +160,5 @@ Carousel.propTypes = {
+     onCycleTo: _propTypes.default.func
+   })
+ };
+-Carousel.defaultProps = {
+-  get carouselId() {
+-    return "Carousel-".concat((0, _idgen.default)());
+-  },
+-
+-  options: {
+-    duration: 200,
+-    dist: -100,
+-    shift: 0,
+-    padding: 0,
+-    numVisible: 5,
+-    fullWidth: false,
+-    indicators: false,
+-    noWrap: false,
+-    onCycleTo: null
+-  }
+-};
+ var _default = Carousel;
+ exports.default = _default;
+diff --git a/lib/Tabs.js b/lib/Tabs.js
+index 317585e34d7881e3c35ba65bb6e8822302b6c657..3addd52dd7c5846a5629bc2cd19a05a4a5d33cba 100644
+--- a/lib/Tabs.js
++++ b/lib/Tabs.js
+@@ -30,7 +30,8 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
+ function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+ 
+ var Tabs = function Tabs(_ref) {
+-  var scope = _ref.scope,
++  var _ref$scope = _ref.scope,
++      scope = _ref$scope === void 0 ? "tabs-".concat((0, _idgen.default)()) : _ref$scope,
+       children = _ref.children,
+       className = _ref.className,
+       defaultValue = _ref.defaultValue,
+@@ -120,12 +121,6 @@ Tabs.propTypes = {
+     responsiveThreshold: _propTypes.default.number
+   })
+ };
+-Tabs.defaultProps = {
+-  get scope() {
+-    return "tabs-".concat((0, _idgen.default)());
+-  }
+-
+-};
+ _Tab.default.defaultProps = {
+   options: {
+     duration: 300,
