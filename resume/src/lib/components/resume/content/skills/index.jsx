@@ -5,7 +5,7 @@ import {Row} from "react-materialize";
 import {ResumeCustomContent} from "../../../../resumeCustomContent.js";
 import ResumeSkillsEntry from "./entry.jsx";
 
-export const ResumeSkills = ({resume, customContent, type, label}) => {
+export const ResumeSkills = ({resume, customContent = new ResumeCustomContent(), type = "skills", label = "Skills"}) => {
     return <PrintableSection
         printableType="resume"
         type={type}
@@ -29,12 +29,6 @@ ResumeSkills.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeSkills.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "Skills",
-    type: "skills"
 };
 
 export default ResumeSkills;

@@ -4,7 +4,7 @@ import React from "react";
 import {Col, Row} from "react-materialize";
 import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
-export const ResumeReferences = ({resume, customContent, type, label}) => {
+export const ResumeReferences = ({resume, customContent = new ResumeCustomContent(), type = "references", label = "References"}) => {
     return <PrintableSection
         printableType="resume"
         hideOnPrint={true}
@@ -38,12 +38,6 @@ ResumeReferences.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeReferences.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "References",
-    type: "references"
 };
 
 export default ResumeReferences;

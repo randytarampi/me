@@ -35,8 +35,4 @@ LetterFooter.propTypes = {
     contentConfiguration: PropTypes.object
 };
 
-LetterFooter.defaultProps = {
-    publishedLetterUrl: __PUBLISHED_LETTER_URL__
-};
-
 export default LetterFooter;

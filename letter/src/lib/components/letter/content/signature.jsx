@@ -27,8 +27,4 @@ LetterSignature.propTypes = {
     assetUrl: PropTypes.string.isRequired
 };
 
-LetterSignature.defaultProps = {
-    assetUrl: __LETTER_ASSET_URL__
-};
-
 export default LetterSignature;

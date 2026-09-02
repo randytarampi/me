@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
-export const ResumeAbout = ({resume, customContent, type, label}) => {
+export const ResumeAbout = ({resume, customContent = new ResumeCustomContent(), type = "about", label = "About"}) => {
     return <PrintableSection
         printableType="resume"
         type={type}
@@ -23,12 +23,6 @@ ResumeAbout.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeAbout.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "About",
-    type: "about"
 };
 
 export default ResumeAbout;

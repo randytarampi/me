@@ -4,7 +4,7 @@ import React from "react";
 import {Col, Row} from "react-materialize";
 import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
-export const ResumeContact = ({resume, customContent, type, label}) => {
+export const ResumeContact = ({resume, customContent = new ResumeCustomContent(), type = "contact", label = "Contact"}) => {
     return <PrintableSection
         printableType="resume"
         hideOnPrint={true}
@@ -37,12 +37,6 @@ ResumeContact.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeContact.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "Contact",
-    type: "contact"
 };
 
 export default ResumeContact;

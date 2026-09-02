@@ -4,7 +4,7 @@ import React, {Fragment} from "react";
 import {Col, Row} from "react-materialize";
 import {ResumeCustomContent} from "../../resumeCustomContent.js";
 
-export const ResumeFooter = ({customContent}) => {
+export const ResumeFooter = ({customContent = new ResumeCustomContent()}) => {
     const footerContent = customContent && customContent.footer || {};
 
     return <PrintableFooter>
@@ -28,10 +28,6 @@ export const ResumeFooter = ({customContent}) => {
 ResumeFooter.propTypes = {
     resume: PropTypes.object.isRequired,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeFooter.defaultProps = {
-    customContent: new ResumeCustomContent()
 };
 
 export default ResumeFooter;

@@ -31,7 +31,7 @@ const getLinkComponentForProfile = profile => {
     return linkComponent;
 };
 
-export const ResumeProfiles = ({resume, customContent, type, label}) => {
+export const ResumeProfiles = ({resume, customContent = new ResumeCustomContent(), type = "profiles", label = "Profiles"}) => {
     return <PrintableSection
         printableType="resume"
         showOnA4={true}
@@ -64,12 +64,6 @@ ResumeProfiles.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeProfiles.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "Profiles",
-    type: "profiles"
 };
 
 export default ResumeProfiles;

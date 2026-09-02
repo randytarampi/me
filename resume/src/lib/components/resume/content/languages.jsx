@@ -4,7 +4,7 @@ import React from "react";
 import {Col, Row} from "react-materialize";
 import {ResumeCustomContent} from "../../../resumeCustomContent.js";
 
-export const ResumeLanguages = ({resume, customContent, type, label}) => {
+export const ResumeLanguages = ({resume, customContent = new ResumeCustomContent(), type = "languages", label = "Languages"}) => {
     return <PrintableSection
         printableType="resume"
         hideOnPrint={true}
@@ -34,12 +34,6 @@ ResumeLanguages.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeLanguages.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "Languages",
-    type: "languages"
 };
 
 export default ResumeLanguages;

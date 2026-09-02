@@ -4,7 +4,7 @@ import React from "react";
 import {ResumeCustomContent} from "../../../../resumeCustomContent.js";
 import ResumeVolunteerEntry from "./entry.jsx";
 
-export const ResumeVolunteer = ({resume, customContent, type, label}) => {
+export const ResumeVolunteer = ({resume, customContent = new ResumeCustomContent(), type = "volunteer", label = "Volunteering"}) => {
     return <PrintableSection
         printableType="resume"
         hideOnPrint={true}
@@ -27,12 +27,6 @@ ResumeVolunteer.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     customContent: PropTypes.instanceOf(ResumeCustomContent).isRequired
-};
-
-ResumeVolunteer.defaultProps = {
-    customContent: new ResumeCustomContent(),
-    label: "Volunteering",
-    type: "volunteer"
 };
 
 export default ResumeVolunteer;
