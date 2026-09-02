@@ -8797,8 +8797,8 @@ __metadata:
   linkType: hard
 
 "@testing-library/react@npm:^16":
-  version: 16.3.2
-  resolution: "@testing-library/react@npm:16.3.2"
+  version: 16.3.3
+  resolution: "@testing-library/react@npm:16.3.3"
   dependencies:
     "@babel/runtime": "npm:^7.12.5"
   peerDependencies:
@@ -8812,7 +8812,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 10c0/f9c7f0915e1b5f7b750e6c7d8b51f091b8ae7ea99bacb761d7b8505ba25de9cfcb749a0f779f1650fb268b499dd79165dc7e1ee0b8b4cb63430d3ddc81ffe044
+  checksum: 10c0/87d65cca71a39c93fffa23746a751a7037a4b4e939ea6b234af5188e4bdec96a7568b05000db109b5b76c686899e93a329a594d7e690674e30b35594c87c9e1d
   languageName: node
   linkType: hard
 
@@ -15548,7 +15548,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.3.7, glob@npm:^10.4.1":
+"glob@npm:^10.4.1":
   version: 10.5.0
   resolution: "glob@npm:10.5.0"
   dependencies:
@@ -24067,17 +24067,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:5.0.10":
-  version: 5.0.10
-  resolution: "rimraf@npm:5.0.10"
-  dependencies:
-    glob: "npm:^10.3.7"
-  bin:
-    rimraf: dist/esm/bin.mjs
-  checksum: 10c0/7da4fd0e15118ee05b918359462cfa1e7fe4b1228c7765195a45b55576e8c15b95db513b8466ec89129666f4af45ad978a3057a02139afba1a63512a2d9644cc
-  languageName: node
-  linkType: hard
-
 "rimraf@npm:^2.5.1":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
@@ -24628,8 +24617,8 @@ __metadata:
   linkType: hard
 
 "serverless-domain-manager@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "serverless-domain-manager@npm:10.2.0"
+  version: 10.3.1
+  resolution: "serverless-domain-manager@npm:10.3.1"
   dependencies:
     "@aws-sdk/client-acm": "npm:^3.1016.0"
     "@aws-sdk/client-api-gateway": "npm:^3.1016.0"
@@ -24646,17 +24635,20 @@ __metadata:
     "@smithy/util-retry": "npm:^4.2.12"
     proxy-agent: "npm:^6.5.0"
   peerDependencies:
+    osls: ">=3"
     serverless: ">=3"
   peerDependenciesMeta:
+    osls:
+      optional: true
     serverless:
       optional: true
-  checksum: 10c0/7310ca389ad35a6fd45cb23d1ac5f8b64ca8fa7a67aefef7a637cc1a5407dc594e91d160f4ca94a7604c36211802f9f91e4a077a3b3952cdecfaffc2ab0f3e58
+  checksum: 10c0/9a62cce682f94928434838795aec640fa143ce1d8530dd7e125d4ff4405bc8d2962d22ae948d809df9041a90d1f85cbbf41056156e0410ed51fe6f36a22c9f96
   languageName: node
   linkType: hard
 
 "serverless-offline@npm:^14.7.4":
-  version: 14.7.4
-  resolution: "serverless-offline@npm:14.7.4"
+  version: 14.8.0
+  resolution: "serverless-offline@npm:14.8.0"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.1069.0"
     "@hapi/boom": "npm:^10.0.1"
@@ -24685,7 +24677,7 @@ __metadata:
     ws: "npm:^8.21.0"
   peerDependencies:
     serverless: ^4.0.0
-  checksum: 10c0/8314bb5337e55b660de9b10ddbcfd8c961e5ce3799ac5d81ed87438238c5ddb7c2408dfccb42f0a67a55c7fe84d55f0d920b861b14df03afe99d1a84de872111
+  checksum: 10c0/5550667e2df253991b7791f05fb6aaff30b5717e7b55e39b1a472e272d7963b8bb5d366a8e671592c0b4ce7974ffb07dfca3447ea78a6fa82eb2760ea5d93405
   languageName: node
   linkType: hard
 
@@ -24697,15 +24689,14 @@ __metadata:
   linkType: hard
 
 "serverless@npm:^4.38.1":
-  version: 4.38.1
-  resolution: "serverless@npm:4.38.1"
+  version: 4.41.1
+  resolution: "serverless@npm:4.41.1"
   dependencies:
-    rimraf: "npm:5.0.10"
-    undici: "npm:6.27.0"
+    undici: "npm:6.28.0"
   bin:
     serverless: run.js
     sls: run.js
-  checksum: 10c0/51ccbe3521483dd475a39e2760cfdd970238c308e2bb1519e128a4927e16020b2170a5b1959dd2ff559f7187dbad62cf2fcbc481abad99c82f5315faa0285db9
+  checksum: 10c0/f8d765d3cefe33e187f41bb4d5d74502b1e031a8257abd7490011e09878bd3eaece20c61c429083bc54dae130dc5e3a6e4b491d4b685cc08910a45fa93c522c7
   languageName: node
   linkType: hard
 
@@ -26786,7 +26777,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:6.27.0, undici@npm:^6.25.0":
+"undici@npm:6.28.0":
+  version: 6.28.0
+  resolution: "undici@npm:6.28.0"
+  checksum: 10c0/3029a70df06b38b5b2f30732932a1e92544c753cd82c8abdf0d35afad48e0ba91612e79fe3a442dbbb9434d6a9eba2b714d5ea28984c903dda2b5d5444f38354
+  languageName: node
+  linkType: hard
+
+"undici@npm:^6.25.0":
   version: 6.27.0
   resolution: "undici@npm:6.27.0"
   checksum: 10c0/f88c3dae3957dbf9d93cb481440aced317bd3c4941b5914fea5efba516d51138988cdb5c76006f0bb1337e41d56c3443351055d492e73af2428521c37ba2a76f
