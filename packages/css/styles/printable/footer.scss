@@ -1,6 +1,10 @@
 .printable-footer {
     margin-bottom: 0;
 
+    @media print {
+        text-align: center;
+    }
+
     & > .container > .row {
         margin-bottom: 0;
     }

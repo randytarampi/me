@@ -29,19 +29,26 @@
                 }
             }
 
-            // NOTE-RT: materialize gives every .row a 20px bottom margin; the hide-on-small-only
-            // rows (section label/description layout) slip past the rules above and accumulate
-            // ~100px of dead vertical space per resume at print size.
-            .row {
-                margin-bottom: 0;
-
-                @media #{$legal-page-up} {
-                    margin-bottom: 2px;
-                }
-            }
-
             .shield__image {
                 max-height: 1.33rem;
+            }
+        }
+    }
+
+    &.letter {
+        // NOTE-RT: letter pages (11in) were overflowing by roughly one footer line after the
+        // FA7 migration. `.letter-content` had no print rules at all — its paragraphs ran at
+        // .text defaults. Trim only letter-body spacing, at print, keeping text legible.
+        @media print {
+            .letter-content {
+                p, .text {
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+                }
+
+                .row {
+                    margin-bottom: 8px;
+                }
             }
         }
     }
@@ -52,10 +59,6 @@
             font-weight: 400;
             content: "\0feff";
             visibility: hidden;
-            // NOTE-RT: the BOM glyph exists to warm the (now inline data-URI) FA faces at load;
-            // collapse its layout box so it doesn't consume a line at the top of page 1.
-            font-size: 0;
-            line-height: 0;
         }
     }
 }
