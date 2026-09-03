@@ -26,14 +26,13 @@
   },
   "files": [
     "dist",
-    "esm",
     "npm-shrinkwrap.json",
     "templates"
   ],
   "homepage": "https://www.randytarampi.ca",
   "license": "MIT",
-  "main": "./esm/index.js",
-  "module": "./esm/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "publishConfig": {
     "access": "public"
   },
@@ -45,10 +44,10 @@
   "scripts": {
     "build": "yarn run build:gulp && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm",
-    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm BABEL_ESM_STANDALONE_BUILD=true babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel:esm": "cross-env-shell BABEL_ENV=client.esm BABEL_ESM_STANDALONE_BUILD=true babel src --out-dir dist --root-mode upward --copy-files",
     "build:gulp": "gulp -LLLL --color build",
     "clean": "gulp -LLLL --color clean",
-    "prepack": "bash -c 'if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;'",
+    "prepack": "bash -c 'if [ ! -d \"./dist\" ]; then exit 74; fi;'",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint"
   },

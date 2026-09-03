@@ -13,8 +13,8 @@ const {expect} = require("chai");
 const {createElement} = require("react");
 const {renderToStaticMarkup} = require("react-dom/server");
 const {ServerApp} = require("@randy.tarampi/letter");
-const {Letter} = require("@randy.tarampi/letter/esm/lib/letter.js");
-const letterJson = require("../../../../esm/letters/letter.json");
+const {Letter} = require("@randy.tarampi/letter/dist/lib/letter.js");
+const letterJson = require("../../../../dist/letters/letter.json");
 
 describe("compiled ServerApp (regression test for #945)", function () {
     it("renders the compiled letter package via renderToStaticMarkup without 'Element type is invalid' errors", function () {

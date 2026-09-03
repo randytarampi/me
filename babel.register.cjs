@@ -30,8 +30,8 @@ require("@babel/register").default({
         // files load as the plain, untransformed native ESM they already are - which also matches
         // its real (Babel-free) production runtime behavior, unlike the two files noted above.
         //
-        // NOTE-RT: each package's own `esm/`/`dist`/`build`/`es5` build output directories are
-        // also excluded now that library `esm/` output is genuine ESM (see `babel.config.js`'s
+        // NOTE-RT: each package's own `dist`/`build`/`es5` build output directories are
+        // also excluded now that library output is genuine ESM (see `babel.config.js`'s
         // "client.esm" case) - re-transforming an already-compiled real-ESM file through this
         // hook's own default Babel env is a second, unrelated compilation pass with no knowledge
         // of the standalone build's own settings, and corrupts it (observed as broken relative

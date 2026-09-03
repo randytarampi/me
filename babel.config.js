@@ -429,7 +429,7 @@ export default (api) => {
         }
 
         // NOTE-RT: `client.esm` is used for both (1) every package's own `build:babel:esm` script,
-        // which Babel-transpiles `src` into a standalone, genuinely-ESM `esm/` output directory
+        // which Babel-transpiles `src` into a standalone, genuinely-ESM `dist/` output directory
         // (real `import`/`export` syntax, no CJS stamp), and (2) `www`'s own
         // `webpack.client.config.esm.js` dev-server bundle, which also needs real ESM
         // (`modules: false`) for `react-refresh-webpack-plugin` interop - webpack wraps ESM-syntax
@@ -452,7 +452,7 @@ export default (api) => {
                 // NOTE-RT: only set by each package's own `build:babel:esm` script (never by
                 // `www`'s webpack dev-server bundle, which also uses this same env name -
                 // see the case comment above). Rewriting specifiers this way only makes sense for a
-                // standalone `esm/` output directory meant to be `require()`/`import()`-loaded
+                // standalone `dist/` output directory meant to be `require()`/`import()`-loaded
                 // directly by Node; webpack's own resolver would need a matching
                 // `resolve.extensionAlias` to follow a rewritten `.js` specifier back to an actual
                 // `.jsx` source file, which the `www` bundle doesn't (and shouldn't need to) set up.

@@ -10,7 +10,7 @@ export const clean = ({relativePath, gulp}) => gulp.task("clean", () => {
     const {deleteAsync} = require("del");
     const path = require("path");
 
-    const directories = [".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/", "dist/", "build/", "esm/", "es5/"].map(directory => path.join(relativePath, directory));
+    const directories = [".serverless/", ".webpack/", ".dynamodb/", "coverage/", ".nyc_output/", "dist/", "build/", "es5/"].map(directory => path.join(relativePath, directory));
 
     return gulp.src(directories, {allowEmpty: true})
         .pipe(vinylPaths(deleteAsync));

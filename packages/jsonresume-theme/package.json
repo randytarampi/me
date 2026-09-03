@@ -31,7 +31,7 @@
   },
   "files": [
     "dist/*{pug,css}",
-    "esm",
+    "dist",
     "npm-shrinkwrap.json"
   ],
   "homepage": "https://www.randytarampi.ca/resume",
@@ -56,8 +56,8 @@
     "work"
   ],
   "license": "MIT",
-  "main": "./esm/index.js",
-  "module": "./esm/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "publishConfig": {
     "access": "public"
   },
@@ -69,7 +69,7 @@
   "scripts": {
     "build": "yarn run build:copy && yarn run build:babel",
     "build:babel": "yarn run build:babel:esm",
-    "build:babel:esm": "BABEL_ENV=client.esm BABEL_ESM_STANDALONE_BUILD=true babel src --out-dir esm --root-mode upward --copy-files",
+    "build:babel:esm": "BABEL_ENV=client.esm BABEL_ESM_STANDALONE_BUILD=true babel src --out-dir dist --root-mode upward --copy-files",
     "build:copy": "mkdir -p dist && yarn build:copy:index.pug && yarn build:copy:layout.pug && yarn build:copy:styles.css && cp *.md dist/",
     "build:copy:index.pug": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/views/package.json\")), \"templates/index.pug\")') ./dist/index.pug",
     "build:copy:layout.pug": "cp $(node -p 'const path = require(\"path\"); path.join(path.dirname(require.resolve(\"@randy.tarampi/views/package.json\")), \"templates/layout.pug\")') ./dist/layout.pug",
@@ -78,7 +78,7 @@
     "docs": "mkdir -p docs && cp -r dist/* docs",
     "kill:server": "bash -c 'if [ -f /tmp/ca.randytarampi.me.jsonresume-theme.server.pid ]; then echo \"Killing server ($(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid)) from /tmp/ca.randytarampi.me.jsonresume-theme.server.pid\"; kill -9 $(cat /tmp/ca.randytarampi.me.jsonresume-theme.server.pid) 2>/dev/null || true; rm /tmp/ca.randytarampi.me.jsonresume-theme.server.pid; fi'",
     "postinstall": "yarn run resume:json",
-    "prepack": "bash -c 'if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ] && [ ! -d \"./esm\" ]; then exit 74; fi;'",
+    "prepack": "bash -c 'if [ -z \"$RELEASE\" ] && [ -z \"$CI\" ] || [ $IS_PUBLISHING ]; then NODE_ENV=prd yarn run build; fi; if [ ! -d \"./dist\" ]; then exit 74; fi;'",
     "prepare": "yarn run build",
     "pretest": "gulp -LLLL --color lint",
     "resume": "yarn run resume:json && yarn run resume:pdf && yarn run resume:html",

@@ -63,7 +63,6 @@ lerna-debug.log
 dist
 build
 es5
-esm
 .webpack
 *.pdf_original
 

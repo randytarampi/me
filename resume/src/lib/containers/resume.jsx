@@ -9,7 +9,7 @@ import selectors from "../data/selectors.js";
 // NOTE-RT: `resume-custom-content` is an optional, gitignored, user-supplied local override
 // module. This file is compiled into two very different targets from the same source: webpack's
 // browser bundle (where a bare `require(...)` is webpack's own native, statically-resolved
-// primitive and always available, ESM or not) and this package's standalone `esm/` library build
+// primitive and always available, ESM or not) and this package's standalone `dist/` library build
 // output (genuine ESM, no bundler present, so a bare `require` doesn't exist at runtime). Rather
 // than statically importing Node's `module`/`createRequire` here (which would break the webpack
 // build - it has no browser polyfill for that builtin), the standalone build's own Babel pass

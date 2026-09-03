@@ -49,7 +49,6 @@ export default [
             "**/node_modules/**",
             "**/dist/**",
             "**/build/**",
-            "**/esm/**",
             "**/docs/**",
             "**/coverage/**",
             "**/.nyc_output/**",

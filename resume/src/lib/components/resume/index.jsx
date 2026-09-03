@@ -10,7 +10,7 @@ import {
 // NOTE-RT: `@randy.tarampi/schema-dot-org-json-ld-components` is an old, Babel-6-era CJS build
 // (`exports.default = ...; exports.__esModule = true;`). webpack's own bundling interop DOES
 // special-case `__esModule` (so its default import already unwraps straight to `Component`), but
-// Node's native ESM/CJS interop (used by this package's own standalone `esm/` build output) does
+// Node's native ESM/CJS interop (used by this package's own standalone `dist/` build output) does
 // not - a default import of a CommonJS module there always maps to the whole `module.exports`
 // value itself (`{default: Component}`). Since the exact same source compiles to both targets,
 // this can't be "fixed" with one static import shape; unwrap defensively at runtime instead, so it
