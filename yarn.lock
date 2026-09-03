@@ -23626,13 +23626,13 @@ __metadata:
 
 "react-materialize@patch:react-materialize@npm%3A3.10.0#~/.yarn/patches/react-materialize-npm-3.10.0-8c04db38ef.patch":
   version: 3.10.0
-  resolution: "react-materialize@patch:react-materialize@npm%3A3.10.0#~/.yarn/patches/react-materialize-npm-3.10.0-8c04db38ef.patch::version=3.10.0&hash=9ca274"
+  resolution: "react-materialize@patch:react-materialize@npm%3A3.10.0#~/.yarn/patches/react-materialize-npm-3.10.0-8c04db38ef.patch::version=3.10.0&hash=2d918e"
   dependencies:
     classnames: "npm:^2.2.6"
   peerDependencies:
     react: ^17.0.2
     react-dom: ^17.0.2
-  checksum: 10c0/744d1a65ba914b6f4a5ca60efc2dc9d6e918de33ab7bc0e84ce013453c8d89c03ed6c1e1da91103902feede686db67b4c1ff18c37c245f3fab5377756991f124
+  checksum: 10c0/e5077e96f60be82c0004e7737dd9494b6258889276ad5f05581e7e5724f239b5b52949212f0d341309464f6de1f34d50f779794f6e55e18fadd50df2373c139d
   languageName: node
   linkType: hard
 
