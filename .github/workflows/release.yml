@@ -148,8 +148,21 @@ jobs:
   # pushed with the checkout-persisted `GITHUB_TOKEN` never create a workflow run, so the tag
   # triggers these workflows used to carry could not fire — production has not deployed since
   # 2022-04-24. Calling them here also keeps one release and its deploys in a single run.
-  deploy-pages:
+
+  # NOTE-RT: infrastructure preview must pass before any other deploy proceeds — bad infrastructure
+  # changes (OIDC roles, environments, secrets) would break every other workflow. The `prd`
+  # environment gate means a human approves the infrastructure deploy after reviewing the preview.
+  deploy-infrastructure:
     needs: release
+    if: ${{ needs.release.outputs.has_changes == 'true' }}
+    uses: ./.github/workflows/deploy.infrastructure.yml
+    with:
+      stack: prd
+
+  deploy-pages:
+    needs:
+      - release
+      - deploy-infrastructure
     if: ${{ needs.release.outputs.has_changes == 'true' }}
     uses: ./.github/workflows/deploy.pages.yml
     with:
@@ -163,7 +176,9 @@ jobs:
       deployments: write
 
   deploy-pages--jsonresume-theme:
-    needs: release
+    needs:
+      - release
+      - deploy-infrastructure
     if: ${{ needs.release.outputs.has_changes == 'true' }}
     uses: ./.github/workflows/deploy.pages.yml
     with:
@@ -177,7 +192,9 @@ jobs:
       deployments: write
 
   deploy-service:
-    needs: release
+    needs:
+      - release
+      - deploy-infrastructure
     if: ${{ needs.release.outputs.has_changes == 'true' }}
     uses: ./.github/workflows/deploy.service.yml
     with:

@@ -16,7 +16,9 @@ on:
       - '.github/workflows/ci.yml'
       - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
-      - '.github/workflows/deploy.pages.reusable.yml'
+      - '.github/workflows/deploy.pages.yml'
+      - '.github/workflows/deploy.infrastructure.yml'
+      - 'infrastructure/**'
 
   pull_request:
     paths:
@@ -25,7 +27,8 @@ on:
       - '.github/workflows/ci.yml'
       - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
-      - '.github/workflows/deploy.pages.reusable.yml'
+      - '.github/workflows/deploy.pages.yml'
+      - '.github/workflows/deploy.infrastructure.yml'
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -42,11 +45,21 @@ jobs:
     secrets:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
+  deploy__infrastructure--dev:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    needs:
+      - install
+      - test
+    uses: ./.github/workflows/deploy.infrastructure.yml
+    with:
+      stack: dev
+
   deploy__www--dev:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     needs:
       - install
       - test
+      - deploy__infrastructure--dev
     uses: ./.github/workflows/deploy.pages.yml
     with:
       application_name: www
@@ -63,6 +76,7 @@ jobs:
     needs:
       - install
       - test
+      - deploy__infrastructure--dev
     uses: ./.github/workflows/deploy.service.yml
     with:
       deployment_environment: dev
