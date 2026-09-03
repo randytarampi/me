@@ -27,6 +27,29 @@ on:
       GH_PAGES_DEPLOYMENT_TOKEN:
         required: true
 
+  workflow_dispatch:
+    inputs:
+      application_name:
+        description: 'The application to deploy'
+        required: true
+        default: www
+        type: choice
+        options:
+          - www
+          - jsonresume-theme
+      deployment_environment:
+        description: 'The targeted `DEPLOYMENT_ENVIRONMENT`'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prd
+
+concurrency:
+  group: deploy-pages-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     name: Run `yarn deploy`
@@ -34,12 +57,12 @@ jobs:
     # `deploy.service.yml` has done it all along. Setting it here buys two things at once: the
     # `master`-only deployment branch policy from `infrastructure/src/github/environments.ts`, and
     # an environment-scoped OIDC `sub` claim if this job ever needs a cloud credential again.
-    environment: ${{ inputs.deployment_environment }}
+    environment: ${{ inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev' }}
     env:
       DEPLOY: true
-      APPLICATION_NAME: ${{ inputs.application_name }}
-      DEPLOYMENT_ENVIRONMENT: ${{ inputs.deployment_environment }}
-      DEPLOYMENT_REF: ${{ inputs.deployment_ref }}
+      APPLICATION_NAME: ${{ inputs.application_name || github.event.inputs.application_name || 'www' }}
+      DEPLOYMENT_ENVIRONMENT: ${{ inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev' }}
+      DEPLOYMENT_REF: ${{ inputs.deployment_ref || github.sha }}
       GITHUB_ACTIONS_AUTHOR_EMAIL: github@randytarampi.ca
       GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
     runs-on:
@@ -131,7 +154,7 @@ jobs:
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
       - name: Adjust `docs` for `dev`
-        if: ${{ inputs.adjust_docs_for_dev }}
+        if: ${{ (inputs.adjust_docs_for_dev || false) || (github.event.inputs.deployment_environment == 'dev') }}
         run: |
           git config --local user.email "$GITHUB_ACTIONS_AUTHOR_EMAIL"
           git config --local user.name "$GITHUB_ACTIONS_AUTHOR_NAME"
@@ -139,7 +162,7 @@ jobs:
           if [ -d "${{ steps.variables.outputs.application_name }}/docs" ]; then git add --verbose --force --all ${{ steps.variables.outputs.application_name }}/docs; fi;
           if [[ -n $(git status -s) ]]; then git commit -m "release: Prepare to deploy \`${{ steps.variables.outputs.application_name }}\` to ${{ github.repository_owner }}.github.io.git"; fi;
       - name: Actually deploy (www/dev)
-        if: ${{ inputs.application_name == 'www' && inputs.deployment_environment == 'dev' }}
+        if: ${{ (inputs.application_name || github.event.inputs.application_name || 'www') == 'www' && (inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev') == 'dev' }}
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
@@ -152,7 +175,7 @@ jobs:
           token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Actually deploy (www/prd)
-        if: ${{ inputs.application_name == 'www' && inputs.deployment_environment == 'prd' }}
+        if: ${{ (inputs.application_name || github.event.inputs.application_name || 'www') == 'www' && (inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev') == 'prd' }}
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}
@@ -165,7 +188,7 @@ jobs:
           token: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
         timeout-minutes: 10
       - name: Actually deploy (jsonresume-theme/prd)
-        if: ${{ inputs.application_name == 'jsonresume-theme' && inputs.deployment_environment == 'prd' }}
+        if: ${{ (inputs.application_name || github.event.inputs.application_name || 'www') == 'jsonresume-theme' && (inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev') == 'prd' }}
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           git-config-email: ${{ env.GITHUB_ACTIONS_AUTHOR_EMAIL }}

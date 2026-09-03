@@ -1,0 +1,15 @@
+{
+  "id": "2go5hd3gssq-c290a6",
+  "title": "",
+  "model": "glm-5.2:cloud",
+  "messages": [],
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "cost": 0,
+  "toolCalls": 0,
+  "createdAt": "2026-08-15T16:42:18.293Z",
+  "updatedAt": "2026-08-15T16:42:18.294Z"
+}

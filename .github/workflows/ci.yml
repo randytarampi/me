@@ -16,7 +16,6 @@ on:
       - '.github/workflows/ci.yml'
       - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
-      - '.github/workflows/deploy.pages.yml'
       - '.github/workflows/deploy.pages.reusable.yml'
 
   pull_request:
@@ -26,7 +25,6 @@ on:
       - '.github/workflows/ci.yml'
       - '.github/workflows/install.yml'
       - '.github/workflows/test.yml'
-      - '.github/workflows/deploy.pages.yml'
       - '.github/workflows/deploy.pages.reusable.yml'
 
 concurrency:
