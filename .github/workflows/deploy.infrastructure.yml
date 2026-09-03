@@ -70,9 +70,10 @@ jobs:
   deploy:
     name: Deploy ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
     needs: preview
-    # NOTE-RT: the prd environment requires manual approval after the preview succeeds — this is
-    # the gate that prevents accidental infrastructure changes. The dev environment deploys
-    # automatically after a successful preview.
+    # NOTE-RT: on pull requests, only the preview job runs — `pulumi up` is a deliberate act run by
+    # a human who has read the diff. The `prd` environment requires manual approval after the
+    # preview succeeds; the `dev` environment deploys automatically after a successful preview.
+    if: ${{ github.event_name != 'pull_request' }}
     environment: ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
     runs-on: ubuntu-latest
     steps:
