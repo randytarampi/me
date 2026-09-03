@@ -318,7 +318,9 @@ PostLocationComponentInternal.propTypes = {
 
 export const PostLocationComponent = connect(
     null,
-    (dispatch, {post, mapId}) => {
+    // NOTE-RT: wrapper-level defaultProps are dropped by React 19's jsx-runtime (the connect
+    // wrapper is a memo-wrapped function component), so mapId's default lives in the closure.
+    (dispatch, {post, mapId = "map-posts"}) => {
         return {
             setMapPostsCenter: () => dispatch(updateMapCreator({
                 id: mapId,
@@ -336,10 +338,6 @@ export const PostLocationComponent = connect(
 PostLocationComponent.propTypes = {
     post: PropTypes.oneOfType(POST_ENTITIES.map(PropTypes.instanceOf)).isRequired,
     mapId: PropTypes.string.isRequired
-};
-
-PostLocationComponent.defaultProps = {
-    mapId: "map-posts"
 };
 
 export default PostComponent;
