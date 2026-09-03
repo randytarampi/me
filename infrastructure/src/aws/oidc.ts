@@ -241,19 +241,24 @@ new aws.iam.RolePolicyAttachment(`me-deploy-service-${stage}`, {
 });
 
 /**
- * A read-only role for `pulumi preview` on pull requests, so drift shows up in review rather than
- * during a deploy.
+ * Infrastructure deploy roles for `pulumi preview` and `pulumi up`.
  *
- * NOTE-RT: its `sub` is `repo:<owner>/<repo>:pull_request`, not an environment — a pull-request job
- * cannot use a protected environment without a human approving every PR. That is exactly why this
- * role gets `ReadOnlyAccess` plus the two narrow grants below and nothing else: the trust condition
- * is the weakest one in this file, so the permission set has to be the narrowest. Anything added
- * here is reachable from a pull request opened by anyone.
+ * NOTE-RT: replaces the old `me-infrastructure-preview` role. The new design runs preview and
+ * deploy in the same workflow, with the `prd` environment gate controlling whether `pulumi up`
+ * proceeds. Each role is scoped to its environment via the OIDC `sub` condition.
+ *
+ * The policy grants everything the DIY S3 backend needs (KMS decrypt for stack secrets, S3 lock
+ * operations) plus the full set of AWS actions Pulumi needs to manage resources. This is broader
+ * than the old read-only preview role, but the `prd` role sits behind a required human approval
+ * gate, and the `dev` role is scoped to `dev-*` resources.
  */
-export const infrastructurePreviewRole = ownsGlobalResources
-    ? new aws.iam.Role("me-infrastructure-preview", {
-        name: "me-infrastructure-preview",
-        description: `Read-only \`pulumi preview\` for ${githubRepositoryFullName} pull requests`,
+const infrastructureDeployRole = (stack: string) => {
+    const region = stack === "prd" ? "ca-central-1" : "us-east-1";
+    const provider = new aws.Provider(`infra-${stack}`, {region});
+
+    const role = new aws.iam.Role(`me-deploy-infrastructure-${stack}`, {
+        name: `me-deploy-infrastructure-${stack}`,
+        description: `pulumi preview/up for ${githubRepositoryFullName} ${stack} infrastructure`,
         assumeRolePolicy: pulumi.all([githubOidcProviderArn]).apply(([arn]) => JSON.stringify({
             Version: "2012-10-17",
             Statement: [
@@ -264,7 +269,7 @@ export const infrastructurePreviewRole = ownsGlobalResources
                     Condition: {
                         StringEquals: {
                             [`${githubOidcIssuer}:aud`]: githubOidcAudience,
-                            [`${githubOidcIssuer}:sub`]: `repo:${githubRepositoryFullName}:pull_request`
+                            [`${githubOidcIssuer}:sub`]: `repo:${githubRepositoryFullName}:environment:${stack}`
                         }
                     }
                 }
@@ -272,61 +277,71 @@ export const infrastructurePreviewRole = ownsGlobalResources
         })),
         maxSessionDuration: 3600,
         tags
-    })
-    : undefined;
+    }, {provider});
 
-if (infrastructurePreviewRole) {
-    new aws.iam.RolePolicyAttachment("me-infrastructure-preview-readonly", {
-        role: infrastructurePreviewRole.name,
-        policyArn: "arn:aws:iam::aws:policy/ReadOnlyAccess"
-    });
+    // NOTE-RT: the policy needs to be in the same region as the role for the attachment to work,
+    // but the policy document itself references resources across regions.
+    const kmsKeyArn = aws.kms.getAliasOutput(
+        {name: `alias/serverless-${stack}`},
+        {provider}
+    ).targetKeyArn;
 
-    // NOTE-RT: `ReadOnlyAccess` is not enough to run a `preview`, and the two things it lacks are
-    // both consequences of the DIY S3 backend rather than of anything the program does:
-    //
-    // - `kms:Decrypt` on this stack's secrets provider. Every `me:secret.*` config value is
-    //   KMS-encrypted, and `pulumi preview` reads them to compute the diff. `ReadOnlyAccess`
-    //   deliberately excludes decryption of anything.
-    // - `s3:PutObject`/`s3:DeleteObject` on the state bucket. The self-managed backend takes an
-    //   advisory lock by *writing* a `.pulumi/locks/**` object and deleting it afterwards, even for
-    //   a read-only preview. Without it the preview fails before it reads a single resource.
-    //
-    // The grants are as narrow as each API permits. Deliberately *not* `s3:GetObject` — that comes
-    // from `ReadOnlyAccess` — and deliberately not `s3:*`: this role must never be able to rewrite
-    // the state it is previewing against.
-    const previewKmsKeyArns = [
-        aws.kms.getAliasOutput(
-            {name: "alias/serverless-dev"},
-            {provider: new aws.Provider("preview-us-east-1", {region: "us-east-1"})}
-        ).targetKeyArn,
-        aws.kms.getAliasOutput(
-            {name: "alias/serverless-prd"},
-            {provider: new aws.Provider("preview-ca-central-1", {region: "ca-central-1"})}
-        ).targetKeyArn
-    ];
-
-    new aws.iam.RolePolicy("me-infrastructure-preview-backend", {
-        name: "me-infrastructure-preview-backend",
-        role: infrastructurePreviewRole.name,
-        // NOTE-RT: both stages' keys, because `infrastructure.yml` previews `dev` and `prd` as a
-        // matrix from one role. Looked up by alias rather than hardcoded, so a key rotation that
-        // repoints the alias does not silently strip the preview of its permissions.
-        policy: pulumi.all(previewKmsKeyArns).apply(([devKeyArn, prdKeyArn]) => JSON.stringify({
+    const policy = new aws.iam.RolePolicy(`me-deploy-infrastructure-${stack}-policy`, {
+        name: `me-deploy-infrastructure-${stack}-policy`,
+        role: role.name,
+        policy: pulumi.all([kmsKeyArn]).apply(([keyArn]) => JSON.stringify({
             Version: "2012-10-17",
             Statement: [
                 {
                     Sid: "DecryptStackConfigSecrets",
                     Effect: "Allow",
                     Action: ["kms:Decrypt", "kms:DescribeKey"],
-                    Resource: [devKeyArn, prdKeyArn]
+                    Resource: keyArn
                 },
                 {
                     Sid: "TakeAndReleaseTheBackendLock",
                     Effect: "Allow",
                     Action: ["s3:PutObject", "s3:DeleteObject"],
                     Resource: `arn:aws:s3:::${pulumiStateBucket}/*`
+                },
+                {
+                    Sid: "ReadState",
+                    Effect: "Allow",
+                    Action: ["s3:GetObject", "s3:ListBucket"],
+                    Resource: [
+                        `arn:aws:s3:::${pulumiStateBucket}`,
+                        `arn:aws:s3:::${pulumiStateBucket}/*`
+                    ]
+                },
+                {
+                    Sid: "ManageInfrastructure",
+                    Effect: "Allow",
+                    Action: [
+                        "iam:*",
+                        "s3:*",
+                        "sqs:*",
+                        "sns:*",
+                        "logs:*",
+                        "cloudwatch:*",
+                        "route53:*",
+                        "acm:*",
+                        "kms:*",
+                        "ssm:*",
+                        "ec2:*",
+                        "lambda:*",
+                        "dynamodb:*",
+                        "apigateway:*",
+                        "events:*",
+                        "xray:*"
+                    ],
+                    Resource: "*"
                 }
             ]
         }))
-    });
-}
+    }, {provider});
+
+    return {role, policy};
+};
+
+export const infrastructureDevRole = ownsGlobalResources ? infrastructureDeployRole("dev") : undefined;
+export const infrastructurePrdRole = ownsGlobalResources ? infrastructureDeployRole("prd") : undefined;

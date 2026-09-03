@@ -1,0 +1,111 @@
+name: deploy (infrastructure)
+
+on:
+  workflow_call:
+    inputs:
+      stack:
+        description: 'The Pulumi stack (dev or prd)'
+        required: true
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      stack:
+        description: 'The Pulumi stack (dev or prd)'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prd
+
+concurrency:
+  group: deploy-infrastructure-${{ github.ref }}-${{ inputs.stack || 'dispatch' }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Preview ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run `git checkout`
+        uses: actions/checkout@v7
+
+      - name: Setup node@24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Assume the infrastructure deploy role
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::471964952458:role/me-deploy-infrastructure-${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+          role-session-name: deploy-infrastructure-${{ github.run_id }}
+          aws-region: ${{ (inputs.stack || github.event.inputs.stack || 'dev') == 'prd' && 'ca-central-1' || 'us-east-1' }}
+
+      - name: Run pulumi preview
+        uses: pulumi/actions@v6
+        with:
+          command: preview
+          stack-name: ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+          work-dir: infrastructure
+          diff: true
+          comment-on-pr: ${{ github.event_name == 'pull_request' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    name: Deploy ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+    needs: preview
+    # NOTE-RT: the prd environment requires manual approval after the preview succeeds — this is
+    # the gate that prevents accidental infrastructure changes. The dev environment deploys
+    # automatically after a successful preview.
+    environment: ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run `git checkout`
+        uses: actions/checkout@v7
+
+      - name: Setup node@24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Assume the infrastructure deploy role
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::471964952458:role/me-deploy-infrastructure-${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+          role-session-name: deploy-infrastructure-${{ github.run_id }}
+          aws-region: ${{ (inputs.stack || github.event.inputs.stack || 'dev') == 'prd' && 'ca-central-1' || 'us-east-1' }}
+
+      - name: Run pulumi up
+        uses: pulumi/actions@v6
+        with:
+          command: up
+          stack-name: ${{ inputs.stack || github.event.inputs.stack || 'dev' }}
+          work-dir: infrastructure
+          diff: true
+          upsert: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
