@@ -1,3 +1,4 @@
+import {Bear as BearEntity} from "@randy.tarampi/js";
 import {CampaignLink, ConnectedBear, RowBlock} from "@randy.tarampi/jsx";
 import React from "react";
 import {Col} from "react-materialize";
@@ -5,7 +6,7 @@ import {Col} from "react-materialize";
 const Bears = () =>
     <RowBlock name="bears">
         <Col className="block__bear hide-on-med-and-down" l={5} s={12}>
-            <ConnectedBear id="bears-bear"/>
+            <ConnectedBear emoji={new BearEntity()} id="bears-bear"/>
         </Col>
         <Col className="block__text" l={7} s={12}>
             <h2>

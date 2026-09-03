@@ -29,9 +29,9 @@ export const connectMappedPosts = connect(
     (state, ownProps) => {
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const errorForUrlSelector = createGetErrorForUrlSelector();
-        const {type = "global", fetchUrl} = ownProps;
+        const {id = "map-posts", type = "global", fetchUrl = "/posts"} = ownProps;
         const {filter, filterValue} = ownProps.match && ownProps.match.params || ownProps;
-        const mapState = selectors.getMap(state, ownProps.id);
+        const mapState = selectors.getMap(state, id);
         const {center, heading, type: mapType, tilt, zoom, bounds} = mapState
             ? mapState.toJS()
             : {};
@@ -63,7 +63,7 @@ export const connectMappedPosts = connect(
 
         return props;
     },
-    (dispatch, {fetchUrl, type, match, fetchPostsParams, id}) => {
+    (dispatch, {fetchUrl = "/posts", type, match, fetchPostsParams, id = "map-posts"}) => {
         return {
             fetchPosts: _.debounce(passedParams => {
                 const searchParams = {
@@ -87,11 +87,6 @@ ConnectedMappedPosts.propTypes = {
         Post.type,
         Photo.type
     ])
-};
-
-ConnectedMappedPosts.defaultProps = {
-    id: "map-posts",
-    fetchUrl: "/posts"
 };
 
 export default ConnectedMappedPosts;

@@ -1,3 +1,4 @@
+import {HelloBear as HelloBearEntity} from "@randy.tarampi/js";
 import {
     BlogAppLink,
     CampaignLink,
@@ -35,7 +36,7 @@ export const Intro = () =>
     <Fragment>
         <RowBlock name="intro" className="intro--large hide-on-med-and-down">
             <Col className="block__bear" l={5} s={12}>
-                <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-large-hello-bear"/>
+                <ConnectedHelloBear emoji={HelloBearEntity.fromJS()} id="intro-hello-bear" htmlId="intro-large-hello-bear"/>
             </Col>
             <Col className="block__text" l={7}>
                 <IntroText/>
@@ -43,7 +44,7 @@ export const Intro = () =>
         </RowBlock>
         <RowBlock name="intro-responsive-bear" className="intro-responsive-bear hide-on-large-only">
             <Col className="block__bear" l={5} s={12}>
-                <ConnectedHelloBear id="intro-hello-bear" htmlId="intro-responsive-hello-bear"/>
+                <ConnectedHelloBear emoji={HelloBearEntity.fromJS()} id="intro-hello-bear" htmlId="intro-responsive-hello-bear"/>
             </Col>
         </RowBlock>
         <RowBlock name="intro-responsive-text" className="intro-responsive-text hide-on-large-only">

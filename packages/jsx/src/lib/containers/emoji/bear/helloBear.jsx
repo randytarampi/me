@@ -1,4 +1,3 @@
-import {HelloBear as HelloBearEntity} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import onHelloBearComponentClick from "../../../actions/emoji/onHelloBearComponentClick.js";
@@ -21,10 +20,6 @@ export const ConnectedHelloBear = connectHelloBear(EmojiComponent);
 ConnectedHelloBear.propTypes = {
     id: PropTypes.string.isRequired,
     emoji: PropTypes.object.isRequired
-};
-
-ConnectedHelloBear.defaultProps = {
-    emoji: HelloBearEntity.fromJS()
 };
 
 export default ConnectedHelloBear;

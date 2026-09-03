@@ -14,7 +14,7 @@ export const connectPosts = connect(
         const searchType = "blog";
         const isLoadingUrlSelector = createIsLoadingUrlSelector();
         const errorForUrlSelector = createGetErrorForUrlSelector();
-        const {type = "global", fetchUrl} = ownProps;
+        const {type = "global", fetchUrl = "/posts"} = ownProps;
         const {filter, filterValue} = ownProps.match && ownProps.match.params || ownProps;
         const oldestLoadedPostDateString = selectors.getOldestFetchedPostDateForSearchTypeAndPostType(state, searchType, type);
         const oldestLoadedPostDate = oldestLoadedPostDateString && DateTime.fromISO(oldestLoadedPostDateString);
@@ -34,7 +34,7 @@ export const connectPosts = connect(
 
         return props;
     },
-    (dispatch, {fetchUrl, type, match, fetchPostsParams}) => {
+    (dispatch, {fetchUrl = "/posts", type, match, fetchPostsParams}) => {
         return {
             fetchPosts: passedParams => {
                 const searchParams = {
@@ -54,10 +54,6 @@ export const ConnectedPosts = connectPosts(MeasuredPostsComponent);
 ConnectedPosts.propTypes = {
     fetchUrl: PropTypes.string.isRequired,
     type: PropTypes.oneOf([Post.type, Photo.type, Gallery.type])
-};
-
-ConnectedPosts.defaultProps = {
-    fetchUrl: "/posts"
 };
 
 export default ConnectedPosts;

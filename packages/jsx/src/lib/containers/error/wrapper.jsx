@@ -9,9 +9,4 @@ ConnectedErrorWrapper.propTypes = {
     redirectionTimeout: PropTypes.number
 };
 
-ConnectedErrorWrapper.defaultProps = {
-    redirectionLocation: "/",
-    redirectionTimeout: 10
-};
-
 export default ConnectedErrorWrapper;

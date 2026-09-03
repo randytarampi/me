@@ -1,3 +1,4 @@
+import {HelloBear as HelloBearEntity} from "@randy.tarampi/js";
 import {CampaignLink, ConnectedHelloBear, EmailLink, LeftDescriptionSection} from "@randy.tarampi/jsx";
 import PropTypes from "prop-types";
 import React, {Fragment} from "react";
@@ -5,7 +6,7 @@ import React, {Fragment} from "react";
 export const LetterIntro = ({contentConfiguration}) => {
     return <LeftDescriptionSection
         labelNode={<h3 className="printable-section__label">
-            <ConnectedHelloBear textEffect={true} id="letter-intro-hello-bear"/>
+            <ConnectedHelloBear emoji={HelloBearEntity.fromJS()} textEffect={true} id="letter-intro-hello-bear"/>
         </h3>}
         descriptionNode={<Fragment>
             <p>
