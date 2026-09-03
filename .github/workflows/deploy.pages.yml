@@ -51,6 +51,9 @@ jobs:
       adjust_docs_for_dev: true
     secrets:
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+    permissions:
+      contents: write
+      deployments: write
 
   deploy__www--prd:
     if: ${{ (github.event.inputs.deployment_environment || inputs.deployment_environment || 'dev') == 'prd' }}
@@ -62,3 +65,6 @@ jobs:
       adjust_docs_for_dev: false
     secrets:
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+    permissions:
+      contents: write
+      deployments: write
