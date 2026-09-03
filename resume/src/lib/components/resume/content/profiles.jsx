@@ -35,7 +35,6 @@ export const ResumeProfiles = ({resume, customContent = new ResumeCustomContent(
     return <PrintableSection
         printableType="resume"
         showOnA4={true}
-        showOnLegal={true}
         type={type}
         label={((customContent && customContent[type]) || {}).label || label}
         labelNode={((customContent && customContent[type]) || {}).labelNode}

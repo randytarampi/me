@@ -29,7 +29,7 @@ export const ResumeInterests = ({resume, customContent = new ResumeCustomContent
                                     {
                                         interestEntry.keywords.map((keyword, index) => {
                                             return <li
-                                                className={`resume-interests__keyword${index > 3 ? " hide-on-print" : ""}`}
+                                                className={`resume-interests__keyword${index > 3 ? " show-on-legal" : ""}`}
                                                 key={index}>
                                                 {keyword}
                                             </li>;
