@@ -114,13 +114,17 @@ jobs:
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-${{ runner.os }}-
+      - name: Actually run `yarn install`
+        run: yarn install
+
       - name: Cache Nx
         uses: actions/cache@v6
         with:
-          path: .nx
-          key: nx-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-      - name: Actually run `yarn install`
-        run: yarn install
+          path: .nx/cache
+          key: nx-cache-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            nx-cache-${{ runner.os }}-${{ github.ref_name }}-
+            nx-cache-${{ runner.os }}-
 
       # NOTE-RT: this exists because of what the first-ever runs of this job did — every matrix leg
       # died with `##[error]The operation was canceled.` and nothing else, one of them recording no
@@ -227,6 +231,12 @@ jobs:
           file: coverage/lcov.info
           flag-name: node-${{ matrix.node-version }}
           parallel: true
+      - name: Upload Nx cache
+        if: always()
+        uses: actions/cache/upload@v6
+        with:
+          path: .nx/cache
+          key: nx-cache-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('yarn.lock') }}
 
   coveralls:
     name: Finalize the Coveralls report
