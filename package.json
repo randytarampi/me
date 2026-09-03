@@ -70,7 +70,8 @@
     "lerna/js-yaml": "^4.3.1",
     "nx/brace-expansion": "^5.0.9",
     "react-is": "^19.2.0",
-    "immutable": "^5.1.9"
+    "immutable": "^5.1.9",
+    "pug-loader": "npm:@webdiscus/pug-loader@^2.11.1"
   },
   "private": true,
   "type": "module",
@@ -134,5 +135,5 @@
     "webpack-cli": "^7.2.1",
     "webpack-dev-server": "^6.0.0"
   },
-  "resolutionsComment": "Pinned react-is to keep legacy React/Materialize transitive resolution stable. Forced immutable to 5.x (shimmed in reactShim.js)."
+  "resolutionsComment": "Pinned react-is to keep legacy React/Materialize transitive resolution stable. Forced immutable to 5.x (shimmed in reactShim.js) and pug-loader to @webdiscus/pug-loader (maintained fork)."
 }
