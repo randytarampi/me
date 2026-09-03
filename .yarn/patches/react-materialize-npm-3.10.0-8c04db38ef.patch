@@ -1,8 +1,143 @@
+diff --git a/lib/Autocomplete.js b/lib/Autocomplete.js
+index abce5099e9754595db8e659fd381a521623bad58..ba864d15df8ef96a6343a2ec0ef2ee4f65f24db1 100644
+--- a/lib/Autocomplete.js
++++ b/lib/Autocomplete.js
+@@ -37,8 +37,10 @@ var Autocomplete = function Autocomplete(_ref) {
+       m = _ref.m,
+       l = _ref.l,
+       xl = _ref.xl,
+-      id = _ref.id,
+-      options = _ref.options,
++      _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Autocomplete-".concat((0, _idgen.default)()) : _ref$id,
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? { data: {}, limit: Infinity, onAutocomplete: null, minLength: 1, sortFunction: null } : _ref$options,
+       rest = _objectWithoutProperties(_ref, ["className", "title", "icon", "s", "m", "l", "xl", "id", "options"]);
+ 
+   var autocompleteRef = (0, _react.useRef)(null);
+@@ -150,18 +152,5 @@ Autocomplete.propTypes = {
+    */
+   options: autocompleteOptions
+ };
+-Autocomplete.defaultProps = {
+-  get id() {
+-    return "Autocomplete-".concat((0, _idgen.default)());
+-  },
+-
+-  options: {
+-    data: {},
+-    limit: Infinity,
+-    onAutocomplete: null,
+-    minLength: 1,
+-    sortFunction: null
+-  }
+-};
+ var _default = Autocomplete;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Breadcrumb.js b/lib/Breadcrumb.js
+index 0ef974f0835ab8f6394eac93fa65036c9fd7ddfe..05dbeabfdfa8d11fba44b52caffd441e445dea7f 100644
+--- a/lib/Breadcrumb.js
++++ b/lib/Breadcrumb.js
+@@ -16,7 +16,8 @@ var _Col = _interopRequireDefault(require("./Col"));
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ 
+ var Breadcrumb = function Breadcrumb(_ref) {
+-  var cols = _ref.cols,
++  var _ref$cols = _ref.cols,
++      cols = _ref$cols === void 0 ? 12 : _ref$cols,
+       children = _ref.children,
+       className = _ref.className;
+   return /*#__PURE__*/_react.default.createElement("nav", {
+@@ -42,8 +43,5 @@ Breadcrumb.propTypes = {
+   cols: _propTypes.default.number,
+   className: _propTypes.default.string
+ };
+-Breadcrumb.defaultProps = {
+-  cols: 12
+-};
+ var _default = Breadcrumb;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Button.js b/lib/Button.js
+index b35c624199013a597c36165bed4ef14846c3ca81..d31c659af45a48f7ba68f4aa8190091db74e1647 100644
+--- a/lib/Button.js
++++ b/lib/Button.js
+@@ -34,7 +34,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ var Button = function Button(_ref) {
+   var children = _ref.children,
+       className = _ref.className,
+-      node = _ref.node,
++      _ref$node = _ref.node,
++      node = _ref$node === void 0 ? 'button' : _ref$node,
+       fab = _ref.fab,
+       modal = _ref.modal,
+       flat = _ref.flat,
+@@ -190,8 +191,5 @@ Button.propTypes = {
+   }),
+   waves: _propTypes.default.oneOf(['light', 'red', 'yellow', 'orange', 'purple', 'green', 'teal'])
+ };
+-Button.defaultProps = {
+-  node: 'button'
+-};
+ var _default = Button;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Caption.js b/lib/Caption.js
+index c9e6147d8dc5221675b98cdceac146b4f9ddd753..bd547ce90b4df1f1df8e77b23e1354c5ba4b245c 100644
+--- a/lib/Caption.js
++++ b/lib/Caption.js
+@@ -23,7 +23,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ 
+ var Caption = function Caption(_ref) {
+   var className = _ref.className,
+-      placement = _ref.placement,
++      _ref$placement = _ref.placement,
++      placement = _ref$placement === void 0 ? 'center' : _ref$placement,
+       children = _ref.children,
+       props = _objectWithoutProperties(_ref, ["className", "placement", "children"]);
+ 
+@@ -42,8 +43,5 @@ Caption.propTypes = {
+    */
+   placement: _propTypes.default.oneOf(_constants.default.PLACEMENTS)
+ };
+-Caption.defaultProps = {
+-  placement: 'center'
+-};
+ var _default = Caption;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Card.js b/lib/Card.js
+index 5fc679fb360064d681c54fdf53edfa7a26f9cc4d..951fcdf4379eb04f5311b11cdf00381faf51e797 100644
+--- a/lib/Card.js
++++ b/lib/Card.js
+@@ -38,6 +38,10 @@ var Wrapper = function Wrapper(_ref) {
+ 
+ var Card = function Card(_ref2) {
+   var title = _ref2.title,
++      _ref2$closeIcon = _ref2.closeIcon,
++      closeIcon = _ref2$closeIcon === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, null, "close") : _ref2$closeIcon,
++      _ref2$revealIcon = _ref2.revealIcon,
++      revealIcon = _ref2$revealIcon === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, null, "more_vert") : _ref2$revealIcon,
+       header = _ref2.header,
+       className = _ref2.className,
+       textClassName = _ref2.textClassName,
+@@ -97,9 +101,5 @@ Card.propTypes = {
+    */
+   revealIcon: _propTypes.default.node
+ };
+-Card.defaultProps = {
+-  closeIcon: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "close"),
+-  revealIcon: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "more_vert")
+-};
+ var _default = Card;
+ exports.default = _default;
+\ No newline at end of file
 diff --git a/lib/Carousel.js b/lib/Carousel.js
-index d97ab33807033569feaf2d9bdee845e41f40d0f8..c7299ff76245b406b7490d3512b9f085112bf71e 100644
+index d97ab33807033569feaf2d9bdee845e41f40d0f8..d5986191360ad5b14063e734fc74fd7bfc272fa5 100644
 --- a/lib/Carousel.js
 +++ b/lib/Carousel.js
-@@ -24,11 +24,22 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
+@@ -24,11 +24,13 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
  var Carousel = function Carousel(_ref) {
    var children = _ref.children,
        className = _ref.className,
@@ -13,21 +148,12 @@ index d97ab33807033569feaf2d9bdee845e41f40d0f8..c7299ff76245b406b7490d3512b9f085
        images = _ref.images,
        centerImages = _ref.centerImages,
 -      options = _ref.options;
-+      options = _ref.options === void 0 ? {
-+    duration: 200,
-+    dist: -100,
-+    shift: 0,
-+    padding: 0,
-+    numVisible: 5,
-+    fullWidth: false,
-+    indicators: false,
-+    noWrap: false,
-+    onCycleTo: null
-+  } : _ref.options;
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? { duration: 200, dist: -100, shift: 0, padding: 0, numVisible: 5, fullWidth: false, indicators: false, noWrap: false, onCycleTo: null } : _ref$options;
    var carouselRef = (0, _react.useRef)(null);
    (0, _react.useEffect)(function () {
      var instance = M.Carousel.init(carouselRef.current, options);
-@@ -149,22 +160,5 @@ Carousel.propTypes = {
+@@ -149,22 +151,5 @@ Carousel.propTypes = {
      onCycleTo: _propTypes.default.func
    })
  };
@@ -50,8 +176,712 @@ index d97ab33807033569feaf2d9bdee845e41f40d0f8..c7299ff76245b406b7490d3512b9f085
 -};
  var _default = Carousel;
  exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Checkbox.js b/lib/Checkbox.js
+index 03dc1944b3b7f426bf41214c75c643dd11db9064..1ac7911761d89b885c1139cb6746513afc6fd8f3 100644
+--- a/lib/Checkbox.js
++++ b/lib/Checkbox.js
+@@ -40,7 +40,8 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var Checkbox = function Checkbox(_ref) {
+-  var id = _ref.id,
++  var _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Checkbox_".concat((0, _idgen.default)()) : _ref$id,
+       className = _ref.className,
+       indeterminate = _ref.indeterminate,
+       filledIn = _ref.filledIn,
+@@ -129,11 +130,5 @@ Checkbox.propTypes = {
+    */
+   checked: _propTypes.default.bool
+ };
+-Checkbox.defaultProps = {
+-  get id() {
+-    return "Checkbox_".concat((0, _idgen.default)());
+-  }
+-
+-};
+ var _default = Checkbox;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Chip.js b/lib/Chip.js
+index f0227e0c2ea8c3fca7dcfe40eb0b1a768fc6ce2d..cff28c91c794c51746e3cb7d2b3e94e935b9e00e 100644
+--- a/lib/Chip.js
++++ b/lib/Chip.js
+@@ -31,10 +31,13 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ 
+ var Chip = function Chip(_ref) {
+   var children = _ref.children,
+-      close = _ref.close,
+-      closeIcon = _ref.closeIcon,
++      _ref$close = _ref.close,
++      close = _ref$close === void 0 ? false : _ref$close,
++      _ref$closeIcon = _ref.closeIcon,
++      closeIcon = _ref$closeIcon === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, { className: "close" }, "close") : _ref$closeIcon,
+       className = _ref.className,
+-      options = _ref.options,
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? null : _ref$options,
+       other = _objectWithoutProperties(_ref, ["children", "close", "closeIcon", "className", "options"]);
+ 
+   var instance = (0, _react.useRef)(null);
+@@ -118,12 +121,5 @@ Chip.propTypes = {
+     autocompleteOptions: _Autocomplete.autocompleteOptions
+   })
+ };
+-Chip.defaultProps = {
+-  close: false,
+-  closeIcon: /*#__PURE__*/_react.default.createElement(_Icon.default, {
+-    className: "close"
+-  }, "close"),
+-  options: null
+-};
+ var _default = Chip;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Collapsible.js b/lib/Collapsible.js
+index 30ae5455096b5a2d5b744447be8db3cb5d8a90f7..9907a6fce59b3e34f5c6a2b8deae3cfdf8a88cf5 100644
+--- a/lib/Collapsible.js
++++ b/lib/Collapsible.js
+@@ -46,7 +46,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ var Collapsible = function Collapsible(_ref) {
+   var children = _ref.children,
+       className = _ref.className,
+-      accordion = _ref.accordion,
++      _ref$accordion = _ref.accordion,
++      accordion = _ref$accordion === void 0 ? true : _ref$accordion,
+       options = _ref.options,
+       defaultActiveKey = _ref.defaultActiveKey,
+       popout = _ref.popout,
+@@ -141,8 +142,5 @@ Collapsible.propTypes = {
+    */
+   options: _propTypes.default.any
+ };
+-Collapsible.defaultProps = {
+-  accordion: true
+-};
+ var _default = Collapsible;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/CollapsibleItem.js b/lib/CollapsibleItem.js
+index aa4c8d7323e5bb9e22220554df8ef4b608ceac00..2d85af0e53ba86d4c04f5b5f8332b4c8df631525 100644
+--- a/lib/CollapsibleItem.js
++++ b/lib/CollapsibleItem.js
+@@ -22,12 +22,14 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ var CollapsibleItem = function CollapsibleItem(_ref) {
+   var className = _ref.className,
+       eventKey = _ref.eventKey,
+-      expanded = _ref.expanded,
++      _ref$expanded = _ref.expanded,
++      expanded = _ref$expanded === void 0 ? false : _ref$expanded,
+       header = _ref.header,
+       children = _ref.children,
+       icon = _ref.icon,
+       iconClassName = _ref.iconClassName,
+-      Node = _ref.node,
++      _ref$node = _ref.node,
++      Node = _ref$node === void 0 ? 'div' : _ref$node,
+       onSelect = _ref.onSelect,
+       props = _objectWithoutProperties(_ref, ["className", "eventKey", "expanded", "header", "children", "icon", "iconClassName", "node", "onSelect"]);
+ 
+@@ -72,9 +74,5 @@ CollapsibleItem.propTypes = {
+    */
+   node: _propTypes.default.node
+ };
+-CollapsibleItem.defaultProps = {
+-  expanded: false,
+-  node: 'div'
+-};
+ var _default = CollapsibleItem;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/DatePicker.js b/lib/DatePicker.js
+index f021d7d93fa22a8f49862afc4f025075e4064553..71e602f6aa930489d2442d24d4e4da10d9a8a2fd 100644
+--- a/lib/DatePicker.js
++++ b/lib/DatePicker.js
+@@ -34,9 +34,31 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var DatePicker = function DatePicker(_ref) {
+-  var options = _ref.options,
++  var _ref$options = _ref.options,
++      options = _ref$options === void 0 ? {
++    autoClose: false,
++    format: 'mmm dd, yyyy',
++    parse: null,
++    defaultDate: null,
++    setDefaultDate: false,
++    disableWeekends: false,
++    disableDayFn: null,
++    firstDay: 0,
++    minDate: null,
++    maxDate: null,
++    yearRange: 10,
++    isRTL: false,
++    showMonthAfterYear: false,
++    showDaysInNextAndPreviousMonths: false,
++    container: null,
++    showClearBtn: false,
++    i18n: { cancel: 'Cancel', clear: 'Clear', done: 'Ok', previousMonth: '‹', nextMonth: '›', months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], weekdaysAbbrev: ['S', 'M', 'T', 'W', 'T', 'F', 'S'] },
++    events: [], onSelect: null, onOpen: null, onClose: null, onDraw: null
++  } : _ref$options,
+       onChange = _ref.onChange,
++      id = _ref.id,
+       rest = _objectWithoutProperties(_ref, ["options", "onChange"]);
++  rest.id = id;
+ 
+   var dateEl = (0, _react.useRef)(null);
+   (0, _react.useEffect)(function () {
+@@ -215,46 +237,5 @@ DatePicker.propTypes = {
+     onDraw: _propTypes.default.func
+   })
+ };
+-DatePicker.defaultProps = {
+-  get id() {
+-    return "DatePicker-".concat((0, _idgen.default)());
+-  },
+-
+-  options: {
+-    autoClose: false,
+-    format: 'mmm dd, yyyy',
+-    parse: null,
+-    defaultDate: null,
+-    setDefaultDate: false,
+-    disableWeekends: false,
+-    disableDayFn: null,
+-    firstDay: 0,
+-    minDate: null,
+-    maxDate: null,
+-    yearRange: 10,
+-    isRTL: false,
+-    showMonthAfterYear: false,
+-    showDaysInNextAndPreviousMonths: false,
+-    container: null,
+-    showClearBtn: false,
+-    i18n: {
+-      cancel: 'Cancel',
+-      clear: 'Clear',
+-      done: 'Ok',
+-      previousMonth: '‹',
+-      nextMonth: '›',
+-      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+-      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+-      weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+-      weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+-      weekdaysAbbrev: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+-    },
+-    events: [],
+-    onSelect: null,
+-    onOpen: null,
+-    onClose: null,
+-    onDraw: null
+-  }
+-};
+ var _default = DatePicker;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Dropdown.js b/lib/Dropdown.js
+index 994c7beecdd00dacbda7f167c4695bbfda21b91e..6072c6e048915369a64bd41b912e4cc6d1dc4a95 100644
+--- a/lib/Dropdown.js
++++ b/lib/Dropdown.js
+@@ -31,21 +31,24 @@ var Dropdown = function Dropdown(_ref) {
+   var children = _ref.children,
+       className = _ref.className,
+       trigger = _ref.trigger,
+-      options = _ref.options,
+-      props = _objectWithoutProperties(_ref, ["children", "className", "trigger", "options"]);
++      _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Dropdown_".concat((0, _idgen.default)()) : _ref$id,
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? { alignment: 'left', autoTrigger: true, constrainWidth: true, container: null, coverTrigger: true, closeOnClick: true, hover: false, inDuration: 150, outDuration: 250, onOpenStart: null, onOpenEnd: null, onCloseStart: null, onCloseEnd: null } : _ref$options,
++      props = _objectWithoutProperties(_ref, ["children", "className", "trigger", "id", "options"]);
+ 
+   var _dropdownContent = (0, _react.useRef)(null);
+ 
+   (0, _react.useEffect)(function () {
+-    var instance = M.Dropdown.init(document.querySelector("[data-target=\"".concat(props.id, "\"]")), options);
++    var instance = M.Dropdown.init(document.querySelector("[data-target=\"".concat(id, "\"]")), options);
+     return function () {
+       instance && instance.destroy();
+     };
+-  }, [options, props.id, children]);
++  }, [options, id, children]);
+ 
+   var renderTrigger = function renderTrigger() {
+     return (0, _react.cloneElement)(trigger, {
+-      'data-target': props.id,
++      'data-target': id,
+       className: (0, _classnames.default)(trigger.props.className, 'dropdown-trigger')
+     });
+   };
+@@ -113,26 +116,5 @@ Dropdown.propTypes = {
+    */
+   options: dropdownOptions
+ };
+-Dropdown.defaultProps = {
+-  get id() {
+-    return "Dropdown_".concat((0, _idgen.default)());
+-  },
+-
+-  options: {
+-    alignment: 'left',
+-    autoTrigger: true,
+-    constrainWidth: true,
+-    container: null,
+-    coverTrigger: true,
+-    closeOnClick: true,
+-    hover: false,
+-    inDuration: 150,
+-    outDuration: 250,
+-    onOpenStart: null,
+-    onOpenEnd: null,
+-    onCloseStart: null,
+-    onCloseEnd: null
+-  }
+-};
+ var _default = Dropdown;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/MediaBox.js b/lib/MediaBox.js
+index 46d89f6f94fa311b33e3a8be451c2e8df40b726e..2bea128634d22f5e8f63bf4c4afb0fdca4c590ec 100644
+--- a/lib/MediaBox.js
++++ b/lib/MediaBox.js
+@@ -32,8 +32,10 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var MediaBox = function MediaBox(_ref) {
+-  var id = _ref.id,
+-      options = _ref.options,
++  var _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "MediaBox_".concat((0, _idgen.default)()) : _ref$id,
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? { inDuration: 275, outDuration: 200, onOpenStart: null, onOpenEnd: null, onCloseStart: null, onCloseEnd: null } : _ref$options,
+       children = _ref.children,
+       className = _ref.className,
+       caption = _ref.caption,
+@@ -102,19 +104,5 @@ MediaBox.propTypes = {
+     onCloseEnd: _propTypes.default.func
+   })
+ };
+-MediaBox.defaultProps = {
+-  get id() {
+-    return "MediaBox_".concat((0, _idgen.default)());
+-  },
+-
+-  options: {
+-    inDuration: 275,
+-    outDuration: 200,
+-    onOpenStart: null,
+-    onOpenEnd: null,
+-    onCloseStart: null,
+-    onCloseEnd: null
+-  }
+-};
+ var _default = MediaBox;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Modal.js b/lib/Modal.js
+index c996a150bf5f99c7eacff4a01da330776f5c014b..657b45fa20c291b880ea11d35de94fe4928fc574 100644
+--- a/lib/Modal.js
++++ b/lib/Modal.js
+@@ -34,18 +34,25 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var Modal = function Modal(_ref) {
+-  var actions = _ref.actions,
++  var _ref$actions = _ref.actions,
++      actions = _ref$actions === void 0 ? [/*#__PURE__*/_react.default.createElement(_Button.default, { waves: "green", modal: "close", flat: true }, "Close")] : _ref$actions,
++      _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Modal-".concat((0, _idgen.default)()) : _ref$id,
+       bottomSheet = _ref.bottomSheet,
+       children = _ref.children,
+       fixedFooter = _ref.fixedFooter,
+       header = _ref.header,
+       className = _ref.className,
+       trigger = _ref.trigger,
+-      options = _ref.options,
+-      open = _ref.open,
+-      root = _ref.root,
+-      props = _objectWithoutProperties(_ref, ["actions", "bottomSheet", "children", "fixedFooter", "header", "className", "trigger", "options", "open", "root"]);
+-
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? { opacity: 0.5, inDuration: 250, outDuration: 250, onOpenStart: null, onOpenEnd: null, onCloseStart: null, onCloseEnd: null, preventScrolling: true, dismissible: true, startingTop: '4%', endingTop: '10%' } : _ref$options,
++      _ref$open = _ref.open,
++      open = _ref$open === void 0 ? false : _ref$open,
++      _ref$root = _ref.root,
++      root = _ref$root === void 0 ? typeof window !== 'undefined' ? document.body : null : _ref$root,
++      props = _objectWithoutProperties(_ref, ["actions", "id", "bottomSheet", "children", "fixedFooter", "header", "className", "trigger", "options", "open", "root"]);
++
++  props.id = id;
+   var _modalRoot = (0, _react.useRef)(null);
+ 
+   var _modalInstance = (0, _react.useRef)(null);
+@@ -233,33 +240,5 @@ Modal.propTypes = {
+    */
+   root: _propTypes.default.any
+ };
+-Modal.defaultProps = {
+-  get id() {
+-    return "Modal-".concat((0, _idgen.default)());
+-  },
+-
+-  root: typeof window !== 'undefined' ? document.body : null,
+-  open: false,
+-  options: {
+-    opacity: 0.5,
+-    inDuration: 250,
+-    outDuration: 250,
+-    onOpenStart: null,
+-    onOpenEnd: null,
+-    onCloseStart: null,
+-    onCloseEnd: null,
+-    preventScrolling: true,
+-    dismissible: true,
+-    startingTop: '4%',
+-    endingTop: '10%'
+-  },
+-  fixedFooter: false,
+-  bottomSheet: false,
+-  actions: [/*#__PURE__*/_react.default.createElement(_Button.default, {
+-    waves: "green",
+-    modal: "close",
+-    flat: true
+-  }, "Close")]
+-};
+ var _default = Modal;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Navbar.js b/lib/Navbar.js
+index 98716c11dba3a2f78b0d31601e9f171ed37ed3ec..abaa0b049a132f8130287d03f18ae6f7ec715b98 100644
+--- a/lib/Navbar.js
++++ b/lib/Navbar.js
+@@ -36,7 +36,8 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var Navbar = function Navbar(_ref) {
+-  var id = _ref.id,
++  var _ref$id = _ref.id,
++      id = _ref$id === void 0 ? 'mobile-nav' : _ref$id,
+       children = _ref.children,
+       brand = _ref.brand,
+       className = _ref.className,
+@@ -179,20 +180,5 @@ Navbar.propTypes = {
+   }),
+   menuIcon: _propTypes.default.node.isRequired
+ };
+-Navbar.defaultProps = {
+-  id: 'mobile-nav',
+-  options: {
+-    edge: 'left',
+-    draggable: true,
+-    inDuration: 250,
+-    outDuration: 200,
+-    onOpenStart: null,
+-    onOpenEnd: null,
+-    onCloseStart: null,
+-    onCloseEnd: null,
+-    preventScrolling: true
+-  },
+-  menuIcon: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "menu")
+-};
+ var _default = Navbar;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Pagination.js b/lib/Pagination.js
+index 9de8b6fdbc9920247e89203482e50aeef290d478..84f850e80f31480323d5ead03b07c80f4c74600c 100644
+--- a/lib/Pagination.js
++++ b/lib/Pagination.js
+@@ -36,7 +36,14 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
+ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+ 
+ var Pagination = function Pagination(_ref) {
+-  var items = _ref.items,
++  var _ref$items = _ref.items,
++      items = _ref$items === void 0 ? 10 : _ref$items,
++      _ref$activePage = _ref.activePage,
++      activePageProp = _ref$activePage === void 0 ? 1 : _ref$activePage,
++      _ref$leftBtn = _ref.leftBtn,
++      leftBtn = _ref$leftBtn === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, null, "chevron_left") : _ref$leftBtn,
++      _ref$rightBtn = _ref.rightBtn,
++      rightBtn = _ref$rightBtn === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, null, "chevron_right") : _ref$rightBtn,
+       className = _ref.className,
+       children = _ref.children,
+       _ref$maxButtons = _ref.maxButtons,
+@@ -126,11 +133,5 @@ Pagination.propTypes = {
+   leftBtn: _propTypes.default.node,
+   rightBtn: _propTypes.default.node
+ };
+-Pagination.defaultProps = {
+-  activePage: 1,
+-  items: 10,
+-  leftBtn: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "chevron_left"),
+-  rightBtn: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "chevron_right")
+-};
+ var _default = Pagination;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Parallax.js b/lib/Parallax.js
+index 14a5e3e3bf16c6de577ad770a232c9fb0375af2b..14fe5e546a8f230b7d7f91d4ea141eacc072adb5 100644
+--- a/lib/Parallax.js
++++ b/lib/Parallax.js
+@@ -29,7 +29,10 @@ var Parallax = function Parallax(_ref) {
+   var children = _ref.children,
+       className = _ref.className,
+       image = _ref.image,
+-      options = _ref.options,
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? {
++    responsiveThreshold: 0
++  } : _ref$options,
+       props = _objectWithoutProperties(_ref, ["children", "className", "image", "options"]);
+ 
+   var _parallax = (0, _react.useRef)(null);
+@@ -63,10 +66,5 @@ Parallax.propTypes = {
+     responsiveThreshold: _propTypes.default.number
+   })
+ };
+-Parallax.defaultProps = {
+-  options: {
+-    responsiveThreshold: 0
+-  }
+-};
+ var _default = Parallax;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Preloader.js b/lib/Preloader.js
+index 625a6ae96334ec69d4d292c94c5db0e1e742d90d..ff32744234d467e4f016476d63daa1fd571021cb 100644
+--- a/lib/Preloader.js
++++ b/lib/Preloader.js
+@@ -18,10 +18,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
+ var colors = ['blue', 'red', 'yellow', 'green'];
+ 
+ var Preloader = function Preloader(_ref) {
+-  var active = _ref.active,
++  var _ref$active = _ref.active,
++      active = _ref$active === void 0 ? true : _ref$active,
+       size = _ref.size,
+-      color = _ref.color,
+-      flashing = _ref.flashing,
++      _ref$color = _ref.color,
++      color = _ref$color === void 0 ? 'blue' : _ref$color,
++      _ref$flashing = _ref.flashing,
++      flashing = _ref$flashing === void 0 ? false : _ref$flashing,
+       className = _ref.className;
+   var classes = (0, _classnames.default)('preloader-wrapper', {
+     active: active
+@@ -74,10 +77,5 @@ Preloader.propTypes = {
+    */
+   flashing: _propTypes.default.bool
+ };
+-Preloader.defaultProps = {
+-  active: true,
+-  flashing: false,
+-  color: 'blue'
+-};
+ var _default = Preloader;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/SearchForm.js b/lib/SearchForm.js
+index bdf8545d42e8c97abba21441798eafcc0dd9a1a3..839d3406399b301506d5a32e145873d30dc58800 100644
+--- a/lib/SearchForm.js
++++ b/lib/SearchForm.js
+@@ -16,8 +16,10 @@ var _TextInput = _interopRequireDefault(require("./TextInput"));
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ 
+ var SearchForm = function SearchForm(_ref) {
+-  var searchIcon = _ref.searchIcon,
+-      closeIcon = _ref.closeIcon;
++  var _ref$searchIcon = _ref.searchIcon,
++      searchIcon = _ref$searchIcon === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, null, "search") : _ref$searchIcon,
++      _ref$closeIcon = _ref.closeIcon,
++      closeIcon = _ref$closeIcon === void 0 ? /*#__PURE__*/_react.default.createElement(_Icon.default, null, "close") : _ref$closeIcon;
+   return /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement(_TextInput.default, {
+     label: searchIcon,
+     type: "search"
+@@ -28,9 +30,5 @@ SearchForm.propTypes = {
+   searchIcon: _propTypes.default.node.isRequired,
+   closeIcon: _propTypes.default.node.isRequired
+ };
+-SearchForm.defaultProps = {
+-  searchIcon: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "search"),
+-  closeIcon: /*#__PURE__*/_react.default.createElement(_Icon.default, null, "close")
+-};
+ var _default = SearchForm;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Select.js b/lib/Select.js
+index fda893d61b1edb234d0fc35f6e925638a5b7d806..563bd3cad604eed1462397483090b953d0d66062 100644
+--- a/lib/Select.js
++++ b/lib/Select.js
+@@ -46,7 +46,8 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var Select = function Select(_ref) {
+-  var id = _ref.id,
++  var _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Select-".concat((0, _idgen.default)()) : _ref$id,
+       s = _ref.s,
+       m = _ref.m,
+       l = _ref.l,
+@@ -255,29 +256,5 @@ Select.propTypes = {
+     dropdownOptions: _Dropdown.dropdownOptions
+   })
+ };
+-Select.defaultProps = {
+-  get id() {
+-    return "Select-".concat((0, _idgen.default)());
+-  },
+-
+-  multiple: false,
+-  options: {
+-    classes: '',
+-    dropdownOptions: {
+-      alignment: 'left',
+-      autoTrigger: true,
+-      constrainWidth: true,
+-      coverTrigger: true,
+-      closeOnClick: true,
+-      hover: false,
+-      inDuration: 150,
+-      outDuration: 250,
+-      onOpenStart: null,
+-      onOpenEnd: null,
+-      onCloseStart: null,
+-      onCloseEnd: null
+-    }
+-  }
+-};
+ var _default = Select;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/SideNav.js b/lib/SideNav.js
+index ee51f5232b2bfdb62f765a73034c2663d05ccdfa..5b261f59b088071d5cb59c3a761c5ceb08a3f791 100644
+--- a/lib/SideNav.js
++++ b/lib/SideNav.js
+@@ -29,7 +29,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ 
+ var SideNav = function SideNav(_ref) {
+   var options = _ref.options,
+-      id = _ref.id,
++      _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "SideNav-".concat((0, _idgen.default)()) : _ref$id,
+       className = _ref.className,
+       children = _ref.children,
+       trigger = _ref.trigger,
+@@ -105,11 +106,5 @@ SideNav.propTypes = {
+   className: _propTypes.default.string,
+   children: _propTypes.default.node
+ };
+-SideNav.defaultProps = {
+-  get id() {
+-    return "SideNav-".concat((0, _idgen.default)());
+-  }
+-
+-};
+ var _default = SideNav;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Slider.js b/lib/Slider.js
+index a0cb0d738c6907b62fa3d2263f5210f461c0f561..840180553f1416d36af0ebef600294e05bf245a0 100644
+--- a/lib/Slider.js
++++ b/lib/Slider.js
+@@ -40,8 +40,15 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ var Slider = function Slider(_ref) {
+   var children = _ref.children,
+       className = _ref.className,
+-      options = _ref.options,
+-      fullscreen = _ref.fullscreen,
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? {
++    indicators: true,
++    interval: 6000,
++    duration: 500,
++    height: 400
++  } : _ref$options,
++      _ref$fullscreen = _ref.fullscreen,
++      fullscreen = _ref$fullscreen === void 0 ? false : _ref$fullscreen,
+       props = _objectWithoutProperties(_ref, ["children", "className", "options", "fullscreen"]);
+ 
+   var sliderInstance = (0, _react.useRef)(null);
+@@ -127,14 +134,5 @@ Slider.propTypes = {
+     height: _propTypes.default.number
+   })
+ };
+-Slider.defaultProps = {
+-  fullscreen: false,
+-  options: {
+-    indicators: true,
+-    interval: 6000,
+-    duration: 500,
+-    height: 400
+-  }
+-};
+ var _default = Slider;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Spinner.js b/lib/Spinner.js
+index b75bd6f6119a9a85c0961980321c567ff3004a04..177bdc7158b9a07ccec0984ba2bb4891834bd956 100644
+--- a/lib/Spinner.js
++++ b/lib/Spinner.js
+@@ -19,7 +19,8 @@ var Spinner = function Spinner(_ref) {
+   var _cx;
+ 
+   var color = _ref.color,
+-      only = _ref.only,
++      _ref$only = _ref.only,
++      only = _ref$only === void 0 ? true : _ref$only,
+       className = _ref.className;
+   var spinnerClasses = (0, _classnames.default)('spinner-layer', (_cx = {}, _defineProperty(_cx, "spinner-".concat(color, "-only"), only), _defineProperty(_cx, "spinner-".concat(color), !only), _cx));
+   return /*#__PURE__*/_react.default.createElement("div", {
+@@ -39,13 +40,5 @@ var Spinner = function Spinner(_ref) {
+   })));
+ };
+ 
+-Spinner.defaultProps = {
+-  only: true
+-};
+-Spinner.propTypes = {
+-  className: _propTypes.default.string,
+-  color: _propTypes.default.string,
+-  only: _propTypes.default.bool
+-};
+ var _default = Spinner;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Switch.js b/lib/Switch.js
+index 2081c5b52f1db0c32873d7fb0a4cd885abdaf769..460f267e6502f4bd7ede9a1c162834e4d8d15bcd 100644
+--- a/lib/Switch.js
++++ b/lib/Switch.js
+@@ -20,9 +20,12 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
+ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+ 
+ var Switch = function Switch(_ref) {
+-  var id = _ref.id,
++  var _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Switch-".concat((0, _idgen.default)()) : _ref$id,
+       offLabel = _ref.offLabel,
+       onLabel = _ref.onLabel,
++      _ref$onChange = _ref.onChange,
++      onChange = _ref$onChange === void 0 ? function onChange() {} : _ref$onChange,
+       props = _objectWithoutProperties(_ref, ["id", "offLabel", "onLabel"]);
+ 
+   return /*#__PURE__*/_react.default.createElement("div", {
+@@ -70,12 +73,5 @@ Switch.propTypes = {
+    */
+   checked: _propTypes.default.bool
+ };
+-Switch.defaultProps = {
+-  get id() {
+-    return "Switch-".concat((0, _idgen.default)());
+-  },
+-
+-  onChange: function onChange() {}
+-};
+ var _default = Switch;
+ exports.default = _default;
+\ No newline at end of file
 diff --git a/lib/Tabs.js b/lib/Tabs.js
-index 317585e34d7881e3c35ba65bb6e8822302b6c657..3addd52dd7c5846a5629bc2cd19a05a4a5d33cba 100644
+index 317585e34d7881e3c35ba65bb6e8822302b6c657..41d715a47ab4df8050783ca8db97a1ef833a9a71 100644
 --- a/lib/Tabs.js
 +++ b/lib/Tabs.js
 @@ -30,7 +30,8 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
@@ -64,7 +894,7 @@ index 317585e34d7881e3c35ba65bb6e8822302b6c657..3addd52dd7c5846a5629bc2cd19a05a4
        children = _ref.children,
        className = _ref.className,
        defaultValue = _ref.defaultValue,
-@@ -120,12 +121,6 @@ Tabs.propTypes = {
+@@ -120,19 +121,5 @@ Tabs.propTypes = {
      responsiveThreshold: _propTypes.default.number
    })
  };
@@ -74,6 +904,120 @@ index 317585e34d7881e3c35ba65bb6e8822302b6c657..3addd52dd7c5846a5629bc2cd19a05a4
 -  }
 -
 -};
- _Tab.default.defaultProps = {
-   options: {
-     duration: 300,
+-_Tab.default.defaultProps = {
+-  options: {
+-    duration: 300,
+-    onShow: null,
+-    swipeable: false,
+-    responsiveThreshold: Infinity
+-  }
+-};
+ var _default = Tabs;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/TextInput.js b/lib/TextInput.js
+index a99e1edea5d1849add7888340d7620e82065b2a6..0b54c83e7410dab18eca16f4791a33abe3a1b398 100644
+--- a/lib/TextInput.js
++++ b/lib/TextInput.js
+@@ -37,6 +37,9 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ 
+ var TextInput = _react.default.forwardRef(function (props, ref) {
+   // eslint-disable-next-line react/prop-types
++  var _props$id = props.id,
++      id = _props$id === void 0 ? "TextInput-".concat((0, _idgen.default)()) : _props$id;
++  props.id = id;
+   var dataLength = props['data-length'];
+   var inputRef = ref || (0, _react.createRef)(null);
+   (0, _react.useEffect)(function () {
+@@ -278,11 +281,5 @@ TextInput.propTypes = {
+    */
+   children: _propTypes.default.node
+ };
+-TextInput.defaultProps = {
+-  get id() {
+-    return "TextInput-".concat((0, _idgen.default)());
+-  }
+-
+-};
+ var _default = TextInput;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/Textarea.js b/lib/Textarea.js
+index 29894837b8e86b9f3a3dfe0c60696d2b9e2a45b5..a84faa88e1f72882fd7c5ad3010d6ba52d8c0cd8 100644
+--- a/lib/Textarea.js
++++ b/lib/Textarea.js
+@@ -47,7 +47,8 @@ var Textarea = function Textarea(_ref) {
+       validate = _ref.validate,
+       defaultValue = _ref.defaultValue,
+       value = _ref.value,
+-      id = _ref.id,
++      _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "Textarea-".concat((0, _idgen.default)()) : _ref$id,
+       rest = _objectWithoutProperties(_ref, ["children", "className", "s", "m", "l", "xl", "noLayout", "placeholder", "icon", "label", "success", "error", "iconClassName", "onChange", "validate", "defaultValue", "value", "id"]);
+ 
+   var textareaRef = (0, _react.useRef)(null);
+@@ -202,11 +203,5 @@ Textarea.propTypes = {
+    */
+   onChange: _propTypes.default.func
+ };
+-Textarea.defaultProps = {
+-  get id() {
+-    return "Textarea-".concat((0, _idgen.default)());
+-  }
+-
+-};
+ var _default = Textarea;
+ exports.default = _default;
+\ No newline at end of file
+diff --git a/lib/TimePicker.js b/lib/TimePicker.js
+index 8cb6ff78aba39a00f6e34cdad016af65e013e955..537daa1190e46a2f1fd850e7eff58fbff484e91a 100644
+--- a/lib/TimePicker.js
++++ b/lib/TimePicker.js
+@@ -35,8 +35,12 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ 
+ var TimePicker = function TimePicker(_ref) {
+   var onChange = _ref.onChange,
+-      options = _ref.options,
+-      props = _objectWithoutProperties(_ref, ["onChange", "options"]);
++      _ref$options = _ref.options,
++      options = _ref$options === void 0 ? { duration: 350, container: null, showClearBtn: false, defaultTime: 'now', fromNow: 0, i18n: { cancel: 'Cancel', clear: 'Clear', done: 'Ok' }, autoClose: false, twelveHour: true, vibrate: true, onOpenStart: null, onOpenEnd: null, onCloseStart: null, onCloseEnd: null, onSelect: null } : _ref$options,
++      _ref$id = _ref.id,
++      id = _ref$id === void 0 ? "TimePicker-".concat((0, _idgen.default)()) : _ref$id,
++      props = _objectWithoutProperties(_ref, ["onChange", "id", "options"]);
++  props.id = id;
+ 
+   var timeEl = (0, _react.useRef)(null);
+   (0, _react.useEffect)(function () {
+@@ -161,31 +165,5 @@ TimePicker.propTypes = {
+     onSelect: _propTypes.default.func
+   })
+ };
+-TimePicker.defaultProps = {
+-  get id() {
+-    return "TimePicker-".concat((0, _idgen.default)());
+-  },
+-
+-  options: {
+-    duration: 350,
+-    container: null,
+-    showClearBtn: false,
+-    defaultTime: 'now',
+-    fromNow: 0,
+-    i18n: {
+-      cancel: 'Cancel',
+-      clear: 'Clear',
+-      done: 'Ok'
+-    },
+-    autoClose: false,
+-    twelveHour: true,
+-    vibrate: true,
+-    onOpenStart: null,
+-    onOpenEnd: null,
+-    onCloseStart: null,
+-    onCloseEnd: null,
+-    onSelect: null
+-  }
+-};
+ var _default = TimePicker;
+ exports.default = _default;
+\ No newline at end of file
