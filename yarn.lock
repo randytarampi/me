@@ -9430,6 +9430,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@webdiscus/pug-loader@npm:^2.11.1":
+  version: 2.11.1
+  resolution: "@webdiscus/pug-loader@npm:2.11.1"
+  dependencies:
+    ansis: "npm:3.10.0"
+    parse5: "npm:^7.2.1"
+    pug: "npm:^3.0.3"
+    webpack-merge: "npm:^6.0.1"
+  peerDependencies:
+    enhanced-resolve: ">=5.7.0"
+    markdown-it: ">=13.0.1"
+    prismjs: ^1.29.0
+    pug: ">=3.0.2"
+    webpack: ">=5.32.0"
+  peerDependenciesMeta:
+    markdown-it:
+      optional: true
+    prismjs:
+      optional: true
+  checksum: 10c0/69f0470cf60f32555d02df133f50705fdfa5f2aee74b1f253ffec7dd603f13981ec6aad1b754c8d5c612541dc79f43cf7077c4aede2aef83893e2e55f8f639ae
+  languageName: node
+  linkType: hard
+
 "@xtuc/ieee754@npm:^1.2.0":
   version: 1.2.0
   resolution: "@xtuc/ieee754@npm:1.2.0"
@@ -19162,6 +19185,7 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.6.2"
     "@sentry/webpack-plugin": "npm:^5.4.0"
     "@testing-library/jest-dom": "npm:^6.9.1"
+    "@webdiscus/pug-loader": "npm:^2.11.1"
     babel-loader: "npm:^10.1.1"
     babel-plugin-istanbul: "npm:^8.0.2"
     babel-plugin-lodash: "npm:^3.3.4"
@@ -19210,7 +19234,6 @@ __metadata:
     postcss-loader: "npm:^8.2.1"
     postcss-preset-env: "npm:^11.3.2"
     pug: "npm:^3.0.4"
-    pug-loader: "npm:^2.4.0"
     react-refresh: "npm:^0.18.0"
     resolve-url-loader: "npm:^5.0.0"
     sass: "npm:^1.101.0"
@@ -23201,29 +23224,6 @@ __metadata:
     object-assign: "npm:^4.1.1"
     pug-walk: "npm:^2.0.0"
   checksum: 10c0/2a7659dfaf9872dd25d851f85e4c27fa447d907b1db3540030cd844614159ff181e067d8f2bedf90eb6b5b1ff03747253859ecbbb822e40f4834b15591d4e108
-  languageName: node
-  linkType: hard
-
-"pug-loader@npm:@webdiscus/pug-loader@^2.11.1":
-  version: 2.11.1
-  resolution: "@webdiscus/pug-loader@npm:2.11.1"
-  dependencies:
-    ansis: "npm:3.10.0"
-    parse5: "npm:^7.2.1"
-    pug: "npm:^3.0.3"
-    webpack-merge: "npm:^6.0.1"
-  peerDependencies:
-    enhanced-resolve: ">=5.7.0"
-    markdown-it: ">=13.0.1"
-    prismjs: ^1.29.0
-    pug: ">=3.0.2"
-    webpack: ">=5.32.0"
-  peerDependenciesMeta:
-    markdown-it:
-      optional: true
-    prismjs:
-      optional: true
-  checksum: 10c0/69f0470cf60f32555d02df133f50705fdfa5f2aee74b1f253ffec7dd603f13981ec6aad1b754c8d5c612541dc79f43cf7077c4aede2aef83893e2e55f8f639ae
   languageName: node
   linkType: hard
 

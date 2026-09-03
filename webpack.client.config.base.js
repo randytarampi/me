@@ -62,6 +62,7 @@ export default ({
                       babelEnv = "client",
                       babelLoaderExclusions = util.babelLoaderExclusions,
                       babelJsType = "javascript/auto",
+                      inlineFonts = false,
                       ...configOverrides
                   }) => {
     return {
@@ -111,7 +112,10 @@ export default ({
                 ...otherRules,
                 {
                     test: /\.pug$/,
-                    loader: "pug-loader"
+                    // NOTE-RT: @webdiscus/pug-loader (the maintained fork) self-references its own
+                    // package name internally, so it cannot be installed under an `npm:` alias of
+                    // `pug-loader` — depend on it by real name and reference it directly here.
+                    loader: "@webdiscus/pug-loader"
                 },
                 {
                     test: /\.jsx?$/,
@@ -161,7 +165,10 @@ export default ({
                 },
                 {
                     test: /\.(eot|ttf|woff|woff2|svg|gif|png|ico)$/,
-                    // NOTE-RT: previously `loader: "file-loader"` with `options: {name: "[name].[ext]"}`.
+                    // NOTE-RT: printable builds opt into `asset/inline` so their CSS is self-contained
+                    // for puppeteer's `page.setContent()`; web builds retain `asset/resource` so the
+                    // preloaded font files remain separately deployable.
+                    // Previously this was `loader: "file-loader"` with `options: {name: "[name].[ext]"}`.
                     // `@fortawesome/fontawesome-free`'s own `regular.scss`/`solid.scss` partials (pulled in
                     // via `packages/css/styles/fonts.scss`) declare `@font-face src: url(...)` for these
                     // same font files, which `css-loader`/`mini-css-extract-plugin` resolve as a *module
@@ -171,11 +178,11 @@ export default ({
                     // under a content-hash filename (e.g. `db5e5ccecfbcc73d03fa.woff2`) as an "auxiliary
                     // asset" of the `styles` chunk - its content was `file-loader`'s own generated JS wrapper
                     // source, not real font bytes, so the URL still 200'd but the browser couldn't parse it
-                    // as a font. Using webpack5's native Asset Modules (`type: "asset/resource"`) instead -
-                    // the mechanism `css-loader`'s own resolution already expects - makes both paths agree
-                    // on a single, correctly-named/contented emitted asset per source file.
-                    type: "asset/resource",
-                    generator: {
+                    // as a font. Using webpack5's native Asset Modules instead - the mechanism
+                    // `css-loader`'s own resolution already expects - makes both paths agree on a
+                    // single, correctly-handled asset per source file.
+                    type: inlineFonts ? "asset/inline" : "asset/resource",
+                    generator: inlineFonts ? {} : {
                         filename: "[name][ext]"
                     }
                 }
