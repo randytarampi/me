@@ -48,6 +48,15 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Cache Nx
+        uses: actions/cache@v6
+        with:
+          path: .nx/cache
+          key: nx-cache-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            nx-cache-${{ runner.os }}-${{ github.ref_name }}-
+            nx-cache-${{ runner.os }}-
+
       - name: Check for publishable changes
         id: changed
         run: |

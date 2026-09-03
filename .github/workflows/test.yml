@@ -181,8 +181,8 @@ jobs:
 
           rm -rf .nyc_output/ coverage/
 
-          yarn lerna run pretest "${since[@]}" --concurrency 1 --stream
-          yarn lerna run cover "${since[@]}" --concurrency 1 --stream
+          yarn lerna run pretest "${since[@]}" --parallel --stream
+          yarn lerna run cover "${since[@]}" --parallel --stream
         # NOTE-RT: one code path, differing only in whether `--since` is passed. The empty-`[]`
         # branch used to call the root `pretest` and `cover:actual` scripts instead, and between
         # them they accounted for everything that made the first four runs of this job unreadable:

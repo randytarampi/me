@@ -97,6 +97,15 @@ jobs:
       - name: Actually run `yarn install`
         run: yarn install
 
+      - name: Cache Nx
+        uses: actions/cache@v6
+        with:
+          path: .nx/cache
+          key: nx-cache-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            nx-cache-${{ runner.os }}-${{ github.ref_name }}-
+            nx-cache-${{ runner.os }}-
+
       # NOTE-RT: this used to be `chrnorm/deployment-action@releases/v1`, which declares
       # `runs.using: node12` and emits the disabled `::set-output` command. `on.workflow_call`
       # can't declare an `environment:`, so the GitHub deployment has to be created by hand.
