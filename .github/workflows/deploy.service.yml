@@ -38,6 +38,7 @@ permissions:
 
 jobs:
   deploy-service:
+    name: Deploy service to ${{ inputs.deployment_environment }}
     environment: ${{ inputs.deployment_environment }}
     runs-on: ubuntu-latest
     env:

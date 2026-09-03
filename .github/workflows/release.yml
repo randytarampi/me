@@ -151,12 +151,11 @@ jobs:
   deploy-pages:
     needs: release
     if: ${{ needs.release.outputs.has_changes == 'true' }}
-    uses: ./.github/workflows/deploy.pages.reusable.yml
+    uses: ./.github/workflows/deploy.pages.yml
     with:
       application_name: www
       deployment_environment: prd
       deployment_ref: ${{ github.sha }}
-      adjust_docs_for_dev: false
     secrets:
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
     permissions:
@@ -166,12 +165,11 @@ jobs:
   deploy-pages--jsonresume-theme:
     needs: release
     if: ${{ needs.release.outputs.has_changes == 'true' }}
-    uses: ./.github/workflows/deploy.pages.reusable.yml
+    uses: ./.github/workflows/deploy.pages.yml
     with:
       application_name: jsonresume-theme
       deployment_environment: prd
       deployment_ref: ${{ github.sha }}
-      adjust_docs_for_dev: false
     secrets:
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
     permissions:

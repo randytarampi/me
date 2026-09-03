@@ -1,4 +1,4 @@
-name: deploy.pages.reusable
+name: deploy (GitHub Pages)
 
 on:
   workflow_call:
@@ -15,11 +15,6 @@ on:
         description: 'The ref or SHA used in deployment metadata'
         required: true
         type: string
-      adjust_docs_for_dev:
-        description: 'Whether to rewrite the dev CNAME before deployment'
-        required: false
-        default: false
-        type: boolean
     secrets:
       # NOTE-RT: the AWS credentials are gone. They were injected as job-level `env` for years and
       # nothing here ever read them — `www` declares no AWS dependency at all, and the repo's only
@@ -52,7 +47,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Run `yarn deploy`
+    name: Deploy ${{ inputs.application_name || github.event.inputs.application_name || 'www' }} to ${{ inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev' }}
     # NOTE-RT: `on.workflow_call` can't declare an `environment`, but a *job* inside one can —
     # `deploy.service.yml` has done it all along. Setting it here buys two things at once: the
     # `master`-only deployment branch policy from `infrastructure/src/github/environments.ts`, and
@@ -154,7 +149,7 @@ jobs:
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
       - name: Adjust `docs` for `dev`
-        if: ${{ (inputs.adjust_docs_for_dev || false) || (github.event.inputs.deployment_environment == 'dev') }}
+        if: ${{ (inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev') == 'dev' }}
         run: |
           git config --local user.email "$GITHUB_ACTIONS_AUTHOR_EMAIL"
           git config --local user.name "$GITHUB_ACTIONS_AUTHOR_NAME"
