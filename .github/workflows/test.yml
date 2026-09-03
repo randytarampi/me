@@ -233,7 +233,7 @@ jobs:
           parallel: true
       - name: Upload Nx cache
         if: always()
-        uses: actions/cache/upload@v6
+        uses: actions/cache/save@v6
         with:
           path: .nx/cache
           key: nx-cache-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('yarn.lock') }}
