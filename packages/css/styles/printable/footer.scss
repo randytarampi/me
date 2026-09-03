@@ -1,6 +1,13 @@
 .printable-footer {
     margin-bottom: 0;
 
+    @media print {
+        text-align: center;
+        // NOTE-RT: keep the footer at its natural, legible size — it must fit within the page
+        // margins like any other content, not shrink to squeeze in.
+        line-height: 1.5;
+    }
+
     & > .container > .row {
         margin-bottom: 0;
     }
