@@ -41,6 +41,7 @@ if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.t
 export default webpackBaseConfig({
     sourceDirectoryPath: __dirname,
     compliationDirectoryPath: path.join(__dirname, "dist"),
+    inlineFonts: true,
     babelEnv: "client.esm",
     webpackDevServerMiddleware: [
         (app) => app.use("/api/resume", express.static("./src/resumes")),
