@@ -59,6 +59,10 @@ export default [
             // NOTE-RT: Yarn's own bundled releases. Linting `.yarn/releases/yarn-*.js` accounted for
             // 7,805 of the 8,376 problems `yarn lint` reported, which buried every real one.
             "**/.yarn/**",
+            // NOTE-RT: Nx's persistent build cache replays recorded outputs (including compiled
+            // copies of linted source); linting it accounted for 429 false hits on the
+            // no-restricted-syntax defaultProps guard.
+            "**/.nx/**",
             // NOTE-RT: `infrastructure/` is the only TypeScript in the repo, and this config has no
             // TypeScript parser — `js.configs.recommended` applies to every file, so without this
             // every `.ts` file would fail to parse. Adding `typescript-eslint` to lint one leaf
@@ -125,6 +129,16 @@ export default [
             "react/no-find-dom-node": "off",
             "react/no-unescaped-entities": "off",
             "react/prop-types": ["error", {ignore: ["children"]}],
+            // NOTE-RT: React 19's jsx-runtime silently drops defaultProps on function and
+            // memo-wrapped function components (three audit passes needed to close this class:
+            // plain functions, react-redux's memo-wrapped Connect wrappers, and one straggler).
+            // Class components are unaffected and may keep defaultProps. Any new default must be
+            // a destructured parameter default, an explicit prop at the call site, or a closure
+            // fallback (mapState/mapDispatchToProps).
+            "no-restricted-syntax": ["error", {
+                selector: "AssignmentExpression[left.property.name='defaultProps']",
+                message: "defaultProps is silently ignored for function and memo-wrapped function components under React 19. Use destructured parameter defaults, explicit props at the call site, or a connect() closure fallback instead. Class components may set defaultProps, but prefer a static class property or constructor assignment so this rule stays quiet legitimately."
+            }],
             "import/named": "error",
             "import/export": "error",
             "import/no-mutable-exports": "error",
@@ -155,6 +169,18 @@ export default [
             globals: {
                 ...globals.node,
                 ...globals.commonjs
+            }
+        }
+    },
+    {
+        // NOTE-RT: standalone probe/debug scripts (e.g. packages/*/scripts/*.mjs) run under
+        // Node, not through the bundler — they get node globals so `URL`/`console` resolve.
+        files: ["**/scripts/**/*.mjs"],
+        languageOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
+            globals: {
+                ...globals.node
             }
         }
     }
