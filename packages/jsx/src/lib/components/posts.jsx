@@ -38,6 +38,12 @@ export const mapPostsErrorCodeToErrorContentComponent = errorCode => {
 };
 
 export class PostsComponent extends PureComponent {
+    static defaultProps = {
+        isLoading: false,
+        shouldFetchPostsOnMount: false,
+        postsLimit: Infinity
+    };
+
     constructor(props) {
         super(props);
 
@@ -161,11 +167,6 @@ PostsComponent.propTypes = {
     posts: PropTypes.instanceOf(List)
 };
 
-PostsComponent.defaultProps = {
-    isLoading: false,
-    shouldFetchPostsOnMount: false,
-    postsLimit: Infinity
-};
 
 export const MeasuredPostsComponent = props => {
     const {height, ref, width} = useMeasure();

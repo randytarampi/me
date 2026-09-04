@@ -66,7 +66,7 @@ GoogleMapLoadingGate.propTypes = {
 };
 
 // NOTE-RT: React 19 removed `defaultProps` support for function components entirely (silently
-// ignored - class components are unaffected, see `GoogleMapComponent.defaultProps` below), so
+// ignored - class components are unaffected, see `GoogleMapComponent`'s static defaultProps), so
 // these defaults are hoisted module-level constants used as ES6 default parameter values instead.
 const DEFAULT_GOOGLE_MAP_CENTER = {
     lat: 52.5018708,
@@ -166,6 +166,11 @@ const googleMapCallbacks = [
 ];
 
 export class GoogleMapComponent extends PureComponent {
+    static defaultProps = {
+        mapContainerHeightPx: MAP_CONTAINER_HEIGHT_PX,
+        persistentMap: true
+    };
+
     constructor(passedProps) {
         const {googleMapRef, ...props} = passedProps;
         const propsKeys = Object.keys(props);
@@ -248,10 +253,6 @@ export class GoogleMapComponent extends PureComponent {
     }
 }
 
-GoogleMapComponent.defaultProps = {
-    mapContainerHeightPx: MAP_CONTAINER_HEIGHT_PX,
-    persistentMap: true
-};
 
 GoogleMapComponent.propTypes = {
     id: PropTypes.string.isRequired,

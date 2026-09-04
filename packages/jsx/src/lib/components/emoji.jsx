@@ -2,6 +2,11 @@ import PropTypes from "prop-types";
 import React, {Fragment, PureComponent} from "react";
 
 export class Emoji extends PureComponent {
+    static defaultProps = {
+        persistentEmoji: true,
+        textEffect: false
+    };
+
     constructor(props, context, updater) {
         super(props, context, updater);
 
@@ -67,11 +72,6 @@ Emoji.propTypes = {
     clearEmoji: PropTypes.func,
     onComponentClick: PropTypes.func,
     textEffect: PropTypes.bool,
-};
-
-Emoji.defaultProps = {
-    persistentEmoji: true,
-    textEffect: false
 };
 
 export default Emoji;

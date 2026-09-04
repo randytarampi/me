@@ -56,6 +56,11 @@ export const mapResumeErrorCodeToErrorContentComponent = errorCode => {
 };
 
 export class ResumeComponent extends PureComponent {
+    static defaultProps = {
+        resume: Resume.fromResume(defaultResume),
+        publishedResumeUrl: __PUBLISHED_RESUME_URL__
+    };
+
     componentDidMount() {
         if (this.props.variant) {
             this.props.fetchResume(this.props.variant);
@@ -168,9 +173,5 @@ ResumeComponent.propTypes = {
     publishedResumeUrl: PropTypes.string.isRequired
 };
 
-ResumeComponent.defaultProps = {
-    resume: Resume.fromResume(defaultResume),
-    publishedResumeUrl: __PUBLISHED_RESUME_URL__
-};
 
 export default ResumeComponent;

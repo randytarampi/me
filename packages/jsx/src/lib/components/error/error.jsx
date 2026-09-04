@@ -5,6 +5,10 @@ import {Col, Row} from "react-materialize";
 import {mapErrorCodeToErrorContentComponent} from "./content/index.jsx";
 
 export class ErrorComponent extends PureComponent {
+    static defaultProps = {
+        mapErrorCodeToErrorContentComponent
+    };
+
     componentDidMount() {
         if ([404, "ENOTFOUND"].includes(this.props.errorCode) && !this.props.errorTimeoutHandlerId) {
             this.props.timedRedirect();
@@ -54,10 +58,6 @@ ErrorComponent.propTypes = {
     redirectionTimeout: PropTypes.number.isRequired,
     timedRedirect: PropTypes.func.isRequired,
     clearErrorTimeoutHandler: PropTypes.func.isRequired
-};
-
-ErrorComponent.defaultProps = {
-    mapErrorCodeToErrorContentComponent
 };
 
 export default ErrorComponent;

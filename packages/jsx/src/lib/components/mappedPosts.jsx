@@ -6,6 +6,10 @@ import {ConnectedPostMarker} from "../containers/postMarker.jsx";
 import {GoogleMapMarkerClustererComponent} from "./map/index.jsx";
 
 export class MappedPostsComponent extends PureComponent {
+    static defaultProps = {
+        shouldFetchPostsOnMount: true
+    };
+
     constructor(props) {
         super(props);
 
@@ -48,10 +52,6 @@ export class MappedPostsComponent extends PureComponent {
         </ConnectedMap>;
     }
 }
-
-MappedPostsComponent.defaultProps = {
-    shouldFetchPostsOnMount: true
-};
 
 MappedPostsComponent.propTypes = {
     id: PropTypes.string.isRequired,

@@ -35,6 +35,11 @@ export const mapLetterErrorCodeToErrorContentComponent = errorCode => {
 };
 
 export class LetterComponent extends PureComponent {
+    static defaultProps = {
+        isLoading: false,
+        publishedLetterUrl: __PUBLISHED_LETTER_URL__
+    };
+
     componentDidMount() {
         if (this.props.variant) {
             this.props.fetchLetter(this.props.variant);
@@ -102,9 +107,5 @@ LetterComponent.propTypes = {
     publishedLetterUrl: PropTypes.string.isRequired
 };
 
-LetterComponent.defaultProps = {
-    isLoading: false,
-    publishedLetterUrl: __PUBLISHED_LETTER_URL__
-};
 
 export default LetterComponent;
