@@ -22,6 +22,7 @@ Constraints and sharp edges:
 - Watch the flaky `redux-metrics` timestamp test.
 - `enzyme`/`chai-enzyme` are fully removed repo-wide; `jsx` uses React Testing Library. `jsx/src/lib/reactRouter.cjs` remains a deliberate CJS wrapper (react-router internals need it), unrelated to enzyme.
 - `materialize-css`-era code is legacy and brittle; keep changes there narrow.
+- PDF/image attachments are unreadable to coding agents — never ask the user to re-send; probe artifacts instead with `pdftotext` (text), `pdfinfo` (page count/size), `pdffonts` (embedded fonts), or `cmp`/python (byte checks). See `packages/job-application/scripts/probe-pdf.sh` for the ready-made triad.
 
 Details:
 - [Architecture](docs/ARCHITECTURE.md)
