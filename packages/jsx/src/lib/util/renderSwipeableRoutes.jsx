@@ -24,13 +24,45 @@ export const renderRoute = (route, extraProps, location) => {
             : null;
 };
 
+export const selectMatchedUnswipeableRoutes = (routes, pathname) => {
+    // NOTE-RT: Preserve the pre-`react-router@7` first-match-wins behaviour from the
+    // `react-router-config` era. A pathless catch-all (www's `Error404Handler`) must only
+    // mount when no earlier route matched — the RR7 port filtered `!route.path` as always
+    // matched, which painted the 404 under every real page on www.dev.
+    let matched = false;
+    const matchedUnswipeableRoutes = [];
+
+    for (const route of routes) {
+        if (matched) {
+            break;
+        }
+
+        if (route.path) {
+            if (matchRouteForPathname(route, pathname)) {
+                matched = true;
+                if (!route.tab) {
+                    matchedUnswipeableRoutes.push(route);
+                }
+            }
+            continue;
+        }
+
+        if (!route.tab) {
+            matchedUnswipeableRoutes.push(route);
+            matched = true;
+        }
+    }
+
+    return matchedUnswipeableRoutes;
+};
+
 export const RenderedSwipeableRoutes = ({location, routes, extraProps, swipeableRoutesProps}) => {
     if (!routes) {
         return null;
     }
 
     const swipeableRoutes = routes.filter(route => !!route.tab);
-    const matchedUnswipeableRoutes = routes.filter(route => !route.tab && (!route.path || matchRouteForPathname(route, location.pathname)));
+    const matchedUnswipeableRoutes = selectMatchedUnswipeableRoutes(routes, location.pathname);
 
     return <div className="routes-container routes-container__swipeable">
         <ConnectedSwipeableRoutes {...swipeableRoutesProps}>
