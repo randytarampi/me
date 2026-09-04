@@ -27,11 +27,14 @@ baseGulpfile.webpack({...taskParameters, taskName: "webpack.esm", webpackConfigN
 gulp.task("webpack", gulp.parallel(["webpack.esm"]));
 
 gulp.task("docs:dist", () => {
+    // NOTE-RT: gulp 5 (vinyl-fs 4) decodes streamed files as UTF-8 text by default, which mangles
+    // binary assets (woff2 fonts gained tens of thousands of U+FFFD sequences and ~2x size — the
+    // dev.randytarampi.ca icon corruption). `encoding: false` reads/writes raw Buffers.
     return gulp
         .src([
             "dist/**",
             "CNAME"
-        ])
+        ], {encoding: false})
         .pipe(gulp.dest("./docs"));
 });
 
