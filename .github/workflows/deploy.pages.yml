@@ -148,6 +148,40 @@ jobs:
         run: |
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
+      - name: Verify binary assets survived the `docs` copy
+        # NOTE-RT: gulp 5 (vinyl-fs 4) decodes gulp.src streams as UTF-8 text by default, which
+        # silently mangled woff2 fonts in the `docs:dist` copy (U+FFFD sequences, ~2x size) and
+        # broke every icon on the deployed site. Fail the deploy if any binary asset in `docs`
+        # differs from its `dist` source or isn't a well-formed woff2.
+        run: |
+          set -euo pipefail
+          DOCS_DIR="${{ steps.variables.outputs.application_name }}/docs"
+          DIST_DIR="${{ steps.variables.outputs.application_name }}/dist"
+          fail=0
+          while IFS= read -r -d '' file; do
+            rel="${file#$DIST_DIR/}"
+            case "$rel" in
+              *.woff2|*.woff|*.ttf|*.otf|*.eot|*.png|*.jpg|*.jpeg|*.gif|*.webp|*.ico|*.pdf)
+                if [ ! -f "$file" ]; then continue; fi
+                if cmp -s "$file" "$DOCS_DIR/$rel"; then
+                  echo "OK  $rel"
+                else
+                  echo "CORRUPTED $rel (docs copy differs from dist source)" >&2
+                  fail=1
+                fi
+                ;;
+            esac
+          done < <(find "$DIST_DIR" -type f -print0 2>/dev/null)
+          # woff2 well-formedness on anything the dist comparison didn't cover (e.g. CNAME-rooted copies)
+          while IFS= read -r -d '' file; do
+            case "$file" in
+              *.woff2) [ "$(head -c 4 "$file")" = "wOF2" ] || { echo "INVALID woff2 header: $file" >&2; fail=1; } ;;
+            esac
+          done < <(find "$DOCS_DIR" -type f -name "*.woff2" -print0 2>/dev/null)
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::Binary assets in $DOCS_DIR were corrupted during the docs build/copy — refusing to deploy." >&2
+            exit 1
+          fi
       - name: Adjust `docs` for `dev`
         if: ${{ (inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev') == 'dev' }}
         run: |
