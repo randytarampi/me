@@ -23,6 +23,8 @@ Constraints and sharp edges:
 - `enzyme`/`chai-enzyme` are fully removed repo-wide; `jsx` uses React Testing Library. `jsx/src/lib/reactRouter.cjs` remains a deliberate CJS wrapper (react-router internals need it), unrelated to enzyme.
 - `materialize-css`-era code is legacy and brittle; keep changes there narrow.
 - PDF/image attachments are unreadable to coding agents — never ask the user to re-send; probe artifacts instead with `pdftotext` (text), `pdfinfo` (page count/size), `pdffonts` (embedded fonts), or `cmp`/python (byte checks). See `packages/job-application/scripts/probe-pdf.sh` for the ready-made triad.
+- **Adversarial review before push.** Before pushing any commit that changes GitHub Actions workflows, Pulumi infrastructure code, or IAM/OIDC configuration, run an adversarial review: check that all referenced workflow files exist, all action versions are valid, all permissions are consistent between callers and callees, and all environment declarations match IAM trust policies. Run `actionlint` to catch YAML and workflow syntax errors. This is not optional for infrastructure changes.
+- **AWS credentials.** The agent shell has scrubbed AWS credentials — all AWS commands must be handed to the user as copy/paste blocks. See [docs/AWS_CREDENTIALS.md](docs/AWS_CREDENTIALS.md) for the pattern.
 
 Details:
 - [Architecture](docs/ARCHITECTURE.md)
