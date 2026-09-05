@@ -1,6 +1,6 @@
 name: CI
 
-# Allowlist validation 2026-09-05: confirm the qlty-action permit shipped via pulumi.
+# Allowlist validated with subpath pattern 2026-09-05: confirm the qlty-action permit shipped via pulumi.
 
 on:
   push:
