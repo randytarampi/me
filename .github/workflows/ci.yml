@@ -44,6 +44,12 @@ jobs:
     needs:
       - install
     uses: ./.github/workflows/test.yml
+    # NOTE-RT: the callee's Qlty job exchanges an OIDC token with qlty.sh, which requires
+    # `id-token: write` — and a reusable workflow cannot elevate the caller's `GITHUB_TOKEN`
+    # beyond what this call grants. Found live when test.yml's Qlty job startup-failed.
+    permissions:
+      contents: read
+      id-token: write
     secrets:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
