@@ -11,11 +11,14 @@
  * region, not by namespace — and because that is how the parameters were created in 2022, so a
  * prefix would mean looking for something that isn't there.
  *
- * The list is the whole set of thirteen. It used to be larger than what `serverless.yml` named,
+ * The list is the whole set of twelve. It used to be larger than what `serverless.yml` named,
  * because the old `serverless-secrets` plugin's `throwOnMissingSecret` turned one absent parameter
- * into a runtime outage across every function; `env.yml` now names all thirteen and the two lists
+ * into a runtime outage across every function; `env.yml` now names all twelve and the two lists
  * agree. Each `${ssm:…}` reference there also carries a `, ''` default (decided 2026-08-29), so an
  * absent parameter degrades just that one source rather than failing the deploy or the function.
+ *
+ * `github-api-secret` was removed 2026-09-05: the GitHub source's Octokit client authenticates with
+ * the key alone, nothing in `service` reads the secret, and the parameter was deleted from SSM.
  */
 export const serviceSecretNames: Readonly<Record<string, string>> = {
     FLICKR_API_KEY: "flickr-api-key",
@@ -25,7 +28,6 @@ export const serviceSecretNames: Readonly<Record<string, string>> = {
     TUMBLR_API_KEY: "tumblr-api-key",
     TUMBLR_API_SECRET: "tumblr-api-secret",
     GITHUB_API_KEY: "github-api-key",
-    GITHUB_API_SECRET: "github-api-secret",
     YOUTUBE_API_KEY: "youtube-api-key",
     VIMEO_ACCESS_TOKEN: "vimeo-access-token",
     STACKOVERFLOW_API_KEY: "stackoverflow-api-key",

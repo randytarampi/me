@@ -40,7 +40,6 @@ describe("sources", function () {
             process.env.SOUNDCLOUD_USER_ID = "12345";
 
             process.env.GITHUB_API_KEY = "github-key";
-            process.env.GITHUB_API_SECRET = "github-secret";
             process.env.TUMBLR_API_KEY = "tumblr-key";
             process.env.TUMBLR_API_SECRET = "tumblr-secret";
             process.env.UNSPLASH_API_KEY = "unsplash-key";

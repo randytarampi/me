@@ -130,7 +130,7 @@ requires AWS credentials, and the only credentials that exist today are the ones
 
    ```bash
    for p in flickr-api-key flickr-api-secret unsplash-api-key unsplash-api-secret \
-            tumblr-api-key tumblr-api-secret github-api-key github-api-secret sentry-dsn \
+            tumblr-api-key tumblr-api-secret github-api-key sentry-dsn \
             /serverless-framework/license-key; do
      pulumi import --stack prd --yes aws:ssm/parameter:Parameter "$p" "$p"
      pulumi import --stack dev --yes aws:ssm/parameter:Parameter "$p" "$p"
