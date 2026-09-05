@@ -96,20 +96,20 @@ build:
     # behaviour, not a bug - see https://github.com/evanw/esbuild/issues/1921 and the Serverless
     # maintainers' own workaround at https://github.com/serverless/serverless/issues/13033. The
     # banner restores a working `require` in scope for exactly this case.
+    #
+    # NOTE-RT: the banner's binding is deliberately named `__bannerCreateRequire`, not
+    # `createRequire`. Found live in `dev` a second time: after wrapping handlers with Sentry,
+    # `@sentry/aws-serverless`'s own `import { createRequire } from "node:module"` was emitted
+    # un-renamed into the same flat ESM bundle, and two declarations of one top-level binding
+    # killed module load (`SyntaxError: Identifier 'createRequire' has already been declared`).
+    # The SDK stays bundled (this artifact carries no node_modules to resolve an external into),
+    # so the banner just avoids owning the shared name. The SDK's disk-shim `_HANDLER` redirect
+    # cannot resolve inside a bundle and degrades to a warning — harmless, because handlers are
+    # wrapped explicitly with `Sentry.wrapHandler`.
     banner:
       js: |
-        import {createRequire} from "node:module";
-        globalThis.require = createRequire(import.meta.url);
-    # NOTE-RT: found live in `dev` - after wrapping handlers with Sentry, every invocation died at
-    # init with `SyntaxError: Identifier 'createRequire' has already been declared`. The banner's
-    # top-level `import {createRequire}` collided with `@sentry/aws-serverless`'s own ESM import of
-    # the same binding, which esbuild emitted un-renamed inside the bundle. Bundling this SDK is
-    # wrong beyond the collision anyway: its AwsLambda integration redirects the runtime's
-    # `_HANDLER` to a shim it resolves *from disk* (`@sentry/aws-serverless/run-lambda-handler`), so
-    # the package's files must exist in the artifact at runtime. Keeping it external satisfies both
-    # - the serverless-esbuild plugin installs external packages into the deployment artifact.
-    external:
-    - "@sentry/aws-serverless"
+        import {createRequire as __bannerCreateRequire} from "node:module";
+        globalThis.require = __bannerCreateRequire(import.meta.url);
 
 plugins:
 - serverless-offline
