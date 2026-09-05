@@ -47,12 +47,37 @@ jobs:
     secrets:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
-  # NOTE-RT: the Qlty upload lives in its own workflow (qlty.yml), gated on this one completing —
-  # same pattern release.yml uses. Two findings live behind this: (1) with a qlty job inline here,
-  # *every* push startup-failed regardless of what the push touched, while the identical job shape
-  # runs green in the fleet's non-caller workflows — a caller of reusable workflows is strict about
-  # jobs requesting `id-token: write`, even at job level; (2) moving the job into the reusable
-  # test.yml startup-failed the same way. The standalone workflow_run workflow sidesteps both.
+  # NOTE-RT: inline per owner's direction - runs in parallel with the callee's Coveralls finalize,
+  # gated on the same `test` job, and downloads the per-leg coverage artifacts test.yml uploaded.
+  # The qlty action requires `id-token: write` for its OIDC exchange; the allowlist entry lives in
+  # the Pulumi-managed Actions policy (`infrastructure/src/github/repository.ts`).
+  qlty:
+    name: Publish coverage to Qlty
+    needs:
+      - test
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download per-leg coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage
+      - name: Merge coverage reports
+        run: |
+          : > coverage/lcov.info
+          for file in coverage/coverage-node-*/lcov.info; do
+            [ -f "$file" ] || continue
+            cat "$file" >> coverage/lcov.info
+          done
+      - name: Publish coverage to Qlty
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage/lcov.info
 
   deploy__infrastructure--dev:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
