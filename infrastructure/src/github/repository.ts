@@ -37,7 +37,13 @@ export const actionsPermissions = ownsGlobalResources
                 "aws-actions/configure-aws-credentials@*",
                 "coverallsapp/github-action@*",
                 "pulumi/actions@*",
-                "qltysh/qlty-action@*"
+                "qltysh/qlty-action@*",
+                // NOTE-RT: the coverage action is a SUBPATH action, and allowlist patterns match
+                // the full `<owner>/<repo>/<path>@<ref>` identity — `qltysh/qlty-action@*` does
+                // not match `qltysh/qlty-action/coverage@v2`. Found live: every CI run
+                // startup-failed with the subpath in the tree, while the root ref pattern was
+                // live and CodeQL (github-owned) passed.
+                "qltysh/qlty-action/coverage@*"
             ]
         }
     }, {provider})
