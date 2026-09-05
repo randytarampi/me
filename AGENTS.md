@@ -14,7 +14,7 @@ Canonical commands:
 - `yarn start:web` — run service + www together
 
 Constraints and sharp edges:
-- Node 24, Yarn 4.17, and Lerna 9 are the baseline.
+- Node 24, Yarn 4.18, and Lerna 10 are the baseline.
 - Every workspace package is `"type": "module"` — full ESM, no package-level CommonJS exceptions remain.
 - Config/tooling files that need CommonJS stay `.cjs` (e.g. `mocha.config.cjs`, `loadConfig.cjs`, `util.cjs`, `config/**/*.cjs`).
 - Shared packages mostly depend on each other with `workspace:*`; the app surfaces sit on top.
