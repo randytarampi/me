@@ -4,9 +4,9 @@ on:
   workflow_run:
     workflows: ["CI"]
     types: [completed]
-    branches: [master]
+    branches: [main]
 
-# Branch protection is still required to prevent direct pushes to master from bypassing CI.
+# Branch protection is still required to prevent direct pushes to main from bypassing CI.
 
 concurrency:
   group: release-${{ github.ref }}

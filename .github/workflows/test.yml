@@ -173,9 +173,9 @@ jobs:
           memoryWatcher=$!
           trap 'kill "$memoryWatcher" 2>/dev/null || true' EXIT
 
-          since=(--since HEAD...origin/master)
+          since=(--since HEAD...origin/main)
 
-          if [ "$(yarn lerna ls --since HEAD...origin/master --json 2>/dev/null)" = "[]" ]; then
+          if [ "$(yarn lerna ls --since HEAD...origin/main --json 2>/dev/null)" = "[]" ]; then
             since=()
           fi
 
@@ -200,7 +200,7 @@ jobs:
         # `if: always()`, and the `rm -rf` above is the one other thing `cover:actual` did.
         #
         # NOTE-RT: `2>/dev/null` on the `lerna ls` so the `[]` comparison sees stdout rather than
-        # stdout interleaved with lerna's notices. On a `master` push it is empty, so this takes the
+        # stdout interleaved with lerna's notices. On a `main` push it is empty, so this takes the
         # *full* branch: build every workspace, render the Puppeteer PDFs, and run the service suite
         # against the LocalStack container above. 10 minutes was never enough for that; 45 is a
         # ceiling meant to catch a hang, not a measurement — tighten it once a few real runs are

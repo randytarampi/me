@@ -33,7 +33,7 @@
 
 ## The `infrastructure` workspace
 
-`infrastructure/` declares the identity, access and repository configuration this repo depends on — the GitHub Actions OIDC provider and deploy roles, the SSM parameters `service` reads at deploy time, the `master` ruleset, the `dev`/`prd` environments, the Actions secret inventory, and the npm trusted publishers `release.yml` publishes through. It is a leaf: nothing imports from it.
+`infrastructure/` declares the identity, access and repository configuration this repo depends on — the GitHub Actions OIDC provider and deploy roles, the SSM parameters `service` reads at deploy time, the `main` ruleset, the `dev`/`prd` environments, the Actions secret inventory, and the npm trusted publishers `release.yml` publishes through. It is a leaf: nothing imports from it.
 
 It breaks two repo-wide rules on purpose, and both are contained by that leafness:
 

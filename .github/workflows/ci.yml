@@ -2,14 +2,14 @@ name: CI
 
 on:
   push:
-    # NOTE-RT: `master` only. Without this every branch with an open pull request runs the entire
+    # NOTE-RT: `main` only. Without this every branch with an open pull request runs the entire
     # suite *twice* — once for the `push` and once for the `pull_request` — on separate runners with
     # separate concurrency groups, so neither cancels the other. Three matrix legs became six for no
     # additional signal, and it made triaging the first real run considerably harder than it needed
     # to be. Branch pushes are still covered: the pull request is what gates the merge, and it is
-    # also the ref the `master` ruleset's required status check is read from.
+    # also the ref the `main` ruleset's required status check is read from.
     branches:
-      - master
+      - main
     paths:
       - '**'
       - '!.github/**'
@@ -46,7 +46,7 @@ jobs:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
   deploy__infrastructure--dev:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs:
       - install
       - test
@@ -55,7 +55,7 @@ jobs:
       stack: dev
 
   deploy__www--dev:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs:
       - install
       - test
@@ -72,7 +72,7 @@ jobs:
       deployments: write
 
   deploy__service--dev:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs:
       - install
       - test

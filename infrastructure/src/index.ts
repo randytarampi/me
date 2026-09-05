@@ -6,7 +6,7 @@ import {managedSecretNames, unmanagedSecretNames} from "./aws/secrets";
 import {githubRepositoryFullName, stage} from "./config";
 import {environments} from "./github/environments";
 import "./github/repository";
-import {masterRuleset} from "./github/rulesets";
+import {mainRuleset} from "./github/rulesets";
 import {retiredSecretsList} from "./github/secrets";
 import {publishableWorkspaces} from "./npm/trustedPublishers";
 
@@ -69,11 +69,11 @@ export const kmsKeyArn = secretsKmsKeyArn;
 export const route53ZoneId = hostedZoneId;
 
 /**
- * The repository-level configuration, exported so `pulumi stack output` answers "is `master`
+ * The repository-level configuration, exported so `pulumi stack output` answers "is `main`
  * actually protected, and which environments can deploy?" without opening the GitHub UI.
  */
 export const deploymentEnvironments = environments.map(environmentResource => environmentResource.environment);
-export const masterRulesetId = masterRuleset?.rulesetId;
+export const mainRulesetId = mainRuleset?.rulesetId;
 export const secretsRetired = retiredSecretsList;
 
 /**

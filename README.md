@@ -10,7 +10,7 @@ _  / / / / /  __/_/_ __|
 [![Is www.randytarampi.ca up?](https://img.shields.io/website-up-down-green-red/https/www.randytarampi.ca.svg?label=www.randytarampi.ca&style=flat-square)](https://www.randytarampi.ca)
 [![30 day uptime](https://img.shields.io/uptimerobot/ratio/m780949566-9b1b7cc0bdd3be425a9e6ac8.svg?style=flat-square)](https://uptime.randytarampi.ca)
 [![CI](https://github.com/randytarampi/me/actions/workflows/ci.yml/badge.svg)](https://github.com/randytarampi/me/actions/workflows/ci.yml)
-[![Coverage status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=master)
+[![Coverage status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=main)
 [![Maintained with Lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lerna.js.org/)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/randytarampi/me.svg?style=flat-square)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/randytarampi/me.svg?style=flat-square)

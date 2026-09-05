@@ -18,7 +18,7 @@ import {provider} from "./provider";
  *
  * NOTE-RT: default workflow permissions are also deliberately untouched, and this one is worth
  * being explicit about because `write` is genuinely too broad. It is what lets `release.yml`'s
- * `lerna version` push to `master` and `deploy.pages.reusable.yml` write deployment statuses.
+ * `lerna version` push to `main` and `deploy.pages.reusable.yml` write deployment statuses.
  * Narrowing it to `read` requires every workflow to declare its own `permissions:` block first;
  * doing it in the same change would break the release with no way to tell which half was at fault.
  */

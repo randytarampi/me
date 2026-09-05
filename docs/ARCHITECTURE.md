@@ -73,6 +73,6 @@
 - `.github/workflows/ci.yml` runs lint + test on PRs on Node 24 / `ubuntu-latest`.
 - `.github/workflows/install.yml` verifies dependency installation.
 - `.github/workflows/test.yml` runs the full suite with coverage and affected builds via `--since`.
-- `.github/workflows/release.yml` does master-branch `lerna version` + publish with OIDC trusted publishing.
+- `.github/workflows/release.yml` does main-branch `lerna version` + publish with OIDC trusted publishing.
 - `.github/workflows/deploy.pages.yml` publishes `www` to GitHub Pages: dev on branch pushes, prd on `v*` tags.
 - `.github/workflows/deploy.service.yml` deploys `service` to AWS Lambda on `v*` tags.

@@ -12,7 +12,7 @@ export const githubRepo = "me";
 export const githubRepositoryFullName = `${githubOwner}/${githubRepo}` as const;
 
 /** The branch `release.yml` versions, publishes and deploys from. */
-export const defaultBranch = "master";
+export const defaultBranch = "main";
 
 /**
  * The DIY S3 backend `Pulumi.yaml` points at.
@@ -44,27 +44,27 @@ export const region = new pulumi.Config("aws").require("region");
 
 /**
  * Whether this stack owns the resources that exist once per *account* or once per *repository*
- * rather than once per stage — the IAM OIDC provider, the `master` ruleset, the environments, the
+ * rather than once per stage — the IAM OIDC provider, the `main` ruleset, the environments, the
  * Actions secret inventory, the Pages settings and the npm trusted publishers.
  *
  * NOTE-RT: IAM and GitHub have no notion of a stage. Two stacks both declaring the same OIDC
- * provider or the same `master` ruleset would collide on the second `pulumi up` and leave that
+ * provider or the same `main` ruleset would collide on the second `pulumi up` and leave that
  * stack permanently stuck, so exactly one stack is nominated as the owner and the other references
  * what it created. `prd` is the owner because it is the stack that must be right.
  */
 export const ownsGlobalResources = config.getBoolean("ownsGlobalResources") ?? false;
 
 /**
- * Extra branch patterns permitted to deploy to `dev`, on top of `master`.
+ * Extra branch patterns permitted to deploy to `dev`, on top of `main`.
  *
  * NOTE-RT: this exists for exactly one purpose, and it is temporary by design. The bootstrap depends
  * on proving the OIDC role and rehearsing a full `dev` deploy from a working branch *before* the
- * merge — but `pulumi up` is what creates the `master`-only deployment branch policy, so after the
+ * merge — but `pulumi up` is what creates the `main`-only deployment branch policy, so after the
  * first `up` the `workflow_dispatch` the rehearsal needs is rejected by the environment before the
  * job starts. Chicken, meet egg.
  *
  * Set it, rehearse, then remove it and `up` again. It applies to the `dev` environment only: the
- * whole point of the branch policy is that production deploys from `master` and nowhere else, and a
+ * whole point of the branch policy is that production deploys from `main` and nowhere else, and a
  * knob that could relax that is a knob that eventually will.
  *
  * NOTE-RT: set on the **`prd`** stack, despite the name. `src/github/environments.ts` only declares

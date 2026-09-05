@@ -32,8 +32,8 @@ environment variable and the table resource.
 | `src/aws/secrets.ts` | The 13 SSM parameters `service` reads, plus the Serverless licence key |
 | `src/aws/secretNames.ts` | Just the names, so the IAM policy can enumerate them without declaring them |
 | `src/aws/adopted.ts` | Read-only lookups of the ACM certificate, KMS alias and Route53 zone `env.yml` hardcodes |
-| `src/github/environments.ts` | `dev` and `prd`, with `master`-only deployment branch policies and a required reviewer on `prd` |
-| `src/github/rulesets.ts` | `master` branch protection and `v*` tag protection |
+| `src/github/environments.ts` | `dev` and `prd`, with `main`-only deployment branch policies and a required reviewer on `prd` |
+| `src/github/rulesets.ts` | `main` branch protection and `v*` tag protection |
 | `src/github/repository.ts` | The Actions allowlist, and a `gh api` shim for Pages **Enforce HTTPS** |
 | `src/github/secrets.ts` | The live secret inventory, and deletion of the five dead ones |
 | `src/npm/trustedPublishers.ts` | npm trusted publishing for all 13 publishable workspaces |
@@ -157,7 +157,7 @@ requires AWS credentials, and the only credentials that exist today are the ones
    `…:assumed-role/me-deploy-service-prd/…`.
 
    There is a chicken-and-egg problem here that costs an afternoon if you meet it live: step 4
-   creates the `master`-only deployment branch policy, so a `workflow_dispatch` from the working
+   creates the `main`-only deployment branch policy, so a `workflow_dispatch` from the working
    branch you are about to merge is rejected by the environment *before the job starts*. Declare the
    exception, rehearse, then remove it:
 
@@ -224,10 +224,10 @@ above), or the next `up` fails with `ParameterAlreadyExists`.
 | --- | --- | --- |
 | `me:stage` | — | `dev` or `prd`. Must match the GitHub environment name; the OIDC trust policy is pinned to it. |
 | `me:ownsGlobalResources` | `false` | `true` on `prd` only. |
-| `me:requiredStatusCheck` | unset | **Deprecated, unread.** Was meant to gate `master`'s ruleset on a named check; removed 2026-08-29 because rulesets enforce required status checks on *every* push to the ref, not just PR merges, which rejected `release.yml`'s own version-bump commit with no bypass actor available on this personal-owned repository (see `src/github/rulesets.ts`). Safe to `pulumi config rm` if already set. |
+| `me:requiredStatusCheck` | unset | **Deprecated, unread.** Was meant to gate `main`'s ruleset on a named check; removed 2026-08-29 because rulesets enforce required status checks on *every* push to the ref, not just PR merges, which rejected `release.yml`'s own version-bump commit with no bypass actor available on this personal-owned repository (see `src/github/rulesets.ts`). Safe to `pulumi config rm` if already set. |
 | `me:retireAwsAccessKeys` | `false` | Deletes the 2022 AWS secrets. Flip only after step 5 above. |
 | `me:npmTrustDryRun` | `true` | npm permits one trust configuration per package; a wrong one is revoked by id, not overwritten. Read the dry run first. |
-| `me:devDeploymentBranches` | `[]` | Extra branch patterns allowed to deploy to the **`dev`** environment, on top of `master`. Set on the **`prd`** stack. Temporary: for the pre-merge rehearsal only. |
+| `me:devDeploymentBranches` | `[]` | Extra branch patterns allowed to deploy to the **`dev`** environment, on top of `main`. Set on the **`prd`** stack. Temporary: for the pre-merge rehearsal only. |
 | `me:secret.<parameter-name>` | unset | An SSM SecureString value. Unset parameters are skipped, not defaulted — and every `${ssm:…}` reference to one in `service/env.yml` resolves to `''`, so the source that needed it is simply switched off rather than blocking the deploy. |
 | `me:githubSecret.<NAME>` | unset | A GitHub Actions secret value. Same. |
 

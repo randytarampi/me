@@ -54,7 +54,7 @@ const branchPolicy = (
     new github.RepositoryEnvironmentDeploymentPolicy(resourceName, {
         repository: githubRepo,
         environment: environmentResource.environment,
-        // NOTE-RT: `master` only, save for the declared `dev` exceptions below. Nothing else should
+        // NOTE-RT: `main` only, save for the declared `dev` exceptions below. Nothing else should
         // ever be able to deploy — the whole reason this plan exists is that a push to *any* branch
         // used to publish production Pages.
         branchPattern
@@ -64,7 +64,7 @@ const branchPolicy = (
  * NOTE-RT: one policy resource per pattern, because the API models them that way — a
  * `RepositoryEnvironmentDeploymentPolicy` carries a single `branchPattern`. The resource name has to
  * encode the pattern rather than just the environment, or adding an exception would look to Pulumi
- * like an *update* of the `master` policy and quietly replace it.
+ * like an *update* of the `main` policy and quietly replace it.
  */
 const policyResourceName = (environmentName: string, branchPattern: string) =>
     `${environmentName}-${branchPattern.replace(/[^a-zA-Z0-9-]/g, "-")}`;

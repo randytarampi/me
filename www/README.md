@@ -16,15 +16,15 @@
 
 The front-end to [`me`](../../), available in both [production](https://www.randytarampi.ca) and [development](http://www.dev.randytarampi.ca) environments.
 
-### *This package has been consolidated into the [`randytarampi/me`](https://github.com/randytarampi/me/tree/master/www) monorepo and is force pushed to [randytarampi/randytarampi.github.io](https://github.com/randytarampi/randytarampi.github.io) as a testing stage*
+### *This package has been consolidated into the [`randytarampi/me`](https://github.com/randytarampi/me/tree/main/www) monorepo and is force pushed to [randytarampi/randytarampi.github.io](https://github.com/randytarampi/randytarampi.github.io) as a testing stage*
 
 # Dependencies
 
-See the [`me` dependencies](https://github.com/randytarampi/me/tree/master/README.md#Dependencies).
+See the [`me` dependencies](https://github.com/randytarampi/me/tree/main/README.md#Dependencies).
 
 # Installation
 
-See the [`me` installation instructions](https://github.com/randytarampi/me/tree/master/README.md#Installation).
+See the [`me` installation instructions](https://github.com/randytarampi/me/tree/main/README.md#Installation).
 
 # Usage
 

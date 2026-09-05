@@ -24,7 +24,7 @@ const repositoryAdminRoleId = 5;
  *
  * Rather than reintroduce a long-lived credential to push as a real `User` bypass actor instead,
  * the two rules that actually needed a bypass were removed below: tag *creation* is no longer
- * restricted, and `master`'s required-status-check rule is gone. Both changes are explained where
+ * restricted, and `main`'s required-status-check rule is gone. Both changes are explained where
  * they used to be.
  */
 const bypassActors: github.types.input.RepositoryRulesetBypassActor[] = [
@@ -32,27 +32,27 @@ const bypassActors: github.types.input.RepositoryRulesetBypassActor[] = [
 ];
 
 /**
- * NOTE-RT: `master` used to also require a named status check here, read from `me:requiredStatusCheck`
+ * NOTE-RT: `main` used to also require a named status check here, read from `me:requiredStatusCheck`
  * and applied as `requiredStatusChecks` below. Removed: GitHub evaluates a ruleset's required-status-
  * check rule against *every* push to the ref, not only pull-request merges, so it rejected
  * `release.yml`'s own `lerna version` commit — a brand-new commit that was never itself run through
  * CI — with no bypass actor available to get it past that one rule on this personal-owned repository
  * (see the note above `bypassActors`). CI still fully gates every pull request before it reaches
- * `master`; this only stopped re-enforcing that a second time on the ref itself, which is the one
+ * `main`; this only stopped re-enforcing that a second time on the ref itself, which is the one
  * enforcement point a personal account cannot bypass around. `me:requiredStatusCheck` is unused now.
  */
 
 /**
- * `master` protection, which `release.yml:9` has claimed as a prerequisite while the branch had
- * none at all (`GET /branches/master/protection` returned 404).
+ * `main` protection, which `release.yml:9` has claimed as a prerequisite while the branch had
+ * none at all (`GET /branches/main/protection` returned 404).
  *
  * NOTE-RT: a ruleset rather than legacy branch protection, because rulesets have first-class
  * `bypass_actors`. `lerna version` pushes a commit *and* a tag, so a branch rule alone would not
  * have been enough even if legacy protection could express the exemption.
  */
-export const masterRuleset = ownsGlobalResources
-    ? new github.RepositoryRuleset("master", {
-        name: "master",
+export const mainRuleset = ownsGlobalResources
+    ? new github.RepositoryRuleset("main", {
+        name: "main",
         repository: githubRepo,
         target: "branch",
         enforcement: "active",

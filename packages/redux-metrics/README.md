@@ -9,7 +9,7 @@
 
 ```
 
-[![npm versions](https://img.shields.io/npm/v/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm downloads](https://img.shields.io/npm/dt/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm license](https://img.shields.io/npm/l/@randy.tarampi/redux-metrics.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me/tree/master/packages/redux-metrics?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
+[![npm versions](https://img.shields.io/npm/v/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm downloads](https://img.shields.io/npm/dt/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@randy.tarampi/redux-metrics.svg?style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![npm license](https://img.shields.io/npm/l/@randy.tarampi/redux-metrics.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=flat-square)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics) [![Analytics](https://ga-beacon.appspot.com/UA-50921068-1/beacon/github/randytarampi/me/tree/main/packages/redux-metrics?flat&useReferrer)](https://github.com/igrigorik/ga-beacon)
 
 [![Install @randy.tarampi/redux-metrics](https://nodeico.herokuapp.com/@randy.tarampi/redux-metrics.svg)](https://www.npmjs.com/package/@randy.tarampi/redux-metrics)
 
@@ -24,7 +24,7 @@ See the [`me` dependencies](../../README.md#Dependencies).
 See the [`me` installation instructions](../../README.md#Installation).
 
 # Configuration
-You'll want to hook up some [metrics middleware](https://github.com/randytarampi/me/blob/master/packages/jsx/src/lib/middleware/metrics.js) [like this](https://github.com/randytarampi/me/blob/b00290d5ebba49595c461a587fa762f268f3c1f5/packages/jsx/src/lib/store/configureStore.js#L16).
+You'll want to hook up some [metrics middleware](https://github.com/randytarampi/me/blob/main/packages/jsx/src/lib/middleware/metrics.js) [like this](https://github.com/randytarampi/me/blob/b00290d5ebba49595c461a587fa762f268f3c1f5/packages/jsx/src/lib/store/configureStore.js#L16).
 
 # Testing
 

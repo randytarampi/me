@@ -12,8 +12,8 @@ const Works = () =>
             <p>
                 I've built a couple things of note that you might be interested in if you're into
                 software. <CampaignLink
-                href="https://github.com/randytarampi/me/tree/master/www#readme" text="This page"/> you're currently looking at, <CampaignLink
-                href="https://github.com/randytarampi/me/tree/master/service#readme" text="that blog"/> I was
+                href="https://github.com/randytarampi/me/tree/main/www#readme" text="This page"/> you're currently looking at, <CampaignLink
+                href="https://github.com/randytarampi/me/tree/main/service#readme" text="that blog"/> I was
                 shilling earlier, a <CampaignLink
                 href="https://github.com/randytarampi/pseudolocalize"
                 text="string pseudolocalization library"/> and an <CampaignLink
