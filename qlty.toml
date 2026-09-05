@@ -1,0 +1,3 @@
+# Keep Qlty's plugin configuration minimal and opt out of release checks.
+[plugin]
+release = false
