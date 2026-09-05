@@ -1,11 +1,41 @@
 import {sortPostsByDate} from "@randy.tarampi/js";
 import {sources} from "./index.js";
 import CacheClient from "../cacheClient.js";
+import logger from "../../serverless/logger.js";
 
-const cachedValueToPost = cachedValue => cachedValue
-    && sources[cachedValue.source]
-    && sources[cachedValue.source].instanceToRecord
-    && sources[cachedValue.source].instanceToRecord(cachedValue.raw);
+const cachedValueToPost = cachedValue => {
+    if (!cachedValue || !sources[cachedValue.source] || !sources[cachedValue.source].instanceToRecord) {
+        return null;
+    }
+
+    let raw = cachedValue.raw;
+
+    // Older cache writes stored JSON payloads as strings. Preserve those that can still be
+    // reconstructed, but never hand an opaque string to a source mapper: source mappers read
+    // fields from an object and otherwise create a misleading Post with null identity fields.
+    if (typeof raw === "string") {
+        try {
+            raw = JSON.parse(raw);
+        } catch (error) {
+            logger.warn(error, `skipping cached ${cachedValue.source} post with invalid raw JSON`);
+            return null;
+        }
+    }
+
+    try {
+        const post = sources[cachedValue.source].instanceToRecord(raw);
+
+        if (!post || !post.id || !post.uid) {
+            logger.warn(`skipping cached ${cachedValue.source} post without an identity`);
+            return null;
+        }
+
+        return post;
+    } catch (error) {
+        logger.warn(error, `skipping malformed cached ${cachedValue.source} post`);
+        return null;
+    }
+};
 
 /**
  * Search the [Post]{@link Post} cache for some given search parameters and return the found posts and some metadata
@@ -24,7 +54,7 @@ const searchPosts = searchParams => {
                 // request with `Cannot read properties of undefined (reading 'map')`, which Lambda
                 // then reports as a failed invocation and API Gateway surfaces as a 502. Defaulting
                 // to `[]` degrades that one content type to "no cached posts found" instead.
-                .then(cachedPosts => (cachedPosts || []).map(cachedValueToPost)),
+                .then(cachedPosts => (cachedPosts || []).map(cachedValueToPost).filter(Boolean)),
             cacheClient.getRecordCount(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")

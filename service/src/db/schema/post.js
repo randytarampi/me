@@ -78,6 +78,10 @@ const post = new Schema({
             },
             String
         ],
+        // The nested schema must be declared on the union itself as well as on its Object member.
+        // Dynamoose v4 otherwise resolves the union's object branch without a nested schema and
+        // silently strips every key from object-valued raw payloads on read.
+        schema: dynamoose.type.ANY,
         required: true,
         // NOTE-RT: without this, dynamoose has no declared nested schema for `raw`, so every key
         // underneath it gets treated as "unknown" and silently stripped down to an empty object on

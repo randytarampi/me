@@ -10,10 +10,11 @@ describe("util", function () {
         const model = dynamoose.model("post-schema-raw-test", PostSchema, {create: false, update: false});
 
         it("conforms an object `raw` on read", async function () {
-            const raw = {nested: {value: 1}};
+            const raw = {id: "x", nested: {value: 1}};
             const result = await model.Item.objectFromSchema({id: "x", source: "s", raw}, model.Model, {type: "fromDynamo"});
 
             expect(result.raw).to.be.an("object");
+            expect(result.raw).to.eql(raw);
         });
 
         it("conforms a legacy string `raw` on read", async function () {

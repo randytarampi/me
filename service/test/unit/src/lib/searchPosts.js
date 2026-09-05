@@ -90,4 +90,17 @@ describe("searchPosts", function () {
 
         expect(postsResult.posts).to.eql([]);
     });
+
+    it("skips cached raw payloads that cannot produce an identified post", async function () {
+        sinon.stub(CacheClient.prototype, "getRecords").resolves([
+            {source: stubSource, raw: "not JSON"},
+            {source: stubSource, raw: JSON.stringify({type: "photo"})}
+        ]);
+        sinon.stub(CacheClient.prototype, "getRecordCount").resolves(2);
+        sinon.stub(CacheClient.prototype, "getRecord").resolves(undefined);
+
+        const postsResult = await searchPosts(new PostSearchParams());
+
+        expect(postsResult.posts).to.eql([stubPhoto]);
+    });
 });
