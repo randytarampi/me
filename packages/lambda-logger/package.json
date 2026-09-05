@@ -9,7 +9,7 @@
   },
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
-    "@sentry/node": "^10.72.0",
+    "@sentry/aws-serverless": "^10.72.0",
     "pino": "^10.3.1",
     "pino-pretty": "^13.0.0"
   },

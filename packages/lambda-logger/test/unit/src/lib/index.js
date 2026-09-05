@@ -30,7 +30,7 @@ describe("logger", function () {
         it("configures sentry properly", async function () {
             const sentryInitStub = sinon.stub().returns();
             const {configureLogger} = await esmock("../../../../src/lib/index.js", {
-                "@sentry/node": {init: sentryInitStub}
+                "@sentry/aws-serverless": {init: sentryInitStub, wrapHandler: sinon.stub()}
             });
 
             return configureLogger(packageJson)
@@ -53,7 +53,7 @@ describe("logger", function () {
 
             const sentryInitStub = sinon.stub().returns();
             const {configureLogger} = await esmock("../../../../src/lib/index.js", {
-                "@sentry/node": {init: sentryInitStub}
+                "@sentry/aws-serverless": {init: sentryInitStub, wrapHandler: sinon.stub()}
             });
 
             return configureLogger(packageJson)
@@ -72,7 +72,7 @@ describe("logger", function () {
 
             const sentryInitStub = sinon.stub().returns();
             const {configureLogger} = await esmock("../../../../src/lib/index.js", {
-                "@sentry/node": {init: sentryInitStub}
+                "@sentry/aws-serverless": {init: sentryInitStub, wrapHandler: sinon.stub()}
             });
 
             return configureLogger(packageJson)
@@ -86,7 +86,7 @@ describe("logger", function () {
 
             const sentryInitStub = sinon.stub().returns();
             const {configureLogger} = await esmock("../../../../src/lib/index.js", {
-                "@sentry/node": {init: sentryInitStub}
+                "@sentry/aws-serverless": {init: sentryInitStub, wrapHandler: sinon.stub()}
             });
 
             return configureLogger(packageJson)

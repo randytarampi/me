@@ -1,6 +1,9 @@
 // @ts-check
-import * as Sentry from "@sentry/node";
+import * as Sentry from "@sentry/aws-serverless";
 import pino from "pino";
+
+// Lambda tracing is sampled conservatively to keep the personal site's telemetry useful and small.
+const tracesSampleRate = 0.1;
 
 const getLoggerNameForPackageAndLambda = packageJson => `${packageJson.name}-${process.env.AWS_LAMBDA_FUNCTION_NAME}`;
 
@@ -11,6 +14,7 @@ const configureSentry = packageJson => Promise.resolve()
                 dsn: process.env.SENTRY_DSN,
                 environment: process.env.SERVERLESS_STAGE,
                 release: packageJson.version,
+                tracesSampleRate,
                 integrations: integrations => integrations.filter(i => i.name !== "OnUncaughtException" && i.name !== "OnUnhandledRejection"),
                 beforeSend: event => {
                     event.tags = {
@@ -33,6 +37,8 @@ const configureSentry = packageJson => Promise.resolve()
 
 /** @param {*} packageJson - The package metadata. @returns {Promise<*>} The sentry setup promise. */
 export const configureLogger = packageJson => configureSentry(packageJson);
+
+export const wrapHandler = Sentry.wrapHandler;
 
 const sentryStream = {
     write(data) {
