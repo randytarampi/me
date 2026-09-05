@@ -236,7 +236,24 @@ class DynamooseModel {
             waitForActive: false,
             initialize: false
         });
-        return table.create({return: "request"});
+        const request = await table.create({return: "request"});
+
+        // NOTE-RT: dynamoose's CFN serialization emits `ProvisionedThroughput` on the table and
+        // every GSI even when the schema declares `throughput: "ON_DEMAND"` - it ignores the
+        // on-demand form when emitting the template (and defaults to 1/1 RCUs/WCUs, which is what
+        // throttled every `status-datePublished-index` read in `dev`). CloudFormation also *rejects*
+        // a template carrying both `BillingMode: PAY_PER_REQUEST` and any `ProvisionedThroughput`
+        // block, so the on-demand mode is emitted and the provisioned blocks are stripped.
+        // Found live in `dev` 2026-09-05: the schema has declared ON_DEMAND since the June
+        // modernization, but every deploy re-affirmed PROVISIONED because of this serialization.
+        const properties = request.Properties ?? request;
+        properties.BillingMode = "PAY_PER_REQUEST";
+        delete properties.ProvisionedThroughput;
+        for (const index of properties.GlobalSecondaryIndexes ?? []) {
+            delete index.ProvisionedThroughput;
+        }
+
+        return request;
     }
 
     /**
