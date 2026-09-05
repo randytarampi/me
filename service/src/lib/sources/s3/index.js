@@ -8,6 +8,12 @@ import {filterPostForOrderingConditionsInSearchParams} from "../util.js";
 
 const defaultRegion = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || "us-east-1";
 
+const containsBinaryContent = body => [...body.slice(0, 512)].some(character => {
+    const code = character.charCodeAt(0);
+
+    return code === 0 || (code < 32 && ![9, 10, 13].includes(code)) || code === 127;
+});
+
 const bodyToString = async body => {
     if (typeof body === "string") {
         return body;
@@ -113,13 +119,30 @@ class S3Source extends CachedDataSource {
                 }
 
                 const body = await bodyToString(data.Body);
+                let parsedBody = {};
+
+                // NOTE-RT: per-object best-effort handling follows docs/CONVENTIONS.md#error-handling:
+                // a bad cache input must not break the request or discard otherwise valid posts.
+                if (body) {
+                    if (typeof body !== "string" || containsBinaryContent(body)) {
+                        logger.warn(`skipping binary S3 object (${key})`);
+                        return null;
+                    }
+
+                    try {
+                        parsedBody = loadYaml(body) || {};
+                    } catch (error) {
+                        logger.warn(error, `skipping S3 object with invalid YAML (${key})`);
+                        return null;
+                    }
+                }
 
                 return S3Source.instanceToRecord({
                     Bucket: process.env.SERVICE_POSTS_S3_BUCKET_NAME,
                     Key: key,
                     ...data,
                     Body: body,
-                    ...(body ? loadYaml(body) : {})
+                    ...parsedBody
                 });
             });
     }
