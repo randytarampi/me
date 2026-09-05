@@ -44,14 +44,36 @@ jobs:
     needs:
       - install
     uses: ./.github/workflows/test.yml
-    # NOTE-RT: the callee's Qlty job exchanges an OIDC token with qlty.sh, which requires
-    # `id-token: write` — and a reusable workflow cannot elevate the caller's `GITHUB_TOKEN`
-    # beyond what this call grants. Found live when test.yml's Qlty job startup-failed.
+    secrets:
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+  qlty:
+    name: Publish coverage to Qlty
+    needs:
+      - test
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
-    secrets:
-      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download per-leg coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage
+      - name: Merge coverage reports
+        run: |
+          : > coverage/lcov.info
+          for file in coverage/coverage-node-*/lcov.info; do
+            [ -f "$file" ] || continue
+            cat "$file" >> coverage/lcov.info
+          done
+      - name: Publish coverage to Qlty
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage/lcov.info
 
   deploy__infrastructure--dev:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
