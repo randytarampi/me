@@ -1,5 +1,7 @@
 name: CI
 
+# Allowlist validation 2026-09-05: confirm the qlty-action permit shipped via pulumi.
+
 on:
   push:
     # NOTE-RT: `main` only. Without this every branch with an open pull request runs the entire
