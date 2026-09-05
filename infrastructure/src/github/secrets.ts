@@ -22,7 +22,9 @@ const liveSecretNames = [
     // is bound to the *calling* repository. A GitHub App installation token replaces it; creating
     // the App is one of the two irreducibly manual steps in `README.md`.
     "GH_PAGES_DEPLOYMENT_TOKEN",
-    "COVERALLS_REPO_TOKEN"
+    "COVERALLS_REPO_TOKEN",
+    // Used by the webpack sourcemap plugin through the repository secret.
+    "SENTRY_AUTH_TOKEN"
 ];
 
 /**
