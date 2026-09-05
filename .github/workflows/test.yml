@@ -26,6 +26,9 @@ on:
 jobs:
   test:
     name: Run affected test suite
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix:
@@ -230,12 +233,13 @@ jobs:
           file: coverage/lcov.info
           flag-name: node-${{ matrix.node-version }}
           parallel: true
-      - name: Upload coverage for Qlty
+      - name: Upload coverage to Qlty
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: qltysh/qlty-action/coverage@v2
         with:
-          name: coverage-node-${{ matrix.node-version }}
-          path: coverage/lcov.info
+          oidc: true
+          files: coverage/lcov.info
+          total-parts-count: ${{ strategy.job-total }}
       - name: Upload Nx cache
         if: always()
         uses: actions/cache/save@v6
@@ -256,10 +260,3 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-
-  # NOTE-RT: the Qlty upload lives in the *caller* (ci.yml), not here. Every push since the Qlty
-  # job briefly lived in this reusable workflow startup-failed: a reusable workflow's jobs cannot
-  # exchange OIDC tokens beyond what the caller granted, and GitHub rejects the arrangement at
-  # startup even when the caller grants `id-token: write` at the call site. ci.yml owns the
-  # artifact download, the merge, and the qlty-action upload instead. This workflow only uploads
-  # the per-leg coverage artifacts the caller merges.

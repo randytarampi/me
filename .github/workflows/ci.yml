@@ -46,40 +46,12 @@ jobs:
     needs:
       - install
     uses: ./.github/workflows/test.yml
-    secrets:
-      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-
-  # NOTE-RT: inline per owner's direction - runs in parallel with the callee's Coveralls finalize,
-  # gated on the same `test` job, and downloads the per-leg coverage artifacts test.yml uploaded.
-  # The qlty action requires `id-token: write` for its OIDC exchange; the allowlist entry lives in
-  # the Pulumi-managed Actions policy (`infrastructure/src/github/repository.ts`).
-  qlty:
-    name: Publish coverage to Qlty
-    needs:
-      - test
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
+    # Grants the callee's inline Qlty step permission for its OIDC exchange.
     permissions:
       contents: read
       id-token: write
-    steps:
-      - uses: actions/checkout@v7
-      - name: Download per-leg coverage artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: coverage
-      - name: Merge coverage reports
-        run: |
-          : > coverage/lcov.info
-          for file in coverage/coverage-node-*/lcov.info; do
-            [ -f "$file" ] || continue
-            cat "$file" >> coverage/lcov.info
-          done
-      - name: Publish coverage to Qlty
-        uses: qltysh/qlty-action/coverage@v2
-        with:
-          oidc: true
-          files: coverage/lcov.info
+    secrets:
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
   deploy__infrastructure--dev:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
