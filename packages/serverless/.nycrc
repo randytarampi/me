@@ -3,7 +3,6 @@
     "node_modules/**",
     "dist/**",
     "build/**",
-    "es5/**",
     "esm/**",
     "coverage/**",
     ".nyc_output/**",

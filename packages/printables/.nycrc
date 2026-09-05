@@ -2,7 +2,6 @@
   "exclude": [
     "node_modules/**",
     "build/**",
-    "es5/**",
     "esm/**",
     "coverage/**",
     ".nyc_output/**",

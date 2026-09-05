@@ -62,7 +62,6 @@ lerna-debug.log
 # Compiled resources
 dist
 build
-es5
 .webpack
 *.pdf_original
 
