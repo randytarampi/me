@@ -230,6 +230,12 @@ jobs:
           file: coverage/lcov.info
           flag-name: node-${{ matrix.node-version }}
           parallel: true
+      - name: Upload coverage for Qlty
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-node-${{ matrix.node-version }}
+          path: coverage/lcov.info
       - name: Upload Nx cache
         if: always()
         uses: actions/cache/save@v6
@@ -250,3 +256,27 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
+
+  qlty:
+    name: Publish coverage to Qlty
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v4
+        with:
+          path: coverage
+      - name: Merge coverage reports
+        run: |
+          : > coverage/lcov.info
+          for file in coverage/coverage-node-*/lcov.info; do
+            [ -f "$file" ] || continue
+            cat "$file" >> coverage/lcov.info
+          done
+      - uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage/lcov.info
