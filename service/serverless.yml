@@ -100,6 +100,16 @@ build:
       js: |
         import {createRequire} from "node:module";
         globalThis.require = createRequire(import.meta.url);
+    # NOTE-RT: found live in `dev` - after wrapping handlers with Sentry, every invocation died at
+    # init with `SyntaxError: Identifier 'createRequire' has already been declared`. The banner's
+    # top-level `import {createRequire}` collided with `@sentry/aws-serverless`'s own ESM import of
+    # the same binding, which esbuild emitted un-renamed inside the bundle. Bundling this SDK is
+    # wrong beyond the collision anyway: its AwsLambda integration redirects the runtime's
+    # `_HANDLER` to a shim it resolves *from disk* (`@sentry/aws-serverless/run-lambda-handler`), so
+    # the package's files must exist in the artifact at runtime. Keeping it external satisfies both
+    # - the serverless-esbuild plugin installs external packages into the deployment artifact.
+    external:
+    - "@sentry/aws-serverless"
 
 plugins:
 - serverless-offline
