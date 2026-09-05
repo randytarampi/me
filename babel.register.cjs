@@ -38,6 +38,10 @@ require("@babel/register").default({
         // `require()`/import resolution inside the re-transformed output). Requiring these files
         // at test time (e.g. a regression check against the real build output) should load them
         // exactly as-is, matching how they're actually consumed in production.
-        /^(?=.*(?:packages\/(?!service\/)|(?:^|\/)(?:www|resume|letter)\/))(?!.*(?:^|\/)webpack(?:\.[^/]+)*\.js$)(?!.*\/(?:esm|dist|build)\/).+/
+        /packages\/(?!service\/)|\/(?:www|resume|letter)\//
+    ],
+    ignore: [
+        /\/(?:esm|dist|build)\//,
+        /\/webpack\.[^/]*\.js$/
     ]
 });
