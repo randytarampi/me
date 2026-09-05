@@ -1,9 +1,0 @@
-# Hound doesn't support ESLint 10 flat config yet.
-eslint:
-  enabled: false
-jshint:
-  enabled: false
-shellcheck:
-  enabled: true
-scss:
-  enabled: false
