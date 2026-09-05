@@ -72,8 +72,12 @@ build
 # Environment variables
 .env
 
+# Agent runtime state
+.smallcode/
+
 # Serverless
 .serverless
+service/.serverless-secrets.json
 
 # Secrets
 .secrets.*.yml
