@@ -1,9 +1,29 @@
 import {expect} from "chai";
 import sinon from "sinon";
+import dynamoose from "dynamoose";
 import {Post} from "@randy.tarampi/js";
 import {buildQueryWithFilter, recordToDynamoObject} from "../../../../src/db/dynamooseModel.js";
+import PostSchema from "../../../../src/db/schema/post.js";
 
 describe("util", function () {
+    describe("Post schema raw", function () {
+        const model = dynamoose.model("post-schema-raw-test", PostSchema, {create: false, update: false});
+
+        it("conforms an object `raw` on read", async function () {
+            const raw = {nested: {value: 1}};
+            const result = await model.Item.objectFromSchema({id: "x", source: "s", raw}, model.Model, {type: "fromDynamo"});
+
+            expect(result.raw).to.be.an("object");
+        });
+
+        it("conforms a legacy string `raw` on read", async function () {
+            const raw = "legacy raw payload";
+            const result = await model.Item.objectFromSchema({id: "x", source: "s", raw}, model.Model, {type: "fromDynamo"});
+
+            expect(result.raw).to.eql(raw);
+        });
+    });
+
     describe("recordToDynamoObject", function () {
         // NOTE-RT: `raw` is declared as `dynamoose.type.ANY`, so dynamoose never type-checks or
         // converts its nested content. Some sources (S3 YAML posts, in particular) parse straight

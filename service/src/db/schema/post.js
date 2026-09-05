@@ -71,7 +71,13 @@ const post = new Schema({
         ]
     },
     raw: {
-        type: Object,
+        type: [
+            {
+                type: Object,
+                schema: dynamoose.type.ANY
+            },
+            String
+        ],
         required: true,
         // NOTE-RT: without this, dynamoose has no declared nested schema for `raw`, so every key
         // underneath it gets treated as "unknown" and silently stripped down to an empty object on
@@ -79,7 +85,9 @@ const post = new Schema({
         // LocalStack and reading the marshalled bytes back. `schema: dynamoose.type.ANY` is
         // dynamoose's own documented way of declaring "this Object attribute's content is
         // arbitrary/untyped", which is exactly what a raw third-party API response is.
-        schema: dynamoose.type.ANY
+        // Legacy rows may have `raw` stored as a DynamoDB String, which dynamoose v4 rejects on read
+        // unless the schema declares the union; the union is read-tolerant and the write path keeps
+        // producing objects.
     },
     tags: {
         type: Set,
