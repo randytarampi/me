@@ -1,5 +1,4 @@
 import logger from "../../logger.js";
-import callbackOnWarmup from "../../util/callbackOnWarmup.js";
 import configureEnvironment from "../../util/configureEnvironment.js";
 import getPostsForParsedQuerystringParameters from "../../util/getPostsForParsedQuerystringParameters.js";
 import parseHeaders from "../../util/request/parseHeaders.js";
@@ -12,10 +11,6 @@ import returnErrorResponse from "../../util/response/returnErrorResponse.js";
 // must `return` a value (or a promise of one) instead.
 export default async (event, context) => {
     logger.debug("%s@%s handling request %s", context.functionName, context.functionVersion, context.awsRequestId, event, context);
-
-    if (event.source === "serverless-plugin-warmup") {
-        return callbackOnWarmup(event, context);
-    }
 
     const errorHandler = returnErrorResponse(event, context);
     let parsedHeaders;

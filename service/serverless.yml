@@ -102,7 +102,6 @@ build:
         globalThis.require = createRequire(import.meta.url);
 
 plugins:
-- serverless-plugin-warmup
 - serverless-offline
 - serverless-domain-manager
 
@@ -170,17 +169,9 @@ custom:
     endpointType: edge
     createRoute53Record: true
     basePath: ""
-  # NOTE-RT: `default` names the (only) warmer. Serverless v4's stricter schema requires every
-  # warmer to be an object keyed by name under `custom.warmup`, and functions opt in the same way
-  # (`warmup.default.enabled`) - the old flat `custom.warmup.prewarm` / `functions.*.warmup.enabled`
-  # shape errored with "must be object" and "Every warmer should be declared in the custom section".
-  warmup:
-    default:
-      prewarm: true
-
 # NOTE-RT: can't just go `${file(env.yml):${self:provider.stage}.functions}` - `env.yml` carries
 # only each function's `events` (plus `getPostsRss`'s `CAMPAIGN_MEDIUM`), because those are the
-# stage-dependent parts. `handler`, `timeout`, `onError` and `warmup` are the same everywhere and
+# stage-dependent parts. `handler`, `timeout` and `onError` are the same everywhere and
 # live here, so the block is assembled rather than referenced wholesale.
 functions:
   cachePosts:
@@ -194,9 +185,6 @@ functions:
     events: ${file(env.yml):${self:provider.stage}.functions.getPosts.events}
     onError:
       Ref: LambdaDeadLetterQueue
-    warmup:
-      default:
-        enabled: true
   getPostsRss:
     handler: src/serverless/handlers/getPostsRss/initialized.default
     events: ${file(env.yml):${self:provider.stage}.functions.getPostsRss.events}
@@ -204,9 +192,6 @@ functions:
       Ref: LambdaDeadLetterQueue
     environment:
       CAMPAIGN_MEDIUM: rss
-    warmup:
-      default:
-        enabled: true
 
 resources:
   Resources:

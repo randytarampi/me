@@ -158,36 +158,4 @@ describe("getPostsRss", function () {
         expect(returnErrorResponseStub.calledOnce).to.eql(true);
     });
 
-    it("returns early after being warmed", async function () {
-        const stubEvent = {source: "serverless-plugin-warmup"};
-        const stubContext = {};
-
-        const parseHeadersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const parseQuerystringParametersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const configureEnvironmentStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const getPostsForParsedQuerystringParametersStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const RssFeedStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const buildRssResponseStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-        const returnErrorResponseStub = sinon.stub().throws(new Error("Wtf? This should've thrown"));
-
-        const getPostsRss = await loadHandler({
-            "../../../../../../src/serverless/util/request/parseHeaders.js": {default: parseHeadersStub},
-            "../../../../../../src/serverless/util/request/parseQuerystringParameters.js": {default: parseQuerystringParametersStub},
-            "../../../../../../src/serverless/util/configureEnvironment.js": {default: configureEnvironmentStub},
-            "../../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js": {default: getPostsForParsedQuerystringParametersStub},
-            "../../../../../../src/lib/rssFeed.js": {default: RssFeedStub},
-            "../../../../../../src/serverless/util/response/buildRssResponse.js": {default: buildRssResponseStub},
-            "../../../../../../src/serverless/util/response/returnErrorResponse.js": {default: returnErrorResponseStub}
-        });
-
-        const lambdaIsWarm = await getPostsRss(stubEvent, stubContext);
-
-        expect(lambdaIsWarm).to.match(/Lambda is warm!/);
-        expect(parseHeadersStub.notCalled).to.eql(true);
-        expect(parseQuerystringParametersStub.notCalled).to.eql(true);
-        expect(configureEnvironmentStub.notCalled).to.eql(true);
-        expect(getPostsForParsedQuerystringParametersStub.notCalled).to.eql(true);
-        expect(buildRssResponseStub.notCalled).to.eql(true);
-        expect(returnErrorResponseStub.notCalled).to.eql(true);
-    });
 });
