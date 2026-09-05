@@ -34,8 +34,16 @@ describe("logger", function () {
         it("returns a valid sentry configuration", async function () {
             const pinoDefault = sinon.stub().returns({});
             pinoDefault.multistream = sinon.stub().returns({});
+            const browserTracingIntegration = sinon.stub().returns("tracing");
+            const browserSessionIntegration = sinon.stub().returns("session");
+            const browserProfilingIntegration = sinon.stub().returns("profiling");
             const {buildSentryConfiguration} = await esmock("../../../../src/lib/logger.js", {
-                "@sentry/browser": {init: sinon.stub()},
+                "@sentry/browser": {
+                    browserTracingIntegration,
+                    browserSessionIntegration,
+                    browserProfilingIntegration,
+                    init: sinon.stub()
+                },
                 pino: {default: pinoDefault}
             });
             const sentryConfiguration = buildSentryConfiguration();
@@ -44,6 +52,11 @@ describe("logger", function () {
                 logger: window.NAME,
                 environment: window.ENVIRONMENT,
                 release: window.VERSION,
+                integrations: ["tracing", "session", "profiling"],
+                tracesSampleRate: 0.2,
+                tracePropagationTargets: ["localhost", /^https:\/\/(www\.)?randytarampi\.ca$/],
+                profileSessionSampleRate: 0.2,
+                sendDefaultPii: false,
                 debug: true
             });
         });
@@ -76,7 +89,12 @@ describe("logger", function () {
             const pinoDefault = sinon.stub().returns({});
             pinoDefault.multistream = multistreamStub;
             const {buildPinoConfiguration} = await esmock("../../../../src/lib/logger.js", {
-                "@sentry/browser": {init: sentryInitStub},
+                "@sentry/browser": {
+                    browserTracingIntegration: sinon.stub().returns("tracing"),
+                    browserSessionIntegration: sinon.stub().returns("session"),
+                    browserProfilingIntegration: sinon.stub().returns("profiling"),
+                    init: sentryInitStub
+                },
                 pino: {default: pinoDefault}
             });
 
@@ -96,7 +114,12 @@ describe("logger", function () {
             const pinoDefault = sinon.stub().returns({});
             pinoDefault.multistream = sinon.stub().returns({});
             const {buildPinoConfiguration} = await esmock("../../../../src/lib/logger.js", {
-                "@sentry/browser": {init: sinon.stub()},
+                "@sentry/browser": {
+                    browserTracingIntegration: sinon.stub().returns("tracing"),
+                    browserSessionIntegration: sinon.stub().returns("session"),
+                    browserProfilingIntegration: sinon.stub().returns("profiling"),
+                    init: sinon.stub()
+                },
                 pino: {default: pinoDefault}
             });
 

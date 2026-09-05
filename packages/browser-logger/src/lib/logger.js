@@ -3,6 +3,9 @@ import * as Sentry from "@sentry/browser";
 import pino from "pino";
 import ConsoleStream from "./consoleStream.js";
 
+// The personal site has enough traffic to make 20% tracing useful without making it noisy.
+const tracesSampleRate = 0.2;
+
 /** The browser globals this logger cares about. */
 const getWindowVariables = () => {
     if (typeof window !== "undefined" && window) {
@@ -26,11 +29,24 @@ export const buildSentryConfiguration = () => {
         logger: windowName,
         environment: windowEnvironment,
         release: windowVersion,
+        integrations: [
+            Sentry.browserTracingIntegration(),
+            Sentry.browserSessionIntegration(),
+            Sentry.browserProfilingIntegration()
+        ],
+        tracesSampleRate,
+        tracePropagationTargets: ["localhost", /^https:\/\/(www\.)?randytarampi\.ca$/],
+        profileSessionSampleRate: 0.2,
+        // PII collection is deliberately disabled for this public site.
+        sendDefaultPii: false,
         debug: windowLogger
             ? ["trace", "debug"].includes(windowLogger.level)
             : false
     };
 };
+
+/** Record a browser metric through Sentry's stable metrics API. */
+export const trackMetric = (name, value, unit) => Sentry.metrics.count(name, value, {unit});
 
 // NOTE-RT: `pino/browser.js` (the build webpack selects via the `"browser"` field) does not export
 // `multistream` — it's a stripped-down browser-only build. We combine multiple destinations into
