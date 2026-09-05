@@ -10,5 +10,5 @@ gen_enforced_dependency(WorkspaceCwd, 'eslint', '^10.5.0', DependencyType) :-
   Range \= '^10.5.0'.
 
 % Keep Node engines consistent across the monorepo.
-gen_enforced_field(WorkspaceCwd, 'engines', '{"node": ">=20"}') :-
+gen_enforced_field(WorkspaceCwd, 'engines', '{"node": ">=22"}') :-
   workspace(WorkspaceCwd).
