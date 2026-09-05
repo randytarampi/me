@@ -12,7 +12,7 @@ _  / / / / /  __/_/_ __|
 [![CI](https://img.shields.io/github/actions/workflow/status/randytarampi/me/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/randytarampi/me/actions/workflows/ci.yml)
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/randytarampi/me/codeql.yml?branch=main&style=flat-square&label=CodeQL)](https://github.com/randytarampi/me/security/code-scanning)
 [![Coverage status](https://img.shields.io/coveralls/randytarampi/me.svg?style=flat-square)](https://coveralls.io/github/randytarampi/me?branch=main)
-[![Test coverage](https://qlty.sh/gh/randytarampi/projects/me/coverage.svg)](https://qlty.sh/gh/randytarampi/projects/me)
+[![Maintainability](https://qlty.sh/gh/randytarampi/projects/me/maintainability.svg)](https://qlty.sh/gh/randytarampi/projects/me)
 [![License](https://img.shields.io/github/license/randytarampi/me?style=flat-square)](LICENSE)
 [![Issues](https://img.shields.io/github/issues/randytarampi/me?style=flat-square)](https://github.com/randytarampi/me/issues)
 [![Pull requests](https://img.shields.io/github/issues-pr/randytarampi/me?style=flat-square)](https://github.com/randytarampi/me/pulls)
