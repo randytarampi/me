@@ -36,7 +36,8 @@ export const actionsPermissions = ownsGlobalResources
                 "JamesIves/github-pages-deploy-action@*",
                 "aws-actions/configure-aws-credentials@*",
                 "coverallsapp/github-action@*",
-                "pulumi/actions@*"
+                "pulumi/actions@*",
+                "qltysh/qlty-action@*"
             ]
         }
     }, {provider})
