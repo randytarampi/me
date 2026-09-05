@@ -181,7 +181,7 @@ jobs:
           rm -rf .nyc_output/ coverage/
 
           yarn lerna run pretest "${since[@]}" --parallel --stream
-          yarn lerna run cover --parallel --stream
+          yarn cover
         # NOTE-RT: one code path, differing only in whether `--since` is passed. The empty-`[]`
         # branch used to call the root `pretest` and `cover:actual` scripts instead, and between
         # them they accounted for everything that made the first four runs of this job unreadable:
@@ -221,7 +221,7 @@ jobs:
           NODE_ENV: test
         run: |
           yarn run pretest:collect
-          yarn run cover:collect
+          yarn run test:collect
       - name: Report coverage to Coveralls
         if: always()
         uses: coverallsapp/github-action@v2

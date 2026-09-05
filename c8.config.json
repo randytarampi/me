@@ -1,0 +1,20 @@
+{
+  "all": false,
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/.nyc_output/**",
+    "**/test/**",
+    "**/.yarn/**"
+  ],
+  "include": [
+    "packages/**/src/**",
+    "service/src/**",
+    "www/src/**",
+    "www/dist/**",
+    "resume/src/**",
+    "letter/src/**"
+  ]
+}
