@@ -1,0 +1,38 @@
+# Customizes the ephemeral environment used by Copilot code review and coding agents.
+# MCP servers must also be configured in Settings → Copilot → MCP servers
+# (GitHub-managed), including the local command `codegraph serve --mcp`.
+# Secrets must use the COPILOT_MCP_* prefix. Settings instructions live in
+# docs/AGENTIC-REVIEW.md.
+
+name: Copilot setup steps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Checkout trusted dotfiles scripts
+        uses: actions/checkout@v7
+        with:
+          repository: randytarampi/dotfiles
+          ref: main
+          path: dotfiles-review
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Cache codegraph index
+        uses: actions/cache@v4
+        with:
+          path: .codegraph
+          key: codegraph-${{ runner.os }}-${{ github.repository }}-${{ github.sha }}
+          restore-keys: |
+            codegraph-${{ runner.os }}-${{ github.repository }}-
+      - name: Install codegraph + build index
+        run: bash dotfiles-review/scripts/ci-codegraph.sh

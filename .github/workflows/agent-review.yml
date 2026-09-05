@@ -1,0 +1,110 @@
+# Dispatcher for this repository's agentic reviews.
+#
+# Label taxonomy: review-opencode, review-junie, review-gemini, review-copilot,
+# and review-all. To adopt this dispatcher elsewhere, copy this file and point
+# the reusable-workflow `uses:` reference at randytarampi/dotfiles@main.
+# Mention plus text requests an ad-hoc agent task; labels request the standard review.
+
+name: Agent review dispatcher
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  parse:
+    if: github.event.sender.type != 'Bot'
+    runs-on: ubuntu-latest
+    outputs:
+      agents: ${{ steps.parse.outputs.agents }}
+      prompt: ${{ steps.parse.outputs.prompt }}
+      pr_number: ${{ steps.parse.outputs.pr_number }}
+    steps:
+      - name: Parse review request
+        id: parse
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_JSON: ${{ toJson(github.event) }}
+        run: |
+          set -euo pipefail
+          if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+            agents="$(jq -r '
+              if (.pull_request.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) and .label.name == "review-all" then "opencode,junie,gemini,copilot"
+              elif (.pull_request.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) and .label.name == "review-opencode" then "opencode"
+              elif (.pull_request.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) and .label.name == "review-junie" then "junie"
+              elif (.pull_request.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) and .label.name == "review-gemini" then "gemini"
+              elif (.pull_request.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) and .label.name == "review-copilot" then "copilot"
+              elif .pull_request.author_association == null and (.sender.type != "Bot") and .label.name == "review-all" then "opencode,junie,gemini,copilot"
+              elif .pull_request.author_association == null and (.sender.type != "Bot") and .label.name == "review-opencode" then "opencode"
+              elif .pull_request.author_association == null and (.sender.type != "Bot") and .label.name == "review-junie" then "junie"
+              elif .pull_request.author_association == null and (.sender.type != "Bot") and .label.name == "review-gemini" then "gemini"
+              elif .pull_request.author_association == null and (.sender.type != "Bot") and .label.name == "review-copilot" then "copilot"
+              else "" end
+            ' <<<"${EVENT_JSON}")"
+            prompt=""
+            pr_number="$(jq -r '.pull_request.number' <<<"${EVENT_JSON}")"
+          else
+            agents="$(jq -r '
+              if (.issue.pull_request != null) and (.comment.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) then
+                .comment.body as $body |
+                [
+                  (if ($body | test("(^|[[:space:]])/oc[[:space:]]")) or ($body | test("(^|[[:space:]])/opencode[[:space:]]")) then "opencode" else empty end),
+                  (if $body | contains("@junie-agent") then "junie" else empty end),
+                  (if $body | contains("@gemini-cli") then "gemini" else empty end)
+                ] | unique | join(",")
+              elif (.issue == null) and (.comment.author_association | IN("OWNER", "MEMBER", "COLLABORATOR")) then
+                .comment.body as $body |
+                [
+                  (if ($body | test("(^|[[:space:]])/oc[[:space:]]")) or ($body | test("(^|[[:space:]])/opencode[[:space:]]")) then "opencode" else empty end),
+                  (if $body | contains("@junie-agent") then "junie" else empty end),
+                  (if $body | contains("@gemini-cli") then "gemini" else empty end)
+                ] | unique | join(",")
+              else "" end
+            ' <<<"${EVENT_JSON}")"
+            prompt="$(jq -r '
+              if ((.issue.pull_request != null) and (.comment.author_association | IN("OWNER", "MEMBER", "COLLABORATOR"))) or ((.issue == null) and (.comment.author_association | IN("OWNER", "MEMBER", "COLLABORATOR"))) then
+                .comment.body
+                | sub("(^|[[:space:]])/opencode[[:space:]]"; "")
+                | sub("(^|[[:space:]])/oc[[:space:]]"; "")
+                | sub("@junie-agent"; "")
+                | sub("@gemini-cli"; "")
+              else "" end
+            ' <<<"${EVENT_JSON}")"
+            pr_number="$(jq -r '(.issue.number // .pull_request.number)' <<<"${EVENT_JSON}")"
+          fi
+          delim=""
+          for _ in {1..5}; do
+            delim="PROMPT_$(openssl rand -hex 8 2>/dev/null || echo "${RANDOM}${RANDOM}")"
+            if ! grep -Fq -- "${delim}" <<<"${prompt}"; then
+              break
+            fi
+            delim=""
+          done
+          if [[ -z "${delim}" ]]; then
+            echo "Unable to select a safe workflow output delimiter." >&2
+            exit 1
+          fi
+          {
+            printf 'agents=%s\n' "${agents}"
+            printf 'pr_number=%s\n' "${pr_number}"
+            printf 'prompt<<%s\n%s\n%s\n' "${delim}" "${prompt}" "${delim}"
+          } >> "${GITHUB_OUTPUT}"
+
+  review:
+    needs: parse
+    if: needs.parse.outputs.agents != ''
+    uses: randytarampi/dotfiles/.github/workflows/agentic-review.yml@main
+    with:
+      agents: ${{ needs.parse.outputs.agents }}
+      prompt: ${{ needs.parse.outputs.prompt }}
+      pr_number: ${{ needs.parse.outputs.pr_number }}
+    secrets: inherit
