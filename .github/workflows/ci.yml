@@ -18,6 +18,7 @@ on:
       - '.github/workflows/test.yml'
       - '.github/workflows/deploy.pages.yml'
       - '.github/workflows/deploy.infrastructure.yml'
+      - '.github/workflows/release.yml'
       - 'infrastructure/**'
 
   pull_request:
@@ -29,6 +30,7 @@ on:
       - '.github/workflows/test.yml'
       - '.github/workflows/deploy.pages.yml'
       - '.github/workflows/deploy.infrastructure.yml'
+      - '.github/workflows/release.yml'
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
