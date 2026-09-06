@@ -121,6 +121,34 @@ jobs:
       - name: Actually run `yarn install`
         run: yarn install
 
+      - name: Verify GitHub Pages source
+        env:
+          PAGES_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+          PAGES_REPOSITORY: ${{ (inputs.application_name || github.event.inputs.application_name || 'www') == 'www' && format('{0}/{0}.github.io', github.repository_owner) || format('{0}/me.resume', github.repository_owner) }}
+        run: |
+          set -euo pipefail
+
+          case "$APPLICATION_NAME:$DEPLOYMENT_ENVIRONMENT" in
+            www:dev) EXPECTED_BRANCH=main ;;
+            www:prd) EXPECTED_BRANCH=gh-pages ;;
+            jsonresume-theme:prd) EXPECTED_BRANCH=main ;;
+            *) echo "Unsupported Pages target: $APPLICATION_NAME:$DEPLOYMENT_ENVIRONMENT" >&2; exit 1 ;;
+          esac
+
+          pages_config=$(curl --fail --silent --show-error \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer $PAGES_TOKEN" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$PAGES_REPOSITORY/pages")
+          actual_branch=$(jq -r '.source.branch // empty' <<<"$pages_config")
+          actual_path=$(jq -r '.source.path // empty' <<<"$pages_config")
+          build_type=$(jq -r '.build_type // empty' <<<"$pages_config")
+
+          if [ "$actual_branch" != "$EXPECTED_BRANCH" ] || [ "$actual_path" != "/" ] || [ "$build_type" != "legacy" ]; then
+            echo "::error::GitHub Pages source drift for $PAGES_REPOSITORY: expected legacy $EXPECTED_BRANCH /, got $build_type $actual_branch $actual_path"
+            exit 1
+          fi
+
       - name: Cache Nx
         uses: actions/cache@v6
         with:
@@ -153,6 +181,11 @@ jobs:
         run: |
           yarn lerna run resume --scope=jsonresume-theme-*;
           yarn lerna run docs --scope="*/${{ steps.variables.outputs.application_name }}" --scope="*${{ steps.variables.outputs.application_name }}*"
+      - name: Write deployment identity marker
+        run: |
+          set -euo pipefail
+          printf '{"commit":"%s"}\n' "$DEPLOYMENT_REF" > "$APPLICATION_NAME/docs/deployment-meta.json"
+          test -s "$APPLICATION_NAME/docs/deployment-meta.json"
       - name: Verify binary assets survived the `docs` copy
         # NOTE-RT: gulp 5 (vinyl-fs 4) decodes gulp.src streams as UTF-8 text by default, which
         # silently mangled woff2 fonts in the `docs:dist` copy (U+FFFD sequences, ~2x size) and
