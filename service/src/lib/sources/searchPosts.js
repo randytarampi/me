@@ -31,7 +31,9 @@ const cachedValueToPost = cachedValue => {
             return null;
         }
 
-        return post;
+        return post
+            .set("publicFeedPartition", cachedValue.publicFeedPartition)
+            .set("publicFeedSort", cachedValue.publicFeedSort);
     } catch (error) {
         logger.warn(error, `skipping malformed cached ${cachedValue.source} post`);
         return null;
@@ -122,4 +124,4 @@ const parseCursorDate = cursor => {
 
 export default searchPosts;
 
-export {searchPosts};
+export {cachedValueToPost, searchPosts};

@@ -1,7 +1,8 @@
-import {getEntityForType, Gallery, Photo, POST_TYPES, Post, RequestError} from "@randy.tarampi/js";
+import {Gallery, Photo, POST_TYPES, RequestError} from "@randy.tarampi/js";
 import logger from "../logger.js";
 import {getModel as getPostModel} from "../../db/models/post.js";
 import {sources} from "../../lib/sources/index.js";
+import {cachedValueToPost} from "../../lib/sources/searchPosts.js";
 import parseHiddenPostSources from "./parseHiddenPostSources.js";
 
 const INDEX_NAME = "publicFeed-datePublished-index";
@@ -116,11 +117,7 @@ const getPostsV5 = async ({type, source, tags, status, perPage = 100, continuati
         const page = await query.exec();
         return {
             posts: page.map(record => {
-                try {
-                    return (getEntityForType(record.type) || Post).fromJSON(record);
-                } catch {
-                    return null;
-                }
+                return cachedValueToPost(record);
             }),
             hasMore: Boolean(page.lastKey),
             nextCursor: page.lastKey && page.lastKey.publicFeedSort

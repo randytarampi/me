@@ -4,7 +4,7 @@ import {DateTime} from "luxon";
 import sinon from "sinon";
 import CacheClient from "../../../../src/lib/cacheClient.js";
 import PostSearchParams from "../../../../src/lib/postSearchParams.js";
-import searchPosts from "../../../../src/lib/sources/searchPosts.js";
+import searchPosts, {cachedValueToPost} from "../../../../src/lib/sources/searchPosts.js";
 import sources from "../../../../src/lib/sources/index.js";
 
 afterEach(function () {
@@ -48,10 +48,6 @@ describe("searchPosts", function () {
                 return null;
             }
         });
-    });
-
-    afterEach(function () {
-        sources[stubSource].instanceToRecord.restore();
     });
 
     it("delegates to `CacheClient` functions", async function () {
@@ -142,5 +138,30 @@ describe("searchPosts", function () {
 
             expect(postsResult.posts.map(post => post.id)).to.eql([olderSameDatePost.id, olderPost.id]);
         }
+    });
+
+    it("hydrates a Dynamo-style Tumblr gallery through the canonical source mapper", function () {
+        sources[stubSource].instanceToRecord.restore();
+        const raw = {
+            id: "gallery",
+            type: "photo",
+            date: "2024-01-01 00:00:00 GMT",
+            post_url: "https://tumblr.example/gallery",
+            caption: "gallery",
+            tags: [],
+            blog: {name: "blog", title: "Blog", url: "https://tumblr.example/blog"},
+            photos: [
+                {caption: "one", alt_sizes: [{url: "https://img.example/one", width: 100, height: 100}]},
+                {caption: "two", alt_sizes: [{url: "https://img.example/two", width: 200, height: 200}]}
+            ]
+        };
+        const gallery = cachedValueToPost({source: "tumblr", raw, publicFeedPartition: "VISIBLE#Gallery#tumblr", publicFeedSort: "1704067200000#tumblr--@me/sep!-gallery"});
+
+        expect(gallery.photos.count()).to.eql(2);
+        expect(gallery.largestPhoto).to.be.ok;
+        expect(gallery.getSizedPhotoForLoading()).to.be.ok;
+        expect(gallery.body).to.be.ok;
+        expect(gallery.creator.username).to.eql("blog");
+        expect(gallery.publicFeedSort).to.eql("1704067200000#tumblr--@me/sep!-gallery");
     });
 });
