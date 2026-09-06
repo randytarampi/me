@@ -2,7 +2,7 @@
 
 Now that `build`/`test`/`job-applications` are fixed at the source (not just patched around in CI), the next steps in the same direction:
 
-- Continue executing `docs/MATERIALIZE_MIGRATION.md`'s phased replacement of `react-materialize` (peer deps on React `^17` only) - the actual source of the remaining React-peer-range warnings; a React version change would not have resolved this, since it doesn't support React 18 either. (`react-google-maps` was already fully replaced with `@vis.gl/react-google-maps` in an earlier session, so that half of this bullet is done.)
+- Continue executing the Materialize replacement workstream in `docs/MODERNIZATION_ROADMAP.md` (peer deps on React `^17` only) - the actual source of the remaining React-peer-range warnings; a React version change would not have resolved this, since it doesn't support React 18 either. (`react-google-maps` was already fully replaced with `@vis.gl/react-google-maps` in an earlier session, so that half of this bullet is done.)
 - `chai`, `gulp-mocha`, and `webpack-cli` are all current (`^6.2.2`, `^10.0.1`, `^7.2.1` respectively); `chai-dom` (an unused `packages/jsx` devDependency) was dropped entirely. `webpack-dev-server` is now at the documented `^6.0.0` floor; the `www` build passes with the v6 resolution.
 - `unsplash-js` was upgraded from `v7` to `v8` — a full TypeScript rewrite with a different response shape (`{data, error}` instead of the `{response}` the old `UnsplashSource` destructured). The migration updated the response destructuring, added the required `download` endpoint call for Unsplash ToS compliance, and adjusted the `createApi` call for the v8 API. Done.
 
