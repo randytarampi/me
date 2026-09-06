@@ -68,6 +68,7 @@
     "kill": "yarn run kill:localstack",
     "kill:localstack": "bash -c 'docker rm --force me-service-localstack >/dev/null 2>&1 || true'",
     "localstack:migrate": "node src/serverless/dynamodb/migrate.js",
+    "backfill:public-feed": "node src/scripts/backfillPublicFeedAttributes.js",
     "localstack:start": "bash -c 'if curl --fail --silent --show-error http://localhost:4566/_localstack/health >/dev/null 2>&1; then echo \"LocalStack is already listening on :4566\"; else docker run --detach --rm --name me-service-localstack --publish 4566:4566 --env SERVICES=dynamodb localstack/localstack:4; fi'",
     "poststart": "yarn run kill",
     "posttest": "yarn run kill",

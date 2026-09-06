@@ -45,7 +45,7 @@ const sanitizeRawForDynamo = value => {
  */
 const DYNAMODB_BATCH_WRITE_LIMIT = 25;
 
-const getValidEffectivePublicationEpoch = record => {
+const publicFeedAttributesForRecord = record => {
     if (record.status !== "VISIBLE" || !record.type || !record.source || !record.uid) {
         return undefined;
     }
@@ -54,13 +54,20 @@ const getValidEffectivePublicationEpoch = record => {
         ? date.toMillis()
         : date instanceof Date
             ? date.getTime()
+            : typeof date === "string"
+                ? Date.parse(date)
             : undefined;
     const publicationEpoch = getEpoch(record.datePublished);
     const epoch = Number.isInteger(publicationEpoch) ? publicationEpoch : getEpoch(record.dateCreated);
 
-    return Number.isInteger(epoch) && epoch >= 0 && epoch <= 9999999999999
-        ? epoch
-        : undefined;
+    if (!Number.isInteger(epoch) || epoch < 0 || epoch > 9999999999999) {
+        return undefined;
+    }
+
+    return {
+        publicFeedPartition: `VISIBLE#${record.type}#${record.source}`,
+        publicFeedSort: `${String(epoch).padStart(13, "0")}#${record.uid}`
+    };
 };
 
 /**
@@ -76,11 +83,7 @@ const recordToDynamoObject = record => {
     // crash. The Immutable Record already derives the same `uid`, so we provide it explicitly here.
     object.uid = record.uid;
 
-    const effectivePublicationEpoch = getValidEffectivePublicationEpoch(record);
-    if (effectivePublicationEpoch !== undefined) {
-        object.publicFeedPartition = `VISIBLE#${record.type}#${record.source}`;
-        object.publicFeedSort = `${String(effectivePublicationEpoch).padStart(13, "0")}#${record.uid}`;
-    }
+    Object.assign(object, publicFeedAttributesForRecord(record));
 
     return Object.keys(object).reduce((normalized, key) => {
         let value = toDynamoCompatibleValue(object[key]);
@@ -351,6 +354,19 @@ class DynamooseModel {
         return records;
     }
 
+    async updatePublicFeedAttributes({status, uid}, attributes) {
+        const condition = new dynamoose.Condition()
+            .where("status").eq("VISIBLE")
+            .and()
+            .where("uid").eq(uid)
+            .and()
+            .where("publicFeedPartition").not().exists()
+            .and()
+            .where("publicFeedSort").not().exists();
+
+        return this.dynamooseModel.update({status, uid}, {$SET: attributes}, {condition});
+    }
+
     /**
      * Retrieve an array of [Records]{@link Record} matching a [Record.uid]{@link Record.uid} or some other attributes
      * @param _query {Object} A Dynamoose parseable query object
@@ -559,4 +575,4 @@ const recursivelyGet = ({_options, _filter, _query}, modelGetter) => async justF
 
 export default DynamooseModel;
 
-export {recordToDynamoObject, buildScanFilter, buildQueryWithFilter, applyScanQueryOptions, recursivelyGet, DynamooseModel};
+export {recordToDynamoObject, publicFeedAttributesForRecord, buildScanFilter, buildQueryWithFilter, applyScanQueryOptions, recursivelyGet, DynamooseModel};

@@ -3,6 +3,8 @@ import {expect} from "chai";
 import {DateTime} from "luxon";
 import {setupLocal} from "../../../../../src/serverless/dynamodb/util.js";
 import PostSearchParams from "../../../../../src/lib/postSearchParams.js";
+import {recordToDynamoObject} from "../../../../../src/db/dynamooseModel.js";
+import {backfillPublicFeedAttributes} from "../../../../../src/scripts/backfillPublicFeedAttributes.js";
 
 let PostModel;
 
@@ -180,6 +182,20 @@ describe("Post", function () {
     });
 
     describe("createRecords", function () {
+        it("dry-runs the public-feed backfill without mutating legacy records", async function () {
+            const legacyRecord = recordToDynamoObject(stubPost);
+            delete legacyRecord.publicFeedPartition;
+            delete legacyRecord.publicFeedSort;
+            await PostModel.dynamooseModel.create(legacyRecord, {overwrite: true});
+
+            const result = await backfillPublicFeedAttributes({model: PostModel, dryRun: true});
+            const legacyRecordFromDb = await PostModel.dynamooseModel.get({uid: stubPost.uid, status: POST_STATUS.visible});
+
+            expect(result.updated).to.be.greaterThan(0);
+            expect(legacyRecordFromDb.publicFeedPartition).to.eql(undefined);
+            expect(legacyRecordFromDb.publicFeedSort).to.eql(undefined);
+        });
+
         it("persists multiple posts", async function () {//
             const createdPosts = await PostModel.createRecords(stubPosts);
             expect(createdPosts).to.be.an("array");
