@@ -37,6 +37,10 @@ const cachedValueToPost = cachedValue => {
     }
 };
 
+const getValidatedPosts = cachedPosts => (cachedPosts || [])
+    .map(cachedValueToPost)
+    .filter(Boolean);
+
 /**
  * Search the [Post]{@link Post} cache for some given search parameters and return the found posts and some metadata
  * @function searchPosts
@@ -54,12 +58,13 @@ const searchPosts = searchParams => {
                 // request with `Cannot read properties of undefined (reading 'map')`, which Lambda
                 // then reports as a failed invocation and API Gateway surfaces as a 502. Defaulting
                 // to `[]` degrades that one content type to "no cached posts found" instead.
-                .then(cachedPosts => (cachedPosts || []).map(cachedValueToPost).filter(Boolean)),
-            cacheClient.getRecordCount(searchParams
+                .then(getValidatedPosts),
+            cacheClient.getRecords(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
                 .delete("orderComparatorType")
-            ),
+                .set("all", true)
+            ).then(getValidatedPosts),
             cacheClient.getRecord(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
@@ -73,12 +78,12 @@ const searchPosts = searchParams => {
                 .set("orderBy", "descending")
             ).then(cachedValueToPost)
         ])
-        .then(([posts, total, first, last]) => {
+        .then(([posts, allPosts, first, last]) => {
             const postsSortedByDate = posts.sort(sortPostsByDate);
 
             return {
                 posts,
-                total,
+                total: allPosts.length,
                 first,
                 last,
                 firstFetched: postsSortedByDate[posts.length - 1],
