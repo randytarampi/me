@@ -75,40 +75,29 @@ describe("util", function () {
     });
 
     describe("getPostsForParsedQuerystringParameters", function () {
-        it("delegates to `searchPosts` (ME_API_VERSION_HEADER >= 4)", async function () {
+        it("fans out untyped ME_API_VERSION_HEADER >= 4 requests to every post type", async function () {
             const stubPost = Post.fromJS({id: "woof", dateCreated: new Date(1900, 0, 1)});
             const stubPhoto = Photo.fromJS({id: "meow", dateCreated: new Date(1900, 0, 1)});
             const stubGallery = Gallery.fromJS({id: "grr", dateCreated: new Date(1900, 0, 1)});
-            const stubPosts = [stubPost, stubPhoto, stubGallery];
+            const stubLinkPost = LinkPost.fromJS({id: "link", dateCreated: new Date(1900, 0, 1)});
+            const stubPostsByType = {
+                [LinkPost.type]: stubLinkPost,
+                [Gallery.type]: stubGallery,
+                [Post.type]: stubPost,
+                [Photo.type]: stubPhoto
+            };
+            const stubPosts = Object.values(stubPostsByType);
             const stubQueryParameters = undefined;
             const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 4};
-            const expectedPostsResult = {
-                posts: stubPosts,
-                total: {
-                    global: stubPosts.length
-                },
-                first: {
-                    global: stubPost
-                },
-                last: {
-                    global: stubGallery
-                },
-                firstFetched: {
-                    global: stubPosts[0]
-                },
-                lastFetched: {
-                    global: stubPosts[stubPosts.length - 1]
-                }
-            };
 
-            const proxyquiredSearchPosts = sinon.stub().callsFake(() => {
-                const result = [stubPost, stubPhoto, stubGallery];
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
+                const result = [stubPostsByType[searchParams.type]];
 
                 return Promise.resolve({
-                    first: stubPost,
-                    firstFetched: stubPost,
-                    last: stubGallery,
-                    lastFetched: stubGallery,
+                    first: result[0],
+                    firstFetched: result[0],
+                    last: result[0],
+                    lastFetched: result[0],
                     posts: result,
                     total: result.length
                 });
@@ -119,8 +108,10 @@ describe("util", function () {
             });
 
             return getPostsForParsedQuerystringParameters(stubQueryParameters, stubRequestHeaders).then(postsResult => {
-                expect(postsResult).to.eql(expectedPostsResult);
-                expect(proxyquiredSearchPosts.calledOnce).to.eql(true);
+                expect(postsResult.posts).to.have.members(stubPosts);
+                expect(postsResult.total.global).to.eql(stubPosts.length);
+                expect(proxyquiredSearchPosts.callCount).to.eql(POST_TYPES.length);
+                expect(proxyquiredSearchPosts.args.map(([searchParams]) => searchParams.type)).to.have.members(POST_TYPES);
             });
         });
 

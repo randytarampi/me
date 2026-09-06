@@ -17,6 +17,7 @@ describe("searchPosts", function () {
     let stubPhoto;
     let stubPosts;
     let stubGetRecords;
+    let stubGetRecordCount;
     let stubGetRecord;
 
     beforeEach(function () {
@@ -35,6 +36,7 @@ describe("searchPosts", function () {
         stubPosts = [stubPhoto, stubPost];
 
         stubGetRecords = sinon.stub().resolves(stubPosts);
+        stubGetRecordCount = sinon.stub().resolves(stubPosts.length);
         stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params.orderBy === "descending" ? stubPhoto : stubPost));
 
         sinon.stub(sources[stubSource], "instanceToRecord").callsFake(json => {
@@ -54,6 +56,7 @@ describe("searchPosts", function () {
 
     it("delegates to `CacheClient` functions", async function () {
         sinon.stub(CacheClient.prototype, "getRecords").callsFake(stubGetRecords);
+        sinon.stub(CacheClient.prototype, "getRecordCount").callsFake(stubGetRecordCount);
         sinon.stub(CacheClient.prototype, "getRecord").callsFake(stubGetRecord);
 
         const stubSearchParams = new PostSearchParams();
@@ -68,7 +71,9 @@ describe("searchPosts", function () {
             lastFetched: stubPhoto
         });
 
-        expect(stubGetRecords.calledTwice).to.eql(true);
+        expect(stubGetRecords.calledOnce).to.eql(true);
+        expect(stubGetRecordCount.calledOnce).to.eql(true);
+        expect(stubGetRecordCount.firstCall.args[0].all).to.eql(true);
         expect(stubGetRecord.calledTwice).to.eql(true);
     });
 
@@ -97,6 +102,7 @@ describe("searchPosts", function () {
                 {source: stubSource, raw: JSON.stringify({type: "photo"})}
             ]));
         sinon.stub(CacheClient.prototype, "getRecord").resolves(undefined);
+        sinon.stub(CacheClient.prototype, "getRecordCount").resolves(1);
 
         const postsResult = await searchPosts(new PostSearchParams());
 

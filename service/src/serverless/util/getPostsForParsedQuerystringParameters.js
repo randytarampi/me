@@ -19,7 +19,7 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
     ) {
         postTypesToFetch = POST_TYPES.filter(postType => type
             ? postType === type
-            : false
+            : true
         );
     }
 
