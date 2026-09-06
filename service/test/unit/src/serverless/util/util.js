@@ -25,6 +25,15 @@ describe("util", function () {
         });
     });
 
+    describe("parseHiddenPostSources", function () {
+        it("parses valid source lists and rejects malformed values", async function () {
+            const {default: parseHiddenPostSources} = await import("../../../../../src/serverless/util/parseHiddenPostSources.js");
+
+            expect(parseHiddenPostSources("github, tumblr,github")).to.eql(["github", "tumblr"]);
+            expect(() => parseHiddenPostSources("github,,tumblr")).to.throw(/invalid source name/);
+        });
+    });
+
     describe("configureEnvironment", function () {
         it("propagates thrown errors", async function () {
             const stubErrorMessage = "woof";
@@ -359,6 +368,40 @@ describe("util", function () {
             expect(postsResult.posts.map(post => post.id)).to.eql(["gallery", "post", "photo"]);
             expect(postsResult.firstFetched.global).to.eql(stubPostsByType[Gallery.type]);
             expect(postsResult.lastFetched.global).to.eql(stubPostsByType[Photo.type]);
+        });
+
+        it("excludes configured sources before pagination and metadata aggregation", async function () {
+            const hiddenPost = Post.fromJS({id: "github", source: "github", datePublished: new Date(2020, 0, 3)});
+            const visiblePosts = [
+                Post.fromJS({id: "new", source: "s3", datePublished: new Date(2020, 0, 2)}),
+                Post.fromJS({id: "old", source: "s3", datePublished: new Date(2020, 0, 1)})
+            ];
+            const oldSetting = process.env.HIDDEN_POST_SOURCES;
+            process.env.HIDDEN_POST_SOURCES = "github";
+            const proxyquiredSearchPosts = sinon.stub().resolves({
+                first: hiddenPost,
+                firstFetched: hiddenPost,
+                last: visiblePosts[1],
+                lastFetched: hiddenPost,
+                posts: [hiddenPost, ...visiblePosts],
+                total: 3
+            });
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
+
+            try {
+                const result = await getPostsForParsedQuerystringParameters({type: Post.type, perPage: 1}, {[ME_API_VERSION_HEADER]: 4});
+                expect(result.posts.map(post => post.id)).to.eql(["new"]);
+                expect(result.total.global).to.eql(2);
+                expect(result.first.global.id).to.eql("old");
+                expect(result.last.global.id).to.eql("new");
+                expect(result.firstFetched.global.id).to.eql("new");
+                expect(result.lastFetched.global.id).to.eql("new");
+            } finally {
+                if (oldSetting === undefined) delete process.env.HIDDEN_POST_SOURCES;
+                else process.env.HIDDEN_POST_SOURCES = oldSetting;
+            }
         });
     });
 });

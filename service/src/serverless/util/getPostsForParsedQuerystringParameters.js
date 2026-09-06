@@ -2,11 +2,13 @@ import {Gallery, Photo, POST_TYPES, sortPostsByDate} from "@randy.tarampi/js";
 import _ from "lodash";
 import searchPosts from "../../lib/sources/searchPosts.js";
 import sortPostsByDatePublished from "../../lib/sortPostsByDatePublished.js";
+import parseHiddenPostSources from "./parseHiddenPostSources.js";
 import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams.js";
 import {checkHeader as checkMeVersionHeader} from "./request/headers/version.js";
 
 const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
     const isV4 = checkMeVersionHeader(headers, 4);
+    const hiddenPostSources = parseHiddenPostSources();
     const sortPosts = isV4 ? sortPostsByDatePublished : sortPostsByDate;
     let postTypesToFetch = [];
 
@@ -37,9 +39,31 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
         ? postTypesToFetch.map(postType => parseQueryStringParametersIntoSearchParams({type: postType})(queryParameters))
         : [parseQueryStringParametersIntoSearchParams()(queryParameters)];
 
-    return Promise.all(postFetchSearchParams.map(searchPosts))
+    // A source exclusion can turn a cache page into an under-filled public page. Fetch the full
+    // cursor-bounded result in that case so hidden records never consume the visible page budget.
+    const searchParams = hiddenPostSources.length
+        ? postFetchSearchParams.map(searchParams => searchParams.set("perPage", Infinity))
+        : postFetchSearchParams;
+
+    return Promise.all(searchParams.map(searchPosts))
         .then(results => {
-            const flattenedPosts = _.flatten(results.map(result => result.posts));
+            // Apply stage policy before any cross-type operation. This keeps hidden records out of
+            // deduplication, ordering, pagination, totals and every boundary exposed as metadata.
+            const visibleResults = results.map(result => {
+                const posts = (result.posts || []).filter(post => !hiddenPostSources.includes(post.source));
+                const orderedPosts = posts.slice().sort((leftPost, rightPost) => sortPosts(rightPost, leftPost));
+
+                return {
+                    ...result,
+                    posts,
+                    total: posts.length,
+                    first: orderedPosts[0] || null,
+                    last: orderedPosts[orderedPosts.length - 1] || null,
+                    firstFetched: orderedPosts[orderedPosts.length - 1] || null,
+                    lastFetched: orderedPosts[0] || null
+                };
+            });
+            const flattenedPosts = _.flatten(visibleResults.map(result => result.posts));
             const uniquePosts = Object.values(flattenedPosts.reduce((keyedPosts, post) => {
                 if (post) {
                     keyedPosts[post.uid] = post;
@@ -50,7 +74,7 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
             const paginatedPosts = sortedPosts.slice(0, queryParameters && queryParameters.perPage || 100);
             const globalNewestFetched = isV4 && paginatedPosts[0];
             const globalOldestFetched = isV4 && paginatedPosts[paginatedPosts.length - 1];
-            const relevantResults = results.filter(result => result.total > 0);
+            const relevantResults = visibleResults.filter(result => result.total > 0);
             const firstResults = isV4
                 ? relevantResults
                     .filter(result => result && result.first)
@@ -77,23 +101,23 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
                 posts: paginatedPosts,
                 total: {
                     global: relevantResults.reduce((globalTotal, result) => globalTotal + result.total, 0),
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.total)))
+                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.total)))
                 },
                 first: {
                     global: firstResults[0] && firstResults[0].first,
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.first)))
+                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.first)))
                 },
                 last: {
                     global: lastResults[lastResultIndex] && lastResults[lastResultIndex].last,
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.last)))
+                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.last)))
                 },
                 firstFetched: {
                     global: globalNewestFetched || (firstFetchedResults[0] && firstFetchedResults[0].firstFetched),
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.firstFetched)))
+                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.firstFetched)))
                 },
                 lastFetched: {
                     global: globalOldestFetched || (lastFetchedResults[lastResultIndex] && lastFetchedResults[lastResultIndex].lastFetched),
-                    ...(_.zipObject(postTypesToFetch, results.map(result => result && result.lastFetched)))
+                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.lastFetched)))
                 }
             };
         });
