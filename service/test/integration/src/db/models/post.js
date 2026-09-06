@@ -2,6 +2,7 @@ import {Photo, Post, POST_STATUS, SizedPhoto} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
 import {setupLocal} from "../../../../../src/serverless/dynamodb/util.js";
+import PostSearchParams from "../../../../../src/lib/postSearchParams.js";
 
 let PostModel;
 
@@ -315,29 +316,19 @@ describe("Post", function () {
             }));
             await PostModel.createRecords(indexedPosts);
 
-            const descending = await PostModel.getRecords({
-                _query: {type: {eq: Photo.type}},
-                _options: {descending: true, indexName: "type-datePublished-index", limit: 8}
-            });
-            const ascending = await PostModel.getRecords({
-                _query: {type: {eq: Photo.type}},
-                _options: {descending: false, indexName: "type-datePublished-index", limit: 8}
-            });
-            const rawDescendingPage = await PostModel.dynamooseModel
-                .query({type: Photo.type})
-                .using("type-datePublished-index")
-                .sort("descending")
-                .limit(8)
-                .exec();
-            const continuation = await PostModel.getRecords({
-                _query: {type: {eq: Photo.type}},
-                _options: {
-                    descending: true,
-                    indexName: "type-datePublished-index",
-                    limit: 4,
-                    ExclusiveStartKey: rawDescendingPage.lastKey
-                }
-            });
+            const descendingQuery = PostSearchParams.fromJSON({type: Photo.type, perPage: 8}).Dynamoose;
+            const ascendingQuery = PostSearchParams.fromJSON({type: Photo.type, perPage: 8, orderBy: "ascending"}).Dynamoose;
+            const descending = await PostModel.getRecords(descendingQuery);
+            const ascending = await PostModel.getRecords(ascendingQuery);
+            const continuationQuery = PostSearchParams.fromJSON({
+                type: Photo.type,
+                perPage: 4,
+                orderBy: "datePublished",
+                orderOperator: "lt",
+                orderComparator: descending[7].datePublished,
+                orderComparatorType: "String"
+            }).Dynamoose;
+            const continuation = await PostModel.getRecords(continuationQuery);
 
             expect(descending.map(post => post.uid)).to.eql(indexedPosts.slice().reverse().slice(0, 8).map(post => post.uid));
             expect(ascending.map(post => post.uid)).to.eql(indexedPosts.slice(0, 8).map(post => post.uid));

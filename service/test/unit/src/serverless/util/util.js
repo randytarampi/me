@@ -285,12 +285,12 @@ describe("util", function () {
                     [Photo.type]: stubPhoto
                 },
                 firstFetched: {
-                    global: stubPhoto,
+                    global: stubPosts[0],
                     [Gallery.type]: stubGallery,
                     [Photo.type]: stubPhoto
                 },
                 lastFetched: {
-                    global: stubGallery,
+                    global: stubPosts[stubPosts.length - 1],
                     [Gallery.type]: stubGallery,
                     [Photo.type]: stubPhoto
                 }
@@ -354,11 +354,11 @@ describe("util", function () {
                 "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
             });
 
-            const postsResult = await getPostsForParsedQuerystringParameters(undefined, stubRequestHeaders);
+            const postsResult = await getPostsForParsedQuerystringParameters({perPage: 3}, stubRequestHeaders);
 
-            expect(postsResult.posts.map(post => post.id)).to.eql(["gallery", "post", "photo", "link"]);
-            expect(postsResult.firstFetched.global).to.eql(stubPostsByType[LinkPost.type]);
-            expect(postsResult.lastFetched.global).to.eql(stubPostsByType[Gallery.type]);
+            expect(postsResult.posts.map(post => post.id)).to.eql(["gallery", "post", "photo"]);
+            expect(postsResult.firstFetched.global).to.eql(stubPostsByType[Gallery.type]);
+            expect(postsResult.lastFetched.global).to.eql(stubPostsByType[Photo.type]);
         });
     });
 });

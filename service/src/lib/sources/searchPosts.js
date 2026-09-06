@@ -52,10 +52,13 @@ const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
     const hasTieCursor = searchParams.beforeId && searchParams.orderBy === "datePublished" && searchParams.orderOperator === "lt";
     const cacheSearchParams = hasTieCursor ? searchParams.set("orderOperator", "le") : searchParams;
-    const cursorDate = hasTieCursor && DateTime.fromISO(String(searchParams.orderComparator));
+    const cursorDate = hasTieCursor && parseCursorDate(searchParams.orderComparator);
     const isAfterCursor = post => !hasTieCursor
-        || post.datePublished < cursorDate
-        || (post.datePublished.equals(cursorDate) && String(post.uid).localeCompare(String(searchParams.beforeId)) < 0);
+        ? true
+        : cursorDate && cursorDate.isValid && (
+            post.datePublished < cursorDate
+            || (post.datePublished.equals(cursorDate) && String(post.uid).localeCompare(String(searchParams.beforeId)) < 0)
+        );
     const getCursorPosts = posts => (posts || []).filter(isAfterCursor);
 
     return Promise.all([
@@ -99,6 +102,22 @@ const searchPosts = searchParams => {
                 lastFetched: postsSortedByDate[0]
             };
         });
+};
+
+const parseCursorDate = cursor => {
+    if (cursor instanceof DateTime) {
+        return cursor;
+    }
+
+    if (cursor instanceof Date) {
+        return DateTime.fromJSDate(cursor);
+    }
+
+    const numericCursor = Number(cursor);
+
+    return Number.isFinite(numericCursor)
+        ? DateTime.fromMillis(numericCursor)
+        : DateTime.fromISO(String(cursor));
 };
 
 export default searchPosts;

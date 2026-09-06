@@ -131,14 +131,16 @@ describe("searchPosts", function () {
         sinon.stub(CacheClient.prototype, "getRecord").resolves(undefined);
         sinon.stub(CacheClient.prototype, "getRecordCount").resolves(2);
 
-        const postsResult = await searchPosts(new PostSearchParams({
-            beforeId: cursorPost.uid,
-            orderBy: "datePublished",
-            orderComparator: cursorDate.toISO(),
-            orderComparatorType: "String",
-            orderOperator: "lt"
-        }));
+        for (const orderComparator of [cursorDate.toISO(), String(cursorDate.toMillis())]) {
+            const postsResult = await searchPosts(new PostSearchParams({
+                beforeId: cursorPost.uid,
+                orderBy: "datePublished",
+                orderComparator,
+                orderComparatorType: "String",
+                orderOperator: "lt"
+            }));
 
-        expect(postsResult.posts.map(post => post.id)).to.eql([olderSameDatePost.id, olderPost.id]);
+            expect(postsResult.posts.map(post => post.id)).to.eql([olderSameDatePost.id, olderPost.id]);
+        }
     });
 });

@@ -561,16 +561,29 @@ describe("PostSearchParams", function () {
                 expect(searchParams.Dynamoose).to.eql({
                     _filter: {
                         type: "woof",
-                        datePublished: {lt: searchParams.orderComparator.toJSDate()},
+                        datePublished: {lt: searchParams.orderComparator.toMillis()},
                         status: POST_STATUS.visible
                     },
                     _query: {
                         type: {eq: "woof"},
-                        datePublished: {lt: searchParams.orderComparator.toJSDate()}
+                        datePublished: {lt: searchParams.orderComparator.toMillis()}
                     },
                     _options: {limit: 100, descending: true, all: false, indexName: "type-datePublished-index"}
                 });
             });
+
+                it("normalizes an HTTP ISO date comparator to epoch milliseconds", function () {
+                    const searchParams = PostSearchParams.fromJSON({
+                        type: "woof",
+                        orderBy: "datePublished",
+                        orderOperator: "lt",
+                        orderComparator: "2026-01-02T03:04:05.000Z",
+                        orderComparatorType: "String"
+                    });
+
+                    expect(searchParams.Dynamoose._query.datePublished).to.eql({lt: Date.parse("2026-01-02T03:04:05.000Z")});
+                    expect(searchParams.Dynamoose._filter.datePublished).to.eql({lt: Date.parse("2026-01-02T03:04:05.000Z")});
+                });
 
             it("should properly format properties for type & geohash", function () {
                 const searchParams = PostSearchParams.fromJS({

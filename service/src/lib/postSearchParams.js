@@ -220,6 +220,23 @@ class PostSearchParams extends PostSearchParamsRecord {
             castOrderComparator = castOrderComparator.toJSDate();
         }
 
+        if (this.orderBy === "datePublished" && this.hasOrderingConditions) {
+            if (this.orderComparator instanceof DateTime) {
+                castOrderComparator = this.orderComparator.toMillis();
+            } else if (typeof this.orderComparator === "string") {
+                const numericComparator = Number(this.orderComparator);
+                const dateComparator = Number.isFinite(numericComparator)
+                    ? numericComparator
+                    : DateTime.fromISO(this.orderComparator).toMillis();
+
+                if (Number.isFinite(dateComparator)) {
+                    castOrderComparator = dateComparator;
+                }
+            } else if (this.orderComparator instanceof Date) {
+                castOrderComparator = this.orderComparator.getTime();
+            }
+        }
+
         const filters = {
             status: this.status
         };
