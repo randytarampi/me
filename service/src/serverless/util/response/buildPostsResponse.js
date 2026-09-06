@@ -30,11 +30,11 @@ const buildPostsV3ResponseBody = ({posts, total, first, last, firstFetched, last
             return newest;
         }, {}),
         oldestFetched: firstFetched && Object.keys(firstFetched).reduce((oldest, oldestKey) => {
-            oldest[oldestKey] = firstFetched[oldestKey] && firstFetched[oldestKey].date && firstFetched[oldestKey].date.toISO();
+            oldest[oldestKey] = firstFetched[oldestKey] && firstFetched[oldestKey].datePublished && firstFetched[oldestKey].datePublished.toISO();
             return oldest;
         }, {}),
         newestFetched: lastFetched && Object.keys(lastFetched).reduce((newest, newestKey) => {
-            newest[newestKey] = lastFetched[newestKey] && lastFetched[newestKey].date && lastFetched[newestKey].date.toISO();
+            newest[newestKey] = lastFetched[newestKey] && lastFetched[newestKey].datePublished && lastFetched[newestKey].datePublished.toISO();
             return newest;
         }, {})
     };

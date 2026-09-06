@@ -113,4 +113,32 @@ describe("searchPosts", function () {
         expect(postsResult.firstFetched).to.eql(stubPhoto);
         expect(postsResult.lastFetched).to.eql(stubPhoto);
     });
+
+    it("keeps older IDs at a duplicate-date cursor boundary", async function () {
+        const cursorDate = DateTime.utc(2020, 1, 2);
+        const cursorPost = Post.fromJS({id: "cursor", source: stubSource, datePublished: cursorDate, raw: {type: "post"}});
+        const olderSameDatePost = Post.fromJS({id: "before", source: stubSource, datePublished: cursorDate, raw: {type: "post"}});
+        const olderPost = Post.fromJS({id: "older", source: stubSource, datePublished: cursorDate.minus({days: 1}), raw: {type: "post"}});
+
+        sources[stubSource].instanceToRecord.resetBehavior();
+        sources[stubSource].instanceToRecord.callsFake(raw => Post.fromJS({...raw, source: stubSource}));
+
+        sinon.stub(CacheClient.prototype, "getRecords").resolves([
+            {source: stubSource, raw: {type: "post", id: cursorPost.id, datePublished: cursorDate.toISO()}},
+            {source: stubSource, raw: {type: "post", id: olderSameDatePost.id, datePublished: cursorDate.toISO()}},
+            {source: stubSource, raw: {type: "post", id: olderPost.id, datePublished: olderPost.datePublished.toISO()}}
+        ]);
+        sinon.stub(CacheClient.prototype, "getRecord").resolves(undefined);
+        sinon.stub(CacheClient.prototype, "getRecordCount").resolves(2);
+
+        const postsResult = await searchPosts(new PostSearchParams({
+            beforeId: cursorPost.uid,
+            orderBy: "datePublished",
+            orderComparator: cursorDate.toISO(),
+            orderComparatorType: "String",
+            orderOperator: "lt"
+        }));
+
+        expect(postsResult.posts.map(post => post.id)).to.eql([olderSameDatePost.id, olderPost.id]);
+    });
 });

@@ -1,6 +1,7 @@
-import {sortPostsByDate} from "@randy.tarampi/js";
 import {sources} from "./index.js";
 import CacheClient from "../cacheClient.js";
+import sortPostsByDatePublished from "../sortPostsByDatePublished.js";
+import {DateTime} from "luxon";
 import logger from "../../serverless/logger.js";
 
 const cachedValueToPost = cachedValue => {
@@ -49,16 +50,24 @@ const getValidatedPosts = cachedPosts => (cachedPosts || [])
  */
 const searchPosts = searchParams => {
     const cacheClient = new CacheClient();
+    const hasTieCursor = searchParams.beforeId && searchParams.orderBy === "datePublished" && searchParams.orderOperator === "lt";
+    const cacheSearchParams = hasTieCursor ? searchParams.set("orderOperator", "le") : searchParams;
+    const cursorDate = hasTieCursor && DateTime.fromISO(String(searchParams.orderComparator));
+    const isAfterCursor = post => !hasTieCursor
+        || post.datePublished < cursorDate
+        || (post.datePublished.equals(cursorDate) && String(post.uid).localeCompare(String(searchParams.beforeId)) < 0);
+    const getCursorPosts = posts => (posts || []).filter(isAfterCursor);
 
     return Promise.all([
-            cacheClient.getRecords(searchParams)
+            cacheClient.getRecords(cacheSearchParams)
                 // NOTE-RT: `getRecords` deliberately swallows cache errors and resolves to
                 // `undefined` (see docs/CONVENTIONS.md#error-handling) - a schema mismatch,
                 // throttling, or any other per-type lookup failure used to crash this whole
                 // request with `Cannot read properties of undefined (reading 'map')`, which Lambda
                 // then reports as a failed invocation and API Gateway surfaces as a 502. Defaulting
                 // to `[]` degrades that one content type to "no cached posts found" instead.
-                .then(getValidatedPosts),
+                .then(getValidatedPosts)
+                .then(getCursorPosts),
             cacheClient.getRecordCount(searchParams
                 .delete("orderOperator")
                 .delete("orderComparator")
@@ -79,7 +88,7 @@ const searchPosts = searchParams => {
             ).then(cachedValueToPost)
         ])
         .then(([posts, total, first, last]) => {
-            const postsSortedByDate = posts.sort(sortPostsByDate);
+            const postsSortedByDate = posts.sort(sortPostsByDatePublished);
 
             return {
                 posts,

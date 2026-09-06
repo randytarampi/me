@@ -3,13 +3,18 @@ import {
     filterPostsForBoundingBox,
     Gallery,
     Photo,
-    Post,
-    sortPostsByDate
+    Post
 } from "@randy.tarampi/js";
 import {fromJS, Map, Set} from "immutable";
 import {REHYDRATE} from "redux-persist";
 import {createSelector} from "reselect";
 import {FETCHING_POSTS_SUCCESS} from "../actions/posts/fetchPosts.js";
+
+const sortPostsByDatePublished = (leftPost, rightPost) => {
+    const dateDifference = rightPost.datePublished.valueOf() - leftPost.datePublished.valueOf();
+
+    return dateDifference || String(rightPost.uid).localeCompare(String(leftPost.uid));
+};
 
 const postSearchTypes = ["blog", "map"];
 const postSearchMetadata = ["oldest", "newest", "oldestFetched", "newestFetched"];
@@ -101,18 +106,18 @@ export const getPostsForBoundingBox = (state, north, east, south, west) => filte
 export const getPhotoPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Photo || post instanceof Gallery));
 export const getWordPosts = createFilteredPostsSelector(posts => posts.filter(post => post instanceof Post));
 
-export const getPostsSortedByDate = createFilteredPostsSelector(posts => posts.sort(sortPostsByDate));
+export const getPostsSortedByDate = createFilteredPostsSelector(posts => posts.sort(sortPostsByDatePublished));
 export const getPhotoPostsSortedByDate = createFilteredPostsSelector(
     getPhotoPosts,
-    posts => posts.sort(sortPostsByDate)
+    posts => posts.sort(sortPostsByDatePublished)
 );
 export const getWordPostsSortedByDate = createFilteredPostsSelector(
     getWordPosts,
-    posts => posts.sort(sortPostsByDate)
+    posts => posts.sort(sortPostsByDatePublished)
 );
 export const getPostsSortedByDateForBoundingBox = createFilteredPostsSelector(
     getPostsForBoundingBox,
-    posts => posts.sort(sortPostsByDate)
+    posts => posts.sort(sortPostsByDatePublished)
 );
 
 export const getOldestPost = createFilteredPostsSelector(

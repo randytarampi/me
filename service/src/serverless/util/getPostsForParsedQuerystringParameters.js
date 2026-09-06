@@ -1,10 +1,13 @@
 import {Gallery, Photo, POST_TYPES, sortPostsByDate} from "@randy.tarampi/js";
 import _ from "lodash";
 import searchPosts from "../../lib/sources/searchPosts.js";
+import sortPostsByDatePublished from "../../lib/sortPostsByDatePublished.js";
 import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams.js";
 import {checkHeader as checkMeVersionHeader} from "./request/headers/version.js";
 
 const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
+    const isV4 = checkMeVersionHeader(headers, 4);
+    const sortPosts = isV4 ? sortPostsByDatePublished : sortPostsByDate;
     let postTypesToFetch = [];
 
     if (
@@ -43,11 +46,30 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
                 }
                 return keyedPosts;
             }, {}));
-            const sortedPosts = uniquePosts.sort(sortPostsByDate);
+            const sortedPosts = uniquePosts.sort(sortPosts);
             const paginatedPosts = sortedPosts.slice(0, queryParameters && queryParameters.perPage || 100);
             const relevantResults = results.filter(result => result.total > 0);
-            const firstResults = _.sortBy(relevantResults, result => result && result.first && result.first.date);
-            const lastResults = _.sortBy(relevantResults, result => result && result.last && result.last.date);
+            const firstResults = isV4
+                ? relevantResults
+                    .filter(result => result && result.first)
+                    .sort((leftResult, rightResult) => sortPosts(rightResult.first, leftResult.first))
+                : _.sortBy(relevantResults, result => result && result.first && result.first.date);
+            const lastResults = isV4
+                ? relevantResults
+                    .filter(result => result && result.last)
+                    .sort((leftResult, rightResult) => sortPosts(leftResult.last, rightResult.last))
+                : _.sortBy(relevantResults, result => result && result.last && result.last.date);
+            const firstFetchedResults = isV4
+                ? relevantResults
+                    .filter(result => result && result.firstFetched)
+                    .sort((leftResult, rightResult) => sortPosts(rightResult.firstFetched, leftResult.firstFetched))
+                : firstResults;
+            const lastFetchedResults = isV4
+                ? relevantResults
+                    .filter(result => result && result.lastFetched)
+                    .sort((leftResult, rightResult) => sortPosts(leftResult.lastFetched, rightResult.lastFetched))
+                : lastResults;
+            const lastResultIndex = isV4 ? 0 : relevantResults.length - 1;
 
             return {
                 posts: paginatedPosts,
@@ -56,19 +78,19 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
                     ...(_.zipObject(postTypesToFetch, results.map(result => result && result.total)))
                 },
                 first: {
-                    global: firstResults && firstResults[0] && firstResults[0].first,
+                    global: firstResults[0] && firstResults[0].first,
                     ...(_.zipObject(postTypesToFetch, results.map(result => result && result.first)))
                 },
                 last: {
-                    global: lastResults && lastResults[relevantResults.length - 1] && lastResults[relevantResults.length - 1].last,
+                    global: lastResults[lastResultIndex] && lastResults[lastResultIndex].last,
                     ...(_.zipObject(postTypesToFetch, results.map(result => result && result.last)))
                 },
                 firstFetched: {
-                    global: firstResults && firstResults[0] && firstResults[0].firstFetched,
+                    global: firstFetchedResults[0] && firstFetchedResults[0].firstFetched,
                     ...(_.zipObject(postTypesToFetch, results.map(result => result && result.firstFetched)))
                 },
                 lastFetched: {
-                    global: lastResults && lastResults[relevantResults.length - 1] && lastResults[relevantResults.length - 1].lastFetched,
+                    global: lastFetchedResults[lastResultIndex] && lastFetchedResults[lastResultIndex].lastFetched,
                     ...(_.zipObject(postTypesToFetch, results.map(result => result && result.lastFetched)))
                 }
             };

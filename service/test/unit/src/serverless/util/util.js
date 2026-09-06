@@ -328,5 +328,37 @@ describe("util", function () {
                 expect(proxyquiredSearchPosts.calledTwice).to.eql(true);
             });
         });
+
+        it("orders the default mixed-type response and metadata by datePublished", async function () {
+            const stubPostsByType = {
+                [LinkPost.type]: LinkPost.fromJS({id: "link", dateCreated: new Date(1900, 0, 1), datePublished: new Date(2020, 0, 1)}),
+                [Gallery.type]: Gallery.fromJS({id: "gallery", dateCreated: new Date(1900, 0, 1), datePublished: new Date(2020, 0, 3)}),
+                [Post.type]: Post.fromJS({id: "post", dateCreated: new Date(2030, 0, 1), datePublished: new Date(2020, 0, 2)}),
+                [Photo.type]: Photo.fromJS({id: "photo", dateCreated: new Date(1900, 0, 1), datePublished: new Date(2020, 0, 1)})
+            };
+            const stubRequestHeaders = {[ME_API_VERSION_HEADER]: 4};
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
+                const post = stubPostsByType[searchParams.type];
+
+                return Promise.resolve({
+                    first: post,
+                    firstFetched: post,
+                    last: post,
+                    lastFetched: post,
+                    posts: [post],
+                    total: 1
+                });
+            });
+
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
+
+            const postsResult = await getPostsForParsedQuerystringParameters(undefined, stubRequestHeaders);
+
+            expect(postsResult.posts.map(post => post.id)).to.eql(["gallery", "post", "photo", "link"]);
+            expect(postsResult.firstFetched.global).to.eql(stubPostsByType[LinkPost.type]);
+            expect(postsResult.lastFetched.global).to.eql(stubPostsByType[Gallery.type]);
+        });
     });
 });
