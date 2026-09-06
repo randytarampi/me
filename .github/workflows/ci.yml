@@ -75,6 +75,7 @@ jobs:
       deployment_ref: ${{ github.sha }}
     secrets:
       GH_PAGES_DEPLOYMENT_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     permissions:
       contents: write
       deployments: write

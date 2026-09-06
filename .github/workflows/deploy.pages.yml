@@ -21,6 +21,8 @@ on:
       # `@aws-sdk` consumers live in `service`. Removing them is not a migration, it's a deletion.
       GH_PAGES_DEPLOYMENT_TOKEN:
         required: true
+      SENTRY_AUTH_TOKEN:
+        required: true
 
   workflow_dispatch:
     inputs:
@@ -60,6 +62,9 @@ jobs:
       DEPLOYMENT_REF: ${{ inputs.deployment_ref || github.sha }}
       GITHUB_ACTIONS_AUTHOR_EMAIL: github@randytarampi.ca
       GITHUB_ACTIONS_AUTHOR_NAME: deploy.pages
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
     runs-on:
       - ubuntu-latest
     permissions:
