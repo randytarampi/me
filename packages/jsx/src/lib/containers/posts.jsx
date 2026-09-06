@@ -8,6 +8,12 @@ import MeasuredPostsComponent from "../components/posts.jsx";
 import {createGetErrorForUrlSelector, createIsLoadingUrlSelector} from "../data/api.js";
 import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../data/selectors.js";
 import {generateFilterFunctionForFilterName} from "../util/index.js";
+import {shouldUsePublicFeedV5} from "../util/publicFeedVersion.js";
+
+// Pages builds use the deployment stage (`dev`/`prd`) rather than NODE_ENV (`production`). Keep the
+// V5 rollout dev-only while retaining the existing V4 client for production and local builds.
+export const USE_PUBLIC_FEED_V5 = typeof __BUILD_NODE_ENV__ !== "undefined"
+    && shouldUsePublicFeedV5(__BUILD_NODE_ENV__);
 
 export const connectPosts = connect(
     (state, ownProps) => {
@@ -41,7 +47,7 @@ export const connectPosts = connect(
                     ...(match && match.params),
                     ...fetchPostsParams,
                     perPage: FETCHING_POSTS_PER_PAGE,
-                    usePublicFeedV5: typeof __BUILD_IS_DEVELOPMENT__ !== "undefined" && __BUILD_IS_DEVELOPMENT__,
+                    usePublicFeedV5: USE_PUBLIC_FEED_V5,
                     ...passedParams
                 };
                 return dispatch(fetchPostsForBlogCreator(fetchUrl, type, searchParams));

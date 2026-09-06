@@ -151,6 +151,21 @@ describe("posts", function () {
             expect(posts.toArray()).to.eql(stubPosts);
         });
 
+        it("retains all eight V5-visible posts in client state", function () {
+            const stubPosts = Array.from({length: 8}, (_ignored, index) => Post.fromJSON({
+                id: `v5-${index}`,
+                source: "s3",
+                dateCreated: DateTime.utc().minus({days: index}).toISO()
+            }));
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess({
+                posts: stubPosts,
+                searchType: "blog",
+                searchParams: {usePublicFeedV5: true}
+            }));
+
+            expect(getPosts(updatedState).size).to.eql(8);
+        });
+
         it("reduces the correct state (has existing state)", function () {
             const stubPosts = [
                 Post.fromJSON({

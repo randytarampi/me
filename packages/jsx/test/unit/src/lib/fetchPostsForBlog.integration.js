@@ -65,4 +65,23 @@ describe("fetchPostsForBlog integration", function () {
         expect(requestUrl.searchParams.get("orderComparator")).to.eql(oldestPublished.toISO());
         expect(requestUrl.searchParams.get("beforeId")).to.eql(pageOnePost.uid);
     });
+
+    it("uses the V5 opaque cursor for the next serialized request", async function () {
+        const fetchUrl = "https://service.dev.randytarampi.ca/posts";
+        const fetchStub = sinon.stub(global, "fetch").callsFake((_url, options) => {
+            expect(options.headers["ME-API-VERSION"]).to.eql(5);
+            return Promise.resolve({json: () => Promise.resolve({posts: [], nextCursor: "next", hasMore: true})});
+        });
+        const store = configureStore([thunk])(Map({
+            api: Map({[fetchUrl]: Map({nextCursor: "opaque", hasMore: true})}),
+            posts: reducer(undefined, fetchingPostsSuccess({posts: [], searchType: "blog", searchParams: {}}))
+        }));
+
+        await store.dispatch(fetchPostsForBlog(fetchUrl, "global", {usePublicFeedV5: true}));
+
+        const requestUrl = new URL(fetchStub.firstCall.args[0]);
+        expect(requestUrl.searchParams.get("continuationToken")).to.eql("opaque");
+        expect(requestUrl.searchParams.has("beforeId")).to.eql(false);
+        expect(requestUrl.searchParams.has("orderComparator")).to.eql(false);
+    });
 });
