@@ -25,6 +25,31 @@ describe("util", function () {
         });
     });
 
+    describe("Post schema public feed index", function () {
+        it("generates the requested GSI without changing the base key", async function () {
+            const model = new DynamooseModel("post-schema-public-feed-test", PostSchema);
+            const request = await model.getCreateTableRequest();
+            const publicFeedIndex = request.GlobalSecondaryIndexes.find(index => index.IndexName === "publicFeed-datePublished-index");
+            const existingIndexNames = request.GlobalSecondaryIndexes
+                .filter(index => index.IndexName !== "publicFeed-datePublished-index")
+                .map(index => index.IndexName)
+                .sort();
+
+            expect(request.KeySchema).to.eql([
+                {AttributeName: "status", KeyType: "HASH"},
+                {AttributeName: "uid", KeyType: "RANGE"}
+            ]);
+            expect(publicFeedIndex.Projection).to.eql({ProjectionType: "ALL"});
+            expect(publicFeedIndex.KeySchema).to.eql([
+                {AttributeName: "publicFeedPartition", KeyType: "HASH"},
+                {AttributeName: "publicFeedSort", KeyType: "RANGE"}
+            ]);
+            expect(request.AttributeDefinitions.filter(definition => ["publicFeedPartition", "publicFeedSort"].includes(definition.AttributeName))).to.have.length(2);
+            expect(existingIndexNames).to.eql(["type-datePublished-index", "type-geohash-index", "uid-index"]);
+            expect(request.LocalSecondaryIndexes.map(index => index.IndexName).sort()).to.eql(["status-dateCreated-index", "status-datePublished-index", "status-geohash-index", "status-source-index", "status-type-index"]);
+        });
+    });
+
     describe("recordToDynamoObject", function () {
         // NOTE-RT: `raw` is declared as `dynamoose.type.ANY`, so dynamoose never type-checks or
         // converts its nested content. Some sources (S3 YAML posts, in particular) parse straight

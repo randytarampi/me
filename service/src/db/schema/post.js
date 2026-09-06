@@ -141,7 +141,15 @@ const post = new Schema({
     // Synthetic public-feed attributes are persisted now so Phase 2 can index them. They are
     // intentionally not indexed here; an AttributeDefinition is only valid once an index uses it.
     publicFeedPartition: {
-        type: String
+        type: String,
+        index: [
+            {
+                type: "global",
+                name: "publicFeed-datePublished-index",
+                rangeKey: "publicFeedSort",
+                project: "all"
+            }
+        ]
     },
     publicFeedSort: {
         type: String
