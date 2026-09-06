@@ -303,6 +303,48 @@ describe("Post", function () {
             }));
         });
 
+        it("sorts the datePublished index in both directions and continues without overlap", async function () {
+            const indexedPosts = Array.from({length: 12}, (_, index) => Photo.fromJSON({
+                raw: {},
+                id: `date-index-${index}`,
+                source: "DateIndexFixture",
+                dateCreated: DateTime.utc(2020, 1, 1).plus({days: index}).toISO(),
+                datePublished: DateTime.utc(2020, 1, 1).plus({days: index}).toISO(),
+                width: 1,
+                height: 1
+            }));
+            await PostModel.createRecords(indexedPosts);
+
+            const descending = await PostModel.getRecords({
+                _query: {type: {eq: Photo.type}},
+                _options: {descending: true, indexName: "type-datePublished-index", limit: 8}
+            });
+            const ascending = await PostModel.getRecords({
+                _query: {type: {eq: Photo.type}},
+                _options: {descending: false, indexName: "type-datePublished-index", limit: 8}
+            });
+            const rawDescendingPage = await PostModel.dynamooseModel
+                .query({type: Photo.type})
+                .using("type-datePublished-index")
+                .sort("descending")
+                .limit(8)
+                .exec();
+            const continuation = await PostModel.getRecords({
+                _query: {type: {eq: Photo.type}},
+                _options: {
+                    descending: true,
+                    indexName: "type-datePublished-index",
+                    limit: 4,
+                    ExclusiveStartKey: rawDescendingPage.lastKey
+                }
+            });
+
+            expect(descending.map(post => post.uid)).to.eql(indexedPosts.slice().reverse().slice(0, 8).map(post => post.uid));
+            expect(ascending.map(post => post.uid)).to.eql(indexedPosts.slice(0, 8).map(post => post.uid));
+            expect(continuation.map(post => post.uid)).to.eql(indexedPosts.slice().reverse().slice(8, 12).map(post => post.uid));
+            expect(new Set(descending.map(post => post.uid))).to.not.have.any.members(continuation.map(post => post.uid));
+        });
+
         it("retrieves posts (source)", async function () {
             await PostModel.createRecords(stubPosts);
             const retrievedPosts = await PostModel.getRecords({_filter: {source: {eq: stubPhoto.source}}});

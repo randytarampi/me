@@ -59,7 +59,7 @@ const searchPosts = searchParams => {
     const getCursorPosts = posts => (posts || []).filter(isAfterCursor);
 
     return Promise.all([
-            cacheClient.getRecords(cacheSearchParams)
+            cacheClient.getRecords(cacheSearchParams, cachedValueToPost)
                 // NOTE-RT: `getRecords` deliberately swallows cache errors and resolves to
                 // `undefined` (see docs/CONVENTIONS.md#error-handling) - a schema mismatch,
                 // throttling, or any other per-type lookup failure used to crash this whole

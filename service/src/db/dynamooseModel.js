@@ -336,7 +336,16 @@ class DynamooseModel {
      */
     async getRecords({_options, _filter, _query}) {
         logger.trace(`retrieving records (_query: ${JSON.stringify(_query)}, _filter: ${JSON.stringify(_filter)}) ${JSON.stringify(_options)}`);
-        const {limit: originalLimit, all} = _options || {};
+        const {limit: originalLimit, all, recordValidator} = _options || {};
+        if (recordValidator && !all && typeof originalLimit === "number") {
+            return this.getRecordsUntilValid({
+                _options,
+                _filter,
+                _query,
+                recordValidator,
+                limit: originalLimit
+            });
+        }
         const itemRetriever = applyScanQueryOptions(
             _query
                 ? buildQueryWithFilter({_options, _filter, _query}, this.dynamooseModel.query)
@@ -351,6 +360,43 @@ class DynamooseModel {
             .then(allPosts => originalLimit ? allPosts.slice(0, originalLimit) : allPosts);
         logger.trace(`retrieved records (${JSON.stringify(postModelInstances.map(postModelInstance => postModelInstance.uid))})`);
         return postModelInstances;
+    }
+
+    async getRecordsUntilValid({_options, _filter, _query, recordValidator, limit}) {
+        let options = {..._options};
+        let validRecords = [];
+        const validRecordKeys = new Set();
+
+        while (validRecords.length < limit) {
+            const itemRetriever = applyScanQueryOptions(
+                _query
+                    ? buildQueryWithFilter({_options: options, _filter, _query}, this.dynamooseModel.query)
+                    : this.dynamooseModel.scan(buildScanFilter(_filter)),
+                options
+            );
+            const page = await itemRetriever.limit(limit).exec();
+
+            page.forEach(record => {
+                const validRecord = recordValidator(record);
+                const validRecordKey = validRecord && validRecord.uid;
+
+                if (validRecordKey && !validRecordKeys.has(validRecordKey)) {
+                    validRecordKeys.add(validRecordKey);
+                    validRecords.push(record);
+                }
+            });
+
+            if (!page.lastKey) {
+                break;
+            }
+
+            options = {
+                ...options,
+                ExclusiveStartKey: page.lastKey
+            };
+        }
+
+        return validRecords.slice(0, limit);
     }
 
     /**
@@ -428,6 +474,10 @@ const applyScanQueryOptions = (itemRetriever, _options = {}) => {
 
     if (ExclusiveStartKey) {
         retriever = retriever.startAt(ExclusiveStartKey);
+    }
+
+    if ((_options.descending === true || _options.descending === false) && typeof retriever.sort === "function") {
+        retriever = retriever.sort(_options.descending ? "descending" : "ascending");
     }
 
     return retriever;

@@ -2,7 +2,7 @@ import {expect} from "chai";
 import sinon from "sinon";
 import dynamoose from "dynamoose";
 import {Post} from "@randy.tarampi/js";
-import {buildQueryWithFilter, recordToDynamoObject} from "../../../../src/db/dynamooseModel.js";
+import {applyScanQueryOptions, buildQueryWithFilter, DynamooseModel, recordToDynamoObject} from "../../../../src/db/dynamooseModel.js";
 import PostSchema from "../../../../src/db/schema/post.js";
 
 describe("util", function () {
@@ -241,6 +241,64 @@ describe("util", function () {
             sinon.assert.calledWith(stubQueryMethodFilter, Object.keys(stubFilter)[1]);
             sinon.assert.calledWith(stubQueryMethodEq, stubFilter.foo);
             sinon.assert.calledWith(stubQueryMethodFilterOperator, Object.values(Object.values(stubFilter)[0])[0]);
+        });
+    });
+
+    describe("applyScanQueryOptions", function () {
+        it("sorts query results in the requested direction", function () {
+            const query = {
+                sort: sinon.stub().returnsThis(),
+                using: sinon.stub().returnsThis(),
+                startAt: sinon.stub().returnsThis()
+            };
+
+            applyScanQueryOptions(query, {descending: false, indexName: "type-datePublished-index"});
+
+            sinon.assert.calledWith(query.sort, "ascending");
+            sinon.assert.calledWith(query.using, "type-datePublished-index");
+        });
+
+        it("does not sort scans", function () {
+            const scan = {using: sinon.stub().returnsThis(), startAt: sinon.stub().returnsThis()};
+
+            expect(applyScanQueryOptions(scan, {descending: true})).to.eql(scan);
+        });
+    });
+
+    describe("DynamooseModel#getRecords", function () {
+        it("continues raw pages until transformed records fill the requested limit", async function () {
+            const firstPage = [
+                {uid: "invalid", valid: false},
+                {uid: "first", valid: true}
+            ];
+            firstPage.lastKey = {uid: "first"};
+            const secondPage = [
+                {uid: "first", valid: true},
+                {uid: "second", valid: true}
+            ];
+            const retriever = {
+                and: sinon.stub().returnsThis(),
+                filter: sinon.stub().returnsThis(),
+                eq: sinon.stub().returnsThis(),
+                sort: sinon.stub().returnsThis(),
+                startAt: sinon.stub().returnsThis(),
+                limit: sinon.stub().returnsThis(),
+                exec: sinon.stub().onFirstCall().resolves(firstPage).onSecondCall().resolves(secondPage)
+            };
+            const model = Object.create(DynamooseModel.prototype);
+            model.dynamooseModel = {query: sinon.stub().returns(retriever)};
+
+            const records = await model.getRecords({
+                _query: {type: {eq: "Photo"}},
+                _options: {
+                    descending: true,
+                    limit: 2,
+                    recordValidator: record => record.valid ? record : null
+                }
+            });
+
+            expect(records.map(record => record.uid)).to.eql(["first", "second"]);
+            expect(retriever.exec.calledTwice).to.eql(true);
         });
     });
 });

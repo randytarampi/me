@@ -21,12 +21,20 @@ class CacheClient {
      * @param searchParams {PostSearchParams} A combination of attributes that we're looking for
      * @returns {Promise<Record[]>}
      */
-    async getRecords(searchParams) {
+    async getRecords(searchParams, recordValidator) {
         logger.trace(`getting records (${JSON.stringify(searchParams)}) from cache`);
 
         const queries = Array.isArray(searchParams[this.type]) ? searchParams[this.type] : [searchParams[this.type]];
 
-        return Promise.all(queries.map(this.dataClient.getRecords))
+        return Promise.all(queries.map(query => recordValidator
+            ? this.dataClient.getRecords({
+                ...query,
+                _options: {
+                    ...query._options,
+                    recordValidator
+                }
+            })
+            : this.dataClient.getRecords(query)))
             .then(results => results.flat())
             .catch(error => {
                 logger.error(error, `error for (${JSON.stringify(searchParams)})`);
