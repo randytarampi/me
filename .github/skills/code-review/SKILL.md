@@ -15,7 +15,7 @@ Execute the shared review method below — do not substitute your own rubric.
 
 Prefer, in order:
 
-1. A trusted checkout at `dotfiles-review/configs/review/code-review-prompt.md`
+1. A trusted checkout at `__TRUSTED_DOTFILES__/configs/review/code-review-prompt.md`
    (present in CI runs of the agentic-review workflow).
 2. `configs/review/code-review-prompt.md` in the current repository.
 3. The inlined method below (use this whenever neither file exists; you do not

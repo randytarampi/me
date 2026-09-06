@@ -24,15 +24,15 @@ jobs:
         with:
           repository: randytarampi/dotfiles
           ref: main
-          path: dotfiles-review
+          path: __TRUSTED_DOTFILES__
           persist-credentials: false
           fetch-depth: 1
       - name: Cache codegraph index
-        uses: actions/cache@v6
+        uses: actions/cache@v4
         with:
           path: .codegraph
           key: codegraph-${{ runner.os }}-${{ github.repository }}-${{ github.sha }}
           restore-keys: |
             codegraph-${{ runner.os }}-${{ github.repository }}-
       - name: Install codegraph + build index
-        run: bash dotfiles-review/scripts/ci-codegraph.sh
+        run: bash __TRUSTED_DOTFILES__/scripts/ci-codegraph.sh
