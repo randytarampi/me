@@ -94,6 +94,14 @@ export default ({posts, total, first, last, ...metadata}, parsedHeaders) => {
         return responseBuilder(buildPostsV3ResponseBody({posts, total, first, last, ...metadata}));
     }
 
+    if (checkMeVersionHeader(parsedHeaders, 5)) {
+        return responseBuilder({
+            posts: posts.map(setPostRawToNull),
+            nextCursor: metadata.nextCursor || null,
+            hasMore: Boolean(metadata.hasMore)
+        });
+    }
+
     throw new RequestError(`\`${meVersionHeaderName}\` specifies unsupported version of \`${getMeVersionHeaderValue(parsedHeaders)}\``, RequestError.codes.badRequest);
 };
 

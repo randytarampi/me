@@ -247,6 +247,21 @@ describe("Post", function () {
     });
 
     describe("getRecords", function () {
+        it("queries the public-feed GSI with an exclusive sort continuation", async function () {
+            const first = Post.fromJSON({...stubPost.toJSON(), id: "first", datePublished: "2024-01-02T00:00:00.000Z", dateCreated: "2024-01-02T00:00:00.000Z"});
+            const second = Post.fromJSON({...stubPost.toJSON(), id: "second", datePublished: "2024-01-01T00:00:00.000Z", dateCreated: "2024-01-01T00:00:00.000Z"});
+            await PostModel.createRecords([first, second]);
+            const partition = `VISIBLE#${first.type}#${first.source}`;
+            const firstPage = await PostModel.dynamooseModel.query("publicFeedPartition").eq(partition)
+                .using("publicFeed-datePublished-index").sort("descending").limit(1).exec();
+            const continuation = await PostModel.dynamooseModel.query("publicFeedPartition").eq(partition)
+                .where("publicFeedSort").lt(firstPage[0].publicFeedSort)
+                .using("publicFeed-datePublished-index").sort("descending").exec();
+
+            expect(firstPage).to.have.length(1);
+            expect(continuation.map(post => post.uid)).to.eql([second.uid]);
+        });
+
         it("retrieves posts (type)", async function () {
             const moreThanOnePhoto = stubPosts.concat([
                 Photo.fromJSON({

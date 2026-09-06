@@ -132,4 +132,18 @@ describe("fetchPosts", function () {
             fetchStub.restore();
         }
     });
+
+    it("requests the V5 cursor contract without sending the client-only switch", async function () {
+        const fetchStub = sinon.stub(global, "fetch").callsFake((fetchUrl, options) => {
+            expect(fetchUrl).to.eql("/fetch!?continuationToken=cursor%3D%3D");
+            expect(options.headers["ME-API-VERSION"]).to.eql(5);
+            return Promise.resolve({json: () => Promise.resolve({posts: [], nextCursor: null, hasMore: false})});
+        });
+
+        try {
+            expect(await fetchPostsApi("/fetch!", {usePublicFeedV5: true, continuationToken: "cursor=="})).to.eql({posts: [], nextCursor: null, hasMore: false});
+        } finally {
+            fetchStub.restore();
+        }
+    });
 });

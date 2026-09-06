@@ -2,6 +2,7 @@ import {DateTime} from "luxon";
 import {createComplexPostsSelector, getBasePostsSelectorForType, selectors} from "../../data/selectors.js";
 import {generateFilterFunctionForFilterName} from "../../util/posts.js";
 import {FETCHING_POSTS_PER_PAGE, fetchingPostsCancelled, fetchPostsCreator} from "./fetchPosts.js";
+import {getApiStateForUrlFromGlobalState} from "../../data/api.js";
 
 const selectOldestFilteredPost = (postType, filter, filterValue, state) => {
     const postsFilters = [generateFilterFunctionForFilterName[filter](filterValue)];
@@ -11,7 +12,7 @@ const selectOldestFilteredPost = (postType, filter, filterValue, state) => {
     return posts && posts.last();
 };
 
-export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter, filterValue, perPage = FETCHING_POSTS_PER_PAGE, ...params} = {}) => (dispatch, getState) => {
+export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter, filterValue, perPage = FETCHING_POSTS_PER_PAGE, usePublicFeedV5, ...params} = {}) => (dispatch, getState) => {
     const state = getState();
     const searchType = "blog";
     const oldestLoadedPostDateString = selectors.getOldestFetchedPostDateForSearchTypeAndPostType(state, searchType, postType);
@@ -25,21 +26,32 @@ export const fetchPostsForBlogCreator = (fetchUrl, postType = "global", {filter,
     const oldestPostAvailableDateString = selectors.getOldestAvailablePostDateForSearchTypeAndPostType(state, searchType, postType);
     const oldestPostAvailableDate = oldestPostAvailableDateString && DateTime.fromISO(oldestPostAvailableDateString);
 
-    const searchParams = {
-        perPage,
-        ...params,
-        ...(
-            oldestLoadedPostDate
-                ? {
-                    orderBy: "datePublished",
-                    orderOperator: "lt",
-                    orderComparator: oldestLoadedPostDate.toISO(),
-                    orderComparatorType: "String",
-                    beforeId: loadedPosts && loadedPosts.uid
-                }
-                : null
-        )
-    };
+    const searchParams = usePublicFeedV5
+        ? {
+            perPage,
+            ...params,
+            usePublicFeedV5,
+            continuationToken: getApiStateForUrlFromGlobalState(state, fetchUrl)?.get("nextCursor")
+        }
+        : {
+            perPage,
+            ...params,
+            ...(
+                oldestLoadedPostDate
+                    ? {
+                        orderBy: "datePublished",
+                        orderOperator: "lt",
+                        orderComparator: oldestLoadedPostDate.toISO(),
+                        orderComparatorType: "String",
+                        beforeId: loadedPosts && loadedPosts.uid
+                    }
+                    : null
+            )
+        };
+
+    if (usePublicFeedV5 && !getApiStateForUrlFromGlobalState(state, fetchUrl)?.get("hasMore") && getApiStateForUrlFromGlobalState(state, fetchUrl)?.has("hasMore")) {
+        return dispatch(fetchingPostsCancelled({searchParams, fetchUrl}));
+    }
 
     if (filter) {
         searchParams[filter] = filterValue;

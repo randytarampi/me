@@ -23,10 +23,13 @@ export const apiReducer = (state = Map(), action) => {
         case FETCHING_POSTS_FAILURE_RECOVERY: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
 
-            return state.set(action.payload.fetchUrl, fromJS({
+            const nextState = {
                 ...currentFetchUrlState.toJS(),
                 isLoading: false
-            }));
+            };
+            if (Object.prototype.hasOwnProperty.call(action.payload, "nextCursor")) nextState.nextCursor = action.payload.nextCursor || null;
+            if (Object.prototype.hasOwnProperty.call(action.payload, "hasMore")) nextState.hasMore = action.payload.hasMore;
+            return state.set(action.payload.fetchUrl, fromJS(nextState));
         }
 
         case FETCHING_POSTS_FAILURE: {

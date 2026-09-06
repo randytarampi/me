@@ -41,6 +41,7 @@ export const connectPosts = connect(
                     ...(match && match.params),
                     ...fetchPostsParams,
                     perPage: FETCHING_POSTS_PER_PAGE,
+                    usePublicFeedV5: typeof __BUILD_IS_DEVELOPMENT__ !== "undefined" && __BUILD_IS_DEVELOPMENT__,
                     ...passedParams
                 };
                 return dispatch(fetchPostsForBlogCreator(fetchUrl, type, searchParams));

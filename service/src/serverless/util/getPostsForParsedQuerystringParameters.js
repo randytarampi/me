@@ -3,11 +3,15 @@ import _ from "lodash";
 import searchPosts from "../../lib/sources/searchPosts.js";
 import sortPostsByDatePublished from "../../lib/sortPostsByDatePublished.js";
 import parseHiddenPostSources from "./parseHiddenPostSources.js";
+import getPostsV5 from "./getPostsV5.js";
 import parseQueryStringParametersIntoSearchParams from "./parseQueryStringParametersIntoSearchParams.js";
 import {checkHeader as checkMeVersionHeader} from "./request/headers/version.js";
 
 const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {}, headers) => {
     const isV4 = checkMeVersionHeader(headers, 4);
+    if (checkMeVersionHeader(headers, 5)) {
+        return getPostsV5({type, ...queryParameters});
+    }
     const hiddenPostSources = parseHiddenPostSources();
     const sortPosts = isV4 ? sortPostsByDatePublished : sortPostsByDate;
     let postTypesToFetch = [];

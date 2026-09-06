@@ -6,14 +6,15 @@ import queryString from "query-string";
 /** @param {string} fetchUrl - The API URL. @param {object} searchParams - Query params. @returns {Promise<object>} The fetched payload. */
 export const fetchPostsApi = (fetchUrl, searchParams) => {
     const parsedFetchUrl = queryString.parseUrl(fetchUrl);
+    const {usePublicFeedV5, ...requestSearchParams} = searchParams || {};
     return fetch(`${parsedFetchUrl.url}?${queryString.stringify({
         ...parsedFetchUrl.query,
-        ...searchParams
+        ...requestSearchParams
     })}`, {
         headers: {
             "Accept": "application/json",
             "Accept-Charset": "utf-8",
-            "ME-API-VERSION": 4
+            "ME-API-VERSION": usePublicFeedV5 ? 5 : 4
         }
     })
         .then(body => body.json())
