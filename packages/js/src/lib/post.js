@@ -46,6 +46,8 @@ export const PostClassGenerator = otherProperties => class AbstractPost extends 
     tags: List(),
     locationCreated: null,
     status: POST_STATUS.visible,
+    publicFeedPartition: null,
+    publicFeedSort: null,
     ...otherProperties
 }) {
     constructor({dateCreated, datePublished, tags, locationCreated, geohash, lat, long, ...properties} = {}) {

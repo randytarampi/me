@@ -45,6 +45,24 @@ const sanitizeRawForDynamo = value => {
  */
 const DYNAMODB_BATCH_WRITE_LIMIT = 25;
 
+const getValidEffectivePublicationEpoch = record => {
+    if (record.status !== "VISIBLE" || !record.type || !record.source || !record.uid) {
+        return undefined;
+    }
+
+    const getEpoch = date => date && typeof date.toMillis === "function"
+        ? date.toMillis()
+        : date instanceof Date
+            ? date.getTime()
+            : undefined;
+    const publicationEpoch = getEpoch(record.datePublished);
+    const epoch = Number.isInteger(publicationEpoch) ? publicationEpoch : getEpoch(record.dateCreated);
+
+    return Number.isInteger(epoch) && epoch >= 0 && epoch <= 9999999999999
+        ? epoch
+        : undefined;
+};
+
 /**
  * Convert an Immutable [Record]{@link Record} into a plain object Dynamoose v4 can persist.
  * @param record {Record}
@@ -57,6 +75,12 @@ const recordToDynamoObject = record => {
     // instance), so the schemas' composite-key `default: model => \`${model.source}…${model.id}\`` would
     // crash. The Immutable Record already derives the same `uid`, so we provide it explicitly here.
     object.uid = record.uid;
+
+    const effectivePublicationEpoch = getValidEffectivePublicationEpoch(record);
+    if (effectivePublicationEpoch !== undefined) {
+        object.publicFeedPartition = `VISIBLE#${record.type}#${record.source}`;
+        object.publicFeedSort = `${String(effectivePublicationEpoch).padStart(13, "0")}#${record.uid}`;
+    }
 
     return Object.keys(object).reduce((normalized, key) => {
         let value = toDynamoCompatibleValue(object[key]);

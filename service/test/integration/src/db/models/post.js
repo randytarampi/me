@@ -96,6 +96,8 @@ describe("Post", function () {
             expect(createdPost.uid).to.eql(stubPost.uid);
             const postFromDb = await PostModel.dynamooseModel.get({uid: createdPost.uid, status: POST_STATUS.visible});
             expect(postFromDb).to.be.ok;
+            expect(postFromDb.publicFeedPartition).to.eql(`VISIBLE#${stubPost.type}#${stubPost.source}`);
+            expect(postFromDb.publicFeedSort).to.match(/^\d{13}#.+$/);
         });
 
         it("persists a post from a Photo", async function () {
@@ -189,6 +191,8 @@ describe("Post", function () {
                     status: POST_STATUS.visible
                 });
                 expect(postFromDb.uid).to.eql(createdPost.uid);
+                expect(postFromDb.publicFeedPartition).to.eql(`VISIBLE#${createdPost.type}#${createdPost.source}`);
+                expect(postFromDb.publicFeedSort).to.match(/^\d{13}#.+$/);
             }));
         });
 

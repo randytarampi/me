@@ -137,6 +137,14 @@ const post = new Schema({
         type: String,
         enum: Object.values(POST_STATUS),
         hashKey: true
+    },
+    // Synthetic public-feed attributes are persisted now so Phase 2 can index them. They are
+    // intentionally not indexed here; an AttributeDefinition is only valid once an index uses it.
+    publicFeedPartition: {
+        type: String
+    },
+    publicFeedSort: {
+        type: String
     }
 }, {
     throughput: "ON_DEMAND",

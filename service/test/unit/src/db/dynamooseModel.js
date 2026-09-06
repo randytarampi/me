@@ -63,6 +63,46 @@ describe("util", function () {
 
             expect(dynamoObject.raw).to.eql(undefined);
         });
+
+        it("derives public feed keys from visible posts and falls back to dateCreated", function () {
+            const stubPost = Post.fromJS({
+                id: "post",
+                type: "Post",
+                source: "s3",
+                dateCreated: new Date("2024-01-02T03:04:05.006Z"),
+                raw: {id: "post"}
+            });
+
+            expect(recordToDynamoObject(stubPost)).to.include({
+                publicFeedPartition: "VISIBLE#Post#s3",
+                publicFeedSort: "1704164645006#s3--@me/sep!-post"
+            });
+
+            const invalidPublicationDatePost = stubPost.set("datePublished", new Date("invalid"));
+            expect(recordToDynamoObject(invalidPublicationDatePost).publicFeedSort).to.eql("1704164645006#s3--@me/sep!-post");
+        });
+
+        it("omits public feed keys for missing, invalid, or nonvisible properties", function () {
+            const invalidPosts = [
+                Post.fromJS({id: "missing-source", type: "Post"}),
+                Post.fromJS({id: "invalid-date", type: "Post", source: "s3", dateCreated: new Date("invalid")}),
+                Post.fromJS({id: "hidden", type: "Post", source: "s3", status: "HIDDEN", dateCreated: new Date()})
+            ];
+
+            invalidPosts.forEach(post => {
+                const dynamoObject = recordToDynamoObject(post);
+                expect(dynamoObject).not.to.have.any.keys("publicFeedPartition", "publicFeedSort");
+            });
+        });
+
+        it("sorts chronology lexicographically and uses UID as the tie breaker", function () {
+            const older = Post.fromJS({id: "z", type: "Post", source: "s3", dateCreated: new Date("2024-01-01T00:00:00.000Z")});
+            const newer = Post.fromJS({id: "a", type: "Post", source: "s3", dateCreated: new Date("2024-01-02T00:00:00.000Z")});
+            const tied = Post.fromJS({id: "a", type: "Post", source: "s3", dateCreated: new Date("2024-01-01T00:00:00.000Z")});
+
+            const keys = [older, newer, tied].map(post => recordToDynamoObject(post).publicFeedSort);
+            expect(keys.slice().sort()).to.eql([keys[2], keys[0], keys[1]]);
+        });
     });
 
     describe("buildQueryWithFilter", function () {
