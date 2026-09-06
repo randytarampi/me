@@ -96,6 +96,9 @@ const getPostsV5 = async ({type, source, tags, status, perPage = 100, continuati
     if (status && status !== "VISIBLE") {
         throw new RequestError("V5 only supports visible posts", RequestError.codes.badRequest);
     }
+    if (Object.keys(queryParameters).length) {
+        throw new RequestError("V5 does not support this query shape", RequestError.codes.badRequest);
+    }
     const hiddenSources = parseHiddenPostSources();
     const types = postTypesForQuery(type);
     const partitions = getVisibleFeedPartitions({types, source, hiddenSources});
