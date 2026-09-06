@@ -35,5 +35,11 @@ config:
   me:secret.sentry-dsn:
     secure: v1:LoMTGmBauEEs9cFX:4pZqxo/dTsxYi/670jVaA0YzIvZcWeCd6fICGtRjABblx9iLQXJdotkyHAOFrH03L7r6shdemd6nA5TSoVjH4qZOciAfek+4O0E=
   me:devDeploymentBranches: []
+  me:githubSecret.SENTRY_AUTH_TOKEN:
+    secure: v1:L2QC4FFo/wekWWQk:dqqF2q+WdIuuFfNVB9QGau7V9juk3asUSnJTDVrq0n4wiQy9NlP9dUNAbAIuVEw1gc7HHljpF/BqcZtfVbVLn7WzcGgs7Dpjei9+h/ilIATly+RnRO+K
+  me:githubSecret.COVERALLS_REPO_TOKEN:
+    secure: v1:+KORBZwG7YH6P37F:kE/e/4G67FPlOXZ1vQ+4RcYo9QitLvw3yhiLXNZ9Nvn7DVSdpCq4ZyJnkQjrlwhHOg==
+  me:githubSecret.GH_PAGES_DEPLOYMENT_TOKEN:
+    secure: v1:/csDhA2hs0nfVaKZ:S2PuP8XTKcBg7n/Zh6tCB7AAC0ocjzawHKk5VnAPtWmCsTQWN6wE7L7b7qDqUAzWHnoBAR5IXf8=
 secretsprovider: awskms://alias/serverless-prd?region=ca-central-1
 encryptedkey: AQICAHi8KvDrpmNRNqlu4t6u71fmXNWsHmz668ZwJ/1dLcXL2AF5hJqwGhcIE7Pyr5EksHdSAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMQGzORh5p473oYR1LAgEQgDsTdgwR/fttKwR2nVMM9hJ7xCO7xr9V75EbLma0HEoURQVLksqtLlP3dAUNQ2c/E+pepQwodM2V+yiASA==
