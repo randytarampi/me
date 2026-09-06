@@ -17,7 +17,6 @@ describe("searchPosts", function () {
     let stubPhoto;
     let stubPosts;
     let stubGetRecords;
-    let stubGetRecordCount;
     let stubGetRecord;
 
     beforeEach(function () {
@@ -36,7 +35,6 @@ describe("searchPosts", function () {
         stubPosts = [stubPhoto, stubPost];
 
         stubGetRecords = sinon.stub().resolves(stubPosts);
-        stubGetRecordCount = sinon.stub().resolves(stubPosts.length);
         stubGetRecord = sinon.stub().callsFake(params => Promise.resolve(params.orderBy === "descending" ? stubPhoto : stubPost));
 
         sinon.stub(sources[stubSource], "instanceToRecord").callsFake(json => {
@@ -56,7 +54,6 @@ describe("searchPosts", function () {
 
     it("delegates to `CacheClient` functions", async function () {
         sinon.stub(CacheClient.prototype, "getRecords").callsFake(stubGetRecords);
-        sinon.stub(CacheClient.prototype, "getRecordCount").callsFake(stubGetRecordCount);
         sinon.stub(CacheClient.prototype, "getRecord").callsFake(stubGetRecord);
 
         const stubSearchParams = new PostSearchParams();
@@ -71,8 +68,7 @@ describe("searchPosts", function () {
             lastFetched: stubPhoto
         });
 
-        expect(stubGetRecordCount.calledOnce).to.eql(true);
-        expect(stubGetRecords.calledOnce).to.eql(true);
+        expect(stubGetRecords.calledTwice).to.eql(true);
         expect(stubGetRecord.calledTwice).to.eql(true);
     });
 
@@ -82,7 +78,6 @@ describe("searchPosts", function () {
     // `Cannot read properties of undefined (reading 'map')`.
     it("degrades to an empty result when `getRecords` resolves `undefined`", async function () {
         sinon.stub(CacheClient.prototype, "getRecords").resolves(undefined);
-        sinon.stub(CacheClient.prototype, "getRecordCount").callsFake(stubGetRecordCount);
         sinon.stub(CacheClient.prototype, "getRecord").callsFake(stubGetRecord);
 
         const stubSearchParams = new PostSearchParams();
@@ -92,15 +87,24 @@ describe("searchPosts", function () {
     });
 
     it("skips cached raw payloads that cannot produce an identified post", async function () {
-        sinon.stub(CacheClient.prototype, "getRecords").resolves([
-            {source: stubSource, raw: "not JSON"},
-            {source: stubSource, raw: JSON.stringify({type: "photo"})}
-        ]);
-        sinon.stub(CacheClient.prototype, "getRecordCount").resolves(2);
+        sinon.stub(CacheClient.prototype, "getRecords").callsFake(params => Promise.resolve(params.all
+            ? [
+                {source: stubSource, raw: "not JSON"},
+                {source: stubSource, raw: JSON.stringify({type: "photo"})}
+            ]
+            : [
+                {source: stubSource, raw: "not JSON"},
+                {source: stubSource, raw: JSON.stringify({type: "photo"})}
+            ]));
         sinon.stub(CacheClient.prototype, "getRecord").resolves(undefined);
 
         const postsResult = await searchPosts(new PostSearchParams());
 
         expect(postsResult.posts).to.eql([stubPhoto]);
+        expect(postsResult.total).to.eql(1);
+        expect(postsResult.first).to.eql(null);
+        expect(postsResult.last).to.eql(null);
+        expect(postsResult.firstFetched).to.eql(stubPhoto);
+        expect(postsResult.lastFetched).to.eql(stubPhoto);
     });
 });
