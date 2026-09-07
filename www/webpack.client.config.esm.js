@@ -45,7 +45,9 @@ export default webpackBaseConfig({
 
     entry: {
         [bundleName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/views/index.jsx")],
-        [swBundleInstallerName]: ["raf/polyfill", "materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
+        // The service-worker installer does not touch the DOM or animation APIs; loading the
+        // browser RAF polyfill here duplicated the prd bundle's polyfill warning.
+        [swBundleInstallerName]: ["materialize-css", path.join(__dirname, "src/public/sw/installer.js")],
         styles: path.join(__dirname, "./styles/style.scss")
     },
     optimization: {

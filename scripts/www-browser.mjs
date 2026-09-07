@@ -80,6 +80,12 @@ const tabAccessibility = async ({page}) => {
     }
 };
 
+const polyfillWarnings = async ({page, pageErrors}) => {
+    await page.goto(target, {waitUntil: "networkidle2", timeout: 30000});
+    const duplicatePolyfillErrors = pageErrors.filter(error => /polyfill/i.test(error));
+    if (duplicatePolyfillErrors.length) throw new Error(`polyfill warning reached the browser: ${duplicatePolyfillErrors.join("; ")}`);
+};
+
 // PRD remains read-only behavioural reference. A11y/404 standards belong in the follow-up gate lane;
 // the parity tab scenario intentionally uses the WAI-ARIA/router semantics rather than PRD's defects.
 for (const bypassServiceWorker of [false, true]) {
@@ -108,6 +114,12 @@ try {
 } catch (error) {
     if (!isPrd) throw error;
     console.log(JSON.stringify({scenario: "tab-accessibility", prdDivergence: error.message}));
+}
+try {
+    await runBrowserScenario({name: "polyfill-warning-free", url: target, scenario: polyfillWarnings});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "polyfill-warning-free", prdDivergence: error.message}));
 }
 try {
     await runBrowserScenario({name: "map-interaction", url: target, scenario: mapInteraction});
