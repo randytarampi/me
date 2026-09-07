@@ -158,7 +158,11 @@ const mergePublicFeedPages = async ({perPage, fetchPage, cursor, policy, metrics
             returned.push(post);
         }
 
-        hasMore = Boolean(page.lastKey);
+        // DynamoDB can return exactly `perPage + 1` valid records without a
+        // LastEvaluatedKey. The extra record is still proof of another page;
+        // relying on LastEvaluatedKey here silently dropped it at the terminal
+        // boundary and emitted no continuation token.
+        hasMore = Boolean(page.lastKey) || returned.length > perPage;
         pageCursor = page.lastKey;
         if (returned.length <= perPage && hasMore) {
             refills++;

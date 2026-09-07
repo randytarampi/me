@@ -106,4 +106,27 @@ describe("getPostsV5", function () {
         expect(continuation.posts.map(value => value.uid)).to.eql(["duplicate", "old"]);
         expect(continuation.hasMore).to.eql(false);
     });
+
+    it("keeps the terminal extra record when DynamoDB has no LastEvaluatedKey", async function () {
+        const result = await mergePublicFeedPages({
+            perPage: 2,
+            policy: "policy",
+            fetchPage: async () => ({
+                posts: [
+                    visiblePost("new", "2024-01-03T00:00:00.000Z"),
+                    visiblePost("same", "2024-01-02T00:00:00.000Z"),
+                    visiblePost("last", "2024-01-01T00:00:00.000Z")
+                ],
+                lastKey: undefined,
+                evaluated: 3,
+                filtered: 0,
+                rejected: 0,
+                duplicates: 0
+            })
+        });
+
+        expect(result.posts.map(value => value.uid)).to.eql(["new", "same"]);
+        expect(result.hasMore).to.equal(true);
+        expect(decodeCursor(result.nextCursor)).to.include({datePublished: "2024-01-02T00:00:00.000Z", uid: "same"});
+    });
 });
