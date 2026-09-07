@@ -12,6 +12,8 @@ Canonical commands:
 - `yarn start:service` — run the backend
 - `yarn start:www` — run the public app
 - `yarn start:web` — run service + www together
+- `yarn feed:v5:test` — hermetic local V5 feed gate: LocalStack → migrate → seed → Serverless Offline → webpack → unit/DB/HTTP/browser layers → cleanup (requires Node 24; see [docs/FEED_V5_LOCAL.md](docs/FEED_V5_LOCAL.md))
+- `yarn feed:v5:dev` — interactive local V5 loop (same lifecycle, stays running)
 
 Constraints and sharp edges:
 - Node 24, Yarn 4.18, and Lerna 10 are the baseline.
@@ -24,7 +26,7 @@ Constraints and sharp edges:
 - `materialize-css`-era code is legacy and brittle; keep changes there narrow.
 - PDF/image attachments are unreadable to coding agents — never ask the user to re-send; probe artifacts instead with `pdftotext` (text), `pdfinfo` (page count/size), `pdffonts` (embedded fonts), or `cmp`/python (byte checks). See `packages/job-application/scripts/probe-pdf.sh` for the ready-made triad.
 - **Adversarial review before push.** Before pushing any commit that changes GitHub Actions workflows, Pulumi infrastructure code, or IAM/OIDC configuration, run an adversarial review: check that all referenced workflow files exist, all action versions are valid, all permissions are consistent between callers and callees, and all environment declarations match IAM trust policies. Run `actionlint` to catch YAML and workflow syntax errors. This is not optional for infrastructure changes.
-- **AWS credentials.** The agent shell has scrubbed AWS credentials — all AWS commands must be handed to the user as copy/paste blocks. See [docs/AWS_CREDENTIALS.md](docs/AWS_CREDENTIALS.md) for the pattern.
+- **AWS credentials.** Verify with `aws sts get-caller-identity` before assuming anything: if credentials are present, prefer local AWS checks directly; if they're scrubbed, hand AWS commands to the user as copy/paste blocks per [docs/AWS_CREDENTIALS.md](docs/AWS_CREDENTIALS.md). Some agent lanes have no credential access even when the orchestrator shell does.
 
 Details:
 - [Architecture](docs/ARCHITECTURE.md)
