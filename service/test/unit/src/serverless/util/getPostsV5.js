@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {RequestError} from "@randy.tarampi/js";
-import {decodeCursor, encodeCursor, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, normalizeDynamoKey} from "../../../../../src/serverless/util/getPostsV5.js";
+import {decodeCursor, encodeCursor, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, normalizeDynamoKey, sortPostsByDatePublished} from "../../../../../src/serverless/util/getPostsV5.js";
 
 const post = (uid, sort) => ({uid, publicFeedSort: sort});
-const visiblePost = (uid, datePublished) => ({uid, datePublished});
+const visiblePost = (uid, datePublished) => ({uid, datePublished, source: "s3", type: "Post"});
 
 describe("getPostsV5", function () {
     it("does not create query shards for hidden sources", function () {
@@ -12,6 +12,16 @@ describe("getPostsV5", function () {
 
     it("does not create shards for historical sources outside the registered allowlist", function () {
         expect(getVisibleFeedPartitions({types: ["Post"], hiddenSources: [], registeredSources: ["s3", "github"], source: "twitter"})).to.eql([]);
+    });
+
+    it("sorts equal-date posts by uid descending", function () {
+        const posts = [
+            visiblePost("equal-a", "2024-01-01T00:00:00.000Z"),
+            visiblePost("newer", "2024-01-02T00:00:00.000Z"),
+            visiblePost("equal-b", "2024-01-01T00:00:00.000Z")
+        ];
+
+        expect(posts.sort(sortPostsByDatePublished).map(value => value.uid)).to.eql(["newer", "equal-b", "equal-a"]);
     });
 
     it("k-way merges skewed shards, removes duplicates, and refills exhausted pages", async function () {

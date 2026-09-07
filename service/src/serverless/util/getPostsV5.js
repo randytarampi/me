@@ -20,6 +20,11 @@ const dateToMillis = value => {
 const dateToCursorValue = value => value instanceof Date
     ? value.toISOString()
     : value && typeof value.toISO === "function" ? value.toISO() : String(value);
+const sortPostsByDatePublished = (leftPost, rightPost) => {
+    const dateDifference = dateToMillis(rightPost.datePublished) - dateToMillis(leftPost.datePublished);
+
+    return dateDifference || String(rightPost.uid).localeCompare(String(leftPost.uid));
+};
 const encodeCursor = cursor => Buffer.from(JSON.stringify(cursor)).toString("base64url");
 const decodeCursor = cursor => {
     if (!cursor || typeof cursor !== "string" || !CURSOR_PATTERN.test(cursor)) {
@@ -218,6 +223,10 @@ const readVisibleFeed = async ({model, type, source, tags, perPage, cursor, hidd
             seenPage.add(post.uid);
             posts.push(post);
         }
+        // The LSI only orders by datePublished. Sort every fetched page by the complete
+        // datePublished/uid total order before applying the cursor, or equal-date records
+        // crossing a DynamoDB page boundary can be skipped by isAfterCursor forever.
+        posts.sort(sortPostsByDatePublished);
         return {
             posts,
             lastKey: page.lastKey,
@@ -283,5 +292,5 @@ const getPostsV5 = async ({type, source, tags, status, perPage = 100, continuati
     return result;
 };
 
-export {decodeCursor, encodeCursor, getPostsV5, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, normalizeDynamoKey, readVisibleFeed, REGISTERED_SOURCE_NAMES};
+export {decodeCursor, encodeCursor, getPostsV5, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, normalizeDynamoKey, readVisibleFeed, REGISTERED_SOURCE_NAMES, sortPostsByDatePublished};
 export default getPostsV5;
