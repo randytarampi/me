@@ -96,6 +96,8 @@ describe("ui", function () {
     it("doesn't crash when the route has no corresponding tab", function () {
         selectors.getIndexForRoute.restore();
         sinon.stub(selectors, "getIndexForRoute").returns(-1);
+        const remove = sinon.stub();
+        stubMTabs.$tabLinks = [{classList: {remove}, parentElement: {classList: {remove}}}];
 
         ui(stubStore)(stubNext)({
             type: LOCATION_CHANGE,
@@ -104,6 +106,7 @@ describe("ui", function () {
 
         expect(stubNext.calledOnce).to.eql(true);
         expect(stubSelect.notCalled).to.eql(true);
+        expect(remove.calledWith("active")).to.eql(true);
     });
 
     it("dispatches `clearError` on `SWIPEABLE_CHANGE_INDEX`", function () {

@@ -64,6 +64,12 @@ const subtypeRedirects = async ({page}) => {
     }
 };
 
+const unknownRoute = async ({page}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/this-route-does-not-exist`, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForSelector(".error", {timeout: 30000});
+    if (await page.$(".tab.active")) throw new Error("unknown route selected a tab");
+};
+
 // PRD remains read-only behavioural reference. A11y/404 standards belong in the follow-up gate lane;
 // the parity tab scenario intentionally uses the WAI-ARIA/router semantics rather than PRD's defects.
 for (const bypassServiceWorker of [false, true]) {
@@ -80,6 +86,12 @@ try {
 } catch (error) {
     if (!isPrd) throw error;
     console.log(JSON.stringify({scenario: "subtype-redirects", prdDivergence: error.message}));
+}
+try {
+    await runBrowserScenario({name: "unknown-route-no-tab", url: target, scenario: unknownRoute});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "unknown-route-no-tab", prdDivergence: error.message}));
 }
 try {
     await runBrowserScenario({name: "map-interaction", url: target, scenario: mapInteraction});

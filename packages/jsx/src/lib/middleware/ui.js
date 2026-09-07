@@ -33,7 +33,13 @@ const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
     const expectedTabIndex = getSwipeableTabsExpectedTabIndex(state, action);
     const expectedTabId = getSwipeableTabsExpectedTabId(swipeableTabs, store, action);
 
-    if (!Number.isInteger(expectedTabIndex) || expectedTabIndex < 0 || !expectedTabId) return;
+    if (!Number.isInteger(expectedTabIndex) || expectedTabIndex < 0 || !expectedTabId) {
+        swipeableTabs.$tabLinks.forEach(tabLink => {
+            tabLink?.classList?.remove("active");
+            tabLink?.parentElement?.classList?.remove("active");
+        });
+        return;
+    }
 
     if (swipeableTabs.index !== expectedTabIndex) {
         swipeableTabs.select(expectedTabId);
