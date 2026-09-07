@@ -17,8 +17,9 @@ Offline `3006`, and webpack `8080`.
 
 Focused commands are `feed:v5:test:unit`, `feed:v5:test:db`,
 `feed:v5:test:http`, `feed:v5:test:browser`, and the sequential aggregate.
-The browser command uses a fresh Puppeteer profile; set
-`FEED_V5_BROWSER_URL` to exercise a rehydrated browser profile separately.
+The browser command uses a fresh Puppeteer profile and proves the clean-profile
+request and hydration contract. It does not persist or rehydrate a browser
+profile; `FEED_V5_BROWSER_URL` only changes the page URL.
 
 The local loop proves merge/cursor/hydration logic, real Dynamoose schema and
 indexes against LocalStack, Offline HTTP contracts, and browser V5 request and
