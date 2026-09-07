@@ -67,8 +67,27 @@ jobs:
           sudo apt-get install --yes language-pack-ja 'japan*' fonts-wqy-microhei ttf-wqy-microhei
       - name: Actually run `yarn install`
         run: yarn install
-      - name: Build feed runtime dependencies
-        run: yarn workspace @randy.tarampi/lambda-logger build
+      # The browser gate starts both Serverless Offline and webpack.  Do not rely on Nx's
+      # affected-project selection here: this job checks out a clean tree and needs every
+      # workspace entry point that those two processes resolve at runtime.
+      - name: Build www browser gate runtime dependencies
+        run: >-
+          yarn lerna run build
+          --scope @randy.tarampi/js
+          --scope @randy.tarampi/lambda-logger
+          --scope @randy.tarampi/serverless
+          --scope @randy.tarampi/browser-logger
+          --scope @randy.tarampi/redux-metrics
+          --scope @randy.tarampi/views
+          --scope @randy.tarampi/jsx
+          --scope @randy.tarampi/css
+          --scope @randy.tarampi/printables
+          --scope @randy.tarampi/resume
+          --scope @randy.tarampi/letter
+          --scope jsonresume-theme-randytarampi
+          --scope @randy.tarampi/www
+          --include-dependencies
+          --stream
       - name: Run www browser gate
         run: yarn www:v5:test:browser
       - name: Cleanup local services
