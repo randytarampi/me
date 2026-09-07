@@ -205,6 +205,7 @@ export default ({
                 overlay: true
             },
             compress: true,
+            historyApiFallback: true,
             static: {
                 directory: compliationDirectoryPath,
                 // NOTE-RT: `watch: false` — see docs/CONVENTIONS.md#webpack

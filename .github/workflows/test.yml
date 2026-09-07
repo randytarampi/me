@@ -24,6 +24,55 @@ on:
           - prd
 
 jobs:
+  www-browser:
+    name: Run www browser gate
+    permissions:
+      contents: read
+    runs-on:
+      - ubuntu-latest
+    concurrency: www-browser-${{ github.ref }}
+    services:
+      localstack:
+        image: localstack/localstack:4
+        ports:
+          - 4566:4566
+        env:
+          SERVICES: dynamodb
+        options: >-
+          --health-cmd "curl --fail http://localhost:4566/_localstack/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 12
+          --health-start-period 20s
+    env:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-east-1
+      NX_DAEMON: false
+    steps:
+      - name: Run `git checkout`
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Setup node@24
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: yarn
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup dependencies on build runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes language-pack-ja 'japan*' fonts-wqy-microhei ttf-wqy-microhei
+      - name: Actually run `yarn install`
+        run: yarn install
+      - name: Run www browser gate
+        run: yarn www:v5:test:browser
+      - name: Cleanup local services
+        if: always()
+        run: yarn run kill --scope @randy.tarampi/service
+
   test:
     name: Run affected test suite
     permissions:
