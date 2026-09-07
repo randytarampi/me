@@ -13,6 +13,8 @@ const sinon = require("sinon");
 const {fetchingPostsSuccess} = require("../../../../src/lib/actions/posts/fetchPosts.js");
 const fetchPostsForBlog = require("../../../../src/lib/actions/posts/fetchPostsForBlog.js").default || require("../../../../src/lib/actions/posts/fetchPostsForBlog.js");
 const reducer = require("../../../../src/lib/data/posts.js").default || require("../../../../src/lib/data/posts.js");
+const apiReducer = require("../../../../src/lib/data/api.js").default || require("../../../../src/lib/data/api.js");
+const {getPosts} = require("../../../../src/lib/data/posts.js");
 
 describe("fetchPostsForBlog integration", function () {
     afterEach(function () {
@@ -83,5 +85,54 @@ describe("fetchPostsForBlog integration", function () {
         expect(requestUrl.searchParams.get("continuationToken")).to.eql("opaque");
         expect(requestUrl.searchParams.has("beforeId")).to.eql(false);
         expect(requestUrl.searchParams.has("orderComparator")).to.eql(false);
+    });
+
+    it("propagates the V5 cursor between infinite loads and merges unique posts", async function () {
+        const fetchUrl = "https://service.dev.randytarampi.ca/posts";
+        const firstPost = Post.fromJSON({
+            id: "first",
+            source: "fixture",
+            dateCreated: "2020-01-01T00:00:00.000Z",
+            datePublished: "2020-01-01T00:00:00.000Z"
+        });
+        const secondPost = Post.fromJSON({
+            id: "second",
+            source: "fixture",
+            dateCreated: "2019-12-01T00:00:00.000Z",
+            datePublished: "2019-12-01T00:00:00.000Z"
+        });
+        const responses = [
+            {posts: [firstPost.toJSON()], nextCursor: "opaque-cursor", hasMore: true},
+            {posts: [firstPost.toJSON(), secondPost.toJSON()], nextCursor: null, hasMore: false}
+        ];
+        const requestUrls = [];
+        const fetchStub = sinon.stub(global, "fetch").callsFake((url, options) => {
+            requestUrls.push({url, options});
+            return Promise.resolve({json: () => Promise.resolve(responses.shift())});
+        });
+        let state = Map({api: Map(), posts: reducer(undefined, {type: "@@INIT"})});
+        const dispatch = action => {
+            if (typeof action === "function") return action(dispatch, () => state);
+
+            state = state
+                .set("api", apiReducer(state.get("api"), action))
+                .set("posts", reducer(state.get("posts"), action));
+            return action;
+        };
+
+        await dispatch(fetchPostsForBlog(fetchUrl, "global", {usePublicFeedV5: true}));
+        expect(state.getIn(["api", fetchUrl, "nextCursor"])).to.eql("opaque-cursor");
+
+        await dispatch(fetchPostsForBlog(fetchUrl, "global", {usePublicFeedV5: true}));
+
+        const secondRequestUrl = new URL(requestUrls[1].url);
+        expect(secondRequestUrl.searchParams.get("continuationToken")).to.eql("opaque-cursor");
+        expect(secondRequestUrl.searchParams.has("beforeId")).to.eql(false);
+        expect(secondRequestUrl.searchParams.has("orderBy")).to.eql(false);
+        expect(secondRequestUrl.searchParams.has("orderOperator")).to.eql(false);
+        expect(secondRequestUrl.searchParams.has("orderComparator")).to.eql(false);
+        expect(getPosts(state.get("posts")).map(post => post.uid).toJS()).to.have.members([firstPost.uid, secondPost.uid]);
+        expect(getPosts(state.get("posts")).size).to.eql(2);
+        expect(fetchStub.callCount).to.eql(2);
     });
 });

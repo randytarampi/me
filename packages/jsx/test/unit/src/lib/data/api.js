@@ -106,6 +106,21 @@ describe("api", function () {
             expect(errorStateForUrl).to.not.be.ok;
             expect(errorStateForUrl).to.eql(undefined);
         });
+
+        it("persists V5 pagination metadata", function () {
+            const stubFetchUrl = "/woof";
+            const updatedState = reducer(stubInitialState, fetchingPostsSuccess({
+                fetchUrl: stubFetchUrl,
+                nextCursor: "opaque-cursor",
+                hasMore: true
+            }));
+
+            expect(getApiStateForUrl(updatedState, stubFetchUrl).toJS()).to.eql({
+                isLoading: false,
+                nextCursor: "opaque-cursor",
+                hasMore: true
+            });
+        });
     });
 
     describe("FETCHING_POSTS_CANCELLED", function () {
