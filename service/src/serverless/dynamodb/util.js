@@ -1,7 +1,10 @@
 import dynamoose from "dynamoose";
 
 const setupLocal = () => {
-    if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test" || !process.env.NODE_ENV) {
+    // NOTE-RT: Lambda does not set NODE_ENV. Do not treat an unset NODE_ENV as local: deployed
+    // `dev`/`prd` functions use real stage table names and must keep the SDK's configured client.
+    // The local harness and test suite explicitly identify themselves with one of these flags.
+    if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
         const endpoint = process.env.AWS_ENDPOINT_URL || "http://localhost:4566";
         const parsedEndpoint = new URL(endpoint);
         if (!["localhost", "127.0.0.1", "::1"].includes(parsedEndpoint.hostname)) {
