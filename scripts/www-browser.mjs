@@ -33,7 +33,7 @@ const mapInteraction = async ({page, requests}) => {
         .some(element => /^(Twelve|Eleven)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
     const before = postsRequests(requests, target).length;
     const marker = await page.$("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']");
-    await marker.click();
+    await marker.evaluate(element => element.click());
     await page.waitForSelector(".gm-style-iw, [role='dialog']", {timeout: 30000});
     const windows = await page.$$(".gm-style-iw, [role='dialog']");
     if (windows.length !== 1) throw new Error(`expected one open map window, found ${windows.length}`);
@@ -44,7 +44,8 @@ const mapInteraction = async ({page, requests}) => {
     if (postsRequests(requests, target).length !== before) throw new Error("opening a map card issued a feed request");
     const cardIds = await page.$$eval(".gm-style-iw .post[id], [role='dialog'] .post[id]", cards => cards.map(card => card.id));
     if (new Set(cardIds).size !== cardIds.length) throw new Error("map window rendered duplicate cards");
-    await page.click(".gm-style-iw button, .gm-ui-hover-effect, [role='dialog'] button");
+    const closeButton = await page.$(".gm-style-iw button, .gm-ui-hover-effect, [role='dialog'] button");
+    await closeButton?.evaluate(element => element.click());
     await page.waitForFunction(() => !document.querySelector(".gm-style-iw, [role='dialog']"), {timeout: 30000});
 };
 
@@ -73,9 +74,10 @@ const unknownRoute = async ({page}) => {
 const tabAccessibility = async ({page}) => {
     await page.goto(target, {waitUntil: "networkidle2", timeout: 30000});
     await page.waitForSelector("[role='tab']", {timeout: 30000});
-    const selected = await page.$$eval("[role='tab']", tabs => tabs.filter(tab => tab.getAttribute("aria-selected") === "true"));
-    if (selected.length !== 1) throw new Error(`expected exactly one selected tab, found ${selected.length}`);
-    if (!selected[0].classList.contains("active") && !selected[0].parentElement?.classList.contains("active")) {
+    const selectedCount = await page.$$eval("[role='tab']", tabs => tabs.filter(tab => tab.getAttribute("aria-selected") === "true").length);
+    if (selectedCount !== 1) throw new Error(`expected exactly one selected tab, found ${selectedCount}`);
+    const selected = await page.$("[role='tab'][aria-selected='true']");
+    if (!await selected?.evaluate(tab => tab.classList.contains("active") || tab.parentElement?.classList.contains("active"))) {
         throw new Error("aria-selected tab is not Materialize-active");
     }
 };

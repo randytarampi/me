@@ -13,9 +13,9 @@ const helloBear = new HelloBear();
 export const PhotosRouteHandler = () => <Navigate to="/blog/photos" replace/>;
 export const WordsRouteHandler = () => <Navigate to="/blog/words" replace/>;
 export const BlogRouteHandler = props => <Fragment>
-    <Helmet>
+    {!Object.hasOwn(props, "type") && <Helmet>
         <title>{__ME_PERSON_NAME__} — Follow me</title>
-    </Helmet>
+    </Helmet>}
     <ConnectedPosts
         {...props}
         fetchUrl={`${__POSTS_SERVICE_URL__}`}
@@ -36,9 +36,9 @@ export const BlogPhotoRouteHandler = props => <Fragment>
 </Fragment>;
 
 export const MapPostsHandler = props => <Fragment>
-    <Helmet>
+    {!Object.hasOwn(props, "type") && <Helmet>
         <title>{__ME_PERSON_NAME__} — Stalk me</title>
-    </Helmet>
+    </Helmet>}
     <ConnectedMappedPosts
         fetchUrl={`${__POSTS_SERVICE_URL__}`}
         mapContainerHeight="calc(100vh - 48px)"

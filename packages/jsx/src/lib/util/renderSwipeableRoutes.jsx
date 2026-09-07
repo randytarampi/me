@@ -6,7 +6,15 @@ import {matchPath, useLocation} from "react-router";
 // NOTE-RT: `react-router@7`'s `matchPath(pattern, pathname)` replaces `react-router@5`'s `matchPath(pathname, options)`;
 // NOTE-RT: `react-router@5` prefix-matched unless `exact` was set, so `end` defaults to the route's `exact` flag.
 export const matchRouteForPathname = (route, pathname) => route.path
-    ? matchPath({path: route.path, end: !!route.exact, caseSensitive: !!route.sensitive}, pathname)
+    ? matchPath({
+        // RR5 accepted inline parameter regexes (for example `:filter(tags)`),
+        // while RR7 treats the parentheses as part of the parameter syntax and
+        // fails to match the path. Keep the route shape while matching the
+        // parameter as an ordinary segment.
+        path: route.path.replace(/:([^/()]+)\([^/()]+\)/g, ":$1"),
+        end: !!route.exact,
+        caseSensitive: !!route.sensitive
+    }, pathname)
     : null;
 
 export const renderRoute = (route, extraProps, location) => {
@@ -14,6 +22,12 @@ export const renderRoute = (route, extraProps, location) => {
     const routeProps = {...extraProps, location, match, route};
 
     if (route.path && !match) {
+        return null;
+    }
+
+    // A tab route remains mounted to provide its swipeable pane, but its
+    // nested route must own the content (and Helmet state) when selected.
+    if (route.routes?.some(childRoute => matchRouteForPathname(childRoute, location.pathname))) {
         return null;
     }
 
