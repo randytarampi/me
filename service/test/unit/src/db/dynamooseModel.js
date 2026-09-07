@@ -2,7 +2,7 @@ import {expect} from "chai";
 import sinon from "sinon";
 import dynamoose from "dynamoose";
 import {Post} from "@randy.tarampi/js";
-import {applyScanQueryOptions, buildQueryWithFilter, DynamooseModel, recordToDynamoObject} from "../../../../src/db/dynamooseModel.js";
+import {applyScanQueryOptions, buildQueryWithFilter, DynamooseModel, normalizeDynamoKey, recordToDynamoObject} from "../../../../src/db/dynamooseModel.js";
 import PostSchema from "../../../../src/db/schema/post.js";
 
 describe("util", function () {
@@ -310,6 +310,15 @@ describe("util", function () {
     });
 
     describe("applyScanQueryOptions", function () {
+        it("normalizes Date values in pagination keys", function () {
+            const date = new Date("2024-01-01T00:00:00.000Z");
+            const query = {startAt: sinon.stub().returnsThis()};
+
+            applyScanQueryOptions(query, {ExclusiveStartKey: {status: "VISIBLE", datePublished: date}});
+
+            sinon.assert.calledWith(query.startAt, {status: "VISIBLE", datePublished: date.getTime()});
+        });
+
         it("sorts query results in the requested direction", function () {
             const query = {
                 sort: sinon.stub().returnsThis(),
@@ -327,6 +336,19 @@ describe("util", function () {
             const scan = {using: sinon.stub().returnsThis(), startAt: sinon.stub().returnsThis()};
 
             expect(applyScanQueryOptions(scan, {descending: true})).to.eql(scan);
+        });
+    });
+
+    describe("normalizeDynamoKey", function () {
+        it("normalizes nested Date and DateTime values without changing other scalars", async function () {
+            const date = new Date("2024-01-01T00:00:00.000Z");
+            const dateTime = {toMillis: () => date.getTime()};
+
+            expect(normalizeDynamoKey({date, nested: [dateTime], uid: "post"})).to.eql({
+                date: date.getTime(),
+                nested: [date.getTime()],
+                uid: "post"
+            });
         });
     });
 

@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {RequestError} from "@randy.tarampi/js";
-import {decodeCursor, encodeCursor, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards} from "../../../../../src/serverless/util/getPostsV5.js";
+import {decodeCursor, encodeCursor, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, normalizeDynamoKey} from "../../../../../src/serverless/util/getPostsV5.js";
 
 const post = (uid, sort) => ({uid, publicFeedSort: sort});
 const visiblePost = (uid, datePublished) => ({uid, datePublished});
@@ -61,6 +61,16 @@ describe("getPostsV5", function () {
 
         expect(decodeCursor(cursor)).to.eql({v: 5, d: "descending", policy: "policy", datePublished: "2024-01-01T00:00:00.000Z", uid: "uid"});
         expect(() => decodeCursor("not valid!")).to.throw(RequestError);
+    });
+
+    it("normalizes Date values in DynamoDB continuation keys", function () {
+        const date = new Date("2024-01-01T00:00:00.000Z");
+
+        expect(normalizeDynamoKey({status: "VISIBLE", datePublished: date, nested: [date]})).to.eql({
+            status: "VISIBLE",
+            datePublished: date.getTime(),
+            nested: [date.getTime()]
+        });
     });
 
     it("refills a bounded visibility stream without gaps or duplicate cursor results", async function () {

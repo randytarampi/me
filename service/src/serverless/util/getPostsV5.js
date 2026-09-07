@@ -3,6 +3,7 @@ import logger from "../logger.js";
 import {getModel as getPostModel} from "../../db/models/post.js";
 import {sources} from "../../lib/sources/index.js";
 import {cachedValueToPost} from "../../lib/sources/searchPosts.js";
+import {normalizeDynamoKey} from "../../db/dynamooseModel.js";
 import parseHiddenPostSources from "./parseHiddenPostSources.js";
 
 const PUBLIC_FEED_INDEX_NAME = "publicFeed-datePublished-index";
@@ -10,6 +11,15 @@ const VISIBLE_FEED_INDEX_NAME = "status-datePublished-index";
 const CURSOR_PATTERN = /^[A-Za-z0-9_-]+$/;
 const REGISTERED_SOURCE_NAMES = Object.freeze(Object.keys(sources).sort());
 
+const dateToMillis = value => {
+    if (value instanceof Date) return value.getTime();
+    if (value && typeof value.toMillis === "function") return value.toMillis();
+    if (typeof value === "number") return value;
+    return Date.parse(String(value));
+};
+const dateToCursorValue = value => value instanceof Date
+    ? value.toISOString()
+    : value && typeof value.toISO === "function" ? value.toISO() : String(value);
 const encodeCursor = cursor => Buffer.from(JSON.stringify(cursor)).toString("base64url");
 const decodeCursor = cursor => {
     if (!cursor || typeof cursor !== "string" || !CURSOR_PATTERN.test(cursor)) {
@@ -93,8 +103,8 @@ const getVisibleFeedPartitions = ({types, source, hiddenSources, registeredSourc
 };
 
 const isAfterCursor = (post, cursor) => !cursor
-    || post.datePublished < cursor.datePublished
-    || (post.datePublished === cursor.datePublished && String(post.uid).localeCompare(String(cursor.uid)) < 0);
+    || dateToMillis(post.datePublished) < dateToMillis(cursor.datePublished)
+    || (dateToMillis(post.datePublished) === dateToMillis(cursor.datePublished) && String(post.uid).localeCompare(String(cursor.uid)) < 0);
 
 const mergePublicFeedPages = async ({perPage, fetchPage, cursor, policy, metrics = {}} = {}) => {
     const returned = [];
@@ -156,7 +166,7 @@ const mergePublicFeedPages = async ({perPage, fetchPage, cursor, policy, metrics
     }
 
     const posts = returned.slice(0, perPage);
-    const nextCursor = hasMore && posts.length ? encodeCursor({v: 5, d: "descending", policy, datePublished: posts[posts.length - 1].datePublished, uid: posts[posts.length - 1].uid}) : undefined;
+    const nextCursor = hasMore && posts.length ? encodeCursor({v: 5, d: "descending", policy, datePublished: dateToCursorValue(posts[posts.length - 1].datePublished), uid: posts[posts.length - 1].uid}) : undefined;
     return {posts, hasMore, nextCursor, metrics: {...metrics, pages, refills, evaluated, returned: posts.length, filtered, rejected, duplicates}};
 };
 
@@ -175,8 +185,11 @@ const readVisibleFeed = async ({model, type, source, tags, perPage, cursor, hidd
     const fetchPage = async (exclusiveStartKey, limit) => {
         let query = model.dynamooseModel.query("status").eq("VISIBLE")
             .using(VISIBLE_FEED_INDEX_NAME).sort("descending").limit(limit);
-        const queryCursor = exclusiveStartKey || (cursor && {datePublished: cursor.datePublished});
-        if (queryCursor) query = query.where("datePublished").le(new Date(queryCursor.datePublished));
+        if (exclusiveStartKey) {
+            query = query.startAt(normalizeDynamoKey(exclusiveStartKey));
+        } else if (cursor) {
+            query = query.where("datePublished").le(dateToMillis(cursor.datePublished));
+        }
         if (tags) query = query.filter("tags").contains(tags);
         const page = await query.exec();
         let filtered = 0;
@@ -235,7 +248,7 @@ const getPostsV5 = async ({type, source, tags, status, perPage = 100, continuati
     const exactSourceShape = Boolean(type && source);
     const policy = JSON.stringify({direction: "descending", hiddenSources, registeredSources, query: {type: type || null, source: source || null, tags: tags || null, status: status || "VISIBLE", ...queryParameters}});
     const decodedCursor = continuationToken ? decodeCursor(continuationToken) : null;
-    if (decodedCursor && (decodedCursor.v !== 5 || decodedCursor.d !== "descending" || decodedCursor.policy !== policy || !decodedCursor.datePublished || !Date.parse(decodedCursor.datePublished) || typeof decodedCursor.uid !== "string" || (exactSourceShape && !decodedCursor.sort))) {
+    if (decodedCursor && (decodedCursor.v !== 5 || decodedCursor.d !== "descending" || decodedCursor.policy !== policy || !decodedCursor.datePublished || !Number.isFinite(dateToMillis(decodedCursor.datePublished)) || typeof decodedCursor.uid !== "string" || (exactSourceShape && !decodedCursor.sort))) {
         throw new RequestError("`continuationToken` does not match this request", RequestError.codes.badRequest);
     }
     const model = getPostModel();
@@ -260,11 +273,11 @@ const getPostsV5 = async ({type, source, tags, status, perPage = 100, continuati
     };
     const result = await mergePublicFeedShards({shards: partitions, perPage: Math.max(1, Number(perPage)), fetchPage, cursor: decodedCursor && decodedCursor.sort});
     if (result.hasMore) {
-        result.nextCursor = encodeCursor({v: 5, d: "descending", policy, datePublished: result.posts[result.posts.length - 1].datePublished, uid: result.posts[result.posts.length - 1].uid, sort: result.posts[result.posts.length - 1].publicFeedSort});
+        result.nextCursor = encodeCursor({v: 5, d: "descending", policy, datePublished: dateToCursorValue(result.posts[result.posts.length - 1].datePublished), uid: result.posts[result.posts.length - 1].uid, sort: result.posts[result.posts.length - 1].publicFeedSort});
     }
     logger.info({v: 5, partitions: partitions.length, durationMs: Date.now() - startedAt, ...result.metrics}, "public feed query");
     return result;
 };
 
-export {decodeCursor, encodeCursor, getPostsV5, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, readVisibleFeed, REGISTERED_SOURCE_NAMES};
+export {decodeCursor, encodeCursor, getPostsV5, getVisibleFeedPartitions, mergePublicFeedPages, mergePublicFeedShards, normalizeDynamoKey, readVisibleFeed, REGISTERED_SOURCE_NAMES};
 export default getPostsV5;

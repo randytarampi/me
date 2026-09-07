@@ -17,6 +17,20 @@ const toDynamoCompatibleValue = value => {
 };
 
 /**
+ * Normalize DynamoDB pagination keys before Dynamoose passes them to the AWS
+ * marshaller. Date attributes are stored as epoch numbers by the schema, but
+ * Dynamoose returns native Dates in LastEvaluatedKey values.
+ * @param value {*}
+ * @returns {*}
+ */
+const normalizeDynamoKey = value => value instanceof Date
+    ? value.getTime()
+    : value && typeof value.toMillis === "function" ? value.toMillis()
+        : Array.isArray(value) ? value.map(normalizeDynamoKey)
+            : value && typeof value === "object" ? Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeDynamoKey(item)]))
+                : value;
+
+/**
  * `raw` is declared as `dynamoose.type.ANY` (see `db/schema/{post,authInfo}.js`) - a verbatim,
  * untyped third-party API/YAML-parsed response - so dynamoose has no schema to type-check or convert
  * its nested content, and it flows straight to the AWS SDK's marshaller unmodified. Some sources
@@ -513,7 +527,7 @@ const applyScanQueryOptions = (itemRetriever, _options = {}) => {
     }
 
     if (ExclusiveStartKey) {
-        retriever = retriever.startAt(ExclusiveStartKey);
+        retriever = retriever.startAt(normalizeDynamoKey(ExclusiveStartKey));
     }
 
     if ((_options.descending === true || _options.descending === false) && typeof retriever.sort === "function") {
@@ -575,4 +589,4 @@ const recursivelyGet = ({_options, _filter, _query}, modelGetter) => async justF
 
 export default DynamooseModel;
 
-export {recordToDynamoObject, publicFeedAttributesForRecord, buildScanFilter, buildQueryWithFilter, applyScanQueryOptions, recursivelyGet, DynamooseModel};
+export {recordToDynamoObject, publicFeedAttributesForRecord, buildScanFilter, buildQueryWithFilter, applyScanQueryOptions, normalizeDynamoKey, recursivelyGet, DynamooseModel};
