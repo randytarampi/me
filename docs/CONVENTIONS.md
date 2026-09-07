@@ -81,6 +81,7 @@ Rules:
 - **Keep local runs hermetic.** A local harness never talks to AWS or external services and refuses non-loopback endpoints. One command should own the whole lifecycle (start → readiness → migrate → seed → test → cleanup); don't leave database destruction hidden in package lifecycle hooks.
 - **Local timings don't predict cloud latency.** They're useful for correctness and relative cost only. Lambda memory/CPU, API Gateway behaviour, real DynamoDB latency/capacity/throttling, cold starts and IAM are dev-AWS checks — run once, deliberately, after all local layers pass.
 - Current exemplar: `yarn feed:v5:test` (service + www, see `docs/FEED_V5_LOCAL.md`). Reuse its orchestration when building harnesses for other deployable apps.
+- **Browser-smoke template**: put reusable Puppeteer lifecycle and assertions in `scripts/browser-smoke.mjs`; each scenario may run with a fresh or deliberately rehydrated profile, and registers request capture before navigation. Keep local fixtures hermetic, assert both DOM state and network behaviour, and write screenshots/JSON traces only on failure under `.artifacts/`. `yarn www:browser:test` runs the www tab/map smoke beside the feed gate; `yarn www:browser:prd` is a read-only behavioural reference and `yarn www:browser:dev` checks the deployed dev surface. Resume, letter and job-application harnesses should instantiate this pattern during the `react-materialize` migration rather than copy the old feed script.
 
 ## Error handling
 
