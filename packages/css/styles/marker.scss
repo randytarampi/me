@@ -2,6 +2,11 @@
     &-info-box, &-info-window {
         @extend .z-depth-1;
         background-size: cover;
+        box-sizing: border-box;
+        height: min(75vh, 480px);
+        max-width: 75vw;
+        overflow: hidden;
+        width: min(75vw, 480px);
 
         img {
             object-fit: cover;

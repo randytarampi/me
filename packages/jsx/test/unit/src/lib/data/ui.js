@@ -259,6 +259,14 @@ describe("ui", function () {
             expect(controlState.toJS()).to.eql(stubControlStateUpdate);
         });
 
+        it("closes another visible marker when opening one", function () {
+            stubInitialState = fromJS({controls: {first: {visible: true}}});
+            const updatedState = reducer(stubInitialState, setControlState({id: "second", visible: true}));
+
+            expect(getControlStateForId(updatedState, "first").get("visible")).to.equal(false);
+            expect(getControlStateForId(updatedState, "second").get("visible")).to.equal(true);
+        });
+
         it("reduces the correct state (has existing state)", function () {
             const stubPayload = {id: "woof", meow: "grr"};
             const {id, ...stubControlStateUpdate} = stubPayload;

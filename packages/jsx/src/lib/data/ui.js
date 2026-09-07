@@ -35,8 +35,13 @@ export const uiReducer = (state = initialState, action) => {
         case SET_CONTROL_STATE: {
             const {id, ...updatedControlState} = action.payload;
             const existingControlState = getControlStateForId(state, id) || Map();
+            const controlsState = state.get("controls") || Map();
+            const controls = updatedControlState.visible === true
+                ? controlsState.map(control => control.set("visible", false))
+                : controlsState;
 
             return state
+                .set("controls", controls)
                 .setIn(["controls", id], existingControlState.mergeDeep(fromJS(updatedControlState)));
         }
 

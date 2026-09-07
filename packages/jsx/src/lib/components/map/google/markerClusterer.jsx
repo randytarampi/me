@@ -16,6 +16,9 @@ import PropTypes from "prop-types";
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useMap} from "@vis.gl/react-google-maps";
 import {GoogleMapMarkerClustererStyles} from "./styles.js";
+import {getClusterMarkerChanges} from "./clusterMarkerChanges.js";
+
+export {getClusterMarkerChanges} from "./clusterMarkerChanges.js";
 
 const {MarkerClusterer} = MarkerClustererModule.MarkerClusterer
     ? MarkerClustererModule
@@ -67,6 +70,7 @@ export const GoogleMapMarkerClustererComponent = ({styles = GoogleMapMarkerClust
     const [markers, setMarkers] = useState({});
     const renderer = useMemo(() => buildGoogleMapMarkerClustererRenderer({styles}), [styles]);
     const clusterer = useRef(null);
+    const previousMarkers = useRef({});
 
     useEffect(() => {
         if (!map) {
@@ -88,8 +92,16 @@ export const GoogleMapMarkerClustererComponent = ({styles = GoogleMapMarkerClust
             return;
         }
 
-        clusterer.current.clearMarkers();
-        clusterer.current.addMarkers(Object.values(markers));
+        const changes = getClusterMarkerChanges(previousMarkers.current, markers);
+
+        if (changes.toRemove.length) {
+            clusterer.current.removeMarkers(changes.toRemove);
+        }
+        if (changes.toAdd.length) {
+            clusterer.current.addMarkers(changes.toAdd);
+        }
+
+        previousMarkers.current = markers;
     }, [markers]);
 
     const setMarkerRef = useCallback((marker, key) => {

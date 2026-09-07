@@ -4,6 +4,9 @@ import React, {PureComponent} from "react";
 import {ConnectedMap} from "../containers/map/index.jsx";
 import {ConnectedPostMarker} from "../containers/postMarker.jsx";
 import {GoogleMapMarkerClustererComponent} from "./map/index.jsx";
+import {shouldFetchForMapIdle} from "./mapViewport.js";
+
+export {hasMaterialViewportChange, shouldFetchForMapIdle} from "./mapViewport.js";
 
 export class MappedPostsComponent extends PureComponent {
     static defaultProps = {
@@ -15,6 +18,8 @@ export class MappedPostsComponent extends PureComponent {
 
         this.googleMapRef = React.createRef();
         this.getGoogleMap = this.getGoogleMap.bind(this);
+        this.handleMapIdle = this.handleMapIdle.bind(this);
+        this.lastFetchedBounds = null;
     }
 
     get googleMap() {
@@ -22,6 +27,7 @@ export class MappedPostsComponent extends PureComponent {
     }
 
     componentDidMount() {
+        this.lastFetchedBounds = this.props.currentBounds;
         if (this.props.shouldFetchPostsOnMount) {
             this.props.fetchPosts();
         }
@@ -31,13 +37,28 @@ export class MappedPostsComponent extends PureComponent {
         return this.googleMap;
     }
 
+    handleMapIdle() {
+        const map = this.googleMap;
+        const bounds = this.props.currentBounds;
+        const suppressIdle = !!(map && map.__randySuppressNextIdle);
+
+        if (map) {
+            delete map.__randySuppressNextIdle;
+        }
+
+        if (shouldFetchForMapIdle(this.lastFetchedBounds, bounds, suppressIdle)) {
+            this.lastFetchedBounds = bounds;
+            this.props.fetchPosts();
+        }
+    }
+
     render() {
-        const {posts, fetchPosts, ...props} = this.props;
+        const {posts, ...props} = this.props;
 
         return <ConnectedMap
             {...props}
             googleMapRef={this.googleMapRef}
-            onIdle={fetchPosts}
+            onIdle={this.handleMapIdle}
         >
             <GoogleMapMarkerClustererComponent
                 enableRetinaIcons

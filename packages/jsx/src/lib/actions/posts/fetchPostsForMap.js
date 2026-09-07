@@ -3,6 +3,12 @@ import {fetchPostsCreator} from "./fetchPosts.js";
 
 export const fetchPostsForMapCreator = (mapId, fetchUrl, postType = "global", {filter, filterValue, ...params} = {}) => (dispatch, getState) => {
     const state = getState();
+    const apiState = selectors.getApiStateForUrl(state, fetchUrl);
+
+    if (apiState && apiState.get("hasMore") === false) {
+        return Promise.resolve();
+    }
+
     const searchType = "map";
     const mapState = selectors.getMap(state, mapId);
     const {center, bounds} = mapState ? mapState.toJS() : {};

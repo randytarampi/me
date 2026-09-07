@@ -14,6 +14,7 @@ import {
     PostTagsComponent,
     PostTitleComponent
 } from "./post.jsx";
+import {buildInfoWindowOptions} from "./infoWindowOptions.js";
 
 export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading}) => {
     const rowClassName = ["marker-info-box-post"];
@@ -94,9 +95,8 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
 
         return <InfoWindow
             anchor={anchor}
-            onCloseClick={onVisibilityToggle}
-            pixelOffset={[-1 * this.width / 2, -1 * this.height / 2]}
-            maxWidth={Math.round(window.innerWidth * 3 / 4)}
+            onClose={() => onVisibilityToggle(false)}
+            {...buildInfoWindowOptions()}
         >
             <div
                 className={`marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`}
@@ -157,9 +157,8 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
             {
                 (source, isLoading) => <InfoWindow
                     anchor={anchor}
-                    onCloseClick={onVisibilityToggle}
-                    pixelOffset={[-1 * this.scaledWidth / 2, -1 * this.scaledHeight / 2]}
-                    maxWidth={this.scaledWidth}
+                    onClose={() => onVisibilityToggle(false)}
+                    {...buildInfoWindowOptions()}
                 >
                     <div
                         className={["marker-info-box", `marker-info-box__${post.type}`, this.postInfoBoxElementId].join(" ")}
@@ -177,10 +176,6 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
                                 isLoading={isLoading}
                                 post={post}
                                 title={this.title}
-                                style={{
-                                    height: this.scaledHeight,
-                                    width: this.scaledWidth
-                                }}
                             />
                         </Provider>
                     </div>
