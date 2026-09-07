@@ -81,7 +81,7 @@ describe("dist/browserBundle", function () {
         const isKnownUnreachableApiError = error =>
             error && typeof error.message === "string" && /fetch|network|ERR_/i.test(error.message);
 
-        browser = await puppeteer.launch({headless: true, args: ["--no-sandbox"]});
+        browser = await puppeteer.launch({headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"]});
         page = await browser.newPage();
 
         page.on("pageerror", error => {

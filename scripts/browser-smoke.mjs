@@ -6,7 +6,11 @@ const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, millise
 export const runBrowserScenario = async ({name, url, profileMode = "fresh", bypassServiceWorker = false, setup, scenario}) => {
     const requests = [];
     const pageErrors = [];
-    const browser = await puppeteer.launch({headless: "new"});
+    const disableSandbox = process.env.PUPPETEER_NO_SANDBOX === "1" || process.env.CI || process.getuid?.() === 0;
+    const browser = await puppeteer.launch({
+        headless: "new",
+        args: disableSandbox ? ["--no-sandbox", "--disable-setuid-sandbox"] : []
+    });
     let page;
 
     try {
