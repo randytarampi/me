@@ -1,3 +1,4 @@
+/* global document, window */
 import puppeteer from "puppeteer";
 import {mkdir, writeFile} from "node:fs/promises";
 
