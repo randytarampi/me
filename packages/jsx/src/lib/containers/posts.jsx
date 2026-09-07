@@ -14,6 +14,22 @@ import {shouldUsePublicFeedV5} from "../util/publicFeedVersion.js";
 // V5 rollout dev-only while retaining the existing V4 client for production and local builds.
 export const USE_PUBLIC_FEED_V5 = typeof __BUILD_NODE_ENV__ !== "undefined"
     && shouldUsePublicFeedV5(__BUILD_NODE_ENV__);
+export const getUsePublicFeedV5 = value => value ?? USE_PUBLIC_FEED_V5;
+
+const postsMapDispatchToProps = (dispatch, {fetchUrl = "/posts", type, match, fetchPostsParams, usePublicFeedV5}) => {
+    return {
+        fetchPosts: passedParams => {
+            const searchParams = {
+                ...(match && match.params),
+                ...fetchPostsParams,
+                perPage: FETCHING_POSTS_PER_PAGE,
+                usePublicFeedV5: getUsePublicFeedV5(usePublicFeedV5),
+                ...passedParams
+            };
+            return dispatch(fetchPostsForBlogCreator(fetchUrl, type, searchParams));
+        }
+    };
+};
 
 export const connectPosts = connect(
     (state, ownProps) => {
@@ -40,20 +56,7 @@ export const connectPosts = connect(
 
         return props;
     },
-    (dispatch, {fetchUrl = "/posts", type, match, fetchPostsParams}) => {
-        return {
-            fetchPosts: passedParams => {
-                const searchParams = {
-                    ...(match && match.params),
-                    ...fetchPostsParams,
-                    perPage: FETCHING_POSTS_PER_PAGE,
-                    usePublicFeedV5: USE_PUBLIC_FEED_V5,
-                    ...passedParams
-                };
-                return dispatch(fetchPostsForBlogCreator(fetchUrl, type, searchParams));
-            }
-        };
-    }
+    postsMapDispatchToProps
 );
 
 export const ConnectedPosts = connectPosts(MeasuredPostsComponent);
