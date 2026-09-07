@@ -12,17 +12,23 @@ const spawnChild = (command, args, options = {}) => {
     return child;
 };
 
-const waitFor = async (url, attempts = 60) => {
+const readinessAttempts = Number.parseInt(process.env.FEED_V5_READINESS_ATTEMPTS || "60", 10);
+const readinessIntervalMs = Number.parseInt(process.env.FEED_V5_READINESS_INTERVAL_MS || "500", 10);
+
+const waitFor = async (url, attempts = readinessAttempts, intervalMs = readinessIntervalMs) => {
+    let lastError = "no response";
     for (let attempt = 1; attempt <= attempts; attempt++) {
         try {
             const response = await fetch(url);
             if (response.ok || response.status === 404) return;
-        } catch {
-            // Readiness retries intentionally ignore connection refusals.
+            lastError = `HTTP ${response.status}`;
+        } catch (error) {
+            lastError = error.message;
         }
-        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log(`Readiness retry ${attempt}/${attempts} for ${url}: ${lastError}`);
+        await new Promise(resolve => setTimeout(resolve, intervalMs));
     }
-    throw new Error(`Timed out waiting for ${url}`);
+    throw new Error(`Timed out waiting for ${url} after ${attempts} attempts; last error: ${lastError}`);
 };
 
 const cleanup = () => {

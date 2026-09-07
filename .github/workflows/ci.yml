@@ -52,6 +52,8 @@ jobs:
       id-token: write
     secrets:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+      SERVERLESS_LICENSE_KEY: ${{ secrets.SERVERLESS_LICENSE_KEY }}
 
   deploy__infrastructure--dev:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}

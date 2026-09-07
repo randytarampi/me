@@ -11,6 +11,10 @@ on:
     secrets:
       COVERALLS_REPO_TOKEN:
         required: true
+      SERVERLESS_ACCESS_KEY:
+        required: true
+      SERVERLESS_LICENSE_KEY:
+        required: true
 
   workflow_dispatch:
     inputs:
@@ -49,6 +53,10 @@ jobs:
       AWS_SECRET_ACCESS_KEY: test
       AWS_REGION: us-east-1
       NX_DAEMON: false
+      FEED_V5_READINESS_ATTEMPTS: 1200
+      FEED_V5_READINESS_INTERVAL_MS: 500
+      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+      SERVERLESS_LICENSE_KEY: ${{ secrets.SERVERLESS_LICENSE_KEY }}
     steps:
       - name: Run `git checkout`
         uses: actions/checkout@v7
