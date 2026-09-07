@@ -32,6 +32,20 @@ export const selectMatchedUnswipeableRoutes = (routes, pathname) => {
     let matched = false;
     const matchedUnswipeableRoutes = [];
 
+    const selectNestedMatch = route => {
+        if (!route.routes || !matchRouteForPathname(route, pathname)) {
+            return null;
+        }
+
+        for (const childRoute of route.routes) {
+            if (matchRouteForPathname(childRoute, pathname)) {
+                return selectNestedMatch(childRoute) || childRoute;
+            }
+        }
+
+        return null;
+    };
+
     for (const route of routes) {
         if (matched) {
             break;
@@ -40,9 +54,9 @@ export const selectMatchedUnswipeableRoutes = (routes, pathname) => {
         if (route.path) {
             if (matchRouteForPathname(route, pathname)) {
                 matched = true;
-                if (!route.tab) {
-                    matchedUnswipeableRoutes.push(route);
-                }
+                const nestedMatch = selectNestedMatch(route);
+                if (nestedMatch) matchedUnswipeableRoutes.push(nestedMatch);
+                else if (!route.tab) matchedUnswipeableRoutes.push(route);
             }
             continue;
         }

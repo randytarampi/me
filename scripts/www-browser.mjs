@@ -48,10 +48,24 @@ const mapInteraction = async ({page, requests}) => {
     await page.waitForFunction(() => !document.querySelector(".gm-style-iw, [role='dialog']"), {timeout: 30000});
 };
 
+const nestedRouteTitles = async ({page}) => {
+    // PRD may retain the parent-title defect; route semantics are asserted for the RC bundle.
+    for (const [path, title] of [["/blog/photos", "See (through) me"], ["/blog/words", "Read me"], ["/blog/photos/tags/cats", "See (through) me"]]) {
+        await page.goto(`${target.replace(/\/$/, "")}${path}`, {waitUntil: "networkidle2", timeout: 30000});
+        await page.waitForFunction(expected => document.title.includes(expected), {timeout: 30000}, title);
+    }
+};
+
 // PRD remains read-only behavioural reference. A11y/404 standards belong in the follow-up gate lane;
 // the parity tab scenario intentionally uses the WAI-ARIA/router semantics rather than PRD's defects.
 for (const bypassServiceWorker of [false, true]) {
     await runBrowserScenario({name: `tab-desync${bypassServiceWorker ? "-no-sw" : ""}`, url: target, bypassServiceWorker, scenario: tabDesync});
+}
+try {
+    await runBrowserScenario({name: "nested-route-titles", url: target, scenario: nestedRouteTitles});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "nested-route-titles", prdDivergence: error.message}));
 }
 try {
     await runBrowserScenario({name: "map-interaction", url: target, scenario: mapInteraction});

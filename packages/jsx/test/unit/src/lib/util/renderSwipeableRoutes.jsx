@@ -44,5 +44,18 @@ describe("renderSwipeableRoutes", function () {
         it("mounts non-tab path routes when they are the first match", function () {
             expect(selectMatchedUnswipeableRoutes(routes, "/photos").map(route => route.key)).to.eql(["photos-redirect"]);
         });
+
+        it("selects the deepest matching child route instead of the tab parent", function () {
+            const nestedRoutes = [
+                {path: "/blog", tab: true, key: "blog", routes: [
+                    {path: "/blog/photos", exact: true, key: "blog-photos"},
+                    {path: "/blog/words/:filter(tags)/:filterValue", exact: true, key: "blog-words-tags"}
+                ]},
+                {key: "error-404"}
+            ];
+
+            expect(selectMatchedUnswipeableRoutes(nestedRoutes, "/blog/photos").map(route => route.key)).to.eql(["blog-photos"]);
+            expect(selectMatchedUnswipeableRoutes(nestedRoutes, "/blog/words/tags/cats").map(route => route.key)).to.eql(["blog-words-tags"]);
+        });
     });
 });
