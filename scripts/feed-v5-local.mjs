@@ -55,7 +55,7 @@ const waitFor = async (url, attempts = 60) => {
 const start = async () => {
     assertNode24();
     if (!/^http:\/\/(localhost|127\.0\.0\.1):4566$/.test(env.AWS_ENDPOINT_URL)) throw new Error("Local feed requires loopback LocalStack");
-    await Promise.all([3002, 3006, 8080].map(assertPortAvailable));
+    await Promise.all([3006, 8080].map(assertPortAvailable));
     await run("yarn", ["workspace", "@randy.tarampi/service", "localstack:start"]);
     await waitFor("http://localhost:4566/_localstack/health");
     await run("yarn", ["workspace", "@randy.tarampi/service", "localstack:migrate"]);
