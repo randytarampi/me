@@ -1,0 +1,27 @@
+# Local V5 feed loop
+
+Use Node 24 and Docker with the existing LocalStack image. No command in this
+workflow contacts AWS or an external source.
+
+```sh
+yarn feed:v5:test
+```
+
+The aggregate test runner resets only `local-posts`, seeds the versioned
+fixture, starts Serverless Offline and webpack, waits for both readiness URLs,
+runs unit/DB/HTTP/browser lanes sequentially, and cleans up all child process
+groups on success, failure or Ctrl-C. `yarn feed:v5:dev` remains available for
+an interactive loop.
+It refuses non-loopback DynamoDB endpoints. Ports are LocalStack `4566`,
+Offline `3006`, and webpack `8080`.
+
+Focused commands are `feed:v5:test:unit`, `feed:v5:test:db`,
+`feed:v5:test:http`, `feed:v5:test:browser`, and the sequential aggregate.
+The browser command uses a fresh Puppeteer profile; set
+`FEED_V5_BROWSER_URL` to exercise a rehydrated browser profile separately.
+
+The local loop proves merge/cursor/hydration logic, real Dynamoose schema and
+indexes against LocalStack, Offline HTTP contracts, and browser V5 request and
+scroll behaviour. It does not prove Lambda memory/CPU, API Gateway behaviour,
+real DynamoDB latency/capacity/throttling, cold starts, or production IAM;
+those remain explicit dev-AWS checks before deployment.

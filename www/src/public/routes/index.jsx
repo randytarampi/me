@@ -16,7 +16,11 @@ export const BlogRouteHandler = props => <Fragment>
     <Helmet>
         <title>{__ME_PERSON_NAME__} — Follow me</title>
     </Helmet>
-    <ConnectedPosts fetchUrl={`${__POSTS_SERVICE_URL__}`} {...props} />
+    <ConnectedPosts
+        {...props}
+        fetchUrl={`${__POSTS_SERVICE_URL__}`}
+        usePublicFeedV5={__BUILD_NODE_ENV__ === "development" && /^http:\/\/(localhost|127\.0\.0\.1):/.test(__POSTS_SERVICE_URL__)}
+    />
 </Fragment>;
 export const BlogWordsRouteHandler = props => <Fragment>
     <Helmet>

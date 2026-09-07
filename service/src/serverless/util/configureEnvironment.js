@@ -1,12 +1,11 @@
 import dynamoose from "dynamoose";
 import {Aws} from "../aws.js";
 import logger, {configureLogger} from "../logger.js";
+import {setupLocal} from "../dynamodb/util.js";
 
 dynamoose.aws.sdk = Aws;
 
-if (process.env.IS_OFFLINE || process.env.NODE_ENV === "test") {
-    dynamoose.aws.ddb.local();
-}
+setupLocal();
 
 // NOTE-RT: there is no secret fetching left to do here. `provider.environment` in `serverless.yml`
 // carries `${ssm:...}` references that the deployer resolves, so every credential is already in

@@ -1,0 +1,19 @@
+[
+  {"source":"s3","type":"Post","id":"s3-1200","date":"2024-01-12T12:00:00.000Z","title":"Twelve","body":"fixture twelve","tags":["Local","V5"]},
+  {"source":"tumblr","type":"photo","id":"tumblr-1100","date":"2024-01-11 12:00:00 GMT","post_url":"https://example.invalid/tumblr-1100","caption":"<p>Eleven</p>","tags":["Local","Gallery"],"blog":{"name":"fixture","title":"Fixture","url":"https://example.invalid"},"photos":[{"caption":"<p>Eleven</p>","alt_sizes":[{"width":400,"height":300,"url":"https://example.invalid/11.jpg"}]}]},
+  {"source":"s3","type":"Post","id":"s3-1000","date":"2024-01-10T12:00:00.000Z","title":"Ten","body":"fixture ten","tags":["Local"]},
+  {"source":"tumblr","type":"photo","id":"tumblr-gallery-0900","date":"2024-01-09 12:00:00 GMT","post_url":"https://example.invalid/gallery","caption":"<p>Gallery</p>","tags":["Local","Gallery"],"blog":{"name":"fixture","title":"Fixture","url":"https://example.invalid"},"photos":[{"caption":"<p>A</p>","alt_sizes":[{"width":400,"height":300,"url":"https://example.invalid/a.jpg"}]},{"caption":"<p>B</p>","alt_sizes":[{"width":800,"height":600,"url":"https://example.invalid/b.jpg"}]}]},
+  {"source":"s3","type":"Post","id":"s3-0800","date":"2024-01-08T12:00:00.000Z","title":"Eight","body":"fixture eight","tags":["Local"]},
+  {"source":"s3","type":"Post","id":"s3-equal-a","date":"2024-01-07T12:00:00.000Z","title":"Equal A","body":"same time","tags":["Equal"]},
+  {"source":"s3","type":"Post","id":"s3-equal-b","date":"2024-01-07T12:00:00.000Z","title":"Equal B","body":"same time","tags":["Equal"]},
+  {"source":"tumblr","type":"photo","id":"tumblr-0600","date":"2024-01-06 12:00:00 GMT","post_url":"https://example.invalid/tumblr-0600","caption":"<p>Six</p>","tags":["Local"],"blog":{"name":"fixture","title":"Fixture","url":"https://example.invalid"},"photos":[{"caption":"<p>Six</p>","alt_sizes":[{"width":400,"height":300,"url":"https://example.invalid/6.jpg"}]}]},
+  {"source":"s3","type":"Post","id":"s3-0500","date":"2024-01-05T12:00:00.000Z","title":"Five","body":"fixture five","tags":["Local"]},
+  {"source":"s3","type":"Post","id":"s3-0400","date":"2024-01-04T12:00:00.000Z","title":"Four","body":"fixture four","tags":["Local"]},
+  {"source":"s3","type":"Post","id":"s3-0300","date":"2024-01-03T12:00:00.000Z","title":"Three","body":"fixture three","tags":["Local"]},
+  {"source":"s3","type":"Post","id":"s3-0200","date":"2024-01-02T12:00:00.000Z","title":"Two","body":"fixture two","tags":["Local"]},
+  {"source":"s3","type":"Post","id":"s3-0100","date":"2024-01-01T12:00:00.000Z","title":"One","body":"fixture one","tags":["Local"]},
+  {"source":"s3","type":"Post","id":"s3-json-string","date":"2023-12-31T12:00:00.000Z","title":"String raw","body":"fixture string raw","tags":["Local"],"rawMode":"json-string"},
+  {"source":"github","type":"Post","id":"hidden-source","date":"2024-01-13T12:00:00.000Z","title":"Hidden source","body":"must be policy excluded","tags":["Hidden"]},
+  {"source":"unknown-local-source","type":"Post","id":"unknown-source","date":"2024-01-14T12:00:00.000Z","title":"Unknown source","body":"must be rejected","tags":["Invalid"]},
+  {"source":"s3","type":"Post","id":"invalid-raw","date":"2024-01-15T12:00:00.000Z","title":"Invalid raw","body":"must be rejected","tags":["Invalid"],"rawMode":"invalid-json"}
+]
