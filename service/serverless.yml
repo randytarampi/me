@@ -124,7 +124,7 @@ custom:
   memorySizeByStage:
     local: 256
     dev: 1024
-    prd: 256
+    prd: 1024
   # NOTE-RT: the DynamoDB table names live here, and `env.yml` references them, rather than the
   # other way round. That is forced, not preferred.
   #

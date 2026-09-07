@@ -11,11 +11,11 @@ const printServerlessConfig = stage => JSON.parse(execFileSync("yarn", ["sls", "
 }));
 
 describe("serverless configuration", function () {
-    it("renders 1024 MiB for dev and retains 256 MiB for prd", function () {
+    it("renders 1024 MiB for dev and prd", function () {
         const devConfig = printServerlessConfig("dev");
         const prdConfig = printServerlessConfig("prd");
 
         expect(devConfig.provider.memorySize).to.eql(1024);
-        expect(prdConfig.provider.memorySize).to.eql(256);
+        expect(prdConfig.provider.memorySize).to.eql(1024);
     }).timeout(30000);
 });
