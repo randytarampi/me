@@ -70,6 +70,16 @@ const unknownRoute = async ({page}) => {
     if (await page.$(".tab.active")) throw new Error("unknown route selected a tab");
 };
 
+const tabAccessibility = async ({page}) => {
+    await page.goto(target, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForSelector("[role='tab']", {timeout: 30000});
+    const selected = await page.$$eval("[role='tab']", tabs => tabs.filter(tab => tab.getAttribute("aria-selected") === "true"));
+    if (selected.length !== 1) throw new Error(`expected exactly one selected tab, found ${selected.length}`);
+    if (!selected[0].classList.contains("active") && !selected[0].parentElement?.classList.contains("active")) {
+        throw new Error("aria-selected tab is not Materialize-active");
+    }
+};
+
 // PRD remains read-only behavioural reference. A11y/404 standards belong in the follow-up gate lane;
 // the parity tab scenario intentionally uses the WAI-ARIA/router semantics rather than PRD's defects.
 for (const bypassServiceWorker of [false, true]) {
@@ -92,6 +102,12 @@ try {
 } catch (error) {
     if (!isPrd) throw error;
     console.log(JSON.stringify({scenario: "unknown-route-no-tab", prdDivergence: error.message}));
+}
+try {
+    await runBrowserScenario({name: "tab-accessibility", url: target, scenario: tabAccessibility});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "tab-accessibility", prdDivergence: error.message}));
 }
 try {
     await runBrowserScenario({name: "map-interaction", url: target, scenario: mapInteraction});

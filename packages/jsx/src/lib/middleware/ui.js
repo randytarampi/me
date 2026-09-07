@@ -27,6 +27,15 @@ const getSwipeableTabsExpectedTabId = (swipeableTabs, store, action) => {
     return tabLink && tabLink.hash ? tabLink.hash.slice(1) : undefined;
 };
 
+const syncSwipeableTabsAccessibility = (swipeableTabs, selectedIndex) => {
+    swipeableTabs.$tabLinks.forEach((tabLink, index) => {
+        if (!tabLink?.setAttribute) return;
+
+        tabLink.setAttribute("role", "tab");
+        tabLink.setAttribute("aria-selected", String(index === selectedIndex));
+    });
+};
+
 const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
     const state = store.getState();
 
@@ -38,8 +47,11 @@ const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
             tabLink?.classList?.remove("active");
             tabLink?.parentElement?.classList?.remove("active");
         });
+        syncSwipeableTabsAccessibility(swipeableTabs, -1);
         return;
     }
+
+    syncSwipeableTabsAccessibility(swipeableTabs, expectedTabIndex);
 
     if (swipeableTabs.index !== expectedTabIndex) {
         swipeableTabs.select(expectedTabId);

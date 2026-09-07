@@ -40,7 +40,8 @@ describe("ui", function () {
             $tabLinks: [
                 null,
                 {
-                    hash: "#tab_01"
+                    hash: "#tab_01",
+                    setAttribute: sinon.stub()
                 }
             ]
         };
@@ -76,6 +77,8 @@ describe("ui", function () {
         expect(stubStore.getState.calledOnce).to.eql(true);
         expect(stubGetInstance.calledOnce).to.eql(true);
         expect(stubSelect.calledOnce).to.eql(true);
+        expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("role", "tab")).to.eql(true);
+        expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("aria-selected", "true")).to.eql(true);
     });
 
     it("doesn't swipe tabs on `LOCATION_CHANGE` if there are no tabs to swipe", function () {
