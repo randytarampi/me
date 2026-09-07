@@ -56,6 +56,14 @@ const nestedRouteTitles = async ({page}) => {
     }
 };
 
+const subtypeRedirects = async ({page}) => {
+    for (const [source, destination] of [["/photos", "/blog/photos"], ["/words", "/blog/words"]]) {
+        await page.goto(`${target.replace(/\/$/, "")}${source}`, {waitUntil: "networkidle2", timeout: 30000});
+        await page.waitForFunction(expected => window.location.pathname === expected, {timeout: 30000}, destination);
+        if (await page.evaluate(() => window.location.pathname) !== destination) throw new Error(`redirect from ${source} did not settle`);
+    }
+};
+
 // PRD remains read-only behavioural reference. A11y/404 standards belong in the follow-up gate lane;
 // the parity tab scenario intentionally uses the WAI-ARIA/router semantics rather than PRD's defects.
 for (const bypassServiceWorker of [false, true]) {
@@ -66,6 +74,12 @@ try {
 } catch (error) {
     if (!isPrd) throw error;
     console.log(JSON.stringify({scenario: "nested-route-titles", prdDivergence: error.message}));
+}
+try {
+    await runBrowserScenario({name: "subtype-redirects", url: target, scenario: subtypeRedirects});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "subtype-redirects", prdDivergence: error.message}));
 }
 try {
     await runBrowserScenario({name: "map-interaction", url: target, scenario: mapInteraction});

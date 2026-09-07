@@ -71,5 +71,19 @@ describe("swipeableTabChangeIndex", function () {
             ]);
             expect(selectors.getRouteForIndex.calledOnce).to.eql(true);
         });
+
+        it("keeps a matching nested route when selecting its parent tab", function () {
+            selectors.getRouteForIndex.restore();
+            sinon.stub(selectors, "getRouteForIndex").returns(Map({
+                path: "/blog",
+                routes: [{path: "/blog/photos", exact: true}]
+            }));
+            const state = Map({router: Map({location: {pathname: "/blog/photos"}})});
+            stubStore = mockStore(state);
+
+            stubStore.dispatch(swipeableTabChangeIndex({currentTarget: {getAttribute: () => "tab_01"}}));
+
+            expect(stubStore.getActions()[1].payload.args).to.eql([{pathname: "/blog/photos"}]);
+        });
     });
 });
