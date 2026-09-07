@@ -1,8 +1,10 @@
 import {
     buildReduxOfflineConfig,
     ClientSwipeableReduxRouterRoot,
+    createImmutableBlacklistFilter,
     configureOfflineStore,
     createImmutableFilter,
+    createRuntimeLocationChangeAction,
     initializeCrispCreator,
     LoadingSpinner,
     logger,
@@ -57,10 +59,13 @@ export class App extends PureComponent {
                         } catch (error) {
                             logger.error(error, "Error while finishing app initialization after rehydration");
                         } finally {
-                            this.setState({rehydrated: true});
+                            this.setState({rehydrated: true}, () => {
+                                store.dispatch(createRuntimeLocationChangeAction(history));
+                            });
                         }
                     },
                     persistOptions: {
+                        blacklist: ["router"],
                         records: reduxOfflineImmutableTransformRecords.concat([
                             Letter,
                             LetterSection,
@@ -82,6 +87,7 @@ export class App extends PureComponent {
                     },
                 },
                 [
+                    createImmutableBlacklistFilter("ui", ["routes", "swipeable"]),
                     createImmutableFilter("resume", null, [
                         {
                             // NOTE-RT: must be an array (an actual Immutable `getIn` key-path), not a bare

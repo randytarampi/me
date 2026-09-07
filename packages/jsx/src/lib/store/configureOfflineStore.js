@@ -27,7 +27,7 @@ import * as Immutable from "immutable";
 import {applyMiddleware, createStore} from "redux";
 import {thunk} from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
-import {createReduxHistoryContext} from "redux-first-history";
+import {createReduxHistoryContext, LOCATION_CHANGE} from "redux-first-history";
 import {combineReducers} from "redux-immutable";
 import {
     errorMiddleware,
@@ -95,6 +95,14 @@ export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) =>
         }
     };
 };
+
+export const createRuntimeLocationChangeAction = history => ({
+    type: LOCATION_CHANGE,
+    payload: {
+        location: history.location,
+        action: history.action
+    }
+});
 
 /** @param {*} [initialState=Immutable.Map()] - Initial state. @param {*} history - History instance. @param {*} reducers - Reducer map. @param {Array<*>} [middleware=[]] - Extra middleware. @param {*} [offlineConfig=buildReduxOfflineConfig()] - Offline config. @returns {*} A Redux store. */
 export const configureOfflineStore = (initialState = Immutable.Map(), history, reducers, middleware = [], offlineConfig = buildReduxOfflineConfig()) => {

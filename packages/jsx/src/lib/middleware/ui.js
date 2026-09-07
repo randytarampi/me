@@ -1,6 +1,7 @@
 import {LOCATION_CHANGE} from "redux-first-history";
 import clearError from "../actions/error/clearError.js";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing/index.js";
+import {SET_ROUTES} from "../actions/routing/setRoutes.js";
 import selectors from "../data/selectors.js";
 
 const getSwipeableTabs = () => {
@@ -20,32 +21,33 @@ const getSwipeableTabsExpectedTabIndex = (state, action) => {
 };
 
 const getSwipeableTabsExpectedTabId = (swipeableTabs, store, action) => {
-    return swipeableTabs.$tabLinks[getSwipeableTabsExpectedTabIndex(store, action)].hash.slice(1);
+    const expectedTabIndex = getSwipeableTabsExpectedTabIndex(store, action);
+    const tabLink = Number.isInteger(expectedTabIndex) && expectedTabIndex >= 0 && swipeableTabs.$tabLinks[expectedTabIndex];
+
+    return tabLink && tabLink.hash ? tabLink.hash.slice(1) : undefined;
 };
 
 const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
     const state = store.getState();
 
-    if (swipeableTabs.index !== getSwipeableTabsExpectedTabIndex(state, action)) {
-        swipeableTabs.select(getSwipeableTabsExpectedTabId(swipeableTabs, state, action));
+    const expectedTabIndex = getSwipeableTabsExpectedTabIndex(state, action);
+    const expectedTabId = getSwipeableTabsExpectedTabId(swipeableTabs, store, action);
+
+    if (!Number.isInteger(expectedTabIndex) || expectedTabIndex < 0 || !expectedTabId) return;
+
+    if (swipeableTabs.index !== expectedTabIndex) {
+        swipeableTabs.select(expectedTabId);
     }
 };
 
 export const uiMiddleware = store => next => action => {
     switch (action.type) {
-        case LOCATION_CHANGE: {
+        case LOCATION_CHANGE:
+        case SET_ROUTES: {
             const swipeableTabs = getSwipeableTabs();
 
             if (swipeableTabs) {
                 setSwipeableTabsIndex(swipeableTabs, store, action);
-            } else {
-                setTimeout(() => {
-                    const swipeableTabs = getSwipeableTabs();
-
-                    if (swipeableTabs) {
-                        setSwipeableTabsIndex(swipeableTabs, store, action);
-                    }
-                }, 60);
             }
 
             break;

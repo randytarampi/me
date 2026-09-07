@@ -15,16 +15,10 @@ export const withLocation = Component => function WithLocation(props) {
 };
 
 export const mapStateToProps = (state, {location}) => {
-    const swipeableIndex = selectors.getSwipeableIndex(state);
     const indexForRouterLocation = selectors.getIndexForRoute(state, location.pathname);
-    const indexForRoute = Number.isInteger(indexForRouterLocation)
+    const index = Number.isInteger(indexForRouterLocation) && indexForRouterLocation >= 0
         ? indexForRouterLocation
         : undefined;
-    const index = swipeableIndex !== null
-        ? swipeableIndex
-        : indexForRoute !== -1
-            ? indexForRoute
-            : undefined;
 
     return {
         location,

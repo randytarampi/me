@@ -93,6 +93,19 @@ describe("ui", function () {
         expect(stubSelect.notCalled).to.eql(true);
     });
 
+    it("doesn't crash when the route has no corresponding tab", function () {
+        selectors.getIndexForRoute.restore();
+        sinon.stub(selectors, "getIndexForRoute").returns(-1);
+
+        ui(stubStore)(stubNext)({
+            type: LOCATION_CHANGE,
+            payload: {location: {pathname: "/missing"}}
+        });
+
+        expect(stubNext.calledOnce).to.eql(true);
+        expect(stubSelect.notCalled).to.eql(true);
+    });
+
     it("dispatches `clearError` on `SWIPEABLE_CHANGE_INDEX`", function () {
         const stubStore = {
             dispatch: sinon.stub()
