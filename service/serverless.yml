@@ -17,7 +17,7 @@ provider:
 
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
-  memorySize: 256
+  memorySize: ${self:custom.memorySizeByStage.${self:provider.stage}}
   timeout: 30
 
   tracing:
@@ -121,6 +121,10 @@ custom:
   # would make `sls print` and `sls offline start` require live AWS credentials, breaking local
   # development. The account id is not a secret; the point here is to state it exactly once.
   awsAccountId: "471964952458"
+  memorySizeByStage:
+    local: 256
+    dev: 1024
+    prd: 256
   # NOTE-RT: the DynamoDB table names live here, and `env.yml` references them, rather than the
   # other way round. That is forced, not preferred.
   #
