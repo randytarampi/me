@@ -1,10 +1,13 @@
 import {Photo, Post, POST_STATUS, SizedPhoto} from "@randy.tarampi/js";
 import {expect} from "chai";
 import {DateTime} from "luxon";
+import {readFile} from "node:fs/promises";
 import {setupLocal} from "../../../../../src/serverless/dynamodb/util.js";
 import PostSearchParams from "../../../../../src/lib/postSearchParams.js";
 import {recordToDynamoObject} from "../../../../../src/db/dynamooseModel.js";
 import {backfillPublicFeedAttributes} from "../../../../../src/scripts/backfillPublicFeedAttributes.js";
+import {fixtureToRecord} from "../../../../../src/scripts/seedPublicFeedV5.js";
+import getPostsV5 from "../../../../../src/serverless/util/getPostsV5.js";
 
 let PostModel;
 
@@ -247,6 +250,27 @@ describe("Post", function () {
     });
 
     describe("getRecords", function () {
+        it("matches the per-page-4 public feed oracle across the complete cursor chain", async function () {
+            const fixture = JSON.parse(await readFile(new URL("../../../../fixtures/public-feed-v5/records.json", import.meta.url), "utf8"));
+            const expected = JSON.parse(await readFile(new URL("../../../../fixtures/public-feed-v5/expected.json", import.meta.url), "utf8"));
+            await PostModel.createRecords(fixture.map(fixtureToRecord));
+
+            const actual = [];
+            const pages = [];
+            let continuationToken;
+            do {
+                const page = await getPostsV5({perPage: expected.perPage, continuationToken});
+                pages.push(page);
+                actual.push(...page.posts.map(post => post.uid.replace("--@me/sep!-", "#")));
+                continuationToken = page.nextCursor;
+            } while (continuationToken);
+
+            expect(actual).to.eql(expected.visibleUids);
+            expect(new Set(actual).size).to.eql(actual.length);
+            expect(actual).to.not.have.any.members(expected.excludedIds);
+            expect(pages).to.have.length(Math.ceil(expected.visibleUids.length / expected.perPage));
+        });
+
         it("queries the public-feed GSI with an exclusive sort continuation", async function () {
             const first = Post.fromJSON({...stubPost.toJSON(), id: "first", datePublished: "2024-01-02T00:00:00.000Z", dateCreated: "2024-01-02T00:00:00.000Z"});
             const second = Post.fromJSON({...stubPost.toJSON(), id: "second", datePublished: "2024-01-01T00:00:00.000Z", dateCreated: "2024-01-01T00:00:00.000Z"});

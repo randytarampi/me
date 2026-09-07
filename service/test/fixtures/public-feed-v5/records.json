@@ -1,5 +1,7 @@
 [
   {"source":"s3","type":"Post","id":"s3-1200","date":"2024-01-12T12:00:00.000Z","title":"Twelve","body":"fixture twelve","tags":["Local","V5"]},
+  {"source":"s3","type":"Post","id":"s3-boundary-a","date":"2024-01-11T18:00:00.000Z","title":"Boundary A","body":"same boundary time","tags":["Equal","Boundary"]},
+  {"source":"s3","type":"Post","id":"s3-boundary-b","date":"2024-01-11T18:00:00.000Z","title":"Boundary B","body":"same boundary time","tags":["Equal","Boundary"]},
   {"source":"tumblr","type":"photo","id":"tumblr-1100","date":"2024-01-11 12:00:00 GMT","post_url":"https://example.invalid/tumblr-1100","caption":"<p>Eleven</p>","tags":["Local","Gallery"],"blog":{"name":"fixture","title":"Fixture","url":"https://example.invalid"},"photos":[{"caption":"<p>Eleven</p>","alt_sizes":[{"width":400,"height":300,"url":"https://example.invalid/11.jpg"}]}]},
   {"source":"s3","type":"Post","id":"s3-1000","date":"2024-01-10T12:00:00.000Z","title":"Ten","body":"fixture ten","tags":["Local"]},
   {"source":"tumblr","type":"photo","id":"tumblr-gallery-0900","date":"2024-01-09 12:00:00 GMT","post_url":"https://example.invalid/gallery","caption":"<p>Gallery</p>","tags":["Local","Gallery"],"blog":{"name":"fixture","title":"Fixture","url":"https://example.invalid"},"photos":[{"caption":"<p>A</p>","alt_sizes":[{"width":400,"height":300,"url":"https://example.invalid/a.jpg"}]},{"caption":"<p>B</p>","alt_sizes":[{"width":800,"height":600,"url":"https://example.invalid/b.jpg"}]}]},
