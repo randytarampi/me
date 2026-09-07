@@ -67,6 +67,8 @@ jobs:
           sudo apt-get install --yes language-pack-ja 'japan*' fonts-wqy-microhei ttf-wqy-microhei
       - name: Actually run `yarn install`
         run: yarn install
+      - name: Build feed runtime dependencies
+        run: yarn workspace @randy.tarampi/lambda-logger build
       - name: Run www browser gate
         run: yarn www:v5:test:browser
       - name: Cleanup local services
