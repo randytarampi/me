@@ -74,6 +74,14 @@ Rules:
 - ESLint uses flat config (`eslint.config.js`).
 - Follow conventional commits; release automation assumes predictable commit messages.
 
+## Local development
+
+- **The local harness is the debugging loop, not deploys.** A deploy takes ~30 minutes; every deployable application in the repo must be developable and testable locally first (LocalStack for AWS dependencies, Serverless Offline for the Lambda/API surface, webpack-dev-server for the frontend). Don't cycle deployments to answer questions the local harness can answer.
+- **Layer the local gates and run them sequentially**: unit → LocalStack-backed integration → Offline HTTP → real-browser (Puppeteer). Each layer is the failure boundary for the next; don't jump to the browser before unit and DB layers are green.
+- **Keep local runs hermetic.** A local harness never talks to AWS or external services and refuses non-loopback endpoints. One command should own the whole lifecycle (start → readiness → migrate → seed → test → cleanup); don't leave database destruction hidden in package lifecycle hooks.
+- **Local timings don't predict cloud latency.** They're useful for correctness and relative cost only. Lambda memory/CPU, API Gateway behaviour, real DynamoDB latency/capacity/throttling, cold starts and IAM are dev-AWS checks — run once, deliberately, after all local layers pass.
+- Current exemplar: `yarn feed:v5:test` (service + www, see `docs/FEED_V5_LOCAL.md`). Reuse its orchestration when building harnesses for other deployable apps.
+
 ## Error handling
 
 - **Cache failures should never break the request**: Intentionally swallow caching errors — the service falls back to the origin source. See `service/src/lib/cacheClient.js`.
