@@ -84,6 +84,15 @@ const nestedRouteTitles = async ({page}) => {
     }
 };
 
+const productionRouteSmoke = async ({page}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/blog/photos`, {waitUntil: "domcontentloaded", timeout: 30000});
+    await page.waitForFunction(() => document.title.includes("See (through) me"), {timeout: 30000});
+
+    await page.goto(`${target.replace(/\/$/, "")}/map`, {waitUntil: "domcontentloaded", timeout: 30000});
+    await page.waitForFunction(() => document.title.includes("Stalk me"), {timeout: 30000});
+    await page.waitForFunction(() => document.querySelectorAll(".gm-style img[alt], .map--google [role='button'][aria-label*='marker' i], .map--google [class*='cluster']").length > 0, {timeout: 30000});
+};
+
 const subtypeRedirects = async ({page}) => {
     for (const [source, destination, title] of [[
         "/photos", "/blog/photos", "See (through) me"
@@ -139,6 +148,12 @@ const polyfillWarnings = async ({page, pageErrors}) => {
 // the parity tab scenario intentionally uses the WAI-ARIA/router semantics rather than PRD's defects.
 for (const bypassServiceWorker of [false, true]) {
     await runBrowserScenario({name: `tab-desync${bypassServiceWorker ? "-no-sw" : ""}`, url: target, bypassServiceWorker, scenario: tabDesync});
+}
+try {
+    await runBrowserScenario({name: "production-route-smoke", url: target, scenario: productionRouteSmoke});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "production-route-smoke", prdDivergence: error.message}));
 }
 try {
     await runBrowserScenario({name: "nested-route-titles", url: target, scenario: nestedRouteTitles});
