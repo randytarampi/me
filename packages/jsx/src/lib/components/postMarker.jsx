@@ -1,6 +1,6 @@
 import {Gallery, Photo, Post, POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
-import React, {PureComponent, useCallback, useMemo, useState} from "react";
+import React, {PureComponent, useCallback, useState} from "react";
 import {Marker} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
@@ -92,7 +92,8 @@ PostMarkerInfoBoxComponent.propTypes = {
     isVisible: PropTypes.bool.isRequired,
     onVisibilityToggle: PropTypes.func.isRequired,
     store: PropTypes.object.isRequired,
-    anchor: PropTypes.object
+    anchor: PropTypes.object,
+    dimensions: PropTypes.shape({width: PropTypes.number, height: PropTypes.number}).isRequired
 };
 
 export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
