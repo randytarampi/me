@@ -4,9 +4,9 @@ import React, {PureComponent} from "react";
 import {ConnectedMap} from "../containers/map/index.jsx";
 import {ConnectedPostMarker} from "../containers/postMarker.jsx";
 import {GoogleMapMarkerClustererComponent} from "./map/index.jsx";
-import {shouldFetchForMapIdle} from "./mapViewport.js";
+import {hasReachedMapInteractionCenter, shouldFetchForMapIdle} from "./mapViewport.js";
 
-export {hasMaterialViewportChange, shouldFetchForMapIdle} from "./mapViewport.js";
+export {hasMaterialViewportChange, hasReachedMapInteractionCenter, shouldFetchForMapIdle} from "./mapViewport.js";
 
 export class MappedPostsComponent extends PureComponent {
     static defaultProps = {
@@ -42,8 +42,15 @@ export class MappedPostsComponent extends PureComponent {
         const bounds = this.props.currentBounds;
         const suppressIdle = !!(map && map.__randySuppressNextIdle);
 
-        if (map) {
+        if (suppressIdle && !hasReachedMapInteractionCenter(map, map.__randySuppressIdleCenter)) {
+            return;
+        }
+
+        if (map && suppressIdle) {
             delete map.__randySuppressNextIdle;
+            delete map.__randySuppressIdleCenter;
+            // A follow-up cluster/layout idle must not refetch the completed pan.
+            this.lastFetchedBounds = bounds;
         }
 
         if (shouldFetchForMapIdle(this.lastFetchedBounds, bounds, suppressIdle)) {

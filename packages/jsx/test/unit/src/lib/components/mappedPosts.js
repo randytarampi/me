@@ -3,6 +3,7 @@ const require = createRequire(import.meta.url);
 const {expect} = require("chai");
 const {
     hasMaterialViewportChange,
+    hasReachedMapInteractionCenter,
     shouldFetchForMapIdle
 } = require("../../../../../src/lib/components/mapViewport.js");
 
@@ -20,6 +21,14 @@ describe("mapped posts viewport fetching", function () {
             {north: 1, east: 1, south: 0, west: 0},
             true
         )).to.equal(false);
+    });
+
+    it("keeps interaction suppression active until the requested pan reaches its centre", function () {
+        const target = {lat: 52.5, lng: 13.4};
+        const map = {getCenter: () => ({lat: () => 52.6, lng: () => 13.4})};
+
+        expect(hasReachedMapInteractionCenter(map, target)).to.equal(false);
+        expect(hasReachedMapInteractionCenter({getCenter: () => target}, target)).to.equal(true);
     });
 
     it("stops fetching after the terminal page", function () {

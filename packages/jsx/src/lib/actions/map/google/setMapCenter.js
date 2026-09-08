@@ -13,6 +13,7 @@ export const setGoogleMapCenterCreator = (getGoogleMap, id, newCenter) => dispat
         dispatch(setGoogleMapCenter(payload));
 
         googleMap.__randySuppressNextIdle = true;
+        googleMap.__randySuppressIdleCenter = newCenter;
         googleMap.panTo(newCenter);
     }
 
