@@ -105,6 +105,19 @@ export const uiMiddleware = store => {
             setSwipeableTabsIndex(swipeableTabs, store, action);
             lastSyncedTabs = swipeableTabs;
         }
+
+        // Route actions can synchronously notify React before the tabs' Materialize
+        // instance is available. Retry in the next microtask after the reducer and
+        // subscribers have finished handling the action.
+        if ([LOCATION_CHANGE, SET_ROUTES].includes(action.type)) {
+            queueMicrotask(() => {
+                const mountedSwipeableTabs = getSwipeableTabs();
+                if (mountedSwipeableTabs) {
+                    setSwipeableTabsIndex(mountedSwipeableTabs, store, action);
+                    lastSyncedTabs = mountedSwipeableTabs;
+                }
+            });
+        }
     };
 };
 
