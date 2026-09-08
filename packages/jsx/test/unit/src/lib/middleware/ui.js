@@ -82,7 +82,7 @@ describe("ui", function () {
         ui(stubStore)(stubNext)(stubAction);
         expect(stubNext.calledOnce).to.eql(true);
         expect(stubStore.getState.calledOnce).to.eql(true);
-        expect(stubGetInstance.calledOnce).to.eql(true);
+        expect(stubGetInstance.calledTwice).to.eql(true);
         expect(stubSelect.calledOnce).to.eql(true);
         expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("role", "tab")).to.eql(true);
         expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("aria-selected", "true")).to.eql(true);
@@ -115,6 +115,21 @@ describe("ui", function () {
 
         expect(stubNext.calledOnce).to.eql(true);
         expect(stubSelect.notCalled).to.eql(true);
+        expect(remove.calledWith("active")).to.eql(true);
+    });
+
+    it("handles Materialize's array-like tab link collection", function () {
+        const remove = sinon.stub();
+        const tabLink = {classList: {remove}, parentElement: {classList: {remove}}};
+        stubMTabs.$tabLinks = {0: tabLink, length: 1};
+        stubState.get.withArgs("router").returns({location: {pathname: "/missing"}});
+
+        ui(stubStore)(stubNext)({
+            type: LOCATION_CHANGE,
+            payload: {location: {pathname: "/missing"}}
+        });
+
+        expect(stubNext.calledOnce).to.eql(true);
         expect(remove.calledWith("active")).to.eql(true);
     });
 

@@ -30,7 +30,7 @@ const getSwipeableTabsExpectedTabId = (swipeableTabs, state, action) => {
 };
 
 const syncSwipeableTabsAccessibility = (swipeableTabs, selectedIndex) => {
-    swipeableTabs.$tabLinks.forEach((tabLink, index) => {
+    Array.from(swipeableTabs.$tabLinks || []).forEach((tabLink, index) => {
         if (!tabLink?.setAttribute) return;
 
         tabLink.setAttribute("role", "tab");
@@ -40,12 +40,13 @@ const syncSwipeableTabsAccessibility = (swipeableTabs, selectedIndex) => {
 
 const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
     const state = store.getState();
+    const tabLinks = Array.from(swipeableTabs.$tabLinks || []);
 
     const expectedTabIndex = getSwipeableTabsExpectedTabIndex(state, action);
     const expectedTabId = getSwipeableTabsExpectedTabId(swipeableTabs, state, action);
 
     if (!Number.isInteger(expectedTabIndex) || expectedTabIndex < 0 || !expectedTabId) {
-        swipeableTabs.$tabLinks.forEach(tabLink => {
+        tabLinks.forEach(tabLink => {
             tabLink?.classList?.remove("active");
             tabLink?.parentElement?.classList?.remove("active");
         });
