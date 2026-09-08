@@ -16,6 +16,10 @@ describe("BrandedLink", function () {
         expect(brandedLinkMap.github).to.eql(GitHubLink);
     });
 
+    it("ignores posts without a source network", function () {
+        expect(getBrandedLinkForNetwork(null)).to.eql(undefined);
+    });
+
     it("renders a branded link", function () {
         render(<BrandedLink serviceName="GitHub" serviceType="github" serviceUrl="https://www.github.com" username="octocat"/>);
 

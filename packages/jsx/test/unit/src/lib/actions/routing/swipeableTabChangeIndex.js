@@ -85,5 +85,24 @@ describe("swipeableTabChangeIndex", function () {
 
             expect(stubStore.getActions()[1].payload.args).to.eql([{pathname: "/blog/photos"}]);
         });
+
+        it("uses the live nested location while redux routing catches up", function () {
+            selectors.getRouteForIndex.restore();
+            sinon.stub(selectors, "getRouteForIndex").returns(Map({
+                path: "/blog",
+                routes: [{path: "/blog/photos", exact: true}]
+            }));
+            const state = Map({router: Map({location: {pathname: "/photos"}})});
+            stubStore = mockStore(state);
+            const originalPathname = globalThis.location?.pathname;
+            globalThis.history?.pushState({}, "", "/blog/photos");
+
+            try {
+                stubStore.dispatch(swipeableTabChangeIndex({currentTarget: {getAttribute: () => "tab_01"}}));
+                expect(stubStore.getActions()[1].payload.args).to.eql([{pathname: "/blog/photos"}]);
+            } finally {
+                if (originalPathname) globalThis.history?.pushState({}, "", originalPathname);
+            }
+        });
     });
 });

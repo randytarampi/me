@@ -28,7 +28,14 @@ export const swipeableTabChangeIndexCreator = onChangeEvent => (dispatch, getSta
 
     const state = getState();
     const routeForIndex = selectors.getRouteForIndex(state, index);
-    const location = selectors.getLocation(state);
+    // A Navigate can update the browser history before redux-first-history has
+    // delivered its LOCATION_CHANGE. Prefer the live location so selecting the
+    // already-active parent tab cannot collapse a nested route to its parent.
+    const stateLocation = selectors.getLocation(state);
+    const browserLocation = globalThis.location;
+    const location = browserLocation?.pathname && browserLocation.pathname !== stateLocation?.pathname
+        ? browserLocation
+        : stateLocation;
     const path = routeForIndex ? getRoutePathForLocation(routeForIndex, location && location.pathname) : null;
 
     if (path) {

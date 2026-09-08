@@ -34,7 +34,7 @@ export const brandedLinkMap = {
 };
 
 export const getBrandedLinkForNetwork = network => {
-    return brandedLinkMap[network.toLowerCase()];
+    return network && brandedLinkMap[network.toLowerCase()];
 };
 
 export default BrandedLink;

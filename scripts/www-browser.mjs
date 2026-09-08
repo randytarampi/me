@@ -65,9 +65,20 @@ const nestedRouteTitles = async ({page}) => {
 };
 
 const subtypeRedirects = async ({page}) => {
-    for (const [source, destination] of [["/photos", "/blog/photos"], ["/words", "/blog/words"]]) {
+    for (const [source, destination, title] of [[
+        "/photos", "/blog/photos", "See (through) me"
+    ], [
+        "/words", "/blog/words", "Read me"
+    ]]) {
         await page.goto(`${target.replace(/\/$/, "")}${source}`, {waitUntil: "networkidle2", timeout: 30000});
-        await page.waitForFunction(expected => window.location.pathname === expected, {timeout: 30000}, destination);
+        try {
+            await page.waitForFunction(expected => window.location.pathname === expected, {timeout: 30000}, destination);
+        } catch (error) {
+            const state = await page.evaluate(() => ({path: window.location.pathname, title: document.title}));
+            throw new Error(`redirect from ${source} did not settle: ${error.message}; state=${JSON.stringify(state)}`, {cause: error});
+        }
+        const actualTitle = await page.title();
+        if (!actualTitle.includes(title)) throw new Error(`redirect from ${source} landed at ${destination} with title ${actualTitle}`);
         if (await page.evaluate(() => window.location.pathname) !== destination) throw new Error(`redirect from ${source} did not settle`);
     }
 };
