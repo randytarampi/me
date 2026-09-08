@@ -38,12 +38,19 @@ export const createPostCardOverlayClass = () => {
         this.container.style.position = "absolute";
         this.container.style.width = `${this.width}px`;
         this.container.style.height = `${this.height}px`;
-        this.getPanes().floatPane.appendChild(this.container);
+        const panes = this.getPanes();
+        if (panes?.floatPane) {
+            panes.floatPane.appendChild(this.container);
+        }
     }
 
     draw() {
-        const position = this.getProjection()?.fromLatLngToDivPixel(this.anchor.getPosition());
-        if (!position || !this.container) return;
+        const projection = this.getProjection();
+        const anchorPosition = this.anchor?.getPosition?.();
+        if (!projection || !anchorPosition || !this.container) return;
+
+        const position = projection.fromLatLngToDivPixel(anchorPosition);
+        if (!position) return;
         this.container.style.transform = `translate(${Math.round(position.x)}px, ${Math.round(position.y)}px) translate(-${this.width / 2}px, -${this.height / 2}px)`;
     }
 
