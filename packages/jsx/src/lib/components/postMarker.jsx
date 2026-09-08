@@ -147,17 +147,37 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
         return null;
     }
 
+    const isPhoto = [Gallery.type, Photo.type].includes(post.type);
+    const selected = isPhoto
+        ? post.getSizedPhotoForDisplay(Math.round(window.innerWidth * 0.75))
+        : null;
+    const selectedMedia = selected && {
+        url: selected.url,
+        width: selected.width > 0 ? selected.width : post.width,
+        height: selected.height > 0 ? selected.height : post.height
+    };
+
     switch (post.type) {
         case Gallery.type:
         case Photo.type:
+            if (!selectedMedia?.url) {
+                return <PostMarkerInfoBoxComponent
+                    post={post}
+                    visible={isVisible}
+                    onVisibilityToggle={() => onVisibilityToggle(!isVisible)}
+                    dimensions={derivePostCardDimensions({viewportWidth: window.innerWidth, viewportHeight: window.innerHeight, contentLength: String(post.title || "").length + String(post.body || "").length})}
+                    {...props}
+                />;
+            }
+
             return <PhotoMarkerInfoBoxComponent
                 post={post}
                 visible={isVisible}
                 onVisibilityToggle={() => onVisibilityToggle(!isVisible)}
-                selected={post.getSizedPhotoForDisplay(Math.round(window.innerWidth * 0.75))}
-                placeholder={post.getSizedPhotoForLoading()}
+                selected={selectedMedia}
+                placeholder={post.getSizedPhotoForLoading() || selectedMedia}
                 dimensions={derivePostCardDimensions({
-                    photo: post.getSizedPhotoForDisplay(Math.round(window.innerWidth * 0.75)),
+                    photo: selectedMedia,
                     viewportWidth: window.innerWidth,
                     viewportHeight: window.innerHeight
                 })}

@@ -57,7 +57,16 @@ const mapInteraction = async ({page, requests}) => {
         if (!background) return null;
         return new Promise(resolve => { const image = new Image(); image.onload = () => resolve(image.width / image.height); image.onerror = () => resolve(null); image.src = background; });
     });
-    if (aspectRatio && Math.abs(afterBox.width / afterBox.height - aspectRatio) > 0.01) throw new Error("map card aspect ratio changed from its media");
+    if (aspectRatio) {
+        if (Math.abs(afterBox.width / afterBox.height - aspectRatio) > 0.01) throw new Error("map card aspect ratio changed from its media");
+        const maxWidth = page.viewport().width * 0.75;
+        const maxHeight = page.viewport().height * 0.75;
+        const expectedWidth = Math.min(maxWidth, maxHeight * aspectRatio);
+        const expectedHeight = expectedWidth / aspectRatio;
+        if (Math.abs(afterBox.width - expectedWidth) > 1.5 || Math.abs(afterBox.height - expectedHeight) > 1.5) {
+            throw new Error(`map card dimensions ${afterBox.width}x${afterBox.height} did not fill the expected ${expectedWidth}x${expectedHeight} viewport bounds`);
+        }
+    }
     // Narrow portrait maps legitimately settle a changed viewport after the
     // requested pan; the desktop interaction is the no-fetch regression guard.
     if (page.viewport().width > 500 && postsRequests(requests, target).length !== before) throw new Error("opening a map card issued a feed request");
