@@ -146,4 +146,40 @@ describe("fetchPosts", function () {
             fetchStub.restore();
         }
     });
+
+    it("returns an empty post collection when the API response has no posts", async function () {
+        const fetchStub = sinon.stub(global, "fetch").resolves({
+            json: () => Promise.resolve({statusCode: 400, error: "Bad Request"})
+        });
+
+        try {
+            expect(await fetchPostsApi("/fetch!", {usePublicFeedV5: true})).to.eql({
+                statusCode: 400,
+                error: "Bad Request",
+                posts: []
+            });
+        } finally {
+            fetchStub.restore();
+        }
+    });
+
+    it("retries a rejected cursor request from the first page", async function () {
+        const fetchStub = sinon.stub(global, "fetch");
+        fetchStub.onFirstCall().resolves({
+            ok: false,
+            status: 400,
+            json: () => Promise.resolve({error: "continuationToken does not match this request"})
+        });
+        fetchStub.onSecondCall().resolves({
+            ok: true,
+            json: () => Promise.resolve({posts: []})
+        });
+
+        try {
+            expect(await fetchPostsApi("/fetch!", {usePublicFeedV5: true, continuationToken: "stale"})).to.eql({posts: []});
+            expect(fetchStub.secondCall.args[0]).to.eql("/fetch!?");
+        } finally {
+            fetchStub.restore();
+        }
+    });
 });

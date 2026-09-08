@@ -107,6 +107,28 @@ describe("api", function () {
             expect(errorStateForUrl).to.eql(undefined);
         });
 
+        it("clears a stale V5 cursor", function () {
+            const stubFetchUrl = "/woof";
+            const stubError = new Error("woof");
+            stubInitialState = Map({
+                [stubFetchUrl]: Map({
+                    isLoading: true,
+                    nextCursor: "stale-cursor"
+                })
+            });
+
+            const updatedState = reducer(stubInitialState, fetchingPostsFailure({
+                fetchUrl: stubFetchUrl,
+                error: stubError
+            }));
+
+            expect(getApiStateForUrl(updatedState, stubFetchUrl).toJS()).to.eql({
+                isLoading: false,
+                error: stubError,
+                nextCursor: null
+            });
+        });
+
         it("persists V5 pagination metadata", function () {
             const stubFetchUrl = "/woof";
             const updatedState = reducer(stubInitialState, fetchingPostsSuccess({
@@ -196,7 +218,8 @@ describe("api", function () {
             const apiStateForUrlObject = apiStateForUrl.toJS();
             expect(apiStateForUrlObject).to.eql({
                 error: stubPayload.error,
-                isLoading: false
+                isLoading: false,
+                nextCursor: null
             });
 
             const errorStateForUrl = getErrorForUrlState(apiStateForUrl);
@@ -225,6 +248,7 @@ describe("api", function () {
                     .get(stubFetchUrl)
                     .set("isLoading", false)
                     .set("error", stubPayload.error)
+                    .set("nextCursor", null)
                     .toJS()
             );
 

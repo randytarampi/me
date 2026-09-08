@@ -17,11 +17,23 @@ export const fetchPostsApi = (fetchUrl, searchParams) => {
             "ME-API-VERSION": usePublicFeedV5 ? 5 : 4
         }
     })
-        .then(body => body.json())
+        .then(body => body.json().then(postsResponse => {
+            if (body.ok === false) {
+                if (searchParams?.continuationToken) {
+                    return fetchPostsApi(fetchUrl, {...searchParams, continuationToken: undefined});
+                }
+
+                const error = new Error(postsResponse.error || `Request failed with status ${body.status}`);
+                error.response = postsResponse;
+                throw error;
+            }
+
+            return postsResponse;
+        }))
         .then(postsResponse => {
             return {
                 ...postsResponse,
-                posts: postsResponse.posts.map(postJson => {
+                posts: (postsResponse.posts || []).map(postJson => {
                     let Constructor;
 
                     try {

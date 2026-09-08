@@ -38,7 +38,8 @@ export const apiReducer = (state = Map(), action) => {
             return state.set(action.payload.fetchUrl, fromJS({
                 ...currentFetchUrlState.toJS(),
                 error: action.payload.error,
-                isLoading: false
+                isLoading: false,
+                nextCursor: null
             }));
         }
 

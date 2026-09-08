@@ -221,7 +221,8 @@ describe("fetchPosts", function () {
                         payload: {
                             fetchUrl: stubFetchUrl,
                             searchParams: stubSearchParams,
-                            searchType: undefined
+                            searchType: undefined,
+                            nextCursor: null
                         }
                     },
                     {

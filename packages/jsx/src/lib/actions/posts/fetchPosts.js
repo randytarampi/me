@@ -65,7 +65,8 @@ export const fetchPostsCreator = (fetchUrl, type = "global", searchParams, searc
                 dispatch(fetchingPostsFailureRecovery({
                     fetchUrl,
                     searchParams,
-                    searchType
+                    searchType,
+                    nextCursor: null
                 }));
             }
 
