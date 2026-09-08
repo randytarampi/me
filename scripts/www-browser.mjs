@@ -60,7 +60,7 @@ const mapInteraction = async ({page, requests}) => {
     if (aspectRatio && Math.abs(afterBox.width / afterBox.height - aspectRatio) > 0.01) throw new Error("map card aspect ratio changed from its media");
     // Narrow portrait maps legitimately settle a changed viewport after the
     // requested pan; the desktop interaction is the no-fetch regression guard.
-    if (window.innerWidth > 500 && postsRequests(requests, target).length !== before) throw new Error("opening a map card issued a feed request");
+    if (page.viewport().width > 500 && postsRequests(requests, target).length !== before) throw new Error("opening a map card issued a feed request");
     const cardIds = await page.$$eval(".marker-info-box .post[id]", cards => cards.map(card => card.id));
     if (new Set(cardIds).size !== cardIds.length) throw new Error("map window rendered duplicate cards");
     const closeButton = await page.$(".marker-info-box button[aria-label='Close post card']");
