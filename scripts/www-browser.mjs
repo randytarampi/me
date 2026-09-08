@@ -86,8 +86,16 @@ const subtypeRedirects = async ({page}) => {
 const unknownRoute = async ({page}) => {
     await page.goto(`${target.replace(/\/$/, "")}/this-route-does-not-exist`, {waitUntil: "networkidle2", timeout: 30000});
     await page.waitForSelector(".error", {timeout: 30000});
-    await page.evaluate(() => document.querySelectorAll("a.active, .tab.active").forEach(element => element.classList.remove("active")));
-    if (await page.$("a.active") || await page.$(".tab.active")) throw new Error("unknown route selected a tab");
+    await page.waitForFunction(() => {
+        const tabs = document.querySelector(".nav-tabs__swipeable");
+        return tabs && window.M?.Tabs?.getInstance(tabs);
+    }, {timeout: 30000});
+    const state = await page.evaluate(() => ({
+        active: Boolean(document.querySelector("a.active, .tab.active, [role='tab'][aria-selected='true']")),
+        selected: [...document.querySelectorAll("[role='tab']")].map(tab => tab.getAttribute("aria-selected"))
+    }));
+    if (state.active) throw new Error("unknown route selected a tab");
+    if (state.selected.some(value => value !== "false")) throw new Error(`unknown route tab selection was ${JSON.stringify(state.selected)}`);
 };
 
 const tabAccessibility = async ({page}) => {

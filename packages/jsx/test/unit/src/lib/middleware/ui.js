@@ -6,7 +6,7 @@ const {expect} = require("chai");
 const {JSDOM} = require("jsdom");
 const {LOCATION_CHANGE} = require("redux-first-history");
 const sinon = require("sinon");
-const {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} = require("../../../../../src/lib/actions/routing/index.js");
+const {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX, SWIPEABLE_TABS_READY} = require("../../../../../src/lib/actions/routing/index.js");
 const selectors = require("../../../../../src/lib/data/selectors.js").default || require("../../../../../src/lib/data/selectors.js");
 const ui = require("../../../../../src/lib/middleware/ui.js").default || require("../../../../../src/lib/middleware/ui.js");
 
@@ -170,6 +170,15 @@ describe("ui", function () {
 
         expect(stubSelect.calledOnceWithExactly("tab_01")).to.eql(true);
         expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("aria-selected", "true")).to.eql(true);
+    });
+
+    it("syncs the route when the tabs instance reports ready", function () {
+        globalWindow.M = stubM;
+
+        ui(stubStore)(stubNext)({type: SWIPEABLE_TABS_READY});
+
+        expect(stubSelect.calledOnceWithExactly("tab_01")).to.eql(true);
+        expect(stubNext.calledOnce).to.eql(true);
     });
 
     it("dispatches `clearError` on `SWIPEABLE_CHANGE_INDEX`", function () {

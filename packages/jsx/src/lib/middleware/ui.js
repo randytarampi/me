@@ -1,6 +1,6 @@
 import {LOCATION_CHANGE} from "redux-first-history";
 import clearError, {CLEAR_ERROR} from "../actions/error/clearError.js";
-import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing/index.js";
+import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX, SWIPEABLE_TABS_READY} from "../actions/routing/index.js";
 import {SET_ROUTES} from "../actions/routing/setRoutes.js";
 import selectors from "../data/selectors.js";
 
@@ -91,11 +91,22 @@ export const uiMiddleware = store => {
     let lastSyncedTabs = null;
 
     return next => action => {
-        const shouldSyncAfterAction = ![LOCATION_CHANGE, SET_ROUTES, CLEAR_ERROR, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX].includes(action.type);
+        const shouldSyncAfterAction = ![LOCATION_CHANGE, SET_ROUTES, CLEAR_ERROR, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX, SWIPEABLE_TABS_READY].includes(action.type);
 
         switch (action.type) {
             case LOCATION_CHANGE:
             case SET_ROUTES: {
+                const swipeableTabs = getSwipeableTabs();
+
+                if (swipeableTabs) {
+                    setSwipeableTabsIndex(swipeableTabs, store, action);
+                    lastSyncedTabs = swipeableTabs;
+                }
+
+                break;
+            }
+
+            case SWIPEABLE_TABS_READY: {
                 const swipeableTabs = getSwipeableTabs();
 
                 if (swipeableTabs) {
