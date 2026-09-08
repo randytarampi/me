@@ -15,7 +15,8 @@ export const runBrowserScenario = async ({name, url, profileMode = "fresh", bypa
 
     try {
         page = await browser.newPage();
-        await page.setViewport({width: 1024, height: 768, deviceScaleFactor: 1});
+        const [width, height] = (process.env.WWW_BROWSER_VIEWPORT || "1024x768").split("x").map(Number);
+        await page.setViewport({width, height, deviceScaleFactor: 1});
         if (bypassServiceWorker) await page.setBypassServiceWorker(true);
         page.on("pageerror", error => pageErrors.push(error.message));
         // Register this before navigation: requests made by boot and rehydration are part of the contract.
