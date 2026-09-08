@@ -1,5 +1,7 @@
 import {fromJS, Map} from "immutable";
 import {createSelector} from "reselect";
+import {LOCATION_CHANGE} from "redux-first-history";
+import {REHYDRATE} from "redux-persist";
 import {
     FETCHING_POSTS,
     FETCHING_POSTS_CANCELLED,
@@ -10,6 +12,13 @@ import {
 
 export const apiReducer = (state = Map(), action) => {
     switch (action.type) {
+        // V5 continuation tokens are bound to the complete DynamoDB query. The
+        // browser reuses `/posts` for different routes, so never carry a
+        // cursor from one location into another query.
+        case LOCATION_CHANGE:
+        case REHYDRATE:
+            return Map();
+
         case FETCHING_POSTS: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
 

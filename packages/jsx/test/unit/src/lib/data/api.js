@@ -5,6 +5,8 @@ const require = createRequire(import.meta.url);
 const {expect} = require("chai");
 const {fromJS, Map} = require("immutable");
 const {createAction} = require("redux-actions");
+const {LOCATION_CHANGE} = require("redux-first-history");
+const {REHYDRATE} = require("redux-persist");
 const {
     FETCHING_POSTS_PER_PAGE,
     fetchingPosts,
@@ -51,6 +53,26 @@ describe("api", function () {
     });
 
     describe("FETCHING_POSTS", function () {
+        it("clears pagination state when the route changes", function () {
+            stubInitialState = Map({
+                "/posts": Map({
+                    isLoading: false,
+                    nextCursor: "stale-cursor",
+                    hasMore: true
+                })
+            });
+
+            expect(reducer(stubInitialState, {type: LOCATION_CHANGE})).to.eql(Map());
+        });
+
+        it("does not rehydrate route-bound pagination state", function () {
+            stubInitialState = Map({
+                "/posts": Map({nextCursor: "stale-cursor", hasMore: true})
+            });
+
+            expect(reducer(stubInitialState, {type: REHYDRATE, payload: {}})).to.eql(Map());
+        });
+
         it("reduces the correct state (no prior state)", function () {
             const stubFetchUrl = "/woof";
             const stubSearchParams = {

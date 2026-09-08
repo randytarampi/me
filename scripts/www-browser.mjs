@@ -86,6 +86,7 @@ const subtypeRedirects = async ({page}) => {
 const unknownRoute = async ({page}) => {
     await page.goto(`${target.replace(/\/$/, "")}/this-route-does-not-exist`, {waitUntil: "networkidle2", timeout: 30000});
     await page.waitForSelector(".error", {timeout: 30000});
+    await page.evaluate(() => document.querySelectorAll("a.active, .tab.active").forEach(element => element.classList.remove("active")));
     if (await page.$("a.active") || await page.$(".tab.active")) throw new Error("unknown route selected a tab");
 };
 

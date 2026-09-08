@@ -13,7 +13,7 @@ const helloBear = new HelloBear();
 export const PhotosRouteHandler = () => <Navigate to="/blog/photos" replace/>;
 export const WordsRouteHandler = () => <Navigate to="/blog/words" replace/>;
 export const BlogRouteHandler = props => <Fragment>
-    {!Object.hasOwn(props, "type") && <Helmet>
+    {!Object.hasOwn(props, "type") && (typeof window === "undefined" || globalThis.location?.pathname === "/blog") && <Helmet>
         <title>{__ME_PERSON_NAME__} — Follow me</title>
     </Helmet>}
     <ConnectedPosts

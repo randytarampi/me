@@ -64,6 +64,24 @@ const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
 
     syncSwipeableTabsAccessibility(swipeableTabs, expectedTabIndex);
 
+    // Selecting a parent tab navigates to its href. Keep nested routes mounted
+    // at their requested URL while still reflecting the parent tab as active.
+    const actionLocation = action?.payload?.location || action?.payload;
+    const locationPath = actionLocation?.pathname || globalThis.location?.pathname;
+    const expectedTabPath = tabLinks[expectedTabIndex]?.hash?.slice(1);
+    if (locationPath && locationPath !== "/" && expectedTabPath && locationPath !== expectedTabPath) {
+        const isNestedRoute = locationPath.startsWith(`${expectedTabPath}/`);
+        tabLinks.forEach((tabLink, index) => {
+            const active = isNestedRoute && index === expectedTabIndex;
+            [tabLink, tabLink?.parentElement, tabLink?.closest?.(".tab")].forEach(element => {
+                if (active) element?.classList?.add?.("active");
+                else element?.classList?.remove?.("active");
+            });
+        });
+        if (!isNestedRoute) syncSwipeableTabsAccessibility(swipeableTabs, -1);
+        return;
+    }
+
     if (swipeableTabs.index !== expectedTabIndex) {
         swipeableTabs.select(expectedTabId);
     }

@@ -58,6 +58,9 @@ export const reduxOfflineImmutableTransformRecords = [
 ];
 
 const errorStateBlacklistFilter = createBlacklistFilter("error", ["error", "errorMessage", "errorCode", "errorTimeoutHandler"]);
+// API pagination is bound to the current route/query and must never survive a
+// full browser navigation through redux-persist.
+const apiStateFilter = createFilter("api", [], []);
 
 export const reduxOfflineConfig = {
     ...defaultReduxOfflineConfig,
@@ -66,7 +69,8 @@ export const reduxOfflineConfig = {
     persistOptions: {
         records: reduxOfflineImmutableTransformRecords,
         transforms: [
-            errorStateBlacklistFilter
+            errorStateBlacklistFilter,
+            apiStateFilter
         ]
     },
     persistCallback: () => logger.warn("Rehydrated state, but did anything else dispatch before this? 🤔"),
@@ -82,7 +86,7 @@ export const createImmutableWhitelistFilter = createWhitelistFilter;
 export const buildReduxOfflineConfig = (overrides = {}, otherTransforms = []) => {
     const transforms = (overrides.persistOptions && overrides.persistOptions.transforms && [...overrides.persistOptions.transforms]) || [];
 
-    transforms.push(errorStateBlacklistFilter);
+    transforms.push(errorStateBlacklistFilter, apiStateFilter);
     transforms.push.apply(transforms, otherTransforms);
 
     return {
