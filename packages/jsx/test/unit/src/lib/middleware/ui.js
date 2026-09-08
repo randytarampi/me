@@ -25,14 +25,18 @@ describe("ui", function () {
     let stubNext;
     let stubMTabs;
     let stubM;
+    let stubState;
 
     beforeEach(function () {
         const jsdomWindow = globalWindow;
 
         stubSelect = sinon.stub();
+        stubState = {
+            get: sinon.stub().withArgs("router").returns({location: {pathname: "/"}})
+        };
         stubStore = {
             dispatch: sinon.stub(),
-            getState: sinon.stub()
+            getState: sinon.stub().returns(stubState)
         };
         stubNext = sinon.stub();
         stubMTabs = {
@@ -54,7 +58,10 @@ describe("ui", function () {
 
         jsdomWindow.M = stubM;
         jsdomWindow.document.body.innerHTML = "<html><div id=\"react-root\"><div class=\"nav-tabs__swipeable\"></div></div></html>";
-        sinon.stub(selectors, "getIndexForRoute").returns(1);
+        sinon.stub(selectors, "getIndexForRoute").callsFake((state, pathname) => {
+            expect(state).to.equal(stubState);
+            return pathname === "/missing" ? -1 : 1;
+        });
     });
 
     afterEach(function () {
@@ -97,10 +104,9 @@ describe("ui", function () {
     });
 
     it("doesn't crash when the route has no corresponding tab", function () {
-        selectors.getIndexForRoute.restore();
-        sinon.stub(selectors, "getIndexForRoute").returns(-1);
         const remove = sinon.stub();
         stubMTabs.$tabLinks = [{classList: {remove}, parentElement: {classList: {remove}}}];
+        stubState.get.withArgs("router").returns({location: {pathname: "/missing"}});
 
         ui(stubStore)(stubNext)({
             type: LOCATION_CHANGE,
@@ -112,7 +118,23 @@ describe("ui", function () {
         expect(remove.calledWith("active")).to.eql(true);
     });
 
+    it("syncs an unknown direct route when the Materialize instance appears later", function () {
+        globalWindow.M = null;
+        stubState.get.withArgs("router").returns({location: {pathname: "/missing"}});
+
+        ui(stubStore)(stubNext)({type: LOCATION_CHANGE, payload: {location: {pathname: "/missing"}}});
+        expect(stubSelect.notCalled).to.eql(true);
+
+        globalWindow.M = stubM;
+        ui(stubStore)(stubNext)({type: "REHYDRATE_COMPLETE"});
+
+        expect(stubSelect.notCalled).to.eql(true);
+        expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("aria-selected", "false")).to.eql(true);
+        expect(stubNext.calledTwice).to.eql(true);
+    });
+
     it("dispatches `clearError` on `SWIPEABLE_CHANGE_INDEX`", function () {
+        globalWindow.M = null;
         const stubStore = {
             dispatch: sinon.stub()
         };
@@ -128,6 +150,7 @@ describe("ui", function () {
     });
 
     it("dispatches `clearError` on `SWIPEABLE_TAB_CHANGE_INDEX`", function () {
+        globalWindow.M = null;
         const stubStore = {
             dispatch: sinon.stub()
         };
@@ -143,6 +166,7 @@ describe("ui", function () {
     });
 
     it("calls `next` on everything else", function () {
+        globalWindow.M = null;
         const stubAction = {
             type: "woof",
             payload: "grr"

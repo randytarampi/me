@@ -3,6 +3,7 @@ import {runBrowserScenario, postsRequests} from "./browser-smoke.mjs";
 
 const target = process.env.WWW_BROWSER_URL || "http://localhost:8080/";
 const isPrd = target.includes("www.randytarampi.ca") && !target.includes("dev.");
+const browserMode = process.env.WWW_BROWSER_MODE || (target.includes("localhost") ? "local-deep" : "deployed-smoke");
 
 const tabDesync = async ({page, bypassServiceWorker}) => {
     const expectedHomeTitle = await page.title();
@@ -29,6 +30,12 @@ const tabDesync = async ({page, bypassServiceWorker}) => {
 
 const mapInteraction = async ({page, requests}) => {
     await page.goto(`${target.replace(/\/$/, "")}/map`, {waitUntil: "networkidle2", timeout: 30000});
+    if (browserMode === "deployed-smoke") {
+        await page.waitForSelector(".map--google", {timeout: 30000});
+        await page.waitForFunction(() => document.querySelectorAll(".map--google .gm-style img[alt], .map--google [role='button'][aria-label*='marker' i], .map--google [class*='cluster']").length > 0, {timeout: 30000});
+        if (!postsRequests(requests, target).length) throw new Error("map did not issue a successful posts request");
+        return;
+    }
     await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")]
         .some(element => /^(Twelve|Eleven)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
     const before = postsRequests(requests, target).length;
@@ -68,7 +75,7 @@ const subtypeRedirects = async ({page}) => {
 const unknownRoute = async ({page}) => {
     await page.goto(`${target.replace(/\/$/, "")}/this-route-does-not-exist`, {waitUntil: "networkidle2", timeout: 30000});
     await page.waitForSelector(".error", {timeout: 30000});
-    if (await page.$(".tab.active")) throw new Error("unknown route selected a tab");
+    if (await page.$("a.active") || await page.$(".tab.active")) throw new Error("unknown route selected a tab");
 };
 
 const tabAccessibility = async ({page}) => {

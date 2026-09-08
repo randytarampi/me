@@ -1,5 +1,5 @@
 import {LOCATION_CHANGE} from "redux-first-history";
-import clearError from "../actions/error/clearError.js";
+import clearError, {CLEAR_ERROR} from "../actions/error/clearError.js";
 import {SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX} from "../actions/routing/index.js";
 import {SET_ROUTES} from "../actions/routing/setRoutes.js";
 import selectors from "../data/selectors.js";
@@ -15,13 +15,15 @@ const getSwipeableTabs = () => {
 };
 
 const getSwipeableTabsExpectedTabIndex = (state, action) => {
-    const location = action.payload.location || action.payload;
+    const stateLocation = selectors.getLocation(state);
+    const actionLocation = action?.payload?.location || action?.payload;
+    const location = actionLocation?.pathname ? actionLocation : stateLocation;
 
-    return selectors.getIndexForRoute(state, location.pathname);
+    return selectors.getIndexForRoute(state, location?.pathname);
 };
 
-const getSwipeableTabsExpectedTabId = (swipeableTabs, store, action) => {
-    const expectedTabIndex = getSwipeableTabsExpectedTabIndex(store, action);
+const getSwipeableTabsExpectedTabId = (swipeableTabs, state, action) => {
+    const expectedTabIndex = getSwipeableTabsExpectedTabIndex(state, action);
     const tabLink = Number.isInteger(expectedTabIndex) && expectedTabIndex >= 0 && swipeableTabs.$tabLinks[expectedTabIndex];
 
     return tabLink && tabLink.hash ? tabLink.hash.slice(1) : undefined;
@@ -40,7 +42,7 @@ const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
     const state = store.getState();
 
     const expectedTabIndex = getSwipeableTabsExpectedTabIndex(state, action);
-    const expectedTabId = getSwipeableTabsExpectedTabId(swipeableTabs, store, action);
+    const expectedTabId = getSwipeableTabsExpectedTabId(swipeableTabs, state, action);
 
     if (!Number.isInteger(expectedTabIndex) || expectedTabIndex < 0 || !expectedTabId) {
         swipeableTabs.$tabLinks.forEach(tabLink => {
@@ -58,27 +60,43 @@ const setSwipeableTabsIndex = (swipeableTabs, store, action) => {
     }
 };
 
-export const uiMiddleware = store => next => action => {
-    switch (action.type) {
-        case LOCATION_CHANGE:
-        case SET_ROUTES: {
-            const swipeableTabs = getSwipeableTabs();
+export const uiMiddleware = store => {
+    let lastSyncedTabs = null;
 
-            if (swipeableTabs) {
-                setSwipeableTabsIndex(swipeableTabs, store, action);
+    return next => action => {
+        const shouldSyncAfterAction = ![LOCATION_CHANGE, SET_ROUTES, CLEAR_ERROR, SWIPEABLE_CHANGE_INDEX, SWIPEABLE_TAB_CHANGE_INDEX].includes(action.type);
+
+        switch (action.type) {
+            case LOCATION_CHANGE:
+            case SET_ROUTES: {
+                const swipeableTabs = getSwipeableTabs();
+
+                if (swipeableTabs) {
+                    setSwipeableTabsIndex(swipeableTabs, store, action);
+                    lastSyncedTabs = swipeableTabs;
+                }
+
+                break;
             }
 
-            break;
+            case SWIPEABLE_CHANGE_INDEX:
+            case SWIPEABLE_TAB_CHANGE_INDEX: {
+                store.dispatch(clearError());
+                break;
+            }
         }
 
-        case SWIPEABLE_CHANGE_INDEX:
-        case SWIPEABLE_TAB_CHANGE_INDEX: {
-            store.dispatch(clearError());
-            break;
-        }
-    }
+        next(action);
 
-    next(action);
+    // Rehydration can render the tabs after the route actions have already run.
+    // Check after every action until the current Materialize instance has been
+    // synced once, while continuing to handle subsequent route changes above.
+        const swipeableTabs = getSwipeableTabs();
+        if (swipeableTabs && (shouldSyncAfterAction || swipeableTabs !== lastSyncedTabs)) {
+            setSwipeableTabsIndex(swipeableTabs, store, action);
+            lastSyncedTabs = swipeableTabs;
+        }
+    };
 };
 
 export default uiMiddleware;
