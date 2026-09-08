@@ -1,5 +1,5 @@
 /* global document, window, getComputedStyle, Image */
-import {runBrowserScenario, postsRequests} from "./browser-smoke.mjs";
+import {runBrowserScenario, postsRequests, sleep} from "./browser-smoke.mjs";
 
 const target = process.env.WWW_BROWSER_URL || "http://localhost:8080/";
 const isPrd = target.includes("www.randytarampi.ca") && !target.includes("dev.");
@@ -38,10 +38,13 @@ const mapInteraction = async ({page, requests}) => {
     }
     await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")]
         .some(element => /^(Twelve|Eleven)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
-    const before = postsRequests(requests, target).length;
     const marker = await page.$("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']");
     const reopenedMarker = await page.waitForSelector("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']", {timeout: 30000});
     await reopenedMarker.evaluate(element => element.click());
+    // Map fetches are debounced. Let the pre-click trailing invocation settle before
+    // checking for a request actually caused by opening the card.
+    await sleep(600);
+    const requestsAtOpenSettle = requests.length;
     await page.waitForSelector(".marker-info-box", {timeout: 30000});
     if (await page.$$(".gm-style-iw").then(nodes => nodes.length)) throw new Error("native Google InfoWindow was rendered");
     const windows = await page.$$(".marker-info-box");
@@ -69,7 +72,7 @@ const mapInteraction = async ({page, requests}) => {
     }
     // Narrow portrait maps legitimately settle a changed viewport after the
     // requested pan; the desktop interaction is the no-fetch regression guard.
-    if (page.viewport().width > 500 && postsRequests(requests, target).length !== before) throw new Error("opening a map card issued a feed request");
+    if (page.viewport().width > 500 && postsRequests(requests.slice(requestsAtOpenSettle), target).length) throw new Error("opening a map card issued a feed request");
     const cardIds = await page.$$eval(".marker-info-box .post[id]", cards => cards.map(card => card.id));
     if (new Set(cardIds).size !== cardIds.length) throw new Error("map window rendered duplicate cards");
     const closeButton = await page.$(".marker-info-box button[aria-label='Close post card']");
