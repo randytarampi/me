@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 import {useMap} from "@vis.gl/react-google-maps";
 
@@ -23,9 +23,9 @@ export const derivePostCardDimensions = ({photo, viewportWidth, viewportHeight, 
     return {width, height: Math.min(Math.round(maxHeight), lines * 32 + 48)};
 };
 
-const OverlayView = globalThis.google?.maps?.OverlayView || class {};
-
-export class PostCardOverlay extends OverlayView {
+export const createPostCardOverlayClass = () => {
+    const OverlayView = globalThis.google.maps.OverlayView;
+    return class PostCardOverlay extends OverlayView {
     constructor({anchor, width, height}) {
         super();
         this.anchor = anchor;
@@ -51,12 +51,7 @@ export class PostCardOverlay extends OverlayView {
         this.container?.remove();
         this.container = null;
     }
-}
-
-PostCardOverlay.propTypes = {
-    anchor: PropTypes.object.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
+    };
 };
 
 export const GooglePostCardOverlay = ({anchor, width, height, children}) => {
@@ -65,13 +60,15 @@ export const GooglePostCardOverlay = ({anchor, width, height, children}) => {
     const [container, setContainer] = useState(null);
 
     useEffect(() => {
-        if (!map || !anchor || !google.maps?.OverlayView) return undefined;
-        const overlay = new PostCardOverlay({anchor, width, height});
+        if (!map || !anchor || !globalThis.google?.maps?.OverlayView) return undefined;
+        const overlay = new (createPostCardOverlayClass())({anchor, width, height});
         overlay.setMap(map);
         overlayRef.current = overlay;
-        const timeout = window.setTimeout(() => setContainer(overlay.container), 0);
+        const interval = window.setInterval(() => {
+            if (overlay.container) setContainer(overlay.container);
+        }, 10);
         return () => {
-            window.clearTimeout(timeout);
+            window.clearInterval(interval);
             overlay.setMap(null);
             overlayRef.current = null;
             setContainer(null);

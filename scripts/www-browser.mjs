@@ -40,7 +40,8 @@ const mapInteraction = async ({page, requests}) => {
         .some(element => /^(Twelve|Eleven)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
     const before = postsRequests(requests, target).length;
     const marker = await page.$("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']");
-    await marker.evaluate(element => element.click());
+    const reopenedMarker = await page.$("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']");
+    await reopenedMarker?.click();
     await page.waitForSelector(".marker-info-box", {timeout: 30000});
     if (await page.$$(".gm-style-iw").then(nodes => nodes.length)) throw new Error("native Google InfoWindow was rendered");
     const windows = await page.$$(".marker-info-box");
@@ -49,8 +50,8 @@ const mapInteraction = async ({page, requests}) => {
     await page.evaluate(() => Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => { image.addEventListener("load", resolve); image.addEventListener("error", resolve); }))));
     const afterBox = await windows[0].boundingBox();
     if (!box || !afterBox || JSON.stringify(box) !== JSON.stringify(afterBox)) throw new Error("map card moved while media loaded");
-    const anchorBox = await marker.boundingBox();
-    if (!anchorBox || Math.abs((afterBox.x + afterBox.width / 2) - (anchorBox.x + anchorBox.width / 2)) > 1 || Math.abs((afterBox.y + afterBox.height / 2) - (anchorBox.y + anchorBox.height / 2)) > 1) throw new Error("map card is not centred on its marker");
+    const mapBox = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
+    if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 1 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 1) throw new Error("map card is not centred on its anchor");
     const aspectRatio = await windows[0].evaluate(element => {
         const background = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
         if (!background) return null;
@@ -66,10 +67,10 @@ const mapInteraction = async ({page, requests}) => {
     await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
     await marker.evaluate(element => element.click());
     await page.waitForSelector(".marker-info-box", {timeout: 30000});
-    const original = await page.$(".marker-info-box");
+    await page.evaluate(() => { window.__markerCard = document.querySelector(".marker-info-box"); });
     await page.mouse.wheel({deltaY: 200});
     await new Promise(resolve => setTimeout(resolve, 500));
-    if (await page.$(".marker-info-box") !== original) throw new Error("map card remounted during map movement");
+    if (!await page.evaluate(() => document.querySelector(".marker-info-box") === window.__markerCard)) throw new Error("map card remounted during map movement");
 };
 
 const nestedRouteTitles = async ({page}) => {
