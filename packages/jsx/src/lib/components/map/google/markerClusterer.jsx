@@ -71,6 +71,8 @@ export const GoogleMapMarkerClustererComponent = ({styles = GoogleMapMarkerClust
     const renderer = useMemo(() => buildGoogleMapMarkerClustererRenderer({styles}), [styles]);
     const clusterer = useRef(null);
     const previousMarkers = useRef({});
+    const currentMarkers = useRef(markers);
+    currentMarkers.current = markers;
 
     useEffect(() => {
         if (!map) {
@@ -78,12 +80,21 @@ export const GoogleMapMarkerClustererComponent = ({styles = GoogleMapMarkerClust
         }
 
         clusterer.current = new MarkerClusterer({map, renderer, algorithmOptions: {maxZoom}});
+        // A map instance can be replaced during production hydration/navigation while the
+        // marker refs remain mounted. Seed the new clusterer from those refs immediately;
+        // waiting for a marker-state change leaves the new instance with zero markers.
+        const mountedMarkers = Object.values(currentMarkers.current);
+        if (mountedMarkers.length) {
+            clusterer.current.addMarkers(mountedMarkers);
+        }
+        previousMarkers.current = currentMarkers.current;
 
         return () => {
             if (clusterer.current) {
                 clusterer.current.setMap(null);
                 clusterer.current = null;
             }
+            previousMarkers.current = {};
         };
     }, [map, renderer, maxZoom]);
 
