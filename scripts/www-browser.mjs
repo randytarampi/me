@@ -1,4 +1,4 @@
-/* global document, window */
+/* global document, window, getComputedStyle, Image */
 import {runBrowserScenario, postsRequests} from "./browser-smoke.mjs";
 
 const target = process.env.WWW_BROWSER_URL || "http://localhost:8080/";
@@ -41,19 +41,35 @@ const mapInteraction = async ({page, requests}) => {
     const before = postsRequests(requests, target).length;
     const marker = await page.$("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']");
     await marker.evaluate(element => element.click());
-    await page.waitForSelector(".gm-style-iw, [role='dialog']", {timeout: 30000});
-    const windows = await page.$$(".gm-style-iw, [role='dialog']");
-    if (windows.length !== 1) throw new Error(`expected one open map window, found ${windows.length}`);
+    await page.waitForSelector(".marker-info-box", {timeout: 30000});
+    if (await page.$$(".gm-style-iw").then(nodes => nodes.length)) throw new Error("native Google InfoWindow was rendered");
+    const windows = await page.$$(".marker-info-box");
+    if (windows.length !== 1) throw new Error(`expected one open map card, found ${windows.length}`);
     const box = await windows[0].boundingBox();
     await page.evaluate(() => Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => { image.addEventListener("load", resolve); image.addEventListener("error", resolve); }))));
     const afterBox = await windows[0].boundingBox();
-    if (!box || !afterBox || JSON.stringify(box) !== JSON.stringify(afterBox)) throw new Error("map window moved while media loaded");
+    if (!box || !afterBox || JSON.stringify(box) !== JSON.stringify(afterBox)) throw new Error("map card moved while media loaded");
+    const anchorBox = await marker.boundingBox();
+    if (!anchorBox || Math.abs((afterBox.x + afterBox.width / 2) - (anchorBox.x + anchorBox.width / 2)) > 1 || Math.abs((afterBox.y + afterBox.height / 2) - (anchorBox.y + anchorBox.height / 2)) > 1) throw new Error("map card is not centred on its marker");
+    const aspectRatio = await windows[0].evaluate(element => {
+        const background = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
+        if (!background) return null;
+        return new Promise(resolve => { const image = new Image(); image.onload = () => resolve(image.width / image.height); image.onerror = () => resolve(null); image.src = background; });
+    });
+    if (aspectRatio && Math.abs(afterBox.width / afterBox.height - aspectRatio) > 0.01) throw new Error("map card aspect ratio changed from its media");
     if (postsRequests(requests, target).length !== before) throw new Error("opening a map card issued a feed request");
-    const cardIds = await page.$$eval(".gm-style-iw .post[id], [role='dialog'] .post[id]", cards => cards.map(card => card.id));
+    const cardIds = await page.$$eval(".marker-info-box .post[id]", cards => cards.map(card => card.id));
     if (new Set(cardIds).size !== cardIds.length) throw new Error("map window rendered duplicate cards");
-    const closeButton = await page.$(".gm-style-iw button, .gm-ui-hover-effect, [role='dialog'] button");
-    await closeButton?.evaluate(element => element.click());
-    await page.waitForFunction(() => !document.querySelector(".gm-style-iw, [role='dialog']"), {timeout: 30000});
+    const closeButton = await page.$(".marker-info-box button[aria-label='Close post card']");
+    if (!closeButton || !await closeButton.evaluate(element => element.offsetParent !== null && element.getAttribute("aria-label"))) throw new Error("map card close button is not visible and accessible");
+    await closeButton.evaluate(element => element.click());
+    await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
+    await marker.evaluate(element => element.click());
+    await page.waitForSelector(".marker-info-box", {timeout: 30000});
+    const original = await page.$(".marker-info-box");
+    await page.mouse.wheel({deltaY: 200});
+    await new Promise(resolve => setTimeout(resolve, 500));
+    if (await page.$(".marker-info-box") !== original) throw new Error("map card remounted during map movement");
 };
 
 const nestedRouteTitles = async ({page}) => {
