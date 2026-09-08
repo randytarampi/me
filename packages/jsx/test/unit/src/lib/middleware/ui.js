@@ -135,7 +135,16 @@ describe("ui", function () {
 
     it("syncs an unknown direct route when the Materialize instance appears later", function () {
         globalWindow.M = null;
-        stubState.get.withArgs("router").returns({location: {pathname: "/missing"}});
+        const originalLocation = globalThis.location;
+        Object.defineProperty(globalThis, "location", {configurable: true, value: {pathname: "/missing"}});
+        const remove = sinon.stub();
+        const tabLinks = [0, 1].map(index => ({
+            hash: `#tab_0${index}`,
+            classList: {remove},
+            parentElement: {classList: {remove}},
+            setAttribute: sinon.stub()
+        }));
+        stubMTabs.$tabLinks = tabLinks;
 
         ui(stubStore)(stubNext)({type: LOCATION_CHANGE, payload: {location: {pathname: "/missing"}}});
         expect(stubSelect.notCalled).to.eql(true);
@@ -144,8 +153,23 @@ describe("ui", function () {
         ui(stubStore)(stubNext)({type: "REHYDRATE_COMPLETE"});
 
         expect(stubSelect.notCalled).to.eql(true);
-        expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("aria-selected", "false")).to.eql(true);
+        expect(remove.calledWith("active")).to.eql(true);
+        expect(tabLinks.every(tabLink => tabLink.setAttribute.calledWith("aria-selected", "false"))).to.eql(true);
         expect(stubNext.calledTwice).to.eql(true);
+        Object.defineProperty(globalThis, "location", {configurable: true, value: originalLocation});
+    });
+
+    it("selects a known route when the Materialize instance appears later", function () {
+        globalWindow.M = null;
+
+        ui(stubStore)(stubNext)({type: LOCATION_CHANGE, payload: {location: {pathname: "/"}}});
+        expect(stubSelect.notCalled).to.eql(true);
+
+        globalWindow.M = stubM;
+        ui(stubStore)(stubNext)({type: "REHYDRATE_COMPLETE"});
+
+        expect(stubSelect.calledOnceWithExactly("tab_01")).to.eql(true);
+        expect(stubMTabs.$tabLinks[1].setAttribute.calledWith("aria-selected", "true")).to.eql(true);
     });
 
     it("dispatches `clearError` on `SWIPEABLE_CHANGE_INDEX`", function () {

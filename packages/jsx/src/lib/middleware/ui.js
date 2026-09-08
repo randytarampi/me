@@ -17,7 +17,15 @@ const getSwipeableTabs = () => {
 const getSwipeableTabsExpectedTabIndex = (state, action) => {
     const stateLocation = selectors.getLocation(state);
     const actionLocation = action?.payload?.location || action?.payload;
-    const location = actionLocation?.pathname ? actionLocation : stateLocation;
+    // The persisted router state can still contain the previous location while
+    // a hard-loaded page is rehydrating. The browser location is authoritative
+    // until redux-first-history has delivered its LOCATION_CHANGE.
+    const browserLocation = globalThis.location;
+    const location = browserLocation?.pathname
+        ? browserLocation
+        : actionLocation?.pathname
+            ? actionLocation
+            : stateLocation;
 
     return selectors.getIndexForRoute(state, location?.pathname);
 };
@@ -93,7 +101,7 @@ export const uiMiddleware = store => {
     // Check after every action until the current Materialize instance has been
     // synced once, while continuing to handle subsequent route changes above.
         const swipeableTabs = getSwipeableTabs();
-        if (swipeableTabs && (shouldSyncAfterAction || swipeableTabs !== lastSyncedTabs)) {
+        if (swipeableTabs && (shouldSyncAfterAction || swipeableTabs !== lastSyncedTabs || action.type === SET_ROUTES)) {
             setSwipeableTabsIndex(swipeableTabs, store, action);
             lastSyncedTabs = swipeableTabs;
         }
