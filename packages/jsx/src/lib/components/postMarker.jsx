@@ -1,11 +1,11 @@
 import {Gallery, Photo, Post, POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
-import React, {PureComponent, useCallback, useState} from "react";
-import {InfoWindow, Marker} from "@vis.gl/react-google-maps";
+import React, {PureComponent, useCallback, useMemo, useState} from "react";
+import {Marker} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {Provider, ReactReduxContext} from "react-redux";
-import {getSvgPathForPost, scalePixelValueForWindowDevicePixelRatio} from "../util/index.js";
+import {getSvgPathForPost} from "../util/index.js";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -14,7 +14,7 @@ import {
     PostTagsComponent,
     PostTitleComponent
 } from "./post.jsx";
-import {buildInfoWindowOptions} from "./infoWindowOptions.js";
+import GooglePostCardOverlay, {derivePostCardDimensions} from "./map/google/postCardOverlay.jsx";
 
 export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading}) => {
     const rowClassName = ["marker-info-box-post"];
@@ -56,63 +56,34 @@ PostMarkerInfoBoxContentComponent.propTypes = {
 };
 
 export class PostMarkerInfoBoxComponent extends PureComponent {
-    get postInfoBoxElementId() {
-        return `marker-info-box--${this.props.post.uid}`;
-    }
-
-    get postInfoBoxElement() {
-        return document.getElementsByClassName(this.postInfoBoxElementId)[0];
-    }
-
-    get width() {
-        const postElement = this.postInfoBoxElement;
-        return postElement
-            ? postElement.clientWidth
-            : Math.round(window.innerWidth * 3 / 4);
-    }
-
-    get height() {
-        const postElement = this.postInfoBoxElement;
-        return postElement
-            ? postElement.clientHeight
-            : Math.round(window.innerHeight * 3 / 4);
-    }
-
-    get scaledHeight() {
-        return this.height;
-    }
-
     get title() {
         return this.props.post.title || "Untitled";
     }
 
     render() {
-        const {onVisibilityToggle, post, store, anchor} = this.props;
+        const {onVisibilityToggle, post, store, anchor, dimensions} = this.props;
 
         if (!anchor) {
             return null;
         }
 
-        return <InfoWindow
-            anchor={anchor}
-            onClose={() => onVisibilityToggle(false)}
-            {...buildInfoWindowOptions()}
-        >
+        return <GooglePostCardOverlay anchor={anchor} {...dimensions}>
             <div
-                className={`marker-info-box marker-info-box__${post.type} ${this.postInfoBoxElementId}`}
-                style={{backgroundColor: "white"}}
+                className={`marker-info-box marker-info-box__${post.type}`}
+                style={{backgroundColor: "white", width: dimensions.width, height: dimensions.height}}
             >
+                <button type="button" className="marker-info-box-close" aria-label="Close post card" onClick={() => onVisibilityToggle(false)}>×</button>
                 <Provider store={store}>
                     <PostMarkerInfoBoxContentComponent
                         post={post}
                         title={this.title}
                         style={{
-                            maxWidth: Math.round(window.innerWidth * 3 / 4)
+                            maxWidth: dimensions.width
                         }}
                     />
                 </Provider>
             </div>
-        </InfoWindow>;
+        </GooglePostCardOverlay>;
     }
 }
 
@@ -125,29 +96,8 @@ PostMarkerInfoBoxComponent.propTypes = {
 };
 
 export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
-    get selected() {
-        return this.props.post.getSizedPhotoForDisplay(this.targetWidth);
-    }
-
-    get scaledHeight() {
-        return Math.min(
-            Math.round(this.width * this.selected.height / this.selected.width),
-            Math.round(window.innerHeight * 3 / 4)
-        );
-    }
-
-    get scaledWidth() {
-        return Math.round(this.scaledHeight * this.selected.width / this.selected.height);
-    }
-
-    get targetWidth() {
-        return Math.round(scalePixelValueForWindowDevicePixelRatio(this.width));
-    }
-
     render() {
-        const {onVisibilityToggle, post, store, anchor} = this.props;
-        const placeholder = post.getSizedPhotoForLoading(this.targetWidth);
-        const selected = post.getSizedPhotoForDisplay(this.targetWidth);
+        const {onVisibilityToggle, post, store, anchor, dimensions, selected, placeholder} = this.props;
 
         if (!anchor) {
             return null;
@@ -155,14 +105,12 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
 
         return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
             {
-                (source, isLoading) => <InfoWindow
-                    anchor={anchor}
-                    onClose={() => onVisibilityToggle(false)}
-                    {...buildInfoWindowOptions()}
-                >
+                (source, isLoading) => <GooglePostCardOverlay anchor={anchor} {...dimensions}>
                     <div
-                        className={["marker-info-box", `marker-info-box__${post.type}`, this.postInfoBoxElementId].join(" ")}
+                        className={["marker-info-box", `marker-info-box__${post.type}`].join(" ")}
                         style={{
+                            width: dimensions.width,
+                            height: dimensions.height,
                             backgroundImage: isLoading
                                 ? `linear-gradient(to top right,rgba(0,0,0,0.67),rgba(0,0,0,0.33)),url(${source})`
                                 : `url(${source})`,
@@ -171,6 +119,7 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
                                 : null
                         }}
                     >
+                        <button type="button" className="marker-info-box-close" aria-label="Close post card" onClick={() => onVisibilityToggle(false)}>×</button>
                         <Provider store={store}>
                             <PostMarkerInfoBoxContentComponent
                                 isLoading={isLoading}
@@ -179,7 +128,7 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
                             />
                         </Provider>
                     </div>
-                </InfoWindow>
+                </GooglePostCardOverlay>
             }
         </ProgressiveImage>;
     }
@@ -204,6 +153,13 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
                 post={post}
                 visible={isVisible}
                 onVisibilityToggle={() => onVisibilityToggle(!isVisible)}
+                selected={post.getSizedPhotoForDisplay(Math.round(window.innerWidth * 0.75))}
+                placeholder={post.getSizedPhotoForLoading()}
+                dimensions={derivePostCardDimensions({
+                    photo: post.getSizedPhotoForDisplay(Math.round(window.innerWidth * 0.75)),
+                    viewportWidth: window.innerWidth,
+                    viewportHeight: window.innerHeight
+                })}
                 {...props}
             />;
 
@@ -213,6 +169,7 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
                 post={post}
                 visible={isVisible}
                 onVisibilityToggle={() => onVisibilityToggle(!isVisible)}
+                dimensions={derivePostCardDimensions({viewportWidth: window.innerWidth, viewportHeight: window.innerHeight, contentLength: String(post.title || "").length + String(post.body || "").length})}
                 {...props}
             />;
     }
