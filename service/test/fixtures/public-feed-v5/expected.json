@@ -1,5 +1,5 @@
 {
   "perPage": 4,
-  "visibleUids": ["s3#s3-1200", "s3#s3-boundary-b", "s3#s3-boundary-a", "tumblr#tumblr-1100", "s3#s3-1000", "tumblr#tumblr-gallery-0900", "s3#s3-0800", "s3#s3-equal-b", "s3#s3-equal-a", "tumblr#tumblr-0600", "s3#s3-0500", "s3#s3-0400", "s3#s3-0300", "s3#s3-0200", "s3#s3-0100", "s3#s3-json-string"],
+  "visibleUids": ["s3#s3-1200", "s3#s3-boundary-b", "s3#s3-boundary-a", "tumblr#tumblr-1100", "s3#s3-1000", "tumblr#tumblr-gallery-0900", "s3#s3-0800", "s3#s3-equal-b", "s3#s3-equal-a", "tumblr#tumblr-0600", "s3#s3-0500", "s3#s3-0400", "s3#s3-0300", "s3#s3-0200", "s3#s3-0100", "s3#s3-json-string", "flickr#tumblr-map-landscape", "flickr#tumblr-map-landscape-43", "flickr#tumblr-map-portrait", "flickr#tumblr-map-square"],
   "excludedIds": ["hidden-source", "unknown-source", "invalid-raw"]
 }

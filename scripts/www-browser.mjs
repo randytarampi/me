@@ -36,31 +36,26 @@ const mapInteraction = async ({page, requests}) => {
         if (!postsRequests(requests, target).length) throw new Error("map did not issue a successful posts request");
         return;
     }
-    await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")]
-        .some(element => /^(Twelve|Eleven)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
-    const marker = await page.$("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']");
-    const reopenedMarker = await page.waitForSelector("[title='Twelve'], [title='Eleven'], [aria-label='Twelve'], [aria-label='Eleven']", {timeout: 30000});
-    await reopenedMarker.evaluate(element => element.click());
-    // Map fetches are debounced. Let the pre-click trailing invocation settle before
-    // checking for a request actually caused by opening the card.
-    await sleep(600);
-    const requestsAtOpenSettle = requests.length;
-    await page.waitForSelector(".marker-info-box", {timeout: 30000});
-    if (await page.$$(".gm-style-iw").then(nodes => nodes.length)) throw new Error("native Google InfoWindow was rendered");
-    const windows = await page.$$(".marker-info-box");
-    if (windows.length !== 1) throw new Error(`expected one open map card, found ${windows.length}`);
-    const box = await windows[0].boundingBox();
-    await page.evaluate(() => Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => { image.addEventListener("load", resolve); image.addEventListener("error", resolve); }))));
-    const afterBox = await windows[0].boundingBox();
-    if (!box || !afterBox || JSON.stringify(box) !== JSON.stringify(afterBox)) throw new Error("map card moved while media loaded");
-    const mapBox = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
-    if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 1 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 1) throw new Error("map card is not centred on its anchor");
-    const aspectRatio = await windows[0].evaluate(element => {
+    const openAndCheckMarker = async (title, expectedRatio) => {
+        const marker = await page.waitForSelector(`[title='${title}'], [aria-label='${title}']`, {timeout: 30000});
+        await marker.evaluate(element => element.click());
+        await page.waitForSelector(".marker-info-box", {timeout: 30000});
+        if (await page.$$(".gm-style-iw").then(nodes => nodes.length)) throw new Error("native Google InfoWindow was rendered");
+        const window = await page.$(".marker-info-box");
+        const beforeMedia = await window.boundingBox();
+        await page.evaluate(() => Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => { image.addEventListener("load", resolve); image.addEventListener("error", resolve); }))));
+        await sleep(250);
+        const afterBox = await window.boundingBox();
+        const stableBox = await window.boundingBox();
+        if (!beforeMedia || !afterBox || !stableBox || Math.max(Math.abs(afterBox.x - stableBox.x), Math.abs(afterBox.y - stableBox.y), Math.abs(afterBox.width - stableBox.width), Math.abs(afterBox.height - stableBox.height)) > 1) throw new Error("map card did not remain stable after media settled");
+        const mapBox = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
+        if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 1 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 1) throw new Error("map card is not centred on its settled anchor");
+        const aspectRatio = await window.evaluate(element => {
         const background = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
         if (!background) return null;
         return new Promise(resolve => { const image = new Image(); image.onload = () => resolve(image.width / image.height); image.onerror = () => resolve(null); image.src = background; });
-    });
-    if (aspectRatio) {
+        });
+        if (aspectRatio === null || Math.abs(aspectRatio - expectedRatio) > 0.002) throw new Error(`map card media ratio ${aspectRatio} did not match expected ${expectedRatio}`);
         if (Math.abs(afterBox.width / afterBox.height - aspectRatio) > 0.01) throw new Error("map card aspect ratio changed from its media");
         const maxWidth = page.viewport().width * 0.75;
         const maxHeight = page.viewport().height * 0.75;
@@ -69,7 +64,12 @@ const mapInteraction = async ({page, requests}) => {
         if (Math.abs(afterBox.width - expectedWidth) > 1.5 || Math.abs(afterBox.height - expectedHeight) > 1.5) {
             throw new Error(`map card dimensions ${afterBox.width}x${afterBox.height} did not fill the expected ${expectedWidth}x${expectedHeight} viewport bounds`);
         }
-    }
+        return marker;
+    };
+    await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")].some(element => /^(Landscape 3:2|Portrait)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
+    await sleep(600);
+    const requestsAtOpenSettle = requests.length;
+    const marker = await openAndCheckMarker("Landscape 3:2", 1.5);
     // Narrow portrait maps legitimately settle a changed viewport after the
     // requested pan; the desktop interaction is the no-fetch regression guard.
     if (page.viewport().width > 500 && postsRequests(requests.slice(requestsAtOpenSettle), target).length) throw new Error("opening a map card issued a feed request");
@@ -79,7 +79,12 @@ const mapInteraction = async ({page, requests}) => {
     if (!closeButton || !await closeButton.evaluate(element => element.offsetParent !== null && element.getAttribute("aria-label"))) throw new Error("map card close button is not visible and accessible");
     await closeButton.evaluate(element => element.click());
     await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
-    await new Promise(resolve => setTimeout(resolve, 250));
+    await sleep(250);
+    await openAndCheckMarker("Portrait", 2 / 3);
+    if (page.viewport().width > 500 && postsRequests(requests.slice(requestsAtOpenSettle), target).length) throw new Error("opening map cards issued a feed request");
+    const portraitClose = await page.$(".marker-info-box button[aria-label='Close post card']");
+    await portraitClose.evaluate(element => element.click());
+    await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
     await marker.evaluate(element => element.click());
     await page.waitForSelector(".marker-info-box", {timeout: 30000});
     await page.evaluate(() => { window.__markerCard = document.querySelector(".marker-info-box"); });
