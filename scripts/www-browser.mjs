@@ -202,12 +202,14 @@ try {
     if (!isPrd) throw error;
     console.log(JSON.stringify({scenario: "polyfill-warning-free", prdDivergence: error.message}));
 }
+for (const deviceScaleFactor of [1, 2]) {
 try {
-    await runBrowserScenario({name: "map-interaction", url: target, scenario: mapInteraction});
+    await runBrowserScenario({name: `map-interaction-dpr-${deviceScaleFactor}`, url: target, deviceScaleFactor, scenario: mapInteraction});
 } catch (error) {
     if (!isPrd) throw error;
     // The legacy PRD bundle does not expose the current geolocated fixture markers. Keep its
     // failure as a visible, read-only reference result rather than turning it into a dev gate.
-    console.log(JSON.stringify({scenario: "map-interaction", prdDivergence: error.message}));
+    console.log(JSON.stringify({scenario: `map-interaction-dpr-${deviceScaleFactor}`, prdDivergence: error.message}));
+}
 }
 console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction"]}));

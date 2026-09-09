@@ -14,7 +14,7 @@ import {
     PostTagsComponent,
     PostTitleComponent
 } from "./post.jsx";
-import GooglePostCardOverlay, {derivePostCardDimensions} from "./map/google/postCardOverlay.jsx";
+import GooglePostCardOverlay, {derivePostCardDimensions, derivePostCardTargetWidth} from "./map/google/postCardOverlay.jsx";
 
 export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading}) => {
     const rowClassName = ["marker-info-box-post"];
@@ -149,7 +149,10 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
 
     const isPhoto = [Gallery.type, Photo.type].includes(post.type);
     const selected = isPhoto
-        ? post.getSizedPhotoForDisplay(Math.round(window.innerWidth * 0.75))
+        ? post.getSizedPhotoForDisplay(derivePostCardTargetWidth({
+            viewportWidth: window.innerWidth,
+            devicePixelRatio: window.devicePixelRatio || 1
+        }))
         : null;
     const selectedMedia = selected && {
         url: selected.url,

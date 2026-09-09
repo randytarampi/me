@@ -3,6 +3,9 @@ import {useEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 import {useMap} from "@vis.gl/react-google-maps";
 
+export const derivePostCardTargetWidth = ({viewportWidth, devicePixelRatio = 1}) =>
+    Math.round(viewportWidth * 0.75 * devicePixelRatio);
+
 export const derivePostCardDimensions = ({photo, viewportWidth, viewportHeight, contentLength = 0}) => {
     const maxWidth = viewportWidth * 0.75;
     const maxHeight = viewportHeight * 0.75;

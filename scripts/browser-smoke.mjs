@@ -3,7 +3,7 @@ import {mkdir, writeFile} from "node:fs/promises";
 
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
-export const runBrowserScenario = async ({name, url, profileMode = "fresh", bypassServiceWorker = false, setup, scenario}) => {
+export const runBrowserScenario = async ({name, url, profileMode = "fresh", bypassServiceWorker = false, deviceScaleFactor = 1, setup, scenario}) => {
     const requests = [];
     const pageErrors = [];
     const disableSandbox = process.env.PUPPETEER_NO_SANDBOX === "1" || process.env.CI || process.getuid?.() === 0;
@@ -16,7 +16,7 @@ export const runBrowserScenario = async ({name, url, profileMode = "fresh", bypa
     try {
         page = await browser.newPage();
         const [width, height] = (process.env.WWW_BROWSER_VIEWPORT || "1024x768").split("x").map(Number);
-        await page.setViewport({width, height, deviceScaleFactor: 1});
+        await page.setViewport({width, height, deviceScaleFactor});
         if (bypassServiceWorker) await page.setBypassServiceWorker(true);
         page.on("pageerror", error => pageErrors.push(error.message));
         // Register this before navigation: requests made by boot and rehydration are part of the contract.
