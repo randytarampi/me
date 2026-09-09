@@ -135,7 +135,7 @@
     "@babel/register": "^8.0.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
     "@sentry/webpack-plugin": "^5.4.0",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "babel-loader": "^10.1.1",
     "c8": "^12.0.0",
     "eslint-formatter-junit": "^9.0.1",
