@@ -44,7 +44,7 @@ on:
           - prd
 
 concurrency:
-  group: deploy-pages-${{ github.ref }}
+  group: deploy-pages-${{ github.ref }}-${{ inputs.application_name || github.event.inputs.application_name || 'www' }}-${{ inputs.deployment_environment || github.event.inputs.deployment_environment || 'dev' }}
   cancel-in-progress: true
 
 jobs:
