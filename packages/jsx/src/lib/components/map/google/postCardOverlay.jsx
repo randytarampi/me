@@ -37,7 +37,14 @@ export const createPostCardOverlayClass = () => {
     onAdd() {
         this.container = document.createElement("div");
         this.container.style.position = "absolute";
+        // The transition exists for the card open/resize reveal (signed contract). Google Maps
+        // calls draw() on every pan/drag frame — a permanent transition there makes the card
+        // trail the map. So the transition is enabled only while the card is being revealed or
+        // resized, and suppressed while the map is moving.
         this.container.style.transition = "transform 250ms ease-out, width 250ms ease-out, height 250ms ease-out";
+        if (this.map) {
+            this.bindMapMotionListeners();
+        }
         if (this.isPhoto) {
             this.container.style.width = `${this.width}px`;
             this.container.style.height = `${this.height}px`;
@@ -50,6 +57,21 @@ export const createPostCardOverlayClass = () => {
         if (panes?.floatPane) {
             panes.floatPane.appendChild(this.container);
         }
+    }
+
+    bindMapMotionListeners() {
+        this.suppressCardMotion = () => {
+            this.container.style.transition = "none";
+        };
+        this.restoreCardMotion = () => {
+            this.container.style.transition = "transform 250ms ease-out, width 250ms ease-out, height 250ms ease-out";
+        };
+        // `dragstart`/`drag` cover touch/mouse panning; `center_changed` covers programmatic
+        // pans and inertia; re-enabling happens when the map goes idle again.
+        this.map.addListener("dragstart", this.suppressCardMotion);
+        this.map.addListener("drag", this.suppressCardMotion);
+        this.map.addListener("center_changed", this.suppressCardMotion);
+        this.map.addListener("idle", this.restoreCardMotion);
     }
 
     draw() {
@@ -65,6 +87,14 @@ export const createPostCardOverlayClass = () => {
     }
 
     onRemove() {
+        if (this.map && this.suppressCardMotion) {
+            this.map.removeListener("dragstart", this.suppressCardMotion);
+            this.map.removeListener("drag", this.suppressCardMotion);
+            this.map.removeListener("center_changed", this.suppressCardMotion);
+            this.map.removeListener("idle", this.restoreCardMotion);
+        }
+        this.suppressCardMotion = null;
+        this.restoreCardMotion = null;
         this.container?.remove();
         this.container = null;
     }
@@ -79,6 +109,7 @@ export const GooglePostCardOverlay = ({anchor, width, height, isPhoto = false, c
     useEffect(() => {
         if (!map || !anchor || !globalThis.google?.maps?.OverlayView) return undefined;
         const overlay = new (createPostCardOverlayClass())({anchor, width, height, isPhoto});
+        overlay.map = map;
         overlay.setMap(map);
         overlayRef.current = overlay;
         const interval = window.setInterval(() => {
