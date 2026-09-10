@@ -28,14 +28,13 @@ const sources = [
     "*.md",
     path.resolve(require.resolve("@fortawesome/fontawesome-free"), "../../webfonts/*")
 ];
-if (process.env.NODE_ENV && fs.existsSync(path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web", process.env.NODE_ENV, "*"))) {
-    const environmentAssetsPath = path.resolve(require.resolve("@randy.tarampi/assets"), "../assets/web", process.env.NODE_ENV, "*");
+const assetsPackageDirectory = path.dirname(require.resolve("@randy.tarampi/assets/package.json"));
+const sharedAssetsPath = path.join(assetsPackageDirectory, "web", "*");
+const environmentAssetsDirectory = path.join(assetsPackageDirectory, "web", process.env.NODE_ENV === "prd" ? "prd" : "dev");
 
-    if (fs.existsSync(environmentAssetsPath)) {
-        sources.push(environmentAssetsPath);
-    }
-} else {
-    sources.push(path.resolve(require.resolve("@randy.tarampi/assets"), "../../assets/web/*"));
+sources.push(sharedAssetsPath);
+if (fs.existsSync(environmentAssetsDirectory) && fs.readdirSync(environmentAssetsDirectory).length > 0) {
+    sources.push(path.join(environmentAssetsDirectory, "*"));
 }
 
 export default webpackBaseConfig({
