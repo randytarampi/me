@@ -77,6 +77,46 @@ const mapInteraction = async ({page, requests}) => {
         }
         return marker;
     };
+    const openAndCheckTextMarker = async title => {
+        const marker = await page.waitForSelector(`[title='${title}'], [aria-label='${title}']`, {timeout: 30000});
+        await marker.evaluate(element => element.click());
+        await page.waitForSelector(".marker-info-box", {timeout: 30000});
+        const card = await page.$(".marker-info-box");
+        await sleep(1200);
+        const box = await card.boundingBox();
+        const mapBox = await page.$eval(".map--google", element => {
+            const {x, y, width, height} = element.getBoundingClientRect();
+            return {x, y, width, height};
+        });
+        if (!box || !box.width || !box.height) throw new Error(`${title} text card has no geometry`);
+        const maxWidth = page.viewport().width * 0.75 + 2;
+        const maxHeight = page.viewport().height * 0.75 + 2;
+        if (box.width > maxWidth || box.height > maxHeight) throw new Error(`${title} text card exceeds viewport bounds: ${box.width}x${box.height}`);
+        if (Math.abs(box.x + box.width / 2 - (mapBox.x + mapBox.width / 2)) > 2 || Math.abs(box.y + box.height / 2 - (mapBox.y + mapBox.height / 2)) > 2) {
+            throw new Error(`${title} text card is not centred on the map container`);
+        }
+        const closeButton = await card.$("button[aria-label='Close post card']");
+        const closeBox = await closeButton?.boundingBox();
+        if (!closeButton || !closeBox || !await closeButton.evaluate(element => element.offsetParent !== null)) throw new Error(`${title} text card close button is not visible`);
+        if (closeBox.x < box.x || closeBox.y < box.y || closeBox.x + closeBox.width > box.x + box.width || closeBox.y + closeBox.height > box.y + box.height) {
+            throw new Error(`${title} text card close button is clipped`);
+        }
+        const scroll = await card.evaluate(element => {
+            const overflowing = element.scrollHeight > element.clientHeight;
+            if (!overflowing) return {overflowing, changed: true};
+            element.scrollTop = 10;
+            return {overflowing, changed: element.scrollTop > 0};
+        });
+        if (scroll.overflowing && !scroll.changed) throw new Error(`${title} text card scroll position did not change`);
+        await page.evaluate(() => { window.__textMarkerCard = document.querySelector(".marker-info-box"); });
+        await page.mouse.wheel({deltaY: 200});
+        await sleep(500);
+        if (!await page.evaluate(() => document.querySelector(".marker-info-box") === window.__textMarkerCard)) throw new Error(`${title} text card remounted during map movement`);
+        console.log(JSON.stringify({scenario: "map-text-card", viewport: page.viewport(), title, geometry: box, map: mapBox, scroll}));
+        await closeButton.evaluate(element => element.click());
+        await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
+        return box;
+    };
     await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")].some(element => /^(Landscape 3:2|Portrait)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
     await sleep(600);
     const requestsAtOpenSettle = requests.length;
@@ -102,6 +142,12 @@ const mapInteraction = async ({page, requests}) => {
     await page.mouse.wheel({deltaY: 200});
     await new Promise(resolve => setTimeout(resolve, 500));
     if (!await page.evaluate(() => document.querySelector(".marker-info-box") === window.__markerCard)) throw new Error("map card remounted during map movement");
+    await page.$eval(".marker-info-box button[aria-label='Close post card']", element => element.click());
+    await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
+    const longTextBox = await openAndCheckTextMarker("Boundary A");
+    const shortTextBox = await openAndCheckTextMarker("Tiny");
+    if (shortTextBox.width >= page.viewport().width * 0.6) throw new Error(`short text card was forced to ${shortTextBox.width}px; expected less than 60vw`);
+    console.log(JSON.stringify({scenario: "map-text-card-summary", viewport: page.viewport(), long: longTextBox, short: shortTextBox}));
 };
 
 const nestedRouteTitles = async ({page}) => {
