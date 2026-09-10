@@ -15,10 +15,10 @@ const printServerlessConfig = stage => JSON.parse(execFileSync("yarn", ["sls", "
     // keeping this suite hermetic instead of reaching for live AWS.
     env: {
         ...process.env,
-        AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ?? "test",
-        AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ?? "test",
-        AWS_REGION: process.env.AWS_REGION ?? "us-east-1",
-        AWS_ENDPOINT_URL: process.env.AWS_ENDPOINT_URL ?? "http://localhost:4566"
+        AWS_ACCESS_KEY_ID: "test",
+        AWS_SECRET_ACCESS_KEY: "test",
+        AWS_REGION: "us-east-1",
+        AWS_ENDPOINT_URL: "http://localhost:4566"
     }
 }));
 

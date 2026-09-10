@@ -41,7 +41,7 @@ jobs:
         ports:
           - 4566:4566
         env:
-          SERVICES: dynamodb
+          SERVICES: dynamodb,ssm
         options: >-
           --health-cmd "curl --fail http://localhost:4566/_localstack/health"
           --health-interval 10s
@@ -140,7 +140,7 @@ jobs:
         ports:
           - 4566:4566
         env:
-          SERVICES: dynamodb
+          SERVICES: dynamodb,ssm
         options: >-
           --health-cmd "curl --fail http://localhost:4566/_localstack/health"
           --health-interval 10s

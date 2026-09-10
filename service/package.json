@@ -76,7 +76,7 @@
     "feed:v5:test:db": "NODE_ENV=test ../node_modules/.bin/mocha --config mocha.config.cjs test/integration/src/db/models/post.js",
     "feed:v5:test:http": "NODE_ENV=test ../node_modules/.bin/mocha --config mocha.config.cjs test/unit/src/serverless/util/getPostsV5.js test/unit/src/serverless/handlers/getPosts/index.js",
     "backfill:public-feed": "node src/scripts/backfillPublicFeedAttributes.js",
-    "localstack:start": "bash -c 'if curl --fail --silent --show-error http://localhost:4566/_localstack/health >/dev/null 2>&1; then echo \"LocalStack is already listening on :4566\"; else docker run --detach --rm --name me-service-localstack --publish 4566:4566 --env SERVICES=\"dynamodb,ssm\" localstack/localstack:4; fi'",
+    "localstack:start": "bash -c 'if health=$(curl --fail --silent --show-error http://localhost:4566/_localstack/health); then if printf \"%s\" \"$health\" | jq --exit-status \"(.services.dynamodb | IN(\\\"running\\\", \\\"available\\\")) and (.services.ssm | IN(\\\"running\\\", \\\"available\\\"))\" >/dev/null; then echo \"LocalStack is already listening on :4566 with dynamodb and ssm\"; else echo \"LocalStack is already listening on :4566 but does not expose both dynamodb and ssm; run `yarn workspace @randy.tarampi/service kill:localstack` and retry\" >&2; exit 1; fi; else docker run --detach --rm --name me-service-localstack --publish 4566:4566 --env SERVICES=\"dynamodb,ssm\" localstack/localstack:4; fi'",
     "pretest": "gulp -LLLL --color lint",
     "pretest:localstack": "yarn run localstack:start && yarn run localstack:migrate && yarn run localstack:ssm:seed",
     "start": "yarn run dev",

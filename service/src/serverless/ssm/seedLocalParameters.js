@@ -6,12 +6,22 @@ import {GetParametersCommand, PutParameterCommand, SSMClient} from "@aws-sdk/cli
 
 const endpoint = process.env.AWS_ENDPOINT_URL ?? "http://localhost:4566";
 
+let endpointUrl;
+try {
+    endpointUrl = new URL(endpoint);
+} catch {
+    throw new Error(`AWS_ENDPOINT_URL="${endpoint}" is invalid; set it to http://localhost:4566 or another loopback endpoint`);
+}
+if (!["localhost", "127.0.0.1"].includes(endpointUrl.hostname)) {
+    throw new Error(`AWS_ENDPOINT_URL="${endpoint}" is not allowed; set it to a localhost or 127.0.0.1 endpoint`);
+}
+
 const ssm = new SSMClient({
     region: process.env.AWS_REGION ?? "us-east-1",
     endpoint,
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "test",
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "test"
+        accessKeyId: "test",
+        secretAccessKey: "test"
     }
 });
 
