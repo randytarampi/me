@@ -451,7 +451,7 @@ describe("util", function () {
             )).to.eql(true);
         });
 
-        it("uses typed fetched metadata for the combined Photo/Gallery route", async function () {
+        it("uses returned-page typed fetched metadata for the combined Photo/Gallery route", async function () {
             const galleryPosts = [
                 Gallery.fromJS({id: "gallery-6", datePublished: new Date(2020, 0, 6)}),
                 Gallery.fromJS({id: "gallery-5", datePublished: new Date(2020, 0, 5)}),
@@ -485,11 +485,19 @@ describe("util", function () {
 
             const firstPage = await getPostsForParsedQuerystringParameters({type: Photo.type, perPage: 4}, headers);
             const oldestFetched = firstPage.firstFetched[Photo.type];
-            const cursor = firstPage.posts[firstPage.posts.length - 1];
-            expect(firstPage.firstFetched[Gallery.type].id).to.eql("gallery-boundary-a");
-            expect(firstPage.firstFetched[Photo.type].id).to.eql("photo-boundary-a");
+            const firstPageLoadedPosts = firstPage.posts[firstPage.posts.length - 1];
+            expect(firstPage.firstFetched[Gallery.type].id).to.eql("gallery-5");
+            expect(firstPage.firstFetched[Photo.type].id).to.eql("photo-5");
+            expect(firstPage.firstFetched.global).to.eql(firstPage.posts[firstPage.posts.length - 1]);
             expect(firstPage.lastFetched[Gallery.type].id).to.eql("gallery-6");
             expect(firstPage.lastFetched[Photo.type].id).to.eql("photo-6");
+            expect(firstPage.lastFetched.global).to.eql(firstPage.posts[0]);
+            expect(firstPage.posts).to.include.members([
+                firstPage.firstFetched[Gallery.type],
+                firstPage.firstFetched[Photo.type],
+                firstPage.lastFetched[Gallery.type],
+                firstPage.lastFetched[Photo.type]
+            ]);
             expect(firstPage.posts.every(post => post.datePublished >= oldestFetched.datePublished)).to.eql(true);
 
             const secondPage = await getPostsForParsedQuerystringParameters({
@@ -497,14 +505,43 @@ describe("util", function () {
                 perPage: 4,
                 orderBy: "datePublished",
                 orderOperator: "lt",
-                orderComparator: cursor.datePublished,
-                beforeId: cursor.uid
+                orderComparator: oldestFetched.datePublished,
+                beforeId: firstPageLoadedPosts.uid
             }, headers);
 
             expect(secondPage.posts).to.not.include.members(firstPage.posts);
-            expect(secondPage.posts).to.have.length(4);
-            expect(secondPage.posts.every(post => post.datePublished < cursor.datePublished
-                || (post.datePublished.valueOf() === cursor.datePublished.valueOf() && post.uid.localeCompare(cursor.uid) < 0)
+            expect(secondPage.posts.map(post => post.id)).to.eql([
+                "photo-boundary-b",
+                "photo-boundary-a",
+                "gallery-boundary-b",
+                "gallery-boundary-a"
+            ]);
+            const secondOldestFetched = secondPage.firstFetched[Photo.type];
+            const secondPageLoadedPosts = secondPage.posts[secondPage.posts.length - 1];
+            expect(secondPage.posts).to.include.members([
+                secondPage.firstFetched[Gallery.type],
+                secondPage.firstFetched[Photo.type],
+                secondPage.lastFetched[Gallery.type],
+                secondPage.lastFetched[Photo.type]
+            ]);
+
+            const thirdPage = await getPostsForParsedQuerystringParameters({
+                type: Photo.type,
+                perPage: 4,
+                orderBy: "datePublished",
+                orderOperator: "lt",
+                orderComparator: secondOldestFetched.datePublished,
+                beforeId: secondPageLoadedPosts.uid
+            }, headers);
+
+            expect(thirdPage.posts.map(post => post.id)).to.eql(["photo-3", "gallery-3"]);
+            expect([...firstPage.posts, ...secondPage.posts, ...thirdPage.posts].map(post => post.uid)).to.have.members([
+                ...galleryPosts.map(post => post.uid),
+                ...photoPosts.map(post => post.uid)
+            ]);
+            expect(new Set([...firstPage.posts, ...secondPage.posts, ...thirdPage.posts].map(post => post.uid)).size).to.eql(10);
+            expect(secondPage.posts.every(post => post.datePublished < oldestFetched.datePublished
+                || (post.datePublished.valueOf() === oldestFetched.datePublished.valueOf() && post.uid.localeCompare(oldestFetched.uid) < 0)
             )).to.eql(true);
         });
 

@@ -78,6 +78,18 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
             const paginatedPosts = sortedPosts.slice(0, queryParameters && queryParameters.perPage || 100);
             const globalOldestFetched = isV4 && paginatedPosts[paginatedPosts.length - 1];
             const globalNewestFetched = isV4 && paginatedPosts[0];
+            const fetchedPostsByType = isV4 && postTypesToFetch.length > 1
+                ? postTypesToFetch.map(postType => {
+                    const orderedPosts = paginatedPosts
+                        .filter(post => post.type === postType)
+                        .sort((leftPost, rightPost) => sortPosts(rightPost, leftPost));
+
+                    return {
+                        firstFetched: orderedPosts[0] || null,
+                        lastFetched: orderedPosts[orderedPosts.length - 1] || null
+                    };
+                })
+                : null;
             const relevantResults = visibleResults.filter(result => result.total > 0);
             const firstResults = isV4
                 ? relevantResults
@@ -117,11 +129,15 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
                 },
                 firstFetched: {
                     global: globalOldestFetched || (firstFetchedResults[0] && firstFetchedResults[0].firstFetched),
-                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.firstFetched)))
+                    ...(_.zipObject(postTypesToFetch, fetchedPostsByType
+                        ? fetchedPostsByType.map(result => result.firstFetched)
+                        : visibleResults.map(result => result && result.firstFetched)))
                 },
                 lastFetched: {
                     global: globalNewestFetched || (lastFetchedResults[lastResultIndex] && lastFetchedResults[lastResultIndex].lastFetched),
-                    ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.lastFetched)))
+                    ...(_.zipObject(postTypesToFetch, fetchedPostsByType
+                        ? fetchedPostsByType.map(result => result.lastFetched)
+                        : visibleResults.map(result => result && result.lastFetched)))
                 }
             };
         });
