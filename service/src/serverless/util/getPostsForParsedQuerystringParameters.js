@@ -76,8 +76,8 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
             }, {}));
             const sortedPosts = uniquePosts.sort(sortPosts);
             const paginatedPosts = sortedPosts.slice(0, queryParameters && queryParameters.perPage || 100);
-            const globalNewestFetched = isV4 && paginatedPosts[0];
             const globalOldestFetched = isV4 && paginatedPosts[paginatedPosts.length - 1];
+            const globalNewestFetched = isV4 && paginatedPosts[0];
             const relevantResults = visibleResults.filter(result => result.total > 0);
             const firstResults = isV4
                 ? relevantResults
@@ -116,11 +116,11 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
                     ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.last)))
                 },
                 firstFetched: {
-                    global: globalNewestFetched || (firstFetchedResults[0] && firstFetchedResults[0].firstFetched),
+                    global: globalOldestFetched || (firstFetchedResults[0] && firstFetchedResults[0].firstFetched),
                     ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.firstFetched)))
                 },
                 lastFetched: {
-                    global: globalOldestFetched || (lastFetchedResults[lastResultIndex] && lastFetchedResults[lastResultIndex].lastFetched),
+                    global: globalNewestFetched || (lastFetchedResults[lastResultIndex] && lastFetchedResults[lastResultIndex].lastFetched),
                     ...(_.zipObject(postTypesToFetch, visibleResults.map(result => result && result.lastFetched)))
                 }
             };

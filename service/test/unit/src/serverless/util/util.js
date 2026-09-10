@@ -294,12 +294,12 @@ describe("util", function () {
                     [Photo.type]: stubPhoto
                 },
                 firstFetched: {
-                    global: stubPosts[0],
+                    global: stubPosts[stubPosts.length - 1],
                     [Gallery.type]: stubGallery,
                     [Photo.type]: stubPhoto
                 },
                 lastFetched: {
-                    global: stubPosts[stubPosts.length - 1],
+                    global: stubPosts[0],
                     [Gallery.type]: stubGallery,
                     [Photo.type]: stubPhoto
                 }
@@ -366,8 +366,74 @@ describe("util", function () {
             const postsResult = await getPostsForParsedQuerystringParameters({perPage: 3}, stubRequestHeaders);
 
             expect(postsResult.posts.map(post => post.id)).to.eql(["gallery", "post", "photo"]);
-            expect(postsResult.firstFetched.global).to.eql(stubPostsByType[Gallery.type]);
-            expect(postsResult.lastFetched.global).to.eql(stubPostsByType[Photo.type]);
+            expect(postsResult.firstFetched.global).to.eql(stubPostsByType[Photo.type]);
+            expect(postsResult.lastFetched.global).to.eql(stubPostsByType[Gallery.type]);
+        });
+
+        it("deduplicates mixed types, applies the page size, and uses a stable UID tie-break", async function () {
+            const equalDate = new Date(2020, 0, 2);
+            const galleryPosts = [
+                Gallery.fromJS({id: "newest", datePublished: new Date(2020, 0, 3)}),
+                Gallery.fromJS({id: "same", datePublished: equalDate}),
+                Gallery.fromJS({id: "old-a", datePublished: equalDate})
+            ];
+            const photoPosts = [
+                Photo.fromJS({id: "same", datePublished: equalDate}),
+                Photo.fromJS({id: "old-b", datePublished: equalDate})
+            ];
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => Promise.resolve({
+                posts: searchParams.type === Gallery.type ? galleryPosts : photoPosts,
+                total: searchParams.type === Gallery.type ? galleryPosts.length : photoPosts.length
+            }));
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
+
+            const result = await getPostsForParsedQuerystringParameters({type: Gallery.type, perPage: 8}, {[ME_API_VERSION_HEADER]: 4});
+
+            expect(result.posts.map(post => post.id)).to.eql(["newest", "same", "old-b", "old-a"]);
+            expect(result.total.global).to.eql(5);
+            expect(result.firstFetched.global.id).to.eql("old-a");
+            expect(result.lastFetched.global.id).to.eql("newest");
+        });
+
+        it("returns eight posts on the first page and advances to a strictly older second page", async function () {
+            const posts = Array.from({length: 10}, (_, index) => Post.fromJS({
+                id: `post-${index}`,
+                datePublished: new Date(2020, 0, 10 - index)
+            }));
+            const proxyquiredSearchPosts = sinon.stub().callsFake(searchParams => {
+                const cursorDate = searchParams.orderComparator && new Date(searchParams.orderComparator).valueOf();
+                const cursorId = searchParams.beforeId;
+                const filteredPosts = posts.filter(post => !cursorDate
+                    || post.datePublished.valueOf() < cursorDate
+                    || (post.datePublished.valueOf() === cursorDate && post.uid.localeCompare(cursorId) < 0)
+                );
+
+                return Promise.resolve({posts: filteredPosts, total: filteredPosts.length});
+            });
+            const {default: getPostsForParsedQuerystringParameters} = await esmock("../../../../../src/serverless/util/getPostsForParsedQuerystringParameters.js", import.meta.url, {
+                "../../../../../src/lib/sources/searchPosts.js": {default: proxyquiredSearchPosts}
+            });
+            const headers = {[ME_API_VERSION_HEADER]: 4};
+
+            const firstPage = await getPostsForParsedQuerystringParameters({type: Post.type, perPage: 8}, headers);
+            const cursor = firstPage.firstFetched.global;
+            const secondPage = await getPostsForParsedQuerystringParameters({
+                type: Post.type,
+                perPage: 8,
+                orderBy: "datePublished",
+                orderOperator: "lt",
+                orderComparator: cursor.datePublished,
+                beforeId: cursor.uid
+            }, headers);
+
+            expect(firstPage.posts).to.have.length(8);
+            expect(firstPage.firstFetched.global).to.eql(posts[7]);
+            expect(firstPage.lastFetched.global).to.eql(posts[0]);
+            expect(secondPage.posts).to.have.length(2);
+            expect(secondPage.posts.every(post => post.datePublished < cursor.datePublished)).to.eql(true);
+            expect(secondPage.posts.some(post => post.uid === cursor.uid)).to.eql(false);
         });
 
         it("excludes configured sources before pagination and metadata aggregation", async function () {
