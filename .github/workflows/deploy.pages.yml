@@ -130,7 +130,7 @@ jobs:
           case "$APPLICATION_NAME:$DEPLOYMENT_ENVIRONMENT" in
             www:dev)
               EXPECTED_BRANCH=main
-              PAGES_REPOSITORY="${{ github.repository_owner }}.github.io"
+              PAGES_REPOSITORY="${{ github.repository_owner }}/${{ github.repository_owner }}.github.io"
               ;;
             www:prd)
               EXPECTED_BRANCH=gh-pages
