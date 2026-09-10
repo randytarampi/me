@@ -285,23 +285,23 @@ describe("util", function () {
                 },
                 first: {
                     global: stubPhoto,
-                    [Gallery.type]: stubGallery,
+                    [Gallery.type]: stubPhoto,
                     [Photo.type]: stubPhoto
                 },
                 last: {
                     global: stubGallery,
                     [Gallery.type]: stubGallery,
-                    [Photo.type]: stubPhoto
+                    [Photo.type]: stubGallery
                 },
                 firstFetched: {
                     global: stubPosts[stubPosts.length - 1],
-                    [Gallery.type]: stubGallery,
-                    [Photo.type]: stubPhoto
+                    [Gallery.type]: stubPosts[stubPosts.length - 1],
+                    [Photo.type]: stubPosts[stubPosts.length - 1]
                 },
                 lastFetched: {
                     global: stubPosts[0],
-                    [Gallery.type]: stubGallery,
-                    [Photo.type]: stubPhoto
+                    [Gallery.type]: stubPosts[0],
+                    [Photo.type]: stubPosts[0]
                 }
             };
 
@@ -487,9 +487,9 @@ describe("util", function () {
             const oldestFetched = firstPage.firstFetched[Photo.type];
             const firstPageLoadedPosts = firstPage.posts[firstPage.posts.length - 1];
             expect(firstPage.firstFetched[Gallery.type].id).to.eql("gallery-5");
-            expect(firstPage.firstFetched[Photo.type].id).to.eql("photo-5");
+            expect(firstPage.firstFetched[Photo.type].id).to.eql("gallery-5");
             expect(firstPage.firstFetched.global).to.eql(firstPage.posts[firstPage.posts.length - 1]);
-            expect(firstPage.lastFetched[Gallery.type].id).to.eql("gallery-6");
+            expect(firstPage.lastFetched[Gallery.type].id).to.eql("photo-6");
             expect(firstPage.lastFetched[Photo.type].id).to.eql("photo-6");
             expect(firstPage.lastFetched.global).to.eql(firstPage.posts[0]);
             expect(firstPage.posts).to.include.members([
