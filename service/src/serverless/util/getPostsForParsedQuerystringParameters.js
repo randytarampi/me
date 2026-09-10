@@ -63,8 +63,8 @@ const getPostsForParsedQuerystringParameters = ({type, ...queryParameters} = {},
                     total: posts.length,
                     first: orderedPosts[0] || null,
                     last: orderedPosts[orderedPosts.length - 1] || null,
-                    firstFetched: orderedPosts[orderedPosts.length - 1] || null,
-                    lastFetched: orderedPosts[0] || null
+                    firstFetched: orderedPosts[0] || null,
+                    lastFetched: orderedPosts[orderedPosts.length - 1] || null
                 };
             });
             const flattenedPosts = _.flatten(visibleResults.map(result => result.posts));
