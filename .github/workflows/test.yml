@@ -28,6 +28,40 @@ on:
           - prd
 
 jobs:
+  local-environment:
+    name: Run local environment parity gate
+    permissions:
+      contents: read
+    runs-on:
+      - ubuntu-latest
+    services:
+      localstack:
+        image: localstack/localstack:4
+        ports:
+          - 4566:4566
+        env:
+          SERVICES: dynamodb,ssm
+        options: >-
+          --health-cmd "curl --fail http://localhost:4566/_localstack/health"
+          --health-interval 10s --health-timeout 5s --health-retries 12
+          --health-start-period 20s
+    env:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-east-1
+      NX_DAEMON: false
+      PUPPETEER_NO_SANDBOX: "1"
+      FEED_V5_READINESS_ATTEMPTS: 1200
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: yarn
+      - run: corepack enable
+      - run: yarn install
+      - run: yarn local:env:check
+
   www-browser:
     name: Run www browser gate
     permissions:

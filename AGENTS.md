@@ -14,6 +14,8 @@ Canonical commands:
 - `yarn start:web` — run service + www together
 - `yarn feed:v5:test` — hermetic local V5 feed gate: LocalStack → migrate → seed → Serverless Offline → webpack → unit/DB/HTTP/browser layers → cleanup (requires Node 24; see [docs/FEED_V5_LOCAL.md](docs/FEED_V5_LOCAL.md))
 - `yarn feed:v5:dev` — interactive local V5 loop (same lifecycle, stays running)
+- `yarn local:env` — one-command local site: build, LocalStack, migration, V5 seed, Offline, webpack and sentinel check (Ctrl-C cleans up)
+- `yarn local:env:check` — non-interactive local environment and sentinel gate
 - `yarn www:v5:test:browser` — www browser smoke: tab/map scenarios against the local lifecycle (see `scripts/browser-smoke.mjs`)
 
 Visual sign-off: for user-visible UI changes, present localhost evidence (geometry tables, DOM assertions, or the user's own `http://localhost:8080` view) — never screenshots from dev. Dev pushes verify deployment; the local harness is the review surface.

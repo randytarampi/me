@@ -7,6 +7,19 @@ workflow contacts AWS or an external source.
 yarn feed:v5:test
 ```
 
+For a fully working local site after installing dependencies, use the single
+interactive entry point:
+
+```sh
+yarn local:env
+```
+
+It builds the runtime workspaces, starts LocalStack with DynamoDB and SSM,
+migrates and seeds the V5 fixture, then starts Serverless Offline on `:3006`
+and webpack on `:8080`. It verifies fixture post `s3--@me/sep!-s3-1200` through the API,
+pagination, RSS and the rendered browser DOM. Press Ctrl-C to stop everything.
+CI uses the same lifecycle with `yarn local:env:check`.
+
 The aggregate test runner resets only `local-posts`, seeds the versioned
 fixture, starts Serverless Offline and webpack, waits for both readiness URLs,
 runs unit/DB/HTTP/browser lanes sequentially, and cleans up all child process

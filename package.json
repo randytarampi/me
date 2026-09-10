@@ -111,6 +111,8 @@
     "feed:v5:test:aggregate": "node scripts/feed-v5-test.mjs",
     "feed:v5:test": "yarn feed:v5:test:aggregate",
     "feed:v5:dev": "node scripts/feed-v5-runtime.mjs && node scripts/feed-v5-local.mjs",
+    "local:env": "node scripts/feed-v5-runtime.mjs && node scripts/feed-v5-local.mjs",
+    "local:env:check": "LOCAL_ENV_CHECK=1 node scripts/feed-v5-runtime.mjs && LOCAL_ENV_CHECK=1 node scripts/feed-v5-local.mjs",
     "test": "yarn run test:actual; yarn run test:collect",
     "test:actual": "cross-env-shell NODE_ENV=test lerna run test --no-bail --concurrency $(node -p \"require(\\\"os\\\").cpus().length\")",
     "test:actual:collect": "junit-merge $(find packages service www resume letter -name 'test-results.xml' -type f -not -path '*/node_modules/*' 2>/dev/null) --out ./test-results.xml || true",
