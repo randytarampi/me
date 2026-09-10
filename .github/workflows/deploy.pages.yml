@@ -124,14 +124,22 @@ jobs:
       - name: Verify GitHub Pages source
         env:
           PAGES_TOKEN: ${{ secrets.GH_PAGES_DEPLOYMENT_TOKEN }}
-          PAGES_REPOSITORY: ${{ (inputs.application_name || github.event.inputs.application_name || 'www') == 'www' && format('{0}/{0}.github.io', github.repository_owner) || format('{0}/me.resume', github.repository_owner) }}
         run: |
           set -euo pipefail
 
           case "$APPLICATION_NAME:$DEPLOYMENT_ENVIRONMENT" in
-            www:dev) EXPECTED_BRANCH=main ;;
-            www:prd) EXPECTED_BRANCH=gh-pages ;;
-            jsonresume-theme:prd) EXPECTED_BRANCH=main ;;
+            www:dev)
+              EXPECTED_BRANCH=main
+              PAGES_REPOSITORY="${{ github.repository_owner }}.github.io"
+              ;;
+            www:prd)
+              EXPECTED_BRANCH=gh-pages
+              PAGES_REPOSITORY="${{ github.repository }}"
+              ;;
+            jsonresume-theme:prd)
+              EXPECTED_BRANCH=main
+              PAGES_REPOSITORY="${{ github.repository_owner }}/me.resume"
+              ;;
             *) echo "Unsupported Pages target: $APPLICATION_NAME:$DEPLOYMENT_ENVIRONMENT" >&2; exit 1 ;;
           esac
 
