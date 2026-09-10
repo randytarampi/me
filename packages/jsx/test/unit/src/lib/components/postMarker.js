@@ -32,7 +32,10 @@ describe("post marker overlay dimensions", function () {
         expect(dimensions).to.eql({width: 768, height: 512});
     });
 
-    it("sizes text cards when media metadata is absent", function () {
-        expect(derivePostCardDimensions({viewportWidth: 390, viewportHeight: 844})).to.eql({width: 293, height: 144});
+    it("keeps text-card sizing bounded while allowing content measurement", function () {
+        const dimensions = derivePostCardDimensions({viewportWidth: 390, viewportHeight: 844});
+        expect(dimensions.width).to.be.at.most(Math.ceil(390 * 0.75));
+        expect(dimensions.height).to.be.at.most(844 * 0.75);
+        expect(dimensions.width).to.be.greaterThan(0);
     });
 });

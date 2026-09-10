@@ -70,16 +70,14 @@ export class PostMarkerInfoBoxComponent extends PureComponent {
         return <GooglePostCardOverlay anchor={anchor} {...dimensions}>
             <div
                 className={`marker-info-box marker-info-box__${post.type}`}
-                style={{backgroundColor: "white", width: dimensions.width, height: dimensions.height}}
+                style={{backgroundColor: "white", maxWidth: "75vw", maxHeight: "75vh", overflow: "auto"}}
             >
                 <button type="button" className="marker-info-box-close" aria-label="Close post card" onClick={() => onVisibilityToggle(false)}>×</button>
                 <Provider store={store}>
                     <PostMarkerInfoBoxContentComponent
                         post={post}
                         title={this.title}
-                        style={{
-                            maxWidth: dimensions.width
-                        }}
+                        style={{maxWidth: "75vw", maxHeight: "75vh"}}
                     />
                 </Provider>
             </div>
@@ -106,7 +104,7 @@ export class PhotoMarkerInfoBoxComponent extends PostMarkerInfoBoxComponent {
 
         return <ProgressiveImage src={selected.url} placeholder={placeholder.url}>
             {
-                (source, isLoading) => <GooglePostCardOverlay anchor={anchor} {...dimensions}>
+                (source, isLoading) => <GooglePostCardOverlay anchor={anchor} isPhoto {...dimensions}>
                     <div
                         className={["marker-info-box", `marker-info-box__${post.type}`].join(" ")}
                         style={{
@@ -184,6 +182,7 @@ const renderPostMarkerInfoBoxComponentForPost = ({post, isVisible, onVisibilityT
                     viewportWidth: window.innerWidth,
                     viewportHeight: window.innerHeight
                 })}
+                isPhoto
                 {...props}
             />;
 

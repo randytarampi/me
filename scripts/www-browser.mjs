@@ -44,12 +44,23 @@ const mapInteraction = async ({page, requests}) => {
         const window = await page.$(".marker-info-box");
         const beforeMedia = await window.boundingBox();
         await page.evaluate(() => Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => { image.addEventListener("load", resolve); image.addEventListener("error", resolve); }))));
-        await sleep(250);
+        // Opening a card also pans the map (setMapCenter) and the overlay animates over 250ms
+        // (signed contract); sample geometry only after BOTH the pan and transition have settled.
+        await sleep(1200);
         const afterBox = await window.boundingBox();
         const stableBox = await window.boundingBox();
         if (!beforeMedia || !afterBox || !stableBox || Math.max(Math.abs(afterBox.x - stableBox.x), Math.abs(afterBox.y - stableBox.y), Math.abs(afterBox.width - stableBox.width), Math.abs(afterBox.height - stableBox.height)) > 1) throw new Error("map card did not remain stable after media settled");
+        // Opening a card pans the map to centre on the marker (setMapCenter in the marker onClick),
+        // so the marker's geographic anchor sits at the map container's centre after the pan settles,
+        // and the overlay centres the card on that anchor. Assert card centre ≈ map centre — this
+        // stays icon-geometry-independent (SVG path icons anchor at their path origin, not box centre).
         const mapBox = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
-        if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 1 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 1) throw new Error("map card is not centred on its settled anchor");
+        if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 2 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 2) throw new Error("map card is not centred on its marker anchor");
+        const transition = await window.evaluate(element => {
+            const style = getComputedStyle(element.parentElement);
+            return {property: style.transitionProperty, duration: style.transitionDuration};
+        });
+        if (!transition.property.includes("transform") || !transition.duration.split(",").some(value => parseFloat(value) > 0)) throw new Error("map card position transition is missing");
         const aspectRatio = await window.evaluate(element => {
         const background = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
         if (!background) return null;

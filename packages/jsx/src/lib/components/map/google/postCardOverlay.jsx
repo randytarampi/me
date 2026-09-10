@@ -26,18 +26,26 @@ export const derivePostCardDimensions = ({photo, viewportWidth, viewportHeight, 
 export const createPostCardOverlayClass = () => {
     const OverlayView = globalThis.google.maps.OverlayView;
     return class PostCardOverlay extends OverlayView {
-    constructor({anchor, width, height}) {
+    constructor({anchor, width, height, isPhoto = false}) {
         super();
         this.anchor = anchor;
         this.width = width;
         this.height = height;
+        this.isPhoto = isPhoto;
     }
 
     onAdd() {
         this.container = document.createElement("div");
         this.container.style.position = "absolute";
-        this.container.style.width = `${this.width}px`;
-        this.container.style.height = `${this.height}px`;
+        this.container.style.transition = "transform 250ms ease-out, width 250ms ease-out, height 250ms ease-out";
+        if (this.isPhoto) {
+            this.container.style.width = `${this.width}px`;
+            this.container.style.height = `${this.height}px`;
+        } else {
+            this.container.style.maxWidth = "75vw";
+            this.container.style.maxHeight = "75vh";
+            this.container.style.overflow = "auto";
+        }
         const panes = this.getPanes();
         if (panes?.floatPane) {
             panes.floatPane.appendChild(this.container);
@@ -51,7 +59,9 @@ export const createPostCardOverlayClass = () => {
 
         const position = projection.fromLatLngToDivPixel(anchorPosition);
         if (!position) return;
-        this.container.style.transform = `translate(${Math.round(position.x)}px, ${Math.round(position.y)}px) translate(-${this.width / 2}px, -${this.height / 2}px)`;
+        this.container.style.transform = this.isPhoto
+            ? `translate(${Math.round(position.x)}px, ${Math.round(position.y)}px) translate(-${this.width / 2}px, -${this.height / 2}px)`
+            : `translate(${Math.round(position.x)}px, ${Math.round(position.y)}px) translate(-50%, -50%)`;
     }
 
     onRemove() {
@@ -61,14 +71,14 @@ export const createPostCardOverlayClass = () => {
     };
 };
 
-export const GooglePostCardOverlay = ({anchor, width, height, children}) => {
+export const GooglePostCardOverlay = ({anchor, width, height, isPhoto = false, children}) => {
     const map = useMap();
     const overlayRef = useRef(null);
     const [container, setContainer] = useState(null);
 
     useEffect(() => {
         if (!map || !anchor || !globalThis.google?.maps?.OverlayView) return undefined;
-        const overlay = new (createPostCardOverlayClass())({anchor, width, height});
+        const overlay = new (createPostCardOverlayClass())({anchor, width, height, isPhoto});
         overlay.setMap(map);
         overlayRef.current = overlay;
         const interval = window.setInterval(() => {
@@ -87,8 +97,10 @@ export const GooglePostCardOverlay = ({anchor, width, height, children}) => {
         overlayRef.current.width = width;
         overlayRef.current.height = height;
         if (overlayRef.current.container) {
-            overlayRef.current.container.style.width = `${width}px`;
-            overlayRef.current.container.style.height = `${height}px`;
+            if (overlayRef.current.isPhoto) {
+                overlayRef.current.container.style.width = `${width}px`;
+                overlayRef.current.container.style.height = `${height}px`;
+            }
             overlayRef.current.draw();
         }
     }, [width, height]);
@@ -100,6 +112,7 @@ GooglePostCardOverlay.propTypes = {
     anchor: PropTypes.object,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    isPhoto: PropTypes.bool,
     children: PropTypes.node.isRequired
 };
 
