@@ -168,6 +168,147 @@ const mapInteraction = async ({page, requests}) => {
     console.log(JSON.stringify({scenario: "map-text-card-summary", viewport: page.viewport(), long: longTextBox, short: shortTextBox}));
 };
 
+const mapPanDrag = async ({page}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/map`, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")].some(element => (element.getAttribute("title") || element.getAttribute("aria-label")) === "Landscape 3:2"), {timeout: 30000});
+    const markerSelector = "[title='Landscape 3:2'], [aria-label='Landscape 3:2']";
+    const clickMarker = async () => {
+        for (let attempt = 0; attempt < 3; attempt++) {
+            await page.waitForSelector(markerSelector, {timeout: 30000});
+            await page.$eval(markerSelector, element => element.click());
+            try {
+                await page.waitForSelector(".marker-info-box", {timeout: 10000});
+                return;
+            } catch (error) {
+                if (attempt === 2) throw error;
+            }
+        }
+    };
+    await clickMarker();
+    await page.waitForFunction(() => {
+        const card = document.querySelector(".marker-info-box");
+        return card && getComputedStyle(card.parentElement).transitionDuration.split(",").every(value => parseFloat(value) === 0);
+    }, {timeout: 30000});
+    await sleep(500);
+
+    const recordPan = async direction => {
+        await page.evaluate(() => { window.__panReleaseAt = null; });
+        const start = await page.$eval(".map--google", (element, sign) => {
+            const box = element.getBoundingClientRect();
+            return {x: sign > 0 ? box.left + 80 : box.right - 80, y: box.top + box.height / 2};
+        }, direction);
+        const recording = page.evaluate(title => new Promise(resolve => {
+            const frames = [];
+            let lastCard, lastMovement;
+            let previous = performance.now();
+            const sample = timestamp => {
+                const card = document.querySelector(".marker-info-box");
+                const marker = [...document.querySelectorAll(".map--google [title], .map--google [aria-label]")].find(element => (element.getAttribute("title") || element.getAttribute("aria-label")) === title);
+                const cardBox = card?.getBoundingClientRect(), markerBox = marker?.getBoundingClientRect();
+                const overlay = card?.parentElement, style = overlay && getComputedStyle(overlay);
+                frames.push({timestamp, interval: timestamp - previous, transitionArmed: !!style && style.transitionDuration.split(",").some(value => parseFloat(value) > 0), card: cardBox && {x: cardBox.x, y: cardBox.y}, relative: cardBox && markerBox && {x: cardBox.x + cardBox.width / 2 - markerBox.x - markerBox.width / 2, y: cardBox.y + cardBox.height / 2 - markerBox.y - markerBox.height / 2}});
+                if (cardBox && (!lastCard || Math.hypot(cardBox.x - lastCard.x, cardBox.y - lastCard.y) > 0.1)) lastMovement = timestamp;
+                lastCard = cardBox && {x: cardBox.x, y: cardBox.y};
+                previous = timestamp;
+                const releaseAt = window.__panReleaseAt;
+                const last = frames.at(-1);
+                const idleAt = releaseAt && lastMovement && lastMovement >= releaseAt && timestamp - lastMovement >= 250 ? lastMovement + 250 : null;
+                if (idleAt && timestamp >= idleAt + 650 || releaseAt && last.timestamp - releaseAt >= 10000) resolve({releaseAt, idleAt, frames});
+                else requestAnimationFrame(sample);
+            };
+            requestAnimationFrame(sample);
+        }), "Landscape 3:2");
+        await page.mouse.move(start.x, start.y);
+        await page.mouse.down();
+        for (let step = 1; step <= 19; step++) {
+            await page.mouse.move(start.x + direction * 300 * step / 19, start.y, {steps: 1});
+            await sleep(16);
+        }
+        await page.mouse.up();
+        await page.evaluate(() => { window.__panReleaseAt = performance.now(); });
+        return recording;
+    };
+    const scorePan = ({releaseAt, idleAt, frames}) => {
+        const during = frames.filter(frame => frame.timestamp <= releaseAt + 350);
+        if (during.some(frame => frame.transitionArmed)) throw new Error("map card transition re-armed during pan drag");
+        const relative = during.map(frame => frame.relative).filter(Boolean);
+        const origin = relative[0];
+        const relativeDrift = origin && Math.max(...relative.map(value => Math.hypot(value.x - origin.x, value.y - origin.y)));
+        if (!origin || relativeDrift > 1.5) throw new Error(`card/marker relative vector was not stable during pan drag: drift=${relativeDrift?.toFixed(2)}px frames=${during.length}`);
+        if (!idleAt) throw new Error("map pan did not reach a post-release idle state");
+        const idle = frames.filter(frame => frame.timestamp >= idleAt + 150);
+        const recent = idle.filter(frame => frame.timestamp <= idleAt + 650).map(frame => frame.card).filter(Boolean);
+        const span = Math.max(Math.max(...recent.map(value => value.x)) - Math.min(...recent.map(value => value.x)), Math.max(...recent.map(value => value.y)) - Math.min(...recent.map(value => value.y)));
+        let reversals = 0, previousSign = 0;
+        for (let index = 1; index < idle.length; index++) {
+            const delta = idle[index].card?.x - idle[index - 1].card?.x;
+            const sign = Math.sign(delta);
+            if (Math.abs(delta) >= 0.75) { if (previousSign && sign !== previousSign) reversals++; previousSign = sign; }
+        }
+        if (span > 1 || reversals >= 2) throw new Error(`post-pan idle jitter exceeded thresholds: span=${span.toFixed(2)}px reversals=${reversals}`);
+        return {span: Number(span.toFixed(3)), reversals, frames: frames.length};
+    };
+    const results = [];
+    for (const direction of [1, -1]) results.push(scorePan(await recordPan(direction)));
+    console.log(JSON.stringify({scenario: "map-pan-drag", pans: results}));
+    await page.$eval(".marker-info-box button[aria-label='Close post card']", element => element.click());
+    await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
+};
+
+const mapZoomPan = async ({page, requests}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/map`, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForSelector(".map--google", {timeout: 30000});
+    await page.waitForSelector("[title='Landscape 3:2'], [aria-label='Landscape 3:2']", {timeout: 30000});
+    let opened = false;
+    for (let attempt = 0; attempt < 3 && !opened; attempt++) {
+        await page.$eval("[title='Landscape 3:2'], [aria-label='Landscape 3:2']", element => element.click());
+        try { await page.waitForSelector(".marker-info-box", {timeout: 10000}); opened = true; } catch (error) { if (attempt === 2) throw error; }
+    }
+    await sleep(1200);
+    const markerGeometry = () => page.$$eval(".map--google [title], .map--google [aria-label]", elements => elements.map(element => { const box = element.getBoundingClientRect(); return {label: element.getAttribute("title") || element.getAttribute("aria-label"), x: box.x, y: box.y, width: box.width, height: box.height}; }).filter(marker => marker.label && !/^\d+$/.test(marker.label)));
+    const before = await markerGeometry();
+    const zoom = await page.$("[aria-label='Zoom in']");
+    if (!zoom) throw new Error("Google map zoom control is unavailable");
+    await zoom.click();
+    await page.waitForFunction(previous => [...document.querySelectorAll(".map--google [title], .map--google [aria-label]")].some(element => { const label = element.getAttribute("title") || element.getAttribute("aria-label"), old = previous.find(marker => marker.label === label), box = element.getBoundingClientRect(); return old && (Math.abs(box.x - old.x) > 0.5 || Math.abs(box.y - old.y) > 0.5 || Math.abs(box.width - old.width) > 0.5); }), {timeout: 10000}, before);
+    const geometry = await page.$eval(".marker-info-box", element => { const card = element.getBoundingClientRect(), map = element.closest(".map--google").getBoundingClientRect(); return {card: {x: card.x, y: card.y, width: card.width, height: card.height}, map: {x: map.x, y: map.y, width: map.width, height: map.height}}; });
+    if (Math.abs(geometry.card.x + geometry.card.width / 2 - (geometry.map.x + geometry.map.width / 2)) > 3 || Math.abs(geometry.card.y + geometry.card.height / 2 - (geometry.map.y + geometry.map.height / 2)) > 3) throw new Error("zoom moved the open card away from its marker anchor");
+    const close = await page.$(".marker-info-box button[aria-label='Close post card']");
+    if (!close || !await close.evaluate(element => element.offsetParent !== null)) throw new Error("zoomed map card close button is not visible");
+    await close.click();
+    await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
+    const baseline = postsRequests(requests, target).length;
+    const map = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
+    await page.mouse.move(map.x + 100, map.y + map.height / 2); await page.mouse.down();
+    for (let step = 1; step <= 19; step++) { await page.mouse.move(map.x + 100 + 300 * step / 19, map.y + map.height / 2, {steps: 1}); await sleep(16); }
+    await page.mouse.up(); await sleep(500);
+    if (postsRequests(requests, target).length !== baseline) throw new Error("map pan issued a feed request");
+    console.log(JSON.stringify({scenario: "map-zoom-pan", zoomChanged: true, posts: baseline}));
+};
+
+const multiPostOpenClose = async ({page, requests}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/map`, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForSelector(".map--google", {timeout: 30000});
+    await page.waitForSelector("[title='Landscape 3:2'], [aria-label='Landscape 3:2']", {timeout: 30000});
+    const initialPosts = postsRequests(requests, target).length, openedTitles = [];
+    const open = async (title, expectedWidth) => {
+        await page.$eval(`[title='${title}'], [aria-label='${title}']`, element => element.click()); await page.waitForSelector(".marker-info-box", {timeout: 30000}); await sleep(1200);
+        const result = await page.$eval(".marker-info-box", element => { const box = element.getBoundingClientRect(); return {title: element.querySelector(".post-title")?.textContent?.trim() || element.textContent.trim().slice(0, 40), width: box.width}; });
+        openedTitles.push(result.title);
+        await page.evaluate(() => { window.__markerCard = document.querySelector(".marker-info-box"); });
+        if (!await page.evaluate(() => window.__markerCard === document.querySelector(".marker-info-box"))) throw new Error(`${title} card container remounted while open`);
+        if (await page.$$eval(".marker-info-box", cards => cards.length) !== 1) throw new Error(`duplicate ${title} cards rendered`);
+        if (expectedWidth && result.width > expectedWidth) throw new Error(`${title} card width ${result.width}px exceeds intrinsic bound`);
+        await page.$eval(".marker-info-box button[aria-label='Close post card']", element => element.click()); await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
+    };
+    await open("Landscape 3:2"); await open("Portrait"); await open("Boundary A", page.viewport().width * 0.75);
+    // Marker cards expose no .post[id] in the DOM (postMarker.jsx renders metadata rows only),
+    // so identity is asserted via each card's rendered title — 3 distinct, in the clicked order.
+    if (openedTitles.length !== 3 || new Set(openedTitles).size !== 3) throw new Error(`multi-post cycle did not open 3 distinct cards: ${JSON.stringify(openedTitles)}`);
+    if (postsRequests(requests, target).length !== initialPosts) throw new Error("opening and closing cards issued a feed request");
+    console.log(JSON.stringify({scenario: "multi-post-open-close", titles: openedTitles, posts: initialPosts, cards: 0}));
+};
+
 const nestedRouteTitles = async ({page}) => {
     // PRD may retain the parent-title defect; route semantics are asserted for the RC bundle.
     for (const [path, title] of [["/blog/photos", "See (through) me"], ["/blog/words", "Read me"], ["/blog/photos/tags/cats", "See (through) me"]]) {
@@ -287,4 +428,7 @@ try {
     console.log(JSON.stringify({scenario: `map-interaction-dpr-${deviceScaleFactor}`, prdDivergence: error.message}));
 }
 }
-console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction"]}));
+for (const [name, scenario] of [["map-pan-drag", mapPanDrag], ["map-zoom-pan", mapZoomPan], ["multi-post-open-close", multiPostOpenClose]]) {
+    await runBrowserScenario({name, url: target, scenario});
+}
+console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction", "map-pan-drag", "map-zoom-pan", "multi-post-open-close"]}));
