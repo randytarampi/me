@@ -120,6 +120,7 @@ const start = async () => {
     if (!/^http:\/\/(localhost|127\.0\.0\.1):4566$/.test(env.AWS_ENDPOINT_URL)) throw new Error("Local feed requires loopback LocalStack");
     try { execFileSync("docker", ["info"], {stdio: "ignore"}); } catch { throw new Error("Docker is unavailable; start Docker Desktop (or the Docker daemon) and retry."); }
     await Promise.all([3006, 8080].map(assertPortAvailable));
+    await run("yarn", ["lerna", "run", "build", "--scope", "@randy.tarampi/js", "--scope", "@randy.tarampi/lambda-logger", "--scope", "@randy.tarampi/serverless", "--scope", "@randy.tarampi/browser-logger", "--scope", "@randy.tarampi/redux-metrics", "--scope", "@randy.tarampi/views", "--scope", "@randy.tarampi/jsx", "--scope", "@randy.tarampi/css", "--scope", "@randy.tarampi/printables", "--scope", "@randy.tarampi/resume", "--scope", "@randy.tarampi/letter", "--scope", "jsonresume-theme-randytarampi", "--scope", "@randy.tarampi/www", "--include-dependencies", "--stream"]);
     let localStackWasRunning = false;
     try { localStackWasRunning = execFileSync("docker", ["ps", "--format", "{{.Names}}"], {encoding: "utf8"}).split("\n").includes("me-service-localstack"); } catch {}
     await run("yarn", ["workspace", "@randy.tarampi/service", "localstack:start"]);
@@ -128,7 +129,6 @@ const start = async () => {
     await run("yarn", ["workspace", "@randy.tarampi/service", "localstack:migrate"]);
     await run("yarn", ["workspace", "@randy.tarampi/service", "localstack:ssm:seed"]);
     await run("yarn", ["workspace", "@randy.tarampi/service", "feed:v5:seed:reset"]);
-    await run("yarn", ["lerna", "run", "build", "--scope", "@randy.tarampi/js", "--scope", "@randy.tarampi/lambda-logger", "--scope", "@randy.tarampi/serverless", "--scope", "@randy.tarampi/browser-logger", "--scope", "@randy.tarampi/redux-metrics", "--scope", "@randy.tarampi/views", "--scope", "@randy.tarampi/jsx", "--scope", "@randy.tarampi/css", "--scope", "@randy.tarampi/printables", "--scope", "@randy.tarampi/resume", "--scope", "@randy.tarampi/letter", "--scope", "jsonresume-theme-randytarampi", "--scope", "@randy.tarampi/www", "--include-dependencies", "--stream"]);
 
     const service = spawn("yarn", ["workspace", "@randy.tarampi/service", "dev:serverless"], {cwd: root, env, stdio: "inherit", detached: true});
     const www = spawn("yarn", ["workspace", "@randy.tarampi/www", "dev:client"], {cwd: root, env, stdio: "inherit", detached: true});
