@@ -1,7 +1,8 @@
+/* global google */
 import {Gallery, Photo, Post, POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
-import React, {PureComponent, useCallback, useState} from "react";
-import {Marker} from "@vis.gl/react-google-maps";
+import React, {PureComponent, useCallback, useEffect, useState} from "react";
+import {useMap} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {Provider, ReactReduxContext} from "react-redux";
@@ -15,6 +16,7 @@ import {
     PostTitleComponent
 } from "./post.jsx";
 import GooglePostCardOverlay, {derivePostCardDimensions, derivePostCardTargetWidth} from "./map/google/postCardOverlay.jsx";
+
 
 export const PostMarkerInfoBoxContentComponent = ({post, title, style, isLoading}) => {
     const rowClassName = ["marker-info-box-post"];
@@ -206,53 +208,112 @@ renderPostMarkerInfoBoxComponentForPost.propTypes = {
 
 export const buildPostMarkerId = post => `marker--${post.uid}`;
 
-// NOTE-RT: `@vis.gl/react-google-maps`'s `InfoWindow` is anchored to a marker *instance* (a
-// sibling, not a `Marker` child like the old `InfoBox`), so the marker instance is captured via
-// `ref`/local state here and threaded down into `renderPostMarkerInfoBoxComponentForPost` as
-// `anchor`. The same ref callback also reports the marker instance to `setMarkerRef` (when
-// present, i.e. when rendered as a child of `GoogleMapMarkerClustererComponent`) for clustering.
-export const PostMarkerComponent = ({post, isVisible = false, onVisibilityToggle, setMapCenter, setMarkerRef, ...props}) => {
+// NOTE-RT: `@vis.gl/react-google-maps`'s `<Marker>` re-applies its options object on every
+// invocation of its own function component (its options `useEffect` deliberately skips proper
+// dependency checks), and context updates re-render it during map pans regardless of any
+// memoization above it (React context propagation walks through memo bail-outs). That measured
+// as 69 `marker.setOptions` calls per marker per pan (each cascading `setIcon`/`setPosition`
+// internally), which is the dev-map jitter the 2022 build never had. Create the
+// `google.maps.Marker` imperatively instead: mounted once per map instance, with
+// position/icon/title treated as mount-time state and updated only when their underlying
+// values change. The marker instance is still reported to `setMarkerRef` (when present, i.e.
+// when rendered as a child of `GoogleMapMarkerClustererComponent`) for clustering, and threaded
+// into `renderPostMarkerInfoBoxComponentForPost` as the card `anchor`.
+const PostMarkerComponentInternal = ({post, isVisible = false, onVisibilityToggle, setMapCenter, setMarkerRef, ...props}) => {
+    const map = useMap();
     const [markerInstance, setMarkerInstance] = useState(null);
-    const handleMarkerRef = useCallback(marker => {
+
+    useEffect(() => {
+        if (!map) {
+            return undefined;
+        }
+
+        const marker = new google.maps.Marker({
+            map,
+            position: {
+                lat: post.lat,
+                lng: post.long
+            },
+            icon: {
+                path: getSvgPathForPost(post),
+                fillColor: "#ec7500",
+                fillOpacity: 1,
+                scale: 0.05,
+                strokeWeight: 1
+            },
+            title: post.title
+        });
+
         setMarkerInstance(marker);
 
         if (setMarkerRef) {
             setMarkerRef(marker, buildPostMarkerId(post));
         }
-    }, [setMarkerRef, post]);
+
+        return () => {
+            marker.setMap(null);
+            setMarkerInstance(null);
+
+            if (setMarkerRef) {
+                setMarkerRef(null, buildPostMarkerId(post));
+            }
+        };
+    }, [map]); // eslint-disable-line react-hooks/exhaustive-deps -- mount-time creation; value-driven updates below
+
+    useEffect(() => {
+        if (markerInstance) {
+            markerInstance.setPosition({
+                lat: post.lat,
+                lng: post.long
+            });
+        }
+    }, [markerInstance, post.lat, post.long]);
+
+    useEffect(() => {
+        if (markerInstance) {
+            markerInstance.setIcon({
+                path: getSvgPathForPost(post),
+                fillColor: "#ec7500",
+                fillOpacity: 1,
+                scale: 0.05,
+                strokeWeight: 1
+            });
+        }
+    }, [markerInstance, post.source, post.type]);
+
+    useEffect(() => {
+        if (!markerInstance) {
+            return undefined;
+        }
+
+        const clickListener = google.maps.event.addListener(markerInstance, "click", () => {
+            setMapCenter({
+                lat: post.lat,
+                lng: post.long
+            });
+            onVisibilityToggle(!isVisible);
+        });
+
+        return () => google.maps.event.removeListener(clickListener);
+    }, [markerInstance, isVisible, onVisibilityToggle, post.lat, post.long, setMapCenter]);
 
     return <ReactReduxContext.Consumer>
         {
-            ({store}) => (
-                <>
-                    <Marker
-                        ref={handleMarkerRef}
-                        icon={{
-                            path: getSvgPathForPost(post),
-                            fillColor: "#ec7500",
-                            fillOpacity: 1,
-                            scale: 0.05,
-                            strokeWeight: 1
-                        }}
-                        title={post.title}
-                        position={{
-                            lat: post.lat,
-                            lng: post.long
-                        }}
-                        onClick={() => {
-                            setMapCenter({
-                                lat: post.lat,
-                                lng: post.long
-                            });
-                            onVisibilityToggle(!isVisible);
-                        }}
-                    />
-                    {renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, store, anchor: markerInstance, ...props})}
-                </>
-            )
+            ({store}) => renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, store, anchor: markerInstance, ...props})
         }
     </ReactReduxContext.Consumer>;
 };
+
+// The mapped-posts selector rebuilds equivalent Immutable post records as map viewport state
+// changes. Compare their values rather than their identities so those unrelated updates do not
+// re-run Marker effects (which @vis.gl/react-google-maps applies whenever its options object changes).
+export const PostMarkerComponent = React.memo(PostMarkerComponentInternal, (previous, next) =>
+    previous.post.uid === next.post.uid
+    && previous.post.type === next.post.type
+    && previous.post.source === next.post.source
+    && previous.post.title === next.post.title
+    && previous.isVisible === next.isVisible
+);
 
 
 PostMarkerComponent.propTypes = {

@@ -25,6 +25,19 @@ export const connectPostMarker = connect(
                 visible: !!shouldBeVisible
             }))
         };
+    },
+    // No custom mergeProps; `areOwnPropsEqual` must arrive in connect's fourth
+    // (options) argument or react-redux treats the object as mergeProps and throws
+    // "Invalid value of type object for mergeProps argument" at render time.
+    null,
+    {
+        areOwnPropsEqual: (previous, next) => previous.getGoogleMap === next.getGoogleMap
+            && previous.mapId === next.mapId
+            && previous.setMarkerRef === next.setMarkerRef
+            && previous.post.uid === next.post.uid
+            && previous.post.type === next.post.type
+            && previous.post.source === next.post.source
+            && previous.post.title === next.post.title
     }
 );
 
