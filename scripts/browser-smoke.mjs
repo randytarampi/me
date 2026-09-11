@@ -8,7 +8,7 @@ export const runBrowserScenario = async ({name, url, profileMode = "fresh", bypa
     const pageErrors = [];
     const disableSandbox = process.env.PUPPETEER_NO_SANDBOX === "1" || process.env.CI || process.getuid?.() === 0;
     const browser = await puppeteer.launch({
-        headless: "new",
+        headless: process.env.WWW_BROWSER_HEADED === "1" ? false : "new",
         args: disableSandbox ? ["--no-sandbox", "--disable-setuid-sandbox"] : []
     });
     let page;
