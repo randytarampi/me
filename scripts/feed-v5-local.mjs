@@ -2,6 +2,7 @@ import {execFileSync, spawn, spawnSync} from "node:child_process";
 import net from "node:net";
 import {assertNode24} from "./feed-v5-runtime.mjs";
 import {runBrowserScenario} from "./browser-smoke.mjs";
+import {assertLoopbackRequests} from "./feed-v5-request-filter.mjs";
 
 const root = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const env = {
@@ -64,7 +65,7 @@ const waitFor = async (url, attempts = readinessAttempts, intervalMs = readiness
     for (let attempt = 1; attempt <= attempts; attempt++) {
         try {
             const response = await fetch(url);
-            if (response.ok || response.status === 404) return;
+            if (response.ok) return;
             lastError = `HTTP ${response.status}`;
         } catch (error) {
             lastError = error.message;
@@ -98,7 +99,9 @@ const runSentinel = async () => {
     const rss = await rssResponse.text();
     if (!rssResponse.ok || !rss.includes("Tiny")) throw new Error(`Sentinel RSS request did not contain fixture post ${sentinelUid}`);
 
-    await runBrowserScenario({name: "feed-v5-local-env", url: "http://localhost:8080/", scenario: async ({page}) => {
+    let browserRequests = [];
+    await runBrowserScenario({name: "feed-v5-local-env", url: "http://localhost:8080/", scenario: async ({page, requests}) => {
+        browserRequests = requests;
         const selector = `.post[id="${sentinelUid}"]`;
         for (let attempt = 0; attempt < 12 && !(await page.$(selector)); attempt++) {
             await page.evaluate(() => window.scrollTo(0, document.scrollingElement.scrollHeight));
@@ -108,6 +111,7 @@ const runSentinel = async () => {
         const renderedUid = await page.$eval(selector, element => element.id);
         if (renderedUid !== sentinelUid) throw new Error(`UI rendered ${renderedUid}, expected ${sentinelUid}`);
     }});
+    assertLoopbackRequests(browserRequests);
     console.log(`local:env sentinel passed: ${sentinelUid}, pagination, RSS and UI`);
 };
 
@@ -136,23 +140,37 @@ const start = async () => {
     console.log("feed:v5 local loop ready: LocalStack :4566, Offline :3006, www :8080");
     console.log("Interactive local loop is ready; Ctrl-C performs process cleanup.");
     if (process.env.LOCAL_ENV_CHECK === "1") {
-        cleanup();
+        await cleanup();
         process.exit(0);
     }
     await new Promise(() => {});
 };
 
-const cleanup = () => {
+const cleanup = async () => {
     for (const child of children) {
         try { process.kill(-child.pid, "SIGTERM"); } catch { child.kill("SIGTERM"); }
     }
+    const deadline = Date.now() + 5000;
+    while (children.size > 0 && Date.now() < deadline) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    for (const child of children) {
+        try { process.kill(-child.pid, "SIGKILL"); } catch { child.kill("SIGKILL"); }
+    }
+    const killDeadline = Date.now() + 1000;
+    while (children.size > 0 && Date.now() < killDeadline) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+    }
     if (ownsLocalStack) spawnSync("docker", ["rm", "--force", "me-service-localstack"], {stdio: "ignore"});
+    await Promise.all([3006, 8080].map(assertPortAvailable));
 };
-process.once("SIGINT", () => { cleanup(); process.exit(0); });
-process.once("SIGTERM", () => { cleanup(); process.exit(0); });
+process.once("SIGINT", async () => { try { await cleanup(); process.exit(0); } catch (error) { console.error(error); process.exit(1); } });
+process.once("SIGTERM", async () => { try { await cleanup(); process.exit(0); } catch (error) { console.error(error); process.exit(1); } });
 
 start().catch(error => {
     console.error(error);
-    cleanup();
-    process.exit(1);
+    cleanup().then(() => process.exit(1)).catch(cleanupError => {
+        console.error(cleanupError);
+        process.exit(1);
+    });
 });

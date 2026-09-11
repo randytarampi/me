@@ -1,7 +1,9 @@
 # Local V5 feed loop
 
-Use Node 24 and Docker with the existing LocalStack image. No command in this
-workflow contacts AWS or an external source.
+Use Node 24 and Docker with the existing LocalStack image. The local gate
+enforces loopback traffic for the app, API and AWS endpoints. Google Maps
+(`maps.googleapis.com`) is the documented external browser exception, and
+Crisp chat is disabled locally when no website ID is configured.
 
 ```sh
 yarn feed:v5:test
