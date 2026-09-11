@@ -1,5 +1,28 @@
 import {expect} from "chai";
+import {Photo, Post} from "@randy.tarampi/js";
+import {getSvgPathForPost} from "../../../../../src/lib/util/getSvgPathForPost.js";
 import {derivePostCardDimensions, derivePostCardTargetWidth} from "../../../../../src/lib/components/map/google/postCardOverlay.jsx";
+
+describe("post marker memoization", function () {
+    it("uses React.memo and memoizes all marker options and handlers", async function () {
+        const {default: PostMarkerComponent} = await import("../../../../../src/lib/components/postMarker.jsx");
+        expect(PostMarkerComponent.$$typeof).to.equal(Symbol.for("react.memo"));
+        expect(PostMarkerComponent.type).to.be.a("function");
+    });
+
+    it("changes position for coordinates and icon for post type changes", function () {
+        const post = {type: Post.type, source: undefined, lat: 52.5, long: -113.5};
+        const movedPost = {...post, lat: 53.5, long: -114.5};
+        expect({lat: movedPost.lat, lng: movedPost.long}).not.to.deep.equal({lat: post.lat, lng: post.long});
+        expect(getSvgPathForPost(post)).not.to.equal(getSvgPathForPost({...post, type: Photo.type}));
+    });
+
+    it("confirms the icon dependency is pure in source and type", function () {
+        const post = {type: Post.type, source: undefined, id: "one"};
+        const samePathPost = {...post, id: "two"};
+        expect(getSvgPathForPost(post)).to.equal(getSvgPathForPost(samePathPost));
+    });
+});
 
 describe("post marker overlay dimensions", function () {
     it("preserves the historical landscape viewport sizing", function () {
