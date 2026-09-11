@@ -41,14 +41,27 @@ const installMapEventProbe = () => {
     install();
 };
 
-const markerSelector = ".map--google [role='button'][title], .map--google [role='button'][aria-label]";
+// Post markers expose title/aria-label but NOT role='button' in this Maps rendering
+// path (proven by residual-probe.mjs/.slim/deepwork live runs). Google's own UI
+// controls (zoom/pan/street-view/pegman/fullscreen) DO carry aria-labels, so filter
+// them by denylist rather than by requiring a role.
+// NOTE: page.evaluate serializes ONLY the passed callback — every in-page check
+// must inline the denylist (no Node-scope closure references).
+const markerSelector = ".map--google [title], .map--google [aria-label]";
+const controlLabelDenylistSource = "^(Zoom in|Zoom out|Pan up|Pan down|Pan left|Pan right|Toggle fullscreen view|Keyboard shortcuts|Street View Pegman Control|Pegman is on top of the Map|Show street map|Show satellite imagery|Show terrain|Show street map with imagery|Show imagery with street names|Map \\d+|Satellite \\d+|Exit fullscreen|Fullscreen)";
 const waitForTitledMarker = async page => {
     for (let attempt = 0; attempt < 10; attempt++) {
-        if (await page.evaluate(selector => [...document.querySelectorAll(selector)].some(element => {
-            const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
-            const box = element.getBoundingClientRect();
-            return title && !/^\d+$/.test(title) && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
-        }), markerSelector)) return;
+        if (await page.evaluate((selector, denylistSource) => {
+            const denylist = new RegExp(denylistSource, "i");
+            return [...document.querySelectorAll(selector)]
+                .filter(element => !element.closest("[aria-label='Zoom in'], [aria-label='Zoom out'], .gm-control-active, .gmnoprint > div[role='button']"))
+                .some(element => {
+                    const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
+                    const box = element.getBoundingClientRect();
+                    return title && !/^\d+$/.test(title) && !denylist.test(title)
+                        && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
+                });
+        }, markerSelector, controlLabelDenylistSource)) return "titled";
         const clusterPoint = await page.evaluate(() => {
             const mapBox = document.querySelector(".map--google")?.getBoundingClientRect();
             if (!mapBox) return null;
@@ -66,29 +79,113 @@ const waitForTitledMarker = async page => {
             if (!point) return null;
             return {x: point.x, y: point.y, size: Number(document.querySelector(".map--google [role='button'][aria-label]")?.getAttribute("aria-label") || 0)};
         });
-        if (!clusterPoint) break;
+        if (!clusterPoint) {
+            // Canvas-drawn cluster badges and photo-post markers expose no role='button'
+            // elements (the seeded corpus's four geo posts are flickr photos whose
+            // markers are untitled canvas/svg icons). Zooming in is the known-good
+            // dispersal path: once clusters split into individual markers, the final
+            // coordinate-click fallback in markerAndCard() opens a card.
+            const zoomedIn = await page.evaluate(() => {
+                const zoomButton = [...document.querySelectorAll("[aria-label='Zoom in'], button[aria-label*='zoom' i]")]
+                    .find(element => element.getBoundingClientRect().width > 0);
+                if (!zoomButton) return false;
+                zoomButton.click();
+                return true;
+            });
+            if (!zoomedIn) break;
+            await sleep(1500);
+            continue;
+        }
         await page.mouse.click(clusterPoint.x, clusterPoint.y);
         await sleep(1000);
     }
-    await page.waitForFunction(selector => [...document.querySelectorAll(selector)].some(element => {
-        const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
-        const box = element.getBoundingClientRect();
-        return title && !/^\d+$/.test(title) && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
-    }), {timeout: 30000}, markerSelector);
+    // Untitled individual markers may already be visible after zooming. Wait for
+    // ANY non-tile marker imagery (data:svg icons) inside the map container.
+    await page.waitForFunction(() => [...document.querySelectorAll(".map--google img")]
+        .some(element => (element.getAttribute("src") || "").startsWith("data:image/svg")
+            && element.getBoundingClientRect().width > 0
+            && element.getBoundingClientRect().height > 0), {timeout: 30000});
+    return "untitled";
 };
 const markerAndCard = async page => {
     let lastError;
+    const hasTitledMarker = () => page.evaluate((selector, denylistSource) => {
+        const denylist = new RegExp(denylistSource, "i");
+        return [...document.querySelectorAll(selector)]
+            .filter(element => !element.closest("[aria-label='Zoom in'], [aria-label='Zoom out'], .gm-control-active, .gmnoprint > div[role='button']"))
+            .some(element => {
+                const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
+                const box = element.getBoundingClientRect();
+                return title && !/^\d+$/.test(title) && !denylist.test(title)
+                    && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
+            });
+    }, markerSelector, controlLabelDenylistSource);
+    const clickTitledMarker = async () => {
+        const point = await page.evaluate((selector, denylistSource) => {
+            const denylist = new RegExp(denylistSource, "i");
+            const found = [...document.querySelectorAll(selector)]
+                .filter(element => !element.closest("[aria-label='Zoom in'], [aria-label='Zoom out'], .gm-control-active, .gmnoprint > div[role='button']"))
+                .find(element => {
+                    const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
+                    const box = element.getBoundingClientRect();
+                    return title && !/^\d+$/.test(title) && !denylist.test(title)
+                        && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
+                });
+            if (!found) return null;
+            const box = found.getBoundingClientRect();
+            return {x: box.x + box.width / 2, y: box.y + box.height / 2};
+        }, markerSelector, controlLabelDenylistSource);
+        if (!point) return false;
+        // Marker elements (svg imgs) may lack a .click() method — click via real
+        // mouse events at the element's coordinates.
+        await page.mouse.click(point.x, point.y);
+        return true;
+    };
+    const clickUntitledMarkerByCoordinate = () => page.evaluate(() => {
+        // Photo-post markers are canvas/svg icons with no title/aria attributes.
+        // Click the centre-most untitled data:svg marker image.
+        const candidates = [...document.querySelectorAll(".map--google img")]
+            .filter(element => (element.getAttribute("src") || "").startsWith("data:image/svg"))
+            .map(element => {
+                const box = element.getBoundingClientRect();
+                return {x: box.x + box.width / 2, y: box.y + box.height / 2, visible: box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0};
+            })
+            .filter(point => point.visible);
+        if (!candidates.length) return false;
+        const mapBox = document.querySelector(".map--google")?.getBoundingClientRect();
+        if (!mapBox) return false;
+        const centre = {x: mapBox.x + mapBox.width / 2, y: mapBox.y + mapBox.height / 2};
+        const point = candidates.sort((left, right) =>
+            Math.hypot(left.x - centre.x, left.y - centre.y) - Math.hypot(right.x - centre.x, right.y - centre.y))[0];
+        document.elementFromPoint(point.x, point.y)?.click();
+        return true;
+    });
     for (let attempt = 0; attempt < 3; attempt++) {
-        await page.waitForFunction(selector => [...document.querySelectorAll(selector)].some(element => {
-            const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
-            const box = element.getBoundingClientRect();
-            return title && !/^\d+$/.test(title) && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
-        }), {timeout: 30000}, markerSelector);
-        await page.evaluate(selector => [...document.querySelectorAll(selector)].find(element => {
-            const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
-            const box = element.getBoundingClientRect();
-            return title && !/^\d+$/.test(title) && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
-        })?.click(), markerSelector);
+        if (await hasTitledMarker()) {
+            await clickTitledMarker();
+        } else {
+            // Untitled photo-marker path: click by coordinate. A synthetic .click()
+            // may not reach the canvas-drawn/overlay marker, so dispatch a real
+            // mouse event via CDP-backed mouse at the located point.
+            const clicked = await clickUntitledMarkerByCoordinate();
+            if (!clicked) throw new Error("no markers (titled or untitled) available to click");
+            const point = await page.evaluate(() => {
+                const candidates = [...document.querySelectorAll(".map--google img")]
+                    .filter(element => (element.getAttribute("src") || "").startsWith("data:image/svg"))
+                    .map(element => {
+                        const box = element.getBoundingClientRect();
+                        return {x: box.x + box.width / 2, y: box.y + box.height / 2, visible: box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0};
+                    })
+                    .filter(p => p.visible);
+                if (!candidates.length) return null;
+                const mapBox = document.querySelector(".map--google")?.getBoundingClientRect();
+                if (!mapBox) return null;
+                const centre = {x: mapBox.x + mapBox.width / 2, y: mapBox.y + mapBox.height / 2};
+                return candidates.sort((left, right) =>
+                    Math.hypot(left.x - centre.x, left.y - centre.y) - Math.hypot(right.x - centre.x, right.y - centre.y))[0];
+            });
+            if (point) await page.mouse.click(point.x, point.y);
+        }
         try {
             await page.waitForSelector(".marker-info-box", {timeout: 10000});
             return;
