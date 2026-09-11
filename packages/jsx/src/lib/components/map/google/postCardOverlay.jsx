@@ -38,13 +38,11 @@ export const createPostCardOverlayClass = () => {
         this.container = document.createElement("div");
         this.container.style.position = "absolute";
         // The transition exists for the card open/resize reveal (signed contract). Google Maps
-        // calls draw() on every pan/drag frame — a permanent transition there makes the card
-        // trail the map. So the transition is enabled only while the card is being revealed or
-        // resized, and suppressed while the map is moving.
-        this.container.style.transition = "transform 250ms ease-out, width 250ms ease-out, height 250ms ease-out";
-        if (this.map) {
-            this.bindMapMotionListeners();
-        }
+        // calls draw() on every pan frame, so the transition is armed only for a short reveal
+        // window after onAdd/resize — every draw() outside that window is instant. A one-shot
+        // window cannot race the map's own settle (the previous dragstart/idle listener toggling
+        // re-armed the transition mid-inertia and made the card oscillate after each pan).
+        this.revealWindowMs = 300;
         if (this.isPhoto) {
             this.container.style.width = `${this.width}px`;
             this.container.style.height = `${this.height}px`;
@@ -53,25 +51,31 @@ export const createPostCardOverlayClass = () => {
             this.container.style.maxHeight = "75vh";
             this.container.style.overflow = "auto";
         }
+        this.armRevealTransition();
         const panes = this.getPanes();
         if (panes?.floatPane) {
             panes.floatPane.appendChild(this.container);
         }
     }
 
-    bindMapMotionListeners() {
-        this.suppressCardMotion = () => {
+    armRevealTransition() {
+        this.container.style.transition = "transform 250ms ease-out, width 250ms ease-out, height 250ms ease-out";
+        this.revealUntil = Date.now() + this.revealWindowMs;
+        if (this.revealTimeout) {
+            clearTimeout(this.revealTimeout);
+        }
+        this.revealTimeout = setTimeout(() => {
             this.container.style.transition = "none";
-        };
-        this.restoreCardMotion = () => {
-            this.container.style.transition = "transform 250ms ease-out, width 250ms ease-out, height 250ms ease-out";
-        };
-        // `dragstart`/`drag` cover touch/mouse panning; `center_changed` covers programmatic
-        // pans and inertia; re-enabling happens when the map goes idle again.
-        this.map.addListener("dragstart", this.suppressCardMotion);
-        this.map.addListener("drag", this.suppressCardMotion);
-        this.map.addListener("center_changed", this.suppressCardMotion);
-        this.map.addListener("idle", this.restoreCardMotion);
+        }, this.revealWindowMs);
+    }
+
+    disarmRevealTransition() {
+        if (this.revealTimeout) {
+            clearTimeout(this.revealTimeout);
+            this.revealTimeout = null;
+        }
+        this.revealUntil = 0;
+        this.container.style.transition = "none";
     }
 
     draw() {
@@ -87,14 +91,7 @@ export const createPostCardOverlayClass = () => {
     }
 
     onRemove() {
-        if (this.map && this.suppressCardMotion) {
-            this.map.removeListener("dragstart", this.suppressCardMotion);
-            this.map.removeListener("drag", this.suppressCardMotion);
-            this.map.removeListener("center_changed", this.suppressCardMotion);
-            this.map.removeListener("idle", this.restoreCardMotion);
-        }
-        this.suppressCardMotion = null;
-        this.restoreCardMotion = null;
+        this.disarmRevealTransition();
         this.container?.remove();
         this.container = null;
     }
@@ -132,6 +129,9 @@ export const GooglePostCardOverlay = ({anchor, width, height, isPhoto = false, c
                 overlayRef.current.container.style.width = `${width}px`;
                 overlayRef.current.container.style.height = `${height}px`;
             }
+            // Resize participates in the reveal contract: re-arm the transition window so the
+            // dimension change animates once, then instant again.
+            overlayRef.current.armRevealTransition();
             overlayRef.current.draw();
         }
     }, [width, height]);

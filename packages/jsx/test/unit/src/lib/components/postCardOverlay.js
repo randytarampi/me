@@ -1,4 +1,5 @@
 import {expect} from "chai";
+import sinon from "sinon";
 import {createPostCardOverlayClass} from "../../../../../src/lib/components/map/google/postCardOverlay.jsx";
 
 describe("post card overlay adapter", function () {
@@ -42,6 +43,22 @@ describe("post card overlay adapter", function () {
             expect(overlay.container.style.height).to.equal("");
             expect(overlay.container.style.maxWidth).to.equal("75vw");
             expect(overlay.container.style.transition).to.contain("transform 250ms ease-out");
+            // Reveal window: the transition must disarm itself after the window so pan-time
+            // draw() calls are instant (jitter fix — a listener-based toggling re-armed the
+            // transition mid-inertia and made the card oscillate after each pan).
+            const clock = sinon.useFakeTimers({now: 0});
+            try {
+                overlay.armRevealTransition();
+                expect(overlay.container.style.transition).to.contain("transform 250ms ease-out");
+                clock.tick(299);
+                expect(overlay.container.style.transition).to.contain("transform 250ms ease-out");
+                clock.tick(1);
+                expect(overlay.container.style.transition).to.equal("none");
+            } finally {
+                clock.restore();
+            }
+            overlay.disarmRevealTransition();
+            expect(overlay.container.style.transition).to.equal("none");
         } finally {
             if (previousGoogle === undefined) delete globalThis.google;
             else globalThis.google = previousGoogle;
