@@ -71,11 +71,15 @@ const mapInteraction = async ({page, requests}) => {
         // stays icon-geometry-independent (SVG path icons anchor at their path origin, not box centre).
         const mapBox = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
         if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 2 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 2) throw new Error("map card is not centred on its marker anchor");
+        // The overlay arms a 250ms ease-out transition for the reveal only (60506d118 design):
+        // it is disarmed to `none` ~300ms after the card opens so pans never re-animate the card.
+        // At this point (≥1.2s after open) the transition must already be disarmed — assert that,
+        // since a permanently-armed transition is the jitter bug this suite guards against.
         const transition = await window.evaluate(element => {
             const style = getComputedStyle(element.parentElement);
             return {property: style.transitionProperty, duration: style.transitionDuration};
         });
-        if (!transition.property.includes("transform") || !transition.duration.split(",").some(value => parseFloat(value) > 0)) throw new Error("map card position transition is missing");
+        if (transition.duration.split(",").some(value => parseFloat(value) > 0)) throw new Error("map card transition is still armed after the reveal window (jitter risk)");
         const aspectRatio = await window.evaluate(element => {
         const background = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
         if (!background) return null;
