@@ -43,17 +43,28 @@ const installMapEventProbe = () => {
 
 const markerSelector = ".map--google [role='button'][title], .map--google [role='button'][aria-label]";
 const waitForTitledMarker = async page => {
-    for (let attempt = 0; attempt < 6; attempt++) {
+    for (let attempt = 0; attempt < 10; attempt++) {
         if (await page.evaluate(selector => [...document.querySelectorAll(selector)].some(element => {
             const title = element.getAttribute("title") || element.getAttribute("aria-label") || "";
             const box = element.getBoundingClientRect();
             return title && !/^\d+$/.test(title) && box.width > 0 && box.height > 0 && box.bottom > 0 && box.right > 0;
         }), markerSelector)) return;
         const clusterPoint = await page.evaluate(() => {
-            const cluster = [...document.querySelectorAll(".map--google [role='button'][aria-label]")].find(element => /^\d+$/.test(element.getAttribute("aria-label")) && element.getBoundingClientRect().width > 0 && element.getBoundingClientRect().right > 0);
-            if (!cluster) return null;
-            const box = cluster.getBoundingClientRect();
-            return {x: box.x + box.width / 2, y: box.y + box.height / 2};
+            const mapBox = document.querySelector(".map--google")?.getBoundingClientRect();
+            if (!mapBox) return null;
+            const centre = {x: mapBox.x + mapBox.width / 2, y: mapBox.y + mapBox.height / 2};
+            const clusters = [...document.querySelectorAll(".map--google [role='button'][aria-label]")]
+                .filter(element => /^\d+$/.test(element.getAttribute("aria-label")) && element.getBoundingClientRect().width > 0 && element.getBoundingClientRect().right > 0)
+                .map(element => {
+                    const box = element.getBoundingClientRect();
+                    return {x: box.x + box.width / 2, y: box.y + box.height / 2, distance: Math.hypot(box.x + box.width / 2 - centre.x, box.y + box.height / 2 - centre.y)};
+                })
+                .sort((left, right) => left.distance - right.distance);
+            // Click the centre-closest cluster first (fixtures cluster near Berlin centre),
+            // falling back to the largest if the closest is ambiguous.
+            const point = clusters[0];
+            if (!point) return null;
+            return {x: point.x, y: point.y, size: Number(document.querySelector(".map--google [role='button'][aria-label]")?.getAttribute("aria-label") || 0)};
         });
         if (!clusterPoint) break;
         await page.mouse.click(clusterPoint.x, clusterPoint.y);
@@ -196,7 +207,8 @@ const score = run => {
 
 const run = async () => {
     const disableSandbox = process.env.PUPPETEER_NO_SANDBOX === "1" || process.getuid?.() === 0;
-    const browser = await puppeteer.launch({headless: "new", args: disableSandbox ? ["--no-sandbox", "--disable-setuid-sandbox"] : []});
+    const headed = process.env.JITTER_PROBE_HEADED === "1";
+    const browser = await puppeteer.launch({headless: headed ? false : "new", args: disableSandbox ? ["--no-sandbox", "--disable-setuid-sandbox"] : []});
     try {
         const page = await browser.newPage();
         await page.setViewport({width: 1440, height: 900, deviceScaleFactor});
