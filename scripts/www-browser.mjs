@@ -36,10 +36,25 @@ const mapInteraction = async ({page, requests}) => {
         if (!postsRequests(requests, target).length) throw new Error("map did not issue a successful posts request");
         return;
     }
+    const clickMarkerAndWaitForCard = async title => {
+        const markerSelector = `[title='${title}'], [aria-label='${title}']`;
+        let marker;
+        let lastError;
+        for (let attempt = 0; attempt < 3; attempt++) {
+            marker = await page.waitForSelector(markerSelector, {timeout: 30000});
+            await marker.evaluate(element => element.click());
+            try {
+                await page.waitForSelector(".marker-info-box", {timeout: 10000});
+                break;
+            } catch (error) {
+                lastError = error;
+                if (attempt === 2) throw lastError;
+            }
+        }
+        return marker;
+    };
     const openAndCheckMarker = async (title, expectedRatio) => {
-        const marker = await page.waitForSelector(`[title='${title}'], [aria-label='${title}']`, {timeout: 30000});
-        await marker.evaluate(element => element.click());
-        await page.waitForSelector(".marker-info-box", {timeout: 30000});
+        const marker = await clickMarkerAndWaitForCard(title);
         if (await page.$$(".gm-style-iw").then(nodes => nodes.length)) throw new Error("native Google InfoWindow was rendered");
         const window = await page.$(".marker-info-box");
         const beforeMedia = await window.boundingBox();
@@ -120,7 +135,7 @@ const mapInteraction = async ({page, requests}) => {
     await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")].some(element => /^(Landscape 3:2|Portrait)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
     await sleep(600);
     const requestsAtOpenSettle = requests.length;
-    const marker = await openAndCheckMarker("Landscape 3:2", 1.5);
+    let marker = await openAndCheckMarker("Landscape 3:2", 1.5);
     // Narrow portrait maps legitimately settle a changed viewport after the
     // requested pan; the desktop interaction is the no-fetch regression guard.
     if (page.viewport().width > 500 && postsRequests(requests.slice(requestsAtOpenSettle), target).length) throw new Error("opening a map card issued a feed request");
@@ -136,8 +151,7 @@ const mapInteraction = async ({page, requests}) => {
     const portraitClose = await page.$(".marker-info-box button[aria-label='Close post card']");
     await portraitClose.evaluate(element => element.click());
     await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
-    await marker.evaluate(element => element.click());
-    await page.waitForSelector(".marker-info-box", {timeout: 30000});
+    marker = await clickMarkerAndWaitForCard("Landscape 3:2");
     await page.evaluate(() => { window.__markerCard = document.querySelector(".marker-info-box"); });
     await page.mouse.wheel({deltaY: 200});
     await new Promise(resolve => setTimeout(resolve, 500));
