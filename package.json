@@ -108,6 +108,7 @@
     "www:browser:test": "yarn www:v5:test:browser",
     "www:browser:prd": "WWW_BROWSER_URL=https://www.randytarampi.ca/ node scripts/www-browser.mjs",
     "www:browser:dev": "WWW_BROWSER_URL=https://www.dev.randytarampi.ca/ node scripts/www-browser.mjs",
+    "www:map:jitter": "node scripts/map-jitter-probe.mjs",
     "feed:v5:test:aggregate": "node scripts/feed-v5-test.mjs",
     "feed:v5:test": "yarn feed:v5:test:aggregate",
     "feed:v5:dev": "node scripts/feed-v5-runtime.mjs && node scripts/feed-v5-local.mjs",
