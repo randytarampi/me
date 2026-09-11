@@ -1,7 +1,7 @@
 /* global google */
 import {Gallery, Photo, Post, POST_ENTITIES} from "@randy.tarampi/js";
 import PropTypes from "prop-types";
-import React, {PureComponent, useCallback, useEffect, useState} from "react";
+import React, {PureComponent, useEffect, useState} from "react";
 import {useMap} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
@@ -258,7 +258,7 @@ const PostMarkerComponentInternal = ({post, isVisible = false, onVisibilityToggl
                 setMarkerRef(null, buildPostMarkerId(post));
             }
         };
-    }, [map]); // eslint-disable-line react-hooks/exhaustive-deps -- mount-time creation; value-driven updates below
+    }, [map]); // mount-time creation only; value-driven updates live in the effects below
 
     useEffect(() => {
         if (markerInstance) {
@@ -302,6 +302,24 @@ const PostMarkerComponentInternal = ({post, isVisible = false, onVisibilityToggl
             ({store}) => renderPostMarkerInfoBoxComponentForPost({post, isVisible, onVisibilityToggle, store, anchor: markerInstance, ...props})
         }
     </ReactReduxContext.Consumer>;
+};
+
+// eslint-plugin-react resolves props validation per component name; the memo wrapper's propTypes
+// don't cover the internal function it wraps, so the imperative-update effects' post field
+// accesses need the same shape declared here.
+PostMarkerComponentInternal.propTypes = {
+    post: PropTypes.shape({
+        uid: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        source: PropTypes.string,
+        title: PropTypes.string,
+        lat: PropTypes.number.isRequired,
+        long: PropTypes.number.isRequired
+    }).isRequired,
+    isVisible: PropTypes.bool,
+    onVisibilityToggle: PropTypes.func.isRequired,
+    setMapCenter: PropTypes.func.isRequired,
+    setMarkerRef: PropTypes.func
 };
 
 // The mapped-posts selector rebuilds equivalent Immutable post records as map viewport state
