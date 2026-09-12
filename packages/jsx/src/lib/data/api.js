@@ -1,6 +1,5 @@
 import {fromJS, Map} from "immutable";
 import {createSelector} from "reselect";
-import {LOCATION_CHANGE} from "redux-first-history";
 import {REHYDRATE} from "redux-persist";
 import {
     FETCHING_POSTS,
@@ -12,18 +11,27 @@ import {
 
 export const apiReducer = (state = Map(), action) => {
     switch (action.type) {
-        // V5 continuation tokens are bound to the complete DynamoDB query. The
-        // browser reuses `/posts` for different routes, so never carry a
-        // cursor from one location into another query.
-        case LOCATION_CHANGE:
+        // NOTE: redux-persist may rehydrate a stale api slice from a previous
+        // session; its cursors predate this page load, so drop them.
         case REHYDRATE:
             return Map();
 
         case FETCHING_POSTS: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
+            const queryFingerprint = buildQueryFingerprintForSearchParams(action.payload.searchParams);
+            const storedFingerprint = currentFetchUrlState.get("queryFingerprint") || null;
+
+            // A cursor only continues the query that produced it. When a new
+            // fetch issues a different query against the same URL, drop the
+            // stored cursor (and the previous query's error) instead of
+            // poisoning the new request with it.
+            const baseState = storedFingerprint !== queryFingerprint
+                ? Map()
+                : currentFetchUrlState.delete("error");
 
             return state.set(action.payload.fetchUrl, fromJS({
-                ...currentFetchUrlState.toJS(),
+                ...baseState.toJS(),
+                queryFingerprint,
                 isLoading: true
             }));
         }
@@ -54,8 +62,10 @@ export const apiReducer = (state = Map(), action) => {
 
         case FETCHING_POSTS_SUCCESS: {
             const currentFetchUrlState = state.get(action.payload.fetchUrl) || Map();
+            const queryFingerprint = buildQueryFingerprintForSearchParams(action.payload.searchParams);
             const nextState = {
                 ...currentFetchUrlState.toJS(),
+                queryFingerprint,
                 isLoading: false
             };
 
@@ -68,6 +78,23 @@ export const apiReducer = (state = Map(), action) => {
         default:
             return state;
     }
+};
+
+// V5 continuation tokens are bound to the complete DynamoDB query that
+// produced them. Reuse a stored cursor only when the next request issues the
+// exact same query (page size, filters, ordering — everything but the
+// token itself); any difference starts a new query and drops the old cursor.
+const buildQueryFingerprintForSearchParams = searchParams => {
+    if (!searchParams) {
+        return null;
+    }
+
+    const fingerprintParams = {...searchParams};
+    delete fingerprintParams.continuationToken;
+    return JSON.stringify(Object.keys(fingerprintParams).sort().reduce((sorted, key) => {
+        sorted[key] = fingerprintParams[key];
+        return sorted;
+    }, {}));
 };
 
 export default apiReducer;

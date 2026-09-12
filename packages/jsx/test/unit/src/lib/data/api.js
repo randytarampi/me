@@ -5,7 +5,6 @@ const require = createRequire(import.meta.url);
 const {expect} = require("chai");
 const {fromJS, Map} = require("immutable");
 const {createAction} = require("redux-actions");
-const {LOCATION_CHANGE} = require("redux-first-history");
 const {REHYDRATE} = require("redux-persist");
 const {
     FETCHING_POSTS_PER_PAGE,
@@ -53,7 +52,7 @@ describe("api", function () {
     });
 
     describe("FETCHING_POSTS", function () {
-        it("clears pagination state when the route changes", function () {
+        it("clears pagination state when rehydrating", function () {
             stubInitialState = Map({
                 "/posts": Map({
                     isLoading: false,
@@ -62,15 +61,53 @@ describe("api", function () {
                 })
             });
 
-            expect(reducer(stubInitialState, {type: LOCATION_CHANGE})).to.eql(Map());
+            expect(reducer(stubInitialState, {type: REHYDRATE})).to.eql(Map());
         });
 
-        it("does not rehydrate route-bound pagination state", function () {
+        it("drops a stored cursor when the next fetch issues a different query", function () {
+            const stubFetchUrl = "/posts";
             stubInitialState = Map({
-                "/posts": Map({nextCursor: "stale-cursor", hasMore: true})
+                [stubFetchUrl]: Map({
+                    isLoading: false,
+                    queryFingerprint: JSON.stringify({perPage: 8, usePublicFeedV5: true}),
+                    nextCursor: "cursor-for-other-query",
+                    hasMore: true
+                })
             });
 
-            expect(reducer(stubInitialState, {type: REHYDRATE, payload: {}})).to.eql(Map());
+            const updatedState = reducer(stubInitialState, fetchingPosts({
+                fetchUrl: stubFetchUrl,
+                searchParams: {perPage: 8, usePublicFeedV5: true, tags: "cookies"}
+            }));
+
+            expect(getApiStateForUrl(updatedState, stubFetchUrl).toJS()).to.eql({
+                queryFingerprint: JSON.stringify({perPage: 8, tags: "cookies", usePublicFeedV5: true}),
+                isLoading: true
+            });
+        });
+
+        it("keeps a stored cursor when the next fetch continues the same query", function () {
+            const stubFetchUrl = "/posts";
+            stubInitialState = Map({
+                [stubFetchUrl]: Map({
+                    isLoading: false,
+                    queryFingerprint: JSON.stringify({perPage: 8}),
+                    nextCursor: "opaque-cursor",
+                    hasMore: true
+                })
+            });
+
+            const updatedState = reducer(stubInitialState, fetchingPosts({
+                fetchUrl: stubFetchUrl,
+                searchParams: {perPage: 8, continuationToken: "opaque-cursor"}
+            }));
+
+            expect(getApiStateForUrl(updatedState, stubFetchUrl).toJS()).to.eql({
+                queryFingerprint: JSON.stringify({perPage: 8}),
+                isLoading: true,
+                nextCursor: "opaque-cursor",
+                hasMore: true
+            });
         });
 
         it("reduces the correct state (no prior state)", function () {
@@ -89,6 +126,7 @@ describe("api", function () {
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
             expect(apiStateForUrlObject).to.eql({
+                queryFingerprint: JSON.stringify(stubSearchParams),
                 isLoading: true
             });
 
@@ -121,6 +159,7 @@ describe("api", function () {
                 stubInitialState
                     .get(stubFetchUrl)
                     .set("isLoading", true)
+                    .set("queryFingerprint", JSON.stringify(stubSearchParams))
                     .toJS()
             );
 
@@ -160,6 +199,7 @@ describe("api", function () {
             }));
 
             expect(getApiStateForUrl(updatedState, stubFetchUrl).toJS()).to.eql({
+                queryFingerprint: null,
                 isLoading: false,
                 nextCursor: "opaque-cursor",
                 hasMore: true
@@ -292,6 +332,7 @@ describe("api", function () {
 
             const apiStateForUrlObject = apiStateForUrl.toJS();
             expect(apiStateForUrlObject).to.eql({
+                queryFingerprint: null,
                 isLoading: false
             });
 
@@ -320,6 +361,7 @@ describe("api", function () {
                 stubInitialState
                     .get(stubFetchUrl)
                     .set("isLoading", false)
+                    .set("queryFingerprint", null)
                     .toJS()
             );
 
