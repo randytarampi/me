@@ -23,15 +23,37 @@ export const derivePostCardDimensions = ({photo, viewportWidth, viewportHeight, 
     return {width, height: Math.min(Math.round(maxHeight), lines * 32 + 48)};
 };
 
+/**
+ * Return the Google Maps `panBy` delta needed to put a card in the viewport.
+ * A card that fits is centred; an oversized card is clamped to the top-left
+ * edge. `panBy` moves map content in the opposite direction to the requested
+ * card movement, hence the negated delta.
+ */
+export const derivePostCardPanBy = (cardRect, viewportRect) => {
+    const targetLeft = cardRect.width <= viewportRect.width
+        ? viewportRect.left + (viewportRect.width - cardRect.width) / 2
+        : viewportRect.left;
+    const targetTop = cardRect.height <= viewportRect.height
+        ? viewportRect.top + (viewportRect.height - cardRect.height) / 2
+        : viewportRect.top;
+
+    return {
+        x: Math.round(cardRect.left - targetLeft),
+        y: Math.round(cardRect.top - targetTop)
+    };
+};
+
 export const createPostCardOverlayClass = () => {
     const OverlayView = globalThis.google.maps.OverlayView;
     return class PostCardOverlay extends OverlayView {
-    constructor({anchor, width, height, isPhoto = false}) {
+    constructor({anchor, width, height, isPhoto = false, map}) {
         super();
         this.anchor = anchor;
         this.width = width;
         this.height = height;
         this.isPhoto = isPhoto;
+        this.map = map;
+        this.hasPannedToFit = false;
     }
 
     onAdd() {
@@ -90,6 +112,20 @@ export const createPostCardOverlayClass = () => {
             : `translate(${Math.round(position.x)}px, ${Math.round(position.y)}px) translate(-50%, -50%)`;
     }
 
+    panCardToFit() {
+        if (this.hasPannedToFit || !this.container || !this.map?.panBy) return;
+        const mapElement = this.map.getDiv?.();
+        const viewportRect = mapElement?.getBoundingClientRect?.();
+        // Text overlays are intrinsic-size absolute containers; their wrapper
+        // can report 0×0 even though the portalled card has real geometry.
+        const cardRect = (this.container.firstElementChild || this.container).getBoundingClientRect?.();
+        if (!viewportRect || !cardRect || !cardRect.width || !cardRect.height) return;
+
+        this.hasPannedToFit = true;
+        const {x, y} = derivePostCardPanBy(cardRect, viewportRect);
+        if (x || y) this.map.panBy(x, y);
+    }
+
     onRemove() {
         this.disarmRevealTransition();
         this.container?.remove();
@@ -105,7 +141,7 @@ export const GooglePostCardOverlay = ({anchor, width, height, isPhoto = false, c
 
     useEffect(() => {
         if (!map || !anchor || !globalThis.google?.maps?.OverlayView) return undefined;
-        const overlay = new (createPostCardOverlayClass())({anchor, width, height, isPhoto});
+        const overlay = new (createPostCardOverlayClass())({anchor, width, height, isPhoto, map});
         overlay.map = map;
         overlay.setMap(map);
         overlayRef.current = overlay;
@@ -135,6 +171,16 @@ export const GooglePostCardOverlay = ({anchor, width, height, isPhoto = false, c
             overlayRef.current.draw();
         }
     }, [width, height]);
+
+    useEffect(() => {
+        if (!container || !overlayRef.current) return undefined;
+        // The portal has painted the card by the next frame. Let the click
+        // handler's panTo finish first, then correct the final measured rect.
+        // This is deliberately one-shot: subsequent map draw() calls must
+        // remain pure during pans.
+        const timeout = window.setTimeout(() => overlayRef.current?.panCardToFit(), 350);
+        return () => window.clearTimeout(timeout);
+    }, [container]);
 
     return container ? createPortal(children, container) : null;
 };

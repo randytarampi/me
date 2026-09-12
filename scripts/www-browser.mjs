@@ -65,12 +65,11 @@ const mapInteraction = async ({page, requests}) => {
         const afterBox = await window.boundingBox();
         const stableBox = await window.boundingBox();
         if (!beforeMedia || !afterBox || !stableBox || Math.max(Math.abs(afterBox.x - stableBox.x), Math.abs(afterBox.y - stableBox.y), Math.abs(afterBox.width - stableBox.width), Math.abs(afterBox.height - stableBox.height)) > 1) throw new Error("map card did not remain stable after media settled");
-        // Opening a card pans the map to centre on the marker (setMapCenter in the marker onClick),
-        // so the marker's geographic anchor sits at the map container's centre after the pan settles,
-        // and the overlay centres the card on that anchor. Assert card centre ≈ map centre — this
-        // stays icon-geometry-independent (SVG path icons anchor at their path origin, not box centre).
+        // Opening a card pans only as far as needed to keep the complete overlay
+        // in the map viewport. This also covers the null-map-ref path where the
+        // overlay's direct one-shot pan is the only available correction.
         const mapBox = await page.$eval(".map--google", element => { const box = element.getBoundingClientRect(); return {x: box.x, y: box.y, width: box.width, height: box.height}; });
-        if (Math.abs((afterBox.x + afterBox.width / 2) - (mapBox.x + mapBox.width / 2)) > 2 || Math.abs((afterBox.y + afterBox.height / 2) - (mapBox.y + mapBox.height / 2)) > 2) throw new Error("map card is not centred on its marker anchor");
+        if (afterBox.x < mapBox.x - 1 || afterBox.y < mapBox.y - 1 || afterBox.x + afterBox.width > mapBox.x + mapBox.width + 1 || afterBox.y + afterBox.height > mapBox.y + mapBox.height + 1) throw new Error("map card is not fully inside the map viewport");
         // The overlay arms a 250ms ease-out transition for the reveal only (60506d118 design):
         // it is disarmed to `none` ~300ms after the card opens so pans never re-animate the card.
         // At this point (≥1.2s after open) the transition must already be disarmed — assert that,
@@ -111,8 +110,8 @@ const mapInteraction = async ({page, requests}) => {
         const maxWidth = page.viewport().width * 0.75 + 2;
         const maxHeight = page.viewport().height * 0.75 + 2;
         if (box.width > maxWidth || box.height > maxHeight) throw new Error(`${title} text card exceeds viewport bounds: ${box.width}x${box.height}`);
-        if (Math.abs(box.x + box.width / 2 - (mapBox.x + mapBox.width / 2)) > 2 || Math.abs(box.y + box.height / 2 - (mapBox.y + mapBox.height / 2)) > 2) {
-            throw new Error(`${title} text card is not centred on the map container`);
+        if (box.x < mapBox.x - 1 || box.y < mapBox.y - 1 || box.x + box.width > mapBox.x + mapBox.width + 1 || box.y + box.height > mapBox.y + mapBox.height + 1) {
+            throw new Error(`${title} text card is not fully inside the map container`);
         }
         const closeButton = await card.$("button[aria-label='Close post card']");
         const closeBox = await closeButton?.boundingBox();
@@ -139,12 +138,12 @@ const mapInteraction = async ({page, requests}) => {
     await page.waitForFunction(() => [...document.querySelectorAll("[title], [aria-label]")].some(element => /^(Landscape 3:2|Portrait)$/.test(element.getAttribute("title") || element.getAttribute("aria-label") || "")), {timeout: 30000});
     await sleep(600);
     const requestsAtOpenSettle = requests.length;
-    let marker = await openAndCheckMarker("Landscape 3:2", 1.5);
+    await openAndCheckMarker("Landscape 3:2", 1.5);
     // Narrow portrait maps legitimately settle a changed viewport after the
     // requested pan; the desktop interaction is the no-fetch regression guard.
     if (page.viewport().width > 500 && postsRequests(requests.slice(requestsAtOpenSettle), target).length) throw new Error("opening a map card issued a feed request");
-    const cardIds = await page.$$eval(".marker-info-box .post[id]", cards => cards.map(card => card.id));
-    if (new Set(cardIds).size !== cardIds.length) throw new Error("map window rendered duplicate cards");
+    const cardTitles = await page.$$eval(".marker-info-box .post-title", titles => titles.map(title => title.textContent.trim()));
+    if (new Set(cardTitles).size !== cardTitles.length) throw new Error("map window rendered duplicate card titles");
     const closeButton = await page.$(".marker-info-box button[aria-label='Close post card']");
     if (!closeButton || !await closeButton.evaluate(element => element.offsetParent !== null && element.getAttribute("aria-label"))) throw new Error("map card close button is not visible and accessible");
     await closeButton.evaluate(element => element.click());
@@ -155,7 +154,7 @@ const mapInteraction = async ({page, requests}) => {
     const portraitClose = await page.$(".marker-info-box button[aria-label='Close post card']");
     await portraitClose.evaluate(element => element.click());
     await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
-    marker = await clickMarkerAndWaitForCard("Landscape 3:2");
+    await clickMarkerAndWaitForCard("Landscape 3:2");
     await page.evaluate(() => { window.__markerCard = document.querySelector(".marker-info-box"); });
     await page.mouse.wheel({deltaY: 200});
     await new Promise(resolve => setTimeout(resolve, 500));
@@ -214,9 +213,9 @@ const mapPanDrag = async ({page}) => {
                 const last = frames.at(-1);
                 const idleAt = releaseAt && lastMovement && lastMovement >= releaseAt && timestamp - lastMovement >= 250 ? lastMovement + 250 : null;
                 if (idleAt && timestamp >= idleAt + 650 || releaseAt && last.timestamp - releaseAt >= 10000) resolve({releaseAt, idleAt, frames});
-                else requestAnimationFrame(sample);
+                else window.requestAnimationFrame(sample);
             };
-            requestAnimationFrame(sample);
+            window.requestAnimationFrame(sample);
         }), "Landscape 3:2");
         await page.mouse.move(start.x, start.y);
         await page.mouse.down();
@@ -272,7 +271,7 @@ const mapZoomPan = async ({page, requests}) => {
     await zoom.click();
     await page.waitForFunction(previous => [...document.querySelectorAll(".map--google [title], .map--google [aria-label]")].some(element => { const label = element.getAttribute("title") || element.getAttribute("aria-label"), old = previous.find(marker => marker.label === label), box = element.getBoundingClientRect(); return old && (Math.abs(box.x - old.x) > 0.5 || Math.abs(box.y - old.y) > 0.5 || Math.abs(box.width - old.width) > 0.5); }), {timeout: 10000}, before);
     const geometry = await page.$eval(".marker-info-box", element => { const card = element.getBoundingClientRect(), map = element.closest(".map--google").getBoundingClientRect(); return {card: {x: card.x, y: card.y, width: card.width, height: card.height}, map: {x: map.x, y: map.y, width: map.width, height: map.height}}; });
-    if (Math.abs(geometry.card.x + geometry.card.width / 2 - (geometry.map.x + geometry.map.width / 2)) > 3 || Math.abs(geometry.card.y + geometry.card.height / 2 - (geometry.map.y + geometry.map.height / 2)) > 3) throw new Error("zoom moved the open card away from its marker anchor");
+    if (geometry.card.x < geometry.map.x - 1 || geometry.card.y < geometry.map.y - 1 || geometry.card.x + geometry.card.width > geometry.map.x + geometry.map.width + 1 || geometry.card.y + geometry.card.height > geometry.map.y + geometry.map.height + 1) throw new Error("zoom moved the open card outside the map viewport");
     const close = await page.$(".marker-info-box button[aria-label='Close post card']");
     if (!close || !await close.evaluate(element => element.offsetParent !== null)) throw new Error("zoomed map card close button is not visible");
     await close.click();
@@ -307,6 +306,39 @@ const multiPostOpenClose = async ({page, requests}) => {
     if (openedTitles.length !== 3 || new Set(openedTitles).size !== 3) throw new Error(`multi-post cycle did not open 3 distinct cards: ${JSON.stringify(openedTitles)}`);
     if (postsRequests(requests, target).length !== initialPosts) throw new Error("opening and closing cards issued a feed request");
     console.log(JSON.stringify({scenario: "multi-post-open-close", titles: openedTitles, posts: initialPosts, cards: 0}));
+};
+
+const mapCardPanToFit = async ({page}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/map`, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForSelector(".map--google", {timeout: 30000});
+    const markerSelector = "[title='Landscape 3:2'], [aria-label='Landscape 3:2']";
+    await page.waitForSelector(markerSelector, {timeout: 30000});
+    const mapBox = await page.$eval(".map--google", element => {
+        const {x, y, width, height} = element.getBoundingClientRect();
+        return {x, y, width, height};
+    });
+    // Move the marker towards an edge before opening it; the overlay must pan
+    // by only the amount needed to fit the card, rather than blindly centring
+    // on the marker (which is skipped when the map ref is briefly unavailable).
+    await page.mouse.move(mapBox.x + mapBox.width / 2, mapBox.y + mapBox.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(mapBox.x + mapBox.width / 2 + 300, mapBox.y + mapBox.height / 2, {steps: 10});
+    await page.mouse.up();
+    await page.waitForSelector(markerSelector, {timeout: 30000});
+    await page.$eval(markerSelector, element => element.click());
+    await page.waitForSelector(".marker-info-box .post-title", {timeout: 30000});
+    await sleep(1200);
+    const geometry = await page.$eval(".marker-info-box", element => {
+        const card = element.getBoundingClientRect();
+        const map = element.closest(".map--google").getBoundingClientRect();
+        return {card: {left: card.left, top: card.top, right: card.right, bottom: card.bottom}, map: {left: map.left, top: map.top, right: map.right, bottom: map.bottom}, title: element.querySelector(".post-title")?.textContent?.trim()};
+    });
+    if (geometry.card.left < geometry.map.left - 1 || geometry.card.top < geometry.map.top - 1 || geometry.card.right > geometry.map.right + 1 || geometry.card.bottom > geometry.map.bottom + 1) {
+        throw new Error(`opened ${geometry.title} card was not fully inside the map viewport: ${JSON.stringify(geometry)}`);
+    }
+    console.log(JSON.stringify({scenario: "map-card-pan-to-fit", geometry}));
+    await page.$eval(".marker-info-box button[aria-label='Close post card']", element => element.click());
+    await page.waitForFunction(() => !document.querySelector(".marker-info-box"), {timeout: 30000});
 };
 
 const nestedRouteTitles = async ({page}) => {
@@ -428,7 +460,7 @@ try {
     console.log(JSON.stringify({scenario: `map-interaction-dpr-${deviceScaleFactor}`, prdDivergence: error.message}));
 }
 }
-for (const [name, scenario] of [["map-pan-drag", mapPanDrag], ["map-zoom-pan", mapZoomPan], ["multi-post-open-close", multiPostOpenClose]]) {
+for (const [name, scenario] of [["map-pan-drag", mapPanDrag], ["map-zoom-pan", mapZoomPan], ["multi-post-open-close", multiPostOpenClose], ["map-card-pan-to-fit", mapCardPanToFit]]) {
     await runBrowserScenario({name, url: target, scenario});
 }
-console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction", "map-pan-drag", "map-zoom-pan", "multi-post-open-close"]}));
+console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction", "map-pan-drag", "map-zoom-pan", "multi-post-open-close", "map-card-pan-to-fit"]}));

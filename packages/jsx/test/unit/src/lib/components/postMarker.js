@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Photo, Post} from "@randy.tarampi/js";
 import {getSvgPathAnchorForPost, getSvgPathForPost} from "../../../../../src/lib/util/getSvgPathForPost.js";
-import {derivePostCardDimensions, derivePostCardTargetWidth} from "../../../../../src/lib/components/map/google/postCardOverlay.jsx";
+import {derivePostCardDimensions, derivePostCardPanBy, derivePostCardTargetWidth} from "../../../../../src/lib/components/map/google/postCardOverlay.jsx";
 
 describe("post marker memoization", function () {
     it("uses React.memo and memoizes all marker options and handlers", async function () {
@@ -66,5 +66,19 @@ describe("post marker overlay dimensions", function () {
         expect(dimensions.width).to.be.at.most(Math.ceil(390 * 0.75));
         expect(dimensions.height).to.be.at.most(844 * 0.75);
         expect(dimensions.width).to.be.greaterThan(0);
+    });
+
+    it("returns the opposite minimal pan delta for a card that fits", function () {
+        expect(derivePostCardPanBy(
+            {left: 0, top: 100, width: 400, height: 200},
+            {left: 0, top: 0, width: 1000, height: 800}
+        )).to.eql({x: -300, y: -200});
+    });
+
+    it("edge-clamps a card larger than the viewport", function () {
+        expect(derivePostCardPanBy(
+            {left: -100, top: -50, width: 1200, height: 900},
+            {left: 0, top: 0, width: 1000, height: 800}
+        )).to.eql({x: -100, y: -50});
     });
 });
