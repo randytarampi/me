@@ -8,6 +8,8 @@
     }
 }
 
+$postTextPaddingHorizontal: 0.25rem;
+
 .post {
     @extend .z-depth-1;
     margin-bottom: 0;
@@ -111,20 +113,53 @@
 
     &-text {
         @extend .post-html;
+        @extend .z-depth-1;
 
-        // Posts on a white surface follow the homepage's quiet body-copy
-        // treatment. The image-card variant below supplies its own contrast.
+        // Card copy is always a compact black/white fragment, regardless of
+        // whether it appears in a map overlay, blog list or photo detail.
         display: inline;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
         line-height: $blockLineHeight;
-        padding: 0;
-        margin: 0;
+        margin-right: 0.2rem;
+        padding: $blockPaddingVertical $postTextPaddingHorizontal;
+        background-color: $blockColour;
+        color: $blockTextColour;
+    }
+
+    &-body__html {
         background-color: transparent;
         color: inherit;
+        margin-bottom: 0;
+        padding: 0;
+
+        ul,
+        ol {
+            background-color: transparent;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        p,
+        li {
+            @extend .z-depth-1;
+
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            width: fit-content;
+            max-width: 100%;
+            padding: $blockPaddingVertical $postTextPaddingHorizontal;
+            background-color: $blockColour;
+            color: $blockTextColour;
+        }
+
+        li {
+            list-style-position: inside;
+        }
     }
 
     &-title {
-        margin-top: 0;
-        margin-bottom: 0;
+        margin: 0;
     }
 
     &--photo, &--gallery {
@@ -144,67 +179,11 @@
             }
         }
 
-        // Over photography, each text fragment gets its own compact, opaque
-        // reading surface. This is the same black-box language as the homepage
-        // headings, rather than a full-column slab.
-        .post-text {
-            @extend .z-depth-1;
-
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-            display: inline;
-            line-height: $blockLineHeight;
-            margin-right: 0.2rem;
-            padding: $blockPadding;
-            background-color: $blockColour;
-            color: $blockTextColour;
-        }
-
-        .post-body__html {
-            background-color: transparent;
-            color: inherit;
-            margin-bottom: 0;
-            padding: 0;
-
-            ul,
-            ol {
-                background-color: transparent;
-                margin: 0.5rem 0;
-                padding-left: 1.5rem;
-            }
-
-            p,
-            li {
-                @extend .z-depth-1;
-
-                box-decoration-break: clone;
-                -webkit-box-decoration-break: clone;
-                width: fit-content;
-                max-width: 100%;
-                padding: $blockPadding;
-                background-color: $blockColour;
-                color: $blockTextColour;
-            }
-
-            li {
-                list-style-position: inside;
-            }
-        }
     }
 
     &--link,
     &--words {
         @extend .z-depth-0;
-
-        .post-body {
-            &__text {
-                @extend .z-depth-0;
-
-                padding: 0;
-                background-color: unset;
-                color: unset;
-            }
-        }
     }
 
     &--link {
