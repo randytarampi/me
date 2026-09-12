@@ -349,6 +349,19 @@ const nestedRouteTitles = async ({page}) => {
     }
 };
 
+const blogInfiniteScroll = async ({page}) => {
+    await page.goto(`${target.replace(/\/$/, "")}/blog`, {waitUntil: "networkidle2", timeout: 30000});
+    await page.waitForSelector(".post", {timeout: 30000});
+    const beforeCount = await page.$$eval(".post", posts => posts.length);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.mouse.wheel({deltaY: 2000});
+    await page.evaluate(() => window.dispatchEvent(new Event("scroll")));
+    await page.waitForFunction(previousCount => document.querySelectorAll(".post").length > previousCount, {timeout: 30000}, beforeCount);
+    const afterCount = await page.$$eval(".post", posts => posts.length);
+    if (afterCount <= beforeCount) throw new Error(`blog infinite scroll did not append posts: ${beforeCount} -> ${afterCount}`);
+    console.log(JSON.stringify({scenario: "blog-infinite-scroll", beforeCount, afterCount}));
+};
+
 const productionRouteSmoke = async ({page}) => {
     await page.goto(`${target.replace(/\/$/, "")}/blog/photos`, {waitUntil: "domcontentloaded", timeout: 30000});
     await page.waitForFunction(() => document.title.includes("See (through) me"), {timeout: 30000});
@@ -463,4 +476,10 @@ try {
 for (const [name, scenario] of [["map-pan-drag", mapPanDrag], ["map-zoom-pan", mapZoomPan], ["multi-post-open-close", multiPostOpenClose], ["map-card-pan-to-fit", mapCardPanToFit]]) {
     await runBrowserScenario({name, url: target, scenario});
 }
-console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction", "map-pan-drag", "map-zoom-pan", "multi-post-open-close", "map-card-pan-to-fit"]}));
+try {
+    await runBrowserScenario({name: "blog-infinite-scroll", url: target, scenario: blogInfiniteScroll});
+} catch (error) {
+    if (!isPrd) throw error;
+    console.log(JSON.stringify({scenario: "blog-infinite-scroll", prdDivergence: error.message}));
+}
+console.log(JSON.stringify({target, prdReference: isPrd, scenarios: ["tab-desync", "tab-desync-no-sw", "map-interaction", "map-pan-drag", "map-zoom-pan", "multi-post-open-close", "map-card-pan-to-fit", "blog-infinite-scroll"]}));
