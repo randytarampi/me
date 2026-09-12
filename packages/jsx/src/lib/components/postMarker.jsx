@@ -6,7 +6,7 @@ import {useMap} from "@vis.gl/react-google-maps";
 import {Col, Row} from "react-materialize";
 import ProgressiveImage from "react-progressive-image";
 import {Provider, ReactReduxContext} from "react-redux";
-import {getSvgPathForPost} from "../util/index.js";
+import {getSvgPathAnchorForPost, getSvgPathForPost} from "../util/index.js";
 import {
     PostBodyAsArrayComponent,
     PostBodyAsStringComponent,
@@ -236,6 +236,10 @@ const PostMarkerComponentInternal = ({post, isVisible = false, onVisibilityToggl
             },
             icon: {
                 path: getSvgPathForPost(post),
+                anchor: (() => {
+                    const {x, y} = getSvgPathAnchorForPost(post);
+                    return new google.maps.Point(x, y);
+                })(),
                 fillColor: "#ec7500",
                 fillOpacity: 1,
                 scale: 0.05,
@@ -273,6 +277,10 @@ const PostMarkerComponentInternal = ({post, isVisible = false, onVisibilityToggl
         if (markerInstance) {
             markerInstance.setIcon({
                 path: getSvgPathForPost(post),
+                anchor: (() => {
+                    const {x, y} = getSvgPathAnchorForPost(post);
+                    return new google.maps.Point(x, y);
+                })(),
                 fillColor: "#ec7500",
                 fillOpacity: 1,
                 scale: 0.05,

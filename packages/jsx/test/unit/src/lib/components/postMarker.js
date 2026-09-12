@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {Photo, Post} from "@randy.tarampi/js";
-import {getSvgPathForPost} from "../../../../../src/lib/util/getSvgPathForPost.js";
+import {getSvgPathAnchorForPost, getSvgPathForPost} from "../../../../../src/lib/util/getSvgPathForPost.js";
 import {derivePostCardDimensions, derivePostCardTargetWidth} from "../../../../../src/lib/components/map/google/postCardOverlay.jsx";
 
 describe("post marker memoization", function () {
@@ -21,6 +21,12 @@ describe("post marker memoization", function () {
         const post = {type: Post.type, source: undefined, id: "one"};
         const samePathPost = {...post, id: "two"};
         expect(getSvgPathForPost(post)).to.equal(getSvgPathForPost(samePathPost));
+    });
+
+    it("centres each visible SVG path using its native bounds", function () {
+        expect(getSvgPathAnchorForPost({source: "unsplash", type: Photo.type})).to.eql({x: 256, y: 252});
+        expect(getSvgPathAnchorForPost({source: "tumblr", type: Photo.type})).to.eql({x: 158.85, y: 256});
+        expect(getSvgPathAnchorForPost({type: Post.type})).to.eql({x: 256, y: 254.85});
     });
 });
 
