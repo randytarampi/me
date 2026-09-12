@@ -51,12 +51,41 @@ export class PostsComponent extends PureComponent {
         this.state = {};
         this.state.elementHeight = this.calculateElementHeight(this.state, props);
         this.infiniteLoadGuard = createInfiniteLoadGuard(() => this.props.fetchPosts());
+        this.heightReflowFrame = null;
     }
 
     componentDidMount() {
+        this.scheduleElementHeightReflow();
         if (this.props.shouldFetchPostsOnMount) {
             this.props.fetchPosts();
         }
+    }
+
+    componentWillUnmount() {
+        if (this.heightReflowFrame) {
+            window.cancelAnimationFrame(this.heightReflowFrame);
+        }
+    }
+
+    // Post-paint reconciliation: heights estimated from post data can drift
+    // from what actually renders (fonts, image placeholders, measurement
+    // racing the body DOM). Re-measure one frame after paint and update only
+    // on a real change so react-infinite's window math stays honest without
+    // churning every render.
+    scheduleElementHeightReflow() {
+        if (typeof window === "undefined" || !window.requestAnimationFrame) return;
+        if (this.heightReflowFrame) window.cancelAnimationFrame(this.heightReflowFrame);
+
+        this.heightReflowFrame = window.requestAnimationFrame(() => {
+            this.heightReflowFrame = null;
+            this.setState(state => {
+                const elementHeight = this.calculateElementHeight(state, this.props);
+                return elementHeight.every((height, index) => height === state.elementHeight[index])
+                    && elementHeight.length === state.elementHeight.length
+                    ? null
+                    : {elementHeight};
+            });
+        });
     }
 
     calculateElementHeight({elementHeight: elementHeightState}, props) {
@@ -80,6 +109,7 @@ export class PostsComponent extends PureComponent {
     componentDidUpdate(previousProps) {
         if (previousProps.containerWidth !== this.props.containerWidth
             || previousProps.posts !== this.props.posts) {
+            this.scheduleElementHeightReflow();
             return this.setState({
                 elementHeight: this.calculateElementHeight(this.state, this.props)
             });
