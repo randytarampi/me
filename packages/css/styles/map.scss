@@ -10,26 +10,3 @@
 .map__container {
     position: relative;
 }
-
-.map__loading {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background-color: $blockColour;
-    color: $blockTextColour;
-}
-
-.map__loading > .loading-spinner {
-    min-height: unset;
-    height: auto;
-}
-
-.map__loading-label {
-    color: $primary-color;
-    font-size: 1rem;
-}

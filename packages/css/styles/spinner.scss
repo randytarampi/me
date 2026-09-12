@@ -3,6 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    // Materialize cycles through four colour-named layers. Keep its motion and
+    // size, but make the shared project spinner consistently brand orange.
+    .spinner-layer {
+        border-color: $primary-color;
+    }
 }
 
 .post + div > .loading-spinner {

@@ -247,10 +247,7 @@ export class GoogleMapComponent extends PureComponent {
             {...{
                 loadingElement: loadingElement
                     ? loadingElement
-                    : <div className={["map__loading"].concat(className || []).join(" ")} style={{height: "100%"}}>
-                        <LoadingSpinner/>
-                        <span className="map__loading-label" role="status">loading map…</span>
-                    </div>,
+                    : <LoadingSpinner/>,
                 ...props,
                 ...this.passedGoogleMapCallbackProps
             }}
