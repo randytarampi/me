@@ -58,13 +58,33 @@
 
     &-body {
         &__html {
-            ul {
-                @extend .row;
+            // Tumblr bodies are editorial content, not a Materialize grid. Turning
+            // list items into columns suppresses their native markers and leaves
+            // stray squares over image posts.
+            ul,
+            ol {
+                display: block;
+                list-style-position: outside;
+                margin: 0.5rem 0;
+                padding-left: 1.5rem;
+            }
 
-                li {
-                    @extend .col;
-                    @extend .m6;
-                    @extend .s12;
+            ul {
+                list-style-type: disc;
+            }
+
+            ol {
+                list-style-type: decimal;
+            }
+
+            li {
+                display: list-item;
+                float: none;
+                margin: 0.2rem 0;
+                width: auto;
+
+                &::marker {
+                    color: currentColor;
                 }
             }
         }
@@ -93,9 +113,10 @@
         @extend .post-html;
         @extend .z-depth-1;
 
+        display: block;
         line-height: $blockLineHeight;
-        padding: $blockPadding;
-        margin-right: 4px;
+        padding: 0.35rem $blockPaddingHorizontal;
+        margin: 0 0 0.45rem;
         background-color: $blockColour;
         color: $blockTextColour;
     }
@@ -119,6 +140,26 @@
         & .col.post-content {
             @media #{$medium-and-up} {
                 padding: 0;
+            }
+        }
+
+        // Rich Tumblr markup cannot use a single inline background without
+        // breaking apart at every wrapped line. Give it one quiet, fully
+        // opaque reading surface instead, while keeping the site’s
+        // white-on-black language intact over photography.
+        .post-body__html {
+            background-color: $blockColour;
+            color: $blockTextColour;
+            line-height: $blockLineHeight;
+            margin-bottom: 0.45rem;
+            padding: 0.35rem $blockPaddingHorizontal;
+
+            p,
+            ul,
+            ol {
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
     }
