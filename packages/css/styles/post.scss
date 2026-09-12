@@ -111,14 +111,15 @@
 
     &-text {
         @extend .post-html;
-        @extend .z-depth-1;
 
-        display: block;
+        // Posts on a white surface follow the homepage's quiet body-copy
+        // treatment. The image-card variant below supplies its own contrast.
+        display: inline;
         line-height: $blockLineHeight;
-        padding: 0.35rem $blockPaddingHorizontal;
-        margin: 0 0 0.45rem;
-        background-color: $blockColour;
-        color: $blockTextColour;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        color: inherit;
     }
 
     &-title {
@@ -143,23 +144,50 @@
             }
         }
 
-        // Rich Tumblr markup cannot use a single inline background without
-        // breaking apart at every wrapped line. Give it one quiet, fully
-        // opaque reading surface instead, while keeping the site’s
-        // white-on-black language intact over photography.
-        .post-body__html {
+        // Over photography, each text fragment gets its own compact, opaque
+        // reading surface. This is the same black-box language as the homepage
+        // headings, rather than a full-column slab.
+        .post-text {
+            @extend .z-depth-1;
+
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            display: inline;
+            line-height: $blockLineHeight;
+            margin-right: 0.2rem;
+            padding: $blockPadding;
             background-color: $blockColour;
             color: $blockTextColour;
-            line-height: $blockLineHeight;
-            margin-bottom: 0.45rem;
-            padding: 0.35rem $blockPaddingHorizontal;
+        }
 
-            p,
+        .post-body__html {
+            background-color: transparent;
+            color: inherit;
+            margin-bottom: 0;
+            padding: 0;
+
             ul,
             ol {
-                &:last-child {
-                    margin-bottom: 0;
-                }
+                background-color: transparent;
+                margin: 0.5rem 0;
+                padding-left: 1.5rem;
+            }
+
+            p,
+            li {
+                @extend .z-depth-1;
+
+                box-decoration-break: clone;
+                -webkit-box-decoration-break: clone;
+                width: fit-content;
+                max-width: 100%;
+                padding: $blockPadding;
+                background-color: $blockColour;
+                color: $blockTextColour;
+            }
+
+            li {
+                list-style-position: inside;
             }
         }
     }
@@ -197,7 +225,7 @@
     .link {
         &--branded {
             &:before, &::before {
-                color: $blockTextColour;
+                color: inherit;
                 text-decoration: underline;
                 text-decoration-color: $blockColour;
                 padding-right: $blockPaddingHorizontal / 2;
