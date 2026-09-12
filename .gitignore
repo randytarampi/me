@@ -105,3 +105,6 @@ www/docs/
 # of `infrastructure/` is that the configuration is in version control. Only local scratch is.
 infrastructure/bin/
 infrastructure/Pulumi.*.yaml.bak
+
+# Browser smoke failure artifacts (scripts/browser-smoke.mjs)
+.artifacts/
