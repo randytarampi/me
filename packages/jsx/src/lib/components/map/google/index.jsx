@@ -3,6 +3,7 @@ import React, {PureComponent} from "react";
 import {APIProvider, Map, useApiLoadingStatus, useMap} from "@vis.gl/react-google-maps";
 import {LoadingSpinner} from "../../loadingSpinner.jsx";
 import {MAP_CONTAINER_HEIGHT_PX} from "../util.js";
+import {shouldShowMapLoading} from "./mapLoading.js";
 import {GoogleMapStyles} from "./styles.js";
 
 export const GOOGLE_MAPS_API_KEY = __GCP_API_KEY__;
@@ -43,17 +44,30 @@ GoogleMapInstanceBridge.propTypes = {
 };
 
 // NOTE-RT: mirrors `withScriptjs`'s old `loadingElement` behaviour - render it until the Maps
-// JavaScript API script has actually finished loading, then swap in the real `<Map>`.
+// JavaScript API script has actually finished loading, then swap in the real `<Map>`. The
+// indicator stays up (over the mounted map) until the first `tilesloaded` event, so users
+// never stare at grey, unpainted tiles while the basemap paints.
 const GoogleMapLoadingGate = ({loadingElement, googleMapRef, children, ...props}) => {
-    const loadingStatus = useApiLoadingStatus();
+    const apiLoadingStatus = useApiLoadingStatus();
+    const [tilesLoaded, setTilesLoaded] = React.useState(false);
+    const {onTilesLoaded: consumerOnTilesLoaded, ...mapProps} = props;
 
-    if (loadingStatus !== "LOADED") {
+    const handleTilesLoaded = React.useCallback(() => {
+        setTilesLoaded(true);
+
+        if (consumerOnTilesLoaded) {
+            consumerOnTilesLoaded();
+        }
+    }, [consumerOnTilesLoaded]);
+
+    if (apiLoadingStatus !== "LOADED") {
         return loadingElement || null;
     }
 
-    return <Map {...props}>
+    return <Map {...mapProps} onTilesLoaded={handleTilesLoaded}>
         <GoogleMapInstanceBridge googleMapRef={googleMapRef}/>
         {children}
+        {shouldShowMapLoading({apiLoadingStatus, tilesLoaded}) ? loadingElement || null : null}
     </Map>;
 };
 
@@ -62,7 +76,8 @@ GoogleMapLoadingGate.propTypes = {
     googleMapRef: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({current: PropTypes.object})
-    ])
+    ]),
+    onTilesLoaded: PropTypes.func
 };
 
 // NOTE-RT: React 19 removed `defaultProps` support for function components entirely (silently
@@ -234,6 +249,7 @@ export class GoogleMapComponent extends PureComponent {
                     ? loadingElement
                     : <div className={["map__loading"].concat(className || []).join(" ")} style={{height: "100%"}}>
                         <LoadingSpinner/>
+                        <span className="map__loading-label" role="status">loading map…</span>
                     </div>,
                 ...props,
                 ...this.passedGoogleMapCallbackProps
