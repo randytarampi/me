@@ -11,6 +11,7 @@ import Infinite from "react-infinite";
 import LoadingSpinner from "./loadingSpinner.jsx";
 import {ConnectedErrorWrapper} from "../containers/index.jsx";
 import computePostHeight from "../util/computePostHeight.js";
+import createInfiniteLoadGuard from "../util/createInfiniteLoadGuard.js";
 import getComponentForType from "../util/getComponentForType.js";
 import useMeasure from "../hooks/useMeasure.js";
 import {
@@ -49,6 +50,7 @@ export class PostsComponent extends PureComponent {
 
         this.state = {};
         this.state.elementHeight = this.calculateElementHeight(this.state, props);
+        this.infiniteLoadGuard = createInfiniteLoadGuard(() => this.props.fetchPosts());
     }
 
     componentDidMount() {
@@ -76,22 +78,25 @@ export class PostsComponent extends PureComponent {
     }
 
     componentDidUpdate(previousProps) {
-        this.setState((state, props) => {
-            if (
-                previousProps.containerWidth !== props.containerWidth
-                || previousProps.posts !== props.posts
-            ) {
-                return {
-                    elementHeight: this.calculateElementHeight(state, props)
-                };
-            }
+        if (previousProps.containerWidth !== this.props.containerWidth
+            || previousProps.posts !== this.props.posts) {
+            return this.setState({
+                elementHeight: this.calculateElementHeight(this.state, this.props)
+            });
+        }
 
-            return state;
-        });
+        if (previousProps.isLoading && !this.props.isLoading) {
+            // Redux has committed the response by this point, so the next
+            // scroll can legitimately start another page request. Releasing
+            // here prevents react-infinite's loading=false transition from
+            // double-firing the same edge while a request is still being
+            // committed.
+            this.infiniteLoadGuard.release();
+        }
     }
 
     render() {
-        const {posts, containerHeight, containerWidth, fetchPosts, isLoading, postsLimit, ...props} = this.props;
+        const {posts, containerHeight, containerWidth, isLoading, postsLimit, ...props} = this.props;
 
         let postsArray = posts && posts.toArray();
 
@@ -126,7 +131,7 @@ export class PostsComponent extends PureComponent {
                 infiniteLoadBeginEdgeOffset={window.innerHeight}
                 preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                 preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
-                onInfiniteLoad={fetchPosts}
+                onInfiniteLoad={this.infiniteLoadGuard.run}
                 isInfiniteLoading={isLoading}
                 loadingSpinnerDelegate={<LoadingSpinner/>}
                 {...props}
