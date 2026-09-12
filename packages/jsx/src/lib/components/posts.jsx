@@ -52,6 +52,8 @@ export class PostsComponent extends PureComponent {
         this.state.elementHeight = this.calculateElementHeight(this.state, props);
         this.infiniteLoadGuard = createInfiniteLoadGuard(() => this.props.fetchPosts());
         this.heightReflowFrame = null;
+        this.infiniteLoadReleaseTimer = null;
+        this.handleInfiniteScroll = this.handleInfiniteScroll.bind(this);
     }
 
     componentDidMount() {
@@ -65,6 +67,7 @@ export class PostsComponent extends PureComponent {
         if (this.heightReflowFrame) {
             window.cancelAnimationFrame(this.heightReflowFrame);
         }
+        if (this.infiniteLoadReleaseTimer) window.clearTimeout(this.infiniteLoadReleaseTimer);
     }
 
     // Post-paint reconciliation: heights estimated from post data can drift
@@ -88,6 +91,15 @@ export class PostsComponent extends PureComponent {
         });
     }
 
+    handleInfiniteScroll(scrollable) {
+        this.props.handleScroll?.(scrollable);
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const remaining = document.documentElement.scrollHeight - (scrollY + window.innerHeight);
+        if (remaining <= window.innerHeight && !this.props.isLoading) {
+            this.infiniteLoadGuard.run();
+        }
+    }
+
     calculateElementHeight({elementHeight: elementHeightState}, props) {
         const {posts, postsLimit, containerWidth} = props;
 
@@ -107,6 +119,17 @@ export class PostsComponent extends PureComponent {
     }
 
     componentDidUpdate(previousProps) {
+        if (previousProps.isLoading && !this.props.isLoading) {
+            // React Infinite reconciles its child count after this lifecycle
+            // hook. Defer release one tick so its loading=false reconciliation
+            // cannot immediately trigger the same edge request again.
+            if (this.infiniteLoadReleaseTimer) window.clearTimeout(this.infiniteLoadReleaseTimer);
+            this.infiniteLoadReleaseTimer = window.setTimeout(() => {
+                this.infiniteLoadReleaseTimer = null;
+                this.infiniteLoadGuard.release();
+            }, 0);
+        }
+
         if (previousProps.containerWidth !== this.props.containerWidth
             || previousProps.posts !== this.props.posts) {
             this.scheduleElementHeightReflow();
@@ -115,14 +138,6 @@ export class PostsComponent extends PureComponent {
             });
         }
 
-        if (previousProps.isLoading && !this.props.isLoading) {
-            // Redux has committed the response by this point, so the next
-            // scroll can legitimately start another page request. Releasing
-            // here prevents react-infinite's loading=false transition from
-            // double-firing the same edge while a request is still being
-            // committed.
-            this.infiniteLoadGuard.release();
-        }
     }
 
     render() {
@@ -161,6 +176,7 @@ export class PostsComponent extends PureComponent {
                 infiniteLoadBeginEdgeOffset={window.innerHeight}
                 preloadBatchSize={Infinite.containerHeightScaleFactor(1 / 8)}
                 preloadAdditionalHeight={Infinite.containerHeightScaleFactor(8)}
+                handleScroll={this.handleInfiniteScroll}
                 onInfiniteLoad={this.infiniteLoadGuard.run}
                 isInfiniteLoading={isLoading}
                 loadingSpinnerDelegate={<LoadingSpinner/>}
@@ -198,6 +214,7 @@ PostsComponent.propTypes = {
     postsLimit: PropTypes.number,
     fetchPosts: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
+    handleScroll: PropTypes.func,
     shouldFetchPostsOnMount: PropTypes.bool.isRequired,
     posts: PropTypes.instanceOf(List)
 };
