@@ -12,7 +12,6 @@ const sinon = require("sinon");
 const fetchPosts = require("../../../../../../src/lib/actions/posts/fetchPosts.js").default || require("../../../../../../src/lib/actions/posts/fetchPosts.js");
 const {
     FETCHING_POSTS,
-    FETCHING_POSTS_CANCELLED,
     FETCHING_POSTS_FAILURE,
     FETCHING_POSTS_FAILURE_RECOVERY,
     FETCHING_POSTS_PER_PAGE,
@@ -47,7 +46,7 @@ describe("fetchPosts", function () {
     });
 
     describe("FETCHING_POSTS", function () {
-        it("isn't dispatched if already `isLoading`", async function () {
+        it("doesn't cancel or replace an already loading request", async function () {
             const stubFetchUrl = "/woof";
 
             stubInitialState = Map({
@@ -61,17 +60,7 @@ describe("fetchPosts", function () {
             await stubStore.dispatch(fetchPosts(stubFetchUrl));
 
             expect(fetchStub.notCalled).to.eql(true);
-            expect(stubStore.getActions()).to.eql([
-                {
-                    type: FETCHING_POSTS_CANCELLED,
-                    payload: {
-                        fetchUrl: stubFetchUrl,
-                        searchParams: undefined,
-                        searchType: undefined,
-                        isLoading: true
-                    }
-                }
-            ]);
+            expect(stubStore.getActions()).to.eql([]);
         });
 
         it("is dispatched with the correct searchParams", async function () {

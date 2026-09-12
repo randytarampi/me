@@ -23,12 +23,10 @@ export const fetchPostsCreator = (fetchUrl, type = "global", searchParams, searc
     }
 
     if (isLoading) {
-        dispatch(fetchingPostsCancelled({
-            fetchUrl,
-            searchParams,
-            searchType,
-            isLoading
-        }));
+        // A duplicate edge notification must not mark the active request
+        // complete. Doing so clears isLoading before its response commits,
+        // allowing a second request to start without the cursor produced by
+        // the first response.
         return Promise.resolve();
     }
 
