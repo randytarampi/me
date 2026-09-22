@@ -735,7 +735,7 @@ enough to govern.
 
 - **Old claim:** The dotfiles roadmap’s earlier blocker said there was no credential-free way to verify coverage reporting.
 - **Evidence:** [verified] `me/` uses `qltysh/qlty-action/coverage@v2` with `oidc: true` and `id-token: write` (`me/.github/workflows/test.yml:351-357`), with `qlty.toml` committed.
-- **Replacement claim:** [aspirational] Dotfiles will adopt this as a bounded, reversible, non-required follow-up lane; Coveralls remains the deliberate reporting path in both repositories.
+- **Replacement claim:** [verified] Delivered 2026-09-22 (evening): dotfiles adopted the pattern — minimal `qlty.toml` plus a supplemental, non-required OIDC coverage upload in its ci.yml, SHA-pinned to the qlty-action v2 commit. Tool lessons verified there: bandit scoping belongs in a `.bandit` ini file (the driver runs `bandit --ini .bandit`; a `qlty.toml` `[[plugin]] exclude_patterns` key is silently ignored — confirmed via `qlty config show`); bandit B101/B404/B603 are false positives in pytest suites (asserts are the assertion mechanism; subprocess imports in tests are intentional mocking) so test paths are excluded; qlty's coverage-diff external gate reports 0.0% against a 30% threshold until a project baseline exists — a first-upload artifact, non-required, tuned qlty-side. Coveralls remains the deliberate reporting path in both repositories.
 
 ### Stale fleet facts corrected
 
@@ -766,6 +766,32 @@ enough to govern.
 - **Old claim:** The matrix recorded Dotfiles-Poetry as a Phase 1 mandate without dated delivery evidence and GH-Actions standardization as a future pilot.
 - **Evidence:** [verified] Dotfiles-Poetry evidence was delivered 2026-09-22; dotfiles is piloting the `ci/required` aggregate and staged ruleset for GH-Actions standardization.
 - **Replacement claim:** [verified] The matrix now records Dotfiles-Poetry as delivered 2026-09-22 in Phase 1; GH-Actions standardization remains Phase 1, then batches, with dotfiles as the pilot repository.
+
+## 15. Dotfiles governance-closure and coverage expansion — dated 2026-09-22 (evening)
+
+### Required-check/PR ruleset is live — the governed-trunk reference implementation
+
+- **Old claim:** Phase 1's `ci/required` mandate had no implemented precedent anywhere in the fleet.
+- **Evidence:** [verified] Dotfiles' ruleset id 23837328 is active on `refs/heads/main`: a `pull_request` rule (zero approving reviews, rebase/squash merge methods) plus `required_status_checks` for `ci/required` and `security/required`, with RepositoryRole admin as break-glass bypass only. PRs #9, #10, and #11 were merged under it, each with the aggregates green before merge. The emitted check-context names are confirmed as `ci/required` and `security/required` (not matrix-generated names). API mechanics learned: `bypass_actors` and `rules` must be real JSON arrays in the rulesets REST call, and `required_status_checks` entries must omit `integration_id` entirely (explicit `null` returns 422).
+- **Replacement claim:** [verified] The governed-trunk reference implementation is operating; Phase 1's `ci/required` mandate now has a proven shape to copy (aggregate job + observed check name + staged ruleset), and me/'s Phase 1 gap is implementation, not design.
+
+### Coverage expansion and shell-test evidence
+
+- **Old claim:** The fleet lessons recorded subprocess coverage but had no evidence for expanding coverage after a shell-to-Python port, nor for testing shell scripts.
+- **Evidence:** [verified] Dotfiles production coverage rose 33.24% → 36% by testing six previously-untested scripts (check-env-coverage, check-hashes, check-docs-drift, migrate-env-gates, verify-brewfile-completeness, show-categories) with hermetic fake-HOME tests — representative paths, not wrapper padding. A bats-core suite covers three shell scripts (update-system.sh, install-npm-brewfile-packages.sh, lib/common_args.sh) as a separate `make test-shell` target in `make verify`. kcov 43.1 was evaluated and rejected: it hangs wrapping the bats suite on macOS arm64.
+- **Replacement claim:** [verified] Two fleet rules: (a) a shell-to-Python port is half-delivered without a planned coverage expansion — budget the tests as part of the port; (b) shell coverage collection is tool-fragile (kcov hangs; bashcov untested) — test value is independent of coverage numbers, keep shell coverage metrics separate from Python coverage metrics, and wire shell tests as their own target in the canonical verify.
+
+### oMLX tap takedown-reversal lesson
+
+- **Old claim:** The dotfiles session retired the `jundot/omlx` tap permanently after its upstream repo went 404.
+- **Evidence:** [verified] The removal was a mistaken moderation takedown, later reversed upstream (repo restored, pushed 2026-09-22T14:58Z; releases resolve). Dotfiles reverted its retirement through the governed flow (PR #10, required checks green) and recorded the full history in its docs.
+- **Replacement claim:** [verified] Fleet rule: verify upstream state live (GitHub API) before irreversible retirement decisions — takedowns can be reversible; keep manifest changes revert-ready; document recovery paths for upstream-controlled dependencies in durable docs.
+
+### README badge layout convention
+
+- **Old claim:** Neither roadmap specified a badge layout convention for fleet READMEs.
+- **Evidence:** [verified] Both dotfiles and `me` READMEs now place the badge row between the ASCII text header and the rich-text description, with all badges `?style=flat-square`.
+- **Replacement claim:** [verified] Fleet convention for README changes: badges sit under the header, above the description, flat-square styling.
 
 ### How to update this document — for agents
 
