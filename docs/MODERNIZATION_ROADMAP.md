@@ -692,7 +692,7 @@ enough to govern.
 
 | Mandate | Primary phase | Evidence/owner |
 | --- | --- | --- |
-| Dotfiles-Poetry | 1 | dotfiles owner; `make verify` and Poetry lock/package evidence |
+| Dotfiles-Poetry | 1 | Delivered 2026-09-22; dotfiles owner; `make verify`, Poetry lock/package evidence, and run 35713182137 |
 | GH-Actions standardization | 1, then batches | pilot repository; `ci/required` run history |
 | Pulumi-GitHub | 2 | governance stack; import previews and drift issues |
 | Pulumi-third-parties | 2–3 | integration inventory and decision records |
@@ -716,6 +716,56 @@ enough to govern.
 | React 17 peer incompatibility | Sections 5 and 10 |
 | tabs → layout → carousel order | Sections 9 and 10 |
 | HIGH risk and two-to-three-week estimate | Sections 5 and 10, marked `[believed]` |
+
+## 14. September 2026 dotfiles reconciliation — dated 2026-09-22
+
+### Dotfiles-Poetry mandate delivered
+
+- **Old claim:** Section 3.1 marked this mandate **COMMIT-NOW**, and Phase 1 required adopting Poetry.
+- **Evidence:** [verified] dotfiles delivered the PEP 621 `pyproject.toml`, committed `poetry.lock`, Poetry-authoritative `make test`/`make verify` (with `verify` running the full suite), and production-only coverage measured by subprocess on 2026-09-20/22. CI run [35713182137](https://github.com/randytarampi/dotfiles/actions/runs/35713182137) is all green across macOS and Ubuntu verification, the required Windows deployment, deployment, and Coveralls finish; CodeQL is green.
+- **Replacement claim:** [verified] The Dotfiles-Poetry mandate is delivered as of 2026-09-22; retain the evidence as Phase 1 completion evidence.
+
+### Action-SHA-pinning dated correction
+
+- **Old claim:** The Sept. 6 rejected alternative at lines 277–280 treated blanket Action SHA pinning as rejected.
+- **Evidence:** [verified] Fleet policy recorded 2026-09-22 requires verified immutable full SHAs for required, security, and deployment workflows; dotfiles’ `ci`, nightly, and CodeQL lanes are the implemented precedent. Moving-reference exceptions must be enumerated and justified. Dotfiles’ write-capable agentic review lanes float by documented design (`dotfiles/docs/AGENTIC-REVIEW.md:80-82`) and remain an enumerated gap, not a settled exception. In `me/`, `shaPinningRequired: false` remains intentional because of the ref-pattern allowlist and 47 tag references (`me/infrastructure/src/github/repository.ts:14-18,25-49`); qlty and Coveralls still use moving majors (`me/.github/workflows/test.yml:343-360`).
+- **Replacement claim:** [verified] The former blanket rejection is narrowed: migration is incremental per repository, and no fleet-wide SHA-pinned claim is made until each repository migrates. This register must be consistent before Phase 2 imports Actions policy into Pulumi; otherwise the contradiction becomes infrastructure.
+
+### qlty cross-reference
+
+- **Old claim:** The dotfiles roadmap’s earlier blocker said there was no credential-free way to verify coverage reporting.
+- **Evidence:** [verified] `me/` uses `qltysh/qlty-action/coverage@v2` with `oidc: true` and `id-token: write` (`me/.github/workflows/test.yml:351-357`), with `qlty.toml` committed.
+- **Replacement claim:** [aspirational] Dotfiles will adopt this as a bounded, reversible, non-required follow-up lane; Coveralls remains the deliberate reporting path in both repositories.
+
+### Stale fleet facts corrected
+
+- **Old claim:** Lines 193–195 said dotfiles had 39 pytest tests and CI matrix coverage for macOS and Ubuntu; line 99 said Dependabot remained file-stamped from dotfiles.
+- **Evidence:** [verified] Dotfiles now has 160-plus tests, a three-OS required deployment matrix with Windows promoted after three consecutive green runs, a nightly real-gate observation lane, and production coverage of approximately 33 per cent against a 25 per cent floor. A grep found no Dependabot stamper script in dotfiles.
+- **Replacement claim:** [verified] Replace the test and matrix facts with the current three-OS, nightly, and coverage evidence; mark the line 99 Dependabot-stamper claim [aspirational], not verified.
+
+### Phase 1 status note
+
+- **Old claim:** Phase 1 could be read as complete once the Poetry and `make verify` work landed.
+- **Evidence:** [verified] Poetry and `make verify` are complete, but `ci/required` has been named five times in `me/` without being created. The current ruleset protects only deletion and non-fast-forward and has an always-on role bypass. Dotfiles is piloting `ci/required` and staged branch protection as the fleet reference on 2026-09-22.
+- **Replacement claim:** [verified] Phase 1 remains incomplete until `ci/required` exists and PR governance lands; dotfiles’ pilot is the current reference implementation.
+
+### Dotfiles maturity/scorecard evidence update
+
+- **Old claim:** Section 7’s dotfiles scorecard left generator operations and deployment evidence below the next maturity grade.
+- **Evidence:** [verified] Dotfiles now has a three-OS required matrix, a nightly observation lane with per-gate postconditions, an environment-scenario harness, and a staged-promotion pattern.
+- **Replacement claim:** [verified] Generator operations and deployment evidence are M3-to-M4 grade. Delegation and governance remain gated on typed agent-task forms, protected merge flow, and stable required checks; no higher grade is claimed for those dimensions.
+
+### Fleet lessons promoted from the dotfiles session
+
+- **Old claim:** The roadmap did not yet record these as fleet operating rules.
+- **Evidence:** [verified] The dotfiles session established staged lane promotion (allow-failure, observed stabilization, then required), with schedule-only jobs explicitly unable to become merge-required checks; the prohibition on concurrent committing subagent lanes on one repository was recorded in `dotfiles/configs/agents/home-agents.md` after three staging-race incidents; subprocess coverage is required for script-heavy repositories; stable aggregate checks precede branch protection; typed agent-task boundaries specify the exact base SHA, allowed paths, forbidden changes, canonical verify command, and evidence packet; and OIDC is the default for eligible third-party reporting.
+- **Replacement claim:** [verified] Treat these six practices as fleet lessons for subsequent phases and repository migrations.
+
+### Traceability matrix correction
+
+- **Old claim:** The matrix recorded Dotfiles-Poetry as a Phase 1 mandate without dated delivery evidence and GH-Actions standardization as a future pilot.
+- **Evidence:** [verified] Dotfiles-Poetry evidence was delivered 2026-09-22; dotfiles is piloting the `ci/required` aggregate and staged ruleset for GH-Actions standardization.
+- **Replacement claim:** [verified] The matrix now records Dotfiles-Poetry as delivered 2026-09-22 in Phase 1; GH-Actions standardization remains Phase 1, then batches, with dotfiles as the pilot repository.
 
 ### How to update this document — for agents
 
