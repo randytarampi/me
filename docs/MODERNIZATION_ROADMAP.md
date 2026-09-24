@@ -255,6 +255,23 @@ Evidence index: [the complete progress record](../../.slim/deepwork/progress-me-
 [release run: pseudolocalize](https://github.com/randytarampi/pseudolocalize/actions/runs/34019936167),
 and [the me Actions history](https://github.com/randytarampi/me/actions).
 
+### Baseline table — Gate A5 evidence, dated 2026-09-24
+
+| Repo | Source/build | Test/verify | Release/provenance | Security/dependencies | Infrastructure/operations | Documentation/ownership | Delegation/evidence |
+|---|---|---|---|---|---|---|---|
+| me | M3 [surveyed] — active monorepo hardening | M3 [surveyed] — local V5 harness and browser gates | M2 [surveyed] — V5 remains route-gated; release approval pending | M2 [surveyed] — lodash.set, Sentry and token gates open | M3 [surveyed] — CI/Pages hardening; `ci/required` absent | M4 [surveyed] — extensive roadmap and operational docs | M3 [surveyed] — typed task/evidence practices, sensitive gates human-owned |
+| lwip | M3 [surveyed] — v4 prepared; NAN remains in seven source files | M3 [surveyed] — `yarn verify` | M2 [surveyed] — v4.0.0 unpublished; trusted-publisher gate pending | M3 [per roadmap] — dependency-security upgrade remains | M2 [per roadmap] — native operations need N-API work | M3 [per roadmap] — documentation target is still a gap | M3 [surveyed] — SHA and verify recorded; native migration not yet delegable |
+| pseudoimage | M3 [surveyed] — v5 prepared; no NAN matches | M3 [surveyed] — `yarn verify:ci` | M2 [surveyed] — v5.0.0 unpublished; publisher gate pending | M3 [per roadmap] — security target remains transitional | M3 [per roadmap] — native operations target defined | M3 [per roadmap] — documentation target | M3 [surveyed] — clean SHA/verify evidence; fleet gate absent |
+| pseudolocalize | M3 [surveyed] — v3 prepared | M3 [surveyed] — `yarn verify:ci` | M2 [surveyed] — v3.0.0 unpublished; publisher gate pending | M3 [per roadmap] — dependency-security gap remains | M3 [per roadmap] — operations target remains transitional | M3 [per roadmap] — documentation target remains transitional | M3 [surveyed] — clean SHA/verify evidence; fleet gate absent |
+| pwa | M3 [surveyed] — maintained Gradle/Kotlin and asset-service surfaces | M3 [surveyed] — `yarn verify` | M3 [per roadmap] — release target is governed but evidence is thin | M3 [per roadmap] — CodeQL/dependency scope must remain honest | M3 [surveyed] — Gradle/asset-service CI lanes active | M3 [per roadmap] — documentation target | M2 [per roadmap] — delegation target not yet demonstrated |
+| slamscan | M2 [surveyed] — Babel/ESM boundary incomplete | M3 [surveyed] — `yarn verify:ci` | M2 [surveyed] — no `release.yml`; June-only tags | M3 [per roadmap] — dependency-security target | M2 [surveyed] — operational release path missing | M3 [per roadmap] — documentation target | M2 [per roadmap] — delegation depends on ESM/release work |
+| dotfiles | M4 [per roadmap] — Poetry/package generator contract | M4 [per roadmap] — `make verify` is canonical | M3 [per roadmap] — publish/deploy evidence still being promoted | M3 [per roadmap] — coverage and security policy remain active work | M4 [per roadmap] — generator operations owned | M4 [per roadmap] — reference implementation and guidance | M4 [per roadmap] — staged gates and bounded delegation model |
+
+Thin-evidence notes: non-me security/documentation/operations/delegation
+grades rely on §7 roadmap targets rather than per-repo measurement;
+pwa's release evidence and dotfiles' current-run evidence are the thinnest
+cells and should be raised to [surveyed] at the next quarterly review.
+
 ## 6. Principles and rejected-alternatives register
 
 ### Operating principles
