@@ -799,6 +799,228 @@ enough to govern.
 - **Evidence:** [verified] A five-seat review (oracle + four council seats) of the full session changeset found: (a) the qlty upload could fail the required `ci/required` aggregate despite docs calling it supplemental — remediated with step-level `continue-on-error` and a success-gated upload; (b) the CLI-contract checker only asserted one direction of manifest↔implementation parity — a bidirectional assertion was added and three drifts fixed (configure-aws/configure-docker undeclared `--no-backup`, cleanup-project over-declaration, configure-all.sh missing aws/docker children); (c) check-docs-drift had a fenced-code blind spot that let dead references pass — fixed with a fenced-stripping scan and regression; (d) npm/nvm update scripts reported success on partial failure — exit semantics made truthful and tests updated; (e) JSON root-type guards added to configure-docker.py and verify-config.py; (f) the oMLX tap retirement was reverted after the upstream reversal (PR #10); (g) show-categories gained its own test (the earlier six-script claim named it wrongly); (h) kcov's rejection now has a durable dotfiles record; (i) unpinned installers are a deliberate owner decision (machines pull latest tool versions).
 - **Replacement claim:** [verified] The dotfiles review-remediation branch (69ea692..7329960, merged 2026-09-22 evening) closes the review's blocking findings; production coverage is 36.36% against the 27 per cent floor. Remaining fleet-risk items for the me/ session: pin or version the six downstream `agentic-review.yml@main` callers (the mutable write-capable supply-chain surface), record the `secrets: inherit` narrowing (named-secrets passthrough), define Dependabot grouping/ownership policy, and decide the qlty coverage-diff threshold alignment. Dotfiles lessons added to fleet guidance in d0d5090: dispatch-interruption recovery and third-party tool-claim introspection.
 
+## 16. Cross-repo next steps — dated 2026-09-24
+
+> **Status:** council-passed, Oracle-gated plan (Gates 1–2 complete; section
+> reviewed before commit). **Scope:** the next modernization pass across
+> `me`, `lwip`, `pseudoimage`, `pwa`, `slamscan`, `pseudolocalize`, with
+> dotfiles as the governance generator. **Confidence:** as per the document
+> **Status:** council-passed, Oracle-gated plan (Gates 1–2 complete; section
+> reviewed before commit). **Scope:** the next modernization pass across
+> `me`, `lwip`, `pseudoimage`, `pwa`, `slamscan`, `pseudolocalize`, with
+> dotfiles as the governance generator. **Confidence:** as per the document
+> contract. Evidence base: five OpenCode sessions (the dotfiles
+> knowledge-transfer pair and the me/ parity trio), Junie history probes,
+> 120-commit history `39c566b7e..9d7d1c1af`, five-repo state survey, and a
+> reflect exercise over both; the full evidence ledger lives in the session
+> progress record `.slim/deepwork/progress-cross-repo-next-steps-20260924.md`
+> (local deepwork state, not committed — it is git-local by design and does
+> not travel with clones; durable facts from it are recorded in this
+> section).
+
+### 16.1 What this section is
+
+This section converts the September sessions' outcomes into an executable
+next-steps contract. It advances §9 Phases 0–1, schedules Phase 3 with
+guardrails, and records Phase 2 and Phase 4 as explicit dated deferred
+decisions — not silent drops. It supersedes no prior section; it sequences
+the remaining mandates.
+
+### 16.2 Operating rules adopted this pass
+
+Eight rules emerged from the sessions' lessons (truthful-proof failures,
+hypothesis persistence, migration-state incidents) and were amended through
+an Oracle gate and a four-seat council review:
+
+- **Durable fleet guidance** (distribute via `home-agents.md` +
+  `me/docs/CONVENTIONS.md`; one rule one home, the other links):
+  - **R1 truthful-proof:** proofs are truthful only when tests are actually
+    discovered/collected, tooling is invoked not merely installed,
+    observations are non-zero and meaningful, and assertions come from
+    independent fixtures or protocols — never a value computed by the same
+    formula as the implementation; protocol contracts (headers, cursors,
+    multi-page renders) are asserted, not just happy-path sentinels.
+    [verified — five independent occurrences: circular geometry test,
+    0/0/0 jitter on a crashed page, `.jsx` tests uncollected by the Mocha
+    `.js` glob, actionlint installed-but-uninvoked, single-seed V5 sentinel]
+  - **R2 hypothesis-retirement:** a disproven hypothesis is retired and
+    reopened only with new evidence; the disproof is recorded in progress
+    state. [verified — DPR repeatedly over-assumed]
+  - **R3 compatibility-introspection (amends the d0d5090 third-party
+    tool-claim rule):** compatibility claims require loading the installed
+    artifact and a fresh-process smoke test; migration rollback must cover
+    processes and shared state, not only the binary. [verified — OpenCode
+    v2 plugin blocker; stale v2 service poisoning post-rollback observation]
+  - **R4 clean-stop gate:** stop and verify fresh processes before
+    re-testing lifecycle-dependent work. [verified — feed:v5:dev +
+    harness port collisions]
+  - **R7 deployment-identity:** verify what is actually deployed (bundle
+    age, deployment metadata, redirects) before changing code to fix a
+    perceived divergence. [verified — prd was a legacy 2022 bundle]
+  - **R8 cloud-safety:** cloud-adjacent test infrastructure keeps
+    loopback-only endpoints and throwaway credentials, always.
+    [verified — SSM seeding near live AWS]
+- **Roadmap-dated (this pass's cadence):** **R5** recurring human-gate
+  decision passes at each wave boundary; **R6** staged lane promotion
+  (allow-failure → observed stabilization → required) — already recorded in
+  §14; referenced, not duplicated.
+
+### 16.3 Track A — the human-gate decision queue (day one, parallel with everything)
+
+Wave A is a decision queue, not a work wave: agents prepare evidence
+packets; humans decide. Each gate carries owner, agent-prep spec, UI-only
+flags, evidence-of-done, allowed outcomes (approve/defer/reject — never
+implied approval), fallback, decision date, and a "not blocked by" list so
+execution tracks proceed without serializing behind the user. Outcomes are
+recorded append-only.
+
+The two hard edges — **A1a → D1b** and **A2 → B4** — are declared here
+once; §16.4 cross-references them and adds no others. Every gate states its
+decision date and an explicit "not blocked by" list; the `Blocks` column
+names the ONLY downstream items a gate blocks.
+
+| Gate | Question | Owner / agent-prep | Evidence-of-done | Fallback | Decision date | Blocks (nothing else is blocked) |
+|---|---|---|---|---|---|---|
+| A1a | Complete npm trusted-publisher linkage (npm UI, owner-only) then approve lwip 4.0.0 (run [34022029836](https://github.com/randytarampi/lwip/actions/runs/34022029836)) | User (UI-only action); agent assembles run state + linkage checklist | "Published", not "workflow waiting" (§9 Phase 0 rule) | Release from retained local token (§6 accepted-risk) | On linkage completion | D1b. Not blocked by: B, C, D1a, E, A1b–A8 |
+| A1b | Linkage + approve pseudoimage 5.0.0 (run [34021709134](https://github.com/randytarampi/pseudoimage/actions/runs/34021709134)) | User (UI-only); agent preps run state | Published | Retained-token release | On linkage completion | Nothing. Not blocked by: any track |
+| A1c | Linkage + approve pseudolocalize 3.0.0 (run [34019936167](https://github.com/randytarampi/pseudolocalize/actions/runs/34019936167)) | User (UI-only); agent preps run state | Published | Retained-token release | On linkage completion | Nothing. Not blocked by: any track |
+| A1d | npm token disposition: revoke vs retain-and-rotate (§6/§10 register) | User decision | Register entry + rotation scope updated | Retain with written rotation scope | With A1a–c | Nothing |
+| A2 | Round-6 re-test: (1) uniform white-on-black cards incl. text posts; (2) cookies recipe parity with tight padding; (3) `/blog` page-2 scroll; (4) one orange spinner; (5) prior fixes hold → then approve/defer/reject the parity release. Approval scope EXCLUDES `/letter`, `/resume`, `/blog` wide viewports (B5) and V5 deployment state — those are separate follow-ons and cannot broaden this gate | User; agent replays the local battery | Battery exit 0 + user visual confirmation | Defer with recorded evidence; release stays withheld | User-scheduled | B4. Not blocked by: B0–B3, B5, C, D, E |
+| A3a | Unpark and fix [`lodash.set` #191](https://github.com/randytarampi/me/issues/191) (HIGH; reaches www graph) | Agent-implementable once unparked | Alert resolved + green matrix | — | Next agent session | Nothing |
+| A3b | Verify Sentry wiring (UI where REST omits reviewers/DSN state) | User check; agent preps UI path | Recorded verification | — | Next agent session | Nothing |
+| A4 | Dotfiles nightly promotion decision on/after 2026-09-29 (~7 green scheduled runs) | User | Decision record | Keep allow-failure with dated re-check | ≥2026-09-29 | Nothing |
+| A5 | Publish the §5 baseline table from the five-repo survey — output: seven-dimension scorecard per repo with evidence links | Agent-draftable | Table appended to §5 evidence | — | Next agent session | Nothing |
+| A6 | Per-repo applicability inventories (Python surfaces, plugin-compat surfaces, subprocess-coverage needs, deployment state) | Agent-executable (read-only) | Inventory rows per repo | — | Day one | Feeds C0/C2 only |
+| A7 | SHA-pinning register reconciliation (§6 blanket rejection vs §14 per-repo policy) — precondition for Phase 2 imports [verified — roadmap:732] | User | Dated register entry | Keep enumerated-gap status | Before any Phase 2 import | Phase 2 only. Not blocked by: B, C, D, E, A1–A6 |
+| A8 | Phase 4 delegated-delivery disposition: execute / defer / remove | User decision (not plan-authored) | Dated decision record | Defer with revisit trigger | With §16.6 answer | Phase 4 only |
+
+**Not authorized (standing):** no agent approves releases, rotates secrets,
+publishes majors, merges its own PRs, or generalizes localhost evidence to
+production.
+
+### 16.4 Execution tracks (day-one parallelism; two hard edges only)
+
+The only blocking edges are the two declared in §16.3. Everything below is
+otherwise unblocked by Track A — agents do not wait on the user to start B,
+C-inventory, or D1-inventory work.
+
+**Track B — me/ consolidation (day one):**
+- B0 (first): fix the `ci.yml` path-filter asymmetry — `infrastructure/**`
+  is in the `push` filter ([ci.yml:24](../.github/workflows/ci.yml)) but
+  absent from `pull_request` (lines 26–35) — before any required-check
+  enforcement, or infra-only PRs hang forever. [verified]
+- B1: adopt `ci/required` in me/ copying the dotfiles reference
+  (aggregate job + observed check names + staged ruleset + PR-first flow;
+  ruleset 23837328 pattern). Built in the §2-importable shape so Phase 2
+  imports adoption, not re-creation.
+- B2: map/card encapsulation — bounded, non-blocking refactor in five
+  separately-accepted concerns: card-sizing contract module; replace the
+  10 ms portal-polling interval with lifecycle callbacks; single tab-sync
+  service; typed cursor/query fingerprints; test-oracle repair per R1
+  (independent DOM/protocol fixtures). [believed — smell evidence from
+  review passes]
+- B3: feed hardening — malformed `perPage` returns 400 (not `NaN` into
+  Dynamoose: [getPostsV5.js:268-269](../../service/src/serverless/util/getPostsV5.js));
+  V5 request assertions in the browser sentinel (ME-API-VERSION header,
+  cursor progression, multi-page render without duplicates).
+- B4 (after the A2→B4 edge declared in §16.3): V5 rollout decision —
+  precondition: staged dev deployment of V5 plus same-SHA verification.
+  The volatile deployed-version fact (which hosts serve V4 vs V5 today) is
+  inlined nowhere in this document; it belongs in a deployment-state issue
+  referenced from B4's execution record.
+- B5 (independent follow-on, unblocked by A2): residual parity surfaces
+  (`/letter`, `/resume`, `/blog` wide viewports) with the existing harness.
+  A2's approval scope explicitly EXCLUDES these surfaces and V5 deployment
+  state; B5 does not broaden A2 — it is separate follow-on work.
+
+**Track C — fleet contract (inventories day one; execution after the B1 pilot):**
+- C0: pilot selection by evidence (smallest blast radius, fastest CI
+  signal, closest migration surface); user escalation only if tied.
+- C1: `ci/required` migration, pilot then staged batches
+  (pilot → pseudoimage/pseudolocalize → pwa → slamscan → lwip last, behind
+  a D1-stabilization non-concurrency gate).
+- C1a: slamscan `release.yml` (the only fleet repo without one) + release-
+  gate normalization survey.
+- C1b: slamscan ESM boundary completion (Babel config/register removal;
+  src `.js` decision) — own decision record.
+- C2: pwa decision — "maintained and justified" vs retire the
+  Gradle/asset-service lane (a real decision, not a maintenance check);
+  asset regeneration conditional on me/ need.
+- C3: Dependabot grouping/ownership policy + qlty coverage-diff threshold
+  alignment (§15 remaining gaps).
+- C4: agentic-review supply chain — replace the six `@main` caller
+  references with an immutable reviewed reference or enumerated time-bounded
+  exceptions; `secrets: inherit` narrowing with verification evidence;
+  wording reconciled through A7. [verified — the documented gap at §15;
+  the future remediation itself is aspirational until it lands]
+
+**Track D — runtime renewal (long-lead; starts day one where safe):**
+- D1a (pre-A1a): N-API inventory refresh, acceptance-test design, non-native
+  harness preparation only — no lwip native/production mutation.
+- D1b (after the A1a→D1b edge declared in §16.3): decoder/encoder →
+  workers/callbacks → wrappers/lifetime → Node 26 + downstream validation,
+  per §9's four-phase plan; no bulk rewrite; never batch mechanical NAN
+  replacement with an unreviewed lifetime change. [verified — NAN in 7 lwip
+  src files]
+- D2 (after B2): Materialize replacement — tabs (`window.M`) → layout
+  primitives → carousel; accessibility/mobile acceptance per slice; remove
+  `_reactInternals` reads; timeboxed, not promised.
+
+**Track E — owned publishing (last; separately gated items):**
+- E0: `/now` page + curated highlights ("show the consequence, not the
+  counter"); case studies from the modernization year.
+- E1: photo pipeline privacy boundary (EXIF strip, alt text, stable URLs).
+- Each item carries its own acceptance criteria and human gate before
+  publish surfaces go live.
+
+### 16.5 Decisions recorded this pass (deferrals)
+
+- **Phase 2 (Pulumi-GitHub governance):** deferred, dated, gated on A7 plus
+  B1 proving the importable ruleset shape. Not silently dropped.
+- **C1 pilot selection:** not deferred — C0's evidence-based criteria
+  select it; user escalation only if tied.
+
+### 16.6 Open questions for the user
+
+1. npm token disposition after linkage (A1d): revoke vs retain-and-rotate?
+2. Phase 4 delegated delivery (A8): execute, defer with a revisit trigger,
+   or remove via a new decision?
+3. D2 (Materialize): inside this pass, or the next pass's anchor?
+
+### 16.7 Gate outcomes — dated 2026-09-24 (first decision pass)
+
+- **A1a–A1c:** [verified] npm trusted-publisher linkage and the OIDC
+  relationship are complete (user, 2026-09-24). The prepared runs
+  ([34022029836](https://github.com/randytarampi/lwip/actions/runs/34022029836),
+  [34021709134](https://github.com/randytarampi/pseudoimage/actions/runs/34021709134),
+  [34019936167](https://github.com/randytarampi/pseudolocalize/actions/runs/34019936167))
+  still await the user's approval clicks in the npm/GitHub UIs; live `git
+  ls-remote` on 2026-09-24 confirms lwip 4.0.0, pseudoimage 5.0.0, and
+  pseudolocalize 3.0.0 are **not yet published** (latest tags v3.0.23,
+  v4.0.3, v2.13.22). The retained-token fallback is no longer needed for
+  linkage, and the approval click remains a user gate per §9 Phase 0
+  semantics.
+- **A1d:** [verified] Token retained **and rotated** (user, 2026-09-24);
+  the §6 accepted-risk row now carries an updated rotation record instead
+  of a pending revocation decision.
+- **C2 (pwa):** [verified] Decision: **retain and maintain**
+  `packages/asset-service` (user, 2026-09-24). The Gradle lane is
+  maintained; asset-regeneration work remains conditional on me/ need.
+- **A7:** [verified] Policy: pin to **specific SHAs only when required**;
+  prefer pinning to **majors** otherwise (user, 2026-09-24). This is
+  consistent with the dotfiles reference implementation, which pins
+  verified immutable full SHAs for required/security/deployment workflows
+  and lets write-capable agent-review lanes float by documented design —
+  the majors-preferred rule generalizes that split to the fleet: majors
+  where the lane is not write-capable-critical, SHAs where it is. The
+  register reconciliation this closes: the §6 blanket rejection stays
+  narrowed (§14), targeted SHA requirements apply to write-capable
+  surfaces only, and majors are the default elsewhere. C4's `@main`
+  callers remain the mutable write-capable surface and still need the
+  immutable-reference or enumerated-exception treatment.
+- **A6/A5/C1a/D1a/B0:** dispatched same day (user-selected agent lanes);
+  outcomes record below as they land.
+
 ### How to update this document — for agents
 
 Append, do not rewrite history. Add one concern per entry. Mark corrections as
