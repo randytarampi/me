@@ -1038,6 +1038,26 @@ C-inventory, or D1-inventory work.
 - **A6/A5/C1a/D1a/B0:** dispatched same day (user-selected agent lanes);
   outcomes record below as they land.
 
+- **A6:** [verified] Inventories complete (2026-09-24): none of the five
+  companion repositories carries Python surfaces, so Poetry-style package
+  boundaries remain a dotfiles-only concern. Artifact-introspection priority
+  sits with `pwa` and `slamscan` (serverless/gulp/babel loader surfaces);
+  `lwip`'s compatibility surface is its native addon build. Child-process
+  tests exist in `slamscan` and `pseudoimage`; no repository declares
+  subprocess coverage propagation. `pwa` and `slamscan` own AWS service
+  state; the other three publish npm packages only.
+- **D1a:** [verified] N-API inventory corrected: **48 `NAN_` occurrences in
+  six files** (`image.cpp` 17, `image.h` 17, `encoder/init.cpp` 4,
+  `decoder/init.cpp` 4, `encoder.h` 3, `decoder.h` 3) — superseding §9's
+  `[believed]` "100 matches in 22 files" (older revision/broader grep).
+  Patterns confirmed: Callback 64, AsyncWorker 30, AsyncQueueWorker 17;
+  lifetime retention of raw `CImg*` pointers across async workers remains
+  the top risk; vendored codecs under `src/lib/` stay untouched
+  ([binding.gyp](../../lwip/binding.gyp) owns the build coupling).
+  Acceptance-test design targets recorded in the session progress record
+  (round-trips, forced-GC completion, clone-while-mutating, failure/lock-
+  release paths) before any worker rewrite.
+
 ### How to update this document — for agents
 
 Append, do not rewrite history. Add one concern per entry. Mark corrections as
