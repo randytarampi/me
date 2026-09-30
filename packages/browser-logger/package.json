@@ -10,7 +10,7 @@
   "bugs": "https://github.com/randytarampi/me/issues",
   "dependencies": {
     "@randy.tarampi/js": "workspace:*",
-    "@sentry/browser": "^10.72.0",
+    "@sentry/browser": "^11.0.0",
     "pino": "^10.3.1"
   },
   "devDependencies": {
