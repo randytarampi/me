@@ -2,12 +2,24 @@
 # MCP servers must also be configured in Settings → Copilot → MCP servers
 # (GitHub-managed), including the local command `codegraph serve --mcp`.
 # Secrets must use the COPILOT_MCP_* prefix. Settings instructions live in
-# docs/AGENTIC-REVIEW.md.
+# docs/agentic-review.md.
 
 name: Copilot setup steps
 
 on:
   workflow_dispatch:
+    inputs:
+      trusted_ref:
+        description: "Immutable dotfiles commit containing the trusted verifier"
+        required: false
+        default: ab5077e30ad822c31be9e129d1bc2b4265c95ba7
+        type: string
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
 
 jobs:
   copilot-setup-steps:
@@ -15,18 +27,38 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-          fetch-depth: 1
-      - name: Checkout trusted dotfiles scripts
+      - name: Checkout target repository
         uses: actions/checkout@v7
         with:
-          repository: randytarampi/dotfiles
-          ref: main
-          path: __TRUSTED_DOTFILES__
           persist-credentials: false
           fetch-depth: 1
+          submodules: false
+      - name: Stage and verify trusted dotfiles scripts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TRUSTED_REF: ${{ inputs.trusted_ref || 'ab5077e30ad822c31be9e129d1bc2b4265c95ba7' }}
+        run: |
+          set -euo pipefail
+          trusted_root="${RUNNER_TEMP}/trusted-dotfiles"
+          trusted_sha="${TRUSTED_REF}"
+          [[ "${trusted_sha}" =~ ^[0-9a-f]{40}$ ]]
+          rm -rf "${trusted_root}"
+          mkdir -p "${trusted_root}"
+          git -C "${trusted_root}" init --quiet
+          git_auth="$(printf 'x-access-token:%s' "${GITHUB_TOKEN}" | base64 | tr -d '\r\n')"
+          printf '::add-mask::%s\n' "${git_auth}"
+          unset GITHUB_TOKEN GIT_CONFIG_PARAMETERS
+          GIT_CONFIG_NOSYSTEM=1 \
+            GIT_CONFIG_GLOBAL=/dev/null \
+            GIT_CONFIG_COUNT=1 \
+            GIT_CONFIG_KEY_0=http.https://github.com/.extraheader \
+            GIT_CONFIG_VALUE_0="Authorization: Basic ${git_auth}" \
+            GIT_TERMINAL_PROMPT=0 \
+            git -C "${trusted_root}" fetch --depth=1 https://github.com/randytarampi/dotfiles.git "${trusted_sha}"
+          git -C "${trusted_root}" checkout --quiet --detach FETCH_HEAD
+          test "$(git -C "${trusted_root}" rev-parse HEAD)" = "${trusted_sha}"
+          python3 "${trusted_root}/scripts/verify-ci-assets.py" --root "${trusted_root}" --manifest "${trusted_root}/configs/review/assets-manifest.json"
+          printf 'TRUSTED_DOTFILES=%s\n' "${trusted_root}" >> "${GITHUB_ENV}"
       - name: Cache codegraph index
         uses: actions/cache@v4
         with:
@@ -35,4 +67,4 @@ jobs:
           restore-keys: |
             codegraph-${{ runner.os }}-${{ github.repository }}-
       - name: Install codegraph + build index
-        run: bash __TRUSTED_DOTFILES__/scripts/ci-codegraph.sh
+        run: bash "${TRUSTED_DOTFILES}/scripts/ci-codegraph.sh"
