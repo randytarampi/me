@@ -19,7 +19,7 @@
     "lodash": "^4.18.1",
     "luxon": "^3.7.2",
     "proximityhash": "github:randytarampi/proximityhash#me-release",
-    "query-string": "^9.4.1"
+    "query-string": "^10.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^8.0.4",
