@@ -65,7 +65,7 @@
     "config": "^5.0.1",
     "cross-env": "^10.1.0",
     "gulp": "^5.0.1",
-    "jsdom": "^30.0.1",
+    "jsdom": "^31.0.0",
     "mocha-junit-reporter": "^2.2.1",
     "mock-local-storage": "^1.1.24",
     "redux-mock-store": "^1.5.5",

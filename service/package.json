@@ -32,12 +32,12 @@
   "devDependencies": {
     "chai": "^6.2.2",
     "cross-env": "^10.1.0",
-    "esmock": "^2.7.6",
+    "esmock": "^3.0.0",
     "gulp": "^5.0.1",
     "mocha-junit-reporter": "^2.2.1",
     "nyc": "^18.0.0",
     "serverless": "^4.38.1",
-    "serverless-domain-manager": "^10.2.0",
+    "serverless-domain-manager": "^11.0.0",
     "serverless-offline": "^14.7.4",
     "sinon": "^22.0.0"
   },
