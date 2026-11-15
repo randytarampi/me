@@ -1,5 +1,5 @@
 # Stable dispatcher stub: trigger parsing lives in the reusable workflow
-# (randytarampi/dotfiles) at the immutable trusted ref ab5077e30ad822c31be9e129d1bc2b4265c95ba7.
+# (randytarampi/dotfiles) at the immutable trusted ref 8f4489ad1173d447a425c71aba5da87523d52a46.
 # Only touch this file to add trigger events or change permissions.
 name: Agent review dispatcher
 
@@ -8,20 +8,24 @@ on:
     types: [created]
   pull_request_review_comment:
     types: [created]
-  pull_request:
+  # A base-context label event retains publisher secrets for fork PRs.
+  # Never run fork-authored code in the privileged dispatcher.
+  # The trigger is needed to retain publisher credentials for fork labels.
+  # The caller never checks out or executes PR code. The reusable workflow
+  # limits label selection to authenticated humans, separates read-only review
+  # from App publication, and rejects changed PR heads before publishing.
+  pull_request_target: # zizmor: ignore[dangerous-triggers] controlled labelled PR dispatch only
     types: [labeled]
 
 permissions:
   contents: read
-  id-token: write
   pull-requests: write
-  issues: write
 
 jobs:
   review:
     if: github.event.sender.type != 'Bot'
-    uses: randytarampi/dotfiles/.github/workflows/agentic-review.yml@ab5077e30ad822c31be9e129d1bc2b4265c95ba7
+    uses: randytarampi/dotfiles/.github/workflows/agentic-review.yml@8f4489ad1173d447a425c71aba5da87523d52a46
     with:
       event_json: ${{ toJson(github.event) }}
-      trusted_ref: ab5077e30ad822c31be9e129d1bc2b4265c95ba7
+      trusted_ref: 8f4489ad1173d447a425c71aba5da87523d52a46
     secrets: inherit
