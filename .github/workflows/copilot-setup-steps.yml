@@ -12,7 +12,7 @@ on:
       trusted_ref:
         description: "Immutable dotfiles commit containing the trusted verifier"
         required: false
-        default: 4cbd869415e6be2370e550cc5ff053d38e9626c7
+        default: 04ed15ac9eb1abdc523fdbf3267786a97d933c2e
         type: string
   push:
     paths:
@@ -36,7 +36,7 @@ jobs:
       - name: Stage and verify trusted dotfiles scripts
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          TRUSTED_REF: ${{ inputs.trusted_ref || '4cbd869415e6be2370e550cc5ff053d38e9626c7' }}
+          TRUSTED_REF: ${{ inputs.trusted_ref || '04ed15ac9eb1abdc523fdbf3267786a97d933c2e' }}
         run: |
           set -euo pipefail
           trusted_root="${RUNNER_TEMP}/trusted-dotfiles"
