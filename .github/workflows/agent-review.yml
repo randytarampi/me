@@ -1,5 +1,5 @@
 # Stable dispatcher stub: trigger parsing lives in the reusable workflow
-# (randytarampi/dotfiles) at the immutable trusted ref 04ed15ac9eb1abdc523fdbf3267786a97d933c2e.
+# (randytarampi/dotfiles) at the immutable trusted ref ae93ac3a0cf7ec0d59ed98be247f6a5da230bd26.
 # Only touch this file to add trigger events or change permissions.
 name: Agent review dispatcher
 
@@ -24,8 +24,8 @@ permissions:
 jobs:
   review:
     if: github.event.sender.type != 'Bot'
-    uses: randytarampi/dotfiles/.github/workflows/agentic-review.yml@04ed15ac9eb1abdc523fdbf3267786a97d933c2e
+    uses: randytarampi/dotfiles/.github/workflows/agentic-review.yml@ae93ac3a0cf7ec0d59ed98be247f6a5da230bd26
     with:
       event_json: ${{ toJson(github.event) }}
-      trusted_ref: 04ed15ac9eb1abdc523fdbf3267786a97d933c2e
+      trusted_ref: ae93ac3a0cf7ec0d59ed98be247f6a5da230bd26
     secrets: inherit
