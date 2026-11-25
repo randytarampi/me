@@ -24,7 +24,7 @@
     "lodash": "^4.18.1",
     "luxon": "^3.7.2",
     "mime-types": "^3.0.2",
-    "query-string": "^9.4.1",
+    "query-string": "^10.0.0",
     "rss": "^1.2.2",
     "tumblr.js": "^5.0.1",
     "unsplash-js": "^8.0.0"
